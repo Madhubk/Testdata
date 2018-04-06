@@ -1,0 +1,26 @@
+<div class="main-container container-fluid">
+    <!-- Page Container -->
+    <div class="page-container">
+        <side-bar id="sidebar" class="page-sidebar menu-compact" data-ng-if="SRVShipmentCtrl.ePage.Masters.MenuVisibleType == 'List'"></side-bar>
+        <!-- Page Content -->
+        <div class="page-content" data-ng-style="(!SRVShipmentCtrl.ePage.Masters.MenuVisibleType || SRVShipmentCtrl.ePage.Masters.MenuVisibleType == 'Grid') && {'margin-left': '0'}">
+            <!-- Page Body -->
+            <div class="page-body no-padding" data-ng-if="SRVShipmentCtrl.ePage.Masters.CurrentObj">
+                <!--Shipment Menu Directive-->
+                <shipment-menu activity-form="SRVShipmentCtrl.ePage.Masters.Entity.QuickView" current-shipment="SRVShipmentCtrl.ePage.Masters.CurrentObj"></shipment-menu>
+                <!--Standard Menu Directive-->
+                <div class="eaxis-footer-strip">
+                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
+                        <standard-menu entity-name="'ShipmentSearch'" input="SRVShipmentCtrl.ePage.Masters.CurrentObj" data-ng-if="!SRVShipmentCtrl.ePage.Masters.CurrentObj.isNew"></standard-menu>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                        <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="SRVShipmentCtrl.ePage.Masters.Save(SRVShipmentCtrl.ePage.Masters.CurrentObj)" data-ng-bind="SRVShipmentCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="SRVShipmentCtrl.ePage.Masters.IsDisableSave" ></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

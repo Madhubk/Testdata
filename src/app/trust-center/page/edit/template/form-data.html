@@ -1,0 +1,86 @@
+<div class="clearfix tc-edit-page-form-data mt-10">
+    <div class="col-xs-12 xol-sm-12 col-md-6 col-lg-6 col-xl-6">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Name / Code</label>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
+                    <input type="text" class="form-control input-sm" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.DataEntryName"
+                        placeholder="Name / Code">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Title</label>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
+                    <input type="text" class="form-control input-sm " data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.Title"
+                        placeholder="Title">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Page Type</label>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
+                    <select chosen class="form-control input-sm " data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.DisplayMode"
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                        <option value="D">D</option>
+                        <option value="S">S</option>
+                        <option value="B">B</option>
+                    </select>
+                </div>
+            </div>
+            <!-- <div class="form-group">
+                <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Group</label>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
+                    <input type="text" class="form-control input-sm " data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.Group" placeholder="Group">
+                </div>
+            </div> -->
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Type</label>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
+                    <input type="text" placeholder="Type" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.Type" typeahead-on-select='onSelect($item, $model, $label)'
+                        uib-typeahead="x for x  in EditPageCtrl.ePage.Masters.SubModule.ListSource | filter:$viewValue" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Source</label>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
+                    <select chosen class="form-control input-sm " data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.EntitySource"
+                        search-contains="true" data-ng-options="x for x in EditPageCtrl.ePage.Masters.EditPage.SourceList" data-ng-change="EditPageCtrl.ePage.Masters.EditPage.OnSourceListChange(EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.Source)">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Priority</label>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
+                    <input type="text" class="form-control input-sm " data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.Priority"
+                        placeholder="Priority">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Code</label>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
+                    <input type="text" class="form-control input-sm " data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.EntityRefCode"
+                        placeholder="Code">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Ref</label>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
+                    <input type="text" class="form-control input-sm " data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.EntityRefKey"
+                        placeholder="Referance">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Is Active</label>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.IsActive">
+                            <span class="text"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

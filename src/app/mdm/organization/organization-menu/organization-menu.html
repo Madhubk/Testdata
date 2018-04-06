@@ -1,0 +1,77 @@
+<div class="tabContent">
+    <div class="eaxis-select-ship">
+        <a id="flip" class="eaxis-div-nav" href="#">
+            <i class="fa fa-navicon"></i>
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+    <div id="organizationMenuWrapper{{OrganizationMenuCtrl.currentOrganization.label}}" class="organization-menu-wraper col-sm-12 no-padding-left no-padding-right"
+        data-ng-class="OrganizationMenuCtrl.ePage.Masters.IsShowAddress ? 'col-sm-8' : 'col-sm-12'">
+        <uib-tabset class="organization-menu eaxis-tab-box-2 tabs-left" active="">
+            <uib-tab ng-repeat="x in OrganizationMenuCtrl.ePage.Masters.OrganizationMenu.ListSource" data-ng-click="OrganizationMenuCtrl.ePage.Masters.OnMenuClick(x)">
+                <uib-tab-heading title="{{x.MenuName}}">
+                    <i class="{{x.Icon.icon}}"></i>
+                    <span data-ng-bind="x.MenuName"></span>
+                    <error-warning-directive data-ng-if="OrganizationMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.OtherConfig.GParentRef, OrganizationMenuCtrl.currentOrganization.label, 'W', 'GParent').length > 0 && OrganizationMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.OtherConfig.GParentRef, OrganizationMenuCtrl.currentOrganization.label, 'E', 'GParent').length == 0"
+                        list="OrganizationMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList" type="'warning'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.OtherConfig.GParentRef"></error-warning-directive>
+                    <error-warning-directive data-ng-if="OrganizationMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.OtherConfig.GParentRef, OrganizationMenuCtrl.currentOrganization.label, 'E', 'GParent').length > 0"
+                        list="OrganizationMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList" type="'error'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.OtherConfig.GParentRef"></error-warning-directive>  
+                </uib-tab-heading>
+                <div>
+                    <div ng-switch="x.MenuName">
+                        <!--Menu directives-->
+                        <div ng-switch-when="General" organization-general current-organization="OrganizationMenuCtrl.currentOrganization"></div>
+                        <div ng-switch-when="Address" organization-address current-organization="OrganizationMenuCtrl.currentOrganization"></div>
+                        <div ng-switch-when="Contact" organization-contact current-organization="OrganizationMenuCtrl.currentOrganization"></div>
+                        <div ng-switch-when="Company" organization-company current-organization="OrganizationMenuCtrl.currentOrganization"></div>
+                        <div ng-switch-when="Employee" organization-employee current-organization="OrganizationMenuCtrl.currentOrganization"></div>
+                        <div ng-switch-when="Related Parties" organization-related-parties current-organization="OrganizationMenuCtrl.currentOrganization"></div>
+                        <div ng-switch-when="RelatedParties" organization-gen-related-parties current-organization="OrganizationMenuCtrl.currentOrganization"></div>
+                        <div ng-switch-when="Warehouse" organization-warehouse current-organization="OrganizationMenuCtrl.currentOrganization"></div>
+                        <div ng-switch-when="Visibility" organization-visibility current-organization="OrganizationMenuCtrl.currentOrganization"></div>
+                        <div ng-switch-when="Consignee" organization-consignee current-organization="OrganizationMenuCtrl.currentOrganization"></div>
+                        <div ng-switch-when="Consignor" organization-consignor current-organization="OrganizationMenuCtrl.currentOrganization"></div>
+                        <div ng-switch-when="Reference" organization-reference current-organization="OrganizationMenuCtrl.currentOrganization"></div>
+                    </div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+    <div class="error-warning-container right" id="errorWarningContainer{{OrganizationMenuCtrl.currentOrganization.label}}">
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                <!-- <i class="fa fa-warning"></i>  -->
+                Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right" data-ng-click="OrganizationMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(OrganizationMenuCtrl.currentOrganization)">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+        </div>
+        <div class="error-warning-body">
+            <div class="clearfix" data-ng-if="OrganizationMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length>0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in OrganizationMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Standard Menu Directive-->
+    <!-- <div class="eaxis-footer-strip">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <standard-menu input="OrganizationMenuCtrl.ePage.Masters.StandardMenuInput" data-ng-if="!OrganizationMenuCtrl.currentOrganization.isNew && OrganizationMenuCtrl.ePage.Masters.StandardMenuInput"></standard-menu>
+        </div>
+    </div> -->
+</div>

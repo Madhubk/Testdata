@@ -1,0 +1,73 @@
+<!-- Navbar -->
+<nav-bar></nav-bar>
+<!-- /Navbar -->
+<div class="main-container container-fluid" dynamic-load load-more="LocationDashboardCtrlV2.ePage.Masters.LoadMore">
+    <!-- Page Container -->
+    <div class="page-container">
+        <side-bar id="sidebar" class="page-sidebar menu-compact" data-ng-if="LocationDashboardCtrlV2.ePage.Masters.MenuVisibleType == 'List'"></side-bar>
+        <!-- Page Content -->
+        <div class="page-content" style="background: rgba(242, 242, 242, 0.63);" data-ng-style="(!LocationDashboardCtrlV2.ePage.Masters.MenuVisibleType || LocationDashboardCtrlV2.ePage.Masters.MenuVisibleType == 'Grid') && {'margin-left': '0'}">
+            <!-- List Empty Response -->
+            <div class="clearfix">
+                <div class="col-lg-5 mt-10">
+                    <div class="inner-dashboard-box mt-10" style="background-color: white;">
+                        <!--<div class="dashboard-inward-icon-box text-center pt-10"><i class="glyphicons glyphicons-inbox-in"></i></div>-->
+                        <div class="inner-dashboard-inward-txt">Location Dashboard</div>
+                    </div>
+                </div>
+                <div class="col-lg-5 mt-9">
+                    <div class="text-right mt-20">
+                        <select class="select-rounded" ng-model="LocationDashboardCtrlV2.ePage.Masters.userselected" ng-options="x.WarehouseCode+'-'+x.WarehouseName for x in LocationDashboardCtrlV2.ePage.Masters.WarehouseDetails"
+                            ng-change="LocationDashboardCtrlV2.ePage.Masters.GetRowFindAlldetails(LocationDashboardCtrlV2.ePage.Masters.userselected)"
+                            search-contains="true" style="font-size: 11px;"></select>
+                    </div>
+                </div>
+                <div class="col-lg-2 mt-10">
+                    <div class="text-right mt-15">
+                        <a class="btn btn-black btn-rounded" ng-click="LocationDashboardCtrlV2.ePage.Masters.ViewLocationPage(LocationDashboardCtrlV2.ePage.Masters.userselected)">View Location</a>
+                    </div>
+                </div>
+            </div>
+            <div class="inner-dashboard-stats-list clearfix mt-15">
+                <table class="container-location" style="width: 98%;  margin-left: 10px;">
+                    <tbody>
+                        <tr class="additional-messages">
+                            <th class="table-text">Row</th>
+                            <th class="table-text" style="text-align: left;"> Locations</th>
+                        </tr>
+                        <tr ng-repeat=" x1 in LocationDashboardCtrlV2.ePage.Masters.LoadRowDetails track by $index" style="border-bottom: 1px solid #eee;">
+                            <td class="seatR table-text"><label style="font-weight: 600; margin-top: 4px;">{{x1.Name}}</label></td>
+
+                            <td>
+                                <!--<div class="scrollit">-->
+                                <div class='enableScrollbar'>
+                                    <div class="text-center" ng-if="x1.Levels.length==0 && x1.Columns.length==0">
+                                        <i class="fa fa-spin fa-spinner font-160"></i>
+                                    </div>
+                                    <!-- <label ng-if="x1.Levels.length==0 && x1.Columns.length==0"> No Location found for this Row </label> -->
+
+                                    <div ng-style="LocationDashboardCtrlV2.ePage.Masters.setWidth({{x1.Columns}})" ng-repeat="x in x1.LocationDetails |orderBy : ['Level','Column']"
+                                        style="margin-top: 6px; ">
+                                        <div class="seatI" style="width:50px">
+                                            <a class="tooltips">
+                                                <label uib-popover-template="'app/eaxis/masters/warehouse/locations/location-dashboard-V2/location-popoverV2.html'" popover-title="{{x.Location}} - {{x.AllocatedUnits==0?'No Stock':x.AllocatedUnits +' Stock Available'}}"
+                                                    popover-placement="{{ LocationDashboardCtrlV2.ePage.Masters.placement }}"
+                                                    popover-trigger="'outsideClick'" popover-append-to-body="true" class="oval"
+                                                    ng-class="{{x.AllocatedUnits}}!=0?'fullLoc':'emptyLoc'" ng-click="LocationDashboardCtrlV2.ePage.Masters.getHeight($event)"
+                                                    popover-class="popover-width">{{x.Column}}-{{x.Level}}</label>
+                                            </a>
+                                        </div>
+                                        <div ng-if="x1.Columns==x.Column" ng-class="{{x1.Columns}}>24?'nextlinegreater':'nextlineless'">
+                                            &nbsp;
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--</div>-->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

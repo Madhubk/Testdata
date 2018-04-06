@@ -1,0 +1,13 @@
+<!-- Navbar -->
+<nav-bar></nav-bar>
+<!-- /Navbar -->
+
+<div id="transport" class="main-container container-fluid">
+    <div class="page-container">
+        <side-bar id="sidebar" class="page-sidebar" data-ng-if="TransportsCtrl.ePage.Masters.MenuVisibleType == 'List'"></side-bar>
+
+        <div class="page-content" data-ng-style="(!TransportsCtrl.ePage.Masters.MenuVisibleType || TransportsCtrl.ePage.Masters.MenuVisibleType == 'Grid') && {'margin-left': '0'}">
+            <div class="page-body p-0" ui-view></div>
+        </div>
+    </div>
+</div>

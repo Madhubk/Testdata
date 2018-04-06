@@ -1,0 +1,82 @@
+<div class="modal-header">
+    <h5 class="modal-title pull-left"><strong>{{OrgCompanyModalCtrl.ePage.Masters.Company.FormView.CMP_Name || 'Title'}}</strong></h5>
+    <input type="button" class="btn btn-warning btn-xs pull-right margin-left-5" ng-click="OrgCompanyModalCtrl.ePage.Masters.Cancel()"
+        value="Close" />
+    <input type="button" class="btn btn-primary btn-xs pull-right margin-left-5" ng-click="OrgCompanyModalCtrl.ePage.Masters.Validation(OrgCompanyModalCtrl.ePage.Masters.Company.FormView, 'OrgCompanyData','company')"
+        value="{{OrgCompanyModalCtrl.ePage.Masters.SaveButtonText}}" data-ng-disabled="OrgCompanyModalCtrl.ePage.Masters.IsDisableSave"
+    />
+</div>
+<div class="modal-body">
+    <div class="clearfix padding-5 padding-top-10">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <fieldset>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="form-group">
+                        <div class="error-warning-container">
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.CMP_FK.IsWarning && !OrgCompanyModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.CMP_FK.IsError"
+                            list="OrgCompanyModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.CMP_FK.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.CMP_FK.IsError" list="OrgCompanyModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.CMP_FK.ERROR" type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        </div>
+                        <div class="">
+                            <label for="">Company</label>
+                            <div class="">
+                                <select chosen name="Name" class="form-control" ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.CMP_FK" ng-options="x.PK as (x.Code + ' - ' + x.Name) for x in OrgCompanyModalCtrl.ePage.Masters.DropDownMasterList.Company.ListSource" ng-change = "OrgCompanyModalCtrl.ePage.Masters.OnChangeValues(OrgCompanyModalCtrl.ePage.Masters.Company.FormView.CMP_FK,'E9030')"
+                                search-contains="true">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="form-group">
+                        <div class="error-warning-container">
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.BRN_ControllingBranch.IsWarning && !OrgCompanyModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.BRN_ControllingBranch.IsError"
+                            list="OrgCompanyModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.BRN_ControllingBranch.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.BRN_ControllingBranch.IsError" list="OrgCompanyModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.BRN_ControllingBranch.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        </div>
+                        <div class="">
+                            <label for="">Controlling Branch</label>
+                            <div class="">
+                                <select chosen name="BRN_Code" class="form-control" ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.BRN_ControllingBranch"
+                                    ng-options="x.PK as x.Code +' - '+ x.BranchName for x in OrgCompanyModalCtrl.ePage.Masters.DropDownMasterList.Branch.ListSource" 
+                                    ng-change = "OrgCompanyModalCtrl.ePage.Masters.OnChangeValues(OrgCompanyModalCtrl.ePage.Masters.Company.FormView.BRN_ControllingBranch,'E9011')"
+                                    search-contains="true">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.IsCreditor">
+                                <span class="text">Is Payablle</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.IsDebtor">
+                                <span class="text">Is Receivable</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <input type="button" class="btn btn-warning btn-xs pull-right margin-left-5" ng-click="OrgCompanyModalCtrl.ePage.Masters.Cancel()"
+        value="Close" />
+    <input type="button" class="btn btn-primary btn-xs pull-right margin-left-5" ng-click="OrgCompanyModalCtrl.ePage.Masters.Save(OrgCompanyModalCtrl.ePage.Masters.Company.FormView, 'OrgCompanyData')"
+        value="{{OrgCompanyModalCtrl.ePage.Masters.SaveButtonText}}" data-ng-disabled="OrgCompanyModalCtrl.ePage.Masters.IsDisableSave"
+    />
+</div>

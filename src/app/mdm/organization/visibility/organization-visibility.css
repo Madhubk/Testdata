@@ -1,0 +1,52 @@
+.org-visibility-header{
+    padding: 8px 10px;
+    background-color: #ddd;
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+    margin-left: -15px;
+    margin-right: -15px;
+    margin-bottom: 10px;
+}
+
+.org-tenent-container{
+    border-right: 1px solid #eee;
+}
+
+.org-tenent-container .control-label {
+    font-weight: 600;
+    font-size: 14px;
+}
+.org-tenent-container .control-label.text-single-line{
+    font-weight: normal;
+}
+
+.org-user-container label.control-label {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.add-new-user-icon{
+    font-size: 24px;
+    position: absolute;
+    right: 10px;
+    top: 2px;
+    cursor: pointer;
+}
+
+.org-user-save-btn, .org-user-delete-btn{
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    font-size: 20px;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.org-user-save-btn{
+    color: #e74b37;
+}
+
+.org-user-delete-btn{
+    color: #65b951;    
+}

@@ -1,0 +1,28 @@
+.active-field-list {
+    background-color: #f6f6f6;
+    position: absolute;
+    padding: 10px;
+    top: 0;
+    right: 0;
+    height: 100%;
+}
+
+.tc-data-config-field-container .header {
+    font-weight: bold;
+    background-color: #f7f7f7;
+    padding: 7px 5px;
+}
+
+.tc-autocomplete-container.form-group .dropdown-menu.auto-complete {
+    display: block !important;
+    left: 15px;
+}
+
+.tc-autocomplete-container.form-group .dropdown-menu.auto-complete .auto-complete-no-result {
+    padding: 0 10px;
+    font-size: 12px;
+}
+
+.data-config-item-type-main{
+    font-weight: 600;
+}

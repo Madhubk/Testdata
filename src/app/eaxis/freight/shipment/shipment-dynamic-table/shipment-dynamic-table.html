@@ -1,0 +1,14 @@
+<div class="clearfix">
+    <div class="widget-main ">
+        <div class="row">
+            <!--Dynamic Table-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="clearfix">
+                    <div class="text-center grid-view-loader" data-ng-if="!ShipmentDynamicTableCtrl.ePage.Masters.Routing.GridData"><i class="fa fa-spin fa-spinner font-160"></i></div>
+                    <dynamic-table data-ng-if="ShipmentDynamicTableCtrl.ePage.Masters.Routing.GridData" grid-data="ShipmentDynamicTableCtrl.ePage.Masters.Routing.GridData"
+                        grid-config="ShipmentDynamicTableCtrl.ePage.Masters.Routing.gridConfig" selected-grid-row="ShipmentDynamicTableCtrl.ePage.Masters.Routing.SelectedGridRow($item)"></dynamic-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

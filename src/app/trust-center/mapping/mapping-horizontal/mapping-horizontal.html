@@ -1,0 +1,208 @@
+<div class="clearfix tc-mapping-horizontal">
+    <!-- Breadcrumb -->
+    <div class="clearfix tc-breadcrumb" data-ng-if="MappingHorizontalCtrl.ePage.Masters.ActiveApplication == 'TC'">
+        <i class="fa fa-home home-icon"></i>
+        <div class="breadcrumb-list-wrapper">
+            <ol class="breadcrumb">
+                <li data-ng-repeat="x in MappingHorizontalCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="MappingHorizontalCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                </li>
+                <li data-ng-repeat="x in MappingHorizontalCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
+                    class="active"></li>
+            </ol>
+        </div>
+        <span class="tc-breadcrumb-app-name" data-ng-if="MappingHorizontalCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="MappingHorizontalCtrl.ePage.Masters.QueryString.AppName"></span>
+    </div>
+    <!-- Body -->
+    <div class="clearfix p-5">
+        <table class="table table-bordered table-responsive">
+            <thead>
+                <tr>
+                    <th class="tc-th-autocomplete" data-ng-if="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.AccessTo.Visible">{{MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.AccessTo.Label}}</th>
+                    <th class="tc-th-autocomplete" data-ng-if="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.BasedOn.Visible">{{MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.BasedOn.Label}}</th>
+                    <th class="tc-th-autocomplete" data-ng-if="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource.Visible">{{MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource.Label}}</th>
+                    <th class="tc-th-autocomplete" data-ng-if="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource_2.Visible">{{MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource_2.Label}}</th>
+                    <th class="tc-th-autocomplete" data-ng-if="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource_3.Visible">{{MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource_3.Label}}</th>
+                    <th data-ng-if="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource_4.Visible">{{MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource_4.Label}}</th>
+                    <th class="tc-th-autocomplete" data-ng-if="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.Tenant.Visible">{{MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.Tenant.Label}}</th>
+                    <th class="tc-th-autocomplete" data-ng-if="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.Application.Visible">{{MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.Application.Label}}</th>
+                    <th class="th-action" data-ng-if="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.IsDefault.Visible" data-ng-bind="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.IsDefault.Label">Is Default</th>
+                    <th colspan="2" class="th-action">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Loading -->
+                <tr data-ng-if="!MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.MappingList">
+                    <td colspan="20" class="text-center p-10">
+                        <i class="fa fa-spin fa-spinner" style="font-size:18px;"></i>
+                    </td>
+                </tr>
+                <!-- No Records -->
+                <tr data-ng-if="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.MappingList && MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.MappingList.length==0">
+                    <td colspan="20" class="text-center p-10">
+                        <i>No Records...!</i>
+                    </td>
+                </tr>
+                <!-- List -->
+                <tr data-ng-if="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.MappingList && MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.MappingList.length > 0"
+                    data-ng-repeat="item in MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.MappingList">
+                    <td data-ng-if="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.AccessTo.Visible">
+                        <input type="text" class="form-control input-sm" placeholder="{{MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.AccessTo.Label}}"
+                            data-ng-model="item.AccessCode" uib-typeahead="x[MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.AccessTo.TextField] as (x[MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.AccessTo.TextField] + ((x[MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.AccessTo.LabelField] ? ' - ' : '') + x[MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.AccessTo.LabelField])) for x in  MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.GetAutoCompleteList($viewValue, 'AccessTo', 'AccessCode', 'Access_FK', item)"
+                            typeahead-loading="item.AccessToLoading" typeahead-no-results="item.AccessToNoResults" typeahead-editable="false"
+                            typeahead-append-to-body='true' typeahead-on-select="  MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.OnSelectAutoCompleteList($item,$model, $label, $event, 'AccessTo', 'AccessCode', 'Access_FK', item)"
+                            ng-blur="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.OnBlurAutoCompleteList($event, 'AccessTo', 'AccessCode', 'Access_FK', item)"
+                            typeahead-min-length="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.AccessTo.MinLength">
+                        <div class="clearfix dropdown-menu" ng-if="item.AccessToNoResults">
+                            <div class="auto-complete-no-result">No Results Found!</div>
+                        </div>
+                        <div class="clearfix dropdown-menu" ng-if="item.AccessToLoading">
+                            <div class="auto-complete-no-result">
+                                <i class="fa fa-spin fa-spinner"></i>
+                            </div>
+                        </div>
+                    </td>
+                    <td data-ng-if="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.BasedOn.Visible">
+                        <input type="text" class="form-control input-sm" placeholder="{{MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.BasedOn.Label}}"
+                            data-ng-model="item.BasedOnCode" uib-typeahead="x[MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.BasedOn.TextField] as (x[MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.BasedOn.TextField] + ((x[MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.BasedOn.LabelField] ? ' - ' : '') + x[MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.BasedOn.LabelField])) for x in  MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.GetAutoCompleteList($viewValue, 'BasedOn', 'BasedOnCode', 'BasedOn_FK', item)"
+                            typeahead-loading="item.BasedOnLoading" typeahead-no-results="item.BasedOnNoResults" typeahead-editable="false"
+                            typeahead-append-to-body='true' typeahead-on-select="  MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.OnSelectAutoCompleteList($item,$model, $label, $event ,'BasedOn', 'BasedOnCode', 'BasedOn_FK', item)"
+                            ng-blur="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.OnBlurAutoCompleteList($event ,'BasedOn', 'BasedOnCode', 'BasedOn_FK', item)"
+                            typeahead-min-length="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.BasedOn.MinLength">
+                        <div class="clearfix dropdown-menu" ng-if="item.BasedOnNoResults">
+                            <div class="auto-complete-no-result">No Results Found!</div>
+                        </div>
+                        <div class="clearfix dropdown-menu" ng-if="item.BasedOnLoading">
+                            <div class="auto-complete-no-result">
+                                <i class="fa fa-spin fa-spinner"></i>
+                            </div>
+                        </div>
+                    </td>
+                    <td data-ng-if="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource.Visible">
+                        <input type="text" class="form-control input-sm" placeholder="{{MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource.Label}}"
+                            data-ng-model="item.OtherEntityCode " uib-typeahead="x[MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource.TextField] as (x[MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource.TextField] + ((x[MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource.LabelField] ? ' - ' : '') + x[MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource.LabelField])) for x in  MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.GetAutoCompleteList($viewValue ,'OtherEntitySource' ,'OtherEntityCode' ,'OtherEntity_FK', item)"
+                            typeahead-loading="item.OtherEntitySourceLoading" typeahead-no-results="item.OtherEntitySourceNoResults"
+                            typeahead-editable="false" typeahead-append-to-body='true' typeahead-on-select="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.OnSelectAutoCompleteList($item,$model, $label, $event ,'OtherEntitySource' ,'OtherEntityCode' ,'OtherEntity_FK', item)"
+                            ng-blur="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.OnBlurAutoCompleteList($event ,'OtherEntitySource' ,'OtherEntityCode' ,'OtherEntity_FK', item)"
+                            typeahead-min-length="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource.MinLength">
+                        <div class="clearfix dropdown-menu" ng-if="item.OtherEntitySourceNoResults">
+                            <div class="auto-complete-no-result">No Results Found!</div>
+                        </div>
+                        <div class="clearfix dropdown-menu" ng-if="item.OtherEntitySourceLoading">
+                            <div class="auto-complete-no-result">
+                                <i class="fa fa-spin fa-spinner"></i>
+                            </div>
+                        </div>
+                    </td>
+                    <td data-ng-if="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource_2.Visible">
+                        <input type="text" class="form-control input-sm" placeholder="{{MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource_2.Label}}"
+                            data-ng-model="item.OtherEntityCode_2
+                             " uib-typeahead="x[MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource_2.TextField] as (x[MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource_2.TextField] + ((x[MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource_2.LabelField] ? ' - ' : '') + x[MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource_2.LabelField])) for x in  MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.GetAutoCompleteList($viewValue ,'OtherEntitySource_2' ,'OtherEntityCode_2' ,'OtherEntity_2_FK', item)"
+                            typeahead-loading="item.OtherEntitySource_2Loading" typeahead-no-results="item.OtherEntitySource_2NoResults"
+                            typeahead-editable="false" typeahead-append-to-body='true' typeahead-on-select="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.OnSelectAutoCompleteList($item,$model, $label, $event ,'OtherEntitySource_2' ,'OtherEntityCode_2' ,'OtherEntity_2_FK', item)"
+                            ng-blur="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.OnBlurAutoCompleteList($event ,'OtherEntitySource_2' ,'OtherEntityCode_2' ,'OtherEntity_2_FK', item)"
+                            typeahead-min-length="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource_2.MinLength">
+                        <div class="clearfix dropdown-menu" ng-if="item.OtherEntitySource_2NoResults">
+                            <div class="auto-complete-no-result">No Results Found!</div>
+                        </div>
+                        <div class="clearfix dropdown-menu" ng-if="item.OtherEntitySource_2Loading">
+                            <div class="auto-complete-no-result">
+                                <i class="fa fa-spin fa-spinner"></i>
+                            </div>
+                        </div>
+                    </td>
+                    <td data-ng-if="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource_3.Visible">
+                        <input type="text" class="form-control input-sm" placeholder="{{MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource_3.Label}}"
+                            data-ng-model="item.OtherEntityCode_3
+                         " uib-typeahead="x[MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource_3.TextField] as (x[MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource_3.TextField] + ((x[MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource_3.LabelField] ? ' - ' : '') + x[MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource_3.LabelField])) for x in  MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.GetAutoCompleteList($viewValue ,'OtherEntitySource_3' ,'OtherEntityCode_3' ,'OtherEntity_3_FK', item)"
+                            typeahead-loading="item.OtherEntitySource_3Loading" typeahead-no-results="item.OtherEntitySource_3NoResults"
+                            typeahead-editable="false" typeahead-append-to-body='true' typeahead-on-select="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.OnSelectAutoCompleteList($item,$model, $label, $event ,'OtherEntitySource_3' ,'OtherEntityCode_3' ,'OtherEntity_3_FK', item)"
+                            ng-blur="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.OnBlurAutoCompleteList($event ,'OtherEntitySource_3' ,'OtherEntityCode_3' ,'OtherEntity_3_FK', item)"
+                            typeahead-min-length="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource_3.MinLength">
+                        <div class="clearfix dropdown-menu" ng-if="item.OtherEntitySource_3NoResults">
+                            <div class="auto-complete-no-result">No Results Found!</div>
+                        </div>
+                        <div class="clearfix dropdown-menu" ng-if="item.OtherEntitySource_3Loading">
+                            <div class="auto-complete-no-result">
+                                <i class="fa fa-spin fa-spinner"></i>
+                            </div>
+                        </div>
+                    </td>
+                    <td data-ng-if="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource_4.Visible">
+                        <input type="text" class="form-control input-sm" placeholder="{{MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource_4.Label}}"
+                            data-ng-model="item.OtherEntityCode_4
+                         " uib-typeahead="x[MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource_4.TextField] as (x[MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource_4.TextField] + ((x[MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource_4.LabelField] ? ' - ' : '') + x[MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource_4.LabelField])) for x in  MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.GetAutoCompleteList($viewValue, 'OtherEntitySource_4','OtherEntityCode_4','OtherEntity_4_FK', item)"
+                            typeahead-loading="item.OtherEntitySource_4Loading" typeahead-no-results="item.OtherEntitySource_4NoResults"
+                            typeahead-editable="false" typeahead-append-to-body='true' typeahead-on-select="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.OnSelectAutoCompleteList($item,$model, $label, $event, 'OtherEntitySource_4' ,'OtherEntityCode_4','OtherEntity_4_FK', item)"
+                            ng-blur="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.OnBlurAutoCompleteList($event, 'OtherEntitySource_4' , 'OtherEntityCode_4','OtherEntity_4_FK', item)"
+                            typeahead-min-length="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.OtherEntitySource_4.MinLength">
+                        <div class="clearfix dropdown-menu" ng-if="item.OtherEntitySource_4NoResults">
+                            <div class="auto-complete-no-result">No Results Found!</div>
+                        </div>
+                        <div class="clearfix dropdown-menu" ng-if="item.OtherEntitySource_4Loading">
+                            <div class="auto-complete-no-result">
+                                <i class="fa fa-spin fa-spinner"></i>
+                            </div>
+                        </div>
+                    </td>
+                    <td data-ng-if="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.Tenant.Visible">
+                        <input type="text" placeholder="{{MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.Tenant.Label}}" class="form-control input-sm"
+                            data-ng-model="item.TenantCode
+                                     " uib-typeahead="x[MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.Tenant.TextField] as (x[MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.Tenant.TextField] + ((x[MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.Tenant.LabelField] ? ' - ' : '') + x[MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.Tenant.LabelField])) for x in  MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.GetAutoCompleteList($viewValue, 'Tenant','TenantCode','TNT_FK')"
+                            typeahead-loading="item.TenantLoading" typeahead-no-results="item.TenantNoResults" typeahead-editable="false"
+                            typeahead-append-to-body='true' typeahead-on-select="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.OnSelectAutoCompleteList($item,$model, $label, $event, 'Tenant' ,'TenantCode','TNT_FK')"
+                            typeahead-min-length="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.Tenant.MinLength"
+                            ng-blur="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.OnBlurAutoCompleteList($event, 'Tenant' , 'TenantCode','TNT_FK')"
+                            data-ng-disabled="!MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.Tenant.Enable">
+                        <div class="clearfix dropdown-menu" ng-if="item.TenantNoResults">
+                            <div class="auto-complete-no-result">No Results Found!</div>
+                        </div>
+                        <div class="clearfix dropdown-menu" ng-if="item.TenantLoading">
+                            <div class="auto-complete-no-result">
+                                <i class="fa fa-spin fa-spinner"></i>
+                            </div>
+                        </div>
+                    </td>
+                    <td data-ng-if="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.Application.Visible">
+                        <input type="text" placeholder="{{MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.Application.Label}}" class="form-control input-sm"
+                            data-ng-model="item.SAP_Code
+                                     " uib-typeahead="x[MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.Application.TextField] as (x[MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.Application.TextField] + ((x[MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.Application.LabelField] ? ' - ' : '') + x[MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.Application.LabelField])) for x in  MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.GetAutoCompleteList($viewValue, 'Application','SAP_Code','SAP_FK')"
+                            typeahead-loading="item.ApplicationLoading" typeahead-no-results="item.ApplicationNoResults" typeahead-editable="false"
+                            typeahead-append-to-body='true' typeahead-on-select="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.OnSelectAutoCompleteList($item,$model, $label, $event, 'Application' ,'SAP_Code','SAP_FK')"
+                            typeahead-min-length="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.Application.MinLength"
+                            ng-blur="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.OnBlurAutoCompleteList($event, 'Application' , 'SAP_Code','SAP_FK')"
+                            data-ng-disabled="!MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.Application.Enable">
+                        <div class="clearfix dropdown-menu" ng-if="item.ApplicationNoResults">
+                            <div class="auto-complete-no-result">No Results Found!</div>
+                        </div>
+                        <div class="clearfix dropdown-menu" ng-if="item.ApplicationLoading">
+                            <div class="auto-complete-no-result">
+                                <i class="fa fa-spin fa-spinner"></i>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-center p-3" data-ng-if="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.IsDefault.Visible">
+                        <div class="checkbox m-0">
+                            <label>
+                                <input type="checkbox" class="colored-blue" data-ng-model="item[MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.IsDefault.ValueField]">
+                                <span class="text"></span>
+                            </label>
+                        </div>
+                    </td>
+                    <td class="text-center p-5">
+                        <i class="fa fa-floppy-o cursor-pointer text-success" style="font-size: 16px;" data-ng-click="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Save(item)"></i>
+                    </td>
+                    <td class="text-center p-5">
+                        <i class="glyphicon glyphicon-trash text-danger cursor-pointer" style="font-size: 16px;" data-ng-click="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.DeleteConfirmation(item)"></i>
+                    </td>
+                </tr>
+                <!-- Add New -->
+                <tr>
+                    <td colspan="20" class="p-10">
+                        <a href="javascript:(0);" data-ng-click="MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.AddNew()">Add new Record…</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

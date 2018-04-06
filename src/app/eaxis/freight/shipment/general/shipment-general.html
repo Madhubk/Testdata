@@ -1,0 +1,44 @@
+<div class="clearfix">
+    <div class="widget-main ">
+        <uib-tabset id="shipmentGeneral">
+            <!--General Tab-->
+            <uib-tab>
+                <uib-tab-heading title="General">
+                    <i class="fa fa-file-o margin-right-5"></i>
+                    <span class="text-single-line" data-ng-bind="('General' | translate)"></span>
+                </uib-tab-heading>
+                <div data-ng-include="'app/eaxis/freight/shipment/general/tabs/general.html'"></div>
+            </uib-tab>
+            <!--Packing-->
+            <uib-tab>
+                <uib-tab-heading title="Package Details">
+                    <i class="fa fa-suitcase margin-right-5"></i>
+                    <span class="text-single-line" data-ng-bind="('Packing' | translate)"></span>
+                </uib-tab-heading>
+                <div data-ng-include="'app/eaxis/freight/shipment/general/tabs/std-packing.html'"></div>
+            </uib-tab>
+            <!--Package Details-->
+            <!-- <uib-tab>
+                <uib-tab-heading title="Package Details">
+                    <i class="fa fa-file-text-o margin-right-5"></i> <span class="text-single-line" data-ng-bind="'Package Details'"></span>
+                </uib-tab-heading>
+                <div data-ng-include="'app/eaxis/freight/shipment/general/tabs/package-details.html'"></div>
+            </uib-tab> -->
+            <!-- House Bill -->
+            <uib-tab>
+                <uib-tab-heading title="House Bill">
+                    <i class="fa fa-list-alt margin-right-5"></i>
+                    <span class="text-single-line" data-ng-bind="('House Bill' | translate)"></span>
+                </uib-tab-heading>
+                <div data-ng-include="'app/eaxis/freight/shipment/general/tabs/house-bill.html'"></div>
+            </uib-tab>
+            <uib-tab>
+                <uib-tab-heading title="Additional Info">
+                    <i class="fa fa-external-link margin-right-5"></i>
+                    <span class="text-single-line" data-ng-bind="'Additonal Info'"></span>
+                </uib-tab-heading>
+                <div data-ng-include="'app/eaxis/freight/shipment/general/tabs/custom.html'"></div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>

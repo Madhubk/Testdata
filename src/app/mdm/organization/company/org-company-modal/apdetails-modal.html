@@ -1,0 +1,102 @@
+<div class="modal-header ng-scope">
+    <h5 class="modal-title pull-left"><strong>{{OrgCompanyModalCtrl.ePage.Masters.Company.FormView.CMP_Name || 'Title'}}</strong></h5>
+    <input type="button" class="btn btn-warning btn-xs pull-right margin-left-5" ng-click="OrgCompanyModalCtrl.ePage.Masters.Cancel()"
+        value="Close" />
+    <input type="button" class="btn btn-primary btn-xs pull-right margin-left-5" ng-click="OrgCompanyModalCtrl.ePage.Masters.Save(OrgCompanyModalCtrl.ePage.Masters.Company.FormView, 'OrgCompanyData', 'OrgAPDetails')"
+        value="{{OrgCompanyModalCtrl.ePage.Masters.SaveButtonText}}" data-ng-disabled="OrgCompanyModalCtrl.ePage.Masters.IsDisableSave"
+    />
+</div>
+<div class="modal-body">
+    <div class="clearfix">
+        <div class="clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <fieldset>
+                    <h5 class="modal-title padding-5"><strong>Accounts & Tax Details</strong></h5>
+                    <div class="row padding-5">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <div class="form-group">
+                                <label for="AccountGroup">Account Group</label>
+                                <select chosen name="category-group" ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.OCG_APCreditorGroup" ng-options="x.PK  as x.Desc for x in OrgCompanyModalCtrl.ePage.Masters.DropDownMasterList.CreditorGroup.ListSource "
+                                    class="form-control header-select-control input-sm gmail-style-btn eaxis-value" search-contains="true">
+                                <option value="">--Select--</option>
+                            </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <div class="form-group">
+                                <label for="DefaultCurrency">Default Invoice Currency</label>
+                                <select chosen name="category-group" ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.MYC_NKAPDefltCurrency"
+                                    ng-options="x.Code  as (x.Code + ' - ' + x.Desc) for x in OrgCompanyModalCtrl.ePage.Masters.DropDownMasterList.Currency.ListSource"
+                                    class="form-control header-select-control input-sm gmail-style-btn eaxis-value" search-contains="true">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <div class="form-group">
+                                <label for="AccountGroup">Tax-SERRecognition and reportingBasis Override</label>
+                                <input type="text" class="form-control input-sm" placeholder="Account Group" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.APVATConfig"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <div class="form-group">
+                                <label class="control-label text-single-line">&nbsp;</label>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.APWHTApplicable">
+                                            <span class="text">WithholdingTax Is Applicable</span>
+                                        </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div class="clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <fieldset>
+                    <h5 class="modal-title padding-5"><strong>Credit Control</strong></h5>
+                    <div class="row padding-5">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <div class="form-group">
+                                <label for="APCreditLimit">Credit Limit</label>
+                                <input type="text" class="form-control input-sm" placeholder="Credit Limit" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.APCreditLimit"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <div class="form-group">
+                                <label for="APCreditAgreedPaymentMethod">Advance Payment Method</label>
+                                <input type="text" class="form-control input-sm" placeholder="Advance Payment Method" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.APCreditAgreedPaymentMethod"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <div class="form-group">
+                                <label for="APPaymentTerms">Payment Terms</label>
+                                <input type="text" class="form-control input-sm" placeholder="Advance Payment Method" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.APPaymentTerms"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <div class="form-group">
+                                <label for="APPaymentDays">Payment Days</label>
+                                <input type="text" class="form-control input-sm" placeholder="Advance Payment Method" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.APPaymentTermDays"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <input type="button" class="btn btn-warning btn-xs pull-right margin-left-5" ng-click="OrgCompanyModalCtrl.ePage.Masters.Cancel()"
+        value="Close" />
+    <input type="button" class="btn btn-primary btn-xs pull-right margin-left-5" ng-click="OrgCompanyModalCtrl.ePage.Masters.Save(OrgCompanyModalCtrl.ePage.Masters.Company.FormView, 'OrgCompanyData', 'OrgAPDetails')"
+        value="{{OrgCompanyModalCtrl.ePage.Masters.SaveButtonText}}" data-ng-disabled="OrgCompanyModalCtrl.ePage.Masters.IsDisableSave"
+    />
+</div>

@@ -1,0 +1,83 @@
+<div class="clearfix">
+    <div class="event-filter clearfix" ng-if="false">
+        <div class="col-lg-3 padding-top-10 padding-bottom-10">
+            <i class="fa fa-filter red"></i>
+            <span class="margin-left-5">Filter by</span>
+        </div>
+        <div class="col-lg-2 padding-top-8">
+            <div class="checkbox no-margin-top no-margin-bottom">
+                <label>
+                    <input type="checkbox">
+                    <span class="text">Calls</span>
+                </label>
+            </div>
+        </div>
+        <div class="col-lg-2 padding-top-8">
+            <div class="checkbox no-margin-top no-margin-bottom">
+                <label>
+                    <input type="checkbox">
+                    <span class="text">Tasks</span>
+                </label>
+            </div>
+        </div>
+        <div class="col-lg-2 padding-top-8">
+            <div class="checkbox no-margin-top no-margin-bottom">
+                <label>
+                    <input type="checkbox">
+                    <span class="text">Emails</span>
+                </label>
+            </div>
+        </div>
+        <div class="col-lg-3 padding-top-8 padding-bottom-8">
+            <div class="row">
+                <div class="col-lg-6">
+                    <i class="fa fa-sort-numeric-asc red pull-left margin-top-5"></i>
+                    <div class="radio no-margin-top no-margin-bottom pull-left margin-left-5">
+                        <label>
+                            <input name="form-field-radio" type="radio">
+                            <span class="text"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <i class="fa fa-sort-numeric-desc red pull-left margin-top-5"></i>
+                    <div class="radio no-margin-top no-margin-bottom pull-left margin-left-5">
+                        <label>
+                            <input name="form-field-radio" type="radio">
+                            <span class="text"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12" data-ng-if="EventCtrl.ePage.Masters.Event.ListSource.length > 0 ">
+        <ul class="event mt-10">
+            <li class="event-inverted" data-ng-repeat="x in EventCtrl.ePage.Masters.Event.ListSource">
+                <div class="event-date">{{x.EventDateTime | date:'dd-MMM-yyyy'}}</div>
+                <div class="event-badge">
+                    <div class="event-badge-inner" ng-class="x.EventCSS.bgColor">
+                        <i class="fa" ng-class="(x.EventCSS == '' || x.EventCSS == ' ' || !x.EventCSS) ? 'fa-envira' : x.EventCSS.icon"></i>
+                    </div>
+                </div>
+                <div class="event-panel">
+                    <div class="event-header" ng-class="x.EventCSS.bgColor">{{x.EventName || '-'}}</div>
+                    <div class="event-body" ng-repeat="y  in x.RelatedDetails track by $index"> {{y.UIField}} : {{y.Value}}</div>
+                    <!-- <div class="event-header" ng-class="x.EventCategoryCSSClass">{{x.EventDescription}}</div>
+                        <div class="event-body" ng-repeat="y  in x.EventAdditionalInfo"> {{y.Key}} : {{y.Value}}</div> -->
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="col-lg-12" data-ng-if="EventCtrl.ePage.Masters.Event.ListSource.length == 0 ">
+        <div class="row text-center p-20">
+            <i>No Records...!</i>
+        </div>
+    </div>
+    <div class="col-lg-12" data-ng-if="EventCtrl.ePage.Masters.Spinner">
+        <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+    </div>
+</div>

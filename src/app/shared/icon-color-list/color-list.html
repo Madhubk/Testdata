@@ -1,0 +1,18 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="IconColorListModalCtrl.ePage.Masters.Close()">&times;</button>
+    <h5 class="modal-title" id="modal-title"><strong>Icon List</strong></h5>
+</div>
+<div class="modal-body" id="modal-body">
+    <div class="font-list-glyphicons">
+        <div data-ng-if="!IconColorListModalCtrl.ePage.Masters.IconColorList" class="p-20 text-center" style="font-size: 18px;">
+            <i class="fa fa-spin fa-spinner"></i>
+        </div>
+        <div data-ng-if="IconColorListModalCtrl.ePage.Masters.IconColorList.length == 0" class="p-20 text-center">No records...!</div>
+
+        <div class="color-list" data-ng-style="{'background-color': x}" data-ng-if="IconColorListModalCtrl.ePage.Masters.IconColorList"
+            data-ng-repeat="x in IconColorListModalCtrl.ePage.Masters.IconColorList" data-ng-click="IconColorListModalCtrl.ePage.Masters.OnItemClick(x)"></div>
+    </div>
+</div>
+<div class="modal-footer">
+    <h5 class="modal-title" id="modal-title"><strong></strong></h5>
+</div>

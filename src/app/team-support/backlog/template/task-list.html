@@ -1,0 +1,57 @@
+<div class="rows pt-20" data-ng-if="!BacklogCtrl.ePage.Masters.IsShowDetails">
+    <!--Task List Wrapper-->
+    <div id="backlogTaskList" class="task-list-wrapper">
+        <div class="text-center grid-view-loader p-20" data-ng-if="!BacklogCtrl.ePage.Masters.TaskGroup.ListSource ">
+            <i class="fa fa-spin fa-spinner font-160"></i>
+        </div>
+        <!--No records-->
+        <div class="text-center grid-view-loader p-20" data-ng-if=" BacklogCtrl.ePage.Masters.TaskGroup.ListSource.length === 0">
+            <i class="">No Records Found...!</i>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 xol-xl-3 pl-5 pr-5" data-order="{{$index}}" data-ng-repeat="y in BacklogCtrl.ePage.Masters.TaskGroup.ListSource | orderBy: BacklogCtrl.ePage.Entities.SupportHeader.Details.Task"
+            data-ng-if="BacklogCtrl.ePage.Masters.TaskGroup.ListSource && BacklogCtrl.ePage.Masters.TaskGroup.ListSource.length !== 0">
+            <div class="rows backlog-box mb-10">
+                <div class="rows backlog-heading">
+                    <span class="text-single-line-80 pull-left p-5 pl-10 pr-10" data-ng-bind="y.Title" data-ng-click="!$first && BacklogCtrl.ePage.Masters.OnTaskGroupClick(y)"></span>
+                    <a class="pull-right p-5 pt-6 b-l" href="javascript:(0);" data-ng-click="BacklogCtrl.ePage.Masters.OpenNewTask(y)">
+                        <i class="glyphicons glyphicons-plus"></i>
+                    </a>
+                    <a class="pull-right p-5 pt-6 b-l" href="javascript:(0);" data-ng-click="BacklogCtrl.ePage.Masters.OnTaskDblClick(y)">
+                        <i class="glyphicons glyphicons-pencil"></i>
+                    </a>
+                </div>
+                <div class="rows backlog-list p-5 pl-10 pr-10 cursor-pointer text-single-line" data-ng-repeat="x in y.TaskList" data-ng-click="BacklogCtrl.ePage.Masters.OnTaskDblClick(x)"
+                    {{y.TaskList}} data-ng-if="y.TaskList && y.TaskList.length !== 0">
+                    <span class="backlog-task-priority mr-10" data-ng-class="{'p1': x.Priority == 'P1', 'p2': x.Priority == 'P2', 'p3': x.Priority == 'P3', 'p4': x.Priority == 'P4'}"></span>
+                    <span data-ng-bind="x.Title"></span>
+                    <div class="backlog-task-assign-to" data-ng-bind="x.AssignTo | changeMailToUserName"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <script type="text/javascript">
+    jQuery(document).ready(function ($) {
+        setTimeout(() => {
+            $("#my-gallery-container, #my-gallery-container1").mpmansory(
+            {
+                childrenClass: 'box', // default is a div
+                columnClasses: 'padding', //add classes to items
+                breakpoints: {
+                    lg: 3,
+                    md: 4,
+                    sm: 6,
+                    xs: 12
+                },
+                distributeBy: { order: false, height: false, attr: 'data-order', attrOrder: 'asc' }, //default distribute by order, options => order: true/false, height: true/false, attr => 'data-order', attrOrder=> 'asc'/'desc'
+                onload: function (items) {
+                    //make somthing with items                    
+                }
+            }
+        );
+        }, 10000);
+        
+    });
+</script> -->

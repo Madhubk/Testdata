@@ -1,0 +1,76 @@
+.product-box {
+    width: 97%;
+    margin-left: 15px;
+    height: 75px;
+    border: 1px solid #ddd;
+}
+.headerstyle{
+    font-weight: bold;
+    font-size: 15px;
+    border-bottom: 1px solid;
+}
+.height-25{
+    height: 25px !important;
+    font-size: 9px;
+}
+.text-style{
+    color: #423232;
+    font-weight: 600;
+    margin-left: 14px;
+    font-size: 16px;
+}
+.inward-menu>.nav-tabs.nav-justified>.show-address-sidebar {
+    position: absolute;
+    top: -2px;
+    right: 0;
+    height: 28px;
+    margin: 0;
+    padding: 0;
+    width: 25px;
+    min-width: 25px;
+    z-index: 15;
+    max-width: 25px;
+    outline: none;
+}
+    .bulk-action1 {
+        width: 215%;
+        float: left;
+        padding: 0;
+        border: 1px solid #eee;
+    }
+    
+    .bulk-action1 li {
+            width: auto;
+            float: left;
+            list-style: none;
+            padding: 10px 3px;
+            border-bottom: 1px solid #eee;
+    }
+    .bulk-main-title {
+        float: left;
+    }
+    
+    .bulk-top-title {
+        display: inline-block !important;
+        font-weight: bold;
+        padding: 8px 3px 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: left;
+    }
+    
+.attach{
+    margin-top: 10px;
+    margin-right: 27px;
+    float: right;
+    padding: 4px 7px;
+}
+
+    .InlineLabel {
+        font-size: 11px !important;
+        color: #060606 !important;
+    }
+.grid-width {
+    width: 270px !important;
+}

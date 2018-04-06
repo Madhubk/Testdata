@@ -1,0 +1,80 @@
+<div class="col-lg-12 margin-top-10" style="height:45%;">
+    <div class="">
+        <div class="wmstable_scroll" style="height:400px; padding-top: 2px;">
+            <div class="table" id="results">
+                <div class='theader'>
+                    <div class='table_header'>Client</div>
+                    <div class='table_header'>Product</div>
+                    <div class='table_header'>Units</div>
+                    <div class='table_header'>UQ</div>
+                    <div class='table_header'>Location</div>
+                    <div class='table_header'>Part Attribute1</div>
+                    <div class='table_header'>Part Attribute2</div>
+                    <div class='table_header'>Part Attribute3</div>
+                    <div class='table_header'>Expiry Date</div>
+                    <div class='table_header'>Packing Date</div>
+                    <div class='table_header'>Is Picked</div>
+                    <div class='table_header'>Picked Date Time</div>
+                </div>
+
+                <!-- List Empty Response -->
+                <div data-ng-if="ReleaseDetailsCtrl.ePage.Entities.Header.Data.UIWmsPickLineSummary.length==0">
+                    <div class="grid-no-record" style="bottom:38px">No records found...</div>
+                </div>
+
+                <div class='table_row' ng-repeat="x in ReleaseDetailsCtrl.ePage.Entities.Header.Data.UIWmsPickLineSummary  track by $index"
+                    style="font-size: 11px;">
+                    <div class='table_small'>
+                        <div class='table_cell'>Client</div>
+                        <div class='table_cell'>{{x.ClientCode || ReleaseDetailsCtrl.ePage.Masters.emptyText}}-{{x.ClientName || ReleaseDetailsCtrl.ePage.Masters.emptyText}}
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Product</div>
+                        <div class='table_cell'>{{x.ProductCode || ReleaseDetailsCtrl.ePage.Masters.emptyText}}-{{x.ProductDescription || ReleaseDetailsCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Units</div>
+                        <div class='table_cell'>{{x.Units || ReleaseDetailsCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>UQ</div>
+                        <div class='table_cell'>{{x.StockKeepingUnit || ReleaseDetailsCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Location</div>
+                        <div class='table_cell'>{{x.Location || ReleaseDetailsCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Part Attribute1</div>
+                        <div class='table_cell'>{{x.PartAttrib1 || ReleaseDetailsCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Part Attribute2</div>
+                        <div class='table_cell'>{{x.PartAttrib2 || ReleaseDetailsCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Part Attribute3</div>
+                        <div class='table_cell'>{{x.PartAttrib3 || ReleaseDetailsCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Expiry Date</div>
+                        <div class='table_cell'>{{x.ExpiryDate || ReleaseDetailsCtrl.ePage.Masters.emptyText | dateFormat}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Packing Date</div>
+                        <div class='table_cell'>{{x.PackingDate  || ReleaseDetailsCtrl.ePage.Masters.emptyText | dateFormat}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Is Picked</div>
+                        <div class='table_cell'>{{x.IsPicked == 'true'  ? "YES" : "NO"}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Picked Date Time</div>
+                        <div class='table_cell'>{{x.PickedDateTime || ReleaseDetailsCtrl.ePage.Masters.emptyText | dateFormat}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

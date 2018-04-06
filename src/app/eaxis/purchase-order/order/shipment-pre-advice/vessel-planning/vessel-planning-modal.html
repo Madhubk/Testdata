@@ -1,0 +1,151 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="OrdVesselModalCtrl.ePage.Masters.Cancel()">&times;</button>
+    <h5 class="modal-title" id="modal-title">
+        <strong>Vessel Planning</strong>
+    </h5>
+</div>
+<div class="modal-body" id="modal-body">
+    <div class="rows mt-10">
+	    <div class="clearfix">
+	    	<div class="clearfix">
+                <!--Mode-->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                    <div class="form-group">
+                        <label for="" class="control-label">Mode</label>
+                        <select chosen name="category-group" id="categoryGroup" class="form-control" ng-model="OrdVesselModalCtrl.ePage.Masters.Param.Input.TransportMode" ng-disabled="OrdVesselModalCtrl.ePage.Masters.IsModeDisable" ng-options="x.Key as x.Description for x in OrdVesselModalCtrl.ePage.Masters.DropDownMasterList.ROUTEMODE.ListSource" search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+	        <!-- carrier -->
+	        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+	            <div class="form-group  padding-top-10">
+	                <label class="control-label text-single-line">Carrier</label>
+	                <div class="input-group input-group-sm">
+	                    <input type="hidden" ng-model="OrdVesselModalCtrl.ePage.Masters.Param.Input.CarrierOrg_FK">
+	                    <div dynamic-lookup placeholder="Carrier" my-ng-model="OrdVesselModalCtrl.ePage.Masters.Param.Input.CarrierOrg_Code" obj="OrdVesselModalCtrl.ePage.Masters.Param.Input"
+	                         prefix-data="'MDM_CarrierList'" config="'OrdPlannedCarrier'" auto-complete-on-select="OrdVesselModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)"></div>
+	                    <span class="input-group-btn">
+	                        <button dynamic-list-modal obj="OrdVesselModalCtrl.ePage.Masters.Param.Input" field-name="'OrdPlannedCarrier'" prefix-data="'MDM_CarrierList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdVesselModalCtrl.ePage.Masters.SelectedLookupData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+	                    </span>
+	                </div>
+	            </div>
+	        </div>
+	        <!-- Vessel -->
+	        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+	            <div class="form-group  padding-top-10">
+	                <label class="control-label text-single-line">Vessel</label>
+	                <div class="input-group input-group-sm">
+	                    <!-- <input type="hidden" ng-model="OrdVesselModalCtrl.ePage.Masters.Param.Input.Vessel_PK"> -->
+	                    <div dynamic-lookup  placeholder="Vessel" my-ng-model="OrdVesselModalCtrl.ePage.Masters.Param.Input.Vessel" obj="OrdVesselModalCtrl.ePage.Masters.Param.Input"
+	                         prefix-data="'MstVessel'" config="'OrdPlannedVessel'" auto-complete-on-select="OrdVesselModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)"></div>
+	                    <span class="input-group-btn">
+	                        <button dynamic-list-modal obj="OrdVesselModalCtrl.ePage.Masters.Param.Input" field-name="'OrdPlannedVessel'" prefix-data="'MstVessel'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdVesselModalCtrl.ePage.Masters.SelectedLookupData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+	                    </span>
+	                </div>
+	            </div>
+	        </div>
+	        <!-- Voyage -->
+	        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                <div class="form-group padding-top-10">
+                    <label for="" data-ng-show="OrdVesselModalCtrl.ePage.Masters.Param.Input.TransportMode =='SEA'" class="control-label">Voyage</label>
+                    <label for="" data-ng-show="OrdVesselModalCtrl.ePage.Masters.Param.Input.TransportMode =='AIR'" class="control-label">Flight</label>
+                    <label for="" data-ng-show="OrdVesselModalCtrl.ePage.Masters.Param.Input.TransportMode =='ROA'" class="control-label">Truck Reference</label>
+                    <input type="text" data-ng-show="OrdVesselModalCtrl.ePage.Masters.Param.Input.TransportMode =='SEA'" class="form-control input-sm"
+                           placeholder="Voyage" max-length="1" data-ng-model="OrdVesselModalCtrl.ePage.Masters.Param.Input.VoyageFlight">
+                    <input type="text" data-ng-show="OrdVesselModalCtrl.ePage.Masters.Param.Input.TransportMode =='AIR'" class="form-control input-sm"
+                           placeholder="Flight" max-length="1" data-ng-model="OrdVesselModalCtrl.ePage.Masters.Param.Input.VoyageFlight">
+                    <input type="text" data-ng-show="OrdVesselModalCtrl.ePage.Masters.Param.Input.TransportMode =='ROA'" class="form-control input-sm"
+                           placeholder="Truck Reference" max-length="1" data-ng-model="OrdVesselModalCtrl.ePage.Masters.Param.Input.VoyageFlight">
+                </div>
+            </div>
+	        <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+	            <div class="form-group padding-top-10"><label class="control-label text-single-line">Voyage</label>
+	                <input type="text" ng-model="OrdVesselModalCtrl.ePage.Masters.Param.Input.PlannedVoyage" max-length="70" class="form-control input-sm" placeholder="Voyage">
+	            </div>
+	        </div> -->
+	        <!-- ETD -->
+	        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+	            <div class="form-group padding-top-10">
+	                <label class="control-label text-single-line">ETD</label>
+	                <div class="input-group input-group-sm">
+	                    <input type="text" placeholder="{{OrdVesselModalCtrl.ePage.Masters.DatePicker.Options.format}}" class="form-control" data-ng-model="OrdVesselModalCtrl.ePage.Masters.Param.Input.ETD" data-ng-click="OrdVesselModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETD'+ $index)" uib-datepicker-popup="{{OrdVesselModalCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="OrdVesselModalCtrl.ePage.Masters.DatePicker.Options" is-open="OrdVesselModalCtrl.ePage.Masters.DatePicker.isOpen['isETD'+ $index]"/>
+	                    <span class="input-group-btn">
+	                        <button class="btn btn-default fa fa-calendar" type="button" data-ng-click="OrdVesselModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETD'+ $index)"></button>
+	                    </span>
+	                </div>
+	            </div>
+	        </div>
+
+	        <!-- ETA -->
+	        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+	            <div class="form-group padding-top-10">
+	                <label class="control-label text-single-line">ETA</label>
+	                <div class="input-group input-group-sm">
+	                    <input type="text" placeholder="{{OrdVesselModalCtrl.ePage.Masters.DatePicker.Options.format}}" class="form-control" data-ng-model="OrdVesselModalCtrl.ePage.Masters.Param.Input.ETA" data-ng-click="OrdVesselModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETA'+ $index)" uib-datepicker-popup="{{OrdVesselModalCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="OrdVesselModalCtrl.ePage.Masters.DatePicker.Options" is-open="OrdVesselModalCtrl.ePage.Masters.DatePicker.isOpen['isETA'+ $index]"/>
+	                    <span class="input-group-btn">
+	                        <button class="btn btn-default fa fa-calendar" type="button" data-ng-click="OrdVesselModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETA'+ $index)"></button>
+	                    </span>
+	                </div>
+	            </div>
+	        </div>
+	        <!-- POL -->
+	        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+	            <div class="form-group  padding-top-10">
+	                <label class="control-label text-single-line">POL</label>
+	                <div class="input-group input-group-sm">
+	                    <!-- <input type="hidden" ng-model="OrdVesselModalCtrl.ePage.Masters.Param.Input.PortOfLoading_PK"> -->
+	                    <div dynamic-lookup placeholder="Port Of Loading" my-ng-model="OrdVesselModalCtrl.ePage.Masters.Param.Input.LoadPort" obj="OrdVesselModalCtrl.ePage.Masters.Param.Input"
+	                         prefix-data="'MstUNLOCO'" config="'VesselLoadPortOrder'" auto-complete-on-select="OrdVesselModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)"></div>
+	                    <span class="input-group-btn">
+	                        <button class="btn btn-default fa fa-ellipsis-h" dynamic-list-modal obj="OrdVesselModalCtrl.ePage.Masters.Param.Input" field-name="'VesselLoadPortOrder'" prefix-data="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdVesselModalCtrl.ePage.Masters.SelectedLookupData($item)" class="btn btn-default shiny" type="button"></button>
+	                    </span>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	<div class="rows mt-5">
+	        <!-- POD -->
+	        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+	            <div class="input-group input-group-sm margin-top-5">
+	                <label class="control-label text-single-line">POD</label>
+	                <div class="input-group input-group-sm">
+	                    <!-- <input type="hidden" ng-model="OrdVesselModalCtrl.ePage.Masters.Param.Input.PortOfDischarge_PK"> -->
+	                    <div dynamic-lookup placeholder="Port Of Discharge" my-ng-model="OrdVesselModalCtrl.ePage.Masters.Param.Input.DischargePort" obj="OrdVesselModalCtrl.ePage.Masters.Param.Input"
+	                         prefix-data="'MstUNLOCO'" config="'VesselDischargePort'" auto-complete-on-select="OrdVesselModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)"></div>
+	                    <span class="input-group-btn">
+	                        <button dynamic-list-modal obj="OrdVesselModalCtrl.ePage.Masters.Param.Input" field-name="'VesselDischargePort'" prefix-data="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdVesselModalCtrl.ePage.Masters.SelectedLookupData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+	                    </span>
+	                </div>
+	            </div>
+	        </div>
+	        <!-- CargoCutoffdate -->
+	        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+	            <div class="input-group input-group-sm margin-top-5">
+	                <label class="control-label text-single-line">Cargo Cut Off Date</label>
+	                <input type="text" placeholder="{{OrdVesselModalCtrl.ePage.Masters.DatePicker.Options.format}}" class="form-control" data-ng-model="OrdVesselModalCtrl.ePage.Masters.Param.Input.ATD" data-ng-click="OrdVesselModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoCutOffDate'+ $index)" uib-datepicker-popup="{{OrdVesselModalCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="OrdVesselModalCtrl.ePage.Masters.DatePicker.Options" is-open="OrdVesselModalCtrl.ePage.Masters.DatePicker.isOpen['isCargoCutOffDate'+ $index]"/>
+	                <span class="input-group-btn">
+	                    <button class="btn btn-default fa fa-calendar date-sty1" type="button" data-ng-click="OrdVesselModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoCutOffDate'+ $index)"></button>
+	                </span>
+	            </div>
+	        </div>
+	        <!-- Booking Cutoff date -->
+	        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+	            <div class="input-group input-group-sm margin-top-5">
+	                <label class="control-label text-single-line">Booking Cut Off Date</label>
+	                <input type="text" placeholder="{{OrdVesselModalCtrl.ePage.Masters.DatePicker.Options.format}}" class="form-control" data-ng-model="OrdVesselModalCtrl.ePage.Masters.Param.Input.ATA" data-ng-click="OrdVesselModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isBookingCutOffDate'+ $index)" uib-datepicker-popup="{{OrdVesselModalCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="OrdVesselModalCtrl.ePage.Masters.DatePicker.Options" is-open="OrdVesselModalCtrl.ePage.Masters.DatePicker.isOpen['isBookingCutOffDate'+ $index]"/>
+	                <span class="input-group-btn">
+	                    <button class="btn btn-default fa fa-calendar date-sty1" type="button" data-ng-click="OrdVesselModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isBookingCutOffDate'+ $index)"></button>
+	                </span>
+	            </div>
+	        </div>
+	        <!-- Bulk Update -->
+	        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-right">
+	            <div class="input-group input-group-sm margin-top-5"> 
+	                <button class="btn btn-default set-br-blue set-bg-blue-light fs-12 fix-top" data-ng-click="OrdVesselModalCtrl.ePage.Masters.VesselUpdate(OrdVesselModalCtrl.ePage.Masters.Param.Input,OrdVesselModalCtrl.ePage.Masters.SaveText)" data-ng-disabled="OrdVesselModalCtrl.ePage.Masters.IsDisableBulk">{{OrdVesselModalCtrl.ePage.Masters.SaveText}}</button>
+	            </div>
+	        </div>
+	</div>
+</div>

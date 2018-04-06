@@ -1,0 +1,33 @@
+<!-- Navbar -->
+<nav-bar></nav-bar>
+<!-- /Navbar -->
+
+<div class="main-container container-fluid">
+    <!-- Page Container -->
+    <div class="page-container">
+        <!-- Page Sidebar -->
+        <!--<div class="page-sidebar {{settings.fixed.sidebar ? 'sidebar-fixed' : ''}}" id="sidebar">
+        </div>-->
+        <side-bar menu-list="MdmHomeCtrl.ePage.Masters.MenuList" data-ng-if="MdmHomeCtrl.ePage.Masters.MenuList"></side-bar>
+        <!--  <a href="#/{{obj.MenuName}}"></a> -->
+
+
+        <!-- /Page Sidebar -->
+        <!-- Page Content -->
+        <!--  <div class="page-content"> -->
+        <!-- Page Header -->
+        <!--<div class="page-header position-relative {{settings.fixed.header ? 'page-header-fixed' : ''}}" data-ng-include=" 'app/eaxis/shared/templates/partials/header.html' ">
+            </div>-->
+        <!-- /Page Header -->
+        <!-- Page Body -->
+        <div class="page-body" ui-view>
+            <!-- Your Content Goes Here -->
+            <!--   </div> -->
+            <!-- /Page Body -->
+        </div>
+        <!-- /Page Content -->
+    </div>
+    <!-- /Page Container -->
+    <!-- Main Container -->
+
+</div>

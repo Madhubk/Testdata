@@ -1,0 +1,134 @@
+.contact-edit.contact>.modal-dialog {
+    width: 500px !important;
+}
+
+.org-edit-delete {
+    top: 5px;
+}
+
+.org-contact-header {
+    font-size: 16px;
+    position: relative;
+    padding: 9px 0px;
+    color: #1f497d;
+    border-bottom: 1px solid #ddd;
+}
+
+.fs-28 {
+    font-size: 28px;
+}
+.bulk-sub-title,
+.bulk-main-title {
+    width: 100%;
+    float: left;
+}
+
+    .bulk-main-title {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .bulk-action {
+        width: 100%;
+        float: left;
+        padding: 0;
+        border: 1px solid #eee;
+    }
+
+    .bulk-action li {
+        width: 100%;
+        float: left;
+        list-style: none;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .border-bottom1 {
+        border-bottom: 2px solid #d71921 !important;
+    }
+    .alignment {
+        margin-top: 8px !important;
+    }
+    .alignment-size {
+        height: 35px !important;
+    }
+    .bulk-top-title {
+        width: 100%;
+        float: left;
+        font-weight: bold;
+        padding: 8px 0 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .bulk-title {
+        width: 100%;
+        float: left;
+        font-weight: bold;
+    }
+
+    .bulk-label {
+        float: left;
+        font-size: 11px;
+        color: #999;
+    }
+
+    .bulk-label span {
+        padding: 0px 5px;
+        border-radius: 2px;
+    }
+
+    .bulk-date {
+        width: 100%;
+        float: left;
+        padding: 14px 0 0;
+        font-size: 12px;
+    }
+
+    .comments-height {
+        height: 35px;
+    }
+    .label-follow {
+        color: #5c3a81;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .btn-CS {
+        background-color: #3f56a9 !important;
+        border: 1px solid #3f56a9 !important;
+        color: #fff;
+    }
+
+    .btn-CT {
+        background-color: #87584d !important;
+        border: 1px solid #87584d !important;
+        color: #fff;
+    }
+
+    .btn-Term {
+        background-color: #e88e4e !important;
+        border: 1px solid #e88e4e !important;
+        color: #fff;
+    }
+    .btn-gray {
+        background-color: #a1a1a1 !important; 
+        color: #fff !important;
+    }
+    a:focus, a:hover {
+        cursor: pointer !important;
+    }
+.service-details-heading .heading,
+.referance-details-heading .heading {
+    font-size: 18px;
+}
+
+.service-details-heading i,
+.referance-details-heading i {
+    font-size: 30px;
+}
+
+.service-details-heading i:hover,
+.referance-details-heading i:hover {
+    text-decoration: none;
+}

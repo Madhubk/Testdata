@@ -1,0 +1,74 @@
+﻿<div class="popover-content">
+    {{LocationDashboardCtrlV2.ePage.Masters.GetValue(x1.Name+'-'+y+'-'+x)}}
+    <div class="col-lg-12" style="padding-left: 0px; padding-right: 0px;">
+        <div class="col-lg-6" style="padding-left: 0px; padding-right: 0px;">
+            <div class="col-lg-12" style="padding-left:0px;padding-right:0px;">
+                <div class="col-lg-6" style="padding-left:0px;">
+                    <label>Location</label>
+                </div>
+                <div class="col-lg-6" style="padding-right:0px;">
+                    <label>{{x.Location}} </label>
+                </div>
+            </div>
+            <div class="col-lg-12" style="padding-left:0px;padding-right:0px;">
+                <div class="col-lg-6" style="padding-left:0px;">
+                    <label>Type</label>
+                </div>
+                <div class="col-lg-6" style="padding-right:0px;">
+                    <label>{{x.LocationType}} </label>
+                </div>
+            </div>
+            <div class="col-lg-12" style="padding-left:0px;padding-right:0px;">
+                <div class="col-lg-6" style="padding-left:0px;">
+                    <label>Status</label>
+                </div>
+                <div class="col-lg-6" style="padding-right:0px;">
+                    <label>{{x.LocationStatus}} </label>
+                </div>
+            </div>
+            <div class="col-lg-12" style="padding-left:0px;padding-right:0px;">
+                <div class="col-lg-6" style="padding-left:0px;">
+                    <label>PickPathSeq</label>
+                </div>
+                <div class="col-lg-6" style="padding-right:0px;">
+                    <label>{{x.PickPathSequence}} </label>
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-lg-6" style="padding-right:0px;">
+            <div class="col-lg-12" style="padding-left:0px;padding-right:0px;">
+                <div class="col-lg-6" style="padding-left:0px;">
+                    <label>MaxWeight</label>
+                </div>
+                <div class="col-lg-6" style="padding-left: 40px;">
+                    <label>{{x.MaxWeight}} {{x.MaxWeightUnit}} </label>
+                </div>
+            </div>
+            <div class="col-lg-12" style="padding-left:0px;padding-right:0px;">
+                <div class="col-lg-6" style="padding-left:0px;">
+                    <label>Max Cubic</label>
+                </div>
+                <div class="col-lg-6" style="padding-left: 40px;">
+                    <label>{{x.MaxCubic}} {{x.MaxCubicUnit}} </label>
+                </div>
+            </div>
+            <div class="col-lg-12" style="padding-left:0px;padding-right:0px;">
+                <div class="col-lg-6" style="padding-left:0px;">
+                    <label>Max Qty</label>
+                </div>
+                <div class="col-lg-6" style="padding-left: 40px;">
+                    <label>{{x.MaxQuantity}}</label>
+                </div>
+            </div>
+            <div class="col-lg-12" style="padding-left:0px;padding-right:0px;">
+                <div class="col-lg-6" style="padding-left:0px;">
+                    <label>Dimentions</label>
+                </div>
+                <div class="col-lg-6" style="padding-left:40px;">
+                    <label>{{x.Width}}-{{x.Height}}-{{x.Depth}} </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

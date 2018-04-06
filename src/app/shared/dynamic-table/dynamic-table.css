@@ -1,0 +1,70 @@
+.dynamic-table-wrapper {
+    min-height: 250px;
+    overflow: auto;
+}
+
+.dynamic-table-wrapper .table {
+    table-layout: fixed;
+}
+
+.dynamic-table-wrapper .table thead {
+    border-bottom: 2px solid #4385f5;
+}
+
+.dynamic-table-wrapper .table th {
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+}
+
+.dynamic-table-wrapper .table thead th.edit {
+    text-align: center;
+    width: 45px;
+}
+
+.dynamic-table-wrapper .table thead th.edit {
+    text-align: center;
+    width: 60px;
+}
+
+.dynamic-table-wrapper .table tbody td.edit {
+    font-size: medium;
+    text-align: center;
+    width: 45px;
+}
+
+.dynamic-table-wrapper .table tbody td.edit {
+    font-size: medium;
+    text-align: center;
+    width: 60px;
+}
+
+.dynamic-table-container .widget .widget-header {
+    background-color: #f4f4f4 !important;
+    color: #444;
+    box-shadow: none;
+}
+
+.dynamic-table-container .widget .widget-header .title {
+    padding: 4px 5px;
+    text-align: left;
+}
+
+.dynamic-table-container .widget .widget-header .search {
+    padding-top: 1px;
+    padding-right: 5px;
+}
+
+.dynamic-pagination input[type="number"] {
+    width: 60px;
+}
+
+.dynamic-pagination .record-info {
+    padding: 5px;
+    margin-right: 5px;
+}
+
+.table-hover>tbody>tr.no-records:hover {
+    background-color: transparent;
+}

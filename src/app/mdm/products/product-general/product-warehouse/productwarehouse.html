@@ -1,0 +1,278 @@
+<!-- hide save -->
+<span ng-if="!ProductWarehouseCtrl.ePage.Masters.Lineslist" ng-init="ProductWarehouseCtrl.ePage.Entities.Header.CheckPoints.DisableSave=true"></span>
+<span ng-if="ProductWarehouseCtrl.ePage.Masters.Lineslist" ng-init="ProductWarehouseCtrl.ePage.Entities.Header.CheckPoints.DisableSave=false"></span>
+
+<!-- To hide and show two directives -->
+<span ng-if="ProductWarehouseCtrl.ePage.Entities.Header.CheckPoints.HideindexWarehouse==false">
+    <span ng-init="ProductWarehouseCtrl.ePage.Masters.selectedRow=-1"></span>
+</span>
+<!-- Saving your data -->
+<div class="grid-loading-norecord-container ng-scope" style='z-index: 4;'data-ng-if="ProductWarehouseCtrl.ePage.Masters.IsLoadingToSave">
+    <div class="grid-no-record">Saving your Data...</div>
+</div>
+
+<div class="p-10" ng-show='ProductWarehouseCtrl.ePage.Masters.Lineslist && ProductWarehouseCtrl.ePage.Entities.Header.CheckPoints.Checkpointhidden'>
+    <div>
+        <span><button type="button" class="btn btn-sm btn-outline-secondary" title="Add New"  data-ng-click="ProductWarehouseCtrl.ePage.Masters.AddNewRow()"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button></span>
+        <span ng-hide='ProductWarehouseCtrl.ePage.Masters.selectedRow==-1'><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Copy"  data-ng-click="ProductWarehouseCtrl.ePage.Masters.CopyRow()"><span class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button></span>
+        <span ng-hide='ProductWarehouseCtrl.ePage.Masters.selectedRow==-1'><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Edit"  data-ng-click="ProductWarehouseCtrl.ePage.Masters.Edit(ProductWarehouseCtrl.ePage.Masters.selectedRow,'Edit List')"><span class="fa fa-pencil"></span>&nbsp;&nbsp;Edit</button></span>
+        <span ng-hide='ProductWarehouseCtrl.ePage.Masters.selectedRow==-1'><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Delete"  data-ng-click="ProductWarehouseCtrl.ePage.Masters.RemoveRow()"><span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button></span>        
+    </div> 
+    <div id='ProductWarehouseCtrl.ePage.Masters.your_div' class="wmstable_scroll" style="height:194px; padding-top: 2px;">
+        <div class="table" id="results">
+            <div class='theader'>
+                <div class='table_header'>List No</div>
+                <div class='table_header'>Client</div>
+                <div class='table_header'>Warehouse</div>
+                <div class='table_header'>Putaway Area</div>
+                <div class='table_header'>BOM Area</div>
+                <div class='table_header'>Receive UQ</div>
+                <div class='table_header'>Release UQ</div>
+                <div class='table_header'>Stocktake Cycle</div>
+                <div class='table_header'>Expiry Period (In Days)</div>
+                <div class='table_header'>Replenishment Minimum</div>
+                <div class='table_header'>Replenishment Multiple</div>
+            </div>
+
+            <!-- List Empty Response -->
+            <div data-ng-if="ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse.length==0">
+                <div class="grid-no-record" style="bottom:250px">No records found...</div>
+            </div>
+
+            <div class='table_row' ng-repeat="x in ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse | orderBy:'CreatedDateTime' | filter:{IsDeleted:'false'}  track by $index" 
+                ng-click="ProductWarehouseCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: ProductWarehouseCtrl.ePage.Masters.selectedRow==$index}" style="font-size: 11px;">
+                <div class='table_small'>
+                    <div class='table_cell'>List No</div>
+                    <div class='table_cell'>
+                        <span class="list-error-warning" data-ng-if="ProductWarehouseCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWarehouse.ERROR | listCount: 'RowIndex': $index">
+                            <error-warning-directive 
+                                list="ProductWarehouseCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWarehouse.ERROR"
+                                type="'error'" icon="fa fa-warning" parent-type="'arrayObjectRow'" parent-ref=""
+                                g-parent-ref="" row-index="$index"
+                                col-index="">
+                            </error-warning-directive>
+                        </span> 
+                        {{$index+1}}
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Client</div>
+                    <div class='table_cell'>{{x.Client || ProductWarehouseCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Warehouse</div>
+                    <div class='table_cell'>{{x.Warehouse || ProductWarehouseCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Putaway Area</div>
+                    <div class='table_cell'>{{x.WAA_PutAwayAreaName || ProductWarehouseCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>BOM Area</div>
+                    <div class='table_cell'>{{x.WAA_StagingAreaBOMName || ProductWarehouseCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Receive UQ</div>
+                    <div class='table_cell'>{{x.PAC_NKReceivedPackType || ProductWarehouseCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Release UQ</div>
+                    <div class='table_cell'>{{x.PAC_NKReleasedPackType || ProductWarehouseCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Stocktake Cycle</div>
+                    <div class='table_cell'>{{x.StockTakeCycle || ProductWarehouseCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Expiry Period (In Days)</div>
+                    <div class='table_cell'>{{x.ExpiryNotificationPeriod || ProductWarehouseCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Replenishment Minimum</div>
+                    <div class='table_cell'>{{x.ReplenishmentMinimum || ProductWarehouseCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Replenishment Multiple</div>
+                    <div class='table_cell'>{{x.ReplenishmentMultiple || ProductWarehouseCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix" ng-hide='ProductWarehouseCtrl.ePage.Masters.Lineslist' style="padding:5px">
+    <div class="panel panel-default mt-5">
+        <div class="panel-heading">
+            <span ng-show="ProductWarehouseCtrl.ePage.Masters.HeaderName =='Copy Of List'">
+                    {{ProductWarehouseCtrl.ePage.Masters.HeaderName}} - {{ProductWarehouseCtrl.ePage.Masters.selectedRow}}                     
+            </span>
+            <span ng-show="ProductWarehouseCtrl.ePage.Masters.HeaderName!='Copy Of List'">
+                    {{ProductWarehouseCtrl.ePage.Masters.HeaderName}} - {{ProductWarehouseCtrl.ePage.Masters.selectedRow+1}}                     
+            </span>
+        </div>
+        <div class="panel-body">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ex-line-padding">
+                <div class="ex-line-box" style="height:225px;padding-top:10px">
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <div class="error-warning-container" ng-repeat="x in ProductWarehouseCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWarehouse.ERROR">
+                                <error-warning-directive data-ng-if="x.ColIndex == 1 && x.RowIndex ==ProductWarehouseCtrl.ePage.Masters.selectedRow"
+                                    list="ProductWarehouseCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWarehouse.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                    g-parent-ref="" row-index="ProductWarehouseCtrl.ePage.Masters.selectedRow"
+                                    col-index="1">
+                                </error-warning-directive>
+                            </div>
+                            <label class="control-label text-single-line">Client</label>
+                            <div  class="input-group input-group-sm">
+                                <span ng-if='ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[ProductWarehouseCtrl.ePage.Masters.selectedRow].Client==" - "'>
+                                    <span ng-init="ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[ProductWarehouseCtrl.ePage.Masters.selectedRow].Client=''"></span>
+                                </span>
+                                <!-- Dynamic look up Search in textbox -->
+                                <div dynamic-lookup placeholder="Client" my-ng-model="ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[ProductWarehouseCtrl.ePage.Masters.selectedRow].Client" auto-complete-on-select="ProductWarehouseCtrl.ePage.Masters.SelectedLookupDataClient($item,ProductWarehouseCtrl.ePage.Masters.selectedRow)"
+                                    obj="ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[ProductWarehouseCtrl.ePage.Masters.selectedRow]" prefix-data="'OrganizationList'" config="'Client'">
+                                </div>
+
+                                <!-- Look Up page opens when button clicks -->
+                                <span class="input-group-btn">
+                                    <button dynamic-list-modal obj="ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[ProductWarehouseCtrl.ePage.Masters.selectedRow]" prefix-data="'OrganizationList'" field-name="'Client'" selected-data="ProductWarehouseCtrl.ePage.Masters.SelectedLookupDataClient($item.entity,ProductWarehouseCtrl.ePage.Masters.selectedRow)" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                </span>
+                                <span ng-if='!ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[ProductWarehouseCtrl.ePage.Masters.selectedRow].Client && ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[ProductWarehouseCtrl.ePage.Masters.selectedRow].PK && !ProductWarehouseCtrl.ePage.Masters.Lineslist && (ProductWarehouseCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWarehouse.ERROR | filter: {RowIndex: ProductWarehouseCtrl.ePage.Masters.selectedRow} | filter: {ColIndex: 1}).length==0'>
+                                    <span ng-init="ProductWarehouseCtrl.ePage.Masters.OnChangeValues(ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[ProductWarehouseCtrl.ePage.Masters.selectedRow].Client,'E7025',true,ProductWarehouseCtrl.ePage.Masters.selectedRow)"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <div class="error-warning-container" ng-repeat="x in ProductWarehouseCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWarehouse.ERROR">
+                                <error-warning-directive data-ng-if="x.ColIndex == 2 && x.RowIndex ==ProductWarehouseCtrl.ePage.Masters.selectedRow"
+                                    list="ProductWarehouseCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWarehouse.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                    g-parent-ref="" row-index="ProductWarehouseCtrl.ePage.Masters.selectedRow"
+                                    col-index="2">
+                                </error-warning-directive>
+                            </div>
+                            <label class="control-label text-single-line">Warehouse</label>
+                            <div  class="input-group input-group-sm">
+                                <span ng-if='ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[ProductWarehouseCtrl.ePage.Masters.selectedRow].Warehouse==" - "'>
+                                    <span ng-init="ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[ProductWarehouseCtrl.ePage.Masters.selectedRow].Warehouse=''"></span>
+                                </span>
+                                <!-- Dynamic look up Search in textbox -->
+                                <div dynamic-lookup placeholder="Warehouse" my-ng-model="ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[ProductWarehouseCtrl.ePage.Masters.selectedRow].Warehouse" auto-complete-on-select="ProductWarehouseCtrl.ePage.Masters.SelectedLookupDataWarehouse($item,ProductWarehouseCtrl.ePage.Masters.selectedRow)"
+                                    obj="ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[ProductWarehouseCtrl.ePage.Masters.selectedRow]" prefix-data="'Warehouse'" config="'Warehouse'">
+                                </div>
+
+                                <!-- Look Up page opens when button clicks -->
+                                <span class="input-group-btn">
+                                    <button dynamic-list-modal obj="ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[ProductWarehouseCtrl.ePage.Masters.selectedRow]" prefix-data="'Warehouse'" field-name="'Warehouse'" selected-data="ProductWarehouseCtrl.ePage.Masters.SelectedLookupDataWarehouse($item.entity,ProductWarehouseCtrl.ePage.Masters.selectedRow)" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                </span>
+                                <span ng-if='!ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[ProductWarehouseCtrl.ePage.Masters.selectedRow].Warehouse && ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[ProductWarehouseCtrl.ePage.Masters.selectedRow].PK && !ProductWarehouseCtrl.ePage.Masters.Lineslist && (ProductWarehouseCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWarehouse.ERROR | filter: {RowIndex: ProductWarehouseCtrl.ePage.Masters.selectedRow} | filter: {ColIndex: 2}).length==0'>
+                                    <span ng-init="ProductWarehouseCtrl.ePage.Masters.OnChangeValues(ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[ProductWarehouseCtrl.ePage.Masters.selectedRow].Warehouse,'E7026',true,ProductWarehouseCtrl.ePage.Masters.selectedRow)"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Putaway Area</label>
+                            <div  class="input-group input-group-sm">
+                                <!-- Dynamic look up Search in textbox -->
+                                <div dynamic-lookup placeholder="Putaway Area" my-ng-model="ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[ProductWarehouseCtrl.ePage.Masters.selectedRow].WAA_PutAwayAreaName" 
+                                    obj="ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[ProductWarehouseCtrl.ePage.Masters.selectedRow]" prefix-data="'WarehouseArea'" config="'PutawayArea'" is-disabled='!ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[ProductWarehouseCtrl.ePage.Masters.selectedRow].Warehouse'>
+                                </div>
+
+                                <!-- Look Up page opens when button clicks -->
+                                <span class="input-group-btn">
+                                    <button is-disabled='!ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[ProductWarehouseCtrl.ePage.Masters.selectedRow].Warehouse' dynamic-list-modal obj="ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[ProductWarehouseCtrl.ePage.Masters.selectedRow]" prefix-data="'WarehouseArea'" field-name="'PutawayArea'"  mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">BOM Area</label>
+                            <div  class="input-group input-group-sm">
+                                <!-- Dynamic look up Search in textbox -->
+                                <div dynamic-lookup placeholder="BOM Area" my-ng-model="ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[ProductWarehouseCtrl.ePage.Masters.selectedRow].WAA_StagingAreaBOMName" 
+                                    obj="ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[ProductWarehouseCtrl.ePage.Masters.selectedRow]" prefix-data="'WarehouseArea'" config="'BOMArea'" is-disabled='!ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[ProductWarehouseCtrl.ePage.Masters.selectedRow].Warehouse'>
+                                </div>
+
+                                <!-- Look Up page opens when button clicks -->
+                                <span class="input-group-btn">
+                                    <button is-disabled='!ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[ProductWarehouseCtrl.ePage.Masters.selectedRow].Warehouse' dynamic-list-modal obj="ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[ProductWarehouseCtrl.ePage.Masters.selectedRow]" prefix-data="'WarehouseArea'" field-name="'BOMArea'"  mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Receive UQ</label>
+                            <div  class="">
+                                <select chosen class="form-control" ng-model="ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[ProductWarehouseCtrl.ePage.Masters.selectedRow].PAC_NKReceivedPackType" ng-options="x.Key as x.Key + ' - '  + x.Value for x in ProductWarehouseCtrl.ePage.Masters.DropDownMasterList.INW_LINE_UQ.ListSource" search-contains="true">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Release UQ</label>
+                            <div  class="">
+                                <select chosen class="form-control" ng-model="ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[ProductWarehouseCtrl.ePage.Masters.selectedRow].PAC_NKReleasedPackType" ng-options="x.Key as x.Key + ' - '  + x.Value for x in ProductWarehouseCtrl.ePage.Masters.DropDownMasterList.INW_LINE_UQ.ListSource" search-contains="true">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Stock Take Cycle</label>
+                            <div  class="">
+                                <select chosen class="form-control" ng-model="ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[ProductWarehouseCtrl.ePage.Masters.selectedRow].StockTakeCycle" ng-options="x.Key as x.Key + ' - '  + x.Value for x in ProductWarehouseCtrl.ePage.Masters.DropDownMasterList.StockTakeCycle.ListSource" search-contains="true">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Expiry Period (In Days)</label>
+                            <div  class="">
+                                <input type="text" maxlength="4" numbers-only class="form-control input-sm" placeholder="Expiry Period" data-ng-model="ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[ProductWarehouseCtrl.ePage.Masters.selectedRow].ExpiryNotificationPeriod"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Replenishment Minimum</label>
+                            <div  class="">
+                                <input type="text" maxlength="5" numbers-only class="form-control input-sm" placeholder="Replenishment Minimum" data-ng-model="ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[ProductWarehouseCtrl.ePage.Masters.selectedRow].ReplenishmentMinimum"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Replenishment Multiple</label>
+                            <div  class="">
+                                <input type="text" maxlength="5" numbers-only class="form-control input-sm" placeholder="Replenishment Multiple" data-ng-model="ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[ProductWarehouseCtrl.ePage.Masters.selectedRow].ReplenishmentMultiple"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-lg-offset-8 mt-5">
+                <button class="btn btn-blue btn-sm mr-5 pull-right" title="Save" data-ng-click="ProductWarehouseCtrl.ePage.Masters.Done()"><i class="fa fa-save pr-5"></i>Save</button>
+                <button class="btn btn-primary btn-sm mr-5 pull-right" title="Delete" data-ng-click="ProductWarehouseCtrl.ePage.Masters.RemoveRow()"><i class="fa fa-trash pr-5"></i>Delete</button>
+                <button class="btn btn-primary btn-sm mr-5 pull-right" title="Back" data-ng-click="ProductWarehouseCtrl.ePage.Masters.Back()"><i class="fa fa-angle-double-left pr-5"></i>Back</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Pickface directive -->
+<span ng-show='ProductWarehouseCtrl.ePage.Masters.Lineslist'>
+    <pickface current-product="ProductWarehouseCtrl.currentProduct"></pickface>        
+</span>
+    
+    

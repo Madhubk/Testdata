@@ -1,0 +1,14 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="ManifestMenuCtrl.ePage.Masters.CloseEditActivityModal()">&times;</button>
+    <h5 class="modal-title" id="modal-title">
+        <strong>{{ManifestMenuCtrl.ePage.Entities.Header.Data.ProcessInfo[0].WSI_StepName}} - {{ManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestNumber}}</strong>
+    </h5>
+</div>
+<div class="clearfix">
+    <receive-items current-manifest="ManifestMenuCtrl.currentManifest" active-menu="">
+    </receive-items>
+</div>
+<div class="clearfix col-lg-12 mt-10">
+    <input type="button" class="btn btn-primary btn-sm pull-right ml-5" data-ng-click="ManifestMenuCtrl.ePage.Masters.Complete(ManifestMenuCtrl.currentManifest)"
+        data-ng-disabled="ManifestMenuCtrl.ePage.Masters.IsDisableCompleteBtn" value="{{ManifestMenuCtrl.ePage.Masters.CompleteBtnText}}">
+</div>

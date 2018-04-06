@@ -1,0 +1,31 @@
+<uib-tabset id="chromeTab" active="TrackShipmentCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+    <uib-tab>
+        <uib-tab-heading title="Track Shipment">
+            <span data-ng-bind="'Track Shipment'"></span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+        <div class="no-padding tab-list-view-wrapper">
+            <!--Shipment Grid Page-->
+            <dynamic-list dataentry-name="TrackShipmentCtrl.ePage.Masters.dataentryName" task-name="TrackShipmentCtrl.ePage.Masters.taskName" grid-config-type="0" selected-grid-row="TrackShipmentCtrl.ePage.Masters.SelectedGridRow($item)" mode="1"></dynamic-list>
+            <div class="tab-loading" data-ng-show="TrackShipmentCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+    <uib-tab active="TrackShipmentCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in TrackShipmentCtrl.ePage.Masters.TabList"
+        ng-click="TrackShipmentCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+        <uib-tab-heading title="{{tab.label}}">
+            <span data-ng-bind="tab.label"></span>
+            <i class="glyphicon glyphicon-remove" ng-click="TrackShipmentCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+        </uib-tab-heading>
+        <div class="padding-bottom-10 clearfix">
+            <!--Track Shipment Directive-->
+            <track-shipment-directive current-shipment="tab"></track-shipment-directive>
+            <!--Standard Menu Directive-->
+            <div class="eaxis-footer-strip">
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
+                    <standard-menu entity-name="'ShipmentSearch'" input="tab" data-ng-if="!tab.isNew"></standard-menu>
+                </div>
+            </div>
+            <!--Standard Menu Directive-->
+        </div>
+    </uib-tab>
+</uib-tabset>

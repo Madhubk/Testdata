@@ -1,0 +1,334 @@
+<div class="clearfix  padding-top-10">
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
+            <div class="clearfix">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                    <div class="form-group">
+                        <label class="control-label">Pickup Mode</label>
+                        <div class="">
+                            <select chosen name="category-group" class="form-control" ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.FCLPickupEquipmentNeeded"
+                                ng-options="x.Key as x.Description for x in BookingPickupAndDeliveryCtrl.ePage.Masters.DropDownMasterList.DROPMODE.ListSource">
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!--Shipper Reference-->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                    <div class="form-group">
+                        <label class="control-label">Shipper Reference</label>
+                        <div class="">
+                            <input type="text" class="form-control input-sm" placeholder="Shipper Reference" max-length="40" data-ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.BookingReference">
+                        </div>
+                    </div>
+                </div>
+                <!--Ltd. Qty.-->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                    <div class="form-group">
+                        <label class="control-label text-single-line">Insurance Required</label>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" data-ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.InsuranceRequired"
+                                    class="colored-blue">
+                                <span class="text"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <!--Export Broker Organization Code-->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                    <div class="form-group">
+                        <label class="control-label text-single-line">Export Broker</label>
+                        <div class="input-group input-group-sm">
+                            <input type="hidden" ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_ExportBroker_FK">
+                            <div dynamic-lookup placeholder="Organization Code" my-ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_ExportBroker_Code"
+                                obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader" prefix-data="'OrganizationList'"
+                                config="'ShpExportBrokerOrg'" auto-complete-on-select="BookingPickupAndDeliveryCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item,'address', 'Export','UIShipmentHeader')"></div>
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader" field-name="'ShpExportBrokerOrg'"
+                                    prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingPickupAndDeliveryCtrl.ePage.Masters.SelectedLookupData($item,'address', 'Export','UIShipmentHeader')"
+                                    class="btn btn-default shiny" type="button">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Pickup from Organization Code-->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                    <div class="form-group">
+                        <label class="control-label text-single-line">Pickup from</label>
+                        <div class="input-group input-group-sm">
+                            <input type="hidden" ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.ORG_FK">
+                            <div dynamic-lookup placeholder="Organization Code" my-ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.ORG_Code"
+                                obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG" prefix-data="'OrganizationList'"
+                                config="'JobAddressOrg'" auto-complete-on-select="BookingPickupAndDeliveryCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item, 'address', 'CRG','UIAddressContactList')"></div>
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG" field-name="'JobAddressOrg'"
+                                    prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingPickupAndDeliveryCtrl.ePage.Masters.SelectedLookupData($item, 'address', 'CRG','UIAddressContactList')"
+                                    class="btn btn-default shiny" type="button">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!--Pickup from Address-->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                    <div class="form-group">
+                        <label class="control-label text-single-line">Address</label>
+                        <div class="input-group input-group-sm">
+                            <input type="hidden" ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.OAD_Address_FK">
+
+                            <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignor address" data-ng-model="BookingPickupAndDeliveryCtrl.ePage.Masters.AddressContactBinding((BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.AddressList | filter: {PK: BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.OAD_Address_FK})[0],'Address')"
+                                ng-model-options="{ getterSetter: true }"></textarea>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" data-ng-click="BookingPickupAndDeliveryCtrl.ePage.Masters.IsCRGAddressOpen=!BookingPickupAndDeliveryCtrl.ePage.Masters.IsCRGAddressOpen">
+                                    <i class="fa fa-address-book-o"></i>
+                                    <!--<i class="fa fa-caret-down"></i>-->
+                                </button>
+                            </span>
+                            <div class="dropdownWrapMiddle dropdownWrapSmall animated fadeInDown" data-ng-show="BookingPickupAndDeliveryCtrl.ePage.Masters.IsCRGAddressOpen">
+                                <address-wrapper obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.AddressList" type="'CRG'"
+                                    list-source="'AddressList'" selected="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.OAD_Address_FK"
+                                    on-address-edit="BookingPickupAndDeliveryCtrl.ePage.Masters.OnAddressEdit($item,'OAD_Address_FK', 'CRG', 'Address','UIAddressContactList')"
+                                    on-address-change="BookingPickupAndDeliveryCtrl.ePage.Masters.OnAddressChange($item,'OAD_Address_FK', 'CRG', 'Address','UIAddressContactList')"></address-wrapper>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!--Pickup from Contact-->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                    <div class="form-group">
+                        <label class="control-label text-single-line">Contact</label>
+                        <div class="input-group input-group-sm">
+
+                            <input type="hidden" ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.OCT_FK">
+
+                            <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignor contact" data-ng-model="BookingPickupAndDeliveryCtrl.ePage.Masters.AddressContactBinding((BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.ContactList | filter: {PK: BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.OCT_FK})[0],'Contact')"
+                                ng-model-options="{ getterSetter: true }"></textarea>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" data-ng-click="BookingPickupAndDeliveryCtrl.ePage.Masters.IsCRGContactOpen=!BookingPickupAndDeliveryCtrl.ePage.Masters.IsCRGContactOpen">
+                                    <i class="fa fa-phone"></i>
+                                </button>
+                            </span>
+                            <div class="dropdownWrapLast dropdownWrapSmall animated fadeInDown" data-ng-show="BookingPickupAndDeliveryCtrl.ePage.Masters.IsCRGContactOpen">
+                                <address-wrapper obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.ContactList" type="'CRG'"
+                                    list-source="'ContactList'" selected="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.OCT_FK"
+                                    on-address-change="BookingPickupAndDeliveryCtrl.ePage.Masters.OnContactChange($item,'OCT_FK', 'CRG', 'Contact','UIAddressContactList')"></address-wrapper>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!--Pickup - CFS Organization Code-->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                    <div class="form-group">
+                        <label class="control-label text-single-line">CFS/CTO</label>
+                        <div class="input-group input-group-sm">
+                            <input type="hidden" ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_ExportReceivingCFS_FK">
+                            <div dynamic-lookup placeholder="Organization Code" my-ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_ExportReceivingCFS_Code"
+                                obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader" prefix-data="'OrganizationList'"
+                                config="'ShpPickupCFSOrg'" auto-complete-on-select="BookingPickupAndDeliveryCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item,'address', 'PCFS','UIShipmentHeader')"></div>
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader" field-name="'ShpPickupCFSOrg'"
+                                    prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingPickupAndDeliveryCtrl.ePage.Masters.SelectedLookupData($item,'address', 'PCFS','UIShipmentHeader')"
+                                    class="btn btn-default shiny" type="button">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!--Pickup - CFS Address-->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                    <div class="form-group">
+                        <label class="control-label text-single-line">Address</label>
+                        <div class="input-group input-group-sm">
+                            <input type="hidden" ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.OAD_ExportReceivingDepot_FK">
+
+                            <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignor address" data-ng-model="BookingPickupAndDeliveryCtrl.ePage.Masters.AddressContactBinding((BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PCFS.AddressList | filter: {PK: BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.OAD_ExportReceivingDepot_FK})[0],'Address')"
+                                ng-model-options="{ getterSetter: true }"></textarea>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" data-ng-click="BookingPickupAndDeliveryCtrl.ePage.Masters.IsPCFSAddressOpen=!BookingPickupAndDeliveryCtrl.ePage.Masters.IsPCFSAddressOpen">
+                                    <i class="fa fa-address-book-o"></i>
+                                    <!--<i class="fa fa-caret-down"></i>-->
+                                </button>
+                            </span>
+                            <div class="dropdownWrapMiddle dropdownWrapSmall animated fadeInDown" data-ng-show="BookingPickupAndDeliveryCtrl.ePage.Masters.IsPCFSAddressOpen">
+                                <address-wrapper obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PCFS.AddressList" type="'PCFS'"
+                                    list-source="'AddressList'" selected="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.OAD_ExportReceivingDepot_FK"
+                                    on-address-edit="BookingPickupAndDeliveryCtrl.ePage.Masters.OnAddressEdit($item,'OAD_ExportReceivingDepot_FK', 'PCFS', 'Address','UIShipmentHeader')"
+                                    on-address-change="BookingPickupAndDeliveryCtrl.ePage.Masters.OnAddressChange($item,'OAD_ExportReceivingDepot_FK', 'PCFS', 'Address','UIShipmentHeader')"></address-wrapper>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!--Pickup - CFS Contact-->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                    <div class="form-group">
+                        <label class="control-label text-single-line">Contact</label>
+                        <div class="input-group input-group-sm">
+
+                            <input type="hidden" ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportOrgContact_FK">
+
+                            <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignor contact" data-ng-model="BookingPickupAndDeliveryCtrl.ePage.Masters.AddressContactBinding((BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PCFS.ContactList | filter: {PK: BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportOrgContact_FK})[0],'Contact')"
+                                ng-model-options="{ getterSetter: true }"></textarea>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" data-ng-click="BookingPickupAndDeliveryCtrl.ePage.Masters.IsPCFSContactOpen=!BookingPickupAndDeliveryCtrl.ePage.Masters.IsPCFSContactOpen">
+                                    <i class="fa fa-phone"></i>
+                                </button>
+                            </span>
+                            <div class="dropdownWrapLast dropdownWrapSmall animated fadeInDown" data-ng-show="BookingPickupAndDeliveryCtrl.ePage.Masters.IsPCFSContactOpen">
+                                <address-wrapper obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PCFS.ContactList" type="'PCFS'"
+                                    list-source="'ContactList'" selected="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportOrgContact_FK"
+                                    on-address-change="BookingPickupAndDeliveryCtrl.ePage.Masters.OnContactChange($item,'ExportOrgContact_FK', 'PCFS', 'Contact','UIShipmentHeader')"></address-wrapper>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!--Pickup Agent Organization Code-->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                    <div class="form-group">
+                        <label class="control-label text-single-line">Pickup Agent</label>
+                        <div class="input-group input-group-sm">
+                            <input type="hidden" ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG.ORG_FK">
+                            <div dynamic-lookup placeholder="Organization Code" my-ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG.ORG_Code"
+                                obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG" prefix-data="'OrganizationList'"
+                                config="'JobAddressOrg'" auto-complete-on-select="BookingPickupAndDeliveryCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item, 'address', 'PAG','UIAddressContactList')"></div>
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG" field-name="'JobAddressOrg'"
+                                    prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingPickupAndDeliveryCtrl.ePage.Masters.SelectedLookupData($item, 'address', 'PAG','UIAddressContactList')"
+                                    class="btn btn-default shiny" type="button">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!--Pickup Agent Address-->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                    <div class="form-group">
+                        <label class="control-label text-single-line">Address</label>
+
+                        <div class="input-group input-group-sm">
+                            <input type="hidden" ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG.OAD_Address_FK">
+
+                            <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignor address" data-ng-model="BookingPickupAndDeliveryCtrl.ePage.Masters.AddressContactBinding((BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG.AddressList | filter: {PK: BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG.OAD_Address_FK})[0],'Address')"
+                                ng-model-options="{ getterSetter: true }"></textarea>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" data-ng-click="BookingPickupAndDeliveryCtrl.ePage.Masters.IsPAGAddressOpen=!BookingPickupAndDeliveryCtrl.ePage.Masters.IsPAGAddressOpen">
+                                    <i class="fa fa-address-book-o"></i>
+                                    <!--<i class="fa fa-caret-down"></i>-->
+                                </button>
+                            </span>
+                            <div class="dropdownWrapMiddle dropdownWrapSmall animated fadeInDown" data-ng-show="BookingPickupAndDeliveryCtrl.ePage.Masters.IsPAGAddressOpen">
+                                <address-wrapper obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG.AddressList" type="'PAG'"
+                                    list-source="'AddressList'" selected="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG.OAD_Address_FK"
+                                    on-address-edit="BookingPickupAndDeliveryCtrl.ePage.Masters.OnAddressEdit($item,'OAD_Address_FK', 'PAG', 'Address','UIAddressContactList')"
+                                    on-address-change="BookingPickupAndDeliveryCtrl.ePage.Masters.OnAddressChange($item,'OAD_Address_FK', 'PAG', 'Address','UIAddressContactList')"></address-wrapper>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Pickup Agent Contact-->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                    <div class="form-group">
+                        <label class="control-label text-single-line">Contact</label>
+                        <div class="input-group input-group-sm">
+
+                            <input type="hidden" ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG.OCT_FK">
+
+                            <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignor contact" data-ng-model="BookingPickupAndDeliveryCtrl.ePage.Masters.AddressContactBinding((BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG.ContactList | filter: {PK: BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG.OCT_FK})[0],'Contact')"
+                                ng-model-options="{ getterSetter: true }"></textarea>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" data-ng-click="BookingPickupAndDeliveryCtrl.ePage.Masters.IsPAGContactOpen=!BookingPickupAndDeliveryCtrl.ePage.Masters.IsPAGContactOpen">
+                                    <i class="fa fa-phone"></i>
+                                </button>
+                            </span>
+                            <div class="dropdownWrapLast dropdownWrapSmall animated fadeInDown" data-ng-show="BookingPickupAndDeliveryCtrl.ePage.Masters.IsPAGContactOpen">
+                                <address-wrapper obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG.ContactList" type="'PAG'"
+                                    list-source="'ContactList'" selected="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG.OCT_FK"
+                                    on-address-change="BookingPickupAndDeliveryCtrl.ePage.Masters.OnContactChange($item,'OCT_FK', 'PAG', 'Contact','UIAddressContactList')"></address-wrapper>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!--Pickup - Transport Company Organization Code-->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                    <div class="form-group">
+                        <label class="control-label text-single-line">Transport Company</label>
+                        <div class="input-group input-group-sm">
+                            <input type="hidden" ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupTransportFK">
+                            <div dynamic-lookup placeholder="Organization Code" my-ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupTransportCode"
+                                obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery" prefix-data="'OrganizationList'"
+                                config="'ShpPickupTransCompOrg'" auto-complete-on-select="BookingPickupAndDeliveryCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item,'address', 'Pickup','UIJobPickupAndDelivery')"></div>
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery" field-name="'ShpPickupTransCompOrg'"
+                                    prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingPickupAndDeliveryCtrl.ePage.Masters.SelectedLookupData($item,'address', 'Pickup','UIJobPickupAndDelivery')"
+                                    class="btn btn-default shiny" type="button">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!--Pickup - Transport Company Address-->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                    <div class="form-group">
+                        <label class="control-label text-single-line">Address</label>
+
+                        <div class="input-group input-group-sm">
+                            <input type="hidden" ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupTransportAddressFK">
+
+                            <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignor address" data-ng-model="BookingPickupAndDeliveryCtrl.ePage.Masters.AddressContactBinding((BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.Pickup.AddressList | filter: {PK: BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupTransportAddressFK})[0],'Address')"
+                                ng-model-options="{ getterSetter: true }"></textarea>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" data-ng-click="BookingPickupAndDeliveryCtrl.ePage.Masters.IsPickupAddressOpen=!BookingPickupAndDeliveryCtrl.ePage.Masters.IsPickupAddressOpen">
+                                    <i class="fa fa-address-book-o"></i>
+                                    <!--<i class="fa fa-caret-down"></i>-->
+                                </button>
+                            </span>
+                            <div class="dropdownWrapMiddle dropdownWrapSmall animated fadeInDown" data-ng-show="BookingPickupAndDeliveryCtrl.ePage.Masters.IsPickupAddressOpen">
+                                <address-wrapper obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.Pickup.AddressList"
+                                    type="'Pickup'" list-source="'AddressList'" selected="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupTransportAddressFK"
+                                    on-address-edit="BookingPickupAndDeliveryCtrl.ePage.Masters.OnAddressEdit($item,'PickupTransportAddressFK' ,'Pickup', 'Address','UIJobPickupAndDelivery')"
+                                    on-address-change="BookingPickupAndDeliveryCtrl.ePage.Masters.OnAddressChange($item,'PickupTransportAddressFK', 'Pickup', 'Address','UIJobPickupAndDelivery')"></address-wrapper>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Pickup - Transport Company Contact-->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                    <div class="form-group">
+                        <label class="control-label text-single-line">Contact</label>
+                        <div class="input-group input-group-sm">
+
+                            <input type="hidden" ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupTransportContactFK">
+
+                            <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignor contact" data-ng-model="BookingPickupAndDeliveryCtrl.ePage.Masters.AddressContactBinding((BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.Pickup.ContactList | filter: {PK: BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupTransportContactFK})[0],'Contact')"
+                                ng-model-options="{ getterSetter: true }"></textarea>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" data-ng-click="BookingPickupAndDeliveryCtrl.ePage.Masters.IsPCFSContactOpen=!BookingPickupAndDeliveryCtrl.ePage.Masters.IsPickupContactOpen">
+                                    <i class="fa fa-phone"></i>
+                                </button>
+                            </span>
+                            <div class="dropdownWrapLast dropdownWrapSmall animated fadeInDown" data-ng-show="BookingPickupAndDeliveryCtrl.ePage.Masters.IsPickupContactOpen">
+                                <address-wrapper obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.Pickup.ContactList"
+                                    type="'Pickup'" list-source="'ContactList'" selected="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupTransportContactFK"
+                                    on-address-change="BookingPickupAndDeliveryCtrl.ePage.Masters.OnContactChange($item,'PickupTransportContactFK', 'Pickup', 'Contact','UIJobPickupAndDelivery')"></address-wrapper>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

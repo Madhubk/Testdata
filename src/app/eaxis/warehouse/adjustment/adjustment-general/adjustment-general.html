@@ -1,0 +1,789 @@
+<div class="grid-loading-norecord-container ng-scope" data-ng-if="AdjustmentGeneralCtrl.ePage.Masters.OrgPartRelationBlur">
+</div>
+
+<div class="clearfix mt-10">
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+        <div class="noneditable" data-ng-if="!AdjustmentGeneralCtrl.ePage.Entities.Header.CheckPoints.NotFinaliseStage"></div>
+
+        <div class="inner-dashboard-box">
+            <div class="rows border-bottom">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 height-40 border-right pt-10 pb-10">
+                    <span class="dashboard-stock-icon-box">
+                        <i class="icomoon icon-organization-client"></i>
+                    </span>
+                    <label class="ml-5 control-label">Client</label>
+                    <span class="error-warning-container">
+                        <error-warning-directive data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Client.IsWarning && !AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Client.IsError"
+                            list="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Client.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        <error-warning-directive data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Client.IsError" list="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Client.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    </span>
+                </div>
+                <div class="col-lg-9 height-40 p-5">
+                    <div class="input-group1 input-group-sm">
+                        <!-- Dynamic look up Search in textbox -->
+                        <div dynamic-lookup placeholder="Client Code And Name" my-ng-model="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.Client"
+                            auto-complete-on-select="AdjustmentGeneralCtrl.ePage.Masters.SelectedLookupClient($item)" obj="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader"
+                            prefix-data="'OrganizationList'" config="'Client'">
+                        </div>
+                        <!-- Look Up page opens when button clicks -->
+                        <span class="input-group-btn">
+                            <button dynamic-list-modal obj="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader" field-name="'Client'" selected-data="AdjustmentGeneralCtrl.ePage.Masters.SelectedLookupClient($item.entity)"  prefix-data="'OrganizationList'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                        </span>
+                        <span ng-if='!AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.Client&&!AdjustmentGeneralCtrl.currentAdjustment.isNew'>
+                            <div ng-init="AdjustmentGeneralCtrl.ePage.Masters.OnChangeValues(AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.Client,'E10001')"></div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="rows p-5 height-103">
+                <div ng-show="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.Client">
+                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 addressstyle mt-10">
+                        <div class="text-single-line font-12" title='{{AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address1}}'>{{AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address1}}</div>
+                        <div class="text-single-line" title='{{AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address2}}'>{{AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address2}}</div>
+                        <div class="text-single-line" title='{{AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_State}}'>{{AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_State}}</div>
+                        <div class="text-single-line">
+                            <span ng-show="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_City" title="{{AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_City}}">{{AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_City}} -</span>
+                            <span ng-show="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_PostCode" title="{{AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_PostCode}}">{{AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_PostCode}}</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0 mt-30">
+                        <div class="pull-right addressstyle1 font-12" ng-show="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Mobile"
+                            title="{{AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Mobile}}">{{AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Mobile}}
+                            <i class="fa fa-phone ml-5 mr-5"></i>
+                        </div>
+                        <div class="pull-right addressstyle1 font-12" ng-show="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Email"
+                            title="{{AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Email}}">{{AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Email}}
+                            <i class="fa fa-envelope-o ml-5 mr-5"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Info-->
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+        <div class="noneditable" data-ng-if="!AdjustmentGeneralCtrl.ePage.Entities.Header.CheckPoints.NotFinaliseStage"></div>
+
+        <div class="ex-adjustment_general-box">
+            <!--Status-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                    <label class="control-label text-single-line">Status</label>
+                </div>
+                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 form-group">
+                    <div class="">
+                        <label class="wocstatus1" ng-bind="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.WorkOrderStatusDesc"></label>
+                    </div>
+                </div>
+            </div>
+            <!--Warehouse Code And Name-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 mt-5">
+                    <label class="control-label text-single-line">Warehouse</label>
+                </div>
+                <div class="error-warning-container">
+                    <error-warning-directive data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.IsWarning && !AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.IsError"
+                        list="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.WARNING" type="'warning'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.IsError" list="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
+                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 form-group">
+                    <div class="input-group1 input-group-sm">
+                        <!-- Dynamic look up Search in textbox -->
+                        <div dynamic-lookup placeholder="Warehouse Code And Name" my-ng-model="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.Warehouse"
+                            obj="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader" prefix-data="'Warehouse'"
+                            config="'Warehouse'" auto-complete-on-select="AdjustmentGeneralCtrl.ePage.Masters.SelectedLookupWarehouse($item)">
+                        </div>
+
+                        <!-- Look Up page opens when button clicks -->
+                        <span class="input-group-btn">
+                                <button dynamic-list-modal obj="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader" field-name="'Warehouse'" selected-data="AdjustmentGeneralCtrl.ePage.Masters.SelectedLookupWarehouse($item.entity)"  prefix-data="'Warehouse'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                        </span>
+                        <span ng-if='!AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.Warehouse&&!AdjustmentGeneralCtrl.currentAdjustment.isNew'>
+                            <div ng-init="AdjustmentGeneralCtrl.ePage.Masters.OnChangeValues(AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.Warehouse,'E10002')"></div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!--Reference-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                    <label class="control-label text-single-line">Reference</label>
+                </div>
+                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 form-group">
+                    <div class="">
+                        <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Reference" disabled
+                            data-ng-model="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.ExternalReference">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix">
+    <!-- hide save -->
+    <span ng-if="!AdjustmentGeneralCtrl.ePage.Masters.Lineslist && AdjustmentGeneralCtrl.ePage.Entities.Header.CheckPoints.NotFinaliseStage"
+        ng-init="AdjustmentGeneralCtrl.ePage.Entities.Header.CheckPoints.DisableSave=true"></span>
+    <span ng-if="AdjustmentGeneralCtrl.ePage.Masters.Lineslist && AdjustmentGeneralCtrl.ePage.Entities.Header.CheckPoints.NotFinaliseStage"
+        ng-init="AdjustmentGeneralCtrl.ePage.Entities.Header.CheckPoints.DisableSave=false"></span>
+
+    <!-- Saving Your Data -->
+    <div class="grid-loading-norecord-container ng-scope" style='z-index: 4;' data-ng-if="AdjustmentGeneralCtrl.ePage.Masters.IsLoadingToSave">
+        <div class="grid-no-record">Saving your Data...</div>
+    </div>
+    <div class="p-10" ng-show='AdjustmentGeneralCtrl.ePage.Masters.Lineslist'>
+        <div ng-show="AdjustmentGeneralCtrl.ePage.Entities.Header.CheckPoints.NotFinaliseStage">
+            <span><button type="button" class="btn btn-sm btn-outline-secondary" title="Add New"  data-ng-click="AdjustmentGeneralCtrl.ePage.Masters.AddNewRow()"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add
+            New
+            </button>
+            </span>
+            <span ng-hide='AdjustmentGeneralCtrl.ePage.Masters.selectedRow==-1'><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Copy"  data-ng-click="AdjustmentGeneralCtrl.ePage.Masters.CopyRow()"><span class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button>
+            </span>
+            <span ng-hide='AdjustmentGeneralCtrl.ePage.Masters.selectedRow==-1'><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Edit"  data-ng-click="AdjustmentGeneralCtrl.ePage.Masters.Edit(AdjustmentGeneralCtrl.ePage.Masters.selectedRow,'Edit List')"><span class="fa fa-pencil"></span>&nbsp;&nbsp;Edit</button>
+            </span>
+            <span ng-hide='AdjustmentGeneralCtrl.ePage.Masters.selectedRow==-1'><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Delete"  data-ng-click="AdjustmentGeneralCtrl.ePage.Masters.RemoveRow()"><span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button>
+            </span>
+        </div>
+
+        <div id='AdjustmentGeneralCtrl.ePage.Masters.your_div' class="wmstable_scroll" style="height:300px; padding-top: 2px;">
+            <div class="table" id="results">
+                <div class='theader'>
+                    <div class='table_header'>List No</div>
+                    <div class='table_header'>Product</div>
+                    <div class='table_header'>Commodity</div>
+                    <div class='table_header'>Packs</div>
+                    <div class='table_header'>Quantity</div>
+                    <div class='table_header'>Location</div>
+                    <div class='table_header'>Arrival Date</div>
+                    <div class='table_header'>Pallet ID</div>
+                    <div class='table_header'>Adjustment Reason</div>
+                    <div class='table_header'>Committed Qty</div>
+                    <div class='table_header' ng-show="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.IMPartAttrib1Name">{{AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.IMPartAttrib1Name}}</div>
+                    <div class='table_header' ng-show="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.IMPartAttrib2Name">{{AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.IMPartAttrib2Name}}</div>
+                    <div class='table_header' ng-show="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.IMPartAttrib3Name">{{AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.IMPartAttrib3Name}}</div>
+                    <div class='table_header' ng-show="!AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.IMPartAttrib1Name">Part Attribute1</div>
+                    <div class='table_header' ng-show="!AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.IMPartAttrib2Name">Part Attribute2</div>
+                    <div class='table_header' ng-show="!AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.IMPartAttrib3Name">Part Attribute3</div>
+                    <div class='table_header'>Packing Date</div>
+                    <div class='table_header'>Expiry Date</div>
+                    <div class='table_header'>Hold Code</div>
+                </div>
+
+                <!-- List Empty Response -->
+                <div data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length==0">
+                    <div class="grid-no-record" style="bottom: 250px;">No records found...</div>
+                </div>
+
+                <div class='table_row' ng-repeat="x in AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine | orderBy:'CreatedDateTime'  | filter:{IsDeleted:'false'}  track by $index"
+                    ng-click="AdjustmentGeneralCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: AdjustmentGeneralCtrl.ePage.Masters.selectedRow==$index}"
+                    style="font-size: 11px;">
+                    <div class='table_small'>
+                        <div class='table_cell'>List No</div>
+                        <div class='table_cell'>{{$index+1}}
+                            
+                            <span class="list-error-warning" data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | listCount: 'RowIndex': $index">
+                                <error-warning-directive 
+                                    list="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectRow'" parent-ref=""
+                                    g-parent-ref="" row-index="$index"
+                                    col-index="">
+                                </error-warning-directive>
+                            </span>
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Product</div>
+                        <div class='table_cell'>{{x.Product || AdjustmentGeneralCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Product</div>
+                        <div class='table_cell'>{{x.Commodity || AdjustmentGeneralCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Packs</div>
+                        <div class='table_cell'>{{x.Packs || AdjustmentGeneralCtrl.ePage.Masters.emptyText}}{{x.PAC_PackType}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Quantity</div>
+                        <div class='table_cell'>{{x.Units || "-"}} {{x.StockKeepingUnit}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Location</div>
+                        <div class='table_cell'>{{x.WLO_Location || AdjustmentGeneralCtrl.ePage.Masters.emptyText}} </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Arrival Date</div>
+                        <div class='table_cell'>{{x.AdjustmentArrivalDate || AdjustmentGeneralCtrl.ePage.Masters.emptyText | dateFormat}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Pallet ID</div>
+                        <div class='table_cell'>{{x.PalletID || AdjustmentGeneralCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Adjustment Reason</div>
+                        <div class='table_cell'>{{x.ReasonCode || AdjustmentGeneralCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Committed Qty</div>
+                        <div class='table_cell'>{{x.CommitedUnit || AdjustmentGeneralCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small' ng-show="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.IMPartAttrib1Name">
+                        <div class='table_cell'>{{AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.IMPartAttrib1Name}}</div>
+                        <div class='table_cell'>{{x.PartAttrib1 || AdjustmentGeneralCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small' ng-show="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.IMPartAttrib2Name">
+                        <div class='table_cell'>{{AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.IMPartAttrib2Name}}</div>
+                        <div class='table_cell'>{{x.PartAttrib2 || AdjustmentGeneralCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small' ng-show="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.IMPartAttrib3Name">
+                        <div class='table_cell'>{{AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.IMPartAttrib3Name}}</div>
+                        <div class='table_cell'>{{x.PartAttrib3 || AdjustmentGeneralCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small' ng-show="!AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.IMPartAttrib1Name">
+                        <div class='table_cell'>Part Attribute1</div>
+                        <div class='table_cell'>{{x.PartAttrib1 || AdjustmentGeneralCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small' ng-show="!AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.IMPartAttrib2Name">
+                        <div class='table_cell'>Part Attribute2</div>
+                        <div class='table_cell'>{{x.PartAttrib2 || AdjustmentGeneralCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small' ng-show="!AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.IMPartAttrib3Name">
+                        <div class='table_cell'>Part Attribute3</div>
+                        <div class='table_cell'>{{x.PartAttrib3 || AdjustmentGeneralCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Packing Date</div>
+                        <div class='table_cell'>{{x.PackingDate || AdjustmentGeneralCtrl.ePage.Masters.emptyText |dateFormat}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Expiry Date</div>
+                        <div class='table_cell'>{{x.ExpiryDate || AdjustmentGeneralCtrl.ePage.Masters.emptyText |dateFormat}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Hold Code</div>
+                        <div class='table_cell'>{{x.WHC_NKOriginalInventoryHeldCode || AdjustmentGeneralCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix" ng-hide='AdjustmentGeneralCtrl.ePage.Masters.Lineslist' style="padding:5px">
+        <div class="panel panel-default mt-5">
+            <div class="panel-heading">
+                <span ng-show="AdjustmentGeneralCtrl.ePage.Masters.HeaderName =='Copy Of List'">
+                    {{AdjustmentGeneralCtrl.ePage.Masters.HeaderName}} - {{AdjustmentGeneralCtrl.ePage.Masters.selectedRow}}                     
+                </span>
+                <span ng-show="AdjustmentGeneralCtrl.ePage.Masters.HeaderName!='Copy Of List'">
+                    {{AdjustmentGeneralCtrl.ePage.Masters.HeaderName}} - {{AdjustmentGeneralCtrl.ePage.Masters.selectedRow+1}}                
+                </span>
+            </div>
+
+            <div class="panel-body">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ex-line-padding">
+                    <div class="ex-line-box" style="height:210px;padding-top:10px">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
+                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                <div class="form-group">
+                                    <div class="error-warning-container" ng-repeat="x in AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR">
+                                        <error-warning-directive data-ng-if="x.ColIndex == 1 && x.RowIndex ==AdjustmentGeneralCtrl.ePage.Masters.selectedRow" list="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
+                                            type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                            g-parent-ref="" row-index="AdjustmentGeneralCtrl.ePage.Masters.selectedRow" col-index="1">
+                                        </error-warning-directive>
+                                    </div>
+                                    <label class="control-label text-single-line">Product</label>
+                                    <div class="input-group input-group-sm">
+                                        <!-- Dynamic look up Search in textbox -->
+                                        <div dynamic-lookup placeholder="Product Code And Description" my-ng-model="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].Product"
+                                            obj="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow]"
+                                            prefix-data="'ProductRelatedParty'" config="'Product'" auto-complete-on-select="AdjustmentGeneralCtrl.ePage.Masters.SelectedLookupProduct($item,AdjustmentGeneralCtrl.ePage.Masters.selectedRow)">
+                                        </div>
+
+                                        <!-- Look Up page opens when button clicks -->
+                                        <span class="input-group-btn">
+                                            <button dynamic-list-modal obj="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow]" field-name="'Product'" selected-data="AdjustmentGeneralCtrl.ePage.Masters.SelectedLookupProduct($item.entity,AdjustmentGeneralCtrl.ePage.Masters.selectedRow)"  prefix-data="'ProductRelatedParty'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                        </span>
+                                        <span ng-if='!AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].Product && AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].PK && !AdjustmentGeneralCtrl.ePage.Masters.Lineslist && (AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter: {RowIndex: AdjustmentGeneralCtrl.ePage.Masters.selectedRow} | filter: {ColIndex: 1}).length==0'>
+                                            <span ng-init="AdjustmentGeneralCtrl.ePage.Masters.OnChangeValues(AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].Product,'E10003',true,AdjustmentGeneralCtrl.ePage.Masters.selectedRow)"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                <label class="control-label text-single-line">Commodity</label>
+                                <input type="text" class="form-control input-sm" placeholder="Commodity" ng-model="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].Commodity"
+                                    readonly='' />
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                <div class="error-warning-container" ng-repeat="x in AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR">
+                                    <error-warning-directive data-ng-if="x.ColIndex == 2 && x.RowIndex ==AdjustmentGeneralCtrl.ePage.Masters.selectedRow" list="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
+                                        type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                        row-index="AdjustmentGeneralCtrl.ePage.Masters.selectedRow" col-index="2">
+                                    </error-warning-directive>
+                                </div>
+                                <label class="control-label text-single-line">Packs</label>
+                                <input type="text" class="form-control input-sm" placeholder="Packs" ng-model="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].Packs"
+                                    ng-blur="AdjustmentGeneralCtrl.ePage.Masters.FetchQuantity(AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow],AdjustmentGeneralCtrl.ePage.Masters.selectedRow)"
+                                    ng-change="AdjustmentGeneralCtrl.ePage.Masters.OnChangeValues(AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].Packs,'E10004',true,AdjustmentGeneralCtrl.ePage.Masters.selectedRow)"
+                                />
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                <div class="error-warning-container" ng-repeat="x in AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR">
+                                    <error-warning-directive data-ng-if="x.ColIndex == 3 && x.RowIndex ==AdjustmentGeneralCtrl.ePage.Masters.selectedRow" list="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
+                                        type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                        row-index="AdjustmentGeneralCtrl.ePage.Masters.selectedRow" col-index="3">
+                                    </error-warning-directive>
+                                </div>
+                                <div class="form-group">
+                                    
+                                    <label class="control-label text-single-line">PackType</label>
+                                    <select chosen class="form-control" ng-model="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].PAC_PackType"
+                                        ng-options="x.Key as x.Key+' - '+x.Value for x in AdjustmentGeneralCtrl.ePage.Masters.DropDownMasterList.INW_LINE_UQ.ListSource"
+                                        ng-change="AdjustmentGeneralCtrl.ePage.Masters.FetchQuantity(AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow],AdjustmentGeneralCtrl.ePage.Masters.selectedRow);AdjustmentGeneralCtrl.ePage.Masters.OnChangeValues(AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].PAC_PackType,'E10005',true,AdjustmentGeneralCtrl.ePage.Masters.selectedRow)"
+                                        search-contains="true">
+                                            <option value="">--Select--</option>
+                                        </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                <div class="error-warning-container" ng-repeat="x in AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR">
+                                    <error-warning-directive data-ng-if="x.ColIndex == 4 && x.RowIndex ==AdjustmentGeneralCtrl.ePage.Masters.selectedRow" list="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
+                                        type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                        row-index="AdjustmentGeneralCtrl.ePage.Masters.selectedRow" col-index="4">
+                                    </error-warning-directive>
+                                </div>
+                                <label class="control-label text-single-line">Quantity</label>
+                                <input type="text" class="form-control input-sm" placeholder="Quantity" ng-model="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].Units"
+                                    readonly='' />
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                <div class="error-warning-container" ng-repeat="x in AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR">
+                                    <error-warning-directive data-ng-if="x.ColIndex == 5 && x.RowIndex ==AdjustmentGeneralCtrl.ePage.Masters.selectedRow" list="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
+                                        type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                        row-index="AdjustmentGeneralCtrl.ePage.Masters.selectedRow" col-index="5">
+                                    </error-warning-directive>
+                                </div>
+                                <label class="control-label text-single-line">Quantity UQ</label>
+                                <input type="text" class="form-control input-sm" placeholder="Quantity UQ" ng-model="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].StockKeepingUnit"
+                                    readonly='' />
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
+                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                <div class="form-group">
+                                    <div class="error-warning-container" ng-repeat="x in AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR">
+                                        <error-warning-directive data-ng-if="x.ColIndex == 7 && x.RowIndex ==AdjustmentGeneralCtrl.ePage.Masters.selectedRow" list="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
+                                            type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                            g-parent-ref="" row-index="AdjustmentGeneralCtrl.ePage.Masters.selectedRow" col-index="7">
+                                        </error-warning-directive>
+                                    </div>
+                                    <label class="control-label text-single-line">Adjustment Reason</label>
+                                    <select chosen class="form-control" ng-model="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].ReasonCode"
+                                        ng-options="x.Key as x.Key+' - '+ x.Value for x in AdjustmentGeneralCtrl.ePage.Masters.DropDownMasterList.AdjustmentReason.ListSource"
+                                        ng-change="AdjustmentGeneralCtrl.ePage.Masters.OnChangeValues(AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].ReasonCode,'E10010',true,AdjustmentGeneralCtrl.ePage.Masters.selectedRow)"
+                                        search-contains="true">
+                                            <option value="">--Select--</option>
+                                        </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                <div class="form-group">
+                                    <div class="error-warning-container" ng-repeat="x in AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR">
+                                        <error-warning-directive data-ng-if="x.ColIndex == 8 && x.RowIndex ==AdjustmentGeneralCtrl.ePage.Masters.selectedRow" list="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
+                                            type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                            g-parent-ref="" row-index="AdjustmentGeneralCtrl.ePage.Masters.selectedRow" col-index="8">
+                                        </error-warning-directive>
+                                    </div>
+                                    <label class="control-label text-single-line">Location</label>
+                                    <div class="input-group input-group-sm">
+                                        <!-- Dynamic look up Search in textbox -->
+                                        <div dynamic-lookup placeholder="Location" my-ng-model="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].WLO_Location"
+                                            auto-complete-on-select="AdjustmentGeneralCtrl.ePage.Masters.SelectedLookupLocation($item,AdjustmentGeneralCtrl.ePage.Masters.selectedRow)"
+                                            obj="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow]"
+                                            prefix-data="'WarehouseLocation'" config="'Location'">
+                                        </div>
+
+                                        <!-- Look Up page opens when button clicks -->
+                                        <span class="input-group-btn">
+                                                <button location-dashboard-modal filter="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].WAR_WarehouseCode" prefix-data="'WarehouseLocation'" mode ="2"
+                                    obj="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow]" field-name="'Location'" 
+                                    selected-data="AdjustmentGeneralCtrl.ePage.Masters.SelectedLookupLocation($item,AdjustmentGeneralCtrl.ePage.Masters.selectedRow)"  grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                        </span>
+                                        <span ng-if='!AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].WLO_Location && AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].PK && !AdjustmentGeneralCtrl.ePage.Masters.Lineslist && (AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter: {RowIndex: AdjustmentGeneralCtrl.ePage.Masters.selectedRow} | filter: {ColIndex: 8}).length==0'>
+                                                <span ng-init="AdjustmentGeneralCtrl.ePage.Masters.OnChangeValues(AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].WLO_Location,'E10011',true,AdjustmentGeneralCtrl.ePage.Masters.selectedRow)"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                <div class="form-group">
+                                    <div class="error-warning-container">
+                                        <div class="error-warning-container" ng-repeat="x in AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR">
+                                            <error-warning-directive data-ng-if="x.ColIndex == 6 && x.RowIndex ==AdjustmentGeneralCtrl.ePage.Masters.selectedRow" list="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
+                                                type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                                g-parent-ref="" row-index="AdjustmentGeneralCtrl.ePage.Masters.selectedRow" col-index="6">
+                                            </error-warning-directive>
+                                        </div>
+                                    </div>
+                                    <label class="control-label">Arrival Date</label>
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" class="form-control" placeholder="{{AdjustmentGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datetime-picker="{{AdjustmentGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                            ng-model="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].AdjustmentArrivalDate"
+                                            is-open="AdjustmentGeneralCtrl.ePage.Masters.DatePicker.isOpen['isAdjustmentArrivalDate']"
+                                            datepicker-options="AdjustmentGeneralCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                                            close-on-selection="false" enable-time="false" enable-date="true" default-date=""
+                                            default-time="" when-closed="" save-as="AdjustmentGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click="" data-ng-change="AdjustmentGeneralCtrl.ePage.Masters.CheckFutureDate(AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.AdjustmentArrivalDate)"custom-date-time-format/>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" data-ng-click="AdjustmentGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isAdjustmentArrivalDate')">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                <label class="control-label text-single-line">Pallet ID</label>
+                                <input type="text" class="form-control input-sm" placeholder="Pallet ID" ng-model="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].PalletID"
+                                />
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                <label class="control-label text-single-line">Committed Qty</label>
+                                <input type="text" class="form-control input-sm" placeholder="Committed Qty" ng-model="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].CommitedUnit"
+                                />
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                <div class="form-group">
+                                    <label class="control-label text-single-line">Held Code</label>
+                                    <select chosen class="form-control" ng-model="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].WHC_NKOriginalInventoryHeldCode"
+                                        ng-options="x.Key as x.Key+' - '+ x.Value for x in AdjustmentGeneralCtrl.ePage.Masters.DropDownMasterList.INW_LINE_HELDCODE.ListSource"
+                                        search-contains="true">
+                                            <option value="">--Select--</option>
+                                        </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
+                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                    <div class="form-group">
+                                        <div class="error-warning-container" ng-repeat="x in AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR">
+                                            <error-warning-directive data-ng-if="x.ColIndex == 9 && x.RowIndex ==AdjustmentGeneralCtrl.ePage.Masters.selectedRow" list="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
+                                                type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                                g-parent-ref="" row-index="AdjustmentGeneralCtrl.ePage.Masters.selectedRow" col-index="9">
+                                            </error-warning-directive>
+                                        </div>
+                                        <label ng-show="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.IMPartAttrib1Name" class="control-label text-single-line">{{AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.IMPartAttrib1Name}}</label>
+                                        <label ng-show="!AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.IMPartAttrib1Name" class="control-label text-single-line">Part Attribute1</label>
+                                        <div class="">
+                                            <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Part Attribute1"
+                                                data-ng-model="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].PartAttrib1"
+                                                ng-disabled="!AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].UsePartAttrib1 || AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].IsPartAttrib1ReleaseCaptured"
+                                                ng-blur="AdjustmentGeneralCtrl.ePage.Masters.PartAttribute(AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow],AdjustmentGeneralCtrl.ePage.Masters.selectedRow)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                    <div class="form-group">
+                                        <div class="error-warning-container" ng-repeat="x in AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR">
+                                            <error-warning-directive data-ng-if="x.ColIndex == 10 && x.RowIndex ==AdjustmentGeneralCtrl.ePage.Masters.selectedRow" list="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
+                                                type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                                g-parent-ref="" row-index="AdjustmentGeneralCtrl.ePage.Masters.selectedRow" col-index="10">
+                                            </error-warning-directive>
+                                        </div>
+                                        <label ng-show="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.IMPartAttrib2Name" class="control-label text-single-line">{{AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.IMPartAttrib2Name}}</label>
+                                        <label ng-show="!AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.IMPartAttrib2Name" class="control-label text-single-line">Part Attribute2</label>
+                                        <div class="">
+                                            <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Part Attribute2"
+                                                data-ng-model="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].PartAttrib2"
+                                                ng-disabled="!AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].UsePartAttrib2 || AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].IsPartAttrib2ReleaseCaptured"
+                                                ng-blur="AdjustmentGeneralCtrl.ePage.Masters.PartAttribute(AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow],AdjustmentGeneralCtrl.ePage.Masters.selectedRow)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                    <div class="form-group">
+                                        <div class="error-warning-container" ng-repeat="x in AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR">
+                                            <error-warning-directive data-ng-if="x.ColIndex == 11 && x.RowIndex ==AdjustmentGeneralCtrl.ePage.Masters.selectedRow" list="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
+                                                type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                                g-parent-ref="" row-index="AdjustmentGeneralCtrl.ePage.Masters.selectedRow" col-index="11">
+                                            </error-warning-directive>
+                                        </div>
+                                        <label ng-show="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.IMPartAttrib3Name" class="control-label text-single-line">{{AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.IMPartAttrib3Name}}</label>
+                                        <label ng-show="!AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.IMPartAttrib3Name" class="control-label text-single-line">Part Attribute3</label>
+                                        <div class="">
+                                            <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Part Attribute3"
+                                                data-ng-model="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].PartAttrib3"
+                                                ng-disabled="!AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].UsePartAttrib3 || AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].IsPartAttrib3ReleaseCaptured"
+                                                ng-blur="AdjustmentGeneralCtrl.ePage.Masters.PartAttribute(AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow],AdjustmentGeneralCtrl.ePage.Masters.selectedRow)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                    <div class="form-group" ng-show="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].UsePackingDate">
+                                        <div class="error-warning-container" ng-repeat="x in AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR">
+                                            <error-warning-directive data-ng-if="x.ColIndex == 12 && x.RowIndex ==AdjustmentGeneralCtrl.ePage.Masters.selectedRow" list="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
+                                                type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                                g-parent-ref="" row-index="AdjustmentGeneralCtrl.ePage.Masters.selectedRow" col-index="12">
+                                            </error-warning-directive>
+                                        </div>
+                                        <label class="control-label">Packing Date</label>
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" class="form-control" placeholder="{{AdjustmentGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datetime-picker="{{AdjustmentGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                                ng-model="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].PackingDate"
+                                                is-open="AdjustmentGeneralCtrl.ePage.Masters.DatePicker.isOpen['isPackingDate']"
+                                                datepicker-options="AdjustmentGeneralCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                                                close-on-selection="false" enable-time="false" enable-date="true" default-date=""
+                                                default-time="" when-closed="" save-as="AdjustmentGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click="" data-ng-change="AdjustmentGeneralCtrl.ePage.Masters.PartAttribute(AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow],AdjustmentGeneralCtrl.ePage.Masters.selectedRow)" custom-date-time-format/>
+                                            <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" data-ng-click="AdjustmentGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPackingDate')">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                        </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-show="!AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].UsePackingDate">
+                                        <label class="control-label text-single-line">Packing Date</label>
+                                        <div class="">
+                                            <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Packing Date"
+                                                data-ng-model="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].PackingDate"
+                                                readonly=''>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                    <div class="form-group" ng-show="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].UseExpiryDate">
+                                        <div class="error-warning-container" ng-repeat="x in AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR">
+                                            <error-warning-directive data-ng-if="x.ColIndex == 13 && x.RowIndex ==AdjustmentGeneralCtrl.ePage.Masters.selectedRow" list="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
+                                                type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                                g-parent-ref="" row-index="AdjustmentGeneralCtrl.ePage.Masters.selectedRow" col-index="13">
+                                            </error-warning-directive>
+                                        </div>
+                                        <label class="control-label">Expiry Date</label>
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" class="form-control" placeholder="{{AdjustmentGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datetime-picker="{{AdjustmentGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                                ng-model="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].ExpiryDate"
+                                                is-open="AdjustmentGeneralCtrl.ePage.Masters.DatePicker.isOpen['isExpiryDate']"
+                                                datepicker-options="AdjustmentGeneralCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                                                close-on-selection="false" enable-time="false" enable-date="true" default-date=""
+                                                default-time="" when-closed="" save-as="AdjustmentGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click="" data-ng-change="AdjustmentGeneralCtrl.ePage.Masters.PartAttribute(AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow],AdjustmentGeneralCtrl.ePage.Masters.selectedRow)" custom-date-time-format/>
+                                            <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" data-ng-click="AdjustmentGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isExpiryDate')">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                        </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-show="!AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].UseExpiryDate">
+                                        <label class="control-label text-single-line">Expiry Date</label>
+                                        <div class="">
+                                            <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Expiry Date" data-ng-model="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[AdjustmentGeneralCtrl.ePage.Masters.selectedRow].ExpiryDate"
+                                                readonly=''>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-lg-offset-8 mt-5">
+                        <button class="btn btn-blue btn-sm mr-5 pull-right" title="Save" data-ng-click="AdjustmentGeneralCtrl.ePage.Masters.Done()"><i class="fa fa-save pr-5"></i>Save</button>
+                        <button class="btn btn-primary btn-sm mr-5 pull-right" title="Delete" data-ng-click="AdjustmentGeneralCtrl.ePage.Masters.RemoveRow()"><i class="fa fa-trash pr-5"></i>Delete</button>
+                        <button class="btn btn-primary btn-sm mr-5 pull-right" title="Back" data-ng-click="AdjustmentGeneralCtrl.ePage.Masters.Back()"><i class="fa fa-angle-double-left pr-5"></i>Back</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix">
+        <div class="pull-right" style="padding: 12px 4px;">
+            <button class="btn btn-primary btn-xs filter-sidebar-setting ml-5 dl-filter-btn" ng-click="AdjustmentGeneralCtrl.ePage.Masters.GetFilterList()">
+            <i class="fa fa-filter txt-color-blueDark" ></i> Filter</button>
+        </div>
+        <button type="button" class="btn btn-blue btn-sm pull-right mt-10 mb-10" title="Add to Adjustment Line" data-ng-click="AdjustmentGeneralCtrl.ePage.Masters.Addtoline()"
+            ng-disabled='!AdjustmentGeneralCtrl.ePage.Entities.Header.CheckPoints.NotFinaliseStage'> Add To Adjustment Line </button>
+        <div class="p-10 mt-15">
+            <div class="inventory-name">Inventory Details</div>
+            <div id='AdjustmentGeneralCtrl.ePage.Masters.your_div' class="wmstable_scroll" style="height:200px; padding-top: 2px;margin-bottom:30px">
+                <div class="" style="position: relative;">
+                    <div class="table" id="results">
+                        <div class='theader'>
+                            <div class='table_header'>
+                                <label>
+                                    <input type="checkbox" ng-change ="AdjustmentGeneralCtrl.ePage.Masters.SelectedAll(AdjustmentGeneralCtrl.ePage.Masters.Inventory)"
+                                        ng-checked="AdjustmentGeneralCtrl.ePage.Masters.SelectAll"  ng-model="AdjustmentGeneralCtrl.ePage.Masters.SelectAll">
+                                    <span class="text"></span>
+                                </label>
+                            </div>
+                            <div class='table_header'>Product</div>
+                            <div class='table_header'>Location</div>
+                            <div class='table_header'>Inventory Status</div>
+                            <div class='table_header'>Total Qty</div>
+                            <div class='table_header'>Available To Pick</div>
+                            <div class='table_header'>In-Location Qty</div>
+                            <div class='table_header'>Commited Qty</div>
+                            <div class='table_header'>In-Transit Qty</div>
+                            <div class='table_header'>Reserved Qty</div>
+                            <div class='table_header'>Arrival Date</div>
+                            <div class='table_header'>Pallet ID</div>
+                            <div class='table_header'>Receipt Reference</div>
+                            <div class='table_header'>Area Name</div>
+                            <div class='table_header'>Part Attribute 1</div>
+                            <div class='table_header'>Part Attribute 2</div>
+                            <div class='table_header'>Part Attribute 3</div>
+                            <div class='table_header'>Packing Date</div>
+                            <div class='table_header'>Expiry Date</div>
+                            <div class='table_header'>Warehouse</div>
+                            <div class='table_header'>Client</div>
+                        </div>
+                        <!-- List Empty Response -->
+                        <div data-ng-if="AdjustmentGeneralCtrl.ePage.Masters.Inventory.length==0">
+                            <div class="grid-no-record" style="top:200px">No records found...</div>
+                        </div>
+                        <div class="grid-loading-norecord-container" data-ng-show="AdjustmentGeneralCtrl.ePage.Meta.IsLoading">
+                            <div class="grid-loading">Loading...</div>
+                        </div>
+                        <div data-ng-if="AdjustmentGeneralCtrl.ePage.Masters.Inventory == undefind" data-ng-show="!AdjustmentGeneralCtrl.ePage.Meta.IsLoading">
+                            <div class="grid-no-record" style="width: 203px;top:100px">Please filter the Inventory List</div>
+                        </div>
+                        <div class='table_row' ng-repeat="x in AdjustmentGeneralCtrl.ePage.Masters.Inventory" style="font-size: 11px;">
+                            <div class='table_small'>
+                                <div class='table_cell'></div>
+                                <div class='table_cell pt-0 pb-0'>
+                                <label class="mb-0">
+                                    <input type="checkbox"  ng-checked="x.singleselect" ng-change="AdjustmentGeneralCtrl.ePage.Masters.select(AdjustmentGeneralCtrl.ePage.Masters.Inventory,$index)" ng-model="x.singleselect" /> 
+                                    </input>
+                                    <span class="text"></span>
+                                </label>
+                                </div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>Product</div>
+                                <div class='table_cell'>{{x.ProductCode}} - {{x.ProductName}} </div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>Location</div>
+                                <div class='table_cell'>{{x.Location}}</div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>CurrentInventory Status</div>
+                                <div class='table_cell'>{{x.CurrentInventoryStatus}} - {{x.CurrentInventoryStatusDesc}}</div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>Total Units</div>
+                                <div class='table_cell'>{{x.TotalUnits || AdjustmentGeneralCtrl.ePage.Masters.emptyText}}</div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>Available To Pick</div>
+                                <div class='table_cell'>{{x.AvailableToPick || AdjustmentGeneralCtrl.ePage.Masters.emptyText}}</div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>InLocation Qty</div>
+                                <div class='table_cell'>{{x.InLocationQty || AdjustmentGeneralCtrl.ePage.Masters.emptyText}}</div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>Commited Unit</div>
+                                <div class='table_cell'>{{x.CommitedUnit || AdjustmentGeneralCtrl.ePage.Masters.emptyText}}
+                                </div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>InTransit Unit</div>
+                                <div class='table_cell'>{{x.InTransitUnit || AdjustmentGeneralCtrl.ePage.Masters.emptyText}}
+                                </div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>Reserved Unit</div>
+                                <div class='table_cell'>{{x.ReservedUnit || AdjustmentGeneralCtrl.ePage.Masters.emptyText}}</div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>Adjustment ArrivalDate</div>
+                                <div class='table_cell'>{{x.AdjustmentArrivalDate || AdjustmentGeneralCtrl.ePage.Masters.emptyText | dateFormat}}</div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>PalletID</div>
+                                <div class='table_cell'>{{x.PalletID || AdjustmentGeneralCtrl.ePage.Masters.emptyText}}</div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>External Reference</div>
+                                <div class='table_cell'>{{x.ExternalReference || AdjustmentGeneralCtrl.ePage.Masters.emptyText}}</div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>Area Name</div>
+                                <div class='table_cell'>{{x.AreaName || AdjustmentGeneralCtrl.ePage.Masters.emptyText}}</div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>Part Attribute 1</div>
+                                <div class='table_cell'>{{x.PartAttrib1 || AdjustmentGeneralCtrl.ePage.Masters.emptyText}}</div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>Part Attribute 2</div>
+                                <div class='table_cell'>{{x.PartAttrib2 || AdjustmentGeneralCtrl.ePage.Masters.emptyText}}</div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>Part Attribute 3</div>
+                                <div class='table_cell'>{{x.PartAttrib3 || AdjustmentGeneralCtrl.ePage.Masters.emptyText}}</div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>Packing Date</div>
+                                <div class='table_cell'>{{x.PackingDate || AdjustmentGeneralCtrl.ePage.Masters.emptyText | dateFormat}}</div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>Expiry Date</div>
+                                <div class='table_cell'>{{x.ExpiryDate || AdjustmentGeneralCtrl.ePage.Masters.emptyText | dateFormat}}</div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>Warehouse</div>
+                                <div class='table_cell'>{{x.WAR_WarehouseCode}} - {{x.WAR_WarehouseName}}</div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>Client</div>
+                                <div class='table_cell'>{{x.ClientCode}} - {{x.ClientName}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--FIlter Bar  -->
+                <div id="filterSideBar{{AdjustmentGeneralCtrl.ePage.Masters.DynamicControl.DataEntryName}}{{AdjustmentGeneralCtrl.currentAdjustment.label}}"
+                    data-ng-if="AdjustmentGeneralCtrl.ePage.Masters.DynamicControl" class="dynamic-filter-sidebar-wrapper  clearfix filter-text"
+                    style="top:555px;height:200px;overflow-y: overlay;" data-ng-class="AdjustmentGeneralCtrl.ePage.Masters.ViewType == 1 ? 'one-column' : 'two-column'">
+                    <form name="filterSidebar" novalidate>
+                        <div class="header clearfix">
+                            <div class="title pull-left">
+                                <i class="fa fa-filter"></i>
+                                <span>Filter</span>
+                            </div>
+                            <div class="btn-wrapper pull-right">
+                                <ul class="clearfix">
+                                    <li>
+                                        <div class="filter-save-icon filter-save-icon-toggle" ng-if="AdjustmentGeneralCtrl.ePage.Masters.DataEntryMaster.OtherConfig.IsFavorite"
+                                            data-ng-disabled="!AdjustmentGeneralCtrl.ePage.Masters.DataEntryMaster" data-ng-click="AdjustmentGeneralCtrl.ePage.Masters.DataEntryMaster.IsShowSaveSettingsTxtBox = !AdjustmentGeneralCtrl.ePage.Masters.DataEntryMaster.IsShowSaveSettingsTxtBox ">
+                                            <i class="" data-ng-class="AdjustmentGeneralCtrl.ePage.Masters.DataEntryMaster.IsShowSaveSettingsTxtBox ? 'fa fa-star' : 'fa fa-star-o'"></i>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span style="font-size: 24px;" class="cursor-pointer" data-ng-class="AdjustmentGeneralCtrl.ePage.Masters.IsDynamicControlAccess ? 'fa fa-toggle-on' : 'fa fa-toggle-off'"
+                                            data-ng-click="AdjustmentGeneralCtrl.ePage.Masters.IsDynamicControlAccess = !AdjustmentGeneralCtrl.ePage.Masters.IsDynamicControlAccess"></span>
+                                    </li>
+                                    <li>
+                                        <button class="filter-title-btn" ng-click="AdjustmentGeneralCtrl.ePage.Masters.Clear()" data-ng-disabled="!AdjustmentGeneralCtrl.ePage.Masters.DataEntryMaster">Clear</button>
+                                    </li>
+                                    <li>
+                                        <input type="submit" class="filter-title-btn" ng-click="AdjustmentGeneralCtrl.ePage.Masters.Filter();AdjustmentGeneralCtrl.ePage.Masters.CloseFilterList()" value="Apply">
+                                    </li>
+                                    <li>
+                                        <span class="filter-toggle-icon" ng-click="AdjustmentGeneralCtrl.ePage.Masters.CloseFilterList()"> <i class="fa fa-arrow-right" ></i> </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="filter-list clearfix">
+                            <div class="clearfix" data-ng-if="AdjustmentGeneralCtrl.ePage.Masters.DynamicControl">
+                                <dynamic-control input="AdjustmentGeneralCtrl.ePage.Masters.DynamicControl" mode="S" control-style="" default-filter="AdjustmentGeneralCtrl.ePage.Masters.defaultFilter"
+                                    toggle="AdjustmentGeneralCtrl.ePage.Masters.IsDynamicControlAccess" view-type="AdjustmentGeneralCtrl.ePage.Masters.ViewType"></dynamic-control>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>

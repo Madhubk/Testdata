@@ -1,0 +1,491 @@
+
+    <div class="clearfix pt-10 mb-50">
+        <div class="widget-main">
+            <div class="rows">
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <div class="row">
+                        <div class="col-lg-12 border-r pr-0">
+                            <div class="eaxis-div-box height-auto-600">
+                                <div class="rows mt-10">
+                                    <!-- <div class="text-center" data-ng-if="!TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints.OrgName"><i class="fa fa-spin fa-spinner font-160"></i></div> -->
+                                    <div class="text-center" data-ng-if="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints.OrgName.length === 0"><i>No Records...!</i></div>
+                                    <div class="companies-box cursor-pointer"  
+                                    ng-repeat="x in TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints" ng-class="{selectedBg : $index === TransportPickupanddeliveryCtrl.ePage.Masters.item}" ng-click="TransportPickupanddeliveryCtrl.ePage.Masters.OnCompanySelect(x, $index)">
+                                    <div class="companies-left">
+                                        <span class="circle">
+                                         <p ng-if="x.Type =='PIC'">P</p>
+                                         <p ng-if="x.Type =='DEL'">D</p>
+                                     </span>
+                                 </div>
+                                 <div class="companies-right">
+                                    <div class="eaxis-company-title-4">{{x.OrgName || emptyText}}</div>
+                                    <div class="company-sub-title">{{x.Address1 || emptyText}} {{x.Address2 || emptyText}}</br>
+                                        {{x.City || emptyText}}</div> 
+                                    </div>
+                                </div>
+                                <div>
+                                    <button class="btn btn-blue" style= "float: right;margin-left: 10px;" data-ng-click="TransportPickupanddeliveryCtrl.ePage.Masters.orglist()"> <i class="fa fa-plus-circle"></i> Add Pickup or Delivery 
+                                    </button>
+                                </div>    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8 col-md-4 col-sm-6">
+                <div class="row">
+                    <div class="col-lg-12 border-r border-l">
+                        <div class="eaxis-div-box clearfix">
+                            <div class="clearfix mb-10">
+                                    <!-- <div class="eaxis-header bt-0">
+                                        <span>Details</span>
+                                    </div> -->                                
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">    
+                                            <div class="col-lg-12">
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-3 padding-top-10">
+                                                    <div class="form-group">
+                                                        <label class="control-label text-single-line vbold">Service Type</label>
+                                                        <select chosen class="form-control" ng-change ="TransportPickupanddeliveryCtrl.ePage.Masters.Servicetype()" ng-model="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].Type"   ng-options="x.Key as x.Key + ' - '  + x.Value for x in TransportPickupanddeliveryCtrl.ePage.Masters.DropDownMasterList.SERVICE_TYPE.ListSource"
+                                                        search-contains="true">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-3 padding-top-10">
+                                                <div class="form-group">
+                                                    <label class="control-label text-single-line vbold">Client</label>
+                                                    <div class="input-group1 input-group-sm">             
+                                                        <!-- Dynamic look up Search in textbox -->
+                                                        <div dynamic-lookup placeholder="Client Name" my-ng-model="TransportPickupanddeliveryCtrl.ePage.Masters.ClientCodeName" auto-complete-on-select="TransportPickupanddeliveryCtrl.ePage.Masters.SelectedLookupDataClient($item, $index)"
+                                                        obj="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints" prefix-data="'OrganizationList'"
+                                                        config="'WarehouseClient'">
+                                                    </div>
+                                                    <!-- Look Up page opens when button clicks -->
+                                                    <span class="input-group-btn">
+                                                        <button dynamic-list-modal obj="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints" field-name="'WarehouseClient'" selected-data="TransportPickupanddeliveryCtrl.ePage.Masters.SelectedLookupDataClient($item, $index)"  prefix-data="'OrganizationList'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>  
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-3 padding-top-10">
+                                                    <div class="form-group">
+                                                        <label class="control-label text-single-line vbold">Sequence</label>
+                                                        <input type="text" class="form-control input-sm" ng-model="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].Sequence " >
+                                                    </div>
+                                                </div>                                      
+                                    </div>                                        
+                                    <div class="rows">
+                                        <!--Pickup from lookup -->
+                                        <div class="col-lg-12 padding-bottom-10">
+                                            <div class="ex-inward_general-box">
+                                                <div class="col-lg-2 no-padding">
+                                                    <div class="ex-inward_general-left"> 
+                                                        <i class="icomoon icon-company" style="font-weight:bold"></i>
+                                                    </div> 
+                                                    <div class="ex-inward_general-left1"> 
+                                                        <div class="margin-top-10 ex-inward-label">Pickup From</div>
+                                                    </div>    
+                                                </div>
+                                                <div class="col-lg-10">
+                                                    <div class="ex-inward-righ margin-top-10">
+                                                        <div class="row">
+                                                            <input type="hidden" ng-model="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ORG_Client_FK">    
+                                                            <div class="col-lg-10">
+                                                                <div class="input-group1 input-group-sm">
+                                                                    <!-- Dynamic look up Search in textbox -->
+                                                                    <div dynamic-lookup placeholder="Organization Code And Name" my-ng-model="TransportPickupanddeliveryCtrl.ePage.Masters.OrgCodeName" auto-complete-on-select="TransportPickupanddeliveryCtrl.ePage.Masters.SelectedLookupDataSupplier($item, $index)"
+                                                                    obj="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints" prefix-data="'OrganizationList'"
+                                                                    config="'TransOrgname'">
+                                                                </div>
+                                                                <!-- Look Up page opens when button clicks -->
+                                                                <span class="input-group-btn">
+                                                                    <button dynamic-list-modal obj="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints" prefix-data="'OrganizationList'"
+                                                                    field-name="'TransOrgname'" selected-data="TransportPickupanddeliveryCtrl.ePage.Masters.SelectedLookupDataSupplier($item, $index)"  mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <!-- To show address -->
+                                                        <div class="col-lg-10">
+                                                            <div class="ex-outward-title text-single-line margin-top-10" ng-bind="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].Address1">
+                                                            </div>
+                                                            <div class"col-lg-12 margin-top-10">
+                                                                <span class="InlineLabel" ng-bind="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].Address2"></span> 
+                                                                <span class="InlineLabel" ng-bind="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].State"></span>   
+                                                            </div>
+                                                            <div class"col-lg-12">
+                                                                <span class="InlineLabel" ng-show="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].City">
+                                                                    {{TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].City}} - 
+                                                                </span>
+                                                                <span class="InlineLabel" ng-show="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].PostCode">
+                                                                    {{TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].PostCode}}
+                                                                </span>   
+                                                            </div>
+                                                            <div  class"col-lg-12">
+                                                                <span ng-show="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].Fax" class="InlineLabel">
+                                                                    FAX :  {{TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].Fax}}&nbsp;&nbsp;
+                                                                </span> 
+                                                                <span class="InlineLabel" ng-show="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].Phone">
+                                                                    Phone :  {{TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].Phone}}
+                                                                </span>   
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>    
+                        <!--Order list -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><b>OrderList</b></div>
+                            <div class="panel-body">    
+                                <div class="col-lg-12 margin-top-10">
+                                    <div style=" overflow-x: scroll; width: 100%;height:200px;">
+                                        <ul class="bulk-action1" style="width: 255%;">    
+                                            <li class="border-bottom padding-top-5 padding-bottom-5">
+                                                <div  class="bulk-top-title" style="width: 100px;"><span>Actions</span></div>
+                                                <div  class="bulk-top-title" style="width: 120px;"><span>WorkOrderID</span></div>
+                                                <div  class="bulk-top-title" style="width: 120px;"><span>WorkOrder Type</span></div>
+                                                <div  class="bulk-top-title" style="width: 270px;"><span>Pick From</span></div>
+                                                <div  class="bulk-top-title" style="width: 270px;"><span>Delivered To</span></div>
+                                                <div  class="bulk-top-title" style="width: 130px;"><span>Status</span></div>
+                                                <div  class="bulk-top-title" style="width: 140px;"><span>Customer Reference</span></div>
+                                                <div  class="bulk-top-title" style="width: 130px;"><span>External Reference</span></div>
+                                            </li> 
+                                            <div ng-if="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].Type == 'PIC'">
+                                                <li  ng-repeat="x in TransportPickupanddeliveryCtrl.ePage.Masters.picklist| filter:{IsDeleted:'false'} track by $index" ng-class="{'selected':$index == TransportPickupanddeliveryCtrl.ePage.Masters.selectedRow,'inlineBox':TransportPickupanddeliveryCtrl.ePage.Masters.hideIndex==$index}" ng-dblclick="TransportPickupanddeliveryCtrl.ePage.Masters.onClick($index)" ng-click="TransportPickupanddeliveryCtrl.ePage.Masters.setSelectedRow($index)">
+                                                    <span ng-if= "TransportPickupanddeliveryCtrl.ePage.Masters.hideIndex!=$index?true:false" style="width:80px" font-size: 11px;">
+                                                        <div class="bulk-top-title" style="width: 100px; display: inline-block;font-size: 11px;">
+                                                            <a class="org-edit-icon marign-right-5" href="javascript:void(0);" data-ng-click="TransportPickupanddeliveryCtrl.ePage.Masters.onClick($index)"><i class="fa fa-pencil"></i></a>
+                                                            <a class="org-delete-icon" href="javascript:void(0);" data-ng-click="TransportPickupanddeliveryCtrl.ePage.Masters.RemoveRow(item,$index)"><i class="fa fa-trash-o"></i></a>
+                                                        </div>        
+                                                        <div style="width: 120px;display:inline-block;font-size: 11px;">
+                                                            {{x.WorkOrderID}}
+                                                        </div>
+                                                        <div style="width: 120px;display:inline-block;font-size: 11px;">
+                                                            {{x.WordOrderType}}
+                                                        </div>
+                                                        <div style="width: 270px;display:inline-block;font-size: 11px;">
+                                                            <b>{{x.From_OrgCode}}-{{x.From_OrgName}}</b></br>
+                                                            {{x.From_Address1}}-{{x.From_Address2}}</br>
+                                                            {{x.From_City}}
+                                                        </div>
+                                                        <div style="width: 270px;display:inline-block;font-size: 11px;">
+                                                            <b>{{x.To_OrgCode}}-{{x.To_OrgName}} </b> </br>
+                                                            {{x.To_Address1}}-{{x.To_Address2}}</br>
+                                                            {{x.To_City}}
+                                                        </div>
+                                                        <div style="width: 130px;display:inline-block;font-size: 11px;">
+                                                            {{x.Status}}
+                                                        </div>
+                                                        <div style="width: 140px;display:inline-block;font-size: 11px;">
+                                                            {{x.CustomerReference}}
+                                                        </div>
+                                                        <div style="width: 130px;display:inline-block;font-size: 11px;">
+                                                            {{x.ExternalReference}}
+                                                        </div>                 
+                                                    </span>
+                                                    <div ng-if="TransportPickupanddeliveryCtrl.ePage.Masters.hideIndex==$index?true:false" class="col-lg-12">
+                                                        <div class="ex-reference-box">
+                                                            <div class="col-lg-12 padding-10">
+                                                                <div class="col-lg-4">
+                                                                    <div class="form-group">
+                                                                        <label class="InlineLabel">Pickup From</label>
+                                                                        <select chosen class="form-control" ng-model="TransportPickupanddeliveryCtrl.ePage.Masters.PickupCodeName
+                                                                        " ng-options="x as x.OrgCode + ' - '  + x.Address1 for x in TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints" ng-change="TransportPickupanddeliveryCtrl.ePage.Masters.SelectedLookupfromclient(TransportPickupanddeliveryCtrl.ePage.Masters.PickupCodeName,$index)"
+                                                                        search-contains="true">
+                                                                        <option value="">----------Select----------</option>
+                                                                        </select>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <div class="form-group">
+                                                                    <label class="InlineLabel">Delivered To</label>
+                                                                    <select chosen class="form-control" ng-model="TransportPickupanddeliveryCtrl.ePage.Masters.DeliveryCodeName"   ng-options="x as x.OrgCode + ' - '  + x.Address1 for x in TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints"
+                                                                    ng-change="TransportPickupanddeliveryCtrl.ePage.Masters.SelectedLookuptoclient($item,$index)"
+                                                                    search-contains="true">
+                                                                    <option value="">----------Select----------</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        <div class="col-lg-12 padding-10" >
+                                                            <div class="col-lg-2 padding-left">
+                                                                <button class="btn btn-blue" style="padding: 4px 9px;" ng-click="TransportPickupanddeliveryCtrl.ePage.Masters.onClick($index)">Done</button>
+                                                            </div>                
+                                                        </div>
+                                                    </div>    
+                                                    </div>
+                                                    </div>    
+                                                </li>
+                                            </div> 
+                                            <div ng-if="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].Type == 'DEL'">
+                                                <li ng-repeat="x in TransportPickupanddeliveryCtrl.ePage.Masters.dellist | filter:{IsDeleted:'false'} track by $index" ng-class="{'selected':$index == TransportPickupanddeliveryCtrl.ePage.Masters.selectedRow,'inlineBox':TransportPickupanddeliveryCtrl.ePage.Masters.hideIndex==$index}" ng-dblclick="TransportPickupanddeliveryCtrl.ePage.Masters.onClick($index)" ng-click="TransportPickupanddeliveryCtrl.ePage.Masters.setSelectedRow($index)">
+
+                                                    <span ng-if="TransportPickupanddeliveryCtrl.ePage.Masters.hideIndex!=$index?true:false" style="width:80px" font-size: 11px;">
+                                                        <div class="bulk-top-title" style="width: 100px; display: inline-block;">
+                                                            <a class="org-edit-icon marign-right-5" href="javascript:void(0);" data-ng-click="TransportPickupanddeliveryCtrl.ePage.Masters.onClick($index)"><i class="fa fa-pencil"></i></a>
+                                                            <a class="org-delete-icon" href="javascript:void(0);" data-ng-click="TransportPickupanddeliveryCtrl.ePage.Masters.RemoveRow(item,$index)"><i class="fa fa-trash-o"></i></a>
+                                                        </div>        
+                                                        <div style="width: 120px;display:inline-block;">
+                                                            {{x.WorkOrderID}}
+                                                        </div>
+                                                        <div style="width: 120px;display:inline-block;">
+                                                            {{x.WordOrderType}}
+                                                        </div>
+                                                        <div style="width: 270px;display:inline-block;">
+                                                            <b>{{x.From_OrgCode}}-{{x.From_OrgName}}</b></br>
+                                                            {{x.From_Address1}}-{{x.From_Address2}}</br>{{x.From_City}}</br>
+                                                        </div>
+                                                        <div style="width: 270px;display:inline-block;">
+                                                            <b>{{x.To_OrgCode}}-{{x.To_OrgName}}</b>
+                                                        </br>
+                                                        {{x.To_Address1}}-{{x.To_Address2}}
+                                                        </br>{{x.To_City}}
+                                                        </div>
+                                                        <div style="width: 130px;display:inline-block;">
+                                                            {{x.Status}}
+                                                        </div>
+                                                        <div style="width: 140px;display:inline-block;">
+                                                            {{x.CustomerReference}}
+                                                        </div>
+                                                        <div style="width: 130px;display:inline-block;">
+                                                            {{x.ExternalReference}}
+                                                        </div>                 
+                                                    </span>
+                                                    <div ng-if="TransportPickupanddeliveryCtrl.ePage.Masters.hideIndex==$index?true:false" class="col-lg-12">
+                                                        <div class="ex-reference-box">
+                                                            <div class="col-lg-12 padding-10">
+                                                                <div class="col-lg-2">
+                                                                    <div class="form-group">
+                                                                        <label class="InlineLabel">Pickup From</label>
+                                                                        {{X.From_OrgCode}}
+                                                                        <select chosen class="form-control" ng-model="x.From_OrgCode" ng-options="x as x.OrgCode + ' - '  + x.Address1 for x in TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints" ng-change="TransportPickupanddeliveryCtrl.ePage.Masters.SelectedLookupfromclient(x.From_OrgCode,$index)"
+                                                                        search-contains="true">
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-2">
+                                                                    <div class="form-group">
+                                                                        <label class="InlineLabel">Delivered To</label>
+                                                                        <select chosen class="form-control" ng-model="x.To_OrgCode" ng-options="x as x.OrgCode + ' - '  + x.Address1 for x in TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints"
+                                                                        ng-change="TransportPickupanddeliveryCtrl.ePage.Masters.SelectedLookuptoclient(x.To_OrgCode,$index)"
+                                                                        search-contains="true">
+                                                                    </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-12 padding-10" >
+                                                                    <div class="col-lg-2 padding-left">
+                                                                        <button class="btn btn-blue" style="padding: 4px 9px;" ng-click="TransportPickupanddeliveryCtrl.ePage.Masters.onClick($index)">Done</button>
+                                                                    </div>                
+                                                                </div>
+                                                            </div>    
+                                                        </div>
+                                                    </div>
+                                                </li>    
+                                            </div>       
+                                        </ul>   
+                                    </div>   
+                                    <div class="col-lg-12" style="height: 40px;padding: 4px;">
+                                        <div ng-if="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].Type == 'PIC'||TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].Type == 'DEL'">
+                                            <button class="btn btn-blue attach" style= "float: right;margin-left: 10px;" data-ng-click="TransportPickupanddeliveryCtrl.ePage.Masters.addordnew()"> <i class="fa fa-external-link-square"></i> New 
+                                            </button>
+
+                                            <button dynamic-list-modal obj="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryOrders" prefix-data="'WarehouseOutward'" style= "float: right;"
+                                            field-name="'PickAttachOrder'" mode="3" is-full-obj="true" grid-refresh-fun-name="GetOrderDetails" grid-refresh-fun="TransportPickupanddeliveryCtrl.ePage.Masters.attachoutwardOrders($item,index)"
+                                            selected-data="TransportPickupanddeliveryCtrl.ePage.Masters.attachoutwardOrders($item,index)" class="btn btn-blue attach"
+                                            type="button"><i class="fa fa-plus-circle"></i>Attach</button>
+                                        </div>
+                                    </div>
+                                </div>         
+                            </div>
+                        </div>
+
+                        <!--detail panel-->
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="col-lg-12 pl-0 pr-0">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-3 ">
+                                    <div class="form-group">
+                                    <label class="control-label text-single-line vbold">Request DateTime </label>
+                                    <!-- <input type="text" class="form-control input-sm" ng-model="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPointsHeader.RequestDateTime"> -->
+                                    <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" datetime-picker="{{TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.Options.format}}" ng-model="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].RequestDateTime"
+                                    is-open="TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.isOpen['RequestDateTime']" datepicker-options="TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.Options"
+                                    datepicker-append-to-body="false" close-on-selection="false" enable-time="true" enable-date="true" default-date="" default-time=""
+                                    when-closed="TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.OnClosed(TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPointsHeader.RequestDateTime)"
+                                    save-as="ISO" />
+                                    <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'RequestDateTime')">
+                                    <i class="fa fa-calendar"></i>
+                                    </button>
+                                    </span>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-3 ">
+                                    <div class="form-group">
+                                    <label class="control-label text-single-line vbold">Expected DateTime </label>
+                                    <!-- <input type="text" class="form-control input-sm" ng-model="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPointsHeader.RequestDateTime"> -->
+                                    <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" datetime-picker="{{TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.Options.format}}" ng-model="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].ExpectedDateTime "
+                                    is-open="TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.isOpen['ExpectedDateTime']" datepicker-options="TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.Options"
+                                    datepicker-append-to-body="false" close-on-selection="false" enable-time="true" enable-date="true" default-date="" default-time=""
+                                    when-closed="TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.OnClosed(TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPointsHeader.ExpectedDateTime)"
+                                    save-as="ISO" />
+                                    <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'ExpectedDateTime')">
+                                    <i class="fa fa-calendar"></i>
+                                    </button>
+                                    </span>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-3 ">
+                                    <div class="form-group">
+                                    <label class="control-label text-single-line vbold">GateIn DateTime </label>
+                                    <!-- <input type="text" class="form-control input-sm" ng-model="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPointsHeader.RequestDateTime"> -->
+                                    <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" datetime-picker="{{TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.Options.format}}" ng-model="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].GateInDateTime"
+                                    is-open="TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.isOpen['GateInDateTime']" datepicker-options="TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.Options"
+                                    datepicker-append-to-body="false" close-on-selection="false" enable-time="true" enable-date="true" default-date="" default-time=""
+                                    when-closed="TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.OnClosed(TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPointsHeader.GateInDateTime)"
+                                    save-as="ISO" />
+                                    <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'GateInDateTime')">
+                                    <i class="fa fa-calendar"></i>
+                                    </button>
+                                    </span>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-3 ">
+                                    <div class="form-group">
+                                    <label class="control-label text-single-line vbold">DockIn DateTime </label>
+                                    <!-- <input type="text" class="form-control input-sm" ng-model="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPointsHeader.RequestDateTime"> -->
+                                    <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" datetime-picker="{{TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.Options.format}}" ng-model="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].DockInDateTime"
+                                    is-open="TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.isOpen['DockInDateTime']" datepicker-options="TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.Options"
+                                    datepicker-append-to-body="false" close-on-selection="false" enable-time="true" enable-date="true" default-date="" default-time=""
+                                    when-closed="TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.OnClosed(TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPointsHeader.DockInDateTime)"
+                                    save-as="ISO" />
+                                    <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'DockInDateTime')">
+                                    <i class="fa fa-calendar"></i>
+                                    </button>
+                                    </span>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-3 ">
+                                    <div class="form-group">
+                                    <label ng-if="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].Type == 'PIC'" class="control-label text-single-line">LoadingStart DateTime</label>
+                                    <label ng-if="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].Type == 'DEL'" class="control-label text-single-line">UnloadStart DateTime</label>
+                                    <label ng-if="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].Type == ''" class="control-label text-single-line">Load Or Unload Start DateTime</label>
+                                    <!-- <input type="text" class="form-control input-sm" ng-model="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPointsHeader.RequestDateTime"> -->
+                                    <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" datetime-picker="{{TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.Options.format}}" ng-model="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].LoadOrUnloadStartDateTime"
+                                    is-open="TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.isOpen['LoadOrUnloadStartDateTime']" datepicker-options="TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.Options"
+                                    datepicker-append-to-body="false" close-on-selection="false" enable-time="true" enable-date="true" default-date="" default-time=""
+                                    when-closed="TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.OnClosed(TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPointsHeader.LoadOrUnloadStartDateTime)"
+                                    save-as="ISO" />
+                                    <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'LoadOrUnloadStartDateTime')">
+                                    <i class="fa fa-calendar"></i>
+                                    </button>
+                                    </span>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-3 ">
+                                    <div class="form-group">
+                                    <label ng-if="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].Type == 'PIC'" class="control-label text-single-line">LoadingEnd DateTime</label>
+                                    <label ng-if="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].Type == 'DEL'" class="control-label text-single-line">UnloadEnd DateTime</label>
+                                    <label ng-if="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].Type == ''" class="control-label text-single-line">Load Or UnloadEnd DateTime</label>
+                                    <!-- <input type="text" class="form-control input-sm" ng-model="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPointsHeader.RequestDateTime"> -->
+                                    <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" datetime-picker="{{TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.Options.format}}" ng-model="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].LoadOrUnloadEndDateTime"
+                                    is-open="TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.isOpen['LoadOrUnloadEndDateTime']" datepicker-options="TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.Options"
+                                    datepicker-append-to-body="false" close-on-selection="false" enable-time="true" enable-date="true" default-date="" default-time=""
+                                    when-closed="TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.OnClosed(TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPointsHeader.LoadOrUnloadEndDateTime)"
+                                    save-as="ISO" />
+                                    <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'LoadOrUnloadEndDateTime')">
+                                    <i class="fa fa-calendar"></i>
+                                    </button>
+                                    </span>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-3 ">
+                                    <div class="form-group">
+                                    <label class="control-label text-single-line">DockOutDateTime</label>
+                                    <!-- <input type="text" class="form-control input-sm" ng-model="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPointsHeader.RequestDateTime"> -->
+                                    <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" datetime-picker="{{TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.Options.format}}" ng-model="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].DockOutDateTime"
+                                    is-open="TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.isOpen['DockOutDateTime']" datepicker-options="TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.Options"
+                                    datepicker-append-to-body="false" close-on-selection="false" enable-time="true" enable-date="true" default-date="" default-time=""
+                                    when-closed="TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.OnClosed(TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPointsHeader.DockOutDateTime)"
+                                    save-as="ISO" />
+                                    <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'DockOutDateTime')">
+                                    <i class="fa fa-calendar"></i>
+                                    </button>
+                                    </span>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-3 ">
+                                    <div class="form-group">
+                                    <label class="control-label text-single-line">GateOutDateTime</label>
+                                    <!-- <input type="text" class="form-control input-sm" ng-model="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPointsHeader.RequestDateTime"> -->
+                                    <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" datetime-picker="{{TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.Options.format}}" ng-model="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].GateOutDateTime"
+                                    is-open="TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.isOpen['GateOutDateTime']" datepicker-options="TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.Options"
+                                    datepicker-append-to-body="false" close-on-selection="false" enable-time="true" enable-date="true" default-date="" default-time=""
+                                    when-closed="TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.OnClosed(TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPointsHeader.GateOutDateTime)"
+                                    save-as="ISO" />
+                                    <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="TransportPickupanddeliveryCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'GateOutDateTime')">
+                                    <i class="fa fa-calendar"></i>
+                                    </button>
+                                    </span>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-3">
+                                        <div class="form-group">
+                                            <label class="control-label text-single-line">Goods SignedBy</label>
+                                            <input type="text" class="form-control input-sm" 
+                                            ng-model="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].GoodsSignedBy ">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-3">
+                                        <div class="form-group">
+                                            <label class="control-label text-single-line">Goods SignedBy ContactNo</label>
+                                            <input type="text" class="form-control input-sm" 
+                                            ng-model="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].GoodsSignedByContactNo ">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-3">
+                                        <div class="form-group">
+                                            <label class="control-label text-single-line">Instructions</label>
+                                            <input type="text" class="form-control input-sm" 
+                                            ng-model="TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].Instructions">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+</div>

@@ -1,0 +1,99 @@
+<div>
+    <div class="clearfix" data-ng-show="!GeneralConCtrl.ePage.Masters.Reference.IsFormView">
+        <div class="clearfix">
+            <div class="clearfix">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="input-group-sm">
+                        <button class="btn btn-primary pull-right" data-ng-click="GeneralConCtrl.ePage.Masters.Reference.AddNewReference()" data-ng-show="!GeneralConCtrl.ePage.Masters.Reference.IsFormView">
+                            <i class="fa fa-plus-circle"></i> Add Reference</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="text-center grid-view-loader" data-ng-if="!GeneralConCtrl.ePage.Masters.Reference.GridData">
+                <i class="fa fa-spin fa-spinner font-160"></i>
+            </div>
+            <!--  <dynamic-grid data-ng-if="GeneralConCtrl.ePage.Masters.Reference.GridData" input-data="GeneralConCtrl.ePage.Masters.Reference.GridData"
+             grid-config="GeneralConCtrl.ePage.Masters.Reference.gridConfig" row-selection-changed="GeneralConCtrl.ePage.Masters.Reference.ReferenceRowSelectionChanged($item)"></dynamic-grid> -->
+            <dynamic-table data-ng-if="GeneralConCtrl.ePage.Masters.Reference.GridData" grid-data="GeneralConCtrl.ePage.Masters.Reference.GridData"
+                grid-config="GeneralConCtrl.ePage.Masters.Reference.gridConfig" selected-grid-row="GeneralConCtrl.ePage.Masters.Reference.SelectedGridRowReference($item)"></dynamic-table>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix margin-top-10" data-ng-show="GeneralConCtrl.ePage.Masters.Reference.IsFormView">
+    <div class="clearfix margin-bottom-10 referance-details-heading">
+        <div class="clearfix">
+            <i class="fa fa-angle-double-left pull-left btn btn-link" data-ng-click="GeneralConCtrl.ePage.Masters.Reference.IsFormView = false"></i>
+            <span class="heading">Reference Details</span>
+        </div>
+    </div>
+    <div class="clearfix">
+        <div class="clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <input type="button" class="btn btn-primary btn-sm pull-right" data-ng-click="GeneralConCtrl.ePage.Masters.Reference.AddToGridReference()"
+                    value="Save Reference">
+            </div>
+        </div>
+        <!--Number Type-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+            <div class="form-group">
+                <label class="control-label">Type</label>
+                <div class="">
+                    <select chosen name="category-group" class="form-control" ng-model="GeneralConCtrl.ePage.Masters.Reference.FormView.EntryType"
+                        ng-options="x.Key as x.Description for x in  GeneralConCtrl.ePage.Masters.DropDownMasterList.REFNUMTYPE.ListSource"
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <!-- EntryNum -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+            <div class="form-group">
+                <label class="control-label">Reference Number </label>
+                <div class="">
+                    <input type="text" class="form-control input-sm" max-length="70" data-ng-model="GeneralConCtrl.ePage.Masters.Reference.FormView.EntryNum"
+                        placeholder="Number" />
+                </div>
+            </div>
+        </div>
+        <!-- Information -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+            <div class="form-group">
+                <label class="control-label">Information </label>
+                <div class="">
+                    <input type="text" class="form-control input-sm" max-length="30" data-ng-model="GeneralConCtrl.ePage.Masters.Reference.FormView.EntryLineReference"
+                        placeholder="Information" />
+                </div>
+            </div>
+        </div>
+
+        <!--EntitySource-->
+        <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+            <div class="form-group">
+                <label class="control-label">Entity Source</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm" data-ng-model="GeneralConCtrl.ePage.Masters.Reference.FormView.EntitySource"
+                        placeholder="Entity Source" />
+                </div>
+            </div>
+        </div>-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+            <div class="form-group">
+                <label class="control-label">Issue Date </label>
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="{{GeneralConCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="GeneralConCtrl.ePage.Masters.Reference.FormView.IssueDate"
+                        uib-datepicker-popup="{{GeneralConCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="GeneralConCtrl.ePage.Masters.DatePicker.Options"
+                        is-open="GeneralConCtrl.ePage.Masters.DatePicker.isOpen['isIssueDate']" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="GeneralConCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isIssueDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,191 @@
+<!-- hide save -->
+<span ng-if="!ContainerCtrl.ePage.Masters.Lineslist && ContainerCtrl.ePage.Entities.Header.CheckPoints.NotFinaliseStage" ng-init="ContainerCtrl.ePage.Entities.Header.CheckPoints.DisableSave=true"></span>
+<span ng-if="ContainerCtrl.ePage.Masters.Lineslist && ContainerCtrl.ePage.Entities.Header.CheckPoints.NotFinaliseStage" ng-init="ContainerCtrl.ePage.Entities.Header.CheckPoints.DisableSave=false"></span>
+
+<!-- Saving Your Data -->
+<div class="grid-loading-norecord-container ng-scope" style='z-index: 4;'data-ng-if="ContainerCtrl.ePage.Masters.IsLoadingToSave">
+    <div class="grid-no-record">Saving your Data...</div>
+</div>
+
+<div class="p-10" ng-show='ContainerCtrl.ePage.Masters.Lineslist'>
+    <div ng-show='ContainerCtrl.ePage.Entities.Header.CheckPoints.NotFinaliseStage'>
+        <span><button type="button" class="btn btn-sm btn-outline-secondary" title="Add New"  data-ng-click="ContainerCtrl.ePage.Masters.AddNewRow()"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button></span>
+        <span ng-hide='ContainerCtrl.ePage.Masters.selectedRow==-1'><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Copy"  data-ng-click="ContainerCtrl.ePage.Masters.CopyRow()"><span class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button></span>
+        <span ng-hide='ContainerCtrl.ePage.Masters.selectedRow==-1'><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Edit"  data-ng-click="ContainerCtrl.ePage.Masters.Edit(ContainerCtrl.ePage.Masters.selectedRow,'Edit List')"><span class="fa fa-pencil"></span>&nbsp;&nbsp;Edit</button></span>
+        <span ng-hide='ContainerCtrl.ePage.Masters.selectedRow==-1'><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Delete"  data-ng-click="ContainerCtrl.ePage.Masters.RemoveRow()"><span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button></span>        
+    </div>
+    <div id='ContainerCtrl.ePage.Masters.your_div' class="wmstable_scroll" style="height:400px; padding-top: 2px;">
+        <div class="table tab-position" id="results">
+            <div class='theader'>
+                <div class='table_header'>S.No</div>
+                <div class='table_header'>Container No</div>
+                <div class='table_header'>Seal No</div>
+                <div class='table_header'>Type</div>
+                <div class='table_header'>Chargeable</div>
+                <div class='table_header'>Palletised</div>
+                <div class='table_header'>Items</div>
+                <div class='table_header'>Pallets</div>                
+            </div>
+             <!-- List Empty Response -->
+             <div data-ng-if="ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer.length==0">
+                <div class="grid-no-record" style="top:110px">No records found...</div>
+            </div>
+
+            <div class='table_row' ng-repeat="x in ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer | orderBy:'CreatedDateTime'  | filter:{IsDeleted:'false'}  track by $index" 
+                ng-click="ContainerCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: ContainerCtrl.ePage.Masters.selectedRow==$index}" style="font-size: 11px;">
+                <div class='table_small'>
+                    <div class='table_cell'>S.No</div>
+                    <div class='table_cell'>
+                        <span class="list-error-warning" data-ng-if="ContainerCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderContainer.ERROR | listCount: 'RowIndex': $index">
+                            <error-warning-directive 
+                                list="ContainerCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderContainer.ERROR"
+                                type="'error'" icon="fa fa-warning" parent-type="'arrayObjectRow'" parent-ref=""
+                                g-parent-ref="" row-index="$index"
+                                col-index="">
+                            </error-warning-directive>
+                        </span>{{$index+1}}
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Container No</div>
+                    <div class='table_cell'>{{x.ContainerNumber || ContainerCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Seal No</div>
+                    <div class='table_cell'>{{x.SealNumber || ContainerCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Type</div>
+                    <div class='table_cell'>{{x.Type || ContainerCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Chargeable</div>
+                    <div class='table_cell'>{{x.IsChargeable === "true" ||x.IsChargeable=="1" ? "YES" : "NO"}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Palletised</div>
+                    <div class='table_cell'>{{x.IsPalletised === "true" ||x.IsPalletised=="1" ? "YES" : "NO"}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Items</div>
+                    <div class='table_cell'>{{x.ItemCount || ContainerCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Pallets</div>
+                    <div class='table_cell'>{{x.PalletCount || ContainerCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix" ng-hide='ContainerCtrl.ePage.Masters.Lineslist' style="padding:5px">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span ng-show="ContainerCtrl.ePage.Masters.HeaderName =='Copy Of List'">
+                    {{ContainerCtrl.ePage.Masters.HeaderName}} - {{ContainerCtrl.ePage.Masters.selectedRow}}                     
+            </span>
+            <span ng-show="ContainerCtrl.ePage.Masters.HeaderName!='Copy Of List'">
+                    {{ContainerCtrl.ePage.Masters.HeaderName}} - {{ContainerCtrl.ePage.Masters.selectedRow+1}}                     
+            </span>
+            <span class="pull-right Linestatus">{{ContainerCtrl.ePage.Masters.WorkOrderStatus}}</span> 
+        </div>
+        <div class="panel-body">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ex-line-padding">
+                <div class="ex-line-box" style="height: 150px;padding-top:10px" >
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <div class="error-warning-container" ng-repeat="x in ContainerCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderContainer.ERROR">
+                                <error-warning-directive data-ng-if="x.ColIndex == 1 && x.RowIndex ==ContainerCtrl.ePage.Masters.selectedRow"
+                                    list="ContainerCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderContainer.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                    g-parent-ref="" row-index="ContainerCtrl.ePage.Masters.selectedRow"
+                                    col-index="1">
+                                </error-warning-directive>
+                            </div>
+                            <label class="control-label text-single-line">Container No</label>
+                            <div class="">
+                                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Container No"  data-ng-model="ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer[ContainerCtrl.ePage.Masters.selectedRow].ContainerNumber"
+                                  ng-change="ContainerCtrl.ePage.Masters.OnChangeValues(ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer[ContainerCtrl.ePage.Masters.selectedRow].ContainerNumber,'E3013',true,ContainerCtrl.ePage.Masters.selectedRow)">                                        
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Seal No</label>
+                            <div class="">
+                                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Seal No"  data-ng-model="ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer[ContainerCtrl.ePage.Masters.selectedRow].SealNumber">                                        
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <div class="error-warning-container" ng-repeat="x in ContainerCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderContainer.ERROR">
+                                <error-warning-directive data-ng-if="x.ColIndex == 2 && x.RowIndex ==ContainerCtrl.ePage.Masters.selectedRow"
+                                    list="ContainerCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderContainer.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                    g-parent-ref="" row-index="ContainerCtrl.ePage.Masters.selectedRow"
+                                    col-index="2">
+                                </error-warning-directive>
+                            </div>
+                            <label class="control-label text-single-line">Type</label>
+                            <div class="input-group1 input-group-sm">
+                                <!-- Dynamic look up Search in textbox -->
+                                <div dynamic-lookup placeholder="Type" my-ng-model="ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer[ContainerCtrl.ePage.Masters.selectedRow].Type"
+                                    obj="ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer[ContainerCtrl.ePage.Masters.selectedRow]" prefix-data="'MstContainer'" config="'ContainerType'" auto-complete-on-select="ContainerCtrl.ePage.Masters.SelectedLookupType($item,ContainerCtrl.ePage.Masters.selectedRow)">
+                                </div>
+    
+                                <!-- Look Up page opens when button clicks -->
+                                <span class="input-group-btn">
+                                    <button dynamic-list-modal obj="ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer[ContainerCtrl.ePage.Masters.selectedRow]" field-name="'ContainerType'" selected-data="ContainerCtrl.ePage.Masters.SelectedLookupType($item,ContainerCtrl.ePage.Masters.selectedRow)"  prefix-data="'MstContainer'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                </span>
+                                <span ng-if='!ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer[ContainerCtrl.ePage.Masters.selectedRow].Type && ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer[ContainerCtrl.ePage.Masters.selectedRow].PK && !ContainerCtrl.ePage.Masters.Lineslist && (ContainerCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderContainer.ERROR | filter: {RowIndex: ContainerCtrl.ePage.Masters.selectedRow} | filter: {ColIndex: 2}).length==0'>
+                                    <span ng-init="ContainerCtrl.ePage.Masters.OnChangeValues(ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer[ContainerCtrl.ePage.Masters.selectedRow].Product,'E3014',true,ContainerCtrl.ePage.Masters.selectedRow)"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Item Count</label>
+                            <div class="">
+                                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Item Count"  data-ng-model="ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer[ContainerCtrl.ePage.Masters.selectedRow].ItemCount">                                        
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Pallet Count</label>
+                            <div class="">
+                                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Pallet Count"  data-ng-model="ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer[ContainerCtrl.ePage.Masters.selectedRow].PalletCount">                                        
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 ">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Chargeable</label>
+                            <select chosen class="form-control" ng-model="ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer[ContainerCtrl.ePage.Masters.selectedRow].IsChargeable" ng-options="x.Key as x.Value for x in ContainerCtrl.ePage.Masters.DropDownMasterList.WMSTRUEFALSE.ListSource" 
+                                    search-contains="true" >
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Palletised</label>
+                            <select chosen class="form-control" ng-model="ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer[ContainerCtrl.ePage.Masters.selectedRow].IsPalletised" ng-options="x.Key as x.Value for x in ContainerCtrl.ePage.Masters.DropDownMasterList.WMSTRUEFALSE.ListSource" 
+                                        search-contains="true" >
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-lg-offset-8 mt-5">
+                <button class="btn btn-blue btn-sm mr-5 pull-right" title="Save" data-ng-click="ContainerCtrl.ePage.Masters.Done()"><i class="fa fa-save pr-5"></i>Save</button>
+                <button class="btn btn-primary btn-sm mr-5 pull-right" title="Delete" data-ng-click="ContainerCtrl.ePage.Masters.RemoveRow()"><i class="fa fa-trash pr-5"></i>Delete</button>
+                <button class="btn btn-primary btn-sm mr-5 pull-right" title="Back" data-ng-click="ContainerCtrl.ePage.Masters.Back()"><i class="fa fa-angle-double-left pr-5"></i>Back</button>
+            </div>
+        </div>
+    </div>
+</div>

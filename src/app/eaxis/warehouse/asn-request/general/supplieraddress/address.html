@@ -1,0 +1,26 @@
+<div class="modal-header">
+    <span class="modal-title modalheader">Supplier Addresses</span>
+    <span class="modal-title  pull-right" style="font-size: 18px;" ng-click="SupplierAddressCtrl.ePage.Masters.Cancel()"><a href="javascript:void(0);"><i class="fa fa-times"></i></a></span>
+</div>
+<div class="modal-body pb-50">
+    <div ng-repeat="x in SupplierAddressCtrl.ePage.Entities.otheraddress">
+        <div class="col-lg-6 mt-15" ng-click="SupplierAddressCtrl.ePage.Masters.AddressChosen(x)">
+            <div ng-class="{addressboxselected: x.PK == SupplierAddressCtrl.ePage.Masters.CurrentSupplierAddress.OAD_Address_FK, addressbox:x.PK != SupplierAddressCtrl.ePage.Masters.CurrentSupplierAddress.OAD_Address_FK}">
+                <div class="text-single-line" title='{{x.Address1}}'><b>{{x.Address1 }}</b></div>
+                <div class="text-single-line" title='{{x.Address2}}'>{{x.Address2 }}</div>
+                <div class="text-single-line" title='{{x.State}}'>{{x.State}}</div>
+                <div class="text-single-line">
+                    <span  title="{{x.City}}">{{x.City}} -</span>
+                    <span  title="{{x.PostCode}}">{{x.PostCode}}</span>
+                </div>
+                <div class="text-single-line">
+                    <span  title="{{x.Mobile}}"><i class="fa fa-phone mr-5"></i>{{x.Mobile}}</span>
+                    <span  title="{{x.Email}}"><i class="fa fa-envelope-o ml-5 mr-5"></i>{{x.Email}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-sm mb-15" ng-click="SupplierAddressCtrl.ePage.Masters.Cancel()">Cancel</button>
+</div>

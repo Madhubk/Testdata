@@ -1,0 +1,184 @@
+<div class="clearfix tc-share-table">
+    <!-- Breadcrumb -->
+    <div class="clearfix tc-breadcrumb" data-ng-if="ShareTableCtrl.ePage.Masters.ActiveApplication == 'TC'">
+        <i class="fa fa-home home-icon"></i>
+        <div class="breadcrumb-list-wrapper">
+            <ol class="breadcrumb">
+                <li data-ng-repeat="x in ShareTableCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="ShareTableCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                </li>
+                <li data-ng-repeat="x in ShareTableCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
+                    class="active"></li>
+            </ol>
+        </div>
+        <span class="tc-breadcrumb-app-name" data-ng-if="ShareTableCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="ShareTableCtrl.ePage.Masters.QueryString.AppName"></span>
+    </div>
+    <!-- Header -->
+    <div class="clearfix tc-header-container">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="tc-header with-add-new">
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-5">
+                    <div class="text-single-line" data-ng-bind="'Share Table'"></div>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-5 pt-4 text-right">
+                    <button class="btn btn-xs btn-info" data-ng-click="ShareTableCtrl.ePage.Masters.ShareTable.AddNew()">New</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">
+            <div class="tc-header edit-view">
+                <span data-ng-bind="'Details'"></span>
+                <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10" data-ng-click="ShareTableCtrl.ePage.Masters.ShareTable.Edit()"
+                    data-ng-disabled="!ShareTableCtrl.ePage.Masters.ShareTable.ActiveShareTable.Entity_PK">Edit</button>
+                <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="ShareTableCtrl.ePage.Masters.ShareTable.DeleteConfirmation()"
+                    data-ng-bind="ShareTableCtrl.ePage.Masters.ShareTable.DeleteBtnText" data-ng-disabled="ShareTableCtrl.ePage.Masters.ShareTable.IsDisableDeleteBtn || !ShareTableCtrl.ePage.Masters.ShareTable.ActiveShareTable.Entity_PK"></button>
+            </div>
+        </div>
+    </div>
+    <!-- Body -->
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 tc-page-height-fixed">
+            <div class="tc-list-container">
+                <div class="tc-list-search">
+                    <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="ShareTableCtrl.ePage.Masters.Search">
+                </div>
+                <ul class="tc-list-ul">
+                    <div class="p-15 text-center tc-loading" data-ng-if="!ShareTableCtrl.ePage.Masters.ShareTable.ListSource">
+                        <i class="fa fa-spin fa-spinner"></i>
+                    </div>
+                    <div data-ng-if="ShareTableCtrl.ePage.Masters.ShareTable.ListSource && (ShareTableCtrl.ePage.Masters.ShareTable.ListSource | filter: ShareTableCtrl.ePage.Masters.Search).length===0"
+                        class="p-15 text-center">
+                        <i>No Records...</i>
+                    </div>
+                    <li data-ng-if="ShareTableCtrl.ePage.Masters.ShareTable.ListSource && (ShareTableCtrl.ePage.Masters.ShareTable.ListSource | filter: ShareTableCtrl.ePage.Masters.Search).length > 0"
+                        data-ng-repeat="x in ShareTableCtrl.ePage.Masters.ShareTable.ListSource | filter: ShareTableCtrl.ePage.Masters.Search"
+                        data-ng-click="ShareTableCtrl.ePage.Masters.ShareTable.ActiveShareTable.Entity_PK != x.Entity_PK && ShareTableCtrl.ePage.Masters.ShareTable.OnShareTableClick(x)"
+                        data-ng-class="{'active': ShareTableCtrl.ePage.Masters.ShareTable.ActiveShareTable.Entity_PK == x.Entity_PK}">
+                        <div class="clearfix tc-list">
+                            <div class="tc-list-name">
+                                <i class="fa fa-circle-o mr-10"></i>
+                                <span class="text-single-line" data-ng-bind="x.EntityName"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed">
+            <div class="pt-10 pb-10 tc-details-view clearfix">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Entity Name</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="ShareTableCtrl.ePage.Masters.ShareTable.ActiveShareTable.EntityName || ShareTableCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">DBObject</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="ShareTableCtrl.ePage.Masters.ShareTable.ActiveShareTable.DBObject || ShareTableCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">TableName</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="ShareTableCtrl.ePage.Masters.ShareTable.ActiveShareTable.TableName || ShareTableCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">APIUrl</label>
+                        <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 ">
+                            <label data-ng-bind="ShareTableCtrl.ePage.Masters.ShareTable.ActiveShareTable.APIUrl || ShareTableCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">IsActive</label>
+                        <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 ">
+                            <label data-ng-bind="ShareTableCtrl.ePage.Masters.ShareTable.ActiveShareTable.IsActive"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tc-section-divider" data-ng-if="ShareTableCtrl.ePage.Masters.ShareTable.ActiveShareTable.Entity_PK"></div>
+            <div class="tc-list-container tc-list-container-inner-redirect clearfix" data-ng-if="ShareTableCtrl.ePage.Masters.ShareTable.ActiveShareTable.Entity_PK">
+                <ul class="tc-list-ul">
+                    <li data-ng-click="ShareTableCtrl.ePage.Masters.ShareTable.OnFieldListClick(x)" data-ng-repeat="x in ShareTableCtrl.ePage.Masters.ShareTable.RedirectPagetList">
+                        <div class="clearfix tc-list">
+                            <div class="tc-list-name">
+                                <i class="fa {{x.Icon}} mr-10" data-ng-style="{'color': x.Color}"></i>
+                                <span class="text-single-line" data-ng-bind="x.Description"></span>
+                            </div>
+                        </div>
+                    </li>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Template -->
+<script type="text/ng-template" id="shareTableEdit">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="ShareTableCtrl.ePage.Masters.ShareTable.Cancel()">&times;</button>
+        <h5 class="modal-title" id="modal-title">
+            <strong>Edit</strong>
+        </h5>
+    </div>
+    <div class="modal-body pt-10" id="modal-body">
+        <div class="clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-5 pb-5">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">EntityName</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Entity Name" data-ng-model="ShareTableCtrl.ePage.Masters.ShareTable.ActiveShareTable.EntityName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">DBObject</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="DBObject" data-ng-model="ShareTableCtrl.ePage.Masters.ShareTable.ActiveShareTable.DBObject">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Table Name</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="DBObject" data-ng-model="ShareTableCtrl.ePage.Masters.ShareTable.ActiveShareTable.TableName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4"> APIUrl</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="APIUrl" data-ng-model="ShareTableCtrl.ePage.Masters.ShareTable.ActiveShareTable.APIUrl">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <div class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4"></div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                <label>
+                                    <input type="checkbox" data-ng-model="ShareTableCtrl.ePage.Masters.ShareTable.ActiveShareTable.IsActive" class="colored-blue">
+                                    <span class="text">IsActive</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="tc-section-divider-small"></div>
+        <div class="clearfix p-10">
+            <button class="btn btn-default tc-btn-save btn-xs pull-right ml-10" data-ng-click="ShareTableCtrl.ePage.Masters.ShareTable.Save()"
+                data-ng-bind="ShareTableCtrl.ePage.Masters.ShareTable.SaveBtnText" data-ng-disabled="ShareTableCtrl.ePage.Masters.ShareTable.IsDisableSaveBtn"></button>
+            <button class="btn btn-default tc-btn-cancel btn-xs pull-right ml-10" data-ng-click="ShareTableCtrl.ePage.Masters.ShareTable.Cancel()">Cancel</button>
+        </div>
+        <div class="tc-section-divider-small mb-20"></div>
+    </div>
+</script>

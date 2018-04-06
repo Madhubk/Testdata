@@ -1,0 +1,394 @@
+body:before {
+    background: #fff;
+}
+
+.page-body {
+    background: #fff;
+}
+
+.page-sidebar::before {
+    background-color: #364150;
+}
+
+.page-sidebar .sidebar-header-wrapper .searchinput {
+    background-color: #364150;
+    color: #ddd;
+    border: 1px solid #6b6667;
+    z-index: 5;
+}
+
+.page-sidebar .sidebar-menu li.active>a {
+    /* background-color: #D6171F; */
+    border-top: 1px solid;
+    border-color: #2C3542;
+    background-color: #2C3542;
+    color: #ddd;
+}
+
+.page-sidebar .sidebar-menu li:before {
+    background-color: #fbbc05;
+}
+
+.page-sidebar .sidebar-menu>li>a:hover {
+    border-color: #2C3542;
+    background-color: #3e4b5c;
+}
+
+.page-sidebar .sidebar-menu a {
+    color: #aaa;
+}
+
+.page-sidebar .sidebar-menu>li>a {
+    border-top: 1px solid #4e5a79;
+}
+
+.page-sidebar .sidebar-menu>li:last-child>a {
+    border-bottom: 1px solid #524c4c;
+}
+
+.page-sidebar .sidebar-menu>li.open>a {
+    background-color: #2C3542;
+    color: #aaa;
+}
+
+.page-sidebar .sidebar-menu>li:last-child>a {
+    border-bottom: 1px solid #4e5a79;
+}
+
+.page-sidebar .sidebar-menu>li>.submenu {
+    background-color: #364150;
+}
+
+.page-sidebar .sidebar-menu a:hover {
+    color: #ddd !important;
+    background-color: #2C3542 !important;
+}
+
+.page-sidebar .sidebar-menu li:not(.open):hover:before {
+    background-color: #fbbc05;
+}
+
+.page-sidebar .sidebar-menu .submenu li.active>a {
+    color: #ddd;
+    background-color: #2C3542;
+}
+
+
+/*Tab*/
+
+#chromeTab>.nav-tabs {
+    background-color: #cbd9de;
+    box-shadow: none;
+}
+
+.tab-content {
+    background: #fff;
+    box-shadow: none;
+    /* border: 1px solid #ddd; */
+    padding: 5px;
+}
+
+.tab-container>ul.nav-tabs>li {
+    background-color: #cbd9de !important;
+    border-right:1px solid #b9c6cb;
+}
+
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:hover,
+.nav-tabs>li.active>a:focus {
+    background-color: #fff;
+    box-shadow: none !important;
+    /* background-color: #f4f4f4; */
+    /* color: #ddd !important; */
+    font-weight: 600;
+    margin-top: 0;
+    /* border-top-color: #D6171F; */
+    border: none;
+    border-bottom: 2px solid #fbbc05 ;
+}
+
+.nav-tabs.nav-justified>.active>a,
+.nav-tabs.nav-justified>.active>a:hover,
+.nav-tabs.nav-justified>.active>a:focus {
+    background-color: #fff;
+}
+
+
+/*Chosen*/
+
+.chosen-container-single .chosen-single {
+    background: #fff;
+    box-shadow: none;
+}
+
+
+/*Form control*/
+
+.form-control,
+select {
+    background-color: #fff;
+    color: #000;
+}
+
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"] {
+    background-color: #fff;
+    color: #000;
+}
+
+.btn.shiny,
+.btn-default.shiny {
+    background: #fff;
+    box-shadow: none;
+}
+
+.input-group .input-group-addon {
+    background: #fff;
+}
+
+
+/*=====================*/
+
+
+/*Justified tab*/
+
+.nav-tabs.nav-justified>.active>a,
+.nav-tabs.nav-justified>.active>a:hover,
+.nav-tabs.nav-justified>.active>a:focus {
+    /*background-color: #fff !important;*/
+    border: 0;
+    border-bottom: 2px solid #D6171F;
+    box-shadow: none;
+    padding: 6px;
+    color: #999 !important;
+}
+
+.nav-tabs>li>a {
+    /* background-color: #fff !important;
+    border: 0;
+    padding: 8px;
+    margin-bottom: -2px; */
+    font-size: 14px;
+    color: #55788c !important;
+}
+
+.nav-tabs.nav-justified>li>a:hover {
+    background-color: #fff;
+    color: #262626 !important;
+}
+
+.nav-justified {
+    box-shadow: 1px 0 10px 1px rgba(0, 0, 0, .3);
+}
+
+
+/*Label*/
+
+.shipment-menu-wraper label {
+    color: gray;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.consol-menu-wraper label {
+    color: gray;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.order-menu-wraper label {
+    color: gray;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.wms-menu-wraper label {
+    color: gray;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.nav-tabs.nav-justified>li>a {
+    font-size: 14px;
+    color: #777 !important;
+}
+
+
+/*-------------------------------------------------------------------------------------------  */
+
+.shipment-menu.tabs-left.tabbable>.nav.nav.nav-tabs {
+    background-color: #f0f0f0;
+    height: 100vh;
+    width: 220px;
+}
+
+.shipment-menu.tabs-left.tabbable>.tab-content {
+    padding: 0;
+    height: 100vh
+}
+
+#shipmentGeneral>.nav-tabs a,
+#shipmentConsoleAndPacking .nav-tabs a,
+#shipmentServiceandReference .nav-tabs a,
+#shipmentPickupAndDelivery .nav-tabs a,
+#shipmentBilling .nav-tabs a,
+#OrderBasic .nav-tabs a,
+#OrderLine .nav-tabs a,
+#wmsBasic .nav-tabs a {
+    color: #5272AF !important;
+    font-size: 16px;
+}
+
+.shipment-menu.tabs-left.tabbable>.nav-tabs>li.active>a,
+.shipment-menu.tabs-left.tabbable>.nav-tabs>li.active>a:hover,
+.shipment-menu.tabs-left.tabbable>.nav-tabs>li.active>a:focus,
+.shipment-menu.tabs-left.tabbable>.nav-tabs>li.active>a:active {
+    /* color: #000 !important; */
+    border-left: 3px solid #fbbc05 !important;
+    color: #fff !important;
+    background-color: #4385f5;
+    line-height: 16px;
+    font-size: 14px;
+}
+
+
+/* ------------------------------- order---------------------------- */
+
+.order-menu.tabs-left.tabbable>.nav.nav.nav-tabs {
+    background-color: #f0f0f0;
+    height: 100vh;
+    width: 200px;
+}
+
+.order-menu.tabs-left.tabbable>.tab-content {
+    padding: 0;
+    height: 100vh
+}
+
+
+/* #OrderBasic>.nav-tabs a,{
+    color: #5272AF !important;
+    font-size: 16px;
+} */
+
+.order-menu.tabs-left.tabbable>.nav-tabs>li.active>a,
+.order-menu.tabs-left.tabbable>.nav-tabs>li.active>a:hover,
+.order-menu.tabs-left.tabbable>.nav-tabs>li.active>a:focus,
+.order-menu.tabs-left.tabbable>.nav-tabs>li.active>a:active {
+    /* color: #000 !important; */
+    border-left: 3px solid #fbbc05 !important;
+    color: #ddd !important;
+    background-color: #4385f5;
+    line-height: 16px;
+    font-size: 14px;
+}
+
+
+/* --------------------order end------------------ */
+
+/*---------------------Warehouse---------------------*/
+
+.wms-menu.tabs-left.tabbable>.nav.nav.nav-tabs {
+    background-color: #f0f0f0;
+    height: 100vh;
+    width: 205px;
+}
+
+.wms-menu.tabs-left.tabbable>.tab-content {
+    padding: 0;
+    height: 100vh
+}
+
+/* 
+#wmsBasic>.nav-tabs a,{
+    color: #5272AF !important;
+    font-size: 16px;
+} */
+
+.wms-menu.tabs-left.tabbable>.nav-tabs>li.active>a,
+.wms-menu.tabs-left.tabbable>.nav-tabs>li.active>a:hover,
+.wms-menu.tabs-left.tabbable>.nav-tabs>li.active>a:focus,
+.wms-menu.tabs-left.tabbable>.nav-tabs>li.active>a:active {
+    /* color: #000 !important; */
+    border-left: 3px solid #fbbc05 !important;
+    color: #ddd !important;
+    background-color: #4385f5;
+    line-height: 16px;
+    font-size: 14px;
+}
+
+/* --------------------Warehouse------------------ */
+
+
+.tab-profile {
+    width: 100%;
+    color: #908787;
+    padding: 32px 5px;
+    position: relative;
+    /* border-bottom: 1px solid #6c7480; */
+    height: 90px;
+}
+
+.tab-profile .tab-profile-title {
+    font-size: 20px;
+}
+
+.tab-profile .tab-rofile-avatar {
+    margin-bottom: 5px;
+}
+
+.tab-profile .tab-rofile-avatar .avatar {
+    width: 60px;
+    height: 60px;
+}
+
+.navbar .navbar-inner {
+    /* min-height: 34px; */
+    background: url(../../assets/img/absurdidad.png) #fff;
+    color: black;
+    border-bottom: 1px solid #fbbc05;
+}
+
+.navbar .navbar-inner .navbar-header .navbar-account .account-area .open .login-area section h2 span {
+    color: #1f1f1f;
+}
+
+.navbar .navbar-inner .navbar-header .navbar-account .account-area .login-area section h2 span {
+    color: #1f1f1f;
+}
+
+.navbar .navbar-inner .navbar-header .navbar-account .account-area>li.open>a {
+    /* background-color: #1f1f1f; */
+    background: url(../../assets/img/absurdidad.png) #fff;
+}
+
+.page-sidebar.menu-compact .sidebar-menu>li>a:hover {
+    background-color: #3e4b5c;
+}
+
+.page-sidebar.menu-compact .sidebar-menu>li>a .menu-text {
+    background-color: #3e4b5c;
+    color: #f4f4f4;
+}
+
+.page-sidebar.menu-compact~.page-content {
+    margin-left: 47px;
+}
+
+.page-sidebar.menu-compact .sidebar-menu>li>.submenu>li>a {
+    background-color: #3e4b5c;
+    color: #f4f4f4;
+}

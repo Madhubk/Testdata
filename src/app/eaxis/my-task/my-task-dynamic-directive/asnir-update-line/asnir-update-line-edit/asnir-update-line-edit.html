@@ -1,0 +1,158 @@
+<!-- General Details -->
+<div class="clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">Warehouse</label>
+            <div class="input-group input-group-sm">
+                <!-- Dynamic look up Search in textbox -->
+                <div dynamic-lookup placeholder="Warehouse Code And Name" my-ng-model="AsnirUpdateLineEditDirectiveCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Warehouse"
+                    obj="AsnirUpdateLineEditDirectiveCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader" prefix-data="'Warehouse'"
+                    config="'Warehouse'" auto-complete-on-select="AsnirUpdateLineEditDirectiveCtrl.ePage.Masters.SelectedLookupWarehouse($item)">
+                </div>
+
+                <!-- Look Up page opens when button clicks -->
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="AsnirUpdateLineEditDirectiveCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader" field-name="'Warehouse'"
+                            selected-data="AsnirUpdateLineEditDirectiveCtrl.ePage.Masters.SelectedLookupWarehouse($item)" prefix-data="'Warehouse'"
+                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny" type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">Client</label>
+            <div class="input-group input-group-sm">
+
+                <!-- Dynamic look up Search in textbox -->
+                <div dynamic-lookup placeholder="Client Code And Name" my-ng-model="AsnirUpdateLineEditDirectiveCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Client"
+                    auto-complete-on-select="AsnirUpdateLineEditDirectiveCtrl.ePage.Masters.SelectedLookupDataClient($item)"
+                    obj="AsnirUpdateLineEditDirectiveCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader" prefix-data="'OrganizationList'"
+                    config="'Client'">
+                </div>
+
+                <!-- Look Up page opens when button clicks -->
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="AsnirUpdateLineEditDirectiveCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader" field-name="'Client'" selected-data="AsnirUpdateLineEditDirectiveCtrl.ePage.Masters.SelectedLookupDataClient($item)"  prefix-data="'OrganizationList'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">Supplier</label>
+            <div class="input-group input-group-sm">
+
+                <!-- Dynamic look up Search in textbox -->
+                <div dynamic-lookup placeholder="Supplier Code And Name" my-ng-model="AsnirUpdateLineEditDirectiveCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Supplier"
+                    auto-complete-on-select="AsnirUpdateLineEditDirectiveCtrl.ePage.Masters.SelectedLookupDataSupplier($item)"
+                    obj="AsnirUpdateLineEditDirectiveCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader" prefix-data="'OrganizationList'"
+                    config="'Supplier'">
+                </div>
+
+                <!-- Look Up page opens when button clicks -->
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="AsnirUpdateLineEditDirectiveCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader" field-name="'Supplier'" selected-data="AsnirUpdateLineEditDirectiveCtrl.ePage.Masters.SelectedLookupDataSupplier($item)"
+                      prefix-data="'OrganizationList'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!--ETD-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">ETD</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{AsnirUpdateLineEditDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}"
+                    data-ng-model="AsnirUpdateLineEditDirectiveCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ETD" data-ng-click="AsnirUpdateLineEditDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETD')"
+                    uib-datepicker-popup="{{AsnirUpdateLineEditDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="AsnirUpdateLineEditDirectiveCtrl.ePage.Masters.DatePicker.Options"
+                    is-open="AsnirUpdateLineEditDirectiveCtrl.ePage.Masters.DatePicker.isOpen['isETD']" />
+                <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="AsnirUpdateLineEditDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETD')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+            </div>
+        </div>
+    </div>
+
+    <!--ETA-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">ETA</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{AsnirUpdateLineEditDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}"
+                    data-ng-model="AsnirUpdateLineEditDirectiveCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ETA" data-ng-click="AsnirUpdateLineEditDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETA')"
+                    uib-datepicker-popup="{{AsnirUpdateLineEditDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="AsnirUpdateLineEditDirectiveCtrl.ePage.Masters.DatePicker.Options"
+                    is-open="AsnirUpdateLineEditDirectiveCtrl.ePage.Masters.DatePicker.isOpen['isETA']" />
+                <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="AsnirUpdateLineEditDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETA')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+            </div>
+        </div>
+    </div>
+    <!--Total Packages-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">Total Packages</label>
+            <div class="">
+                <input type="text" numbers-only class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Total Packages"
+                    data-ng-model="AsnirUpdateLineEditDirectiveCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PackagesSent">
+            </div>
+        </div>
+    </div>
+    <!--Total Units-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">Total Units</label>
+            <div class="">
+                <input type="text" numbers-only class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Total Units"
+                    data-ng-model="AsnirUpdateLineEditDirectiveCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalUnits">
+            </div>
+        </div>
+    </div>
+
+    <!--Total Pallets-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">Total Pallets</label>
+            <div class="">
+                <input type="text" numbers-only class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Total Pallets"
+                    data-ng-model="AsnirUpdateLineEditDirectiveCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalPallets">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Loading -->
+<div class="grid-loading-norecord-container" data-ng-show="AsnirUpdateLineEditDirectiveCtrl.ePage.Meta.IsLoading">
+    <div class="grid-loading">Loading...</div>
+</div>
+<!-- Asn Line Directive -->
+<div class="clearfix">
+    <inward-asn-lines ng-if="AsnirUpdateLineEditDirectiveCtrl.ePage.Masters.TabList" current-inward="AsnirUpdateLineEditDirectiveCtrl.ePage.Masters.TabList"
+        active-menu="">
+    </inward-asn-lines>
+</div>
+<!-- Save & Complete Buttons -->
+<div class="clearfix">
+    <div class="clearfix my-task-standard-bar" data-ng-if="
+        AsnirUpdateLineEditDirectiveCtrl.ePage.Masters.StandardMenuInput">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 pt-5">
+            <a href="javascript: void(0)" document-modal input="AsnirUpdateLineEditDirectiveCtrl.ePage.Masters.StandardMenuInput" class="my-task-icon fa fa-file-text-o mr-5"></a>
+            <span class="my-task-slash"></span>
+            <a href="javascript: void(0)" comment-modal input="AsnirUpdateLineEditDirectiveCtrl.ePage.Masters.StandardMenuInput" class="my-task-icon fa fa-comment-o mr-5"></a>
+            <span class="my-task-slash"></span>
+            <a href="javascript: void(0)" email-modal input="AsnirUpdateLineEditDirectiveCtrl.ePage.Masters.StandardMenuInput" class="my-task-icon fa fa-envelope-o mr-5"></a>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <input type="submit" class="btn btn-success btn-save btn-sm pull-right ml-5" data-ng-click="AsnirUpdateLineEditDirectiveCtrl.ePage.Masters.Save()"
+                data-ng-disabled="AsnirUpdateLineEditDirectiveCtrl.ePage.Masters.IsDisableSaveBtn" value="{{AsnirUpdateLineEditDirectiveCtrl.ePage.Masters.SaveBtnText}}">
+            <input type="button" class="btn btn-primary btn-sm pull-right ml-5" data-ng-click="AsnirUpdateLineEditDirectiveCtrl.ePage.Masters.Complete()"
+                data-ng-disabled="AsnirUpdateLineEditDirectiveCtrl.ePage.Masters.IsDisableCompleteBtn" value="{{AsnirUpdateLineEditDirectiveCtrl.ePage.Masters.CompleteBtnText}}">
+        </div>
+    </div>
+</div>

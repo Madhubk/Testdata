@@ -1,0 +1,87 @@
+<div class="clearfix details-exception-wrapper">
+	<form novalidate name="tsDetailsExceptionForm" class="form-horizontal">
+		 <div class="row form">
+		 	 <div class="col-sm-5">
+		 	  <!--Title-->
+                 <div class="form-group">
+                 <label class="control-label col-sm-3 text-right" data-ng-bind="'Exception'"></label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control input-sm" placeholder="Exception" data-ng-model="SupportCtrl.ePage.Entities.SupportHeader.Details.Exception.Title">
+                    </div>
+                </div>
+                <!--Description-->
+                <div class="form-group"> 
+                <label class="control-label col-sm-3 text-right" data-ng-bind="'Description'"></label>
+                    <div class="col-sm-9">
+                        <textarea rows="4" class="form-control input-sm no-resize" placeholder="Description" data-ng-model="SupportCtrl.ePage.Entities.SupportHeader.Details.Exception.Description"></textarea>
+                    </div>
+                </div>
+                  <!--Category-->
+                <div class="form-group">
+                    <label class="control-label col-sm-3 text-right" data-ng-bind="'ExceptionType'"></label>
+                    <div class="col-sm-9">
+                        <select chosen class="form-control" ng-model="SupportCtrl.ePage.Entities.SupportHeader.Details.Exception.Category" ng-options="x.Key as x.Key for x in SupportCtrl.ePage.Entities.SupportHeader.Meta.TeamTypeMaster.ListSource | filter:  {TypeCode: 'TaskType'}" search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+                 <!--Assign To-->
+                <div class="form-group">
+                 <label class="control-label col-sm-3 text-right" data-ng-bind="'AssignTo'"></label>
+                <div class="col-sm-9">
+                        <select chosen search-contains="true" disable-search="false" class="form-control" ng-model="SupportCtrl.ePage.Entities.SupportHeader.Details.Exception.AssignTo"
+                            ng-options="x.USR_UserName as x.USR_UserName for x in SupportCtrl.ePage.Entities.SupportHeader.Meta.User.ListSource" search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+              
+                <div class="horizontal-space"></div>
+                  <div class="button-wrapper clearfix">
+                       <input type="submit" class="btn btn-primary btn-sm pull-right margin-left-5" value="{{SupportCtrl.ePage.Masters.DetailsExceptionSaveText}}"
+                        data-ng-click="SupportCtrl.ePage.Masters.DetailsExceptionSave()" data-ng-disabled="SupportCtrl.ePage.Masters.IsDetailsExceptionSaveClick"
+                    />
+                     <input type="button" class="btn btn-primary btn-sm pull-right margin-left-5" value="New" data-ng-click="SupportCtrl.ePage.Masters.DetailsExceptionNew()"
+                    />
+                </div>
+		 	 </div>
+		 	 <!-- Exception List -->
+		 	 <div class="col-sm-7 no-padding-left">
+		 	 	 <div class="exception-list-wrapper">
+          <!--Loading-->
+		 	 	 	<div class="text-center grid-view-loader padding-20" data-ng-if="!SupportCtrl.ePage.Entities.SupportHeader.Meta.Exception.ListSource"><i class="fa fa-spin fa-spinner font-160"></i></div>
+		 	 	 	
+           <!--No records-->
+            <div class="text-center grid-view-loader padding-20" data-ng-if="SupportCtrl.ePage.Entities.SupportHeader.Meta.Exception.ListSource.length === 0"><i class="">No Records Found...!</i></div>
+
+              <div class="clearfix exception-list" data-ng-repeat="x in SupportCtrl.ePage.Entities.SupportHeader.Meta.Exception.ListSource | orderBy: 'ModifiedDateTime': true" data-ng-dblclick="SupportCtrl.ePage.Masters.DetailsExceptionEditClick(x)">
+
+               <!--AssignTo-->
+                <div class="col-sm-3 no-padding-left">
+                   <div class="text-single-line" data-ng-bind="x.AssignTo" title="{{x.AssignTo}}"></div>
+                      </div>
+                   <!--Description-->
+                        <div class="col-sm-3 no-padding-left">
+                            <div class="text-single-line" data-ng-bind="x.Description" title="{{x.Description}}"></div>
+                        </div> 
+                         <!--Title-->
+                        <div class="col-sm-2 no-padding-left">
+                            <div class="text-single-line" data-ng-bind="x.Title" title="{{x.Title}}"></div>
+                        </div> 
+                        <!--Category--> 
+                        <div class="col-sm-2 no-padding-left">
+                            <div class="text-single-line" data-ng-bind="x.Category" title="{{x.Category}}"></div>
+                        </div> 
+                          <!--Edit-->
+                        <div class="col-sm-1">
+                          <div class="text-single-line"><i class="fa fa-pencil-square-o exception-edit" data-ng-click="SupportCtrl.ePage.Masters.DetailsExceptionEditClick(x)"></i></div>
+                        </div>
+                           <!--Delete-->
+                        <div class="col-sm-1">
+                          <div class="text-single-line"><i class="fa fa-trash-o exception-remove" data-ng-click="SupportCtrl.ePage.Masters.DetailsExceptionDeleteTask(x)"></i></div>
+                        </div> 
+		 	 	            </div>
+		 	 	         </div>
+		 	       </div>
+		    </form>
+	</div>

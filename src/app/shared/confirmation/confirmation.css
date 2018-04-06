@@ -1,0 +1,14 @@
+.confirmation .modal-dialog {
+    width: 30%;
+    height: auto;
+    margin: 40px auto;
+}
+
+.confirmation .modal-dialog .modal-header {
+    padding: 5px 10px;
+}
+
+.confirmation .modal-dialog .modal-footer {
+    padding: 10px;
+    position: relative;
+}

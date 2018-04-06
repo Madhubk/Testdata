@@ -1,0 +1,505 @@
+<div class="clearfix">
+    <div class="col-lg-3 ex-line-padding" style="padding:10px">
+        <div class="ex-line-box1" style="padding-top:10px">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-2 pr-0 padding-top-10">
+                <div class="form-group ex-line-font">
+                    <label class="control-label text-single-line" >Order #</label>
+                    <div class="input-group input-group-sm col-lg-12">
+                        <input type="text" class="form-control input-sm" placeholder="Order No" max-length="70" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.OrderNo"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-1 pr-0 padding-top-10">
+                <div class="form-group">
+                    <!-- <label class="control-label text-single-line">&nbsp;</label> -->
+                    <div class="input-group input-group-sm" style="margin-top: 23px;">
+                        <input type="text" disabled="disabled" class="form-control input-sm" placeholder="" max-length="4" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.OrderNoSplit"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 pr-0 padding-top-10">
+                <div class="form-group ex-line-font">
+                    <label class="control-label" >Order Date</label>
+                    <div class="input-group input-group-sm col-lg-11">
+                        <input type="text" class="form-control" placeholder="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.OrderDate"
+                            data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isOrderDate')" uib-datepicker-popup="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}"
+                            datepicker-options="OrdGeneralCtrl.ePage.Masters.DatePicker.Options" is-open="OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isOrderDate']"
+                        />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default shiny" data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isOrderDate')"><i class="fa fa-calendar"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+    <div class="col-lg-9">
+        <div class="row margin-right-10 margin-left-10 margin-top-10 address-panel">
+        <!-- consignee -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-4 pr-0 padding-top-10 address-consignee">
+            <!--Pickup Drop Mode-->
+            <div class="padding-bottom-5">
+                <div class="ex-line-font">
+                    <label class="control-label" > Consignee</label>
+                </div>
+            </div>
+            <!--Estimated Pickup-->
+            <div class="padding-right-10">
+                <div class="form-group">
+                    <div class="input-group input-group-sm">
+                        <input type="hidden" ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.ORG_FK">
+                        <div dynamic-lookup placeholder="Organization Code" my-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.ORG_Code" obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP" prefix-data="'OrganizationList'" config="'JobAddressOrg'" auto-complete-on-select="OrdGeneralCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item, 'address', 'SCP')">
+                        </div>
+                        <span class="input-group-btn">
+                            <button dynamic-list-modal obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP" field-name="'JobAddressOrg'" prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedLookupData($item, 'address', 'SCP')" class="btn btn-default shiny" type="button">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                        </span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="padding-right-10">
+                <div class="form-group">
+                    <div class="input-group input-group-sm">
+                        <input type="hidden" ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.OAD_Address_FK">
+                        <textarea class="form-control no-resize txtarea-height-45" disabled="disabled" placeholder="Please select consignee address" data-ng-model="OrdGeneralCtrl.ePage.Masters.AddressContactBinding((OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.AddressList | filter: {PK: OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.OAD_Address_FK})[0],'Address')" ng-model-options="{ getterSetter: true }"></textarea>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default txtarea-height-45" type="button" data-ng-click="OrdGeneralCtrl.ePage.Masters.IsSCPAddressOpen=!OrdGeneralCtrl.ePage.Masters.IsSCPAddressOpen">
+                                <i class="fa fa-address-book-o"></i>
+                            </button>
+                        </span>
+                        <div class="dropdownWrapMiddle animated fadeInDown" data-ng-show="OrdGeneralCtrl.ePage.Masters.IsSCPAddressOpen">
+                            <address-wrapper obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.AddressList" type="'SCP'" list-source="'AddressList'" selected="OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.OAD_Address_FK" on-address-edit="OrdGeneralCtrl.ePage.Masters.OnAddressEdit($item, 'SCP', 'Address')" on-address-change="OrdGeneralCtrl.ePage.Masters.OnAddressChange($item, 'SCP', 'Address')"></address-wrapper>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="padding-right-10">
+                <div class="form-group">
+                    <div class="input-group input-group-sm">
+                        <input type="hidden" ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.OCT_FK">                       
+                        <textarea class="form-control no-resize txtarea-height-45" disabled="disabled" placeholder="Please select consignee contact" data-ng-model="OrdGeneralCtrl.ePage.Masters.AddressContactBinding((OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.ContactList | filter: {PK: OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.OCT_FK})[0],'Contact')" ng-model-options="{ getterSetter: true }"></textarea>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default txtarea-height-45" type="button" data-ng-click="OrdGeneralCtrl.ePage.Masters.IsSCPContactOpen=!OrdGeneralCtrl.ePage.Masters.IsSCPContactOpen">
+                                <i class="fa fa-phone"></i>
+                            </button>
+                        </span>
+                        <div class="dropdownWrapMiddle animated fadeInDown" data-ng-show="OrdGeneralCtrl.ePage.Masters.IsSCPContactOpen">
+                            <address-wrapper obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.ContactList" type="'SCP'" list-source="'ContactList'" selected="OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.OCT_FK" on-address-change="OrdGeneralCtrl.ePage.Masters.OnContactChange($item, 'SCP', 'Contact')"></address-wrapper>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- consignor -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-4 pr-0 padding-top-10 address-design">
+            <!--Pickup Drop Mode-->
+            <div class="padding-bottom-5">
+                <div class="ex-line-font">
+                    <label class="control-label" > Consignor</label>
+                </div>
+            </div>
+            <!--Estimated Pickup-->
+            <div class="padding-right-10">
+                <div class="form-group">
+                    <div class="input-group input-group-sm">
+                        <input type="hidden" ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.ORG_FK">
+                        <div dynamic-lookup placeholder="Organization Code" my-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.ORG_Code" obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA" prefix-data="'OrganizationList'" config="'JobAddressOrg'" auto-complete-on-select="OrdGeneralCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item, 'address', 'CRA')">
+                        </div>
+                        <span class="input-group-btn">
+                            <button dynamic-list-modal obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA" field-name="'JobAddressOrg'" prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedLookupData($item, 'address', 'CRA')" class="btn btn-default shiny" type="button">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                        </span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="padding-right-10">
+                <div class="form-group">
+                    <div class="input-group input-group-sm">
+                        <input type="hidden" ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.OAD_Address_FK">
+                        <textarea class="form-control no-resize txtarea-height-45" disabled="disabled" placeholder="Please select consignor address" data-ng-model="OrdGeneralCtrl.ePage.Masters.AddressContactBinding((OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.AddressList | filter: {PK: OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.OAD_Address_FK})[0],'Address')" ng-model-options="{ getterSetter: true }"></textarea>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default txtarea-height-45" type="button" data-ng-click="OrdGeneralCtrl.ePage.Masters.IsCRAAddressOpen=!OrdGeneralCtrl.ePage.Masters.IsCRAAddressOpen">
+                                <i class="fa fa-address-book-o"></i>
+                                <!--<i class="fa fa-caret-down"></i>-->
+                            </button>
+                        </span>
+                        <div class="dropdownWrapLeft animated fadeInDown" data-ng-show="OrdGeneralCtrl.ePage.Masters.IsCRAAddressOpen">
+                            <address-wrapper obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.AddressList" type="'CRA'" list-source="'AddressList'"
+                                             selected="OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.OAD_Address_FK" on-address-edit="OrdGeneralCtrl.ePage.Masters.OnAddressEdit($item, 'CRA', 'Address')"
+                                             on-address-change="OrdGeneralCtrl.ePage.Masters.OnAddressChange($item, 'CRA', 'Address')"></address-wrapper>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="padding-right-10">
+                <div class="form-group">
+                    <div class="input-group input-group-sm">
+                        <input type="hidden" ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.OCT_FK">
+                        <textarea class="form-control no-resize txtarea-height-45" disabled="disabled" placeholder="Please select consignor contact" data-ng-model="OrdGeneralCtrl.ePage.Masters.AddressContactBinding((OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.ContactList | filter: {PK: OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.OCT_FK})[0],'Contact')" ng-model-options="{ getterSetter: true }"></textarea>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default txtarea-height-45" type="button" data-ng-click="OrdGeneralCtrl.ePage.Masters.IsCRAContactOpen=!OrdGeneralCtrl.ePage.Masters.IsCRAContactOpen">
+                                <i class="fa fa-phone"></i>
+                            </button>
+                        </span>
+                        <div class="dropdownWrapLeft animated fadeInDown" data-ng-show="OrdGeneralCtrl.ePage.Masters.IsCRAContactOpen">
+                            <address-wrapper obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.ContactList" type="'CRA'" list-source="'ContactList'" selected="OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.OCT_FK" on-address-change="OrdGeneralCtrl.ePage.Masters.OnContactChange($item, 'CRA', 'Contact')"></address-wrapper>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+<div class="clearfix">
+    <!-- Transport -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Transport Mode</label>
+            <div class="">
+                <select chosen class="form-control" ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode" ng-options="x.Key as x.Key + '-' + x.Value for x in OrdGeneralCtrl.ePage.Entities.Header.Meta.TRANSTYPE.ListSource"
+                    search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <!-- Container Mode -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Container Mode</label>
+            <div class="">
+                <select chosen class="form-control" ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode" ng-options="x.Key as x.Key + '-' + x.Value for x in OrdGeneralCtrl.ePage.Entities.Header.Meta.CNTTYPE.ListSource"
+                    search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <!-- INCO Term -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Inco Term</label>
+            <div class="">
+                <div class="">
+                    <select chosen name="category-group" class="form-control" ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.IncoTerm"
+                        ng-options="x.Key as x.Key + '-' + x.Value for x in OrdGeneralCtrl.ePage.Entities.Header.Meta.INCOTERM.ListSource"
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Service level -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Service Level</label>
+            <div class="">
+                <div class="">
+                    <select chosen name="category-group" class="form-control" ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ServiceLevel"
+                        ng-options="x.Code as x.Description for x in OrdGeneralCtrl.ePage.Entities.Header.Meta.ServiceLevel.ListSource"
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Goods Desc -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Goods Desc</label>
+            <div class="">
+                <textarea class="form-control input-sm no-resize" placeholder="Goods Desc" max-length="2000" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.GoodsDescription" rows="1"></textarea>
+            </div>
+        </div>
+    </div>
+    <!-- Confirm # -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Confirm #</label>
+            <div class="">
+                <input type="text" class="form-control input-sm" placeholder="Confirm No" max-length="70" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ConfirmNo"
+                />
+            </div>
+        </div>
+    </div>
+    <!-- Confirm Date -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label">Confirm Date</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ConfirmDate"
+                    data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isConfirmDate')" uib-datepicker-popup="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}"
+                    datepicker-options="OrdGeneralCtrl.ePage.Masters.DatePicker.Options" is-open="OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isConfirmDate']"
+                />
+                <span class="input-group-btn">
+                     <button class="btn btn-default shiny" data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isConfirmDate')"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- Currency -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Currency</label>
+            <div class="">
+                <select chosen name="category-group" class="form-control" ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.OrderCurrency"
+                    ng-options="x.Code as x.Code + ' - ' + x.Desc for x in OrdGeneralCtrl.ePage.Entities.Header.Meta.Currency.ListSource"
+                    search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+            </div>
+        </div>
+    </div>
+    <!-- Country of Origin -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Country of Origin</label>
+            <div class="">
+                <select chosen class="form-control" ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.OriginCountry" ng-options="x.COU_Code as x.COU_Code + ' - ' + x.COU_Desc for x in OrdGeneralCtrl.ePage.Entities.Header.Meta.Country.ListSource"
+                    search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <!-- Additional Terms -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Additional Terms</label>
+            <div class="">
+                <textarea class="form-control input-sm no-resize" placeholder="Additional Terms" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.AdditionalTerms" rows="1"></textarea>
+            </div>
+        </div>
+    </div>
+    <!-- Invoice # -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Invoice #</label>
+            <div class="">
+                <input type="text" class="form-control input-sm" placeholder="Invoice No" max-length="70" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.InvoiceNo"
+                />
+            </div>
+        </div>
+    </div>
+    <!-- Invoice date -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label">Invoice Date </label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.InvoiceDate"
+                    data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isInvoiceDate')" uib-datepicker-popup="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}"
+                    datepicker-options="OrdGeneralCtrl.ePage.Masters.DatePicker.Options" is-open="OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isInvoiceDate']"
+                />
+                <span class="input-group-btn">
+                                             <button class="btn btn-default shiny" data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isInvoiceDate')"><i class="fa fa-calendar"></i></button>
+                                        </span>
+            </div>
+        </div>
+    </div>
+    <!-- Req.Ex.Works -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label">Req.Ex Works</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.RequiredExWorksDate"
+                    data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isRequiredExWorksDate')" uib-datepicker-popup="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}"
+                    datepicker-options="OrdGeneralCtrl.ePage.Masters.DatePicker.Options" is-open="OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isRequiredExWorksDate']"
+                />
+                <span class="input-group-btn">
+                                             <button class="btn btn-default shiny" data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isRequiredExWorksDate')"><i class="fa fa-calendar"></i></button>
+                                        </span>
+            </div>
+        </div>
+    </div>
+    <!-- Req.In.Store -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label">Req.In Store</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.EstimatedInStoreDate"
+                    data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedInStoreDate')"
+                    uib-datepicker-popup="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="OrdGeneralCtrl.ePage.Masters.DatePicker.Options"
+                    is-open="OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isEstimatedInStoreDate']" />
+                <span class="input-group-btn">
+                     <button class="btn btn-default shiny" data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedInStoreDate')"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- FollowUp date -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label">Follow Up Date</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.FollowUpDate"
+                    data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isFollowUpDate')" uib-datepicker-popup="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}"
+                    datepicker-options="OrdGeneralCtrl.ePage.Masters.DatePicker.Options" is-open="OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isFollowUpDate']"
+                />
+                <span class="input-group-btn">
+                     <button class="btn btn-default shiny" data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isFollowUpDate')"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- Expected Goods Available On -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label">Ex. Goods Available</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ExpectedCargoReadyDate"
+                    data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isExpectedCargoReadyDate')" uib-datepicker-popup="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}"
+                    datepicker-options="OrdGeneralCtrl.ePage.Masters.DatePicker.Options" is-open="OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isExpectedCargoReadyDate']"
+                />
+                <span class="input-group-btn">
+                     <button class="btn btn-default shiny" data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isExpectedCargoReadyDate')"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- Actual Goods Available On -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label">Act. Goods Available</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.CargoReadyDate"
+                    data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoReadyDate')" uib-datepicker-popup="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}"
+                    datepicker-options="OrdGeneralCtrl.ePage.Masters.DatePicker.Options" is-open="OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isCargoReadyDate']"
+                />
+                <span class="input-group-btn">
+                     <button class="btn btn-default shiny" data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoReadyDate')"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- Origin -->
+    <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Origin</label>
+            <div class="input-group input-group-sm">
+                <div dynamic-lookup my-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.Origin" obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader"
+                    prefix-data="'MstUNLOCO'" config="'OriginCountry'"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader" field-name="'OriginCountry'" prefix-data="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                </span>
+            </div>
+        </div>
+    </div> -->
+    
+    <!-- Destination -->
+    <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Destination</label>
+            <div class="input-group input-group-sm">
+                <div dynamic-lookup my-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.Destination" obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader"
+                    prefix-data="'MstUNLOCO'" config="'DestinationCountry'"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader" field-name="'DestinationCountry'" prefix-data="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                </span>
+            </div>
+        </div>
+    </div> -->
+    
+    <!-- Goods Origin -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Goods Origin</label>
+            <div class="input-group input-group-sm">
+                <div dynamic-lookup my-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.GoodsAvailableAt" obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader"
+                    prefix-data="'MstUNLOCO'" config="'GoodsAvailableAt'"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader" field-name="'GoodsAvailableAt'" prefix-data="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- Goods Available At -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Goods Available At</label>
+            <div class="">
+                <select chosen class="form-control" ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ORA_DeliveryAdress"
+                    ng-options="x.Code as x.Code for x in OrdGeneralCtrl.ePage.Entities.Header.Meta.GoodsAvailAt.ListSource"
+                    search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <!-- Goods Destination -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Goods Destination</label>
+            <div class="input-group input-group-sm">
+                <div dynamic-lookup my-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.GoodsDeliveredTo" obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader"
+                    prefix-data="'MstUNLOCO'" config="'GoodsDeliveredTo'"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader" field-name="'GoodsDeliveredTo'" prefix-data="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- Goods Deliverd To -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Goods Delivered To</label>
+            <div class="">
+                <select chosen class="form-control" ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.JDA_DeliveryAdress"
+                    ng-options="x.Code as x.Code for x in OrdGeneralCtrl.ePage.Entities.Header.Meta.GoodsDeliveredTo.ListSource"
+                    search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <!-- POL -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">POL</label>
+            <div class="input-group input-group-sm">
+                <div dynamic-lookup my-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.PortOfLoading" obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader"
+                    prefix-data="'MstUNLOCO'" config="'PortOfLoading'"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader" field-name="'PortOfLoading'" prefix-data="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- POD -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">POD</label>
+            <div class="input-group input-group-sm">
+
+                <div dynamic-lookup my-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.PortOfDischarge" obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader"
+                    prefix-data="'MstUNLOCO'" config="'PortOfDischarge'"></div>
+
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader" field-name="'PortOfDischarge'" prefix-data="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- Order Status -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Order Status</label>
+            <div class="">
+                <select chosen class="form-control" ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.OrderStatus" ng-options="x.Key as x.Key + '-' + x.Value for x in OrdGeneralCtrl.ePage.Entities.Header.Meta.ORDSTATUS.ListSource"
+                    search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    
+    
+</div>

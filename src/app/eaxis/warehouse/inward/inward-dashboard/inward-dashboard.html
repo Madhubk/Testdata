@@ -1,0 +1,179 @@
+<div class="page-content" data-ng-style="(!InwardDashboardCtrl.ePage.Masters.MenuVisibleType || InwardDashboardCtrl.ePage.Masters.MenuVisibleType == 'Grid') && {'margin-left': '0'}" data-ng-controller="InwardDashboardController as InwardDashboardCtrl">
+    <!-- List Empty Response -->
+    <div class="dashboard-loading" data-ng-show="InwardDashboardCtrl.ePage.Masters.IsLoading"></div>
+    <div class="clearfix border-bottom set-bg-white pt-20 pb-20">
+        <div class="col-lg-5 mt-5">
+            <span class="dashboard-inward-icon-box menu-icon icomoon icon-inward set-color-blue fs-22"></span>
+            <span class="dashboard-inward-title ml-10 fs-25">Inward Dashboard</span>
+            <span class="open-inward-orders-count btn-rounded pl-5 pr-5 ml-10 mt-5 fs-10">{{InwardDashboardCtrl.ePage.Masters.SummaryDetails.OpenReceipts ||'0'}}</span>
+        </div>
+        <div class="col-lg-7">
+            <div class="text-right">
+                <select class="btn btn-default select-rounded fs-12" ng-model="InwardDashboardCtrl.ePage.Masters.userselected" ng-options="x.WarehouseCode+'-'+x.WarehouseName for x in InwardDashboardCtrl.ePage.Masters.WarehouseDetails"
+                    ng-change="InwardDashboardCtrl.ePage.Masters.Getsummarydetails(InwardDashboardCtrl.ePage.Masters.userselected)"
+                    search-contains="true"></select>
+
+                <a class="btn btn-default set-br-blue set-bg-blue-light fs-12" href='#/EA/WMS/asn-request'>New ASN Request</a>
+                <a class="btn btn-default set-br-yellow set-bg-yellow-light fs-12" href='#/EA/WMS/inward' ng-click="InwardDashboardCtrl.ePage.Masters.CreateNewInward()">New Inward</a>
+                <a class="btn btn-default set-br-yellow set-bg-yellow-light fs-12" href='#/EA/WMS/inward'>Track Inward</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-9">
+        <div class="row mt-15">
+            <div class="col-lg-6">
+                <div class="card card-chart p-15" data-count="10">
+                    <div class="card-header" data-background-color="rose" data-header-animation="true">
+                        <div class="ct-chart">
+                            <canvas id="lineChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="card-content">
+
+                        <div class="card-actions">
+                            <button type="button" class="btn btn-link" rel="tooltip" data-placement="bottom" title="Refresh" data-original-title="Refresh"
+                                ng-click="InwardDashboardCtrl.ePage.Masters.GetWarehouseValues()">
+                                        <i class="fa fa-refresh"></i>
+                                    </button>
+                            <button uib-popover-template="InwardDashboardCtrl.ePage.Masters.dynamicPopover.templateUrl" popover-title="{{InwardDashboardCtrl.ePage.Masters.dynamicPopover.title}}"
+                                popover-trigger="'outsideClick'" popover-append-to-body="true" popover-placement="bottom" type="button"
+                                class="btn btn-link" rel="tooltip" data-placement="bottom" title="Change Date" data-original-title="Change Date"
+                                ng-click="InwardDashboardCtrl.ePage.Masters.InwardByDate = true;InwardDashboardCtrl.ePage.Masters.InwardByClient = false">
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                        </div>
+                        <div class="card-title fs-18">Inward Trends</div>
+                        <p class="category">Last 7 days inward details</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="category">From : {{InwardDashboardCtrl.ePage.Masters.FromDate | dateFormat}}</span>
+                        <span class="category pull-right">To : {{InwardDashboardCtrl.ePage.Masters.ToDate | dateFormat}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card card-chart p-15" data-count="10">
+                    <div class="card-header" data-background-color="green" data-header-animation="true">
+                        <div class="ct-chart">
+                            <canvas id="barChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-actions">
+                            <button type="button" class="btn btn-link" rel="tooltip" data-placement="bottom" title="Refresh" data-original-title="Refresh"
+                                ng-click="InwardDashboardCtrl.ePage.Masters.GetWarehouseValues()">
+                                        <i class="fa fa-refresh"></i>
+                                    </button>
+                            <button uib-popover-template="InwardDashboardCtrl.ePage.Masters.dynamicPopover.templateUrl" popover-title="{{InwardDashboardCtrl.ePage.Masters.dynamicPopover.title}}"
+                                popover-trigger="'outsideClick'" popover-append-to-body="true" popover-placement="bottom" type="button"
+                                class="btn btn-link" rel="tooltip" data-placement="bottom" title="Change Date" data-original-title="Change Date"
+                                ng-click="InwardDashboardCtrl.ePage.Masters.InwardByDate = false;InwardDashboardCtrl.ePage.Masters.InwardByClient = true">
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                        </div>
+                        <div class="card-title fs-18">ClientWise Trends</div>
+                        <p class="category">ClientWise Inward for last 7 days</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="category">From : {{InwardDashboardCtrl.ePage.Masters.FromDate1 | dateFormat}}</span>
+                        <span class="category pull-right">To : {{InwardDashboardCtrl.ePage.Masters.ToDate1 | dateFormat}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="rows set-bg-white p-15 mt-20">
+            <div class="table-height">
+                <table class="table">
+                    <thead class="set-bg-f5f5f5">
+                        <tr>
+                            <th scope="col">Client</th>
+                            <th scope="col">Inward</th>
+                            <th scope="col">Total Packs</th>
+                            <th scope="col">Total Units</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat='x in InwardDashboardCtrl.ePage.Masters.TableValues'>
+                            <td>{{x.ClientCode}}</th>
+                                <td>{{x.Count}}</td>
+                                <td>{{x.TotalPacks}}</td>
+                                <td>{{x.TotalUnits}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3">
+        <div class="rows mt-15 set-bg-white p-15">
+            <div class="rows set-bg-white border-f5f5f5">
+                <div class="rows set-bg-blue-light">
+                    <span class="p-10 pull-left">Today Receipt</span>
+                    <span class="inward-dashboard-icon fs-20">
+                                <i class="fa fa-calendar"></i>
+                            </span>
+                </div>
+                <div class="rows p-15 pt-5 text-center">
+                    <div class="fs-30">{{InwardDashboardCtrl.ePage.Masters.SummaryDetails.TodayReceipt ||'0'}}</div>
+                    <div class="inward-dashboard-details">Goods will arrive today</div>
+                </div>
+            </div>
+
+            <div class="rows set-bg-white border-f5f5f5 mt-15">
+                <div class="rows set-bg-blue-light">
+                    <span class="p-10 pull-left">Pending Receipt</span>
+                    <span class="inward-dashboard-icon fs-20">
+                                <i class="fa fa-sticky-note"></i>
+                            </span>
+                </div>
+                <div class="rows p-15 pt-5 text-center">
+                    <div class="fs-30">
+                        {{InwardDashboardCtrl.ePage.Masters.SummaryDetails.PendingReceipt ||'0'}}</div>
+                    <div class="inward-dashboard-details">Goods Arrived</div>
+                </div>
+            </div>
+
+            <div class="rows set-bg-white border-f5f5f5 mt-15">
+                <div class="rows set-bg-blue-light">
+                    <span class="p-10 pull-left">Waitng For Unload</span>
+                    <span class="inward-dashboard-icon fs-20">
+                                <i class="fa fa-truck"></i>
+                            </span>
+                </div>
+                <div class="rows p-15 pt-5 text-center">
+                    <div class="fs-30">{{InwardDashboardCtrl.ePage.Masters.SummaryDetails.WaitingForUnload ||'0'}}</div>
+                    <div class="inward-dashboard-details">Goods Arrived and waiting for unload</div>
+                </div>
+            </div>
+            <div class="rows set-bg-white border-f5f5f5 mt-15">
+                <div class="rows set-bg-blue-light">
+                    <span class="p-10 pull-left">Waitng For Putaway</span>
+                    <span class="inward-dashboard-icon fs-20">
+                                <i class="fa fa-list"></i>
+                            </span>
+                </div>
+                <div class="rows p-15 pt-5 text-center">
+                    <div class="fs-30">
+                        {{InwardDashboardCtrl.ePage.Masters.SummaryDetails.InPutAway ||'0'}}</div>
+                    <div class="inward-dashboard-details">Unloaded Completed waiting for Putaway</div>
+                </div>
+            </div>
+            <div class="rows set-bg-white border-f5f5f5 mt-15">
+                <div class="rows set-bg-blue-light">
+                    <span class="p-10 pull-left">Unfinalized</span>
+                    <span class="inward-dashboard-icon fs-20">
+                                <i class="fa fa-thumbs-down"></i>
+                            </span>
+                </div>
+                <div class="rows p-15 pt-5 text-center">
+                    <div class="fs-30">
+                        {{InwardDashboardCtrl.ePage.Masters.SummaryDetails.UnFinalized ||'0'}}</div>
+                    <div class="inward-dashboard-details">Putaway completed and not finalized</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

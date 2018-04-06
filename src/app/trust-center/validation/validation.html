@@ -1,0 +1,128 @@
+<div class="clearfix tc-validation">
+    <!-- Breadcrumb -->
+    <div class="clearfix tc-breadcrumb" data-ng-if="ValidationCtrl.ePage.Masters.ActiveApplication == 'TC'">
+        <i class="fa fa-home home-icon"></i>
+        <div class="breadcrumb-list-wrapper">
+            <ol class="breadcrumb">
+                <li data-ng-repeat="x in ValidationCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="ValidationCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                </li>
+                <li data-ng-repeat="x in ValidationCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
+                    class="active"></li>
+            </ol>
+        </div>
+        <span class="tc-breadcrumb-app-name" data-ng-if="ValidationCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="ValidationCtrl.ePage.Masters.QueryString.AppName"></span>
+    </div>
+    <!-- Header -->
+    <div class="clearfix tc-header-container">
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">
+            <div class="tc-header with-drop-down no-border-right">
+                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4 p-0 pr-5">
+                    <select chosen class="form-control" data-ng-model="ValidationCtrl.ePage.Masters.Module.ActiveModule.Key" data-ng-options="x.Key as x.Value for x  in ValidationCtrl.ePage.Masters.Module.ListSource"
+                        data-ng-change="ValidationCtrl.ePage.Masters.Module.OnModuleChange((ValidationCtrl.ePage.Masters.Module.ListSource | filter: {'Key': ValidationCtrl.ePage.Masters.Module.ActiveModule.Key})[0])"></select>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4 p-0 pl-5">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="tc-header p-5" style="font-weight: normal;">
+                <input type="text" class="form-control input-sm" placeholder="Search..." data-ng-model="ValidationCtrl.ePage.Masters.Search">
+            </div>
+        </div>
+    </div>
+    <!-- Body -->
+    <div class="clearfix m-5">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0 pb-20 tc-page-height-fixed">
+            <table class="table table-bordered table-responsive">
+                <thead>
+                    <th class="th-text tc-table-width-150"> Code</th>
+                    <th class="th-text tc-table-width-150">Key Text</th>
+                    <th class="th-text tc-table-width-150">Display Name</th>
+                    <th class="th-text">Message</th>
+                    <th class="th-text tc-table-width-125">Immediate Alert</th>
+                    <th class="th-text tc-table-width-125">It Has Parameter</th>
+                    <th class="th-text tc-table-width-70">IsError</th>
+                    <th class="th-text tc-table-width-70">Is Active</th>
+                    <th class="th-action tc-table-width-70" colspan="2">Action</th>
+                </thead>
+                <tbody>
+                    <!-- Loading -->
+                    <tr data-ng-if="!ValidationCtrl.ePage.Masters.Validation.ListSource">
+                        <td colspan="20" class="text-center p-10">
+                            <i class="fa fa-spin fa-spinner" style="font-size:18px;"></i>
+                        </td>
+                    </tr>
+                    <!-- No Records -->
+                    <tr data-ng-if="(ValidationCtrl.ePage.Masters.Validation.ListSource | filter: ValidationCtrl.ePage.Masters.Search).length==0">
+                        <td colspan="20" class="text-center p-10">
+                            <i>No Records...!</i>
+                        </td>
+                    </tr>
+                    <!-- Validation List -->
+                    <tr data-ng-if="ValidationCtrl.ePage.Masters.Validation.ListSource && ValidationCtrl.ePage.Masters.Validation.ListSource.length > 0"
+                        data-ng-repeat="item in ValidationCtrl.ePage.Masters.Validation.ListSource  | filter: ValidationCtrl.ePage.Masters.Search">
+                        <td>
+                            <input class="set-tabel-text" type="text" data-ng-model="item.Code" placeholder="Code">
+                        </td>
+                        <td>
+                            <input class="set-tabel-text" type="text" data-ng-model="item.CtrlKey" placeholder="Key Text">
+                        </td>
+                        <td>
+                            <input class="set-tabel-text" type="text" data-ng-model="item.DisplayName" placeholder="Display Name">
+                        </td>
+                        <td>
+                            <textarea rows="1" class="set-tabel-text no-resize" type="text" data-ng-model="item.Message" placeholder="Message"></textarea>
+                        </td>
+                        <td>
+                            <input class="set-tabel-text text-center" type="text" data-ng-model="item.ImmediateAlert" placeholder="Immediate  Alert">
+                        </td>
+                        <td class="text-center">
+                            <div class="checkbox m-0">
+                                <label>
+                                    <input type="checkbox" data-ng-model="item.ItHasParameter" class="colored-blue">
+                                    <span class="text"></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <div class="checkbox m-0">
+                                <label>
+                                    <input type="checkbox" data-ng-model="item.IsError" class="colored-blue">
+                                    <span class="text"></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <div class="checkbox m-0">
+                                <label>
+                                    <input type="checkbox" data-ng-model="item.IsActive" class="colored-blue">
+                                    <span class="text"></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="tc-validation-save-icon text-center" data-ng-click="ValidationCtrl.ePage.Masters.Validation.Save(item, $index)">
+                                <i class="fa fa-floppy-o cursor-pointer"></i>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="text-center" data-ng-click="ValidationCtrl.ePage.Masters.Validation.Delete(item, $index)">
+                                <i class="glyphicon glyphicon-trash text-danger cursor-pointer"></i>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- Add New -->
+                    <tr>
+                        <td colspan="20">
+                            <a data-ng-if="ValidationCtrl.ePage.Masters.Module.ActiveModule.Key" class="padding-10 pull-left" href="javascript:(0);"
+                                data-ng-click="ValidationCtrl.ePage.Masters.Validation.AddNew()">Add new...</a>
+                            <a data-ng-if="ValidationCtrl.ePage.Masters.Module.ActiveModule.Key" class="padding-10 pull-right" href="javascript:(0);"
+                                data-ng-click="ValidationCtrl.ePage.Masters.Validation.RedirectToAppSetting()">Open</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

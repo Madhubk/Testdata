@@ -1,0 +1,24 @@
+.relatedparties-edit>.modal-dialog {
+    width: 35% !important;
+}
+
+.relatedparties-box {
+    width: 100%;
+    float: left;
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+}
+
+.relatedparties-box:hover {
+    background: #f4f4f4;
+}
+
+.relatedparties-box .eaxis-edit-2 {
+    float: right;
+}
+
+.width-100 {
+    width: 100%;
+}

@@ -1,0 +1,45 @@
+<div class="clearfix">
+    <div class="widget-main">
+        <uib-tabset id="wmsBasic" active="ProductGeneralCtrl.ePage.Masters.active">
+            <uib-tab ng-repeat="x in ProductGeneralCtrl.ePage.Masters.ProductMenu.ListSource" index="$index" deselect="ProductGeneralCtrl.ePage.Masters.tabSelected(x,$selectedIndex,$event);">
+                <uib-tab-heading title="{{x.DisplayName}}">
+                    <i class="{{x.Icon}} mr-5"></i>
+                    <span class="text-single-line" data-ng-bind="x.DisplayName"></span>
+                    <error-warning-directive data-ng-if="ProductGeneralCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, ProductGeneralCtrl.currentProduct.label, 'W', 'GParent').length > 0 && ProductGeneralCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, ProductGeneralCtrl.currentProduct.label, 'E', 'GParent').length == 0"
+                        list="ProductGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList" type="'warning'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
+                    <error-warning-directive data-ng-if="ProductGeneralCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, ProductGeneralCtrl.currentProduct.label, 'E', 'GParent').length > 0"
+                        list="ProductGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList" type="'error'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>  
+                </uib-tab-heading>
+                <div>
+                    <div ng-switch="x.Value">
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 pl-0 pr-0">
+                            <general current-product="ProductGeneralCtrl.currentProduct"></general>                                    
+                        </div>
+                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 pl-0 pr-0">
+                            <div ng-switch-when="Related Organization">
+                                <organization current-product="ProductGeneralCtrl.currentProduct"></organization>                                    
+                            </div>
+                            <div ng-switch-when="Unit Conversions">
+                                <conversions current-product="ProductGeneralCtrl.currentProduct"></conversions>
+                            </div>
+                            <div ng-switch-when="Barcodes">
+                                <barcodes current-product="ProductGeneralCtrl.currentProduct"></barcodes>
+                            </div>
+                            <div ng-switch-when="Warehouse">
+                                <product-warehouse current-product="ProductGeneralCtrl.currentProduct"></product-warehouse>
+                            </div>
+                            <div ng-switch-when="BOM">
+                                <bom current-product="ProductGeneralCtrl.currentProduct"></bom> 
+                            </div>
+                            <div ng-switch-when="Additional Details">
+                                <additional-details current-product="ProductGeneralCtrl.currentProduct"></additional-details>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>

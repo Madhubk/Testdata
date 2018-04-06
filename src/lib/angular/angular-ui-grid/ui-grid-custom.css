@@ -1,0 +1,87 @@
+*:focus {
+    outline: none !important
+}
+
+.ui-grid-header-cell {
+    border-bottom: 2px solid #a0d468 !important;
+    background-image: linear-gradient(to bottom, #f2f2f2 0, #fafafa 100%);
+}
+
+.ui-grid-header-cell-label {
+    font-weight: 600;
+}
+
+
+/** Section to Replace pagination buttons */
+
+.ui-grid-pager-control button,
+.ui-grid-pager-control button:enabled,
+.ui-grid-pager-control button:hover {
+    border: 0;
+    background-color: transparent;
+}
+
+.ui-grid-pager-control .first-triangle,
+.ui-grid-pager-control .last-triangle {
+    border: 0;
+    height: inherit;
+    font-family: 'Glyphicons Halflings';
+    font-size: 14px;
+    color: #000000;
+    margin-top: -2px;
+}
+
+.ui-grid-pager-control .first-triangle {
+    margin-left: -5px;
+}
+
+.ui-grid-pager-control .last-triangle {
+    margin-left: -7px;
+}
+
+.first-triangle::before {
+    border: 0;
+    content: "\e257";
+}
+
+.last-triangle::before {
+    border: 0;
+    content: "\e258";
+}
+
+.ui-grid-pager-control .first-bar,
+.ui-grid-pager-control .last-bar {
+    width: 10px;
+    border-left: 2px solid #4d4d4d;
+    height: 14px;
+    margin-top: -17px;
+}
+
+.ui-grid-pager-control .first-bar {
+    margin-left: 0;
+}
+
+.ui-grid-pager-control .last-bar {
+    margin-left: 12px;
+}
+
+.ui-grid-pinned-container-left~.ui-grid-pager-panel>.ui-grid-pager-container {
+    margin-left: 20px;
+}
+
+
+/* remove dotted line under the slash of: page 1 / 10 */
+
+abbr[title] {
+    border-bottom: none !important;
+    cursor: inherit !important;
+    text-decoration: none !important;
+}
+
+.ui-grid-pager-row-count-picker select {
+    padding: 0 10px;
+}
+
+.ui-grid-pager-control .ui-grid-pager-max-pages-number {
+    vertical-align: middle;
+}

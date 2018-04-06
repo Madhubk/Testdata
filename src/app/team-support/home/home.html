@@ -1,0 +1,220 @@
+<!-- Desktop View -->
+<div class="clearfix hidden-md hidden-sm hidden-xs">
+    <div class="team-support-page-header">
+        <!--Header with Search and Logo-->
+        <div class="page-breadcrumbs">
+            <div class="clearfix">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                    <a href="javascript:void(0);" class="logo">
+                        <img src="assets/img/logo/logo-20cube.png" alt="" data-ng-click="SupportCtrl.ePage.Masters.RedirectToHomeLogo()"/>
+                    </a>
+                </div>
+                <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 padding-left-10">
+                    <div class="search-wrapper clearfix">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 no-padding">
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" placeholder="Search" data-ng-model="SupportCtrl.ePage.Entities.SupportHeader.Data.Search"
+                                />
+                                <span class="input-group-btn dropdown">
+                                    <button class="btn btn-primary search-btn btn-sm" data-ng-click=" SupportCtrl.ePage.Masters.Search()" data-ng-disabled="SupportCtrl.ePage.Entities.SupportHeader.Meta.TeamTypeMaster.ListSource.length === 0">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5">
+                    <div class="pull-right padding-10 dropdown user-avatar-wrapper">
+                        <button class="user-avatar bg-themeprimary dropdown-toggle" data-ng-bind="SupportCtrl.ePage.Masters.UserProfile.DisplayName | getCharacters: 1"
+                            data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right" role="menu">
+                            <form class="clearfix" role="form">
+                                <div class="">
+                                    <div class="user-id" data-ng-bind="SupportCtrl.ePage.Masters.UserProfile.DisplayName">
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                            <button change-password class="btn btn-default pull-left change-password" data-ng-bind="'Change Password'">
+                                            </button>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                            <button class="btn btn-default pull-right logout" data-ng-bind="'Sign Out'" data-ng-click="SupportCtrl.ePage.Masters.Logout()">
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Header Button Bar-->
+        <div class="position-relative mail-header">
+            <div class="row">
+                <!--Dropdown Button-->
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                    <div class="header-title">
+                        <div class="btn-group">
+                            <a class="btn dropdown-toggle dropdown-btn-support-task" data-toggle="dropdown" aria-expanded="true">
+                                <span data-ng-bind="SupportCtrl.ePage.Masters.ActiveTSPage"></span>
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li data-ng-repeat="x in SupportCtrl.ePage.Masters.TSPageList" data-ng-if="x.Name != SupportCtrl.ePage.Masters.ActiveTSPage">
+                                    <a href="{{x.Url}}" data-ng-bind="x.Name">
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--Project, Sprint List Bar-->
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 no-padding-left">
+                    <!--List Page Menu-->
+                    <div class="clearfix padding-5" data-ng-if="!SupportCtrl.ePage.Masters.IsShowDetails">
+                        <!--Refresh-->
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                            <button class="btn btn-default header-button-refresh gmail-style-btn" data-ng-click="SupportCtrl.ePage.Masters.RefreshTaskList()"
+                                title="Refresh List" data-ng-disabled="SupportCtrl.ePage.Entities.SupportHeader.Meta.TeamTypeMaster.ListSource.length === 0">
+                                <i class="fa fa-refresh"></i>
+                            </button>
+                        </div>
+                        <!--Sprint-->
+
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                            <select name="category-group" class="form-control header-select-control input-sm gmail-style-btn" ng-model="SupportCtrl.ePage.Masters.CurrentSprint.PK"
+                                ng-options="x.PK  as x.Description + ' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(' + (x.StartDate | date:'dd-MM-yy') + ' To ' + (x.EndDate | date:'dd-MM-yy') +')' for x in SupportCtrl.ePage.Entities.SupportHeader.Meta.Sprint.ListSource"
+                                ng-change="SupportCtrl.ePage.Masters.OnSprintChange((SupportCtrl.ePage.Entities.SupportHeader.Meta.Sprint.ListSource|filter:{PK: SupportCtrl.ePage.Masters.CurrentSprint.PK})[0])"
+                                data-ng-show="((SupportCtrl.ePage.Entities.SupportHeader.Meta.Project.ListSource  | filter: {Code : SupportCtrl.ePage.Masters.CurrentProject.Code})[0]).OtherConfig.Sprint.Visible">
+                            </select>
+                        </div>
+                        <!--Project-->
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                            <select name="category-group" class="form-control header-select-control input-sm gmail-style-btn" ng-model="SupportCtrl.ePage.Masters.CurrentProject.Code"
+                                ng-options="x.Code as x.Description for x in SupportCtrl.ePage.Entities.SupportHeader.Meta.Project.ListSource"
+                                ng-change="SupportCtrl.ePage.Masters.OnProjectChange((SupportCtrl.ePage.Entities.SupportHeader.Meta.Project.ListSource  | filter: {Code : SupportCtrl.ePage.Masters.CurrentProject.Code} :true)[0])">
+                            </select>
+                        </div>
+                    </div>
+                    <!--Details Page Menu-->
+                    <div class="clearfix padding-5" data-ng-if="SupportCtrl.ePage.Masters.IsShowDetails">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <button class="btn btn-default btn-sm details-back-btn maring-right-5 gmail-style-btn" data-ng-click="SupportCtrl.ePage.Masters.OnBackClick()"
+                                title="Back To List">
+                                <i class="fa fa-arrow-left"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="team-support-page-body">
+        <div class="clearfix">
+            <!--Sidebar-->
+            <div data-ng-include="'app/team-support/home/template/side-bar.html'">
+            </div>
+            <!--Task List-->
+            <div data-ng-include="'app/team-support/home/template/task-list.html'">
+            </div>
+            <!--Details View-->
+            <div data-ng-include="'app/team-support/home/template/details-view.html'">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Mobile View -->
+<div class="clearfix hidden-lg hidden-md">
+    <div class="team-support-page-header">
+        <!--Header with Search and Logo-->
+        <div class="page-breadcrumbs page-breadcrumbs-mobile">
+            <div class="clearfix">
+                <div class="col-sm-4 col-xs-6">
+                    <a href="javascript:void(0);" class="logo pt-2">
+                        <img class="mt-0" src="assets/img/logo/logo-20cube.png" alt="" data-ng-click="SupportCtrl.ePage.Masters.RedirectToHomeLogo()"/>
+                    </a>
+                </div>
+
+                <div class="col-sm-8 col-xs-6">
+                    <div class="pull-right dropdown user-avatar-wrapper pt-2">
+                        <button class="user-avatar bg-themeprimary dropdown-toggle" data-ng-bind="SupportCtrl.ePage.Masters.UserProfile.DisplayName | getCharacters: 1"
+                            data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right" role="menu">
+                            <form class="clearfix" role="form">
+                                <div class="">
+                                    <div class="user-id" data-ng-bind="SupportCtrl.ePage.Masters.UserProfile.DisplayName">
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                            <button change-password class="btn btn-default pull-left change-password" data-ng-bind="'Change Password'">
+                                            </button>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                            <button class="btn btn-default pull-right logout" data-ng-bind="'Sign Out'" data-ng-click="SupportCtrl.ePage.Masters.Logout()">
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Header Button Bar-->
+        <div class="position-relative mail-header">
+            <div class="row">
+                <div class="clearfix padding-5" data-ng-if="!SupportCtrl.ePage.Masters.IsShowDetails">
+                    <!--List-->
+                    <div class="col-sm-2 col-xs-3 pl-20">
+                        <div class="header-title pt-3 pl-0">
+                            <div class="btn-group">
+                                <a class="dropdown-toggle dropdown-btn-support-task fs-14 pt-0 pb-0" data-toggle="dropdown" aria-expanded="true">
+                                    <span data-ng-bind="SupportCtrl.ePage.Masters.ActiveTSPage"></span>
+                                    <i class="fa fa-angle-down"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li data-ng-repeat="x in SupportCtrl.ePage.Masters.TSPageList" data-ng-if="x.Name != SupportCtrl.ePage.Masters.ActiveTSPage">
+                                        <a href="{{x.Url}}" data-ng-bind="x.Name"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Sprint-->
+                    <div class="col-sm-6 col-xs-5 pl-0">
+                        <button class="btn btn-danger btn-sm" data-ng-click="SupportCtrl.ePage.Masters.OnComposeClick()" data-ng-disabled="SupportCtrl.ePage.Entities.SupportHeader.Meta.TeamTypeMaster.ListSource.length === 0">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                    <!--Project-->
+                    <div class="col-sm-4 col-xs-4 text-right">
+                        <span class="backlog-nav-bar cursor-pointer fs-17 pr-15" ng-click="SupportCtrl.ePage.Masters.ToggleSideBar()">
+                            <i class="glyphicons glyphicons-menu-hamburger mt-5"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="team-support-page-body">
+        <div class="clearfix">
+            <!--Sidebar-->
+            <div data-ng-include="'app/team-support/home/template/side-bar-mobile.html'">
+            </div>
+            <!--Task List-->
+            <div data-ng-include="'app/team-support/home/template/task-list-mobile.html'">
+            </div>
+            <!--Details View-->
+            <div data-ng-include="'app/team-support/home/template/details-view.html'">
+            </div>
+        </div>
+    </div>
+</div>

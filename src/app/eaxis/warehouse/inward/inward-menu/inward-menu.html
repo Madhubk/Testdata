@@ -1,0 +1,94 @@
+<div class="clearfix wms-menu-wraper">
+    <div id="wmsMenuWrapper{{InwardMenuCtrl.currentInward.label}}" class="col-sm-12 no-padding-left no-padding-right">
+        <uib-tabset class="wms-menu tabs-left tabbable" active="InwardMenuCtrl.ePage.Masters.active">
+            <div class="tab-profile">
+                <div  class="tab-profile-title text-single-line text-center" style="color: rgb(66, 50, 50);font-weight: 600;" data-ng-bind="InwardMenuCtrl.currentInward.label"></div>
+                <div class="wocstatusmenu text-single-line text-center" title="{{InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatus + ' - '+ InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatusDesc}}" data-ng-bind="InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatusDesc"></div>
+            </div>
+            <uib-tab ng-repeat="x in InwardMenuCtrl.ePage.Masters.InwardMenu.ListSource" index="$index" deselect="InwardMenuCtrl.ePage.Masters.tabSelected(x,$selectedIndex,$event);" data-ng-if="!x.IsDisabled">
+                <uib-tab-heading title="{{x.DisplayName}}">
+                    <i class="{{x.Icon}} mr-5"></i>
+                    <span class="text-single-line" data-ng-bind="x.DisplayName"></span>
+                    <error-warning-directive data-ng-if="InwardMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, InwardMenuCtrl.currentInward.label, 'W', 'GParent').length > 0 && InwardMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, InwardMenuCtrl.currentInward.label, 'E', 'GParent').length == 0"
+                        list="InwardMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList" type="'warning'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
+                    <error-warning-directive data-ng-if="InwardMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, InwardMenuCtrl.currentInward.label, 'E', 'GParent').length > 0"
+                        list="InwardMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList" type="'error'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>  
+                </uib-tab-heading>
+                <div class="finalisedstate" ng-show="!InwardMenuCtrl.ePage.Entities.Header.CheckPoints.NotFinaliseStage">
+                    <span ng-if="!InwardMenuCtrl.ePage.Entities.Header.CheckPoints.NotFinaliseStage" ng-init="InwardMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave = 'true'"></span>
+                    <span class="finaliseddatedescription">Inward Finalized and it cannot be edited</span>
+                </div>
+                <div>
+                    <div ng-switch="x.Value">
+
+                        <!--Menu directives-->
+                        <div ng-switch-when="MyTask" inward-my-task current-inward="InwardMenuCtrl.currentInward" ></div>
+                        <div ng-switch-when="General" inward-general current-inward="InwardMenuCtrl.currentInward"></div>
+                        <div ng-switch-when="AsnLines" inward-asn-lines current-inward="InwardMenuCtrl.currentInward" active-menu="x"></div>
+                        <div ng-switch-when="ReceiveLines" inward-lines current-inward="InwardMenuCtrl.currentInward"></div>
+                        <div ng-switch-when="ProductSummary" inward-productsummary current-inward="InwardMenuCtrl.currentInward"></div>                        
+                        <div ng-switch-when="Containers" container current-inward="InwardMenuCtrl.currentInward"></div>
+                        <div ng-switch-when="References & Services">
+                            <div class="col-lg-12 p-0">
+                                <references current-inward="InwardMenuCtrl.currentInward"></references>
+                            </div>
+                            <div class="col-lg-12 p-0">
+                                <services current-inward="InwardMenuCtrl.currentInward"></services>
+                            </div>
+                        </div> 
+                        <div ng-switch-when="Documents" inward-document current-inward="InwardMenuCtrl.currentInward"></div>
+                    </div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+    <div class="error-warning-container right" id="errorWarningContainer{{InwardMenuCtrl.currentInward.label}}">
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                <!-- <i class="fa fa-warning"></i>  -->
+                Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right" data-ng-click="InwardMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(InwardMenuCtrl.currentInward)">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+        </div>
+        <div class="error-warning-body">
+            <div class="clearfix" data-ng-if="InwardMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length>0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in InwardMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <!-- To move to Receive line tab -->
+     <span ng-if="InwardMenuCtrl.ePage.Entities.Header.CheckPoints.Receiveline" ng-init="InwardMenuCtrl.ePage.Masters.active = 3"></span>
+     <!--Footer-->
+
+    <div class="eaxis-footer-strip">
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+            <standard-menu entity-name="'WarehouseInward'" input="InwardMenuCtrl.currentInward"></standard-menu>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+            <button class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6" data-ng-click="InwardMenuCtrl.ePage.Masters.Validation(InwardMenuCtrl.currentInward)" data-ng-bind="InwardMenuCtrl.ePage.Masters.SaveButtonText"
+                data-ng-disabled="InwardMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave"></button>
+            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="InwardMenuCtrl.ePage.Masters.Validation(InwardMenuCtrl.currentInward);InwardMenuCtrl.ePage.Masters.SaveAndClose = true"
+                data-ng-disabled="InwardMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave">Save & Close</button>
+            <button ng-show="InwardMenuCtrl.ePage.Entities.Header.CheckPoints.NotFinaliseStage" class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6" data-ng-click="InwardMenuCtrl.ePage.Masters.FinaliseSave(InwardMenuCtrl.currentInward)" data-ng-bind="InwardMenuCtrl.ePage.Masters.FinaliseSaveText"
+                data-ng-disabled="InwardMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave"></button>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,327 @@
+{
+    "class": "go.GraphLinksModel",
+    "copiesArrays": true,
+    "copiesArrayObjects": true,
+    "linkFromPortIdProperty": "fromPort",
+    "linkToPortIdProperty": "toPort",
+    "modelData": {
+        "position": "-106.4375 71.5"
+    },
+    "nodeDataArray": [{
+            "key": 101,
+            "category": "event",
+            "text": "Start",
+            "eventType": 1,
+            "eventDimension": 1,
+            "item": "start",
+            "loc": "-19.937500000000142 204.99999999999997"
+        },
+        {
+            "key": 104,
+            "category": "event",
+            "text": "End",
+            "eventType": 1,
+            "eventDimension": 8,
+            "item": "End",
+            "loc": "913.0625 612.0000000000002"
+        },
+        {
+            "key": 131,
+            "category": "activity",
+            "text": "Task Created",
+            "item": "generic task",
+            "taskType": 0,
+            "loc": "130.0625 205"
+        },
+        {
+            "key": -4,
+            "category": "activity",
+            "text": "Rework",
+            "item": "generic task",
+            "taskType": 0,
+            "loc": "355.0625 125"
+        },
+        {
+            "key": -5,
+            "category": "activity",
+            "text": "Analysis & Work",
+            "item": "generic task",
+            "taskType": 0,
+            "loc": "330.0625 328"
+        },
+        {
+            "key": -7,
+            "category": "activity",
+            "text": "Initiate Related Task",
+            "item": "generic task",
+            "taskType": 0,
+            "loc": "379.5625 464",
+            "size": "157 80"
+        },
+        {
+            "key": -8,
+            "category": "activity",
+            "text": "Verify Effort Entry",
+            "item": "generic task",
+            "taskType": 0,
+            "loc": "589.0625 451",
+            "size": "144 80"
+        },
+        {
+            "key": -9,
+            "category": "activity",
+            "text": "Tagging for Deployment",
+            "item": "generic task",
+            "taskType": 0,
+            "loc": "370.0625 612",
+            "size": "128 80"
+        },
+        {
+            "key": 201,
+            "category": "gateway",
+            "text": "Parallel",
+            "gatewayType": 1,
+            "loc": "550.0625 612"
+        },
+        {
+            "key": 204,
+            "category": "gateway",
+            "text": "Review Decision",
+            "gatewayType": 4,
+            "loc": "587.0625 209"
+        }
+    ],
+    "linkDataArray": [{
+            "from": 101,
+            "to": 131,
+            "fromPort": "",
+            "toPort": "",
+            "points": [
+                1.5625,
+                205,
+                11.5625,
+                205,
+                30.8125,
+                205,
+                30.8125,
+                205,
+                50.0625,
+                205,
+                70.0625,
+                205
+            ]
+        },
+        {
+            "from": 131,
+            "to": -5,
+            "fromPort": "",
+            "toPort": "",
+            "points": [
+                190.0625,
+                205,
+                200.0625,
+                205,
+                225.0625,
+                205,
+                225.0625,
+                328,
+                250.0625,
+                328,
+                270.0625,
+                328
+            ]
+        },
+        {
+            "from": -7,
+            "to": -8,
+            "fromPort": "",
+            "toPort": "",
+            "points": [
+                458.0625,
+                450.6666666666667,
+                476.0625,
+                450.6666666666667,
+                486.5625,
+                450.6666666666667,
+                486.5625,
+                451,
+                497.0625,
+                451,
+                517.0625,
+                451
+            ]
+        },
+        {
+            "from": -7,
+            "to": -9,
+            "fromPort": "",
+            "toPort": "",
+            "points": [
+                458.0625,
+                477.3333333333333,
+                468.0625,
+                477.3333333333333,
+                468.0625,
+                538,
+                286.0625,
+                538,
+                286.0625,
+                612,
+                306.0625,
+                612
+            ]
+        },
+        {
+            "from": -9,
+            "to": 201,
+            "fromPort": "",
+            "toPort": "",
+            "points": [
+                434.0625,
+                612,
+                444.0625,
+                612,
+                466.8125,
+                612,
+                466.8125,
+                612,
+                489.5625,
+                612,
+                509.5625,
+                612
+            ]
+        },
+        {
+            "from": -8,
+            "to": 201,
+            "fromPort": "",
+            "toPort": "",
+            "points": [
+                661.0625,
+                451,
+                671.0625,
+                451,
+                671.0625,
+                531.25,
+                489.5625,
+                531.25,
+                489.5625,
+                612,
+                509.5625,
+                612
+            ]
+        },
+        {
+            "from": 201,
+            "to": 104,
+            "fromPort": "",
+            "toPort": "",
+            "visible": true,
+            "points": [
+                590.5625,
+                612,
+                600.5625,
+                612,
+                735.3125,
+                612,
+                735.3125,
+                612,
+                870.0625,
+                612,
+                890.0625,
+                612
+            ],
+            "text": "Verify Effort Entry, Tagging for Deployment,"
+        },
+        {
+            "from": -5,
+            "to": 204,
+            "fromPort": "",
+            "toPort": "",
+            "points": [
+                390.0625,
+                328,
+                400.0625,
+                328,
+                463.3125,
+                328,
+                463.3125,
+                209,
+                526.5625,
+                209,
+                546.5625,
+                209
+            ]
+        },
+        {
+            "from": -4,
+            "to": 204,
+            "fromPort": "",
+            "toPort": "",
+            "points": [
+                415.0625,
+                125,
+                425.0625,
+                125,
+                462.29143912612307,
+                125,
+                462.29143912612307,
+                209,
+                526.5625,
+                209,
+                546.5625,
+                209
+            ]
+        },
+        {
+            "from": 204,
+            "to": -7,
+            "fromPort": "",
+            "toPort": "",
+            "visible": true,
+            "points": [
+                587.0625,
+                249.5,
+                587.0625,
+                259.5,
+                587.0625,
+                260,
+                587.0625,
+                260,
+                587.0625,
+                380,
+                284,
+                380,
+                284,
+                464,
+                281.0625,
+                464,
+                301.0625,
+                464
+            ],
+            "text": "Accept"
+        },
+        {
+            "from": 204,
+            "to": -4,
+            "fromPort": "",
+            "toPort": "",
+            "visible": true,
+            "points": [
+                587.0625,
+                168.5,
+                587.0625,
+                158.5,
+                587.0625,
+                77,
+                275.0625,
+                77,
+                275.0625,
+                125,
+                295.0625,
+                125
+            ],
+            "text": "Reject"
+        }
+    ]
+}

@@ -1,0 +1,172 @@
+<div class="clearfix padding-top-10">
+    <!--House Bill-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">House Bill </label>
+            <input type="text" class="form-control input-sm" max-length="40" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBill"
+                placeholder="House Bill" />
+        </div>
+    </div>
+    
+    <!--Entry Type-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">Entry Type</label>
+            <div class="">
+                <select chosen name="category-group" class="form-control" ng-model=" GeneralCtrl.ePage.Masters.JobEntryNums.EntryType" ng-options="x.Key as x.Description for x in GeneralCtrl.ePage.Masters.DropDownMasterList.ENTRYDETAILS.ListSource" search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <!--Entry Number-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">Entry Number </label>
+            <input type="text" class="form-control input-sm" data-ng-model=" GeneralCtrl.ePage.Masters.JobEntryNums.EntryNum" placeholder="Entry Number"
+            />
+        </div>
+    </div>
+    <!--Issue Date-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">Issue Date</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" data-ng-model=" GeneralCtrl.ePage.Masters.JobEntryNums.IssueDate" placeholder="{{GeneralCtrl.ePage.Masters.DatePicker.Options.format}}"
+                    uib-datepicker-popup="{{GeneralCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="GeneralCtrl.ePage.Masters.DatePicker.Options"
+                    is-open="GeneralCtrl.ePage.Masters.DatePicker.isOpen['isIssueDate']" />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" type="button" data-ng-click="GeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isIssueDate')"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!--Expiry Date-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">Expiry Date </label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" data-ng-model="GeneralCtrl.ePage.Masters.JobEntryNums.ExpiryDate" placeholder="{{GeneralCtrl.ePage.Masters.DatePicker.Options.format}}"
+                    uib-datepicker-popup="{{GeneralCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="GeneralCtrl.ePage.Masters.DatePicker.Options"
+                    is-open="GeneralCtrl.ePage.Masters.DatePicker.isOpen['isExpiryDate']" />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" type="button" data-ng-click="GeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isExpiryDate')"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!--Release Type-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">Release Type</label>
+            <div class="">
+                <select chosen name="category-group" class="form-control" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ReleaseType"
+                    ng-options="x.Key as x.Description for x in GeneralCtrl.ePage.Masters.DropDownMasterList.RELEASETYPE.ListSource" search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <!--Airway Bill Dim-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">Airway Bill Dim </label>
+            <div class="">
+                <select chosen name="category-group" class="form-control" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PrintOptionForPackagesOnAWB"
+                    ng-options="x.Key as x.Description for x in GeneralCtrl.ePage.Masters.DropDownMasterList.AIRWAY.ListSource" search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <!--House Bill Type-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">House Bill Type </label>
+            <div class="">
+                <select chosen name="category-group" class="form-control" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillType"
+                    ng-options="x.Key as x.Description for x in GeneralCtrl.ePage.Masters.DropDownMasterList.HOUSEBILL.ListSource" search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <!--On Board-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">On Board </label>
+            <div class="">
+                <select chosen name="category-group" class="form-control" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShippedOnBoard"
+                    ng-options="x.Key as x.Description for x in GeneralCtrl.ePage.Masters.DropDownMasterList.ONBOARD.ListSource" search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <!--On Board Date-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">On Board Date </label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShippedOnBoardDate"
+                    placeholder="{{GeneralCtrl.ePage.Masters.DatePicker.Options.format}}" uib-datepicker-popup="{{GeneralCtrl.ePage.Masters.DatePicker.Options.format}}"
+                    datepicker-options="GeneralCtrl.ePage.Masters.DatePicker.Options" is-open="GeneralCtrl.ePage.Masters.DatePicker.isOpen['isOnBoardDate']"
+                />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" type="button" data-ng-click="GeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isOnBoardDate')"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!--HBL Cont Mode-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">HBL Cont Mode</label>
+            <input type="text" class="form-control input-sm" max-length="14" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HBLContainerPackModeOverride"
+                placeholder="HBL Cont" />
+        </div>
+    </div>
+    <!--HBL Issue Date-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">HBL Issue Date </label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillIssueDate"
+                    placeholder="{{GeneralCtrl.ePage.Masters.DatePicker.Options.format}}" uib-datepicker-popup="{{GeneralCtrl.ePage.Masters.DatePicker.Options.format}}"
+                    datepicker-options="GeneralCtrl.ePage.Masters.DatePicker.Options" is-open="GeneralCtrl.ePage.Masters.DatePicker.isOpen['isHBLContIssueDate']"
+                />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" type="button" data-ng-click="GeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isHBLContIssueDate')"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!--No Of Originals -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">No Of Originals </label>
+            <input type="text" class="form-control input-sm" max-length="1" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.NoOfOriginals"
+                placeholder="No Of Originals" />
+        </div>
+    </div>
+    <!--No Of Copies-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">No Of Copies </label>
+            <input type="text" class="form-control input-sm" max-length="1" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.NoOfCopies"
+                placeholder="No Of Copies" />
+        </div>
+    </div>
+    <!--Charges Apply-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">Charges Apply </label>
+            <div class="">
+                <select chosen name="category-group" class="form-control" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillCharges"
+                    ng-options="x.Key as x.Description for x in GeneralCtrl.ePage.Masters.DropDownMasterList.CHARGEAPLY.ListSource" search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

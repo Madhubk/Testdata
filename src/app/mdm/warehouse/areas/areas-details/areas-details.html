@@ -1,0 +1,150 @@
+<div class="clearfix">
+    <div class="widget-main">
+        <uib-tabset id="wmsBasic">
+            <uib-tab>
+                <uib-tab-heading title="{{AreasDetailsCtrl.ePage.Entities.Header.Data.Name}}">
+                    <span class="text-single-line" ng-if="AreasDetailsCtrl.currentAreas.isNew" >New</span>
+                    <span class="text-single-line" ng-if="!AreasDetailsCtrl.currentAreas.isNew" data-ng-bind="AreasDetailsCtrl.ePage.Entities.Header.Data.Name"></span>
+                </uib-tab-heading>
+                <div>
+                    <div class="col-lg-12 pl-0 pr-0">
+                        <div style="height: 570px;padding-top:1px;">
+                          <div class="rows margin-right-10 margin-left-5 margin-top-10 pt-10 mb-30" style="background-color: #f9f9f9; border: 1px solid #eee;">
+                            <div class="col-lg-4 p-0" style="border-right: 1px solid gray;">
+                              <label class="col-lg-12  mt-5 pb-10" style="font-weight: bold;color: gray;">Details</label>
+                                <div class="col-lg-12">
+                                  <!--Area Name-->
+                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-3">
+                                    <div class="form-group">
+                                      <div class="error-warning-container">
+                                        <error-warning-directive data-ng-if="AreasDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Name.IsWarning && !AreasDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Name.IsError"
+                                        list="AreasDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Name.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                                        <error-warning-directive data-ng-if="AreasDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Name.IsError" list="AreasDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Name.ERROR"
+                                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                                      </div>
+                                      <div class="">
+                                        <label class="control-label text-single-line">Area Name</label>
+                                        <input type="text" capitalize class="form-control ng-pristine ng-untouched ng-valid  ng-not-empty" ng-model="AreasDetailsCtrl.ePage.Entities.Header.Data.Name" ng-change="AreasDetailsCtrl.ePage.Masters.OnChangeValues(AreasDetailsCtrl.ePage.Entities.Header.Data.Name,'E5001')">
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <!--Area Type-->
+                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-3">
+                                    <div class="form-group">
+                                      <div class="error-warning-container">
+                                        <error-warning-directive data-ng-if="AreasDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.AreaType.IsWarning && !AreasDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.AreaType.IsError"
+                                        list="AreasDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                                        <error-warning-directive data-ng-if="AreasDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.AreaType.IsError" list="AreasDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.AreaType.ERROR"
+                                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                                      </div>
+                                      <div class="">
+                                        <label class="control-label text-single-line">Area Type</label>
+                                        <div class="">
+                                          <select chosen class="form-control" ng-model="AreasDetailsCtrl.ePage.Entities.Header.Data.AreaType" ng-options="x.Key as x.Key + ' - '  + x.Value for x in AreasDetailsCtrl.ePage.Masters.DropDownMasterList.AreaType.ListSource"
+                                          search-contains="true" ng-change="AreasDetailsCtrl.ePage.Masters.OnChangeValues(AreasDetailsCtrl.ePage.Entities.Header.Data.AreaType,'E5002')">
+                                          <option value="">--Select--</option>
+                                          </select>
+                                        </div>
+                                      </div>  
+                                      </div>
+                                  </div>
+                                  <!--Warehouse Code-->
+                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-3">
+                                    <div class="form-group">
+                                      <div class="error-warning-container">
+                                          <error-warning-directive data-ng-if="AreasDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.WAR_WarehouseCode.IsWarning && !AreasDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.WAR_WarehouseCode.IsError"
+                                          list="AreasDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.WAR_WarehouseCode.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                                          <error-warning-directive data-ng-if="AreasDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.WAR_WarehouseCode.IsError" list="AreasDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.WAR_WarehouseCode.ERROR"
+                                          type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                                      </div>
+                                      <div class="">
+                                        <label class="control-label text-single-line">Warehouse Code</label>
+                                        <div class="input-group input-group-sm">
+                                        <!-- Dynamic look up Search in textbox -->
+                                        <div dynamic-lookup placeholder="Warehouse Code" my-ng-model="AreasDetailsCtrl.ePage.Entities.Header.Data.WAR_WarehouseCode" auto-complete-on-select="AreasDetailsCtrl.ePage.Masters.SelectedLookupData($item)"
+                                        obj="AreasDetailsCtrl.ePage.Entities.Header.Data" prefix-data="'Warehouse'"
+                                        config="'Warehouse'" >
+                                        </div>
+                                      <!-- Look Up page opens when button clicks -->
+                                        <span class="input-group-btn">
+                                          <button dynamic-list-modal obj="AreasDetailsCtrl.ePage.Entities.Header.Data" field-name="'Warehouse'" selected-data="AreasDetailsCtrl.ePage.Masters.SelectedLookupData($item.entity)"  prefix-data="'Warehouse'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                        </span>
+                                        </div>
+                                      </div>  
+                                        <span ng-if='!AreasDetailsCtrl.ePage.Entities.Header.Data.WAR_WarehouseCode && !AreasDetailsCtrl.currentAreas.isNew'>
+                                                <div ng-init="AreasDetailsCtrl.ePage.Masters.OnChangeValues(AreasDetailsCtrl.ePage.Entities.Header.Data.WAR_WarehouseCode,'E5003')"></div>
+                                        </span>  
+                                    </div>
+                                  </div>
+                                  <!--Warehouse Name -->
+                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-3">
+                                    <div class="form-group">
+                                      <div class="error-warning-container">
+                                            <error-warning-directive data-ng-if="AreasDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.WAR_WarehouseName.IsWarning && !AreasDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.WAR_WarehouseName.IsError"
+                                            list="AreasDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.WAR_WarehouseName.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                                            <error-warning-directive data-ng-if="AreasDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.WAR_WarehouseName.IsError" list="AreasDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.WAR_WarehouseName.ERROR"
+                                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                                      </div>
+                                      <div class="">
+                                        <label class="control-label text-single-line">Warehouse Name</label>
+                                        <input type="text" class="form-control  ng-pristine ng-untouched ng-valid ng-not-empty" disabled data-ng-model="AreasDetailsCtrl.ePage.Entities.Header.Data.WAR_WarehouseName" ng-change="AreasDetailsCtrl.ePage.Masters.OnChangeValues(AreasDetailsCtrl.ePage.Entities.Header.Data.WAR_WarehouseName,'E5004')" >
+                                      </div>  
+                                    </div>
+                                  </div>
+                                </div>  
+                            </div>
+                            <div class="col-lg-8 mypadding">
+                              <label class="col-lg-12  mt-5 pl-5 pb-10" style="font-weight: bold;color: gray;">Dimensions</label>
+                              <div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-12">
+                                  <div class="form-group">
+                                    <label class="control-label text-single-line">Maximum Volume</label>
+                                    <input type="text" class="form-control " value="{{AreasDetailsCtrl.ePage.Entities.Header.Data.MaxCubic}}&nbsp;{{AreasDetailsCtrl.ePage.Entities.Header.Data.CubicUQ}}"
+                                    readonly="">
+                                  </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-12">
+                                  <div class="form-group">
+                                    <label class="control-label text-single-line">Maximum Weight</label>
+                                    <input type="text" class="form-control " value="{{AreasDetailsCtrl.ePage.Entities.Header.Data.MaxWeight}}&nbsp;{{AreasDetailsCtrl.ePage.Entities.Header.Data.WeightUQ}}"
+                                    readonly="">
+                                  </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-12">
+                                  <div class="form-group">
+                                    <label class="control-label text-single-line">Current Volume</label>
+                                    <input type="text" class="form-control " value="{{AreasDetailsCtrl.ePage.Entities.Header.Data.Volume}}&nbsp;{{AreasDetailsCtrl.ePage.Entities.Header.Data.CubicUQ}}"
+                                    readonly="">
+                                  </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-12">
+                                  <div class="form-group">
+                                    <label class="control-label text-single-line">Current Weight</label>
+                                    <input type="text" class="form-control " value="{{AreasDetailsCtrl.ePage.Entities.Header.Data.Weight}}&nbsp;{{AreasDetailsCtrl.ePage.Entities.Header.Data.WeightUQ}}"
+                                    readonly="">
+                                  </div>
+                                </div>  
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-12">
+                                  <div class="form-group">
+                                    <label class="control-label text-single-line">Available Volume</label>
+                                    <input type="text" class="form-control " value="{{AreasDetailsCtrl.ePage.Entities.Header.Data.AvailableVolume}}&nbsp;{{AreasDetailsCtrl.ePage.Entities.Header.Data.CubicUQ}}"
+                                    readonly="">
+                                  </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-12">
+                                  <div class="form-group">
+                                    <label class="control-label text-single-line">Available Weight</label>
+                                    <input type="text" class="form-control " value="{{AreasDetailsCtrl.ePage.Entities.Header.Data.AvailableWeight}}&nbsp;{{AreasDetailsCtrl.ePage.Entities.Header.Data.WeightUQ}}"
+                                    readonly="">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>

@@ -1,0 +1,94 @@
+<!-- Saving Your Data -->
+<div class="grid-loading-norecord-container ng-scope" style='z-index: 4;'data-ng-if="OutwardMenuCtrl.ePage.Masters.IsLoadingToSave">
+    <div class="grid-no-record">Loading...</div>
+</div>
+<div class="clearfix wms-menu-wraper">
+    <div id="wmsMenuWrapper{{OutwardMenuCtrl.currentOutward.label}}" class="col-sm-12 no-padding-left 
+    no-padding-right">
+        <uib-tabset class="wms-menu tabs-left tabbable" active="OutwardMenuCtrl.ePage.Masters.active">
+            <div class="tab-profile">
+                <div class="tab-profile-title text-single-line text-center" style="color: #423232;font-weight: 600;" data-ng-bind="OutwardMenuCtrl.currentOutward.label"></div>
+                <div class="wocstatusmenu text-single-line text-center" title="{{OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus + ' - '+ OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatusDesc}}"
+                    data-ng-bind="OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatusDesc"></div>
+            </div>
+            <uib-tab ng-repeat="x in OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource" index="$index" deselect="OutwardMenuCtrl.ePage.Masters.tabSelected(x,$selectedIndex,$event);">
+                <uib-tab-heading title="{{x.DisplayName}}">
+                    <i class="{{x.Icon}} mr-5"></i>
+                    <span class="text-single-line" data-ng-bind="x.DisplayName"></span>
+                    <error-warning-directive data-ng-if="OutwardMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, OutwardMenuCtrl.currentOutward.label, 'W', 'GParent').length > 0 && OutwardMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, OutwardMenuCtrl.currentOutward.label, 'E', 'GParent').length == 0"
+                        list="OutwardMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList" type="'warning'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
+                    <error-warning-directive data-ng-if="OutwardMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, OutwardMenuCtrl.currentOutward.label, 'E', 'GParent').length > 0"
+                        list="OutwardMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList" type="'error'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>  
+                </uib-tab-heading>
+                <div class="finalisedstate" ng-show="!OutwardMenuCtrl.ePage.Entities.Header.CheckPoints.NotFinaliseStage">
+                    <span ng-if="!OutwardMenuCtrl.ePage.Entities.Header.CheckPoints.NotFinaliseStage" ng-init="OutwardMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave = 'true'"></span>
+                    <span class="finaliseddatedescription">Outward Finalized and it cannot be edited</span>
+                </div>
+                <div>
+                    <div ng-switch="x.Value">
+
+                        <!--Menu directives-->
+                        <div ng-switch-when="General" outward-general current-outward="OutwardMenuCtrl.currentOutward"></div>
+                        <div ng-switch-when="Line"outward-line current-outward="OutwardMenuCtrl.currentOutward"></div>
+                        <div ng-switch-when="Pick" ng-if="OutwardMenuCtrl.ePage.Masters.PickDetails" outward-pick pick-details="OutwardMenuCtrl.ePage.Masters.PickDetails"></div>      
+                        <div ng-switch-when="References & Services">
+                            <div class="col-lg-12 p-0">
+                                <references current-outward="OutwardMenuCtrl.currentOutward"></references>
+                            </div>
+                            <div class="col-lg-12 p-0">
+                                <services current-outward="OutwardMenuCtrl.currentOutward"></services>
+                            </div>
+                        </div>                        
+                        <div ng-switch-when="Containers" container current-outward="OutwardMenuCtrl.currentOutward"></div>
+                        <div ng-switch-when="Crossdock" outward-crossdock current-outward="OutwardMenuCtrl.currentOutward"></div>
+                        <div ng-switch-when="Documents" outward-document current-outward="OutwardMenuCtrl.currentOutward"></div>
+                    </div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+    <div class="error-warning-container right" id="errorWarningContainer{{OutwardMenuCtrl.currentOutward.label}}">
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                <!-- <i class="fa fa-warning"></i>  -->
+                Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right" data-ng-click="OutwardMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(OutwardMenuCtrl.currentOutward)">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+        </div>
+        <div class="error-warning-body">
+            <div class="clearfix" data-ng-if="OutwardMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length>0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in OutwardMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   <!--Footer-->
+   <div class="eaxis-footer-strip">
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+            <standard-menu entity-name="'WarehouseOutward'" input="OutwardMenuCtrl.currentOutward"></standard-menu>
+        </div>
+        <div  class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                <button class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6" data-ng-click="OutwardMenuCtrl.ePage.Masters.Validation(OutwardMenuCtrl.currentOutward)" data-ng-bind="OutwardMenuCtrl.ePage.Masters.SaveButtonText"
+                data-ng-disabled="OutwardMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave"></button>
+                <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="OutwardMenuCtrl.ePage.Masters.Validation(OutwardMenuCtrl.currentOutward);OutwardMenuCtrl.ePage.Masters.SaveAndClose = true"
+                data-ng-disabled="OutwardMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave">Save & Close</button>
+        </div>
+
+    </div>
+
+</div>

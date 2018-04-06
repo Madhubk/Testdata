@@ -1,0 +1,162 @@
+<!--General-->
+<div class="clearfix padding-top-20">
+    <div class="clearfix">
+        <div class="col-lg-12">
+
+            <div class="col-lg-3">
+                <div class="inner-dashboard-box" style="height: 123px;">
+                    <div class="tab-profile-title text-single-line text-center" style="color: #423232;font-weight: 600;font-size: 20px;padding-top: 10px;"
+                        ng-if="AsnrequestGeneralCtrl.currentAsnrequest.isNew==true?AsnrequestGeneralCtrl.ePage.Masters.title='New':AsnrequestGeneralCtrl.ePage.Masters.title=AsnrequestGeneralCtrl.currentAsnrequest.label"
+                        data-ng-bind="AsnrequestGeneralCtrl.ePage.Masters.title"></div>
+                    <div class="wocstatus text-single-line text-center" title="{{AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatus + ' - '+ AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatusDesc}}"
+                        data-ng-bind="AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatusDesc"></div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="padding-top:5px">
+                        <div class="form-group">
+                            <div class="error-warning-container">
+                                <error-warning-directive data-ng-if="AsnrequestGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.IsWarning && !AsnrequestGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.IsError"
+                                    list="AsnrequestGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.WARNING" type="'warning'"
+                                    icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                                <error-warning-directive data-ng-if="AsnrequestGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.IsError" list="AsnrequestGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            </div>
+                            <label class="control-label text-single-line" style="color: gray;font-weight: 600;font-size: 12px;">Warehouse</label>
+                            <div class="input-group1 input-group-sm">
+                                <!-- Dynamic look up Search in textbox -->
+                                <div dynamic-lookup placeholder="Warehouse Code And Name" my-ng-model="AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Warehouse"
+                                    obj="AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader" prefix-data="'Warehouse'"
+                                    config="'Warehouse'" auto-complete-on-select="AsnrequestGeneralCtrl.ePage.Masters.SelectedLookupCode_Name($item)">
+                                </div>
+
+                                <!-- Look Up page opens when button clicks -->
+                                <span class="input-group-btn">
+                                        <button dynamic-list-modal obj="AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader" field-name="'Warehouse'" selected-data="AsnrequestGeneralCtrl.ePage.Masters.SelectedLookupCode_Name($item)"  prefix-data="'Warehouse'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                </span>
+                                <span ng-if='!AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Warehouse&&!AsnrequestGeneralCtrl.currentAsnrequest.isNew'>
+                                    <div ng-init="AsnrequestGeneralCtrl.ePage.Masters.OnChangeValues(AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Warehouse,'E3002')"></div>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-9">
+                <!--Client-->
+                <div class="col-lg-6">
+                    <div class="inner-dashboard-box">
+                        <div class="rows border-bottom">
+                            <div class="col-lg-3 height-40 border-right pt-10 pb-10">
+                                <span class="dashboard-inward-icon-box">
+                                <i class="icomoon icon-organization-client"></i>
+                            </span>
+                                <label class="ml-5 control-label">Client</label>
+                                <span class="error-warning-container">
+                                <error-warning-directive data-ng-if="AsnrequestGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Client.IsWarning && !AsnrequestGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Client.IsError"
+                                    list="AsnrequestGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Client.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                                <error-warning-directive data-ng-if="AsnrequestGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Client.IsError" list="AsnrequestGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Client.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            </span>
+                            </div>
+                            <div class="col-lg-9 height-40 p-5">
+                                <div class="input-group1 input-group-sm">
+                                    <!-- Dynamic look up Search in textbox -->
+                                    <div dynamic-lookup placeholder="Client Code And Name" my-ng-model="AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Client"
+                                        auto-complete-on-select="AsnrequestGeneralCtrl.ePage.Masters.SelectedLookupClient($item)"
+                                        obj="AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader" prefix-data="'OrganizationList'"
+                                        config="'Client'">
+                                    </div>
+                                    <!-- Look Up page opens when button clicks -->
+                                    <span class="input-group-btn">
+                                    <button dynamic-list-modal obj="AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader" field-name="'Client'"
+                                        selected-data="AsnrequestGeneralCtrl.ePage.Masters.SelectedLookupClient($item)" prefix-data="'OrganizationList'"
+                                        mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny" type="button">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                                    <span ng-if='!AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Client&&!AsnrequestGeneralCtrl.currentAsnrequest.isNew'>
+                                    <div ng-init="AsnrequestGeneralCtrl.ePage.Masters.OnChangeValues(AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Client,'E3001')"></div>
+                                </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rows p-5 height-80">
+                            <div ng-show="AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Client">
+                                <div class="col-lg-8 addressstyle">
+                                    <div class="text-single-line font-12" title='{{AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address1}}'>{{AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address1}}</div>
+                                    <div class="text-single-line" title='{{AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address2}}'>{{AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address2}}</div>
+                                    <div class="text-single-line" title='{{AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_State}}'>{{AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_State}}</div>
+                                    <div class="text-single-line">
+                                        <span ng-show="AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_City" title="{{AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_City}}">{{AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_City}} -</span>
+                                        <span ng-show="AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_PostCode" title="{{AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_PostCode}}">{{AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_PostCode}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 p-0 mt-30">
+                                    <div class="pull-right addressstyle1 font-12" ng-show="AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Mobile"
+                                        title="{{AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Mobile}}">{{AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Mobile}}<i class="fa fa-phone ml-5 mr-5"></i></div>
+                                    <div class="pull-right addressstyle1 font-12" ng-show="AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Email"
+                                        title="{{AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Email}}">{{AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Email}}<i class="fa fa-envelope-o ml-5 mr-5"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Supplier-->
+                <div class="col-lg-6">
+                    <div class="inner-dashboard-box">
+                        <div class="rows border-bottom">
+                            <div class="col-lg-3 height-40  border-right pt-10 pb-10">
+                                <span class="dashboard-inward-icon-box">
+                                <i class="icomoon icon-supplier"></i>
+                            </span>
+                                <label class="ml-5 control-label">Supplier</label>
+                            </div>
+                            <div class="col-lg-9 height-40  p-5">
+                                <div class="input-group1 input-group-sm">
+                                    <!-- Dynamic look up Search in textbox -->
+                                    <div dynamic-lookup placeholder="Supplier Code And Name" my-ng-model="AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Supplier"
+                                        auto-complete-on-select="AsnrequestGeneralCtrl.ePage.Masters.SelectedLookupSupplier($item)"
+                                        obj="AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader" prefix-data="'OrganizationList'"
+                                        config="'Supplier'">
+                                    </div>
+
+                                    <!-- Look Up page opens when button clicks -->
+                                    <span class="input-group-btn">
+                                        <button dynamic-list-modal obj="AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader" field-name="'Supplier'" selected-data="AsnrequestGeneralCtrl.ePage.Masters.SelectedLookupSupplier($item)"  prefix-data="'OrganizationList'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                    </span>
+                                    <span class="input-group-btn" ng-show="AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Supplier">
+                                        <button   class="btn btn-default shiny" type="button" ng-click="AsnrequestGeneralCtrl.ePage.Masters.OtherSupplierAddresses(AsnrequestGeneralCtrl.ePage.Masters.OrgSupplierAddress)"><i class="fa fa-address-card-o"></i></button>
+                                    </span>
+                                    <span ng-if="!AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Supplier" ng-init="AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ORG_Supplier_FK = '';AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.SupplierCode='';AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.SupplierName=''; "></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rows p-5 height-80">
+                            <div ng-show="AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Supplier" ng-repeat="x in AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress | filter: {AddressType:'SUD'}">
+                                <div class="col-lg-8 addressstyle">
+                                    <div class="text-single-line font-12" title='{{x.Address1}}'>{{x.Address1 }}</div>
+                                    <div class="text-single-line" title='{{x.Address2}}'>{{x.Address2 }}</div>
+                                    <div class="text-single-line" title='{{x.State}}'>{{x.State}}</div>
+                                    <div class="text-single-line">
+                                        <span ng-show="x.City" title="{{x.City}}">{{x.City}} -</span>
+                                        <span ng-show="x.PostCode" title="{{x.PostCode}}">{{x.PostCode}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 p-0 mt-30">
+                                    <div class="pull-right addressstyle1 font-12" ng-show="x.Mobile" title="{{x.Mobile}}">{{x.Mobile}}<i class="fa fa-phone ml-5 mr-5"></i></div>
+                                    <div class="pull-right addressstyle1 font-12" ng-show="x.Email" title="{{x.Email}}">{{x.Email}}<i class="fa fa-envelope-o ml-5 mr-5"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix padding-top-20">
+    <div class="clearfix">
+        <document input="AsnrequestGeneralCtrl.ePage.Masters.StandardMenuDocumentInput" mode="'2'" type="AsnrequestGeneralCtrl.ePage.Masters.DocumentType"></document>
+    </div>
+</div>

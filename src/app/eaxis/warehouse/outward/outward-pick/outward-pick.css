@@ -1,0 +1,12 @@
+.infotext{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 30px;
+    text-align: center;
+    padding: 5px 10px;
+    border-radius: 3px;
+}

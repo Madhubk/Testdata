@@ -1,0 +1,230 @@
+<div class="clearfix tc-application">
+    <!-- Breadcrumb -->
+    <div class="clearfix tc-breadcrumb" data-ng-if="TCApplicationCtrl.ePage.Masters.ActiveApplication == 'TC'">
+        <i class="fa fa-home home-icon"></i>
+        <div class="breadcrumb-list-wrapper">
+            <ol class="breadcrumb">
+                <li data-ng-repeat="x in TCApplicationCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="TCApplicationCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                </li>
+                <li data-ng-repeat="x in TCApplicationCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
+                    class="active"></li>
+            </ol>
+        </div>
+    </div>
+    <!-- Header -->
+    <div class="clearfix tc-header-container">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="tc-header with-add-new">
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-5">
+                    <div class="text-single-line" data-ng-bind="'Application'"></div>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-5 pt-4 text-right">
+                    <button class="btn btn-xs btn-info" data-ng-click="TCApplicationCtrl.ePage.Masters.Application.AddNew()">New</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">
+            <div class="tc-header edit-view">
+                <span data-ng-bind="'Details'"></span>
+                <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10" data-ng-click="TCApplicationCtrl.ePage.Masters.Application.Edit()"
+                    data-ng-disabled="!TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.PK">Edit</button>
+            </div>
+        </div>
+    </div>
+    <!-- Body -->
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 tc-page-height-fixed">
+            <div class="tc-list-container">
+                <div class="tc-list-search">
+                    <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="TCApplicationCtrl.ePage.Masters.Search">
+                </div>
+                <ul class="tc-list-ul">
+                    <div class="p-15 text-center tc-loading" data-ng-if="!TCApplicationCtrl.ePage.Masters.Application.ApplicationList">
+                        <i class="fa fa-spin fa-spinner"></i>
+                    </div>
+                    <div data-ng-if="TCApplicationCtrl.ePage.Masters.Application.ApplicationList && (TCApplicationCtrl.ePage.Masters.Application.ApplicationList | filter: TCApplicationCtrl.ePage.Masters.Search).length===0"
+                        class="p-15 text-center">
+                        <i>No Records...</i>
+                    </div>
+                    <li data-ng-if="TCApplicationCtrl.ePage.Masters.Application.ApplicationList && (TCApplicationCtrl.ePage.Masters.Application.ApplicationList | filter: TCApplicationCtrl.ePage.Masters.Search).length > 0"
+                        data-ng-repeat="x in TCApplicationCtrl.ePage.Masters.Application.ApplicationList | filter: TCApplicationCtrl.ePage.Masters.Search"
+                        data-ng-click="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.PK != x.PK && TCApplicationCtrl.ePage.Masters.Application.OnApplicationClick(x)"
+                        data-ng-class="{'active': TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.PK == x.PK}">
+                        <div class="clearfix tc-list">
+                            <div class="tc-list-name">
+                                <i class="fa fa-circle-o mr-10"></i>
+                                <span class="text-single-line" data-ng-bind="x.AppName"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed">
+            <div class="tc-avatar-lg clearfix">
+                <div class="avatar-container">
+                    <file-upload-custom class="file-upload-directive"  ng-model="TCApplicationCtrl.ePage.Masters.Application.Logo.fileDetails" size="TCApplicationCtrl.ePage.Masters.Application.Logo.fileSize"
+                        auth="{{TCApplicationCtrl.ePage.Masters.Application.Logo.autherization}}" additional-value="{{TCApplicationCtrl.ePage.Masters.Application.Logo.additionalValue}}" url="{{TCApplicationCtrl.ePage.Masters.Application.Logo.UploadUrl}}" doc-type="image/*" multiple-file="false" is-disabled="!TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.PK"  
+                         get-uploaded-files="TCApplicationCtrl.ePage.Masters.Application.Logo.GetUploadedFiles($item)" get-selected-files="TCApplicationCtrl.ePage.Masters.Application.Logo.GetSelectedFiles($item)"  fu-class="tc-application left" modal-template="" template="">
+                        <img data-ng-src="{{TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.LogoStr}}" alt="" data-ng-if="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.LogoStr">
+                        <span data-ng-bind="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.AppCode | getCharacters: 2" data-ng-if="!TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.LogoStr"></span>
+                        <div class='change-logo'>Change</div>
+                    </file-upload-custom>
+                </div>
+            </div>
+            <div class="tc-section-divider"></div>
+            <div class="tc-list-container tc-list-container-inner-redirect clearfix" data-ng-if="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.PK">
+                <ul class="tc-list-ul">
+                    <li data-ng-click="TCApplicationCtrl.ePage.Masters.Application.OnRedirectListClick(x)" data-ng-repeat="x in TCApplicationCtrl.ePage.Masters.Application.RedirectPagetList"
+                        data-ng-if="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.AppCode != x.AppCode">
+                        <div class="clearfix tc-list">
+                            <div class="tc-list-name">
+                                <i class="fa {{x.Icon}} mr-10" data-ng-style="{'color': x.Color}"></i>
+                                <span class="text-single-line" data-ng-bind="x.Description"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- <div class="tc-section-divider"></div>
+            <div class="clearfix tc-list-container">
+                <div class="tc-list-header">EXTERNAL URL</div>
+                <div class="clearfix">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="clearfix p-10">
+                                        {{TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.ExternalUrl}}
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="clearfix p-10">
+                                        <a>Add New...</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</div>
+
+<!-- Edit Template -->
+<script type="text/ng-template" id="applicationEdit">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="TCApplicationCtrl.ePage.Masters.Application.Cancel()">&times;</button>
+        <h5 class="modal-title" id="modal-title">
+            <strong>Edit</strong>
+        </h5>
+    </div>
+    <div class="modal-body pt-10" id="modal-body">
+        <div class="clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-5 pb-5">
+                <form class="form-horizontal tc-application-edit">
+                    <div class="form-group" data-ng-if="!TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.PK">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Code</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Code" data-ng-model="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.AppCode" data-ng-change="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.IsModified = true">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Name</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Name" data-ng-model="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.AppName" data-ng-change="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.IsModified = true">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Description</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Description" data-ng-model="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.Description" data-ng-change="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.IsModified = true">
+                        </div>
+                    </div>
+                    <!-- <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">External Url</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="External Url" data-ng-model="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.ExternalUrl" data-ng-change="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.IsModified = true">
+                        </div>
+                    </div> -->
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Internal Url</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Internal Url" data-ng-model="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.InternalUrl" data-ng-change="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.IsModified = true">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                            <span data-ng-click="TCApplicationCtrl.ePage.Masters.Application.OpenJsonModal()" class="glyphicon glyphicon-pencil cursor-pointer mr-5"></span> Other Config</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <textarea rows="6" class="form-control input-sm no-resize" placeholder="Other Config" data-ng-model="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.OtherConfig" data-ng-change="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.IsModified = true"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group" data-ng-if="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.PK">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">External Url</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <table class="table table-bordered table-responsive">
+                                <thead>
+                                    <tr>
+                                        <td>
+                                            <div class="clearfix p-5">Url</div>
+                                        </td>
+                                        <td class="action">
+                                            <div class="clearfix p-5">Action</div>
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-ng-if="!TCApplicationCtrl.ePage.Masters.Application.ExternalUrlList" >
+                                        <td colspan="2">
+                                            <div class="clearfix p-10 text-center" style="font-size: 16px;">
+                                                <i class="fa fa-spin fa-spinner"></i>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr data-ng-if="TCApplicationCtrl.ePage.Masters.Application.ExternalUrlList && TCApplicationCtrl.ePage.Masters.Application.ExternalUrlList.length == 0" >
+                                        <td colspan="2">
+                                            <div class="clearfix p-10 text-center">
+                                                <i>No Records...</i>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr data-ng-if="TCApplicationCtrl.ePage.Masters.Application.ExternalUrlList && TCApplicationCtrl.ePage.Masters.Application.ExternalUrlList.length > 0 && !x.IsDeleted" data-ng-repeat="x in TCApplicationCtrl.ePage.Masters.Application.ExternalUrlList">
+                                        <td>
+                                            <div class="clearfix p-0">
+                                                <input type="text" class="form-control no-border input-sm" data-ng-model="x.ExternalUrl"  placeholder="Url" data-ng-change="x.IsModified = true"/>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="clearfix p-5 text-center">
+                                                <i class="fa fa-trash text-danger cursor-pointer" data-ng-click="TCApplicationCtrl.ePage.Masters.Application.RemoveExternalUrl(x, $index)"></i>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <div class="clearfix p-10">
+                                                <a class="cursor-pointer" href="javascript: void(0);" data-ng-click="TCApplicationCtrl.ePage.Masters.Application.AddNewExternalUrl()">Add New...</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="tc-section-divider-small"></div>
+        <div class="clearfix p-10">
+            <button class="btn btn-default tc-btn-save btn-xs pull-right ml-10" data-ng-click="TCApplicationCtrl.ePage.Masters.Application.Save()"
+                data-ng-bind="TCApplicationCtrl.ePage.Masters.Application.SaveBtnText" data-ng-disabled="TCApplicationCtrl.ePage.Masters.Application.IsDisableSaveBtn"></button>
+            <button class="btn btn-default tc-btn-cancel btn-xs pull-right ml-10" data-ng-click="TCApplicationCtrl.ePage.Masters.Application.Cancel()">Cancel</button>
+        </div>
+        <div class="tc-section-divider-small mb-20"></div>
+    </div>
+</script>

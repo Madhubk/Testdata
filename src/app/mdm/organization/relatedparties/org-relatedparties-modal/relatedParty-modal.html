@@ -1,0 +1,83 @@
+<div class="modal-header">
+    <h5 class="modal-title pull-left"><strong>{{OrgRelatedPartyModalCtrl.ePage.Masters.RelatedParty.FormView.RelatedParty_Code || 'Title'}}</strong></h5>
+    <input type="button" class="btn btn-warning btn-xs pull-right margin-left-5" ng-click="OrgRelatedPartyModalCtrl.ePage.Masters.Cancel()"
+        value="Close" />
+    <input type="button" class="btn btn-primary btn-xs pull-right margin-left-5" ng-click="OrgRelatedPartyModalCtrl.ePage.Masters.Save(OrgRelatedPartyModalCtrl.ePage.Masters.RelatedParty.FormView, 'OrgRelatedParty')"
+        value="{{OrgRelatedPartyModalCtrl.ePage.Masters.SaveButtonText}}" data-ng-disabled="OrgRelatedPartyModalCtrl.ePage.Masters.IsDisableSave"
+    />
+</div>
+<div class="modal-body">
+    <div class="clearfix padding-5 padding-top-10">
+        <div class="clearfix">
+            <fieldset>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="form-group">
+                        <label for="">RelatedParty</label>
+                        <div class="input-group input-group-sm">
+                            <div dynamic-lookup placeholder="RelatedParty" my-ng-model="OrgRelatedPartyModalCtrl.ePage.Masters.RelatedParty.FormView.RelatedParty_Code"
+                                obj="OrgRelatedPartyModalCtrl.ePage.Masters.RelatedParty.FormView" prefix-data="'OrganizationList'"
+                                config="'OrgRelParty'" auto-complete-on-select="OrgRelatedPartyModalCtrl.ePage.Masters.RelatedParty.AutoCompleteOnSelect($item)"></div>
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal  obj="OrgRelatedPartyModalCtrl.ePage.Masters.RelatedParty.FormView" field-name="'OrgRelParty'"  prefix-data="'OrganizationList'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrgRelatedPartyModalCtrl.ePage.Masters.RelatedParty.SelectedLookupData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="form-group">
+                        <label for="">UNLOCO</label>
+                        <div class="input-group input-group-sm">
+                            <div dynamic-lookup placeholder="UNLOCO" my-ng-model="OrgRelatedPartyModalCtrl.ePage.Masters.RelatedParty.FormView.UNL_Code"
+                                obj="OrgRelatedPartyModalCtrl.ePage.Masters.RelatedParty.FormView" prefix-data="'MstUNLOCO'"
+                                config="'OrgRelPartyUnloco'" auto-complete-on-select="OrgRelatedPartyModalCtrl.ePage.Masters.RelatedParty.AutoCompleteOnSelect($item)"></div>
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal  obj="OrgRelatedPartyModalCtrl.ePage.Masters.RelatedParty.FormView" field-name="'OrgRelPartyUnloco'"  prefix-data="'MstUNLOCO'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrgRelatedPartyModalCtrl.ePage.Masters.RelatedParty.SelectedLookupData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="form-group">
+                        <label for="">Party Type</label>
+                        <select chosen search-contains="true" name="party" ng-model="OrgRelatedPartyModalCtrl.ePage.Masters.RelatedParty.FormView.Party_PK"
+                            ng-options="x.PK  as (x.PartyCode + ' - ' + x.PartyDescription) for x in OrgRelatedPartyModalCtrl.ePage.Masters.DropDownMasterList.OrgPartyType.ListSource"
+                            class="form-control input-sm" search-contains="true">
+                        <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="form-group">
+                        <label for="">Freight Direction</label>
+                        <!-- <select chosen search-contains="true" name="Freight-Direction" ng-model="OrgRelatedPartyModalCtrl.ePage.Masters.RelatedParty.FormView.FreightDirection"
+                            ng-options="x.Code  as x.Desc for x in OrgRelatedPartyModalCtrl.ePage.Masters.DropDownMasterList.DebtorGroup.ListSource"
+                            class="form-control input-sm">
+                        <option value="">--Select--</option>
+                        </select> -->
+                        <input type="text" class="form-control input-sm" placeholder="Freight Direction" data-ng-model="OrgRelatedPartyModalCtrl.ePage.Masters.RelatedParty.FormView.FreightDirection"
+                        />
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="form-group">
+                        <label for="">Freight Mode</label>
+                        <!-- <select chosen search-contains="true" name="Freight-Mode" ng-model="OrgRelatedPartyModalCtrl.ePage.Masters.RelatedParty.FormView.FreightMode"
+                            ng-options="x.Code  as x.Desc for x in OrgRelatedPartyModalCtrl.ePage.Masters.DropDownMasterList.DebtorGroup.ListSource"
+                            class="form-control input-sm">
+                        <option value="">--Select--</option>
+                        </select> -->
+                        <input type="text" class="form-control input-sm" placeholder="Freight Mode" data-ng-model="OrgRelatedPartyModalCtrl.ePage.Masters.RelatedParty.FormView.FreightMode"
+                        />
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <input type="button" class="btn btn-warning btn-xs pull-right margin-left-5" ng-click="OrgRelatedPartyModalCtrl.ePage.Masters.Cancel()"
+        value="Close" />
+    <input type="button" class="btn btn-primary btn-xs pull-right margin-left-5" ng-click="OrgRelatedPartyModalCtrl.ePage.Masters.Save(OrgRelatedPartyModalCtrl.ePage.Masters.RelatedParty.FormView, 'OrgRelatedParty')"
+        value="{{OrgRelatedPartyModalCtrl.ePage.Masters.SaveButtonText}}" data-ng-disabled="OrgRelatedPartyModalCtrl.ePage.Masters.IsDisableSave"
+    />
+</div>

@@ -1,0 +1,97 @@
+<div class="dynamic-table-container">
+    <div class="widget no-padding">
+        <!--Header with search  -->
+        <div class="widget-header p-5" data-ng-if="DynamicTableCtrl.ePage.Masters.GridConfig.isHeader">
+            <div class="title col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                <span data-ng-bind="DynamicTableCtrl.ePage.Masters.GridConfig.title"></span>
+            </div>
+            <div class="search col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                <input type="text" placeholder="Search" class="form-control input-xs" ng-model="DynamicTableCtrl.ePage.Masters.Search" data-ng-if="DynamicTableCtrl.ePage.Masters.GridConfig.isSearch">
+            </div>
+        </div>
+        <!--Body  -->
+        <div class="clearfix">
+            <!--Table  -->
+            <div class="dynamic-table-wrapper">
+                <table class="table table-hover">
+                    <!--Table header  -->
+                    <thead data-ng-if="DynamicTableCtrl.ePage.Masters.GridConfig.isColumnHeader">
+                        <tr>
+                            <th class="list-header" data-ng-class="{'cursor-pointer': DynamicTableCtrl.ePage.Masters.GridConfig.isSorting}" data-ng-style="{width: x.width}"
+                                data-ng-repeat="x in DynamicTableCtrl.ePage.Masters.GridConfig.columnDef" data-ng-click="DynamicTableCtrl.ePage.Masters.GridConfig.isSorting && DynamicTableCtrl.ePage.Masters.SortingClick(x);">
+                                <span data-ng-bind-html="x.displayName"></span>
+                                <span ng-if="DynamicTableCtrl.ePage.Masters.GridConfig.isSorting && DynamicTableCtrl.ePage.Masters.orderByField == x.field">
+                                    <span class="fa" data-ng-class="{'fa-sort-asc': !DynamicTableCtrl.ePage.Masters.reverseSort, 'fa-sort-desc': DynamicTableCtrl.ePage.Masters.reverseSort}"></span>
+                                </span>
+                            </th>
+                            <th class="edit" data-ng-if="DynamicTableCtrl.ePage.Masters.GridConfig.isEdit">
+                                <span data-ng-bind-html="'Edit'"></span>
+                            </th>
+                            <th class="delete" data-ng-if="DynamicTableCtrl.ePage.Masters.GridConfig.isDelete">
+                                <span data-ng-bind-html="'Delete'"></span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <!--table Data  -->
+                    <tbody>
+                        <tr class="no-records text-center p-10" data-ng-if="(DynamicTableCtrl.gridData | filter: DynamicTableCtrl.ePage.Masters.Search).length === 0">
+                            <td colspan="{{DynamicTableCtrl.ePage.Masters.GridConfig.columnDef.length}}">No Records...!</td>
+                        </tr>
+                        <!--Without row template  -->
+                        <tr data-ng-repeat="x in DynamicTableCtrl.gridData |orderBy: DynamicTableCtrl.ePage.Masters.orderByField:DynamicTableCtrl.ePage.Masters.reverseSort | filter: DynamicTableCtrl.ePage.Masters.Search"
+                            ng-dblclick="DynamicTableCtrl.ePage.Masters.SelectedGridRow(x, $index, 'dblclick')" data-ng-if="!DynamicTableCtrl.ePage.Masters.GridConfig.isRowTemplate">
+                            <td data-ng-repeat="y in DynamicTableCtrl.ePage.Masters.GridConfig.columnDef" data-ng-style="{width: y.width}">
+                                <!--With cell template  -->
+                                <div data-ng-if="y.cellTemplate" compile-html bind-html-compile="y.cellTemplate"></div>
+                                <!--Without cell template  -->
+                                <div class="text-single-line" data-ng-if="!y.cellTemplate" compile-html bind-html-compile="x[y.field] || '-'"></div>
+                            </td>
+                            <td class="options edit" data-ng-if="DynamicTableCtrl.ePage.Masters.GridConfig.isEdit">
+                                <span class="glyphicon glyphicon-pencil text-info cursor-pointer" data-ng-click="DynamicTableCtrl.ePage.Masters.SelectedGridRow(x, $index, 'edit')"></span>
+                            </td>
+                            <td class="options edit" data-ng-if="DynamicTableCtrl.ePage.Masters.GridConfig.isDelete">
+                                <span class="glyphicon glyphicon-trash text-danger cursor-pointer" data-ng-click="DynamicTableCtrl.ePage.Masters.SelectedGridRow(x, $index, 'delete')"></span>
+                            </td>
+                        </tr>
+                        <!--With row template  -->
+                        <div class="clearfix" data-ng-repeat="x in DynamicTableCtrl.gridData |orderBy: DynamicTableCtrl.ePage.Masters.orderByField:DynamicTableCtrl.ePage.Masters.reverseSort | limitTo: DynamicTableCtrl.ePage.Masters.pagination.itemsPerPage | filter: DynamicTableCtrl.ePage.Masters.Search"
+                            ng-dblclick="DynamicTableCtrl.ePage.Masters.SelectedGridRow(x, $index, 'dblclick')" data-ng-show="($index >= DynamicTableCtrl.ePage.Masters.pagination.firstIndex) && ($index < DynamicTableCtrl.ePage.Masters.pagination.lastIndex)"
+                            data-ng-if="DynamicTableCtrl.ePage.Masters.GridConfig.isRowTemplate">
+                            <div compile-html bind-html-compile="DynamicTableCtrl.ePage.Masters.GridConfig.rowTemplate"> </div>
+                        </div>
+                    </tbody>
+                </table>
+            </div>
+            <!--Pagination  -->
+            <div class="clearfix dynamic-pagination p-5" data-ng-if="DynamicTableCtrl.ePage.Masters.GridConfig.isPagination">
+                <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-7 pt-10"> </div>
+                <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                    <!-- <select class="pull-right form-control input-sm" data-ng-model="DynamicTableCtrl.ePage.Masters.pagination.itemsPerPage" data-ng-options="x for x in [10, 50, 100]"
+                        data-ng-change="DynamicTableCtrl.ePage.Masters.pagination.UpdatePagination(DynamicTableCtrl.ePage.Masters.pagination.currentPage, DynamicTableCtrl.ePage.Masters.pagination.itemsPerPage)"></select> -->
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                    <!-- <input type="number" data-ng-model="DynamicTableCtrl.ePage.Masters.pagination.currentPage" data-ng-change="DynamicTableCtrl.ePage.Masters.pagination.UpdatePagination(DynamicTableCtrl.ePage.Masters.pagination.currentPage, DynamicTableCtrl.ePage.Masters.pagination.itemsPerPage)"
+                        min="1" max="DynamicTableCtrl.ePage.Masters.pagination.totalPages" class="input-sm">
+                    <div uib-pagination class="pull-right" data-total-items="(DynamicTableCtrl.gridData | filter: DynamicTableCtrl.ePage.Masters.Search).length"
+                        data-ng-model="DynamicTableCtrl.ePage.Masters.pagination.currentPage" data-ng-change="DynamicTableCtrl.ePage.Masters.pagination.UpdatePagination(DynamicTableCtrl.ePage.Masters.pagination.currentPage, DynamicTableCtrl.ePage.Masters.pagination.itemsPerPage)"
+                        data-max-size="DynamicTableCtrl.ePage.Masters.pagination.maxPaginationSize" data-items-per-page="DynamicTableCtrl.ePage.Masters.pagination.itemsPerPage"
+                        data-boundary-links="true" data-force-ellipses="true" data-previous-text="&lsaquo;" data-next-text="&rsaquo;"
+                        data-first-text="&laquo;" data-last-text="&raquo;"></div> -->
+
+                    <div class="clearfix pull-right prev-next-btn-container">
+                        <button class="btn btn-sm prev btn-primary" data-ng-click="DynamicTableCtrl.ePage.Masters.pagination.OnPrevNextClick('prev')"
+                            data-ng-disabled="DynamicTableCtrl.ePage.Masters.pagination.currentPage == 1">
+                            <i class="fa fa-angle-left"></i>
+                        </button>
+                        <button class="btn btn-sm next btn-primary" data-ng-click="DynamicTableCtrl.ePage.Masters.pagination.OnPrevNextClick('next')"
+                            data-ng-disabled="DynamicTableCtrl.ePage.Masters.pagination.currentPage == DynamicTableCtrl.ePage.Masters.pagination.totalPages">
+                            <i class="fa fa-angle-right"></i>
+                        </button>
+                    </div>
+                    <div class="pull-right record-info text-right">{{DynamicTableCtrl.ePage.Masters.pagination.firstIndex + 1}} - {{DynamicTableCtrl.ePage.Masters.pagination.lastIndex}}
+                        of {{(DynamicTableCtrl.gridData | filter: DynamicTableCtrl.ePage.Masters.Search).length}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

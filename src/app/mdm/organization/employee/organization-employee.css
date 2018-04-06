@@ -1,0 +1,7 @@
+.selectedBg {
+	background: #eee;
+}
+
+.org-employee-edit.employee>.modal-dialog {
+	width: 500px !important;
+}

@@ -1,0 +1,27 @@
+<div class="clearfix">
+    <div class="widget-main">
+        <uib-tabset id="wmsBasic" active="MhuGeneralCtrl.ePage.Masters.active">
+            <uib-tab ng-repeat="x in MhuGeneralCtrl.ePage.Masters.MhuMenu.ListSource" index="$index">
+                <uib-tab-heading title="{{x.DisplayName}}">
+                    <i class="fa {{x.Icon}} mr-5"></i>
+                    <span class="text-single-line" data-ng-bind="x.DisplayName"></span>
+                    <error-warning-directive data-ng-if="MhuGeneralCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, MhuGeneralCtrl.currentMhu.label, 'W', 'GParent').length > 0 && MhuGeneralCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, MhuGeneralCtrl.currentMhu.label, 'E', 'GParent').length == 0"
+                        list="MhuGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList" type="'warning'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
+                    <error-warning-directive data-ng-if="MhuGeneralCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, MhuGeneralCtrl.currentMhu.label, 'E', 'GParent').length > 0"
+                        list="MhuGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList" type="'error'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>  
+                </uib-tab-heading>
+                <div>
+                    <div ng-switch="x.Value">
+                        <div class="col-lg-12 pl-0 pr-0">
+                            <div ng-switch-when="Related Organization">
+                                <related-organization current-mhu="MhuGeneralCtrl.currentMhu"></related-organization>                                    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>

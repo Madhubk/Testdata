@@ -1,0 +1,126 @@
+.page-breadcrumbs {
+    min-height: 60px;
+    background: #f1f1f1;
+    box-shadow: none;
+    z-index: 10;
+}
+
+.team-support-page-header {
+    border-bottom: 2px solid #f1f1f1;
+    position: relative;
+    z-index: 1;
+}
+
+.header-select-control {
+    border-radius: 0;
+}
+
+.team-support-page-body {
+    background-color: #fff;
+    position: relative;
+    z-index: 0;
+}
+
+.height-540 {
+    min-height: 540px;
+}
+
+.page-breadcrumbs .logo img {
+    margin-top: 10px;
+    height: 44px;
+}
+
+/*Header*/
+
+.mail-header {
+    background-color: #fff;
+}
+
+.dropdown-btn-support-task {
+    border: none;
+    font-size: 150%;
+    box-shadow: none;
+    color: #D73D32;
+    background-color: #fff;
+}
+
+.dropdown-btn-support-task.btn.focus,
+.dropdown-btn-support-task.btn:focus,
+.dropdown-btn-support-task.btn:hover,
+.dropdown-btn-support-task.btn:active,
+.dropdown-btn-support-task.btn-default:hover,
+.open .dropdown-btn-support-task.btn-default.dropdown-toggle,
+.dropdown-btn-support-task.btn-default.active,
+.dropdown-btn-support-task.btn-default:active,
+.open>.dropdown-btn-support-task.dropdown-toggle.btn-default,
+.btn-group.open .dropdown-btn-support-task.dropdown-toggle,
+.open .dropdown-btn-support-task.btn.dropdown-toggle {
+    background-color: #fff;
+    box-shadow: none;
+    color: #D73D32;
+}
+
+/*brudcrum*/
+
+.user-avatar-wrapper .user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    cursor: pointer;
+    text-align: center;
+    font-size: 19px;
+    color: #fff;
+    border: none;
+}
+
+.user-avatar-wrapper .dropdown-menu {
+    top: 60px;
+    right: 10px;
+    width: 300px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.user-avatar-wrapper .dropdown-menu:before {
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    content: '';
+    top: -14px;
+    right: 10px;
+    border-top-width: 0;
+    border-bottom-color: #fff;
+    border-width: 7px;
+    color: transparent;
+}
+
+.user-avatar-wrapper .dropdown-menu .user-id {
+    font-size: 12px;
+}
+
+.user-avatar-wrapper .change-password,
+.user-avatar-wrapper .logout {
+    font-size: 10px;
+}
+
+.priority1 {
+    background-color: #ff7455 !important;
+    color: #fff;
+}
+
+.priority2 {
+    background-color: #ffce55 !important;
+    color: #fff;
+}
+
+.priority3 {
+    background-color: #c6c771 !important;
+    color: #fff;
+}
+
+.priority4 {
+    background-color: #ccc1a7 !important;
+    color: #fff;
+}

@@ -1,0 +1,14 @@
+.service-details-heading .heading,
+.referance-details-heading .heading {
+    font-size: 18px;
+}
+
+.service-details-heading i,
+.referance-details-heading i {
+    font-size: 30px;
+}
+
+.service-details-heading i:hover,
+.referance-details-heading i:hover {
+    text-decoration: none;
+}

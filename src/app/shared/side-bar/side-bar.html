@@ -1,0 +1,28 @@
+<!-- Page Sidebar Header-->
+<div class="sidebar-header-wrapper">
+    <input type="text" class="searchinput" data-ng-model="SideBarCtrl.ePage.Masters.searchSideBarMenu" autocomplete="off" />
+    <i class="searchicon fa fa-search"></i>
+    <div class="searchhelper">Search...</div>
+</div>
+<!-- /Page Sidebar Header -->
+<!-- Sidebar Menu -->
+<ul class="nav sidebar-menu">
+    <li data-ng-repeat="menu in SideBarCtrl.ePage.Masters.MenuList | orderBy: 'DisplayOrder' | filter: SideBarCtrl.ePage.Masters.searchSideBarMenu"
+        data-ng-include="'sidebarMenu'" data-ng-class="{'active': menu.MenuName == SideBarCtrl.ePage.Masters.currentMenuItem, 'open': menu.MenuName == SideBarCtrl.ePage.Masters.currentOpenMenuItem}">
+    </li>
+</ul>
+<!-- /Sidebar Menu -->
+
+<script type="text/ng-template" id="sidebarMenu">
+    <a data-ng-class="{'menu-dropdown' : menu.MenuList.length > 0}" data-ng-href="{{menu.Link}}" data-ng-click="SideBarCtrl.ePage.Masters.CurrentActiveMenu(menu)"
+        target="{{menu.Target}}">
+            <span class="menu-icon {{menu.Icon | getIconColorForMenu: 'icon'}}"></span>
+            <span class="menu-text" data-ng-bind="menu.Description"></span>
+            <span class="menu-expand" data-ng-if="menu.MenuList.length > 0"></span>
+        </a>
+    <ul data-ng-if="menu.MenuList.length > 0" class="submenu">
+        <li data-ng-repeat="menu in menu.MenuList | orderBy: 'DisplayOrder' | filter: SideBarCtrl.ePage.Masters.searchSideBarMenu"
+            data-ng-include="'sidebarMenu'" data-ng-class="{'active': menu.MenuName == SideBarCtrl.ePage.Masters.currentMenuItem}">
+        </li>
+    </ul>
+</script>

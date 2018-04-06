@@ -1,0 +1,86 @@
+<div class="clearfix pt-10 mb-50">
+    <div class="widget-main">
+        <div class="rows">
+            <!--Company  -->
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <div class="row">
+                    <div class="col-lg-12 border-r pr-0">
+                        <div class="eaxis-div-box height-auto-600">
+                            <div class="eaxis-header">
+                                <span>Company</span>
+                            </div>
+                            <div class="rows mt-10">
+                                <div class="text-center" data-ng-if="!OrgRelatedPartiesCtrl.ePage.Entities.Header.Data.OrgCompanyData"><i class="fa fa-spin fa-spinner font-160"></i></div>
+                                <div class="text-center" data-ng-if="OrgRelatedPartiesCtrl.ePage.Entities.Header.Data.OrgCompanyData.length === 0"><i>No Records...!</i></div>
+                                <div data-ng-if="OrgRelatedPartiesCtrl.ePage.Entities.Header.Data.OrgCompanyData && OrgRelatedPartiesCtrl.ePage.Entities.Header.Data.OrgCompanyData.length > 0"
+                                    class="relatedparties-box cursor-pointer" ng-class="{selectedBg : x.PK === OrgRelatedPartiesCtrl.ePage.Masters.SelectedCompany.PK}"
+                                    ng-repeat="x in OrgRelatedPartiesCtrl.ePage.Entities.Header.Data.OrgCompanyData" ng-click="OrgRelatedPartiesCtrl.ePage.Masters.OnCompanySelect(x, $index)">
+                                    <div class="companies-left">
+                                        <span class="">{{x.CMP_Code || emptyText}}</span>
+                                    </div>
+                                    <div class="companies-right">
+                                        <div class="eaxis-company-title-4">{{x.CMP_Name || emptyText}}</div>
+                                        <div class="company-sub-title">{{x.BRN_BranchName || emptyText}}-{{x.BRN_Code || emptyText}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Related Party  -->
+            <div class="col-lg-8 col-md-8 col-sm-6">
+                <div class="row">
+                    <div class="col-lg-12 border-r">
+                        <div class="eaxis-div-box height-600">
+                            <div class="eaxis-header">
+                                <span>Related Party <a class="eaxis-edit-2" href="javascript:void(0);" ng-click="OrgRelatedPartiesCtrl.ePage.Masters.OpenEditForm(undefined, 'relatedParty')"><i class="fa fa-plus-circle fa-18x"></i></a></span>
+                                <!--Radio  -->
+                                <div class="pull-right" style="width: 250px">
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" data-ng-repeat="x in OrgRelatedPartiesCtrl.ePage.Masters.FreightDirectionListSource">
+                                        <div class="radio no-margin-top">
+                                            <label>
+                                                <input name="form-field-radio-{{OrgRelatedPartiesCtrl.ePage.Entities.Header.Data.OrgHeader.Code}}" type="radio" class="colored-blue" value="{{x.Code}}" data-ng-model="OrgRelatedPartiesCtrl.ePage.Masters.FreightDirection" data-ng-disabled="!OrgRelatedPartiesCtrl.ePage.Entities.Header.Data.OrgRelatedParty || (OrgRelatedPartiesCtrl.ePage.Entities.Header.Data.OrgRelatedParty | filter: {'CMP_FK': OrgRelatedPartiesCtrl.ePage.Masters.SelectedCompany.CMP_FK}).length === 0">
+                                                <span class="text no-border" data-ng-bind="x.Description"> </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--DropDown  -->
+                                <!-- <div class="pull-right" style="width: 300px">
+                                    <div class="form-horizontal">
+                                        <div class="form-group no-margin">
+                                            <label for="" class="col-lg-5 no-padding-right">Freight Direction</label>
+                                            <div class="col-lg-7">
+                                                <select chosen name="State" class="form-control" ng-model="OrgRelatedPartiesCtrl.ePage.Masters.FreightDirection"
+                                                    ng-options="x.Code as x.Code + ' - ' + x.Description for x in OrgRelatedPartiesCtrl.ePage.Masters.FreightDirectionListSource">
+                                                        <option value="">--Select--</option>
+                                                    </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
+                            <div class="rows mt-10">
+                                <div class="text-center" data-ng-if="!OrgRelatedPartiesCtrl.ePage.Entities.Header.Data.OrgRelatedParty"><i class="fa fa-spin fa-spinner font-160"></i></div>
+                                <div class="text-center" ng-show="(OrgRelatedPartiesCtrl.ePage.Entities.Header.Data.OrgRelatedParty | filter: {'CMP_FK': OrgRelatedPartiesCtrl.ePage.Masters.SelectedCompany.CMP_FK}).length === 0" data-ng-if="(OrgRelatedPartiesCtrl.ePage.Entities.Header.Data.OrgRelatedParty | filter: {'CMP_FK': OrgRelatedPartiesCtrl.ePage.Masters.SelectedCompany.CMP_FK} | filter: {'FreightDirection': OrgRelatedPartiesCtrl.ePage.Masters.FreightDirection}).length === 0"><i>No Records...!</i></div>
+                                <div data-ng-if="OrgRelatedPartiesCtrl.ePage.Entities.Header.Data.OrgRelatedParty && OrgRelatedPartiesCtrl.ePage.Entities.Header.Data.OrgRelatedParty.length > 0"
+                                    class="relatedparties-box" ng-repeat="x in OrgRelatedPartiesCtrl.ePage.Entities.Header.Data.OrgRelatedParty | filter: {'CMP_FK': OrgRelatedPartiesCtrl.ePage.Masters.SelectedCompany.CMP_FK}">
+                                    <div class="clearfix width-100">
+                                        <div class="pull-left">
+                                            <span>{{x.RelatedParty_Code || emptyText}}</span> |
+                                            <span>{{x.FreightMode || emptyText}}</span> |
+                                            <span>{{x.UNL_PortName || emptyText}}</span> |
+                                            <span>{{x.FreightDirection || emptyText}}</span>
+                                        </div>
+                                        <a class="eaxis-edit-2 cursor-pointer" href="javascript:void(0);" ng-click="OrgRelatedPartiesCtrl.ePage.Masters.OpenEditForm(x, 'relatedParty')"><i class="fa fa-pencil"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

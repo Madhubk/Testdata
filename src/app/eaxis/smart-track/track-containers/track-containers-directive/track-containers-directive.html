@@ -1,0 +1,218 @@
+<div class="clearfix">
+    <div class="widget-main track-container-views">
+    	<uib-tabset id="TrackOrders">
+            <!--General Tab-->
+            <uib-tab>
+                <uib-tab-heading title="General">
+                    <i class="fa fa-info margin-right-5"></i> <span class="text-single-line" data-ng-bind="'General'"></span>
+                </uib-tab-heading>
+            	<div>
+            		<div class="clearfix">
+            			<div class="col-lg-2">
+            				<div class="">
+            					<select class="select" ng-model="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentList.selectedShipment"  ng-options="o.ShipmentNo for o in TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentList.GridData"  data-ng-change="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentList.Action(TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentList.selectedShipment)">
+            						<option value="">--Select--</option>
+            						<option value="o.PK">{{o.ShipmentNo}}</option>
+            					</select>
+            				</div>
+            			</div>
+            			<div class="col-lg-4">
+            				<label>Selected Shipment #: </label> <span ng-if="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentList.selectedShipmentNo"> <strong><b>{{TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentList.selectedShipmentNo}}</b></strong> </span>
+            			</div>
+            		</div>
+                    <div class="horizontal-space"></div>
+                    <div class="clearfix">
+                    	<div class="clearfix">
+                    		<div class="col-lg-4">
+                    			<div class="form-group col-1g-9 mb-0">
+					                <label class="control-label text-single-line"></label>
+					                <div class="input-group input-group-sm">
+					                	<i class="fa fa-anchor fa-2x"></i>  
+					                    <label class="label-shipment ml-10"> Container </label>
+					                </div>
+					            </div>
+					            <hr class="mt-0 mb-5">
+					            <div class="horizontal-space"></div>
+					            <div>
+					            	<div><b class="label-shipment1">{{TrackContainerDirectiveCtrl.currentContainer.label}}</b></div>
+                        			<div class="bulk-label margin-top-5"><span class="btn-CS">{{TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.TransportMode}}</span> <i class="fa fa-caret-right"></i> <span class="btn-CT">{{TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.ContainerMode}}</span> | <span class="btn-Term">{{TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.IncoTerm}}</span></div>
+
+					            </div>
+					            
+					            <div class="clearfix mt-50">
+					            	<b>Booking Date</b>
+					            	<span>{{TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.BookedDate | date:'dd-MMM-yyyy'}}</span>
+					            </div>
+                    		</div>
+                    		<div class="col-lg-4">
+                    			<div class="form-group col-1g-9 mb-0">
+					                <label class="control-label text-single-line"></label>
+					                <div class="input-group input-group-sm">
+					                	<i class="fa fa-user-o fa-2x"></i>  
+					                    <label class="label-shipment ml-10"> Shipper </label>
+					                </div>
+					            </div>
+					            <hr class="mt-0 mb-5">
+					            <div class="horizontal-space"></div>
+					            <div>
+					            	<b class="label-shipment1">{{TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIAddressContactList.CRD.ORG_Code}}</b>
+					            	<p >{{TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIAddressContactList.CED.Address1}}</p>
+					            	<p>{{TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIAddressContactList.CED.Address2}}</p>
+
+					            </div>
+					            <div class="horizontal-space"></div>
+					            <div>
+					            	<b>Origin</b>
+					            	<span>{{TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.Origin}}</span>
+					            </div>
+                    		</div>
+                    		<div class="col-lg-4">
+                    			<div class="form-group col-1g-9 mb-0">
+					                <label class="control-label text-single-line"></label>
+					                <div class="input-group input-group-sm">
+					                	<i class="fa fa-user-o fa-2x"></i>  
+					                    <label class="label-shipment ml-10"> Consignee </label>
+					                </div>
+					            </div>
+					            <hr class="mt-0 mb-5">
+					            <div class="horizontal-space"></div>
+					            <div>
+					            	<b class="label-shipment1">{{TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIAddressContactList.CED.ORG_Code}}</b>
+					            	<p>{{TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIAddressContactList.CED.Address1}}</p>
+					            	<p>{{TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIAddressContactList.CED.Address2}}</p>
+
+					            </div>
+					            <div class="horizontal-space"></div>
+					            <div>
+					            	<b>Destination</b>
+					            	<span>{{TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.Destination}}</span>
+					            </div>
+                    		</div>
+                    	</div>
+                    	<div class="horizontal-space"></div>
+                    	<div class="clearfix">
+							<div class="card ml-10 mr-10">
+								<div class="card-body ml-10 mr-10">
+									<div class="row">
+										<div class="col-lg-2">
+											<b class="text-center">MBL</b><br>
+											<span ng-if="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.MasterBillno!= null || undefined">{{TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.MasterBillno}} </span>
+											<span ng-if="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.MasterBillno== null || undefined" data-ng-bind="'---'"></span>
+										</div>
+										<div class="col-lg-2">
+											<b class="text-center">POL</b><br>
+											<span ng-if="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.POL != null || undefined">{{TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.POL}}</span>
+											<span ng-if="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.POL== null || undefined" data-ng-bind="'---'"></span>
+										</div>
+										<div class="col-lg-2">
+											<b class="text-center">POD</b><br>
+											<span ng-if="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.POD != null || undefined">{{TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.POD}}</span>
+											<span ng-if="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.POD== null || undefined" data-ng-bind="'---'"></span>
+										</div>
+										<div class="col-lg-2">
+											<b class="text-center">Carrier</b><br>
+											<span ng-if="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.Carrier != null || undefined">{{TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.Carrier}}</span>
+											<span ng-if="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.Carrier== null || undefined" data-ng-bind="'---'"></span>
+										</div>
+										<div class="col-lg-2">
+											<b class="text-center">Vessel</b><br>
+											<span ng-if="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.Vessel!= null || undefined">{{TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.Vessel}}</span>
+											<span ng-if="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.Vessel== null || undefined" data-ng-bind="'---'"></span>
+										</div>
+										<div class="col-lg-2">
+											<b class="text-center">Voyage</b><br>
+											<span ng-if="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.Voyage!= null || undefined">{{TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.Voyage}}</span>
+											<span ng-if="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.Voyage== null || undefined" data-ng-bind="'---'"></span>
+										</div>
+									</div>
+									<div class="row  mt-10">
+										<div class="col-lg-2">
+											<b class="text-center">ETD</b><br>
+											<span ng-if="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.ETD!= null || undefined">{{TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.ETD|date:'dd-MMM-yyyy'}}</span>
+											<span ng-if="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.ETD== null || undefined" data-ng-bind="'---'"></span>
+										</div>
+										<div class="col-lg-2">
+											<b class="text-center">ETA</b><br>
+											<span ng-if="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.ETA!= null || undefined">{{TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.ETA | date:'dd-MMM-yyyy'}}</span>
+											<span ng-if="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.ETA== null || undefined" data-ng-bind="'---'"></span>
+										</div>
+										<div class="col-lg-2">
+											<b class="text-center">ATD</b><br>
+											<span ng-if="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.ATD!= null || undefined">{{TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.ATD | date:'dd-MMM-yyyy'}}</span>
+											<span ng-if="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.ATD== null || undefined" data-ng-bind="'---'"></span>
+										</div>
+										<div class="col-lg-2">
+											<b class="text-center">ATA</b><br>
+											<span ng-if="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.ATD!= null || undefined">{{TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.ATD | date:'dd-MMM-yyyy'}}</span>
+											<span ng-if="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.ATD== null || undefined" data-ng-bind="'---'"></span>
+										</div>
+										<div class="col-lg-2">
+											<b class="text-center">Available</b><br>
+											<span ng-if="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.Available!= null || undefined">{{TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.Available}}</span>
+											<span ng-if="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.Available== null || undefined" data-ng-bind="'---'"></span>
+										</div>
+										<div class="col-lg-2">
+											<b class="text-center">Storage</b><br>
+											<span ng-if="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.Storage!= null || undefined">{{TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.Storage}}</span>
+											<span ng-if="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.Storage== null || undefined" data-ng-bind="'---'"></span>
+										</div>
+									</div>
+									<div class="row  mt-10">
+										<div class="col-lg-2">
+											<b class="text-center">Estimated Delivery</b><br>
+											<span ng-if="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.Estimated!= null || undefined">{{TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.Estimated | date:'dd-MMM-yyyy'}}</span>
+											<span ng-if="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.Estimated== null || undefined" data-ng-bind="'---'"></span>
+										</div>
+										<div class="col-lg-2">
+											<b class="text-center">Delivered</b><br>
+											<span ng-if="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.Delivered!= null || undefined">{{TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.Delivered | date:'dd-MMM-yyyy'}}</span>
+											<span ng-if="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.Delivered== null || undefined" data-ng-bind="'---'"></span>
+										</div>
+										<div class="col-lg-2">
+											<b class="text-center">Empty Return By</b><br>
+											<span ng-if="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.EtyReturn!= null || undefined">{{TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.EtyReturn}}</span>
+											<span ng-if="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentGetList.UIShipmentHeader.EtyReturn== null || undefined" data-ng-bind="'---'"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+                    	</div>
+                    </div>
+            	</div>
+            </uib-tab>
+            <uib-tab>
+                <uib-tab-heading title="Shipment">
+                    <i class="fa fa-gavel margin-right-5"></i> <span class="text-single-line" data-ng-bind="'Shipment'"></span>
+                </uib-tab-heading>
+            	<div>
+                    <div class="horizontal-space"></div>
+                    <div class="clearfix">
+                    	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+	                        <div class="height-230 clearfix">
+	                            <div class="text-center grid-view-loader" data-ng-if="!TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentList.GridData"><i class="fa fa-spin fa-spinner font-160"></i></div>
+	                            <dynamic-table data-ng-if="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentList.GridData" grid-data="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentList.GridData" grid-config="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentList.gridConfig" selected-grid-row="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.ShipmentList.SelectedShipmentRow($item)"></dynamic-table>
+	                        </div>
+	                    </div>
+                    </div>
+            	</div>
+            </uib-tab>
+            <uib-tab>
+            	<uib-tab-heading title="Order">
+                    <i class="fa fa-gavel margin-right-5"></i> <span class="text-single-line" data-ng-bind="'Order'"></span>
+                </uib-tab-heading>
+            	<div>
+                    <div class="horizontal-space"></div>
+                    <div class="clearfix">
+                    	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+	                        <div class="height-230 clearfix">
+	                            <div class="text-center grid-view-loader" data-ng-if="!TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.OrderList.GridData"><i class="fa fa-spin fa-spinner font-160"></i></div>
+	                            <dynamic-table data-ng-if="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.OrderList.GridData" grid-data="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.OrderList.GridData" grid-config="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.OrderList.gridConfig"
+	                            selected-grid-row="TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.OrderList.SelectedOrderRow($item)"></dynamic-table>
+	                        </div>
+	                    </div>
+                    </div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>    

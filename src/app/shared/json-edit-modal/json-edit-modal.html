@@ -1,0 +1,19 @@
+<div class="modal-header text-center">
+    <button class="btn btn-primary btn-xs pull-left margin-right-5" ng-click="JsonEditModalCtrl.ePage.Masters.ToggleView()">Change Option</button>
+    <h5 class="modal-title" style="display: inline-block;">
+        <strong>JSON Format</strong>
+    </h5>
+    <button type="button" class="btn btn-warning btn-xs pull-right margin-left-5" ng-click="JsonEditModalCtrl.ePage.Masters.Cancel()">Close</button>
+    <button type="button" class="btn btn-primary btn-xs pull-right margin-left-5" ng-click="JsonEditModalCtrl.ePage.Masters.Ok()">Ok</button>
+</div>
+<div class="modal-body">
+    <div class="clearfix">
+        <div ng-jsoneditor="JsonEditModalCtrl.ePage.Masters.InitJson" ng-model="JsonEditModalCtrl.ePage.Masters.obj.data" options="JsonEditModalCtrl.ePage.Masters.obj.options"
+            class="json-view-edit-container"></div>
+    </div>
+</div>
+<!-- <div class="modal-footer">
+    <button class="btn btn-primary btn-xs pull-left margin-right-5" ng-click="JsonEditModalCtrl.ePage.Masters.changeOptions()">Change Option</button>
+    <button type="button" class="btn btn-warning btn-xs pull-right margin-left-5" ng-click="JsonEditModalCtrl.ePage.Masters.Cancel()">Close</button>
+    <button type="button" class="btn btn-primary btn-xs pull-right margin-left-5" ng-click="JsonEditModalCtrl.ePage.Masters.Ok()">Ok</button>
+</div> -->

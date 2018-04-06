@@ -1,0 +1,41 @@
+<div class="clearfix details-chat-wrapper">
+    <!--new Comment-->
+    <div class="comment-group static">
+        <div class="position-relative clearfix comments-list-wrapper padding-5">
+            <div class="clearfix padding-5">
+                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 text-center no-padding">
+                    <div class="comment-photo bg-themeprimary">
+                        <img data-ng-src="{{SupportCtrl.ePage.Masters.UserProfile.Photo}}" alt="">
+                        <!--<div class="circle" data-ng-bind="'S'"></div>-->
+                    </div>
+                </div>
+                <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 col-xl-11 no-padding">
+                    <textarea rows="4" class="form-control no-resize" placeholder="Add comments..." data-ng-model="SupportCtrl.ePage.Entities.SupportHeader.Details.Chat.Comment"></textarea>
+                </div>
+            </div>
+            <div class="clearfix padding-5">
+                <button data-ng-click="SupportCtrl.ePage.Masters.DetailsChatSend()" class="btn btn-primary btn-sm pull-right" data-ng-disabled="!SupportCtrl.ePage.Entities.SupportHeader.Details.Chat.Comment || SupportCtrl.ePage.Masters.IsDetailsChatSendClick"
+                    data-ng-bind-html="SupportCtrl.ePage.Masters.DetailsChatSendText"></button>
+            </div>
+        </div>
+    </div>
+    <!--Comment List-->
+    <div class="position-relative clearfix comments-list-wrapper margin-bottom-10">
+        <div data-ng-repeat="x in SupportCtrl.ePage.Entities.SupportHeader.Meta.Chat.ListSource | orderBy: 'ModifiedDateTime': true"
+            class="clearfix comment-group bordered-themeprimary padding-5">
+            <div class="clearfix padding-5">
+                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 text-center no-padding">
+                    <div class="comment-photo">
+                        <img data-ng-src="{{SupportCtrl.ePage.Masters.UserProfile.Photo}}" alt="">
+                    </div>
+                </div>
+                <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 col-xl-11 no-padding">
+                    <div class="text-single-line name" title="{{(x.CreatedBy === SupportCtrl.ePage.Masters.UserProfile.userName) ? 'Me' : x.CreatedBy}}"
+                        data-ng-bind="(x.CreatedBy === SupportCtrl.ePage.Masters.UserProfile.userName) ? 'Me' : x.CreatedBy"></div>
+                    <div class="comment-text text-single-line" data-ng-bind="x.Message" title="{{x.Message}}"></div>
+                    <div class="time text-single-line" data-ng-bind="x.ModifiedDateTime | date:'dd-MMM-yyyy  hh:mm a' " title="{{x.ModifiedDateTime | date:'dd-MMM-yyyy  hh:mm a'}}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

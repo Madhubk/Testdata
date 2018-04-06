@@ -1,0 +1,52 @@
+
+<div class="clearfix padding-top-10">
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">Arrival</label>
+            <div class="input-group input-group-sm">
+                <input type="hidden" ng-model="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ORG_ArrivalUnpackCFSTransportFK">
+                <div dynamic-lookup my-ng-model="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ORG_ArrivalUnpackCFSTransportCode" obj="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader"
+                     prefix-data="'OrganizationList'" config="'ConGeneralORG_ArrivalUnpackCFSTransportCode'" auto-complete-on-select="ConsolArrivalDepartureCtrl.ePage.Masters.SelectedData($item,'OAD_ArrivalUnpackCFSTransportAddressFK')"></div>
+
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader" field-name="'ConGeneralORG_ArrivalUnpackCFSTransportCode'" prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConsolArrivalDepartureCtrl.ePage.Masters.SelectedData($item.entity,'OAD_ArrivalUnpackCFSTransportAddressFK')" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">Arrival Address</label><select chosen ng-options="x.PK as x.Code for x in ConsolArrivalDepartureCtrl.ePage.Masters.DropDownMasterListAddress.OAD_ArrivalUnpackCFSTransportAddressFK.ListSource"
+                                                                           ng-model="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader.OAD_ArrivalUnpackCFSTransportAddressFK"
+                                                                           class="form-control">
+                <option value="">--Select--</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">Departure</label>
+
+            <div class="input-group input-group-sm">
+
+                <input type="hidden" ng-model="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ORG_DeparturePackCFSTransportFK">
+                <div dynamic-lookup my-ng-model="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ORG_DeparturePackCFSTransportCode" obj="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader"
+                     prefix-data="'OrganizationList'" config="'ConGeneralORG_DeparturePackCFSTransportCode'" auto-complete-on-select="ConsolArrivalDepartureCtrl.ePage.Masters.SelectedData($item,'OAD_DeparturePackCFSTransportAddressFK')"></div>
+
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader" field-name="'ConGeneralORG_DeparturePackCFSTransportCode'" prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConsolArrivalDepartureCtrl.ePage.Masters.SelectedData($item.entity,'OAD_DeparturePackCFSTransportAddressFK')" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">Departure Address</label><select chosen ng-options="x.PK as x.Code for x in ConsolArrivalDepartureCtrl.ePage.Masters.DropDownMasterListAddress.OAD_DeparturePackCFSTransportAddressFK.ListSource"
+                                                                             ng-model="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader.OAD_DeparturePackCFSTransportAddressFK"
+                                                                             class="form-control">
+                <option value="">--Select--</option>
+            </select>
+        </div>
+    </div>
+</div>

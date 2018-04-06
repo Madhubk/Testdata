@@ -1,0 +1,81 @@
+<div class="sider-bar-wrapper task-side-bar p-20">
+    <div class="clearfix" data-ng-if="!SupportCtrl.ePage.Masters.IsShowDetails">
+        <!--Project-->
+        <div class="clearfix mb-10">
+            <select name="category-group" class="form-control header-select-control input-sm gmail-style-btn" ng-model="SupportCtrl.ePage.Masters.CurrentProject.Code"
+                ng-options="x.Code as x.Description for x in SupportCtrl.ePage.Entities.SupportHeader.Meta.Project.ListSource"
+                ng-change="SupportCtrl.ePage.Masters.OnProjectChange((SupportCtrl.ePage.Entities.SupportHeader.Meta.Project.ListSource  | filter: {Code : SupportCtrl.ePage.Masters.CurrentProject.Code} :true)[0])">
+            </select>
+
+        </div>
+        <!--Sprint-->        
+        <div class="clearfix mb-10">
+            <select name="category-group" class="form-control header-select-control input-sm gmail-style-btn" ng-model="SupportCtrl.ePage.Masters.CurrentSprint.PK"
+                ng-options="x.PK  as x.Description + ' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(' + (x.StartDate | date:'dd-MM-yy') + ' To ' + (x.EndDate | date:'dd-MM-yy') +')' for x in SupportCtrl.ePage.Entities.SupportHeader.Meta.Sprint.ListSource"
+                ng-change="SupportCtrl.ePage.Masters.OnSprintChange((SupportCtrl.ePage.Entities.SupportHeader.Meta.Sprint.ListSource|filter:{PK: SupportCtrl.ePage.Masters.CurrentSprint.PK})[0])"
+                data-ng-show="((SupportCtrl.ePage.Entities.SupportHeader.Meta.Project.ListSource  | filter: {Code : SupportCtrl.ePage.Masters.CurrentProject.Code})[0]).OtherConfig.Sprint.Visible">
+            </select>
+        </div>
+    </div>
+
+    <!--User list-->
+    <div>
+        <div class="text-center grid-view-loader padding-20" data-ng-if="!SupportCtrl.ePage.Entities.SupportHeader.Meta.User.ListSource">
+            <i class="fa fa-spin fa-spinner font-160">
+            </i>
+        </div>
+        <div class="text-center grid-view-loader padding-20" data-ng-if="SupportCtrl.ePage.Entities.SupportHeader.Meta.User.ListSource.length === 0">
+            <i class="">No Users
+            </i>
+        </div>
+        <div class="form-group no-margin" data-ng-repeat="x in SupportCtrl.ePage.Entities.SupportHeader.Meta.User.ListSource" data-ng-if="SupportCtrl.ePage.Entities.SupportHeader.Meta.User.ListSource && SupportCtrl.ePage.Entities.SupportHeader.Meta.User.ListSource.length !== 0">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" class="colored-blue" data-ng-click="SupportCtrl.ePage.Masters.FilterUser($event, x)">
+                    <span class="text text-single-line" data-ng-bind="x.USR_UserName" title="{{x.USR_UserName}}">
+                    </span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <!--Record Type List-->
+    <div>
+        <div class="text-center grid-view-loader padding-20" data-ng-if="!SupportCtrl.ePage.Entities.SupportHeader.Meta.TeamTypeMaster.ListSource">
+            <i class="fa fa-spin fa-spinner font-160">
+            </i>
+        </div>
+        <div class="text-center grid-view-loader padding-20" data-ng-if="SupportCtrl.ePage.Entities.SupportHeader.Meta.TeamTypeMaster.ListSource.length === 0">
+            <i class="">No Record Type
+            </i>
+        </div>
+        <div class="form-group no-margin" data-ng-repeat="x in SupportCtrl.ePage.Entities.SupportHeader.Meta.TeamTypeMaster.ListSource | filter:  {TypeCode: 'RecordType'}">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" class="colored-blue" data-ng-click="SupportCtrl.ePage.Masters.FilterRecordType($event, x)">
+                    <span class="text text-single-line" data-ng-bind="x.Key" title="{{x.Key}}">
+                    </span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <!--Task Type List-->
+    <div>
+        <div class="text-center grid-view-loader padding-20" data-ng-if="!SupportCtrl.ePage.Entities.SupportHeader.Meta.TeamTypeMaster.ListSource">
+            <i class="fa fa-spin fa-spinner font-160"></i>
+        </div>
+        <div class="text-center grid-view-loader padding-20" data-ng-if="SupportCtrl.ePage.Entities.SupportHeader.Meta.TeamTypeMaster.ListSource.length === 0">
+            <i class="">No Task Type</i>
+        </div>
+        <div class="form-group no-margin" data-ng-repeat="x in SupportCtrl.ePage.Entities.SupportHeader.Meta.TeamTypeMaster.ListSource | filter:  {TypeCode: 'TaskType'}">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" class="colored-blue" data-ng-click="SupportCtrl.ePage.Masters.FilterTaskType($event, x)">
+                    <span class="text text-single-line" data-ng-bind="x.Key" title="{{x.Key}}">
+                    </span>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

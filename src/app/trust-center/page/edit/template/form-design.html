@@ -1,0 +1,125 @@
+<div class="clearfix tc-edit-page-form-design mt-10">
+    <div class="col-xs-12 xol-sm-12 col-md-4 col-lg-3 col-xl-3">
+        <div class="set-tools-box">
+            <div class="set-tools-title">Tools</div>
+            <div class="set-tools fixed-height">
+                <ul>
+                    <li data-ng-if="!EditPageCtrl.ePage.Masters.EditPage.FormDesign.ToolsList">
+                        <div class="p-10" style="font-size: 18px;">
+                            <i class="fa fa-spin fa-spinner"></i>
+                        </div>
+                    </li>
+                    <li data-ng-if="EditPageCtrl.ePage.Masters.EditPage.FormDesign.ToolsList && EditPageCtrl.ePage.Masters.EditPage.FormDesign.ToolsList.length == 0">
+                        <div class="p-10" style="font-size: 18px;">
+                            <i>No Records...!</i>
+                        </div>
+                    </li>
+                    <li class="clearfix" data-ng-if="EditPageCtrl.ePage.Masters.EditPage.FormDesign.ToolsList && EditPageCtrl.ePage.Masters.EditPage.FormDesign.ToolsList.length > 0"
+                        ng-repeat="item in EditPageCtrl.ePage.Masters.EditPage.FormDesign.ToolsList" dnd-draggable="item" dnd-effect-allowed="copy">
+                        <i class="{{item.CSS.Class}} mr-10"></i>
+                        <span>{{item.Desc}}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 xol-sm-12 col-md-4 col-lg-4 col-xl-4">
+        <div class="set-tools-box">
+            <div class="set-tools-title">Design</div>
+            <div class="fixed-height">
+                <div class="clearfix" ng-ng-if="EditPageCtrl.ePage.Masters.EditPage.FormDesign.DataEntryFieldMapping && EditPageCtrl.ePage.Masters.EditPage.FormDesign.DataEntryFieldMapping.length > 0"
+                    ng-repeat="list in EditPageCtrl.ePage.Masters.EditPage.FormDesign.DataEntryFieldMapping">
+                    <div ng-include="'list.html'"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 xol-sm-12 col-md-4 col-lg-3 col-xl-3">
+        <div class="set-tools-box" data-ng-if="EditPageCtrl.ePage.Masters.EditPage.FormDesign.SelectedDroppedItem">
+            <div class="set-tools-title">Properties</div>
+            <div class="fixed-height pt-10">
+                <!-- Static Control -->
+                <div class="col-xs-12 xol-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="form-group">
+                        <label class="control-label">Entity Name</label>
+                        <select chosen class="form-control input-sm" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.FormDesign.SelectedDroppedItem.Entity_FK"
+                            ng-options="Entity.Entity_PK as Entity.EntityName for Entity in EditPageCtrl.ePage.Masters.EditPage.FormDesign.EntityList"
+                            search-contains="true" data-ng-change="EditPageCtrl.ePage.Masters.EditPage.FormDesign.OnEntityNameChange((EditPageCtrl.ePage.Masters.EditPage.FormDesign.EntityList | filter: {Entity_PK: EditPageCtrl.ePage.Masters.EditPage.FormDesign.SelectedDroppedItem.Entity_FK})[0])">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12 xol-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="form-group">
+                        <label class="control-label">Field Name</label>
+                        <select chosen class="form-control" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.FormDesign.SelectedDroppedItem.Field_FK"
+                            ng-options="Fields.Field_PK as Fields.FieldName for Fields in EditPageCtrl.ePage.Masters.EditPage.FormDesign.FieldList | filter :EditPageCtrl.ePage.Masters.EditPage.FormDesign.SelectedDroppedItem.Entity_FK"
+                            search-contains="true" data-ng-change="EditPageCtrl.ePage.Masters.EditPage.FormDesign.OnFieldNameChange((EditPageCtrl.ePage.Masters.EditPage.FormDesign.FieldList | filter: {Field_PK: EditPageCtrl.ePage.Masters.EditPage.FormDesign.SelectedDroppedItem.Field_FK})[0])">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12 xol-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="form-group">
+                        <label class="control-label">Label</label>
+                        <input type="text" class="form-control" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.FormDesign.SelectedDroppedItem.Label"
+                            disabled="true" />
+                    </div>
+                </div>
+                <div class="col-xs-12 xol-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="form-group">
+                        <label class="control-label">Applicable to</label>
+                        <select chosen class="form-control " data-ng-model="EditPageCtrl.ePage.Masters.EditPage.FormDesign.SelectedDroppedItem.Type"
+                            search-contains="true" data-ng-options="x for x in ['D', 'S', 'B']">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12 xol-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="form-group">
+                        <label class="control-label">CSS</label>
+                        <textarea class="form-control no-resize" rows="4" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.FormDesign.SelectedDroppedItem.strOtherConfig"
+                            placeholder="CSS"></textarea>
+                    </div>
+                </div>
+                <div class="col-xs-12 xol-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" class="colored-blue" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.FormDesign.SelectedDroppedItem.IsActive">
+                                <span class="text">Is Active</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 xol-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.FormDesign.SelectedDroppedItem.IsKey">
+                                <span class="text">Is Key Field</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <!-- Dynamic control -->
+                <div class="col-xs-12 xol-sm-12 col-md-12 col-lg-12 col-xl-12" ng-repeat="item in EditPageCtrl.ePage.Masters.EditPage.FormDesign.SelectedDroppedItem.AttributeDetails">
+                    <div class="form-group">
+                        <label class="control-label">{{item.AttributeKey}}</label>
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" data-ng-model="item.AttributeValue" data-ng-disabled="item.AttributeKey=='UIControl'">
+                            <span class="input-group-addon p-0 pl-10 pr-10">
+                                <div class="checkbox m-0">
+                                    <label>
+                                        <input type="checkbox" class="colored-blue" data-ng-model="item.IsAPIConfig">
+                                        <span class="text"></span>
+                                    </label>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

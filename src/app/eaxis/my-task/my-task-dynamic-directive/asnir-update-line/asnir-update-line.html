@@ -1,0 +1,14 @@
+<div class="clearfix col-lg-12">
+    <div class="my-task-asnir-update-line-container ">
+        <div class="my-task-content-shipper">
+            {{AsnirUpdateLineDirectiveCtrl.ePage.Masters.InwardDetails.WarehouseCode}} - {{AsnirUpdateLineDirectiveCtrl.ePage.Masters.InwardDetails.WarehouseName}}
+        </div>
+        <div class="my-task-content-shipper">
+            {{AsnirUpdateLineDirectiveCtrl.ePage.Masters.InwardDetails.ClientCode}} - {{AsnirUpdateLineDirectiveCtrl.ePage.Masters.InwardDetails.ClientName}}
+        </div>
+        <div class="my-task-expected-date">
+            Supplier : {{AsnirUpdateLineDirectiveCtrl.ePage.Masters.InwardDetails.SupplierCode}} - {{AsnirUpdateLineDirectiveCtrl.ePage.Masters.InwardDetails.SupplierName}}
+        </div>
+    </div>
+</div>
+<div class="col-lg-3 pull-right"> <a class="pull-right" data-ng-click="AsnirUpdateLineDirectiveCtrl.ePage.Masters.GoToInward(AsnirUpdateLineDirectiveCtrl.ePage.Masters.MyTask)"> Go to Inward</a></div>

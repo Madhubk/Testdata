@@ -1,0 +1,49 @@
+<div class="clearfix">
+    <div class="form-group">
+        <label class="control-label text-single-line" data-ng-bind="CompareDateCtrl.label"> </label>
+        <div class="clearfix">
+            <select chosen class="form-control" data-ng-model="CompareDateCtrl.ePage.Masters.Compare.Value" data-ng-options="x.Code as x.Description
+                for x in CompareDateCtrl.ePage.Masters.Compare.ListSource | filter: {'IsActive': true}" data-ng-change="CompareDateCtrl.ePage.Masters.Compare.OnCompareChange((CompareDateCtrl.ePage.Masters.Compare.ListSource | filter: {'Code': CompareDateCtrl.ePage.Masters.Compare.Value})[0])"
+                search-contains="true" data-ng-disabled="CompareDateCtrl.isDisabled">
+                <option value="">Any Time</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <!-- Start Date -->
+        <div data-ng-class="(CompareDateCtrl.ePage.Masters.Compare.ActiveCompare.Type == 3) ? 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12' : 'col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 pr-5'"
+            data-ng-if="CompareDateCtrl.ePage.Masters.Compare.ActiveCompare.Type == 3 || CompareDateCtrl.ePage.Masters.Compare.ActiveCompare.Type == 4">
+            <div class="form-group">
+                <!-- <label class="control-label text-single-line">Start Date </label> -->
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="{{CompareDateCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" ng-model="CompareDateCtrl.ePage.Masters.DatePicker.StartDate"  datetime-picker="{{CompareDateCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datepicker-options="CompareDateCtrl.ePage.Masters.DatePicker.Options"  datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time=""  save-as="CompareDateCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="CompareDateCtrl.ePage.Masters.DatePicker.isOpen['isStartDate']" when-closed="CompareDateCtrl.ePage.Masters.DatePicker.OnStartDateSelected(CompareDateCtrl.ePage.Masters.DatePicker.StartDate)" data-ng-click="CompareDateCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isStartDate')" data-ng-change="CompareDateCtrl.ePage.Masters.DatePicker.OnStartDateSelected(CompareDateCtrl.ePage.Masters.DatePicker.StartDate)"/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" data-ng-click="CompareDateCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isStartDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- End Date -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 pl-5" data-ng-if="CompareDateCtrl.ePage.Masters.Compare.ActiveCompare.Type == 4">
+            <div class="form-group">
+                <!-- <label class="control-label text-single-line">End Date </label> -->
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="{{CompareDateCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datetime-picker="{{CompareDateCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        ng-model="CompareDateCtrl.ePage.Masters.DatePicker.EndDate" is-open="CompareDateCtrl.ePage.Masters.DatePicker.isOpen['isEndDate']"
+                        datepicker-options="CompareDateCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" when-closed="CompareDateCtrl.ePage.Masters.DatePicker.OnEndDateSelected(CompareDateCtrl.ePage.Masters.DatePicker.EndDate)"
+                        save-as="CompareDateCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click="CompareDateCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEndDate')"
+                        data-ng-change="CompareDateCtrl.ePage.Masters.DatePicker.OnEndDateSelected(CompareDateCtrl.ePage.Masters.DatePicker.EndDate)"
+                    />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" data-ng-click="CompareDateCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEndDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

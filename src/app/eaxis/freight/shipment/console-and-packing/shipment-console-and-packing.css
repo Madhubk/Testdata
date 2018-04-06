@@ -1,0 +1,57 @@
+
+.console-container {
+    margin-bottom: 20px;
+}
+
+.con-header {
+    padding: 10px;
+    background-color: #ddd;
+}
+
+.con-header .con-title {
+    color: #131212;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.con-list-container {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+}
+
+
+/* Packig */
+
+.packing-header {
+    padding: 10px;
+    background-color: #ddd;
+    margin-bottom: 10px;
+}
+
+.packing-header .packing-title {
+    color: #131212;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.packing-details-heading .heading {
+    font-size: 18px;
+}
+
+.packing-details-heading i {
+    font-size: 30px;
+}
+
+.packing-details-heading i:hover {
+    text-decoration: none;
+}
+.consolpacking .modal-dialog {
+    width: 70% !important;
+} 
+.pack-total {
+    background:#fbfbfb;
+    border-top:1px solid #d71921;
+    border-bottom:1px solid #d71921;
+}
+

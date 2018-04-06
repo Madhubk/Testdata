@@ -1,0 +1,138 @@
+<div class="email-template-container">
+    <!-- Header -->
+    <div class="sm-header" data-ng-if="EmailTemplateCtrl.ePage.Masters.EmailTemplate.ViewMode == 'List'">
+        <button class="btn btn-danger btn-sm mr-10" data-ng-click="EmailTemplateCtrl.ePage.Masters.EmailTemplate.Compose()" data-ng-disabled="EmailTemplateCtrl.ePage.Masters.EmailTemplate.EditView.IsDisableSendBtn"
+            data-ng-show="EmailTemplateCtrl.ePage.Masters.EmailTemplate.ViewMode == 'List'">Compose</button>
+        <button class="btn btn-default btn-sm mr-10" data-ng-click="EmailTemplateCtrl.ePage.Masters.EmailTemplate.ListView.Refresh()"
+            data-ng-show="EmailTemplateCtrl.ePage.Masters.EmailTemplate.ViewMode == 'List'">Refresh</button>
+    </div>
+    <!-- Sidebar -->
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2 col-xl-2 sm-sidebar-container" data-ng-class="(EmailTemplateCtrl.ePage.Masters.EmailTemplate.ViewMode == 'List')? 'list-mode': 'view-mode'"
+        data-ng-style="(EmailTemplateCtrl.ePage.Masters.EmailTemplate.ViewMode != 'List') ? {'background': '#fbfbfb'} : {'background': '#fff'}" data-ng-if="EmailTemplateCtrl.mode=='1'">
+        <div class="main" data-ng-if="EmailTemplateCtrl.ePage.Masters.EmailTemplate.ViewMode == 'List'">
+            <ul class="p-0">
+                <li class="text-single-line" data-ng-class="{'active': x.Code == EmailTemplateCtrl.ePage.Masters.EmailTemplate.SideBar.ActiveMenu.Code}"
+                    data-ng-repeat="x in EmailTemplateCtrl.ePage.Masters.EmailTemplate.SideBar.MenuList" data-ng-click="EmailTemplateCtrl.ePage.Masters.EmailTemplate.SideBar.OnListClick(x)">{{x.Desc}}</li>
+            </ul>
+        </div>
+        <div class="dummy text-center pt-150" data-ng-if="EmailTemplateCtrl.ePage.Masters.EmailTemplate.ViewMode != 'List'">
+            <img src="assets/img/no-records/email.png" />
+        </div>
+    </div>
+    <!-- Body -->
+    <div class="sm-content-wrapper" data-ng-class="(EmailTemplateCtrl.mode == '1' ? 'col-xs-12 col-sm-12 col-md-8 col-lg-10 col-xl-10' : 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0') + ' ' + ((EmailTemplateCtrl.ePage.Masters.EmailTemplate.ViewMode == 'Read' || EmailTemplateCtrl.ePage.Masters.EmailTemplate.ViewMode == 'Edit') ? 'read-mode' : '')">
+        <div class="template-body">
+            <!-- List View -->
+            <div class="list-view-container clearfix" data-ng-if="EmailTemplateCtrl.ePage.Masters.EmailTemplate.ViewMode == 'List'">
+                <ul class="clearfix">
+                    <!-- Loading -->
+                    <div class="p-20 text-center loading" data-ng-if="!EmailTemplateCtrl.ePage.Masters.EmailTemplate.ListView.ListSource">
+                        <i class="fa fa-spin fa-spinner"></i>
+                    </div>
+                    <!-- No Records -->
+                    <div class="p-20 text-center" data-ng-if="EmailTemplateCtrl.ePage.Masters.EmailTemplate.ListView.ListSource && EmailTemplateCtrl.ePage.Masters.EmailTemplate.ListView.ListSource.length == 0">
+                        <i>No Records...!</i>
+                    </div>
+                    <li class="clearfix list" data-ng-if="EmailTemplateCtrl.ePage.Masters.EmailTemplate.ListView.ListSource && EmailTemplateCtrl.ePage.Masters.EmailTemplate.ListView.ListSource.length > 0"
+                        data-ng-repeat="x in EmailTemplateCtrl.ePage.Masters.EmailTemplate.ListView.ListSource" data-ng-click="EmailTemplateCtrl.ePage.Masters.EmailTemplate.ListView.OnListViewClick(x)">
+                        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                            <div class="text-single-line" data-ng-bind="x.FROM"></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-7">
+                            <div class="text-single-line subject-body">
+                                <div class="subject" data-ng-bind-html="x.Subject"></div> -
+                                <div class="body" data-ng-bind="x.Body | convertHtmlToText"></div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 text-right">
+                            <div class="text-single-line" data-ng-bind="x.CreatedDateTime | date:'dd-MMM-yy HH:mm a'"></div>
+                        </div>
+                    </li>
+                </ul>
+                <!-- <button class="btn btn-danger btn-sm compose-btn-round" data-ng-click="EmailTemplateCtrl.ePage.Masters.EmailTemplate.Compose()"
+                    data-ng-disabled="EmailTemplateCtrl.ePage.Masters.EmailTemplate.EditView.IsDisableSendBtn" data-ng-show="EmailTemplateCtrl.ePage.Masters.EmailTemplate.ViewMode == 'List'"
+                    title="Compose">+</button> -->
+            </div>
+            <!-- Read View -->
+            <div class="read-view-container" data-ng-if="EmailTemplateCtrl.ePage.Masters.EmailTemplate.ViewMode == 'Read'">
+                <div class="subject-header">
+                    <button class="btn btn-default btn-sm mr-10" data-ng-click="EmailTemplateCtrl.ePage.Masters.EmailTemplate.ReadView.GoToList()"
+                        data-ng-show="EmailTemplateCtrl.ePage.Masters.EmailTemplate.ViewMode == 'Read'" title="Back">
+                        <i class="fa fa-arrow-left"></i>
+                    </button>
+                    <span data-ng-bind="EmailTemplateCtrl.ePage.Masters.EmailTemplate.ListView.ActiveEmail.Subject"></span>
+                </div>
+                <div class="clearfix" data-ng-include="'emailBodyTemplate'"></div>
+            </div>
+            <!-- Edit View -->
+            <div class="edit-view-container" data-ng-if="EmailTemplateCtrl.ePage.Masters.EmailTemplate.ViewMode == 'Edit'">
+                <div class="clearfix pl-10 pr-10 pt-5">
+                    <div class="clearfix">
+                        <form novalidate class="reciepients form-horizontal">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                <!-- Subject -->
+                                <div class="form-group">
+                                    <input type="text" class="form-control input-sm" id="subject" tabindex="1" ng-model="EmailTemplateCtrl.ePage.Masters.EmailTemplate.ListView.ActiveEmail.Subject"
+                                        placeholder="Subject" />
+                                </div>
+                                <!-- To -->
+                                <div class="form-group clearfix">
+                                    <input type="text" class="form-control input-sm" id="to" tabindex="1" ng-model="EmailTemplateCtrl.ePage.Masters.EmailTemplate.ListView.ActiveEmail.TO" placeholder="To" uib-typeahead="x.EmailId as x.EmailId for x in  EmailTemplateCtrl.ePage.Masters.EmailTemplate.GetUserList($viewValue)"/>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                <!-- Template -->
+                                <div class="form-group template-dropdown">
+                                    <select chosen data-ng-model="EmailTemplateCtrl.ePage.Masters.EmailTemplate.ListView.ActiveEmail.Template" data-ng-options="x.Code as x.Desc for x in EmailTemplateCtrl.ePage.Masters.EmailTemplate.EditView.TemplateList"
+                                        data-ng-change="EmailTemplateCtrl.ePage.Masters.EmailTemplate.EditView.OnTemplateChange((EmailTemplateCtrl.ePage.Masters.EmailTemplate.EditView.TemplateList | filter: {'Code': EmailTemplateCtrl.ePage.Masters.EmailTemplate.ListView.ActiveEmail.Template})[0])">
+                                        <option value="">---Select Template---</option>
+                                    </select>
+                                </div>
+                                <!-- CC -->
+                                <div class="form-group">
+                                    <input type="text" class="form-control input-sm" id="cc" tabindex="2" ng-model="EmailTemplateCtrl.ePage.Masters.EmailTemplate.ListView.ActiveEmail.CC" placeholder="Cc" uib-typeahead="x.EmailId as x.EmailId for x in  EmailTemplateCtrl.ePage.Masters.EmailTemplate.GetUserList($viewValue)"/>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="clearfix pt-10 text-angular-wrapper">
+                        <div text-angular ng-model="EmailTemplateCtrl.ePage.Masters.EmailTemplate.ListView.ActiveEmail.Body" name="demo-editor" ta-text-editor-class="editor-text"
+                            ta-html-editor-class="editor-text" ta-unsafe-sanitizer="true" ta-toolbar="EmailTemplateCtrl.ePage.Masters.EmailTemplate.ListView.ToolbarOptions"></div>
+
+                        <email-template-directive ng-if="EmailTemplateCtrl.ePage.Masters.EmailTemplate.ListView.ActiveEmail.Template" temp-html="EmailTemplateCtrl.ePage.Masters.EmailTemplate.ListView.ActiveEmail.Body"
+                            template-name="EmailTemplateCtrl.ePage.Masters.EmailTemplate.ListView.ActiveEmail.Template" obj="EmailTemplateCtrl.ePage.Entities"></email-template-directive>
+                    </div>
+                    <div class="clearfix p-10">
+                        <button class="btn btn-default btn-sm mr-10" data-ng-click="EmailTemplateCtrl.ePage.Masters.EmailTemplate.EditView.Discard()"
+                            data-ng-show="EmailTemplateCtrl.ePage.Masters.EmailTemplate.ViewMode == 'Edit'" data-ng-disabled="EmailTemplateCtrl.ePage.Masters.EmailTemplate.EditView.IsDisableSendBtn">Discard</button>
+                        <button class="btn btn-primary btn-sm mr-10" data-ng-click="EmailTemplateCtrl.ePage.Masters.EmailTemplate.EditView.Send()"
+                            data-ng-show="EmailTemplateCtrl.ePage.Masters.EmailTemplate.ViewMode == 'Edit'" data-ng-bind="EmailTemplateCtrl.ePage.Masters.EmailTemplate.EditView.SendBtnText"
+                            data-ng-disabled="EmailTemplateCtrl.ePage.Masters.EmailTemplate.EditView.IsDisableSendBtn"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="emailBodyTemplate">
+    <div class="user-header clearfix">
+        <div class="user-profile">
+            <i class="fa fa-user"></i>
+        </div>
+        <div class="user-name" data-ng-bind="EmailTemplateCtrl.ePage.Masters.EmailTemplate.ListView.ActiveEmail.FROM"></div>
+        <!-- Access -->
+        <div class="pull-right dropdown email-template-access-dropdown-menu" one-level-mapping input="EmailTemplateCtrl.ePage.Masters.EmailTemplate.ReadView.GroupMapping"
+            data-ng-if="EmailTemplateCtrl.ePage.Masters.EmailTemplate.ReadView.GroupMapping"></div>
+        <div class="reply" title="Forward" data-ng-click="EmailTemplateCtrl.ePage.Masters.EmailTemplate.ReadView.Forward()">
+            <i class="fa fa-share"></i>
+        </div>
+        <div class="forward" title="Reply" data-ng-click="EmailTemplateCtrl.ePage.Masters.EmailTemplate.ReadView.Reply()">
+            <i class="fa fa-reply"></i>
+        </div>
+        <div class="date" data-ng-bind="EmailTemplateCtrl.ePage.Masters.EmailTemplate.ListView.ActiveEmail.CreatedDateTime | date:'MMM dd'"></div>
+    </div>
+    <div class="message clearfix">
+        <div class="" data-ng-bind-html="EmailTemplateCtrl.ePage.Masters.EmailTemplate.ListView.ActiveEmail.Body | convertToTrustHtml"></div>
+    </div>
+</script>

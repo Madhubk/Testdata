@@ -1,0 +1,139 @@
+<!-- hide save -->
+<span ng-if="!ConversionsCtrl.ePage.Masters.Lineslist" ng-init="ConversionsCtrl.ePage.Entities.Header.CheckPoints.DisableSave=true"></span>
+<span ng-if="ConversionsCtrl.ePage.Masters.Lineslist" ng-init="ConversionsCtrl.ePage.Entities.Header.CheckPoints.DisableSave=false"></span>
+
+<!-- Saving Your Data -->
+<div class="grid-loading-norecord-container ng-scope" style='z-index: 4;'data-ng-if="ConversionsCtrl.ePage.Masters.IsLoadingToSave">
+    <div class="grid-no-record">Saving your Data...</div>
+</div>
+
+<div class="p-10" ng-show='ConversionsCtrl.ePage.Masters.Lineslist'>
+    <div>
+        <span><button type="button" class="btn btn-sm btn-outline-secondary" title="Add New"  data-ng-click="ConversionsCtrl.ePage.Masters.AddNewRow()"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button></span>
+        <span ng-hide='ConversionsCtrl.ePage.Masters.selectedRow==-1'><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Copy"  data-ng-click="ConversionsCtrl.ePage.Masters.CopyRow()"><span class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button></span>
+        <span ng-hide='ConversionsCtrl.ePage.Masters.selectedRow==-1'><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Edit"  data-ng-click="ConversionsCtrl.ePage.Masters.Edit(ConversionsCtrl.ePage.Masters.selectedRow,'Edit List')"><span class="fa fa-pencil"></span>&nbsp;&nbsp;Edit</button></span>
+        <span ng-hide='ConversionsCtrl.ePage.Masters.selectedRow==-1'><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Delete"  data-ng-click="ConversionsCtrl.ePage.Masters.RemoveRow()"><span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button></span>        
+    </div>
+    <div id='ConversionsCtrl.ePage.Masters.your_div' class="wmstable_scroll" style="height:442px;padding-top: 2px;">
+        <div class="table" id="results">
+            <div class='theader'>
+                <div class='table_header'>List No</div>
+                <div class='table_header'>Quantity in Parent</div>
+                <div class='table_header'>Package</div>
+                <div class='table_header'>Parent Package</div>
+            </div>
+
+            <!-- List Empty Response -->
+            <div data-ng-if="ConversionsCtrl.ePage.Entities.Header.Data.UIOrgPartUnit.length==0">
+                <div class="grid-no-record" style="bottom:200px">No records found...</div>
+            </div>
+
+            <div class='table_row' ng-repeat="x in ConversionsCtrl.ePage.Entities.Header.Data.UIOrgPartUnit | orderBy:'CreatedDateTime' | filter:{IsDeleted:'false'}  track by $index" 
+                ng-click="ConversionsCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: ConversionsCtrl.ePage.Masters.selectedRow==$index}" style="font-size: 11px;">
+                <div class='table_small'>
+                    <div class='table_cell'>List No</div>
+                    <div class='table_cell'>
+                        <span class="list-error-warning" data-ng-if="ConversionsCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartUnit.ERROR | listCount: 'RowIndex': $index">
+                            <error-warning-directive 
+                                list="ConversionsCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartUnit.ERROR"
+                                type="'error'" icon="fa fa-warning" parent-type="'arrayObjectRow'" parent-ref=""
+                                g-parent-ref="" row-index="$index"
+                                col-index="">
+                            </error-warning-directive>
+                        </span>
+                        {{$index+1}}
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Quantity in Parent</div>
+                    <div class='table_cell'>{{x.QuantityInParent || ConversionsCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Package</div>
+                    <div class='table_cell'>{{x.PackType || ConversionsCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Parent Package</div>
+                    <div class='table_cell'>{{x.ParentPackType || ConversionsCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix" ng-hide='ConversionsCtrl.ePage.Masters.Lineslist' style="padding:5px">
+    <div class="panel panel-default mt-5">
+        <div class="panel-heading">
+            <span ng-show="ConversionsCtrl.ePage.Masters.HeaderName =='Copy Of List'">
+                    {{ConversionsCtrl.ePage.Masters.HeaderName}} - {{ConversionsCtrl.ePage.Masters.selectedRow}}                     
+            </span>
+            <span ng-show="ConversionsCtrl.ePage.Masters.HeaderName!='Copy Of List'">
+                    {{ConversionsCtrl.ePage.Masters.HeaderName}} - {{ConversionsCtrl.ePage.Masters.selectedRow+1}}                     
+            </span>
+        </div>
+        <div class="panel-body">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ex-line-padding">
+                <div class="ex-line-box" style="height:100px;padding-top:10px">
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                        <div class="form-group">
+                            <div class="error-warning-container" ng-repeat="x in ConversionsCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartUnit.ERROR">
+                                <error-warning-directive data-ng-if="x.ColIndex == 1 && x.RowIndex ==ConversionsCtrl.ePage.Masters.selectedRow"
+                                    list="ConversionsCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartUnit.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                    g-parent-ref="" row-index="ConversionsCtrl.ePage.Masters.selectedRow"
+                                    col-index="1">
+                                </error-warning-directive>
+                            </div>
+                            <label class="control-label text-single-line">Quantity In Parent</label>
+                            <div  class="">
+                                <input type="text" maxlength="5" numbers-only class="form-control input-sm" placeholder="Quantity In Parent" data-ng-model="ConversionsCtrl.ePage.Entities.Header.Data.UIOrgPartUnit[ConversionsCtrl.ePage.Masters.selectedRow].QuantityInParent" ng-change="ConversionsCtrl.ePage.Masters.OnChangeValues(ConversionsCtrl.ePage.Entities.Header.Data.UIOrgPartUnit[ConversionsCtrl.ePage.Masters.selectedRow].QuantityInParent,'E7017',true,ConversionsCtrl.ePage.Masters.selectedRow)" />        
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                        <div class="form-group">
+                            <div class="error-warning-container" ng-repeat="x in ConversionsCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartUnit.ERROR">
+                                <error-warning-directive data-ng-if="x.ColIndex == 3 && x.RowIndex ==ConversionsCtrl.ePage.Masters.selectedRow"
+                                    list="ConversionsCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartUnit.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                    g-parent-ref="" row-index="ConversionsCtrl.ePage.Masters.selectedRow"
+                                    col-index="3">
+                                </error-warning-directive>
+                            </div>
+                            <label class="control-label text-single-line">Package</label>
+                            <div  class="">
+                                <select chosen class="form-control" ng-model="ConversionsCtrl.ePage.Entities.Header.Data.UIOrgPartUnit[ConversionsCtrl.ePage.Masters.selectedRow].PackType" ng-options="x.Key as x.Key + ' - '  + x.Value for x in ConversionsCtrl.ePage.Masters.DropDownMasterList.INW_LINE_UQ.ListSource"
+                                    search-contains="true" ng-change="ConversionsCtrl.ePage.Masters.OnChangeValues(ConversionsCtrl.ePage.Entities.Header.Data.UIOrgPartUnit[ConversionsCtrl.ePage.Masters.selectedRow].PackType,'E7020',true,ConversionsCtrl.ePage.Masters.selectedRow);ConversionsCtrl.ePage.Masters.CheckSimilarType(ConversionsCtrl.ePage.Masters.selectedRow);">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                        <div class="form-group">
+                            <div class="error-warning-container" ng-repeat="x in ConversionsCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartUnit.ERROR">
+                                <error-warning-directive data-ng-if="x.ColIndex == 2 && x.RowIndex ==ConversionsCtrl.ePage.Masters.selectedRow"
+                                    list="ConversionsCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartUnit.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                    g-parent-ref="" row-index="ConversionsCtrl.ePage.Masters.selectedRow"
+                                    col-index="2">
+                                </error-warning-directive>
+                            </div>
+                            <label class="control-label text-single-line">Parent Package</label>
+                            <div  class="">
+                                <select chosen class="form-control" ng-model="ConversionsCtrl.ePage.Entities.Header.Data.UIOrgPartUnit[ConversionsCtrl.ePage.Masters.selectedRow].ParentPackType" ng-options="x.Key as x.Key + ' - '  + x.Value for x in ConversionsCtrl.ePage.Masters.DropDownMasterList.INW_LINE_UQ.ListSource"
+                                    search-contains="true" ng-change="ConversionsCtrl.ePage.Masters.OnChangeValues(ConversionsCtrl.ePage.Entities.Header.Data.UIOrgPartUnit[ConversionsCtrl.ePage.Masters.selectedRow].ParentPackType,'E7019',true,ConversionsCtrl.ePage.Masters.selectedRow);ConversionsCtrl.ePage.Masters.CheckSimilarType(ConversionsCtrl.ePage.Masters.selectedRow)">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-lg-offset-8 mt-5">
+                <button class="btn btn-blue btn-sm mr-5 pull-right" title="Save" data-ng-click="ConversionsCtrl.ePage.Masters.Done()"><i class="fa fa-save pr-5"></i>Save</button>
+                <button class="btn btn-primary btn-sm mr-5 pull-right" title="Delete" data-ng-click="ConversionsCtrl.ePage.Masters.RemoveRow()"><i class="fa fa-trash pr-5"></i>Delete</button>
+                <button class="btn btn-primary btn-sm mr-5 pull-right" title="Back" data-ng-click="ConversionsCtrl.ePage.Masters.Back()"><i class="fa fa-angle-double-left pr-5"></i>Back</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,190 @@
+.set-tabs>.nav-tabs {
+    border-bottom: 0;
+}
+
+.set-tabs>.nav-tabs,
+.set-tabs>.tab-content {
+    background-color: #fff;
+    box-shadow: none;
+}
+
+.set-tabs>.nav-tabs>li.active>a,
+.set-tabs>.nav-tabs>li.active>a:hover,
+.set-tabs>.nav-tabs>li.active>a:focus {
+    background-color: #fff;
+    border-top: 0;
+    box-shadow: none;
+    border: 0;
+}
+
+.set-tabs>.nav-tabs>li.active>a span {
+    padding-bottom: 5px;
+    border-bottom: 2px solid #d71921;
+    color: #0070c0;
+    font-size: 18px;
+}
+
+.set-tabs>.nav-tabs>li>a span {
+    padding-bottom: 5px;
+    border-bottom: 2px solid #ffe7a3;
+    color: #65a8d8;
+    font-size: 18px;
+}
+
+.tc-edit-page-save-btn {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+
+/* Form Data */
+
+.tc-edit-page-form-data .form-group label {
+    text-align: left;
+    font-weight: 600;
+}
+
+/* Search Config */
+
+.tc-edit-page-serach-config .form-group label {
+    text-align: left;
+    font-weight: 600;
+}
+
+.tc-edit-page-serach-config .set-title {
+    width: 100%;
+    color: #0070c0;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.tc-edit-page-serach-config .set-title span {
+    padding-bottom: 5px;
+    border-bottom: 2px solid #fbbc05;
+}
+
+.set-table thead>tr {
+    background: #ccdadf;
+}
+
+.set-table>tbody>tr>td {
+    padding: 0;
+}
+
+.set-table>tbody>tr>td.action-remove {
+    padding: 4px;
+}
+
+.set-table>tbody>tr>td.action-remove span {
+    font-size: 18px;
+    color: #D6171F;
+    cursor: pointer;
+}
+
+.set-table>tbody>tr>td>.set-tabel-text {
+    width: 100%;
+    border: 0;
+    padding: 8px 10px;
+    background: #fff;
+}
+
+/* Lookup Config */
+
+.tc-edit-page-lookup-config .tc-json-editor {
+    width: 100%;
+    height: -webkit-calc(100vh - 200px);
+    height: -moz-calc(100vh - 200px);
+    height: calc(100vh - 200px);
+}
+
+/* Form Design */
+
+.tc-edit-page-form-design .access-remove {
+    padding-top: 9px;
+}
+
+.tc-edit-page-form-design .access-remove .access,
+.tc-edit-page-form-design .access-remove .remove {
+    font-size: 18px;
+    padding: 0 !important;
+    margin-right: 10px;
+}
+
+.tc-edit-page-form-design .access-remove .remove {
+    color: rgb(189, 8, 28) !important;
+}
+
+.tc-edit-page-form-design .access-remove .btn:hover {
+    text-decoration: none;
+}
+
+.tc-edit-page-form-design .edit-page-drop-element-list-wrapper {
+    min-height: 450px;
+}
+
+.tc-edit-page-form-design .edit-page-drop-element-list {
+    position: relative;
+    border-bottom: 1px solid #f4f4f4;
+}
+
+.tc-edit-page-form-design .edit-page-drop-element {
+    padding: 7px 0px 7px 15px;
+    cursor: pointer;
+}
+
+.tc-edit-page-form-design .overlay-drop-element {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.tc-edit-page-form-design .dndDragover li {
+    list-style: none;
+    padding: 20px 10px;
+    background-color: #f4f4f4;
+}
+
+.set-tools-title {
+    padding: 7px 15px;
+    background: #ccdadf;
+    color: #000;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.tc-edit-page-form-design .fixed-height {
+    height: -webkit-calc(100vh - 200px);
+    height: -moz-calc(100vh - 200px);
+    height: calc(100vh - 200px);
+    overflow-y: auto;
+}
+
+.set-tools-box {
+    border: 1px solid #ddd;
+}
+
+.set-tools ul {
+    margin: 0;
+    padding: 0;
+}
+
+.set-tools ul li {
+    list-style: none;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    cursor: move;
+}
+
+.set-drag-box {
+    border-top: 1px solid #b5b5b5;
+    border-right: 1px solid #b5b5b5;
+}
+
+.active-item {
+    background: #f8f8f8;
+    position: relative;
+}

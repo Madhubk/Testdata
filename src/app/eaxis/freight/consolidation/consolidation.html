@@ -1,0 +1,38 @@
+<uib-tabset id="chromeTab" active="ConsolidationCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+    <uib-tab>
+        <uib-tab-heading title="Consol">
+            <span data-ng-bind="'Consol'"></span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+
+        <div class="no-padding tab-list-view-wrapper">
+            <!--Consolidation Grid Page-->
+            <dynamic-list dataentry-name="ConsolidationCtrl.ePage.Masters.dataentryName" task-name="ConsolidationCtrl.ePage.Masters.taskName"
+                grid-config-type="0" selected-grid-row="ConsolidationCtrl.ePage.Masters.SelectedGridRow($item)" mode="1"></dynamic-list>
+            <div class="tab-loading" data-ng-show="ConsolidationCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+    <uib-tab active="ConsolidationCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in ConsolidationCtrl.ePage.Masters.TabList"
+        ng-click="ConsolidationCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+        <uib-tab-heading title="{{tab.label}}">
+            <span data-ng-bind="tab.label"></span>
+            <i class="glyphicon glyphicon-remove" ng-click="ConsolidationCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+        </uib-tab-heading>
+        <div class="padding-bottom-10 clearfix">
+            <!--Consolidation Menu Directive-->
+            <consol-menu current-consol="tab"></consol-menu>
+            <!--Standard Menu Directive-->
+            <div class="eaxis-footer-strip">
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
+                    <standard-menu input="tab" entity-name="'ConsolHeader'" data-ng-if="!tab.isNew"></standard-menu>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                    <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="ConsolidationCtrl.ePage.Masters.Save(tab)"
+                        data-ng-bind="ConsolidationCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="ConsolidationCtrl.ePage.Masters.IsDisableSave"></button>
+                </div>
+            </div>
+            <!--Standard Menu Directive-->
+        </div>
+    </uib-tab>
+    <button class="btn btn-default" ng-click="ConsolidationCtrl.ePage.Masters.CreateNewConsol()" data-ng-disabled="ConsolidationCtrl.ePage.Masters.IsNewShipmentClicked">+</button>
+</uib-tabset>

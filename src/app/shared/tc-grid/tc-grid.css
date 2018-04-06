@@ -1,0 +1,7 @@
+.tc-dyn-grid-container .tc-dyn-grid-heading {
+    padding: 5px 10px;
+    margin-right: -2px;
+    font-weight: 600;
+    font-size: 14px;
+    background-color: #ddd;
+}

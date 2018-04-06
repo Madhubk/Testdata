@@ -1,0 +1,54 @@
+<div class="page-content" style="background: rgba(242, 242, 242, 0.63);" data-ng-style="(!LocationDashboardCtrl.ePage.Masters.MenuVisibleType || LocationDashboardCtrl.ePage.Masters.MenuVisibleType == 'Grid') && {'margin-left': '0'}" data-ng-controller="LocationDashboardController as LocationDashboardCtrl">
+    <!-- List Empty Response -->
+    <div class="page-body p-0">
+        <div class="chrometab-box1">
+            <div class="ik-box1">
+                <span data-ng-bind="'Location Dashboard'" class="ik-title1">Location Dashboard</span>
+                <div class="text-right" style="margin-top: 8px; margin-right: 5px;">
+                    <select class="select-rounded" ng-model="LocationDashboardCtrl.ePage.Masters.userselected" ng-options="x.WarehouseCode+'-'+x.WarehouseName for x in LocationDashboardCtrl.ePage.Masters.WarehouseDetails"
+                        ng-change="LocationDashboardCtrl.ePage.Masters.GetRowFindAlldetails(LocationDashboardCtrl.ePage.Masters.userselected)"
+                        search-contains="true" style="font-size: 11px;margin-right: 7px;"></select>
+
+                    <a class="btn btn-black btn-rounded" ng-click="LocationDashboardCtrl.ePage.Masters.ViewLocationPage(LocationDashboardCtrl.ePage.Masters.userselected)">View Location</a>
+                </div>
+            </div>
+            <div class="inner-dashboard-stats-list clearfix">
+                <table class="container-location" style="width: 98%;  margin-left: 10px;">
+                    <tbody>
+                        <!-- Loading -->
+                        <div class="grid-loading-norecord-container" data-ng-show="LocationDashboardCtrl.ePage.Meta.IsLoading">
+                            <div class="grid-loading">Loading...</div>
+                        </div>
+                        <div class="grid-norecord-container1" data-ng-show="LocationDashboardCtrl.ePage.Meta.NoRecord">
+                            <div class="grid-no-record">No record found...</div>
+                        </div>
+                        <tr ng-repeat=" x1 in LocationDashboardCtrl.ePage.Masters.LoadRowDetails track by $index" style="border-bottom: 1px solid #5f5a5a9c;">
+                            <td class="table-text"><label class="label-text">{{x1.Name}}</label>
+                                <div class='enableScrollbar'>
+                                        
+                                    <div class="text-center" ng-if="x1.LocationDetails.length==0" data-ng-show="!LocationDashboardCtrl.ePage.Meta.IsLoading"> <i class="fa fa-spin fa-spinner font-160"></i> </div>
+                                    
+                                    <div ng-style="LocationDashboardCtrl.ePage.Masters.setContentWidth({{x1.Columns}})" ng-repeat="x in x1.LocationDetails |orderBy : ['Level','Column']"
+                                        style="margin-top: 6px; ">
+                                        <div class="seatI" ng-style="LocationDashboardCtrl.ePage.Masters.setWidth({{x1.Columns}})">
+                                            <a class="tooltips">
+                                                <label ng-style="LocationDashboardCtrl.ePage.Masters.setBoxWidth({{x1.Columns}})" uib-popover-template="'app/mdm/warehouse/locations/location-dashboard/location-popover.html'"
+                                                    popover-title="{{x.Location}} - {{x.AllocatedUnits==0?'No Stock':x.AllocatedUnits +' Stock Available'}}"
+                                                    popover-placement="{{ LocationDashboardCtrl.ePage.Masters.placement }}" popover-trigger="'outsideClick'"
+                                                    popover-append-to-body="true" class="oval" ng-class="{{x.AllocatedUnits}}!=0?'fullLoc':'emptyLoc'"
+                                                    ng-click="LocationDashboardCtrl.ePage.Masters.getHeight($event)" popover-class="popover-width">{{x.Column}}-{{x.Level}}</label>
+                                            </a>
+                                        </div>
+                                        <div ng-if="x1.Columns==x.Column" ng-class="{{x1.Columns}}>26?'nextlinegreater':'nextlineless'">
+                                            &nbsp;
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

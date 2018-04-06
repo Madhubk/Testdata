@@ -1,0 +1,35 @@
+<uib-tabset id="chromeTab" active="ContainerCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+    <uib-tab>
+        <uib-tab-heading title="Container">
+            <span data-ng-bind="'Container'"></span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+        <div class="no-padding tab-list-view-wrapper">
+            <!--Container Grid Page-->
+            <dynamic-list dataentry-name="ContainerCtrl.ePage.Masters.dataentryName" task-name="ContainerCtrl.ePage.Masters.taskName"
+                grid-config-type="0" selected-grid-row="ContainerCtrl.ePage.Masters.SelectedGridRow($item)" mode="1"></dynamic-list>
+            <div class="tab-loading" data-ng-show="ContainerCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+    <uib-tab active="ContainerCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in ContainerCtrl.ePage.Masters.TabList"
+        ng-click="ContainerCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+        <uib-tab-heading title="{{tab.label}}">
+            <span data-ng-bind="tab.label"></span>
+            <i class="glyphicon glyphicon-remove" ng-click="ContainerCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+        </uib-tab-heading>
+        <div class="padding-bottom-10 clearfix">
+            <!--Container Menu Directive-->
+            <container-list-directive current-container="tab"></container-list-directive>
+            <div class="eaxis-footer-strip">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="ContainerCtrl.ePage.Masters.Save(tab)"
+                        data-ng-bind="ContainerCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="ContainerCtrl.ePage.Masters.IsDisableSave"></button>
+                </div>
+            </div>
+        </div>
+    </uib-tab>
+    <!-- <button class="btn btn-default" data-ng-click="ContainerCtrl.ePage.Masters.CreateSFU()" data-ng-disabled="ContainerCtrl.ePage.Masters.IsNewOrderClicked">+</button> -->
+</uib-tabset>

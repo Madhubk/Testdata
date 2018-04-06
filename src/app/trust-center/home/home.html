@@ -1,0 +1,21 @@
+<div class="clearfix tc-home">
+    <div class="clearfix text-center p-20" data-ng-if="!TCHomeCtrl.ePage.Masters.Home.MenuList">
+        <i class="fa fa-spinner fa-spin" style="font-size:18px;"></i>
+    </div>
+    <div class="menu-container" data-ng-repeat="x in TCHomeCtrl.ePage.Masters.Home.MenuList"        data-ng-click="TCHomeCtrl.ePage.Masters.Home.OnMenuClick(x)"
+        data-ng-if="TCHomeCtrl.ePage.Masters.Home.MenuList">
+        <div class="image">
+            <i class="fa {{x.Icon | getIconColorForMenu: 'icon'}}" data-ng-style="{'color': (x.Icon | getIconColorForMenu: 'color')}"></i>
+        </div>
+        <div class="name">
+            <span data-ng-bind="x.MenuName"></span>
+        </div>
+        <div class="description">
+            <span data-ng-bind="x.OtherConfig.Description"></span>
+        </div>
+    </div>
+</div>
+
+<!-- <div class ="clearfix session">
+        <a href="javascript:void(0);" data-ng-click="TCHomeCtrl.ePage.Masters.Home.OnSessionClick()"> Session</a>
+</div> -->

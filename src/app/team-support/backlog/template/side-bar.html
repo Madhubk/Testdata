@@ -1,0 +1,46 @@
+<div class="sider-bar-wrapper backlog-side-bar p-20">
+    <!--Compose Button-->
+    <!-- <div>
+        <button class="btn btn-danger btn-backlogcompose" data-ng-click="BacklogCtrl.ePage.Masters.OnComposeClick()">Compose
+        </button>
+    </div> -->
+    <!--Search  -->
+    <div class="margin-bottom-10">
+        <input type="text" placeholder="Search" class="form-control input-sm" data-ng-model="BacklogCtrl.ePage.Masters.SearchModule">
+    </div>
+    <!--Modules list-->
+    <div>
+        <div class="text-center grid-view-loader padding-20" data-ng-if="!BacklogCtrl.ePage.Masters.Module.ListSource">
+            <i class="fa fa-spin fa-spinner font-160">
+            </i>
+        </div>
+        <div class="text-center grid-view-loader padding-20" data-ng-if="BacklogCtrl.ePage.Masters.Module.ListSource.length === 0">
+            <i class="">No Modules
+            </i>
+        </div>
+        <div class="form-group no-margin cursor-pointer" data-ng-repeat="x in BacklogCtrl.ePage.Masters.Module.ListSource | filter: BacklogCtrl.ePage.Masters.SearchModule"
+            data-ng-if=" BacklogCtrl.ePage.Masters.Module.ListSource &&  BacklogCtrl.ePage.Masters.Module.ListSource.length !== 0">
+            <div class="clearfix  module-list" data-ng-class="{'active': x.Value===BacklogCtrl.ePage.Masters.SelectedProject}" data-ng-bind="x.Value"
+                title="{{x.Value}}" data-ng-click="BacklogCtrl.ePage.Masters.FilterModule(x)">
+            </div>
+        </div>
+    </div>
+    <hr>
+    <!--Framework List-->
+    <div>
+        <div class="text-center grid-view-loader padding-20" data-ng-if="!BacklogCtrl.ePage.Masters.Framework.ListSource">
+            <i class="fa fa-spin fa-spinner font-160">
+            </i>
+        </div>
+        <div class="text-center grid-view-loader padding-20" data-ng-if="BacklogCtrl.ePage.Masters.Framework.ListSource.length === 0">
+            <i class="">No Framework
+            </i>
+        </div>
+        <div class="form-group no-margin cursor-pointer" data-ng-repeat="x in BacklogCtrl.ePage.Masters.Framework.ListSource | filter: BacklogCtrl.ePage.Masters.SearchModule"
+            data-ng-if="BacklogCtrl.ePage.Masters.Framework.ListSource && BacklogCtrl.ePage.Masters.Framework.ListSource.length !== 0">
+            <div class="clearfix framework-list" data-ng-class="{'active': x.Value===BacklogCtrl.ePage.Masters.SelectedProject}" data-ng-bind="x.Value"
+                title="{{x.Value}}" data-ng-click="BacklogCtrl.ePage.Masters.FilterModule(x)">
+            </div>
+        </div>
+    </div>
+</div>

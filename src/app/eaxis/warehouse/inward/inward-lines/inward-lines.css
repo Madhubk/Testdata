@@ -1,0 +1,26 @@
+
+
+
+
+.block {
+    text-align: center;
+    vertical-align: middle;
+}
+.circle {
+    background: #ddd;
+    border-radius: 200px;
+    color: white;
+    height: 75px;
+    font-weight: bold;
+    width: 75px;
+    display: table;
+    margin-left: 10px;
+}
+.circle p {
+    vertical-align: middle;
+    display: table-cell;
+}
+
+.progress-bar{
+    background-color: #337ab7;
+}

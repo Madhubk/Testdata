@@ -1,0 +1,19 @@
+.wocstatusmenu{
+    font-size: 15px;
+    color: green;
+    font-weight: 700;  
+  }
+
+  
+.overflow-aligment {
+    overflow-y: scroll;
+    height: 600px;
+}
+
+.overflow-aligment1 {
+    overflow: scroll;
+}
+
+.shortcut-action-list li {
+    list-style: none;
+}

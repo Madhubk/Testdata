@@ -1,0 +1,630 @@
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <uib-tabset justified="true" class="">
+            <uib-tab heading="Console Details">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Type</label><select chosen ng-options="x.Key as x.Description for x in GeneralConCtrl.ePage.Masters.DropDownMasterList.CON_TYPE.ListSource"
+                                    ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.AgentType" class="form-control"><option value="">--Select--</option></select></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Transport</label><select chosen ng-options="x.Key as x.Description for x in GeneralConCtrl.ePage.Masters.DropDownMasterList.CON_TRANSPORT.ListSource"
+                                    ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.TransportMode"
+                                    class="form-control"><option value="">--Select--</option></select></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Container Mode</label><select chosen ng-options="x.Key as x.Description for x in GeneralConCtrl.ePage.Masters.DropDownMasterList.CON_CNTMODE.ListSource"
+                                    ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.ContainerMode"
+                                    class="form-control"><option value="">--Select--</option></select></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">1st Load</label>
+                                <div class="input-group input-group-sm">
+                                   
+                                    <div dynamic-lookup my-ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.FirstLoadPort" obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader"
+                                        prefix-data="'MstUNLOCO'" config="'ConGeneralFirstLoadPort'"></div>
+                                    <span class="input-group-btn"><button dynamic-list-modal obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader" prefix-data="'MstUNLOCO'" field-name="'ConGeneralFirstLoadPort'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="GeneralConCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button></span></div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label"></label>
+                                <div class="checkbox"><label><input type="checkbox" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.IsDomestic"  class="colored-blue" / ><span class="text">Is Domestic</span></label></div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Las Disc</label>
+                                <div class="input-group input-group-sm">
+                                    <dynamic-lookup my-ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.LastDischargePort" obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader"
+                                        prefix-data="'MstUNLOCO'" config="'ConGeneralLastDischargePort'"></dynamic-lookup>
+                                    <span class="input-group-btn"><button dynamic-list-modal obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader" prefix-data="'MstUNLOCO'" field-name="'ConGeneralLastDischargePort'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="GeneralConCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button></span></div>
+                                <!--<input class="form-control" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.LastDischargePort"
+                                                type="text" placeholder="Las Disc"> <span class="input-group-btn"><button dynamic-list-modal obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader" field-name="'ConGeneralLastDischargePort'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="GeneralConCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button></span></div>-->
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Phase</label><select chosen ng-options="x.Key as x.Description for x in GeneralConCtrl.ePage.Masters.DropDownMasterList.PHASE.ListSource"
+                                    ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.Phase" class="form-control"><option value="">--Select--</option></select></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="widget">
+                                <div class="widget-header bg-blue"><span class="widget-caption">Voyage</span></div>
+                                <div class="widget-body">
+                                    <div class="widget-main">
+                                        <!--<div class="row">
+                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                                        <div class="form-group"><label class="control-label">Voyage</label><input type="text" ng-model="GeneralConCtrl.ePage.Entities.JobRoutes.Data.UIJobRoutesList.VoyageFlight"
+                                                                maxlength="12" class="form-control input-sm" placeholder="Voyage"></div>
+                                                    </div>
+                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                                        <div class="form-group"><label class="control-label">Vessel</label>
+                                                            <div class="input-group input-group-sm"><input class="form-control" ng-model="GeneralConCtrl.ePage.Entities.JobRoutes.Data.UIJobRoutesList.Vessel"
+                                                                    type="text" placeholder="Vessel"> <span class="input-group-btn"><button dynamic-list-modal obj="GeneralConCtrl.ePage.Entities.JobRoutes.Data.UIJobRoutesList" field-name="''" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="GeneralConCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button></span></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                                        <div class="form-group"><label class="control-label">LoadPort</label>
+                                                            <div class="input-group input-group-sm"><input class="form-control" ng-model="GeneralConCtrl.ePage.Entities.JobRoutes.Data.UIJobRoutesList.LoadPort"
+                                                                    type="text" placeholder="LoadPort"> <span class="input-group-btn"><button dynamic-list-modal obj="GeneralConCtrl.ePage.Entities.JobRoutes.Data.UIJobRoutesList" field-name="''" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="GeneralConCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button></span></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                                        <div class="form-group"><label class="control-label">ETD</label>
+                                                            <div class="input-group input-group-sm"><input class="form-control" type="text" ng-model="GeneralConCtrl.ePage.Entities.JobRoutes.Data.UIJobRoutesList.ETD"
+                                                                    placeholder="{{GeneralConCtrl.ePage.Masters.DatePicker.Options.format}}"
+                                                                    uib-datepicker-popup="{{GeneralConCtrl.ePage.Masters.DatePicker.Options.format}}"
+                                                                    datepicker-options="GeneralConCtrl.ePage.Masters.DatePicker.Options"
+                                                                    is-open="GeneralConCtrl.ePage.Masters.DatePicker.isOpen['ETD']">
+                                                                <span
+                                                                    class="input-group-btn"> <button class="btn btn-default shiny" data-ng-click="GeneralConCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'ETD')"><i class="fa fa-calendar"></i></button></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                                        <div class="form-group"><label class="control-label">ATD</label>
+                                                            <div class="input-group input-group-sm"><input class="form-control" type="text" ng-model="GeneralConCtrl.ePage.Entities.JobRoutes.Data.UIJobRoutesList.ATD"
+                                                                    placeholder="{{GeneralConCtrl.ePage.Masters.DatePicker.Options.format}}"
+                                                                    uib-datepicker-popup="{{GeneralConCtrl.ePage.Masters.DatePicker.Options.format}}"
+                                                                    datepicker-options="GeneralConCtrl.ePage.Masters.DatePicker.Options"
+                                                                    is-open="GeneralConCtrl.ePage.Masters.DatePicker.isOpen['ATD']">
+                                                                <span
+                                                                    class="input-group-btn"> <button class="btn btn-default shiny" data-ng-click="GeneralConCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'ATD')"><i class="fa fa-calendar"></i></button></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                                        <div class="form-group"><label class="control-label">Discharge</label>
+                                                            <div class="input-group input-group-sm"><input class="form-control" ng-model="GeneralConCtrl.ePage.Entities.JobRoutes.Data.UIJobRoutesList.DischargePort"
+                                                                    type="text" placeholder="Discharge"> <span class="input-group-btn"><button dynamic-list-modal obj="GeneralConCtrl.ePage.Entities.JobRoutes.Data.UIJobRoutesList" field-name="''" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="GeneralConCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button></span></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                                        <div class="form-group"><label class="control-label">ETA</label>
+                                                            <div class="input-group input-group-sm"><input class="form-control" type="text" ng-model="GeneralConCtrl.ePage.Entities.JobRoutes.Data.UIJobRoutesList.ETA"
+                                                                    placeholder="{{GeneralConCtrl.ePage.Masters.DatePicker.Options.format}}"
+                                                                    uib-datepicker-popup="{{GeneralConCtrl.ePage.Masters.DatePicker.Options.format}}"
+                                                                    datepicker-options="GeneralConCtrl.ePage.Masters.DatePicker.Options"
+                                                                    is-open="GeneralConCtrl.ePage.Masters.DatePicker.isOpen['ETA']">
+                                                                <span
+                                                                    class="input-group-btn"> <button class="btn btn-default shiny" data-ng-click="GeneralConCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'ETA')"><i class="fa fa-calendar"></i></button></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                                        <div class="form-group"><label class="control-label">ATA</label>
+                                                            <div class="input-group input-group-sm"><input class="form-control" type="text" ng-model="GeneralConCtrl.ePage.Entities.JobRoutes.Data.UIJobRoutesList.ATA"
+                                                                    placeholder="{{GeneralConCtrl.ePage.Masters.DatePicker.Options.format}}"
+                                                                    uib-datepicker-popup="{{GeneralConCtrl.ePage.Masters.DatePicker.Options.format}}"
+                                                                    datepicker-options="GeneralConCtrl.ePage.Masters.DatePicker.Options"
+                                                                    is-open="GeneralConCtrl.ePage.Masters.DatePicker.isOpen['ATA']">
+                                                                <span
+                                                                    class="input-group-btn"> <button class="btn btn-default shiny" data-ng-click="GeneralConCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'ATA')"><i class="fa fa-calendar"></i></button></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                                        <div class="form-group"><label class="control-label"></label>
+                                                            <div class="checkbox"><label><input type="checkbox" ng-model="GeneralConCtrl.ePage.Entities.JobRoutes.Data.UIJobRoutesList.BOL"  class="colored-blue" / ><span class="text">IsDomestic</span></label></div>
+                                                        </div>
+                                                    </div>
+                                                </div>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">BOL</label><input type="text" max-length="70" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.MasterBillNo"
+                                    maxlength="12" class="form-control input-sm" placeholder="BOL"></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Service Level</label><select chosen ng-options="x.Key as x.Description for x in GeneralConCtrl.ePage.Masters.DropDownMasterList.CON_SERVICELEVEL.ListSource"
+                                    ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.AWBServiceLevel"
+                                    class="form-control"><option value="">--Select--</option></select></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Payment</label><select chosen ng-options="x.Key as x.Description for x in GeneralConCtrl.ePage.Masters.DropDownMasterList.CON_PAYMENT.ListSource"
+                                    ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.PrepaidCollect"
+                                    class="form-control"><option value="">--Select--</option></select></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">CRN</label><input type="text" max-length="<70></70>" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.CRN"
+                                    maxlength="12" class="form-control input-sm" placeholder="CRN"></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Scrn</label><select chosen ng-options="x.Key as x.Description for x in GeneralConCtrl.ePage.Masters.DropDownMasterList.CON_SCRN.ListSource"
+                                    ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.SCRN" class="form-control"><option value="">--Select--</option></select></div>
+                        </div>
+                    </div>
+                </div>
+            </uib-tab>
+            <uib-tab heading="Shipments">
+                <div data-ng-include="'app/eaxis/freight/consolidation/general/tabs/shipment.html'"></div>
+            </uib-tab>
+            <uib-tab heading="Organisations">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Sending Agent</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="hidden" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.ORG_SendingForwarderFK">
+                                    <div dynamic-lookup my-ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.ORG_SendingForwarderCode" obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader"
+                                    prefix-data="'OrganizationList'" config="'ConGeneralORG_SendingForwarderCode'"></div>
+                                         <span class="input-group-btn">
+                                         <button dynamic-list-modal obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader" field-name="'ConGeneralORG_SendingForwarderCode'" prefix-data="'OrganizationList'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="GeneralConCtrl.ePage.Masters.SelectedData($item,'OAD_SendingForwarderAddressFK')" class="btn btn-default shiny" type="button">
+                                         <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                             </span>
+                         </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Sending Agent Address</label><select chosen ng-options="x.PK as x.Code for x in GeneralConCtrl.ePage.Masters.DropDownMasterList.OAD_SendingForwarderAddressFK.ListSource"
+                                    ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.OAD_SendingForwarderAddressFK"
+                                    class="form-control"><option value="">--Select--</option></select></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Receiving Agent</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="hidden" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.ORG_ReceivingForwarderFK">
+                                    <div dynamic-lookup my-ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.ORG_ReceivingForwarderCode" obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader"
+                                    prefix-data="'OrganizationList'" config="'ConGeneralORG_ReceivingForwarderCode'"></div>
+
+                                    <span
+                                        class="input-group-btn">
+                                        <button dynamic-list-modal obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader"
+                                            field-name="'ConGeneralORG_ReceivingForwarderCode'" prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name=""
+                                            grid-refresh-fun="" selected-data="GeneralConCtrl.ePage.Masters.SelectedData($item,'OAD_ReceivingForwarderAddressFK')"
+                                            class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i>
+                                            </button>
+                                        </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Receiving Agent Address</label><select chosen ng-options="x.PK as x.Code for x in GeneralConCtrl.ePage.Masters.DropDownMasterList.OAD_ReceivingForwarderAddressFK.ListSource"
+                                    ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.OAD_ReceivingForwarderAddressFK"
+                                    class="form-control"><option value="">--Select--</option></select></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Carrier</label>
+                                <div class="input-group input-group-sm">
+                                   <!--  <input type="hidden" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.ORG_CarrierFK">
+                                    <input class="form-control" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.ORG_CarrierCode"
+                                        type="text" placeholder="Carrier"> --> 
+                                        <input type="hidden" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.ORG_CarrierFK">
+                                    <div dynamic-lookup my-ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.ORG_CarrierCode" obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader"
+                                    prefix-data="'OrganizationList'" config="'ConGeneralORG_CarrierCode'"></div>
+                                        <span class="input-group-btn">
+                                        <button dynamic-list-modal obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader" field-name="'ConGeneralORG_CarrierCode'" prefix-data="'OrganizationList'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="GeneralConCtrl.ePage.Masters.SelectedData($item,'OAD_CarrierAddressFK')" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button></span></div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Carrier Address</label><select chosen ng-options="x.PK as x.Code for x in GeneralConCtrl.ePage.Masters.DropDownMasterList.OAD_CarrierAddressFK.ListSource"
+                                    ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.OAD_CarrierAddressFK"
+                                    class="form-control"><option value="">--Select--</option></select></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group">
+                            <label class="control-label">Creditor</label>
+                                <div class="input-group input-group-sm">
+                                   <!--  <input type="hidden" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.ORG_CreditorFK">
+                                    <input class="form-control" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.ORG_CreditorCode"
+                                        type="text" placeholder="Creditor">  -->
+                                         <input type="hidden" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.ORG_CreditorFK">
+                                    <div dynamic-lookup my-ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.ORG_CreditorCode" obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader"
+                                    prefix-data="'OrganizationList'" config="'ConGeneralORG_CreditorCode'"></div>
+                                        <span class="input-group-btn">
+                                        <button dynamic-list-modal obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader" field-name="'ConGeneralORG_CreditorCode'" prefix-data="'OrganizationList'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="GeneralConCtrl.ePage.Masters.SelectedData($item,'OAD_CreditorAddressFK')" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i>
+                                        </button>
+                                        </span>
+                                        </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Creditor Address</label><select chosen ng-options="x.PK as x.Code for x in GeneralConCtrl.ePage.Masters.DropDownMasterList.OAD_CreditorAddressFK.ListSource"
+                                    ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.OAD_CreditorAddressFK"
+                                    class="form-control"><option value="">--Select--</option></select></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Carrier Bkg. Ref</label><input type="text" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.BookingReference"
+                                    max-length="70" class="form-control input-sm" placeholder="Carrier Bkg. Ref"></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Agent Ref</label><input type="text" max-length="70" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.AgentReference"
+                                    maxlength="12" class="form-control input-sm" placeholder="Agent Ref"></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="widget">
+                                <div class="widget-header bg-blue"><span class="widget-caption">Verification</span></div>
+                                <div class="widget-body">
+                                    <div class="widget-main">
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                                <div class="form-group"><label class="control-label">Shipments</label><input type="text" max-length="2" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.TotalShipmentCountCheck"
+                                                        maxlength="12" class="form-control input-sm" placeholder="Shipments"></div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                                <div class="form-group"><label class="control-label">Weight</label><input type="text" max-length="9" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.TotalShipmentActWeightCheck"
+                                                        maxlength="12" class="form-control input-sm" placeholder="Weight"></div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                                <div class="form-group"><label class="control-label">Unit Of Weight</label><select chosen ng-options="x.Key as x.Description for x in GeneralConCtrl.ePage.Masters.DropDownMasterList.WEIGHTUNIT.ListSource"
+                                                        ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.TotalShipmentActOtherUnit"
+                                                        class="form-control"><option value="">--Select--</option></select></div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                                <div class="form-group"><label class="control-label">Volume</label><input type="text" max-length="9" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.TotalShipmentActVolumeCheck"
+                                                        maxlength="12" class="form-control input-sm" placeholder="Volume"></div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                                <div class="form-group"><label class="control-label">Unit Of Volume</label><select chosen ng-options="x.Key as x.Description for x in GeneralConCtrl.ePage.Masters.DropDownMasterList.VOLUMEUNIT.ListSource"
+                                                        ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.TotalShipmentChargeableUnit "
+                                                        class="form-control"><option value="">--Select--</option></select></div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                                <div class="form-group"><label class="control-label">Chargeable</label><input type="text" max-length="9" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.TotalShipmentChargableCheck"
+                                                        maxlength="12" class="form-control input-sm" placeholder="Chargeable"></div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                                <div class="form-group"><label class="control-label">Cut Off Date</label>
+                                                    <div class="input-group input-group-sm"><input class="form-control" type="text" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.ConsolCutOffDate"
+                                                            placeholder="{{GeneralConCtrl.ePage.Masters.DatePicker.Options.format}}"
+                                                            uib-datepicker-popup="{{GeneralConCtrl.ePage.Masters.DatePicker.Options.format}}"
+                                                            datepicker-options="GeneralConCtrl.ePage.Masters.DatePicker.Options"
+                                                            is-open="GeneralConCtrl.ePage.Masters.DatePicker.isOpen['CutOffDate']">
+                                                        <span class="input-group-btn"> <button class="btn btn-default shiny" data-ng-click="GeneralConCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'CutOffDate')"><i class="fa fa-calendar"></i></button></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </uib-tab>
+            <uib-tab heading="Departure">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">CTO</label>
+                                <div class="input-group input-group-sm">
+                                   
+                                        <input type="hidden" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.ORG_DepartureCTOFK">
+                                    <div dynamic-lookup my-ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.ORG_DepartureCTOCode" obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader"
+                                    prefix-data="'OrganizationList'" config="'ConGeneralORG_DepartureCTOCode'"></div>
+                                        <span class="input-group-btn">
+                                        <button dynamic-list-modal obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader" field-name="'ConGeneralORG_DepartureCTOCode'" prefix-data="'OrganizationList'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="GeneralConCtrl.ePage.Masters.SelectedData($item,'OAD_DepartureCTOAddressFK')" class="btn btn-default shiny" type="button">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">CTO Address FK</label><select chosen ng-options="x.PK as x.Code for x in GeneralConCtrl.ePage.Masters.DropDownMasterList.OAD_DepartureCTOAddressFK.ListSource"
+                                    ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.OAD_DepartureCTOAddressFK"
+                                    class="form-control"><option value="">--Select--</option></select></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">CFS</label>
+                                <div class="input-group input-group-sm">
+                                  
+                                        <input type="hidden" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.ORG_PackDepotFK">
+                                    <div dynamic-lookup my-ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.ORG_PackDepotCode" obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader"
+                                    prefix-data="'OrganizationList'" config="'ConGeneralORG_PackDepotCode'"></div>
+                                        <span class="input-group-btn">
+                                        <button dynamic-list-modal obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader" field-name="'ConGeneralORG_PackDepotCode'" prefix-data="'OrganizationList'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="GeneralConCtrl.ePage.Masters.SelectedData($item,'OAD_PackDepotAddressFK')" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i>
+                                        </button>
+                                        </span>
+                                        </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">CFS Address FK</label><select chosen ng-options="x.PK as x.Code for x in GeneralConCtrl.ePage.Masters.DropDownMasterList.OAD_PackDepotAddressFK.ListSource"
+                                    ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.OAD_PackDepotAddressFK"
+                                    class="form-control"><option value="">--Select--</option></select></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Container Yard</label>
+                                <div class="input-group input-group-sm">
+                                   
+                                    <input type="hidden" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.ORG_ContainerYardEmptyPickupFK">
+                                    <div dynamic-lookup my-ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.ORG_ContainerYardEmptyPickupCode" obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader"
+                                    prefix-data="'OrganizationList'" config="'ConGeneralORG_ContainerYardEmptyPickupCode'"></div>
+                                         <span class="input-group-btn">
+                                         <button dynamic-list-modal obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader" field-name="'ConGeneralORG_ContainerYardEmptyPickupCode'"  prefix-data="'OrganizationList'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="GeneralConCtrl.ePage.Masters.SelectedData($item,'OAD_ContainerYardEmptyPickupAddressPK')" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button></span></div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Container Yard Address FK</label><select chosen ng-options="x.PK as x.Code for x in GeneralConCtrl.ePage.Masters.DropDownMasterList.OAD_ContainerYardEmptyPickupAddressPK.ListSource"
+                                    ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.OAD_ContainerYardEmptyPickupAddressPK"
+                                    class="form-control"><option value="">--Select--</option></select></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">First Foreign Port</label>
+                                <div class="input-group input-group-sm">
+                                    <div dynamic-lookup my-ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.FirstForeignPort" obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader"
+                                    prefix-data="'MstUNLOCO'" config="'ConGeneralFirstForeignPort'"></div>
+                                         <span class="input-group-btn">
+                                         <button dynamic-list-modal obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader" field-name="'ConGeneralFirstForeignPort'" prefix-data="'MstUNLOCO'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="GeneralConCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button></span></div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Arrival Date</label>
+                                <div class="input-group input-group-sm"><input class="form-control" type="text" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.FirstForeignPortDate"
+                                        placeholder="{{GeneralConCtrl.ePage.Masters.DatePicker.Options.format}}" uib-datepicker-popup="{{GeneralConCtrl.ePage.Masters.DatePicker.Options.format}}"
+                                        datepicker-options="GeneralConCtrl.ePage.Masters.DatePicker.Options" is-open="GeneralConCtrl.ePage.Masters.DatePicker.isOpen['ArrivalDate']">
+                                    <span class="input-group-btn"> <button class="btn btn-default shiny" data-ng-click="GeneralConCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'ArrivalDate')"><i class="fa fa-calendar"></i></button></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Last Foreign Port</label>
+                                <div class="input-group input-group-sm">
+                                   <!--  <input class="form-control" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.LastForeignPort"
+                                        type="text" placeholder="Last Foreign Port"> --> 
+                                        <div dynamic-lookup my-ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.LastForeignPort" obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader"
+                                    prefix-data="'MstUNLOCO'" config="'ConGeneralLastForeignPort'"></div>
+                                        <span class="input-group-btn">
+                                        <button dynamic-list-modal obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader" field-name="'ConGeneralLastForeignPort'" prefix-data="'MstUNLOCO'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="GeneralConCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button></span></div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Departure Date</label>
+                                <div class="input-group input-group-sm"><input class="form-control" type="text" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.LastForeignPortDate"
+                                        placeholder="{{GeneralConCtrl.ePage.Masters.DatePicker.Options.format}}" uib-datepicker-popup="{{GeneralConCtrl.ePage.Masters.DatePicker.Options.format}}"
+                                        datepicker-options="GeneralConCtrl.ePage.Masters.DatePicker.Options" is-open="GeneralConCtrl.ePage.Masters.DatePicker.isOpen['DepartureDate']">
+                                    <span class="input-group-btn"> <button class="btn btn-default shiny" data-ng-click="GeneralConCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'DepartureDate')"><i class="fa fa-calendar"></i></button></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </uib-tab>
+            <uib-tab heading="Arrival">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">CTO</label>
+                                <div class="input-group input-group-sm">
+                                   <input type="hidden" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.ORG_ArrivalCTOFK">
+                                    <div dynamic-lookup my-ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.ORG_ArrivalCTOCode" obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader"
+                                    prefix-data="'OrganizationList'" config="'ConGeneralORG_ArrivalCTOCode'" placeholder="CTO"></div>
+                                         <span class="input-group-btn">
+                                           <button dynamic-list-modal obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader" field-name="'ConGeneralORG_ArrivalCTOCode'"  prefix-data="'OrganizationList'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="GeneralConCtrl.ePage.Masters.SelectedData($item,'OAD_ArrivalCTOAddressFK')" class="btn btn-default shiny" type="button">
+                                             <i class="fa fa-ellipsis-h"></i>
+                                         </button>
+                                        </span>
+                                     </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">CTO Address FK</label><select chosen ng-options="x.PK as x.Code for x in GeneralConCtrl.ePage.Masters.DropDownMasterList.OAD_ArrivalCTOAddressFK.ListSource"
+                                    ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.OAD_ArrivalCTOAddressFK"
+                                    class="form-control"><option value="">--Select--</option></select></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">CFS</label>
+                                <div class="input-group input-group-sm">
+                                   <input type="hidden" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.ORG_UnpackDepotFK">
+                                    <div dynamic-lookup my-ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.ORG_UnpackDepotCode" obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader"
+                                    prefix-data="'OrganizationList'" config="'ConGeneralORG_UnpackDepotCode'" placeholder="CFS"></div>
+                                         <span class="input-group-btn">
+                                         <button dynamic-list-modal obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader" field-name="'ConGeneralORG_UnpackDepotCode'" prefix-data="'OrganizationList'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="GeneralConCtrl.ePage.Masters.SelectedData($item,'OAD_UnpackDepotAddressFK')" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i>
+                                         </button>
+                                        </span>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">CFS Address FK</label><select chosen ng-options="x.PK as x.Code for x in GeneralConCtrl.ePage.Masters.DropDownMasterList.OAD_UnpackDepotAddressFK.ListSource"
+                                    ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.OAD_UnpackDepotAddressFK"
+                                    class="form-control"><option value="">--Select--</option></select></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Container Yard</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="hidden" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.ORG_ContainerYardEmptyReturnFK">
+                                    <div dynamic-lookup my-ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.ORG_ContainerYardEmptyReturnCode" obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader"
+                                    prefix-data="'OrganizationList'" config="'ConGeneralORG_ContainerYardEmptyReturnCode'" placeholder="Container Yard"></div>
+                                        <span class="input-group-btn">
+                                        <button dynamic-list-modal obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader" field-name="'ConGeneralORG_ContainerYardEmptyReturnCode'" prefix-data="'OrganizationList'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="GeneralConCtrl.ePage.Masters.SelectedData($item,'OAD_ContainerYardEmptyReturnAddressFK')" class="btn btn-default shiny" type="button">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                        </button>
+                                        </span>
+                                        </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Container Yard Address FK</label><select chosen ng-options="x.PK as x.Code for x in GeneralConCtrl.ePage.Masters.DropDownMasterList.OAD_ContainerYardEmptyReturnAddressFK.ListSource"
+                                    ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.OAD_ContainerYardEmptyReturnAddressFK"
+                                    class="form-control"><option value="">--Select--</option></select></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">First Arrival Port</label>
+                                <div class="input-group input-group-sm">
+                                
+                                <div dynamic-lookup my-ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.PortOfFirstArrival" obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader"
+                                    prefix-data="'MstUNLOCO'" config="'ConGeneralPortOfFirstArrival'"></div>
+                                        <span class="input-group-btn">
+                                        <button dynamic-list-modal obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader" field-name="'ConGeneralPortOfFirstArrival'"  prefix-data="'MstUNLOCO'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="GeneralConCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i>
+                                        </button>
+                                        </span>
+                                        </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Arrival Date</label>
+                                <div class="input-group input-group-sm"><input class="form-control" type="text" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.DatePortOfFirstArrival"
+                                        placeholder="{{GeneralConCtrl.ePage.Masters.DatePicker.Options.format}}" uib-datepicker-popup="{{GeneralConCtrl.ePage.Masters.DatePicker.Options.format}}"
+                                        datepicker-options="GeneralConCtrl.ePage.Masters.DatePicker.Options" is-open="GeneralConCtrl.ePage.Masters.DatePicker.isOpen['ArrivalDate']">
+                                    <span class="input-group-btn"> <button class="btn btn-default shiny" data-ng-click="GeneralConCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'ArrivalDate')"><i class="fa fa-calendar"></i></button></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Last Foreign Port</label>
+                                <div class="input-group input-group-sm">
+                                <!-- <input class="form-control" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.LastForeignPort"
+                                        type="text" placeholder="Last Foreign Port">  -->
+                                        <div dynamic-lookup my-ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.LastForeignPort" obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader"
+                                    prefix-data="'MstUNLOCO'" config="'ConGeneralLastForeignPort'"></div>
+                                        <span class="input-group-btn">
+                                        <button dynamic-list-modal obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader" field-name="'ConGeneralLastForeignPort'"  prefix-data="'MstUNLOCO'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="GeneralConCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button></span></div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Departure Date</label>
+                                <div class="input-group input-group-sm"><input class="form-control" type="text" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.LastForeignPortDate"
+                                        placeholder="{{GeneralConCtrl.ePage.Masters.DatePicker.Options.format}}" uib-datepicker-popup="{{GeneralConCtrl.ePage.Masters.DatePicker.Options.format}}"
+                                        datepicker-options="GeneralConCtrl.ePage.Masters.DatePicker.Options" is-open="GeneralConCtrl.ePage.Masters.DatePicker.isOpen['DepartureDate']">
+                                    <span class="input-group-btn"> <button class="btn btn-default shiny" data-ng-click="GeneralConCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'DepartureDate')"><i class="fa fa-calendar"></i></button></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </uib-tab>
+            <uib-tab heading="Docs">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Manifest Print</label><select chosen ng-options="x.Key as x.Description for x in GeneralConCtrl.ePage.Masters.DropDownMasterList.CON_MANIFEST.ListSource"
+                                    ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.PrintOptionForColoadsOnManifest"
+                                    class="form-control"><option value="">--Select--</option></select></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Print Option for Other Docs</label><select chosen ng-options="x.Key as x.Description for x in GeneralConCtrl.ePage.Masters.DropDownMasterList.CON_MANIFEST.ListSource"
+                                    ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.PrintOptionForColoadsOnOtherDocs"
+                                    class="form-control"><option value="">--Select--</option></select></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">AWB Dimensions</label><select chosen ng-options="x.Key as x.Description for x in GeneralConCtrl.ePage.Masters.DropDownMasterList.AIRWAY.ListSource"
+                                    ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.PrintOptionForPackagesOnAWB"
+                                    class="form-control"><option value="">--Select--</option></select></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Original Bills</label><input type="text" max-length="1" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.NoOriginalBills"
+                                     class="form-control input-sm" placeholder="Original Bills"></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Release Type</label><select chosen ng-options="x.Key as x.Description for x in GeneralConCtrl.ePage.Masters.DropDownMasterList.RELEASETYPE.ListSource"
+                                    ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.ReleaseType"
+                                    class="form-control"><option value="">--Select--</option></select></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Copy BOL's</label><input type="text" max-length="1" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.NoCopyBills"
+                                    maxlength="12" class="form-control input-sm" placeholder="Copy BOL's"></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label"></label>
+                                <div class="checkbox"><label><input type="checkbox" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.OverrideConsolChargeable "  class="colored-blue" / ><span class="text">Quantities Override</span></label></div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Corrected Weight</label><input type="text" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.CorrectedConsolWeight"
+                                    max-length="9" class="form-control input-sm" placeholder="Corrected Weight"></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Unit of Weight</label><select chosen ng-options="x.Key as x.Description for x in GeneralConCtrl.ePage.Masters.DropDownMasterList.WEIGHTUNIT.ListSource"
+                                    ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.CorrectedConsolWeightUnit "
+                                    class="form-control"><option value="">--Select--</option></select></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Corrected Volume</label><input type="text" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.CorrectedConsolVolume"
+                                    max-length="12" class="form-control input-sm" placeholder="Corrected Volume"></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Unit Of Volume</label><select chosen ng-options="x.Key as x.Description for x in GeneralConCtrl.ePage.Masters.DropDownMasterList.VOLUMEUNIT.ListSource"
+                                    ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.CorrectedConsolVolumeUnit"
+                                    class="form-control"><option value="">--Select--</option></select></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Corrected Chrg. Qty</label><input type="text" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.ConsolChargeable"
+                                    max-length="9" class="form-control input-sm" placeholder="Corrected Chrg. Qty"></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Unit Of Chrg. Qty</label><input type="text" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.UnitOfChargeQty"
+                                    max-length="6" class="form-control input-sm" placeholder="Unit Of Chrg. Qty"></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Chargeable Rate</label><input type="text" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.ConsolChargeableRate"
+                                    max-length="8" class="form-control input-sm" placeholder="Chargeable Rate"></div>
+                        </div>
+                    </div>
+                </div>
+            </uib-tab>
+            <uib-tab heading="Reference Numbers">
+                <div data-ng-include="'app/eaxis/freight/consolidation/general/tabs/references.html'"></div>
+            </uib-tab>
+            <uib-tab heading="Port Transport">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Arrival</label>
+                                <div class="input-group input-group-sm">
+                                   <input type="hidden" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.ORG_ArrivalUnpackCFSTransportFK">
+                                    <div dynamic-lookup my-ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.ORG_ArrivalUnpackCFSTransportCode" obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader"
+                                    prefix-data="'OrganizationList'" config="'ConGeneralORG_ArrivalUnpackCFSTransportCode'"></div>
+
+                                        <span class="input-group-btn">
+                                        <button dynamic-list-modal obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader" field-name="'ConGeneralORG_ArrivalUnpackCFSTransportCode'" prefix-data="'OrganizationList'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="GeneralConCtrl.ePage.Masters.SelectedData($item,'OAD_ArrivalUnpackCFSTransportAddressFK')" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button></span></div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Arrival Address FK</label><select chosen ng-options="x.PK as x.Code for x in GeneralConCtrl.ePage.Masters.DropDownMasterList.OAD_ArrivalUnpackCFSTransportAddressFK.ListSource"
+                                    ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.OAD_ArrivalUnpackCFSTransportAddressFK"
+                                    class="form-control"><option value="">--Select--</option></select></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Departure</label>
+                              
+                                <div class="input-group input-group-sm">
+                              
+                                         <input type="hidden" ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.ORG_DeparturePackCFSTransportFK">
+                                    <div dynamic-lookup my-ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.ORG_DeparturePackCFSTransportCode" obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader"
+                                    prefix-data="'OrganizationList'" config="'ConGeneralORG_DeparturePackCFSTransportCode'"></div>
+
+                                         <span class="input-group-btn">
+                                         <button dynamic-list-modal obj="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader" field-name="'ConGeneralORG_DeparturePackCFSTransportCode'"  prefix-data="'OrganizationList'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="GeneralConCtrl.ePage.Masters.SelectedData($item,'OAD_DeparturePackCFSTransportAddressFK')" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button></span></div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group"><label class="control-label">Departure Address FK</label><select chosen ng-options="x.Key as x.Description for x in GeneralConCtrl.ePage.Masters.DropDownMasterList.OAD_DeparturePackCFSTransportAddressFK.ListSource"
+                                    ng-model="GeneralConCtrl.ePage.Entities.ConsolHeader.Data.UIConConsolHeader.OAD_DeparturePackCFSTransportAddressFK"
+                                    class="form-control"><option value="">--Select--</option></select></div>
+                        </div>
+                    </div>
+                </div>
+            </uib-tab>
+            <uib-tab heading="Custom">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"></div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>

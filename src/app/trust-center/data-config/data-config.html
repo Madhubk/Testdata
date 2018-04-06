@@ -1,0 +1,578 @@
+<div class="clearfix tc-filter-list tc-data-config-container">
+    <!-- Breadcrumb -->
+    <div class="clearfix tc-breadcrumb" data-ng-if="DataConfigCtrl.ePage.Masters.ActiveApplication == 'TC'">
+        <i class="fa fa-home home-icon"></i>
+        <div class="breadcrumb-list-wrapper">
+            <ol class="breadcrumb">
+                <li data-ng-repeat="x in DataConfigCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="DataConfigCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                </li>
+                <li data-ng-repeat="x in DataConfigCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
+                    class="active"></li>
+            </ol>
+        </div>
+        <span class="tc-breadcrumb-app-name" data-ng-if="DataConfigCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="DataConfigCtrl.ePage.Masters.QueryString.AppName"></span>
+    </div>
+    <!-- Header -->
+    <div class="clearfix tc-header-container">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="tc-header with-add-new">
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-5">
+                    <div class="text-single-line" data-ng-bind="DataConfigCtrl.ePage.Masters.QueryString.BreadcrumbTitle"></div>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-5 pt-4 text-right">
+                    <button class="btn btn-xs btn-info" data-ng-click="DataConfigCtrl.ePage.Masters.DataConfig.AddNew()">New</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">
+            <div class="tc-header edit-view">
+                <span data-ng-bind="'Details'"></span>
+                <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10" data-ng-click="DataConfigCtrl.ePage.Masters.DataConfig.Edit()"
+                    data-ng-disabled="!DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.PK">Edit</button>
+                <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="DataConfigCtrl.ePage.Masters.DataConfig.DeleteConfirmation()"
+                    data-ng-bind="DataConfigCtrl.ePage.Masters.DataConfig.DeleteBtnText" data-ng-disabled="DataConfigCtrl.ePage.Masters.DataConfig.IsDisableDeleteBtn || !DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.PK"></button>
+            </div>
+        </div>
+    </div>
+    <!-- Body -->
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 tc-page-height-fixed">
+            <div class="tc-list-container">
+                <div class="tc-list-search">
+                    <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="DataConfigCtrl.ePage.Masters.Search">
+                </div>
+                <ul class="tc-list-ul">
+                    <div class="p-15 text-center tc-loading" data-ng-if="!DataConfigCtrl.ePage.Masters.DataConfig.DataConfigList">
+                        <i class="fa fa-spin fa-spinner"></i>
+                    </div>
+                    <div data-ng-if="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigList && (DataConfigCtrl.ePage.Masters.DataConfig.DataConfigList | filter: DataConfigCtrl.ePage.Masters.Search).length===0"
+                        class="p-15 text-center">
+                        <i>No Records...</i>
+                    </div>
+                    <li data-ng-if="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigList && (DataConfigCtrl.ePage.Masters.DataConfig.DataConfigList | filter: DataConfigCtrl.ePage.Masters.Search).length > 0"
+                        data-ng-repeat="x in DataConfigCtrl.ePage.Masters.DataConfig.DataConfigList | filter: DataConfigCtrl.ePage.Masters.Search"
+                        data-ng-click="DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.PK != x.PK && DataConfigCtrl.ePage.Masters.DataConfig.OnDataConfigClick(x)"
+                        data-ng-class="{'active': DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.PK == x.PK}">
+                        <div class="clearfix tc-list">
+                            <div class="tc-list-name">
+                                <i class="fa fa-circle-o mr-10"></i>
+                                <span class="text-single-line" data-ng-bind="x.UIEntityName"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed">
+            <div class="pt-10 pb-10 tc-details-view clearfix">
+                <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Entity Name</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.UIEntityName || DataConfigCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Class Source</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.ClassSource || DataConfigCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">DB Source</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.DBSource || DataConfigCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Entity Source</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.EntitySource || DataConfigCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Entity RefKey</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.EntityRefKey || DataConfigCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Entity RefCode</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.EntityRefCode || DataConfigCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Config Type</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.ConfigType || DataConfigCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Parent Entity RefKey</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.ParentEntityRefKey || DataConfigCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Parent Entity Source</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.ParentEntitySource || DataConfigCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Parent Entity RefCode</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.ParentEntityRefCode || DataConfigCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Additional Entity RefKey</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.AdditionalEntityRefKey || DataConfigCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Additional Entity Source</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.AdditionalEntitySource || DataConfigCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div> -->
+                <div data-ng-if="DataConfigCtrl.ePage.Masters.QueryString.ConfigType == 'integration'">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="clearfix form-group">
+                            <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">IsFile</label>
+                            <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                <label data-ng-bind="DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.IsFile || DataConfigCtrl.ePage.Masters.emptyText"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="clearfix form-group">
+                            <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">IsFile Path</label>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                <label data-ng-bind="DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.AdditionalEntityRefCode || DataConfigCtrl.ePage.Masters.emptyText"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="clearfix form-group">
+                            <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">IsFile Type</label>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                <label data-ng-bind="DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.FileType || DataConfigCtrl.ePage.Masters.emptyText"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tc-section-divider"></div>
+            <div class="clearfix mb-30 tc-data-config-field-container tc-list-container" data-ng-if="DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.PK">
+                <div class="tc-list-header ng-binding">DATA CONFIG FIELDS</div>
+                <div class="clearfix header">
+                    <div class="pr-0" data-ng-class="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ActiveConfiguration.IsExternalCode ? 'col-lg-2' : 'col-lg-3'">
+                        <div class="text-single-line" data-ng-bind="'Type'"></div>
+                    </div>
+                    <div class="col-lg-3 pr-0" data-ng-if="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ActiveConfiguration.IsExternalCode">
+                        <div class="text-single-line" data-ng-bind="'External Code'"></div>
+                    </div>
+                    <div class="pr-0" data-ng-class="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ActiveConfiguration.IsExternalCode ? 'col-lg-3' : 'col-lg-4'">
+                        <div class="text-single-line" data-ng-bind="'Field Name'"></div>
+                    </div>
+                    <div class="pr-0" data-ng-class="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ActiveConfiguration.IsExternalCode ? 'col-lg-2' : 'col-lg-3'">
+                        <div class="text-single-line" data-ng-bind="'Party'"></div>
+                    </div>
+                    <div class="col-lg-2 text-right">
+                        <!-- <span class="fa fa-plus-circle cursor-pointer" data-ng-click="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.AddNewField(undefined, 'Main')"></span> -->
+                        <a href="javascript:void(0)" data-ng-click="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.AddNewField(undefined, 'Main')">Add</a>
+                    </div>
+                </div>
+                <div class="clearfix p-5">
+                    <div class="clearfix text-center p-20" data-ng-if="!DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ListSource">
+                        <i class="fa fa-spin fa-spinner font-160"></i>
+                    </div>
+                    <div class="clearfix text-center p-20" data-ng-if="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ListSource && DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ListSource.length == 0">
+                        <i>No Records...!</i>
+                    </div>
+                    <div class="clearfix mt-5 mb-10" data-ng-if="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ListSource && DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ListSource.length > 0"
+                        data-ng-repeat="x in DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ListSource">
+                        <div class="pr-0" data-ng-class="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ActiveConfiguration.IsExternalCode ? 'col-lg-2' : 'col-lg-3'">
+                            <div class="text-single-line" data-ng-bind="x.ItemType" title="{{x.ItemType}}" data-ng-class="x.ItemType == 'Main' ? 'data-config-item-type-main' : ''"></div>
+                        </div>
+                        <div class="col-lg-3 pr-0" data-ng-if="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ActiveConfiguration.IsExternalCode">
+                            <div class="text-single-line" data-ng-bind="x.External_Code" title="{{x.External_Code}}"></div>
+                        </div>
+                        <div class="pr-0" data-ng-class="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ActiveConfiguration.IsExternalCode ? 'col-lg-3' : 'col-lg-4'">
+                            <div class="text-single-line" data-ng-bind="x.DbField" title="{{x.DbField}}"></div>
+                        </div>
+                        <div class="pr-0" data-ng-class="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ActiveConfiguration.IsExternalCode ? 'col-lg-2' : 'col-lg-3'">
+                            <div class="text-single-line" data-ng-bind="x.UIField" title="{{x.UIField}}"></div>
+                        </div>
+                        <div class="col-lg-2 text-right">
+                            <!-- <span class="fa fa-plus-circle mr-5 cursor-pointer" data-ng-click="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.AddNewField(x, 'Segment')"
+                                data-ng-if="x.ItemType == 'Main'" title="Add"></span>
+                            <span class="fa fa-pencil cursor-pointer" data-ng-click="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.EditDataConfigField(x)" title="Edit"></span> -->
+
+                            <a href="javascript:void(0)" data-ng-click="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.AddNewField(x, 'Segment')"
+                            data-ng-if="x.ItemType == 'Main'" title="Add">Add</a> 
+                            <span class="ml-5 mr-5" data-ng-if="x.ItemType == 'Main'">|</span>
+                            <a href="javascript:void(0)" data-ng-click="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.EditDataConfigField(x)" title="Edit">Edit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Template -->
+<script type="text/ng-template" id="dataConfigEdit">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="DataConfigCtrl.ePage.Masters.DataConfig.Cancel()">&times;</button>
+        <h5 class="modal-title" id="modal-title">
+            <strong>Edit</strong>
+        </h5>
+    </div>
+    <div class="modal-body pt-10" id="modal-body">
+        <div class="clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Entity Name</label>
+                    <div class="clearfix">
+                        <input type="text" class="form-control input-sm" placeholder="Entity Name" data-ng-model="DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.UIEntityName">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Class Source</label>
+                    <div class="clearfix">
+                        <input type="text" class="form-control input-sm" placeholder="Class Source" data-ng-model="DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.ClassSource">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">DB Source</label>
+                    <div class="clearfix">
+                        <input type="text" class="form-control input-sm" placeholder="DB Source" data-ng-model="DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.DBSource">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Entity Source</label>
+                    <div class="clearfix">
+                        <input type="text" class="form-control input-sm" placeholder="Entity Source" data-ng-model="DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.EntitySource">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Entity RefKey</label>
+                    <div class="clearfix">
+                        <input type="text" class="form-control input-sm" placeholder="Entity RefKey" data-ng-model="DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.EntityRefKey">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Entity RefCode</label>
+                    <div class="clearfix">
+                        <input type="text" class="form-control input-sm" placeholder="Entity RefCode" data-ng-model="DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.EntityRefCode">
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Config Type</label>
+                    <div class="clearfix">
+                        <input type="text" class="form-control input-sm" placeholder="Config Type" data-ng-disabled="DataConfigCtrl.ePage.Masters.DataConfig.ConfigType"
+                            data-ng-model="DataConfigCtrl.ePage.Masters.QueryString.ConfigType">
+                    </div>
+                </div>
+            </div> -->
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Parent Entity RefKey</label>
+                    <div class="clearfix">
+                        <input type="text" class="form-control input-sm" placeholder="Parent Entity RefKey" data-ng-model="DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.ParentEntityRefKey">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Parent Entity Source</label>
+                    <div class="clearfix">
+                        <input type="text" class="form-control input-sm" placeholder="Parent Entity Source" data-ng-model="DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.ParentEntitySource">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Parent Entity RefCode</label>
+                    <div class="clearfix">
+                        <input type="text" class="form-control input-sm" placeholder="Parent Entity RefCode" data-ng-model="DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.ParentEntityRefCode">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Additional Entity RefKey</label>
+                    <div class="clearfix">
+                        <input type="text" class="form-control input-sm" placeholder="Additional Entity RefKey" data-ng-model="DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.AdditionalEntityRefKey">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Additional Entity Source</label>
+                    <div class="clearfix">
+                        <input type="text" class="form-control input-sm" placeholder="Additional Entity Source" data-ng-model="DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.AdditionalEntitySource">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Additional Entity RefCode</label>
+                    <div class="clearfix">
+                        <input type="text" class="form-control input-sm" placeholder="Additional Entity RefCode" data-ng-model="DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.AdditionalEntityRefCode">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" data-ng-if="DataConfigCtrl.ePage.Masters.QueryString.ConfigType == 'Integration'">
+                <div class="clearfix">
+                    <div class="form-group">
+                        <!-- <label class="control-label">&nbsp;</label> -->
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" data-ng-model="DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.IsFile" class="colored-blue">
+                                <span class="text">Is File</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" data-ng-if="DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.IsFile">
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                        <div class="form-group">
+                            <label class="control-label">File Path</label>
+                            <div class="clearfix">
+                                <input type="text" class="form-control input-sm" placeholder="File Path" data-ng-model="DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.FilePath">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                        <div class="form-group">
+                            <label class="control-label">File Type</label>
+                            <div class="clearfix">
+                                <select chosen class="form-control" ng-model="DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.FileType" data-ng-options="x.FieldName as x.Displayname for x in DataConfigCtrl.ePage.Masters.FileType.ListSource"
+                                    search-contains="true">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="form-group">
+                    <label class="control-label text-single-line">
+                        <span>Fields</span>
+                        <span data-ng-click="DataConfigCtrl.ePage.Masters.DataConfig.OpenJsonModal()" class="glyphicon glyphicon-pencil cursor-pointer ml-5"></span>
+                        <a href="javascript: void(0);" class="pull-right" data-ng-click="DataConfigCtrl.ePage.Masters.DataConfig.AddNewLoad()" data-ng-if="DataConfigCtrl.ePage.Masters.QueryString.ConfigType != 'Integration' && DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.ClassSource">Add New Load</a>
+                    </label>
+                    <div class="clearfix">
+                        <textarea rows="15" class="form-control input-sm no-resize" placeholder="Fields" data-ng-model="DataConfigCtrl.ePage.Masters.DataConfig.ActiveDataConfig.Fields"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tc-section-divider-small"></div>
+        <div class="clearfix p-10">
+            <button class="btn btn-default tc-btn-save btn-xs pull-right ml-10" data-ng-click="DataConfigCtrl.ePage.Masters.DataConfig.Save()"
+                data-ng-bind="DataConfigCtrl.ePage.Masters.DataConfig.SaveBtnText" data-ng-disabled="DataConfigCtrl.ePage.Masters.DataConfig.IsDisableSaveBtn"></button>
+            <button class="btn btn-default tc-btn-cancel btn-xs pull-right ml-10" data-ng-click="DataConfigCtrl.ePage.Masters.DataConfig.Cancel()">Cancel</button>
+        </div>
+        <div class="tc-section-divider-small mb-20"></div>
+    </div>
+</script>
+
+<!-- Field Edit Template -->
+<script type="text/ng-template" id="dataConfigFieldsEdit">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.Close()">&times;</button>
+        <h5 class="modal-title" id="modal-title">
+            <strong>Edit</strong>
+        </h5>
+    </div>
+    <div class="modal-body pt-10" id="modal-body">
+        <form class="clearfix form-horizontal" novalidate>
+            <div class="clearfix pl-15 pr-15">
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">Expression Type</label>
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                        <select chosen class="form-control" ng-model="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ActiveDataConfigField.ExpressionType"
+                            data-ng-options="x as x for x in DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ExpressionType.ListSource"
+                            search-contains="true">
+                            <!-- <option value="">--Select--</option> -->
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">Expression</label>
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                        <textarea class="form-control no-resize" rows="10" placeholder="Expression" data-ng-model="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ActiveDataConfigField.Expression"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">Fileld Name</label>
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                        <select chosen class="form-control" ng-model="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ActiveDataConfigField.DbField"
+                            data-ng-options="x.ColumnName as x.ColumnName for x in DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.FIeldList"
+                            search-contains="true" data-ng-change="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ActiveDataConfigField.UIField = DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ActiveDataConfigField.DbField">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">Display Name</label>
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                        <input type="text" class="form-control input-sm" placeholder="Display Name" data-ng-model="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ActiveDataConfigField.UIField"
+                        />
+                    </div>
+                </div>
+                <div class="form-group tc-autocomplete-container" data-ng-if="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ActiveDataConfigField.ItemType == 'Main' && DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ActiveConfiguration.IsExternalCode">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">External Code</label>
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                        <input type="text" class="form-control input-sm" placeholder="External Code" data-ng-model="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ActiveDataConfigField.External_Code"
+                            uib-typeahead="x.EVT_Code as x.EVT_Description for x in DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.GetAutocompleteList($viewValue, 'Event')"
+                            typeahead-loading="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.IsAutocompleteLoading"
+                            typeahead-no-results="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.IsAutocompleteNoResults"
+                            typeahead-editable="false" typeahead-append-to-body='false' typeahead-on-select="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.OnSelectAutoCompleteList($item,$model, $label, $event, 'Event')"
+                            ng-blur="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.OnBlurAutoCompleteList($event, 'Event')"
+                            typeahead-min-length="" />
+                        <div class="clearfix dropdown-menu auto-complete" data-ng-if="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.IsAutocompleteNoResults">
+                            <div class="auto-complete-no-result">No Results Found!</div>
+                        </div>
+                        <div class="clearfix dropdown-menu auto-complete" data-ng-if="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.IsAutocompleteLoading">
+                            <div class="auto-complete-no-result">
+                                <i class="fa fa-spin fa-spinner"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" data-ng-if="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ActiveDataConfigField.ItemType != 'Main'">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">Item Type</label>
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                        <select chosen class="form-control" ng-model="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ActiveDataConfigField.ItemType"
+                            data-ng-options="x as x for x in DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ActiveConfiguration.ItemTypeList"
+                            search-contains="true">
+                            <!-- <option value="">--Select--</option> -->
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">Access Type</label>
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                        <select chosen class="form-control" ng-model="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ActiveDataConfigField.EntitySource"
+                            data-ng-options="x as x for x in DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.EntitySourceList"
+                            search-contains="true">
+                            <!-- <option value="">--Select--</option> -->
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">Access Code</label>
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                        <input type="text" class="form-control input-sm" placeholder="Access Code" data-ng-model="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ActiveDataConfigField.EntityRefCode"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">Access Key</label>
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                        <input type="text" class="form-control input-sm" placeholder="Access Key" data-ng-model="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ActiveDataConfigField.EntityRefKey"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">Priority</label>
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                        <input type="text" class="form-control input-sm" placeholder="Priority" data-ng-model="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ActiveDataConfigField.Priority"
+                        />
+                    </div>
+                </div>
+                <div class="form-group" data-ng-if="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ActiveConfiguration.IsCaptureDateTime">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">Is Capture Date Time</label>
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" data-ng-model="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ActiveDataConfigField.IsCaptureDateTime"
+                                    class="colored-blue">
+                                <span class="text"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">Target Field</label>
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                        <input type="text" class="form-control input-sm" placeholder="Target Field" data-ng-model="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ActiveDataConfigField.AdditionalField"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">Related Input</label>
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                        <textarea rows="10" class="form-control no-resize" placeholder="Related Input" data-ng-model="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ActiveDataConfigField.RelatedInput"></textarea>
+                    </div>
+                </div>
+                <div class="form-group" data-ng-if="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ActiveConfiguration.IsPartyType">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">Party Type</label>
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                        <input type="text" class="form-control input-sm" placeholder="Party Type" data-ng-model="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ActiveDataConfigField.PartyTypeCode"
+                        />
+                    </div>
+                </div>
+                <!-- <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">Party Type Key</label>
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                        <input type="text" class="form-control input-sm" placeholder="Party Type Key" data-ng-model="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.ActiveDataConfigField.PartyTypeKay"
+                        />
+                    </div>
+                </div> -->
+            </div>
+            <div class="tc-section-divider-small"></div>
+            <div class="clearfix p-10">
+                <input type="submit" class="btn btn-default tc-btn-save btn-xs pull-right ml-10" data-ng-click="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.Save()"
+                    value="{{DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.SaveBtnText}}" data-ng-disabled="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.IsDisableSaveBtn"
+                />
+                <button class="btn btn-default tc-btn-cancel btn-xs pull-right ml-10" data-ng-click="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.Close()">Cancel</button>
+            </div>
+            <div class="tc-section-divider-small mb-20"></div>
+        </form>
+    </div>
+</script>

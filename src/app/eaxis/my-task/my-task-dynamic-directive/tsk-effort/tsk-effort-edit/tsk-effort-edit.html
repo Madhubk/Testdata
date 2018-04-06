@@ -1,0 +1,56 @@
+<form class="clearfix" name="myTaskForm" novalidate>
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="form-group">
+                <label class="control-label">House Bill</label>
+                <input type="text" class="form-control input-sm" data-ng-model="TaskEffortEditDirectiveCtrl.ePage.Masters.EntityObj.UIShipmentHeader.HouseBill"
+                    placeholder="House Bill" />
+            </div>
+        </div>
+        <!--Transport-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="form-group">
+                <label class="control-label text-single-line">Transport Mode</label>
+                <div class="">
+                    <select chosen class="form-control" ng-model="TaskEffortEditDirectiveCtrl.ePage.Masters.EntityObj.UIShipmentHeader.TransportMode"
+                        ng-options="x.Key as x.Description for x in TaskEffortEditDirectiveCtrl.ePage.Masters.DropDownMasterList.TRANSTYPE.ListSource"
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <!--Container-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="form-group">
+                <label class="control-label text-single-line">Container Mode</label>
+                <div class="">
+                    <select chosen class="form-control" ng-model="TaskEffortEditDirectiveCtrl.ePage.Masters.EntityObj.UIShipmentHeader.PackingMode"
+                        ng-options="x.Key as x.Description for x in TaskEffortEditDirectiveCtrl.ePage.Masters.DropDownMasterList.CNTTYPE.ListSource"
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Save & Complete Buttons -->
+    <div class="clearfix">
+        <div class="clearfix my-task-standard-bar" data-ng-if="
+        TaskEffortEditDirectiveCtrl.ePage.Masters.StandardMenuInput">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 pt-5">
+                <a href="javascript: void(0)" document-modal input="TaskEffortEditDirectiveCtrl.ePage.Masters.StandardMenuInput" class="my-task-icon fa fa-file-text-o mr-5"></a>
+                <span class="my-task-slash"></span>
+                <a href="javascript: void(0)" comment-modal input="TaskEffortEditDirectiveCtrl.ePage.Masters.StandardMenuInput" class="my-task-icon fa fa-comment-o mr-5"></a>
+                <span class="my-task-slash"></span>
+                <a href="javascript: void(0)" email-template-modal input="TaskEffortEditDirectiveCtrl.ePage.Masters.StandardMenuInput" class="my-task-icon fa fa-envelope-o mr-5"></a>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <input type="submit" class="btn btn-success btn-sm pull-right ml-5" data-ng-click="TaskEffortEditDirectiveCtrl.ePage.Masters.Save()"
+                    data-ng-disabled="TaskEffortEditDirectiveCtrl.ePage.Masters.IsDisableSaveBtn" value="{{TaskEffortEditDirectiveCtrl.ePage.Masters.SaveBtnText}}">
+                <input type="button" class="btn btn-primary btn-sm pull-right ml-5" data-ng-click="TaskEffortEditDirectiveCtrl.ePage.Masters.Complete()"
+                    data-ng-disabled="TaskEffortEditDirectiveCtrl.ePage.Masters.IsDisableCompleteBtn" value="{{TaskEffortEditDirectiveCtrl.ePage.Masters.CompleteBtnText}}">
+            </div>
+        </div>
+    </div>
+</form>

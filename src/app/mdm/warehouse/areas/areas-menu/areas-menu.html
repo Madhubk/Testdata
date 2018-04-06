@@ -1,0 +1,45 @@
+<div class="clearfix wms-menu-wraper">
+    <div  class="col-sm-12 no-padding-left no-padding-right">
+        <div areas-details current-areas="AreasMenuCtrl.currentAreas"></div>         
+    </div>
+    <div class="error-warning-container right" id="errorWarningContainer{{AreasMenuCtrl.currentAreas.label}}">
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                <!-- <i class="fa fa-warning"></i>  -->
+                Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right" data-ng-click="AreasMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(AreasMenuCtrl.currentAreas)">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+        </div>
+        <div class="error-warning-body">
+            <div class="clearfix" data-ng-if="AreasMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length>0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in AreasMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <div class="eaxis-footer-strip">
+        <div class="col-lg-9">
+            <standard-menu entity-name="'WarehouseArea'" input="AreasMenuCtrl.currentAreas"></standard-menu>
+        </div>
+        <div class="col-lg-3">
+            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="AreasMenuCtrl.ePage.Masters.Validation(AreasMenuCtrl.currentAreas)"
+            data-ng-bind="AreasMenuCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="AreasMenuCtrl.ePage.Masters.IsDisableSave"></button>
+            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="AreasMenuCtrl.ePage.Masters.Validation(AreasMenuCtrl.currentAreas);AreasMenuCtrl.ePage.Masters.SaveAndClose = true"
+             data-ng-disabled="AreasMenuCtrl.ePage.Masters.IsDisableSave">Save & Close</button>
+        </div>
+    </div>
+</div>

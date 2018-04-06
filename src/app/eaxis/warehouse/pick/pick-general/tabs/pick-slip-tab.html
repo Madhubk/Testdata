@@ -1,0 +1,104 @@
+<div class="col-lg-12 margin-top-10" style="height:45%;">
+    <div class="">
+        <div class="wmstable_scroll" style="height:400px; padding-top: 2px;">
+            <div class="table" id="results">
+                <div class='theader'>
+                    <div class='table_header'>Client</div>
+                    <div class='table_header'>Product</div>
+                    <div class='table_header'>Units</div>
+                    <div class='table_header'>UQ</div>
+                    <div class='table_header'>Location</div>
+                    <div class='table_header'>Part Attribute1</div>
+                    <div class='table_header'>Part Attribute2</div>
+                    <div class='table_header'>Part Attribute3</div>
+                    <div class='table_header'>Expiry Date</div>
+                    <div class='table_header'>Packing Date</div>
+                    <div class='table_header'>Picked Date Time</div>
+                    <div class='table_header'>Picked Qty</div>
+                </div>
+                <!-- List Empty Response -->
+                <div data-ng-if="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickLineSummary.length==0">
+                    <div class="grid-no-record" style="bottom:38px">No records found...</div>
+                </div>
+
+                <div class='table_row' ng-repeat="x in PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickLineSummary track by $index" style="font-size: 11px;">
+                    <div class='table_small'>
+                        <div class='table_cell'>Client</div>
+                        <div class='table_cell'>{{x.ClientCode || PickGeneralCtrl.ePage.Masters.emptyText}} - {{x.ClientName || PickGeneralCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Product</div>
+                        <div class='table_cell'>{{x.ProductCode || PickGeneralCtrl.ePage.Masters.emptyText}}-{{x.ProductDescription || PickGeneralCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Units</div>
+                        <div class='table_cell'>{{x.Units || PickGeneralCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>UQ</div>
+                        <div class='table_cell'>{{x.StockKeepingUnit || PickGeneralCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Location</div>
+                        <div class='table_cell'>{{x.Location || PickGeneralCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Part Attribute1</div>
+                        <div class='table_cell'>{{x.PartAttrib1 || PickGeneralCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Part Attribute2</div>
+                        <div class='table_cell'>{{x.PartAttrib2 || PickGeneralCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Part Attribute3</div>
+                        <div class='table_cell'>{{x.PartAttrib3 || PickGeneralCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Expiry Date</div>
+                        <div class='table_cell'>{{x.ExpiryDate || PickGeneralCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Packing Date</div>
+                        <div class='table_cell'>{{x.PackingDate || PickGeneralCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Picked Date Time</div>
+                        <div class='table_cell' ng-if="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatus=='PIF'">{{x.PickedDateTime || PickGeneralCtrl.ePage.Masters.emptyText}}</div>
+                        <div class='table_cell' ng-if="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatus!='PIF'">
+                            <span class="error-warning-container" ng-repeat="y in PickGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsPickLineSummary.ERROR">
+                                <error-warning-directive data-ng-if="y.ColIndex == 1 && y.RowIndex ==$parent.$index" list="PickGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsPickLineSummary.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                    row-index="$parent.$index" col-index="1">
+                                </error-warning-directive>
+                            </span>
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control height-20" placeholder="{{PickGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datetime-picker="{{PickGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                    ng-model="x.PickedDateTime" is-open="PickGeneralCtrl.ePage.Masters.DatePicker.isOpen['isPickedDateTime'+[$index]]"
+                                    datepicker-options="PickGeneralCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                                    close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" save-as="PickGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                    when-closed="PickGeneralCtrl.ePage.Masters.DatePicker.OnPickedDateTimeSelected(PickGeneralCtrl.ePage.Masters.DatePicker.PickedDateTime)"
+                                    data-ng-click="PickGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPickedDateTime'+[$index])"
+                                    popup-placement="bottom-right" ng-change="PickGeneralCtrl.ePage.Masters.OnChangeValues(x.PickedDateTime,'E8011',true,$index);PickGeneralCtrl.ePage.Masters.CheckFutureDate(x.PickedDateTime,$index)"custom-date-time-format/>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default height-20" data-ng-click="PickGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPickedDateTime'+[$index])">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Picked Qty</div>
+                        <div class='table_cell' ng-if="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatus=='PIF'">{{x.PickedQty || PickGeneralCtrl.ePage.Masters.emptyText}}</div>
+                        <div class="table_cell" ng-if="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatus!='PIF'">
+                            <input type="text" numbers-only class="form-control height-20 ng-pristine ng-valid ng-not-empty ng-touched"
+                                placeholder="Picked Qty" data-ng-model="x.PickedQty" >
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

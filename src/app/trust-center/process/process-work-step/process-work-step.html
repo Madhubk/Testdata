@@ -1,0 +1,117 @@
+<div class="clearfix tc-process-work-step">
+  <!-- Breadcrumb -->
+  <div class="clearfix tc-breadcrumb" data-ng-if="ProcessWorkStepCtrl.ePage.Masters.ActiveApplication == 'TC'">
+    <i class="fa fa-home home-icon"></i>
+    <div class="breadcrumb-list-wrapper">
+      <ol class="breadcrumb">
+        <li data-ng-repeat="x in ProcessWorkStepCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+          <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+        </li>
+        <li data-ng-repeat="x in ProcessWorkStepCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
+          class="active"></li>
+      </ol>
+    </div>
+    <span class="tc-breadcrumb-app-name" data-ng-if="ProcessWorkStepCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="ProcessWorkStepCtrl.ePage.Masters.QueryString.AppName"></span>
+  </div>
+  <!-- Body -->
+  <div class="clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0 tc-page-height-fixed without-header">
+      <div class="clearfix mt-10">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+          <div class="clearfix mb-10 text-center">
+            <div class="step-create-btn-round" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.AddNewStep('ACTIVITY')"
+              title="Add Activity">
+              <i class="fa fa-plus"></i>
+            </div>
+            <div class="step-create-btn-round" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.AddNewStep('DECISION')"
+              title="Add Decision">
+              <i class="fa fa-retweet"></i>
+            </div>
+            <div class="step-create-btn-round" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.AddNewStep('END')" title="Add End">
+              <i class="fa fa-stop"></i>
+            </div>
+            <div class="step-create-btn-round" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.GetProcessWorkStepList()"
+              title="Refresh">
+              <i class="fa fa-refresh"></i>
+            </div>
+          </div>
+          <div class="clearfix p-20 text-center" data-ng-if="!ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessWorkStepList">
+            <i class="fa fa-spin fa-spinner" style="font-size: 18px;"></i>
+          </div>
+          <div class="clearfix p-20 text-center" data-ng-if="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessWorkStepList && ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessWorkStepList.length == 0">
+            <i>No Records...!</i>
+          </div>
+          <div class="process-box clearfix" data-ng-if="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessWorkStepList && ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessWorkStepList.length > 0"
+            data-ng-repeat="item in ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessWorkStepList" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessWorkStepListClick(item)">
+            <div id="ProcessWorkStepNo{{item.StepNo}}" class="process-box-inner mb-10" data-ng-class="{'active': ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.PK === item.PK}">
+              <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                <div class="process-no">{{item.StepNo}}</div>
+              </div>
+              <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+                <div class="process-title text-single-line">{{item.StepName}}</div>
+                <div class="process-description text-single-line">{{item.Description}}</div>
+                <div class="clearfix">
+                  <i class="process-icon glyphicon glyphicon-trash ml-0" title="Delete" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.RemoveRecord(item, $index)"></i>
+                  <i class="process-icon glyphicons glyphicons-lock" title="Rule Access" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.OnAccessClick(item)"></i>
+                  <i class="process-icon glyphicons glyphicons-clock" title="KPI" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.OpenJsonModal(item, 'KPIConfiguration')"></i>
+                  <i class="process-icon glyphicon glyphicon-cog" title="RelatedProcess" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.OpenJsonModal(item, 'RelatedProcess')"></i>
+                  <i class="process-icon glyphicon glyphicon-pencil" title="Edit" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.EditStep(item)"></i>
+                </div>
+              </div>
+              <a class="process-cubes" data-ng-class="{'active': item.Rules.BEFORE_INIT.length > 0}" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.OnProcessWorkStepClick(item, 'BEFORE_INIT')"
+                title="Before Init">
+              </a>
+              <a class="process-cubes-2" data-ng-class="{'active': item.Rules.AFTER_INIT.length > 0}" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.OnProcessWorkStepClick(item, 'AFTER_INIT')"
+                title="After Init">
+              </a>
+              <a class="process-cubes-3" data-ng-class="{'active': item.Rules.BEFORE_COMPLETE.length > 0}" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.OnProcessWorkStepClick(item, 'BEFORE_COMPLETE')"
+                title="Before Complete">
+              </a>
+              <a class="process-cubes-4" data-ng-class="{'active': item.Rules.AFTER_COMPLETE.length > 0}" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.OnProcessWorkStepClick(item, 'AFTER_COMPLETE')"
+                title="After Complete">
+              </a>
+            </div>
+          </div>
+          <div class="clearfix mb-10 text-center" data-ng-if="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessWorkStepList.length > 5">
+            <div class="step-create-btn-round" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.AddNewStep('ACTIVITY')"
+              title="Add Activity">
+              <i class="fa fa-plus"></i>
+            </div>
+            <div class="step-create-btn-round" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.AddNewStep('DECISION')"
+              title="Add Decision">
+              <i class="fa fa-retweet"></i>
+            </div>
+            <div class="step-create-btn-round" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.AddNewStep('END')" title="Add End">
+              <i class="fa fa-stop"></i>
+            </div>
+            <div class="step-create-btn-round" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.GetProcessWorkStepList()"
+              title="Refresh">
+              <i class="fa fa-refresh"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-9">
+          <div class="rules-list-container" data-ng-if="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps">
+            <div class="rules-list-header">Trigger On</div>
+            <div class="rules-list-wrapper" data-ng-repeat="rule in ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.RulesList" data-ng-if="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.Rules[rule].length > 0">
+              <div class="rule-name">{{rule}}</div>
+              <div class="rules-list" data-ng-repeat="x in ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.Rules[rule]">
+                <div class="rules-list-remarks">
+                  <span class="rules-list-action-type" data-ng-bind="x.ActionType + ': '"></span>
+                  <span class="rules-list-remarks" data-ng-bind="x.Remarks"></span>
+                </div>
+                <div class="rules-list-init-step-no" data-ng-repeat="y in x.WorkStepActions">
+                  <span class="rules-list-init-step-no-result-type" data-ng-bind=" y.ResultType + ': '"></span>
+                  <span class="rules-list-init-step-no-process mr-5" data-ng-if="y.Process" data-ng-bind="y.Process"></span>
+                  <span class="rules-list-init-step-no-round cursor-pointer" data-ng-class="{'default': y.ResultType == 'DEFAULT_ACTION', 'true': y.ResultType == 'TRUE_ACTION', 'false': y.ResultType == 'FALSE_ACTION'}"
+                    data-ng-bind="y.InitStepNo" ng-mouseover="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.InitStepNoHoverIn(y)"
+                    ng-mouseleave="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.InitStepNoHoverOut(y)"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

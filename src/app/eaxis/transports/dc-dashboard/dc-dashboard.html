@@ -1,0 +1,356 @@
+<div class="clearfix" data-ng-style="(!DcDashboardCtrl.ePage.Masters.MenuVisibleType || DcDashboardCtrl.ePage.Masters.MenuVisibleType == 'Grid') && {'margin-left': '0'}">
+    <!-- List Empty Response -->
+    <div class="page-breadcrumbs clearfix border-bottom">
+        <div class="col-lg-12">
+            <span class="fa fa-building set-color-blue fs-20"></span>
+            <span ng-if="DcDashboardCtrl.ePage.Masters.SenderTypeDetails.IsDistributionCentre" class="dashboard-inward-title ml-10 mr-10 fs-20">Distribution Centre Dashboard</span>
+            <span ng-if="DcDashboardCtrl.ePage.Masters.SenderTypeDetails.IsStore" class="dashboard-inward-title ml-10 fs-20">Store Dashboard</span>
+            <span ng-if="DcDashboardCtrl.ePage.Masters.SenderTypeDetails.IsRoadFreightDepot" class="dashboard-inward-title ml-10 mr-10 fs-20">Depot Dashboard</span>
+            <span ng-if="DcDashboardCtrl.ePage.Masters.SenderTypeDetails.IsForwarder" class="dashboard-inward-title ml-10 mr-10 fs-20">Carrier Dashboard</span>
+
+            <span class="dashboard-inward-title pull-right fs-14 pt-5">
+                {{DcDashboardCtrl.ePage.Masters.SenderDetails.ORG_Code}}-{{DcDashboardCtrl.ePage.Masters.SenderDetails.ORG_FullName}}
+            </span>
+        </div>
+    </div>
+    <!-- Buttons For Distribution Center -->
+    <div class="clearfix col-lg-12 set-bg-white pt-10 pb-10 btn-group btn-group-justified border-bottom-eee" ng-if="DcDashboardCtrl.ePage.Masters.SenderTypeDetails.IsDistributionCentre">
+        <div class="btn-group-justified">
+            <div class="btn-group pr-5">
+                <a class="btn btn-labeled btn-blue mr-5" href="#/EA/TMS/scan-item">
+                    <i class="btn-label fa fa-qrcode"></i>
+                    Scan Item
+                </a>
+            </div>
+            <div class="btn-group pl-5 pr-5">
+                <a class="btn btn-labeled btn-blue mr-5" href="#/EA/TMS/create-manifest">
+                    <i class="btn-label fa fa-file-text"></i>
+                    Create Manifest
+                </a>
+            </div>
+            <div class="btn-group pl-5">
+                <a class="btn btn-labeled btn-blue mr-5" href="#/EA/TMS/create-consignment">
+                    <i class="btn-label fa fa-file-text"></i>
+                    Create Connote
+                </a>
+            </div>
+            <div class="btn-group pl-5">
+                <a class="btn btn-labeled btn-blue mr-5" href="#/EA/TMS/track-consignment">
+                    <i class="btn-label fa fa-th-list"></i>
+                    View Consignment
+                </a>
+            </div>
+            <div class="btn-group pl-5">
+                <a class="btn btn-labeled btn-blue mr-5" href="#/EA/TMS/track-manifest">
+                    <i class="btn-label fa fa-th-list"></i>
+                    View Manifest
+                </a>
+            </div>
+            <div class="btn-group pl-5">
+                <a class="btn btn-labeled btn-blue mr-5" href="#/EA/TMS/track-item">
+                    <i class="btn-label fa fa-th-list"></i>
+                    View Items
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- Buttons for Depot -->
+    <div class="clearfix col-lg-12 set-bg-white pt-10 pb-10 border-bottom-eee" ng-if="DcDashboardCtrl.ePage.Masters.SenderTypeDetails.IsRoadFreightDepot">
+        <div class="btn-group-justified">
+            <div class="btn-group pr-5">
+                <a class="btn btn-labeled btn-blue mr-5" href="#/EA/TMS/scan-item">
+                    <i class="btn-label fa fa-qrcode"></i>
+                    Scan Item
+                </a>
+            </div>
+            <div class="btn-group pl-5 pr-5">
+                <a class="btn btn-labeled btn-blue mr-5" href="#/EA/TMS/create-manifest">
+                    <i class="btn-label fa fa-file-text"></i>
+                    Create Manifest
+                </a>
+            </div>
+            <div class="btn-group pl-5">
+                <a class="btn btn-labeled btn-blue mr-5" href="#/EA/TMS/create-consignment">
+                    <i class="btn-label fa fa-file-text"></i>
+                    Create Connote
+                </a>
+            </div>
+            <div class="btn-group pl-5">
+                <a class="btn btn-labeled btn-blue mr-5" href="#/EA/TMS/track-consignment">
+                    <i class="btn-label fa fa-th-list"></i>
+                    View Consignment
+                </a>
+            </div>
+            <div class="btn-group pl-5">
+                <a class="btn btn-labeled btn-blue mr-5" href="#/EA/TMS/track-manifest">
+                    <i class="btn-label fa fa-th-list"></i>
+                    View Manifest
+                </a>
+            </div>
+            <div class="btn-group pl-5">
+                <a class="btn btn-labeled btn-blue mr-5" href="#/EA/TMS/track-item">
+                    <i class="btn-label fa fa-th-list"></i>
+                    View Reports
+                </a>
+            </div>
+        </div>
+    </div>
+    <!--In-Transit Manifest/DSP-->
+    <div class="rows mt-10">
+        <div class="col-lg-12">
+            <div class="widget pending-widget set-bg-white">
+                <h4 class="border-bottom pb-10 pl-15 mt-0 pt-10 mb-0">In-Transit Manifest</h4>
+                <div class="rows">
+                    <div class="col-lg-4 border-right">
+                        <h4>Manifest</h4>
+                        <div class="col-lg-5 pl-0 pr-0">
+                            <div class="card-chart pt-10 pb-5" data-count="10">
+                                <canvas id="man-intransit" class="chart chart-pie"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div id="man-int" class="noselect"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 border-right">
+                        <h4>Consignment</h4>
+                        <div class="col-lg-5 pl-0 pr-0">
+                            <div class="card-chart pt-10 pb-5" data-count="10">
+                                <canvas id="con-intransit" class="chart chart-pie"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div id="con-int" class="noselect"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 border-right">
+                        <h4>Item</h4>
+                        <div class="col-lg-5 pl-0 pr-0">
+                            <div class="card-chart pt-10 pb-5" data-count="10">
+                                <canvas id="item-intransit" class="chart chart-pie"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div id="item-int" class="noselect"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
+    <!--To be Arrived/DSP-->
+    <div class="rows" ng-if="DcDashboardCtrl.ePage.Masters.SenderTypeDetails.IsRoadFreightDepot || DcDashboardCtrl.ePage.Masters.SenderTypeDetails.IsForwarder">
+        <div class="col-lg-12">
+            <div class="widget pending-widget set-bg-white">
+                <h4 class="border-bottom pb-10 pl-15 mt-0 pt-10 mb-0">To Be Arrived</h4>
+                <div class="rows">
+                    <div class="col-lg-4 border-right">
+                        <h4>Manifest</h4>
+                        <div class="col-lg-5 pl-0 pr-0">
+                            <div class="card-chart pt-10 pb-5" data-count="10">
+                                <canvas id="man-tobearr" class="chart chart-pie"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div id="man-arr" class="noselect"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 border-right">
+                        <h4>Consignment</h4>
+                        <div class="col-lg-5 pl-0 pr-0">
+                            <div class="card-chart pt-10 pb-5" data-count="10">
+                                <canvas id="con-tobearr" class="chart chart-pie"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div id="con-arr" class="noselect"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 border-right">
+                        <h4>Item</h4>
+                        <div class="col-lg-5 pl-0 pr-0">
+                            <div class="card-chart pt-10 pb-5" data-count="10">
+                                <canvas id="item-tobearr" class="chart chart-pie"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div id="item-arr" class="noselect"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Pending Manifest/DRF-->
+    <div class="rows" ng-if="DcDashboardCtrl.ePage.Masters.SenderTypeDetails.IsRoadFreightDepot || DcDashboardCtrl.ePage.Masters.SenderTypeDetails.IsDistributionCentre">
+        <div class="col-lg-12">
+            <div class="widget pending-widget set-bg-white">
+                <h4 class="border-bottom pb-10 pl-15 mt-0 pt-10 mb-0">Pending Manifest</h4>
+                <div class="rows">
+                    <div class="col-lg-4 border-right">
+                        <h4>Manifest</h4>
+                        <div class="col-lg-5 pl-0 pr-0">
+                            <div class="card-chart pt-10 pb-5" data-count="10">
+                                <canvas id="man-pending" class="chart chart-pie"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div id="man-pend" class="noselect"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 border-right">
+                        <h4>Consignment</h4>
+                        <div class="col-lg-5 pl-0 pr-0">
+                            <div class="card-chart pt-10 pb-5" data-count="10">
+                                <canvas id="con-pending" class="chart chart-pie"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div id="con-pend" class="noselect"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 border-right">
+                        <h4>Item</h4>
+                        <div class="col-lg-5 pl-0 pr-0">
+                            <div class="card-chart pt-10 pb-5" data-count="10">
+                                <canvas id="item-pending" class="chart chart-pie"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div id="item-pend" class="noselect"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Received Manifest/DEL -->
+    <div class="rows" ng-if="DcDashboardCtrl.ePage.Masters.SenderTypeDetails.IsStore">
+        <div class="col-lg-12">
+            <div class="widget pending-widget set-bg-white">
+                <h4 class="border-bottom pb-10 pl-15 mt-0 pt-10 mb-0">Receiveds</h4>
+                <div class="rows">
+                    <div class="col-lg-4 border-right">
+                        <h4>Manifest</h4>
+                        <div class="col-lg-5 pl-0 pr-0">
+                            <div class="card-chart pt-10 pb-5" data-count="10">
+                                <canvas id="man-pending" class="chart chart-pie"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div id="man-pend" class="noselect"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 border-right">
+                        <h4>Consignment</h4>
+                        <div class="col-lg-5 pl-0 pr-0">
+                            <div class="card-chart pt-10 pb-5" data-count="10">
+                                <canvas id="con-pending" class="chart chart-pie"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div id="con-pend" class="noselect"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 border-right">
+                        <h4>Item</h4>
+                        <div class="col-lg-5 pl-0 pr-0">
+                            <div class="card-chart pt-10 pb-5" data-count="10">
+                                <canvas id="item-pending" class="chart chart-pie"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div id="item-pend" class="noselect"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Stock in hand/DEL-->
+    <div class="rows" ng-if="DcDashboardCtrl.ePage.Masters.SenderTypeDetails.IsRoadFreightDepot">
+        <div class="col-lg-12">
+            <div class="widget pending-widget set-bg-white">
+                <h4 class="border-bottom pb-10 pl-15 mt-0 pt-10 mb-0">Stock In Hand</h4>
+                <div class="rows">
+                    <!-- <div class="col-lg-4 border-right">
+                        <h4>Manifest</h4>
+                        <div class="col-lg-5 pl-0 pr-0">
+                            <div class="card-chart pt-10 pb-5" data-count="10">
+                                <canvas id="man-pending" class="chart chart-pie"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div id="man-pend" class="noselect"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 border-right">
+                        <h4>Consignment</h4>
+                        <div class="col-lg-5 pl-0 pr-0">
+                            <div class="card-chart pt-10 pb-5" data-count="10">
+                                <canvas id="con-pending" class="chart chart-pie"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div id="con-pend" class="noselect"></div>
+                        </div>
+                    </div> -->
+                    <div class="col-lg-12 border-right">
+                        <h4>Item</h4>
+                        <div class="col-lg-5 pl-0 pr-0">
+                            <div class="card-chart pt-10 pb-5" data-count="10">
+                                <canvas id="item-stock" class="chart chart-pie"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div id="item-stok" class="noselect"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Arrived in Port/ARV-->
+    <div class="rows" ng-if="DcDashboardCtrl.ePage.Masters.SenderTypeDetails.IsForwarder">
+        <div class="col-lg-12">
+            <div class="widget pending-widget set-bg-white">
+                <h4 class="border-bottom pb-10 pl-15 mt-0 pt-10 mb-0">Arrived</h4>
+                <div class="rows">
+                    <div class="col-lg-4 border-right">
+                        <h4>Manifest</h4>
+                        <div class="col-lg-5 pl-0 pr-0">
+                            <div class="card-chart pt-10 pb-5" data-count="10">
+                                <canvas id="man-portarr" class="chart chart-pie"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div id="man-arrived" class="noselect"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 border-right">
+                        <h4>Consignment</h4>
+                        <div class="col-lg-5 pl-0 pr-0">
+                            <div class="card-chart pt-10 pb-5" data-count="10">
+                                <canvas id="con-portarr" class="chart chart-pie"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div id="con-arrived" class="noselect"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 border-right">
+                        <h4>Item</h4>
+                        <div class="col-lg-5 pl-0 pr-0">
+                            <div class="card-chart pt-10 pb-5" data-count="10">
+                                <canvas id="item-portarr" class="chart chart-pie"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div id="item-arrived" class="noselect"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

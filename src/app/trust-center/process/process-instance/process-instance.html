@@ -1,0 +1,51 @@
+<div class="clearfix tc-process-work-step">
+    <!-- Breadcrumb -->
+    <div class="clearfix tc-breadcrumb" data-ng-if="ProcessInstanceCtrl.ePage.Masters.ActiveApplication == 'TC'">
+        <i class="fa fa-home home-icon"></i>
+        <div class="breadcrumb-list-wrapper">
+            <ol class="breadcrumb">
+                <li data-ng-repeat="x in ProcessInstanceCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="ProcessInstanceCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                </li>
+                <li data-ng-repeat="x in ProcessInstanceCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
+                    class="active"></li>
+            </ol>
+        </div>
+        <span class="tc-breadcrumb-app-name" data-ng-if="ProcessInstanceCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="ProcessInstanceCtrl.ePage.Masters.QueryString.AppName"></span>
+    </div>
+    <!-- Body -->
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0 tc-page-height-fixed without-header overflow-hidden">
+            <div class="clearfix">
+                <!-- Your Content Goes Here -->
+                <uib-tabset id="chromeTab" active="ProcessInstanceCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+                    <uib-tab>
+                        <uib-tab-heading title="Instance">
+                            <span data-ng-bind="'Instance'"></span>
+                            <i class="fa fa-thumb-tack pinned-tab"></i>
+                        </uib-tab-heading>
+                        <div class="no-padding tab-list-view-wrapper">
+                            <!--ProcessInstance Grid Page-->
+                            <dynamic-list dataentry-name="ProcessInstanceCtrl.ePage.Masters.dataentryName" task-name="ProcessInstanceCtrl.ePage.Masters.taskName"
+                                grid-config-type="0" selected-grid-row="ProcessInstanceCtrl.ePage.Masters.SelectedGridRow($item)"
+                                mode="1" default-filter="ProcessInstanceCtrl.ePage.Masters.DefaultFilter"></dynamic-list>
+                            <div class="tab-loading" data-ng-show="ProcessInstanceCtrl.ePage.Masters.IsTabClick"></div>
+                        </div>
+                    </uib-tab>
+                    <uib-tab active="ProcessInstanceCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in ProcessInstanceCtrl.ePage.Masters.TabList"
+                        ng-click="ProcessInstanceCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+                        <uib-tab-heading title="{{tab.label}}">
+                            <span data-ng-bind="tab.label"></span>
+                            <i class="glyphicon glyphicon-remove" ng-click="ProcessInstanceCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+                        </uib-tab-heading>
+                        <div class="padding-bottom-10 clearfix">
+                            <process-instance-work-item-details current-process-instance="tab"></process-instance-work-item-details>
+                        </div>
+                    </uib-tab>
+                    <button class="btn btn-default" ng-click="ProcessInstanceCtrl.ePage.Masters.CreateNewProcessInstance(ProcessInstanceCtrl.ePage.Masters.ProcessInstance.NewDataSlot,ProcessInstanceCtrl.ePage.Masters.ProcessInstance.Mode)"
+                        data-ng-disabled="ProcessInstanceCtrl.ePage.Masters.IsNewProcessInstanceClicked">+</button>
+                </uib-tabset>
+            </div>
+        </div>
+    </div>
+</div>

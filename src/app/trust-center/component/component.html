@@ -1,0 +1,184 @@
+<div class="clearfix tc-component">
+    <!-- Breadcrumb -->
+    <div class="clearfix tc-breadcrumb" data-ng-if="ComponentCtrl.ePage.Masters.ActiveApplication == 'TC'">
+        <i class="fa fa-home home-icon"></i>
+        <div class="breadcrumb-list-wrapper">
+            <ol class="breadcrumb">
+                <li data-ng-repeat="x in ComponentCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="ComponentCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                </li>
+                <li data-ng-repeat="x in ComponentCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
+                    class="active"></li>
+            </ol>
+        </div>
+        <span class="tc-breadcrumb-app-name" data-ng-if="ComponentCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="ComponentCtrl.ePage.Masters.QueryString.AppName"></span>
+    </div>
+    <!-- Header -->
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0">
+            <div class="tc-header">
+                <div class="text-single-line" data-ng-bind="'Component'"></div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0">
+            <div class="tc-header with-add-new">
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-5">
+                    <div class="text-single-line" data-ng-bind="ComponentCtrl.ePage.Masters.ComponentListType.ActiveComponentListType"></div>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-5 pt-4 text-right">
+                    <button class="btn btn-xs btn-info" data-ng-click="ComponentCtrl.ePage.Masters.ComponentListTypeList.AddNew()">New</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 p-0">
+            <div class="tc-header edit-view">
+                <span data-ng-bind="'Details'"></span>
+                <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10" data-ng-click="ComponentCtrl.ePage.Masters.ComponentListTypeList.Edit()"
+                    data-ng-disabled="!ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList">Edit</button>
+                <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="ComponentCtrl.ePage.Masters.ComponentListTypeList.DeleteConfirmation()"
+                    data-ng-bind="ComponentCtrl.ePage.Masters.ComponentListTypeList.DeleteBtnText" data-ng-disabled="ComponentCtrl.ePage.Masters.ComponentListTypeList.IsDisableDeleteBtn || !ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList"></button>
+            </div>
+        </div>
+    </div>
+    <!-- Body -->
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0 tc-page-height-fixed">
+            <div class="tc-list-container">
+                <div class="tc-list-search">
+                    <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="ComponentCtrl.ePage.Masters.ComponentListType.Search">
+                </div>
+                <ul class="tc-list-ul">
+                    <div class="p-15 text-center tc-loading" data-ng-if="!ComponentCtrl.ePage.Masters.ComponentListType.ListSource">
+                        <i class="fa fa-spin fa-spinner"></i>
+                    </div>
+                    <div data-ng-if="(ComponentCtrl.ePage.Masters.ComponentListType.ListSource | filter: ComponentCtrl.ePage.Masters.ComponentListType.Search).length===0"
+                        class="p-15 text-center">
+                        <i>No Records...</i>
+                    </div>
+                    <li data-ng-if="(ComponentCtrl.ePage.Masters.ComponentListType.ListSource | filter: ComponentCtrl.ePage.Masters.ComponentListType.Search).length > 0"
+                        data-ng-repeat="x in ComponentCtrl.ePage.Masters.ComponentListType.ListSource | filter: ComponentCtrl.ePage.Masters.ComponentListType.Search"
+                        data-ng-click="ComponentCtrl.ePage.Masters.ComponentListType.ActiveComponentListType != x && ComponentCtrl.ePage.Masters.ComponentListType.OnComponentListTypeClick(x)"
+                        data-ng-class="{'active': ComponentCtrl.ePage.Masters.ComponentListType.ActiveComponentListType == x}">
+                        <div class="clearfix tc-list">
+                            <div class="tc-list-name">
+                                <i class="fa fa-circle-o mr-10"></i>
+                                <span class="text-single-line" data-ng-bind="x"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 3col-xl-3 p-0 tc-page-height-fixed">
+            <div class="tc-list-container">
+                <div class="tc-list-search">
+                    <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="ComponentCtrl.ePage.Masters.ComponentListTypeList.Search">
+                </div>
+                <ul class="tc-list-ul">
+                    <div class="p-15 text-center tc-loading" data-ng-if="!ComponentCtrl.ePage.Masters.ComponentListTypeList.ListSource">
+                        <i class="fa fa-spin fa-spinner"></i>
+                    </div>
+                    <div data-ng-if="(ComponentCtrl.ePage.Masters.ComponentListTypeList.ListSource | filter: ComponentCtrl.ePage.Masters.ComponentListTypeList.Search).length===0"
+                        class="p-15 text-center">
+                        <i>No Records...</i>
+                    </div>
+                    <li data-ng-if="(ComponentCtrl.ePage.Masters.ComponentListTypeList.ListSource | filter: ComponentCtrl.ePage.Masters.ComponentListTypeList.Search).length > 0"
+                        data-ng-repeat="x in ComponentCtrl.ePage.Masters.ComponentListTypeList.ListSource | filter: ComponentCtrl.ePage.Masters.ComponentListTypeList.Search"
+                        data-ng-click="ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList.PK != x.PK && ComponentCtrl.ePage.Masters.ComponentListTypeList.OnComponentListTypeListClick(x)"
+                        data-ng-class="{'active': ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList.PK == x.PK}">
+                        <div class="clearfix tc-list">
+                            <div class="tc-list-name">
+                                <i class="fa fa-circle-o mr-10"></i>
+                                <span class="text-single-line" data-ng-bind="x.OperationName"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 p-0 tc-page-height-fixed">
+            <div class="pt-10 pb-10 tc-details-view clearfix">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Name</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList.OperationName || ComponentCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Type</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList.OperationType || ComponentCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Description</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList.OperationDescription || ComponentCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tc-section-divider"></div>
+            <div class="tc-list-container tc-list-container-inner-redirect clearfix" data-ng-if="ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList.PK">
+                <ul class="tc-list-ul">
+                    <li data-ng-click="ComponentCtrl.ePage.Masters.ComponentListTypeList.OnRedirectListClick(x)" data-ng-repeat="x in ComponentCtrl.ePage.Masters.ComponentListTypeList.RedirectPagetList">
+                        <div class="clearfix tc-list">
+                            <div class="tc-list-name">
+                                <i class="fa {{x.Icon}} mr-10" data-ng-style="{'color': x.Color}"></i>
+                                <span class="text-single-line" data-ng-bind="x.Description"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Template -->
+<script type="text/ng-template" id="componentEdit">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="ComponentCtrl.ePage.Masters.ComponentListTypeList.Cancel()">&times;</button>
+        <h5 class="modal-title" id="modal-title">
+            <strong>Edit</strong>
+        </h5>
+    </div>
+    <div class="modal-body pt-10" id="modal-body">
+        <div class="clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-5 pb-5">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4"> Name</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Name" data-ng-model="ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList.OperationName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Type</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Type" data-ng-model="ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList.OperationType">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Description</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Description" data-ng-model="ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList.OperationDescription">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="tc-section-divider-small"></div>
+        <div class="clearfix p-10">
+            <button class="btn btn-default tc-btn-save btn-xs pull-right ml-10" data-ng-click="ComponentCtrl.ePage.Masters.ComponentListTypeList.Save()"
+                data-ng-bind="ComponentCtrl.ePage.Masters.ComponentListTypeList.SaveBtnText" data-ng-disabled="ComponentCtrl.ePage.Masters.ComponentListTypeList.IsDisableSaveBtn"></button>
+            <button class="btn btn-default tc-btn-cancel btn-xs pull-right ml-10" data-ng-click="ComponentCtrl.ePage.Masters.ComponentListTypeList.Cancel()">Cancel</button>
+        </div>
+        <div class="tc-section-divider-small mb-20"></div>
+    </div>
+</script>

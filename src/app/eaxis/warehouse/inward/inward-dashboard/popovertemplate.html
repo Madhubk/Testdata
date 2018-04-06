@@ -1,0 +1,90 @@
+<div ng-show="InwardDashboardCtrl.ePage.Masters.InwardByDate">
+    <div class="form-group">
+        <div class="col-lg-6 p-0 pr-5">
+            <div class="form-group">
+                <label class="control-label">From</label>
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="{{InwardDashboardCtrl.ePage.Masters.DatePicker.Options.format}}" datetime-picker="{{InwardDashboardCtrl.ePage.Masters.DatePicker.Options.format}}"
+                        ng-model="InwardDashboardCtrl.ePage.Masters.FromDate" is-open="InwardDashboardCtrl.ePage.Masters.DatePicker.isOpen['isFromDate']"
+                        datepicker-options="InwardDashboardCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" when-closed=""
+                        save-as="ISO" data-ng-click=""data-ng-change=""/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" data-ng-click="InwardDashboardCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isFromDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 p-0 pr-5">
+            <div class="form-group">
+                <label class="control-label">To</label>
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="{{InwardDashboardCtrl.ePage.Masters.DatePicker.Options.format}}" datetime-picker="{{InwardDashboardCtrl.ePage.Masters.DatePicker.Options.format}}"
+                        ng-model="InwardDashboardCtrl.ePage.Masters.ToDate" is-open="InwardDashboardCtrl.ePage.Masters.DatePicker.isOpen['isToDate']"
+                        datepicker-options="InwardDashboardCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" when-closed=""
+                        save-as="ISO" data-ng-click=""
+                        data-ng-change=""/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" data-ng-click="InwardDashboardCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isToDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 p-0 pb-5">
+            <div class="col-lg-3 pull-right">
+                <button class="btn btn-blue btn-sm pull-right mt-6" title="Search" 
+                data-ng-click="InwardDashboardCtrl.ePage.Masters.GetInwardByDate(InwardDashboardCtrl.ePage.Masters.SelectedWarehouse,InwardDashboardCtrl.ePage.Masters.ToDate,InwardDashboardCtrl.ePage.Masters.FromDate);">Search</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-show="InwardDashboardCtrl.ePage.Masters.InwardByClient">
+    <div class="form-group">
+        <div class="col-lg-6 p-0 pr-5">
+            <div class="form-group">
+                <label class="control-label">From</label>
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="{{InwardDashboardCtrl.ePage.Masters.DatePicker.Options.format}}" datetime-picker="{{InwardDashboardCtrl.ePage.Masters.DatePicker.Options.format}}"
+                        ng-model="InwardDashboardCtrl.ePage.Masters.FromDate1" is-open="InwardDashboardCtrl.ePage.Masters.DatePicker.isOpen['isFromDate1']"
+                        datepicker-options="InwardDashboardCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" when-closed=""
+                        save-as="ISO" data-ng-click="" data-ng-change=""/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" data-ng-click="InwardDashboardCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isFromDate1')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 p-0 pr-5">
+            <div class="form-group">
+                <label class="control-label">To</label>
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="{{InwardDashboardCtrl.ePage.Masters.DatePicker.Options.format}}" datetime-picker="{{InwardDashboardCtrl.ePage.Masters.DatePicker.Options.format}}"
+                        ng-model="InwardDashboardCtrl.ePage.Masters.ToDate1" is-open="InwardDashboardCtrl.ePage.Masters.DatePicker.isOpen['isToDate1']"
+                        datepicker-options="InwardDashboardCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" when-closed=""
+                        save-as="ISO" data-ng-click="" data-ng-change=""/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" data-ng-click="InwardDashboardCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isToDate1')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 p-0 pb-5">
+            <div class="col-lg-3 pull-right">
+                <button class="btn btn-blue btn-sm pull-right mt-6" title="Search" 
+                data-ng-click="InwardDashboardCtrl.ePage.Masters.GetInwardByClient(InwardDashboardCtrl.ePage.Masters.SelectedWarehouse,InwardDashboardCtrl.ePage.Masters.ToDate1,InwardDashboardCtrl.ePage.Masters.FromDate1);">Search</button>
+            </div>
+        </div>
+    </div>
+</div>

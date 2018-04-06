@@ -1,0 +1,94 @@
+.font-size {
+    font-size: 14px;
+}
+
+.mr-left {
+    margin-left: 20px;
+}
+
+.mr-top {
+    margin-top: -27px;
+}
+
+.tc-process-instance .table thead tr {
+    background: #ccdadf;
+}
+
+.tc-process-instance .table>tbody>tr>td {
+    padding: 0;
+}
+
+.tc-process-instance .modal-dialog {
+    width: 650px !important;
+}
+
+.tc-process-instance .table>tbody>tr>td>.set-tabel-text {
+    width: 100%;
+    border: 0;
+    padding: 8px 10px;
+    background: #fff;
+}
+
+.tc-process-instance .table>tbody>tr>td>.set-tabel-textarea {
+    width: 100%;
+    border: 0;
+    padding: 4px 10px;
+    background: #fff;
+    height: 32px;
+}
+
+.tc-process-instance .table {
+    table-layout: fixed;
+}
+
+.tc-process-instance-container {
+    overflow-x: auto;
+}
+
+.tc-process-instance .table thead tr th.th-childentityname {
+    width: 130px
+}
+
+.tc-process-instance .table thead tr th.th-childentityrefkey {
+    width: 140px;
+}
+
+.tc-process-instance .table thead tr th.th-childentityrefcode {
+    width: 126px;
+}
+
+.tc-process-instance .table thead tr th.th-completeinstanceno {
+    width: 142px;
+}
+
+.tc-process-instance .table thead tr th.th-completestepno {
+    width: 159px;
+}
+
+.tc-process-instance .table thead tr th.th-mode {
+    width: 141px;
+}
+
+.tc-process-instance .table thead tr th.th-action {
+    width: 30px;
+}
+
+.tc-process-instance .table thead tr th.th-saveaction {
+    width: 30px;
+}
+
+.tc-process-instance .table tbody tr td .chosen-container .chosen-single {
+    border: 0;
+}
+
+.padding-8 {
+    padding: 8px;
+}
+
+.instance {
+    height: 135px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding-top: 5px;
+    margin-bottom: 10px;
+}

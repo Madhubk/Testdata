@@ -1,0 +1,21 @@
+.mb-20 {
+	margin-bottom: 20px;
+	margin-left: 0px !important;
+}
+
+.edit {
+	float: right;
+	margin-bottom: 5px;
+}
+
+.selectedBg {
+	background: #eee;
+}
+
+.reference-edit.org-reference>.modal-dialog {
+	width: 35% !important;
+}
+
+.disable{
+	background-color: #f9f9f9;	
+}

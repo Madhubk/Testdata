@@ -1,0 +1,330 @@
+<!-- <script type="text/ng-template" id="tpl.html"> -->
+<div id="test">
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">Pickup Date</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{DynamicControlCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="DynamicControlCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.EstimatedPickup"
+                    uib-datepicker-popup="{{DynamicControlCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="DynamicControlCtrl.ePage.Masters.DatePicker.Options"
+                    is-open="DynamicControlCtrl.ePage.Masters.DatePicker.isOpen['isEstimatedPickup']" />
+                <span class="input-group-btn">
+                        <button class="btn btn-default shiny"data-ng-click="DynamicControlCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedPickup')"><i class="fa fa-calendar"></i></button>
+                    </span>
+            </div>
+        </div>
+    </div>
+    <!--Pickup from Organization Code-->
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">Pickup from</label>
+            <div class="input-group input-group-sm">
+                <input type="hidden" ng-model="DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject.CRG.ORG_FK">
+                <div dynamic-lookup placeholder="Organization Code" my-ng-model="DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject.CRG.ORG_Code"
+                    obj="DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject.CRG" prefix-data="'OrganizationList'"
+                    config="'JobAddressOrg'" auto-complete-on-select="DynamicControlCtrl.ePage.Masters.Address.AutoCompleteOnSelectAddress($item, 'address', 'CRG')"></div>
+                <span class="input-group-btn">
+                        <button dynamic-list-modal obj="DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject.CRG" field-name="'JobAddressOrg'"  prefix-data="'OrganizationList'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="DynamicControlCtrl.ePage.Masters.SelectedLookupData($item, 'address', 'CRG')" class="btn btn-default shiny" type="button" ><i class="fa fa-ellipsis-h" ></i></button>
+                    </span>
+            </div>
+        </div>
+    </div>
+    <!--Pickup from Address-->
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">Address</label>
+            <div class="">
+                <select chosen class="form-control" ng-model="DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject.CRG.OAD_Address_FK"
+                    ng-options="x.PK as x.Code for x in DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject.CRG.AddressList"
+                    data-ng-change="DynamicControlCtrl.ePage.Masters.OnAddressChange((DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject.CRG.AddressList | filter: {PK: DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject.CRG.OAD_Address_FK})[0], 'CRG', 'address')" search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+            </div>
+        </div>
+    </div>
+    <!--Pickup from Contact-->
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">Contact</label>
+            <div class="">
+                <select chosen class="form-control" ng-model="DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject.CRG.OCT_FK"
+                    ng-options="x.PK as x.ContactName for x in DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject.CRG.ContactList"
+                    data-ng-change="DynamicControlCtrl.ePage.Masters.OnContactChange((DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject.CRG.ContactList | filter: {PK: DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject.CRG.OCT_FK})[0], 'CRG', 'address')" search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">Transport Company</label>
+            <div class="input-group input-group-sm">
+                <input type="hidden" ng-model="DynamicControlCtrl.currentObj.Header.Data.UIJobPickupAndDelivery.PickupTransportFK">
+                <div dynamic-lookup placeholder="Organization Code" my-ng-model="DynamicControlCtrl.currentObj.Header.Data.UIJobPickupAndDelivery.PickupTransportCode"
+                    obj="DynamicControlCtrl.currentObj.Header.Data.UIJobPickupAndDelivery" prefix-data="'OrganizationList'" config="'ShpPickupTransCompOrg'"
+                    auto-complete-on-select="DynamicControlCtrl.ePage.Masters.Address.AutoCompleteOnSelectAddress($item, 'Pickup')"></div>
+                <span class="input-group-btn">
+                        <button dynamic-list-modal obj="DynamicControlCtrl.currentObj.Header.Data.UIJobPickupAndDelivery" field-name="'ShpPickupTransCompOrg'"  prefix-data="'OrganizationList'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="DynamicControlCtrl.ePage.Masters.SelectedLookupData($item, 'Pickup')" class="btn btn-default shiny" type="button" ><i class="fa fa-ellipsis-h" ></i></button>
+                    </span>
+            </div>
+        </div>
+    </div>
+    <!--Pickup - Transport Company Address-->
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">Address</label>
+            <div class="">
+                <select chosen class="form-control" ng-model="DynamicControlCtrl.currentObj.Header.Data.UIJobPickupAndDelivery.PickupTransportAddressFK"
+                    ng-options="x.PK as x.Code for x in DynamicControlCtrl.currentObj.Header.Data.UIJobPickupAndDelivery.Pickup.AddressList"
+                    data-ng-change="DynamicControlCtrl.ePage.Masters.OnAddressChange((DynamicControlCtrl.currentObj.Header.Data.UIJobPickupAndDelivery.Pickup.AddressList | filter: {PK: DynamicControlCtrl.currentObj.Header.Data.UIJobPickupAndDelivery.PickupTransportAddressFK})[0], 'Pickup')" search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+            </div>
+        </div>
+    </div>
+    <!--Pickup - Transport Company Contact-->
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">Contact</label>
+            <div class="">
+                <select chosen class="form-control" ng-model="DynamicControlCtrl.currentObj.Header.Data.UIJobPickupAndDelivery.PickupTransportContactFK"
+                    ng-options="x.PK as x.ContactName for x in DynamicControlCtrl.currentObj.Header.Data.UIJobPickupAndDelivery.Pickup.ContactList"
+                    data-ng-change="DynamicControlCtrl.ePage.Masters.OnContactChange((DynamicControlCtrl.currentObj.Header.Data.UIJobPickupAndDelivery.Pickup.ContactList | filter: {PK: DynamicControlCtrl.currentObj.Header.Data.UIJobPickupAndDelivery.PickupTransportContactFK})[0], 'Pickup')" search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+            </div>
+        </div>
+    </div>
+    <!--Pickup - CFS Organization Code-->
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">CFS</label>
+            <div class="input-group input-group-sm">
+                <input type="hidden" ng-model="DynamicControlCtrl.currentObj.Header.Data.UIShipmentHeader.ORG_ExportReceivingCFS_FK">
+                <div dynamic-lookup placeholder="Organization Code" my-ng-model="DynamicControlCtrl.currentObj.Header.Data.UIShipmentHeader.ORG_ExportReceivingCFS_Code"
+                    obj="DynamicControlCtrl.currentObj.Header.Data.UIShipmentHeader" prefix-data="'OrganizationList'" config="'ShpPickupCFSOrg'"
+                    auto-complete-on-select="DynamicControlCtrl.ePage.Masters.Address.AutoCompleteOnSelectAddress($item, 'PCFS')"></div>
+                <span class="input-group-btn">
+                        <button dynamic-list-modal obj="DynamicControlCtrl.currentObj.Header.Data.UIShipmentHeader" field-name="'ShpPickupCFSOrg'"  prefix-data="'OrganizationList'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="DynamicControlCtrl.ePage.Masters.SelectedLookupData($item, 'PCFS')" class="btn btn-default shiny" type="button" ><i class="fa fa-ellipsis-h" ></i></button>
+                    </span>
+            </div>
+        </div>
+    </div>
+    <!--Pickup - CFS Address-->
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">Address</label>
+            <div class="">
+                <select chosen class="form-control" ng-model="DynamicControlCtrl.currentObj.Header.Data.UIShipmentHeader.OAD_ExportReceivingDepot_FK"
+                    ng-options="x.PK as x.Code for x in DynamicControlCtrl.currentObj.Header.Data.UIShipmentHeader.PCFS.AddressList"
+                    data-ng-change="DynamicControlCtrl.ePage.Masters.OnAddressChange((DynamicControlCtrl.currentObj.Header.Data.UIShipmentHeader.PCFS.AddressList | filter: {PK: DynamicControlCtrl.currentObj.ShipmentHeader.Data.UIHeader.OAD_ExportReceivingDepot_FK})[0], 'PCFS')" search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+            </div>
+        </div>
+    </div>
+    <!--Pickup - CFS Contact-->
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">Contact</label>
+            <div>
+                <select chosen class="form-control" ng-model="DynamicControlCtrl.currentObj.Header.Data.UIShipmentHeader.ExportOrgContact_FK"
+                    ng-options="x.PK as x.ContactName for x in DynamicControlCtrl.currentObj.Header.Data.UIShipmentHeader.PCFS.ContactList"
+                    data-ng-change="DynamicControlCtrl.ePage.Masters.OnContactChange((DynamicControlCtrl.currentObj.Header.Data.UIShipmentHeader.PCFS.ContactList | filter: {PK: DynamicControlCtrl.currentObj.Header.Data.UIShipmentHeader.ExportOrgContact_FK})[0], 'PCFS')" search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">Consignor</label>
+            <div class="input-group input-group-sm">
+                <input type="hidden" ng-model="DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject.CRD.ORG_FK">
+                <div dynamic-lookup placeholder="Organization Code" my-ng-model="DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject.CRD.ORG_Code"
+                    obj="DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject.CRD" prefix-data="'OrganizationList'"
+                    config="'JobAddressOrg'" auto-complete-on-select="DynamicControlCtrl.ePage.Masters.Address.AutoCompleteOnSelectAddress($item, 'address', 'CRD')"></div>
+                <span class="input-group-btn">
+                        <button dynamic-list-modal obj="DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject.CRD" field-name="'JobAddressOrg'"  prefix-data="'OrganizationList'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="DynamicControlCtrl.ePage.Masters.SelectedLookupData($item, 'address', 'CRD')" class="btn btn-default shiny" type="button" ><i class="fa fa-ellipsis-h" ></i></button>
+                    </span>
+            </div>
+        </div>
+    </div>
+    <!--Consignor Address-->
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">Address</label>
+            <div class="">
+                <select chosen class="form-control" ng-model="DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject.CRD.OAD_Address_FK"
+                    ng-options="x.PK as x.Code for x in DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject.CRD.AddressList"
+                    data-ng-change="DynamicControlCtrl.ePage.Masters.OnAddressChange((DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject.CRD.AddressList | filter: {PK: DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject.CRD.OAD_Address_FK})[0], 'NPP', 'address')" search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+            </div>
+        </div>
+    </div>
+    <!--Consignor Contact-->
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">Contact</label>
+            <div class="">
+                <select chosen class="form-control" ng-model="DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject.CRD.OCT_FK"
+                    ng-options="x.PK as x.ContactName for x in DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject.CRD.ContactList"
+                    data-ng-change="DynamicControlCtrl.ePage.Masters.OnContactChange((DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject.CRD.ContactList | filter: {PK: DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject.CRD.OCT_FK})[0], 'NPP', 'address')" search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- </script> -->
+<script>
+    var scope = angular.element(document.getElementById('test')).scope();
+    var elem = angular.element(document.querySelector('[ng-controller]'));
+    var injector = elem.injector();
+    var helperService = injector.get('helperService');
+    var apiService = injector.get('apiService');
+    var appConfig = injector.get('appConfig');
+    var $location = injector.get('$location');
+    var APP_CONSTANT = injector.get('APP_CONSTANT');
+
+    scope.DynamicControlCtrl.ePage.Masters.Address = {};
+    scope.DynamicControlCtrl.ePage.Masters.Address.AutoCompleteOnSelectAddress = AutoCompleteOnSelectAddress;
+    scope.DynamicControlCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
+    scope.DynamicControlCtrl.ePage.Masters.OnAddressChange = OnAddressChange;
+    scope.DynamicControlCtrl.ePage.Masters.OnContactChange = OnContactChange;
+
+    scope.DynamicControlCtrl.ePage.Masters.DatePicker = {};
+    scope.DynamicControlCtrl.ePage.Masters.DatePicker.Options = APP_CONSTANT.DatePicker;
+    scope.DynamicControlCtrl.ePage.Masters.DatePicker.isOpen = [];
+    scope.DynamicControlCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
+
+
+    function OpenDatePicker($event, opened) {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        scope.DynamicControlCtrl.ePage.Masters.DatePicker.isOpen[opened] = true;
+    }
+
+    function SelectedLookupData($item, type, addressType) {
+        if (type === "address") {
+            GetAddressContactList($item.entity, "OrgAddress", "AddressList", "PK", addressType, scope.DynamicControlCtrl
+                .currentObj
+                .Header.Meta.AddressContactObject);
+            GetAddressContactList($item.entity, "OrgContact", "ContactList", "PK", addressType, scope.DynamicControlCtrl
+                .currentObj
+                .Header.Meta.AddressContactObject);
+        } else if (type === "Pickup") {
+            GetAddressContactList($item.entity, "OrgAddress", "AddressList", "PK", type, scope.DynamicControlCtrl.currentObj
+                .Header
+                .Data.UIJobPickupAndDelivery);
+            GetAddressContactList($item.entity, "OrgContact", "ContactList", "PK", type, scope.DynamicControlCtrl.currentObj.Header
+                .Data.UIJobPickupAndDelivery);
+        } else if (type === "Delivery") {
+            GetAddressContactList($item.entity, "OrgAddress", "AddressList", "PK", type, scope.DynamicControlCtrl.currentObj
+                .Header
+                .Data.UIJobPickupAndDelivery);
+        } else if (type === "PCFS") {
+            GetAddressContactList($item.entity, "OrgAddress", "AddressList", "PK", type, scope.DynamicControlCtrl.currentObj
+                .Header
+                .Data.UIShipmentHeader);
+            GetAddressContactList($item.entity, "OrgContact", "ContactList", "PK", type, scope.DynamicControlCtrl.currentObj.Header
+                .Data.UIShipmentHeader);
+        } else if (type === "DCFS") {
+            GetAddressContactList($item.entity, "OrgAddress", "AddressList", "PK", type, scope.DynamicControlCtrl.currentObj
+                .Header
+                .Data.UIShipmentHeader);
+        }
+    }
+
+    function AutoCompleteOnSelectAddress($item, type, addressType) {
+        if (type === "address") {
+            GetAddressContactList($item, "OrgAddress", "AddressList", "PK", addressType, scope.DynamicControlCtrl.currentObj
+                .Header.Meta.AddressContactObject);
+            GetAddressContactList($item, "OrgContact", "ContactList", "PK", addressType, scope.DynamicControlCtrl.currentObj
+                .Header.Meta.AddressContactObject);
+        } else if (type === "Pickup") {
+            GetAddressContactList($item, "OrgAddress", "AddressList", "PK", type, scope.DynamicControlCtrl.currentObj.Header
+                .Data.UIJobPickupAndDelivery);
+             GetAddressContactList($item, "OrgContact", "ContactList", "PK", type, scope.DynamicControlCtrl.currentObj
+                .Header.Data.UIJobPickupAndDelivery);
+        } else if (type === "Delivery") {
+            GetAddressContactList($item, "OrgAddress", "AddressList", "PK", type, scope.DynamicControlCtrl.currentObj.Header
+                .Data.UIJobPickupAndDelivery);
+        } else if (type === "PCFS") {
+            GetAddressContactList($item, "OrgAddress", "AddressList", "PK", type, scope.DynamicControlCtrl.currentObj.Header
+                .Data.UIShipmentHeader);
+             GetAddressContactList($item, "OrgContact", "ContactList", "PK", type, scope.DynamicControlCtrl.currentObj
+                .Header.Data.UIShipmentHeader);
+        } else if (type === "DCFS") {
+            GetAddressContactList($item, "OrgAddress", "AddressList", "PK", type, scope.DynamicControlCtrl.currentObj.Header
+                .Data.UIShipmentHeader);
+        }
+    }
+
+    function GetAddressContactList(GetSelectedRow, api, listSource, keyName, addressType, obj) {
+        obj[addressType].IsModified = true;
+
+        var _filter = {
+            ORG_FK: GetSelectedRow[keyName]
+        };
+        var _input = {
+            "searchInput": helperService.createToArrayOfObject(_filter),
+            "FilterID": appConfig.Entities[api].API.FindAll.FilterID
+        };
+
+        apiService.post("eAxisAPI", appConfig.Entities[api].API.FindAll.Url, _input).then(function (response) {
+            if (response.data.Response) {
+                obj[addressType][listSource] = response.data.Response;
+            } else {
+                console.log("Empty Response");
+            }
+        });
+    }
+
+    function OnAddressChange(selectedItem, addressType, type) {
+        if (type === "address") {
+            if (selectedItem) {
+                scope.DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject[addressType].OAD_Code =
+                    selectedItem.Code;
+                scope.DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject[addressType].CompanyName =
+                    selectedItem.CompanyNameOverride;
+                scope.DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject[addressType].Address1 =
+                    selectedItem.Address1;
+                scope.DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject[addressType].Address2 =
+                    selectedItem.Address2;
+                scope.DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject[addressType].PostCode =
+                    selectedItem.PostCode;
+                scope.DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject[addressType].City =
+                    selectedItem
+                    .City;
+                scope.DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject[addressType].State =
+                    selectedItem.State;
+                scope.DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject[addressType].Country =
+                    selectedItem.RelatedPortCode.substring(0, 2);
+            }
+        }
+    }
+
+    function OnContactChange(selectedItem, addressType, type) {
+        if (type === "address") {
+            if (selectedItem) {
+                scope.DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject[addressType].Phone =
+                    selectedItem.Phone;
+                scope.DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject[addressType].Mobile =
+                    selectedItem.Mobile;
+                scope.DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject[addressType].Email =
+                    selectedItem.Email;
+                scope.DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject[addressType].Fax =
+                    selectedItem.Fax;
+                scope.DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject[addressType].PhoneExtension =
+                    selectedItem.PhoneExtension;
+                scope.DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject[addressType].HomePhone =
+                    selectedItem.HomePhone;
+                scope.DynamicControlCtrl.currentObj.Header.Meta.AddressContactObject[addressType].OtherPhone =
+                    selectedItem.OtherPhone;
+            }
+        }
+    }
+</script>

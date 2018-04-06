@@ -1,0 +1,199 @@
+<div class="clearfix tc-edit-page">
+  <!-- Breadcrumb -->
+  <div class="clearfix tc-breadcrumb" data-ng-if="EditPageCtrl.ePage.Masters.ActiveApplication == 'TC'">
+    <i class="fa fa-home home-icon"></i>
+    <div class="breadcrumb-list-wrapper">
+      <ol class="breadcrumb">
+        <li data-ng-repeat="x in EditPageCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+          <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="EditPageCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+        </li>
+        <li data-ng-repeat="x in EditPageCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
+          class="active"></li>
+      </ol>
+    </div>
+    <span class="tc-breadcrumb-app-name" data-ng-if="EditPageCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="EditPageCtrl.ePage.Masters.QueryString.AppName"></span>
+  </div>
+  <!-- Body -->
+  <div class="clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0 tc-page-height-fixed without-header">
+      <input type="button" class="btn btn-primary btn-sm tc-edit-page-save-btn" data-ng-click="EditPageCtrl.ePage.Masters.EditPage.Save()"
+        data-ng-disabled="EditPageCtrl.ePage.Masters.EditPage.IsDisableSaveBtn" value="{{EditPageCtrl.ePage.Masters.EditPage.SaveBtnText}}">
+
+      <uib-tabset class="set-tabs">
+        <uib-tab>
+          <uib-tab-heading>
+            <span>Data</span>
+          </uib-tab-heading>
+          <div data-ng-include="'app/trust-center/page/edit/template/form-data.html'"></div>
+        </uib-tab>
+        <uib-tab data-ng-if="EditPageCtrl.ePage.Masters.ActiveApplication == 'TC'">
+          <uib-tab-heading>
+            <span>Form Design</span>
+          </uib-tab-heading>
+          <div data-ng-include="'app/trust-center/page/edit/template/form-design.html'"></div>
+        </uib-tab>
+        <uib-tab data-ng-if="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.DisplayMode=='S' || EditPageCtrl.ePage.Masters.ActiveApplication == 'TC'">
+          <uib-tab-heading>
+            <span>Search Page Configuration</span>
+          </uib-tab-heading>
+          <div data-ng-include="'app/trust-center/page/edit/template/search-config.html'"></div>
+        </uib-tab>
+        <uib-tab data-ng-if="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.DisplayMode=='S' || EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.DisplayMode=='B' || EditPageCtrl.ePage.Masters.ActiveApplication == 'TC'">
+          <uib-tab-heading>
+            <span>Lookup Page Configuration</span>
+          </uib-tab-heading>
+          <div data-ng-include="'app/trust-center/page/edit/template/lookup-config.html'"></div>
+        </uib-tab>
+      </uib-tabset>
+    </div>
+  </div>
+</div>
+
+<!-- Form Design Templates -->
+<script type="text/ng-template" id="list.html">
+  <div dnd-list="list" class="edit-page-drop-element-list-wrapper">
+    <div class="clearfix edit-page-drop-element-list" ng-class="{'active-item': EditPageCtrl.ePage.Masters.EditPage.FormDesign.SelectedDroppedItem.Field_FK === item.Field_FK}"
+      ng-repeat="item in list | filter:{'IsDelete':false}:true" dnd-draggable="item" dnd-effect-allowed="move" dnd-moved="list.splice($index, 1)" dnd-selected="EditPageCtrl.ePage.Masters.EditPage.FormDesign.SelectedDroppedItem = item">
+      <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
+        <div class="edit-page-drop-element" ng-include="item.UIControl + '.html'">
+        </div>
+        <div class="overlay-drop-element" data-ng-click="EditPageCtrl.ePage.Masters.EditPage.FormDesign.OnDropperItemClick(item)"></div>
+      </div>
+      <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 text-right">
+        <div class="access-remove">
+          <button class="btn btn-link fa fa-sign-in access" data-ng-click="EditPageCtrl.ePage.Masters.EditPage.FormDesign.OnAccessClick(item)"
+            data-ng-disabled="!item.DataEntryFieldMapping_PK" title="Access"></button>
+          <button class="btn btn-link fa fa-trash remove" data-ng-click="EditPageCtrl.ePage.Masters.EditPage.FormDesign.RemoveDroppedFromElement(item)"
+            title="Remove"></button>
+        </div>
+      </div>
+    </div>
+</script>
+
+<script type="text/ng-template" id="textbox.html">
+  <div class="form-group m-0">
+    <label for="inputText0">{{item.AttributeDetails[item.AttrIndex].AttributeValue}}</label>
+    <input type="text" class="form-control input-sm" placeholder="Textbox">
+  </div>
+</script>
+<script type="text/ng-template" id="textarea.html">
+  <div class="form-group m-0">
+    <label for="inputText0">{{item.AttributeDetails[item.AttrIndex].AttributeValue}}</label>
+    <textarea class="form-control no-resize" rows="3" placeholder="Text Area"></textarea>
+  </div>
+  </div>
+</script>
+<script type="text/ng-template" id="Lookup.html">
+  <div class="form-group m-0">
+    <label for="inputSelect4">{{item.AttributeDetails[item.AttrIndex].AttributeValue}}</label>
+    <div class="input-group input-group-sm">
+      <input class="form-control" type="text" placeholder="Lookup">
+      <span class="input-group-addon">...</span>
+    </div>
+  </div>
+</script>
+<script type="text/ng-template" id="checkbox.html">
+  <div class="form-group m-0">
+    <label for="inputText0">{{item.AttributeDetails[item.AttrIndex].AttributeValue}}</label>
+    <div class="checkbox m-0">
+      <input type="checkbox" class="form-control">
+      <span class="text">CheckBox</span>
+    </div>
+  </div>
+  </div>
+</script>
+<script type="text/ng-template" id="date.html">
+  <div class="form-group m-0">
+    <label for="inputDate2">{{item.AttributeDetails[item.AttrIndex].AttributeValue}}</label>
+    <div class="input-group input-group-sm">
+      <input class="form-control date-picker" id="inputDate2" type="text" data-date-format="dd-mm-yyyy" placeholder="Date">
+      <span class="input-group-addon">
+        <i class="fa fa-calendar"></i>
+      </span>
+    </div>
+  </div>
+</script>
+<script type="text/ng-template" id="datedrop.html">
+  <div class="form-group m-0">
+    <label for="inputSelect4">{{item.AttributeDetails[item.AttrIndex].AttributeValue}}</label>
+    <select chosen class="form-control input-sm">
+      <option value="">Date Drop Down</option>
+    </select>
+  </div>
+</script>
+<script type="text/ng-template" id="staticdropdown.html">
+  <div class="form-group m-0">
+    <label for="inputSelect4">{{item.AttributeDetails[item.AttrIndex].AttributeValue}}</label>
+    <select class="form-control input-sm">
+      <option value="">Drop Down</option>
+    </select>
+  </div>
+</script>
+<script type="text/ng-template" id="dropdown.html">
+  <div class="form-group m-0">
+    <label for="inputSelect4">{{item.AttributeDetails[item.AttrIndex].AttributeValue}}</label>
+    <select class="form-control input-sm">
+      <option value="">Drop Down</option>
+    </select>
+  </div>
+</script>
+<script type="text/ng-template" id="pkey.html">
+  <div class="form-group m-0">
+    <label for="inputSelect4" class="control-label">{{item.AttributeDetails[item.AttrIndex].AttributeValue}}</label>
+    <div class="clearfix">
+      <label for="inputText0">Primary Key</label>
+    </div>
+  </div>
+</script>
+<script type="text/ng-template" id="label.html">
+  <div class="form-group m-0">
+    <label for="inputSelect4">{{item.AttributeDetails[item.AttrIndex].AttributeValue}}</label>
+    <div class="clearfix">
+      <label for="inputText0">Label</label>
+    </div>
+  </div>
+</script>
+<script type="text/ng-template" id="tenant.html">
+  <div class="form-group m-0">
+    <label for="inputSelect4" class="control-label">{{item.AttributeDetails[item.AttrIndex].AttributeValue}}</label>
+    <div class="clearfix">
+      <label for="inputText0">Tenant</label>
+    </div>
+  </div>
+</script>
+<script type="text/ng-template" id="user.html">
+  <div class="form-group m-0">
+    <label for="inputSelect4" class="control-label">{{item.AttributeDetails[item.AttrIndex].AttributeValue}}</label>
+    <div class="clearfix">
+      <label for="inputText0">User</label>
+    </div>
+  </div>
+</script>
+<script type="text/ng-template" id="link.html">
+  <div class="form-group m-0">
+    <label for="inputSelect4">{{item.AttributeDetails[item.AttrIndex].AttributeValue}}</label>
+    <div class="clearfix">
+      <a href="javascript:void(0);">Link</a>
+    </div>
+  </div>
+</script>
+<script type="text/ng-template" id="template.html">
+  <div class="form-group m-0">
+    <label for="inputText0">{{item.AttributeDetails[item.AttrIndex].AttributeValue}}</label>
+    <img src="assets/img/template.jpg" width="100%" />
+  </div>
+</script>
+<script type="text/ng-template" id="autocomplete.html">
+  <div class="form-group m-0">
+    <label for="inputText0">{{item.AttributeDetails[item.AttrIndex].AttributeValue}}</label>
+    <input type="text" class="form-control input-sm" placeholder="Auto Complete">
+  </div>
+</script>
+<script type="text/ng-template" id="tcgrid.html">
+  <div class="form-group m-0">
+    <label for="inputSelect4" class="control-label">{{item.AttributeDetails[item.AttrIndex].AttributeValue}}</label>
+    <div class="clearfix">
+      <i class="fa fa-th"></i>
+    </div>
+  </div>
+</script>

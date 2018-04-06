@@ -1,0 +1,251 @@
+<div class="clearfix tc-user">
+    <!-- Breadcrumb -->
+    <div class="clearfix tc-breadcrumb" data-ng-if="TCUserCtrl.ePage.Masters.ActiveApplication == 'TC'">
+        <i class="fa fa-home home-icon"></i>
+        <div class="breadcrumb-list-wrapper">
+            <ol class="breadcrumb">
+                <li data-ng-repeat="x in TCUserCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="TCUserCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                </li>
+                <li data-ng-repeat="x in TCUserCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
+                    class="active"></li>
+            </ol>
+        </div>
+    </div>
+    <!-- Alphabetic Sort -->
+    <div class="clearfix tc-alphabetic-sort">
+        <span data-ng-repeat="x in TCUserCtrl.ePage.Masters.Sort.Alphabets" data-ng-bind="x" data-ng-class="{'active': TCUserCtrl.ePage.Masters.Sort.ActiveAlphabet == x}"
+            data-ng-click="TCUserCtrl.ePage.Masters.Sort.ActiveAlphabet != x && TCUserCtrl.ePage.Masters.Sort.OnAlphabetClick(x);"></span>
+    </div>
+    <!-- Header -->
+    <div class="clearfix tc-header-container">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="tc-header with-add-new">
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-5">
+                    <div class="text-single-line" data-ng-bind="'User'"></div>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-5 pt-4 text-right">
+                    <button class="btn btn-xs btn-info" data-ng-click="TCUserCtrl.ePage.Masters.User.AddNew()">New</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">
+            <div class="tc-header edit-view">
+                <span data-ng-bind="'Details'"></span>
+                <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10" data-ng-click="TCUserCtrl.ePage.Masters.User.Edit()"
+                    data-ng-disabled="!TCUserCtrl.ePage.Masters.User.ActiveUser.Id">Edit</button>
+            </div>
+        </div>
+    </div>
+    <!-- Body -->
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 tc-page-height-fixed with-alphabetic-sort">
+            <div class="tc-list-container">
+                <div class="tc-list-search input-group input-group-sm">
+                    <input type="text" class="form-control input-sm" placeholder="Search..." data-ng-model="TCUserCtrl.ePage.Masters.Search">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" data-ng-click="TCUserCtrl.ePage.Masters.User.SearchUser()">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <ul class="tc-list-ul">
+                    <div class="p-15 text-center tc-loading" data-ng-if="!TCUserCtrl.ePage.Masters.User.UserList">
+                        <i class="fa fa-spin fa-spinner"></i>
+                    </div>
+                    <div data-ng-if="TCUserCtrl.ePage.Masters.User.UserList && TCUserCtrl.ePage.Masters.User.UserList.length===0" class="p-15 text-center">
+                        <i>No Records...</i>
+                    </div>
+                    <li data-ng-if="TCUserCtrl.ePage.Masters.User.UserList && TCUserCtrl.ePage.Masters.User.UserList.length > 0" data-ng-repeat="x in TCUserCtrl.ePage.Masters.User.UserList"
+                        data-ng-click="TCUserCtrl.ePage.Masters.User.ActiveUser.Id != x.Id && TCUserCtrl.ePage.Masters.User.OnUserClick(x)"
+                        data-ng-class="{'active': TCUserCtrl.ePage.Masters.User.ActiveUser.Id == x.Id}">
+                        <div class="clearfix tc-list">
+                            <div class="tc-list-name">
+                                <i class="fa fa-circle-o mr-10"></i>
+                                <span class="text-single-line" data-ng-bind="x.DisplayName"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed with-alphabetic-sort">
+            <div class="tc-avatar-lg clearfix">
+                <div class="avatar-container">
+                    <file-upload-custom class="file-upload-directive" ng-model="TCUserCtrl.ePage.Masters.User.Logo.fileDetails" size="TCUserCtrl.ePage.Masters.User.Logo.fileSize" 
+                        auth="{{TCUserCtrl.ePage.Masters.User.Logo.autherization}}" additional-value="{{TCUserCtrl.ePage.Masters.User.Logo.additionalValue}}" doc-type="image/*" multiple-file="false" url="{{TCUserCtrl.ePage.Masters.User.Logo.UploadUrl}}"  is-disabled="!TCUserCtrl.ePage.Masters.User.ActiveUser.Id" get-uploaded-files="TCUserCtrl.ePage.Masters.User.Logo.GetUploadedFiles($item)" get-selected-files="TCUserCtrl.ePage.Masters.User.Logo.GetSelectedFiles($item)"  fu-class="tc-user left" modal-template="" template="" >
+                        <img data-ng-src="{{TCUserCtrl.ePage.Masters.User.ActiveUser.LogoStr}}" alt="" data-ng-if="TCUserCtrl.ePage.Masters.User.ActiveUser.LogoStr">
+                        <span data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.UserName | getCharacters: 1" data-ng-if="!TCUserCtrl.ePage.Masters.User.ActiveUser.LogoStr"></span>
+                        <div data-ng-if="TCUserCtrl.ePage.Masters.User.ActiveUser" class='change-logo'>Change</div>
+                    </file-upload-custom>
+                </div>
+            </div>
+            <div class="tc-section-divider"></div>
+            <div class="tc-user-details pt-10 pb-10 tc-details-view clearfix" data-ng-if="TCUserCtrl.ePage.Masters.User.ActiveUser">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">User Name</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.UserName || TCUserCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">First Name</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.FirstName || TCUserCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Last Name</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.LastName || TCUserCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Email</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.Email || TCUserCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Display Name</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.DisplayName || TCUserCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Designation</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.Designation || TCUserCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Mobile Number</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.MobileNo || TCUserCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Country</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.CountryCode || TCUserCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">User Type</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.UserType || TCUserCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Template -->
+<script type="text/ng-template" id="userEdit">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="TCUserCtrl.ePage.Masters.User.Cancel()">&times;</button>
+        <h5 class="modal-title" id="modal-title">
+            <strong>Edit</strong>
+        </h5>
+    </div>
+    <div class="modal-body pt-10" id="modal-body">
+        <div class="clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-5 pb-5">
+                <form class="form-horizontal">
+                    <div class="form-group" data-ng-if="!TCUserCtrl.ePage.Masters.User.ActiveUser.Id">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">User Name</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="User Name" data-ng-model="TCUserCtrl.ePage.Masters.User.ActiveUser.UserName">
+                        </div>
+                    </div>
+                    <div class="form-group" data-ng-if="!TCUserCtrl.ePage.Masters.User.ActiveUser.Id">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Password</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="password" class="form-control input-sm" placeholder="Password" data-ng-model="TCUserCtrl.ePage.Masters.User.ActiveUser.Password">
+                        </div>
+                    </div>
+                    <div class="form-group" data-ng-if="!TCUserCtrl.ePage.Masters.User.ActiveUser.Id">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Confirm Password</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="password" class="form-control input-sm" placeholder="Confirm Password" data-ng-model="TCUserCtrl.ePage.Masters.User.ActiveUser.ConfirmPassword">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">First Name</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="First Name" data-ng-model="TCUserCtrl.ePage.Masters.User.ActiveUser.FirstName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Last Name</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Last Name" data-ng-model="TCUserCtrl.ePage.Masters.User.ActiveUser.LastName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Display Name</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Display Name" data-ng-model="TCUserCtrl.ePage.Masters.User.ActiveUser.DisplayName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Designation</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Designation" data-ng-model="TCUserCtrl.ePage.Masters.User.ActiveUser.Designation">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Email</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Email" data-ng-model="TCUserCtrl.ePage.Masters.User.ActiveUser.Email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Mobile Number</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Mobile Number" data-ng-model="TCUserCtrl.ePage.Masters.User.ActiveUser.MobileNo">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">User Type</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="User Type" data-ng-model="TCUserCtrl.ePage.Masters.User.ActiveUser.UserType">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Country</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Country Code" data-ng-model="TCUserCtrl.ePage.Masters.User.ActiveUser.CountryCode">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="tc-section-divider-small"></div>
+        <div class="clearfix p-10">
+            <button class="btn btn-default tc-btn-save btn-xs pull-right ml-10" data-ng-click="TCUserCtrl.ePage.Masters.User.Save()"
+                data-ng-bind="TCUserCtrl.ePage.Masters.User.SaveBtnText" data-ng-disabled="TCUserCtrl.ePage.Masters.User.IsDisableSaveBtn"></button>
+            <button class="btn btn-default tc-btn-cancel btn-xs pull-right ml-10" data-ng-click="TCUserCtrl.ePage.Masters.User.Cancel()">Cancel</button>
+        </div>
+        <div class="tc-section-divider-small mb-20"></div>
+    </div>
+</script>

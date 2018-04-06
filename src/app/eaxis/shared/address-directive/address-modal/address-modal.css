@@ -1,0 +1,85 @@
+.address-modal > .modal-dialog {
+    right: 0;
+    width : 50% !important;
+    height: 100% !important;
+    position: fixed !important;
+    margin-top: 0px !important;
+}
+.address-modal > .modal-content {
+    height: 100%;
+}
+.address-wrapper.bordered-themeprimary{
+    max-height: 570px;
+    overflow-y: auto;
+}
+.address-sidebar-list {
+    padding: 10px 5px;
+}
+
+.address-type-menu {
+    cursor: pointer;
+    color: #4082a2;
+    /* margin-bottom: 5px; */
+    /*border-bottom: 1px solid #ddd;*/
+    background-color: #f4f4f4;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+    font-size: 15px;
+}
+
+.address-type-menu.active,
+.address-type-menu:hover {
+    font-weight: bold;
+    color: #08c;
+    background-color: #ddd;
+}
+
+.address-type-menu .text-single-line {
+    padding: 5px;
+}
+
+.row-label,
+.row-data {
+    padding: 5px;
+}
+
+.row-label {
+    font-weight: 600;
+    color: gray;
+}
+
+.address-readonly-container div {
+    padding: 5px;
+}
+
+.address-readonly-container .organization-code {
+    font-size: 16px;
+    font-weight: 600;
+    color: gray;
+}
+
+.address-readonly-container .companyname {
+    font-size: 14px;
+    font-weight: 600;
+    color: gray;
+}
+
+.contact-readonly-container div {
+    padding: 5px;
+}
+
+.contact-readonly-container .contact {
+    font-weight: 600;
+}
+
+.address-wrapper .ad-edit {
+    position: absolute;
+    top: -8px;
+    right: 8px;
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.address-wrapper .ad-edit:hover {
+    opacity: 1;
+}

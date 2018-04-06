@@ -1,0 +1,12 @@
+.tc-application-edit table td {
+    padding: 0 !important;
+}
+
+.tc-application-edit table thead tr {
+    background: rgb(204, 218, 223);
+    font-weight: 600;
+}
+
+.tc-application-edit table thead tr td.action {
+    width: 65px;
+}

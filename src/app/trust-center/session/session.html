@@ -1,0 +1,81 @@
+<div class="clearfix tc-session">
+    <!-- Breadcrumb -->
+    <div class="clearfix tc-breadcrumb" data-ng-if="SessionCtrl.ePage.Masters.ActiveApplication == 'TC'">
+        <i class="fa fa-home home-icon"></i>
+        <div class="breadcrumb-list-wrapper">
+            <ol class="breadcrumb">
+                <li data-ng-repeat="x in SessionCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="SessionCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                </li>
+                <li data-ng-repeat="x in SessionCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
+                    class="active"></li>
+            </ol>
+        </div>
+        <span class="tc-breadcrumb-app-name" data-ng-if="SessionCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="SessionCtrl.ePage.Masters.QueryString.AppName"></span>
+    </div>
+    <!-- Header -->
+    <div class="clearfix tc-header-container">
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">
+            <div class="tc-header no-border-right">
+                <div class="text-single-line" data-ng-bind="'Session'"></div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="tc-header p-5" style="font-weight: normal;">
+                <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="SessionCtrl.ePage.Masters.Search">
+            </div>
+        </div>
+    </div>
+    <!-- Body -->
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0 tc-page-height-fixed">
+            <div class="session-list-ul clearfix">
+                <!-- Header -->
+                <div class="clearfix">
+                    <div class="clearfix tc-session-header-list">
+                        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                            <div class="text-single-line">Remote IP</div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                            <div class="text-single-line"> Date Time</div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                            <div class="text-single-line">Expires On</div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                            <div class="text-single-line">User</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Loading -->
+                <div class="clearfix p-15 text-center tc-loading" data-ng-if="!SessionCtrl.ePage.Masters.Session.SessionList">
+                    <i class="fa fa-spin fa-spinner"></i>
+                </div>
+                <!-- No Records -->
+                <div data-ng-if="(SessionCtrl.ePage.Masters.Session.SessionList | filter: SessionCtrl.ePage.Masters.Search).length === 0"
+                    class="p-15 text-center tc-no-records clearfix">
+                    <i>No Records...!</i>
+                </div>
+                <!-- Session List -->
+                <div data-ng-if="(SessionCtrl.ePage.Masters.Session.SessionList | filter: SessionCtrl.ePage.Masters.Search).length > 0" data-ng-repeat="x in SessionCtrl.ePage.Masters.Session.SessionList | filter: SessionCtrl.ePage.Masters.Search | orderBy: 'DateTime': true"
+                    class="tc-session-list-name clearfix">
+                    <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                        <div class="text-single-line" data-ng-bind="x.RemoteIP"></div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                        <div class="text-single-line" data-ng-bind="x.DateTime | date: 'dd-MM-yyyy HH:MM:ss a'"></div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                        <div class="text-single-line" data-ng-bind="x.ExpiresOn | date: 'dd-MM-yyyy HH:MM:ss a'"></div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                        <div class="text-single-line" data-ng-bind="x.CreatedBy"></div>
+                    </div>
+                    <!-- <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                            <div class="text-single-line" data-ng-bind="x.CreatedBy"></div>
+                        </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

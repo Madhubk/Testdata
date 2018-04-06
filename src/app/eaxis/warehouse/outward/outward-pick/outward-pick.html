@@ -1,0 +1,103 @@
+<div class="clearfix padding-top-10">
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+        <label class="control-label text-single-line">Pick Number</label>
+        <div class="">
+            <a href="" ng-click="OutwardPickCtrl.ePage.Masters.SingleRecordView()">{{OutwardPickCtrl.ePage.Entities.UIWmsPickHeader.PickNo}}</a></span>
+        </div>
+    </div>
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+        <label class="control-label text-single-line">Pick Option</label>
+        <div class="">
+            {{OutwardPickCtrl.ePage.Entities.UIWmsPickHeader.PickOption}}
+        </div>
+    </div>
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+        <label class="control-label text-single-line">Status</label>
+        <div class="">
+            {{OutwardPickCtrl.ePage.Entities.UIWmsPickHeader.PickStatusDesc}}
+        </div>
+    </div>
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+        <label class="control-label text-single-line">Warehouse</label>
+        <div class="">
+            {{OutwardPickCtrl.ePage.Entities.UIWmsPickHeader.WarehouseCode}} - {{OutwardPickCtrl.ePage.Entities.UIWmsPickHeader.WarehouseName}}
+        </div>
+    </div>
+</div>
+<div class="col-lg-12 padding-top-10">
+    <button class="btn btn-blue pull-right" style="padding:4px 9px;" data-ng-click="OutwardPickCtrl.ePage.Masters.GoToReleasePage()">Release</button>
+</div>
+
+<div class="p-15">
+    <div class="mt-15"><label class="control-label text-single-line" style="font-size:14px">Pick Allocation</label></div>
+    <div class="wmstable_scroll" style="height:400px;">
+        <div class="table" id="results">
+            <div class='theader tab-position'>
+                <div class='table_header'>Client</div>
+                <div class='table_header'>Product</div>
+                <div class='table_header'>Units</div>
+                <div class='table_header'>UQ</div>
+                <div class='table_header'>Location</div>
+                <div class='table_header'>Part Attribute1</div>
+                <div class='table_header'>Part Attribute2</div>
+                <div class='table_header'>Part Attribute3</div>
+                <div class='table_header'>Expiry Date</div>
+                <div class='table_header'>Packing Date</div>
+                <div class='table_header'>Picked Date Time</div>
+            </div>
+
+            <!-- List Empty Response -->
+            <div data-ng-if="OutwardPickCtrl.ePage.Entities.UIWmsPickLine.length==0">
+                <div class="infotext">No any stock allocated to this Pick. Please click the link on Pick Number to allocate stock</div>
+            </div>
+
+            <div class='table_row' ng-repeat="x in OutwardPickCtrl.ePage.Entities.UIWmsPickLine | filter:{IsDeleted:'false'}  track by $index"
+                style="font-size: 11px;">
+                <div class='table_small'>
+                    <div class='table_cell'>Client</div>
+                    <div class='table_cell'>{{x.ClientCode || OutwardPickCtrl.ePage.Masters.emptyText}} - {{x.ClientName || OutwardPickCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Product</div>
+                    <div class='table_cell'>{{x.ProductCode || OutwardPickCtrl.ePage.Masters.emptyText}}-{{x.ProductDescription || OutwardPickCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Units</div>
+                    <div class='table_cell'>{{x.Units || OutwardPickCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>UQ</div>
+                    <div class='table_cell'>{{x.StockKeepingUnit || OutwardPickCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Location</div>
+                    <div class='table_cell'>{{x.Location || OutwardPickCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Part Attribute1</div>
+                    <div class='table_cell'>{{x.PartAttrib1 || OutwardPickCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Part Attribute2</div>
+                    <div class='table_cell'>{{x.PartAttrib2 || OutwardPickCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Part Attribute3</div>
+                    <div class='table_cell'>{{x.PartAttrib3 || OutwardPickCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Expiry Date</div>
+                    <div class='table_cell'>{{x.ExpiryDate || OutwardPickCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Packing Date</div>
+                    <div class='table_cell'>{{x.PackingDate || OutwardPickCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Picked Date Time</div>
+                    <div class='table_cell'>{{x.PickedDateTime || OutwardPickCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

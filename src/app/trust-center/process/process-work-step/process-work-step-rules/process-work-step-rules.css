@@ -1,0 +1,367 @@
+/*** Process POpup ***/
+
+.process-popup-box {
+	/* width:100%;
+	float:left;
+	box-shadow:1px 1px 5px #ccc; */
+}
+
+.process-popup-header {
+	width: 100%;
+	/* float:left;
+	padding:10px;
+	background:#f5f5f5;
+	border-bottom:1px solid #e5e5e5; */
+}
+
+.process-popup-header i {
+	float: left;
+	color: #4385f5;
+	font-size: 24px;
+	margin-right: 10px;
+}
+
+.process-popup-header span {
+	float: left;
+	font-size: 15px;
+	margin-top: 1px;
+	font-weight: bold;
+}
+
+.process-btn {
+	background: #4385f5 !important;
+	float: right;
+	color: #fff;
+	border: 1px solid #4385f5 !important;
+}
+
+.process-btn:hover,
+.process-btn:active,
+.process-btn:focus {
+	background: #4385f5 !important;
+}
+
+.process-btn-bg-yellow {
+	background: #fbbc05;
+}
+
+.process-btn-bg-blue {
+	background: #4385f5;
+}
+
+.process-btn-save {
+	background: #4385f5 !important;
+	border: 1px solid #4385f5 !important;
+}
+
+.process-btn-save:hover,
+.process-btn-save:active,
+.process-btn-save:focus {
+	background: #4385f5 !important;
+}
+
+
+/* .process-btn-bg-blue{
+	background: #4385f5;
+	position: absolute;
+    bottom: 10px;
+    right: 10px;
+ } */
+
+.process-btn-bg-gray {
+	background: #999;
+}
+
+.process-popup-content-box,
+.process-popup-content-box-2 {
+	border: 1px solid #e5e5e5;
+}
+
+.process-popup-content-box {
+	width: 100%;
+	float: left;
+	position: relative;
+}
+
+.process-popup-content-box-2 {
+	/* width: 70%;
+    float: right;
+    margin: 15px;
+    margin-top: 0; */
+}
+
+.process-popup-content-header {
+	width: 100%;
+	float: left;
+	padding: 5px;
+	border-bottom: 1px solid #e5e5e5;
+}
+
+.process-popup-content-header span {
+	float: left;
+	font-size: 16px;
+	margin-top: 6px;
+	font-weight: bold;
+	color: #7f7f7f;
+	line-height: 1.6;
+}
+
+.process-popup-content-header span i {
+	color: #4385f5;
+	font-size: 24px;
+	margin-right: 5px;
+}
+
+.process-popup-content-header .process-content-btn {
+	float: right;
+	border-radius: 0;
+	line-height: 1.5;
+	color: #999;
+	border: 1px solid #ccc;
+	background: #fff;
+}
+
+.process-popup-content-header .process-content-btn i {
+	width: 20px;
+	height: 20px;
+	background: #43b05c;
+	color: #fff;
+	padding-top: 3px;
+	border-radius: 50%;
+	font-size: 13px;
+	margin-right: 5px;
+}
+
+.process-popup-content-sub-header {
+	width: 100%;
+	padding: 5px;
+	background: #f9f9f9;
+	border-bottom: 1px solid #e5e5e5;
+	background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+	background: -webkit-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+	background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5', GradientType=0)
+}
+
+.process-popup-tabcontent>.nav-tabs>li {
+	width: 50%;
+}
+
+.process-popup-tabcontent>.nav-tabs>li>a {
+	border-radius: 0;
+	margin-right: 0;
+	color: #7f7f7f;
+	line-height: 1;
+}
+
+.process-popup-tabcontent>.nav-tabs>li.active>a,
+.process-popup-tabcontent>.nav-tabs>li.active>a:focus,
+.process-popup-tabcontent>.nav-tabs>li.active>a:hover {
+	border-top: 2px solid #4385f5;
+	border-bottom: 0;
+	line-height: normal;
+}
+
+.process-popup-internal {
+	color: #7f7f7f;
+	font-size: 12px;
+}
+
+.sub-header-icon {
+	line-height: 1.6;
+	margin-left: 10px;
+	color: #7f7f7f;
+}
+
+.process-btn-dropdown {
+	padding: 0;
+	background: none;
+	font-size: 12px;
+	border: 0;
+	box-shadow: none;
+	cursor: pointer;
+}
+
+.process-btn-dropdown:focus,
+.process-btn-dropdown:active,
+.process-btn-dropdown:visited {
+	padding: 0;
+	background: none;
+	font-size: 12px;
+	border: 0;
+	box-shadow: none;
+	cursor: pointer;
+}
+
+.process-btn-dropdown .dropdown-arrow {
+	color: #4385f5;
+	font-size: 20px;
+}
+
+.process-popup-content-footer {
+	width: 100%;
+	float: left;
+	padding: 5px 10px 10px;
+}
+
+.process-popup-contebt-footer-add {
+	float: left;
+	margin-top: 1px;
+	text-decoration: none;
+}
+
+.process-plus-circle-icon {
+	width: 20px;
+	height: 20px;
+	color: #fff;
+	font-size: 13px;
+	text-align: center;
+	background: #4385f5;
+	border-radius: 50%;
+	padding-top: 3px;
+	margin: 0px 2px 0 0;
+}
+
+.process-popup-content-list {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	border-left: 1px solid #ebebeb;
+	border-right: 1px solid #ebebeb;
+}
+
+.process-popup-content-list li {
+	width: 100%;
+	float: left;
+	list-style: none;
+	border-bottom: 1px solid #ebebeb;
+}
+
+.process-popup-content-list li:last-child {
+	border-bottom: 0px solid #ebebeb;
+}
+
+.process-plus-icon {
+	color: #42af5b;
+	font-size: 24px;
+}
+
+.process-delete-icon {
+	color: #d71921;
+	font-size: 14px;
+	cursor: pointer;
+	margin-top: 3px;
+}
+
+.process-popup-textbox {
+	width: 75%;
+	font-size: 12px;
+	border: none !important;
+	box-shadow: none !important
+}
+
+.process-popup-dropdown {
+	border-left: 1px solid #ebebeb;
+	padding-left: 15px;
+}
+
+.process-popup-color {
+	color: #858585;
+	font-size: 12px;
+}
+
+.process-popup-true-action-list ul {
+	margin: 0;
+	padding: 0;
+}
+
+.process-popup-true-action-list li {
+	width: 100%;
+	float: left;
+	padding: 5px 0;
+	font-size: 12px;
+	list-style: none;
+	color: #858585;
+	border-bottom: 1px solid #e5e5e5;
+}
+
+
+/*** Dropdown Menu ***/
+
+.dropdown-menu-width-250 {
+	width: 250px;
+}
+
+.dropdown-menu-width-300 {
+	/* width: 681px; */
+	background: #f9f9f9;
+	/* margin-top: 6px;
+	border-radius: 0;  */
+	padding: 0;
+}
+
+.process-drop>.dropdown-menu {
+	/* right: -21px; */
+}
+
+.dropdown-menu li {
+	border-bottom: 1px solid #ebebeb;
+	cursor: pointer;
+}
+
+.bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+	width: 100%;
+}
+
+
+/* ========================================= */
+
+.modal.tc-work-step-rules-action .modal-dialog {
+	position: fixed;
+	margin: 0px auto;
+	width: 460px;
+	height: auto;
+	right: 0;
+}
+
+.process-popup-tabcontent {
+	height: 415px;
+}
+
+.process-popup-tabcontent .tab-content {
+	padding: 0;
+}
+
+.process-work-step-action-list-edit-delete .edit {
+	margin-top: 4px;
+}
+
+.process-work-step-action-list-edit-delete .delete {
+	margin-top: 1px;
+	margin-left: 15px;
+}
+
+.work-step-action-list {
+	border-bottom: 1px solid #ddd;
+	padding: 5px 0;
+}
+
+.work-step-action-list.active,
+.work-step-action-list:hover {
+	background-color: #eee;
+}
+
+.process-work-step-condition-details {
+	padding-bottom: 15px;
+	text-decoration: underline;
+}
+
+.round-step-number {
+	width: 18px;
+	height: 18px;
+	border-radius: 100%;
+	background-color: #4385f5;
+	color: #fff;
+	margin: 0 auto;
+	font-size: 12px;
+}

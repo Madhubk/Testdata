@@ -1,0 +1,445 @@
+        
+<!-- <div class="clearfix padding-top-20">
+    <div class="clearfix">
+    
+                
+            <div class="col-lg-6">
+                <div class="ex-inward-box">
+                    <div class="row no-margin">
+                        <div class="col-lg-2 no-padding">
+                            <div class="ex-inward-left"><i class="fa fa-user"></i></div>     
+                        </div>
+                        <div class="col-lg-10">
+                            <div class="ex-inward-righ margin-top-10">
+                                <div class="row">
+                                    <input type="hidden" ng-model="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader	.WAR_WarehouseName">
+                                    <div class="col-lg-3 margin-top-5 ex-inward-label">Warehouse</div>
+                                    <div class="col-lg-9">
+                                        <div class="input-group1 input-group-sm">                   
+                        
+                     <div dynamic-lookup placeholder="Warehouse" my-ng-model="TransGeneralCtrl.ePage.Masters.WarehouseName"
+                          obj="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader	" auto-complete-on-select="TransGeneralCtrl.ePage.Masters.SelectedLookupDataWarCode($item)" prefix-data="'Warehouse'"
+                          config="'WarehouseCode'">
+                    </div>
+
+                          
+                    <span class="input-group-btn">
+                          <button dynamic-list-modal obj="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader	" field-name="'WarehouseCode'" selected-data="TransGeneralCtrl.ePage.Masters.SelectedLookupDataWarCode($item)"  prefix-data="'Warehouse'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                    </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ex-inward-title text-single-line margin-top-10" title="{{TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader	.WAR_WarehouseName}}" data-ng-bind="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader	.WAR_WarehouseName"></div>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+                 
+            <div class="col-lg-6">
+                <div class="ex-inward-box">
+                    <div class="row no-margin">
+                        <div class="col-lg-2 no-padding">
+                            <div class="ex-inward-left"><i class="fa fa-user"></i></div>     
+                        </div>
+                        <div class="col-lg-10">
+                            <div class="ex-inward-right margin-top-10">
+                                <div class="row">
+                                    <input type="hidden" ng-model="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader	.ORG_TransporterName">
+                                                
+                                    <div class="col-lg-3 margin-top-5 ex-inward-label">Transporter</div>
+                                    <div class="col-lg-9">
+                                        <div class="input-group1 input-group-sm">
+                                                            
+                                                    
+                                                 
+                                            <div dynamic-lookup placeholder="Client Name" my-ng-model="TransGeneralCtrl.ePage.Masters.TransporterName"
+                                                obj="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader	" auto-complete-on-select="TransGeneralCtrl.ePage.Masters.SelectedLookupDataClient($item)" prefix-data="'OrganizationList'"
+                                                config="'WarehouseTransportName'">
+                                            </div>
+    
+                                                
+                                            <span class="input-group-btn">
+                                                <button dynamic-list-modal obj="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader	" field-name="'WarehouseTransportName'" selected-data="TransGeneralCtrl.ePage.Masters.SelectedLookupDataClient($item)"  prefix-data="'OrganizationList'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+        
+                                </div>
+                                <div class="ex-inward-title text-single-line margin-top-10" title="{{TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader	.ORG_TransporterName}}" data-ng-bind="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader	.ORG_TransporterName"></div>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+<div class="col-lg-12" style="margin-top: 10px;">
+            
+                    <div class="col-lg-3">
+                        <label class="InlineLabel1">Warehouse</label>
+                        <input type="text" class="form-control input-sm" ng-model="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader	.WAR_WarehouseName" style="margin-top: 4px;"/>
+                    </div>
+                    <div class="col-lg-3">
+                        <label class="InlineLabel1">Transporter</label>
+                        <input type="text" class="form-control input-sm" ng-model="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader	.ORG_TransporterName" style="margin-top: 4px;"/>
+                    </div>                    
+                    
+                    <div class="col-lg-3">
+                        <label class="InlineLabel1">Transportation Type</label>
+                       <select chosen class="form-control" ng-model="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader	.TransportationType"  ng-change = "TransGeneralCtrl.ePage.Masters.Transtype(TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader	.TransportationType)" ng-options="x.Key as x.Key + ' - '  + x.Value for x in TransGeneralCtrl.ePage.Masters.DropDownMasterList.TRA_TRANSPORTTYPE.ListSource"
+                        search-contains="true">
+                        
+                        </select>
+                    </div>
+                    <div class="col-lg-3">
+                        <label class="InlineLabel1">Transportation By</label>
+                        <select chosen class="form-control" ng-model="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader	.TransportationSubType" ng-options="x.Key as x.Key + ' - '  + x.Value for x in TransGeneralCtrl.ePage.Masters.DropDownMasterList.TRA_TRANSBY.ListSource"
+                        search-contains="true">
+                        
+                        </select>
+                    </div>    
+                    <div class="col-lg-3">
+                        <label class="InlineLabel1">Transport Mode</label>
+                        <select chosen class="form-control.TransportMode" ng-model="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader	.TransportMode" ng-options="x.Key as x.Key + ' - '  + x.Value for x in TransGeneralCtrl.ePage.Masters.DropDownMasterList.TRA_TRANSMODE.ListSource"
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                        </select>    
+                    </div>
+                    <div class="col-lg-3">
+                        <label class="InlineLabel1">Vehicle Type</label>
+                        <select chosen class="form-control" ng-model="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader	.TruckType" ng-options="x.Key as x.Value for x in TransGeneralCtrl.ePage.Masters.DropDownMasterList.TRANS_VEHTYPE.ListSource"
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                        </select>
+                    </div>                    
+                    <div class="col-lg-3">
+                        <label class="InlineLabel1">Vehicle No</label>
+                        <input type="text" class="form-control input-sm" ng-model="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader	.TruckNo" style="margin-top: 4px;"/>
+                    </div>
+                    
+                        <div class="col-lg-3">
+                        <label class="InlineLabel1">Drop Mode</label>
+                        <select chosen class="form-control" ng-model="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader	.DropMode" ng-options="x.Key as x.Key + ' - '  + x.Value for x in TransGeneralCtrl.ePage.Masters.DropDownMasterList.DropMode.ListSource"
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                        </select>
+
+                    </div>
+                    <div class="col-lg-3">
+                        <label class="InlineLabel1">No of LRS</label>
+                        <input type="text" class="form-control input-sm" ng-model="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader	.NoofLRS" style="margin-top: 4px;"/>
+                    </div>                    
+                    <div class="col-lg-3">
+                        <label class="InlineLabel1">Driver Name</label>
+                        <input type="text" class="form-control input-sm" ng-model="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader	.DriverName" style="margin-top: 4px;"/>
+                    </div>                    
+                    <div class="col-lg-3">
+                        <label class="InlineLabel1">Driver Contact No</label>
+                        <input type="text" class="form-control input-sm" ng-model="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader	.DriverContactNo" style="margin-top: 4px;"/>
+                    </div> 
+                    <div class="col-lg-3">
+                        <label class="InlineLabel1">Driver Licence No</label>
+                        <input type="text" class="form-control input-sm" ng-model="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader	.DriverLicence" style="margin-top: 4px;"/>
+                    </div>                          
+                    <div class="col-lg-3">
+                        <label class="InlineLabel1">Warehouse Dock No</label>
+                        <input type="text" class="form-control input-sm" ng-model="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader	.WarehouseDockNumber" style="margin-top: 4px;"/>
+                    </div>                                  
+                    <div class="col-lg-3">
+                        <label class="InlineLabel1">Courier Person Name</label>
+                        <input type="text" class="form-control input-sm" ng-model="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader	.CourierBoyName" style="margin-top: 4px;"/>
+                    </div>
+                    <div class="col-lg-3">
+                        <label class="InlineLabel1">Courier Company</label>
+                        <input type="text" class="form-control input-sm" ng-model="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader	.CourierCompName" style="margin-top: 4px;"/>
+                    </div>                                                            
+                    <div class="col-lg-3">
+                        <label class="InlineLabel1">Docket Reference No</label>
+                        <input type="text" class="form-control input-sm" ng-model="TransGeneralCtrl.ePage.Entities.Header.Data.WarehouseDockNumber" style="margin-top: 4px;"/>
+                    </div>                    
+</div> -->
+
+<div class="clearfix padding-top-10">
+    <div class="clearfix">    
+                    <!--client-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                <div class="form-group">
+                    <label class="control-label text-single-line vbold">Client</label>
+                        <div class="input-group1 input-group-sm">
+                                    <!-- Dynamic look up Search in textbox -->
+                            <div dynamic-lookup placeholder="Client Code And Name" my-ng-model="TransGeneralCtrl.ePage.Masters.ClientCodeName" auto-complete-on-select="TransGeneralCtrl.ePage.Masters.SelectedLookupDataClient($item)"
+                            obj="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader" prefix-data="'OrganizationList'"
+                            config="'WarehouseClient'">
+                            </div>
+                                    <!-- Look Up page opens when button clicks -->
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal obj="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader" field-name="'WarehouseClient'" selected-data="TransGeneralCtrl.ePage.Masters.SelectedLookupDataClient($item)"  prefix-data="'OrganizationList'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                            </span>
+                        </div>
+                </div>
+        </div>
+                    <!--Transporter-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+            <div class="form-group">
+                <label class="control-label text-single-line vbold">Transporter</label>
+                            
+                    <div class="input-group1 input-group-sm">
+                                <!-- Dynamic look up Search in textbox -->
+                        <div dynamic-lookup placeholder="Transporter Code And Name" my-ng-model="TransGeneralCtrl.ePage.Masters.TransporterCodeName" auto-complete-on-select="TransGeneralCtrl.ePage.Masters.SelectedLookupDataTransporter($item)"
+                        obj="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader" prefix-data="'OrganizationList'"
+                        config="'TransporterName'">
+                        </div>
+                                <!-- Look Up page opens when button clicks -->
+                        <span class="input-group-btn">
+                            <button dynamic-list-modal obj="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader" field-name="'TransporterName'" selected-data="TransGeneralCtrl.ePage.Masters.SelectedLookupDataTransporter($item)"  prefix-data="'OrganizationList'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                        </span>
+                    </div>
+            </div>
+        </div>
+                   <!--Transportationby-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+            <div class="form-group">
+                <label class="control-label text-single-line">Transportation By</label>
+                    <div class="input-group1 input-group-sm">
+                                <!-- Dynamic look up Search in textbox -->
+                        <div dynamic-lookup placeholder="Transportation Code And Name" my-ng-model="TransGeneralCtrl.ePage.Masters.TransportationCodeName" auto-complete-on-select="TransGeneralCtrl.ePage.Masters.SelectedLookupDataTransportationby($item)"
+                        obj="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader" prefix-data="'OrganizationList'"
+                        config="'Transportationby'">
+                        </div>
+                                <!-- Look Up page opens when button clicks -->
+                        <span class="input-group-btn">
+                            <button dynamic-list-modal obj="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader" field-name="'Transportationby'" selected-data="TransGeneralCtrl.ePage.Masters.SelectedLookupDataTransportationby($item)"  prefix-data="'OrganizationList'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                        </span>
+                    </div>
+            </div>
+        </div>                 
+                    <!--First Pickup-->
+        <div class="col-lg-6 padding-top-10">
+            <div class="ex-inward_general-box">
+                <div class="row no-margin">
+                    <div class="col-lg-2 no-padding">
+                        <div class="ex-inward_general-left"> 
+                            <i class="icomoon icon-company" style="font-weight:bold"></i>
+                        </div> 
+                        <div class="ex-inward_general-left1"> 
+                            <div class="margin-top-10 ex-inward-label">First Pickup</div>
+                        </div>    
+                    </div>
+                    <div class="col-lg-10">
+                        <div class="ex-inward-righ margin-top-10">
+                            <div class="row">
+                            <input type="hidden" ng-model="TransGeneralCtrl.ePage.Masters.FirstPickupName">
+                                <div class="col-lg-10">
+                                    <div class="input-group1 input-group-sm">
+                                            <!-- Dynamic look up Search in textbox -->
+                                        <div dynamic-lookup placeholder="Organization Code And Name" my-ng-model="TransGeneralCtrl.ePage.Masters.FirstPickupName" auto-complete-on-select="TransGeneralCtrl.ePage.Masters.SelectedLookupDataFirstClient($item)"
+                                            obj="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[0]" prefix-data="'OrganizationList'"
+                                            config="'TransOrgname'">
+                                        </div>
+                                            <!-- Look Up page opens when button clicks -->
+                                        <span class="input-group-btn">
+                                            <button dynamic-list-modal obj="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[0]" field-name="'TransOrgname'" selected-data="TransGeneralCtrl.ePage.Masters.SelectedLookupDataFirstClient($item)"  prefix-data="'OrganizationList'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- To show address -->
+                                
+                                <div class="col-lg-10">
+                                    <div class="ex-outward-title text-single-line margin-top-10" ng-bind="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[0].Address1"></div>
+                                    <div class"col-lg-12 margin-top-10">
+                                        <span class="InlineLabel" ng-bind="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[0].Address2"></span> 
+                                        <span class="InlineLabel" ng-bind="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[0].State"></span>   
+                                    </div>
+                                    <div class"col-lg-12">
+                                        <span class="InlineLabel" ng-show="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[0].City">
+                                            {{TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[0].City}} - 
+                                        </span>
+                                        <span class="InlineLabel" ng-show="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[0].PostCode">
+                                            {{TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[0].PostCode}}
+                                        </span>   
+                                    </div>
+                                    <div  class"col-lg-12">
+                                        <span ng-show="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[0].Fax" class="InlineLabel">
+                                                FAX :  {{TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[0].Fax}}&nbsp;&nbsp;
+                                        </span> 
+                                        <span class="InlineLabel" ng-show="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[0].Phone">
+                                            Phone :  {{TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[0].Phone}}
+                                        </span>   
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+                    <!--Final Delivery-->
+        <div class="col-lg-6 padding-top-10">
+            <div class="ex-inward_general-box">
+                <div class="row no-margin">
+                    <div class="col-lg-2 no-padding">
+                        <div class="ex-inward_general-left"> 
+                            <i class="icomoon icon-company" style="font-weight:bold"></i>
+                        </div> 
+                        <div class="ex-inward_general-left1"> 
+                            <div class="margin-top-10 ex-inward-label">Final Delivery</div>
+                        </div>    
+                    </div>
+            <div class="col-lg-10">
+                <div class="ex-inward-righ margin-top-10">
+                    <div class="row">
+                        <input type="hidden" ng-model="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ORG_Client_FK">    <div class="col-lg-10">
+                                <div class="input-group1 input-group-sm">
+                                            <!-- Dynamic look up Search in textbox -->
+                                    <div dynamic-lookup placeholder="Organization Code And Name" my-ng-model="TransGeneralCtrl.ePage.Masters.LastDeliveryName" auto-complete-on-select="TransGeneralCtrl.ePage.Masters.SelectedLookupDataLastClient($item)"
+                                    obj="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints" prefix-data="'OrganizationList'"
+                                    config="'TransOrgname'">
+                                    </div>
+                                            <!-- Look Up page opens when button clicks -->
+                                    <span class="input-group-btn">
+                                        <button dynamic-list-modal obj="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransGeneralCtrl.ePage.Masters.LastDeliveryNameObj]" field-name="'TransOrgname'" selected-data="TransGeneralCtrl.ePage.Masters.SelectedLookupDataLastClient($item)"  prefix-data="'OrganizationList'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                                <!-- To show address -->
+                                
+                                <div class="col-lg-10">
+                                    <div class="ex-outward-title text-single-line margin-top-10" ng-bind="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransGeneralCtrl.ePage.Masters.LastDeliveryNameObj].Address1"></div>
+                                    <div class"col-lg-12 margin-top-10">
+                                        <span class="InlineLabel" ng-bind="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransGeneralCtrl.ePage.Masters.LastDeliveryNameObj].Address2"></span> 
+                                        <span class="InlineLabel" ng-bind="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransGeneralCtrl.ePage.Masters.LastDeliveryNameObj].State"></span>   
+                                    </div>
+                                    <div class"col-lg-12">
+                                        <span class="InlineLabel" ng-show="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints.OAD_City">
+                                            {{TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransGeneralCtrl.ePage.Masters.LastDeliveryNameObj].City}} - 
+                                        </span>
+                                        <span class="InlineLabel" ng-show="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints.PostCode">
+                                            {{TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransGeneralCtrl.ePage.Masters.LastDeliveryNameObj].PostCode}}
+                                        </span>   
+                                    </div>
+                                    <div  class"col-lg-12">
+                                        <span ng-show="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints.Fax" class="InlineLabel">
+                                                FAX :  {{TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransGeneralCtrl.ePage.Masters.LastDeliveryNameObj].Fax}}&nbsp;&nbsp;
+                                        </span> 
+                                        <span class="InlineLabel" ng-show="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints.Phone">
+                                            Phone :  {{TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransGeneralCtrl.ePage.Masters.LastDeliveryNameObj].Phone}}
+                                        </span>   
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>                          
+                    <!--Transortation Mode-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 padding-top-20">
+            <div class="form-group">
+                <label class="control-label text-single-line vbold">Transortation Mode</label>
+                <select chosen class="form-control" ng-model="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader.TransportMode"   ng-options="x.Key as x.Key + ' - '  + x.Value for x in TransGeneralCtrl.ePage.Masters.DropDownMasterList.TRA_TRANSMODE.ListSource"
+                search-contains="true">
+                </select>
+            </div>
+        </div>
+                    <!--Transportation Type-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 padding-top-20">
+            <div class="form-group">
+                <label class="control-label text-single-line vbold">Transportation Type</label>
+                <select chosen class="form-control" ng-model="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader	.TransportType"   ng-options="x.Key as x.Key + ' - '  + x.Value for x in TransGeneralCtrl.ePage.Masters.DropDownMasterList.TRA_TRANSPORTTYPE.ListSource"
+                search-contains="true">
+                </select>
+            </div>
+        </div>
+                    <!--Container Mode-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 padding-top-20">
+            <div class="form-group">
+                <label class="control-label text-single-line">Container Mode</label>
+                <select chosen class="form-control" ng-model="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader.ContainerMode"   ng-options="x.Key as x.Key + ' - '  + x.Value for x in TransGeneralCtrl.ePage.Masters.DropDownMasterList.CONT_MODE.ListSource"
+                search-contains="true">
+                </select>
+            </div>
+        </div>
+                    <!--Drop Mode-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 padding-top-20">
+            <div class="form-group">
+                <label class="control-label text-single-line vbold">Drop Mode </label>
+                <select chosen class="form-control" ng-model="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader	.DropMode"   ng-options="x.Key as x.Key + ' - '  + x.Value for x in TransGeneralCtrl.ePage.Masters.DropDownMasterList.DropMode.ListSource"
+                search-contains="true">
+                </select>
+            </div>
+        </div>                
+                    <!--Truck No--> 
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label text-single-line vbold">Truck No</label>
+                    <input type="text" class="form-control input-sm" ng-model="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader	.TruckNo">
+                </div>
+        </div>
+                    <!--Truck Type-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line vbold">Truck Type</label>
+                <select chosen class="form-control" ng-model="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader.TruckType"   ng-options="x.Key as x.Key + ' - '  + x.Value for x in TransGeneralCtrl.ePage.Masters.DropDownMasterList.TRANS_VEHTYPE.ListSource"
+                search-contains="true">
+                </select>
+            </div>
+        </div>
+                    <!--Driver Name-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Driver Name</label>
+                <input type="text" class="form-control input-sm" ng-model="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader	.DriverName">
+            </div>
+        </div>
+                    <!--Driver License-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line vbold">Driver License </label>
+                <input type="text" class="form-control input-sm" ng-model="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader	.DriverLicence">
+            </div>
+        </div>
+                    <!--Driver Contact No-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line vbold">Driver Contact No </label>
+                <input type="text" class="form-control input-sm" ng-model="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader	.DriverContactNo">
+            </div>
+        </div>
+                    <!--No Of LRs-->
+        <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line vbold">No of LRs </label>
+                <input type="text" class="form-control input-sm" ng-model="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader	.NoOfLRS">
+            </div>
+        </div> -->
+                    <!--Trans ser level-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line vbold">Transporter Service Level     </label>
+                <div class="input-group1 input-group-sm">
+                            <!-- Dynamic look up Search in textbox -->
+                    <div dynamic-lookup placeholder="ServiceLevel Code And Name" my-ng-model="TransGeneralCtrl.ePage.Masters.ServiceCodeName" auto-complete-on-select="TransGeneralCtrl.ePage.Masters.SelectedLookupDataServiceLevel($item)"
+                    obj="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader" prefix-data="'MstServiceLevel'"
+                    config="'ServiceLevel'">
+                    </div>
+                            <!-- Look Up page opens when button clicks -->
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="TransGeneralCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader" field-name="'ServiceLevel'" selected-data="TransGeneralCtrl.ePage.Masters.SelectedLookupDataServiceLevel($item)"  prefix-data="'MstServiceLevel'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+
+
+  
+
+                       
+
+
+

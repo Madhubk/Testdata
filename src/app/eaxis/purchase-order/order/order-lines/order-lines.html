@@ -1,0 +1,97 @@
+<div class="p-10" >
+    <div>
+        <span><button type="button" class="btn btn-sm btn-outline-secondary" title="Add New"  data-ng-click="OrdLinesCtrl.ePage.Masters.PorOrderLine.addNew({'UICustomEntity':{}},'new')"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add Order Line</button></span>
+    </div>
+    <div id='' class="wmstable_scroll" style="height:300px; padding-top: 2px;">
+        <div class="table tab-position" id="results">
+            <div class='theader'>
+                <div class='table_header'>Action</div>
+                <div class='table_header'>Line #</div>
+                <div class='table_header'>Product Details</div>
+                <div class='table_header'>Packs</div>
+                <div class='table_header'>Quantity</div>
+                <div class='table_header'>Price</div>
+            </div>
+
+            <!-- List Empty Response -->
+            <div >
+                <div class="grid-no-record1" style="top:110px;" data-ng-if="OrdLinesCtrl.ePage.Entities.Header.Data.UIPorOrderLines.length==0">No records found...</div>
+            </div>
+
+            <div class='table_row' data-ng-repeat="x in OrdLinesCtrl.ePage.Entities.Header.Data.UIPorOrderLines  | orderBy:'LineNo'" style="font-size: 11px;">
+                <div class='table_small'>
+                    <div class='table_cell'>Action</div>
+                    <div class='table_cell'><i class="fa fa-edit order-icon" data-ng-click="OrdLinesCtrl.ePage.Masters.PorOrderLine.EditLineItem(x)"></i> | <i class="fa fa-trash order-icon" data-ng-click="OrdLinesCtrl.ePage.Masters.PorOrderLine.RemoveLineItem(x,$index)"></i></div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>List #</div>
+                    <div class='table_cell'>
+                        <b>{{x.LineNo}}</b>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Product Details</div>
+                    <div class='table_cell'>{{x.PartNo}} | {{x.LineDescription}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Packs</div>
+                    <div class='table_cell'>In : <b>{{x.InnerPacks}}</b> | Out: <b>{{x.OuterPacks}}</b></div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Quantity</div>
+                    <div class='table_cell'>Org : <b>{{x.Quantity}}</b> | Inv : <b>{{x.InvoicedQuantity}}</b> | Rcv : <b>{{x.RecievedQuantity}}</b></div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Price</div>
+                    <div class='table_cell'>Item : <b>{{x.ItemPrice}}</b> | Line : <b>{{x.LinePrice}}</b></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix padding-top-10 padding-bottom-10 ng-scope total-alignment">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <!-- Line Count-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+            <div class="">
+                Total Lines
+                <div class="padding-top-5">
+                    <b> {{OrdLinesCtrl.ePage.Masters.Consolidation[0].Count}}</b>
+                </div>
+            </div>
+        </div>
+        <!-- Inner Packs-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="">
+                Inner Packs :
+                <b>{{OrdLinesCtrl.ePage.Masters.Consolidation[0].InnerPacks}}</b>
+            </div>
+            <div class="padding-top-5">
+                Outer Packs :
+                <b>{{OrdLinesCtrl.ePage.Masters.Consolidation[0].OuterPacks}}</b>
+            </div>
+        </div>
+        <!-- Qty Ordered-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="">
+                Qty Ordered :
+                <b> {{OrdLinesCtrl.ePage.Masters.Consolidation[0].Quantity}}</b>
+            </div>
+            <div class="padding-top-5">
+                Qty Invoiced :
+                <b>{{OrdLinesCtrl.ePage.Masters.Consolidation[0].InvoicedQuantity}}</b>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="">
+                Qty Received :
+                <b>{{OrdLinesCtrl.ePage.Masters.Consolidation[0].RecievedQuantity}}</b>
+            </div>
+            <div class="padding-top-5">
+                Qty Remaining :
+                <b> {{OrdLinesCtrl.ePage.Masters.Consolidation[0].QtyRemaining}}</b>
+            </div>
+        </div>
+    </div>
+</div>

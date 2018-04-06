@@ -1,0 +1,172 @@
+<div class="clearfix mt-10" data-ng-show="!BookingDirectiveCtrl.ePage.Masters.JobSailing.IsFormView">
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="input-group-sm">
+                <button class="btn btn-primary pull-right" data-ng-click="BookingDirectiveCtrl.ePage.Masters.JobSailing.AddNewSailing()"
+                    data-ng-show="!BookingDirectiveCtrl.ePage.Masters.JobSailing.IsFormView">
+                    <i class="fa fa-plus-circle"></i> Add Sailing</button>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="height-230 clearfix">
+            <div class="text-center grid-view-loader" data-ng-if="!BookingDirectiveCtrl.ePage.Masters.JobSailing.GridData">
+                <i class="fa fa-spin fa-spinner font-160"></i>
+            </div>
+            <dynamic-table data-ng-if="BookingDirectiveCtrl.ePage.Masters.JobSailing.GridData" grid-data="BookingDirectiveCtrl.ePage.Masters.JobSailing.GridData"
+                grid-config="BookingDirectiveCtrl.ePage.Masters.JobSailing.gridConfig" selected-grid-row="BookingDirectiveCtrl.ePage.Masters.JobSailing.SelectedGridRow($item)"></dynamic-table>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix mt-10" data-ng-show="BookingDirectiveCtrl.ePage.Masters.JobSailing.IsFormView">
+    <div class="clearfix margin-bottom-10 service-details-heading">
+        <div class="text-center clearfix">
+            <i class="fa fa-angle-double-left pull-left btn btn-link" data-ng-click="BookingDirectiveCtrl.ePage.Masters.JobSailing.IsFormView = false"></i>
+            <span class="heading">Sailing Details</span>
+        </div>
+    </div>
+    <div class="clearfix">
+        <!--Truck Ref-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3" data-ng-show="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode=='ROA'">
+            <div class="form-group">
+                <label class="control-label">Truck Ref</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm" placeholder="Truck Ref" data-ng-model="BookingDirectiveCtrl.ePage.Masters.JobSailing.FormView.Vessel"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <!--Type-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">Carrier</label>
+                <div class="input-group input-group-sm">
+                    <input type="hidden" ng-model="BookingDirectiveCtrl.ePage.Masters.JobSailing.FormView.ORG_Carrier_FK">
+                    <div dynamic-lookup my-ng-model="BookingDirectiveCtrl.ePage.Masters.JobSailing.FormView.CarrierCode" obj="BookingDirectiveCtrl.ePage.Masters.JobSailing.FormView"
+                        prefix-data="'MDM_CarrierList'" config="'BkgSailingCarrier'" auto-complete-on-select="BookingDirectiveCtrl.ePage.Masters.SelectedLookupData($item)"></div>
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="BookingDirectiveCtrl.ePage.Masters.JobSailing.FormView" field-name="'BkgSailingCarrier'" prefix-data="'MDM_CarrierList'"
+                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingDirectiveCtrl.ePage.Masters.SelectedLookupData($item)"
+                            class="btn btn-default shiny" type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!--POL-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">POL </label>
+                <div class="input-group input-group-sm">
+                    <div dynamic-lookup placeholder="Origin" my-ng-model="BookingDirectiveCtrl.ePage.Masters.JobSailing.FormView.UIJobVoyageOrigin[0].POL"
+                        obj="BookingDirectiveCtrl.ePage.Masters.JobSailing.FormView.UIJobVoyageOrigin[0]" prefix-data="'MstUNLOCO'" config="'BookindSailingPOL'"></div>
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="BookingDirectiveCtrl.ePage.Masters.JobSailing.FormView.UIJobVoyageOrigin[0]" field-name="'BookindSailingPOL'"
+                            prefix-data="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingDirectiveCtrl.ePage.Masters.SelectedLookupData($item)"
+                            class="btn btn-default shiny" type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!--ETD-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="ontrol-label">ETD</label>
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="{{BookingDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="BookingDirectiveCtrl.ePage.Masters.JobSailing.FormView.UIJobVoyageOrigin[0].ETD"
+                        uib-datepicker-popup="{{BookingDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-click="BookingDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'issETD')"
+                        datepicker-options="BookingDirectiveCtrl.ePage.Masters.DatePicker.Options" is-open="BookingDirectiveCtrl.ePage.Masters.DatePicker.isOpen['issETD']"
+                    />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="BookingDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'issETD')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!--ETD-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="ontrol-label">ATD</label>
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="{{BookingDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="BookingDirectiveCtrl.ePage.Masters.JobSailing.FormView.UIJobVoyageOrigin[0].ATD"
+                        uib-datepicker-popup="{{BookingDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-click="BookingDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isATD')"
+                        datepicker-options="BookingDirectiveCtrl.ePage.Masters.DatePicker.Options" is-open="BookingDirectiveCtrl.ePage.Masters.DatePicker.isOpen['isATD']"
+                    />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="BookingDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isATD')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!--POD-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">POD </label>
+                <div class="input-group input-group-sm">
+
+                    <div dynamic-lookup placeholder="Destination" my-ng-model="BookingDirectiveCtrl.ePage.Masters.JobSailing.FormView.UIJobVoyageDestination[0].POD"
+                        obj="BookingDirectiveCtrl.ePage.Masters.JobSailing.FormView.UIJobVoyageDestination[0]" prefix-data="'MstUNLOCO'" config="'BookingSailingPOD'"></div>
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="BookingDirectiveCtrl.ePage.Masters.JobSailing.FormView.UIJobVoyageDestination[0]" field-name="'BookingSailingPOD'"
+                            prefix-data="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingDirectiveCtrl.ePage.Masters.SelectedLookupData($item)"
+                            class="btn btn-default shiny" type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!--ETA-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">ETA </label>
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="{{BookingDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="BookingDirectiveCtrl.ePage.Masters.JobSailing.FormView.UIJobVoyageDestination[0].ETA"
+                        uib-datepicker-popup="{{BookingDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-click="BookingDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'issETA')"
+                        datepicker-options="BookingDirectiveCtrl.ePage.Masters.DatePicker.Options" is-open="BookingDirectiveCtrl.ePage.Masters.DatePicker.isOpen['issETA']"
+                    />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="BookingDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'issETA')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+         <!--ATA-->
+         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">ATA </label>
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="{{BookingDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="BookingDirectiveCtrl.ePage.Masters.JobSailing.FormView.UIJobVoyageDestination[0].ATA"
+                        uib-datepicker-popup="{{BookingDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-click="BookingDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isATA')"
+                        datepicker-options="BookingDirectiveCtrl.ePage.Masters.DatePicker.Options" is-open="BookingDirectiveCtrl.ePage.Masters.DatePicker.isOpen['isATA']"
+                    />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="BookingDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isATA')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 margin-top-30">
+            <input type="button" class="btn btn-primary btn-sm pull-right margin-left-5" data-ng-click="BookingDirectiveCtrl.ePage.Masters.JobSailing.AddToGridSailing(BookingDirectiveCtrl.ePage.Masters.JobSailing.AddNewAndUpdate)"
+                value="{{BookingDirectiveCtrl.ePage.Masters.JobSailing.AddNewAndUpdate}}">
+        </div>
+
+    </div>
+</div>

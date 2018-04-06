@@ -1,0 +1,158 @@
+.tc-process-work-step-rules-actions .table thead tr{
+    background: #ccdadf;
+}
+
+.tc-process-work-step-rules-actions .table>tbody>tr>td {
+    padding: 0;
+   
+}
+
+.tc-process-work-step-rules-actions .modal-dialog {
+    width: 650px !important;
+}
+
+
+
+
+.tc-process-work-step-rules-actions .table>tbody>tr>td>.set-tabel-text {
+    width: 100%;
+    border: 0;
+    padding: 8px 10px;
+    background: #fff;
+}
+
+.tc-process-work-step-rules-actions .table>tbody>tr>td>.set-tabel-textarea {
+    width: 100%;
+    border: 0;
+    padding: 4px 10px;
+    background: #fff;
+    height: 32px;
+}
+
+.tc-process-work-step-rules-actions .form-group{
+    
+         margin-bottom: 0px;
+    
+ }
+
+.tc-process-work-step-rules-actions .table{
+    table-layout: fixed;
+} 
+.tc-process-work-step-rules-actions-container{
+    overflow-x: auto;
+}
+
+.tc-process-work-step-rules-actions .table thead tr th.th-process{
+    width: 400px;
+}
+.tc-process-work-step-rules-actions .table thead tr th.th-isactive{
+    width: 65px;
+}
+.tc-process-work-step-rules-actions .table thead tr th.th-step{
+    width: 400px;
+}
+.tc-process-work-step-rules-actions .table thead tr th.th-dropdown{
+    width: 400px;
+}
+.tc-process-work-step-rules-actions .table thead tr th.th-action{
+    width: 30px;
+}
+.tc-process-work-step-rules-actions .table thead tr th.th-saveaction{
+    width: 30px;
+}
+
+
+.tc-process-work-step-rules-actions .table tbody tr td .chosen-container .chosen-single{
+    border: 0; 
+}
+
+.tc-mandatory-steps{
+    padding: 4px;
+    background-color: #f1f1f1;
+    border: 1px solid #D8D8D8;
+    }
+ .tc-work-step-mandatory-steps-save{
+    padding: 17px;
+    background-color: #f1f1f1;
+    border: 1px solid #D8D8D8;
+ }   
+    .tc-process-work-step-rules-mandatorysteps {
+        padding: 8px;
+        background-color: #ccdadf;
+        border: 1px solid #D8D8D8;
+    
+    }
+    .tc-process-work-step-rules-mandatorysteps-save{
+    padding: 17px;
+    background-color: #ccdadf;
+    border: 1px solid #D8D8D8;
+}
+    .tc-mandatory-steps-common {
+        padding: 0px;
+        background-color: #f1f1f1;
+        border: 0px solid #D8D8D8;
+    }
+
+    .tc-mandatory-filter-type-m10 {
+        margin-top: 12px;
+    }
+
+    .tc-mandatory-filter-type-common {
+        padding:0px!important;
+        background-color: white;
+       
+    }
+    .tc-mandatory-steps-save{
+        padding: 4px;
+        background-color:white;
+        border: 1px solid #D8D8D8;
+        }
+  .tc-mandatory-steps-border{
+      
+    border: 1px solid #ccc;
+    
+  }
+
+  .tc-mandatory-steps-filter-border{
+    border: 1px solid #ccc;
+    margin: 0 15px
+  }
+
+
+
+  .tc-mandatory-steps-icon{
+    margin-left: 23px;
+    font-size: 24px;
+  }
+    
+/* 
+    .tc-mandatory-steps-logical-operator{
+        padding: 1px;
+        background-color: #f1f1f1;
+        border: 1px solid #D8D8D8;
+    } */
+    
+    
+    .set-row-text{
+        width: 100%;
+        border: 0;
+        padding: 4px 10px;
+        background: #fff;
+    }
+
+    .p-17{
+        padding:17px;
+    }
+
+   .rules-modal-dialog{
+    width: 353px !important;
+    max-height: 350px !important;
+    margin: 250px auto;
+   }
+   .rules-modal-content{
+    width: 351px !important;
+   }
+  
+   .margin-left{
+    margin-left: 282px;
+   }

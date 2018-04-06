@@ -1,0 +1,92 @@
+<div class="clearfix margin-top-20" data-ng-if="PoBatchUploadDirectiveDirectiveCtrl.ePage.Masters.IsNewOrder && PoBatchUploadDirectiveDirectiveCtrl.ePage.Masters.IsTaskCompletion">
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <a class="padding-left-10" href="javascript:void(0)" data-ng-click="PoBatchUploadDirectiveDirectiveCtrl.ePage.Masters.CreateNewOrder()">
+            <input type="button" class="btn btn-blue btn-primary pull-right" value="Create New Order" />
+        </a>
+    </div>
+</div>
+
+<div class="clearfix margin-top-20">
+    <div class="col-lg-1 margin-top-10" >
+    </div>
+    <div class="col-lg-10 margin-top-10" >
+        <ul class="patch-action">
+            <li class="border-bottom padding-top-5 padding-bottom-5">
+                <div class="col-lg-3">
+                    <div class="patch-top-title text-center">File Name</div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="patch-top-title text-center">Uploaded By</div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="patch-top-title text-center">Uploaded On</div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="patch-top-title text-center">Action</div>
+                </div>
+            </li>
+            <li data-ng-if="PoBatchUploadDirectiveDirectiveCtrl.ePage.Masters.PODocuments.GridData.length==0">
+                 <div class="row">
+                    <div class="text-center" >
+                        No Records Found...
+                    </div>
+                </div>
+            </li>
+            <li data-ng-if="PoBatchUploadDirectiveDirectiveCtrl.ePage.Masters.PODocuments.GridData.length > 0" data-ng-repeat="x in PoBatchUploadDirectiveDirectiveCtrl.ePage.Masters.PODocuments.GridData">
+                <div class="col-lg-3 border-left"> 
+                    <div class="alignment text-center margin-top-10"> 
+                        <a href="javascript:void(0)" data-ng-click="" data-ng-bind="x.FileName"></a>
+                     </div>
+                </div>
+                <div class="col-lg-3 border-left"> 
+                    <div class="alignment text-center margin-top-10"> {{x.CreatedBy}} </div>
+                </div>
+                <div class="col-lg-3 border-left"> 
+                    <div class="alignment text-center margin-top-10">{{x.CreatedDateTime | date:'dd-MMM-yyyy'}}</div>
+                    
+                </div>
+                <div class='col-lg-3 border-left'>
+                    <div class='alignment text-center margin-top-10'>
+                        <a><i class="fa fa-download" data-ng-click="PoBatchUploadDirectiveDirectiveCtrl.ePage.Masters.PODocuments.SelectedGridRow(x, 'download')"></i></a> | <a><i class="fa fa-trash order-icon" data-ng-click="PoBatchUploadDirectiveDirectiveCtrl.ePage.Masters.PODocuments.SelectedGridRow(x, 'delete')"></i></a>
+                    </div>
+                </div>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="col-lg-1 margin-top-10" >
+    </div>
+</div>
+
+<div class="clearfix margin-top-20">
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <div class="row">
+            <file-upload-custom class="file-upload-directive clearfix pull-right mr-15" size="PoBatchUploadDirectiveDirectiveCtrl.ePage.Masters.PODocuments.fileSize"
+                ng-model="PoBatchUploadDirectiveDirectiveCtrl.ePage.Masters.PODocuments.fileDetails" auth="{{PoBatchUploadDirectiveDirectiveCtrl.ePage.Masters.PODocuments.autherization}}"
+                additional-value="{{PoBatchUploadDirectiveDirectiveCtrl.ePage.Masters.PODocuments.additionalValue}}" modal-template=""
+                template="" get-file-details="PoBatchUploadDirectiveDirectiveCtrl.ePage.Masters.PODocuments.GetFileDetails(TotCount, Response)" get-uploaded-files = "PoBatchUploadDirectiveDirectiveCtrl.ePage.Masters.PODocuments.UploadedFiles($item)"
+                doc-type="image/*" multiple-file="false" url="{{PoBatchUploadDirectiveDirectiveCtrl.ePage.Masters.PODocuments.UploadUrl}}"
+                is-disabled="false" fu-class="tc-application left">
+                <button class='btn btn-sm'><i class="fa fa-upload"></i></button>
+            </file-upload-custom>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix margin-top-10 pull-right">
+    <div class="col-lg-4 col-sm-12 col-xs-12" data-ng-if="!PoBatchUploadDirectiveDirectiveCtrl.ePage.Masters.IsNewOrder && PoBatchUploadDirectiveDirectiveCtrl.ePage.Masters.IsTaskCompletion">
+        <a class="" href="javascript:void(0)" data-ng-click="PoBatchUploadDirectiveDirectiveCtrl.ePage.Masters.Submit()">
+            <input type="button" class="btn btn-blue btn-primary" value="Submit" />
+        </a>
+    </div>
+    <div class="col-lg-2 col-sm-12 col-xs-12" data-ng-if="PoBatchUploadDirectiveDirectiveCtrl.ePage.Masters.IsNewOrder && PoBatchUploadDirectiveDirectiveCtrl.ePage.Masters.IsTaskCompletion">
+        <a class="padding-left-5" href="javascript:void(0)" data-ng-click="PoBatchUploadDirectiveDirectiveCtrl.ePage.Masters.Complete()">
+            <input type="button" class="btn btn-blue btn-primary" value="Complete" />
+        </a>
+    </div>
+    <div class="col-lg-2 col-sm-12 col-xs-12" data-ng-if="!PoBatchUploadDirectiveDirectiveCtrl.ePage.Masters.IsTaskCompletion">
+            <a class="padding-left-5" href="javascript:void(0)">
+                <input type="button" class="btn btn-blue btn-primary" data-ng-disabled="!PoBatchUploadDirectiveDirectiveCtrl.ePage.Masters.IsTaskCompletion" value="Task Completed..." />
+            </a>
+        </div>
+</div>

@@ -1,0 +1,36 @@
+<uib-tabset id="chromeTab" active="POBatchUploadCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+    <uib-tab>
+        <uib-tab-heading title="Order Upload">
+            <span data-ng-bind="'Order Upload'"></span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+        <div class="no-padding tab-list-view-wrapper">
+            <!--Order Grid Page-->
+            <dynamic-list task-name="POBatchUploadCtrl.ePage.Masters.taskName" default-filter="POBatchUploadCtrl.ePage.Masters.DefaultFilter" grid-config-type="0" selected-grid-row="POBatchUploadCtrl.ePage.Masters.SelectedGridRow($item)" dataentry-name="POBatchUploadCtrl.ePage.Masters.dataentryName" mode="1"></dynamic-list>
+            <div class="tab-loading" data-ng-show="POBatchUploadCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+    <uib-tab active="POBatchUploadCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in POBatchUploadCtrl.ePage.Masters.TabList"
+        ng-click="POBatchUploadCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+        <uib-tab-heading title="{{tab.label}}">
+            <span data-ng-bind="tab.label"></span>
+            <i class="glyphicon glyphicon-remove" ng-click="POBatchUploadCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+        </uib-tab-heading>
+        <div class="padding-bottom-10 clearfix">
+            <!--PO Batch Upload Directive-->
+            <po-batch-upload-directive data-ng-if="!tab.isNewOrder" current-batch="tab" add-tab="POBatchUploadCtrl.ePage.Masters.AddTab1($item)"></po-batch-upload-directive>
+            <!--Order Menu Directive-->
+            <order-menu data-ng-if="tab.isNewOrder" current-order="tab"></order-menu>
+            <div class="eaxis-footer-strip" data-ng-if="tab.isNewOrder">
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
+                    <standard-menu input="tab" entity-name="'OrderHeader'" data-ng-if="!tab.isNew"></standard-menu>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                    <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="POBatchUploadCtrl.ePage.Masters.Save(tab)"
+                        data-ng-bind="POBatchUploadCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="POBatchUploadCtrl.ePage.Masters.IsDisableSave"></button>
+                </div>
+            </div>
+        </div>
+    </uib-tab>
+    <button class="btn btn-default" data-ng-click="POBatchUploadCtrl.ePage.Masters.CreateBatch()" data-ng-disabled="POBatchUploadCtrl.ePage.Masters.IsNewBatchClicked">+</button>
+</uib-tabset>

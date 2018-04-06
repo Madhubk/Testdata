@@ -1,0 +1,180 @@
+<div class="modal-header">
+	<h5 class="modal-title">
+		<strong>Instance</strong>
+		<button class="btn btn-warning btn-xs pull-right" data-ng-click="ProcessInstanceModalCtrl.ePage.Masters.ProcessInstanceModal.Cancel()">Close</button>
+	</h5>
+</div>
+<div class="modal-body form-horizontal">
+	<div class="clearfix" data-ng-if="ProcessInstanceModalCtrl.ePage.Masters.param.Mode=='1'">
+		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+			<div class="form-group">
+				<label class="control-label col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 font-size pl-0 pr-0">Process Name</label>
+				<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 col-xl-7">
+					<select chosen name="category-group" class="form-control" ng-model="ProcessInstanceModalCtrl.ePage.Masters.Instance.FormView.ProcessName"
+					    ng-options="x.ProcessName as  x.ProcessName for x in ProcessInstanceModalCtrl.ePage.Masters.Instance.EBPMProcessMasterList"
+					    search-contains="false" disabled="true">
+						<option value="">--Select--</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+			<div class="form-group">
+				<label class="control-label col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 font-size pl-0 pr-0">Entity Name</label>
+				<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 col-xl-7">
+					<input type="text" class="form-control input-sm" placeholder="Entity Name" data-ng-model="ProcessInstanceModalCtrl.ePage.Masters.Instance.FormView.EntityName">
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-5 col-xl-5 font-size pl-0 pr-0">Entity Ref Key</label>
+				<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 col-xl-7">
+					<input type="text" class="form-control input-sm" placeholder="Entity Ref Key" data-ng-model="ProcessInstanceModalCtrl.ePage.Masters.Instance.FormView.EntityRefKey">
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+			<div class="form-group">
+				<label class="control-label col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 font-size pl-0 pr-0">Entity Ref Code</label>
+				<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 col-xl-7">
+					<input type="text" class="form-control input-sm" placeholder="Entity Ref Code" data-ng-model="ProcessInstanceModalCtrl.ePage.Masters.Instance.FormView.EntityRefCode">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="clearfix" data-ng-if="ProcessInstanceModalCtrl.ePage.Masters.param.Mode=='2'">
+		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-5 col-xl-5 font-size pl-0 pr-0">Instance No</label>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-7 col-xl-7">
+					<input type="text" class="form-control input-sm" placeholder="Instance No" data-ng-model="ProcessInstanceModalCtrl.ePage.Masters.Instance.FormView.CompleteInstanceNo">
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-5 col-xl-5 font-size pl-0 pr-0">Step No</label>
+				<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 col-xl-7">
+					<input type="text" class="form-control input-sm" placeholder="Step No" data-ng-model="ProcessInstanceModalCtrl.ePage.Masters.Instance.FormView.CompleteStepNo">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="clearfix">
+		<div class="clearfix">
+			<div class="clearfix">
+				<h5 class="m-5">
+					<strong>Workflow Data</strong>
+				</h5>
+			</div>
+		</div>
+		<div class="clearfix instance">
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6" data-ng-repeat="x in ProcessInstanceModalCtrl.ePage.Masters.Instance.FormView.DataSlots.Labels">
+				<div class="form-group">
+					<label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-5 col-xl-5 font-size pl-0 pr-0" data-ng-bind="(x != '') ? x : ('Val' + [$index + 1])"></label>
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-7 col-xl-7">
+						<input type="text" class="form-control input-sm" placeholder="{{(x != '') ? x : ('Val' + [$index + 1])}}" data-ng-model="ProcessInstanceModalCtrl.ePage.Masters.Instance.FormView.DataSlots['Val' + [$index + 1]]">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="clearfix mb-10">
+		<div class="clearfix">
+			<h5 class="m-5">
+				<strong>Child Process</strong>
+			</h5>
+		</div>
+		<div class="clearfix">
+			<div class="clearfix tc-process-instance">
+				<table class="tc-process-instance table table-bordered table-responsive">
+					<thead>
+						<tr>
+							<th class="th-childentityname">Entity Name</th>
+							<th class="th-childentityrefkey">Ref Key</th>
+							<th class="th-childentityrefcode">Ref Code</th>
+							<th class="th-action"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr data-ng-repeat="item in ProcessInstanceModalCtrl.ePage.Masters.Instance.FormView.DataSlots.ChildItem">
+							<td>
+								<input class="set-tabel-text form-control input-sm" type="text" data-ng-model="item.EntitySource" placeholder="Entity Name"
+								    style="border:0;">
+							</td>
+							<td>
+								<input class="set-tabel-text form-control input-sm" type="text" data-ng-model="item.EntityRefKey" placeholder="Entity Ref Key">
+							</td>
+							<td>
+								<input class="set-tabel-text form-control input-sm" type="text" data-ng-model="item.KeyReference" placeholder="Key Reference">
+							</td>
+							<td style="text-align:center; vertical-align:middle">
+								<span style="font-size:14px; color:#D6171F" data-ng-click="ProcessInstanceModalCtrl.ePage.Masters.ProcessInstanceModal.RemoveChildItemRecord(item, $index)">
+									<i class="glyphicon glyphicon-trash text-danger cursor-pointer"></i>
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="4">
+								<a class="pull-left padding-8" href="javascript:(0);" data-ng-click="ProcessInstanceModalCtrl.ePage.Masters.ProcessInstanceModal.AddNewChildItem()">Add new Record…</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="clearfix mb-10">
+		<div class="clearfix">
+			<h5 class="m-5">
+				<strong>Related Instance</strong>
+			</h5>
+		</div>
+		<div class="clerfix">
+			<div class="clearfix tc-process-instance">
+				<table class="process-instance table table-bordered table-responsive">
+					<thead>
+						<tr>
+							<th class="th-completeinstanceno">Instance Name</th>
+							<th class="th-completestepno">Step No</th>
+							<th class="th-mode">Action No</th>
+							<th class="th-action"></th>
+						</tr>
+						<tbody>
+							<tr data-ng-repeat="x in ProcessInstanceModalCtrl.ePage.Masters.Instance.FormView.DataSlots.Related">
+								<td>
+									<input class="set-tabel-text form-control input-sm" type="text" data-ng-model="x.CompleteInstanceNo" placeholder="Instance Name">
+								</td>
+								<td>
+									<input class="set-tabel-text form-control input-sm" type="text" data-ng-model="x.CompleteStepNo" placeholder="Step No">
+								</td>
+								<td>
+									<input class="set-tabel-text form-control input-sm" type="text" data-ng-model="x.Mode" placeholder="Mode">
+								</td>
+								<td style="text-align:center; vertical-align:middle">
+									<span style="font-size:14px; color:#D6171F" data-ng-click="ProcessInstanceModalCtrl.ePage.Masters.ProcessInstanceModal.RemoveRelatedRecord(x, $index)">
+										<i class="glyphicon glyphicon-trash text-danger cursor-pointer"></i>
+									</span>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="4">
+									<a class="pull-left padding-8" href="javascript:(0);" data-ng-click="ProcessInstanceModalCtrl.ePage.Masters.ProcessInstanceModal.AddNewRelatedRecord()">Add new Record…</a>
+								</td>
+							</tr>
+						</tbody>
+					</thead>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="clearfix">
+		<button class="btn btn-success btn-xs pull-right ml-10 mt-5 mb-5" data-ng-if="ProcessInstanceModalCtrl.ePage.Masters.param.Mode == '1'"
+		    data-ng-click="ProcessInstanceModalCtrl.ePage.Masters.ProcessInstanceModal.Create()">Create</button>
+		<button class="btn btn-success btn-xs pull-right ml-10 mt-5 mb-5" data-ng-if="ProcessInstanceModalCtrl.ePage.Masters.param.Mode == '2' && ProcessInstanceModalCtrl.ePage.Masters.Instance.FormView.CompleteStatus == 'AVAILABLE'"
+		    data-ng-click="ProcessInstanceModalCtrl.ePage.Masters.ProcessInstanceModal.Create()">Complete</button>
+		<button class="btn btn-success btn-xs pull-right ml-10 mt-5 mb-5" data-ng-if="ProcessInstanceModalCtrl.ePage.Masters.param.Mode == '2' && ProcessInstanceModalCtrl.ePage.Masters.Instance.FormView.CompleteStatus == 'CREATED'"
+		    data-ng-click="ProcessInstanceModalCtrl.ePage.Masters.ProcessInstanceModal.Create()">Activate</button>
+	</div>
+</div>

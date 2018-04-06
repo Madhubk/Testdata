@@ -1,0 +1,48 @@
+
+<uib-tabset id="chromeTab" active="PickCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+
+    <uib-tab>
+        <uib-tab-heading title="Pick">
+            <span data-ng-bind="'Pick'" class="ng-binding">Pick</span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+
+        <div class="no-padding tab-list-view-wrapper">
+            <!--Pick Grid Page-->
+            <dynamic-list dataentry-name="PickCtrl.ePage.Masters.dataentryName" task-name="PickCtrl.ePage.Masters.taskName" grid-config-type="0" selected-grid-row="PickCtrl.ePage.Masters.SelectedGridRow($item)" mode="1"></dynamic-list>
+            <div class="tab-loading" data-ng-show="PickCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+    <uib-tab active="PickCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in PickCtrl.ePage.Masters.TabList"
+        ng-click="PickCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+        <uib-tab-heading title="{{tab.label}}">
+            <span  data-ng-bind="tab.label" class="mr-5"></span>
+            <i class="glyphicon glyphicon-remove" ng-click="PickCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+            <span class="error-warning-container-common" data-ng-if="tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length > 0">
+                <span class="custom-warning-container" data-ng-if="(tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'W') > 0 && (tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'E') == 0">
+                    <button class="btn-warning" data-ng-click="PickCtrl.ePage.Masters.Config.ShowErrorWarningModal(tab)">
+                        <i class="fa fa-warning"></i>
+                    </button>
+                    <span class="custom-warning-count">{{tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount:
+                        'MessageType': 'W'}}</span>
+                </span>
+                <span class="custom-error-container" data-ng-if="(tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'E') > 0">
+                    <button class="btn-error" data-ng-click="PickCtrl.ePage.Masters.Config.ShowErrorWarningModal(tab)">
+                        <i class="fa fa-warning"></i>
+                    </button>
+                    <span class="custom-error-count">{{tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount:
+                        'MessageType': 'E'}}</span>
+                </span>
+            </span>
+        </uib-tab-heading>
+        <div class="padding-5 padding-bottom-10 clearfix">
+
+            <!--Pick Menu Directive-->
+            <pick-menu current-pick="tab"></pick-menu>
+
+            <div class="horizontal-space"></div>
+        </div>
+        <span ng-if="PickCtrl.ePage.Masters.Config.SaveAndClose" ng-init="PickCtrl.ePage.Masters.SaveandClose(PickCtrl.ePage.Masters.activeTabIndex, tab)"></span>
+    </uib-tab>
+    <button class="btn btn-default" ng-click="PickCtrl.ePage.Masters.CreateNewPick()" data-ng-disabled="PickCtrl.ePage.Masters.IsNewPickClicked">+</button>
+</uib-tabset>

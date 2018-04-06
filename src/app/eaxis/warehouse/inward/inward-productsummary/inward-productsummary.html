@@ -1,0 +1,46 @@
+<div class="p-10">
+    <div id='InwardProductsummaryCtrl.ePage.Masters.your_div' class="wmstable_scroll" style="height:400px;">
+        <div class="table tab-position" id="results">
+            <div class='theader'>
+                <div class='table_header'>Product</div>
+                <div class='table_header'>Expected Packs</div>
+                <div class='table_header'>Recevied Packs</div>
+                <div class='table_header'>Expected Quantity</div>
+                <div class='table_header'>Received Quantity</div>
+                <div class='table_header'>Damaged Quantity</div>
+            </div>
+            <!-- List Empty Response -->
+            <div data-ng-if="InwardProductsummaryCtrl.ePage.Masters.Config.ProductSummaryList[InwardProductsummaryCtrl.ePage.Entities.Header.Data.PK].length==0">
+                <div class="grid-no-record" style="top:110px">No records found...</div>
+            </div>
+            <div class='table_row' ng-repeat="x in InwardProductsummaryCtrl.ePage.Masters.Config.ProductSummaryList[InwardProductsummaryCtrl.ePage.Entities.Header.Data.PK] | orderBy:'CreatedDateTime' "  style="font-size: 11px;">
+                <div class='table_small'>
+                    <div class='table_cell'>Product</div>
+                    <div class='table_cell'>{{x.ProductCode}} - {{x.ProductDescription ||InwardProductsummaryCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Expected Packs</div>
+                    <div class='table_cell'>{{x.ExpectedPacks}} {{x.ExpectedPackType ||InwardProductsummaryCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Recevied Packs</div>
+                    <div class='table_cell'>{{x.ReceivedPacks}} {{x.ReceivedPackType ||InwardProductsummaryCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Expected Quantity</div>
+                    <div class='table_cell'>{{x.ExpectedQty}} {{ x.UnitOfQuantity||InwardProductsummaryCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Received Quantity</div>
+                    <div class='table_cell'>{{x.ReceivedQty}} {{ x.UnitOfQuantity||InwardProductsummaryCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Damaged Quantity</div>
+                    <div class='table_cell'>-</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+
+        

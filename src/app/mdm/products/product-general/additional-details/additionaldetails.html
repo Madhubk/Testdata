@@ -1,0 +1,114 @@
+<div class="class=col-lg-12 container-fluid mt-10 pl-10">
+    <!-- <div class="panel panel-default">
+        <div class="panel-heading"><b>Client Defined Fields</b></div>
+        <div class="panel-body">
+            <div class="col-lg-2" style="padding-right:0px">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Order Multiple</label>
+                    <div  class="">
+                        <input type="text" maxlength="5" class="form-control input-sm" placeholder="Order Multiple" data-ng-model="AdditionalDetailsCtrl.ePage.Entities.Header.Data.UIProductGeneral.OrderMultipleQty" />                                
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2" style="padding-top:22px;padding-left:0px">
+                <div class="form-group">
+                    <div  class="">
+                        <select chosen class="form-control" ng-model="AdditionalDetailsCtrl.ePage.Entities.Header.Data.UIProductGeneral.OrderMultipleUnit"  ng-options="x.Key as x.Key + ' - '  + x.Value for x in AdditionalDetailsCtrl.ePage.Masters.DropDownMasterList.INW_LINE_UQ.ListSource" search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>                   
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2" style="padding-right:0px">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Vendor Pack</label>
+                    <div  class="">
+                        <input type="text" maxlength="5" class="form-control input-sm" placeholder="Vendor Pack" data-ng-model="AdditionalDetailsCtrl.ePage.Entities.Header.Data.UIProductGeneral.VendorPackQty" />                                
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2" style="padding-top:22px;padding-left:0px">
+                <div class="form-group">
+                    <div  class="">
+                        <select chosen class="form-control" ng-model="AdditionalDetailsCtrl.ePage.Entities.Header.Data.UIProductGeneral.PAC_NKPackType"  ng-options="x.Key as x.Key + ' - '  + x.Value for x in AdditionalDetailsCtrl.ePage.Masters.DropDownMasterList.INW_LINE_UQ.ListSource" search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>                   
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Department</label>
+                    <div  class="">
+                        <input type="text" maxlength="15" class="form-control input-sm" placeholder="Department" data-ng-model="AdditionalDetailsCtrl.ePage.Entities.Header.Data.UIProductGeneral.Department" />                                
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Division</label>
+                    <div  class="">
+                        <input type="text" maxlength="15" class="form-control input-sm" placeholder="Division" data-ng-model="AdditionalDetailsCtrl.ePage.Entities.Header.Data.UIProductGeneral.Division" />                                
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <div class="panel panel-default">
+        <div class="panel-heading"><b>Additional Product Details</b></div>
+        <div class="panel-body">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Brand Name</label>
+                    <input type="text" class="form-control input-sm" maxlength="35" placeholder="Brand Name" ng-model="AdditionalDetailsCtrl.ePage.Entities.Header.Data.UIProductGeneral.Brand">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Model</label>
+                    <input type="text" class="form-control input-sm" maxlength="35" placeholder="Model" ng-model="AdditionalDetailsCtrl.ePage.Entities.Header.Data.UIProductGeneral.Model">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="panel panel-default mt-30">
+        <div class="panel-heading"><b>Basic Stock Control</b></div>
+        <div class="panel-body">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Weighted Cost</label>
+                    <input type="text" class="form-control input-sm" maxlength="8" placeholder='Weighted Cost' ng-model="AdditionalDetailsCtrl.ePage.Entities.Header.Data.UIProductGeneral.WeightedCost">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Last Cost</label>
+                    <input type="text" class="form-control input-sm" maxlength="8" placeholder="Last Cost" ng-model="AdditionalDetailsCtrl.ePage.Entities.Header.Data.UIProductGeneral.LastCost">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Currency</label>
+                    <div class="input-group input-group-sm">
+                        
+                        <div dynamic-lookup placeholder="Currency" my-ng-model="AdditionalDetailsCtrl.ePage.Entities.Header.Data.UIProductGeneral.CUR_NKLastWeightedCostCurr"
+                        obj="AdditionalDetailsCtrl.ePage.Entities.Header.Data.UIProductGeneral" prefix-data="'CurrencyMaster'" config="'productCurrency'"
+                        auto-complete-on-select="AdditionalDetailsCtrl.ePage.Masters.SelectedLookupDataWarCode($item)">
+                        </div>
+                        
+                        <span class="input-group-btn">
+                            <button dynamic-list-modal obj="AdditionalDetailsCtrl.ePage.Entities.Header.Data.UIProductGeneral" field-name="'productCurrency'" selected-data="AdditionalDetailsCtrl.ePage.Masters.SelectedLookupDataWarCode($item)"  prefix-data="'CurrencyMaster'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Quantity in Stock</label>
+                    <input type="text" numbers-only class="form-control input-sm" placeholder="Quantity in stock" maxlength="5" ng-model="AdditionalDetailsCtrl.ePage.Entities.Header.Data.UIProductGeneral.QtyInStock">
+                </div>
+            </div>
+        </div>
+    </div> -->
+</div>
+<div class="mt-20"></div>

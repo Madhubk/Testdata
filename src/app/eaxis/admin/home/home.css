@@ -1,0 +1,15 @@
+.menu-container {
+    padding: 40px;
+}
+
+.menu-container .menu {
+    display: inline-block;
+    margin: 10px;
+    border: 1px solid #eee;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.menu-container .menu:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}

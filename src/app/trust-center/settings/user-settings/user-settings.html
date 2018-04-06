@@ -1,0 +1,177 @@
+<div class="clearfix tc-user-settings">
+    <!-- Breadcrumb -->
+    <div class="clearfix tc-breadcrumb" data-ng-if="UserSettingsCtrl.ePage.Masters.ActiveApplication == 'TC'">
+        <i class="fa fa-home home-icon"></i>
+        <div class="breadcrumb-list-wrapper">
+            <ol class="breadcrumb">
+                <li data-ng-repeat="x in UserSettingsCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="UserSettingsCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                </li>
+                <li data-ng-repeat="x in UserSettingsCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
+                    class="active"></li>
+            </ol>
+        </div>
+        <span class="tc-breadcrumb-app-name" data-ng-if="UserSettingsCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="UserSettingsCtrl.ePage.Masters.QueryString.AppName"></span>
+    </div>
+    <!-- Header -->
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0">
+            <div class="tc-header">
+                <div class="text-single-line" data-ng-bind="'User Settings'"></div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0">
+            <div class="tc-header with-add-new">
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-5">
+                    <div class="text-single-line" data-ng-bind="UserSettingsCtrl.ePage.Masters.DataEntry.ActiveDataEntry.DataEntryName"></div>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-5 pt-4 text-right">
+                    <button class="btn btn-xs btn-info" data-ng-click="UserSettingsCtrl.ePage.Masters.UserSetting.AddNew()">New</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 p-0">
+            <div class="tc-header edit-view">
+                <span data-ng-bind="'Details'"></span>
+                <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10" data-ng-click="UserSettingsCtrl.ePage.Masters.UserSetting.Edit()"
+                    data-ng-disabled="!UserSettingsCtrl.ePage.Masters.UserSetting.ActiveUserSetting">Edit</button>
+                <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="UserSettingsCtrl.ePage.Masters.UserSetting.DeleteConfirmation()"
+                    data-ng-bind="UserSettingsCtrl.ePage.Masters.UserSetting.DeleteBtnText" data-ng-disabled="UserSettingsCtrl.ePage.Masters.UserSetting.IsDisableDeleteBtn || !UserSettingsCtrl.ePage.Masters.UserSetting.ActiveUserSetting"></button>
+            </div>
+        </div>
+    </div>
+    <!-- Body -->
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0 tc-page-height-fixed">
+            <div class="tc-list-container">
+                <div class="tc-list-search">
+                    <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="UserSettingsCtrl.ePage.Masters.DataEntry.Search">
+                </div>
+                <ul class="tc-list-ul">
+                    <div class="p-15 text-center tc-loading" data-ng-if="!UserSettingsCtrl.ePage.Masters.DataEntry.Listsource">
+                        <i class="fa fa-spin fa-spinner"></i>
+                    </div>
+                    <div data-ng-if="(UserSettingsCtrl.ePage.Masters.DataEntry.Listsource | filter: UserSettingsCtrl.ePage.Masters.DataEntry.Search).length===0"
+                        class="p-15 text-center">
+                        <i>No Records...</i>
+                    </div>
+                    <li data-ng-if="(UserSettingsCtrl.ePage.Masters.DataEntry.Listsource | filter: UserSettingsCtrl.ePage.Masters.DataEntry.Search).length > 0"
+                        data-ng-repeat="x in UserSettingsCtrl.ePage.Masters.DataEntry.Listsource | filter: UserSettingsCtrl.ePage.Masters.DataEntry.Search"
+                        data-ng-click="UserSettingsCtrl.ePage.Masters.DataEntry.ActiveDataEntry.DataEntry_PK != x.DataEntry_PK && UserSettingsCtrl.ePage.Masters.DataEntry.OnDataEntryListClick(x)"
+                        data-ng-class="{'active': UserSettingsCtrl.ePage.Masters.DataEntry.ActiveDataEntry.DataEntry_PK == x.DataEntry_PK}">
+                        <div class="clearfix tc-list">
+                            <div class="tc-list-name">
+                                <i class="fa fa-circle-o mr-10"></i>
+                                <span class="text-single-line" data-ng-bind="x.DataEntryName"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 3col-xl-3 p-0 tc-page-height-fixed">
+            <div class="tc-list-container">
+                <div class="tc-list-search">
+                    <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="UserSettingsCtrl.ePage.Masters.UserSetting.Search">
+                </div>
+                <ul class="tc-list-ul">
+                    <div class="p-15 text-center tc-loading" data-ng-if="!UserSettingsCtrl.ePage.Masters.UserSetting.Listsource">
+                        <i class="fa fa-spin fa-spinner"></i>
+                    </div>
+                    <div data-ng-if="(UserSettingsCtrl.ePage.Masters.UserSetting.Listsource | filter: UserSettingsCtrl.ePage.Masters.UserSetting.Search).length===0"
+                        class="p-15 text-center">
+                        <i>No Records...</i>
+                    </div>
+                    <li data-ng-if="(UserSettingsCtrl.ePage.Masters.UserSetting.Listsource | filter: UserSettingsCtrl.ePage.Masters.UserSetting.Search).length > 0"
+                        data-ng-repeat="x in UserSettingsCtrl.ePage.Masters.UserSetting.Listsource  | filter: UserSettingsCtrl.ePage.Masters.ActiveDataEntry.Search"
+                        data-ng-click="UserSettingsCtrl.ePage.Masters.UserSetting.ActiveUserSetting.PK != x.PK && UserSettingsCtrl.ePage.Masters.UserSetting.OnUserSettingsClick(x)"
+                        data-ng-class="{'active': UserSettingsCtrl.ePage.Masters.UserSetting.ActiveUserSetting.PK == x.PK}">
+                        <div class="clearfix tc-list">
+                            <div class="tc-list-name">
+                                <i class="fa fa-circle-o mr-10"></i>
+                                <span class="text-single-line" data-ng-bind="x.Key"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 p-0 tc-page-height-fixed">
+            <div class=" pt-10 pb-10 tc-details-view clearfix">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Key</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="UserSettingsCtrl.ePage.Masters.UserSetting.ActiveUserSetting.Key || UserSettingsCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Template -->
+<script type="text/ng-template" id="userSettingsEdit">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="UserSettingsCtrl.ePage.Masters.UserSetting.Cancel()">&times;</button>
+        <h5 class="modal-title" id="modal-title">
+            <strong>Edit</strong>
+        </h5>
+    </div>
+
+    <div class="modal-body pt-10" id="modal-body">
+        <div class="clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-5 pb-5">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Key</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Key" data-ng-model="UserSettingsCtrl.ePage.Masters.UserSetting.ActiveUserSetting.Key">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Type Code</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Type Code" data-ng-model="UserSettingsCtrl.ePage.Masters.UserSetting.ActiveUserSetting.TypeCode">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">IsJSON</div>
+                        <div class="checkbox">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                <label>
+                                    <input type="checkbox" data-ng-model="UserSettingsCtrl.ePage.Masters.UserSetting.ActiveUserSetting.IsJSON" class="colored-blue">
+                                    <span class="text"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" data-ng-if="UserSettingsCtrl.ePage.Masters.UserSetting.ActiveUserSetting.IsJSON">
+                                JSON Editor
+                            <span data-ng-click="UserSettingsCtrl.ePage.Masters.DataEntryList.OpenJsonModal()" data-ng-show="UserSettingsCtrl.ePage.Masters.UserSetting.ActiveUserSetting.IsJSON"
+                                class="glyphicon glyphicon-pencil cursor-pointer ml-5" data-ng-if="UserSettingsCtrl.ePage.Masters.UserSetting.ActiveUserSetting.IsJSON"></span>
+                        </label>
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" data-ng-if="!UserSettingsCtrl.ePage.Masters.UserSetting.ActiveUserSetting.IsJSON">
+                            <span>Value</span>
+                        </label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <textarea rows="15" class="form-control input-sm no-resize" placeholder="Value" data-ng-model="UserSettingsCtrl.ePage.Masters.UserSetting.ActiveUserSetting.Value"
+                                data-ng-show="UserSettingsCtrl.ePage.Masters.UserSetting.ActiveUserSetting.IsJSON"></textarea>
+                            <input type="text" class="form-control input-sm" placeholder="value" data-ng-model="UserSettingsCtrl.ePage.Masters.UserSetting.ActiveUserSetting.Value"
+                                data-ng-show="!UserSettingsCtrl.ePage.Masters.UserSetting.ActiveUserSetting.IsJSON">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="tc-section-divider-small"></div>
+        <div class="clearfix p-10">
+            <button class="btn btn-default tc-btn-save btn-xs pull-right ml-10" data-ng-click="UserSettingsCtrl.ePage.Masters.UserSetting.Save()"
+                data-ng-bind="UserSettingsCtrl.ePage.Masters.UserSetting.SaveBtnText" data-ng-disabled="UserSettingsCtrl.ePage.Masters.UserSetting.IsDisableSaveBtn"></button>
+            <button class="btn btn-default tc-btn-cancel btn-xs pull-right ml-10" data-ng-click="UserSettingsCtrl.ePage.Masters.UserSetting.Cancel()">Cancel</button>
+        </div>
+        <div class="tc-section-divider-small mb-20"></div>
+    </div>
+</script>

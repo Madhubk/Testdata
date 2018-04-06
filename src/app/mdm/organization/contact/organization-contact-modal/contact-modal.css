@@ -1,0 +1,64 @@
+.contact-modal-dialog {
+    width: 100%;
+}
+
+.editcontact-contact-title {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-weight: bold;
+    color: gray;
+    font-size: 110%;
+    padding: 5px 15px;
+}
+
+.star {
+    visibility: hidden;
+    font-size: 24px;
+    position: relative !important;
+    left: 0px !important;
+    opacity: 1 !important;
+    top: -3px;
+    color: #ccc;
+}
+
+.star:before {
+    content: "\2606";
+    position: absolute;
+    visibility: visible;
+}
+
+.star:checked:before {
+    content: "\2605";
+    position: absolute;
+    color: #f6c12a;
+}
+
+.org-address-type {
+    border: 1px solid #ddd;
+    margin-top: 15px;
+}
+
+.org-address-type .heading {
+    padding: 8px 10px;
+    font-size: 14px;
+    font-weight: 600;
+    border-bottom: 1px solid #ddd;
+    background-color: #eee;
+}
+
+.org-address-type .border-bottom {
+    border-bottom: 1px solid #ddd;
+}
+
+.org-address-type .is-mapped {
+    padding: 10px 5px 8px 10px;
+    background-color: #f4f4f4;
+    border-right: 1px solid #ddd;
+}
+
+.org-address-type .address-type {
+    padding: 10px;
+}
+
+.org-address-type .is-main-address {}

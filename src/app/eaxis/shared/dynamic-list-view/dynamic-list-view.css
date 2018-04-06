@@ -1,0 +1,11 @@
+.dynamic-list-view-container {
+    margin: 5px;
+    border: 1px solid #bcbbd0;
+}
+
+.dynamic-list-view-header {
+    padding: 10px 15px;
+    font-weight: bold;
+    font-size: 14px;
+    background-color: #eee;
+}

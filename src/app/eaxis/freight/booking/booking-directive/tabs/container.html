@@ -1,0 +1,137 @@
+<div class="clearfix mt-10" data-ng-show="!BookingDirectiveCtrl.ePage.Masters.Container.IsFormView">
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="input-group-sm">
+                <button class="btn btn-primary pull-right" data-ng-click="BookingDirectiveCtrl.ePage.Masters.Container.AddNewContainer()"
+                    data-ng-show="!BookingDirectiveCtrl.ePage.Masters.Container.IsFormView">
+                    <i class="fa fa-plus-circle"></i> Add Container</button>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="height-230 clearfix">
+            <div class="text-center grid-view-loader" data-ng-if="!BookingDirectiveCtrl.ePage.Masters.Container.GridData">
+                <i class="fa fa-spin fa-spinner font-160"></i>
+            </div>
+            <dynamic-table data-ng-if="BookingDirectiveCtrl.ePage.Masters.Container.GridData" grid-data="BookingDirectiveCtrl.ePage.Masters.Container.GridData"
+                grid-config="BookingDirectiveCtrl.ePage.Masters.Container.gridConfig" selected-grid-row="BookingDirectiveCtrl.ePage.Masters.Container.SelectedGridRow($item)"></dynamic-table>
+        </div>
+    </div>
+</div>
+<div class="clearfix mt-10" data-ng-show="BookingDirectiveCtrl.ePage.Masters.Container.IsFormView">
+    <div class="clearfix margin-bottom-10 service-details-heading">
+        <div class="text-center clearfix">
+            <i class="fa fa-angle-double-left pull-left btn btn-link" data-ng-click="BookingDirectiveCtrl.ePage.Masters.Container.IsFormView = false"></i>
+            <span class="heading">Container Details</span>
+        </div>
+    </div>
+    <div class="clearfix">
+        <!--Container No-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">Container #</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm" placeholder="Container #" data-ng-model="BookingDirectiveCtrl.ePage.Masters.Container.FormView.ContainerNo"
+                    />
+                </div>
+            </div>
+        </div>
+        <!--Count-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">Count</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm" placeholder="Count" data-ng-model="BookingDirectiveCtrl.ePage.Masters.Container.FormView.ContainerCount"
+                    />
+                </div>
+            </div>
+        </div>
+        <!--Type-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">Type</label>
+                <div class="input-group input-group-sm">
+                    <input type="hidden" ng-model="BookingDirectiveCtrl.ePage.Masters.Container.FormView.RC">
+                    <div dynamic-lookup my-ng-model="BookingDirectiveCtrl.ePage.Masters.Container.FormView.RC_Type" obj="BookingDirectiveCtrl.ePage.Masters.Container.FormView"
+                        prefix-data="'MstContainer'" config="'ContainerConType'" auto-complete-on-select="BookingDirectiveCtrl.ePage.Masters.SelectedConTypeData($item)"></div>
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="BookingDirectiveCtrl.ePage.Masters.Container.FormView" field-name="'ContainerConType'" prefix-data="'MstContainer'"
+                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingDirectiveCtrl.ePage.Masters.SelectedConTypeData($item.entity)"
+                            class="btn btn-default shiny" type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!--Commodity-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">Commodity</label>
+                <div class="input-group input-group-sm">
+                    <div dynamic-lookup my-ng-model="BookingDirectiveCtrl.ePage.Masters.Container.FormView.RH_NKContainerCommodityCode" obj="BookingDirectiveCtrl.ePage.Masters.Container.FormView"
+                        prefix-data="'MstCommodity'" config="'ContainerConCommodity'"></div>
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="BookingDirectiveCtrl.ePage.Masters.Container.FormView" field-name="'ContainerConCommodity'"
+                            prefix-data="'MstCommodity'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingDirectiveCtrl.ePage.Masters.SelectedData($item)"
+                            class="btn btn-default shiny" type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!--Release-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">Release</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm" placeholder="Release" data-ng-model="BookingDirectiveCtrl.ePage.Masters.Container.FormView.ReleaseNum"
+                    />
+                </div>
+            </div>
+        </div>
+        <!--Dep.Container Yard-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">Dep.Container Yard</label>
+                <div class="input-group input-group-sm">
+                    <input type="hidden" ng-model="BookingDirectiveCtrl.ePage.Masters.Container.FormView.OAD_DepartureContainerYardAddress">
+                    <div dynamic-lookup my-ng-model="BookingDirectiveCtrl.ePage.Masters.Container.FormView.OAD_DepartureContainerYardCode" obj="BookingDirectiveCtrl.ePage.Masters.Container.FormView"
+                        prefix-data="'OrganizationList'" config="'BookingDepContainerYard'" auto-complete-on-select="BookingDirectiveCtrl.ePage.Masters.SelectedConTypeData($item)"></div>
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="BookingDirectiveCtrl.ePage.Masters.Container.FormView" field-name="'BookingDepContainerYard'"
+                            prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingDirectiveCtrl.ePage.Masters.SelectedConTypeData($item.entity)"
+                            class="btn btn-default shiny" type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!--Dep.Container Yard-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">Arr.Container Yard</label>
+                <div class="input-group input-group-sm">
+                    <input type="hidden" ng-model="BookingDirectiveCtrl.ePage.Masters.Container.FormView.OAD_ArrivalContainerYardAddress">
+                    <div dynamic-lookup my-ng-model="BookingDirectiveCtrl.ePage.Masters.Container.FormView.OAD_ArrivalContainerYardCode" obj="BookingDirectiveCtrl.ePage.Masters.Container.FormView"
+                        prefix-data="'OrganizationList'" config="'BookingArrContainerYard'" auto-complete-on-select="BookingDirectiveCtrl.ePage.Masters.SelectedConTypeData($item)"></div>
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="BookingDirectiveCtrl.ePage.Masters.Container.FormView" field-name="'BookingArrContainerYard'"
+                            prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingDirectiveCtrl.ePage.Masters.SelectedConTypeData($item.entity)"
+                            class="btn btn-default shiny" type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 margin-top-30">
+            <input type="button" class="btn btn-primary btn-sm pull-right margin-left-5" data-ng-click="BookingDirectiveCtrl.ePage.Masters.Container.AddToGridContainer(BookingDirectiveCtrl.ePage.Masters.Container.AddNewAndUpdate)"
+                value="{{BookingDirectiveCtrl.ePage.Masters.Container.AddNewAndUpdate}}">
+        </div>
+
+    </div>
+</div>

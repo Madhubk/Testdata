@@ -1,0 +1,255 @@
+<div class="clearfix data-event-tenant">
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 pr-0 pl-0">
+            <div>
+                <!-- Data Event -->
+                <div class="data-event-container data-event-list-container">
+                    <div class="data-event-header">
+                        <span data-ng-bind="'Data Event'"></span>
+                    </div>
+                    <div class="data-event-list-search pr-20">
+                        <input type="text" placeholder="Search" class="form-control input-sm" data-ng-model="DataEventCtrl.ePage.Masters.DataEvent.Search">
+                    </div>
+                    <ul class="data-event-list-ul">
+                        <li data-ng-click="DataEventCtrl.ePage.Masters.DataEvent.OnDataEventClick()" data-ng-class="{'active': !DataEventCtrl.ePage.Masters.DataEvent.ActiveDataEvent}">
+                            <div class="clearfix data-event-list">
+                                <div class="data-event-list-name col-xs-12 col-sm-12 col-md-12 col-lg-10 col-xl-10">
+                                    <span class="text-single-line">Add New...</span>
+                                </div>
+                                <div class="data-event-redirect-icon col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                    <i class="fa fa-angle-right"></i>
+                                </div>
+                            </div>
+                        </li>
+                        <div data-ng-if="!DataEventCtrl.ePage.Masters.DataEvent.List" class="p-15 text-center data-event-loading">
+                            <i class="fa fa-spin fa-spinner"></i>
+                        </div>
+                        <div data-ng-if="(DataEventCtrl.ePage.Masters.DataEvent.List | filter: DataEventCtrl.ePage.Masters.DataEvent.Search).length===0"
+                            class="p-15 text-center data-event-no-records">
+                            <span>No Records...!</span>
+                        </div>
+                        <li data-ng-repeat="x in DataEventCtrl.ePage.Masters.DataEvent.List | filter: DataEventCtrl.ePage.Masters.DataEvent.Search"
+                            data-ng-click="DataEventCtrl.ePage.Masters.DataEvent.ActiveDataEvent != x && DataEventCtrl.ePage.Masters.DataEvent.OnDataEventClick(x)"
+                            data-ng-class="{'active': DataEventCtrl.ePage.Masters.DataEvent.ActiveDataEvent == x}">
+                            <div class="clearfix data-event-list">
+                                <div class="data-event-list-name col-xs-12 col-sm-12 col-md-12 col-lg-10 col-xl-10">
+                                    <span class="text-single-line" data-ng-bind="x"></span>
+                                </div>
+                                <div class="data-event-redirect-icon col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                    <i class="fa fa-angle-right"></i>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 pl-0 pr-0 border-left border-right">
+            <div class="data-event-manage-parameters-container data-event-list-container">
+                <div class="data-event-header">
+                    <span data-ng-bind="'Field'"></span>
+                </div>
+                <div class="data-event-list-search pr-20">
+                    <input type="text" placeholder="Search" class="form-control input-sm" data-ng-model="DataEventCtrl.ePage.Masters.DataEventFieldList.Search">
+                </div>
+                <ul class="data-event-list-ul">
+                    <div data-ng-if="!DataEventCtrl.ePage.Masters.DataEventFieldList.ListSource" class="p-15 text-center data-event-loading">
+                        <i class="fa fa-spin fa-spinner"></i>
+                    </div>
+                    <div data-ng-if="(DataEventCtrl.ePage.Masters.DataEventFieldList.ListSource | filter: DataEventCtrl.ePage.Masters.DataEventFieldList.Search).length===0"
+                        class="p-15 text-center data-event-no-records">
+                        <span>No Records...!</span>
+                    </div>
+                    <li data-ng-repeat="x in DataEventCtrl.ePage.Masters.DataEventFieldList.ListSource | filter: DataEventCtrl.ePage.Masters.DataEventFieldList.Search"
+                        data-ng-click="DataEventCtrl.ePage.Masters.DataEventFieldList.ActiveDataEventFieldList.PK != x.PK && DataEventCtrl.ePage.Masters.DataEventFieldList.OnDataEventFieldListClick(x)"
+                        data-ng-class="{'active': DataEventCtrl.ePage.Masters.DataEventFieldList.ActiveDataEventFieldList.PK == x.PK}">
+                        <div class="clearfix data-event-list">
+                            <div class="data-event-list-name col-xs-12 col-sm-12 col-md-12 col-lg-10 col-xl-10">
+                                <span class="text-single-line" data-ng-bind="x.FieldName"></span>
+                            </div>
+                            <div class="data-event-redirect-icon col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                <i class="fa fa-angle-right"></i>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 pl-0 pr-0">
+            <div>
+                <div class="data-event-header edit-view">
+                    <button class="btn btn-default data-event-btn-delete btn-xs pull-left" data-ng-click="DataEventCtrl.ePage.Masters.DataEventFieldList.DeleteConfirmation()"
+                        data-ng-show="!DataEventCtrl.ePage.Masters.DataEventFieldList.IsEdit" data-ng-bind="DataEventCtrl.ePage.Masters.DataEventFieldList.DeleteBtnText"
+                        data-ng-disabled="DataEventCtrl.ePage.Masters.DataEventFieldList.IsDisableSaveBtn || !DataEventCtrl.ePage.Masters.DataEventFieldList.ActiveDataEventFieldList.PK">
+                        <button class="btn btn-default data-event-btn-cancel btn-xs pull-left" data-ng-click="DataEventCtrl.ePage.Masters.DataEventFieldList.DataEventCancel()"
+                            data-ng-show="DataEventCtrl.ePage.Masters.DataEventFieldList.IsEdit" data-ng-disabled="!DataEventCtrl.ePage.Masters.DataEventFieldList.ActiveDataEventFieldList.PK">Cancel</button>
+                        <span data-ng-bind="'Details'"></span>
+                        <input type="submit" class="btn btn-default data-event-btn-save btn-xs pull-right" data-ng-click="DataEventCtrl.ePage.Masters.DataEventFieldList.Save()"
+                            data-ng-show="DataEventCtrl.ePage.Masters.DataEventFieldList.IsEdit" value="{{DataEventCtrl.ePage.Masters.DataEventFieldList.SaveBtnText}}"
+                            data-ng-disabled="DataEventCtrl.ePage.Masters.DataEventFieldList.IsDisableSaveBtn">
+                        <button class="btn btn-default data-event-btn-edit btn-xs pull-right" data-ng-click="DataEventCtrl.ePage.Masters.DataEventFieldList.Edit()"
+                            data-ng-show="!DataEventCtrl.ePage.Masters.DataEventFieldList.IsEdit" data-ng-disabled="!DataEventCtrl.ePage.Masters.DataEventFieldList.ActiveDataEventFieldList.PK">Edit</button>
+                </div>
+                <!--View Data Event-->
+                <div data-ng-if="!DataEventCtrl.ePage.Masters.DataEventFieldList.IsEdit">
+                    <div class="data-event clearfix pt-10 data-event-details-view">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="clearfix form-group">
+                                <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">FieldName</label>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                    <label data-ng-bind="DataEventCtrl.ePage.Masters.DataEventFieldList.ActiveDataEventFieldList.FieldName || DataEventCtrl.ePage.Masters.emptyText"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="clearfix form-group">
+                                <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Class Source</label>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                    <label data-ng-bind="DataEventCtrl.ePage.Masters.DataEventFieldList.ActiveDataEventFieldList.ClassSource || DataEventCtrl.ePage.Masters.emptyText"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="clearfix form-group">
+                                <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Parent Entity Source</label>
+                                <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 ">
+                                    <label data-ng-bind="DataEventCtrl.ePage.Masters.DataEventFieldList.ActiveDataEventFieldList.ParentEntitySource || DataEventCtrl.ePage.Masters.emptyText"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="clearfix form-group">
+                                <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Entity Source</label>
+                                <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 ">
+                                    <label data-ng-bind="DataEventCtrl.ePage.Masters.DataEventFieldList.ActiveDataEventFieldList.EntitySource || DataEventCtrl.ePage.Masters.emptyText"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="clearfix form-group">
+                                <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Event Code</label>
+                                <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 ">
+                                    <label data-ng-bind="DataEventCtrl.ePage.Masters.DataEventFieldList.ActiveDataEventFieldList.EventCode || DataEventCtrl.ePage.Masters.emptyText"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="clearfix form-group">
+                                <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Event Name</label>
+                                <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 ">
+                                    <label data-ng-bind="DataEventCtrl.ePage.Masters.DataEventFieldList.ActiveDataEventFieldList.EventName || DataEventCtrl.ePage.Masters.emptyText"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="clearfix form-group">
+                                <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">New Value</label>
+                                <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 ">
+                                    <label data-ng-bind="DataEventCtrl.ePage.Masters.DataEventFieldList.ActiveDataEventFieldList.NewValue || DataEventCtrl.ePage.Masters.emptyText"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="clearfix form-group">
+                                <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Old Value</label>
+                                <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 ">
+                                    <label data-ng-bind="DataEventCtrl.ePage.Masters.DataEventFieldList.ActiveDataEventFieldList.OldValue || DataEventCtrl.ePage.Masters.emptyText"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="clearfix form-group">
+                                <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Parent Entity RefCode</label>
+                                <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 ">
+                                    <label data-ng-bind="DataEventCtrl.ePage.Masters.DataEventFieldList.ActiveDataEventFieldList.ParentEntityRefCode || DataEventCtrl.ePage.Masters.emptyText"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="clearfix form-group">
+                                <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Parent Entity RefKey</label>
+                                <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 ">
+                                    <label data-ng-bind="DataEventCtrl.ePage.Masters.DataEventFieldList.ActiveDataEventFieldList.ParentEntityRefKey || DataEventCtrl.ePage.Masters.emptyText"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Edit Process-->
+                <div data-ng-if="DataEventCtrl.ePage.Masters.DataEventFieldList.IsEdit" class="clearfix data-event-details-edit">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-20 pb-20">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Field Name</label>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                    <input type="text" class="form-control input-sm" placeholder="Field Name" data-ng-model="DataEventCtrl.ePage.Masters.DataEventFieldList.ActiveDataEventFieldList.FieldName">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Class Source</label>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                    <input type="text" class="form-control input-sm" placeholder="Class Source" data-ng-model="DataEventCtrl.ePage.Masters.DataEventFieldList.ActiveDataEventFieldList.ClassSource">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4"> Parent Entity Source</label>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                    <input type="text" class="form-control input-sm" placeholder="Parent Entity Source" data-ng-model="DataEventCtrl.ePage.Masters.DataEventFieldList.ActiveDataEventFieldList.ParentEntitySource">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Entity Source</label>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                    <input type="text" class="form-control input-sm" placeholder="Entity Source" data-ng-model="DataEventCtrl.ePage.Masters.DataEventFieldList.ActiveDataEventFieldList.EntitySource">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Event Code</label>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                    <input type="text" class="form-control input-sm" placeholder="Event Code" data-ng-model="DataEventCtrl.ePage.Masters.DataEventFieldList.ActiveDataEventFieldList.EventCode">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Event Name</label>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                    <input type="text" class="form-control input-sm" placeholder="Event Name" data-ng-model="DataEventCtrl.ePage.Masters.DataEventFieldList.ActiveDataEventFieldList.EventName">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">New Value</label>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                    <input type="text" class="form-control input-sm" placeholder="New Value" data-ng-model="DataEventCtrl.ePage.Masters.DataEventFieldList.ActiveDataEventFieldList.NewValue">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Old Value</label>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                    <input type="text" class="form-control input-sm" placeholder="Old Value" data-ng-model="DataEventCtrl.ePage.Masters.DataEventFieldList.ActiveDataEventFieldList.OldValue">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Parent Entity RefCode</label>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                    <input type="text" class="form-control input-sm" placeholder="Parent Entity RefCode" data-ng-model="DataEventCtrl.ePage.Masters.DataEventFieldList.ActiveDataEventFieldList.ParentEntityRefCode">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">ParentEntityRefKey</label>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                    <input type="text" class="form-control input-sm" placeholder="Parent Entity RefKey" data-ng-model="DataEventCtrl.ePage.Masters.DataEventFieldList.ActiveDataEventFieldList.ParentEntityRefKey">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                                    <span data-ng-click="DataEventCtrl.ePage.Masters.DataEventFieldList.OpenJsonModal()" class="glyphicon glyphicon-pencil cursor-pointer mr-5"></span> Related Details</label>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                    <textarea rows="20" class="form-control input-sm no-resize" placeholder="Related Fields" data-ng-model="DataEventCtrl.ePage.Masters.DataEventFieldList.ActiveDataEventFieldList.RelatedDetails"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

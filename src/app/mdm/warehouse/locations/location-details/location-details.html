@@ -1,0 +1,20 @@
+<div class="clearfix">
+    <div class="widget-main ">
+        <uib-tabset id="locationGeneral" active='LocationDetailsCtrl.ePage.Masters.active'>
+            <!--General Tab-->
+            <uib-tab>
+                <uib-tab-heading title="General">
+                    <i class="fa fa-file-o margin-right-5"></i> <span class="text-single-line" data-ng-bind="'Row'"></span>
+                </uib-tab-heading>
+                <div class="clearfix" data-ng-include="'app/mdm/warehouse/locations/location-details/tabs/location-generaltab.html'"></div>
+            </uib-tab>
+            <!--Details-->
+             <uib-tab ng-click="LocationDetailsCtrl.ePage.Masters.GetLocations(LocationDetailsCtrl.currentLocation)">
+                <uib-tab-heading title="Details">
+                    <i class="fa fa-suitcase margin-right-5"></i> <span class="text-single-line" data-ng-bind="'Location'"></span>
+                </uib-tab-heading>
+                <div data-ng-include="'app/mdm/warehouse/locations/location-details/tabs/location-detailstab.html'"></div>
+            </uib-tab> 
+        </uib-tabset>
+    </div>
+</div>

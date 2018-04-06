@@ -1,0 +1,196 @@
+﻿<!-- Login section -->
+<div class="clearfix login-wrapper pb-100 animated fadeInDown" data-ng-show="!LoginCtrl.ePage.Masters.IsShowTenantList">
+    <div class="container">
+        <div class="header clearfix">
+            <div class="col-sm-6">
+                <div class="logo-left">
+                    <img src="assets/img/logo/product-logo.png" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-5 col-md-push-8">
+                <div class="form-box">
+                    <form class="form-top" name="LoginCtrl.ePage.Masters.loginForm" novalidate>
+                        <div class="form-title">Login to Myhub</div>
+                        <div class="rows mt-15">
+                            <input type="text" name="username" class="form-txt" placeholder="Username" data-ng-model="LoginCtrl.ePage.Masters.UserCredentials.username"
+                                   autocomplete="off" required />
+                            <div data-ng-if="LoginCtrl.ePage.Masters.loginForm.username.$invalid && LoginCtrl.ePage.Masters.loginForm.submitted">
+                                <span class="validate-error-text" data-ng-if="LoginCtrl.ePage.Masters.loginForm.username.$error.required">Enter your Username.</span>
+                            </div>
+                        </div>
+                        <div class="rows mt-15">
+                            <input type="password" class="form-txt" placeholder="Password" name="password" data-ng-model="LoginCtrl.ePage.Masters.UserCredentials.password"
+                                   autocomplete="off" required />
+                            <div data-ng-if="LoginCtrl.ePage.Masters.loginForm.password.$invalid && LoginCtrl.ePage.Masters.loginForm.submitted">
+                                <span class="validate-error-text" data-ng-if="LoginCtrl.ePage.Masters.loginForm.password.$error.required">Enter your Password.</span>
+                            </div>
+                        </div>
+                        <div class="rows mt-10">
+                            <input style="border: 1px solid #d71920; color: #fff;  background-image: linear-gradient(to bottom, #a70b11, #D6171F); padding:10px 0;"
+                                   class="btn btn rows" type="submit" value="{{LoginCtrl.ePage.Masters.loginBtnText}}" data-ng-click="LoginCtrl.ePage.Masters.Login()"
+                                   data-ng-disabled="LoginCtrl.ePage.Masters.isDisabledLoginBtn">
+                        </div>
+                        <div class="rows mt-10">
+                            <a class="form-link" href="javascript: void(0);">Forgot Password?</a>
+                        </div>
+                    </form>
+                    <div class="form-bottom">
+                        <div class="form-title">New to Myhub?</div>
+                        <div class="rows mt-15">
+                            <a class="form-register" href="javascript: void(0);">Register Now</a>
+                        </div>
+                        <div class="rows mt-15">
+                            <a class="form-link" href="javascript: void(0);">Learn More About the Benefits</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-7 col-md-pull-4">
+                <div class="form-banner">
+                    <h1 class="form-banner-title">Welcome to Myhub</h1>
+                    <p>
+                        MyHub is real hub for all your logistics needs. It is the best information resource provider for Clients,
+                        Suppliers and Business partners to conduct business ease. Explore and discover the vast logistics
+                        world of Myhub.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="services-div">
+                    <div class="col-md-3 col-sm-6 col-xs-12 text-center br service-hover">
+                        <div class="service">
+                            <div class="service-icon">
+                                <i class="fa fa-globe"></i>
+                            </div>
+                            <div class="service-desc">
+                                <h4 style="font-weight:bold !important;margin-top: 0px !important;" class="red oB">Global Forwarding</h4>
+                                <p class="light oR">
+                                    Global freight management system helps to improve  freight operations with optimized processes.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12 text-center br b0 service-hover">
+                        <div class="service" data-aos="zoom-in" data-aos-duration="1000">
+                            <div class="service-icon">
+                                <i class="fa fa-home"></i>
+                            </div>
+                            <div class="service-desc">
+                                <h4 style="font-weight:bold !important;margin-top: 0px !important;" class="red oB">Warehousing</h4>
+                                <p class="light oR">
+                                    Warehouse management system allows smooth management of stock inventories for product distribution.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12 text-center br b0 service-hover">
+                        <div class="service">
+                            <div class="service-icon">
+                                <i class="fa fa-dollar"></i>
+                            </div>
+                            <div class="service-desc">
+                                <h4 style="font-weight:bold !important;margin-top: 0px !important;" class="red oB">Job Accounting</h4>
+                                <p class="light oR">
+                                    Accounting platform helps to manage your invoicing, receivables, payables, cashbook, job costing, and general ledger data.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12 text-center service-hover">
+                        <div class="service">
+                            <div class="service-icon">
+                                <i class="fa fa-map-marker"></i>
+                            </div>
+                            <div class="service-desc">
+                                <h4 style="font-weight:bold !important;margin-top: 0px !important;" class="red oB">Smart Track</h4>
+                                <p class="light oR">
+                                    Track your Shipments, Purchase Orders, Containers & Brokerage jobs online with 33+ milestones visibility.
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row m-0">
+            <div class="col-sm-12">
+                <div class="form-des">
+                    <span>Supplier Followup Engine - MyHub</span>
+                    <h1>
+                        Vendor Compliance
+                        <strike style='color:red'>
+                            <span style="color:#000">Simplified</span>
+                        </strike> Automated
+                    </h1>
+                    <p>
+                        Once an order is placed upon a vendor, both parties agree upon an estimated date for the goods to be
+                        ready, or depending on terms, shipped on board or arrived into store at destination. Based on this
+                        expected date, the customer plans his forward inventory and estimated stock quantity available for
+                        distribution. With many aspects of design, production and packaging potentially impacting on the
+                        expected lead time, Myhub re-forecast the planned ready date once these variables have been identified.
+                        This system is known as Supplier Follow Up. Based on agreed business rules with the customer, Myhub
+                        will generate an automated communication to the vendor with the revised information.
+                    </p>
+                </div>
+            </div>
+            <!-- <div class="col-sm-5 col-md-pull-7">
+                <object width="100%" height="300" data="https://www.youtube.com/embed/wcgBuPKHdF0"></object>
+            </div> -->
+        </div>
+    </div>
+</div>
+
+<!-- Select Tenant -->
+<div class="tenant-list-container animated fadeInDown" data-ng-show="LoginCtrl.ePage.Masters.IsShowTenantList">
+    <div class="clearfix tenant-list-inner-container">
+        <div class="tenant-list-inner">
+            <div class="tenant-logo">
+                <img data-ng-src="assets/img/logo/product-logo.png" alt="">
+            </div>
+            <div class="tenant-form-container">
+                <div class="tenant-heading">
+                    <h1>Choose a Tenant</h1>
+                </div>
+                <div class="tenant-list-wrapper">
+                    <div class="tenant-list-wrapper-inner">
+                        <div class="tenant-list">
+                            <ul>
+                                <li data-ng-repeat="x in LoginCtrl.ePage.Masters.TenantList" data-ng-click="LoginCtrl.ePage.Masters.OnTenantClick(x);" data-ng-class="{'active': LoginCtrl.ePage.Masters.SelectedTenant === x}">
+                                    <div class="inner">
+                                        <div class="avatar">
+                                            <span data-ng-bind="x.TNT_TenantCode | getCharacters: 1"></span>
+                                        </div>
+                                        <div class="tenant-code-container">
+                                            <p class="tenant-code" data-ng-bind="x.TNT_TenantName"></p>
+                                            <p class="tenant-desc" data-ng-bind="x.TNT_TenantCode"></p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="tenant-list" data-ng-repeat="x in LoginCtrl.ePage.Masters.TenantList" data-ng-click="LoginCtrl.ePage.Masters.SelectedTenant = x;"
+                    data-ng-class="{'active': LoginCtrl.ePage.Masters.SelectedTenant === x}">
+                    <div class="tenant-index" data-ng-bind="$index + 1"></div>
+                    <div class="tenant-name" data-ng-bind="x"></div>
+                </div> -->
+                <!-- <div class="margin-top-10 margin-bottom-10"><button class="btn btn-primary btn-sm pull-right" data-ng-click="LoginCtrl.ePage.Masters.OnTenantClick()"
+                        data-ng-bind="LoginCtrl.ePage.Masters.tenantBtnText" data-ng-disabled="LoginCtrl.ePage.Masters.isDisabledTenantBtn"></button></div> -->
+            </div>
+        </div>
+        <div class="tenet-inner-conatiner-overlay" data-ng-if="LoginCtrl.ePage.Masters.IsShowTenantListOverlay">
+            <div class="load-bar">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </div>
+    </div>
+</div>

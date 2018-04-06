@@ -1,0 +1,12 @@
+<nav-bar></nav-bar>
+
+<div class="main-container container-fluid">
+    <div class="page-container">
+        <side-bar id="sidebar" class="page-sidebar" data-ng-if="EALabCtrl.ePage.Masters.MenuVisibleType == 'List'"></side-bar>
+
+        <div class="page-content" data-ng-style="(!EALabCtrl.ePage.Masters.MenuVisibleType || EALabCtrl.ePage.Masters.MenuVisibleType == 'Grid') && {'margin-left': '0'}">
+            <div class="page-body p-5" ui-view>
+            </div>
+        </div>
+    </div>
+</div>

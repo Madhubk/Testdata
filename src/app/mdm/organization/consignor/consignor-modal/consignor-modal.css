@@ -1,0 +1,11 @@
+.attach-modal > .modal-dialog {
+    width: 94% !important;
+    height: 85% !important;
+    margin: 45px auto;
+}
+.attach-modal > .modal-content {
+    height: 100%;
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+    border-radius: 0;
+}

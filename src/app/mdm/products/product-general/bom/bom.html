@@ -1,0 +1,132 @@
+
+<!-- hide save -->
+<span ng-if="!BomCtrl.ePage.Masters.Lineslist" ng-init="BomCtrl.ePage.Entities.Header.CheckPoints.DisableSave=true"></span>
+<span ng-if="BomCtrl.ePage.Masters.Lineslist" ng-init="BomCtrl.ePage.Entities.Header.CheckPoints.DisableSave=false"></span>
+
+<!-- Saving Your Data -->
+<div class="grid-loading-norecord-container ng-scope" style='z-index: 4;'data-ng-if="BomCtrl.ePage.Masters.IsLoadingToSave">
+    <div class="grid-no-record">Saving your Data...</div>
+</div>
+
+<div class="p-10" ng-show='BomCtrl.ePage.Masters.Lineslist'>
+    <div>
+        <span><button type="button" class="btn btn-sm btn-outline-secondary" title="Add New"  data-ng-click="BomCtrl.ePage.Masters.AddNewRow()"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button></span>
+        <span ng-hide='BomCtrl.ePage.Masters.selectedRow==-1'><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Copy"  data-ng-click="BomCtrl.ePage.Masters.CopyRow()"><span class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button></span>
+        <span ng-hide='BomCtrl.ePage.Masters.selectedRow==-1'><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Edit"  data-ng-click="BomCtrl.ePage.Masters.Edit(BomCtrl.ePage.Masters.selectedRow,'Edit List')"><span class="fa fa-pencil"></span>&nbsp;&nbsp;Edit</button></span>
+        <span ng-hide='BomCtrl.ePage.Masters.selectedRow==-1'><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Delete"  data-ng-click="BomCtrl.ePage.Masters.RemoveRow()"><span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button></span>        
+    </div>
+    <div id='BomCtrl.ePage.Masters.your_div' class="wmstable_scroll" style="height:442px; padding-top: 2px;">
+        <div class="table" id="results">
+            <div class='theader'>
+                <div class='table_header'>List No</div>
+                <div class='table_header'>Component</div>
+                <div class='table_header'>Has Children</div>
+                <div class='table_header'>Stock Unit</div>
+                <div class='table_header'>Component Qty</div>
+                <div class='table_header'>Reusable</div>
+            </div>
+
+             <!-- List Empty Response -->
+             <div data-ng-if="BomCtrl.ePage.Entities.Header.Data.UIOrgPartBOM.length==0">
+                <div class="grid-no-record" style="bottom:200px">No records found...</div>
+            </div>
+
+            <div class='table_row' ng-repeat="x in BomCtrl.ePage.Entities.Header.Data.UIOrgPartBOM | filter:{IsDeleted:'false'}  track by $index" 
+                ng-click="BomCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: BomCtrl.ePage.Masters.selectedRow==$index}" style="font-size: 11px;">
+                <div class='table_small'>
+                    <div class='table_cell'>List No</div>
+                    <div class='table_cell'>{{$index+1}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Component</div>
+                    <div class='table_cell'>{{x.ComponentPart}} - {{x.ComponentDescription}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Has Children</div>
+                    <div class='table_cell'>{{x.HasChildren === "true" ||x.HasChildren=="1" ? "YES" : "NO"}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Stock Unit</div>
+                    <div class='table_cell'>{{x.PAC_NKPackType || BomCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Component Qty</div>
+                    <div class='table_cell'>{{x.ComponentQty || BomCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Reusable</div>
+                    <div class='table_cell'>{{x.CanReuse === "true" ||x.CanReuse=="1" ? "YES" : "NO"}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix" ng-hide='BomCtrl.ePage.Masters.Lineslist' style="padding:5px">
+    <div class="panel panel-default mt-5">
+        <div class="panel-heading">
+            <span ng-show="BomCtrl.ePage.Masters.HeaderName =='Copy Of List'">
+                    {{BomCtrl.ePage.Masters.HeaderName}} - {{BomCtrl.ePage.Masters.selectedRow}}                     
+            </span>
+            <span ng-show="BomCtrl.ePage.Masters.HeaderName!='Copy Of List'">
+                    {{BomCtrl.ePage.Masters.HeaderName}} - {{BomCtrl.ePage.Masters.selectedRow+1}}                     
+            </span>
+        </div>
+        <div class="panel-body">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ex-line-padding">
+                <div class="ex-line-box" style="height:150px;padding-top:10px">
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Component</label>
+                            <div  class="input-group input-group-sm">
+                                <!-- Dynamic look up Search in textbox -->
+                                <div dynamic-lookup placeholder="Component" my-ng-model="BomCtrl.ePage.Entities.Header.Data.UIOrgPartBOM[BomCtrl.ePage.Masters.selectedRow].Component" auto-complete-on-select="BomCtrl.ePage.Masters.SelectedLookupComponent($item,BomCtrl.ePage.Masters.selectedRow)"
+                                    obj="BomCtrl.ePage.Entities.Header.Data.UIOrgPartBOM[BomCtrl.ePage.Masters.selectedRow]" prefix-data="'OrgSupplierPart'" config="'Component'">
+                                </div>
+
+                                <!-- Look Up page opens when button clicks -->
+                                <span class="input-group-btn">
+                                    <button dynamic-list-modal obj="BomCtrl.ePage.Entities.Header.Data.UIOrgPartBOM[BomCtrl.ePage.Masters.selectedRow]" prefix-data="'OrgSupplierPart'" field-name="'Component'" selected-data="BomCtrl.ePage.Masters.SelectedLookupComponent($item.entity,BomCtrl.ePage.Masters.selectedRow)" mode ="2" grid-refresh-fun-name="" 
+                                    grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                </span>  
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Has Children</label>
+                            <select chosen class="form-control" ng-model="BomCtrl.ePage.Entities.Header.Data.UIOrgPartBOM[BomCtrl.ePage.Masters.selectedRow].HasChildren" ng-options="x.Key as x.Value for x in BomCtrl.ePage.Masters.DropDownMasterList.WMSYESNO.ListSource"search-contains="true">
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Stock Unit</label>
+                            <select chosen class="form-control" ng-model="BomCtrl.ePage.Entities.Header.Data.UIOrgPartBOM[BomCtrl.ePage.Masters.selectedRow].PAC_NKPackType" ng-options="x.Key as x.Key + ' - '  + x.Value for x in BomCtrl.ePage.Masters.DropDownMasterList.INW_LINE_UQ.ListSource"search-contains="true">
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                        <label class="control-label text-single-line">Component Quantity</label>
+                        <input type="text" maxlength="5" numbers-only class="form-control input-sm" placeholder="Component Quantity" ng-model="BomCtrl.ePage.Entities.Header.Data.UIOrgPartBOM[BomCtrl.ePage.Masters.selectedRow].ComponentQty" />
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Reusable</label>
+                            <select chosen class="form-control" ng-model="BomCtrl.ePage.Entities.Header.Data.UIOrgPartBOM[BomCtrl.ePage.Masters.selectedRow].CanReuse" ng-options="x.Key as  x.Value for x in BomCtrl.ePage.Masters.DropDownMasterList.WMSTRUEFALSE.ListSource" search-contains="true">
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-lg-offset-8 mt-5">
+                <button class="btn btn-blue btn-sm mr-5 pull-right" title="Save" data-ng-click="BomCtrl.ePage.Masters.Done()"><i class="fa fa-save pr-5"></i>Save</button>
+                <button class="btn btn-primary btn-sm mr-5 pull-right" title="Delete" data-ng-click="BomCtrl.ePage.Masters.RemoveRow()"><i class="fa fa-trash pr-5"></i>Delete</button>
+                <button class="btn btn-primary btn-sm mr-5 pull-right" title="Back" data-ng-click="BomCtrl.ePage.Masters.Back()"><i class="fa fa-angle-double-left pr-5"></i>Back</button>
+            </div>
+        </div>
+    </div>
+</div>

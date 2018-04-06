@@ -1,0 +1,69 @@
+.mypadding{
+  padding-left: 0px;
+  padding-right: 0px
+}
+
+
+
+
+
+
+
+
+
+.scrollbar {
+  margin-left: 0px;
+  width: auto;
+  background: #ffff;
+  overflow-y: auto;
+  margin-bottom: 25px;
+}
+
+.force-overflow {
+	min-height: 150px;
+}
+
+#wrapper {
+	text-align: left;
+	margin: auto;
+}
+
+
+#style-10::-webkit-scrollbar,
+#style-11::-webkit-scrollbar {
+	width: 5px;
+	background-color: #F5F5F5;
+}
+
+
+#style-10::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background: #eee;
+  box-shadow: 0 0 1px 1px #bbb, inset 0 0 7px rgba(0,0,0,0.3)
+}
+
+#style-10::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(left, #8391A6, #536175);
+}
+
+/**  STYLE 11 */
+#style-11::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background: rgba(0,0,0,0.1);
+  border: 1px solid #ccc;
+}
+
+#style-11::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: linear-gradient(left, #fff, #e4e4e4);
+  border: 1px solid #aaa;
+}
+
+#style-11::-webkit-scrollbar-thumb:hover {
+  background: #fff;
+}
+
+#style-11::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(left, #22ADD4, #1E98BA);
+}
+

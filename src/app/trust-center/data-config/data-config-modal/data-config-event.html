@@ -1,0 +1,112 @@
+<div class="modal-header">
+    <h5 class="modal-title pull-left">
+        <strong>Event Mapping
+            <strong>
+    </h5>
+    <input type="button" class="btn btn-warning btn-sm pull-right margin-left-5" ng-click="DataConfigModalCtrl.ePage.Masters.Cancel()"
+        value="Cancel" />
+    <input type="button" class="btn btn-primary btn-sm pull-right margin-left-5" ng-click="DataConfigModalCtrl.ePage.Masters.OK()"
+        value="Ok" />
+</div>
+<div class="modal-body p-0">
+    <div class="clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pr-0">
+            <div class="clearfix">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <div class="form-group clearfix">
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        </div>
+                        <div class="checkbox col-lg-10 col-md-10 col-sm-10 col-xs-10 m-0" data-ng-if="DataConfigModalCtrl.ePage.Masters.FieldListSource.length > 0">
+                            <span class="checkbox event-select-all">
+                                <label>
+                                    <input type="checkbox" class="colored-blue" data-ng-model="DataConfigModalCtrl.ePage.Masters.IsSelectAllFields" data-ng-click="DataConfigModalCtrl.ePage.Masters.Event.OnEventSelectAllFields()">
+                                    <strong class="text ">Select ALL</strong>
+                                </label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field-list">
+                <div data-ng-if="!DataConfigModalCtrl.ePage.Masters.FieldListSource" class="p-15 text-center tc-loading">
+                    <i class="fa fa-spin fa-spinner"></i>
+                </div>
+                <div data-ng-if="DataConfigModalCtrl.ePage.Masters.FieldListSource.length===0" class="p-15 text-center tc-no-records">
+                    <span>No Records...!</span>
+                </div>
+                <div class="clearfix" data-ng-repeat="Field in DataConfigModalCtrl.ePage.Masters.FieldListSource">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                        <div class="form-group clearfix">
+                            <div class="radio col-lg-2 col-md-2 col-sm-2 col-xs-2 m-0">
+                                <label>
+                                    <input name="form-field-radio" type="radio" data-ng-click="DataConfigModalCtrl.ePage.Masters.Event.EventActiveField(Field,DataConfigModalCtrl.ePage.Masters.FieldListSource)"
+                                        class="colored-blue">
+                                    <span class="text"></span>
+                                </label>
+                            </div>
+                            <div class="checkbox col-lg-10 col-md-10 col-sm-10 col-xs-10 m-0">
+                                <label>
+                                    <input type="checkbox" class="colored-blue" id="Field.PK" data-ng-checked="DataConfigModalCtrl.ePage.Masters.IsSelectAllFields"
+                                        data-ng-click="DataConfigModalCtrl.ePage.Masters.Event.OnEventSingleSelect($event,Field)">
+                                    <span class="text text-single-line" data-ng-bind="Field.DbField" title="{{Field.DbField}}"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9" data-ng-if="Field.IsActiveField" data-ng-class="{'active-field-list':Field.IsActiveField}">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <div class="form-horizontal">
+                                    <div class="clearfix form-group">
+                                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">IsCaptureDate Time</label>
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                            <input type="text" class="form-control input-sm" placeholder="IsCaptureDate Time" data-ng-model="Field.ISCaptureDateTime">
+                                        </div>
+                                    </div>
+                                    <div class="clearfix form-group">
+                                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Event Name</label>
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                            <input type="text" class="form-control input-sm" placeholder="Event Name" data-ng-model="Field.EventName">
+                                        </div>
+                                    </div>
+                                    <div class="clearfix form-group">
+                                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Event Code</label>
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                            <input type="text" class="form-control input-sm" placeholder="Event Code" data-ng-model="Field.EventCode">
+                                        </div>
+                                    </div>
+                                    <div class="clearfix form-group">
+                                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Display Order</label>
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                            <input type="text" class="form-control input-sm" placeholder="Display Order" data-ng-model="Field.DisplayOrder">
+                                        </div>
+                                    </div>
+                                    <div class="clearfix form-group">
+                                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">icon</label>
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                            <input type="text" class="form-control input-sm" placeholder="icon" data-ng-model="Field.icon">
+                                        </div>
+                                    </div>
+                                    <div class="clearfix form-group">
+                                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">bgColor</label>
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                            <input type="text" class="form-control input-sm" placeholder="Background Color" data-ng-model="Field.bgColor">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <div class="checkbox" data-ng-repeat="x in Field.RelatedDetails track by $id($index)">
+                                    <label>
+                                        <input type="checkbox" class="colored-blue" data-ng-model="x.IsActive">
+                                        <span class="text text-single-line" data-ng-bind="x.DbField" title="{{x.DbField}}"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

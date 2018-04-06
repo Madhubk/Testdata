@@ -1,0 +1,33 @@
+<!-- <div data-ng-include="'app/eaxis/freight/consolidation/general/tabs/general.html'">
+</div> -->
+
+<div class="clearfix">
+        <div class="widget-main ">
+            <uib-tabset id="consolGeneral">
+                <!--Depature & Arrival Details-->
+                <uib-tab>
+                    <uib-tab-heading title="Departure">
+                        <i class="fa fa-plane margin-right-5"></i> <span class="text-single-line" data-ng-bind="'Depature'"></span>
+                    </uib-tab-heading>
+                    <div data-ng-include="'app/eaxis/freight/consolidation/arrival-departure/tabs/depature.html'"></div>
+                </uib-tab>
+                <uib-tab>
+                    <uib-tab-heading title="Arrival">
+                        <i class="fa fa-ship margin-right-5"></i> <span class="text-single-line" data-ng-bind="'Arrival'"></span>
+                    </uib-tab-heading>
+                    <div data-ng-include="'app/eaxis/freight/consolidation/arrival-departure/tabs/arrival.html'"></div>
+                </uib-tab>
+              
+                <!-- Port Transport -->
+                <uib-tab>
+                    <uib-tab-heading title="Port Transport">
+                        <i class="fa fa-map-marker margin-right-5"></i> <span class="text-single-line" data-ng-bind="'Port Transport'"></span>
+                    </uib-tab-heading>
+                    <div data-ng-include="'app/eaxis/freight/consolidation/arrival-departure/tabs/port-transport.html'"></div>
+                </uib-tab>
+              
+            </uib-tabset>
+        </div>
+    </div>
+    
+    

@@ -1,0 +1,177 @@
+<div class="clearfix">
+    <div class="team-support-page-header">
+        <div class="page-breadcrumbs">
+            <div class="clearfix">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                    <a href="javascript:void(0);" class="logo">
+                        <img src="assets/img/logo/logo-20cube.png" alt="" data-ng-click="SprintCtrl.ePage.Masters.RedirectToHomeLogo()" />
+                    </a>
+                </div>
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
+                    <div class="pull-right padding-10 dropdown user-avatar-wrapper">
+                        <button class="user-avatar bg-themeprimary dropdown-toggle" data-ng-bind="SprintCtrl.ePage.Masters.UserProfile.DisplayName | getCharacters: 1"
+                            data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false"></button>
+                        <div class="dropdown-menu dropdown-menu-right" role="menu">
+                            <form class="clearfix" role="form">
+                                <div class="">
+                                    <div class="user-id" data-ng-bind="SprintCtrl.ePage.Masters.UserProfile.DisplayName"></div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                            <button change-password path="SprintCtrl.ePage.Masters.CurrentPath" class="btn btn-default pull-left change-password" data-ng-bind="'Change Password'"></button>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                            <button class="btn btn-default pull-right logout" data-ng-bind="'Sign Out'" data-ng-click="SprintCtrl.ePage.Masters.Logout()"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="position-relative mail-header">
+            <div class="row">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                    <div class="header-title">
+                        <div class="btn-group">
+                            <a class="btn dropdown-toggle dropdown-btn-support-task" data-toggle="dropdown" aria-expanded="true">
+                                <span data-ng-bind="SprintCtrl.ePage.Masters.ActiveTSPage"></span>
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li data-ng-repeat="x in SprintCtrl.ePage.Masters.TSPageList" data-ng-if="x.Name != SprintCtrl.ePage.Masters.ActiveTSPage">
+                                    <a href="{{x.Url}}" data-ng-bind="x.Name"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 no-padding-left">
+                    <div class="clearfix padding-5">
+                        <!--Project-->
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                            <select chosen name="category-group" class="form-control header-select-control input-sm" ng-model="SprintCtrl.ePage.Masters.CurrentProject.Code"
+                                ng-options="x.Code as x.Description for x in SprintCtrl.ePage.Masters.Project.ListSource" ng-change="SprintCtrl.ePage.Masters.OnProjectChange((SprintCtrl.ePage.Masters.Project.ListSource  | filter: {Code : SprintCtrl.ePage.Masters.CurrentProject.Code})[0])"
+                                search-contains="true"></select>
+                        </div>
+                        <!--Sprint-->
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                            <select chosen name="category-group" class="form-control header-select-control input-sm" ng-model="SprintCtrl.ePage.Masters.CurrentSprint.PK"
+                                ng-options="x.PK  as x.Description for x in SprintCtrl.ePage.Masters.Sprint.ListSource" ng-change="SprintCtrl.ePage.Masters.OnSprintChange((SprintCtrl.ePage.Masters.Sprint.ListSource|filter:{PK: SprintCtrl.ePage.Masters.CurrentSprint.PK})[0])"
+                                search-contains="true">
+                                <!--<option value="">All</option>-->
+                            </select>
+                        </div>
+                        <!--Date-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="team-support-page-body padding-5 padding-left-10">
+        <div class="row">
+            <!--Sidebar-->
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                <!--<li class="btn-compose">-->
+                <button class="btn btn-danger btn-compose" data-ng-click="SprintCtrl.ePage.Masters.OnComposeClick(tab)">Compose</button>
+                <!--</li>-->
+            </div>
+            <div class="horizontal-space"></div>
+            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 padding-5 padding-left-10 padding-right-20">
+                <div class="form-horizontal clearfix">
+                    <div class="row">
+                        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5">
+                            <div class="form-group">
+                                <label class="control-label col-sm-4 text-right">Sprint</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control input-sm" placeholder="Sprint" data-ng-model="SprintCtrl.ePage.Masters.SprintFormView.Description">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4 text-right">Start Date</label>
+
+                                <div class="col-sm-8">
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" class="form-control" placeholder="{{SprintCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="SprintCtrl.ePage.Masters.SprintFormView.StartDate"
+                                            uib-datepicker-popup="{{SprintCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="SprintCtrl.ePage.Masters.DatePicker.Options"
+                                            is-open="SprintCtrl.ePage.Masters.DatePicker.isOpen['StartDate']" />
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default shiny" data-ng-click="SprintCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'StartDate')">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4 text-right">End Date</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" class="form-control" placeholder="{{SprintCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="SprintCtrl.ePage.Masters.SprintFormView.EndDate"
+                                            uib-datepicker-popup="{{SprintCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="SprintCtrl.ePage.Masters.DatePicker.Options"
+                                            is-open="SprintCtrl.ePage.Masters.DatePicker.isOpen['isRaisedOn']" />
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default shiny" data-ng-click="SprintCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isRaisedOn')">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4 text-right no-resize">Description</label>
+                                <div class="col-sm-8">
+                                    <textarea rows="4" type="text" class="form-control input-sm no-resize" placeholder="Remarks" data-ng-model="SprintCtrl.ePage.Masters.SprintFormView.Remarks"></textarea>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4 text-right">Status</label>
+                                <div class="col-sm-8">
+                                    <select chosen search-contains="true" disable-search="false" class="form-control" ng-model="SprintCtrl.ePage.Masters.SprintFormView.Status"
+                                        ng-options="x.Key as x.Key for x in SprintCtrl.ePage.Masters.TeamTypeMaster.ListSource"
+                                        search-contains="true">
+                                        <option value="">--Select--</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4 text-right no-resize">&nbsp;</label>
+                                <div class="col-sm-8">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" data-ng-model="SprintCtrl.ePage.Masters.SprintFormView.IsCurrent" class="colored-blue">
+                                            <span class="text">Is Current</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            </hr>
+                            <div class="horizontal-space"></div>
+                            <button class="btn btn-warning btn-sm pull-right" data-ng-click="SprintCtrl.ePage.Masters.CheckDate(tab)" style="margin-right: 8px;">CheckDate</button>
+                            <button class="btn btn-primary btn-sm pull-right" data-ng-click=" SprintCtrl.ePage.Masters.Save(tab)" style="margin-right: 8px;">Save</button>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 col-xl-7  no-padding-left">
+                            <div class="height-500">
+                                <div class="clearfix">
+                                    <!-- <div class="text-center grid-view-loader padding-20" data-ng-if="!SprintCtrl.ePage.Masters.GridData"><i class="fa fa-spin fa-spinner font-160"></i></div> -->
+                                    <!--Ui-Grid directive-->
+                                    <div class="text-center grid-view-loader p-20" data-ng-if="!SprintCtrl.ePage.Masters.TeamTargetRelease.GridData">
+                                        <i class="fa fa-spin fa-spinner font-160"></i>
+                                    </div>
+                                    <dynamic-table data-ng-if="SprintCtrl.ePage.Masters.TeamTargetRelease.GridData" grid-data="SprintCtrl.ePage.Masters.TeamTargetRelease.GridData"
+                                        grid-config="SprintCtrl.ePage.Masters.TeamTargetRelease.gridConfig"></dynamic-table>
+                                    <!-- <dynamic-grid data-ng-if="SprintCtrl.ePage.Masters.gridData" input-data="SprintCtrl.ePage.Masters.gridData" grid-config="SprintCtrl.ePage.Masters.gridConfig"
+                                        selected-grid-row="SprintCtrl.ePage.Masters.SelectedGridRow($item)"></dynamic-grid> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

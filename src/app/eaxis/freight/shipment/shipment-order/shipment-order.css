@@ -1,0 +1,42 @@
+.ord-list-header {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.ord-list-container {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.ord-list-container .font-16 {
+    font-size: 15px;
+}
+
+.ord-list-container .line-1 {
+    height: 25px;
+}
+
+.ord-list-container .line-2 {
+    color: #aaa;
+    height: 25px;
+}
+
+.orderItem-modal .modal-dialog {
+    width: 400px !important;
+    height: auto !important;
+    margin: 150px auto;
+}
+
+.dropdownWrapOrderItem {
+    position: absolute;
+    z-index: 999999;
+    width: 657px;
+    background: #f0f0f0;
+    box-shadow: 1px 1px 5px #999;
+    left: 0px;
+    top: 30px;
+}
+.link-orders {
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #eee;
+}

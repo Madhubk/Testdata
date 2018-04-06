@@ -1,0 +1,187 @@
+<div class="clearfix details-task-wrapper mt-10">
+    <form novalidate name="tsDetailsTaskForm" class="form-horizontal">
+        <div class="rows form">
+            <div class="col-sm-6 pl-xs-0 pr-xs-0">
+                <!--Title-->
+                <div class="form-group" data-ng-if="SupportCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Title.Visible">
+                    <label class="control-label col-sm-4 text-right" data-ng-bind="SupportCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Title.Label"></label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control input-sm" placeholder="Title" data-ng-model="SupportCtrl.ePage.Entities.SupportHeader.Details.Task.Title">
+                    </div>
+                </div>
+                <!--Description-->
+                <div class="form-group" data-ng-if="SupportCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Visible">
+                    <label class="control-label col-sm-4 text-right" data-ng-bind="SupportCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Description.Label"></label>
+                    <div class="col-sm-8">
+                        <textarea rows="4" class="form-control input-sm no-resize" placeholder="Description" data-ng-model="SupportCtrl.ePage.Entities.SupportHeader.Details.Task.Description"></textarea>
+                    </div>
+                </div>
+                <!--Assign To-->
+                <div class="form-group" data-ng-if="SupportCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.AssignTo.Visible">
+                    <label class="control-label col-sm-4 text-right" data-ng-bind="SupportCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.AssignTo.Label"></label>
+                    <div class="col-sm-8">
+                        <select chosen search-contains="true" disable-search="false" class="form-control" ng-model="SupportCtrl.ePage.Entities.SupportHeader.Details.Task.AssignTo"
+                            ng-options="x.USR_UserName as x.USR_UserName for x in SupportCtrl.ePage.Entities.SupportHeader.Meta.User.ListSource" search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+                <!--Module-->
+                <div class="form-group" data-ng-if="SupportCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Module.Visible">
+                    <label class="control-label col-sm-4 text-right" data-ng-bind="SupportCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Module.Label"></label>
+                    <div class="col-sm-8">
+                        <select chosen class="form-control" ng-model="SupportCtrl.ePage.Entities.SupportHeader.Details.Task.Module" ng-options="x.Value as x.Value for x in SupportCtrl.ePage.Entities.SupportHeader.Meta.MainModule.ListSource" search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+                <!--Sub Module-->
+                <div class="form-group" data-ng-if="SupportCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.SubModule.Visible">
+                    <label class="control-label col-sm-4 text-right" data-ng-bind="SupportCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.SubModule.Label"></label>
+                    <div class="col-sm-8 module-autocomplete-wrapper">
+                        <input type="text" class="form-control input-sm" placeholder="Sub Module" data-ng-model="SupportCtrl.ePage.Entities.SupportHeader.Details.Task.Remarks"
+                            uib-typeahead="x for x in SupportCtrl.ePage.Entities.SupportHeader.Meta.Module.ListSource | filter:$viewValue"
+                            typeahead-loading="SupportCtrl.ePage.Masters.IsLoading" typeahead-no-results="SupportCtrl.ePage.Masters.NoRecords">
+                        <i ng-show="SupportCtrl.ePage.Masters.IsLoading" class="fa fa-spin fa-spinner auto-complete-loading"></i>
+                        <div ng-show="SupportCtrl.ePage.Masters.NoRecords" class="auto-complete-norecords">
+                            <i class="glyphicon glyphicon-remove "></i> No Records Found
+                        </div>
+                    </div>
+                </div>
+                <!--Priority-->
+                <div class="form-group" data-ng-if="SupportCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Priority.Visible">
+                    <label class="control-label col-sm-4 text-right" data-ng-bind="SupportCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Priority.Label"></label>
+                    <div class="col-sm-8">
+                        <select chosen class="form-control" ng-model="SupportCtrl.ePage.Entities.SupportHeader.Details.Task.Priority" ng-options="x.Code as x.Code for x in SupportCtrl.ePage.Entities.SupportHeader.Meta.Priority.ListSource"
+                            ng-change="SupportCtrl.ePage.Masters.OnPriorityChange((SupportCtrl.ePage.Entities.SupportHeader.Meta.Priority.ListSource  | filter: {Code : SupportCtrl.ePage.Entities.SupportHeader.Details.Task.Priority})[0])" search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+                <!--Estimte Effort-->
+                <div class="form-group" data-ng-if="SupportCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.EstiamteEffort.Visible">
+                    <label class="control-label col-sm-4 text-right" data-ng-bind="SupportCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.EstiamteEffort.Label"></label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control input-sm" placeholder="Estimte Effort" data-ng-model="SupportCtrl.ePage.Entities.SupportHeader.Details.Task.Effort">
+                    </div>
+                </div>
+                <!--Group-->
+                <div class="form-group" data-ng-if="SupportCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Group.Visible">
+                    <label class="control-label col-sm-4 text-right" data-ng-bind="SupportCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Group.Label"></label>
+                    <div class="col-sm-8">
+                        <select chosen class="form-control" ng-model="SupportCtrl.ePage.Entities.SupportHeader.Details.Task.Group" ng-options="x.Key as x.Key for x in SupportCtrl.ePage.Entities.SupportHeader.Meta.TeamTypeMaster.ListSource | filter:  {TypeCode: 'Group'}" search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 pl-xs-0 pr-xs-0">
+                <!--Status-->
+                <div class="form-group" data-ng-if="SupportCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Status.Visible">
+                    <label class="control-label col-sm-4 text-right" data-ng-bind="SupportCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Status.Label"></label>
+                    <div class="col-sm-8">
+                        <select chosen class="form-control" ng-model="SupportCtrl.ePage.Entities.SupportHeader.Details.Task.Status" ng-options="x.Key as x.Key for x in SupportCtrl.ePage.Entities.SupportHeader.Meta.TeamTypeMaster.ListSource | filter:  {TypeCode: 'Status'}" search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+                <!--Category-->
+                <div class="form-group" data-ng-if="SupportCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Category.Visible">
+                    <label class="control-label col-sm-4 text-right" data-ng-bind="SupportCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Category.Label"></label>
+                    <div class="col-sm-8">
+                        <select chosen class="form-control" ng-model="SupportCtrl.ePage.Entities.SupportHeader.Details.Task.Category" ng-options="x.Key as x.Key for x in SupportCtrl.ePage.Entities.SupportHeader.Meta.TeamTypeMaster.ListSource | filter:  {TypeCode: 'TaskType'}" search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+                <!--Record Type-->
+                <div class="form-group" data-ng-if="SupportCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.RecordType.Visible">
+                    <label class="control-label col-sm-4 text-right" data-ng-bind="SupportCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.RecordType.Label"></label>
+                    <div class="col-sm-8">
+                        <select chosen class="form-control" ng-model="SupportCtrl.ePage.Entities.SupportHeader.Details.Task.RecordType" ng-options="x.Key as x.Key for x in SupportCtrl.ePage.Entities.SupportHeader.Meta.TeamTypeMaster.ListSource | filter:  {TypeCode: 'RecordType'}" search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+                <!--Sprint-->
+                <div class="form-group" data-ng-if="SupportCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Sprint.Visible">
+                    <label class="control-label col-sm-4 text-right" data-ng-bind="SupportCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Sprint.Label"></label>
+                    <div class="col-sm-8">
+                        <select chosen class="form-control" ng-model="SupportCtrl.ePage.Entities.SupportHeader.Details.Task.TAR_FK" ng-options="x.PK  as x.Description for x in SupportCtrl.ePage.Entities.SupportHeader.Meta.Sprint.ListSource"
+                            data-ng-change="SupportCtrl.ePage.Masters.OnDetailsTaskSprintChange(SupportCtrl.ePage.Entities.SupportHeader.Details.Task.TAR_FK)" search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+                <!--Raised By-->
+                <div class="form-group" data-ng-if="SupportCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.RaisedBy.Visible">
+                    <label class="control-label col-sm-4 text-right" data-ng-bind="SupportCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.RaisedBy.Label"></label>
+                    <div class="col-sm-8">
+                        <select chosen class="form-control" ng-model="SupportCtrl.ePage.Entities.SupportHeader.Details.Task.RaisedBy" ng-options="x.USR_UserName as x.USR_UserName for x in SupportCtrl.ePage.Entities.SupportHeader.Meta.User.ListSource" search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+                <!--Raised On-->
+                <div class="form-group" data-ng-if="SupportCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.RaisedOn.Visible">
+                    <label class="control-label col-sm-4 text-right" data-ng-bind="SupportCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.RaisedOn.Label"></label>
+                    <div class="col-sm-8">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" placeholder="{{SupportCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="SupportCtrl.ePage.Entities.SupportHeader.Details.Task.RaisedOn"
+                                uib-datepicker-popup="{{SupportCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="SupportCtrl.ePage.Masters.DatePicker.Options"
+                                is-open="SupportCtrl.ePage.Masters.DatePicker.isOpen['isRaisedOn']" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default shiny" data-ng-click="SupportCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isRaisedOn')"><i class="fa fa-calendar"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!--Effort Remain-->
+                <div class="form-group">
+                    <label class="control-label col-sm-4 text-right">Effort Remain</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control input-sm" placeholder="Effort Remain" data-ng-model="SupportCtrl.ePage.Entities.SupportHeader.Details.Task.EffortRemain">
+                    </div>
+                </div>
+                <!--Location-->
+                <div class="form-group" data-ng-if="SupportCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Location.Visible">
+                    <label class="control-label col-sm-4 text-right" data-ng-bind="SupportCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Location.Label"></label>
+                    <div class="col-sm-8">
+                        <select chosen class="form-control" ng-model="SupportCtrl.ePage.Entities.SupportHeader.Details.Task.Location" ng-options="x.Key as x.Key for x in SupportCtrl.ePage.Entities.SupportHeader.Meta.TeamTypeMaster.ListSource | filter:  {TypeCode: 'Location'}" search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+                <!--Classification-->
+                <div class="form-group" data-ng-if="SupportCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Classification.Visible">
+                    <label class="control-label col-sm-4 text-right" data-ng-bind="SupportCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Classification.Label"></label>
+                    <div class="col-sm-8">
+                        <select chosen class="form-control" ng-model="SupportCtrl.ePage.Entities.SupportHeader.Details.Task.Classification" ng-options="x.Key as x.Key for x in SupportCtrl.ePage.Entities.SupportHeader.Meta.TeamTypeMaster.ListSource | filter:  {TypeCode: 'Classification'}" search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+                 <!--Requirment-->
+                <div class="form-group" data-ng-if="SupportCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Status.Visible">
+                    <label class="control-label col-sm-4 text-right" data-ng-bind="SupportCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Requirement.Label"></label>
+                    <div class="col-sm-8">
+                        <select chosen class="form-control" ng-model="SupportCtrl.ePage.Entities.SupportHeader.Details.Task.ParentId" ng-options="x.PK as x.Title for x in  SupportCtrl.ePage.Masters.RequirementSource | filter: SupportCtrl.ePage.Entities.SupportHeader.Details.Task.Module" search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="rows button-wrapper clearfix mt-10">
+            <input type="button" class="btn btn-primary btn-sm pull-right margin-left-5" value="{{SupportCtrl.ePage.Masters.DetailsTaskSaveAndCloseText}}"
+                data-ng-click="SupportCtrl.ePage.Masters.DetailsTaskSaveAndClose()" data-ng-disabled="SupportCtrl.ePage.Masters.IsDetailsTaskSaveAndCloseClick"
+            />
+            <!--<input type="submit" class="btn btn-primary btn-sm pull-right margin-left-5" value="{{SupportCtrl.ePage.Masters.DetailsTaskSaveText}}"
+                data-ng-click="SupportCtrl.ePage.Masters.DetailsTaskSave()" data-ng-disabled="SupportCtrl.ePage.Masters.IsDetailsTaskSaveClick || !SupportCtrl.ePage.Masters.CheckUIControl('TS_TSK_BTN_SAVEi')"
+            />-->
+            <input type="submit" class="btn btn-primary btn-sm pull-right margin-left-5" value="{{SupportCtrl.ePage.Masters.DetailsTaskSaveText}}"
+                data-ng-click="SupportCtrl.ePage.Masters.DetailsTaskSave()" data-ng-disabled="SupportCtrl.ePage.Masters.IsDetailsTaskSaveClick"
+            />
+        </div>
+    </form>
+</div>

@@ -1,0 +1,13 @@
+<div class="clearfix standard-menu-wrapper">
+    <div class="eaxis-footer-left">
+        <ul>
+            <li data-ng-repeat="x in StandardMenuCtrl.ePage.Masters.MenuList" data-ng-if="StandardMenuCtrl.ePage.Masters.StandardMenuInput.Config[x.Name]">
+                <a href="javascript:void(0);" compile-dynamic-directive-standard-menu obj="x" input="StandardMenuCtrl.ePage.Masters.StandardMenuInput"></a>
+            </li>
+        </ul>
+    </div>
+    <!-- Order -->
+    <div class="pull-right margin-right-50" data-ng-if="StandardMenuCtrl.entityName=='OrderHeader' && StandardMenuCtrl.ePage.Masters.state.current.url =='/order'">
+        <order-action input="StandardMenuCtrl.input"> </order-action>
+    </div>
+</div>

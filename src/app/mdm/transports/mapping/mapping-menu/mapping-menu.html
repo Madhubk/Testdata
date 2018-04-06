@@ -1,0 +1,23 @@
+<div class="clearfix tms-mapping-menu-wraper">
+    <div id="wmsMenuWrapper{{MappingMenuCtrl.currentManifest.label}}" class="col-sm-12 no-padding-left no-padding-right">
+        <uib-tabset class="tms-mapping-menu tabs-left tabbable" active="MappingMenuCtrl.ePage.Masters.active">
+            <div class="mt-10"></div>
+            <uib-tab ng-repeat="x in MappingMenuCtrl.ePage.Masters.MappingMenu.ListSource" index="$index" deselect="MappingMenuCtrl.ePage.Masters.tabSelected(x,$selectedIndex,$event);">
+                <uib-tab-heading title="{{x.DisplayName}}">
+                    <i class="fa {{x.Icon}} mr-5"></i>
+                    <span class="text-single-line" data-ng-bind="x.DisplayName"></span>
+                </uib-tab-heading>
+                <div>
+                    <div ng-switch="x.Value">
+                        <!--Menu directives-->
+                        <div ng-switch-when="SenderCarrier" sender-carrier></div>
+                        <div ng-switch-when="SenderReceiver" sender-receiver></div>
+                        <div ng-switch-when="StoreDepot" store-depot></div>
+                        <div ng-switch-when="DCDepotStore" dc-depot-store></div>
+                        <div ng-switch-when="CarrierVehicle" carrier-vehicle></div>
+                    </div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>

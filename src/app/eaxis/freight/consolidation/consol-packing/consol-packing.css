@@ -1,0 +1,85 @@
+.overal {
+    width: 100%;
+    float: left;
+    padding: 7px 10px 7px 10px;
+    border-radius:3px;
+    background:#fbfbfb;
+    border: 1px solid #e5e5e5;
+}
+
+.firstRow {
+    width: 100%;
+}
+.consolNo{
+    font-size: 14px;
+    font-weight: bold;
+}
+.chekBx{
+   margin-top: 0px;
+}
+
+.fs-gray{
+    color:#b4b1b1;
+    
+}
+
+.border-right{
+    border-right:1px solid gray;
+}
+
+.pack-action li {
+    width: 100%;
+    float: left;
+    list-style: none;
+    padding: 5px 0;
+    border: 1px solid #e5e5e5;
+    background:#fbfbfb;
+    margin-top: 7px;
+}
+
+.Shipment-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #4385f5;
+}
+
+.pack-action-label-value {
+    width: 100%;
+    float: left;
+    margin-bottom: 1px;
+    margin-top: 1px;
+}
+
+.pack-action-label {
+    width: 23%;
+    float: left;
+    color: #999;
+}
+
+.action-label{
+    color:#999;
+}
+
+.pack-action-value {
+    width: 77%;
+    float: left;
+}
+
+.org {
+    font-size: 11px;
+    margin-bottom: 1px;
+}
+
+.org1 {
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+.trash {
+    color: #d71921;
+    font-size: 24px;
+    cursor: pointer;
+}
+.seal-width {
+    width:100%;
+}

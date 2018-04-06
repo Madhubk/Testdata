@@ -1,0 +1,10 @@
+.mytaskdefault-edit-modal .modal-dialog {
+    width: 550px !important;
+}
+
+.my-task-edit-container .warning-message {
+    padding: 30px;
+    font-size: 20px;
+    text-align: center;
+    color: orange;
+}

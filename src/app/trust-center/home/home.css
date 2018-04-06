@@ -1,0 +1,50 @@
+.tc-home {
+    padding: 50px 100px;
+}
+
+.tc-home .menu-container {
+    width: 195px;
+    border: 1px solid #eee;
+    padding: 10px;
+    text-align: center;
+    float: left;
+    margin: 17px;
+    cursor: pointer;
+}
+
+.tc-home .menu-container:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.tc-home .menu-container .image {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto;
+    margin-bottom: 5px;
+    font-size: 70px;
+}
+
+.tc-home .menu-container .image img {
+    width: 100%;
+    height: 100%;
+}
+
+.tc-home .menu-container .name {
+    padding: 5px;
+}
+
+.tc-home .menu-container .name span {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.tc-home .menu-container .description {
+    padding: 5px;
+    height: 46px;
+    overflow: hidden;
+}
+
+.session{
+    margin-left: 116px;
+    float: left;
+}

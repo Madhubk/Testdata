@@ -1,0 +1,9 @@
+<div class="clearfix dynamic-details-view-header" data-ng-if="DynamicDetailsViewDirectiveCtrl.mode == '0'">
+    <span data-ng-bind="DynamicDetailsViewDirectiveCtrl.ePage.Masters.DataEntry.Title || 'Title'"></span>
+</div>
+<div class="clearfix">
+    <dynamic-control data-ng-if="DynamicDetailsViewDirectiveCtrl.ePage.Masters.DataEntry" input="DynamicDetailsViewDirectiveCtrl.ePage.Masters.DataEntry"
+        mode="D" control-style="" default-filter="DynamicDetailsViewDirectiveCtrl.ePage.Masters.defaultFilter" is-save-btn="true"
+        controls-data="DynamicDetailsViewDirectiveCtrl.ePage.Masters.ControlsData($item)" view-type="2" selected-grid-row="DynamicDetailsViewDirectiveCtrl.ePage.Masters.SelectedGridRow($item)"
+        pkey="DynamicDetailsViewDirectiveCtrl.ePage.Masters.Pkey"></dynamic-control>
+</div>

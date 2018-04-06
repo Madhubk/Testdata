@@ -1,0 +1,12 @@
+<div class="col-lg-4 fix-crt">
+    Showing {{PaginationCtrl.ePage.Masters.PageFrom}}-{{PaginationCtrl.ePage.Masters.PageTo}} of {{PaginationCtrl.totalCount}}
+</div>
+<div class="col-xs-8">
+    <div class="pages-next-previous small-fix">
+	    <ul id="ember4996" class="ember-view pagination"> 
+	    	<li ng-class="{disabled: PaginationCtrl.ePage.Masters.NoPrevious()}"><a ng-click="PaginationCtrl.ePage.Masters.SelectPrevious()">Previous</a></li>
+			 <li ng-repeat="page in PaginationCtrl.ePage.Masters.pages" ng-class="{active: PaginationCtrl.ePage.Masters.isActive(page)}"><a ng-click="PaginationCtrl.ePage.Masters.SelectPage(page)">{{page}}</a></li>
+			 <li ng-class="{disabled: PaginationCtrl.ePage.Masters.NoNext()}"><a ng-click="PaginationCtrl.ePage.Masters.SelectNext()">Next</a></li>
+	    </ul>
+	</div>
+</div>

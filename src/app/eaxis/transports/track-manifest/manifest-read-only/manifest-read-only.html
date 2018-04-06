@@ -1,0 +1,279 @@
+<div class="col-lg-12 mt-15">
+    <div class="rows border-box border-radius-2 bg-fbfbfb">
+        <div class="col-lg-2 pt-10 pb-10 p-30">
+            <div class="tab-profile-title text-single-line fs-20 mt-40" data-ng-bind="ManifestReadOnlyCtrl.currentManifest.label"></div>
+
+            <div class="tab-profile-sub-title text-single-line fs-14" title="{{ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatus}} - {{ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatusDesc}}"
+                data-ng-bind="ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatusDesc"></div>
+        </div>
+
+        <!--Sender-->
+        <div class="col-lg-5 border-left border-right pt-10 pb-10 p-30">
+            <div class="fs-20 color-999">From</div>
+
+            <div class="fs-14">
+                <b>{{ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgSender.FullName}}</b> -
+                <b ng-bind="ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgSender.Code"></b>
+            </div>
+
+            <div class="color-999 mt-5" ng-show="ManifestReadOnlyCtrl.ePage.Masters.Sender">
+                <div class="text-single-line" title='{{ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgSender.OAD_Address1}}'>{{ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgSender.OAD_Address1 || ManifestReadOnlyCtrl.ePage.Masters.Empty
+                    }}
+                </div>
+
+                <div class="text-single-line" title='{{ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgSender.OAD_Address2}}'>{{ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgSender.OAD_Address2 || ManifestReadOnlyCtrl.ePage.Masters.Empty
+                    }}
+                </div>
+                <div class="text-single-line">
+                    <span title="{{ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgSender.OAD_City}}">{{ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgSender.OAD_City || ManifestReadOnlyCtrl.ePage.Masters.Empty}}
+                    </span>
+                </div>
+
+                <div class="text-single-line mt-10">
+                    <span title='{{ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgSender.OAD_State}}'>
+                        <b>{{ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgSender.OAD_State || ManifestReadOnlyCtrl.ePage.Masters.Empty}}</b>
+                    </span>
+                    <span class="pl-100" title="{{ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgSender.OAD_PostCode}}">{{ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgSender.OAD_PostCode || ManifestReadOnlyCtrl.ePage.Masters.Empty}}</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!--Receiver-->
+        <div class="col-lg-5 pt-10 pb-10 p-30">
+            <div class="fs-20 color-999">To</div>
+
+            <div class="fs-14">
+                <b ng-bind="ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgReceiver.FullName"></b> -
+                <b ng-bind="ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgReceiver.Code"></b>
+            </div>
+            <div class="color-999 mt-5" ng-show="ManifestReadOnlyCtrl.ePage.Masters.Receiver">
+                <div class="text-single-line" title='{{ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgReceiver.OAD_Address1}}'>{{ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgReceiver.OAD_Address1 || ManifestReadOnlyCtrl.ePage.Masters.Empty
+                    }}
+                </div>
+
+                <div class="text-single-line" title='{{ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgReceiver.OAD_Address2}}'>{{ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgReceiver.OAD_Address2 || ManifestReadOnlyCtrl.ePage.Masters.Empty
+                    }}
+                </div>
+                <div class="text-single-line">
+                    <span title="{{ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgReceiver.OAD_City}}">{{ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgReceiver.OAD_City || ManifestReadOnlyCtrl.ePage.Masters.Empty}}
+                    </span>
+                </div>
+
+                <div class="text-single-line mt-10">
+                    <span title='{{ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgReceiver.OAD_State}}'>
+                        <b>{{ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgReceiver.OAD_State || ManifestReadOnlyCtrl.ePage.Masters.Empty}}</b>
+                    </span>
+                    <span class="pl-100" title="{{ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgReceiver.OAD_PostCode}}">{{ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgReceiver.OAD_PostCode || ManifestReadOnlyCtrl.ePage.Masters.Empty}}</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="rows mt-15">
+    <div class="col-lg-3">
+        <div class="rows bg-light-yellow border-yellow p-20 pl-30 pr-30 height-182" ng-if="ManifestReadOnlyCtrl.ePage.Entities.Header.Data.ProcessInfo[0].WSI_StepName=='Confirm Manifest Arrival' || ManifestReadOnlyCtrl.ePage.Entities.Header.Data.ProcessInfo[0].WSI_StepName=='Confirm Arrival at Port' || ManifestReadOnlyCtrl.ePage.Entities.Header.Data.ProcessInfo[0].WSI_StepName=='Dispatch from Port' || ManifestReadOnlyCtrl.ePage.Entities.Header.Data.ProcessInfo[0].WSI_StepName=='Receive Item And Confirm'">
+            <!--Arrival Date-->
+            <div class="form-group" ng-if="ManifestReadOnlyCtrl.ePage.Entities.Header.Data.ProcessInfo[0].WSI_StepName=='Confirm Manifest Arrival'">
+                <label class="control-label text-single-line"> Arrival Date</label>
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="{{ManifestReadOnlyCtrl.ePage.Masters.DatePicker.Options.format}}" datetime-picker="{{ManifestReadOnlyCtrl.ePage.Masters.DatePicker.Options.format}}"
+                        ng-model="ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ActualDeliveryDate" is-open="ManifestReadOnlyCtrl.ePage.Masters.DatePicker.isOpen['isActualDeliveryDate']"
+                        datepicker-options="ManifestReadOnlyCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" when-closed="ManifestReadOnlyCtrl.ePage.Masters.DatePicker.OnActualDeliveryDateSelected(ManifestReadOnlyCtrl.ePage.Masters.DatePicker.ActualDeliveryDate)"
+                        save-as="ISO" data-ng-click="ManifestReadOnlyCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isActualDeliveryDate')"
+                        popup-placement="bottom-right" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" data-ng-click="ManifestReadOnlyCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isActualDeliveryDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <!--Driver Name-->
+            <div class="form-group" ng-if="ManifestReadOnlyCtrl.ePage.Entities.Header.Data.ProcessInfo[0].WSI_StepName=='Confirm Arrival at Port'">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Driver Name</label>
+                    <div class="">
+                        <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Drive Name" data-ng-model="ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestHeader.DriveName">
+                    </div>
+                </div>
+            </div>
+            <!--Driver Contact No-->
+            <div class="form-group" ng-if="ManifestReadOnlyCtrl.ePage.Entities.Header.Data.ProcessInfo[0].WSI_StepName=='Confirm Arrival at Port'">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Driver Contact No</label>
+                    <div class="">
+                        <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Driver Contact No"
+                            data-ng-model="ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestHeader.DriverContactNo">
+                    </div>
+                </div>
+            </div>
+            <!--Vehicle No-->
+            <div class="form-group" ng-if="ManifestReadOnlyCtrl.ePage.Entities.Header.Data.ProcessInfo[0].WSI_StepName=='Confirm Arrival at Port'">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Vehicle No</label>
+                    <div class="">
+                        <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Vehicle No" data-ng-model="ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestHeader.VehicleNo">
+                    </div>
+                </div>
+            </div>
+            <!--Vehicle Type-->
+            <div class="form-group" ng-if="ManifestReadOnlyCtrl.ePage.Entities.Header.Data.ProcessInfo[0].WSI_StepName=='Confirm Arrival at Port'">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Vehicle Type</label>
+                    <div class="">
+                        <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Vehicle Type"
+                            data-ng-model="ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestHeader.VehicleTypeDescription">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Estimated Dispatch Date -->
+            <div class="form-group" ng-if="ManifestReadOnlyCtrl.ePage.Entities.Header.Data.ProcessInfo[0].WSI_StepName=='Dispatch from Port'">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Dispatch Date at Port</label>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" placeholder="{{ManifestReadOnlyCtrl.ePage.Masters.DatePicker.Options.format}}" datetime-picker="{{ManifestReadOnlyCtrl.ePage.Masters.DatePicker.Options.format}}"
+                            ng-model="ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDispatchDate"
+                            is-open="ManifestReadOnlyCtrl.ePage.Masters.DatePicker.isOpen['isEstimatedDispatchDate']" datepicker-options="ManifestReadOnlyCtrl.ePage.Masters.DatePicker.Options"
+                            datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                            default-date="" default-time="" when-closed="ManifestReadOnlyCtrl.ePage.Masters.DatePicker.OnEstimatedDispatchDateSelected(ManifestReadOnlyCtrl.ePage.Masters.DatePicker.EstimatedDispatchDate)"
+                            save-as="ISO" data-ng-click="ManifestReadOnlyCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedDispatchDate')"
+                            popup-placement="bottom-right" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" data-ng-click="ManifestReadOnlyCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedDispatchDate')">
+                                <i class="fa fa-calendar"></i> </button>
+                        </span>
+                        <!-- <span class="pull-left">Actual Delivery Date :</span>
+                        <b ng-bind="ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ActualDeliveryDate"></b> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-9 pl-0">
+        <div class="rows border-box border-radius-2 pt-15 height-182">
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11">Carrier</div>
+                    <div class="text-single-line">
+                        <span>{{ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterName||ManifestReadOnlyCtrl.ePage.Masters.Empty}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group" ng-if="ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestType=='LEH'">
+                    <div class="color-999 fs-11">Vehicle No</div>
+                    <span>{{ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestHeader.VehicleNo||ManifestReadOnlyCtrl.ePage.Masters.Empty}}</span>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group" ng-if="ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestType=='LEH'">
+                    <div class="color-999 fs-11">Vehicle Type</div>
+                    <span> {{ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestHeader.VehicleTypeDescription||ManifestReadOnlyCtrl.ePage.Masters.Empty}}</span>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group" ng-if="ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestType=='LEH'">
+                    <div class="color-999 fs-11">Seal No</div>
+                    <span>{{ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SealNo||ManifestReadOnlyCtrl.ePage.Masters.Empty}}</span>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11">Actual Delivery Date</div>
+                    <span>{{ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ActualDeliveryDate | dateFormat}}</span>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11">Actual Dispatch Date</div>
+                    <span>{{ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ActualDispatchDate | dateFormat}}</span>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11">Estimated Delivery Date</div>
+                    <span>{{ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDeliveryDate|dateFormat}}</span>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11">Estimated Dispatch Date</div>
+                    <span>{{ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDispatchDate|dateFormat}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="rows p-15">
+    <div class="rows border-box border-radius-2">
+        <div class="tms-table-title fs-5 p-10">Shipment Totals</div>
+        <table id="customers">
+            <tr>
+                <th>Description</th>
+                <th>Qty</th>
+                <th>Weight(KG)</th>
+                <th>Total Volume</th>
+            </tr>
+            <tr>
+                <td>Euro Bin</td>
+                <td>14</td>
+                <td>2,800.00</td>
+                <td>40.32</td>
+            </tr>
+            <tr>
+                <td>Timber Pallet</td>
+                <td>7</td>
+                <td>1,400.00</td>
+                <td>21.17</td>
+            </tr>
+            <tr>
+                <td>zBundle </td>
+                <td>12</td>
+                <td>120</td>
+                <td>3.07</td>
+            </tr>
+            <tr>
+                <td>All Units </td>
+                <td>33</td>
+                <td>4320.00</td>
+                <td>64.56</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+<div class="rows p-15 mb-50">
+    <div class="rows border-box border-radius-2">
+        <div class="tms-table-title fs-5 p-10">Shipment Totals</div>
+        <table id="customers">
+            <tr>
+                <th>Item Code</th>
+                <th>Qty</th>
+                <th>Unit of Measure</th>
+                <th>Weight (kg)</th>
+                <th>Total Volume</th>
+                <th>Received</th>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <b>SGA-LLDTD016269 - SPOTLIGHT QLD (QLD) - Consignment ETA - 3/12/2018</b>
+                </td>
+            </tr>
+            <tr ng-repeat="x in ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestItem | filter:{IsDeleted:'false'}  track by $index">
+                <td>{{x.TIT_ItemCode}}</td>
+                <td>1</td>
+                <td>{{x.TIT_ItemRef_ID}}</td>
+                <td>{{x.TIT_Weight}} {{x.TIT_WeightUQ}}</td>
+                <td>{{x.TIT_Volumn}}</td>
+                <td>{{x.TIT_Width}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

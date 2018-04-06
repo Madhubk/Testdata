@@ -1,0 +1,61 @@
+
+.ship-action {
+    width: 100%;
+    float: left;
+    padding: 0;
+   /* border: 1px solid #e5e5e5;*/
+}
+
+.ship-action li {
+    width: 100%;
+    float: left;
+    list-style: none;
+    padding: 5px 0;
+    border: 1px solid #e5e5e5;
+    background:#fbfbfb;
+    margin-top: 7px;
+}
+
+.Shipment-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #4385f5;
+}
+
+.ship-action-label-value {
+    width: 100%;
+    float: left;
+    margin-bottom: 1px;
+}
+
+.ship-action-label {
+    width: 25%;
+    float: left;
+    color: #999;
+}
+
+.ship-action-value {
+    width: 75%;
+    float: left;
+}
+
+.org {
+    font-size: 11px;
+    margin-bottom: 1px;
+}
+
+.org1 {
+    font-size: 12px;
+    margin-bottom: 1px;
+}
+
+.trash {
+    color: #d71921;
+    font-size: 24px;
+    cursor: pointer;
+}
+.calculation-activity {
+    background:#fbfbfb;
+    border-top:1px solid #d71921;
+    border-bottom:1px solid #d71921;
+}

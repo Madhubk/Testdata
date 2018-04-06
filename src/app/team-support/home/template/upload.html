@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <div class="height-230 clearfix">
+            <div class="text-center grid-view-loader" data-ng-if="!SupportCtrl.ePage.Masters.Documents.GridData"><i class="fa fa-spin fa-spinner font-160"></i></div>
+            <dynamic-grid data-ng-if="SupportCtrl.ePage.Masters.Documents.GridData" input-data="SupportCtrl.ePage.Masters.Documents.GridData"
+                grid-config="SupportCtrl.ePage.Masters.Documents.gridConfig" selected-grid-row="SupportCtrl.ePage.Masters.Documents.SelectedGridRow($item)"></dynamic-grid>
+        </div>
+        <div class="horizontal-space"></div>
+        <!--Uplod directive-->
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <file-upload-custom class="file-upload-directive clearfix pull-right mr-15" 
+                    ng-model="SupportCtrl.ePage.Masters.Documents.fileDetails" size="SupportCtrl.ePage.Masters.Documents.fileSize" auth="{{SupportCtrl.ePage.Masters.Documents.autherization}}"
+                    additional-value="{{SupportCtrl.ePage.Masters.Documents.additionalValue}}" doc-type="image/*"
+                    multiple-file="false" url="{{SupportCtrl.ePage.Masters.Documents.UploadUrl}}" is-disabled="false" get-uploaded-files="SupportCtrl.ePage.Masters.Documents.GetUploadedFiles($item)" get-selected-files="SupportCtrl.ePage.Masters.Documents.GetSelectedFiles($item)"  fu-class="tc-application left" modal-template="" template="">
+                    <button class='btn btn-sm'><i class="fa fa-upload"></i></div>
+                </file-upload-custom>
+            </div>
+        </div>
+    </div>
+</div>

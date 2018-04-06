@@ -1,0 +1,114 @@
+<div class="clearfix process-workstep-directive-wrapper">
+  <div class="clearfix process-workstep-gate" data-ng-if="ProcessWorkStepDirectiveCtrl.mode == '1'">
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+      <div class="control-group">
+        <div class="radio">
+          <label>
+            <input name="form-field-radio" type="radio" data-ng-model="ProcessWorkStepDirectiveCtrl.ePage.Masters.Gate" class="colored-blue"
+              value="AND" data-ng-click="ProcessWorkStepDirectiveCtrl.ePage.Masters.OnGateChange()">
+            <span class="text">AND </span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+      <div class="control-group">
+        <div class="radio">
+          <label>
+            <input name="form-field-radio" type="radio" class="colored-blue" data-ng-model="ProcessWorkStepDirectiveCtrl.ePage.Masters.Gate"
+              value="OR" data-ng-click="ProcessWorkStepDirectiveCtrl.ePage.Masters.OnGateChange()">
+            <span class="text">OR </span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="process-popup-content-list-box clearfix" data-ng-repeat="x in ProcessWorkStepDirectiveCtrl.input track by $index">
+    <div class="col-lg-2">
+      <div class="dropdown mt-5 mb-10">
+        <button data-ng-init="toggleClass = (ProcessWorkStepDirectiveCtrl.mode != 1) ? 'dropdown' : ''" class="btn process-btn-dropdown"
+          type="button" data-toggle="{{toggleClass}}">{{x.LogicalOperator}}
+          <span class="caret ml-40" data-ng-if="ProcessWorkStepDirectiveCtrl.mode != 1"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li data-ng-repeat="Operator in ProcessWorkStepDirectiveCtrl.ePage.Masters.OperatorList">
+            <a href="javascript:(0);" ng-click="ProcessWorkStepDirectiveCtrl.ePage.Masters.OnLogicalOperatorChange(Operator, x)">{{Operator.Code}}</a>
+          </li>
+        </ul>
+      </div>
+      <div class="clearfix">
+        <i class="fa fa-trash remove danger" data-ng-click="ProcessWorkStepDirectiveCtrl.ePage.Masters.DeleteGroup(x, $index)"></i>
+      </div>
+    </div>
+    <div class="col-lg-10">
+      <ul class="process-popup-content-list clearfix">
+        <li data-ng-repeat="y in x.FilterInput track by $index">
+          <div class="col-lg-4 br-ebebeb">
+            <div class="pt-5 pb-5">
+              <input class="process-popup-textbox" type="text" data-ng-model="y.InputName">
+              <div class="dropdown process-popup-dropdown pull-right">
+                <button class="btn process-btn-dropdown " type="button" data-toggle="dropdown">
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li data-ng-repeat="InstanceNo in ProcessWorkStepDirectiveCtrl.instanceList">
+                    <a href="javascript:(0);" data-ng-click="ProcessWorkStepDirectiveCtrl.ePage.Masters.OnInstanceChange(InstanceNo, y)">{{InstanceNo.InputName}}</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 br-ebebeb">
+            <div class="pt-5 pb-5 process-popup-color">
+              <input class="process-popup-textbox" type="text" data-ng-model="y.Value">
+            </div>
+          </div>
+          <div class="col-lg-2 br-ebebeb">
+            <div class="pt-5 pb-5">
+              <div class="dropdown process-popup-color">
+                <button class="btn process-btn-dropdown " type="button" data-toggle="dropdown">{{y.CompareOperator}}
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-width-250">
+                  <li data-ng-repeat="Compare in ProcessWorkStepDirectiveCtrl.ePage.Masters.CompareList">
+                    <a href="javascript:(0);" data-ng-click="ProcessWorkStepDirectiveCtrl.ePage.Masters.OnCompareOperatorChange(Compare,y)">
+                      {{Compare.Code}}</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 br-ebebeb">
+            <div class="pt-5 pb-5">
+              <div class="dropdown process-popup-color">
+                <button class="btn process-btn-dropdown " type="button" data-toggle="dropdown">{{y.LogicalOperator}}
+                  <span class="caret ml-10"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li data-ng-repeat="Op in ProcessWorkStepDirectiveCtrl.ePage.Masters.OperatorList">
+                    <a href="javascript:(0);" data-ng-click="ProcessWorkStepDirectiveCtrl.ePage.Masters.OnOperatorChange(Op, y)">{{Op.Code}}</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-1 p-5 text-center">
+            <div class="" data-ng-click="ProcessWorkStepDirectiveCtrl.ePage.Masters.DeleteFilter(x, y, $index)">
+              <i class="glyphicons glyphicons-remove process-delete-icon"></i>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div class="clearfix p-5 pl-15 pr-15 solid-border text-right">
+        <a href="javascript:(0);" data-ng-click="ProcessWorkStepDirectiveCtrl.ePage.Masters.AddNewRow(x)">Add Item</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="process-popup-content-footer mt-5">
+  <a class="process-popup-contebt-footer-add" href="javascript:(0);" data-ng-click="ProcessWorkStepDirectiveCtrl.ePage.Masters.AddNewGroup()">
+    <i class="glyphicons glyphicons-plus process-plus-circle-icon"></i> Add new group</a>
+</div>

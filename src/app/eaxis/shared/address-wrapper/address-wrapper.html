@@ -1,0 +1,36 @@
+<div class="clearfix mt-20">
+    <div class="col-lg-4 mb-10" data-ng-show="{{addressWrapperCtrl.listSource}}!='ContactList'">
+        <div class="address-box-dash text-center">
+            <div class="address-box-add-icon">
+                <i class="glyphicons glyphicons-plus"></i>
+            </div>
+            <div class="address-add-address">Add Address</div>
+        </div>
+    </div>
+    <div class="col-lg-4 mb-10" data-ng-show="{{addressWrapperCtrl.listSource}}!='ContactList'" data-ng-repeat="x in addressWrapperCtrl.obj"
+        data-ng-dblclick="addressWrapperCtrl.ePage.Masters.OnAddressChange(x)">
+        <div class="address-box" ng-class="{activeAddress: addressWrapperCtrl.selected === x.PK}">
+            <div class="address-title text-Ellipsis" title="{{x.Address1}}">{{x.Address1}}</div>
+            <div class="address-txt text-Ellipsis" title="{{x.Address2}}">{{x.Address2}} </div>
+            <div class="address-txt-1 text-Ellipsis" title="{{x.City}} {{x.State}} {{x.PostCode}}">{{x.City}} {{x.State}} {{x.PostCode}}</div>
+            <div class="address-edit address-bottom" style="cursor:pointer;"  data-ng-click="addressWrapperCtrl.ePage.Masters.OnAddressEdit(x)">Edit</div>
+
+        </div>
+    </div>
+    <div class="col-lg-4 mb-10" data-ng-show="{{addressWrapperCtrl.listSource}}!='AddressList'" data-ng-repeat="x in addressWrapperCtrl.obj"
+        data-ng-click="addressWrapperCtrl.ePage.Masters.OnAddressChange(x)">
+        <div class="address-box" ng-class="{activeAddress: addressWrapperCtrl.selected === x.PK}">
+            <div class="address-title text-Ellipsis" title="{{x.Address1}}">{{x.ContactName}}</div>
+            <div class="address-icon-txt">
+                <i class="glyphicons glyphicons-iphone"></i>
+                <span>{{x.Phone}}</span>
+            </div>
+            <div class="address-icon-txt">
+                <i class="glyphicons glyphicons-envelope"></i>
+                <span>{{x.Email}}</span>
+            </div>
+
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,135 @@
+<div class="clearfix margin-top-10">
+    <!--Pack-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">Pack </label>
+            <div class="clearfix">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
+                    <input type="text" numbers-only class="form-control input-sm no-border-right" max-length="4" data-ng-model="BookingDirectiveCtrl.ePage.Masters.Package.FormView.PackageCount"
+                        placeholder="Pack Count" />
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 no-padding">
+                    <select chosen name="category-group" class="form-control" ng-model="BookingDirectiveCtrl.ePage.Masters.Package.FormView.F3_NKPackType"
+                        ng-options="x.Code as x.Value for x in BookingDirectiveCtrl.ePage.Masters.DropDownMasterList.PackType.ListSource"
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Length, Width, Height-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
+            <div class="form-group">
+                <label class="control-label text-single-line">Length </label>
+                <div class="clearfix">
+                    <input type="text" numbers-only class="form-control input-sm no-border-right" max-length="9" data-ng-model="BookingDirectiveCtrl.ePage.Masters.Package.FormView.Length"
+                        placeholder="Length" />
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
+            <div class="form-group">
+                <label class="control-label text-single-line">Width </label>
+                <div class="clearfix">
+                    <input type="text" numbers-only class="form-control input-sm no-border-right" max-length="9" data-ng-model="BookingDirectiveCtrl.ePage.Masters.Package.FormView.Width"
+                        placeholder="Width" />
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
+            <div class="form-group">
+                <label class="control-label text-single-line">Height </label>
+                <div class="clearfix">
+                    <input type="text" numbers-only class="form-control input-sm" max-length="9" data-ng-model="BookingDirectiveCtrl.ePage.Masters.Package.FormView.Height"
+                        placeholder="Height" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Unit Of Dimension-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">Unit Of Dimension </label>
+            <div class="">
+                <select chosen name="category-group" class="form-control" data-ng-model="BookingDirectiveCtrl.ePage.Masters.Package.FormView.UnitOfDimension"
+                    ng-options="x.Key as x.Description for x in BookingDirectiveCtrl.ePage.Masters.DropDownMasterList.HEIGHTUNIT.ListSource"
+                    search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <!--Weight-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">Weight </label>
+            <div class="clearfix">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
+                    <input type="text" numbers-only class="form-control input-sm no-border-right" data-ng-model="BookingDirectiveCtrl.ePage.Masters.Package.FormView.ActualWeight"
+                        placeholder="Weight" />
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 no-padding">
+                    <select chosen name="category-group" class="form-control" data-ng-model="BookingDirectiveCtrl.ePage.Masters.Package.FormView.ActualWeightUQ"
+                        ng-options="x.Key as x.Description for x in BookingDirectiveCtrl.ePage.Masters.DropDownMasterList.WEIGHTUNIT.ListSource"
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Volume-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">Volume </label>
+            <div class="clearfix">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
+                    <input type="text" numbers-only class="form-control input-sm no-border-right" data-ng-model="BookingDirectiveCtrl.ePage.Masters.Package.FormView.ActualVolume"
+                        placeholder="Volume" />
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 no-padding">
+                    <select chosen name="category-group" class="form-control" data-ng-model="BookingDirectiveCtrl.ePage.Masters.Package.FormView.ActualVolumeUQ"
+                        ng-options="x.Key as x.Description for x in BookingDirectiveCtrl.ePage.Masters.DropDownMasterList.VOLUMEUNIT.ListSource"
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">Commodity</label>
+            <div class="input-group input-group-sm">
+                <div dynamic-lookup my-ng-model="BookingDirectiveCtrl.ePage.Masters.Package.FormView.RH_NKCommodityCode" obj="BookingDirectiveCtrl.ePage.Masters.Package.FormView"
+                    prefix-data="'MstCommodity'" config="'PackageCommodity'"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="BookingDirectiveCtrl.ePage.Masters.Package.FormView" field-name="'PackageCommodity'" prefix-data="'MstCommodity'"
+                        mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingDirectiveCtrl.ePage.Masters.SelectedData($item)"
+                        class="btn btn-default shiny" type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 margin-top-30">
+        <input type="button" class="btn btn-primary btn-sm pull-right margin-left-5" data-ng-click="BookingDirectiveCtrl.ePage.Masters.Package.AddToPackageGrid()"
+            value="{{BookingDirectiveCtrl.ePage.Masters.Package.AddNewAndUpdate}}">
+    </div>
+</div>
+<div class="horizontal-space"></div>
+<div class="clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="height-230 clearfix">
+            <div class="text-center grid-view-loader" data-ng-if="!BookingDirectiveCtrl.ePage.Masters.Package.GridData">
+                <i class="fa fa-spin fa-spinner font-160"></i>
+            </div>
+            <dynamic-table data-ng-if="BookingDirectiveCtrl.ePage.Masters.Package.GridData" grid-data="BookingDirectiveCtrl.ePage.Masters.Package.GridData"
+                grid-config="BookingDirectiveCtrl.ePage.Masters.Package.gridConfig" selected-grid-row="BookingDirectiveCtrl.ePage.Masters.Package.SelectedGridRow($item)"></dynamic-table>
+        </div>
+    </div>
+</div>

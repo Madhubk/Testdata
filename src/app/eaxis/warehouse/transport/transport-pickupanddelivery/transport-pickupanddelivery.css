@@ -1,0 +1,130 @@
+
+.border-bottom {
+        border-bottom: 2px solid #d71921 !important;
+    }
+
+.panel-body{
+    padding: 0px !important;
+}
+.inward-menu>.nav-tabs.nav-justified>.show-address-sidebar {
+    position: absolute;
+    top: -2px;
+    right: 0;
+    height: 28px;
+    margin: 0;
+    padding: 0;
+    width: 25px;
+    min-width: 25px;
+    z-index: 15;
+    max-width: 25px;
+    outline: none;
+}
+ 
+
+    }
+    .bulk-action1 {
+        width: 215%;
+        float: left;
+        padding: 0;
+        border: 1px solid #eee;
+    }
+    
+    .bulk-action1 li {
+            width: auto;
+            float: left;
+            list-style: none;
+            padding: 10px 3px;
+            border-bottom: 1px solid #eee;
+    }
+    .bulk-main-title {
+        float: left;
+    }
+    .padding-left
+    {
+        padding-left: 350px !important;
+    }   
+    .bulk-top-title {
+        display: inline-block !important;
+        font-weight: bold;
+        padding: 8px 3px 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: left;
+    }
+    
+    .selected {
+        border-left: 3px solid #ff9090;
+    }
+    
+    .InlineLabel {
+        font-size: 11px !important;
+        color: #060606 !important;
+    }
+    
+    .inlineBox {
+       box-shadow: inset 0px 0px 20px rgb(168, 173, 179);
+        -webkit-box-shadow: inset 0px 0px 20px rgb(168, 173, 179);
+        -moz-box-shadow: inset 0px 0px 20px rgb(168, 173, 179);
+        background-color: rgb(240, 240, 240);
+    }
+.done{
+    margin-top: 26px;
+    font-size: 12px;
+    padding: 4px 9px;
+    line-height: 1.39;
+    margin-left: 94px;
+    font-weight: 400;
+}
+.mb-20 {
+    margin-bottom: 20px;
+    margin-left: 0px !important;
+}
+
+.edit {
+    float: right;
+    margin-bottom: 5px;
+}
+
+.selectedBg {
+    background: #eee;
+}
+
+.company-edit.company>.modal-dialog {
+    width: 35% !important;
+}
+
+.company-edit.ardetails>.modal-dialog {
+    width: 50% !important;
+}
+
+.company-edit.apdetails>.modal-dialog {
+    width: 50% !important;
+}
+.companies-right{
+    width: 75% !important;
+}
+.companies-left{
+    width: 25% !important;
+}
+.circle{
+    position:relative;
+    background:#4385f5;
+    width:100px;
+    height:100px;
+    text-align:center;    
+    -webkit-border-radius: 50px;  
+    -moz-border-radius: 50px;  
+    border-radius: 50px;
+}
+.circle p{ 
+    font-size: 20px;
+    font-weight: 900;
+    font-style: italic;
+    font-family: Chalkduster;
+    color:#fff;
+    vertical-align:middle;
+    height:50px; 
+    position: inherit;
+    
+}

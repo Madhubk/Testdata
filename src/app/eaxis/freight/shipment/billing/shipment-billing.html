@@ -1,0 +1,467 @@
+<div class="clearfix padding-5">
+    <div class="widget-main ">
+        <!-- <uib-tabset id="shipmentBilling">
+            <uib-tab heading="Job"> -->
+        <div data-ng-show="!ShipmentBillingCtrl.ePage.Masters.Job.IsFormView">
+            <div class="clearfix">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <button class="btn btn-primary pull-right" data-ng-click="ShipmentBillingCtrl.ePage.Masters.Job.AddNewJob()">
+                        <i class="fa fa-plus-circle"></i> Add Job
+                    </button>
+                </div>
+            </div>
+            <div class="clearfix">
+                <!--Grid directive-->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="height-230 clearfix">
+                        <div class="text-center grid-view-loader" data-ng-if="!ShipmentBillingCtrl.ePage.Masters.Job.GridData"><i class="fa fa-spin fa-spinner font-160"></i></div>
+                       <!--  <dynamic-grid data-ng-if="ShipmentBillingCtrl.ePage.Masters.Job.GridData" input-data="ShipmentBillingCtrl.ePage.Masters.Job.GridData"
+                            grid-config="ShipmentBillingCtrl.ePage.Masters.Job.gridConfig" selected-grid-row="ShipmentBillingCtrl.ePage.Masters.Job.SelectedGridRow($item)"></dynamic-grid> -->
+                        <dynamic-table data-ng-if="ShipmentBillingCtrl.ePage.Masters.Job.GridData" grid-data="ShipmentBillingCtrl.ePage.Masters.Job.GridData" grid-config="ShipmentBillingCtrl.ePage.Masters.Job.gridConfig" selected-grid-row="ShipmentBillingCtrl.ePage.Masters.Job.SelectedGridRow($item)"></dynamic-table>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="horizontal-space"></div>-->
+            
+            
+        </div>
+        <div data-ng-show="ShipmentBillingCtrl.ePage.Masters.Job.IsFormView">
+            <div class="clearfix margin-bottom-10 Job-details-heading">
+                <div class="text-center clearfix">
+                    <i class="fa fa-angle-double-left pull-left btn btn-link" data-ng-click="ShipmentBillingCtrl.ePage.Masters.Job.BackClick();"></i>
+                    <span class="heading">Job Details</span>
+                    <button class="btn btn-primary pull-right margin-right-10" data-ng-click="ShipmentBillingCtrl.ePage.Masters.Job.AddToGrid()">
+                        <i class="fa fa-plus-circle"></i> Save Job
+                    </button>
+                </div>
+                <!--<div class="clearfix">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <button class="btn btn-primary pull-right" data-ng-click="ShipmentBillingCtrl.ePage.Masters.Job.AddToGrid()">
+                            <i class="fa fa-plus-circle"></i> Save Job
+                        </button>
+                    </div>
+                </div>-->
+            </div>
+            <div class="clearfix">
+                <div class="clearfix">
+                    <!--Company-->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label class="control-label">Company</label>
+                            <select chosen name="category-group" class="form-control" ng-model="ShipmentBillingCtrl.ePage.Masters.Job.FormView.GC"
+                                ng-options="x.PK as x.Code + ' - ' + x.Name for x in ShipmentBillingCtrl.ePage.Masters.Company.ListSource"
+                                search-contains="true">
+                                <option value="">--Select--</option>
+                                </select>
+                        </div>
+                    </div>
+                    <!--Branch-->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label class="control-label">Branch</label>
+                            <select chosen name="category-group" class="form-control" ng-model="ShipmentBillingCtrl.ePage.Masters.Job.FormView.GB"
+                                ng-options="x.PK as x.Code + ' - ' + x.BranchName for x in ShipmentBillingCtrl.ePage.Masters.Branch.ListSource  | filter :ShipmentBillingCtrl.ePage.Masters.Job.FormView.GC"
+                                search-contains="true">
+                                <option value="">--Select--</option>
+                                </select>
+                        </div>
+                        <!-- <div class="form-group">
+                                <label class="control-label">Branch</label>
+                                <div class="input-group input-group-sm">
+                                    <div dynamic-lookup placeholder="Branch" my-ng-model="ShipmentBillingCtrl.ePage.Masters.Job.FormView.BranchCode"
+                                        obj="ShipmentBillingCtrl.ePage.Masters.Job.FormView" prefix-data="'CmpBranch'"
+                                        config="'ShpBillingBranch'"></div>
+                                    <span class="input-group-btn">
+                                        <button dynamic-list-modal obj="ShipmentBillingCtrl.ePage.Masters.Job.FormView" field-name="'ShpBillingBranch'" prefix-data="'CmpBranch'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ShipmentBillingCtrl.ePage.Masters.SelectedLookupData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                    </span>
+                                </div>
+                            </div> -->
+                    </div>
+
+                    <!--Department -->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label class="control-label">Department</label>
+                            <select chosen name="category-group" class="form-control" ng-model="ShipmentBillingCtrl.ePage.Masters.Job.FormView.GE"
+                                ng-options="x.PK as x.Code + ' - ' + x.Desc for x in ShipmentBillingCtrl.ePage.Masters.Department.ListSource"
+                                search-contains="true">
+                                <option value="">--Select--</option>
+                                </select>
+                        </div>
+                        <!-- <div class="form-group">
+                                <label class="control-label">Department </label>
+                                <div class="input-group input-group-sm">
+                                    <div dynamic-lookup placeholder="Department" my-ng-model="ShipmentBillingCtrl.ePage.Masters.Job.FormView.DeptCode"
+                                        obj="ShipmentBillingCtrl.ePage.Masters.Job.FormView" prefix-data="'CmpDepartment'"
+                                        config="'ShpBillingDept'"></div>
+
+                                    <span class="input-group-btn">
+                                        <button dynamic-list-modal obj="ShipmentBillingCtrl.ePage.Masters.Job.FormView" field-name="'ShpBillingDept'" prefix-data="'CmpDepartment'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ShipmentBillingCtrl.ePage.Masters.SelectedLookupData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                    </span>
+                                </div>
+                            </div> -->
+                    </div>
+                    <!--Profit/Loss Reason-->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label class="control-label">Profit/Loss Reason </label>
+                            <select chosen name="category-group" class="form-control" ng-model="ShipmentBillingCtrl.ePage.Masters.Job.FormView.ProfitLossReasonCode"
+                                ng-options="x.Key as x.Description for x in ShipmentBillingCtrl.ePage.Masters.DropDownMasterList.PROFITANDLOSSRESON.ListSource"
+                                search-contains="true">
+                                <option value="">--Select--</option>
+                                </select>
+                        </div>
+                    </div>
+                    <!--Status-->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label class="control-label">Status </label>
+                            <select chosen name="category-group" class="form-control" ng-model=" ShipmentBillingCtrl.ePage.Masters.Job.FormView.Status"
+                                ng-options="x.Key as x.Description for x in ShipmentBillingCtrl.ePage.Masters.DropDownMasterList.BILLSTATUS.ListSource"
+                                search-contains="true">
+                                    <option value="">--Select--</option>
+                                </select>
+                        </div>
+                    </div>
+                    <!-- Profit Share Invoice -->
+                    <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group">
+                                <label class="control-label">Profit Share Invoice</label>
+                                <input type="text" class="form-control input-sm" data-ng-model=" ShipmentBillingCtrl.ePage.Masters.Job.FormView.ProfitShareInvoice"
+                                    placeholder="Profit Share Invoice" />
+                            </div>
+                        </div>-->
+                    <!-- Hold Reason -->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label class="control-label">Hold Reason  </label>
+                            <input type="text" class="form-control input-sm" max-length="70" data-ng-model=" ShipmentBillingCtrl.ePage.Masters.Job.FormView.HoldReason"
+                                placeholder="Hold Reason" />
+                        </div>
+                    </div>
+                    <!--Operator -->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label class="control-label">Operator </label>
+                            <div class="input-group input-group-sm">
+                                <!--<input type="text" class="form-control" placeholder="Operator" data-ng-model=" ShipmentBillingCtrl.ePage.Masters.Job.FormView.GS_NKRepOps"
+                                    />-->
+                                <div dynamic-lookup placeholder="Operator" my-ng-model="ShipmentBillingCtrl.ePage.Masters.Job.FormView.GS_NKRepOps"
+                                    obj="ShipmentBillingCtrl.ePage.Masters.Job.FormView" prefix-data="'CmpEmployee'"
+                                    config="'ShpBillingOperator'"></div>
+                                <span class="input-group-btn">
+                                        <button dynamic-list-modal obj="ShipmentBillingCtrl.ePage.Masters.Job.FormView" field-name="'ShpBillingOperator'" prefix-data="'CmpEmployee'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ShipmentBillingCtrl.ePage.Masters.SelectedLookupData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Quote-->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label class="control-label">Quote</label>
+                            <input type="text" class="form-control input-sm" max-length="40" data-ng-model=" ShipmentBillingCtrl.ePage.Masters.Job.FormView.TH_NKQuoteNumber"
+                                placeholder="Quote" />
+                        </div>
+                    </div>
+                    <!--SalesRep-->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label class="control-label">Sales Rep</label>
+                            <div class="input-group input-group-sm">
+                                <div dynamic-lookup placeholder="Sales Rep" my-ng-model="ShipmentBillingCtrl.ePage.Masters.Job.FormView.GS_NKRepSales"
+                                    obj="ShipmentBillingCtrl.ePage.Masters.Job.FormView" prefix-data="'CmpEmployee'"
+                                    config="'ShpBillingSalesRep'"></div>
+                                <span class="input-group-btn">
+                                        <button dynamic-list-modal obj="ShipmentBillingCtrl.ePage.Masters.Job.FormView" field-name="'ShpBillingSalesRep'" prefix-data="'CmpEmployee'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ShipmentBillingCtrl.ePage.Masters.SelectedLookupData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Open Date-->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label class="control-label">Open Date</label>
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" placeholder="{{ShipmentBillingCtrl.ePage.Masters.DatePicker.Options.format}}" max-length="4"
+                                    data-ng-model="ShipmentBillingCtrl.ePage.Masters.Job.FormView.JobOpenDate"
+                                    uib-datepicker-popup="{{ShipmentBillingCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="ShipmentBillingCtrl.ePage.Masters.DatePicker.Options"
+                                    is-open="ShipmentBillingCtrl.ePage.Masters.DatePicker.isOpen['isJobOpenDate']" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default shiny" data-ng-click="ShipmentBillingCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isJobOpenDate')"><i class="fa fa-calendar"></i></button>
+                            </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Close Date-->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label class="control-label">Close Date</label>
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" placeholder="{{ShipmentBillingCtrl.ePage.Masters.DatePicker.Options.format}}" max-length="4"
+                                    data-ng-model="ShipmentBillingCtrl.ePage.Masters.Job.FormView.JobClosedDate"
+                                    uib-datepicker-popup="{{ShipmentBillingCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="ShipmentBillingCtrl.ePage.Masters.DatePicker.Options"
+                                    is-open="ShipmentBillingCtrl.ePage.Masters.DatePicker.isOpen['isJobClosedDate']" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default shiny" data-ng-click="ShipmentBillingCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isJobClosedDate')"><i class="fa fa-calendar"></i></button>
+                            </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Override-->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label for="" class="control-label">&nbsp;</label>
+                            <div class="checkbox">
+                                <label>
+                                        <input type="checkbox" data-ng-model="ShipmentBillingCtrl.ePage.Masters.Job.FormView.JobBufferPercentOverride" class="colored-blue"/>
+                                            <span class="text">Override</span>
+                                    </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="clearfix">
+                    <!--Local Client Organization Code-->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Local Client</label>
+                            <div class="input-group input-group-sm">
+                                <input type="hidden" ng-model="ShipmentBillingCtrl.ePage.Masters.Job.FormView.LocalOrg_FK">
+                                <div dynamic-lookup placeholder="Organization Code" my-ng-model="ShipmentBillingCtrl.ePage.Masters.Job.FormView.LocalOrg_Code"
+                                    obj="ShipmentBillingCtrl.ePage.Masters.Job.FormView" prefix-data="'OrganizationList'"
+                                    config="'ShpBillingLocalAddress'" auto-complete-on-select="ShipmentBillingCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'Local')"></div>
+                                <span class="input-group-btn">
+                                        <button dynamic-list-modal obj="ShipmentBillingCtrl.ePage.Masters.Job.FormView" field-name="'ShpBillingLocalAddress'"  prefix-data="'OrganizationList'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ShipmentBillingCtrl.ePage.Masters.SelectedLookupData($item, 'Local')" class="btn btn-default shiny" type="button" ><i class="fa fa-ellipsis-h" ></i></button>
+                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Local Client Address-->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Address</label>
+                            <div class="">
+                                <select chosen class="form-control" ng-model="ShipmentBillingCtrl.ePage.Masters.Job.FormView.LocalOrg_OAD_FK"
+                                    ng-options="x.PK as x.Code for x in ShipmentBillingCtrl.ePage.Masters.Job.FormView.Local.AddressList"
+                                    data-ng-change="ShipmentBillingCtrl.ePage.Masters.OnAddressChange((ShipmentBillingCtrl.ePage.Masters.Job.FormView.Local.AddressList | filter: {PK: ShipmentBillingCtrl.ePage.Masters.Job.FormView.LocalOrg_OAD_FK})[0], 'Local')"
+                                    search-contains="true">
+                                        <option value="">--Select--</option>
+                                    </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Local Client Contact-->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Contact</label>
+                            <div class="">
+                                <select chosen class="form-control" ng-model="ShipmentBillingCtrl.ePage.Masters.Job.FormView.LocalOrg_OCT_FK"
+                                    ng-options="x.PK as x.ContactName for x in ShipmentBillingCtrl.ePage.Masters.Job.FormView.Local.ContactList"
+                                    data-ng-change="ShipmentBillingCtrl.ePage.Masters.OnContactChange((ShipmentBillingCtrl.ePage.Masters.Job.FormView.Local.ContactList | filter: {PK: ShipmentBillingCtrl.ePage.Masters.Job.FormView.LocalOrg_OCT_FK})[0], 'Local')"
+                                    search-contains="true">
+                                        <option value="">--Select--</option>
+                                    </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Overseas Agent Organization Code-->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Overseas Agent</label>
+                            <div class="input-group input-group-sm">
+                                <input type="hidden" ng-model="ShipmentBillingCtrl.ePage.Masters.Job.FormView.Agent_Org_FK">
+                                <div dynamic-lookup placeholder="Organization Code" my-ng-model="ShipmentBillingCtrl.ePage.Masters.Job.FormView.AgentOrg_Code"
+                                    obj="ShipmentBillingCtrl.ePage.Masters.Job.FormView" prefix-data="'OrganizationList'"
+                                    config="'ShpBillingAgentAddress'" auto-complete-on-select="ShipmentBillingCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'Agent')"></div>
+                                <span class="input-group-btn">
+                                        <button dynamic-list-modal obj="ShipmentBillingCtrl.ePage.Masters.Job.FormView" field-name="'ShpBillingAgentAddress'"  prefix-data="'OrganizationList'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ShipmentBillingCtrl.ePage.Masters.SelectedLookupData($item, 'Agent')" class="btn btn-default shiny" type="button" ><i class="fa fa-ellipsis-h" ></i></button>
+                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Overseas Agent Address-->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Address</label>
+                            <div class="">
+                                <select chosen class="form-control" ng-model="ShipmentBillingCtrl.ePage.Masters.Job.FormView.AgentOrg_OAD_FK"
+                                    ng-options="x.PK as x.Code for x in ShipmentBillingCtrl.ePage.Masters.Job.FormView.Agent.AddressList"
+                                    data-ng-change="ShipmentBillingCtrl.ePage.Masters.OnAddressChange((ShipmentBillingCtrl.ePage.Masters.Job.FormView.Agent.AddressList | filter: {PK: ShipmentBillingCtrl.ePage.Masters.Job.FormView.AgentOrg_OAD_FK})[0], 'Agent')"
+                                    search-contains="true">
+                                        <option value="">--Select--</option>
+                                    </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Overseas Agent Contact-->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Contact</label>
+                            <div class="">
+                                <select chosen class="form-control" ng-model="ShipmentBillingCtrl.ePage.Masters.Job.FormView.AgentOrg_OCT_FK"
+                                    ng-options="x.PK as x.ContactName for x in ShipmentBillingCtrl.ePage.Masters.Job.FormView.Agent.ContactList"
+                                    data-ng-change="ShipmentBillingCtrl.ePage.Masters.OnContactChange((ShipmentBillingCtrl.ePage.Masters.Job.FormView.Agent.ContactList | filter: {PK: ShipmentBillingCtrl.ePage.Masters.Job.FormView.AgentOrg_OCT_FK})[0], 'Agent')"
+                                    search-contains="true">
+                                        <option value="">--Select--</option>
+                                    </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <button class="btn btn-primary pull-right" data-ng-click="ShipmentBillingCtrl.ePage.Masters.Job.AddToGrid()">
+                        <i class="fa fa-plus-circle"></i> Save Job
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- </uib-tab> -->
+        <!-- <uib-tab heading="Charges">
+                <div class="clearfix">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="height-230 clearfix">
+                            <div class="text-center grid-view-loader" data-ng-if="!ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.GridData"><i class="fa fa-spin fa-spinner font-160"></i></div>
+                            <dynamic-grid data-ng-if="ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.GridData" input-data="ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.GridData"
+                                grid-config="ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.gridConfig" row-selection-changed="ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.ShipmentJobChargeRowSelectionChanged($item)"></dynamic-grid>
+                        </div>
+                    </div>
+                </div>
+                <div class="horizontal-space"></div>
+                <div class="learfix">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <button class="btn btn-primary btn-sm pull-right margin-left-5" data-ng-click="ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.AddNewShipmentJobCharge()">Add New</button>
+                        <button class="btn btn-primary btn-sm pull-right margin-left-5" data-ng-click="ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.EditShipmentJobCharge()"
+                            data-ng-disabled="!ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.IsSelected">Edit</button>
+                        <button class="btn btn-primary btn-sm pull-right margin-left-5" data-ng-click="ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.DeleteShipmentJobCharge()"
+                            data-ng-disabled="!ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.IsSelected">Delete</button>
+                    </div>
+                </div>
+                <div class="horizontal-space"></div>
+                <div data-ng-if="ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.IsFormView">
+                    <div class="clearfix">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group">
+                                <label class="control-label">Charge Code</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" placeholder="Charge Code" data-ng-model="ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.FormView.ChargeCode"
+                                    />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default shiny" type="button" data-ng-click="getModelWindow('Location',2,false)"><i class="fa fa-ellipsis-h"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group">
+                                <label class="control-label">DEP</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" placeholder="DEP" data-ng-model="ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.FormView.DEP_FK"
+                                    />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default shiny" type="button" data-ng-click="getModelWindow('DEP_FK',2,false)"><i class="fa fa-ellipsis-h"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group">
+                                <label class="control-label">Branch</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" placeholder="Branch" data-ng-model="ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.FormView.BRN_FK"
+                                    />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default shiny" type="button" data-ng-click="getModelWindow('BRN_FK',2,false)"><i class="fa fa-ellipsis-h"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group">
+                                <label class="control-label">Charge Type</label>
+                                <div class="">
+                                    <input type="text" class="form-control input-sm" placeholder="Charge Type" data-ng-model="ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.FormView.ChargeType"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group">
+                                <label class="control-label">Margin%</label>
+                                <div class="">
+                                    <input type="text" class="form-control input-sm" placeholder="Margin%" data-ng-model="ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.FormView.MarginPercentage"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group">
+                                <label class="control-label">Internal Job</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" placeholder="Internal Job" data-ng-model="ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.FormView.JOB_InternalJob"
+                                    />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default shiny" type="button" data-ng-click="getModelWindow('JOB_InternalJob',2,false)"><i class="fa fa-ellipsis-h"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group">
+                                <label class="control-label">Internal Dept</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" placeholder="Internal Dept" data-ng-model="ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.FormView.DEP_InternalDept"
+                                    />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default shiny" type="button" data-ng-click="getModelWindow('JOB_InternalJob',2,false)"><i class="fa fa-ellipsis-h"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group">
+                                <label class="control-label">Internal Branch</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" placeholder="Internal Branch" data-ng-model="ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.FormView.BRN_InternalBranch"
+                                    />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default shiny" type="button" data-ng-click="getModelWindow('BRN_InternalBranch',2,false)"><i class="fa fa-ellipsis-h"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group">
+                                <label class="control-label">Agent Declared Cost Amt Type</label>
+                                <div class="">
+                                    <select chosen name="category-group" class="form-control" ng-model="ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.FormView.AgentDeclaredCostAmt"
+                                        ng-options="x.Key as x.Description for x in ShipmentBillingCtrl.ePage.Masters.DropDownMasterList.INCOTERM.ListSource">
+                                        <option value="">--Select--</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group">
+                                <label class="control-label">Agent Declared Sell Amt</label>
+                                <div class="">
+                                    <select chosen name="category-group" class="form-control" ng-model="ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.FormView.AgentDeclaredSellAmt"
+                                        ng-options="x.Key as x.Description for x in ShipmentBillingCtrl.ePage.Masters.DropDownMasterList.INCOTERM.ListSource">
+                                        <option value="">--Select--</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div>
+                            <button class="btn btn-primary btn-sm pull-right" data-ng-click="ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.AddToGridShipmentJobCharge()">AddToGrid </button>
+                        </div>
+                    </div>
+                </div>
+            </uib-tab> -->
+        <!-- </uib-tabset> -->
+    </div>
+</div>

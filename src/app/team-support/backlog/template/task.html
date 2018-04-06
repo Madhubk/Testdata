@@ -1,0 +1,133 @@
+<div class="clearfix details-task-wrapper p-10">
+    <form novalidate name="tsDetailsTaskForm" class="form-horizontal">
+        <div class="clearfix form">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <!--Title-->
+                <div class="form-group" data-ng-if="BacklogCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Title.Visible">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 " data-ng-bind="BacklogCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Title.Label"></label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <input type="text" class="form-control input-sm" placeholder="Title" data-ng-model="BacklogCtrl.ePage.Entities.SupportHeader.Details.Task.Title">
+                    </div>
+                </div>
+                <!--Description-->
+                <div class="form-group" data-ng-if="BacklogCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Description.Visible">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4  " data-ng-bind="BacklogCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Description.Label"></label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <textarea rows="4" class="form-control input-sm no-resize" placeholder="Description" data-ng-model="BacklogCtrl.ePage.Entities.SupportHeader.Details.Task.Description"></textarea>
+                    </div>
+                </div>
+                <!--Sequence No  -->
+                <div class="form-group">
+                    <label class="control-label  col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4"> Sequence </label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <input type="text" class="form-control input-sm" placeholder="Sequence" data-ng-model="BacklogCtrl.ePage.Entities.SupportHeader.Details.Task.Sequence">
+                    </div>
+                </div>
+                <!--Module  -->
+                <div class="form-group" data-ng-if="BacklogCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Module.Visible">
+                    <label class="control-label  col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4" data-ng-bind="BacklogCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Module.Label"></label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <select chosen class="form-control" ng-model="BacklogCtrl.ePage.Entities.SupportHeader.Details.Task.Module" ng-options="x.Value as x.Value for x in BacklogCtrl.ePage.Entities.SupportHeader.Meta.MainModule.ListSource"
+                            ng-change="BacklogCtrl.ePage.Masters.GetModuleDetail((BacklogCtrl.ePage.Entities.SupportHeader.Meta.MainModule.ListSource  | filter: {Value : BacklogCtrl.ePage.Entities.SupportHeader.Details.Task.Module})[0])"
+                            search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+                <!--Priority-->
+                <div class="form-group" data-ng-if="BacklogCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Priority.Visible">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4  " data-ng-bind="BacklogCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Priority.Label"></label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <select chosen class="form-control" ng-model="BacklogCtrl.ePage.Entities.SupportHeader.Details.Task.Priority" ng-options="x.Code as x.Code for x in BacklogCtrl.ePage.Entities.SupportHeader.Meta.Priority.ListSource"
+                            ng-change="BacklogCtrl.ePage.Masters.OnPriorityChange((BacklogCtrl.ePage.Entities.SupportHeader.Meta.Priority.ListSource | filter: {Code : BacklogCtrl.ePage.Entities.SupportHeader.Details.Task.Priority})[0])"
+                            search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+                <!--Sub module-->
+                <div class="form-group" data-ng-if="BacklogCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.SubModule.Visible">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4  " data-ng-bind="BacklogCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.SubModule.Label "></label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 module-autocomplete-wrapper">
+                        <input type="text" class="form-control input-sm" placeholder="Sub Module" data-ng-model="BacklogCtrl.ePage.Entities.SupportHeader.Details.Task.Remarks"
+                            uib-typeahead="x for x in BacklogCtrl.ePage.Entities.SupportHeader.Meta.Module.ListSource | filter:$viewValue">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <div class=" task" data-ng-if="BacklogCtrl.ePage.Masters.IsOpenNewTaskBtnClicked">Task Allocation
+                </div>
+                <!--Record Type-->
+                <div class="form-group" data-ng-if="BacklogCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.RecordType.Visible && BacklogCtrl.ePage.Masters.IsOpenNewTaskBtnClicked">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 " data-ng-bind="BacklogCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.RecordType.Label"></label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <select chosen class="form-control" ng-model="BacklogCtrl.ePage.Entities.SupportHeader.Details.Task.RecordType" ng-options="x.Key as x.Key for x in BacklogCtrl.ePage.Entities.SupportHeader.Meta.TeamTypeMaster.ListSource | filter:  {TypeCode: 'RecordType'}"
+                            search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+                <!--Sprint-->
+                <div class="form-group" data-ng-if="BacklogCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Sprint.Visible && BacklogCtrl.ePage.Masters.IsOpenNewTaskBtnClicked">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 " data-ng-bind="BacklogCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Sprint.Label"></label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <select chosen class="form-control" ng-model="BacklogCtrl.ePage.Entities.SupportHeader.Details.Task.TAR_FK" ng-options="x.PK  as x.Description for x in BacklogCtrl.ePage.Entities.SupportHeader.Meta.Sprint.ListSource"
+                            data-ng-change="BacklogCtrl.ePage.Masters.OnDetailsTaskSprintChange(BacklogCtrl.ePage.Entities.SupportHeader.Details.Task.TAR_FK)"
+                            search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+                <!--Status-->
+                <div class="form-group" data-ng-if="BacklogCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Status.Visible && BacklogCtrl.ePage.Masters.IsOpenNewTaskBtnClicked">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 " data-ng-bind="BacklogCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Status.Label"></label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <select chosen class="form-control" ng-model="BacklogCtrl.ePage.Entities.SupportHeader.Details.Task.Status" ng-options="x.Key as x.Key for x in BacklogCtrl.ePage.Entities.SupportHeader.Meta.TeamTypeMaster.ListSource | filter:  {TypeCode: 'Status'}"
+                            search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+                <!--Assign To-->
+                <div class="form-group" data-ng-if="BacklogCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.AssignTo.Visible && BacklogCtrl.ePage.Masters.IsOpenNewTaskBtnClicked">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 " data-ng-bind="BacklogCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.AssignTo.Label"></label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <select chosen search-contains="true" disable-search="false" class="form-control" ng-model="BacklogCtrl.ePage.Entities.SupportHeader.Details.Task.AssignTo"
+                            ng-options="x.USR_UserName as x.USR_UserName for x in BacklogCtrl.ePage.Entities.SupportHeader.Meta.User.ListSource"
+                            search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+                <!--Estimte Effort-->
+                <div class="form-group" data-ng-if="BacklogCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.EstiamteEffort.Visible && BacklogCtrl.ePage.Masters.IsOpenNewTaskBtnClicked">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 " data-ng-bind="BacklogCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.EstiamteEffort.Label"></label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <input type="text" class="form-control input-sm" placeholder="Estimte Effort" data-ng-model="BacklogCtrl.ePage.Entities.SupportHeader.Details.Task.Effort">
+                    </div>
+                </div>
+                <!--Requirment-->
+                <div class="form-group" data-ng-if="BacklogCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Status.Visible && BacklogCtrl.ePage.Masters.IsOpenNewTaskBtnClicked">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 " data-ng-bind="BacklogCtrl.ePage.Masters.CurrentProject.TTY_OtherConfig.FieldList.Requirement.Label"></label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <select chosen class="form-control" ng-model="BacklogCtrl.ePage.Entities.SupportHeader.Details.Task.ParentId" ng-options="x.PK as x.Title for x in  BacklogCtrl.ePage.Masters.RequirementSource"
+                            ng-change="BacklogCtrl.ePage.Masters.GetBacklogDetail((BacklogCtrl.ePage.Masters.RequirementSource  | filter: { PK : BacklogCtrl.ePage.Entities.SupportHeader.Details.Task.ParentId} :true)[0])"
+                            search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="button-wrapper clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 ol-lg-12 col-xl-12">
+                <input type="button" class="btn btn-primary btn-xs pull-right ml-5" value="{{BacklogCtrl.ePage.Masters.DetailsTaskSaveAndCloseText}}"
+                    data-ng-click="BacklogCtrl.ePage.Masters.DetailsTaskSaveAndClose()" data-ng-disabled="BacklogCtrl.ePage.Masters.IsDetailsTaskSaveAndCloseClick"
+                />
+                <input type="submit" class="btn btn-primary btn-xs pull-right ml-5" value="{{BacklogCtrl.ePage.Masters.DetailsTaskSaveText}}"
+                    data-ng-click="BacklogCtrl.ePage.Masters.DetailsTaskSave()" data-ng-disabled="BacklogCtrl.ePage.Masters.IsDetailsTaskSaveClick"
+                />
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,64 @@
+<div class="my-task-head">
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="my-task-top-title">Available</div>
+            <div class="my-task-top-sub-title">18 Oct 07:46</div>
+        </div>
+        <div class="col-lg-2">
+            <div class="my-task-top-title">Due Date</div>
+            <div class="my-task-top-sub-title">{{obj.DueDate | date:'dd MMM hh:mm'}}</div>
+        </div>
+        <div class="col-lg-3">
+            <div class="my-task-top-d-h-m color-red">2d 4h 3m delay</div>
+            <div class="my-task-top-sub-title"><a href="#">{{obj.MemberName}}</a></div>
+        </div>
+        <div class="col-lg-2 p-0">
+            <div class="rows">
+                <a class="my-task-head-icon" href=""><i class="fa fa-refresh"></i></a>
+                <a class="my-task-head-icon" href=""><i class="fa fa-calendar-o"></i></a>
+                <a class="my-task-head-icon" href=""><i class="fa fa-cube"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-3 text-right pl-0">
+            <div class="my-task-top-title">SJOB # S00314276</div>
+            <div class="my-task-top-sub-title"><a href="#">View Shipment</a> <span>|</span> <a href="#">{{obj.ProcessInstanceId}}</a></div>
+        </div>
+    </div>
+</div>
+<div class="my-task-content">
+    <div class="row">
+        <div class="col-lg-7">
+            <div class="my-task-content-title">Arrival Confirmation</div>
+            <div class="my-task-content-sub-title">On the same day of ETA</div>
+            <div class="rows margin-top-20">
+                <div class="col-lg-3">
+                    <div class="my-task-main-icon"><img src="assets/img/plane-in.png" /></div>
+                    <div class="rows margin-top-10">
+                        <a href="#" class="my-task-icon fa fa-file-text-o"></a> <span class="my-task-slash"></span> <a href="#"
+                            class="my-task-icon fa fa-comment-o"></a> <span class="my-task-slash"></span> <a href="#" class="my-task-icon fa fa-envelope-o"></a>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="my-task-content-shipper">
+                        Shipper : <a class="my-task-content-shipper-link" href="#">{{obj.TemplateName}}</a>
+                    </div>
+                    <div class="my-task-content-shipper">
+                        Consignee : <a class="my-task-content-shipper-link" href="#">{{obj.WorkStepName}}</a>
+                    </div>
+                    <div class="my-task-content-air-shipment">AIR Shipment PO-123476152</div>
+                    <div class="my-task-expected-date">12<sup>th</sup> Sep Expected</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <a class="a-button a-button-primary margin-top-5" href="#">Open Activity</a>
+            <div class="rows margin-top-20">
+                <span class="file-input a-button-2 shiny btn-file box-shadow-none margin-left-10">
+                                        Upload EP <input type="file" multiple="">
+                                    </span>
+                <a class="a-button-2" href="#">Open Activity</a>
+            </div>
+            <a class="a-button margin-top-5" href="#">Track-Track.com</a>
+        </div>
+    </div>
+</div>

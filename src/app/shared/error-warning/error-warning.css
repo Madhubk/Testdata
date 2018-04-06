@@ -1,0 +1,30 @@
+.error-warning-modal .modal-dialog {
+    width: 50%;
+    height: auto;
+    margin: 40px auto;
+}
+
+.error-warning-modal .modal-body{
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.error-warning-modal .modal-dialog .modal-header {
+    padding: 5px 10px;
+}
+
+.error-warning-modal .modal-dialog .modal-header .modal-title{
+    text-transform: capitalize;
+}
+
+.error-warning-modal .modal-dialog .modal-footer {
+    padding: 10px;
+    position: relative;
+}
+
+.ew-title{
+    font-weight: 600;
+    font-size: 14px;
+    padding: 5px 0;
+    margin-bottom: 5px;
+}

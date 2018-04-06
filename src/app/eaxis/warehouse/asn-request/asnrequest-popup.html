@@ -1,0 +1,13 @@
+<div id="myDialog">
+    <div class="modal-header ">
+        <h3 class="modal-title " id="modal-title ">ASN Inward Request Successfully Initiated </h3>
+    </div>
+    <div class="modal-body " id="modal-body ">
+        <h3>Reference No : {{AsnrequestCtrl.ePage.Masters.ProcessInfo.UIWmsInwardHeader.WorkOrderID}}</h3>
+        <h3>Process InstanceID : {{AsnrequestCtrl.ePage.Masters.ProcessInfo.ProcessInfo.InstanceNo}}</h3>
+    </div>
+    <div class="modal-footer ">
+        <button class="btn btn-primary " type="button " ng-click="AsnrequestCtrl.ePage.Masters.GoToMyTask() ">Go to My Task</button>
+        <button class="btn btn-warning " type="button " ng-click="AsnrequestCtrl.ePage.Masters.CreateNewAsnRequest() ">New Asn Request</button>
+    </div>
+</div>

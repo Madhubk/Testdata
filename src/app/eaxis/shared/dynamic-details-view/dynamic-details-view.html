@@ -1,0 +1,18 @@
+<!-- Navbar -->
+<nav-bar></nav-bar>
+<!-- /Navbar -->
+
+<div class="main-container container-fluid">
+    <!-- Page Container -->
+    <div class="page-container">
+        <side-bar id="sidebar" class="page-sidebar" data-ng-if="DynamicDetailsViewCtrl.ePage.Masters.MenuVisibleType == 'List'"></side-bar>
+        <div class="page-content" data-ng-style="(!DynamicDetailsViewCtrl.ePage.Masters.MenuVisibleType || DynamicDetailsViewCtrl.ePage.Masters.MenuVisibleType == 'Grid') && {'margin-left': '0'}">
+            <div class="page-body p-0 pb-20">
+                <div class="clearfix">
+                    <dynamic-details-view data-ng-if="DynamicDetailsViewCtrl.ePage.Masters.DataEntryName" dataentry-name="DynamicDetailsViewCtrl.ePage.Masters.DataEntryName"
+                        pkey="DynamicDetailsViewCtrl.ePage.Masters.Pkey" mode="0" default-filter=""></dynamic-details-view>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

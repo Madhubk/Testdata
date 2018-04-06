@@ -1,0 +1,37 @@
+﻿<uib-tabset id="chromeTab" active="ShipmentCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+    <uib-tab>
+        <uib-tab-heading title="Shipment">
+            <span data-ng-bind="'Shipment'"></span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+        <div class="p-0 tab-list-view-wrapper">
+            <!--Shipment Grid Page-->
+            <dynamic-list dataentry-name="ShipmentCtrl.ePage.Masters.dataentryName" task-name="ShipmentCtrl.ePage.Masters.taskName" grid-config-type="0"
+                selected-grid-row="ShipmentCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" default-filter="ShipmentCtrl.ePage.Masters.DefaultFilter"></dynamic-list>
+            <div class="tab-loading" data-ng-show="ShipmentCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+    <uib-tab active="ShipmentCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in ShipmentCtrl.ePage.Masters.TabList"
+        ng-click="ShipmentCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+        <uib-tab-heading title="{{tab.label}}">
+            <span data-ng-bind="tab.label"></span>
+            <i class="glyphicon glyphicon-remove" ng-click="ShipmentCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+        </uib-tab-heading>
+        <div class="padding-bottom-10 clearfix">
+            <!--Shipment Menu Directive-->
+            <shipment-menu current-shipment="tab" active-tab="ShipmentCtrl.ePage.Masters.ActiveMenuTab"></shipment-menu>
+            <!--Standard Menu Directive-->
+            <div class="eaxis-footer-strip" data-ng-show="ShipmentCtrl.ePage.Masters.ActiveMenuTab.Value != 'MyTask'">
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
+                    <standard-menu entity-name="'ShipmentSearch'" input="tab" data-ng-if="!tab.isNew"></standard-menu>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                    <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="ShipmentCtrl.ePage.Masters.Save(tab)"
+                        data-ng-bind="ShipmentCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="ShipmentCtrl.ePage.Masters.IsDisableSave"></button>
+                </div>
+            </div>
+            <!--Standard Menu Directive-->
+        </div>
+    </uib-tab>
+    <button class="btn btn-default" ng-click="ShipmentCtrl.ePage.Masters.CreateNewShipment()" data-ng-disabled="ShipmentCtrl.ePage.Masters.IsNewShipmentClicked">+</button>
+</uib-tabset>

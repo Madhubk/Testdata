@@ -1,0 +1,38 @@
+<uib-tabset id="chromeTab" active="OrderLinesCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+    <uib-tab>
+        <uib-tab-heading title="Order">
+            <span data-ng-bind="'Order'"></span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+        <div class="no-padding tab-list-view-wrapper">
+            <!--Order Grid Page-->
+            <dynamic-list dataentry-name="OrderLinesCtrl.ePage.Masters.dataentryName" task-name="OrderLinesCtrl.ePage.Masters.taskName" grid-config-type="0"
+                selected-grid-row="OrderLinesCtrl.ePage.Masters.SelectedGridRow($item)" mode="1"></dynamic-list>
+            <div class="tab-loading" data-ng-show="OrderLinesCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+    <uib-tab active="OrderLinesCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in OrderLinesCtrl.ePage.Masters.TabList" ng-click="OrderLinesCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+        <uib-tab-heading title="{{tab.label}}">
+            <span data-ng-bind="tab.label"></span>
+            <i class="glyphicon glyphicon-remove" ng-click="OrderLinesCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+        </uib-tab-heading>
+        <div class="padding-bottom-10 clearfix">
+            <!--OrderLines Menu Directive-->
+            <order-lines-directive current-order-lines="tab"></order-lines-directive>
+            <div class="eaxis-footer-strip">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <button class="btn btn-secondary btn-sm pull-right margin-right-10 mt-6" data-ng-click="OrderLinesCtrl.ePage.Masters.Cancel($event, $index,tab)"
+                        data-ng-bind="'Close'"></button>
+                    <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="OrderLinesCtrl.ePage.Masters.Save(tab)"
+                        data-ng-bind="OrderLinesCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="OrderLinesCtrl.ePage.Masters.IsDisableSave"></button>
+                    <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="OrderLinesCtrl.ePage.Masters.SaveClose($event, $index,tab)"
+                        data-ng-bind="OrderLinesCtrl.ePage.Masters.SaveCloseButtonText" data-ng-disabled="OrderLinesCtrl.ePage.Masters.IsDisableSaveClose"></button>
+                </div>
+            </div>
+        </div>
+    </uib-tab>
+    <!-- <button class="btn btn-default" data-ng-click="OrderLinesCtrl.ePage.Masters.CreateSFU()" data-ng-disabled="OrderLinesCtrl.ePage.Masters.IsNewOrderClicked">+</button> -->
+</uib-tabset>

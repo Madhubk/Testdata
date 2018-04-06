@@ -1,0 +1,74 @@
+.dyn-grid-view {
+    width: 100%;
+    height: calc(100vh - 160px);
+    height: -moz-calc(100vh - 160px);
+    height: -webkit-calc(100vh - 160px);
+}
+
+.tc-dyn-grid .dyn-grid-view {
+    width: 100%;
+    height: auto;
+}
+
+.grid-loading-norecord-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    font-weight: 600;
+}
+
+.grid-loading,
+.grid-no-record {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 30px;
+    text-align: center;
+    border: 1px solid;
+    color: #D1001C;
+    border: 1px solid #CCCC66;
+    background-color: #FAFFBD;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+
+.grid-loading {
+    width: 100px;
+}
+
+.grid-no-record {
+    width: 200px;
+}
+
+.gridview-wraper .ui-grid-cell-contents.ui-grid-header-cell-primary-focus,
+.gridview-wraper .ui-grid-pinned-container-left .ui-grid-header-cell-row .ui-grid-cell-contents {
+    background-color: #F8F8F8;
+    background-image: -webkit-linear-gradient(top, #F8F8F8, #F1F1F1);
+    background-image: -moz-linear-gradient(top, #F8F8F8, #F1F1F1);
+    background-image: -ms-linear-gradient(top, #F8F8F8, #F1F1F1);
+    background-image: -o-linear-gradient(top, #F8F8F8, #F1F1F1);
+    background-image: linear-gradient(top, #F8F8F8, #F1F1F1);
+    color: #333;
+    line-height: 1.42857;
+    font-size: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.gridview-wraper #gridView {
+    border-left: 0;
+    border-right: 0;
+}
+
+.dg-attach-btn,
+.dg-attach-btn:hover,
+.dg-attach-btn:focus {
+    background-color: #0072C6 !important;
+    border-color: #0072C6 !important;
+}

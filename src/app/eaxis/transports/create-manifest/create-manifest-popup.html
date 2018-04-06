@@ -1,0 +1,13 @@
+<div id="myDialog">
+    <div class="modal-header ">
+        <h3 class="modal-title " id="modal-title ">Manifest Initiated Successfully </h3>
+    </div>
+    <div class="modal-body " id="modal-body ">
+        <h3>Reference No : {{CreateManifestCtrl.ePage.Masters.ProcessInfo.TmsManifestHeader.ManifestNumber}}</h3>
+        <h3>Process InstanceID : {{CreateManifestCtrl.ePage.Masters.ProcessInfo.ProcessInfo[0].PSI_InstanceNo}}</h3>
+    </div>
+    <div class="modal-footer ">
+        <button class="btn btn-primary " type="button " ng-click="CreateManifestCtrl.ePage.Masters.GoToDashboard() ">Go to Dashboard</button>
+        <button class="btn btn-warning " type="button " ng-click="CreateManifestCtrl.ePage.Masters.CreateManifest()">Create New Manifest</button>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+<div class="modal-header">
+    <h5 class="modal-title pull-left"><strong>Send FollowUp History</strong></h5>
+    <button type="button" class="close" ng-click="FollowUpModalCtrl.ePage.Masters.Cancel()">&times;</button>
+</div>
+<div class="modal-body">
+    <div class="col-xs-12 col-lg-12 col-sm-12 col-md-12 col-xl-12 mr-0 ml-0 pl-0 pr-0">
+        <div class="wmstable_scroll" >
+            <div class="table" id="results">
+                <div class='theader'>
+                    <div class='table_header'>Date Sent</div>
+                    <div class='table_header'>Sent By</div>
+                    <div class='table_header'>To</div>
+                    <div class='table_header'>Subject</div>
+                    <div class='table_header'>Consignee</div>
+                    <div class='table_header'>Consignor</div>
+                    <div class='table_header'>Order #</div>
+                </div>
+                <!-- List Empty Response -->
+                <div data-ng-if="FollowUpModalCtrl.ePage.Masters.SfuHistory.length==0">
+                    <div class="grid-no-record grid-width" style="bottom:38px">No record found..</div>
+                </div>
+                <!-- List Order(s) -->
+                <div class='table_row' ng-repeat="x in FollowUpModalCtrl.ePage.Masters.SfuHistory" ng-class="{row_active: FollowUpModalCtrl.ePage.Masters.SfuHistory == $index}" style="font-size: 11px;">
+                    <div class='table_small'>
+                        <div class='table_cell'>Date Sent</div>
+                        <div class='table_cell'>{{x.CreatedDateTime | date:'dd-MMM-yyyy'}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Sent By</div>
+                        <div class='table_cell'>{{x.CreatedBy}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>To</div>
+                        <div class='table_cell'>{{x.EmailRecipient}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Subject</div>
+                        <div class='table_cell'>{{x.MailSubject}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Buyer</div>
+                        <div class='table_cell'>{{x.Buyer}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Supplier</div>
+                        <div class='table_cell'>{{x.Supplier}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Order #</div>
+                        <div class='table_cell'>{{x.OrderNo}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

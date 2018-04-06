@@ -1,0 +1,85 @@
+.ex-adjustment_general-box {
+    width: 100%;
+    /*  padding:20px 20px 20px 20px;*/
+    padding:10px;
+    height: 146px;
+    float: left;
+    border: 1px solid #f5f5f5;
+}
+
+.input-group1{
+    position: relative;
+    display: table;
+    border-collapse: separate;
+}
+
+.wocstatus1{
+    font-size: 15px !important;
+    color: green !important; 
+    font-weight: 700 !important;
+}
+
+
+
+.dashboard-inward-icon-box i{
+ font-size:16px;
+}
+
+.dashboard-inward-icon-box span{
+ font-size:12px;
+}
+.border-bottom{
+    border-bottom: 1px solid #f5f5f5 !important;
+}
+    
+.mb-0{
+    margin-bottom : 0px !important;
+}
+.mb-1{
+    margin-bottom : 1px !important;
+}
+.cus-col{
+    color: #0072c6 !important;
+}
+.padding2{
+    padding: 2px;
+}
+.pl-0{
+        padding-left: 0px !important;
+}
+.fs-11{
+    font-size: 11px;
+}
+
+.height-40{
+    height: 40px;
+}
+
+.height-103{
+    height: 103px;
+}
+
+.font-12{
+    font-size: 12px;
+}
+
+.inner-dashboard-box, .dashboard-stock-icon-box{
+ border-radius:3px;
+}
+.general-edit.address>.modal-dialog {
+    width: 575px !important;
+}
+
+.inner-dashboard-box{
+    width:100%;
+    float: left;
+ border:1px solid #f5f5f5;
+ position:relative;
+}
+
+
+.addressstyle {
+    font-size: 10px;
+    line-height: 1.5;
+}
+    

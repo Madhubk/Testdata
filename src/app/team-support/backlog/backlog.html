@@ -1,0 +1,131 @@
+<div class="clearfix">
+    <div class="team-support-page-header">
+        <!--Header with Search and Logo-->
+        <div class="page-breadcrumbs">
+            <div class="clearfix">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <a href="javascript:void(0);" class="logo">
+                        <img src="assets/img/logo/logo-20cube.png" alt="" data-ng-click="BacklogCtrl.ePage.Masters.RedirectToHomeLogo()"/>
+                    </a>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <div class="pull-right padding-10 dropdown user-avatar-wrapper">
+                        <button class="user-avatar bg-themeprimary dropdown-toggle" data-ng-bind="BacklogCtrl.ePage.Masters.UserProfile.DisplayName  | getCharacters: 1"
+                            data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right" role="menu">
+                            <form class="clearfix" role="form">
+                                <div class="">
+                                    <div class="user-id" data-ng-bind="BacklogCtrl.ePage.Masters.UserProfile.DisplayName">
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                            <button change-password path="BacklogCtrl.ePage.Masters.CurrentPath" class="btn btn-default pull-left change-password" data-ng-bind="'Change Password'">
+                                            </button>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                            <button class="btn btn-default pull-right logout" data-ng-bind="'Sign Out'" data-ng-click="BacklogCtrl.ePage.Masters.Logout()">
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Header Button Bar-->
+        <div class="position-relative mail-header">
+            <div class="row hidden-xs hidden-sm">
+                <!--Dropdown Button-->
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 pr-0">
+                    <div class="header-title">
+                        <div class="btn-group">
+                            <a class="btn dropdown-toggle dropdown-btn-support-task" data-toggle="dropdown" aria-expanded="true">
+                                <span data-ng-bind="BacklogCtrl.ePage.Masters.ActiveTSPage"></span>
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li data-ng-repeat="x in BacklogCtrl.ePage.Masters.TSPageList" data-ng-if="x.Name != BacklogCtrl.ePage.Masters.ActiveTSPage">
+                                    <a href="{{x.Url}}" data-ng-bind="x.Name"></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-danger btn-backlogcompose btn-sm" data-ng-click="BacklogCtrl.ePage.Masters.OnComposeClick()">Compose
+                        </button>
+                    </div>
+                </div>
+                <!--Project, Sprint List Bar-->
+                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 no-padding-left">
+                    <!--List Page Menu-->
+                    <div class="clearfix p-5" data-ng-if="!BacklogCtrl.ePage.Masters.IsShowDetails">
+                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"></div>
+                        <!--Project-->
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                            <select name="category-group" class="form-control header-select-control input-sm gmail-style-btn" ng-model="BacklogCtrl.ePage.Masters.CurrentProject.Code"
+                                ng-options="x.Code as x.Description for x in BacklogCtrl.ePage.Entities.SupportHeader.Meta.Project.ListSource"
+                                ng-change="BacklogCtrl.ePage.Masters.OnProjectChange((BacklogCtrl.ePage.Entities.SupportHeader.Meta.Project.ListSource  | filter: {Code :  BacklogCtrl.ePage.Masters.CurrentProject.Code}:true)[0])"
+                                search-contains="true">
+                            </select>
+                        </div>
+                        <!-- Toggle -->
+                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 text-center">
+                            <span class="backlog-nav-bar cursor-pointer" ng-click="BacklogCtrl.ePage.Masters.ToggleSideBar()">
+                                <i class="glyphicons glyphicons-menu-hamburger"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row hidden-lg hidden-xl">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-5">
+                    <div class="col-sm-3 col-xs-3">
+                        <div class="btn-group">
+                            <a class="btn btn-xs fs-14 dropdown-toggle dropdown-btn-support-task" data-toggle="dropdown" aria-expanded="true">
+                                <span data-ng-bind="BacklogCtrl.ePage.Masters.ActiveTSPage"></span>
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li data-ng-repeat="x in BacklogCtrl.ePage.Masters.TSPageList" data-ng-if="x.Name != BacklogCtrl.ePage.Masters.ActiveTSPage">
+                                    <a href="{{x.Url}}" data-ng-bind="x.Name"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xs-1 col-sm-1 text-center p-0">
+                        <button class="btn btn-danger btn-sm" data-ng-click="BacklogCtrl.ePage.Masters.OnComposeClick()" style="position: relative; top: 2px;">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 pr-0">
+                        <select name="category-group" class="form-control header-select-control input-sm gmail-style-btn" ng-model="BacklogCtrl.ePage.Masters.CurrentProject.Code"
+                            ng-options="x.Code as x.Description for x in BacklogCtrl.ePage.Entities.SupportHeader.Meta.Project.ListSource"
+                            ng-change="BacklogCtrl.ePage.Masters.OnProjectChange((BacklogCtrl.ePage.Entities.SupportHeader.Meta.Project.ListSource  | filter: {Code :  BacklogCtrl.ePage.Masters.CurrentProject.Code}:true)[0])"
+                            search-contains="true">
+                        </select>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 text-center">
+                        <span class="backlog-nav-bar cursor-pointer" ng-click="BacklogCtrl.ePage.Masters.ToggleSideBar()">
+                            <i class="glyphicons glyphicons-menu-hamburger"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="team-support-page-body mb-20">
+        <div class="clearfix">
+            <!--Sidebar-->
+            <div data-ng-include="'app/team-support/backlog/template/side-bar.html'">
+            </div>
+            <!--Task List-->
+            <div data-ng-include="'app/team-support/backlog/template/task-list.html'">
+            </div>
+            <!--Details View-->
+            <div data-ng-include="'app/team-support/backlog/template/details-view.html'">
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+.inward-menu>.nav-tabs.nav-justified>.show-address-sidebar {
+    position: absolute;
+    top: -2px;
+    right: 0;
+    height: 28px;
+    margin: 0;
+    padding: 0;
+    width: 25px;
+    min-width: 25px;
+    z-index: 15;
+    max-width: 25px;
+    outline: none;
+}
+
+.wocstatus2{
+    font-style: italic;
+    font-size: 13px !important;
+    color: green;
+    font-weight: 700; 
+}
+
+.finalisedstate{
+    text-align: center;
+    background-color: #f5fef1;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.finaliseddatedescription{
+    font-size: 12px;
+    color: #00ac14;
+    font-weight: 600;
+}

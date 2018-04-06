@@ -1,0 +1,89 @@
+.track-order-details .label-shipment1 {
+    color: #5c3a81;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.track-order-details .track-order-label {
+    font-size: 11px;
+    color: #999;
+}
+
+.track-order-details .track-order-label span {
+    padding: 0px 5px;
+    border-radius: 2px;
+}
+
+.track-order-details .card {
+    position: relative;
+    /*display: -ms-flexbox;*/
+    display: flex;
+    /*-ms-flex-direction: column;*/
+    height: 184px;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #eee;
+}
+
+.track-order-details .card-body {
+    flex: 1 1 auto;
+    padding: 1.6rem;
+}
+
+.track-order-details .address-box {
+    width: 100%;
+    float: left;
+    padding: 3px 0px 0px 10px;
+    border-radius: 3px;
+    border: 1px solid #eee;
+    position: relative;
+    height: 92px;
+    background: #fff;
+}
+
+.track-order-sub-title,
+.track-order-main-title {
+    width: 100%;
+    float: left;
+}
+
+.track-order-main-title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.track-order-actions {
+    width: 100%;
+    float: left;
+    padding: 0;
+    border: 1px solid #eee;
+}
+
+.track-order-actions li {
+    width: 100%;
+    float: left;
+    list-style: none;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.ft-clr {
+    font-size: 13px;
+}
+
+.address-title {
+    font-weight: bold;
+}
+
+.address-txt {
+    color: #666;
+    font-size: 11px;
+}
+
+.address-ttx {
+    color: #999;
+    font-size: 11px;
+}

@@ -1,0 +1,34 @@
+.change-password .modal-dialog {
+    width: 35%;
+    margin: 45px auto;
+}
+
+.change-password .modal-dialog .modal-content {
+    height: auto;
+}
+
+.access-dropdown-menu.dropdown-menu {
+    min-width: 250px;
+    margin-bottom: 35px;
+}
+
+.access-dropdown-icon {
+    color: #d73d32;
+}
+
+.access-dropdown-list {
+    overflow-y: auto;
+    max-height: 250px;
+    padding: 0 10px;
+}
+
+.access-dropdown-list .more-access {
+    font-size: 11px;
+    position: relative;
+    top: 3px;
+}
+
+.access-dropdown-btn-wrapper {
+    border-top: 1px solid #f4f4f4;
+    padding: 5px 10px 0;
+}

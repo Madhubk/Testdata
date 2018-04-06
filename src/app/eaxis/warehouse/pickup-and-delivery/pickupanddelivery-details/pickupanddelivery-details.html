@@ -1,0 +1,235 @@
+        <!-- Saving Your Data -->
+    <div class="grid-loading-norecord-container ng-scope" style='z-index: 4;'data-ng-if="PickupanddeliverydetailCtrl.ePage.Masters.IsLoadingToSave">
+        <div class="grid-no-record">Saving your Data...</div>
+    </div>
+    <div class="p-10" ng-show='PickupanddeliverydetailCtrl.ePage.Masters.Lineslist' >
+        <div>
+            <span>
+                <button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" dynamic-list-modal obj="PickupanddeliverydetailCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryOrders" prefix-data="'PickupAndDeliveryOrders'"  
+                field-name="'PODAttach'" mode="3" is-full-obj="true" grid-refresh-fun-name="GetOrderDetails" grid-refresh-fun=""
+                selected-data="PickupanddeliverydetailCtrl.ePage.Masters.Attach($item)" 
+                type="button"><i class="fa fa-plus"></i>Attach</button>
+            </span>
+            <span ng-show="PickupanddeliverydetailCtrl.ePage.Masters.selectedRow !=-1">
+                <button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Detach"  data-ng-click="PickupanddeliverydetailCtrl.ePage.Masters.Detach(PickupanddeliverydetailCtrl.ePage.Masters.selectedRow)"><span class="fa fa-minus"></span>&nbsp;&nbsp;Detach</button>
+            </span>
+            <span ng-show="PickupanddeliverydetailCtrl.ePage.Masters.selectedRow !=-1">
+                <button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Edit"  data-ng-click="PickupanddeliverydetailCtrl.ePage.Masters.Edit(PickupanddeliverydetailCtrl.ePage.Masters.selectedRow,'Edit list')"><span class="fa fa-pencil   "></span>&nbsp;&nbsp;Edit</button>
+            </span>
+        </div>
+        <div id='PickupanddeliverydetailCtrl.ePage.Masters.your_div' class="wmstable_scroll" style="height:400px; padding-top: 2px;">
+            <div class="table" id="results">
+                <div class='theader'>
+                    <div class='table_header'>List No</div>
+                    <div class='table_header'>WorkOrderID</div>
+                    <div class='table_header'>WordOrder Type</div>
+                    <div class='table_header'>Pick From</div>
+                    <div class='table_header'>Delivered To</div>
+                    <div class='table_header'>Status</div>
+                    <div class='table_header'>Customer Reference</div>
+                    <div class='table_header'>External Reference</div>
+                </div>
+
+                <!-- List Empty Response -->
+                <div data-ng-if="PickupanddeliverydetailCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryOrders
+                .length==0">
+                    <div class="grid-no-record" style="bottom:250px">No records found...</div>
+                </div>
+
+                <div class='table_row' ng-repeat="x in PickupanddeliverydetailCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryOrders
+                 | filter:{IsDeleted:'false'}  track by $index" 
+                    ng-click="PickupanddeliverydetailCtrl.ePage.Masters.setSelectedRow($index)" ng-class="{row_active: PickupanddeliverydetailCtrl.ePage.Masters.selectedRow==$index}" style="font-size: 11px;">
+                    <div class='table_small'>
+                        <div class='table_cell'>List No</div>
+                        <div class='table_cell'>
+                            <span class="list-error-warning" data-ng-if="PickupanddeliverydetailCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsPickupAndDeliveryOrders
+                            .ERROR | listCount: 'RowIndex': $index">
+                                <error-warning-directive 
+                                    list="PickupanddeliverydetailCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsPickupAndDeliveryOrders.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectRow'" parent-ref=""
+                                    g-parent-ref="" row-index="$index"
+                                    col-index="">
+                                </error-warning-directive>
+                            </span> 
+                            {{$index+1}}
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>WorkOrderID</div>
+                        <div class='table_cell'>{{x.WorkOrderID || PickupanddeliverydetailCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>WordOrderType</div>
+                        <div class='table_cell'>{{x.WordOrderType || PickupanddeliverydetailCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Pick From</div> 
+                        <div class='table_cell'>
+                        {{x.From_Address1 || PickupanddeliverydetailCtrl.ePage.Masters.emptyText}}
+                        {{x.From_Address2 || PickupanddeliverydetailCtrl.ePage.Masters.emptyText}} 
+                        {{x.From_City || PickupanddeliverydetailCtrl.ePage.Masters.emptyText}} 
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Delivered To</div>
+                        <div class='table_cell'>
+                        {{x.To_Address1 || PickupanddeliverydetailCtrl.ePage.Masters.emptyText}}
+                        {{x.To_Address2 || PickupanddeliverydetailCtrl.ePage.Masters.emptyText}}
+                        {{x.To_City || PickupanddeliverydetailCtrl.ePage.Masters.emptyText}}
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Status</div>
+                        <div class='table_cell'>{{x.Status  || PickupanddeliverydetailCtrl.ePage.Masters.emptyText}}</div>
+                    </div>   
+                    <div class='table_small'>
+                        <div class='table_cell'>Customer Reference</div>
+                        <div class='table_cell'>{{x.CustomerReference  || PickupanddeliverydetailCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>External Reference</div>
+                        <div class='table_cell'>{{x.ExternalReference  || PickupanddeliverydetailCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+       
+    <div class="clearfix" ng-hide='PickupanddeliverydetailCtrl.ePage.Masters.Lineslist' style="padding:5px">
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <span ng-show="PickupanddeliverydetailCtrl.ePage.Masters.HeaderName =='Copy Of List'">
+                    {{PickupanddeliverydetailCtrl.ePage.Masters.HeaderName}} - {{PickupanddeliverydetailCtrl.ePage.Masters.selectedRow}}                     
+            </span>
+            <span ng-show="PickupanddeliverydetailCtrl.ePage.Masters.HeaderName!='Copy Of List'">
+                    {{PickupanddeliverydetailCtrl.ePage.Masters.HeaderName}} - {{PickupanddeliverydetailCtrl.ePage.Masters.selectedRow+1}}                     
+            </span>
+        </div>
+        <div class="panel-body">
+            <div class="col-lg-12 ex-line-padding">
+                <div class="ex-line-box" style="height:210px;padding-top:10px">
+                    <div class="col-lg-6 padding-bottom-10">
+                        <div class="ex-inward_general-box">
+                            <div class="col-lg-2 no-padding">
+                                <div class="ex-inward_general-left"> 
+                                    <i class="icomoon icon-company" style="font-weight:bold"></i>
+                                </div> 
+                                <div class="ex-inward_general-left1"> 
+                                    <div class="margin-top-10 ex-inward-label">Pickup From</div>
+                                </div>    
+                            </div>
+                                <div class="col-lg-10">
+                                    <div class="ex-inward-righ margin-top-10">
+                                        <div class="row">    
+                                            <div class="col-lg-10">
+
+                                                <div class="input-group1 input-group-sm">
+                                                    <!-- Dynamic look up Search in textbox -->
+                                                    <div dynamic-lookup placeholder="Organization Code And Name" my-ng-model="PickupanddeliverydetailCtrl.ePage.Masters.FromCodeName" auto-complete-on-select="PickupanddeliverydetailCtrl.ePage.Masters.SelectedLookupFromData($item, PickupanddeliverydetailCtrl.ePage.Masters.selectedRow)"
+                                                    obj="PickupanddeliverydetailCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryOrders" prefix-data="'OrganizationList'"
+                                                    config="'TransOrgfrom'">
+                                                </div>
+                                                <!-- Look Up page opens when button clicks -->
+                                                <span class="input-group-btn">
+                                                    <button dynamic-list-modal obj="PickupanddeliverydetailCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryOrders" field-name="'TransOrgfrom'" selected-data="PickupanddeliverydetailCtrl.ePage.Masters.SelectedLookupFromData($item, PickupanddeliverydetailCtrl.ePage.Masters.selectedRow)"  prefix-data="'OrganizationList'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <!-- To show address -->
+                                        <div class="col-lg-10">
+                                            <div class="ex-outward-title text-single-line margin-top-10" ng-bind="PickupanddeliverydetailCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryOrders[PickupanddeliverydetailCtrl.ePage.Masters.selectedRow].From_Address1">
+                                            </div>
+                                            <div class"col-lg-12 margin-top-10">
+                                                <span class="InlineLabel" ng-bind="PickupanddeliverydetailCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryOrders[PickupanddeliverydetailCtrl.ePage.Masters.selectedRow].From_Address2"></span> 
+                                                <span class="InlineLabel" ng-bind="PickupanddeliverydetailCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryOrders[PickupanddeliverydetailCtrl.ePage.Masters.selectedRow].From_State"></span>   
+                                            </div>
+                                            <div class"col-lg-12">
+                                                <span class="InlineLabel" ng-show="PickupanddeliverydetailCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryOrders[PickupanddeliverydetailCtrl.ePage.Masters.selectedRow].From_City">
+                                                    {{PickupanddeliverydetailCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryOrders[PickupanddeliverydetailCtrl.ePage.Masters.selectedRow].From_City}} - 
+                                                </span>
+                                                <span class="InlineLabel" ng-show="PickupanddeliverydetailCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryOrders[PickupanddeliverydetailCtrl.ePage.Masters.selectedRow].From_PostCode">
+                                                    {{PickupanddeliverydetailCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryOrders[PickupanddeliverydetailCtrl.ePage.Masters.selectedRow].From_PostCode}}
+                                                </span>   
+                                            </div>
+                                            <div  class"col-lg-12">
+                                                <span ng-show="PickupanddeliverydetailCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryOrders[PickupanddeliverydetailCtrl.ePage.Masters.selectedRow].From_Fax" class="InlineLabel">
+                                                    FAX :  {{PickupanddeliverydetailCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryOrders[PickupanddeliverydetailCtrl.ePage.Masters.selectedRow].From_Fax}}&nbsp;&nbsp;
+                                                </span> 
+                                                <span class="InlineLabel" ng-show="PickupanddeliverydetailCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryOrders[PickupanddeliverydetailCtrl.ePage.Masters.selectedRow].From_Phone">
+                                                    Phone :  {{PickupanddeliverydetailCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryOrders[PickupanddeliverydetailCtrl.ePage.Masters.selectedRow].From_Phone}}
+                                                </span>   
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 padding-bottom-10">
+                        <div class="ex-inward_general-box">
+                            <div class="col-lg-2 no-padding">
+                                <div class="ex-inward_general-left"> 
+                                    <i class="icomoon icon-company" style="font-weight:bold"></i>
+                                </div> 
+                                <div class="ex-inward_general-left1"> 
+                                    <div class="margin-top-10 ex-inward-label">Delivery To</div>
+                                </div>    
+                            </div>
+                                <div class="col-lg-10">
+                                    <div class="ex-inward-righ margin-top-10">
+                                        <div class="row">    
+                                            <div class="col-lg-10">
+
+                                                <div class="input-group1 input-group-sm">
+                                                    <!-- Dynamic look up Search in textbox -->
+                                                    <div dynamic-lookup placeholder="Organization Code And Name" my-ng-model="PickupanddeliverydetailCtrl.ePage.Masters.ToCodeName" auto-complete-on-select="PickupanddeliverydetailCtrl.ePage.Masters.SelectedLookupToData($item, PickupanddeliverydetailCtrl.ePage.Masters.selectedRow)"
+                                                    obj="PickupanddeliverydetailCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryOrders" prefix-data="'OrganizationList'"
+                                                    config="'TransOrgTo'">
+                                                </div>
+                                                <!-- Look Up page opens when button clicks -->
+                                                <span class="input-group-btn">
+                                                    <button dynamic-list-modal obj="PickupanddeliverydetailCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryOrders" field-name="'TransOrgTo'" selected-data="PickupanddeliverydetailCtrl.ePage.Masters.SelectedLookupToData($item, PickupanddeliverydetailCtrl.ePage.Masters.selectedRow)"  prefix-data="'OrganizationList'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <!-- To show address -->
+                                        <div class="col-lg-10">
+                                            <div class="ex-outward-title text-single-line margin-top-10" ng-bind="PickupanddeliverydetailCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryOrders[PickupanddeliverydetailCtrl.ePage.Masters.selectedRow].To_Address1">
+                                            </div>
+                                            <div class"col-lg-12 margin-top-10">
+                                                <span class="InlineLabel" ng-bind="PickupanddeliverydetailCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryOrders[PickupanddeliverydetailCtrl.ePage.Masters.selectedRow].To_Address2"></span> 
+                                                <span class="InlineLabel" ng-bind="PickupanddeliverydetailCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryOrders[PickupanddeliverydetailCtrl.ePage.Masters.selectedRow].To_State"></span>   
+                                            </div>
+                                            <div class"col-lg-12">
+                                                <span class="InlineLabel" ng-show="PickupanddeliverydetailCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryOrders[PickupanddeliverydetailCtrl.ePage.Masters.selectedRow].To_City">
+                                                    {{PickupanddeliverydetailCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryOrders[PickupanddeliverydetailCtrl.ePage.Masters.selectedRow].To_City}} - 
+                                                </span>
+                                                <span class="InlineLabel" ng-show="PickupanddeliverydetailCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryOrders[PickupanddeliverydetailCtrl.ePage.Masters.selectedRow].To_PostCode">
+                                                    {{PickupanddeliverydetailCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryOrders[PickupanddeliverydetailCtrl.ePage.Masters.selectedRow].To_PostCode}}
+                                                </span>   
+                                            </div>
+                                            <div  class"col-lg-12">
+                                                <span ng-show="PickupanddeliverydetailCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryOrders[PickupanddeliverydetailCtrl.ePage.Masters.selectedRow].To_Fax" class="InlineLabel">
+                                                    FAX :  {{PickupanddeliverydetailCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryOrders[PickupanddeliverydetailCtrl.ePage.Masters.selectedRow].To_Fax}}&nbsp;&nbsp;
+                                                </span> 
+                                                <span class="InlineLabel" ng-show="PickupanddeliverydetailCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryOrders[PickupanddeliverydetailCtrl.ePage.Masters.selectedRow].To_Phone">
+                                                    Phone :  {{PickupanddeliverydetailCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryOrders[PickupanddeliverydetailCtrl.ePage.Masters.selectedRow].To_Phone}}
+                                                </span>   
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-1 col-lg-offset-10">
+                <button class="btn btn-primary btn-sm pull-right mt-6" title="Cancel" data-ng-click="PickupanddeliverydetailCtrl.ePage.Masters.Cancel()">Cancel</button>
+            </div>
+            <div class="col-lg-1">
+                <button class="btn btn-blue btn-sm pull-right mt-6" title="Save" data-ng-click="PickupanddeliverydetailCtrl.ePage.Masters.Done()">Done</button>
+            </div>
+        </div>
+    </div>
+</div>   

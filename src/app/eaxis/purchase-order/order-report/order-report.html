@@ -1,0 +1,12 @@
+<uib-tabset id="chromeTab" active="0" class="tab-container chrometab-box">
+    <uib-tab>
+        <uib-tab-heading title="Order">
+            <span data-ng-bind="'Order Report'"></span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+        <div class="no-padding tab-list-view-wrapper">
+            <!--Order Report Grid Page-->
+            <dynamic-list dataentry-name="OrderReportCtrl.ePage.Masters.dataentryName" default-filter="OrderReportCtrl.ePage.Masters.DefaultFilter" grid-config-type="0" selected-grid-row="OrderReportCtrl.ePage.Masters.SelectedGridRow($item)" task-name="OrderReportCtrl.ePage.Masters.taskName" grid-config-type="0" mode="1"></dynamic-list>
+        </div>
+    </uib-tab>
+</uib-tabset>

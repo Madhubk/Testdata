@@ -1,0 +1,52 @@
+<div class="tabContent responsive">
+  <div class="eaxis-company-header bt-0">
+    <div class="eaxis-company-title" data-ng-bind="CompanyDetailsCtrl.ePage.Entities.CompanyHeader.Data.Code">{{CompanyDetailsCtrl.ePage.Entities.CompanyHeader.Data}}
+    </div>
+    <div class="eaxis-company-title-2">{{CompanyDetailsCtrl.ePage.Entities.CompanyHeader.Data.Desc}}
+    </div>
+  </div>
+  <div class="eaxis-record mt-20 padding-30 padding-top-10 padding-bottom-10">
+    <div class="row">
+      <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6 mb-20">
+        <div class="eaxis-label">Code
+        </div>
+        <div class="eaxis-value"  data-ng-bind="CompanyDetailsCtrl.ePage.Entities.CompanyHeader.Data.Code">
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6 mb-20">
+        <div class="eaxis-label">Name
+        </div>
+        <div class="eaxis-value" data-ng-bind="CompanyDetailsCtrl.ePage.Entities.CompanyHeader.Data.Name">
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6 mb-20">
+        <div class="eaxis-label">Email
+        </div>
+        <div class="eaxis-value" data-ng-bind="CompanyDetailsCtrl.ePage.Entities.CompanyHeader.Data.Email">
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6 mb-20">
+        <div class="eaxis-label">Phone
+        </div>
+        <div class="eaxis-value" data-ng-bind="CompanyDetailsCtrl.ePage.Entities.CompanyHeader.Data.Phone">
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6 mb-20">
+        <div class="eaxis-label">Source
+        </div>
+        <div class="eaxis-value" data-ng-bind="CompanyDetailsCtrl.ePage.Entities.CompanyHeader.Data.Source">
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6 mb-20">
+        <div class="eaxis-label">StateId
+        </div>
+        <div class="eaxis-value" data-ng-bind="CompanyDetailsCtrl.ePage.Entities.CompanyHeader.Data.StateId">
+        </div>
+      </div>
+  </div>
+  <div class="row edit">
+    <a ng-click="CompanyDetailsCtrl.ePage.Masters.OpenBasicsModel()"> View and Edit All Fields 
+    </a>
+  </div>
+</div>
+</div>

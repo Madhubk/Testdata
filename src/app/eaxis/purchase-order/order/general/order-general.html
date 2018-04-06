@@ -1,0 +1,34 @@
+<div class="clearfix">
+    <div class="widget-main ">
+        <uib-tabset id="OrderBasic">
+            <!--Order Details-->
+            <uib-tab>
+                <uib-tab-heading title="General">
+                    <i class="fa fa-file-o margin-right-5"></i> <span class="text-single-line" data-ng-bind="'General'"></span>
+                </uib-tab-heading>
+                <div data-ng-include="'app/eaxis/purchase-order/order/general/tabs/basic.html'"></div>
+            </uib-tab>
+            <!--Planning-->
+            <uib-tab>
+                <uib-tab-heading title="Planning">
+                    <i class="fa fa-calendar  margin-right-5"></i> <span class="text-single-line" data-ng-bind="'Planning'"></span>
+                </uib-tab-heading>
+                <div data-ng-include="'app/eaxis/purchase-order/order/general/tabs/planning.html'"></div>
+            </uib-tab>
+            <!--Packing-->
+            <uib-tab>
+                <uib-tab-heading title="Packing">
+                    <i class="fa fa-suitcase margin-right-5"></i> <span class="text-single-line" data-ng-bind="'Packing'"></span>
+                </uib-tab-heading>
+                <div data-ng-include="'app/eaxis/purchase-order/order/general/tabs/container-package.html'"></div>
+            </uib-tab>
+            <!--Additional Info-->
+            <uib-tab>
+                <uib-tab-heading title="Additional Info">
+                    <i class="fa fa-external-link margin-right-5"></i> <span class="text-single-line" data-ng-bind="'Additional Info'"></span>
+                </uib-tab-heading>
+                <div data-ng-include="'app/eaxis/purchase-order/order/general/tabs/custom.html'"></div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>

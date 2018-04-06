@@ -1,0 +1,133 @@
+<div class="p-10" ng-show='SenderCarrierCtrl.ePage.Masters.Lineslist'>
+
+    <div>
+        <span>
+            <button type="button" class="btn btn-sm btn-outline-secondary" title="Add New" data-ng-click="SenderCarrierCtrl.ePage.Masters.AddNewRow()">
+                <span class="fa fa-plus"></span>&nbsp;&nbsp;Add New
+        </button>
+        </span>
+        <span ng-hide='SenderCarrierCtrl.ePage.Masters.selectedRow==-1'>
+            <button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Copy" data-ng-click="SenderCarrierCtrl.ePage.Masters.CopyRow()">
+                <span class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button>
+        </span>
+        <span ng-hide='SenderCarrierCtrl.ePage.Masters.selectedRow==-1'>
+            <button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Edit" data-ng-click="SenderCarrierCtrl.ePage.Masters.Edit(SenderCarrierCtrl.ePage.Masters.selectedRow,'Edit List')">
+                <span class="fa fa-pencil"></span>&nbsp;&nbsp;Edit</button>
+        </span>
+        <span ng-hide='SenderCarrierCtrl.ePage.Masters.selectedRow==-1'>
+            <button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Delete" data-ng-click="SenderCarrierCtrl.ePage.Masters.RemoveRow()">
+                <span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button>
+        </span>
+    </div>
+    <div id='SenderCarrierCtrl.ePage.Masters.your_div' class="wmstable_scroll" style="height:450px; padding-top: 2px;">
+        <div class="table" id="results">
+            <div class='theader'>
+                <div class='table_header'>List No</div>
+                <div class='table_header'>Sender</div>
+                <div class='table_header'>Manifest Type</div>
+                <div class='table_header'>Carrier</div>
+            </div>
+
+            <!-- List Empty Response -->
+            <div data-ng-if="SenderCarrierCtrl.ePage.Entities.Header.Data.SenderCarrierDetails.length==0">
+                <div class="grid-no-record" style="bottom: 250px;">No records found...</div>
+            </div>
+
+            <div class='table_row' ng-repeat="x in SenderCarrierCtrl.ePage.Entities.Header.Data.SenderCarrierDetails track by $index"
+                ng-click="SenderCarrierCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: SenderCarrierCtrl.ePage.Masters.selectedRow==$index}"
+                style="font-size: 11px;">
+                <div class='table_small'>
+                    <div class='table_cell'>List No</div>
+                    <div class='table_cell'>{{$index+1}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Sender</div>
+                    <div class='table_cell'>{{x.MappingForCode || SenderCarrierCtrl.ePage.Masters.emptyText}} - {{x.ORG_MappingForName || SenderCarrierCtrl.ePage.Masters.emptyText}} </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Manifest Type</div>
+                    <div class='table_cell'>{{x.AddRef1Code || SenderCarrierCtrl.ePage.Masters.emptyText}} - {{x.TYP_Value || SenderCarrierCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Carrier</div>
+                    <div class='table_cell'>{{x.MappingToCode || SenderCarrierCtrl.ePage.Masters.emptyText}} - {{x.ORG_MappingToName || SenderCarrierCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix" ng-hide='SenderCarrierCtrl.ePage.Masters.Lineslist' style="padding:5px">
+    <div class="panel panel-default mt-5">
+        <div class="panel-heading">
+            <span ng-show="SenderCarrierCtrl.ePage.Masters.HeaderName =='Copy Of List'">
+                {{SenderCarrierCtrl.ePage.Masters.HeaderName}} - {{SenderCarrierCtrl.ePage.Masters.selectedRow}}
+            </span>
+            <span ng-show="SenderCarrierCtrl.ePage.Masters.HeaderName!='Copy Of List'">
+                {{SenderCarrierCtrl.ePage.Masters.HeaderName}} - {{SenderCarrierCtrl.ePage.Masters.selectedRow+1}}
+            </span>
+            <span class="WOL-Status pull-right" ng-bind="SenderCarrierCtrl.ePage.Entities.Header.Data.SenderCarrierDetails[SenderCarrierCtrl.ePage.Masters.selectedRow].WorkOrderLineStatusDesc"></span>
+        </div>
+        <div class="panel-body">
+            <div class="col-lg-12 ex-line-padding">
+                <div class="ex-line-box" style="height:85px; padding-top:10px">
+                    <!-- Sender-->
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Sender</label>
+                            <div class="input-group input-group-sm">
+                                <!-- Dynamic look up Search in textbox -->
+                                <div dynamic-lookup placeholder="Sender" my-ng-model="SenderCarrierCtrl.ePage.Entities.Header.Data.SenderCarrierDetails[SenderCarrierCtrl.ePage.Masters.selectedRow].MappingForCode"
+                                    auto-complete-on-select="SenderCarrierCtrl.ePage.Masters.SelectedLookupDataSender($item)"
+                                    obj="SenderCarrierCtrl.ePage.Entities.Header.Data.SenderCarrierDetails[SenderCarrierCtrl.ePage.Masters.selectedRow]"
+                                    prefix-data="'OrganizationList'" config="'MappingSender'">
+                                </div>
+                                <!-- Look Up page opens when button clicks -->
+                                <span class="input-group-btn">
+                                    <button dynamic-list-modal obj="SenderCarrierCtrl.ePage.Entities.Header.Data.SenderCarrierDetails[SenderCarrierCtrl.ePage.Masters.selectedRow]" field-name="'MappingSender'" selected-data="SenderCarrierCtrl.ePage.Masters.SelectedLookupDataSender($item)"  
+                                    prefix-data="'OrganizationList'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Manifest Type -->
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Manifest Type</label>
+                            <select chosen class="form-control" style="height: 30px;" ng-model="SenderCarrierCtrl.ePage.Entities.Header.Data.SenderCarrierDetails[SenderCarrierCtrl.ePage.Masters.selectedRow].AddRef1Code"
+                                ng-options="x.Key as x.Key+' - '+ x.Value for x in SenderCarrierCtrl.ePage.Masters.DropDownMasterList.ManifestType.ListSource"
+                                search-contains="true" ng-change="SenderCarrierCtrl.ePage.Masters.OnChangeManifestType(SenderCarrierCtrl.ePage.Entities.Header.Data.SenderCarrierDetails[SenderCarrierCtrl.ePage.Masters.selectedRow].AddRef1Code)">
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--Carrier-->
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Carrier</label>
+                            <div class="input-group input-group-sm">
+                                <!-- Dynamic look up Search in textbox -->
+                                <div dynamic-lookup placeholder="Carrier" my-ng-model="SenderCarrierCtrl.ePage.Entities.Header.Data.SenderCarrierDetails[SenderCarrierCtrl.ePage.Masters.selectedRow].MappingToCode"
+                                    auto-complete-on-select="SenderCarrierCtrl.ePage.Masters.SelectedLookupDataTransporter($item)"
+                                    obj="SenderCarrierCtrl.ePage.Entities.Header.Data.SenderCarrierDetails[SenderCarrierCtrl.ePage.Masters.selectedRow]"
+                                    prefix-data="'OrganizationList'" config="'MappingTransporter'">
+                                </div>
+                                <!-- Look Up page opens when button clicks -->
+                                <span class="input-group-btn">
+                                    <button dynamic-list-modal obj="SenderCarrierCtrl.ePage.Entities.Header.Data.SenderCarrierDetails[SenderCarrierCtrl.ePage.Masters.selectedRow]" field-name="'MappingTransporter'" 
+                                    selected-data="SenderCarrierCtrl.ePage.Masters.SelectedLookupDataTransporter($item)"  
+                                    prefix-data="'OrganizationList'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-lg-offset-8 mt-5">
+                    <button class="btn btn-blue btn-sm mr-5 pull-right" title="Save" data-ng-click="SenderCarrierCtrl.ePage.Masters.Done()"><i class="fa fa-save pr-5"></i>Save</button>
+                    <button class="btn btn-primary btn-sm mr-5 pull-right" title="Delete" data-ng-click="SenderCarrierCtrl.ePage.Masters.RemoveRow()"><i class="fa fa-trash pr-5"></i>Delete</button>
+                    <button class="btn btn-primary btn-sm mr-5 pull-right" title="Back" data-ng-click="SenderCarrierCtrl.ePage.Masters.Back()"><i class="fa fa-angle-double-left pr-5"></i>Back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

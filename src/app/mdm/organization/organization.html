@@ -1,0 +1,72 @@
+<!-- Navbar -->
+<nav-bar></nav-bar>
+<!-- /Navbar -->
+
+<div class="main-container container-fluid">
+
+    <div class="eaxis-top-strip">
+        <div class="eaxis-logo">
+            <span class="eaxix-logo-text">{{OrganizationCtrl.ePage.Masters.activeTabIndex}}</span>
+        </div>
+        <a data-ng-click="OrganizationCtrl.ePage.Masters.TopMenuToggle()" class="eaxis-main-nav" href="javascript:void(0);">
+            <i class="fa fa-angle-up"></i>
+        </a>
+    </div>
+
+    <div class="page-container">
+        <side-bar id="sidebar" class="page-sidebar menu-compact" data-ng-if="OrganizationCtrl.ePage.Masters.MenuVisibleType == 'List'"></side-bar>
+        <div class="page-content" data-ng-style="(!OrganizationCtrl.ePage.Masters.MenuVisibleType || OrganizationCtrl.ePage.Masters.MenuVisibleType == 'Grid') && {'margin-left': '0'}">
+            <div class="page-body p-5">
+                <uib-tabset id="chromeTab" class="tab-container chrometab-box" active="OrganizationCtrl.ePage.Masters.activeTabIndex">
+                    <uib-tab>
+                        <uib-tab-heading title="Grid">
+                            <span data-ng-bind="'Organization'"></span>
+                            <i class="fa fa-thumb-tack"></i>
+                        </uib-tab-heading>
+                        <div class="no-padding tab-list-view-wrapper">
+                            <!--Shipment Grid Page-->
+                            <dynamic-list dataentry-name="OrganizationCtrl.ePage.Masters.dataEntryName" task-name="OrganizationCtrl.ePage.Masters.taskName"
+                                grid-config-type="0" mode="1" selected-grid-row="OrganizationCtrl.ePage.Masters.SelectedGridRow($item)"></dynamic-list>
+                            <div class="tab-loading" data-ng-show="OrganizationCtrl.ePage.Masters.IsTabClick"></div>
+                        </div>
+                    </uib-tab>
+                    <uib-tab active="OrganizationCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in OrganizationCtrl.ePage.Masters.TabList"
+                        ng-click="OrganizationCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+                        <uib-tab-heading title="{{tab.label}}">
+                            <span data-ng-bind="tab.label"></span>
+                            <i class="glyphicon glyphicon-remove" ng-click="OrganizationCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+                            <span class="error-warning-container-common" data-ng-if="tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length > 0">
+                                <span class="custom-warning-container" data-ng-if="(tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'W') > 0 && (tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'E') == 0">
+                                    <button class="btn-warning" data-ng-click="OrganizationCtrl.ePage.Masters.config.ShowErrorWarningModal(tab)">
+                                        <i class="fa fa-warning"></i>
+                                    </button>
+                                    <span class="custom-warning-count">{{tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount:
+                                        'MessageType': 'W'}}</span>
+                                </span>
+                                <span class="custom-error-container" data-ng-if="(tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'E') > 0">
+                                    <button class="btn-error" data-ng-click="OrganizationCtrl.ePage.Masters.config.ShowErrorWarningModal(tab)">
+                                        <i class="fa fa-warning"></i>
+                                    </button>
+                                    <span class="custom-error-count">{{tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount:
+                                        'MessageType': 'E'}}</span>
+                                </span>
+                            </span>
+                        </uib-tab-heading>
+                        <div class="padding-bottom-10 clearfix">
+                            <!--Shipment Menu Directive-->
+                            <organization-menu current-organization="tab"></organization-menu>
+                            <!--Standard Menu  -->
+                            <!-- <div class="eaxis-footer-strip">
+                                <standard-menu obj="tab" key-object="'OrgHeader'" key-object-no="'Code'" config-name="organizationConfig" entity="Organization"
+                                    entity-source="ORG" menu-config="OrganizationCtrl.ePage.Masters.StandardMenuConfig"></standard-menu>
+                            </div> -->
+
+                            <!-- <button class="btn btn-primary btn-sm pull-right" data-ng-click="OrganizationCtrl.ePage.Masters.Save(tab)" data-ng-bind="OrganizationCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="OrganizationCtrl.ePage.Masters.IsDisableSave"></button> -->
+                        </div>
+                    </uib-tab>
+                    <button class="btn btn-default" ng-click="OrganizationCtrl.ePage.Masters.CreateNewOrganization()" data-ng-disabled="OrganizationCtrl.ePage.Masters.IsNewEmployeeClicked">+</button>
+                </uib-tabset>
+            </div>
+        </div>
+    </div>
+</div>

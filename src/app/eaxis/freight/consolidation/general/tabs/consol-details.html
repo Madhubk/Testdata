@@ -1,0 +1,369 @@
+<div class="clearfix padding-top-10">
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">Agent Type</label>
+                <select chosen ng-options="x.Key as x.Description for x in GeneralConCtrl.ePage.Masters.DropDownMasterList.CON_TYPE.ListSource"
+                        ng-model="GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.AgentType" class="form-control">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">Transport Mode</label>
+                <select chosen ng-options="x.Key as x.Description for x in GeneralConCtrl.ePage.Masters.DropDownMasterList.CON_TRANSPORT.ListSource"
+                        ng-model="GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.TransportMode" class="form-control">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">Container Mode</label>
+                <select chosen ng-options="x.Key as x.Description for x in GeneralConCtrl.ePage.Masters.DropDownMasterList.CON_CNTMODE.ListSource"
+                        ng-model="GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ContainerMode" class="form-control">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">Is Domestic</label>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" data-ng-model="GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.IsDomestic" class="colored-blue">
+                        <span class="text"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">First Load</label>
+            <div class="input-group input-group-sm">
+                <div dynamic-lookup my-ng-model="GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.FirstLoadPort" obj="GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader"
+                     prefix-data="'MstUNLOCO'" config="'ConGeneralFirstLoadPort'"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader" prefix-data="'MstUNLOCO'" field-name="'ConGeneralFirstLoadPort'"
+                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="GeneralConCtrl.ePage.Masters.SelectedData($item)"
+                            class="btn btn-default shiny" type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">Last Discharge</label>
+            <div class="input-group input-group-sm">
+                <dynamic-lookup my-ng-model="GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.LastDischargePort" obj="GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader"
+                                prefix-data="'MstUNLOCO'" config="'ConGeneralLastDischargePort'"></dynamic-lookup>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader" prefix-data="'MstUNLOCO'" field-name="'ConGeneralLastDischargePort'"
+                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="GeneralConCtrl.ePage.Masters.SelectedData($item)"
+                            class="btn btn-default shiny" type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                </span>
+            </div>
+            <!--<input class="form-control" ng-model="GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.LastDischargePort"
+                    type="text" placeholder="Las Disc"> <span class="input-group-btn"><button dynamic-list-modal obj="GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader" field-name="'ConGeneralLastDischargePort'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="GeneralConCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button></span></div>-->
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">Phase</label>
+            <select chosen ng-options="x.Key as x.Description for x in GeneralConCtrl.ePage.Masters.DropDownMasterList.PHASE.ListSource"
+                    ng-model="GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.Phase" class="form-control">
+                <option value="">--Select--</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">Service Level</label>
+            <select chosen ng-options="x.Key as x.Description for x in GeneralConCtrl.ePage.Masters.DropDownMasterList.CON_SERVICELEVEL.ListSource"
+                    ng-model="GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.AWBServiceLevel" class="form-control">
+                <option value="">--Select--</option>
+            </select>
+        </div>
+    </div>
+
+
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3" data-ng-show="GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.TransportMode!='AIR'">
+        <div class="form-group">
+            <label class="control-label">BOL</label>
+            <input type="text" max-length="70" ng-model="GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.MasterBillNo" maxlength="12"
+                   class="form-control input-sm" placeholder="BOL">
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3" data-ng-show="GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.TransportMode=='AIR'">
+        <div class="form-group">
+            <label class="control-label">MAWB</label>
+            <input type="text" max-length="70" ng-model="GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.MasterBillNo" maxlength="12"
+                   class="form-control input-sm" placeholder="BOL">
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3" data-ng-show="GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.TransportMode=='AIR'">
+        <div class="form-group">
+            <label class="control-label">Neutral MAWB</label>
+            <div class="checkbox mt10">
+                <label>
+                    <input type="checkbox" ng-model="GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.IsNeutralMaster" class="colored-blue" />
+                    <span class="text"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">Payment</label>
+            <select chosen ng-options="x.Key as x.Description for x in GeneralConCtrl.ePage.Masters.DropDownMasterList.CON_PAYMENT.ListSource"
+                    ng-model="GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.PrepaidCollect" class="form-control">
+                <option value="">--Select--</option>
+            </select>
+        </div>
+    </div>
+
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">CRN</label>
+            <div>
+                <input type="text" max-length="70" ng-model="GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.CRN" maxlength="12"
+                       class="form-control input-sm" placeholder="CRN">
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">Scrn</label>
+            <div>
+                <select chosen ng-options="x.Key as x.Description for x in GeneralConCtrl.ePage.Masters.DropDownMasterList.CON_SCRN.ListSource"
+                        ng-model="GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ScreeningStatus" class="form-control">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix padding-top-5 routing-box">
+    <div class="padding-left-10">
+        <label class="control-label text-single-line text-single-line-label1">
+            <i class="fa fa-ship"></i> Vessel Details
+        </label>
+    </div>
+</div>
+<div class="clearfix padding-top-10 routing-box-line">
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">Voyage</label>
+                <input type="text" ng-model="GeneralConCtrl.ePage.Entities.JobRoutes.Data.UIJobRoutesList.VoyageFlight" maxlength="12" class="form-control input-sm"
+                       placeholder="Voyage">
+            </div>
+        </div>
+        <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">Aircraft Registration</label>
+                <div class="input-group input-group-sm">
+                    <input class="form-control" ng-model="GeneralConCtrl.ePage.Entities.JobRoutes.Data.UIJobRoutesList.Vessel" type="text" placeholder="Vessel">
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="GeneralConCtrl.ePage.Entities.JobRoutes.Data.UIJobRoutesList" field-name="''" mode="2" grid-refresh-fun-name=""
+                            grid-refresh-fun="" selected-data="GeneralConCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny"
+                            type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">Vessel</label>
+                <div class="input-group input-group-sm">
+                    <input class="form-control" ng-model="GeneralConCtrl.ePage.Entities.JobRoutes.Data.UIJobRoutesList.Vessel" type="text" placeholder="Vessel">
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="GeneralConCtrl.ePage.Entities.JobRoutes.Data.UIJobRoutesList" field-name="''" mode="2" grid-refresh-fun-name=""
+                                grid-refresh-fun="" selected-data="GeneralConCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny"
+                                type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">Load</label>
+                <div class="input-group input-group-sm">
+                    <input class="form-control" ng-model="GeneralConCtrl.ePage.Entities.JobRoutes.Data.UIJobRoutesList.LoadPort" type="text"
+                           placeholder="LoadPort">
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="GeneralConCtrl.ePage.Entities.JobRoutes.Data.UIJobRoutesList" field-name="''" mode="2" grid-refresh-fun-name=""
+                                grid-refresh-fun="" selected-data="GeneralConCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny"
+                                type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">Discharge</label>
+                <div class="input-group input-group-sm">
+                    <input class="form-control" ng-model="GeneralConCtrl.ePage.Entities.JobRoutes.Data.UIJobRoutesList.DischargePort" type="text"
+                           placeholder="Discharge">
+
+                    <span class="input-group-btn">
+
+                        <button dynamic-list-modal obj="GeneralConCtrl.ePage.Entities.JobRoutes.Data.UIJobRoutesList" field-name="''" mode="2" grid-refresh-fun-name=""
+                                grid-refresh-fun="" selected-data="GeneralConCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny"
+                                type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix">
+
+        <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group"><label class="control-label">ETD</label>
+                <div class="input-group input-group-sm"><input class="form-control" type="text" ng-model="GeneralConCtrl.ePage.Entities.JobRoutes.Data.UIJobRoutesList.ETD"
+                        placeholder="{{GeneralConCtrl.ePage.Masters.DatePicker.Options.format}}"
+                        uib-datepicker-popup="{{GeneralConCtrl.ePage.Masters.DatePicker.Options.format}}"
+                        datepicker-options="GeneralConCtrl.ePage.Masters.DatePicker.Options"
+                        is-open="GeneralConCtrl.ePage.Masters.DatePicker.isOpen['ETD']">
+                    <span
+                        class="input-group-btn"> <button class="btn btn-default shiny" data-ng-click="GeneralConCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'ETD')"><i class="fa fa-calendar"></i></button></span>
+                </div>
+            </div>
+        </div> -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">ATD</label>
+                <div class="input-group input-group-sm">
+                    <input class="form-control" type="text" ng-model="GeneralConCtrl.ePage.Entities.JobRoutes.Data.UIJobRoutesList.ATD" placeholder="{{GeneralConCtrl.ePage.Masters.DatePicker.Options.format}}"
+                           uib-datepicker-popup="{{GeneralConCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="GeneralConCtrl.ePage.Masters.DatePicker.Options"
+                           is-open="GeneralConCtrl.ePage.Masters.DatePicker.isOpen['ATD']">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="GeneralConCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'ATD')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group"><label class="control-label">ETA</label>
+                <div class="input-group input-group-sm"><input class="form-control" type="text" ng-model="GeneralConCtrl.ePage.Entities.JobRoutes.Data.UIJobRoutesList.ETA"
+                        placeholder="{{GeneralConCtrl.ePage.Masters.DatePicker.Options.format}}"
+                        uib-datepicker-popup="{{GeneralConCtrl.ePage.Masters.DatePicker.Options.format}}"
+                        datepicker-options="GeneralConCtrl.ePage.Masters.DatePicker.Options"
+                        is-open="GeneralConCtrl.ePage.Masters.DatePicker.isOpen['ETA']">
+                    <span
+                        class="input-group-btn"> <button class="btn btn-default shiny" data-ng-click="GeneralConCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'ETA')"><i class="fa fa-calendar"></i></button></span>
+                </div>
+            </div>
+        </div> -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">ATA</label>
+                <div class="input-group input-group-sm">
+                    <input class="form-control" type="text" ng-model="GeneralConCtrl.ePage.Entities.JobRoutes.Data.UIJobRoutesList.ATA" placeholder="{{GeneralConCtrl.ePage.Masters.DatePicker.Options.format}}"
+                           uib-datepicker-popup="{{GeneralConCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="GeneralConCtrl.ePage.Masters.DatePicker.Options"
+                           is-open="GeneralConCtrl.ePage.Masters.DatePicker.isOpen['ATA']">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="GeneralConCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'ATA')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">FCL Cut Off</label>
+                <div class="input-group input-group-sm">
+                    <input class="form-control" type="text" ng-model="GeneralConCtrl.ePage.Entities.JobRoutes.Data.UIJobRoutesList.ATA" placeholder="{{GeneralConCtrl.ePage.Masters.DatePicker.Options.format}}"
+                           uib-datepicker-popup="{{GeneralConCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="GeneralConCtrl.ePage.Masters.DatePicker.Options"
+                           is-open="GeneralConCtrl.ePage.Masters.DatePicker.isOpen['ATA']">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="GeneralConCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'ATA')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">LCL Cut Off</label>
+                <div class="input-group input-group-sm">
+                    <input class="form-control" type="text" ng-model="GeneralConCtrl.ePage.Entities.JobRoutes.Data.UIJobRoutesList.ATA" placeholder="{{GeneralConCtrl.ePage.Masters.DatePicker.Options.format}}"
+                           uib-datepicker-popup="{{GeneralConCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="GeneralConCtrl.ePage.Masters.DatePicker.Options"
+                           is-open="GeneralConCtrl.ePage.Masters.DatePicker.isOpen['ATA']">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="GeneralConCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'ATA')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">VGM Cut Off</label>
+                <div class="input-group input-group-sm">
+                    <input class="form-control" type="text" ng-model="GeneralConCtrl.ePage.Entities.JobRoutes.Data.UIJobRoutesList.ATA" placeholder="{{GeneralConCtrl.ePage.Masters.DatePicker.Options.format}}"
+                           uib-datepicker-popup="{{GeneralConCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="GeneralConCtrl.ePage.Masters.DatePicker.Options"
+                           is-open="GeneralConCtrl.ePage.Masters.DatePicker.isOpen['ATA']">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="GeneralConCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'ATA')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9 col-xl-9">
+            <div class="form-group padding-top-10">
+                <label class="control-label"></label>
+                <div class="">
+                    <label>
+                        <input type="checkbox" ng-model="GeneralConCtrl.ePage.Entities.JobRoutes.Data.UIJobRoutesList.BOL" class="colored-blue" />
+                        <span class="text">Is Domestic</span>
+                    </label>
+                    <label class="padding-left-50">
+                        <input type="checkbox" ng-model="GeneralConCtrl.ePage.Entities.JobRoutes.Data.UIJobRoutesList.BOL" class="colored-blue" />
+                        <span class="text">Is Linked</span>
+                    </label>
+                    <label class="padding-left-50">
+                        <input type="checkbox" ng-model="GeneralConCtrl.ePage.Entities.JobRoutes.Data.UIJobRoutesList.BOL" class="colored-blue" />
+                        <span class="text">Is Charter</span>
+                    </label>
+                    <label class="padding-left-50">
+                        <input type="checkbox" ng-model="GeneralConCtrl.ePage.Entities.JobRoutes.Data.UIJobRoutesList.BOL" class="colored-blue" />
+                        <span class="text">Is Cargo Only</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

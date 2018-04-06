@@ -1,0 +1,19 @@
+.address-edit.address>.modal-dialog {
+    width: 900px !important;
+}
+
+.org-edit-delete {
+    top: 5px;
+}
+
+.org-address-header {
+    font-size: 16px;
+    position: relative;
+    padding: 9px 0px;
+    color: #1f497d;
+    border-bottom: 1px solid #ddd;
+}
+
+.fs-28 {
+    font-size: 28px;
+}

@@ -1,0 +1,10 @@
+<div class="clearfix tc-dyn-grid-container" data-ng-if="TCGridCtrl.ePage.Masters.DataEntry">
+    <div class="tc-dyn-grid-heading">
+        <span data-ng-bind="TCGridCtrl.ePage.Masters.AttributeDetails.LabelText || TCGridCtrl.ePage.Masters.DataEntry.Title || 'Title'"></span>
+        <span class="fa fa-plus font-160 pull-right cursor-pointer" data-ng-click="TCGridCtrl.ePage.Masters.AddNew()" data-ng-if="TCGridCtrl.ePage.Masters.AttributeDetails.Options.AddNew == 'true' && TCGridCtrl.ePage.Masters.DataEntry.Filter.length > 0"></span>
+    </div>
+    <div class="tc-dyn-grid">
+        <dynamic-grid mode="'1'" input-data="TCGridCtrl.ePage.Masters.DataEntry" grid-config="TCGridCtrl.ePage.Masters.GridConfig"
+            selected-grid-row="TCGridCtrl.ePage.Masters.SelectedGridRow($item)" is-local-search="true"></dynamic-grid>
+    </div>
+</div>

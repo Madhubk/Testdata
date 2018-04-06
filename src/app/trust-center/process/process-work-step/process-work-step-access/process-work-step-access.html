@@ -1,0 +1,96 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="ProcessWorkStepAccessModalCtrl.ePage.Masters.ProcessWorkStepAccess.Close()">&times;</button>
+    <h5 class="modal-title" id="modal-title">
+        <strong>Access</strong>
+    </h5>
+</div>
+<div class="modal-body" id="modal-body">
+    <div class="clearfix tc-process-work-step-access">
+        <div class="clearfix">
+            <table class="tc-process-work-step-access table table-bordered table-responsive">
+                <thead>
+                    <tr>
+                        <th class="th-dropdown">Access By</th>
+                        <th class="th-dropdown">Value</th>
+                        <th class="th-dropdown">Department</th>
+                        <th class="th-filtertype">Filter Type</th>
+                        <th class="th-action"></th>
+                        <th class="th-saveaction"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-if="!ProcessWorkStepAccessModalCtrl.ePage.Masters.ProcessWorkStepAccess.ProcessWorkStepAccessList">
+                        <td colspan="6" class="text-center p-10">
+                            <i class="fa fa-spin fa-spinner" style="font-size:18px;"></i>
+                        </td>
+                    </tr>
+                    <tr data-ng-if="ProcessWorkStepAccessModalCtrl.ePage.Masters.ProcessWorkStepAccess.ProcessWorkStepAccessList.length==0">
+                        <td colspan="6" class="text-center p-10">
+                            <i>No Records...!</i>
+                        </td>
+                    </tr>
+                    <tr data-ng-if="ProcessWorkStepAccessModalCtrl.ePage.Masters.ProcessWorkStepAccess.ProcessWorkStepAccessList && ProcessWorkStepAccessModalCtrl.ePage.Masters.ProcessWorkStepAccess.ProcessWorkStepAccessList.length > 0"
+                        data-ng-repeat="item in ProcessWorkStepAccessModalCtrl.ePage.Masters.ProcessWorkStepAccess.ProcessWorkStepAccessList">
+                        <td>
+                            <select chosen class="form-control" data-ng-model="item.EntitySource" data-ng-options="x.Code as x.Name
+                                            for x in ProcessWorkStepAccessModalCtrl.ePage.Masters.ProcessWorkStepAccess.RoleUserList"
+                                ng-change="ProcessWorkStepAccessModalCtrl.ePage.Masters.ProcessWorkStepAccess.OnAccessChange(item)">
+                                <option value="">--Select--</option>
+                            </select>
+                        </td>
+                        <td>
+                            <div ng-if="!item.EntitySource">
+                                <select chosen class="form-control" data-ng-model="item.EntitySource" data-ng-options="x as x
+                                for x in []" ng-disabled="true">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                            <div ng-if = "item.EntitySource == 'ROLE'">
+                                <select chosen class="form-control" data-ng-model="item.EntitySourceCode" data-ng-options="x.RoleName as x.RoleDescription
+                                for x in ProcessWorkStepAccessModalCtrl.ePage.Masters.ProcessWorkStepAccess.SecRoleList"  data-ng-change="ProcessWorkStepAccessModalCtrl.ePage.Masters.ProcessWorkStepAccess.OnEntitySourceCodeChange((ProcessWorkStepAccessModalCtrl.ePage.Masters.ProcessWorkStepAccess.SecRoleList | filter :{RoleName:  item.EntitySourceCode})[0], item)">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                            <div ng-if="item.EntitySource=='USER'">
+                                <select chosen class="form-control" data-ng-model="item.EntitySourceCode" data-ng-options="x.UserName as x.UserName
+                                for x in ProcessWorkStepAccessModalCtrl.ePage.Masters.ProcessWorkStepAccess.SecUserList" data-ng-change="ProcessWorkStepAccessModalCtrl.ePage.Masters.ProcessWorkStepAccess.OnEntitySourceCodeChange((ProcessWorkStepAccessModalCtrl.ePage.Masters.ProcessWorkStepAccess.SecUserList | filter :{UserName:  item.EntitySourceCode})[0], item)">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                            <div ng-if="item.EntitySource=='GROUP'">
+                                <select chosen class="form-control" data-ng-model="item.EntitySourceCode" data-ng-options="x.GroupName as x.GroupName
+                                for x in  ProcessWorkStepAccessModalCtrl.ePage.Masters.ProcessWorkStepAccess.MenuGroupsList" data-ng-change="ProcessWorkStepAccessModalCtrl.ePage.Masters.ProcessWorkStepAccess.OnEntitySourceCodeChange((ProcessWorkStepAccessModalCtrl.ePage.Masters.ProcessWorkStepAccess.MenuGroupsList | filter :{GroupName:  item.EntitySourceCode})[0], item)">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <select chosen class="form-control" data-ng-model="item.DEP_Code" data-ng-options="x.Code as x.Desc
+                                                      for x in ProcessWorkStepAccessModalCtrl.ePage.Masters.ProcessWorkStepAccess.CmpDepartmentList">
+                                <option value="">--Select--</option>
+                            </select>
+                        </td>
+                        <td>
+                            <textarea class="set-tabel-textarea no-resize" data-ng-model="item.FilterType" placeholder="FilterType"></textarea>
+                        </td>
+                        <td style="text-align:center; vertical-align:middle">
+                            <span style="font-size:14px; color:#D6171F" data-ng-click="ProcessWorkStepAccessModalCtrl.ePage.Masters.ProcessWorkStepAccess.RemoveRecord(item, $index)">
+                                <i class="glyphicon glyphicon-trash text-danger cursor-pointer"></i>
+                            </span>
+                        </td>
+                        <td style="text-align:center; vertical-align:middle">
+                            <span style="font-size:14px; color:#D6171F" data-ng-click="ProcessWorkStepAccessModalCtrl.ePage.Masters.ProcessWorkStepAccess.Save(item,$index)">
+                                <i class="fa fa-floppy-o m-0 cursor-pointer"></i>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">
+                            <a class="padding-10 pull-left" href="javascript:(0);" data-ng-click="ProcessWorkStepAccessModalCtrl.ePage.Masters.ProcessWorkStepAccess.AddNewRow()">Add new Record…</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

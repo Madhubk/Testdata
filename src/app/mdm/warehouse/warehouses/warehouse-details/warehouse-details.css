@@ -1,0 +1,40 @@
+ 
+.height-40{
+    height: 40px;
+}
+
+.height-90{
+    height: 90px;
+}
+
+.font-12{
+    font-size: 12px;
+}
+
+.inner-dashboard-box{
+    width:100%;
+    float: left;
+    border:1px solid #f5f5f5;
+    position:relative;
+}
+
+.inner-dashboard-box, .dashboard-warehouse-icon-box{
+ border-radius:3px;
+}
+.general-edit.address>.modal-dialog {
+    width: 575px !important;
+}
+
+
+.dashboard-warehouse-icon-box i{
+ font-size:16px;
+}
+
+.dashboard-warehouse-icon-box span{
+ font-size:12px;
+}
+
+.border-right{
+    border-right: 1px solid #f5f5f5;
+}
+

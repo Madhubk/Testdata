@@ -1,0 +1,117 @@
+<div class="modal-header">
+    <h5 class="modal-title pull-left"><strong>{{OrgReferenceModalCtrl.ePage.Masters.param.Item.ReferenceValue || 'Title'}}</strong></h5>
+    <input type="button" class="btn btn-warning btn-xs pull-right margin-left-5" ng-click="OrgReferenceModalCtrl.ePage.Masters.Cancel()"
+        value="Close" />
+    <input type="button" class="btn btn-primary btn-xs pull-right margin-left-5" ng-click="OrgReferenceModalCtrl.ePage.Masters.Save(OrgReferenceModalCtrl.ePage.Masters.param.Item, 'OrgRefDate','reference')"
+        value="{{OrgReferenceModalCtrl.ePage.Masters.SaveButtonText}}" data-ng-disabled="OrgReferenceModalCtrl.ePage.Masters.IsDisableSave"
+    />
+</div>
+<div class="modal-body">
+    <div class="clearfix padding-5 padding-top-10">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <fieldset>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="form-group">
+                        <label for="">Reference Value</label>
+                            <input type="text" class="form-control input-sm" placeholder="Reference Value" data-ng-model="OrgReferenceModalCtrl.ePage.Masters.param.Item.ReferenceValue"/>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="form-group">
+                        <label for="">Reference Key</label>
+                        <input type="text" class="form-control input-sm" placeholder="Reference Key" data-ng-model="OrgReferenceModalCtrl.ePage.Masters.param.Item.ReferenceKey"/>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="form-group">
+                        <label for="">Reference DataType</label>
+                        <input type="text" class="form-control input-sm" placeholder="Reference DataType" data-ng-model="OrgReferenceModalCtrl.ePage.Masters.param.Item.ReferanceDateType"/>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="form-group">
+                        <label for="">Available From</label>
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" placeholder="{{OrgReferenceModalCtrl.ePage.Masters.DatePicker.Options.format}}" datetime-picker="{{OrgReferenceModalCtrl.ePage.Masters.DatePicker.Options.format}}"
+                                    ng-model="OrgReferenceModalCtrl.ePage.Masters.param.Item.AvailableFrom"
+                                    is-open="OrgReferenceModalCtrl.ePage.Masters.DatePicker.isOpen['isAvailableFrom']"
+                                    datepicker-options="OrgReferenceModalCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                                    close-on-selection="false" enable-time="false" enable-date="true" default-date=""
+                                    default-time="" when-closed="" save-as="ISO" data-ng-click=""
+                                />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" data-ng-click="OrgReferenceModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isAvailableFrom')">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </span>
+                            </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="form-group">
+                        <label for="">Available To</label>
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" placeholder="{{OrgReferenceModalCtrl.ePage.Masters.DatePicker.Options.format}}" datetime-picker="{{OrgReferenceModalCtrl.ePage.Masters.DatePicker.Options.format}}"
+                                    ng-model="OrgReferenceModalCtrl.ePage.Masters.param.Item.AvailableTo"
+                                    is-open="OrgReferenceModalCtrl.ePage.Masters.DatePicker.isOpen['isAvailableTo']"
+                                    datepicker-options="OrgReferenceModalCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                                    close-on-selection="false" enable-time="false" enable-date="true" default-date=""
+                                    default-time="" when-closed="" save-as="ISO" data-ng-click=""
+                                />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" data-ng-click="OrgReferenceModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isAvailableTo')">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </span>
+                            </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="form-group">
+                        <label for="">Start Date</label>
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" placeholder="{{OrgReferenceModalCtrl.ePage.Masters.DatePicker.Options.format}}" datetime-picker="{{OrgReferenceModalCtrl.ePage.Masters.DatePicker.Options.format}}"
+                                    ng-model="OrgReferenceModalCtrl.ePage.Masters.param.Item.StartDate"
+                                    is-open="OrgReferenceModalCtrl.ePage.Masters.DatePicker.isOpen['isStartDate']"
+                                    datepicker-options="OrgReferenceModalCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                                    close-on-selection="false" enable-time="false" enable-date="true" default-date=""
+                                    default-time="" when-closed="" save-as="ISO" data-ng-click=""
+                                />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" data-ng-click="OrgReferenceModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isStartDate')">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </span>
+                            </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="form-group">
+                        <label for="">End Date</label>
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" placeholder="{{OrgReferenceModalCtrl.ePage.Masters.DatePicker.Options.format}}" datetime-picker="{{OrgReferenceModalCtrl.ePage.Masters.DatePicker.Options.format}}"
+                                    ng-model="OrgReferenceModalCtrl.ePage.Masters.param.Item.EndDate"
+                                    is-open="OrgReferenceModalCtrl.ePage.Masters.DatePicker.isOpen['isEndDate']"
+                                    datepicker-options="OrgReferenceModalCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                                    close-on-selection="false" enable-time="false" enable-date="true" default-date=""
+                                    default-time="" when-closed="" save-as="ISO" data-ng-click=""
+                                />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" data-ng-click="OrgReferenceModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEndDate')">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </span>
+                            </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <input type="button" class="btn btn-warning btn-xs pull-right margin-left-5" ng-click="OrgReferenceModalCtrl.ePage.Masters.Cancel()"
+        value="Close" />
+    <input type="button" class="btn btn-primary btn-xs pull-right margin-left-5" ng-click="OrgReferenceModalCtrl.ePage.Masters.Save(OrgReferenceModalCtrl.ePage.Masters.param.Item, 'OrgRefDate','reference')"
+        value="{{OrgReferenceModalCtrl.ePage.Masters.SaveButtonText}}" data-ng-disabled="OrgReferenceModalCtrl.ePage.Masters.IsDisableSave"
+    />
+</div>

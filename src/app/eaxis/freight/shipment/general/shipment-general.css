@@ -1,0 +1,69 @@
+.package-link {
+    font-size: 16px;
+    text-decoration: underline;
+}
+
+.package-details-heading i {
+    font-size: 30px;
+}
+
+.package-details-heading i:hover {
+    text-decoration: none;
+}
+
+.package-details-heading .heading {
+    font-size: 18px;
+}
+
+.packing .modal-dialog {
+    width: 70% !important;
+}
+
+.txtarea-height-45 {
+    height: 40px !important;
+}
+
+.dropdownWrapLeft {
+    position: absolute;
+    z-index: 999999;
+    width: 998px;
+    background: #f0f0f0;
+    box-shadow: 1px 1px 5px #999;
+    left: 0px;
+    top: 41px;
+}
+
+.dropdownWrapMiddle {
+    position: absolute;
+    z-index: 999999;
+    width: 998px;
+    background: #f0f0f0;
+    box-shadow: 1px 1px 5px #999;
+    right: -342px;
+    top: 41px;
+}
+
+.dropdownWrapLast {
+    position: absolute;
+    z-index: 999999;
+    width: 998px;
+    background: #f0f0f0;
+    box-shadow: 1px 1px 5px #999;
+    right: 0px;
+    top: 41px;
+}
+.address-panel {
+    background-color: #f9f9f9; 
+    border: 1px solid #eee;
+}
+.address-design {
+    border-right: 1px solid #eee;
+}
+.address-consignee {
+    border-right: 1px solid #eee;
+}
+.packing-total {
+    background : #fbfbfb;
+    border-top : 1px solid #d71921;
+    border-bottom : 1px solid #d71921;
+}

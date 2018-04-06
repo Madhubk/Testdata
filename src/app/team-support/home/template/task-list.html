@@ -1,0 +1,110 @@
+<!--Task List With Team Type Master Tab-->
+<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 padding-left-10 pb-50" data-ng-if="!SupportCtrl.ePage.Masters.IsShowDetails">
+  <!--Task List Wrapper-->
+  <div class="task-list-wrapper">
+    <!--Team Type Master Tab-->
+    <div class="team-type-master-tab-wrapper" data-ng-if="SupportCtrl.ePage.Entities.SupportHeader.Meta.TeamTypeMaster.ListSource">
+      <ul class="nav nav-tabs tabs-flat nav-justified">
+        <li ng-repeat="x in SupportCtrl.ePage.Entities.SupportHeader.Meta.TeamTypeMaster.ListSource | filter:  {TypeCode: 'Status'} | orderBy :'Sequence'"
+          data-ng-class="{'active' : SupportCtrl.ePage.Masters.activeTaskTab == x.Key}" data-ng-click="SupportCtrl.ePage.Masters.activeTaskTab != x.Key && SupportCtrl.ePage.Masters.OnStatusChange(x)">
+          <a href="javascript:void(0)" data-toggle="tab">
+            <i class="{{x.Value}}">
+            </i> {{x.Key}}
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!--Custom Status Button-->
+    <div class="custom-status-list-wrapper padding-top-5" data-ng-if="SupportCtrl.ePage.Masters.activeTaskTab == 'Custom'">
+      <div class="clearfix">
+        <div class="col-sm-4">
+          <div class="form-horizontal">
+            <div class="form-group">
+              <label class="control-label col-sm-4">Filter Templets
+              </label>
+              <div class="col-sm-8">
+                <select chosen name="category-group" class="form-control header-select-control input-sm gmail-style-btn" ng-model="SupportCtrl.ePage.Entities.SupportHeader.Data.CustomStatusData"
+                  ng-options="x.Tag as x.Tag for x in SupportCtrl.ePage.Masters.CustomStatusTab.ListSource" ng-change="SupportCtrl.ePage.Masters.OnCustomStatusChange((SupportCtrl.ePage.Masters.CustomStatusTab.ListSource  | filter: {Tag : SupportCtrl.ePage.Entities.SupportHeader.Data.CustomStatusData})[0])"
+                  search-contains="true">
+                  <option value="">--Select--
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>      
+    </div>
+    <!--Task List-->
+    <!--Loading-->
+    <div class="text-center grid-view-loader padding-20" data-ng-if="!SupportCtrl.ePage.Entities.SupportHeader.Meta.Task.ListSource">
+      <i class="fa fa-spin fa-spinner font-160">
+      </i>
+    </div>
+    <!--No records-->
+    <div class="text-center grid-view-loader padding-20" data-ng-if="SupportCtrl.ePage.Entities.SupportHeader.Meta.Task.ListSource.length === 0">
+      <i class="">No Records Found...!
+      </i>
+    </div>
+    <!--List-->
+    <div class="clearfix padding-5 task-list" data-ng-repeat="x in SupportCtrl.ePage.Entities.SupportHeader.Meta.Task.ListSource"
+      data-ng-if="(SupportCtrl.ePage.Entities.SupportHeader.Meta.Task.ListSource && SupportCtrl.ePage.Entities.SupportHeader.Meta.Task.ListSource.length !== 0 && SupportCtrl.ePage.Masters.activeTaskTab !== 'Custom') || (SupportCtrl.ePage.Masters.activeTaskTab == 'Custom' && SupportCtrl.ePage.Masters.IsCustomListClicked)"
+      data-ng-dblclick="SupportCtrl.ePage.Masters.OnTaskDblClick(x)">
+      <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 no-padding-left">
+        <div class="checkbox col-lg-4 list">
+          <label>
+            <input type="checkbox" class="colored-blue" data-ng-click="SupportCtrl.ePage.Masters.FilterTask($event, x)">
+            <span class="text text-single-line">
+            </span>
+          </label>
+        </div>
+        <div class="col-lg-4 list star">
+          <i class="fa fa-star" ng-class="{'unstarred': x.Starred == 'Unstarred', 'starred': x.Starred == 'Starred'}" ng-click="!SupportCtrl.ePage.Masters.IsStarClicked && SupportCtrl.ePage.Masters.OnStarChange(x)"
+            ng-if="x.AssignTo == SupportCtrl.ePage.Masters.UserProfile.UserId">
+          </i>
+        </div>
+        <div class="col-lg-4 list badge-wrapper">
+          <span class="badge badge-yellow" data-ng-if="x.Priority=='P1' || x.Priority=='P2'">{{x.Priority}}
+          </span>
+          <span class="badge badge-default" data-ng-class="{'priority1':x.Priority=='P1','priority2':x.Priority=='P2','priority3':x.Priority=='P3','priority4':x.Priority=='P4'}"
+            data-ng-if="x.Priority!='P1' && x.Priority!='P2'">{{x.Priority}}
+          </span>
+        </div>
+      </div>
+      <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 list cursor-pointer">
+        <div class="text-single-line">
+          <span class="title" data-ng-bind="x.Title">
+          </span>
+          <span class="description" data-ng-bind="x.Description">
+          </span>
+        </div>
+        <div class="text-single-line">
+          <span class="task-no label label-darkorange" data-ng-bind="x.TaskNo">
+          </span>
+          <span class="assign-to" data-ng-bind="x.AssignTo">
+          </span>
+          <span class="raised-on" data-ng-bind="x.RaisedOn | date: 'dd-MMM-yyyy hh:mm a'">
+          </span>
+          <span class="record-type" data-ng-bind="x.RecordType">
+          </span>
+          <span class="category" data-ng-bind="x.Category">
+          </span>
+          <span class="module" data-ng-bind="x.Module">
+          </span>
+        </div>
+      </div>
+      <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 list">
+        <div class="status">
+          <span data-ng-bind="x.Status">
+          </span>
+        </div>
+      </div>
+      <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 list">
+        <div class="effort-time-label">
+          <span data-ng-bind="x.EffortRemain | effortCalculation: x.EffortRemain: x.Effort">
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

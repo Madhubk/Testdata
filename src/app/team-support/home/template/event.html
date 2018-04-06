@@ -1,0 +1,13 @@
+<div class="text-center" data-ng-if="SupportCtrl.ePage.Entities.SupportHeader.Meta.Event.ListSource.length===0">No Records Found
+	<div class="row" data-ng-repeat="x in SupportCtrl.ePage.Entities.SupportHeader.Meta.Event.ListSource">
+		<div class="col-sm-4 col-md-4 col-lg-4">
+			{{x.FieldName}}
+		</div>
+		<div class="col-sm-2 col-md-2 col-lg-2">
+			{{x.EventDateTime | date:'dd-MMM-yyyy hh:mm a'}}
+		</div>
+		<div class="col-sm-6 col-md-6 col-lg-6">
+			{{x.RelatedDetails}}
+		</div>
+	</div>
+</div>

@@ -1,0 +1,12 @@
+.small-fix {
+    font-size: 12px;
+    padding: 0px 0px;
+    line-height: 1.39;
+    margin-top: 3px;
+}
+.fix-crt {
+    margin-top: 5px;
+}
+.pagination>li>a, .pagination>li>span{
+  border: 0px solid #ddd !important;
+}

@@ -1,0 +1,38 @@
+<div class="clearfix wms-menu-wraper">
+    <div id="wmsMenuWrapper{{PickupandDeliveryMenuCtrl.currentPickupanddelivery.label}}" 
+        class="col-sm-12 no-padding-left no-padding-right">          
+
+        <uib-tabset class="wms-menu tabs-left tabbable">
+            <div class="tab-profile">
+                <div class="tab-profile-title text-single-line text-center" ng-if="!PickupandDeliveryMenuCtrl.currentPickupanddelivery.isNew" data-ng-bind="PickupandDeliveryMenuCtrl.currentPickupanddelivery.label"></div>
+                <div class="tab-profile-title text-single-line text-center" ng-if="PickupandDeliveryMenuCtrl.currentPickupanddelivery.isNew">New</div>
+                <div class="wocstatus text-single-line text-center" title="{{PickupandDeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader	.Status + ' - '+ PickupandDeliveryMenuCtrl.ePage.Masters.Status}}" data-ng-bind="PickupandDeliveryMenuCtrl.ePage.Masters.Status"></div> 
+            </div>
+
+            <uib-tab ng-repeat="x in PickupandDeliveryMenuCtrl.ePage.Masters.PODMenu.ListSource">
+                <uib-tab-heading title="{{x.DisplayName}}">
+                    <i class="fa {{x.Icon}} margin-right-5"></i> <span class="text-single-line" data-ng-bind="x.DisplayName"></span>
+                </uib-tab-heading>
+                <div>
+                    <div ng-switch="x.Value">
+
+                        <!--Menu directives-->
+                        <div ng-switch-when="General" pickupanddelivery-general current-pickupanddelivery="PickupandDeliveryMenuCtrl.currentPickupanddelivery"></div>
+                        <div ng-switch-when="Pickupanddelivery" pickupanddelivery-detail current-pickupanddelivery="PickupandDeliveryMenuCtrl.currentPickupanddelivery"></div>
+                    </div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+    <!--Footer-->
+     <div class="eaxis-footer-strip">
+        <div class="col-lg-10">
+            <standard-menu entity-name="'TransportPickupandDelivery'" input="PickupandDeliveryMenuCtrl.currentPickupanddelivery" data-ng-if="!PickupandDeliveryMenuCtrl.currentPickupanddelivery.isNew"></standard-menu>
+            <!--<standard-menu input="PickupandDeliveryMenuCtrl.ePage.Masters.StandardMenuInput" data-ng-if="!PickupandDeliveryMenuCtrl.currentPickupanddelivery.isNew"></standard-menu>-->
+        </div>
+        <div class="col-lg-2">
+            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="PickupandDeliveryMenuCtrl.ePage.Masters.Save(PickupandDeliveryMenuCtrl.currentPickupanddelivery)"
+            data-ng-bind="PickupandDeliveryMenuCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="PickupandDeliveryMenuCtrl.ePage.Masters.IsDisableSave"></button>
+        </div>
+    </div>
+</div>

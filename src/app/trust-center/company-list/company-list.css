@@ -1,0 +1,4 @@
+.tc-company-list-container .dynamic-table-wrapper {
+    min-height: 250px !important;
+    max-height: 500px !important;
+}

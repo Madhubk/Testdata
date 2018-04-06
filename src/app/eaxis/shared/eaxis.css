@@ -1,0 +1,7 @@
+.ea-section-divider{
+    width: 100%;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    height: 7px;
+    background-color: #f4f4f4;
+}

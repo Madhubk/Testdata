@@ -1,0 +1,18 @@
+<div class="clearfix activity-tab-wraper">
+    <div>
+        <uib-tabset class="tabbable" data-ng-if="ActivityTabCtrl.ePage.Masters.ActivityTab.List">
+            <uib-tab ng-repeat="x in ActivityTabCtrl.ePage.Masters.ActivityTab.List">
+                <uib-tab-heading title="{{x.WSI_StepName}}">
+                    <i class="fa {{x.Icon}} margin-right-5"></i>
+                    <span class="text-single-line" data-ng-bind="x.WSI_StepName"></span>
+                </uib-tab-heading>
+                <div>
+                    <div class="clearfix">
+                        <!-- <dynamic-control input="" mode="D" current="ActivityTabCtrl.ePage.Entities" view-type="2" dataentry-name="x.Code"></dynamic-control> -->
+                        <my-task-dynamic-edit-directive task-obj='x' entity-obj='ActivityTabCtrl.ePage.Entities.Header.Data' tab-obj="ActivityTabCtrl.obj"></my-task-dynamic-edit-directive>
+                    </div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>

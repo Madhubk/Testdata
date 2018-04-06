@@ -1,0 +1,13 @@
+<div id="myDialog">
+    <div class="modal-header ">
+        <h3 class="modal-title " id="modal-title ">Consignment Created Successfully </h3>
+    </div>
+    <div class="modal-body " id="modal-body ">
+        <h3>Reference No : {{CreateConsignCtrl.ePage.Masters.ProcessInfo.TmsConsignmentHeader.ConsignmentNumber}}</h3>
+        <!--<h3>Process InstanceID : {{CreateConsignCtrl.ePage.Masters.ProcessInfo.ProcessInfo[0].PSI_InstanceNo}}</h3>-->
+    </div>
+    <div class="modal-footer ">
+        <button class="btn btn-primary " type="button " ng-click="CreateConsignCtrl.ePage.Masters.GoToDashboard() ">Go to Dashboard</button>
+        <button class="btn btn-warning " type="button " ng-click="CreateConsignCtrl.ePage.Masters.CreateConsignment()">Create New Consignment</button>
+    </div>
+</div>

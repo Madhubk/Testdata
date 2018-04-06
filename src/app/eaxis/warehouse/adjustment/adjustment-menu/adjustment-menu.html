@@ -1,0 +1,52 @@
+
+<div class="finalisedstate" ng-show="!AdjustmentMenuCtrl.ePage.Entities.Header.CheckPoints.NotFinaliseStage">
+    <span ng-if="!AdjustmentMenuCtrl.ePage.Entities.Header.CheckPoints.NotFinaliseStage" ng-init="AdjustmentMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave = 'true'"></span>
+    <span class="finaliseddatedescription">Adjustment Finalized and it cannot be edited</span>
+</div>
+<div class="clearfix wms-menu-wraper">
+        <!--Menu directives-->
+        <div  adjustment-general current-adjustment="AdjustmentMenuCtrl.currentAdjustment"></div>
+    <div class="error-warning-container right" id="errorWarningContainer{{AdjustmentMenuCtrl.currentAdjustment.label}}">
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                <!-- <i class="fa fa-warning"></i>  -->
+                Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right" data-ng-click="AdjustmentMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(AdjustmentMenuCtrl.currentAdjustment)">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+        </div>
+        <div class="error-warning-body">
+            <div class="clearfix" data-ng-if="AdjustmentMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length>0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in AdjustmentMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Footer-->
+
+    <div class="eaxis-footer-strip">
+      <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+            <standard-menu entity-name="'WarehouseAdjustments'" input="AdjustmentMenuCtrl.currentAdjustment"></standard-menu>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+            <button class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6" data-ng-click="AdjustmentMenuCtrl.ePage.Masters.Validation(AdjustmentMenuCtrl.currentAdjustment)" data-ng-bind="AdjustmentMenuCtrl.ePage.Masters.SaveButtonText"
+                data-ng-disabled="AdjustmentMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave"></button>
+            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="AdjustmentMenuCtrl.ePage.Masters.Validation(AdjustmentMenuCtrl.currentAdjustment);AdjustmentMenuCtrl.ePage.Masters.SaveAndClose = true"
+                data-ng-disabled="AdjustmentMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave">Save & Close</button>
+            <button ng-show="AdjustmentMenuCtrl.ePage.Entities.Header.CheckPoints.NotFinaliseStage" class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6" data-ng-click="AdjustmentMenuCtrl.ePage.Masters.Finalize(AdjustmentMenuCtrl.currentAdjustment)" data-ng-bind="AdjustmentMenuCtrl.ePage.Masters.FinaliseSaveText"
+                data-ng-disabled="AdjustmentMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave"></button>
+        </div>
+    </div>    
+</div>

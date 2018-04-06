@@ -1,0 +1,27 @@
+
+    .height-40{
+        height: 40px;
+    }
+    
+    .font-12{
+        font-size: 12px;
+    }
+    
+    .inner-dashboard-box {
+     border-radius:3px;
+    }
+    
+    .inner-dashboard-box{
+        width:100%;
+        float: left;
+     border:1px solid #f5f5f5;
+     position:relative;
+    }
+
+    .border-right{
+        border-right: 1px solid #f5f5f5;
+    }
+    
+    .border-bottom{
+        border-bottom: 1px solid #f5f5f5;
+    }

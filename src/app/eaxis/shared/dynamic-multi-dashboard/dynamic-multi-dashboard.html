@@ -1,0 +1,10 @@
+<uib-tabset class="tab-container" data-ng-if="DynMultiDashboardCtrl.ePage.Masters.Tab.ListSource && DynMultiDashboardCtrl.ePage.Masters.Tab.ListSource.length > 0">
+    <uib-tab ng-repeat="tab in DynMultiDashboardCtrl.ePage.Masters.Tab.ListSource">
+        <uib-tab-heading title="{{tab.MenuName}}">
+            <span data-ng-bind="tab.MenuName"></span>
+        </uib-tab-heading>
+        <div class="clearfix">
+            <div data-ng-if="tab.FilePath" data-ng-include="tab.FilePath"></div>
+        </div>
+    </uib-tab>
+</uib-tabset>

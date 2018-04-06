@@ -1,0 +1,20 @@
+<div class="clearfix">
+    <div class="clearfix margin-top-10">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <!--Grid directive-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="clearfix">
+                    <button class="btn btn-primary pull-right" data-ng-click="ContainerConCtrl.ePage.Masters.Container.AddNewContainer()">
+                        <i class="fa fa-plus-circle"></i> Add Container</button>
+                </div>
+                <div class="height-230 clearfix">
+                    <div class="text-center grid-view-loader" data-ng-if="!ContainerConCtrl.ePage.Masters.Container.GridData">
+                        <i class="fa fa-spin fa-spinner font-160"></i>
+                    </div>
+                    <dynamic-table data-ng-if="ContainerConCtrl.ePage.Masters.Container.GridData" grid-data="ContainerConCtrl.ePage.Masters.Container.GridData"
+                        grid-config="ContainerConCtrl.ePage.Masters.Container.gridConfig" selected-grid-row="ContainerConCtrl.ePage.Masters.Container.SelectedGridRow($item)"></dynamic-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+<div class="clearfix order-menu-wraper">
+    <div id="orderMenuWrapper{{OrderMenuCtrl.currentOrder.label}}" class="col-sm-12 no-padding-left no-padding-right">
+        <uib-tabset class="order-menu tabs-left tabbable">
+            <div class="tab-profile">
+                <div class="tab-profile-title text-single-line text-center" data-ng-bind="OrderMenuCtrl.currentOrder.label"></div>
+            </div>
+            <uib-tab ng-repeat="x in OrderMenuCtrl.ePage.Masters.OrderMenu.ListSource" deselect="OrderMenuCtrl.ePage.Masters.TabSelected(x,$selectedIndex,$event);">
+                <uib-tab-heading title="{{x.DisplayName}}">
+                    <i class="fa {{x.Icon}} margin-right-5"></i> <span class="text-single-line" data-ng-bind="x.DisplayName"></span>
+                </uib-tab-heading>
+                <div>
+                    <div ng-switch="x.Value">
+                        <!--Menu directives-->
+                        <div ng-switch-when="General" order-general current-order="OrderMenuCtrl.currentOrder"></div>
+                        <div ng-switch-when="OrderLines" order-lines current-order="OrderMenuCtrl.currentOrder"></div>
+                        <div ng-switch-when="ProductQuantitySummary" prod-summary current-order="OrderMenuCtrl.currentOrder"></div>
+                        <div ng-switch-when="CargoReadiness" order-cargo-readiness current-order="OrderMenuCtrl.currentOrder"></div>
+                        <div ng-switch-when="ShpPreAdvice" order-shipment-pre-advice current-order="OrderMenuCtrl.currentOrder"></div>
+                        <div ng-switch-when="Shipment" order-shipment current-order="OrderMenuCtrl.currentOrder"></div>
+                        <div ng-switch-when="Split" order-split current-order="OrderMenuCtrl.currentOrder"></div>
+                        <div ng-switch-when="Address" data-ng-if="OrderMenuCtrl.currentOrder[OrderMenuCtrl.currentOrder.label].ePage.Entities.Header.Data.UIAddressContactList.CfxTypeList"
+                            address-directives current-obj="OrderMenuCtrl.currentOrder" entitysource="'POH'"></div>
+
+                    </div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+    <!--Standard Menu Directive-->
+    <!-- <div class="eaxis-footer-strip">
+        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
+            <standard-menu input="OrderMenuCtrl.ePage.Masters.StandardMenuInput" data-ng-if="!OrderMenuCtrl.currentOrder.isNew"></standard-menu>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="OrderMenuCtrl.ePage.Masters.Save(OrderMenuCtrl.currentOrder)"
+                data-ng-bind="OrderMenuCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="OrderMenuCtrl.ePage.Masters.IsDisableSave"></button>
+        </div>
+    </div> -->
+
+</div>

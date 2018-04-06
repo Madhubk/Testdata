@@ -1,0 +1,235 @@
+<div class="clearfix tc-filter-list">
+    <!-- Breadcrumb -->
+    <div class="clearfix tc-breadcrumb" data-ng-if="ProcessCtrl.ePage.Masters.ActiveApplication == 'TC'">
+        <i class="fa fa-home home-icon"></i>
+        <div class="breadcrumb-list-wrapper">
+            <ol class="breadcrumb">
+                <li data-ng-repeat="x in ProcessCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="ProcessCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                </li>
+                <li data-ng-repeat="x in ProcessCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
+                    class="active"></li>
+            </ol>
+        </div>
+        <span class="tc-breadcrumb-app-name" data-ng-if="ProcessCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="ProcessCtrl.ePage.Masters.QueryString.AppName"></span>
+    </div>
+    <!-- Header -->
+    <div class="clearfix tc-header-container">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="tc-header with-add-new">
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-5">
+                    <div class="text-single-line" data-ng-bind="'Filter'"></div>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-5 pt-4 text-right">
+                    <button class="btn btn-xs btn-info" data-ng-click="ProcessCtrl.ePage.Masters.Process.AddNew()">New</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">
+            <div class="tc-header edit-view">
+                <span data-ng-bind="'Details'"></span>
+                <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10" data-ng-click="ProcessCtrl.ePage.Masters.Process.Edit()"
+                    data-ng-disabled="!ProcessCtrl.ePage.Masters.Process.ActiveProcess.PK">Edit</button>
+                <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="ProcessCtrl.ePage.Masters.Process.DeleteConfirmation()"
+                    data-ng-bind="ProcessCtrl.ePage.Masters.Process.DeleteBtnText" data-ng-disabled="ProcessCtrl.ePage.Masters.Process.IsDisableDeleteBtn || !ProcessCtrl.ePage.Masters.Process.ActiveProcess.PK"></button>
+            </div>
+        </div>
+    </div>
+    <!-- Body -->
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 tc-page-height-fixed">
+            <div class="tc-list-container">
+                <div class="tc-list-search">
+                    <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="ProcessCtrl.ePage.Masters.Search">
+                </div>
+                <ul class="tc-list-ul">
+                    <div class="p-15 text-center tc-loading" data-ng-if="!ProcessCtrl.ePage.Masters.Process.ProcessList">
+                        <i class="fa fa-spin fa-spinner"></i>
+                    </div>
+                    <div data-ng-if="ProcessCtrl.ePage.Masters.Process.ProcessList && (ProcessCtrl.ePage.Masters.Process.ProcessList | filter: ProcessCtrl.ePage.Masters.Search).length===0"
+                        class="p-15 text-center">
+                        <i>No Records...</i>
+                    </div>
+                    <li data-ng-if="ProcessCtrl.ePage.Masters.Process.ProcessList && (ProcessCtrl.ePage.Masters.Process.ProcessList | filter: ProcessCtrl.ePage.Masters.Search).length > 0"
+                        data-ng-repeat="x in ProcessCtrl.ePage.Masters.Process.ProcessList | filter: ProcessCtrl.ePage.Masters.Search"
+                        data-ng-click="ProcessCtrl.ePage.Masters.Process.ActiveProcess.PK != x.PK && ProcessCtrl.ePage.Masters.Process.OnProcessClick(x)"
+                        data-ng-class="{'active': ProcessCtrl.ePage.Masters.Process.ActiveProcess.PK == x.PK}">
+                        <div class="clearfix tc-list">
+                            <div class="tc-list-name">
+                                <i class="fa fa-circle-o mr-10"></i>
+                                <span class="text-single-line" data-ng-bind="x.ProcessName"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed">
+            <div class="pt-10 pb-10 tc-details-view clearfix">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Code</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="ProcessCtrl.ePage.Masters.Process.ActiveProcess.ProcessCode || ProcessCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Name</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="ProcessCtrl.ePage.Masters.Process.ActiveProcess.ProcessName || ProcessCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Description</label>
+                        <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 ">
+                            <label data-ng-bind="ProcessCtrl.ePage.Masters.Process.ActiveProcess.ProcessDescription || ProcessCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Group</label>
+                        <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 ">
+                            <label data-ng-bind="ProcessCtrl.ePage.Masters.Process.ActiveProcess.ProcessType || ProcessCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Owner Id</label>
+                        <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 ">
+                            <label data-ng-bind="ProcessCtrl.ePage.Masters.Process.ActiveProcess.OwnerId || ProcessCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Module Name</label>
+                        <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 ">
+                            <label data-ng-bind="ProcessCtrl.ePage.Masters.Process.ActiveProcess.ModuleCode || ProcessCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Is Active</label>
+                        <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 ">
+                            <label data-ng-bind="ProcessCtrl.ePage.Masters.Process.ActiveProcess.IsActive || ProcessCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tc-section-divider" data-ng-if="!ProcessCtrl.ePage.Masters.Process.IsEdit && ProcessCtrl.ePage.Masters.Process.ActiveProcess.PK"></div>
+            <div class="tc-list-container tc-list-container-inner-redirect" data-ng-if="!ProcessCtrl.ePage.Masters.Process.IsEdit && ProcessCtrl.ePage.Masters.Process.ActiveProcess.PK">
+                <ul class="tc-list-ul">
+                    <li data-ng-click="ProcessCtrl.ePage.Masters.Process.OnProcessListClick(x)" data-ng-repeat="x in ProcessCtrl.ePage.Masters.Process.RedirectPagetList">
+                        <div class="clearfix tc-list">
+                            <div class="tc-list-name">
+                                <i class="fa {{x.Icon}} mr-10" data-ng-style="{'color': x.Color}"></i>
+                                <span class="text-single-line" data-ng-bind="x.Description"></span>
+                            </div>
+                        </div>
+                    </li>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Template -->
+<script type="text/ng-template" id="processEdit">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="ProcessCtrl.ePage.Masters.Process.Cancel()">&times;</button>
+        <h5 class="modal-title" id="modal-title">
+            <strong>Edit</strong>
+        </h5>
+    </div>
+    <div class="modal-body pt-10" id="modal-body">
+        <div class="clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-5 pb-5">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Code</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Process Name" data-ng-model="ProcessCtrl.ePage.Masters.Process.ActiveProcess.ProcessCode">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Name</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Process Type" data-ng-model="ProcessCtrl.ePage.Masters.Process.ActiveProcess.ProcessName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4"> Description</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Description" data-ng-model="ProcessCtrl.ePage.Masters.Process.ActiveProcess.ProcessDescription">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4"> Group</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <select chosen disable-search="true" class="form-control input-sm" data-ng-model="ProcessCtrl.ePage.Masters.Process.ActiveProcess.ProcessType"
+                                data-ng-options="x.Key as x.Value for x in ProcessCtrl.ePage.Masters.Process.TypeList">
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4"> Owner Id</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 tc-auto-complete">
+                            <input type="text" class="form-control input-sm" placeholder="Owner Id" data-ng-model="ProcessCtrl.ePage.Masters.Process.ActiveProcess.OwnerId"
+                                uib-typeahead="x.UserName for x in ProcessCtrl.ePage.Masters.Process.GetUserList($viewValue)"
+                                typeahead-loading="loadingOwner" typeahead-no-results="noResults" typeahead-editable="false"
+                                typeahead-append-to-body='true'>
+                            <i ng-show="loadingOwner" class="glyphicon glyphicon-refresh"></i>
+                            <!-- <div ng-show="noResults">
+                                        <i class="glyphicon glyphicon-remove"></i> No Results Found
+                                    </div> -->
+                        </div>
+                    </div>
+                    <!-- <div class="form-group">
+                                <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4"> Module Name</label>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 tc-auto-complete">
+                                        <input type="text" class="form-control input-sm" placeholder="Module Name" data-ng-model="ProcessCtrl.ePage.Masters.Process.ActiveProcess.ModuleCode
+                                        "
+                                        uib-typeahead="x.UserName for x in ProcessCtrl.ePage.Masters.Process.GetModuleList($viewValue)"
+                                        typeahead-loading="loadingOwner" typeahead-no-results="noResults" typeahead-editable="false" typeahead-append-to-body='true'>
+                                    <i ng-show="loadingOwner" class="glyphicon glyphicon-refresh"></i>
+                                    <div ng-show="noResults">
+                                        <i class="glyphicon glyphicon-remove"></i> No Results Found
+                                    </div>
+                                </div>
+                            </div> -->
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4"> Module Name</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Module Name" data-ng-model="ProcessCtrl.ePage.Masters.Process.ActiveProcess.ModuleCode">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">IsActive</div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" data-ng-model="ProcessCtrl.ePage.Masters.Process.ActiveProcess.IsActive" class="colored-blue">
+                                    <span class="text"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="tc-section-divider-small"></div>
+        <div class="clearfix p-10">
+            <button class="btn btn-default tc-btn-save btn-xs pull-right ml-10" data-ng-click="ProcessCtrl.ePage.Masters.Process.Save()"
+                data-ng-bind="ProcessCtrl.ePage.Masters.Process.SaveBtnText" data-ng-disabled="ProcessCtrl.ePage.Masters.Process.IsDisableSaveBtn"></button>
+            <button class="btn btn-default tc-btn-cancel btn-xs pull-right ml-10" data-ng-click="ProcessCtrl.ePage.Masters.Process.Cancel()">Cancel</button>
+        </div>
+        <div class="tc-section-divider-small mb-20"></div>
+    </div>
+</script>

@@ -1,0 +1,11 @@
+<div data-ng-if="ShipmentMyTaskCtrl.ePage.Masters.MyTask.ListSource">
+    <div class="text-center p-20" data-ng-if="!ShipmentMyTaskCtrl.ePage.Masters.MyTask.ListSource">
+        <i class="fa fa-spinner fa-spin"></i>
+    </div>
+    <div class="text-center p-20" data-ng-if="ShipmentMyTaskCtrl.ePage.Masters.MyTask.ListSource && ShipmentMyTaskCtrl.ePage.Masters.MyTask.ListSource.length==0">
+        <i>No Records...</i>
+    </div>
+    <div class="clearfix" data-ng-if="ShipmentMyTaskCtrl.ePage.Masters.MyTask.ListSource && ShipmentMyTaskCtrl.ePage.Masters.MyTask.ListSource.length > 0">
+        <activity-tab tab-list="ShipmentMyTaskCtrl.ePage.Masters.MyTask.ListSource" obj="ShipmentMyTaskCtrl.ePage.Entities"></activity-tab>
+    </div>
+</div>

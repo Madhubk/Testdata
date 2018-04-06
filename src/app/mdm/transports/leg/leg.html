@@ -1,0 +1,46 @@
+<uib-tabset id="chromeTab" active="LegCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+
+    <uib-tab>
+        <uib-tab-heading title="Leg">
+            <span data-ng-bind="'Leg'" class="ng-binding">Leg</span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+
+        <div class="no-padding tab-list-view-wrapper">
+            <!--Leg Grid Page-->
+            <dynamic-list dataentry-name="LegCtrl.ePage.Masters.dataentryName" task-name="LegCtrl.ePage.Masters.taskName" grid-config-type="0"
+                selected-grid-row="LegCtrl.ePage.Masters.SelectedGridRow($item)" mode="1"></dynamic-list>
+            <div class="tab-loading" data-ng-show="LegCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+    <uib-tab active="LegCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in LegCtrl.ePage.Masters.TabList" ng-click="LegCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+        <uib-tab-heading title="{{tab.label}}">
+            <span ng-if="tab.isNew==true?LegCtrl.ePage.Masters.title='Un Saved':LegCtrl.ePage.Masters.title=tab.label" data-ng-bind="LegCtrl.ePage.Masters.title"></span>
+            <i class="glyphicon glyphicon-remove" ng-click="LegCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+            <span class="error-warning-container-common" data-ng-if="tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length > 0">
+                    <span class="custom-warning-container" data-ng-if="(tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'W') > 0 && (tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'E') == 0">
+                        <button class="btn-warning" data-ng-click="LegCtrl.ePage.Masters.Config.ShowErrorWarningModal(tab)">
+                            <i class="fa fa-warning"></i>
+                        </button>
+                        <span class="custom-warning-count">{{tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount:
+                            'MessageType': 'W'}}</span>
+            </span>
+            <span class="custom-error-container" data-ng-if="(tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'E') > 0">
+                        <button class="btn-error" data-ng-click="LegCtrl.ePage.Masters.Config.ShowErrorWarningModal(tab)">
+                            <i class="fa fa-warning"></i>
+                        </button>
+                        <span class="custom-error-count">{{tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount:
+                            'MessageType': 'E'}}</span>
+            </span>
+            </span>
+        </uib-tab-heading>
+        <div class="padding-5 padding-bottom-10 clearfix">
+            <!--Leg Menu Directive-->
+            <leg-menu current-leg="tab"></leg-menu>
+
+            <div class="horizontal-space"></div>
+        </div>
+        <span ng-if="LegCtrl.ePage.Masters.Config.SaveAndClose" ng-init="LegCtrl.ePage.Masters.SaveandClose(LegCtrl.ePage.Masters.activeTabIndex, tab)"></span>
+    </uib-tab>
+    <!--<button class="btn btn-default" ng-click="LegCtrl.ePage.Masters.CreateNewLeg()" data-ng-disabled="LegCtrl.ePage.Masters.IsNewLegClicked">+</button>-->
+</uib-tabset>

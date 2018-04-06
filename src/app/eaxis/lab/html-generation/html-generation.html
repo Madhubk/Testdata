@@ -1,0 +1,85 @@
+<div class="row">
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <div class="widget">
+            <div class="widget-header bg-themeprimary">
+                <span class="widget-caption">HTML Code Generation</span>
+                <span class="pull-right" style="margin:1px 1px 0px 0px;">
+                    <button class="btn btn-danger" id="authorize-button" style="display: none;">
+                        <i class="fa fa-google" aria-hidden="true"></i> Google</button>
+                    <button class="btn btn-danger" id="signout-button" style="display: none;">
+                        <i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out</button>
+                </span>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main ">
+                    <!--<div class="row">
+                                        <div class="col-sm-4" style="margin-top: 20px">
+
+                                        </div>
+                                        <div class="col-sm-4" id="sheetSelection" style="display: none;">
+                                            <div class="form-group">
+                                                <label for="Sheets">Google Sheets</label>
+                                                <select chosen id="Sheets" ng-change="getData(selectedSheets)" style="width:100%;" ng-model="selectedSheets" ng-options="x as x.name for x in EAxisHtmlGenerationCtrl.Sheets">
+                                    <option value="">Choose the Sheet..</option>
+                                </select>
+                                            </div>-->
+                    <!-- <button class="btn btn-primary" id="generate-button">Generate Code</button> -->
+                    <!--</div>
+                                    </div>-->
+                    <div class="row" id="viewSourceCode" style="display: none;">
+                        <div class="col-lg-12" style="margin-top: 20px">
+                            <uib-tabset justified="true">
+                                <uib-tab heading="Google Sheets">
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <ul class="nav sidebar-menu">
+                                                <li ng-click="getData(item)" class="active" ng-repeat="item in EAxisHtmlGenerationCtrl.Sheets">
+                                                    <a href="javascript:void(0)">
+                                                        <i class="menu-icon glyphicon glyphicon-home"></i>
+                                                        <span class="menu-text"> {{item.name}} </span>
+                                                    </a>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+
+                                        <div class="col-lg-10">
+                                            <div class="row" style="width:100%;overflow-x:scroll;">
+                                                <table class="table table-hover table-striped table-bordered table-condensed">
+                                                    <thead>
+                                                        <tr>
+                                                            <th ng-repeat=" key in Keys">
+                                                                {{key}}
+                                                            </th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="x in arrayOfObjects">
+                                                            <td ng-repeat="key in Keys">
+                                                                {{x[key]}}
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </uib-tab>
+                                <uib-tab heading="Preview">
+                                    <div class="outerFrame">
+                                        <iframe width="100%" height="12000px" scrolling="no" style="border:none;" id="outputIframe"></iframe>
+                                    </div>
+                                </uib-tab>
+                                <uib-tab heading="Script">
+                                    <input class="btn btn-primary pull-right" ng-click="copyClipBoard();" type="button" id="copy-button" value="Copy To clipboard">
+                                    <textarea id="visible-input" style="width: 100%;height: 500px;" ng-model="Str"></textarea>
+                                </uib-tab>
+                            </uib-tabset>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

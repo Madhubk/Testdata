@@ -1,0 +1,26 @@
+<uib-tabset id="chromeTab" active="SFUCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+    <uib-tab>
+        <uib-tab-heading title="FollowUp">
+            <span data-ng-bind="'FollowUp'"></span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+        <div class="no-padding tab-list-view-wrapper">
+            <!--FollowUp Grid Page-->
+            <dynamic-list task-name="SFUCtrl.ePage.Masters.taskName" grid-config-type="0" selected-grid-row="SFUCtrl.ePage.Masters.SelectedGridRow($item)" dataentry-name="SFUCtrl.ePage.Masters.dataentryName" mode="1"></dynamic-list>
+            <div class="tab-loading" data-ng-show="SFUCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+    <uib-tab active="SFUCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in SFUCtrl.ePage.Masters.TabList" ng-click="SFUCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+        <uib-tab-heading title="{{tab.label}}">
+            <span data-ng-bind="tab.label"></span>
+            <i class="glyphicon glyphicon-remove" ng-click="SFUCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+        </uib-tab-heading>
+        <div class="padding-bottom-10 clearfix">
+            <!--Supplier followup Directive-->
+            <suf-directive current-follow-up="tab"></suf-directive>
+
+            <div class="horizontal-space"></div>
+        </div>
+    </uib-tab>
+    <button class="btn btn-default" data-ng-click="SFUCtrl.ePage.Masters.CreateSFU()" data-ng-disabled="SFUCtrl.ePage.Masters.IsNewOrderClicked">+</button>
+</uib-tabset>

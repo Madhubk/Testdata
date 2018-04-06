@@ -1,0 +1,73 @@
+
+    .border-bottom {
+        border-bottom: 2px solid #d71921 !important;
+    }
+
+
+    .inward-menu>.nav-tabs.nav-justified>.show-address-sidebar {
+    position: absolute;
+    top: -2px;
+    right: 0;
+    height: 28px;
+    margin: 0;
+    padding: 0;
+    width: 25px;
+    min-width: 25px;
+    z-index: 15;
+    max-width: 25px;
+    outline: none;
+    }
+    .bulk-action1 {
+        width: 215%;
+        float: left;
+        padding: 0;
+        border: 1px solid #eee;
+    }
+    .padding-left
+    {
+        padding-left: 350px !important;
+    }
+    .bulk-action1 li {
+            width: auto;
+            float: left;
+            list-style: none;
+            padding: 10px 3px;
+            border-bottom: 1px solid #eee;
+    }
+    .bulk-main-title {
+        float: left;
+    }
+    
+    .bulk-top-title {
+        display: inline-block !important;
+        font-weight: bold;
+        padding: 8px 3px 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: left;
+    }
+    
+    .selected {
+        border-left: 3px solid #ff9090;
+    }
+    
+    .InlineLabel {
+        font-size: 11px !important;
+        color: #060606 !important;
+    }
+    
+    .inlineBox {
+       box-shadow: inset 0px 0px 20px rgb(168, 173, 179);
+        -webkit-box-shadow: inset 0px 0px 20px rgb(168, 173, 179);
+        -moz-box-shadow: inset 0px 0px 20px rgb(168, 173, 179);
+        background-color: rgb(240, 240, 240);
+    }
+.done{
+    margin-top: 26px;
+    font-size: 12px;
+    padding: 4px 9px;
+    line-height: 1.39;
+    margin-left: 94px;
+    font-weight: 400;
+}

@@ -1,0 +1,6 @@
+#myPaletteLevel1,
+#myDiagramDiv {
+    border: solid 1px #ddd;
+    height: 600px;
+    overflow: hidden;
+}

@@ -1,0 +1,140 @@
+<!-- Loading Container -->
+<!-- <div class="loading-container">
+    <div class="loading-bar"></div>
+</div> -->
+<!-- Navbar -->
+<div class="navbar {{settings.fixed.navbar ? 'navbar-fixed-top' : ''}}">
+    <div class="navbar-inner">
+        <div class="navbar-container">
+            <!-- Navbar Barnd -->
+            <div class="navbar-header pull-left">
+                <a href="javascript:void(0);" class="navbar-brand" data-ng-click="NavBarCtrl.ePage.Masters.RedirectToHomeLogo()">
+                    <img class="product-logo" data-ng-src="{{NavBarCtrl.ePage.Masters.ProductLogo}}">
+                </a>
+            </div>
+            <!-- Sidebar Collapse -->
+            <div class="sidebar-collapse" data-ng-if="NavBarCtrl.ePage.Masters.Menu.VisibleType == 'List'"></div>
+            <!-- Account Area -->
+            <div class="navbar-header pull-right">
+                <div class="navbar-account">
+                    <ul class="account-area">
+                        <!-- Language -->
+                        <li class="language-dropdown" data-ng-if="NavBarCtrl.ePage.Masters.Language.ListSource && NavBarCtrl.ePage.Masters.Language.ListSource.length > 0">
+                            <div class="btn-group">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                    <i class="fa fa-flag mr-5"></i> 
+                                    <span>{{NavBarCtrl.ePage.Masters.Language.ActiveLanguage.Key}}</span>
+                                    <i class="fa fa-angle-down ml-5"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li data-ng-repeat="x in NavBarCtrl.ePage.Masters.Language.ListSource">
+                                        <a href="javascript:void(0);" data-ng-click="NavBarCtrl.ePage.Masters.Language.OnLanguageChange(x)">
+                                            <i class="fa fa-flag mr-5"></i> 
+                                            <span>{{x.Key}}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <!-- Task Count -->
+                        <li class="task-count pl-5" data-ng-if="NavBarCtrl.ePage.Masters.Notification.WorkItemCount != undefined">
+                            <a title="Tasks" href="#/EA/home/my-task" data-ng-class="{'wave in': NavBarCtrl.ePage.Masters.Notification.WorkItemCount > 0}">
+                                <i class="icon fa fa-tasks"></i>
+                                <span class="badge" data-ng-bind="NavBarCtrl.ePage.Masters.Notification.WorkItemCount | roundCount:2"></span>
+                            </a>
+                        </li>
+                        <!-- Menu -->
+                        <li class="menu-icon" data-ng-if="NavBarCtrl.ePage.Masters.Menu.VisibleType == 'Grid'">
+                            <div class="dropdown">
+                                <i class="glyphicon glyphicon-th dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false"></i>
+                                <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                    <form>
+                                        <div class="clearfix">
+                                            <navbar-dropdown-menu menu-list="NavBarCtrl.ePage.Masters.Menu.ListSource" data-ng-if="NavBarCtrl.ePage.Masters.Menu.ListSource && NavBarCtrl.ePage.Masters.Menu.ListSource.length > 0"></navbar-dropdown-menu>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- Sign Out -->
+                        <li class="sign-out">
+                            <a title="Sign Out" href="javascript:void(0);" data-ng-click="NavBarCtrl.ePage.Masters.Logout()">
+                                <i class="fa fa-sign-out"></i>
+                            </a>
+                        </li>
+                        <!-- User Details -->
+                        <li class="user-profile">
+                            <a class="login-area dropdown-toggle" data-toggle="dropdown">
+                                <div class="avatar" title="View your public profile">
+                                    <img data-ng-src="{{NavBarCtrl.ePage.Masters.userProfile.Photo}}">
+                                </div>
+                            </a>
+                            <!--Login Area Dropdown-->
+                            <ul class="pull-right dropdown-menu dropdown-arrow dropdown-login-area">
+                                <li class="username">
+                                    <a data-ng-bind="NavBarCtrl.ePage.Masters.userProfile.DisplayName"></a>
+                                </li>
+                                <li class="email">
+                                    <a data-ng-bind="NavBarCtrl.ePage.Masters.userProfile.DisplayName"></a>
+                                </li>
+                                <!--Avatar Area-->
+                                <li>
+                                    <div class="avatar-area">
+                                        <img class="avatar" data-ng-src="{{NavBarCtrl.ePage.Masters.userProfile.Photo}}">
+                                        <!-- <span class="caption">Change Photo</span> -->
+                                    </div>
+                                </li>
+                                <!--Theme Selector Area-->
+                                <li class="theme-area">
+                                    <ul class="colorpicker">
+                                        <li>
+                                            <a class="colorpick-btn" href="" style="background-color:#5DB2FF;" skin-changer rel="assets/css/skins/blue.min.css"></a>
+                                        </li>
+                                        <li>
+                                            <a class="colorpick-btn" href="" style="background-color:#2dc3e8;" skin-changer rel="assets/css/skins/azure.min.css"></a>
+                                        </li>
+                                        <li>
+                                            <a class="colorpick-btn" href="" style="background-color:#03B3B2;" skin-changer rel="assets/css/skins/teal.min.css"></a>
+                                        </li>
+                                        <li>
+                                            <a class="colorpick-btn" href="" style="background-color:#53a93f;" skin-changer rel="assets/css/skins/green.min.css"></a>
+                                        </li>
+                                        <li>
+                                            <a class="colorpick-btn" href="" style="background-color:#FF8F32;" skin-changer rel="assets/css/skins/orange.min.css"></a>
+                                        </li>
+                                        <li>
+                                            <a class="colorpick-btn" href="" style="background-color:#cc324b;" skin-changer rel="assets/css/skins/pink.min.css"></a>
+                                        </li>
+                                        <li>
+                                            <a class="colorpick-btn" href="" style="background-color:#AC193D;" skin-changer rel="assets/css/skins/darkred.min.css"></a>
+                                        </li>
+                                        <li>
+                                            <a class="colorpick-btn" href="" style="background-color:#8C0095;" skin-changer rel="assets/css/skins/purple.min.css"></a>
+                                        </li>
+                                        <li>
+                                            <a class="colorpick-btn" href="" style="background-color:#0072C6;" skin-changer rel="assets/css/skins/darkblue.min.css"></a>
+                                        </li>
+                                        <li>
+                                            <a class="colorpick-btn" href="" style="background-color:#585858;" skin-changer rel="assets/css/skins/gray.min.css"></a>
+                                        </li>
+                                        <li>
+                                            <a class="colorpick-btn" href="" style="background-color:#474544;" skin-changer rel="assets/css/skins/black.min.css"></a>
+                                        </li>
+                                        <li>
+                                            <a class="colorpick-btn" href="" style="background-color:#001940;" skin-changer rel="assets/css/skins/deepblue.min.css"></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown-footer">
+                                    <!-- <a href="javascript:void(0);" class="pull-left" change-password path="NavBarCtrl.ePage.Masters.CurrentPath">Change Password</a> -->
+                                    <a href="#/user-setting" target="_blank" class="pull-left">Setting</a>
+                                    <a href="javascript:void(0);" data-ng-click="NavBarCtrl.ePage.Masters.Logout()"> Sign out</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

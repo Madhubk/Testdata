@@ -1,0 +1,26 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="modalOptions.close()">&times;</button>
+    <h5 class="modal-title" id="modal-title">
+        <strong>Errors & Warnings</strong>
+    </h5>
+</div>
+<div class="modal-body">
+    <div class="clearfix" data-ng-if="modalOptions.list.length>0">
+        <div class="clearfix">
+            <div class="ew-title">Error</div>
+            <div class="p-5" data-ng-repeat="x in modalOptions.list | filter: {'MessageType' : 'E'}">
+                <span data-ng-bind="x.Code + ' - ' + x.Message"></span>
+            </div>
+        </div>
+        <div class="ea-section-divider mt-10 mb-10"></div>
+        <div class="clearfix">
+            <div class="ew-title">Warning</div>
+            <div class="p-5" data-ng-repeat="x in modalOptions.list | filter: {'MessageType' : 'W'}">
+                <span data-ng-bind="x.Code + ' - ' + x.Message"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm pull-right" data-ng-click="modalOptions.close()">Close</button>
+</div>

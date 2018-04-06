@@ -1,0 +1,88 @@
+<!--Order Details-->
+<div class="clearfix margin-top-5">
+    <!-- Saving Your Data -->
+    <div class="grid-loading-norecord-container ng-scope" style='z-index: 4;' data-ng-if="ItemConsignCtrl.ePage.Masters.IsLoadingToSave">
+        <div class="grid-no-record">Saving your Data...</div>
+    </div>
+    <div class="col-lg-12 margin-top-5">
+        <!--Order Details-->
+        <div class="">
+            <div class="wmstable_scroll" id='ItemConsignCtrl.ePage.Masters.your_div' style="height:310px; padding-top: 2px;">
+                <div class="table" id="results">
+                    <div class='theader'>
+                        <div class='table_header'>Consignment Number</div>
+                        <div class='table_header'>Status</div>
+                        <div class='table_header'>Client Id</div>
+                        <div class='table_header'>Receiver Ref</div>
+                        <div class='table_header'>Sender Ref</div>
+                        <div class='table_header'>Total Quantity</div>
+                        <div class='table_header'>Total Volume</div>
+                        <div class='table_header'>Total Weight</div>
+                        <div class='table_header'>Actual Delivery</div>
+                        <div class='table_header'>Actual Pickup</div>
+                        <div class='table_header'>Expected Delivery</div>
+                        <div class='table_header'>Expected Pickup</div>
+                    </div>
+
+                    <!-- List Empty Response -->
+                    <div data-ng-if="ItemConsignCtrl.ePage.Entities.Header.Data.TmsConsignmentItem.length==0">
+                        <div class="grid-no-record grid-width" style="bottom:38px">No Record Found</div>
+                    </div>
+
+                    <div class='table_row' ng-repeat="x in ItemConsignCtrl.ePage.Entities.Header.Data.TmsConsignmentItem | filter:{IsDeleted:'false'}  track by $index"
+                        ng-click="ItemConsignCtrl.ePage.Masters.setSelectedRow($index)" ng-class="{row_active: ItemConsignCtrl.ePage.Masters.selectedRow==$index}"
+                        style="font-size: 11px;">
+                        <div class='table_small'>
+                            <div class='table_cell'>Consignment Number</div>
+                            <div class='table_cell'>{{x.TMC_ConsignmentNumber || ItemConsignCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Status</div>
+                            <div class='table_cell'>{{x.TMC_ConsignmentStatusDesc || ItemConsignCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Client Id</div>
+                            <div class='table_cell'>{{x.TMC_ClientId || ItemConsignCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Receiver Ref</div>
+                            <div class='table_cell'>{{x.TMC_ReceiverRef || ItemConsignCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Sender Ref</div>
+                            <div class='table_cell'>{{x.TMC_SenderRef || ItemConsignCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Total Quantity</div>
+                            <div class='table_cell'>{{x.TMC_TotalQuantity || ItemConsignCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Total Volume</div>
+                            <div class='table_cell'>{{x.TMC_TotalVolume || ItemConsignCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Total Weight</div>
+                            <div class='table_cell'>{{x.TMC_TotalWeight || ItemConsignCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Actual Delivery</div>
+                            <div class='table_cell'>{{x.TMC_ActualDeliveryDateTime | dateFormat}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Actual Pickup</div>
+                            <div class='table_cell'>{{x.TMC_ActualPickupDateTime | dateFormat}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Expected Delivery </div>
+                            <div class='table_cell'>{{x.TMC_ExpectedDeliveryDateTime | dateFormat}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Expected Pickup</div>
+                            <div class='table_cell'>{{x.TMC_ExpectedPickupDateTime | dateFormat}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,142 @@
+<div class="clearfix details-time-sheet-wrapper mt-10">
+    <form novalidate name="tsDetailsTimeSheetForm" class="form-horizontal">
+        <div class="rows form">
+            <div class="col-sm-5  pl-xs-0 pr-xs-0">
+                <!--User-->
+                <div class="form-group">
+                    <label class="control-label col-sm-3 text-right" data-ng-bind="'User'"></label>
+
+                    <div class="col-sm-9">
+                        <select chosen class="form-control" ng-model="SupportCtrl.ePage.Entities.SupportHeader.Details.TimeSheet.UserId" ng-options="x.USR_UserName as x.USR_UserName for x in SupportCtrl.ePage.Entities.SupportHeader.Meta.User.ListSource"
+                            search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+                <!--Effort Date-->
+                <div class="form-group">
+                    <label class="control-label col-sm-3 text-right" data-ng-bind="'Effort Date'"></label>
+                    <div class="col-sm-9">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" placeholder="{{SupportCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="SupportCtrl.ePage.Entities.SupportHeader.Details.TimeSheet.EffortDate"
+                                uib-datepicker-popup="{{SupportCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="SupportCtrl.ePage.Masters.DatePicker.Options"
+                                is-open="SupportCtrl.ePage.Masters.DatePicker.isOpen['isEffortDate']" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default shiny" data-ng-click="SupportCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEffortDate')">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!--Effort-->
+                <div class="form-group">
+                    <label class="control-label col-sm-3 text-right" data-ng-bind="'Effort'"></label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control input-sm" placeholder="Effort" data-ng-model="SupportCtrl.ePage.Entities.SupportHeader.Details.TimeSheet.Effort">
+                    </div>
+                </div>
+                <!--Remain Effort-->
+                <div class="form-group">
+                    <label class="control-label col-sm-3 text-right" data-ng-bind="'Remain Effort'"></label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control input-sm" placeholder="Remain Effort" data-ng-model="SupportCtrl.ePage.Entities.SupportHeader.Details.TimeSheet.RemainEffort">
+                    </div>
+                </div>
+                <!--Description-->
+                <div class="form-group">
+                    <label class="control-label col-sm-3 text-right" data-ng-bind="'Description'"></label>
+                    <div class="col-sm-9">
+                        <textarea rows="4" class="form-control input-sm no-resize" placeholder="Description" data-ng-model="SupportCtrl.ePage.Entities.SupportHeader.Details.TimeSheet.Description"></textarea>
+                    </div>
+                </div>
+
+                <div class="rows button-wrapper mt-10 mb-10">
+                    <input type="submit" class="btn btn-primary btn-sm pull-right margin-left-5" value="{{SupportCtrl.ePage.Masters.DetailsTimeSheetSaveText}}"
+                        data-ng-click="SupportCtrl.ePage.Masters.DetailsTimeSheetSave()" data-ng-disabled="SupportCtrl.ePage.Masters.IsDetailsTimeSheetSaveClick"
+                    />
+                    <input type="button" class="btn btn-primary btn-sm pull-right margin-left-5" value="New" data-ng-click="SupportCtrl.ePage.Masters.DetailsTimeSheetNew()"
+                    />
+                </div>
+            </div>
+            <div class="col-sm-7 pl-xs-0 pr-xs-0">
+                <div class="time-sheet-list-wrapper hidden-sm hidden-xs">
+                    <!--Loading-->
+                    <div class="text-center grid-view-loader padding-20" data-ng-if="!SupportCtrl.ePage.Entities.SupportHeader.Meta.TimeSheet.ListSource">
+                        <i class="fa fa-spin fa-spinner font-160"></i>
+                    </div>
+                    <!--No records-->
+                    <div class="text-center grid-view-loader padding-20" data-ng-if="SupportCtrl.ePage.Entities.SupportHeader.Meta.TimeSheet.ListSource.length === 0">
+                        <i class="">No Records Found...!</i>
+                    </div>
+                    <div class="clearfix time-sheet-list" data-ng-repeat="x in SupportCtrl.ePage.Entities.SupportHeader.Meta.TimeSheet.ListSource | orderBy: 'ModifiedDateTime': true"
+                        data-ng-dblclick="SupportCtrl.ePage.Masters.DetailsTimeSheetEditClick(x)">
+                        <!--User Id-->
+                        <div class="col-sm-3">
+                            <div class="text-single-line" data-ng-bind="x.UserId" title="{{x.UserId}}"></div>
+                        </div>
+                        <!--Description-->
+                        <div class="col-sm-4">
+                            <div class="text-single-line" data-ng-bind="x.Description" title="{{x.Description}}"></div>
+                        </div>
+                        <!--Effort-->
+                        <div class="col-sm-1">
+                            <div class="text-single-line" data-ng-bind="x.Effort" title="{{x.Effort}}"></div>
+                        </div>
+                        <!--Effort Date-->
+                        <div class="col-sm-2">
+                            <div class="text-single-line" data-ng-bind="x.EffortDate | date: 'dd-MMM-yyyy'"></div>
+                        </div>
+                        <!--Edit-->
+                        <div class="col-sm-2 text-center pt-10 pb-10">
+                            <i class="fa fa-pencil-square-o time-sheet-edit" data-ng-click="SupportCtrl.ePage.Masters.DetailsTimeSheetEditClick(x)"></i>
+                            <!--Delete-->
+                            <i class=" ml-20 fa fa-trash-o time-sheet-remove" data-ng-click="SupportCtrl.ePage.Masters.DetailsTimeSheetDeleteTask(x)"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile View Grid -->
+
+                <div class="rows hidden-lg hidden-md">
+                    <!--Loading-->
+                    <div class="text-center grid-view-loader padding-20" data-ng-if="!SupportCtrl.ePage.Entities.SupportHeader.Meta.TimeSheet.ListSource">
+                        <i class="fa fa-spin fa-spinner font-160"></i>
+                    </div>
+                    <!--No records-->
+                    <div class="text-center grid-view-loader padding-20" data-ng-if="SupportCtrl.ePage.Entities.SupportHeader.Meta.TimeSheet.ListSource.length === 0">
+                        <i class="">No Records Found...!</i>
+                    </div>
+                    <div class="clearfix mobile-time-sheet-list mb-10" data-ng-repeat="x in SupportCtrl.ePage.Entities.SupportHeader.Meta.TimeSheet.ListSource | orderBy: 'ModifiedDateTime': true"
+                        data-ng-dblclick="SupportCtrl.ePage.Masters.DetailsTimeSheetEditClick(x)">
+
+                        <div class="col-sm-2 col-xs-2 border-right p-0">
+                            <!--Effort-->
+                            <div class="border-bottom">
+                                <div class="mobile-effort" data-ng-bind="x.Effort" title="{{x.Effort}}"></div>
+                            </div>
+                            <div class="rows text-center">
+                                <div class="col-sm-6 col-xs-6 p-0 border-right">
+                                    <!--Edit-->
+                                    <i class="success fa fa-pencil-square-o time-sheet-edit" data-ng-click="SupportCtrl.ePage.Masters.DetailsTimeSheetEditClick(x)"></i>
+                                </div>
+                                <div class="col-sm-6 col-xs-6 p-0">
+                                    <!--Delete-->
+                                    <i class="set-color-red fa fa-trash-o time-sheet-remove" data-ng-click="SupportCtrl.ePage.Masters.DetailsTimeSheetDeleteTask(x)"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-10 col-xs-10">
+                            <!--User Id-->
+                            <div class="text-single-line mt-5 fs-14" data-ng-bind="x.UserId" title="{{x.UserId}}"></div>
+                            <!--Description-->
+                            <div class="text-single-line fs-11 pt-4 pb-5" data-ng-bind="x.Description" title="{{x.Description}}"></div>
+                            <!--Effort Date-->
+                            <div class="text-single-line fs-10" data-ng-bind="x.EffortDate | date: 'dd-MMM-yyyy'"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

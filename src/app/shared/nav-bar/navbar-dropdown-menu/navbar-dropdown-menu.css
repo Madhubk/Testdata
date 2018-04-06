@@ -1,0 +1,37 @@
+ .menu-item {
+     margin-bottom: 5px;
+     text-align: center;
+     padding: 5px;
+     border: 1px solid transparent;
+     width: 95px;
+     margin-top: 5px;
+     float: left;
+ }
+
+ .menu-item a {
+     color: #000;
+ }
+
+ .menu-item a:hover {
+     text-decoration: none;
+ }
+
+ .menu-item:hover {
+     border: 1px solid #ddd;
+ }
+
+ .menu-item-icon {
+     font-size: 38px;
+ }
+
+ .menu-item .menu-item-title {
+     font-size: 13px;
+ }
+
+ .more {
+     padding: 5px 15px;
+     background-color: #f4f4f4;
+     /* text-align: center; */
+     margin: 0 -30px;
+     font-weight: 600;
+ }

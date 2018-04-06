@@ -1,0 +1,50 @@
+<div class="clearfix tc-company-list">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 pr-0">
+            <!-- Company List -->
+            <div class="tc-company-list-container tc-list-container">
+                <div class="tc-header">
+                    <span data-ng-bind="'Company'"></span>
+                </div>
+                <div class="tc-list-search pr-20">
+                    <input type="text" placeholder="Search" class="form-control input-sm" data-ng-model="CompanyListCtrl.ePage.Masters.CompanyListType.Search">
+                </div>
+                <ul class="tc-list-ul">
+                    <div data-ng-if="!CompanyListCtrl.ePage.Masters.CompanyListType.ListSource" class="p-15 text-center tc-loading">
+                        <i class="fa fa-spin fa-spinner"></i>
+                    </div>
+                    <div data-ng-if="(CompanyListCtrl.ePage.Masters.CompanyListType.ListSource | filter: CompanyListCtrl.ePage.Masters.CompanyListType.Search).length===0"
+                        class="p-15 text-center tc-no-records">
+                        <span>No Records...!</span>
+                    </div>
+                    <li data-ng-repeat="x in CompanyListCtrl.ePage.Masters.CompanyListType.ListSource | filter: CompanyListCtrl.ePage.Masters.CompanyListType.Search"
+                        data-ng-click="CompanyListCtrl.ePage.Masters.CompanyListType.ActiveCompanyListType != x && CompanyListCtrl.ePage.Masters.CompanyListType.OnCompanyCodeClick(x)"
+                        data-ng-class="{'active': CompanyListCtrl.ePage.Masters.CompanyListType.ActiveCompanyListType == x}">
+                        <div class="clearfix tc-list">
+                            <div class="tc-list-name col-xs-12 col-sm-12 col-md-12 col-lg-10 col-xl-10">
+                                <span class="text-single-line" data-ng-bind="x"></span>
+                            </div>
+                            <div class="tc-redirect-icon col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                <i class="fa fa-angle-right"></i>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 pl-0 border-left">
+            <div>
+                <div class="tc-header">
+                    <span data-ng-bind="'Details'"></span>
+                </div>
+                <div class="tc-company-list-container">
+                    <div class="text-center grid-view-loader p-20" data-ng-if="!CompanyListCtrl.ePage.Masters.OrgEmployeeAssignments.GridData">
+                        <i class="fa fa-spin fa-spinner font-160"></i>
+                    </div>
+                    <dynamic-table data-ng-if=" CompanyListCtrl.ePage.Masters.OrgEmployeeAssignments.GridData" grid-data=" CompanyListCtrl.ePage.Masters.OrgEmployeeAssignments.GridData"
+                        grid-config=" CompanyListCtrl.ePage.Masters.OrgEmployeeAssignments.gridConfig"></dynamic-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

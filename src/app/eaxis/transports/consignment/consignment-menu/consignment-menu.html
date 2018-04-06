@@ -1,0 +1,79 @@
+<div class="clearfix wms-menu-wraper">
+    <div id="wmsMenuWrapper{{AdminConsignmentMenuCtrl.currentConsignment.label}}" class="col-sm-12 no-padding-left no-padding-right">
+        <!-- <uib-tabset class="wms-menu tabs-left tabbable" active="AdminConsignmentMenuCtrl.ePage.Masters.active">
+            <div class="tab-profile">
+                <div class="tab-profile-title text-single-line text-center" style="color: rgb(66, 50, 50);font-weight: 600;" ng-if="AdminConsignmentMenuCtrl.currentConsignment.isNew==true?AdminConsignmentMenuCtrl.ePage.Masters.title='Un Saved':AdminConsignmentMenuCtrl.ePage.Masters.title=AdminConsignmentMenuCtrl.currentConsignment.label"
+                    data-ng-bind="AdminConsignmentMenuCtrl.ePage.Masters.title"></div>
+                <div class="wocstatusmenu text-single-line text-center" title="{{AdminConsignmentMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Status + ' - '+ AdminConsignmentMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ConsignmentStatusDesc}}"
+                    data-ng-bind="AdminConsignmentMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ConsignmentStatusDesc"></div>
+            </div>
+            <uib-tab ng-repeat="x in AdminConsignmentMenuCtrl.ePage.Masters.ConsignmentMenu.ListSource" index="$index" deselect="AdminConsignmentMenuCtrl.ePage.Masters.tabSelected(x,$selectedIndex,$event);">
+                <uib-tab-heading title="{{x.DisplayName}}">
+                    <i class="fa {{x.Icon}} mr-5"></i>
+                    <span class="text-single-line" data-ng-bind="x.DisplayName"></span>
+                    <error-warning-directive data-ng-if="AdminConsignmentMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, AdminConsignmentMenuCtrl.currentConsignment.label, 'W', 'GParent').length > 0 && AdminConsignmentMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, AdminConsignmentMenuCtrl.currentConsignment.label, 'E', 'GParent').length == 0"
+                        list="AdminConsignmentMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList" type="'warning'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
+                    <error-warning-directive data-ng-if="AdminConsignmentMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, AdminConsignmentMenuCtrl.currentConsignment.label, 'E', 'GParent').length > 0"
+                        list="AdminConsignmentMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList" type="'error'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
+                </uib-tab-heading>
+                <div>
+                    <div ng-switch="x.Value">
+                        
+                        <div ng-switch-when="General" consignment-general current-consignment="AdminConsignmentMenuCtrl.currentConsignment"></div>
+                        <div ng-switch-when="Consignment Item" consignment-item current-consignment="AdminConsignmentMenuCtrl.currentConsignment" active-menu="x"></div>
+                        <div ng-switch-when="Manifest" consignment-manifest current-consignment="AdminConsignmentMenuCtrl.currentConsignment" active-menu="x"></div>
+                    </div>
+                </div>
+            </uib-tab>
+        </uib-tabset> -->
+        <div consignment-general current-consignment="AdminConsignmentMenuCtrl.currentConsignment"></div>
+        <div consignment-item current-consignment="AdminConsignmentMenuCtrl.currentConsignment" ng-if="!AdminConsignmentMenuCtrl.currentConsignment.isNew"></div>
+        <div consignment-manifest current-consignment="AdminConsignmentMenuCtrl.currentConsignment" ng-if="!AdminConsignmentMenuCtrl.currentConsignment.isNew"></div>
+    </div>
+    <div class="error-warning-container right" id="errorWarningContainer{{AdminConsignmentMenuCtrl.currentConsignment.label}}">
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                <!-- <i class="fa fa-warning"></i>  -->
+                Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right" data-ng-click="AdminConsignmentMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(AdminConsignmentMenuCtrl.currentConsignment)">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+        </div>
+        <div class="error-warning-body">
+            <div class="clearfix" data-ng-if="AdminConsignmentMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length>0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in AdminConsignmentMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- To move to Receive line tab -->
+    <span ng-if="AdminConsignmentMenuCtrl.ePage.Entities.Header.CheckPoints.Receiveline" ng-init="AdminConsignmentMenuCtrl.ePage.Masters.active = 3"></span>
+    <!--Footer-->
+
+    <div class="eaxis-footer-strip">
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+            <standard-menu entity-name="'TransportsConsignment'" input="AdminConsignmentMenuCtrl.currentConsignment"></standard-menu>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="AdminConsignmentMenuCtrl.ePage.Masters.Validation(AdminConsignmentMenuCtrl.currentConsignment)"
+                data-ng-bind="AdminConsignmentMenuCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="AdminConsignmentMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave"></button>
+            <button class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6" data-ng-click="AdminConsignmentMenuCtrl.ePage.Masters.SaveClose(AdminConsignmentMenuCtrl.currentConsignment)"
+                data-ng-bind="AdminConsignmentMenuCtrl.ePage.Masters.SaveAndCloseButtonText" data-ng-disabled="AdminConsignmentMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave"></button>
+        </div>
+    </div>
+</div>

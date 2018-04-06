@@ -1,0 +1,35 @@
+<div class="clearfix mt-10" ng-if="SRVReceiveLinesCtrl.ePage.Masters.TempEntity.PK == null">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">Manifest Number</label>
+            <div class="">
+                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Manifest Number"
+                    data-ng-model="SRVReceiveLinesCtrl.ePage.Masters.ManifestNumber">
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <button class="btn btn-blue" style="margin-top: 22px; padding: 5px 10px;" ng-click="SRVReceiveLinesCtrl.ePage.Masters.GetManifestDetails(SRVReceiveLinesCtrl.ePage.Masters.ManifestNumber)">Search</button>
+    </div>
+</div>
+<div class="grid-loading-norecord-container" data-ng-show="SRVReceiveLinesCtrl.ePage.Masters.IsLoading">
+    <div class="grid-loading">Loading...</div>
+</div>
+<div data-ng-show="SRVReceiveLinesCtrl.ePage.Masters.Norecord">
+    <div class="grid-no-record grid-width">No record found...</div>
+</div>
+<receive-items ng-if="SRVReceiveLinesCtrl.ePage.Masters.TempEntity.PK && SRVReceiveLinesCtrl.ePage.Masters.CurrentObj" current-manifest="SRVReceiveLinesCtrl.ePage.Masters.CurrentObj"></receive-items>
+<div class="" ng-if="!SRVReceiveLinesCtrl.ePage.Masters.TempEntity.PK">
+    <div class="page-body no-padding" data-ng-if="SRVReceiveLinesCtrl.ePage.Masters.CurrentObj">
+        <manifest-menu active-menu='true' ng-if="SRVReceiveLinesCtrl.ePage.Masters.ProcessInfo.WSI_StepName=='Dispatch Manifest'"
+            current-manifest="SRVReceiveLinesCtrl.ePage.Masters.CurrentObj"></manifest-menu>
+        <manifest-read-only ng-if="SRVReceiveLinesCtrl.ePage.Masters.ProcessInfo.WSI_StepName=='Confirm Arrival at Port'" current-manifest="SRVReceiveLinesCtrl.ePage.Masters.CurrentObj"></manifest-read-only>
+        <manifest-menu active-menu='true' ng-if="SRVReceiveLinesCtrl.ePage.Masters.ProcessInfo.WSI_StepName=='Dispatch from Port'"
+            current-manifest="SRVReceiveLinesCtrl.ePage.Masters.CurrentObj"></manifest-menu>
+        <manifest-read-only ng-if="SRVReceiveLinesCtrl.ePage.Masters.ProcessInfo.WSI_StepName=='Confirm Manifest Arrival'" current-manifest="SRVReceiveLinesCtrl.ePage.Masters.CurrentObj"></manifest-read-only>
+        <receive-items ng-if="SRVReceiveLinesCtrl.ePage.Masters.ProcessInfo.WSI_StepName=='Receive Item And Confirm'" current-manifest="SRVReceiveLinesCtrl.ePage.Masters.CurrentObj"></receive-items>
+    </div>
+</div>
+<div class="clearfix col-lg-12" style="margin-bottom: 40px;">
+    <button class="btn btn-blue attach" data-ng-click="SRVReceiveLinesCtrl.ePage.Masters.Save(SRVReceiveLinesCtrl.ePage.Masters.TmsManifestItem)">Save </button>
+</div>

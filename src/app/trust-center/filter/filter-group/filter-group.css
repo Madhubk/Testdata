@@ -1,0 +1,26 @@
+.tc-list-container .tc-list .tc-filter-group-id {
+    margin-left: 10px;
+}
+
+.tc-filter-group-id span {
+    font-size: 12px;
+    cursor: pointer;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #aaa;
+    border-radius: 100%;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.filter-details {
+    padding: 5px 15px;
+}
+
+.filter-header {
+    font-weight: bold;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-top: 10px;
+}

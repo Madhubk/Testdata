@@ -1,0 +1,44 @@
+<div class="clearfix">
+    <div class="widget-main ">
+        <uib-tabset id="locationGeneral">
+            <!--General Tab-->
+            <uib-tab>
+                <uib-tab-heading title="Details">
+                    <i class="fa fa-info-circle margin-right-5"></i> <span class="text-single-line" data-ng-bind="'Details'"></span>
+                </uib-tab-heading>
+                <div class="finalisedstate" ng-show="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatusDesc=='Finalized'">
+                    <span class="finaliseddatedescription">Pick Finalized and it cannot be edited</span>
+                </div>
+                <div data-ng-include="'app/eaxis/warehouse/pick/pick-general/tabs/pick-details.html'"></div>
+            </uib-tab>
+            <!--Details-->
+            <uib-tab>
+                <uib-tab-heading title="Pick Allocation">
+                    <i class="fa fa-suitcase margin-right-5"></i> <span class="text-single-line" data-ng-bind="'Pick Allocation'"></span>
+                </uib-tab-heading>
+                <div class="finalisedstate" ng-show="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatusDesc=='Finalized'">
+                    <span class="finaliseddatedescription">Pick Finalized and it cannot be edited</span>
+                </div>
+                <pick-slip current-pick="PickGeneralCtrl.currentPick"></pick-slip>
+            </uib-tab>
+            <uib-tab>
+                <uib-tab-heading title="Pick Slip">
+                    <i class="fa fa-list-alt margin-right-5"></i> <span class="text-single-line" data-ng-bind="'Pick Slip'"></span>
+                </uib-tab-heading>
+                <div class="finalisedstate" ng-show="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatusDesc=='Finalized'">
+                    <span class="finaliseddatedescription">Pick Finalized and it cannot be edited</span>
+                </div>
+                <div data-ng-include="'app/eaxis/warehouse/pick/pick-general/tabs/pick-slip-tab.html'"></div>
+            </uib-tab>
+            <uib-tab>
+                <uib-tab-heading title="Documents">
+                    <i class="fa fa-file-pdf-o margin-right-5"></i> <span class="text-single-line" data-ng-bind="'Documents'"></span>
+                </uib-tab-heading>
+                <div class="finalisedstate" ng-show="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatusDesc=='Finalized'">
+                    <span class="finaliseddatedescription">Pick Finalized and it cannot be edited</span>
+                </div>
+                <div data-ng-include="'app/eaxis/warehouse/pick/pick-general/tabs/pick-slip-document.html'"></div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>

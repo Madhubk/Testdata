@@ -1,0 +1,115 @@
+<div class="clearfix tc-page">
+    <!-- Breadcrumb -->
+    <div class="clearfix tc-breadcrumb" data-ng-if="PageCtrl.ePage.Masters.ActiveApplication == 'TC'">
+        <i class="fa fa-home home-icon"></i>
+        <div class="breadcrumb-list-wrapper">
+            <ol class="breadcrumb">
+                <li data-ng-repeat="x in PageCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="PageCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                </li>
+                <li data-ng-repeat="x in PageCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
+                    class="active"></li>
+            </ol>
+        </div>
+        <span class="tc-breadcrumb-app-name" data-ng-if="PageCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="PageCtrl.ePage.Masters.QueryString.AppName"></span>
+    </div>
+    <!-- Header -->
+    <div class="clearfix tc-header-container">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="tc-header with-drop-down">
+                <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0 pr-5">
+                    <select chosen class="form-control" data-ng-model="PageCtrl.ePage.Masters.Module.ActiveModule.Key" data-ng-options="x.Key as x.Value for x  in PageCtrl.ePage.Masters.Module.ListSource"
+                        data-ng-change="PageCtrl.ePage.Masters.Module.OnModuleChange((PageCtrl.ePage.Masters.Module.ListSource | filter: {'Key': PageCtrl.ePage.Masters.Module.ActiveModule.Key})[0])"></select>
+                </div>
+                <div class="col-xs-5 col-sm-5 col-md-4 col-lg-5 col-xl-5 p-0 pl-5">
+                    <select chosen class="form-control" data-ng-model="PageCtrl.ePage.Masters.SubModule.ActiveSubModule" data-ng-options="x for x in PageCtrl.ePage.Masters.SubModule.ListSource"></select>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-5 pt-4 text-right">
+                    <button class="btn btn-xs btn-info" data-ng-click="PageCtrl.ePage.Masters.Page.AddNew()" data-ng-disabled="!PageCtrl.ePage.Masters.Module.ActiveModule.Key">New</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">
+            <div class="tc-header edit-view">
+                <span data-ng-bind="'Details'"></span>
+                <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10" data-ng-click="PageCtrl.ePage.Masters.Page.Copy()" data-ng-disabled="!PageCtrl.ePage.Masters.Page.ActivePage.DataEntry_PK">Copy</button>
+                <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10" data-ng-click="PageCtrl.ePage.Masters.Page.Edit()" data-ng-disabled="!PageCtrl.ePage.Masters.Page.ActivePage.DataEntry_PK">Edit</button>
+                <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="PageCtrl.ePage.Masters.Page.DeleteConfirmation()"
+                    data-ng-bind="PageCtrl.ePage.Masters.Page.DeleteBtnText" data-ng-disabled="PageCtrl.ePage.Masters.Page.IsDisableDeleteBtn || !PageCtrl.ePage.Masters.Page.ActivePage.DataEntry_PK"></button>
+            </div>
+        </div>
+    </div>
+    <!-- Body -->
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 tc-page-height-fixed">
+            <div class="tc-list-container">
+                <div class="tc-list-search">
+                    <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="PageCtrl.ePage.Masters.Search">
+                </div>
+                <ul class="tc-list-ul">
+                    <div class="p-15 text-center tc-loading" data-ng-if="!PageCtrl.ePage.Masters.Page.PageList">
+                        <i class="fa fa-spin fa-spinner"></i>
+                    </div>
+                    <div data-ng-if="PageCtrl.ePage.Masters.Page.PageList && (PageCtrl.ePage.Masters.Page.PageList | filter: PageCtrl.ePage.Masters.Search).length===0"
+                        class="p-15 text-center">
+                        <i>No Records...</i>
+                    </div>
+                    <li data-ng-if="PageCtrl.ePage.Masters.Page.PageList && (PageCtrl.ePage.Masters.Page.PageList | filter: PageCtrl.ePage.Masters.Search).length > 0"
+                        data-ng-repeat="x in PageCtrl.ePage.Masters.Page.PageList | filter: PageCtrl.ePage.Masters.Search" data-ng-click="PageCtrl.ePage.Masters.Page.ActivePage.DataEntry_PK != x.DataEntry_PK && PageCtrl.ePage.Masters.Page.OnPageClick(x)"
+                        data-ng-class="{'active': PageCtrl.ePage.Masters.Page.ActivePage.DataEntry_PK == x.DataEntry_PK}">
+                        <div class="clearfix tc-list">
+                            <div class="tc-list-name">
+                                <i class="fa fa-circle-o mr-10"></i>
+                                <span class="text-single-line" data-ng-bind="x.DataEntryName"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed">
+            <div class="pt-10 pb-10 tc-details-view clearfix">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">DataEntry Name</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="PageCtrl.ePage.Masters.Page.ActivePage.DataEntryName || PageCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Filter ID</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="PageCtrl.ePage.Masters.Page.ActivePage.FilterID || PageCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Filter API</label>
+                        <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 ">
+                            <label data-ng-bind="PageCtrl.ePage.Masters.Page.ActivePage.FilterAPI || PageCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Title</label>
+                        <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 ">
+                            <label data-ng-bind="PageCtrl.ePage.Masters.Page.ActivePage.Title || PageCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">IsActive</label>
+                        <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 ">
+                            <label data-ng-bind="PageCtrl.ePage.Masters.Page.ActivePage.IsActive || PageCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

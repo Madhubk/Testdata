@@ -1,0 +1,25 @@
+.port-alignment {
+    background: #fbfbfb;
+    border-top: 1px solid #cdcaca;
+    border-bottom: 1px solid #cdcaca
+}
+
+.grid-no-record2 {
+    width: 200px !important;
+    position: relative !important;
+    left: 165% !important;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 30px;
+    text-align: center;
+    border: 1px solid;
+    color: #D1001C;
+    border: 1px solid #CCCC66;
+    background-color: #FAFFBD;
+    padding: 5px 10px;
+    border-radius: 3px;
+}

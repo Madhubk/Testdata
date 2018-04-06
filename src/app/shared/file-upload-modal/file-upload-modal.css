@@ -1,0 +1,33 @@
+.file-list-wrapper {
+    max-height: 370px;
+    overflow-y: auto;
+}
+
+.widget-header .file-list.header>div {
+    text-align: left;
+    font-weight: bold;
+    padding: 8px;
+    color: #fff;
+}
+
+.file-list-wrapper .file-list.details>div {
+    padding: 8px;
+}
+
+.file-list.details .action {
+    text-align: center !important;
+}
+
+.file-list .action i {
+    cursor: pointer;
+}
+
+.file-list-wrapper .no-records {
+    text-align: center;
+    padding: 8px;
+    color: #E40000;
+}
+
+.file-list-wrapper .file-list.details:nth-child(even) {
+    background-color: #f4f4f4;
+}

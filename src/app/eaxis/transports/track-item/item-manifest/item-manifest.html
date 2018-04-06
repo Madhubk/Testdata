@@ -1,0 +1,133 @@
+<!--Order Details-->
+<div class="clearfix margin-top-5">
+    <!-- Saving Your Data -->
+    <div class="grid-loading-norecord-container ng-scope" style='z-index: 4;' data-ng-if="ItemManifestCtrl.ePage.Masters.IsLoadingToSave">
+        <div class="grid-no-record">Saving your Data...</div>
+    </div >
+    <div class="col-lg-12 margin-top-5 mb-50">
+        <!--Order Details-->
+        <div class="">
+            <div class="wmstable_scroll" id="ItemManifestCtrl.ePage.Masters.your_div" style="height:310px; padding-top: 2px;">
+                <div class="table" id="results">
+                    <div class='theader'>
+                        <div class='table_header'>Manifest Number</div>
+                        <div class='table_header'>Manifest Status</div>
+                        <div class='table_header'>Manifest Type</div>
+                        <div class='table_header'>Shipment No</div>
+                        <div class='table_header'>Consol No</div>
+                        <div class='table_header'>Seal No</div>
+                        <div class='table_header'>Vessal Name</div>
+                        <div class='table_header'>Voyage No</div>
+                        <div class='table_header'>Shipment Arrival Date</div>
+                        <div class='table_header'>Driver Name</div>
+                        <div class='table_header'>Driver Contact No</div>
+                        <div class='table_header'>Vehicle No</div>
+                        <div class='table_header'>Vehicle Type</div>
+                        <div class='table_header'>Total Amount</div>
+                        <div class='table_header'>Total Volume</div>
+                        <div class='table_header'>Total Weight</div>
+                        <div class='table_header'>Manifest UTC</div>
+                        <div class='table_header'>Actual Delivery Date</div>
+                        <div class='table_header'>Actual Dispatch Date</div>
+                        <div class='table_header'>Estimated Delivery Date</div>
+                        <div class='table_header'>Estimated Dispatch Date</div>
+                    </div>
+
+                    <!-- List Empty Response -->
+                    <div data-ng-if="ItemManifestCtrl.ePage.Entities.Header.Data.TmsManifestItem.length==0">
+                        <div class="grid-no-record grid-width" style="bottom:38px">No Record Found</div>
+                    </div>
+
+                    <div class='table_row' ng-repeat="x in ItemManifestCtrl.ePage.Entities.Header.Data.TmsManifestItem | filter:{IsDeleted:'false'}  track by $index"
+                        ng-click="ItemManifestCtrl.ePage.Masters.setSelectedRow($index)" ng-class="{row_active: ItemManifestCtrl.ePage.Masters.selectedRow==$index}"
+                        style="font-size: 11px;">
+                        <div class='table_small'>
+                            <div class='table_cell'>Manifest Number</div>
+                            <div class='table_cell'>{{x.TMM_ManifestNumber || ItemManifestCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Manifest Status</div>
+                            <div class='table_cell'>{{x.TMM_ManifestStatusDesc || ItemManifestCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Manifest Type</div>
+                            <div class='table_cell'>{{x.TMM_ManifestType || ItemManifestCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Shipment No</div>
+                            <div class='table_cell'>{{x.TMM_ShipmentNo || ItemManifestCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Consol No</div>
+                            <div class='table_cell'>{{x.TMM_ConsolNo || ItemManifestCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Seal No</div>
+                            <div class='table_cell'>{{x.TMM_SealNo || ItemManifestCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Vessal Name</div>
+                            <div class='table_cell'>{{x.TMM_VesselName || ItemManifestCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Voyage No</div>
+                            <div class='table_cell'>{{x.TMM_VoyageNo || ItemManifestCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Shipment Arrival Date</div>
+                            <div class='table_cell'>{{x.TMM_ShipmentArrivalDate | dateFormat}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Driver Name</div>
+                            <div class='table_cell'>{{x.TMM_DriveName || ItemManifestCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Driver Contact No</div>
+                            <div class='table_cell'>{{x.TMM_DriverContactNo || ItemManifestCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Vehicle No</div>
+                            <div class='table_cell'>{{x.TMM_VehicleNo || ItemManifestCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Vehicle Type</div>
+                            <div class='table_cell'>{{x.TMM_VehicleType || ItemManifestCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Total Amount</div>
+                            <div class='table_cell'>{{x.TMM_TotalAmount || ItemManifestCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Total Volume </div>
+                            <div class='table_cell'>{{x.TMM_TotalVolume || ItemManifestCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Total Weight</div>
+                            <div class='table_cell'>{{x.TMM_TotalWeight || ItemManifestCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Manifest UTC</div>
+                            <div class='table_cell'>{{x.TMM_ManifestUTC | dateFormat}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Actual Delivery Date</div>
+                            <div class='table_cell'>{{x.TMM_ActualDeliveryDate | dateFormat}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Actual Dispatch Date</div>
+                            <div class='table_cell'>{{x.TMM_ActualDispatchDate | dateFormat}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Estimated Delivery Date </div>
+                            <div class='table_cell'>{{x.TMM_EstimatedDeliveryDate | dateFormat}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Estimated Dispatch Date </div>
+                            <div class='table_cell'>{{x.TMM_EstimatedDispatchDate | dateFormat}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

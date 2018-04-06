@@ -1,0 +1,4 @@
+.dynamic-list-modal.modal.left .modal-body,
+.dynamic-list-modal.modal.right .modal-body {
+    overflow-x: hidden;
+}

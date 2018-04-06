@@ -1,0 +1,9 @@
+<div class="clearfix">
+    <div data-ng-if="!EAxisDynamicPageListCtrl.ePage.Masters.DynamicPageList" class="text-center p-20">
+        <i class="fa fa-spin fa-spinner font-160"></i>
+    </div>
+    <button class="btn {{obj.OtherConfig.CSS['bg-color']}} m-5" data-ng-if="EAxisDynamicPageListCtrl.ePage.Masters.DynamicPageList" data-ng-repeat="obj in EAxisDynamicPageListCtrl.ePage.Masters.DynamicPageList" ng-style="{color:obj.OtherConfig.CSS['fg-color']}" title="{{obj.Title}}" data-ng-click="EAxisDynamicPageListCtrl.ePage.Masters.RedirectPage(obj)">
+        <i class="{{obj.OtherConfig.CSS.icon}} mr-5"></i>
+        <span data-ng-bind="obj.Title"></span>
+    </button>
+</div>

@@ -1,0 +1,106 @@
+.container-alignment {
+    background: #F6F6F6;
+    border: 1px solid #dfdddd;
+}
+
+.routing-box {
+    background: #F6F6F6;
+    border: 1px solid #dfdddd;
+    margin: 0px 15px 0px 15px;
+}
+
+.text-single-line-label1 {
+    font-size: 17px;
+}
+
+.routing-box-line {
+    margin: 0px 15px 0px 15px;
+    border: 1px solid #dfdddd;
+    border-top: none;
+}
+
+.center-alignment {
+    text-align: center
+}
+
+.dropdownWrapLeft {
+    position: absolute;
+    z-index: 999999;
+    width: 998px;
+    background: #f0f0f0;
+    box-shadow: 1px 1px 5px #999;
+    right: 0px;
+    top: 33px;
+}
+
+.dropdownWrapMiddle {
+    position: absolute;
+    z-index: 999999;
+    width: 998px;
+    background: #f0f0f0;
+    box-shadow: 1px 1px 5px #999;
+    right: -342px;
+    top: 41px;
+}
+
+.dropdownWrapLast {
+    position: absolute;
+    z-index: 999999;
+    width: 998px;
+    background: #f0f0f0;
+    box-shadow: 1px 1px 5px #999;
+    right: 0px;
+    top: 41px;
+}
+
+.address-panel {
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+}
+
+.address-design {
+    border-right: 1px solid #eee;
+}
+
+.address-consignee {
+    border-right: 1px solid #eee;
+}
+
+.ex-line-box1 {
+    width: 109%;
+    height: 176px;
+    float: left;
+    border: 1px solid #eeeded;
+}
+
+.ex-line-font label {
+    color: gray;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.ex-line-font1 label {
+    color: gray;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.grid-no-record113 {
+    width: 200px !important;
+    position: relative !important;
+    left: 63% !important;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 30px;
+    text-align: center;
+    border: 1px solid;
+    color: #D1001C;
+    border: 1px solid #CCCC66;
+    background-color: #FAFFBD;
+    padding: 5px 10px;
+    border-radius: 3px;
+}

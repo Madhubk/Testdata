@@ -1,0 +1,26 @@
+<div class="clearfix">
+    <uib-tabset id="chromeTab" class="tab-container chrometab-box">
+        <uib-tab active="SRVPOUploadCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in SRVPOUploadCtrl.ePage.Masters.TabList"
+            ng-click="SRVPOUploadCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+            <uib-tab-heading title="{{tab.label}}">
+                <span data-ng-bind="tab.label"></span>
+                <i class="glyphicon glyphicon-remove" ng-click="SRVPOUploadCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+            </uib-tab-heading>
+            <div class="padding-bottom-10 clearfix">
+                <!--PO Batch Upload Directive-->
+                <po-batch-upload-directive data-ng-if="!tab.isNewOrder" current-batch="tab" add-tab="SRVPOUploadCtrl.ePage.Masters.AddTab1($item)"></po-batch-upload-directive>
+                <!--Order Menu Directive-->
+                <order-menu data-ng-if="tab.isNewOrder" current-order="tab"></order-menu>
+                <div class="eaxis-footer-strip" data-ng-if="tab.isNewOrder">
+                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
+                        <standard-menu input="tab" entity-name="'OrderHeader'" data-ng-if="!tab.isNew"></standard-menu>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                        <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="SRVPOUploadCtrl.ePage.Masters.Save(tab)"
+                            data-ng-bind="SRVPOUploadCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="SRVPOUploadCtrl.ePage.Masters.IsDisableSave"></button>
+                    </div>
+                </div>
+            </div>
+        </uib-tab>
+    </uib-tabset>
+</div>

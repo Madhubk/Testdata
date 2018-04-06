@@ -1,0 +1,68 @@
+<div class="tabContent responsive">
+   <div class="eaxis-company-header bt-0">
+      <div class="eaxis-company-title">Spotlight</div>
+      <div class="eaxis-company-title-2">Spotlight Pte Ltd.</div>
+   </div>
+   <div class="eaxis-record mt-20 padding-30 padding-top-10 padding-bottom-10">
+      <div class="row">
+         <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6 mb-20">
+            <div class="eaxis-label">Full Name</div>
+           
+             <div class="eaxis-value"  data-ng-bind="EmployeeDetailsCtrl.ePage.Entities.EmployeeHeader.Data.FullName"></div>
+         </div>
+         <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6 mb-20">
+            <div class="eaxis-label">Title</div>
+               <div class="eaxis-value" data-ng-bind="EmployeeDetailsCtrl.ePage.Entities.EmployeeHeader.Data.Title"></div>
+         </div>
+         <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6 mb-20">
+            <div class="eaxis-label">Name Title
+            </div>
+             
+             <div class="eaxis-value" data-ng-bind="EmployeeDetailsCtrl.ePage.Entities.EmployeeHeader.Data.NameTitle"></div>
+         </div>
+         <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6 mb-20">
+            <div class="eaxis-label">Name Suffix</div>
+           
+               <div class="eaxis-value" data-ng-bind="EmployeeDetailsCtrl.ePage.Entities.EmployeeHeader.Data.NameSuffix"></div>
+         </div>
+         <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6 mb-20">
+            <div class="eaxis-label">Gender</div>
+            <div class="eaxis-value" data-ng-bind="EmployeeDetailsCtrl.ePage.Entities.EmployeeHeader.Data.Gender"></div>
+         </div>
+         <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6 mb-20">
+            <div class="eaxis-label">Birthdate</div>
+           
+              <div class="eaxis-value" data-ng-bind="EmployeeDetailsCtrl.ePage.Entities.EmployeeHeader.Data.Birthdate"></div>
+         </div>
+         <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6 mb-20">
+            <div class="eaxis-label">Nationality Code </div>
+            
+                <div class="eaxis-value" data-ng-bind="EmployeeDetailsCtrl.ePage.Entities.EmployeeHeader.Data.NationalityCode"></div>
+         </div>
+         <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6 mb-20">
+            <div class="eaxis-label">Passport</div>
+        
+           
+                <div class="eaxis-value" data-ng-bind="EmployeeDetailsCtrl.ePage.Entities.EmployeeHeader.Data.Passport"></div>
+         </div>
+         <div class="col-lg-2 col-md-3 col-sm-6  col-xs-6 mb-20">
+            <div class="eaxis-label">Working Language </div>
+            <!--  <select name="category-group" class="form-control header-select-control input-sm gmail-style-btn eaxis-value" ng-model="EmployeeDetailsCtrl.ePage.Entities.EmployeeHeader.Data.WorkingLanguage"
+                                ng-options="x.Key  as x.Value for x in EmployeeDetailsCtrl.ePage.Entities.EmployeeHeader.Meta.Language.ListSource"> -->
+             <div class="eaxis-value" data-ng-bind="EmployeeDetailsCtrl.ePage.Entities.EmployeeHeader.Data.WorkingLanguage"></div>
+
+         </select>                       
+         </div>
+         <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6 mb-20">
+            <div class="eaxis-label">Employment Date</div>
+            
+            <div class="eaxis-value" data-ng-bind="EmployeeDetailsCtrl.ePage.Masters.Emplist.EmploymentDate"></div>
+         </div>
+
+
+      </div>
+      <div class="row edit">
+      <a class="pull-right"ng-click="EmployeeDetailsCtrl.ePage.Masters.OpenBasicsModel()"> View and Edit All Fields </a>
+      </div>
+   </div>
+</div>

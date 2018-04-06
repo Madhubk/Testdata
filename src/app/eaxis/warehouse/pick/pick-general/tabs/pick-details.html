@@ -1,0 +1,206 @@
+<!--General details-->
+<div class="clearfix margin-top-10">
+    <div class="margin-top-5">
+        <!--Pick Number-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-2">
+            <div class="error-warning-container">
+                <error-warning-directive data-ng-if="PickGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PickNo.IsWarning && !PickGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PickNo.IsError"
+                    list="PickGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PickNo.WARNING" type="'warning'" icon="fa fa-warning"
+                    parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="PickGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PickNo.IsError" list="PickGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PickNo.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </div>
+            <div class="form-group">
+                <label class="control-label text-single-line">Pick Number</label>
+                <div class="">
+                    <input ng-if="PickGeneralCtrl.currentPick.isNew" type="text"class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Pick Number" value='New' readonly=''>
+                    <input ng-if='!PickGeneralCtrl.currentPick.isNew' type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Pick Number" data-ng-model="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickNo"
+                        disabled ng-change='PickGeneralCtrl.ePage.Masters.OnChangeValues(PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickNo,"E8001",false,undefined);'>
+                </div>
+            </div>
+        </div>
+        <!--Pick Priority-->
+        <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+            <div class="form-group">
+                <label class="control-label">Pick Priority</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Pick Priority"
+                        data-ng-model="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.Priority" ng-disabled="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatus=='PIF'">
+                </div>
+            </div>
+        </div> -->
+        <!--Pick Option-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-2">
+            <div class="error-warning-container">
+                <error-warning-directive data-ng-if="PickGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PickOption.IsWarning && !PickGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PickOption.IsError"
+                    list="PickGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PickOption.WARNING" type="'warning'" icon="fa fa-warning"
+                    parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="PickGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PickOption.IsError" list="PickGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PickOption.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </div>
+            <div class="form-group">
+                <label class="control-label text-single-line">Pick Option</label>
+                <div class="">
+                    <select chosen class="form-control" ng-model="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickOption" ng-disabled="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatus=='PIF'" ng-options="x.Key as x.Key + ' - '  + x.Value for x in PickGeneralCtrl.ePage.Masters.DropDownMasterList.PickOption.ListSource"
+                        search-contains="true" ng-change='PickGeneralCtrl.ePage.Masters.OnChangeValues(PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickOption,"E8002",false,undefined);'>
+                            <option value="">--Select--</option>
+                        </select>
+                </div>
+
+            </div>
+        </div>
+        <!--status-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-2">
+            <div class="form-group">
+                <label class="control-label text-single-line">Status</label>
+                <div class="">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Pick Status"
+                        data-ng-model="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatusDesc">
+                </div>
+            </div>
+        </div>
+        <!--Dock Door-->
+        <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+            <div class="form-group">
+                <label class="control-label text-single-line">Dock Door</label>
+                <div class="input-group input-group-sm" is-disabled="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatusDesc=='Finalized'">
+
+                    <div dynamic-lookup placeholder="Dock Door" my-ng-model="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.DockDoor"
+                        auto-complete-on-select="PickGeneralCtrl.ePage.Masters.SelectedLookupDataDockDoor($item)" obj="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader"
+                        prefix-data="'WarehouseLocation'" config="'DockDoor'" is-disabled='PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatus=="PIF"'>
+                    </div>
+
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader" field-name="'DockDoor'" selected-data="PickGeneralCtrl.ePage.Masters.SelectedLookupDataDockDoor($item)"  
+                        prefix-data="'WarehouseLocation'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button" is-disabled='PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatus=="PIF"'><i class="fa fa-ellipsis-h"></i></button>
+                    </span>
+                </div>
+            </div>
+        </div> -->
+        <!-- Warehouse -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-2">
+            <div class="form-group">
+                <div class="error-warning-container">
+                    <error-warning-directive data-ng-if="PickGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.WarehouseCode.IsWarning && !PickGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.WarehouseCode.IsError"
+                        list="PickGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.WarehouseCode.WARNING" type="'warning'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="PickGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.WarehouseCode.IsError" list="PickGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.WarehouseCode.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
+                <label class="control-label text-single-line">Warehouse</label>
+                <div class="input-group input-group-sm">
+
+                    <!-- Dynamic look up Search in textbox -->
+                    <div dynamic-lookup placeholder="Warehouse" my-ng-model="PickGeneralCtrl.ePage.Masters.WarehouseCode" auto-complete-on-select="PickGeneralCtrl.ePage.Masters.SelectedLookupDataWarCode($item)"
+                        obj="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader" prefix-data="'Warehouse'" config="'WarhouseCode'" is-disabled='PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatus=="PIF"'>
+                    </div>
+
+                    <!-- Look Up page opens when button clicks -->
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader" field-name="'WarhouseCode'" selected-data="PickGeneralCtrl.ePage.Masters.SelectedLookupDataWarCode($item)"  prefix-data="'Warehouse'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button" is-disabled='PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatus=="PIF"'><i class="fa fa-ellipsis-h"></i></button>
+                    </span>
+                    <span ng-if="!PickGeneralCtrl.ePage.Masters.WarehouseCode">
+                            <span data-ng-init="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.WarehouseCode=''"></span>
+                    <span data-ng-init="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.WarehouseName=''"></span>
+                    </span>
+                    <span ng-if='!PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.WarehouseCode && !PickGeneralCtrl.currentPick.isNew'>
+                        <div ng-init="PickGeneralCtrl.ePage.Masters.OnChangeValues(PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.WarehouseCode,'E8003',false,undefined)"></div>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Order Details-->
+<div class="clearfix margin-top-5">
+    <span class="text-single-line text-style" data-ng-bind="'Orders on this Pick'"></span>
+    <div class="col-lg-12 margin-top-5">
+        <!--Order Details-->
+
+        <div class="">
+            <div ng-hide="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatusDesc=='Finalized'">
+                <input type="hidden" data-ng-model="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.FinalisedDate">
+                <span><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="New"  data-ng-click="PickGeneralCtrl.ePage.Masters.addnew()"><span class="fa fa-external-link-square"></span>&nbsp;&nbsp;New</button>
+                </span>
+                <span>
+                     <button dynamic-list-modal obj="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader" field-name="'PickAttachOrder'" 
+                        selected-data="PickGeneralCtrl.ePage.Masters.attachOrders($item)" prefix-data="'WarehouseOutward'" mode="3"
+                        grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-sm btn-outline-primary" 
+                        type="button" ng-disabled="PickGeneralCtrl.ePage.Masters.IsDisabled">
+                    <i class="fa fa-plus-circle"></i> Attach</button>
+                </span>
+                <span><button type="button" ng-disabled="PickGeneralCtrl.ePage.Masters.selectedRow==-1" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Edit"  data-ng-click="PickGeneralCtrl.ePage.Masters.EditOrderDetails(PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutward[PickGeneralCtrl.ePage.Masters.selectedRow])"><span class="fa fa-pencil"></span>&nbsp;&nbsp;Edit</button>
+                </span>
+                <span><button type="button" ng-disabled="PickGeneralCtrl.ePage.Masters.selectedRow==-1" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Delete"  data-ng-click="PickGeneralCtrl.ePage.Masters.DeleteConfirmation(PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutward[PickGeneralCtrl.ePage.Masters.selectedRow])"><span class="fa fa-minus-circle"></span>&nbsp;&nbsp;Detach</button>
+                </span>
+            </div>
+            <div class="wmstable_scroll" style="height:310px; padding-top: 2px;">
+                <div class="table" id="results">
+                    <div class='theader'>
+                        <div class='table_header'>Warehouse</div>
+                        <div class='table_header'>Client</div>
+                        <div class='table_header'>Work Order No</div>
+                        <div class='table_header'>External Ref</div>
+                        <div class='table_header'>Consignee</div>
+                        <div class='table_header'>Pick Option</div>
+                        <div class='table_header'>Work Order Status</div>
+                        <div class='table_header'>Required Date</div>
+                        <div class='table_header'>Finalised Date</div>
+                        <div class='table_header'>Transporter</div>
+                    </div>
+
+                    <!-- List Empty Response -->
+                    <div data-ng-if="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutward.length==0">
+                        <div class="grid-no-record grid-width" style="bottom:38px">{{PickGeneralCtrl.ePage.Masters.Text}}</div>
+                    </div>
+
+                    <div class='table_row' ng-repeat="x in PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutward | filter:{IsDeleted:'false'}  track by $index"
+                        ng-click="PickGeneralCtrl.ePage.Masters.setSelectedRow($index)" ng-class="{row_active: PickGeneralCtrl.ePage.Masters.selectedRow==$index}"
+                        style="font-size: 11px;">
+                        <div class='table_small'>
+                            <div class='table_cell'>Warehouse</div>
+                            <div class='table_cell'>{{x.WarehouseCode || PickGeneralCtrl.ePage.Masters.emptyText}}-{{x.WarehouseName || PickGeneralCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Client</div>
+                            <div class='table_cell'>{{x.ClientCode || PickGeneralCtrl.ePage.Masters.emptyText}}-{{x.ClientName || PickGeneralCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Work Order ID</div>
+                            <div class='table_cell'>{{x.WorkOrderID || PickGeneralCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>External Reference</div>
+                            <div class='table_cell'>{{x.ExternalReference || PickGeneralCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Consignee</div>
+                            <div class='table_cell'>{{x.ConsigneeCode || PickGeneralCtrl.ePage.Masters.emptyText}}-{{x.ConsigneeName || PickGeneralCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Pick Option</div>
+                            <div class='table_cell'>{{x.PickOption || "-"}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Work Order Status</div>
+                            <div class='table_cell'>{{x.WorkOrderStatusDesc || PickGeneralCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Required Date</div>
+                            <div class='table_cell'>{{x.RequiredDate | dateFormat}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Finalised Date</div>
+                            <div class='table_cell'>{{x.FinalisedDate || "-" | dateFormat}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Transport</div>
+                            <div class='table_cell'>{{x.TransportCode || PickGeneralCtrl.ePage.Masters.emptyText}}-{{x.TransportName || PickGeneralCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

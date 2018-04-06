@@ -1,0 +1,236 @@
+<div class="clearfix">
+    <div class="widget-main">
+        <uib-tabset id="shipmentDocuments" justified="true">
+            <uib-tab heading="Documents">
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="height-230 clearfix">
+                            <div class="text-center grid-view-loader" data-ng-if="!ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocuments.GridData"><i class="fa fa-spin fa-spinner font-160"></i></div>
+                            <dynamic-grid data-ng-if="ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocuments.GridData" input-data="ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocuments.GridData"
+                                grid-config="ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocuments.gridConfig" row-selection-changed="ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocuments.DocumentsRowSelectionChanged($item)"></dynamic-grid>
+                        </div>
+                        <div class="horizontal-space"></div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                <button class="btn btn-primary btn-sm pull-right margin-left-5" file-upload-modal selected-files="ShipmentDocumentsCtrl.ePage.Masters.SelectedFiles($item)">Attach</button>
+                                <button class="btn btn-primary btn-sm pull-right margin-left-5" data-ng-click="ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocuments.EditDocuments()"
+                                    data-ng-disabled="!ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocuments.IsSelected">Edit</button>
+                                <button class="btn btn-primary btn-sm pull-right margin-left-5" data-ng-click="ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocuments.DeleteDocuments()"
+                                    data-ng-disabled="!ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocuments.IsSelected">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="horizontal-space"></div>
+                <div data-ng-if="ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocuments.IsFormView">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group">
+                                <label class="control-label">Description</label>
+                                <div>
+                                    <input type="text" class="form-control input-sm" placeholder="Document Num" data-ng-model="ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocuments.FormView.DocDescription"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group">
+                                <label class="control-label">Document Type</label>
+                                <div >
+                                    <select chosen name="category-group" class="form-control" ng-model="ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocuments.FormView.DocType"
+                                        ng-options="x.DocType as x.DocType + ' - ' + x.Desc for x in  ShipmentDocumentsCtrl.ePage.Entities.ShipmentDocuments.Meta.DocumentType.ListSource" search-contains="true">
+                                        <option value="">--Select--</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group">
+                                <label class="control-label">Company</label>
+                                <div>
+                                    <select chosen name="category-group" class="form-control" ng-model="ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocuments.FormView.DocType"
+                                        ng-options="x.DocType as x.DocType + ' - ' + x.Desc for x in  ShipmentDocumentsCtrl.ePage.Entities.ShipmentDocuments.Meta.DocTypeMasterType.ListSource" search-contains="true">
+                                        <option value="">--Select--</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group">
+                                <label class="control-label">Branch</label>
+                                <div >
+                                    <select chosen name="category-group" class="form-control" ng-model="ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocuments.FormView.DocType"
+                                        ng-options="x.DocType as x.DocType + ' - ' + x.Desc for x in  ShipmentDocumentsCtrl.ePage.Entities.ShipmentDocuments.Meta.DocTypeMasterType.ListSource" search-contains="true">
+                                        <option value="">--Select--</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group">
+                                <label class="control-label">Department</label>
+                                <div class="">
+                                    <select chosen name="category-group" class="form-control" ng-model="ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocuments.FormView.DocType"
+                                        ng-options="x.DocType as x.DocType + ' - ' + x.Desc for x in  ShipmentDocumentsCtrl.ePage.Entities.ShipmentDocuments.Meta.DocTypeMasterType.ListSource" search-contains="true">
+                                        <option value="">--Select--</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group">
+                                <label for="" class="control-label"></label>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" data-ng-model="ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocuments.FormView.CreditControlDoc" class="colored-blue"/>
+                                            <span class="text">Publish Documents</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group">
+                                <label for="" class="control-label"></label>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" data-ng-model="ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocuments.FormView.CreditControlDoc" class="colored-blue"/>
+                                            <span class="text">IsSpecific</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div>
+                            <button class="btn btn-primary btn-sm pull-right" data-ng-click="ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocuments.UpdateDocumetGridData()">Update </button>
+                        </div>
+                    </div>
+                </div>
+            </uib-tab>
+            <uib-tab heading="Documents Tracking">
+                <div class="clearfix">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 no-padding">
+                        <div class="height-230">
+                            <div class="text-center grid-view-loader" data-ng-if="!ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocumentsTracking.GridData"><i class="fa fa-spin fa-spinner font-160"></i></div>
+                            <dynamic-grid data-ng-if="ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocumentsTracking.GridData" input-data="ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocumentsTracking.GridData"
+                                grid-config="ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocumentsTracking.gridConfig" row-selection-changed="ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocumentsTracking.DocumentsTrackingRowSelectionChanged($item)"></dynamic-grid>
+                        </div>
+                    </div>
+                </div>
+                <div class="horizontal-space"></div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <button class="btn btn-primary btn-sm pull-right margin-left-5" data-ng-click="ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocumentsTracking.AddNewDocumentsTracking()">Add New</button>
+                        <button class="btn btn-primary btn-sm pull-right margin-left-5" data-ng-click="ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocumentsTracking.EditDocumentsTracking()"
+                            data-ng-disabled="!ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocumentsTracking.IsSelected">Edit</button>
+                        <button class="btn btn-primary btn-sm pull-right margin-left-5" data-ng-click="ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocumentsTracking.DeleteDocumentsTracking()"
+                            data-ng-disabled="!ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocumentsTracking.IsSelected">Delete</button>
+                    </div>
+                </div>
+                <div class="horizontal-space"></div>
+                <div data-ng-if="ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocumentsTracking.IsFormView">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group">
+                                <label class="control-label">Document Type</label>
+                                <div >
+                                    <select chosen name="category-group" class="form-control" ng-model="ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocumentsTracking.FormView.DocType"
+                                        ng-options="x.DocType as x.DocType + ' - ' + x.Desc for x in  ShipmentDocumentsCtrl.ePage.Masters.DropDownMasterList.DocumentType.ListSource" search-contains="true">
+                                        <option value="">--Select--</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group">
+                                <label class="control-label">Valid To</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" placeholder="{{ShipmentDocumentsCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocumentsTracking.FormView.ValidToDate"
+                                        uib-datepicker-popup="{{ShipmentDocumentsCtrl.ePage.Masters.DatePicker.Options.format}}"
+                                        datepicker-options="ShipmentDocumentsCtrl.ePage.Masters.DatePicker.Options" is-open="ShipmentDocumentsCtrl.ePage.Masters.DatePicker.isOpen['isValidToDate']"
+                                    />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default shiny" data-ng-click="ShipmentDocumentsCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isValidToDate')"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group">
+                                <label class="control-label">Document Num</label>
+                                <div class="">
+                                    <input type="text" class="form-control input-sm" placeholder="Document Num" data-ng-model="ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocumentsTracking.FormView.DocNumber"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group">
+                                <label class="control-label">Document Usage</label>
+                                <div class="">
+                                    <select chosen name="category-group" class="form-control" ng-model="ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocumentsTracking.FormView.DocUsage"
+                                        ng-options="x.Key as x.Description for x in  ShipmentDocumentsCtrl.ePage.Masters.DropDownMasterList.USAGES.ListSource" search-contains="true">
+                                        <option value="">--Select--</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group">
+                                <label for="" class="control-label"></label>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" data-ng-model="ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocumentsTracking.FormView.CreditControlDoc" class="colored-blue"/>
+                                            <span class="text">Credit Control</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group">
+                                <label class="control-label">Date Received</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" placeholder="{{ShipmentDocumentsCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocumentsTracking.FormView.DateReceived"
+                                        uib-datepicker-popup="{{ShipmentDocumentsCtrl.ePage.Masters.DatePicker.Options.format}}"
+                                        datepicker-options="ShipmentDocumentsCtrl.ePage.Masters.DatePicker.Options" is-open="ShipmentDocumentsCtrl.ePage.Masters.DatePicker.isOpen['isDateReceived']"
+                                    />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default shiny" data-ng-click="ShipmentDocumentsCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isDateReceived')"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group">
+                                <label class="control-label">Period</label>
+                                <div class="">
+                                    <select chosen name="category-group" class="form-control" ng-model="ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocumentsTracking.FormView.DocPeriod"
+                                        ng-options="x.Key as x.Description for x in  ShipmentDocumentsCtrl.ePage.Masters.DropDownMasterList.PERIODTYPE.ListSource" search-contains="true">
+                                        <option value="">--Select--</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group">
+                                <label class="control-label">Document Owner</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" placeholder="Document Owner" data-ng-model="ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocumentsTracking.FormView.ORG_Contractor_FK"
+                                    />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default shiny" type="button" data-ng-click="getModelWindow('Contractor',2,false)"><i class="fa fa-ellipsis-h"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div>
+                            <button class="btn btn-primary btn-sm pull-right" data-ng-click="ShipmentDocumentsCtrl.ePage.Masters.ShipmentDocumentsTracking.AddToGridDocumentsTracking()">AddToGrid </button>
+                        </div>
+                    </div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>

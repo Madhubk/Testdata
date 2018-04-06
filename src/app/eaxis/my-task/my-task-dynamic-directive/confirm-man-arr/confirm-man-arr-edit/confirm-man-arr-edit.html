@@ -1,0 +1,30 @@
+<!-- Loading -->
+<div class="grid-loading-norecord-container" data-ng-show="ArrivalDepotEditDirectiveCtrl.ePage.Meta.IsLoading">
+    <div class="grid-loading">Loading...</div>
+</div>
+
+<!-- Asn Line Directive -->
+<div class="clearfix">
+    <manifest-read-only ng-if="ArrivalDepotEditDirectiveCtrl.ePage.Masters.TabList" current-manifest="ArrivalDepotEditDirectiveCtrl.ePage.Masters.TabList"
+        active-menu="">
+    </manifest-read-only>
+</div>
+<!-- Save & Complete Buttons -->
+<div class="clearfix">
+    <div class="clearfix my-task-standard-bar" data-ng-if="
+        ArrivalDepotEditDirectiveCtrl.ePage.Masters.StandardMenuInput">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 pt-5">
+            <a href="javascript: void(0)" document-modal input="ArrivalDepotEditDirectiveCtrl.ePage.Masters.StandardMenuInput" class="my-task-icon fa fa-file-text-o mr-5"></a>
+            <span class="my-task-slash"></span>
+            <a href="javascript: void(0)" comment-modal input="ArrivalDepotEditDirectiveCtrl.ePage.Masters.StandardMenuInput" class="my-task-icon fa fa-comment-o mr-5"></a>
+            <span class="my-task-slash"></span>
+            <a href="javascript: void(0)" email-modal input="ArrivalDepotEditDirectiveCtrl.ePage.Masters.StandardMenuInput" class="my-task-icon fa fa-envelope-o mr-5"></a>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <input type="submit" class="btn btn-success btn-save btn-sm pull-right ml-5" data-ng-click="ArrivalDepotEditDirectiveCtrl.ePage.Masters.Save()"
+                data-ng-disabled="ArrivalDepotEditDirectiveCtrl.ePage.Masters.IsDisableSaveBtn" value="{{ArrivalDepotEditDirectiveCtrl.ePage.Masters.SaveBtnText}}">
+            <input type="button" class="btn btn-primary btn-sm pull-right ml-5" data-ng-click="ArrivalDepotEditDirectiveCtrl.ePage.Masters.Complete()"
+                data-ng-disabled="ArrivalDepotEditDirectiveCtrl.ePage.Masters.IsDisableCompleteBtn" value="{{ArrivalDepotEditDirectiveCtrl.ePage.Masters.CompleteBtnText}}">
+        </div>
+    </div>
+</div>

@@ -1,0 +1,321 @@
+.search-wrapper {
+	margin-top: 13px;
+}
+
+.search-wrapper .search-btn {
+	width: 75px;
+	height: 30px;
+	vertical-align: top;
+	border-radius: 0;
+}
+
+.search-wrapper .dropdown-toggle {
+	border-left: none;
+	vertical-align: top;
+	height: 34px;
+	background-color: #fbfbfb;
+	box-shadow: none;
+	border-color: #ccc;
+}
+
+.search-wrapper .dropdown-menu {
+	top: 75%;
+	width: 463px;
+	padding: 10px;
+	right: 74px;
+}
+
+.header-button-refresh {
+	padding: 5px 20px;
+}
+
+.btn-compose {
+	margin: 5px 0;
+	width: 150px;
+}
+
+.team-type-master-tab-wrapper {
+	padding-top: 5px;
+	border-bottom: 2px solid #f1f1f1;
+}
+
+/*Side bar*/
+
+.sider-bar-wrapper .checkbox {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+/*List Page*/
+
+.task-list {
+	border-bottom: 1px solid #f1f1f1;
+}
+
+.task-list .list.checkbox {
+	padding: 0;
+	text-align: center;
+}
+
+.task-list .list.star {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding: 0;
+	text-align: center;
+	font-size: 17px;
+}
+
+.task-list .list.star i {
+	cursor: pointer;
+}
+
+.task-list .list.badge-wrapper {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.task-list .list.badge-wrapper .badge {
+	padding: 7px;
+	width: 25px;
+	height: 25px;
+}
+
+.task-list .list .title {
+	font-size: 14px;
+}
+
+.task-list .list .description {
+	color: #999;
+}
+
+.task-list .list .task-no {
+	font-size: 10px;
+	padding: 2px 4px 3px 3px;
+}
+
+.task-list .list .assign-to,
+.task-list .list .raised-on,
+.task-list .list .record-type,
+.task-list .list .category,
+.task-list .list .module {
+	color: #999;
+	padding: 2px 5px;
+	border-right: 1px solid #ddd;
+}
+
+.task-list .list .status {
+	text-align: center;
+	padding: 14px 0;
+}
+
+.task-list .list .effort-time-label {
+	text-align: center;
+	padding: 14px 0;
+}
+
+.task-list .list .effort-icon {
+	text-align: center;
+	padding: 6px 0;
+	font-size: 24px;
+}
+
+.task-list .list .effort-icon i {
+	cursor: pointer;
+}
+
+.starred {
+	color: yellow;
+}
+
+.unstarred {
+	color: #ccc;
+}
+
+/*Details Page*/
+
+.details-back-btn {
+	padding: 6px 20px;
+}
+
+.ts-details-tab-wrapper .nav-tabs.nav-justified>.active>a,
+.ts-details-tab-wrapper .nav-tabs.nav-justified>.active>a:hover,
+.ts-details-tab-wrapper .nav-tabs.nav-justified>.active>a:focus {
+	border: 0;
+	border-bottom: 2px solid #e74b37;
+	box-shadow: none;
+	padding: 10px;
+	color: #262626 !important;
+	font-weight: bold;
+}
+
+.ts-details-tab-wrapper .nav-tabs>li {
+	width: 50%;
+	margin-bottom: 0;
+}
+
+.ts-details-tab-wrapper .nav-tabs>li>a {
+	background-color: #f9f9f9 !important;
+	border: 0;
+	padding: 12px;
+	margin-bottom: -2px;
+	font-size: 12px;
+	color: #777 !important;
+}
+
+.ts-details-tab-wrapper .nav-tabs>li.active>a {
+	border-bottom: 2px solid #fbbc05 !important;
+}
+
+.ts-details-tab-wrapper .nav-tabs.nav-justified>li>a:hover {
+	background-color: #fff;
+	color: #262626 !important;
+}
+
+.ts-details-tab-wrapper .nav-justified {
+	box-shadow: 1px 0 10px 1px rgba(0, 0, 0, .3);
+}
+
+.ts-details-tab-wrapper .tab-content {
+	background-color: #fff;
+}
+
+.details-wrapper .details-title {
+	font-size: 115%;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+.details-task-wrapper .button-wrapper {
+	padding-top: 10px;
+	border-top: 1px solid #ddd;
+}
+
+.module-autocomplete-wrapper .dropdown-menu {
+	width: 92%;
+	max-height: 150px;
+	overflow-y: auto;
+}
+
+/*=================================*/
+
+/*TimeSheet Tab*/
+
+.details-time-sheet-wrapper .button-wrapper {
+	padding-top: 10px;
+	border-top: 1px solid #ddd;
+}
+
+.details-time-sheet-wrapper .time-sheet-list-wrapper {
+	border: 1px solid #ccc;
+	height: 350px;
+	overflow-y: auto;
+}
+
+.details-time-sheet-wrapper .time-sheet-list-wrapper .time-sheet-list {
+	border-bottom: 1px solid #ccc;
+}
+
+.details-time-sheet-wrapper .time-sheet-list-wrapper .time-sheet-list .text-single-line {
+	padding: 10px 5px;
+}
+
+.time-sheet-remove,
+.time-sheet-edit {
+	cursor: pointer;
+}
+
+.details-time-sheet-wrapper .time-sheet-list-wrapper .time-sheet-list:nth-child(even) {
+	background-color: #f4f4f4;
+}
+
+/*Test*/
+
+.gmail-style-btn {
+	font-weight: bold;
+	text-align: center;
+	color: rgb(68, 68, 68);
+	border: 1px solid rgba(0, 0, 0, 0.0980392);
+	border-radius: 2px;
+	box-shadow: none;
+	cursor: pointer;
+	white-space: nowrap;
+	min-width: 54px;
+	height: 30px;
+	outline: 0px;
+	padding: 0px 8px;
+	background-image: -webkit-linear-gradient(top, rgb(245, 245, 245), rgb(241, 241, 241));
+	background-color: transparent;
+}
+
+.team-type-master-tab-wrapper .nav-tabs.nav-justified>.active>a,
+.team-type-master-tab-wrapper .nav-tabs.nav-justified>.active>a:hover,
+.team-type-master-tab-wrapper .nav-tabs.nav-justified>.active>a:focus {
+	border-color: #d73d32;
+}
+
+.team-type-master-tab-wrapper .nav-tabs>li.active>a,
+.team-type-master-tab-wrapper .nav-tabs>li.active>a:hover,
+.team-type-master-tab-wrapper .nav-tabs>li.active>a:focus {
+	border-color: #d73d32;
+}
+
+.task-side-bar {
+	width: 325px;
+	position: absolute;
+	top: 0;
+	right: -325px;
+	z-index: 99;
+	background: #fff;
+	-webkit-transition: 250ms cubic-bezier(0.1, .57, .1, 1);
+	-moz-transition: 250ms cubic-bezier(0.1, .57, .1, 1);
+	-ms-transition: 250ms cubic-bezier(0.1, .57, .1, 1);
+	-o-transition: 250ms cubic-bezier(0.1, .57, .1, 1);
+	transition: 250ms cubic-bezier(0.1, .57, .1, 1);
+	border-left: 2px solid #eee;
+	background-color: #f1f1f1;
+}
+
+.task-side-bar.open {
+	right: 0;
+}
+
+.page-breadcrumbs-mobile {
+	min-height: auto !important;
+}
+
+.b-right-0 {
+	border-right: 0px !important;
+}
+
+.border-bottom {
+	border-bottom: 1px solid #ddd;
+}
+
+.color-blue {
+	color: #4385f5 !important;
+}
+
+.color-yellow {
+	color: #fbbc05 !important;
+}
+
+.color-dark-gray {
+	color: #999 !important;
+}
+
+/*** Timesheet Mobile View ***/
+
+.mobile-time-sheet-list {
+	border: 1px solid #f5f5f5;
+}
+
+.mobile-effort {
+	width: 40px;
+	height: 40px;
+	background: #dddddd;
+	border-radius: 50%;
+	text-align: center;
+	font-size: 18px;
+	padding-top: 8px;
+	margin: 5px 6px;
+}

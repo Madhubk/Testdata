@@ -1,0 +1,40 @@
+﻿<div class="clearfix padding-bottom-5" data-ng-if="OrderCtrl.ePage.Masters.NotShowing">
+    <supplier-follow-up-directive entity="OrderCtrl.ePage.Masters.ButtonValue" filter="OrderCtrl.ePage.Masters.DefaultFilter" data-ng-if="OrderCtrl.ePage.Masters.NotShowing" reload="OrderCtrl.ePage.Masters.Reload()"></supplier-follow-up-directive>
+</div>
+<div class="page-body p-5" data-ng-if="!OrderCtrl.ePage.Masters.NotShowing">
+    <uib-tabset id="chromeTab" active="OrderCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+        <uib-tab>
+            <uib-tab-heading title="Order">
+                <span data-ng-bind="'Order'"></span>
+                <i class="fa fa-thumb-tack pinned-tab"></i>
+            </uib-tab-heading>
+            <div class="no-padding tab-list-view-wrapper">
+                <!--Order Grid Page-->
+                <dynamic-list dataentry-name="OrderCtrl.ePage.Masters.dataentryName" task-name="OrderCtrl.ePage.Masters.taskName" grid-config-type="0"
+                    selected-grid-row="OrderCtrl.ePage.Masters.SelectedGridRow($item)" default-filter="OrderCtrl.ePage.Masters.DefaultFilter" mode="1" data-ng-if="!OrderCtrl.ePage.Masters.NotShowing"></dynamic-list>
+                <div class="tab-loading" data-ng-show="OrderCtrl.ePage.Masters.IsTabClick"></div>
+            </div>
+        </uib-tab>
+        <uib-tab active="OrderCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in OrderCtrl.ePage.Masters.TabList" ng-click="OrderCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+            <uib-tab-heading title="{{tab.label}}">
+                <span data-ng-bind="tab.label"></span>
+                <i class="glyphicon glyphicon-remove" ng-click="OrderCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+            </uib-tab-heading>
+            <div class="padding-bottom-10 clearfix">
+                <!--Order Menu Directive-->
+                <order-menu current-order="tab"></order-menu>
+                <!--Standard Menu Directive-->
+                <div class="eaxis-footer-strip">
+                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
+                        <standard-menu input="tab" entity-name="'OrderHeader'" data-ng-if="!tab.isNew"></standard-menu>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                        <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="OrderCtrl.ePage.Masters.Save(tab)"
+                            data-ng-bind="OrderCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="OrderCtrl.ePage.Masters.IsDisableSave"></button>
+                    </div>
+                </div>
+            </div>
+        </uib-tab>
+        <button class="btn btn-default" data-ng-click="OrderCtrl.ePage.Masters.CreateNewOrder()" data-ng-disabled="OrderCtrl.ePage.Masters.IsNewOrderClicked">+</button>
+    </uib-tabset>
+</div>

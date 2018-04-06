@@ -1,0 +1,18 @@
+.inward-menu>.nav-tabs.nav-justified>.show-address-sidebar {
+    position: absolute;
+    top: -2px;
+    right: 0;
+    height: 28px;
+    margin: 0;
+    padding: 0;
+    width: 25px;
+    min-width: 25px;
+    z-index: 15;
+    max-width: 25px;
+    outline: none;
+}
+.wocstatus{
+    font-size: 15px;
+    color: green;
+    font-weight: 700;
+}

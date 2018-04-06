@@ -1,0 +1,35 @@
+<div class="modal-header">
+ <h5 class="modal-title pull-left"><strong>Order Reference</strong></h5>
+</div>
+<div class="modal-body">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="set-table table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Order Reference</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="item in orderItemModalCtrl.ePage.Masters.OrderReference track by $index">
+                        <td><input class="form-control" type="text" data-ng-model="item.OrderReference"></td>
+                        <td style="text-align:center;vertical-align:middle"><span style="font-size:24px;color:#D6171F" data-ng-click="orderItemModalCtrl.ePage.Masters.removeRow($index,item)"><i class="fa fa-times-circle-o"></i></span></td>
+
+                    </tr>
+
+                    <tr>
+                        <td colspan="7"><a class="margin-bottom-40 pull-left" style="font-size:24px;" href="javascript:(0);" data-ng-click="orderItemModalCtrl.ePage.Masters.addRow()"><i class="fa fa-plus"></i></a></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer">
+<input type="button" class="btn btn-primary btn-sm pull-right margin-left-5" ng-click="orderItemModalCtrl.ePage.Masters.ok()"
+        value="OK" />
+</div>

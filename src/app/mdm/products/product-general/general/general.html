@@ -1,0 +1,153 @@
+<div style="height: 540px;padding-top:1px;">
+    <div class="row margin-right-10 margin-left-5 margin-top-10" style="background-color: #f9f9f9; border: 1px solid #eee;">
+        <div class="col-lg-12 mypadding mt-20" style="border-bottom:1px solid #eee;">
+    
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <div class="error-warning-container">
+                        <error-warning-directive data-ng-if="GeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PartNum.IsWarning && !GeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PartNum.IsError"
+                            list="GeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PartNum.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        <error-warning-directive data-ng-if="GeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PartNum.IsError" list="GeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PartNum.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    </div>
+                    <label class="control-label text-single-line">Product Code</label>
+                    <div class="">
+                        <input  type="text" capitalize class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Product Code"  data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.PartNum" ng-change="GeneralCtrl.ePage.Masters.OnChangeValues(GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.PartNum,'E7010')">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <div class="error-warning-container">
+                        <error-warning-directive data-ng-if="GeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.IsWarning && !GeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.IsError"
+                            list="GeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        <error-warning-directive data-ng-if="GeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.IsError" list="GeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    </div>
+                    <label class="control-label text-single-line">Product Description</label>
+                    <div class="">
+                        <input type="text" capitalize class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Product Description"  data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.Desc" ng-change="GeneralCtrl.ePage.Masters.OnChangeValues(GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.Desc,'E7011')">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <div class="error-warning-container">
+                        <error-warning-directive data-ng-if="GeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.StockKeepingUnit.IsWarning && !GeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.StockKeepingUnit.IsError"
+                            list="GeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.StockKeepingUnit.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        <error-warning-directive data-ng-if="GeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.StockKeepingUnit.IsError" list="GeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.StockKeepingUnit.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    </div>
+                    <label class="control-label text-single-line">Stock Unit</label>
+                    <div class="">
+                        <select chosen class="form-control" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.StockKeepingUnit" ng-options="x.Key as x.Key + ' - '  + x.Value for x in GeneralCtrl.ePage.Masters.DropDownMasterList.INW_LINE_UQ.ListSource" 
+                            search-contains="true" ng-change="GeneralCtrl.ePage.Masters.OnChangeValues(GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.StockKeepingUnit,'E7012')">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Commodity</label>
+                    <div class="input-group input-group-sm">
+        
+                        <!-- Dynamic look up Search in textbox -->
+                        <div dynamic-lookup placeholder="Commodity" my-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.Commodity"
+                            obj="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral" prefix-data="'MstCommodity'"
+                            config="'ProductCommodity'" auto-complete-on-select="GeneralCtrl.ePage.Masters.SelectedLookupCommodity($item)">
+                        </div>
+        
+                        <!-- Look Up page opens when button clicks -->
+                        <span class="input-group-btn">
+                                <button dynamic-list-modal obj="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral" field-name="'ProductCommodity'" 
+                                selected-data='GeneralCtrl.ePage.Masters.SelectedLookupCommodity($item.entity)' prefix-data="'MstCommodity'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  
+                                class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mypadding mt-20" style="border-bottom:1px solid #eee;">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Depth</label>
+                    <div class="">
+                        <input type="text" numbers-only maxlength="5" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Depth" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.Depth">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Width</label>
+                    <div class="">
+                        <input type="text" numbers-only maxlength="5" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Width" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.Width">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Height</label>
+                    <div class="">
+                        <input type="text" numbers-only maxlength="5" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Height" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.Height">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Units</label>
+                    <div class="">
+                        <select chosen class="form-control" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.MeasureUQ" ng-options="x.Key as x.Key + ' - '  + x.Value for x in GeneralCtrl.ePage.Masters.DropDownMasterList.DimentionsUnit.ListSource" search-contains="true">
+                                <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+            </div>  
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mypadding mt-20" style="border-bottom:1px solid #eee;">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Gross Weight</label>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 mypadding">
+                        <input type="text" numbers-only maxlength="5" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Gross" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.Weight">
+                    </div>
+                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 mypadding">
+                        <select chosen class="form-control" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.WeightUQ" ng-options="x.Key as x.Key + ' - '  + x.Value for x in GeneralCtrl.ePage.Masters.DropDownMasterList.GrossWeightUnit.ListSource" search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Cubic Weight</label>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 mypadding">
+                        <input type="text" numbers-only maxlength="5" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Cubic" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.Cubic">
+                    </div>
+                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 mypadding">
+                        <select chosen class="form-control" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.CubicUQ" ng-options="x.Key as x.Key + ' - '  + x.Value for x in GeneralCtrl.ePage.Masters.DropDownMasterList.CubicUnit.ListSource" search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 mt-15">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Net Weight</label>
+                    <div class="">
+                        <input type="text" numbers-only class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Net Weight"  data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.NetWeight">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 mt-15">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Pallet Size</label>
+                    <div class="">
+                        <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Pallet Size"  data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.StockKeepingUnitPerPallet" readonly=''>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

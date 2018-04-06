@@ -1,0 +1,220 @@
+<div class="clearfix tc-filtergroup">
+    <!-- Breadcrumb -->
+    <div class="clearfix tc-breadcrumb" data-ng-if="TCFilterGroupCtrl.ePage.Masters.ActiveApplication == 'TC'">
+        <i class="fa fa-home home-icon"></i>
+        <div class="breadcrumb-list-wrapper">
+            <ol class="breadcrumb">
+                <li data-ng-repeat="x in TCFilterGroupCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="TCFilterGroupCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                </li>
+                <li data-ng-repeat="x in TCFilterGroupCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
+                    class="active">
+            </ol>
+        </div>
+        <span class="tc-breadcrumb-app-name" data-ng-if="TCFilterGroupCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="TCFilterGroupCtrl.ePage.Masters.QueryString.AppName"></span>
+    </div>
+    <!-- Alphabetic Sort -->
+    <div class="clearfix tc-alphabetic-sort">
+        <span data-ng-repeat="x in TCFilterGroupCtrl.ePage.Masters.Sort.Alphabets" data-ng-bind="x" data-ng-class="{'active': TCFilterGroupCtrl.ePage.Masters.Sort.ActiveAlphabet == x}"
+            data-ng-click="TCFilterGroupCtrl.ePage.Masters.Sort.ActiveAlphabet != x && TCFilterGroupCtrl.ePage.Masters.Sort.OnAlphabetClick(x);"></span>
+    </div>
+    <!-- Header -->
+    <div class="clearfix tc-header-container">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="tc-header with-add-new">
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-5">
+                    <div class="text-single-line" data-ng-bind="'Filter'"></div>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-5 pt-4 text-right">
+                    <button class="btn btn-xs btn-info" data-ng-click="TCFilterGroupCtrl.ePage.Masters.FilterGroup.AddNew()">New</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">
+            <div class="tc-header edit-view">
+                <span data-ng-bind="'Details'"></span>
+                <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10" data-ng-click="TCFilterGroupCtrl.ePage.Masters.FilterGroup.Edit()"
+                    data-ng-disabled="!TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.Id">Edit</button>
+                <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="TCFilterGroupCtrl.ePage.Masters.FilterGroup.DeleteConfirmation()"
+                    data-ng-bind="TCFilterGroupCtrl.ePage.Masters.FilterGroup.DeleteBtnText" data-ng-disabled="TCFilterGroupCtrl.ePage.Masters.FilterGroup.IsDisableDeleteBtn || !TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.Id"></button>
+            </div>
+        </div>
+    </div>
+    <!-- Body -->
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 tc-page-height-fixed with-alphabetic-sort">
+            <div class="tc-list-container">
+                <div class="tc-list-search">
+                    <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="TCFilterGroupCtrl.ePage.Masters.Search">
+                </div>
+                <ul class="tc-list-ul">
+                    <div class="p-15 text-center tc-loading" data-ng-if="!TCFilterGroupCtrl.ePage.Masters.FilterGroup.FilterGroupList">
+                        <i class="fa fa-spin fa-spinner"></i>
+                    </div>
+                    <div data-ng-if="TCFilterGroupCtrl.ePage.Masters.FilterGroup.FilterGroupList && (TCFilterGroupCtrl.ePage.Masters.FilterGroup.FilterGroupList | filter: TCFilterGroupCtrl.ePage.Masters.Search).length===0"
+                        class="p-15 text-center">
+                        <i>No Records...</i>
+                    </div>
+                    <li data-ng-if="TCFilterGroupCtrl.ePage.Masters.FilterGroup.FilterGroupList && (TCFilterGroupCtrl.ePage.Masters.FilterGroup.FilterGroupList | filter: TCFilterGroupCtrl.ePage.Masters.Search).length > 0"
+                        data-ng-repeat="x in TCFilterGroupCtrl.ePage.Masters.FilterGroup.FilterGroupList | filter: TCFilterGroupCtrl.ePage.Masters.Search"
+                        data-ng-click="TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.Id != x.Id && TCFilterGroupCtrl.ePage.Masters.FilterGroup.OnFilterGroupClick(x)"
+                        data-ng-class="{'active': TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.Id == x.Id}">
+                        <div class="clearfix tc-list">
+                            <div class="tc-list-name">
+                                <i class="fa fa-circle-o mr-10"></i>
+                                <span class="text-single-line" data-ng-bind="x.FilterCode"></span>
+                                <span class="tc-filter-group-id">
+                                    <span class="" data-ng-bind="x.GroupId"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed with-alphabetic-sort">
+            <div class="pt-10 pb-10 tc-details-view clearfix" data-ng-if="TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4"> Code</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.FilterCode || TCFilterGroupCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4"> Group Id</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.GroupId || TCFilterGroupCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4"> Logical Operator</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.LogicalOperator || TCFilterGroupCtrl.ePage.Masters.emptyText"></label>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Module Code</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.ModuleCode || TCFilterGroupCtrl.ePage.Masters.emptyText"></label>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tc-section-divider" data-ng-if="TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.Id"></div>
+            <div class="tc-list-container tc-list-container-inner-redirect clearfix" data-ng-if="TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.Id">
+                <ul class="tc-list-ul">
+                    <li data-ng-click="TCFilterGroupCtrl.ePage.Masters.FilterGroup.OnFilterListClick(x)" data-ng-repeat="x in TCFilterGroupCtrl.ePage.Masters.FilterGroup.RedirectPagetList">
+                        <div class="clearfix tc-list">
+                            <div class="tc-list-name">
+                                <i class="fa {{x.Icon}} mr-10" data-ng-style="{'color': x.Color}"></i>
+                                <span class="text-single-line" data-ng-bind="x.Description"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="tc-section-divider" data-ng-if="TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.Id"></div>
+            <div class="tc-filter-list-container tc-list-container" data-ng-if="TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.Id">
+                <div class="clearfix filter-header">
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <div class="text-single-line" data-ng-bind="'UIField Name'"></div>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <div class="text-single-line" data-ng-bind="'DBField Name'"></div>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                        <div class="text-single-line" data-ng-bind="'Data Type'"></div>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                        <div class="text-single-line" data-ng-bind="'Logical Operator'"></div>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                        <div class="text-single-line" data-ng-bind="'Compare Operator'"></div>
+                    </div>
+                </div>
+                <div class="p-15 text-center" data-ng-if="!TCFilterGroupCtrl.ePage.Masters.FilterGroup.FilterListSource">
+                    <i class="fa fa-spin fa-spinner"></i>
+                </div>
+                <div class="p-15 text-center" data-ng-if="TCFilterGroupCtrl.ePage.Masters.FilterGroup.FilterListSource && TCFilterGroupCtrl.ePage.Masters.FilterGroup.FilterListSource.length===0">
+                    <i>No Records...</i>
+                </div>
+                <div data-ng-if="TCFilterGroupCtrl.ePage.Masters.FilterGroup.FilterListSource && TCFilterGroupCtrl.ePage.Masters.FilterGroup.FilterListSource.length > 0"
+                    class="clearfix" data-ng-repeat="x in TCFilterGroupCtrl.ePage.Masters.FilterGroup.FilterListSource">
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <div class="text-single-line filter-details" data-ng-bind="x.UIFieldName"></div>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 filter-details">
+                        <div class="text-single-line" data-ng-bind="x.FieldName"></div>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2  filter-details">
+                        <div class="text-single-line" data-ng-bind="x.DataType"></div>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 filter-details">
+                        <div class="text-single-line" data-ng-bind="x.LogicalOperator"></div>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 filter-details">
+                        <div class="text-single-line" data-ng-bind="x.CompareOperator"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Template -->
+<script type="text/ng-template" id="filterEdit">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="TCFilterGroupCtrl.ePage.Masters.FilterGroup.Cancel()">&times;</button>
+        <h5 class="modal-title" id="modal-title">
+            <strong>Edit</strong>
+        </h5>
+    </div>
+    <div class="modal-body pt-10" id="modal-body">
+        <div class="clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-5 pb-5">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Code</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Code" data-ng-model="TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.FilterCode">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Group Id</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Group Id" data-ng-model="TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.GroupId">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Logical Operator</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Logical Operator" data-ng-model="TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.LogicalOperator">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Module Code</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Module Code" data-ng-model="TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.ModuleCode">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="tc-section-divider-small"></div>
+        <div class="clearfix p-10">
+            <button class="btn btn-default tc-btn-save btn-xs pull-right ml-10" data-ng-click="TCFilterGroupCtrl.ePage.Masters.FilterGroup.Save()"
+                data-ng-bind="TCFilterGroupCtrl.ePage.Masters.FilterGroup.SaveBtnText" data-ng-disabled="TCFilterGroupCtrl.ePage.Masters.FilterGroup.IsDisableSaveBtn"></button>
+            <button class="btn btn-default tc-btn-cancel btn-xs pull-right ml-10" data-ng-click="TCFilterGroupCtrl.ePage.Masters.FilterGroup.Cancel()">Cancel</button>
+        </div>
+        <div class="tc-section-divider-small mb-20"></div>
+    </div>
+</script>

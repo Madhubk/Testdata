@@ -1,0 +1,145 @@
+<div class="modal-header">
+    <h5 class="modal-title pull-left">Mode details</h5>
+    <button type="button" class="btn btn-secondary btn-xs pull-right margin-left-5" ng-click="ConsignorDocPopUpModalCtrl.ePage.Masters.Cancel()">Close</button>
+    <button type="button" class="btn btn-primary btn-xs pull-right margin-left-5" ng-click="ConsignorDocPopUpModalCtrl.ePage.Masters.Ok()" data-ng-bind="ConsignorDocPopUpModalCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="ConsignorDocPopUpModalCtrl.ePage.Masters.SaveButtonDisable"></button>
+</div>
+<div class="modal-body ">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Doc. Type</label>
+                    <div class="">
+                        <select chosen name="category-group" class="form-control" ng-model="ConsignorDocPopUpModalCtrl.ePage.Masters.DocData.FormView.DocType" search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group"><label class="control-label">Doc. Num</label><input type="text" ng-model="ConsignorDocPopUpModalCtrl.ePage.Masters.DocData.FormView.DocNumber" max-length="70" class="form-control input-sm" placeholder="Document #"></div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Doc. Usage</label>
+                    <div class="">
+                        <select chosen name="category-group" class="form-control" ng-model="ConsignorDocPopUpModalCtrl.ePage.Masters.DocData.FormView.DocUsage" search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group"><label class="control-label"></label>
+                    <div class="checkbox"><label><input type="checkbox" class="colored-blue"  ng-model="ConsignorDocPopUpModalCtrl.ePage.Masters.DocData.FormView.CreditControlDoc"/ ><span class="text">Credit Control</span></label></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Date Received</label>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" placeholder="{{ConsignorDocPopUpModalCtrl.ePage.Masters.DatePicker.Options.format}}"
+                               data-ng-model="ConsignorDocPopUpModalCtrl.ePage.Masters.DocData.FormView.DateReceived"
+                               uib-datepicker-popup="{{ConsignorDocPopUpModalCtrl.ePage.Masters.DatePicker.Options.format}}"
+                               datepicker-options="ConsignorDocPopUpModalCtrl.ePage.Masters.DatePicker.Options"
+                               is-open="ConsignorDocPopUpModalCtrl.ePage.Masters.DatePicker.isOpen['isDateRecieved']" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default shiny" data-ng-click="ConsignorDocPopUpModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isDateRecieved')"><i class="fa fa-calendar"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Send To Cus. Broker</label>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" placeholder="{{ConsignorDocPopUpModalCtrl.ePage.Masters.DatePicker.Options.format}}"
+                               data-ng-model="ConsignorDocPopUpModalCtrl.ePage.Masters.DocData.FormView.SntToCustomsBroker"
+                               uib-datepicker-popup="{{ConsignorDocPopUpModalCtrl.ePage.Masters.DatePicker.Options.format}}"
+                               datepicker-options="ConsignorDocPopUpModalCtrl.ePage.Masters.DatePicker.Options"
+                               is-open="ConsignorDocPopUpModalCtrl.ePage.Masters.DatePicker.isOpen['isCusBroker']" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default shiny" data-ng-click="ConsignorDocPopUpModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCusBroker')"><i class="fa fa-calendar"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Recevied from Cus.Broker</label>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" placeholder="{{ConsignorDocPopUpModalCtrl.ePage.Masters.DatePicker.Options.format}}"
+                               data-ng-model="ConsignorDocPopUpModalCtrl.ePage.Masters.DocData.FormView.RcvFromCustomsBroker"
+                               uib-datepicker-popup="{{ConsignorDocPopUpModalCtrl.ePage.Masters.DatePicker.Options.format}}"
+                               datepicker-options="ConsignorDocPopUpModalCtrl.ePage.Masters.DatePicker.Options"
+                               is-open="ConsignorDocPopUpModalCtrl.ePage.Masters.DatePicker.isOpen['isRecievedCus']" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default shiny" data-ng-click="ConsignorDocPopUpModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isRecievedCus')"><i class="fa fa-calendar"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Return To Shipper</label>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" placeholder="{{ConsignorDocPopUpModalCtrl.ePage.Masters.DatePicker.Options.format}}"
+                               data-ng-model="ConsignorDocPopUpModalCtrl.ePage.Masters.DocData.FormView.ReturnToShipper"
+                               uib-datepicker-popup="{{ConsignorDocPopUpModalCtrl.ePage.Masters.DatePicker.Options.format}}"
+                               datepicker-options="ConsignorDocPopUpModalCtrl.ePage.Masters.DatePicker.Options"
+                               is-open="ConsignorDocPopUpModalCtrl.ePage.Masters.DatePicker.isOpen['isReturnToShipper']" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default shiny" data-ng-click="ConsignorDocPopUpModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isReturnToShipper')"><i class="fa fa-calendar"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group"><label class="control-label">Document Owner</label>
+                    <div class="input-group input-group-sm">
+                        <input type="hidden" ng-model="ConsignorDocPopUpModalCtrl.ePage.Masters.DocData.FormView.DocCategory">
+                        <div dynamic-lookup my-ng-model="ConsignorDocPopUpModalCtrl.ePage.Masters.DocData.FormView.ORG_ServiceLevelCode" obj="ConsignorDocPopUpModalCtrl.ePage.Masters.DocData.FormView"
+                        prefix-data="'OrganizationList'" config="'ConGeneralORG_SendingForwarderCode'" auto-complete-on-select="ConsignorDocPopUpModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)"></div>
+                        <span class="input-group-btn"> <button dynamic-list-modal obj="ConsignorDocPopUpModalCtrl.ePage.Masters.DocData.FormView" field-name="'ConGeneralORG_SendingForwarderCode'" prefix-data="'OrganizationList'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConsignorDocPopUpModalCtrl.ePage.Masters.SelectedData($item,'OAD_SendingForwarderAddressFK')" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i> </button></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Document Period</label>
+                    <div class="">
+                        <select chosen name="category-group" class="form-control" ng-model="ConsignorDocPopUpModalCtrl.ePage.Masters.DocData.FormView.DocPeriod" search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Valid To Dater</label>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" placeholder="{{ConsignorDocPopUpModalCtrl.ePage.Masters.DatePicker.Options.format}}"
+                               data-ng-model="ConsignorDocPopUpModalCtrl.ePage.Masters.DocData.FormView.ValidToDate"
+                               uib-datepicker-popup="{{ConsignorDocPopUpModalCtrl.ePage.Masters.DatePicker.Options.format}}"
+                               datepicker-options="ConsignorDocPopUpModalCtrl.ePage.Masters.DatePicker.Options"
+                               is-open="ConsignorDocPopUpModalCtrl.ePage.Masters.DatePicker.isOpen['isValidToDate']" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default shiny" data-ng-click="ConsignorDocPopUpModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isValidToDate')"><i class="fa fa-calendar"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group"><label class="control-label">Document Note</label><span class="textarea"><textarea class="form-control" placeholder="Enter your comments" ng-model="ConsignorDocPopUpModalCtrl.ePage.Masters.DocData.FormView.DocumentNotes"></textarea></span></div>
+            </div> 
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary btn-xs pull-right margin-left-5" ng-click="ConsignorDocPopUpModalCtrl.ePage.Masters.Cancel()">Close</button>
+    <button type="button" class="btn btn-primary btn-xs pull-right margin-left-5" ng-click="ConsignorDocPopUpModalCtrl.ePage.Masters.Ok()" data-ng-bind="ConsignorDocPopUpModalCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="ConsignorDocPopUpModalCtrl.ePage.Masters.SaveButtonDisable"></button>
+</div>

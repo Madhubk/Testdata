@@ -1,0 +1,401 @@
+<div class="clearfix mb-10">
+    <div class="mt-10 text-right pr-5">
+        <span class="dashboard-inward-title pull-left fs-25 ml-10">Pre-Advice</span>
+        <button class="btn btn-default set-br-yellow set-bg-yellow-light fs-12" data-ng-click="PreAdviceBookingDirectiveCtrl.ePage.Masters.Refresh()" tooltip-placement="top" uib-tooltip="Pre-Advice History">
+            <i class="fa fa-history"></i>
+        </button>
+        <button class="btn btn-default set-br-yellow set-bg-yellow-light fs-12" data-ng-if="PreAdviceBookingDirectiveCtrl.ePage.Masters.ViewPart" data-ng-click="PreAdviceBookingDirectiveCtrl.ePage.Masters.SendPreAdvice()"  data-ng-disabled="PreAdviceBookingDirectiveCtrl.ePage.Masters.IsDisableSend" tooltip-placement="top" uib-tooltip="Send Shipment Pre-Advice">
+            <i class="fa fa-envelope"></i>
+        </button>
+        <button class="btn btn-default set-br-blue set-bg-blue-light fs-12" data-ng-click="PreAdviceBookingDirectiveCtrl.ePage.Masters.ConvertToBooking()" data-ng-disabled="PreAdviceBookingDirectiveCtrl.ePage.Masters.IsDisableSave" data-ng-if="PreAdviceBookingDirectiveCtrl.ePage.Masters.ViewPart">{{PreAdviceBookingDirectiveCtrl.ePage.Masters.ConvertBookingText}}</button>
+        <button class="btn btn-default set-br-yellow set-bg-yellow-light fs-12" data-ng-if="!PreAdviceBookingDirectiveCtrl.ePage.Masters.ViewPart" data-ng-click="!PreAdviceBookingDirectiveCtrl.ePage.Masters.BackToDashboard()"><i class="fa fa-angle-double-left "></i> Dashboard</button>
+        <button class="btn btn-default set-br-blue set-bg-blue-light fs-12" data-ng-if="!PreAdviceBookingDirectiveCtrl.ePage.Masters.ViewPart" data-ng-click="PreAdviceBookingDirectiveCtrl.ePage.Masters.TrackOrders()">Track Orders</button>
+    </div>
+
+</div>
+<div class="clearfix set-bg-dashboard-blue set-br-top-dashboard-blue">
+    <div class="clearfix">
+        <div class="col-lg-6 text-right">
+            <button class="btn btn-default set-br-white set-bg-white-light fs-13  mt-5" data-ng-click="PreAdviceBookingDirectiveCtrl.ePage.Masters.SummaryView()" ng-init="PreAdviceBookingDirectiveCtrl.ePage.Masters.ActiveAction()" ng-class="{'active': PreAdviceBookingDirectiveCtrl.ePage.Masters.IsSummaryActive == true}">
+                Summary View
+            </button>
+            <button class="btn btn-default set-br-white set-bg-white-light fs-13 mt-5" data-ng-click="PreAdviceBookingDirectiveCtrl.ePage.Masters.DetailsView()" ng-class="{'active': PreAdviceBookingDirectiveCtrl.ePage.Masters.IsDetailsActive == true}">
+                Details View
+            </button>
+        </div>
+        <div class="col-lg-6 mt-5 text-right">
+            <div class="page-actions-panel-cell" id="pageaction-area">
+                <ul class="list-inline mt-5">
+                    <li id="ember2108" role="presentation" class="ember-view btn-group pl-0 pr-0">
+                        <a class="btn btn-default btn-sm" data-ember-action="2111" ng-init="PreAdviceBookingDirectiveCtrl.ePage.Masters.DueList='Due This Week'"> {{PreAdviceBookingDirectiveCtrl.ePage.Masters.DueList}} </a>
+                        <button type="button" class="btn dropdown-toggle pd-r-10 btn-default btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                        </button>
+
+                        <ul class="dropdown-menu pull-right" role="menu">
+
+                            <li role="presentation">
+                                <a>
+                                    <i class="icon-settings-import-lead"></i> Due This week <strong>({{PreAdviceBookingDirectiveCtrl.ePage.Masters.DueWeeklyCount}})</strong>
+                                </a>
+                            </li>
+                            <li role="presentation">
+                                <a>
+                                    <i class="icon-settings-import-lead"></i> Due This month <strong>({{PreAdviceBookingDirectiveCtrl.ePage.Masters.DueMonthlyCount}})</strong>
+                                </a>
+                            </li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1">
+                                    <i class="icon-lead"></i> Over Due <strong>({{PreAdviceBookingDirectiveCtrl.ePage.Masters.OverDueMonthlyCount}})</strong>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li id="ember2107" role="presentation" class="ember-view btn-group" data-ng-if="PreAdviceBookingDirectiveCtrl.ePage.Masters.ViewPart">  <a class="btn btn-default btn-sm" data-ember-action="2110"> Vessel Planning </a>
+                            <button type="button" class="btn dropdown-toggle pd-r-10 btn-default btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="caret"></span>
+                            </button>
+                            
+                            <ul class="dropdown-menu pull-right" role="menu">
+                                <li role="presentation">
+                                  <a data-ng-click="PreAdviceBookingDirectiveCtrl.ePage.Masters.AddVessel('New', PreAdviceBookingDirectiveCtrl.ePage.Masters.selectedOrders)">
+                                    <i class="icon-settings-import-lead"></i> Add Vessel
+                                  </a>
+                                </li>
+                                <li role="presentation" data-ng-if="PreAdviceBookingDirectiveCtrl.ePage.Masters.selectedOrders.length > 0">
+                                  <a data-ng-click="PreAdviceBookingDirectiveCtrl.ePage.Masters.AddVessel('Edit', PreAdviceBookingDirectiveCtrl.ePage.Masters.selectedOrders)">
+                                    <i class="icon-settings-import-lead"></i> Edit Vessel
+                                  </a>
+                                </li>
+                            </ul>
+                    </li>
+                    <li id="ember2107" role="presentation" class="ember-view btn-group">  <a class="btn btn-default btn-sm" data-ember-action="2110" ng-init="PreAdviceBookingDirectiveCtrl.ePage.Masters.Clicked='All Pending Orders'"> {{PreAdviceBookingDirectiveCtrl.ePage.Masters.Clicked}} </a>
+                        <button type="button" class="btn dropdown-toggle pd-r-10 btn-default btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                        </button>
+                        
+                        <ul class="dropdown-menu pull-right" role="menu">
+                            <li role="presentation">
+                              <a role="menuitem" tabindex="-1" data-ng-click="PreAdviceBookingDirectiveCtrl.ePage.Masters.AllPendingReload()" >
+                                <i class="icon-lead"></i> All Pending Orders <strong>({{PreAdviceBookingDirectiveCtrl.ePage.Masters.VesselUnPlanned}})</strong>
+                              </a>
+                            </li>
+                            <li role="presentation">
+                              <a data-ng-click="PreAdviceBookingDirectiveCtrl.ePage.Masters.PlannedVesselReload()" >
+                                <i class="icon-settings-import-lead"></i> Vessel Planned <strong>({{PreAdviceBookingDirectiveCtrl.ePage.Masters.VesselPlanned}})</strong>
+                              </a>
+                            </li>
+                            <li role="presentation">
+                              <a role="menuitem" tabindex="-1" data-ng-click="PreAdviceBookingDirectiveCtrl.ePage.Masters.UnPlannedVesselReload()" >
+                                <i class="icon-lead"></i> Vessel Not Planned <strong>({{PreAdviceBookingDirectiveCtrl.ePage.Masters.VesselUnPlanned}})</strong>
+                              </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                      <button class="btn btn-default btn-sm pd-hr-10" data-ng-click="PreAdviceBookingDirectiveCtrl.ePage.Masters.OpenFilter()">
+                       <i class="fa fa-filter txt-color-blueDark"></i> Filter
+                      </button>
+                    </li>
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    <div class="clearfix wmstable_scroll pre-advice-load" data-ng-if="PreAdviceBookingDirectiveCtrl.ePage.Masters.ViewPart">
+        <!-- directive for grid load -->
+        <pre-advice-grid-directive input="PreAdviceBookingDirectiveCtrl.ePage.Masters.PreAdviceOrderList" grid-change="PreAdviceBookingDirectiveCtrl.ePage.Masters.DataChanges(PreAdviceBookingDirectiveCtrl.ePage.Masters.SelectionList)" selectedlist="PreAdviceBookingDirectiveCtrl.ePage.Masters.SelectionList" data-ng-if="PreAdviceBookingDirectiveCtrl.ePage.Masters.ViewPart"></pre-advice-grid-directive>
+    </div>
+    <div class="col-lg-12 col-md-12 col-xl-12 col-sm-12 col-xs-12 Supplier-footer" data-ng-if="PreAdviceBookingDirectiveCtrl.ePage.Masters.ViewPart">
+        <div class="Supplier-header">
+            <pagination num-pages="PreAdviceBookingDirectiveCtrl.ePage.Masters.noOfPages" current-page="PreAdviceBookingDirectiveCtrl.ePage.Masters.currentPage" on-select-page="PreAdviceBookingDirectiveCtrl.ePage.Masters.SelectedPages({ page: page })" 
+            total-count="PreAdviceBookingDirectiveCtrl.ePage.Masters.RecordCount" class="pagination-small"></pagination>
+        </div>
+    </div>
+    <div lass="clearfix margin-bottom-30" data-ng-if="PreAdviceBookingDirectiveCtrl.ePage.Masters.ViewPart">
+        <div class="mt-5 mb-5 text-right pr-5">
+            <button class="btn btn-default set-br-yellow set-bg-yellow-light fs-12" data-ng-click="PreAdviceBookingDirectiveCtrl.ePage.Masters.SendPreAdvice()"  data-ng-disabled="PreAdviceBookingDirectiveCtrl.ePage.Masters.IsDisableSend" tooltip-placement="top" uib-tooltip="Send Shipment Pre-Advice" data-ng-if="PreAdviceBookingDirectiveCtrl.ePage.Masters.ViewPart">
+            <i class="fa fa-envelope"></i>
+            </button>
+            <button class="btn btn-default set-br-blue set-bg-blue-light fs-12" data-ng-click="PreAdviceBookingDirectiveCtrl.ePage.Masters.ConvertToBooking()" data-ng-disabled="PreAdviceBookingDirectiveCtrl.ePage.Masters.IsDisableSave" data-ng-if="PreAdviceBookingDirectiveCtrl.ePage.Masters.ViewPart">{{PreAdviceBookingDirectiveCtrl.ePage.Masters.ConvertBookingText}}</button>
+        </div>
+    </div>
+    <div class="m-10 mt-0 mr-10 ml-0" data-ng-if="!PreAdviceBookingDirectiveCtrl.ePage.Masters.ViewPart">
+        <div class="col-lg-4 col-md-4 col-sm-4">
+            <div class="panel">
+                <div class="panel-heading-dashboard">
+                    <div class="card-content">
+                        <div class="card-actions pull-right">
+                            <button type="button" class="btn btn-link" rel="tooltip" data-placement="bottom" title="Refresh" data-original-title="Refresh"
+                                    ng-click="PreAdviceBookingDirectiveCtrl.ePage.Masters.GetPreAdviceOrders()">
+                                <i class="fa fa-refresh"></i>
+                            </button>
+                            <button type="button" class="btn btn-link">
+                                <i class="fa fa-pencil"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="panel-title">Total Orders by Consignor</div>
+                    <p class="category">Due This Week</p>
+                    <div class="list-group ml-10 mr-10">
+                        <div class="card card-chart" data-count="10">
+                            <div class="card-header" data-background-color="rose" data-header-animation="true">
+                                <div class="ct-chart">
+                                    <canvas id="myChart" width="250" height="240"></canvas>
+                                   <!--  <canvas class="chart chart-bar" chart-data="data" chart-labels="labels"
+                                        chart-options="options" chart-series="series"></canvas> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-8 grapin">
+            <div class="panel-title mt-10">Vessel Planning Summary</div>
+            <div class="wmstable_scroll mt-10 mb-10 mr-10" style="padding-top: 2px;">
+
+                <div class="table" id="results">
+                    <div class='theader'>
+                        <!-- <div class='table_header'>Buyer Code</div> -->
+                        <div class='table_header'>Consignee Name</div>
+                        <!-- <div class='table_header'>Supplier Code</div> -->
+                        <div class='table_header'>Consignor Name</div>
+                        <div class='table_header'>Port Of Loading</div>
+                        <div class='table_header'>No. Of Orders</div>
+                        <div class='table_header'>Action</div>
+                    </div>
+                    <!-- List Order(s) -->
+                    <div class='table_row' data-ng-repeat="data in PreAdviceBookingDirectiveCtrl.ePage.Masters.GroupingGrid" style="font-size: 11px;">
+                        <!-- <div class='table_small'>
+                    <div class='table_cell'>Buyer Code</div>
+                    <div class='table_cell'>{{data.Buyer_Code}}</div>
+                </div> -->
+                        <div class='table_small'>
+                            <div class='table_cell'>Buyer Name</div>
+                            <div class='table_cell'>{{data.Buyer_Name}}</div>
+                        </div>
+                        <!-- <div class='table_small'>
+                    <div class='table_cell'>Supplier Code</div>
+                    <div class='table_cell'>{{data.Supplier_Code}}</div>
+                </div> -->
+                        <div class='table_small'>
+                            <div class='table_cell'>Supplier Name</div>
+                            <div class='table_cell'>{{data.Supplier_Name}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Port Of Loading</div>
+                            <div class='table_cell'>{{data.POL}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>No. Of Orders</div>
+                            <div class='table_cell'>{{data.OrdersCount}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Action</div>
+
+                            <div class='table_cell text-center'><a data-ng-click="PreAdviceBookingDirectiveCtrl.ePage.Masters.ClickAction(x)"><i class="fa fa-angle-double-right"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="loading-sector" data-ng-if="PreAdviceBookingDirectiveCtrl.ePage.Masters.spinner">
+    Loading&#8230;
+</div>
+<!--FIlter Bar  -->
+<div id="filterSideBar" class="dynamic-filter-sidebar-wrapper" data-ng-class="PreAdviceBookingDirectiveCtrl.ePage.Masters.ViewType == 1 ? 'two-column' : 'one-column'">
+    <form name="DynamicListFilterSidebar" novalidate>
+        <div class="header clearfix">
+            <div class="title pull-left">
+                <i class="fa fa-filter"></i>
+                <span>Filter</span>
+            </div>
+            <div class="btn-wrapper pull-right">
+                <ul class="clearfix">
+                    <li>
+                        <button class="filter-title-btn" ng-click="PreAdviceBookingDirectiveCtrl.ePage.Masters.Clear()">Clear</button>
+                    </li>
+                    <li>
+                        <input type="submit" class="filter-title-btn" ng-click="PreAdviceBookingDirectiveCtrl.ePage.Masters.Filter()" value="Apply">
+                    </li>
+                    <li>
+                        <span class="filter-toggle-icon" ng-click="PreAdviceBookingDirectiveCtrl.ePage.Masters.CloseFilter()"> <i class="fa fa-arrow-right" ></i> </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="control-list clearfix p-0">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-left">
+                <!-- Consignee -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                    <div class="form-group">
+                        <label class="control-label text-single-line">Consignee</label>
+                        <div class="input-group input-group-sm">
+                            <input type="hidden" ng-model="PreAdviceBookingDirectiveCtrl.ePage.Masters.FilterInput.BuyerFk">
+                            <div dynamic-lookup placeholder="Consignee" my-ng-model="PreAdviceBookingDirectiveCtrl.ePage.Masters.FilterInput.Buyer"
+                                    obj="PreAdviceBookingDirectiveCtrl.ePage.Masters.FilterInput" prefix-data="'OrganizationList'" config="'OrdSUFBuyerSelection'"
+                                    auto-complete-on-select="PreAdviceBookingDirectiveCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item, 'address', 'UIOrderFollowUp')"></div>
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal obj="PreAdviceBookingDirectiveCtrl.ePage.Masters.FilterInput" field-name="'OrdSUFBuyerSelection'" prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="PreAdviceBookingDirectiveCtrl.ePage.Masters.SelectedLookupData($item, 'address', 'UIOrderFollowUp')" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Consignor -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                    <div class="form-group">
+                        <label class="control-label text-single-line">Consignor</label>
+                        <div class="input-group input-group-sm">
+                            <input type="hidden" ng-model="PreAdviceBookingDirectiveCtrl.ePage.Masters.FilterInput.SupplierFK">
+                            <div dynamic-lookup placeholder="Consignor" my-ng-model="PreAdviceBookingDirectiveCtrl.ePage.Masters.FilterInput.Supplier"
+                                    obj="PreAdviceBookingDirectiveCtrl.ePage.Masters.FilterInput" prefix-data="'OrganizationList'" config="'OrdSUFSupplierSelection'"
+                                    auto-complete-on-select="PreAdviceBookingDirectiveCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item, 'address', 'UIOrderFollowUp')" required></div>
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal obj="PreAdviceBookingDirectiveCtrl.ePage.Masters.FilterInput" field-name="'OrdSUFSupplierSelection'" prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="PreAdviceBookingDirectiveCtrl.ePage.Masters.SelectedLookupData($item, 'address', 'UIOrderFollowUp')" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-left">
+                <!-- Order # -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                    <div class="form-group"><label class="control-label">Order #</label><input type="text" ng-model="PreAdviceBookingDirectiveCtrl.ePage.Masters.FilterInput.OrderNo" max-length="70" class="form-control input-sm" placeholder="Order #"></div>
+                </div>
+                <!-- Cargo Ready Date -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                    <div class="input-group input-group-sm">
+                        <label class="control-label text-single-line">Cargo Ready Date</label>
+                        <input type="text" placeholder="{{PreAdviceBookingDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}" class="form-control" data-ng-model="PreAdviceBookingDirectiveCtrl.ePage.Masters.FilterInput.CargoReadyDate" data-ng-click="PreAdviceBookingDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoReadyDate'+ $index)" uib-datepicker-popup="{{PreAdviceBookingDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="PreAdviceBookingDirectiveCtrl.ePage.Masters.DatePicker.Options" is-open="PreAdviceBookingDirectiveCtrl.ePage.Masters.DatePicker.isOpen['isCargoReadyDate'+ $index]"/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default fa fa-calendar date-sty" type="button" data-ng-click="PreAdviceBookingDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoReadyDate'+ $index)"></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-left">
+                <!-- carrier -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                    <div class="form-group  padding-top-10">
+                        <label class="control-label text-single-line">Carrier</label>
+                        <div class="input-group input-group-sm">
+                            <input type="hidden" ng-model="PreAdviceBookingDirectiveCtrl.ePage.Masters.FilterInput.ORG_Carrier_FK">
+                            <div dynamic-lookup placeholder="Carrier" my-ng-model="PreAdviceBookingDirectiveCtrl.ePage.Masters.FilterInput.PlannedCarrier" obj="PreAdviceBookingDirectiveCtrl.ePage.Masters.FilterInput"
+                                    prefix-data="'MDM_CarrierList'" config="'OrdPlannedCarrier'" auto-complete-on-select="PreAdviceBookingDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item)"></div>
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal obj="PreAdviceBookingDirectiveCtrl.ePage.Masters.FilterInput" field-name="'OrdPlannedCarrier'" prefix-data="'MDM_CarrierList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="PreAdviceBookingDirectiveCtrl.ePage.Masters.SelectedLookupData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Vessel -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                    <div class="form-group  padding-top-10">
+                        <label class="control-label text-single-line">Vessel</label>
+                        <div class="input-group input-group-sm">
+                            <input type="hidden" ng-model="PreAdviceBookingDirectiveCtrl.ePage.Masters.FilterInput.PlannedVessel_PK">
+                            <div dynamic-lookup  placeholder="Vessel" my-ng-model="PreAdviceBookingDirectiveCtrl.ePage.Masters.FilterInput.PlannedVessel" obj="PreAdviceBookingDirectiveCtrl.ePage.Masters.FilterInput"
+                                    prefix-data="'MstVessel'" config="'OrdPlannedVessel'" auto-complete-on-select="PreAdviceBookingDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item)"></div>
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal obj="PreAdviceBookingDirectiveCtrl.ePage.Masters.FilterInput" field-name="'OrdPlannedVessel'" prefix-data="'MstVessel'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="PreAdviceBookingDirectiveCtrl.ePage.Masters.SelectedLookupData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-left">
+                <!-- Voyage -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                    <div class="form-group padding-top-10"><label class="control-label text-single-line">Voyage</label>
+                        <input type="text" ng-model="PreAdviceBookingDirectiveCtrl.ePage.Masters.FilterInput.PlannedVoyage" max-length="70" class="form-control input-sm" placeholder="Voyage">
+                    </div>
+                </div>
+                <!-- ETD -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                    <div class="form-group padding-top-10">
+                        <label class="control-label text-single-line">ETD</label>
+                        <div class="input-group input-group-sm">
+                            <input type="text" placeholder="{{PreAdviceBookingDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}" class="form-control" data-ng-model="PreAdviceBookingDirectiveCtrl.ePage.Masters.FilterInput.PlannedETD" data-ng-click="PreAdviceBookingDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETD'+ $index)" uib-datepicker-popup="{{PreAdviceBookingDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="PreAdviceBookingDirectiveCtrl.ePage.Masters.DatePicker.Options" is-open="PreAdviceBookingDirectiveCtrl.ePage.Masters.DatePicker.isOpen['isETD'+ $index]"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default fa fa-calendar" type="button" data-ng-click="PreAdviceBookingDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETD'+ $index)"></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-left">
+                <!-- ETA -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                    <div class="form-group padding-top-10">
+                        <label class="control-label text-single-line">ETA</label>
+                        <div class="input-group input-group-sm">
+                            <input type="text" placeholder="{{PreAdviceBookingDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}" class="form-control" data-ng-model="PreAdviceBookingDirectiveCtrl.ePage.Masters.FilterInput.PlannedETA" data-ng-click="PreAdviceBookingDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETA'+ $index)" uib-datepicker-popup="{{PreAdviceBookingDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="PreAdviceBookingDirectiveCtrl.ePage.Masters.DatePicker.Options" is-open="PreAdviceBookingDirectiveCtrl.ePage.Masters.DatePicker.isOpen['isETA'+ $index]"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default fa fa-calendar" type="button" data-ng-click="PreAdviceBookingDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETA'+ $index)"></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- POL -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                    <div class="form-group  padding-top-10">
+                        <label class="control-label text-single-line">POL</label>
+                        <div class="input-group input-group-sm">
+                            <input type="hidden" ng-model="PreAdviceBookingDirectiveCtrl.ePage.Masters.FilterInput.PortOfLoading_PK">
+                            <div dynamic-lookup placeholder="Port Of Loading" my-ng-model="PreAdviceBookingDirectiveCtrl.ePage.Masters.FilterInput.PortOfLoading" obj="PreAdviceBookingDirectiveCtrl.ePage.Masters.FilterInput"
+                                    prefix-data="'MstUNLOCO'" config="'PortOfLoading'" auto-complete-on-select="PreAdviceBookingDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item)"></div>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default fa fa-ellipsis-h" dynamic-list-modal obj="PreAdviceBookingDirectiveCtrl.ePage.Masters.FilterInput" field-name="'PortOfLoading'" prefix-data="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="PreAdviceBookingDirectiveCtrl.ePage.Masters.SelectedLookupData($item)" class="btn btn-default shiny" type="button"></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-left">
+                <!-- POD -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                    <div class="form-group  padding-top-10">
+                        <label class="control-label text-single-line">POD</label>
+                        <div class="input-group input-group-sm">
+                            <input type="hidden" ng-model="PreAdviceBookingDirectiveCtrl.ePage.Masters.FilterInput.PortOfDischarge_PK">
+                            <div dynamic-lookup placeholder="Port Of Discharge" my-ng-model="PreAdviceBookingDirectiveCtrl.ePage.Masters.FilterInput.PortOfDischarge" obj="PreAdviceBookingDirectiveCtrl.ePage.Masters.FilterInput"
+                                    prefix-data="'MstUNLOCO'" config="'PortOfDischarge'" auto-complete-on-select="PreAdviceBookingDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item)"></div>
+
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal obj="PreAdviceBookingDirectiveCtrl.ePage.Masters.FilterInput" field-name="'PortOfDischarge'" prefix-data="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="PreAdviceBookingDirectiveCtrl.ePage.Masters.SelectedLookupData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- CargoCutoffdate -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                    <div class="form-group padding-top-10">
+                        <label class="control-label text-single-line">Cargo Cut Off Date</label>
+                        <div class="input-group input-group-sm">
+                            <input type="text" placeholder="{{PreAdviceBookingDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}" class="form-control" data-ng-model="PreAdviceBookingDirectiveCtrl.ePage.Masters.FilterInput.CargoCutOffDate" data-ng-click="PreAdviceBookingDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoCutOffDate'+ $index)" uib-datepicker-popup="{{PreAdviceBookingDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="PreAdviceBookingDirectiveCtrl.ePage.Masters.DatePicker.Options" is-open="PreAdviceBookingDirectiveCtrl.ePage.Masters.DatePicker.isOpen['isCargoCutOffDate'+ $index]"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default fa fa-calendar" type="button" data-ng-click="PreAdviceBookingDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoCutOffDate'+ $index)"></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-left">
+                <!-- Booking Cutoff date -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                    <div class="input-group input-group-sm">
+                        <label class="control-label text-single-line">Booking Cut Off Date</label>
+                        <input type="text" placeholder="{{PreAdviceBookingDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}" class="form-control" data-ng-model="PreAdviceBookingDirectiveCtrl.ePage.Masters.FilterInput.BookingCutOffDate" data-ng-click="PreAdviceBookingDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isBookingCutOffDate'+ $index)" uib-datepicker-popup="{{PreAdviceBookingDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="PreAdviceBookingDirectiveCtrl.ePage.Masters.DatePicker.Options" is-open="PreAdviceBookingDirectiveCtrl.ePage.Masters.DatePicker.isOpen['isBookingCutOffDate'+ $index]"/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default fa fa-calendar date-sty" type="button" data-ng-click="PreAdviceBookingDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isBookingCutOffDate'+ $index)"></button>
+                        </span>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </form>
+</div>

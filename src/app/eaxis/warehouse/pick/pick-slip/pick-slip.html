@@ -1,0 +1,214 @@
+<div class="grid-loading-norecord-container" data-ng-show="PickSlipCtrl.ePage.Masters.IsLoading">
+    <div class="grid-loading">Loading...</div>
+</div>
+<div class="col-lg-12 margin-top-10" style="height:45%;">
+    <div class="">
+        <div class="wmstable_scroll" style="height:200px; padding-top: 2px;">
+            <div class="table" id="results">
+                <div class='theader'>
+                    <div class='table_header'>Client</div>
+                    <div class='table_header'>Product</div>
+                    <div class='table_header'>Commodity</div>
+                    <div class='table_header'>UQ</div>
+                    <div class='table_header'>Ordered Qty</div>
+                    <div class='table_header'>Shortfall Qty</div>
+                    <div class='table_header'>Sent Qty</div>
+                    <div class='table_header'>Allocated Qty</div>
+                    <div class='table_header'>Status</div>
+                    <div class='table_header'>Pallet Size</div>
+                    <div class='table_header'>Part Attribute1</div>
+                    <div class='table_header'>Part Attribute2</div>
+                    <div class='table_header'>Part Attribute3</div>
+                </div>
+
+                <!-- List Empty Response -->
+                <div data-ng-if="PickSlipCtrl.ePage.Entities.Header.Data.UIWmsOutwardLines.length==0">
+                    <div class="grid-no-record" style="bottom:38px">No records found...</div>
+                </div>
+                <div class="" ng-if="PickSlipCtrl.ePage.Masters.TempSelectedRow==0 && PickSlipCtrl.ePage.Entities.Header.Data.UIWmsOutwardLines.length!=0"
+                    data-ng-init="PickSlipCtrl.ePage.Masters.getProductDetails(PickSlipCtrl.ePage.Entities.Header.Data.UIWmsOutwardLines,0,undefined,PickSlipCtrl.ePage.Entities.Header.Data.UIWmsOutwardLines[0])"></div>
+                <div class='table_row' ng-repeat="x in PickSlipCtrl.ePage.Entities.Header.Data.UIWmsOutwardLines | orderBy:'CreatedDateTime'"
+                    data-ng-click="PickSlipCtrl.ePage.Masters.getProductDetails(PickSlipCtrl.ePage.Entities.Header.Data.UIWmsOutwardLines,$index,$event,x)"
+                    ng-class="{row_active: PickSlipCtrl.ePage.Masters.selectedRow==$index}" style="font-size: 11px;">
+                    <div class='table_small'>
+                        <div class='table_cell'>Client</div>
+                        <div class='table_cell'>{{x.ORG_ClientCode || PickSlipCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Product</div>
+                        <div class='table_cell'>{{x.ProductCode || PickSlipCtrl.ePage.Masters.emptyText}}-{{x.ProductDescription || PickSlipCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Commodity</div>
+                        <div class='table_cell'>{{x.MCC_NKCommodityCode}} - {{x.MCC_NKCommodityDesc}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>UQ</div>
+                        <div class='table_cell'>{{x.StockKeepingUnit || PickSlipCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Ordered Qty</div>
+                        <div class='table_cell'>{{x.Units || PickSlipCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Shortfall Qty</div>
+                        <div class='table_cell'>{{x.ShortQty || PickSlipCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Sent Qty</div>
+                        <div class='table_cell'>{{x.SentQty || PickSlipCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Allocated Qty</div>
+                        <div class='table_cell'>{{x.PickedQty || PickSlipCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Status</div>
+                        <div class='table_cell'>{{x.WorkOrderLineStatusDesc || PickSlipCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Pallet Size</div>
+                        <div class='table_cell'>{{x.PalletSize || PickSlipCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Part Attribute1</div>
+                        <div class='table_cell'>{{x.PartAttrib1 || PickSlipCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Part Attribute2</div>
+                        <div class='table_cell'>{{x.PartAttrib2 || PickSlipCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Part Attribute3</div>
+                        <div class='table_cell'>{{x.PartAttrib3 || PickSlipCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix col-lg-12">
+    <label class="inventory-label">Available Inventory</label>
+    <button class="btn btn-blue attach" ng-disabled="PickSlipCtrl.ePage.Masters.IsDisableAllocateStock || PickSlipCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatus=='PIF'"
+        data-ng-click="PickSlipCtrl.ePage.Masters.ToAllocateStock()" ng-bind="PickSlipCtrl.ePage.Masters.AllocateStockText"> </button>
+</div>
+<div class="clearfix">
+    <div class="col-lg-12 margin-top-10" style="height:45%;">
+        <div class="">
+            <div class="wmstable_scroll" style="height:200px; padding-top: 2px;">
+                <div class="table" id="results">
+                    <div class='theader'>
+                        <div class='table_header'>Is Allocate</div>
+                        <div class='table_header'>Product</div>
+                        <div class='table_header'>Location</div>
+                        <div class='table_header'>Allocated Qty</div>
+                        <div class='table_header'>Available To Pick</div>
+                        <div class='table_header'>Total Qty</div>
+                        <div class='table_header'>Committed Qty</div>
+                        <div class='table_header'>Reserved Qty</div>
+                        <div class='table_header'>In Transit Qty</div>
+                        <div class='table_header'>Inv.Status</div>
+                        <div class='table_header'>Loc.Status</div>
+                        <div class='table_header'>Area</div>
+                        <div class='table_header'>Area Type</div>
+                        <div class='table_header'>Arrival Date</div>
+                        <div class='table_header'>Pallet ID</div>
+                        <div class='table_header'>Part Attribute1</div>
+                        <div class='table_header'>Part Attribute2</div>
+                        <div class='table_header'>Part Attribute3</div>
+                    </div>
+
+                    <!-- List Empty Response -->
+                    <div data-ng-if="PickSlipCtrl.ePage.Masters.PickInventoryList.length==0">
+                        <div class="grid-no-record" style="bottom:38px">No records found...</div>
+                    </div>
+                    <div class='table_row' ng-repeat="x in PickSlipCtrl.ePage.Masters.PickInventoryList | filter:{IsDeleted:'false'}  track by $index"
+                        style="font-size: 11px;">
+                        <div class='table_small'>
+                            <div class='table_cell'>Is Allocate</div>
+                            <div class='table_cell pt-0 pb-0'>
+                                <label class="mb-0">
+                                <input type="checkbox" ng-disabled="PickSlipCtrl.ePage.Entities.Header.CheckPoints.DisableAllocate" ng-change ="PickSlipCtrl.ePage.Masters.ToAllocateQty(x,$index)"
+                                    ng-checked="x.IsAllocate"  ng-model="x.IsAllocate">
+                                <span class="text" style="padding-left: 22px;"></span>
+                            </label>
+                            </div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Product</div>
+                            <div class='table_cell'>{{x.ProductCode || PickSlipCtrl.ePage.Masters.emptyText}}-{{x.ProductName || PickSlipCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Location</div>
+                            <div class='table_cell'>{{x.Location || PickSlipCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Allocated Qty</div>
+                            <div class='table_cell'>
+                                <input type="text" numbers-only ng-disabled="PickSlipCtrl.ePage.Entities.Header.CheckPoints.DisableAllocate" class="form-control height-20 ng-pristine ng-valid ng-not-empty ng-touched"
+                                    placeholder="Allocated Qty" data-ng-model="x.AllocatedQty" ng-blur="PickSlipCtrl.ePage.Masters.ToAllocateQtyCheckbox(x,$index)">
+                            </div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Available To Pick</div>
+                            <div class='table_cell'>{{x.AvailableToPick || PickSlipCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Total Qty</div>
+                            <div class='table_cell'>{{x.TotalUnits || PickSlipCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Committed Qty</div>
+                            <div class='table_cell'>{{x.CommitedUnit || PickSlipCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Reserved Qty</div>
+                            <div class='table_cell'>{{x.ReservedUnit || PickSlipCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>In Transit Qty</div>
+                            <div class='table_cell'>{{x.InTransitUnit || PickSlipCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Inv.Status</div>
+                            <div class='table_cell'>{{x.OriginalInventoryStatus || PickSlipCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Loc.Status</div>
+                            <div class='table_cell'>{{x.LocationStatus || PickSlipCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Area</div>
+                            <div class='table_cell'>{{x.AreaName || PickSlipCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Area Type</div>
+                            <div class='table_cell'>{{x.AreaType || PickSlipCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Arrival Date</div>
+                            <div class='table_cell'>{{x.AdjustmentArrivalDate || PickSlipCtrl.ePage.Masters.emptyText | dateFormat}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Pallet ID</div>
+                            <div class='table_cell'>{{x.PalletID || PickSlipCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Part Attribute1</div>
+                            <div class='table_cell'>{{x.PartAttrib1 || PickSlipCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Part Attribute2</div>
+                            <div class='table_cell'>{{x.PartAttrib2 || PickSlipCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Part Attribute3</div>
+                            <div class='table_cell'>{{x.PartAttrib3 || PickSlipCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-if="PickSlipCtrl.ePage.Entities.Header.CheckPoints.CallInventoryFunction" data-ng-init="PickSlipCtrl.ePage.Masters.getProductDetails(PickSlipCtrl.ePage.Entities.Header.Data.UIWmsOutwardLines,0,undefined,PickSlipCtrl.ePage.Entities.Header.Data.UIWmsOutwardLines[0])"></div>
+</div>

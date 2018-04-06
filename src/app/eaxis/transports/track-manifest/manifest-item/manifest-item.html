@@ -1,0 +1,104 @@
+<!--Order Details-->
+<div class="clearfix margin-top-5">
+    <!-- Saving Your Data -->
+    <div class="grid-loading-norecord-container ng-scope" style='z-index: 4;' data-ng-if="ManifestItemCtrl.ePage.Masters.IsLoadingToSave">
+        <div class="grid-no-record">Saving your Data...</div>
+    </div>
+    <div class="col-lg-12 margin-top-5">
+        <!--Order Details-->
+
+        <div class="">
+            <div>
+                <span><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Add New"  data-ng-click="ManifestItemCtrl.ePage.Masters.AddNew()"><span class="fa fa-external-link-square"></span>&nbsp;&nbsp;AddNew</button>
+                </span>
+                <span><button dynamic-list-modal obj="ManifestItemCtrl.ePage.Entities.Header.Data.TmsManifestHeader" field-name="'AttachConsignmentItem'" 
+                        selected-data="ManifestItemCtrl.ePage.Masters.Attach($item)" prefix-data="'TmsConsignmentItem'" mode="3"
+                        grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-sm btn-outline-primary" 
+                        type="button">
+                    <i class="fa fa-plus-circle"></i> Attach</button>
+                </span>
+                <span ng-hide='ManifestItemCtrl.ePage.Masters.selectedRow==-1'><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Edit"  data-ng-click="ManifestItemCtrl.ePage.Masters.Edit(ManifestItemCtrl.ePage.Entities.Header.Data.TmsManifestItem[ManifestItemCtrl.ePage.Masters.selectedRow])"><span class="fa fa-pencil"></span>&nbsp;&nbsp;Edit</button>
+                </span>
+                <span ng-hide='ManifestItemCtrl.ePage.Masters.selectedRow==-1'><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Delete"  data-ng-click="ManifestItemCtrl.ePage.Masters.RemoveRow()"><i class="fa fa-minus-circle"></i>&nbsp;&nbsp;Detach</button>
+                </span>
+            </div>
+            <div class="wmstable_scroll" id='ManifestItemCtrl.ePage.Masters.your_div' style="height:240px; padding-top: 2px;">
+                <div class="table" id="results">
+                    <div class='theader'>
+                        <div class='table_header'>MHU Type</div>
+                        <div class='table_header'>Item Code</div>
+                        <div class='table_header'>Item Desc</div>
+                        <div class='table_header'>Consignment Number</div>
+                        <div class='table_header'>Receiver Ref </div>
+                        <div class='table_header'>Sender Ref</div>
+                        <div class='table_header'>Height</div>
+                        <div class='table_header'>Width</div>
+                        <div class='table_header'>Length</div>
+                        <div class='table_header'>Weight</div>
+                        <div class='table_header'>Volume</div>
+                    </div>
+
+                    <!-- List Empty Response -->
+                    <div data-ng-if="ManifestItemCtrl.ePage.Entities.Header.Data.TmsManifestItem.length==0">
+                        <div class="grid-no-record grid-width" style="bottom:38px">No Record Found</div>
+                    </div>
+
+                    <div class='table_row' ng-repeat="x in ManifestItemCtrl.ePage.Entities.Header.Data.TmsManifestItem | filter:{IsDeleted:'false'}  track by $index"
+                        ng-click="ManifestItemCtrl.ePage.Masters.setSelectedRow($index)" ng-class="{row_active: ManifestItemCtrl.ePage.Masters.selectedRow==$index}"
+                        style="font-size: 11px;">
+                        <div class='table_small'>
+                            <div class='table_cell'>MHU Type</div>
+                            <div class='table_cell'>{{x.TIT_ItemRef_ID || ManifestItemCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Item Code</div>
+                            <div class='table_cell'>{{x.TIT_ItemCode || ManifestItemCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Item Desc</div>
+                            <div class='table_cell'>{{x.TIT_ItemDesc || ManifestItemCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Consignment Number</div>
+                            <div class='table_cell'>{{x.TMC_ConsignmentNumber || ManifestItemCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Receiver Ref</div>
+                            <div class='table_cell'>{{x.TIT_ReceiverRef || ManifestItemCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Sender Ref</div>
+                            <div class='table_cell'>{{x.TIT_SenderRef || ManifestItemCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Height</div>
+                            <div class='table_cell'>{{x.TIT_Height || ManifestItemCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Width</div>
+                            <div class='table_cell'>{{x.TIT_Width || ManifestItemCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Length</div>
+                            <div class='table_cell'>{{x.TIT_Length || ManifestItemCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Weight</div>
+                            <div class='table_cell'>{{x.TIT_Weight || ManifestItemCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Volume</div>
+                            <div class='table_cell'>{{x.TIT_Volumn || ManifestItemCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <button class="btn btn-blue attach" ng-if="ManifestItemCtrl.ePage.Entities.Header.Data.ProcessInfo[0].WSI_StepName=='Receive Item And Confirm'" data-ng-click="ManifestItemCtrl.ePage.Masters.ReceiveLines()">Receive Lines </button>
+    </div>
+    <!--<div class="col-lg-12">
+        <div ng-init="ManifestItemCtrl.ePage.Masters.getConsignmentNumber()" ng-if="ManifestItemCtrl.ePage.Masters.Config.TempConsignmentNumber"></div>
+    </div>-->
+</div>

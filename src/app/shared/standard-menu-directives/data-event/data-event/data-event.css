@@ -1,0 +1,88 @@
+.data-event-header {
+    background-color: rgba(163, 163, 163, 0.4);
+    color: #999;
+    text-align: center;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    height: 42px;
+}
+
+.data-event-eventent-header.edit-view {
+    background-color: rgba(163, 163, 163, 0.8);
+    color: #666;
+}
+
+.data-event-list-container {
+    border-bottom: 1px solid #f4f4f4;
+}
+
+.data-event-list-container .data-event-list-header {
+    margin-left: 20px;
+    padding: 10px 20px 10px 0;
+    border-bottom: 1px solid #f4f4f4;
+    font-weight: 600;
+    color: gray;
+}
+
+.data-event-list-container .data-event-list-ul {
+    list-style: none;
+    padding: 0;
+    margin-left: 0;
+    margin-bottom: 0;
+}
+
+.data-event-list-container .data-event-list-ul li {
+    cursor: pointer;
+}
+
+.data-event-list-container .data-event-list-ul li:hover,
+.data-event-list-container .data-event-list-ul li.active {
+    background-color: #e6edfd;
+    color: #000;
+}
+
+
+.data-event-list-container .data-event-list .data-event-redirect-icon {
+    border-bottom: 1px solid #f4f4f4;
+    display: flex;
+    align-items: center;
+    height: 52px;
+}
+
+.data-event-list-container .data-event-list-ul li:last-child .data-event-redirect-icon {
+    border-bottom: none;
+}
+
+.data-event-list-container .data-event-list .data-event-redirect-icon i {
+    font-size: 24px;
+    color: #aaa;
+    margin: 0 auto;
+}
+
+.data-event-list-container .data-event-list .data-event-list-name {
+    border-bottom: 1px solid #f4f4f4;
+    height: 52px;
+    display: flex;
+    align-items: center;
+}
+
+.data-event-list-container .data-event-list-ul li:last-child .data-event-list-name {
+    border-bottom: none;
+}
+
+.data-event-details-edit .form-group .control-label,
+.data-event-details-view .form-group .control-label {
+    font-weight: 600;
+}
+
+.data-event-list-container .data-event-list .data-event-list-name span {
+    font-size: 15px;
+    display: block;
+    color: darkblue;
+}
+
+.data-event-list-search {
+    padding: 5px 20px;
+    padding-right: 5px;
+}

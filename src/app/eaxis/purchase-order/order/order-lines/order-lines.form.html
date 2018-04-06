@@ -1,0 +1,24 @@
+<div class="modal-header">
+    <h5 class="modal-title pull-left"><strong>Order Line</strong></h5>
+    <input type="button" class="btn btn-secondary btn-xs pull-right margin-left-5" ng-click="OrderLinesFormModalCtrl.ePage.Masters.Cancel()"
+        value="Close" />
+    <input type="button" class="btn btn-primary btn-xs pull-right margin-left-5" ng-click="OrderLinesFormModalCtrl.ePage.Masters.Save()"
+        value="{{OrderLinesFormModalCtrl.ePage.Masters.SaveButtonText}}" />
+    <input type="button" class="btn btn-primary btn-xs pull-right margin-left-5" ng-click="OrderLinesFormModalCtrl.ePage.Masters.SaveClose()"
+        value="{{OrderLinesFormModalCtrl.ePage.Masters.SaveCloseButtonText}}" />
+</div>
+<div class="modal-body">
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <order-lines-form data-ng-if="OrderLinesFormModalCtrl.ePage.Masters.OrderLines" line-order='OrderLinesFormModalCtrl.ePage.Masters.OrderLines' current-order="OrderLinesFormModalCtrl.ePage.Masters.param.CurrentOrder" action="OrderLinesFormModalCtrl.ePage.Masters.param.Action" save="OrderLinesFormModalCtrl.ePage.Masters.Save()"></order-lines-form>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <input type="button" class="btn btn-secondary btn-xs pull-right margin-left-5" ng-click="OrderLinesFormModalCtrl.ePage.Masters.Cancel();"
+        value="Close" />
+    <input type="button" class="btn btn-primary btn-xs pull-right margin-left-5" ng-click="OrderLinesFormModalCtrl.ePage.Masters.Save()"
+        value="{{OrderLinesFormModalCtrl.ePage.Masters.SaveButtonText}}" />
+    <input type="button" class="btn btn-primary btn-xs pull-right margin-left-5" ng-click="OrderLinesFormModalCtrl.ePage.Masters.SaveClose()"
+        value="{{OrderLinesFormModalCtrl.ePage.Masters.SaveCloseButtonText}}" />
+</div>

@@ -1,0 +1,261 @@
+<div class="clearfix margin-top-10">
+    <div class="clearfix">
+        <!--Sender-->
+        <div class="col-lg-4">
+            <div class="inner-dashboard-box">
+                <div class="rows border-bottom">
+                    <div class="col-lg-4 height-40  border-right pt-10 pb-10">
+                        <span class="dashboard-item-icon-box">
+                            <i class="icomoon icon-supplier"></i>
+                        </span>
+                        <label class="ml-5 control-label">Sender</label>
+                    </div>
+                    <div class="col-lg-8 height-40  p-5">
+                        <div class="input-group input-group-sm">
+                            <!-- Dynamic look up Search in textbox -->
+                            <div dynamic-lookup placeholder="Sender" is-disabled="ConsignmentGeneralCtrl.ePage.Masters.IsDisabledSender" title="{{ConsignmentGeneralCtrl.ePage.Masters.Sender}}" my-ng-model="ConsignmentGeneralCtrl.ePage.Masters.Sender" auto-complete-on-select="ConsignmentGeneralCtrl.ePage.Masters.SelectedLookupSender($item)"
+                                obj="ConsignmentGeneralCtrl.ePage.Entities.Header.Data.OrgSender" prefix-data="'OrganizationList'"
+                                config="'Sender'">
+                            </div>
+
+                            <!-- Look Up page opens when button clicks -->
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal is-disabled="ConsignmentGeneralCtrl.ePage.Masters.IsDisabledSender" obj="ConsignmentGeneralCtrl.ePage.Entities.Header.Data.OrgSender" field-name="'Sender'" selected-data="ConsignmentGeneralCtrl.ePage.Masters.SelectedLookupSender($item)"  prefix-data="'OrganizationList'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                            </span>
+                            <span class="input-group-btn" ng-show="ConsignmentGeneralCtrl.ePage.Masters.Sender && ConsignmentGeneralCtrl.ePage.Masters.IsVisibleSenderAddress">
+                                <button  class="btn btn-default shiny" type="button" ng-click="ConsignmentGeneralCtrl.ePage.Masters.OtherAddresses(ConsignmentGeneralCtrl.ePage.Masters.OrgSenderAddress,'Sender')"><i class="fa fa-address-card-o"></i></button>
+                            </span>
+                            <span ng-if="!ConsignmentGeneralCtrl.ePage.Masters.Sender">
+                                <span data-ng-init="ConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.SenderCode=''"></span>
+                            <span data-ng-init="ConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.SenderName=''"></span>
+                            </span>
+                            <span ng-if='!ConsignmentGeneralCtrl.ePage.Masters.Sender'>
+                                <div ng-init="ConsignmentGeneralCtrl.ePage.Masters.OnChangeValues(ConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.SenderCode,'E5501')"></div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="rows p-5 height-93">
+                    <div ng-show="ConsignmentGeneralCtrl.ePage.Masters.Sender" ng-repeat="x in ConsignmentGeneralCtrl.ePage.Entities.Header.Data.JobAddress | filter: {AddressType:'SND'}">
+                        <div class="col-lg-8 addressstyle">
+                            <div class="text-single-line font-12" title='{{x.Address1}}'>{{x.Address1 }}</div>
+                            <div class="text-single-line" title='{{x.Address2}}'>{{x.Address2 }}</div>
+                            <div class="text-single-line" title='{{x.State}}'>{{x.State}}</div>
+                            <div class="text-single-line">
+                                <span ng-show="x.City" title="{{x.City}}">{{x.City}} -</span>
+                                <span ng-show="x.PostCode" title="{{x.PostCode}}">{{x.PostCode}}</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 p-0 mt-50">
+                            <div class="pull-right addressstyle1 font-12" ng-show="x.Mobile" title="{{x.Mobile}}">{{x.Mobile}}<i class="fa fa-phone ml-5 mr-5"></i></div>
+                            <div class="pull-right addressstyle1 font-12" ng-show="x.Email" title="{{x.Email}}">{{x.Email}}<i class="fa fa-envelope-o ml-5 mr-5"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Receiver-->
+        <div class="col-lg-4" ng-if="!ConsignmentGeneralCtrl.ePage.Masters.SenderDetail.IsDistributionCentre">
+            <div class="inner-dashboard-box">
+                <div class="rows border-bottom">
+                    <div class="col-lg-4 height-40  border-right pt-10 pb-10">
+                        <span class="dashboard-item-icon-box">
+                            <i class="icomoon icon-supplier"></i>
+                        </span>
+                        <label class="ml-5 control-label">Receiver</label>
+                    </div>
+                    <div class="col-lg-7 height-40 pt-5">
+                        <select chosen class="form-control" style="height: 30px;" ng-model="ConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ReceiverCode"
+                        ng-options="x.ORG_MappingToCode as x.ORG_MappingToCode+' - '+ x.ORG_MappingToName for x in ConsignmentGeneralCtrl.ePage.Masters.ReceiverList" title="{{ConsignmentGeneralCtrl.ePage.Masters.Receiver}}"
+                        ng-change='ConsignmentGeneralCtrl.ePage.Masters.OnChangeReceiver(ConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ReceiverCode)' search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>        
+                    <div class="col-lg-1 height-40  p-5" style="margin-left: -20px;">
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-btn" ng-show="ConsignmentGeneralCtrl.ePage.Masters.Receiver">
+                                <button   class="btn btn-default shiny" type="button" ng-click="ConsignmentGeneralCtrl.ePage.Masters.OtherAddresses(ConsignmentGeneralCtrl.ePage.Masters.OrgReceiverAddress,'Receiver')"><i class="fa fa-address-card-o"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="rows p-5 height-93">
+                    <div ng-show="ConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ReceiverCode" ng-repeat="x in ConsignmentGeneralCtrl.ePage.Entities.Header.Data.JobAddress | filter: {AddressType:'REC'}">
+                        <div class="col-lg-8 addressstyle">
+                            <div class="text-single-line font-12" title='{{x.Address1}}'>{{x.Address1 }}</div>
+                            <div class="text-single-line" title='{{x.Address2}}'>{{x.Address2 }}</div>
+                            <div class="text-single-line" title='{{x.State}}'>{{x.State}}</div>
+                            <div class="text-single-line">
+                                <span ng-show="x.City" title="{{x.City}}">{{x.City}} -</span>
+                                <span ng-show="x.PostCode" title="{{x.PostCode}}">{{x.PostCode}}</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 p-0 mt-50">
+                            <div class="pull-right addressstyle1 font-12" ng-show="x.Mobile" title="{{x.Mobile}}">{{x.Mobile}}<i class="fa fa-phone ml-5 mr-5"></i></div>
+                            <div class="pull-right addressstyle1 font-12" ng-show="x.Email" title="{{x.Email}}">{{x.Email}}<i class="fa fa-envelope-o ml-5 mr-5"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4" ng-if="ConsignmentGeneralCtrl.ePage.Masters.SenderDetail.IsDistributionCentre">
+            <div class="inner-dashboard-box">
+                <div class="rows border-bottom">
+                    <div class="col-lg-4 height-40  border-right pt-10 pb-10">
+                        <span class="dashboard-item-icon-box">
+                            <i class="icomoon icon-supplier"></i>
+                        </span>
+                        <label class="ml-5 control-label">Receiver</label>
+                    </div>
+                    <div class="col-lg-8 height-40 p-5">
+                        <div class="input-group input-group-sm">
+                            <select class="form-control" style="height: 30px;" ng-model="ConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ReceiverCode"
+                            ng-options="x.ORG_BasedOnCode as x.ORG_BasedOnCode+' - '+ x.ORG_BasedOnName for x in ConsignmentGeneralCtrl.ePage.Masters.ReceiverList" title="{{ConsignmentGeneralCtrl.ePage.Masters.Receiver}}"
+                            ng-change='ConsignmentGeneralCtrl.ePage.Masters.OnChangeReceiver(ConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ReceiverCode)' search-contains="true">
+                                <option value="">--Select--</option>
+                            </select>
+
+                            <span class="input-group-btn" ng-show="ConsignmentGeneralCtrl.ePage.Masters.Receiver">
+                                <button   class="btn btn-default shiny" type="button" ng-click="ConsignmentGeneralCtrl.ePage.Masters.OtherAddresses(ConsignmentGeneralCtrl.ePage.Masters.OrgReceiverAddress,'Receiver')"><i class="fa fa-address-card-o"></i></button>
+                            </span>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="rows p-5 height-93">
+                    <div ng-show="ConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ReceiverCode" ng-repeat="x in ConsignmentGeneralCtrl.ePage.Entities.Header.Data.JobAddress | filter: {AddressType:'REC'}">
+                        <div class="col-lg-8 addressstyle">
+                            <div class="text-single-line font-12" title='{{x.Address1}}'>{{x.Address1 }}</div>
+                            <div class="text-single-line" title='{{x.Address2}}'>{{x.Address2 }}</div>
+                            <div class="text-single-line" title='{{x.State}}'>{{x.State}}</div>
+                            <div class="text-single-line">
+                                <span ng-show="x.City" title="{{x.City}}">{{x.City}} -</span>
+                                <span ng-show="x.PostCode" title="{{x.PostCode}}">{{x.PostCode}}</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 p-0 mt-50">
+                            <div class="pull-right addressstyle1 font-12" ng-show="x.Mobile" title="{{x.Mobile}}">{{x.Mobile}}<i class="fa fa-phone ml-5 mr-5"></i></div>
+                            <div class="pull-right addressstyle1 font-12" ng-show="x.Email" title="{{x.Email}}">{{x.Email}}<i class="fa fa-envelope-o ml-5 mr-5"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--ServiceType& Status-->
+        <div class="col-lg-4">
+            <div class="inner-dashboard-box">
+                <div class="col-lg-12">
+                    <div class="clearfix form-group">
+                    <label class="control-label text-single-line">Service Type</label>
+                    <select chosen class="form-control" style="height: 30px;" ng-model="ConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType"
+                        ng-options="x.AddRef1Code as x.AddRef1Code+' - '+ x.TYP_Value for x in ConsignmentGeneralCtrl.ePage.Masters.servicetypelistSource"
+                        title="{{ConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType}}" 
+                        ng-change='ConsignmentGeneralCtrl.ePage.Masters.OnChangeServiceType(ConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType)' search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="clearfix form-group">
+                    <label class="control-label text-single-line">Status</label>
+                    <div class="">
+                        <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" title="{{ConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Status}}" readonly="" placeholder="Status" data-ng-model="ConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Status">
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+    <div class="clearfix mt-5">
+        <div class="col-lg-8">
+            <div class="inner-dashboard-box">
+                <div class="col-lg-4 mt-5 mb-20">
+                    <div class="form-group">
+                        <label class="control-label text-single-line">Pickup Carrier</label>
+                        <select chosen class="form-control" style="height: 30px;" ng-model="ConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.SenderCarrierCode"
+                            ng-options="x.ORG_MappingToCode as x.ORG_MappingToCode+' - '+ x.ORG_MappingToName for x in ConsignmentGeneralCtrl.ePage.Masters.SenderCarrierlistSource" title="{{ConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.SenderCarrierCode}}" 
+                            ng-change='ConsignmentGeneralCtrl.ePage.Masters.OnChangeSenderCarrier(ConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.SenderCarrierCode)' search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-4 mt-5 mb-20">
+                    <div class="form-group">
+                        <label class="control-label text-single-line">Delivery Carrier</label>
+                        <select chosen class="form-control" style="height: 30px;" ng-model="ConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.DeliveryCarrierCode" title="{{ConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.DeliveryCarrierCode}}" 
+                            ng-options="x.ORG_BasedOnCode as x.ORG_BasedOnCode+' - '+ x.ORG_BasedOnName for x in ConsignmentGeneralCtrl.ePage.Masters.DispatchHublistSource"
+                            ng-change='ConsignmentGeneralCtrl.ePage.Masters.OnChangeDeliveryCarrier(ConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.DeliveryCarrierCode)' search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-4 mt-5 mb-20">
+                    <div class="form-group">
+                        <label class="control-label text-single-line">Dispatch Hub</label>
+                        <div class="">
+                            <input type="text" class="form-control input-sm" title="{{ConsignmentGeneralCtrl.ePage.Masters.DispatchHub}}" placeholder="Dispatch Hub" ng-disabled = "!ConsignmentGeneralCtrl.ePage.Masters.SenderDetail.IsDistributionCentre" data-ng-model="ConsignmentGeneralCtrl.ePage.Masters.DispatchHub">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="control-label text-single-line">Journey Title</label>
+                        <select chosen class="form-control" style="height: 30px;" ng-model="ConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.JourneyTitle"
+                            title="{{ConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.JourneyTitle}}" 
+                            ng-options="x.Title as x.Title for x in ConsignmentGeneralCtrl.ePage.Masters.JourneyTitlelistSource"
+                            ng-change='ConsignmentGeneralCtrl.ePage.Masters.OnChangeJourneyTitle(ConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.JourneyTitle)' search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="control-label text-single-line">Expected. Pickup Date</label>
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" placeholder="{{ConsignmentGeneralCtrl.ePage.Masters.DatePicker.Options.format}}"
+                                datetime-picker="{{ConsignmentGeneralCtrl.ePage.Masters.DatePicker.Options.format}}" ng-model="ConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedPickupDateTime"
+                                is-open="ConsignmentGeneralCtrl.ePage.Masters.DatePicker.isOpen['ExpectedPickupDateTime']" datepicker-options="ConsignmentGeneralCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true" default-date=""
+                                default-time="" when-closed="ConsignmentGeneralCtrl.ePage.Masters.DatePicker.Closed(ConsignmentGeneralCtrl.ePage.Masters.DatePicker.ExpectedPickupDateTime)"
+                                save-as="ISO" data-ng-click="ConsignmentGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'ExpectedPickupDateTime')"
+                                popup-placement="bottom-right" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" data-ng-click="ConsignmentGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'ExpectedPickupDateTime')">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="control-label text-single-line">Transit Days</label>
+                        <div class="">
+                            <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" readonly="" placeholder="Transit Days" data-ng-model="ConsignmentGeneralCtrl.ePage.Masters.TransitDays">
+                        </div>
+                    </div>
+                </div>                
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="control-label text-single-line">Expected. Delivery Date</label>
+                        <div class="">
+                            <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" readonly="" placeholder="Expected Delivery Date" data-ng-model="ConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedDeliveryDateTime">
+                        </div>
+                    </div>
+                </div>
+            </div>    
+        </div>
+        <div class="col-lg-4">
+            <div class="inner-dashboard-box">
+                <div class="col-lg-12">
+                    <div class="form-group height-211">
+                        <label class="control-label text-single-line">Special Instructions</label>
+                        <div class="">
+                            <textarea rows="10" type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Special Instructions" data-ng-model="ConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Instructions"></textarea> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>

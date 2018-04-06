@@ -1,0 +1,153 @@
+<!-- Saving Your Data -->
+<div class="grid-loading-norecord-container"  data-ng-if="LocationDetailsCtrl.ePage.Masters.IsLoadingToSave">
+    <div class="grid-no-record">Loading...</div>
+</div>
+
+<div class="col-lg-12 pl-0 pr-0">
+  <div style="height: 570px;padding-top:1px;">
+    <div class="rows margin-right-10 margin-left-5 margin-top-10 pt-10 mb-40" style="background-color: #f9f9f9; border: 1px solid #eee;">
+      <div class="col-lg-6 p-0" style="border-right: 1px solid gray;">
+          <div class="col-lg-12">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-2">
+              <div class="form-group">
+                <div class="error-warning-container">
+                  <error-warning-directive data-ng-if="LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.WarehouseCode.IsWarning && !LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.WarehouseCode.IsError"
+                    list="LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.WarehouseCode.WARNING" type="'warning'" icon="fa fa-warning"
+                    parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                  <error-warning-directive data-ng-if="LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.WarehouseCode.IsError" list="LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.WarehouseCode.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
+                <div class="">
+                  <label class="control-label text-single-line">Warehouse </label>
+                  <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" disabled ng-hide="LocationDetailsCtrl.ePage.Masters.IsDisabledWarehouse" ng-model="LocationDetailsCtrl.ePage.Masters.WarehouseName"
+                    required>
+                  <div class="input-group input-group-sm" ng-show="LocationDetailsCtrl.ePage.Masters.IsDisabledWarehouse">
+                    <div dynamic-lookup placeholder="Warehouse Code" my-ng-model="LocationDetailsCtrl.ePage.Masters.WarehouseName" obj="LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow"
+                      auto-complete-on-select="LocationDetailsCtrl.ePage.Masters.SelectedLookupDataWarCode($item)" prefix-data="'Warehouse'"
+                      config="'Warehouse'"></div>
+                    <span class="input-group-btn">
+                      <button dynamic-list-modal obj="LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow"
+                      field-name="'Warehouse'" selected-data="LocationDetailsCtrl.ePage.Masters.SelectedLookupDataWarCode($item)" 
+                      prefix-data="'Warehouse'" mode = "2" grid-refresh-fun-name="" 
+                      grid-refresh-fun=""  class="btn btn-default shiny" type="button">
+                      <i class="fa fa-ellipsis-h"></i></button>
+                    </span>
+                    <span ng-if='!LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.WarehouseCode && !LocationDetailsCtrl.currentLocation.isNew'>
+                        <div ng-init="LocationDetailsCtrl.ePage.Masters.OnChangeValues(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.WarehouseCode,'E6001')"></div>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-2">
+              <div class="form-group">
+                <div class="error-warning-container">
+                  <error-warning-directive data-ng-if="LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Name.IsWarning && !LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Name.IsError"
+                    list="LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Name.WARNING" type="'warning'" icon="fa fa-warning"
+                    parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                  <error-warning-directive data-ng-if="LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Name.IsError" list="LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Name.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
+                <div class="">
+                  <label class="control-label text-single-line">Row Name</label>
+                  <input type="text" capitalize class="form-control" ng-model="LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.Name" required ng-change="LocationDetailsCtrl.ePage.Masters.OnChangeValues(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.Name,'E6002')">
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-2">
+              <div class="form-group">
+                <div class="error-warning-container">
+                  <error-warning-directive data-ng-if="LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.PickPathSequence.IsWarning && !LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.PickPathSequence.IsError"
+                    list="LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.PickPathSequence.WARNING" type="'warning'"
+                    icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                  <error-warning-directive data-ng-if="LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.PickPathSequence.IsError"
+                    list="LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.PickPathSequence.ERROR" type="'error'" icon="fa fa-warning"
+                    parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
+                <div class="">
+                  <label class="control-label ">Row Path Sequence</label>
+                  <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" numbers-only ng-model="LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.PickPathSequence"
+                    required ng-change="LocationDetailsCtrl.ePage.Masters.OnChangeValues(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.PickPathSequence,'E6006');LocationDetailsCtrl.ePage.Masters.checkSequence(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.PickPathSequence)" ng-disabled="!LocationDetailsCtrl.ePage.Masters.WarehouseName">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-2">
+              <div class="form-group">
+                <div class="error-warning-container">
+                  <error-warning-directive data-ng-if="LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Columns.IsWarning && !LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Columns.IsError"
+                    list="LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Columns.WARNING" type="'warning'" icon="fa fa-warning"
+                    parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                  <error-warning-directive data-ng-if="LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Columns.IsError" list="LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Columns.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
+                <div class="">
+                  <label class="control-label ">Columns in Row</label>
+                  <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" numbers-only ng-model="LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.Columns"
+                    required ng-change="LocationDetailsCtrl.ePage.Masters.OnChangeValues(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.Columns,'E6003')">
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-2">
+              <div class="form-group">
+                <div class="error-warning-container">
+                  <error-warning-directive data-ng-if="LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Levels.IsWarning && !LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Levels.IsError"
+                    list="LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Levels.WARNING" type="'warning'" icon="fa fa-warning"
+                    parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                  <error-warning-directive data-ng-if="LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Levels.IsError" list="LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Levels.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
+                <div class="">
+                  <label class="control-label ">Level in Row</label>
+                  <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" numbers-only ng-model="LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.Levels"
+                    required ng-change="LocationDetailsCtrl.ePage.Masters.OnChangeValues(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.Levels,'E6004')">
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-2">
+              <div class="form-group">
+                <div class="error-warning-container">
+                  <error-warning-directive data-ng-if="LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Trays.IsWarning && !LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Trays.IsError"
+                    list="LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Trays.WARNING" type="'warning'" icon="fa fa-warning"
+                    parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                  <error-warning-directive data-ng-if="LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Trays.IsError" list="LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Trays.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
+                <div class="">
+                  <label class="control-label ">Trays in Location</label>
+                  <input type="text" numbers-only disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" ng-model="LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.Trays"
+                    required ng-change="LocationDetailsCtrl.ePage.Masters.OnChangeValues(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.Trays,'E6005')">
+                </div>
+              </div>
+            </div>
+          </div>  
+      </div>
+      <div class="col-lg-6">
+        
+        <label class="control-label text-single-line">Sort Column</label>
+        
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-2 mt-10">
+            <div class="radio">
+              <label>
+                <input type="radio" value="CTL" ng-model="LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.SortPathMethod"> 
+                <span class="text"> Column Then Level</span>
+              </label>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-2 mt-10">
+            <div class="radio">
+              <label>
+                  <input type="radio" value="LTC" ng-model="LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.SortPathMethod">
+                      <span class="text"> Level Then Column </span>
+              </label>
+            </div>
+          </div>
+        
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-2">
+            <button class="btn btn-blue btn-right" data-ng-click="LocationDetailsCtrl.ePage.Masters.GetLocations(LocationDetailsCtrl.currentLocation)">Location</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div> 

@@ -1,0 +1,179 @@
+<div class="clearfix tc-process-task">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 pr-0 border-right">
+            <div>
+                <!-- Process-Task -->
+                <div class="tc-share-table-container tc-list-container">
+                    <div class="tc-header">
+                        <span data-ng-bind="'Process Task'"></span>
+                    </div>
+                    <div class="tc-list-search pr-20">
+                        <input type="text" placeholder="Search" class="form-control input-sm" data-ng-model="ProcessTaskCtrl.ePage.Masters.ProcessTask.Search">
+                    </div>
+                    <ul class="tc-list-ul">
+                        <li data-ng-click="ProcessTaskCtrl.ePage.Masters.ProcessTask.OnProcessTaskClick()" data-ng-class="{'active': !ProcessTaskCtrl.ePage.Masters.ProcessTask.ActiveProcessTask.ProcessTaskMapping_PK}">
+                            <div class="clearfix tc-list">
+                                <div class="tc-list-name col-xs-12 col-sm-12 col-md-12 col-lg-10 col-xl-10">
+                                    <span class="text-single-line">Add New...</span>
+                                </div>
+                                <div class="tc-redirect-icon col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                    <i class="fa fa-angle-right"></i>
+                                </div>
+                            </div>
+                        </li>
+                        <div data-ng-if="!ProcessTaskCtrl.ePage.Masters.ProcessTask.ProcessTaskList" class="p-15 text-center tc-loading"><i class="fa fa-spin fa-spinner"></i></div>
+                        <div data-ng-if="(ProcessTaskCtrl.ePage.Masters.ProcessTask.ProcessTaskList | filter: ProcessTaskCtrl.ePage.Masters.ProcessTask.Search).length===0"
+                            class="p-15 text-center tc-no-records"><span>No Records...!</span></div>
+                        <li data-ng-repeat="x in ProcessTaskCtrl.ePage.Masters.ProcessTask.ProcessTaskList  | filter: ProcessTaskCtrl.ePage.Masters.ProcessTask.Search"
+                            data-ng-click=" ProcessTaskCtrl.ePage.Masters.ProcessTask.ActiveProcessTask.ProcessTaskMapping_PK != x.ProcessTaskMapping_PK && ProcessTaskCtrl.ePage.Masters.ProcessTask.OnProcessTaskClick(x)"
+                            data-ng-class="{'active': ProcessTaskCtrl.ePage.Masters.ProcessTask.ActiveProcessTask.ProcessTaskMapping_PK == x.ProcessTaskMapping_PK}">
+                            <div class="clearfix tc-list">
+                                <div class="tc-list-name col-xs-12 col-sm-12 col-md-12 col-lg-10 col-xl-10">
+                                    <span class="text-single-line" data-ng-bind="x.TaskName"></span>
+                                </div>
+                                <div class="tc-redirect-icon col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                    <i class="fa fa-angle-right"></i>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 pl-0">
+            <form class="clearfix">
+                <div class="tc-header edit-view">
+                    <button class="btn btn-default tc-btn-delete btn-xs pull-left" data-ng-click="ProcessTaskCtrl.ePage.Masters.ProcessTask.DeleteConfirmation()"
+                        data-ng-show="!ProcessTaskCtrl.ePage.Masters.ProcessTask.IsEdit" data-ng-bind="ProcessTaskCtrl.ePage.Masters.ProcessTask.DeleteBtnText"
+                        data-ng-disabled="ProcessTaskCtrl.ePage.Masters.ProcessTask.IsDisableDeleteBtn || !ProcessTaskCtrl.ePage.Masters.ProcessTask.ActiveProcessTask.ProcessTaskMapping_PK">
+                    <button class="btn btn-default tc-btn-cancel btn-xs pull-left" data-ng-click="ProcessTaskCtrl.ePage.Masters.ProcessTask.Cancel()" data-ng-show="ProcessTaskCtrl.ePage.Masters.ProcessTask.IsEdit"
+                        data-ng-disabled="!ProcessTaskCtrl.ePage.Masters.ProcessTask.ActiveProcessTask.Process_FK">Cancel</button>
+                    <span data-ng-bind="'Details'"></span>
+                    <input type="submit" class="btn btn-default tc-btn-save btn-xs pull-right" data-ng-click="ProcessTaskCtrl.ePage.Masters.ProcessTask.Save()"
+                        data-ng-show="ProcessTaskCtrl.ePage.Masters.ProcessTask.IsEdit" value="{{ProcessTaskCtrl.ePage.Masters.ProcessTask.SaveBtnText}}"
+                        data-ng-disabled="ProcessTaskCtrl.ePage.Masters.ProcessTask.IsDisableSaveBtn">
+                    <button class="btn btn-default tc-btn-edit btn-xs pull-right" data-ng-click="ProcessTaskCtrl.ePage.Masters.ProcessTask.Edit()" data-ng-show="!ProcessTaskCtrl.ePage.Masters.ProcessTask.IsEdit" data-ng-disabled="!ProcessTaskCtrl.ePage.Masters.ProcessTask.ActiveProcessTask.ProcessTaskMapping_PK">Edit</button>
+                </div>
+                <!--View Process-task-->
+                <div data-ng-if="!ProcessTaskCtrl.ePage.Masters.ProcessTask.IsEdit">
+                    <div class="tc-share-field clearfix border-bottom pt-10 tc-details-view">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="clearfix form-group">
+                                <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Process</label>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                    <label data-ng-bind="((ProcessTaskCtrl.ePage.Masters.ProcessTask.ProcessList | filter: { Process_PK : ProcessTaskCtrl.ePage.Masters.ProcessTask.ActiveProcessTask.Process_FK})[0].ProcessName) || ProcessTaskCtrl.ePage.Masters.emptyText"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="clearfix form-group">
+                                <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Data Entry</label>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                    <label data-ng-bind="((ProcessTaskCtrl.ePage.Masters.ProcessTask.DataEntryList | filter: { DataEntry_PK : ProcessTaskCtrl.ePage.Masters.ProcessTask.ActiveProcessTask.DataEntry_FK})[0].DataEntryName) || ProcessTaskCtrl.ePage.Masters.emptyText"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="clearfix form-group">
+                                <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Task Name</label>
+                                <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 ">
+                                    <label data-ng-bind="ProcessTaskCtrl.ePage.Masters.ProcessTask.ActiveProcessTask.TaskName || ProcessTaskCtrl.ePage.Masters.emptyText"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="clearfix form-group">
+                                <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">IsActive</label>
+                                <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 ">
+                                    <label data-ng-bind="ProcessTaskCtrl.ePage.Masters.ProcessTask.ActiveProcessTask.IsActive"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="clearfix form-group">
+                                <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">IsApprovalCheckListRequired</label>
+                                <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 ">
+                                    <label data-ng-bind="ProcessTaskCtrl.ePage.Masters.ProcessTask.ActiveProcessTask.IsApprovalCheckListRequired || ProcessTaskCtrl.ePage.Masters.emptyText"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="clearfix form-group">
+                                <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">IsDataSlotUpdate</label>
+                                <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 ">
+                                    <label data-ng-bind="ProcessTaskCtrl.ePage.Masters.ProcessTask.ActiveProcessTask.IsDataSlotUpdate || ProcessTaskCtrl.ePage.Masters.emptyText"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Edit Process-task-->
+                <div data-ng-if="ProcessTaskCtrl.ePage.Masters.ProcessTask.IsEdit" class="clearfix tc-details-edit">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-20 pb-20">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Process</label>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                    <select chosen name="category-group" class="form-control" ng-model="ProcessTaskCtrl.ePage.Masters.ProcessTask.ActiveProcessTask.Process_FK"
+                                        ng-options="x.Process_PK as x.ProcessName for x in ProcessTaskCtrl.ePage.Masters.ProcessTask.ProcessList"
+                                        search-contains="true">
+                                            <option value="">--Select--</option>
+                                        </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">DataEntry</label>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                    <select chosen name="category-group" class="form-control" ng-model="ProcessTaskCtrl.ePage.Masters.ProcessTask.ActiveProcessTask.DataEntry_FK"
+                                        ng-options="x.DataEntry_PK as x.DataEntryName for x in ProcessTaskCtrl.ePage.Masters.ProcessTask.DataEntryList"
+                                        search-contains="true">
+                                            <option value="">--Select--</option>
+                                        </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Task Name</label>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                    <input type="text" class="form-control input-sm" placeholder="Task Name" data-ng-model="ProcessTaskCtrl.ePage.Masters.ProcessTask.ActiveProcessTask.TaskName">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4"></div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                        <label>
+                                        <input type="checkbox" data-ng-model="ProcessTaskCtrl.ePage.Masters.ProcessTask.ActiveProcessTask.IsActive" class="colored-blue">
+                                        <span class="text">IsActive</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4"></div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                        <label>
+                                        <input type="checkbox" data-ng-model="ProcessTaskCtrl.ePage.Masters.ProcessTask.ActiveProcessTask.IsApprovalCheckListRequired" class="colored-blue">
+                                        <span class="text">IsApprovalCheckListRequired</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4"></div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                        <label>
+                                        <input type="checkbox" data-ng-model="ProcessTaskCtrl.ePage.Masters.ProcessTask.ActiveProcessTask.IsDataSlotUpdate" class="colored-blue">
+                                        <span class="text">IsDataSlotUpdate</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

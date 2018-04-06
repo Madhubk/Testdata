@@ -1,0 +1,401 @@
+<div class="clearfix p-10">
+    <div class="clearfix">
+        <div class="org-contact-header">
+            <span>Consignee</span>
+            <!-- <a class="eaxis-edit-2 pull-right" href="javascript:void(0);" ng-click="OrganizationConsigneeCtrl.ePage.Masters.OpenEditForm(undefined, 'consignee', true)"><i class="fa fa-plus-circle fs-28"></i></a> -->
+        </div>
+        <div class="eaxis-record">
+            <uib-tabset justified="true" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <uib-tab heading="Consignor">
+                    <div class="col-lg-12 text-right">
+                        <button class="btn btn-primary pull-right" data-ng-click="OrganizationConsigneeCtrl.ePage.Masters.Supplier.IsNew(OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails)"
+                            data-ng-show="!OrganizationConsigneeCtrl.ePage.Masters.Supplier.IsFormView">
+                            <i class="fa fa-plus-circle"></i> Add to grid</button>
+                        <button class="btn btn-primary pull-right" data-ng-click="OrganizationConsigneeCtrl.ePage.Masters.Supplier.Save(OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails)"
+                            data-ng-show="OrganizationConsigneeCtrl.ePage.Masters.Supplier.IsFormView" ng-disabled="OrganizationConsigneeCtrl.ePage.Masters.Supplier.IsDisabled"
+                            data-ng-bind="OrganizationConsigneeCtrl.ePage.Masters.Supplier.SaveButtonText">
+                            <i class="fa fa-floppy-o"></i>
+                        </button>
+                        <!-- <button class="btn btn-primary pull-right" data-ng-click="OrganizationConsigneeCtrl.ePage.Masters.Supplier.NewSave(OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails)" data-ng-show="OrganizationConsigneeCtrl.ePage.Masters.Supplier.IsNewSave" ng-disabled="OrganizationConsigneeCtrl.ePage.Masters.Supplier.IsDisabled" data-ng-bind="OrganizationConsigneeCtrl.ePage.Masters.Supplier.SaveButtonText"><i class="fa fa-floppy-o"></i></button> -->
+                    </div>
+                    <div class="horizontal-space mt-10"></div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" data-ng-show="!OrganizationConsigneeCtrl.ePage.Masters.Supplier.IsFormView">
+                        <div class="height-230 clearfix">
+                            <div class="text-center grid-view-loader" data-ng-if="!OrganizationConsigneeCtrl.ePage.Masters.SupplierGridDetails.GridData">
+                                <i class="fa fa-spin fa-spinner font-160"></i>
+                            </div>
+                            <dynamic-table data-ng-if="OrganizationConsigneeCtrl.ePage.Masters.SupplierGridDetails.GridData" grid-data="OrganizationConsigneeCtrl.ePage.Masters.SupplierGridDetails.GridData"
+                                grid-config="OrganizationConsigneeCtrl.ePage.Masters.SupplierGridDetails.gridConfig" selected-grid-row="OrganizationConsigneeCtrl.ePage.Masters.SupplierGridDetails.SelectedConsignorRow($item)"></dynamic-table>
+                        </div>
+                    </div>
+                    <div data-ng-show="OrganizationConsigneeCtrl.ePage.Masters.Supplier.IsFormView">
+                        <div class="clearfix margin-bottom-10 service-details-heading">
+                            <div class="clearfix">
+                                <i class="fa fa-angle-double-left pull-left btn btn-link" data-ng-click="OrganizationConsigneeCtrl.ePage.Masters.Supplier.IsFormView = false"></i>
+                                <span class="heading">Importer / Consignor Details</span>
+                            </div>
+                        </div>
+                        <div class="clearfix">
+                            <div class="row">
+                                <!--Code -->
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Code</label>
+                                        <div class="input-group input-group-sm">
+                                            <input type="hidden" ng-model="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping.ORG_Supplier">
+                                            <div dynamic-lookup my-ng-model="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping.ORG_SupplierCode"
+                                                obj="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping"
+                                                prefix-data="'OrganizationList'" config="'OrgConsignorList'" auto-complete-on-select="OrganizationConsigneeCtrl.ePage.Masters.AutoCompleteOnSelect($item)"></div>
+                                            <span class="input-group-btn">
+                                                <button dynamic-list-modal obj="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping" field-name="'OrgConsignorList'"
+                                                    prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                                    selected-data="OrganizationConsigneeCtrl.ePage.Masters.SelectedData($item)"
+                                                    class="btn btn-default shiny" type="button">
+                                                    <i class="fa fa-ellipsis-h"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Controlling Customer-->
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Controlling Customer</label>
+                                        <div class="input-group input-group-sm">
+                                            <input type="hidden" ng-model="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping.ORG_ContrOBSledBy_FK">
+                                            <div dynamic-lookup my-ng-model="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping.ORG_ContrOBSledByCode"
+                                                obj="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping"
+                                                prefix-data="'OrganizationList'" config="'OrgCntrlCusList'" auto-complete-on-select="OrganizationConsigneeCtrl.ePage.Masters.AutoCompleteOnSelect($item)"></div>
+                                            <span class="input-group-btn">
+                                                <button dynamic-list-modal obj="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping" field-name="'OrgCntrlCusList'"
+                                                    prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                                    selected-data="OrganizationConsigneeCtrl.ePage.Masters.SelectedData($item)"
+                                                    class="btn btn-default shiny" type="button">
+                                                    <i class="fa fa-ellipsis-h"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Import Broker-->
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Import Broker</label>
+                                        <div class="input-group input-group-sm">
+                                            <input type="hidden" ng-model="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping.ORG_ImportBroker_FK">
+                                            <div dynamic-lookup my-ng-model="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping.ORG_ImportBrokerCode"
+                                                obj="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping"
+                                                prefix-data="'OrganizationList'" config="'OrgImportBroList'" auto-complete-on-select="OrganizationConsigneeCtrl.ePage.Masters.AutoCompleteOnSelect($item)"></div>
+                                            <span class="input-group-btn">
+                                                <button dynamic-list-modal obj="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping" field-name="'OrgImportBroList'"
+                                                    prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                                    selected-data="OrganizationConsigneeCtrl.ePage.Masters.SelectedData($item)"
+                                                    class="btn btn-default shiny" type="button">
+                                                    <i class="fa fa-ellipsis-h"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Docs To-->
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Docs To</label>
+                                        <div class="">
+                                            <select chosen name="category-group" class="form-control" ng-model="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping.SendImportDocsTo"
+                                                ng-options="x.DOC_Code as x.DOC_Code + ' - ' + x.DOC_Desc for x in OrganizationConsigneeCtrl.ePage.Masters.DocumnetsList.ListSource"
+                                                search-contains="true">
+                                                <option value="">--Select--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!--Import Country-->
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                    <div class="form-group">
+                                        <label class="control-label text-single-line">Import Country</label>
+                                        <div class="">
+                                            <select chosen class="form-control" ng-model="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping.ImporterCountry"
+                                                ng-options="x.COU_Code as x.COU_Code + ' - ' + x.COU_Desc for x in OrganizationConsigneeCtrl.ePage.Masters.CountryList.ListSource"
+                                                search-contains="true">
+                                                <option value="">--Select--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Currency-->
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                    <div class="form-group">
+                                        <label class="control-label text-single-line">Currency</label>
+                                        <div class="">
+                                            <select chosen name="category-group" class="form-control" ng-model="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping.Currency"
+                                                ng-options="x.Code as x.Code + ' - ' + x.Desc for x in OrganizationConsigneeCtrl.ePage.Masters.CurrencyList.ListSource"
+                                                search-contains="true">
+                                                <option value="">--Select--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Authority To Leave-->
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Authority To Leave</label>
+                                        <div class="">
+                                            <select chosen name="category-group" class="form-control" ng-model="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping.AuthorityToLeave"
+                                                search-contains="true" ng-options="x.AUT_Code as x.AUT_Code + ' - ' + x.AUT_Desc for x in OrganizationConsigneeCtrl.ePage.Masters.AuthorityToLeaveList.ListSource">
+                                                <option value="">--Select--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Transfer Related-->
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Transfer Related</label>
+                                        <div class="">
+                                            <select chosen name="category-group" class="form-control" ng-model="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping.IsRelatedParty"
+                                                search-contains="true" ng-options="x.TR_Code as x.TR_Name + ' - ' + x.TR_Desc for x in OrganizationConsigneeCtrl.ePage.Masters.TransferRelatedList.ListSource">
+                                                <option value="">--Select--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- Valuation-->
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                    <div class="form-group">
+                                        <label class="control-label">valuation</label>
+                                        <div class="">
+                                            <select chosen name="category-group" class="form-control" ng-model="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping.ValuationBasis"
+                                                search-contains="true" ng-options="x.VAL_Code as x.VAL_Code + ' - ' + x.VAL_Desc for x in OrganizationConsigneeCtrl.ePage.Masters.ValuationBasisList.ListSource">
+                                                <option value="">--Select--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 1st Ship-->
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                    <div class="form-group">
+                                        <label class="control-label">1st Ship</label>
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" class="form-control" placeholder="{{OrganizationConsigneeCtrl.ePage.Masters.DatePicker.Options.format}}"
+                                                data-ng-model="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping.InitialShipmentExpectedDate"
+                                                uib-datepicker-popup="{{OrganizationConsigneeCtrl.ePage.Masters.DatePicker.Options.format}}"
+                                                datepicker-options="OrganizationConsigneeCtrl.ePage.Masters.DatePicker.Options"
+                                                is-open="OrganizationConsigneeCtrl.ePage.Masters.DatePicker.isOpen['isFirstShip']"
+                                            />
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default shiny" data-ng-click="OrganizationConsigneeCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isFirstShip')">
+                                                    <i class="fa fa-calendar"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- INCOTERM -->
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                    <div class="form-group">
+                                        <label class="control-label text-single-line">INCOTERM</label>
+                                        <div class="">
+                                            <select chosen name="category-group" class="form-control" ng-model="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping.IncoTerm"
+                                                ng-options="x.Key as x.Key + '-' + x.Value for x in OrganizationConsigneeCtrl.ePage.Entities.Header.Meta.INCOTERM.ListSource"
+                                                search-contains="true">
+                                                <option value="">--Select--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Transport Mode -->
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                    <div class="form-group ex-line-font">
+                                        <label class="control-label text-single-line">Transport Mode</label>
+                                        <div class="">
+                                            <select chosen class="form-control" ng-model="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping.TransportMode" ng-options="x.Key as x.Key + '-' + x.Value for x in OrganizationConsigneeCtrl.ePage.Entities.Header.Meta.TRANSTYPE.ListSource"
+                                                search-contains="true">
+                                                <option value="">--Select--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Container Mode -->
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                    <div class="form-group">
+                                        <label class="control-label text-single-line">Container Mode</label>
+                                        <div class="">
+                                            <select chosen class="form-control" ng-model="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping.ContainerMode"
+                                                ng-options="x.Key as x.Key + '-' + x.Value for x in OrganizationConsigneeCtrl.ePage.Entities.Header.Meta.CNTTYPE.ListSource"
+                                                search-contains="true">
+                                                <option value="">--Select--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Sending Agent -->
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                    <div class="form-group ex-line-font">
+                                        <input type="hidden" ng-model="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping.ORG_SendingAgent_FK">
+                                        <label class="control-label text-single-line">Sending Agent</label>
+                                        <div class="input-group input-group-sm">
+                                            <div dynamic-lookup my-ng-model="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping.ORG_SendingAgentCode"
+                                                obj="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping"
+                                                prefix-data="'OrganizationList'" config="'MDMSendingAgent'"></div>
+                                            <span class="input-group-btn">
+                                                <button dynamic-list-modal obj="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping" field-name="'MDMSendingAgent'"
+                                                    prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                                    selected-data="OrdGeneralCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny"
+                                                    type="button">
+                                                    <i class="fa fa-ellipsis-h"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Receiving Agent -->
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                    <div class="form-group ex-line-font">
+                                        <input type="hidden" ng-model="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping.ORG_ReceivingAgent_FK"
+                                        />
+                                        <label class="control-label text-single-line">Receiving Agent</label>
+                                        <div class="input-group input-group-sm">
+                                            <div dynamic-lookup my-ng-model="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping.ORG_ReceivingAgentCode"
+                                                obj="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping"
+                                                prefix-data="'OrganizationList'" config="'MDMReceivingAgent'"></div>
+                                            <span class="input-group-btn">
+                                                <button dynamic-list-modal obj="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping" field-name="'MDMReceivingAgent'"
+                                                    prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                                    selected-data="OrdGeneralCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny"
+                                                    type="button">
+                                                    <i class="fa fa-ellipsis-h"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Product Relation-->
+                                <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Product Relation</label>
+                                        <div class="">
+                                            <select chosen name="category-group" class="form-control" ng-model="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping.ProductRelation" search-contains="true">
+                                                <option value="">--Select--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <!--eFreight Status-->
+                                <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                    <div class="form-group">
+                                        <label class="control-label">eFreight Status</label>
+                                        <div class="">
+                                            <select chosen name="category-group" class="form-control" ng-model="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping.eFreightStatus"      search-contains="true">
+                                                <option value="">--Select--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+
+                </uib-tab>
+                <uib-tab heading="Consignor Followup">
+                    <div class="horizontal-space"></div>
+                    <div class="clearfix">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <!-- Followup Source -->
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                <div class="form-group">
+                                    <label class="control-label">FollowUp Source</label>
+                                    <div class="">
+                                        <select chosen name="category-group" class="form-control" ng-model="OrganizationConsigneeCtrl.ePage.Masters.FollowUpConfig.GridData[0].FollowUpSource"
+                                            ng-options="x.Value as x.Key for x in OrganizationConsigneeCtrl.ePage.Masters.FollowUpConfig.FollowupSourceList.ListSource">
+                                            <option value="">--Select--</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Followup Due -->
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                <div class="form-group">
+                                    <label class="control-label">Followup Due</label>
+                                    <input class="form-control" type="text" name="" placeholder="Followup Due" ng-model="OrganizationConsigneeCtrl.ePage.Masters.FollowUpConfig.GridData[0].FollowUpDue">
+                                </div>
+                            </div>
+                            <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                <div class="form-group"><label class="control-label">Thresold Time</label>
+                                    <input class="form-control" type="text" name="" placeholder="Thresold Time">
+                                </div>
+                            </div> -->
+                            <!-- Followup weekdays -->
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                <div class="form-group">
+                                    <label class="control-label">Week Day</label>
+                                    <div class="">
+                                        <select chosen name="category-group" class="form-control" ng-model="OrganizationConsigneeCtrl.ePage.Masters.FollowUpConfig.GridData[0].WeekDay"
+                                            ng-options="x.WeeKDay_Code as x.WeeKDay_Desc for x in OrganizationConsigneeCtrl.ePage.Masters.FollowUpConfig.FollowupWeekDaysSource.ListSource">
+                                            <option value="">--Select--</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                <div class="form-group"><label class="control-label">Week Day</label>
+                                    <select class="form-control" data-ng-model="OrganizationConsigneeCtrl.ePage.Masters.FollowUpConfig.GridData[0].WeekDay">
+                                        <option value="0">--Select--</option>
+                                        <option value="1">Sunday</option>
+                                        <option value="2">Monday</option>
+                                        <option value="3">Tuesday</option>
+                                        <option value="4">Wednesday</option>
+                                        <option value="5">Thursday</option>
+                                        <option value="6">Friday</option>
+                                        <option value="7">Saturday</option>
+                                    </select>
+                                </div>
+                            </div> -->
+                            <!-- Followup Message Body -->
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                <div class="form-group">
+                                    <label class="control-label">Followup Message Body</label>
+                                    <span class="textarea">
+                                        <textarea class="form-control" placeholder="Enter your comments" ng-model="OrganizationConsigneeCtrl.ePage.Masters.FollowUpConfig.GridData[0].FollowUpMsg"></textarea>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                <div class="form-group"><label class="control-label"></label>
+                                    <div class="checkbox"><label><input type="checkbox" class="colored-blue" / ><span class="text">Is Active</span></label></div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                <div class="form-group"><label class="control-label"></label>
+                                    <div class="checkbox"><label><input type="checkbox" class="colored-blue" / ><span class="text">Is SFU by line Item</span></label></div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="clearfix">
+                        <button class="btn btn-primary pull-right" data-ng-click="OrganizationConsigneeCtrl.ePage.Masters.FollowUpConfig.IsConsignorFollowupSave()"
+                            data-ng-bind="OrganizationConsigneeCtrl.ePage.Masters.FollowUpConfig.SaveButtonText" data-ng-disabled="OrganizationConsigneeCtrl.ePage.Masters.FollowUpConfig.SaveButtonEnable">
+                            <i class="fa fa-floppy-o"></i>
+                        </button>
+                    </div>
+                    <div class="horizontal-space"></div>
+                    <div class="clearfix mt50"></div>
+                    <!-- <div class="clearfix">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="height-230 clearfix">
+                                <div class="text-center grid-view-loader" data-ng-if="!OrganizationConsigneeCtrl.ePage.Masters.SupplierList.GridData"><i class="fa fa-spin fa-spinner font-160"></i></div>
+                                <dynamic-table data-ng-if="OrganizationConsigneeCtrl.ePage.Masters.SupplierList.GridData" grid-data="OrganizationConsigneeCtrl.ePage.Masters.SupplierList.GridData" grid-config="OrganizationConsigneeCtrl.ePage.Masters.SupplierList.gridConfig" selected-grid-row="OrganizationConsigneeCtrl.ePage.Masters.Service.SelectedGridRow($item)"></dynamic-table>
+                            </div>
+                        </div>
+                    </div> -->
+                </uib-tab>
+            </uib-tabset>
+        </div>
+    </div>
+</div>

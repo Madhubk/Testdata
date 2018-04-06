@@ -1,0 +1,58 @@
+.tc-process-work-step-access .table thead tr{
+    background: #ccdadf;
+}
+
+.tc-process-work-step-access .table>tbody>tr>td {
+    padding: 0;
+}
+
+.tc-process-work-step-access .modal-dialog {
+    width: 650px !important;
+}
+
+.tc-process-work-step-access .table>tbody>tr>td>.set-tabel-text {
+    width: 100%;
+    border: 0;
+    padding: 8px 10px;
+    background: #fff;
+}
+
+.tc-process-work-step-access .table>tbody>tr>td>.set-tabel-textarea {
+    width: 100%;
+    border: 0;
+    padding: 4px 10px;
+    background: #fff;
+    height: 32px;
+}
+
+.tc-process-work-step-access .table{
+    table-layout: fixed;
+}
+
+.tc-process-work-step-access-container{
+    overflow-x: auto;
+}
+
+.tc-process-work-step-access .table thead tr th.th-value{
+    width: 350px;
+}
+
+.tc-process-work-step-access .table thead tr th.th-fitertype{
+    width: 450px;
+}
+
+.tc-process-work-step-access .table thead tr th.th-dropdown{
+    width: 300px;
+}
+
+.tc-process-work-step-access .table thead tr th.th-action{
+    width: 30px;
+}
+
+.tc-process-work-step-access .table thead tr th.th-saveaction{
+    width: 30px;
+}
+
+.tc-process-work-step-access .table tbody tr td .chosen-container .chosen-single{
+    border: 0; 
+}

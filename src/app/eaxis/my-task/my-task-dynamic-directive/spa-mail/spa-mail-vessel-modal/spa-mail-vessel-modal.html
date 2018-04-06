@@ -1,0 +1,148 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="SPAVesselModalCtrl.ePage.Masters.Cancel()">&times;</button>
+    <h5 class="modal-title" id="modal-title">
+        <strong>Vessel Planning</strong>
+    </h5>
+</div>
+<div class="modal-body" id="modal-body">
+    <div class="rows mt-10">
+	    <div class="clearfix">
+	    	<div class="clearfix">
+                <!--Mode-->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                    <div class="form-group">
+                        <label for="" class="control-label">Mode</label>
+                        <select chosen name="category-group" id="categoryGroup" class="form-control" ng-model="SPAVesselModalCtrl.ePage.Masters.BulkInput.TransportMode"
+                                ng-options="x.Key as x.Description for x in SPAVesselModalCtrl.ePage.Masters.DropDownMasterList.ROUTEMODE.ListSource"
+                                search-contains="true" ng-disabled="SPAVesselModalCtrl.ePage.Masters.IsTransport">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+	        <!-- carrier -->
+	        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+	            <div class="form-group  padding-top-10">
+	                <label class="control-label text-single-line">Carrier</label>
+	                <div class="input-group input-group-sm">
+	                    <input type="hidden" ng-model="SPAVesselModalCtrl.ePage.Masters.BulkInput.CarrierOrg_FK">
+	                    <div dynamic-lookup placeholder="Carrier" my-ng-model="SPAVesselModalCtrl.ePage.Masters.BulkInput.CarrierOrg_Code" obj="SPAVesselModalCtrl.ePage.Masters.BulkInput"
+	                         prefix-data="'MDM_CarrierList'" config="'OrdPlannedCarrier'" auto-complete-on-select="SPAVesselModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)"></div>
+	                    <span class="input-group-btn">
+	                        <button dynamic-list-modal obj="SPAVesselModalCtrl.ePage.Masters.BulkInput" field-name="'OrdPlannedCarrier'" prefix-data="'MDM_CarrierList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="SPAVesselModalCtrl.ePage.Masters.SelectedLookupData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+	                    </span>
+	                </div>
+	            </div>
+	        </div>
+	        <!-- Vessel -->
+	        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+	            <div class="form-group  padding-top-10">
+	                <label class="control-label text-single-line">Vessel</label>
+	                <div class="input-group input-group-sm">
+	                    <div dynamic-lookup  placeholder="Vessel" my-ng-model="SPAVesselModalCtrl.ePage.Masters.BulkInput.Vessel" obj="SPAVesselModalCtrl.ePage.Masters.BulkInput"
+	                         prefix-data="'MstVessel'" config="'OrdPlannedVessel'" auto-complete-on-select="SPAVesselModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)"></div>
+	                    <span class="input-group-btn">
+	                        <button dynamic-list-modal obj="SPAVesselModalCtrl.ePage.Masters.BulkInput" field-name="'OrdPlannedVessel'" prefix-data="'MstVessel'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="SPAVesselModalCtrl.ePage.Masters.SelectedLookupData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+	                    </span>
+	                </div>
+	            </div>
+	        </div>
+	        <!-- Voyage -->
+	        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                <div class="form-group padding-top-10">
+                    <label for="" data-ng-show="SPAVesselModalCtrl.ePage.Masters.BulkInput.TransportMode =='SEA'" class="control-label">Voyage</label>
+                    <label for="" data-ng-show="SPAVesselModalCtrl.ePage.Masters.BulkInput.TransportMode =='AIR'" class="control-label">Flight</label>
+                    <label for="" data-ng-show="SPAVesselModalCtrl.ePage.Masters.BulkInput.TransportMode =='ROA'" class="control-label">Truck Reference</label>
+                    <input type="text" data-ng-show="SPAVesselModalCtrl.ePage.Masters.BulkInput.TransportMode =='SEA'" class="form-control input-sm"
+                           placeholder="Voyage" max-length="1" data-ng-model="SPAVesselModalCtrl.ePage.Masters.BulkInput.VoyageFlight">
+                    <input type="text" data-ng-show="SPAVesselModalCtrl.ePage.Masters.BulkInput.TransportMode =='AIR'" class="form-control input-sm"
+                           placeholder="Flight" max-length="1" data-ng-model="SPAVesselModalCtrl.ePage.Masters.BulkInput.VoyageFlight">
+                    <input type="text" data-ng-show="SPAVesselModalCtrl.ePage.Masters.BulkInput.TransportMode =='ROA'" class="form-control input-sm"
+                           placeholder="Truck Reference" max-length="1" data-ng-model="SPAVesselModalCtrl.ePage.Masters.BulkInput.VoyageFlight">
+                </div>
+            </div>
+	        <!-- ETD -->
+	        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+	            <div class="form-group padding-top-10">
+	                <label class="control-label text-single-line">ETD</label>
+	                <div class="input-group input-group-sm">
+	                    <input type="text" placeholder="{{SPAVesselModalCtrl.ePage.Masters.DatePicker.Options.format}}" class="form-control" data-ng-model="SPAVesselModalCtrl.ePage.Masters.BulkInput.PlannedETD" data-ng-click="SPAVesselModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETD'+ $index)" uib-datepicker-popup="{{SPAVesselModalCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="SPAVesselModalCtrl.ePage.Masters.DatePicker.Options" is-open="SPAVesselModalCtrl.ePage.Masters.DatePicker.isOpen['isETD'+ $index]"/>
+	                    <span class="input-group-btn">
+	                        <button class="btn btn-default fa fa-calendar" type="button" data-ng-click="SPAVesselModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETD'+ $index)"></button>
+	                    </span>
+	                </div>
+	            </div>
+	        </div>
+
+	        <!-- ETA -->
+	        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+	            <div class="form-group padding-top-10">
+	                <label class="control-label text-single-line">ETA</label>
+	                <div class="input-group input-group-sm">
+	                    <input type="text" placeholder="{{SPAVesselModalCtrl.ePage.Masters.DatePicker.Options.format}}" class="form-control" data-ng-model="SPAVesselModalCtrl.ePage.Masters.BulkInput.PlannedETA" data-ng-click="SPAVesselModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETA'+ $index)" uib-datepicker-popup="{{SPAVesselModalCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="SPAVesselModalCtrl.ePage.Masters.DatePicker.Options" is-open="SPAVesselModalCtrl.ePage.Masters.DatePicker.isOpen['isETA'+ $index]"/>
+	                    <span class="input-group-btn">
+	                        <button class="btn btn-default fa fa-calendar" type="button" data-ng-click="SPAVesselModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETA'+ $index)"></button>
+	                    </span>
+	                </div>
+	            </div>
+	        </div>
+	        <!-- POL -->
+	        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+	            <div class="form-group  padding-top-10">
+	                <label class="control-label text-single-line">POL</label>
+	                <div class="input-group input-group-sm">
+	                    <!-- <input type="hidden" ng-model="SPAVesselModalCtrl.ePage.Masters.BulkInput.PortOfLoading_PK"> -->
+	                    <div dynamic-lookup placeholder="Port Of Loading" my-ng-model="SPAVesselModalCtrl.ePage.Masters.BulkInput.PortOfLoading" obj="SPAVesselModalCtrl.ePage.Masters.BulkInput"
+	                         prefix-data="'MstUNLOCO'" config="'PortOfLoading'" auto-complete-on-select="SPAVesselModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)"></div>
+	                    <span class="input-group-btn">
+	                        <button class="btn btn-default fa fa-ellipsis-h" dynamic-list-modal obj="SPAVesselModalCtrl.ePage.Masters.BulkInput" field-name="'PortOfLoading'" prefix-data="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="SPAVesselModalCtrl.ePage.Masters.SelectedLookupData($item)" class="btn btn-default shiny" type="button"></button>
+	                    </span>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	<div class="rows mt-5">
+	        <!-- POD -->
+	        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+	            <div class="input-group input-group-sm margin-top-5">
+	                <label class="control-label text-single-line">POD</label>
+	                <div class="input-group input-group-sm">
+	                    <!-- <input type="hidden" ng-model="SPAVesselModalCtrl.ePage.Masters.BulkInput.PortOfDischarge_PK"> -->
+	                    <div dynamic-lookup placeholder="Port Of Discharge" my-ng-model="SPAVesselModalCtrl.ePage.Masters.BulkInput.PortOfDischarge" obj="SPAVesselModalCtrl.ePage.Masters.BulkInput"
+	                         prefix-data="'MstUNLOCO'" config="'PortOfDischarge'" auto-complete-on-select="SPAVesselModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)"></div>
+
+	                    <span class="input-group-btn">
+	                        <button dynamic-list-modal obj="SPAVesselModalCtrl.ePage.Masters.BulkInput" field-name="'PortOfDischarge'" prefix-data="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="SPAVesselModalCtrl.ePage.Masters.SelectedLookupData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+	                    </span>
+	                </div>
+	            </div>
+	        </div>
+	        <!-- CargoCutoffdate -->
+	        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+	            <div class="input-group input-group-sm margin-top-5">
+	                <label class="control-label text-single-line">Cargo Cut Off Date</label>
+	                <input type="text" placeholder="{{SPAVesselModalCtrl.ePage.Masters.DatePicker.Options.format}}" class="form-control" data-ng-model="SPAVesselModalCtrl.ePage.Masters.BulkInput.CargoCutOffDate" data-ng-click="SPAVesselModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoCutOffDate'+ $index)" uib-datepicker-popup="{{SPAVesselModalCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="SPAVesselModalCtrl.ePage.Masters.DatePicker.Options" is-open="SPAVesselModalCtrl.ePage.Masters.DatePicker.isOpen['isCargoCutOffDate'+ $index]"/>
+	                <span class="input-group-btn">
+	                    <button class="btn btn-default fa fa-calendar date-pic-stay" type="button" data-ng-click="SPAVesselModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoCutOffDate'+ $index)"></button>
+	                </span>
+	            </div>
+	        </div>
+	        <!-- Booking Cutoff date -->
+	        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+	            <div class="input-group input-group-sm margin-top-5">
+	                <label class="control-label text-single-line">Booking Cut Off Date</label>
+	                <input type="text" placeholder="{{SPAVesselModalCtrl.ePage.Masters.DatePicker.Options.format}}" class="form-control" data-ng-model="SPAVesselModalCtrl.ePage.Masters.BulkInput.BookingCutOffDate" data-ng-click="SPAVesselModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isBookingCutOffDate'+ $index)" uib-datepicker-popup="{{SPAVesselModalCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="SPAVesselModalCtrl.ePage.Masters.DatePicker.Options" is-open="SPAVesselModalCtrl.ePage.Masters.DatePicker.isOpen['isBookingCutOffDate'+ $index]"/>
+	                <span class="input-group-btn">
+	                    <button class="btn btn-default fa fa-calendar date-pic-stay" type="button" data-ng-click="SPAVesselModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isBookingCutOffDate'+ $index)"></button>
+	                </span>
+	            </div>
+	        </div>
+	        <!-- Bulk Update -->
+	        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-right">
+	            <div class="input-group input-group-sm margin-top-5"> 
+	                <button class="btn btn-default set-br-blue set-bg-blue-light fs-12 fix-top" data-ng-click="SPAVesselModalCtrl.ePage.Masters.BulkUpdate(SPAVesselModalCtrl.ePage.Masters.BulkInput,SPAVesselModalCtrl.ePage.Masters.SaveText)" data-ng-disabled="SPAVesselModalCtrl.ePage.Masters.IsDisableBulk">{{SPAVesselModalCtrl.ePage.Masters.SaveText}}</button>
+	            </div>
+	        </div>
+	</div>
+</div>

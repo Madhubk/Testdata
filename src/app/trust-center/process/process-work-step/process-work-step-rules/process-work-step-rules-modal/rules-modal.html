@@ -1,0 +1,53 @@
+<div class="modal-header">
+    <h5 class="modal-title pull-left">
+        <strong>{{WorkStepRulesActionsModalCtrl.ePage.Masters.param.Mode}}</strong>
+    </h5>
+</div>
+<div class="modal-body mb-50">
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="form-group">
+                <label for="RuleName"> Rule Name</label>
+                <input type="text" class="form-control input-sm" placeholder="Rule Name" data-ng-model="WorkStepRulesActionsModalCtrl.ePage.Masters.Rules.FormView.RuleName"
+                />
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="form-group">
+                <label for="Remarks"> Remarks</label>
+                <input type="text" class="form-control input-sm" placeholder="Remarks" data-ng-model="WorkStepRulesActionsModalCtrl.ePage.Masters.Rules.FormView.Remarks"
+                />
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <!-- <div class="checkbox">
+                <label>
+                    <input type="checkbox" data-ng-model="WorkStepRulesActionsModalCtrl.ePage.Masters.Rules.FormView.IsInternal" class="colored-blue">
+                    <span class="text">Is Internal</span>
+                </label>
+            </div> -->
+            <div class="form-group">
+                    <label for="inputText0">Action Type</label>
+                    <select chosen class="form-control" data-ng-model="WorkStepRulesActionsModalCtrl.ePage.Masters.Rules.FormView.ActionType" ng-options="x.Code as x.Name
+                    for x in  ProcessWorkStepRulesCtrl.ePage.Masters.ProcessWorkStepRules.ActionTypeList" search-contains="true" disable-search="true">
+                      <option value="" >--Select--</option>
+                    </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" data-ng-model="WorkStepRulesActionsModalCtrl.ePage.Masters.Rules.FormView.IsActive" class="colored-blue">
+                    <span class="text">Is Active</span>
+                </label>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal-footer">
+    <input type="button" class="btn btn-warning btn-xs pull-right margin-left-5" ng-click="WorkStepRulesActionsModalCtrl.ePage.Masters.ProcessWorkStepRulesModal.Cancel()"
+        value="Close" />
+    <input type="button" class="btn btn-primary btn-xs pull-right margin-left-5" ng-click="WorkStepRulesActionsModalCtrl.ePage.Masters.ProcessWorkStepRulesModal.Save(WorkStepRulesActionsModalCtrl.ePage.Masters.Rules.FormView,'rules')"
+        value="Save" data-ng-disabled="WorkStepRulesActionsModalCtrl.ePage.Masters.IsDisableSave" />
+</div>

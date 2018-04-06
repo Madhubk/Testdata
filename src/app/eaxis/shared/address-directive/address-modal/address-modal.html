@@ -1,0 +1,193 @@
+<div class="modal-header">
+    <h5 class="modal-title pull-left"><strong>Address</strong></h5>
+    <button type="button" class="btn btn-secondary btn-xs pull-right margin-left-5" ng-click="AddressModalCtrl.ePage.Masters.Cancel()">Close</button>
+    <button type="button" class="btn btn-primary btn-xs pull-right margin-left-5" ng-click="AddressModalCtrl.ePage.Masters.Save()"  data-ng-bind="AddressModalCtrl.ePage.Masters.SaveButtonText"></button>
+</div>
+<div class="modal-body">
+    <div class="clearfix">
+        <div class="address-wrapper bordered-themeprimary col-xs-12 xol-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <fieldset class="row">
+                <!--Org Code-->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                    <div class="form-group">
+                        <label for="" class="control-label">Organization Code</label>
+                        <div>
+                            <div class="input-group input-group-sm">
+                                <input type="hidden" ng-model="AddressModalCtrl.ePage.Masters.Address.FormView.ListSource.ORG_FK">
+                                <div dynamic-lookup placeholder="Organization Code" my-ng-model="AddressModalCtrl.ePage.Masters.Address.FormView.ListSource.ORG_Code"
+                                     obj="AddressModalCtrl.ePage.Masters.Address.FormView.ListSource" prefix-data="'OrganizationList'" config="'JobAddressOrg'"
+                                     auto-complete-on-select="AddressModalCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item)"></div>
+                                <span class="input-group-btn">
+                                    <button dynamic-list-modal obj="AddressModalCtrl.ePage.Masters.Address.FormView.ListSource" field-name="'JobAddressOrg'" prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="AddressModalCtrl.ePage.Masters.Address.SelectedLookupData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <hr>
+            <div class="row">
+                <!--Address-->
+                <div class="contact-wrapper bordered-themeprimary col-xs-12 xol-sm-12 col-md-6 col-lg-6 col-xl-6">
+                    <fieldset class="row">
+                        <!--Address List-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="form-group">
+                                <label for="" class="control-label">Address</label>
+                                <div>
+                                    <select chosen name="category-group" class="form-control" ng-model="AddressModalCtrl.ePage.Masters.Address.FormView.ListSource.OAD_Address_FK"
+                                        ng-options="x.PK as x.Code for x in AddressModalCtrl.ePage.Masters.Address.FormView.ListSource.AddressList"
+                                        data-ng-change="AddressModalCtrl.ePage.Masters.Address.OnAddressChange((AddressModalCtrl.ePage.Masters.Address.FormView.ListSource.AddressList | filter: {PK: AddressModalCtrl.ePage.Masters.Address.FormView.ListSource.OAD_Address_FK})[0])"
+                                        search-contains="true">
+                        <option value="" >--Select--</option>
+                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Company Name-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="form-group">
+                                <label for="companyname">Company Name</label>
+                                <input type="text" class="form-control input-sm" placeholder="Company Name" data-ng-model="AddressModalCtrl.ePage.Masters.Address.FormView.ListSource.CompanyName"
+                                />
+                            </div>
+                        </div>
+                        <!--Address 1-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="form-group">
+                                <label for="address">Address 1</label>
+                                <input type="text" class="form-control input-sm" placeholder="Address" data-ng-model="AddressModalCtrl.ePage.Masters.Address.FormView.ListSource.Address1"
+                                />
+                            </div>
+                        </div>
+                        <!--Address 2-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="form-group">
+                                <label>Address 2</label>
+                                <input type="text" class="form-control input-sm" placeholder="Address" data-ng-model="AddressModalCtrl.ePage.Masters.Address.FormView.ListSource.Address2"
+                                />
+                            </div>
+                        </div>
+                        <!--Post Code-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="form-group">
+                                <label for="address">Post Code</label>
+                                <input type="text" class="form-control input-sm" placeholder="Pin Code" data-ng-model="AddressModalCtrl.ePage.Masters.Address.FormView.ListSource.Postcode"
+                                />
+                            </div>
+                        </div>
+                        <!--City-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="form-group">
+                                <label for="city">City</label>
+                                <input type="text" class="form-control input-sm" placeholder="City" data-ng-model="AddressModalCtrl.ePage.Masters.Address.FormView.ListSource.City"
+                                />
+                            </div>
+                        </div>
+                        <!--State-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="form-group">
+                                <label for="state">State</label>
+                                <select chosen search-contains="true" name="starte" class="form-control" ng-model="AddressModalCtrl.ePage.Masters.Address.FormView.ListSource.State"
+                                    ng-options="x.Code as x.Description for x in AddressModalCtrl.ePage.Masters.Address.StateListSource"
+                                    data-ng-disabled="AddressModalCtrl.ePage.Masters.Address.StateListSource.length == 0"
+                                    search-contains="true">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!--Country-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="form-group">
+                                <label for="country">Country</label>
+                                <div class="">
+                                    <select chosen search-contains="true" name="country" class="form-control" ng-model="AddressModalCtrl.ePage.Masters.Address.FormView.ListSource.Country"
+                                        ng-options="x.COU_Code as x.COU_Code + ' - ' + x.COU_Desc for x in AddressModalCtrl.ePage.Masters.Address.Header.Meta.Country.ListSource"
+                                        data-ng-change="AddressModalCtrl.ePage.Masters.Address.OnCountryChange((AddressModalCtrl.ePage.Masters.Address.Header.Meta.Country.ListSource | filter: {COU_Code: AddressModalCtrl.ePage.Masters.Address.FormView.ListSource.Country})[0])"
+                                        search-contains="true">
+                                        <option value="">--Select--</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <!--Contact-->
+                <div class="contact-wrapper bordered-themeprimary col-xs-12 xol-sm-12 col-md-6 col-lg-6 col-xl-6">
+                    <fieldset class="row">
+                        <!--Contact List-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="form-group">
+                                <label for="" class="control-label">Contact</label>
+                                <div>
+                                    <select chosen name="category-group" class="form-control" ng-model="AddressModalCtrl.ePage.Masters.Address.FormView.ListSource.OCT_FK"
+                                        ng-options="x.PK as x.ContactName for x in AddressModalCtrl.ePage.Masters.Address.FormView.ListSource.ContactList"
+                                        data-ng-change="AddressModalCtrl.ePage.Masters.Address.OnContactChange((AddressModalCtrl.ePage.Masters.Address.FormView.ListSource.ContactList | filter: {PK: AddressModalCtrl.ePage.Masters.Address.FormView.ListSource.OCT_FK})[0], $index)"
+                                        search-contains="true">
+                            <option value="" >--Select--</option>
+                        </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Phone-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="form-group">
+                                <label for="phone">Phone</label>
+                                <input type="text" class="form-control input-sm" placeholder="Phone" data-ng-model="AddressModalCtrl.ePage.Masters.Address.FormView.ListSource.Phone">
+                            </div>
+                        </div>
+                        <!--Mobile-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="form-group">
+                                <label for="mobile">Mobile</label>
+                                <input type="text" class="form-control input-sm" placeholder="Mobile" data-ng-model="AddressModalCtrl.ePage.Masters.Address.FormView.ListSource.Mobile">
+                            </div>
+                        </div>
+                        <!--Email-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="form-group">
+                                <label for="">Email</label>
+                                <input type="text" class="form-control input-sm" placeholder="Email" data-ng-model="AddressModalCtrl.ePage.Masters.Address.FormView.ListSource.Email">
+                            </div>
+                        </div>
+                        <!--Fax-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="form-group">
+                                <label for="">Fax</label>
+                                <input type="text" class="form-control input-sm" placeholder="Fax" data-ng-model="AddressModalCtrl.ePage.Masters.Address.FormView.ListSource.Fax">
+                            </div>
+                        </div>
+                        <!--Phone Extension-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="form-group">
+                                <label for="Phone Extension">Phone Extension</label>
+                                <input type="text" class="form-control input-sm" placeholder="Phone Extension" data-ng-model="AddressModalCtrl.ePage.Masters.Address.FormView.ListSource.PhoneExtension">
+                            </div>
+                        </div>
+                        <!--Home Phone-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="form-group">
+                                <label for="Home Phone">Home Phone</label>
+                                <input type="text" class="form-control input-sm" placeholder="Home Phone" data-ng-model="AddressModalCtrl.ePage.Masters.Address.FormView.ListSource.HomePhone"
+                                />
+                            </div>
+                        </div>
+                        <!--Other Phone-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="form-group">
+                                <label for="Other Phone">Other Phone</label>
+                                <input type="text" class="form-control input-sm" placeholder="Other Phone" data-ng-model="AddressModalCtrl.ePage.Masters.Address.FormView.ListSource.OtherPhone"
+                                />
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary btn-xs pull-right margin-left-5" ng-click="AddressModalCtrl.ePage.Masters.Cancel()">Close</button>
+    <button type="button" class="btn btn-primary btn-xs pull-right margin-left-5" ng-click="AddressModalCtrl.ePage.Masters.Save()"  data-ng-bind="AddressModalCtrl.ePage.Masters.SaveButtonText"></button>
+</div>

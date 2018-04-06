@@ -1,0 +1,222 @@
+<div class="clearfix tc-application-settings">
+    <!-- Breadcrumb -->
+    <div class="clearfix tc-breadcrumb" data-ng-if="AppSettingsCtrl.ePage.Masters.ActiveApplication == 'TC'">
+        <i class="fa fa-home home-icon"></i>
+        <div class="breadcrumb-list-wrapper">
+            <ol class="breadcrumb">
+                <li data-ng-repeat="x in AppSettingsCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="AppSettingsCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                </li>
+                <li data-ng-repeat="x in AppSettingsCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
+                    class="active"></li>
+            </ol>
+        </div>
+        <span class="tc-breadcrumb-app-name" data-ng-if="AppSettingsCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="AppSettingsCtrl.ePage.Masters.QueryString.AppName"></span>
+    </div>
+    <!-- Header -->
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0">
+            <div class="tc-header with-drop-down">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0 pl-12">
+                    <select chosen class="form-control" data-ng-model="AppSettingsCtrl.ePage.Masters.Module.ActiveModule.Key" data-ng-options="x.Key as x.Value for x in AppSettingsCtrl.ePage.Masters.Module.Listsource" data-ng-change="AppSettingsCtrl.ePage.Masters.Module.OnModuleChange((AppSettingsCtrl.ePage.Masters.Module.Listsource | filter :{Key : AppSettingsCtrl.ePage.Masters.Module.ActiveModule.Key})[0])"
+                        search-contains="true"></select>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0">
+            <div class="tc-header with-add-new">
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-5">
+                    <div class="text-single-line" data-ng-bind="AppSettingsCtrl.ePage.Masters.AppSettingsModule.ActiveAppSettingsModule"></div>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-5 pt-4 text-right">
+                    <button class="btn btn-xs btn-info" data-ng-click="AppSettingsCtrl.ePage.Masters.Module.ActiveModule && AppSettingsCtrl.ePage.Masters.AppSettingsList.AddNew()"
+                        data-ng-disabled="!AppSettingsCtrl.ePage.Masters.Module.ActiveModule">New</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 p-0">
+            <div class="tc-header edit-view">
+                <span data-ng-bind="'Details'"></span>
+                <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10" data-ng-click="AppSettingsCtrl.ePage.Masters.AppSettingsList.Edit()"
+                    data-ng-disabled="!AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.PK">Edit</button>
+                <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="AppSettingsCtrl.ePage.Masters.AppSettingsList.DeleteConfirmation()"
+                    data-ng-bind="AppSettingsCtrl.ePage.Masters.AppSettingsList.DeleteBtnText" data-ng-disabled="AppSettingsCtrl.ePage.Masters.AppSettingsList.IsDisableDeleteBtn || !AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.PK"></button>
+            </div>
+        </div>
+    </div>
+    <!-- Body -->
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0 tc-page-height-fixed">
+            <div class="tc-list-container">
+                <div class="tc-list-search">
+                    <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="AppSettingsCtrl.ePage.Masters.AppSettingsModule.Search">
+                </div>
+                <ul class="tc-list-ul">
+                    <div class="p-15 text-center tc-loading" data-ng-if="!AppSettingsCtrl.ePage.Masters.AppSettingsModule.ListSource">
+                        <i class="fa fa-spin fa-spinner"></i>
+                    </div>
+                    <div data-ng-if="(AppSettingsCtrl.ePage.Masters.AppSettingsModule.ListSource | filter: AppSettingsCtrl.ePage.Masters.AppSettingsModule.Search).length===0"
+                        class="p-15 text-center">
+                        <i>No Records...</i>
+                    </div>
+                    <li data-ng-if="(AppSettingsCtrl.ePage.Masters.AppSettingsModule.ListSource | filter: AppSettingsCtrl.ePage.Masters.AppSettingsModule.Search).length > 0"
+                        data-ng-repeat="x in AppSettingsCtrl.ePage.Masters.AppSettingsModule.ListSource | filter: AppSettingsCtrl.ePage.Masters.AppSettingsModule.Search"
+                        data-ng-click="AppSettingsCtrl.ePage.Masters.AppSettingsModule.ActiveAppSettingsModule != x && AppSettingsCtrl.ePage.Masters.AppSettingsModule.OnAppSettingsModuleListClick(x)"
+                        data-ng-class="{'active': AppSettingsCtrl.ePage.Masters.AppSettingsModule.ActiveAppSettingsModule == x}">
+                        <div class="clearfix tc-list">
+                            <div class="tc-list-name">
+                                <i class="fa fa-circle-o mr-10"></i>
+                                <span class="text-single-line" data-ng-bind="x"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 3col-xl-3 p-0 tc-page-height-fixed">
+            <div class="tc-list-container">
+                <div class="tc-list-search">
+                    <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="AppSettingsCtrl.ePage.Masters.AppSettingsList.Search">
+                </div>
+                <ul class="tc-list-ul">
+                    <div class="p-15 text-center tc-loading" data-ng-if="!AppSettingsCtrl.ePage.Masters.AppSettingsList.ListSource">
+                        <i class="fa fa-spin fa-spinner"></i>
+                    </div>
+                    <div data-ng-if="(AppSettingsCtrl.ePage.Masters.AppSettingsList.ListSource | filter: AppSettingsCtrl.ePage.Masters.AppSettingsList.Search).length===0"
+                        class="p-15 text-center">
+                        <i>No Records...</i>
+                    </div>
+                    <li data-ng-if="(AppSettingsCtrl.ePage.Masters.AppSettingsList.ListSource | filter: AppSettingsCtrl.ePage.Masters.AppSettingsList.Search).length > 0"
+                        data-ng-repeat="x in AppSettingsCtrl.ePage.Masters.AppSettingsList.ListSource | filter: AppSettingsCtrl.ePage.Masters.AppSettingsList.Search"
+                        data-ng-click="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.PK != x.PK && AppSettingsCtrl.ePage.Masters.AppSettingsList.OnAppSettingsListClick(x)"
+                        data-ng-class="{'active': AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.PK == x.PK}">
+                        <div class="clearfix tc-list">
+                            <div class="tc-list-name">
+                                <i class="fa fa-circle-o mr-10"></i>
+                                <span class="text-single-line" data-ng-bind="x.Key"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 p-0 tc-page-height-fixed">
+            <div class="pt-10 pb-10 tc-details-view clearfix">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Filter Name</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.Key || AppSettingsCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Sub Module Name</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.SourceEntityRefKey || AppSettingsCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tc-section-divider"></div>
+            <div class="clearfix tc-list-container tc-list-container-inner-redirect" data-ng-if="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.PK">
+                <ul class="tc-list-ul">
+                    <li data-ng-click="AppSettingsCtrl.ePage.Masters.AppSettingsList.OnRedirectListClick(x)" data-ng-repeat="x in AppSettingsCtrl.ePage.Masters.AppSettingsList.RedirectPagetList">
+                        <div class="clearfix tc-list">
+                            <div class="tc-list-name">
+                                <i class="fa {{x.Icon}} mr-10" data-ng-style="{'color': x.Color}"></i>
+                                <span class="text-single-line" data-ng-bind="x.Description"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Template -->
+<script type="text/ng-template" id="applicationSettingEdit">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="AppSettingsCtrl.ePage.Masters.AppSettingsList.Cancel()">&times;</button>
+        <h5 class="modal-title" id="modal-title">
+            <strong>Edit</strong>
+        </h5>
+    </div>
+    <div class="modal-body pt-10" id="modal-body">
+        <div class="clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-5 pb-5">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Sub Module Name</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Sub Module Name" data-ng-model="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.SourceEntityRefKey">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Code</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Code" data-ng-model="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.Key">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Type Code</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Type Code" data-ng-model="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.TypeCode">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">IsJSON</div>
+                        <div class="checkbox">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                <label>
+                                    <input type="checkbox" data-ng-model="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.IsJSON" class="colored-blue">
+                                    <span class="text"></span>
+                                </label>
+                                <a class="pull-right" href="javascript:(0);" data-ng-click=" AppSettingsCtrl.ePage.Masters.AppSettingsList.OnConsolidateClick(AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList)"
+                                    data-ng-if="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.IsJSON">Consolidate</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" data-ng-if="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.IsJSON">
+                            JSON Editor
+                            <span data-ng-click="AppSettingsCtrl.ePage.Masters.AppSettingsList.OpenJsonModal()" data-ng-show="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.IsJSON"
+                                class="glyphicon glyphicon-pencil cursor-pointer ml-5" data-ng-if="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.IsJSON"></span>
+                        </label>
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" data-ng-if="!AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.IsJSON">
+                            <span>Value</span>
+                        </label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <textarea rows="15" class="form-control input-sm no-resize" placeholder="Value" data-ng-model="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.Value"
+                                data-ng-show="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.IsJSON"></textarea>
+                            <input type="text" class="form-control input-sm" placeholder="value" data-ng-model="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.Value"
+                                data-ng-show="!AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.IsJSON">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">IsActive</label>
+                        <div class="checkbox">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                <label>
+                                    <input type="checkbox" data-ng-true-value="1" data-ng-false-value="0" ng-checked="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.SequenceNo"
+                                        data-ng-model="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.SequenceNo"
+                                        class="colored-blue">
+                                    <span class="text"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="tc-section-divider-small"></div>
+        <div class="clearfix p-10">
+            <button class="btn btn-default tc-btn-save btn-xs pull-right ml-10" data-ng-click="AppSettingsCtrl.ePage.Masters.AppSettingsList.Save()"
+                data-ng-bind="AppSettingsCtrl.ePage.Masters.AppSettingsList.SaveBtnText" data-ng-disabled="AppSettingsCtrl.ePage.Masters.AppSettingsList.IsDisableSaveBtn"></button>
+            <button class="btn btn-default tc-btn-cancel btn-xs pull-right ml-10" data-ng-click="AppSettingsCtrl.ePage.Masters.AppSettingsList.Cancel()">Cancel</button>
+        </div>
+        <div class="tc-section-divider-small mb-20"></div>
+    </div>
+</script>

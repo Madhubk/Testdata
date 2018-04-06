@@ -1,0 +1,19 @@
+<!-- Navbar -->
+<nav-bar></nav-bar>
+<!-- /Navbar -->
+<div class="main-container container-fluid">
+    <!-- Page Container -->
+    <div class="page-container">
+        <side-bar id="sidebar" class="page-sidebar" data-ng-if="DynamicListViewCtrl.ePage.Masters.MenuVisibleType == 'List'"></side-bar>
+        <div class="page-content" data-ng-style="(!DynamicListViewCtrl.ePage.Masters.MenuVisibleType || DynamicListViewCtrl.ePage.Masters.MenuVisibleType == 'Grid') && {'margin-left': '0'}">
+            <div class="page-body p-0">
+                <div class="clearfix dynamic-list-view-header">
+                    <span data-ng-bind="DynamicListViewCtrl.ePage.Masters.DataEntry.Title || DynamicListViewCtrl.ePage.Masters.dataentryName || 'Title'"></span>
+                </div>
+                <div class="clearfix dynamic-list-view-container">
+                    <dynamic-list dataentry-name="DynamicListViewCtrl.ePage.Masters.dataentryName" grid-config-type="0" selected-grid-row="DynamicListViewCtrl.ePage.Masters.SelectedGridRow($item)"  mode="2" dataentry-object="DynamicListViewCtrl.ePage.Masters.DataEntry" default-filter="DynamicListViewCtrl.ePage.Masters.defaultFilter"></dynamic-list>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

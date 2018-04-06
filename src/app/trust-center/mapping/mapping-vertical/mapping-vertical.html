@@ -1,0 +1,389 @@
+<div class="clearfix tc-mapping-vertical">
+    <!-- Breadcrumb -->
+    <div class="clearfix tc-breadcrumb" data-ng-if="MappingVerticalCtrl.ePage.Masters.ActiveApplication == 'TC'">
+        <i class="fa fa-home home-icon"></i>
+        <div class="breadcrumb-list-wrapper">
+            <ol class="breadcrumb">
+                <li data-ng-repeat="x in MappingVerticalCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="MappingVerticalCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                </li>
+                <li data-ng-repeat="x in MappingVerticalCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
+                    class="active"></li>
+            </ol>
+        </div>
+        <span class="tc-breadcrumb-app-name" data-ng-if="MappingVerticalCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="MappingVerticalCtrl.ePage.Masters.QueryString.AppName"></span>
+    </div>
+    <!-- Header -->
+    <div class="clearfix tc-header-container">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="tc-header with-add-new">
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-5">
+                    <div class="text-single-line" data-ng-bind="'Mapping'"></div>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-5 pt-4 text-right">
+                    <button class="btn btn-xs btn-info" data-ng-click="MappingVerticalCtrl.ePage.Masters.MappingVertical.AddNew()">New</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">
+            <div class="tc-header edit-view">
+                <span data-ng-bind="'Details'"></span>
+                <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10" data-ng-click="MappingVerticalCtrl.ePage.Masters.MappingVertical.Edit()"
+                    data-ng-disabled="!MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.PK">Edit</button>
+                <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="MappingVerticalCtrl.ePage.Masters.MappingVertical.DeleteConfirmation()"
+                    data-ng-bind="MappingVerticalCtrl.ePage.Masters.MappingVertical.DeleteBtnText" data-ng-disabled="MappingVerticalCtrl.ePage.Masters.MappingVertical.IsDisableDeleteBtn || !MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.PK"
+                    data-ng-if="MappingVerticalCtrl.ePage.Masters.UIControlList && MappingVerticalCtrl.ePage.Masters.UIControlList.length > 0 && MappingVerticalCtrl.ePage.Masters.CheckUIControl('TC_MAP_DEL')"></button>
+            </div>
+        </div>
+    </div>
+    <!-- Body -->
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 tc-page-height-fixed">
+            <div class="tc-list-container">
+                <div class="tc-list-search">
+                    <input type="text" class="form-control input-sm" placeholder="Search..." data-ng-model="MappingVerticalCtrl.ePage.Masters.Search">
+                </div>
+                <ul class="tc-list-ul">
+                    <div class="p-15 text-center tc-loading" data-ng-if="!MappingVerticalCtrl.ePage.Masters.MappingVertical.MappingList">
+                        <i class="fa fa-spin fa-spinner"></i>
+                    </div>
+                    <div data-ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.MappingList && (MappingVerticalCtrl.ePage.Masters.MappingVertical.MappingList | filter: MappingVerticalCtrl.ePage.Masters.Search).length===0"
+                        class="p-15 text-center">
+                        <i>No Records...</i>
+                    </div>
+                    <li data-ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.MappingList && (MappingVerticalCtrl.ePage.Masters.MappingVertical.MappingList | filter: MappingVerticalCtrl.ePage.Masters.Search).length > 0"
+                        data-ng-repeat="x in MappingVerticalCtrl.ePage.Masters.MappingVertical.MappingList | filter: MappingVerticalCtrl.ePage.Masters.Search"
+                        data-ng-click="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.PK != x.PK && MappingVerticalCtrl.ePage.Masters.MappingVertical.OnMappingClick(x)"
+                        data-ng-class="{'active': MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.PK == x.PK}">
+                        <div class="clearfix tc-list">
+                            <div class="tc-list-name">
+                                <i class="fa fa-circle-o mr-10"></i>
+                                <span class="text-single-line" data-ng-bind="x.AccessCode"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed">
+            <div class="pt-10 pb-10 tc-details-view clearfix">
+                <!-- Access To -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" data-ng-bind="'Access To'"></label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.AccessTo || MappingVerticalCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <!-- Item Name -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Item Name</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.ItemName || MappingVerticalCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <!-- Access Code -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" data-ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.AccessTo.Visible">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" data-ng-bind="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.AccessTo.Label"></label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.AccessCode || MappingVerticalCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <!-- Based On -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" data-ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.BasedOn.Visible">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" data-ng-bind="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.BasedOn.Label"></label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.BasedOnCode || MappingVerticalCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <!-- Other Entity -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" data-ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource.Visible">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" data-ng-bind="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource.Label"></label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.OtherEntityCode || MappingVerticalCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <!-- Other Entity 2 -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" data-ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource_2.Visible">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" data-ng-bind="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource_2.Label"></label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.OtherEntityCode_2 || MappingVerticalCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <!-- Other Entity 3 -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" data-ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource_3.Visible">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" data-ng-bind="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource_3.Label"></label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.OtherEntityCode_3 || MappingVerticalCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <!-- Other Entity 4 -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" data-ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource_4.Visible">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" data-ng-bind="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource_4.Label"></label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.OtherEntityCode_4 || MappingVerticalCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tenant -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" data-ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.Tenant.Visible">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" data-ng-bind="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.Tenant.Label"></label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.TenantCode || MappingVerticalCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <!-- Application -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" data-ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.Application.Visible">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" data-ng-bind="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.Application.Label"></label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.SAP_Code || MappingVerticalCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tc-section-divider" data-ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.PK && MappingVerticalCtrl.ePage.Masters.QueryString.MappingCode == 'GRUP_ROLE_APP_TNT'"></div>
+
+            <div class="tc-list-container tc-list-container-inner-redirect clearfix" data-ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.PK && MappingVerticalCtrl.ePage.Masters.QueryString.MappingCode == 'GRUP_ROLE_APP_TNT'">
+                <ul class="tc-list-ul">
+                    <li data-ng-click="MappingVerticalCtrl.ePage.Masters.MappingVertical.OnUserListClick(x)" data-ng-repeat="x in  MappingVerticalCtrl.ePage.Masters.MappingVertical.RedirectPagetList">
+                        <div class="clearfix tc-list">
+                            <div class="tc-list-name">
+                                <i class="fa {{x.Icon}} mr-10" data-ng-style="{'color': x.Color}"></i>
+                                <span class="text-single-line" data-ng-bind="x.Description"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Template -->
+<script type="text/ng-template" id="mappingEdit">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="MappingVerticalCtrl.ePage.Masters.MappingVertical.Cancel()">&times;</button>
+        <h5 class="modal-title" id="modal-title">
+            <strong>Edit</strong>
+        </h5>
+    </div>
+    <div class="modal-body pt-10" id="modal-body">
+        <div class="clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-5 pb-5">
+                <form class="form-horizontal">
+                    <div class="form-group" data-ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.AccessTo.Visible">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" data-ng-bind="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.AccessTo.Label"></label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" placeholder="{{MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.AccessTo.Label}}" class="form-control input-sm"
+                                data-ng-model="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.AccessCode
+                                        " uib-typeahead="x[MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.AccessTo.TextField] as (x[MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.AccessTo.TextField] + ((x[MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.AccessTo.LabelField] ? ' - ' : '') + x[MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.AccessTo.LabelField])) for x in  MappingVerticalCtrl.ePage.Masters.MappingVertical.GetAutoCompleteList($viewValue, 'AccessTo', 'AccessCode', 'Access_FK')"
+                                typeahead-loading="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.AccessToLoading"
+                                typeahead-no-results="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.AccessToNoResults"
+                                typeahead-editable="false" typeahead-append-to-body='true' typeahead-on-select="MappingVerticalCtrl.ePage.Masters.MappingVertical.OnSelectAutoCompleteList($item,$model, $label, $event, 'AccessTo', 'AccessCode', 'Access_FK')"
+                                ng-blur="MappingVerticalCtrl.ePage.Masters.MappingVertical.OnBlurAutoCompleteList($event, 'AccessTo', 'AccessCode', 'Access_FK')"
+                                typeahead-min-length="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.AccessTo.MinLength">
+                            <div class="clearfix dropdown-menu" ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.AccessToNoResults">
+                                <div class="auto-complete-no-result">No Results Found!</div>
+                            </div>
+                            <div class="clearfix dropdown-menu" ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.AccessToLoading">
+                                <div class="auto-complete-no-result">
+                                    <i class="fa fa-spin fa-spinner"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" data-ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.BasedOn.Visible">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" data-ng-bind="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.BasedOn.Label"></label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" placeholder="{{MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.BasedOn.Label}}" class="form-control input-sm"
+                                data-ng-model="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.BasedOnCode
+                                    " uib-typeahead="x[MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.BasedOn.TextField] as (x[MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.BasedOn.TextField] + ((x[MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.BasedOn.LabelField] ? ' - ' : '') + x[MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.BasedOn.LabelField])) for x in  MappingVerticalCtrl.ePage.Masters.MappingVertical.GetAutoCompleteList($viewValue, 'BasedOn', 'BasedOnCode', 'BasedOn_FK')"
+                                typeahead-loading="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.BasedOnLoading"
+                                typeahead-no-results="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.BasedOnNoResults"
+                                typeahead-editable="false" typeahead-append-to-body='true' typeahead-on-select="  MappingVerticalCtrl.ePage.Masters.MappingVertical.OnSelectAutoCompleteList($item,$model, $label, $event ,'BasedOn', 'BasedOnCode', 'BasedOn_FK')"
+                                ng-blur="MappingVerticalCtrl.ePage.Masters.MappingVertical.OnBlurAutoCompleteList($event ,'BasedOn', 'BasedOnCode', 'BasedOn_FK')"
+                                typeahead-min-length="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.BasedOn.MinLength">
+                            <div class="clearfix dropdown-menu" ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.BasedOnNoResults">
+                                <div class="auto-complete-no-result">No Results Found!</div>
+                            </div>
+                            <div class="clearfix dropdown-menu" ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.BasedOnLoading">
+                                <div class="auto-complete-no-result">
+                                    <i class="fa fa-spin fa-spinner"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" data-ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource.Visible">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" data-ng-bind="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource.Label"></label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" placeholder="{{MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource.Label}}" class="form-control input-sm"
+                                data-ng-model="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.OtherEntityCode
+                                    " uib-typeahead="x[MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource.TextField] as (x[MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource.TextField] + ((x[MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource.LabelField] ? ' - ' : '') + x[MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource.LabelField])) for x in  MappingVerticalCtrl.ePage.Masters.MappingVertical.GetAutoCompleteList($viewValue ,'OtherEntitySource' ,'OtherEntityCode' ,'OtherEntity_FK')"
+                                typeahead-loading="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.OtherEntitySourceLoading"
+                                typeahead-no-results="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.OtherEntitySourceNoResults"
+                                typeahead-editable="false" typeahead-append-to-body='true' typeahead-on-select="MappingVerticalCtrl.ePage.Masters.MappingVertical.OnSelectAutoCompleteList($item,$model, $label, $event ,'OtherEntitySource' ,'OtherEntityCode' ,'OtherEntity_FK')"
+                                ng-blur="MappingVerticalCtrl.ePage.Masters.MappingVertical.OnBlurAutoCompleteList($event ,'OtherEntitySource' ,'OtherEntityCode' ,'OtherEntity_FK')"
+                                typeahead-min-length="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource.MinLength">
+                            <div class="clearfix dropdown-menu" ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.OtherEntitySourceNoResults">
+                                <div class="auto-complete-no-result">No Results Found!</div>
+                            </div>
+                            <div class="clearfix dropdown-menu" ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.OtherEntitySourceLoading">
+                                <div class="auto-complete-no-result">
+                                    <i class="fa fa-spin fa-spinner"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" data-ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource_2.Visible">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" data-ng-bind="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource_2.Label"></label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" placeholder="{{MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource_2.Label}}" class="form-control input-sm"
+                                data-ng-model="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.OtherEntityCode_2
+                                     " uib-typeahead="x[MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource_2.TextField] as (x[MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource_2.TextField] + ((x[MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource_2.LabelField] ? ' - ' : '') + x[MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource_2.LabelField])) for x in  MappingVerticalCtrl.ePage.Masters.MappingVertical.GetAutoCompleteList($viewValue ,'OtherEntitySource_2' ,'OtherEntityCode_2' ,'OtherEntity_2_FK')"
+                                typeahead-loading="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.OtherEntitySource_2Loading"
+                                typeahead-no-results="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.OtherEntitySource_2NoResults"
+                                typeahead-editable="false" typeahead-append-to-body='true' typeahead-on-select="MappingVerticalCtrl.ePage.Masters.MappingVertical.OnSelectAutoCompleteList($item,$model, $label, $event ,'OtherEntitySource_2' ,'OtherEntityCode_2' ,'OtherEntity_2_FK')"
+                                ng-blur="MappingVerticalCtrl.ePage.Masters.MappingVertical.OnBlurAutoCompleteList($event ,'OtherEntitySource_2' ,'OtherEntityCode_2' ,'OtherEntity_2_FK')"
+                                typeahead-min-length="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource_2.MinLength">
+                            <div class="clearfix dropdown-menu" ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.OtherEntitySource_2NoResults">
+                                <div class="auto-complete-no-result">No Results Found!</div>
+                            </div>
+                            <div class="clearfix dropdown-menu" ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.OtherEntitySource_2Loading">
+                                <div class="auto-complete-no-result">
+                                    <i class="fa fa-spin fa-spinner"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" data-ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource_3.Visible">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" data-ng-bind="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource_3.Label"></label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" placeholder="{{MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource_3.Label}}" class="form-control input-sm"
+                                data-ng-model="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.OtherEntityCode_3
+                                 " uib-typeahead="x[MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource_3.TextField] as (x[MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource_3.TextField] + ((x[MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource_3.LabelField] ? ' - ' : '') + x[MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource_3.LabelField])) for x in  MappingVerticalCtrl.ePage.Masters.MappingVertical.GetAutoCompleteList($viewValue ,'OtherEntitySource_3' ,'OtherEntityCode_3' ,'OtherEntity_3_FK')"
+                                typeahead-loading="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.OtherEntitySource_3Loading"
+                                typeahead-no-results="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.OtherEntitySource_3NoResults"
+                                typeahead-editable="false" typeahead-append-to-body='true' typeahead-on-select="MappingVerticalCtrl.ePage.Masters.MappingVertical.OnSelectAutoCompleteList($item,$model, $label, $event ,'OtherEntitySource_3' ,'OtherEntityCode_3' ,'OtherEntity_3_FK')"
+                                ng-blur="MappingVerticalCtrl.ePage.Masters.MappingVertical.OnBlurAutoCompleteList($event ,'OtherEntitySource_3' ,'OtherEntityCode_3' ,'OtherEntity_3_FK')"
+                                typeahead-min-length="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource_3.MinLength">
+                            <div class="clearfix dropdown-menu" ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.OtherEntitySource_3NoResults">
+                                <div class="auto-complete-no-result">No Results Found!</div>
+                            </div>
+                            <div class="clearfix dropdown-menu" ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.OtherEntitySource_3Loading">
+                                <div class="auto-complete-no-result">
+                                    <i class="fa fa-spin fa-spinner"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" data-ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource_4.Visible">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" data-ng-bind="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource_4.Label"></label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" placeholder="{{MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource_4.Label}}" class="form-control input-sm"
+                                data-ng-model="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.OtherEntityCode_4
+                                 " uib-typeahead="x[MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource_4.TextField] as (x[MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource_4.TextField] + ((x[MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource_4.LabelField] ? ' - ' : '') + x[MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource_4.LabelField])) for x in  MappingVerticalCtrl.ePage.Masters.MappingVertical.GetAutoCompleteList($viewValue, 'OtherEntitySource_4','OtherEntityCode_4','OtherEntity_4_FK')"
+                                typeahead-loading="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.OtherEntitySource_4Loading"
+                                typeahead-no-results="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.OtherEntitySource_4NoResults"
+                                typeahead-editable="false" typeahead-append-to-body='true' typeahead-on-select="MappingVerticalCtrl.ePage.Masters.MappingVertical.OnSelectAutoCompleteList($item,$model, $label, $event, 'OtherEntitySource_4' ,'OtherEntityCode_4','OtherEntity_4_FK')"
+                                ng-blur="MappingVerticalCtrl.ePage.Masters.MappingVertical.OnBlurAutoCompleteList($event, 'OtherEntitySource_4' , 'OtherEntityCode_4','OtherEntity_4_FK')"
+                                typeahead-min-length="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherEntitySource_4.MinLength">
+                            <div class="clearfix dropdown-menu" ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.OtherEntitySource_4NoResults">
+                                <div class="auto-complete-no-result">No Results Found!</div>
+                            </div>
+                            <div class="clearfix dropdown-menu" ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.OtherEntitySource_4Loading">
+                                <div class="auto-complete-no-result">
+                                    <i class="fa fa-spin fa-spinner"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" data-ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.Tenant.Visible">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" data-ng-bind="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.Tenant.Label"></label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" placeholder="{{MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.Tenant.Label}}" class="form-control input-sm"
+                                data-ng-model="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.TenantCode
+                                 " uib-typeahead="x[MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.Tenant.TextField] as (x[MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.Tenant.TextField] + ((x[MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.Tenant.LabelField] ? ' - ' : '') + x[MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.Tenant.LabelField])) for x in  MappingVerticalCtrl.ePage.Masters.MappingVertical.GetAutoCompleteList($viewValue, 'Tenant','TenantCode','TNT_FK')"
+                                typeahead-loading="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.TenantLoading"
+                                typeahead-no-results="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.TenantNoResults"
+                                typeahead-editable="false" typeahead-append-to-body='true' typeahead-on-select="MappingVerticalCtrl.ePage.Masters.MappingVertical.OnSelectAutoCompleteList($item,$model, $label, $event, 'Tenant' ,'TenantCode','TNT_FK')"
+                                ng-blur="MappingVerticalCtrl.ePage.Masters.MappingVertical.OnBlurAutoCompleteList($event, 'Tenant' , 'TenantCode','TNT_FK')"
+                                typeahead-min-length="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.Tenant.MinLength"
+                                data-ng-disabled="!MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.Tenant.Enable">
+                            <div class="clearfix dropdown-menu" ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.TenantNoResults">
+                                <div class="auto-complete-no-result">No Results Found!</div>
+                            </div>
+                            <div class="clearfix dropdown-menu" ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.TenantLoading">
+                                <div class="auto-complete-no-result">
+                                    <i class="fa fa-spin fa-spinner"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" data-ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.Application.Visible">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" data-ng-bind="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.Application.Label"></label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" placeholder="{{MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.Application.Label}}" class="form-control input-sm"
+                                data-ng-model="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.SAP_Code
+                                 " uib-typeahead="x[MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.Application.TextField] as (x[MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.Application.TextField] + ((x[MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.Application.LabelField] ? ' - ' : '') + x[MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.Application.LabelField])) for x in  MappingVerticalCtrl.ePage.Masters.MappingVertical.GetAutoCompleteList($viewValue, 'Application','SAP_Code','SAP_FK')"
+                                typeahead-loading="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.ApplicationLoading"
+                                typeahead-no-results="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.ApplicationNoResults"
+                                typeahead-editable="false" typeahead-append-to-body='true' typeahead-on-select="MappingVerticalCtrl.ePage.Masters.MappingVertical.OnSelectAutoCompleteList($item,$model, $label, $event, 'Application' ,'SAP_Code','SAP_FK')"
+                                ng-blur="MappingVerticalCtrl.ePage.Masters.MappingVertical.OnBlurAutoCompleteList($event, 'Application' , 'SAP_Code','SAP_FK')"
+                                typeahead-min-length="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.Application.MinLength"
+                                data-ng-disabled="!MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.Application.Enable">
+                            <div class="clearfix dropdown-menu" ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.ApplicationNoResults">
+                                <div class="auto-complete-no-result">No Results Found!</div>
+                            </div>
+                            <div class="clearfix dropdown-menu" ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.ApplicationLoading">
+                                <div class="auto-complete-no-result">
+                                    <i class="fa fa-spin fa-spinner"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" data-ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.IsDefault.Visible">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" data-ng-bind="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.IsDefault.Label"></label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" class="colored-blue" data-ng-model="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical[MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.IsDefault.ValueField]">
+                                    <span class="text text-single-line"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" data-ng-if="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherConfig.Visible">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" data-ng-bind="MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherConfig.Label"></label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <textarea class="form-control no-resize" rows="10" data-ng-model="MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical[MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherConfig.ValueField]" placeholder="{{MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.OtherConfig.Label}}"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="tc-section-divider-small"></div>
+        <div class="clearfix p-10">
+            <button class="btn btn-default tc-btn-save btn-xs pull-right ml-10" data-ng-click="MappingVerticalCtrl.ePage.Masters.MappingVertical.Save()"
+                data-ng-bind="MappingVerticalCtrl.ePage.Masters.MappingVertical.SaveBtnText" data-ng-disabled="MappingVerticalCtrl.ePage.Masters.MappingVertical.IsDisableSaveBtn"></button>
+            <button class="btn btn-default tc-btn-cancel btn-xs pull-right ml-10" data-ng-click="MappingVerticalCtrl.ePage.Masters.MappingVertical.Cancel()">Cancel</button>
+        </div>
+        <div class="tc-section-divider-small mb-20"></div>
+    </div>
+</script>

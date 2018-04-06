@@ -1,0 +1,226 @@
+<div class="modal-header">
+    <h5 class="modal-title pull-left">
+        <strong>Step</strong>
+    </h5>
+    <button class="btn btn-warning btn-xs pull-right ml-10" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.CloseStep()">Close</button>
+</div>
+<div class="modal-body">
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-lg-xl-6">
+            <div class="clearfix">
+                <div class="form-group">
+                    <label for="inputText0">Step No</label>
+                    <input type="text" class="form-control input-sm" placeholder="Step No" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.StepNo"
+                    />
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-lg-xl-6">
+            <div class="clearfix">
+                <div class="form-group">
+                    <label for="inputText0">Step Code</label>
+                    <input type="text" class="form-control input-sm" placeholder="Step Code" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.StepCode"
+                    />
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-lg-xl-6">
+            <div class="clearfix">
+                <div class="form-group">
+                    <label for="inputText0">Step Name</label>
+                    <input type="text" class="form-control input-sm" placeholder="Step Name" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.StepName"
+                    />
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-lg-xl-6">
+            <div class="clearfix">
+                <div class="form-group">
+                    <label for="inputText0">Type</label>
+                    <select chosen class="form-control" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.StepType"
+                        ng-options="x.Code as x.Name for x in ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.TypeList" search-contains="true"
+                        disable-search="true">
+                        <option value="">--Choose TypeList--</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-lg-xl-6">
+            <div class="clearfix">
+                <div class="form-group">
+                    <label for="inputSelect4">Description</label>
+                    <textarea class="form-control set-text-bg no-resize" style="height:100px;" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.Description"
+                        placeholder="Description"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-lg-xl-6">
+            <div class="clearfix">
+                <div class="form-group">
+                    <label for="inputText0">Completed Step Name</label>
+                    <input type="text" class="form-control input-sm" placeholder="Completed Step Name" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.CompletedStepName"
+                    />
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-lg-xl-6">
+            <div class="clearfix">
+                <div class="form-group">
+                    <label class="">
+                        <!-- <span data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.OpenOtherConfigModal()" class="glyphicon glyphicon-pencil cursor-pointer mr-5"></span>  -->
+                        Icon</label>
+                    <div class="">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" placeholder="Icon" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.icon">
+                            <span class="input-group-btn">
+                                <button icon-color-list type="icon" selected-item="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.SelectedIconColor($item, 'icon')"
+                                    class="btn btn-default shiny">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-lg-xl-6">
+            <div class="clearfix">
+                <div class="form-group">
+                    <label class="">
+                        <!-- <span data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.OpenOtherConfigModal()" class="glyphicon glyphicon-pencil cursor-pointer mr-5"></span>  -->
+                        Color</label>
+                    <div class="">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" placeholder="Color" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.color">
+                            <span class="input-group-btn">
+                                <button icon-color-list type="color" selected-item="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.SelectedIconColor($item, 'color')"
+                                    class="btn btn-default shiny">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-lg-xl-6">
+                <div class="form-group">
+                        <div class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">IsBranchBased</div>
+                        <div class="checkbox">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-7 col-xl-7">
+                                <label>
+                                    <input type="checkbox" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.IsBranchBased" class="colored-blue">
+                                    <span class="text"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+           
+        </div> -->
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-lg-xl-6">
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.IsOrganisationBased"
+                            class="colored-blue">
+                        <span class="text">IsOrganisationBased</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-lg-xl-6">
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.IsWarehouseBased"
+                            class="colored-blue">
+                        <span class="text">IsWarehouseBased</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-lg-xl-6">
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.IsCompanyBased"
+                            class="colored-blue">
+                        <span class="text">IsCompanyBased</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-lg-xl-6">
+                <div class="form-group">
+                        <div class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">IsCustomIBased</div>
+                        <div class="checkbox">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-7 col-xl-7">
+                                <label>
+                                    <input type="checkbox" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.IsCustomIBased" class="colored-blue">
+                                    <span class="text"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+           
+        </div> -->
+        <!-- <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-lg-xl-6">
+                <div class="form-group">
+                        <div class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">IsCustomIIBased</div>
+                        <div class="checkbox">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-7 col-xl-7">
+                                <label>
+                                    <input type="checkbox" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.IsCustomIIBased" class="colored-blue">
+                                    <span class="text"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+           
+        </div> -->
+        <!-- <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-lg-xl-6">
+                <div class="form-group">
+                        <div class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">IsCustomIIIBased</div>
+                        <div class="checkbox">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-7 col-xl-7">
+                                <label>
+                                    <input type="checkbox" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.IsCustomIIIBased" class="colored-blue">
+                                    <span class="text"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+           
+        </div> -->
+
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-lg-xl-6">
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.IsDepartmentBased"
+                            class="colored-blue">
+                        <span class="text">IsDepartmentBased</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-lg-xl-6">
+                <div class="form-group">
+                        <div class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">IsRoleBased</div>
+                        <div class="checkbox">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-7 col-xl-7">
+                                <label>
+                                    <input type="checkbox" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.IsRoleBased" class="colored-blue">
+                                    <span class="text"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+            </div> -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-lg-xl-12">
+            <button class="btn btn-success btn-xs pull-right ml-10 mt-5 mb-5" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Save(ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps)"
+                data-ng-disabled="!ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps || ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.IsDisableSaveBtn">{{ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.SaveBtnText}}</button>
+        </div>
+    </div>
+</div>

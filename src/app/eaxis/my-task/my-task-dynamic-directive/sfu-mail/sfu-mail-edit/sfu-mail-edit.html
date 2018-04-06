@@ -1,0 +1,14 @@
+<div class="clearfix pull-right fs-25 mb-10 mr-10">
+    <button class="btn btn-default set-br-yellow set-bg-yellow-light fs-12" data-ng-click="SfuMailEditDirectiveCtrl.ePage.Masters.SendFollowUp()" data-ng-disabled="SfuMailEditDirectiveCtrl.ePage.Masters.SelectedOrder.length == 0"
+         tooltip-placement="left" uib-tooltip="Send Mail">
+        <i class="fa fa-envelope"></i>
+    </button>
+</div>
+<div class="clearfix wmstable_scroll mt-20 ml-10 mr-10" ng-if="SfuMailEditDirectiveCtrl.ePage.Masters.GridLoad">
+    <sfu-mail-grid-directive input="SfuMailEditDirectiveCtrl.ePage.Masters.SfuOrderList" grid-change="SfuMailEditDirectiveCtrl.ePage.Masters.DataChanges({ item: item })"></sfu-mail-grid-directive>
+</div>
+<div class="clearfix mt-10 pull-right fs-25 mr-10">
+    <button class="btn btn-default set-br-yellow set-bg-yellow-light fs-12" data-ng-click="SfuMailEditDirectiveCtrl.ePage.Masters.Complete()">
+        Complete
+    </button>
+</div>

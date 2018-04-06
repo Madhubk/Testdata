@@ -1,0 +1,54 @@
+  <uib-tabset id="chromeTab" active="PickupanddeliveryCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+
+    <uib-tab>
+        <uib-tab-heading title="Pickupanddelivery">
+            <span data-ng-bind="'Pickupanddelivery'" class="ng-binding">Pickupanddelivery</span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+
+        <div class="no-padding tab-list-view-wrapper">
+            <!--Pickupanddelivery Grid Page-->
+            <dynamic-list dataentry-name="PickupanddeliveryCtrl.ePage.Masters.dataentryName" task-name="PickupanddeliveryCtrl.ePage.Masters.taskName"
+                grid-config-type="0" selected-grid-row="PickupanddeliveryCtrl.ePage.Masters.SelectedGridRow($item)" mode="1"></dynamic-list>
+            <div class="tab-loading" data-ng-show="PickupanddeliveryCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+
+    <uib-tab active="PickupanddeliveryCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in PickupanddeliveryCtrl.ePage.Masters.TabList"
+        ng-click="PickupanddeliveryCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+
+        <uib-tab-heading title="{{tab.label}}">
+            <span ng-if="!tab.isNew" data-ng-bind="tab.label"></span>
+            <span ng-if="tab.isNew">New</span>
+            <i class="glyphicon glyphicon-remove" ng-click="PickupanddeliveryCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+        </uib-tab-heading>
+
+        <div class="padding-bottom-10 clearfix">
+
+
+            <Pickupanddelivery-menu current-pickupanddelivery="tab">
+            </Pickupanddelivery-menu>
+            <div class="horizontal-space"></div>
+
+
+
+            <!--  <div class="eaxis-footer-strip">
+            <div class="col-lg-10">
+                    <standard-menu obj="tab" key-object="'WmsPickupanddelivery'" key-object-no="'PickupanddeliveryRefNo'" config-name="pickupanddeliveryConfig" entity="pickupanddelivery"
+                        entity-source="TPT" menu-config="PickupanddeliveryCtrl.ePage.Masters.StandardMenuConfig"></standard-menu>
+            </div>
+            <div class="col-lg-2">
+            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="PickupanddeliveryCtrl.ePage.Masters.Save(tab)" data-ng-bind="PickupanddeliveryCtrl.ePage.Masters.SaveButtonText"
+                    data-ng-disabled="PickupanddeliveryCtrl.ePage.Masters.IsDisableSave"></button>
+                    </div>
+            </div> -->
+
+        </div>
+    </uib-tab>
+
+    <button class="btn btn-default" ng-click="
+    PickupanddeliveryCtrl.ePage.Masters.CreateNewPickupanddelivery()" data-ng-disabled="PickupanddeliveryCtrl.ePage.Masters.IsNewClicked">+</button>
+
+
+
+</uib-tabset>

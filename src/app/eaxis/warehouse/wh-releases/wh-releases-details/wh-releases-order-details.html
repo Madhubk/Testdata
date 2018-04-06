@@ -1,0 +1,16 @@
+<div class="modal-header">
+    <h5 class="modal-title pull-left"><strong>Outward Details</strong></h5>
+    <input type="button" class="btn btn-secondary btn-xs pull-right margin-left-5" ng-click="ReleaseOrderModalCtrl.ePage.Masters.Cancel()"
+        value="Close" />
+    <input type="button" class="btn btn-primary btn-xs pull-right margin-left-5" ng-click="ReleaseOrderModalCtrl.ePage.Masters.Validation(ReleaseOrderModalCtrl.ePage.Masters.TabList[0],'Save')"
+        value="{{ReleaseOrderModalCtrl.ePage.Masters.SaveButtonText}}" />
+    <input type="button" class="btn btn-primary btn-xs pull-right margin-left-5" ng-click="ReleaseOrderModalCtrl.ePage.Masters.Validation(ReleaseOrderModalCtrl.ePage.Masters.TabList[0],'Save and Close')"
+        value="{{ReleaseOrderModalCtrl.ePage.Masters.SaveCloseButtonText}}" />
+</div>
+<div class="modal-body">
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <outward-form data-ng-if="ReleaseOrderModalCtrl.ePage.Masters.TabList" line-order='ReleaseOrderModalCtrl.ePage.Masters.TabList' pick-number='ReleaseOrderModalCtrl.ePage.Masters.param.currentRelease.Header'></outward-form>
+        </div>
+    </div>
+</div>

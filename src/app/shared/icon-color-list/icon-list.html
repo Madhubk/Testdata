@@ -1,0 +1,36 @@
+<div class="modal-header">
+  <div class="col-lg-7">
+    <h5 class="modal-title pt-5" id="modal-title"><strong>Icon List</strong></h5>
+  </div>
+  <div class="col-lg-4">
+    <div class="input-group input-group-sm">
+      <input type="text" class="form-control" placeholder="Search" data-ng-model="IconColorListModalCtrl.ePage.Masters.Search">
+      <span class="input-group-btn dropdown">
+          <button class="btn btn-primary search-btn btn-sm pl-30 pr-30">
+              <i class="glyphicon glyphicon-search"></i>
+          </button>
+        </span>
+    </div>
+  </div>
+  <div class="col-lg-1">
+    <button type="button" class="close" ng-click="IconColorListModalCtrl.ePage.Masters.Close()">&times;</button>
+  </div>
+</div>
+<div class="modal-body" id="modal-body">
+  <div class="font-list-glyphicons">
+    <div data-ng-if="!IconColorListModalCtrl.ePage.Masters.IconColorList" class="p-20 text-center" style="font-size: 18px;">
+      <i class="fa fa-spin fa-spinner"></i>
+    </div>
+    <div data-ng-if="(IconColorListModalCtrl.ePage.Masters.IconColorList | filter: IconColorListModalCtrl.ePage.Masters.Search).length == 0" class="p-20 text-center">No records...!</div>
+    <ul data-ng-if="IconColorListModalCtrl.ePage.Masters.IconColorList">
+      <li data-ng-repeat="x in IconColorListModalCtrl.ePage.Masters.IconColorList | filter: IconColorListModalCtrl.ePage.Masters.Search"
+        data-ng-click="IconColorListModalCtrl.ePage.Masters.OnItemClick(x)">
+        <span class="glyphicons {{x}}"></span>
+        <span class="glyphicons-class">glyphicons {{x}}</span>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="modal-footer">
+  <h5 class="modal-title" id="modal-title"><strong></strong></h5>
+</div>

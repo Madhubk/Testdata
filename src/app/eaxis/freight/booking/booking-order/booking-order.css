@@ -1,0 +1,28 @@
+.ord-list-header {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.ord-list-container {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.ord-list-container .font-16 {
+    font-size: 15px;
+}
+
+.ord-list-container .line-1 {
+    height: 25px;
+}
+
+.ord-list-container .line-2 {
+    color: #aaa;
+    height: 25px;
+}
+
+.orderItem-modal .modal-dialog {
+    width: 400px !important;
+    height: auto !important;
+    margin: 150px auto;
+}

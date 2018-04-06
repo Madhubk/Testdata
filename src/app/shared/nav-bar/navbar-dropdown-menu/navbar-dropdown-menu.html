@@ -1,0 +1,32 @@
+<div class="clearfix padding-20">
+    <div class="clearfix" data-ng-repeat="x in NavBarDropDownMenuCtrl.ePage.Masters.MenuList | orderBy: 'DisplayOrder'">
+        <div class="more clearfix" data-ng-bind="x.Description" data-ng-if="!x.ParentMenu && x.Link == '#'"></div>
+        <div class="menu-item" data-ng-if="!x.ParentMenu && x.Link != '#'">
+            <a class="" data-ng-href="javascript:void(0)" data-ng-click="NavBarDropDownMenuCtrl.ePage.Masters.OnMenuClick(x)" target="{{x.Target}}"
+                title="{{x.Description}}">
+                <div class="clearfix">
+                    <div class="menu-item-icon">
+                        <i class="fa {{x.Icon | getIconColorForMenu: 'icon'}}" data-ng-style="{'color': (x.Icon | getIconColorForMenu: 'color')}"></i>
+                    </div>
+                    <div class="menu-item-title text-single-line">
+                        <span data-ng-bind="x.Description"> </span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-xs-12 col-sm-12 sol-md-4 col-lg-4 menu-item" data-ng-repeat="y in x.MenuList | orderBy: 'DisplayOrder'" data-ng-if="x.MenuList.length > 0">
+            <a class="" data-ng-href="javascript:void(0)" data-ng-click="NavBarDropDownMenuCtrl.ePage.Masters.OnMenuClick(y)" target="{{y.Target}}"
+                title="{{y.Description}}">
+                <div class="clearfix">
+                    <div class="menu-item-icon">
+                        <i class="fa {{y.Icon | getIconColorForMenu: 'icon'}}" style="color: #4385f5"></i>
+                        <!-- <i class="fa {{y.Icon | getIconColorForMenu: 'icon'}}" data-ng-style="{'color': (y.Icon | getIconColorForMenu: 'color')}"></i> -->
+                    </div>
+                    <div class="menu-item-title text-single-line">
+                        <span data-ng-bind="y.Description"> </span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

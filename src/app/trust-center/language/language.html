@@ -1,0 +1,114 @@
+<div class="clearfix tc-language">
+    <!-- Breadcrumb -->
+    <div class="clearfix tc-breadcrumb" data-ng-if="LanguageCtrl.ePage.Masters.ActiveApplication == 'TC'">
+        <i class="fa fa-home home-icon"></i>
+        <div class="breadcrumb-list-wrapper">
+            <ol class="breadcrumb">
+                <li data-ng-repeat="x in LanguageCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="LanguageCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                </li>
+                <li data-ng-repeat="x in LanguageCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
+                    class="active"></li>
+            </ol>
+        </div>
+        <span class="tc-breadcrumb-app-name" data-ng-if="LanguageCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="LanguageCtrl.ePage.Masters.QueryString.AppName"></span>
+    </div>
+    <!-- Header -->
+    <div class="clearfix tc-header-container">
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">
+            <div class="tc-header with-drop-down no-border-right">
+                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4 p-0 pr-5">
+                    <select chosen class="form-control" data-ng-model="LanguageCtrl.ePage.Masters.Module.ActiveModule.Key" data-ng-options="x.Key as x.Value for x  in LanguageCtrl.ePage.Masters.Module.ListSource"
+                        data-ng-change="LanguageCtrl.ePage.Masters.Module.OnModuleChange((LanguageCtrl.ePage.Masters.Module.ListSource | filter: {'Key': LanguageCtrl.ePage.Masters.Module.ActiveModule.Key})[0])"></select>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4 p-0 pl-5">
+                    <select chosen class="form-control" data-ng-model="LanguageCtrl.ePage.Masters.LanguageCode.ActiveLanguageCode.Key" data-ng-options="x.Key as x.Value for x  in LanguageCtrl.ePage.Masters.LanguageCode.ListSource"
+                        data-ng-change="LanguageCtrl.ePage.Masters.LanguageCode.OnLanguageCodeChange((LanguageCtrl.ePage.Masters.LanguageCode.ListSource | filter: {'Key': LanguageCtrl.ePage.Masters.LanguageCode.ActiveLanguageCode.Key})[0])"></select>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="tc-header p-5" style="font-weight: normal;">
+                <input type="text" class="form-control input-sm" placeholder="Search..." data-ng-model="LanguageCtrl.ePage.Masters.Search">
+            </div>
+        </div>
+    </div>
+    <!-- Body -->
+    <div class="clearfix m-5">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0 pb-20 tc-page-height-fixed">
+            <table class="table table-bordered table-responsive">
+                <thead>
+                    <tr>
+                        <th class="th-text">Key Text</th>
+                        <th class="th-text">{{LanguageCtrl.ePage.Masters.LanguageCode.ActiveLanguageCode.Value}}</th>
+                        <th class="th-text">Page Code</th>
+                        <th class="th-text">Module</th>
+                        <th class="th-text">Control Type</th>
+                        <th class="th-text tc-is-active">Is Active</th>
+                        <th class="th-action" colspan="2">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Loading -->
+                    <tr data-ng-if="!LanguageCtrl.ePage.Masters.Language.ListSource">
+                        <td colspan="20" class="text-center p-10">
+                            <i class="fa fa-spin fa-spinner" style="font-size:18px;"></i>
+                        </td>
+                    </tr>
+                    <!-- No Records -->
+                    <tr data-ng-if="(LanguageCtrl.ePage.Masters.Language.ListSource | filter: LanguageCtrl.ePage.Masters.Search).length==0">
+                        <td colspan="20" class="text-center p-10">
+                            <i>No Records...!</i>
+                        </td>
+                    </tr>
+                    <!-- Language List -->
+                    <tr data-ng-if="LanguageCtrl.ePage.Masters.Language.ListSource && LanguageCtrl.ePage.Masters.Language.ListSource.length > 0"
+                        data-ng-repeat="x in LanguageCtrl.ePage.Masters.Language.ListSource | filter: LanguageCtrl.ePage.Masters.Search">
+                        <td>
+                            <input class="set-tabel-text" type="text" data-ng-model="x.CtrlKey" placeholder="Key Text">
+                        </td>
+                        <td>
+                            <input class="set-tabel-text" type="text" data-ng-model="x[LanguageCtrl.ePage.Masters.LanguageCode.ActiveLanguageCode.LanguageCodeCopy]" placeholder="{{LanguageCtrl.ePage.Masters.LanguageCode.ActiveLanguageCode.Value}}">
+                        </td>
+                        <td>
+                            <input class="set-tabel-text" type="text" data-ng-model="x.RefPageCode" placeholder="Page Code">
+                        </td>
+                        <td>
+                            <input class="set-tabel-text" type="text" data-ng-model="x.RefModule" placeholder="Module">
+                        </td>
+                        <td>
+                            <input class="set-tabel-text" type="text" data-ng-model="x.RefCTRLtype" placeholder="Control type">
+                        </td>
+                        <td class="text-center">
+                            <div class="checkbox m-0">
+                                <label>
+                                    <input type="checkbox" data-ng-model="x.IsActive" class="colored-blue">
+                                    <span class="text"></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="tc-language-save-icon text-center" data-ng-click="!x.IsDisableSave &&  LanguageCtrl.ePage.Masters.Language.Save(x, $index)" data-ng-style="x.IsDisableSave && {'opacity': '0.5'} || {'opacity': '1'}">
+                                <i class="fa fa-floppy-o cursor-pointer"></i>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="text-center" data-ng-click="!x.IsDisableDelete && LanguageCtrl.ePage.Masters.Language.Delete(x, $index)" data-ng-style="x.IsDisableDelete && {'opacity': '0.5'} || {'opacity': '1'}">
+                                <i class="glyphicon glyphicon-trash text-danger cursor-pointer"></i>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- Add New -->
+                    <tr>
+                        <td colspan="20">
+                            <a data-ng-if="LanguageCtrl.ePage.Masters.Module.ActiveModule.Module" class="padding-10 pull-left" href="javascript:(0);"
+                                data-ng-click="LanguageCtrl.ePage.Masters.Language.AddNew()">Add new...</a>
+                            <a data-ng-if="LanguageCtrl.ePage.Masters.Module.ActiveModule.Module" class="padding-10 pull-right" href="javascript:(0);"
+                                data-ng-click="LanguageCtrl.ePage.Masters.Language.RedirectToAppSetting()">Open</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

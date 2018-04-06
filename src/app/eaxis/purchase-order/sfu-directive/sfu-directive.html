@@ -1,0 +1,328 @@
+<div class="clearfix mb-10">
+    <div class="mt-10 text-right pr-5">
+        <span class="dashboard-inward-title pull-left fs-25 ml-10">Cargo Readiness</span>
+        <button class="btn btn-default set-br-yellow set-bg-yellow-light fs-12" data-ng-click="SupplierFollowUpDirectiveCtrl.ePage.Masters.ProcessActiveCall()"
+            data-ng-if="SupplierFollowUpDirectiveCtrl.ePage.Masters.ViewPart" data-ng-disabled="SupplierFollowUpDirectiveCtrl.ePage.Masters.IsGroupDisable">
+            <i class="far fa-circle"></i>
+            <!-- <i class="far fa-dot-circle"></i> -->
+        </button>
+        <button class="btn btn-default set-br-yellow set-bg-yellow-light fs-12" data-ng-click="SupplierFollowUpDirectiveCtrl.ePage.Masters.FollowUpHistoryCall()"
+            tooltip-placement="top" uib-tooltip="Follow Up History">
+            <i class="fa fa-history"></i>
+        </button>
+        <button class="btn btn-default set-br-yellow set-bg-yellow-light fs-12" data-ng-click="SupplierFollowUpDirectiveCtrl.ePage.Masters.SendFollowUp()"
+            data-ng-disabled="SupplierFollowUpDirectiveCtrl.ePage.Masters.IsDisableSend" tooltip-placement="top" uib-tooltip="Send Mail"
+            data-ng-if="SupplierFollowUpDirectiveCtrl.ePage.Masters.ViewPart">
+            <i class="fa fa-envelope"></i>
+        </button>
+        <button class="btn btn-default set-br-blue set-bg-blue-light fs-12" data-ng-click="SupplierFollowUpDirectiveCtrl.ePage.Masters.SaveCargoReadyDate()"
+            data-ng-disabled="SupplierFollowUpDirectiveCtrl.ePage.Masters.IsDisableSave" data-ng-if="SupplierFollowUpDirectiveCtrl.ePage.Masters.ViewPart">Submit Cargo Ready Date</button>
+        <button class="btn btn-default set-br-yellow set-bg-yellow-light fs-12" data-ng-if="!SupplierFollowUpDirectiveCtrl.ePage.Masters.ViewPart"
+            data-ng-click="SupplierFollowUpDirectiveCtrl.ePage.Masters.BackToDashboard()">
+            <i class="fa fa-angle-double-left "></i> Dashboard</button>
+        <button class="btn btn-default set-br-blue set-bg-blue-light fs-12" data-ng-if="!SupplierFollowUpDirectiveCtrl.ePage.Masters.ViewPart"
+            data-ng-click="SupplierFollowUpDirectiveCtrl.ePage.Masters.TrackOrders()">Track Orders</button>
+    </div>
+</div>
+<div class="clearfix set-bg-dashboard-blue set-br-top-dashboard-blue sfu-bulk-update">
+    <div class="clearfix">
+        <div class="col-lg-7 text-right">
+            <button class="btn btn-default set-br-white set-bg-white-light fs-13  mt-5" data-ng-click="SupplierFollowUpDirectiveCtrl.ePage.Masters.SummaryView()"
+                ng-init="SupplierFollowUpDirectiveCtrl.ePage.Masters.ActiveAction()" ng-class="{'active': SupplierFollowUpDirectiveCtrl.ePage.Masters.IsSummaryActive == true}">
+                Summary View
+            </button>
+            <button class="btn btn-default set-br-white set-bg-white-light fs-13 mt-5" data-ng-click="SupplierFollowUpDirectiveCtrl.ePage.Masters.DetailsView()"
+                ng-class="{'active': SupplierFollowUpDirectiveCtrl.ePage.Masters.IsDetailsActive == true}">
+                Details View
+            </button>
+        </div>
+        <div class="col-lg-5 mt-5 text-right">
+            <div class="page-actions-panel-cell" id="pageaction-area">
+                <ul class="list-inline mt-5">
+                    <li data-ng-if="SupplierFollowUpDirectiveCtrl.ePage.Masters.ViewPart" class="pl-0 pr-0">
+                        <button class="btn btn-default btn-sm pd-hr-10" uib-popover-template="SupplierFollowUpDirectiveCtrl.ePage.Masters.dynamicPopover.templateUrl"
+                            popover-title="{{SupplierFollowUpDirectiveCtrl.ePage.Masters.dynamicPopover.title}}" popover-trigger="'outsideClick'"
+                            popover-append-to-body="true" popover-placement="bottom" popover-class="popover-ord-bulk-update" type="button" class="btn btn-link" rel="tooltip"
+                            data-placement="bottom" data-original-title="Bulk Update" popover-is-open="SupplierFollowUpDirectiveCtrl.ePage.Masters.BulkUploadOpen"
+                            ng-click="SupplierFollowUpDirectiveCtrl.ePage.Masters.BulkUploadOpen = true">
+                            <i class="fa fa-caret-down txt-color-blueDark"></i> Bulk Update
+                        </button>
+                    </li>
+                    <li id="ember2108" role="presentation" class="ember-view btn-group pl-0 pr-0">
+                        <a class="btn btn-default btn-sm" data-ember-action="2111" ng-init="SupplierFollowUpDirectiveCtrl.ePage.Masters.DueList='Due This Week'">
+                            {{SupplierFollowUpDirectiveCtrl.ePage.Masters.DueList}} </a>
+                        <button type="button" class="btn dropdown-toggle pd-r-10 btn-default btn-sm" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <span class="caret"></span>
+                        </button>
+
+                        <ul class="dropdown-menu pull-right" role="menu">
+
+                            <li role="presentation">
+                                <a data-ng-click="SupplierFollowUpDirectiveCtrl.ePage.Masters.DueThisWeekFilterCall()">
+                                    <i class="icon-settings-import-lead"></i> Due This week
+                                    <strong>({{SupplierFollowUpDirectiveCtrl.ePage.Masters.DueWeeklyCount}})</strong>
+                                </a>
+                            </li>
+                            <li role="presentation">
+                                <a data-ng-click="SupplierFollowUpDirectiveCtrl.ePage.Masters.DueThisMonthFilterCall()">
+                                    <i class="icon-settings-import-lead"></i> Due This month
+                                    <strong>({{SupplierFollowUpDirectiveCtrl.ePage.Masters.DueMonthlyCount}})</strong>
+                                </a>
+                            </li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" data-ng-click="SupplierFollowUpDirectiveCtrl.ePage.Masters.OverDueFilterCall()">
+                                    <i class="icon-lead"></i> Over Due
+                                    <strong>({{SupplierFollowUpDirectiveCtrl.ePage.Masters.OverDueMonthlyCount}})</strong>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li id="ember2107" role="presentation" class="ember-view btn-group pl-0 pr-0">
+                        <a class="btn btn-default btn-sm" data-ember-action="2110" ng-init="SupplierFollowUpDirectiveCtrl.ePage.Masters.Clicked='All Pending Orders'">
+                            {{SupplierFollowUpDirectiveCtrl.ePage.Masters.Clicked}} </a>
+                        <button type="button" class="btn dropdown-toggle pd-r-10 btn-default btn-sm" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <span class="caret"></span>
+                        </button>
+
+                        <ul class="dropdown-menu pull-right" role="menu">
+                            <li role="presentation">
+                                <a data-ng-click="SupplierFollowUpDirectiveCtrl.ePage.Masters.AllPendingGridReload()">
+                                    <i class="icon-settings-import-lead"></i> All Pending Orders
+                                    <strong>({{SupplierFollowUpDirectiveCtrl.ePage.Masters.AllPendingCount}})</strong>
+                                </a>
+                            </li>
+                            <li role="presentation">
+                                <a data-ng-click="SupplierFollowUpDirectiveCtrl.ePage.Masters.SendFollwUpGridReload()">
+                                    <i class="icon-settings-import-lead"></i> Orders Not Followed Up
+                                    <strong>({{SupplierFollowUpDirectiveCtrl.ePage.Masters.NotFollowedUpCount}})</strong>
+                                </a>
+                            </li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" data-ng-click="SupplierFollowUpDirectiveCtrl.ePage.Masters.CargoReadyDateGridReload()">
+                                    <i class="icon-lead"></i> Orders Followed Up
+                                    <strong>({{SupplierFollowUpDirectiveCtrl.ePage.Masters.OrderFollowedUpCount}})</strong>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="pl-0 pr-0">
+                        <button class="btn btn-default btn-sm pd-hr-10" data-ng-click="SupplierFollowUpDirectiveCtrl.ePage.Masters.OpenFilter()">
+                            <i class="fa fa-filter txt-color-blueDark"></i> Filter
+                        </button>
+                    </li>
+
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    <div class="clearfix wmstable_scroll sfu-fot" data-ng-if="SupplierFollowUpDirectiveCtrl.ePage.Masters.ViewPart">
+        <!-- directive for grid load -->
+        <supplier-follow-up-grid-directive input="SupplierFollowUpDirectiveCtrl.ePage.Masters.SfuOrderList" grid-change="SupplierFollowUpDirectiveCtrl.ePage.Masters.DataChanges(SupplierFollowUpDirectiveCtrl.ePage.Masters.SelectionList)"
+            selectedlist="SupplierFollowUpDirectiveCtrl.ePage.Masters.SelectionList" data-ng-if="SupplierFollowUpDirectiveCtrl.ePage.Masters.ViewPart"></supplier-follow-up-grid-directive>
+    </div>
+    <div class="col-lg-12 col-md-12 col-xl-12 col-sm-12 col-xs-12 Supplier-footer" data-ng-if="SupplierFollowUpDirectiveCtrl.ePage.Masters.ViewPart">
+        <div class="Supplier-header">
+            <pagination num-pages="SupplierFollowUpDirectiveCtrl.ePage.Masters.noOfPages" current-page="SupplierFollowUpDirectiveCtrl.ePage.Masters.currentPage"
+                on-select-page="SupplierFollowUpDirectiveCtrl.ePage.Masters.SelectedPages({ page: page })" total-count="SupplierFollowUpDirectiveCtrl.ePage.Masters.TotalCount"
+                class="pagination-small"></pagination>
+
+        </div>
+    </div>
+    <div class="clearfix margin-bottom-30" data-ng-if="SupplierFollowUpDirectiveCtrl.ePage.Masters.ViewPart">
+        <div class="mt-5 mb-5 text-right pr-5">
+            <button class="btn btn-default set-br-yellow set-bg-yellow-light fs-12" data-ng-click="SupplierFollowUpDirectiveCtrl.ePage.Masters.SendFollowUp()"
+                data-ng-disabled="SupplierFollowUpDirectiveCtrl.ePage.Masters.IsDisableSend" tooltip-placement="top" uib-tooltip="Send Mail"
+                data-ng-if="SupplierFollowUpDirectiveCtrl.ePage.Masters.ViewPart">
+                <i class="fa fa-envelope"></i>
+            </button>
+            <button class="btn btn-default set-br-blue set-bg-blue-light fs-12" data-ng-click="SupplierFollowUpDirectiveCtrl.ePage.Masters.SaveCargoReadyDate()"
+                data-ng-disabled="SupplierFollowUpDirectiveCtrl.ePage.Masters.IsDisableSave" data-ng-if="SupplierFollowUpDirectiveCtrl.ePage.Masters.ViewPart">Submit Cargo Ready Date</button>
+        </div>
+    </div>
+    <div class="m-10 mt-0 mr-10 ml-0" data-ng-if="!SupplierFollowUpDirectiveCtrl.ePage.Masters.ViewPart">
+        <div class="col-lg-4 col-md-4 col-sm-4">
+            <div class="panel">
+                <div class="panel-heading-dashboard">
+                    <div class="card-content">
+                        <div class="card-actions pull-right">
+                            <button type="button" class="btn btn-link" rel="tooltip" data-placement="bottom" title="Refresh" data-original-title="Refresh"
+                                ng-click="SupplierFollowUpDirectiveCtrl.ePage.Masters.GetSupplierOrders()">
+                                <i class="fa fa-refresh"></i>
+                            </button>
+                            <button type="button" class="btn btn-link">
+                                <i class="fa fa-pencil"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="panel-title">Total Orders by Consignor</div>
+                    <p class="category">{{SupplierFollowUpDirectiveCtrl.ePage.Masters.DueList}}</p>
+                    <div class="list-group ml-10 mr-10">
+                        <div class="card card-chart" data-count="10">
+                            <div class="card-header" data-background-color="rose" data-header-animation="true">
+                                <div class="ct-chart">
+                                    <canvas id="myChart" width="250" height="240"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-8 grapin">
+            <div class="panel-title mt-10">Cargo Readiness Summary</div>
+            <div class="wmstable_scroll mt-10 mb-10 mr-10" style="padding-top: 2px;">
+
+                <div class="table" id="results">
+                    <div class='theader'>
+                        <div class='table_header'>Consignee Name</div>
+                        <div class='table_header'>Consignor Name</div>
+                        <div class='table_header'>Port Of Loading</div>
+                        <div class='table_header'>No. Of Orders</div>
+                        <div class='table_header'>Action</div>
+                    </div>
+                    <!-- List Order(s) -->
+                    <div class='table_row' data-ng-repeat="data in SupplierFollowUpDirectiveCtrl.ePage.Masters.GroupingGrid | filter:Buyer_Code| filter: Supplier_Code | filter: POL"
+                        style="font-size: 11px;">
+                        <div class='table_small'>
+                            <div class='table_cell'>Buyer Name</div>
+                            <div class='table_cell'>{{data.Buyer_Name}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Supplier Name</div>
+                            <div class='table_cell'>{{data.Supplier_Name}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Port Of Loading</div>
+                            <div class='table_cell'>{{data.POL}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>No. Of Orders</div>
+                            <div class='table_cell'>{{data.OrdersCount}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Action</div>
+
+                            <div class='table_cell text-center'>
+                                <a data-ng-click="SupplierFollowUpDirectiveCtrl.ePage.Masters.ClickAction(x)">
+                                    <i class="fa fa-angle-double-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="loading-sector" data-ng-if="SupplierFollowUpDirectiveCtrl.ePage.Masters.spinner">
+    Loading&#8230;
+</div>
+<!--FIlter Bar  -->
+<div id="filterSideBar" class="followup-filter dynamic-filter-sidebar-wrapper" data-ng-class="SupplierFollowUpDirectiveCtrl.ePage.Masters.ViewType == 1 ? 'one-column' : 'two-column'">
+    <form name="DynamicListFilterSidebar" novalidate>
+        <div class="header clearfix">
+            <div class="title pull-left">
+                <i class="fa fa-filter"></i>
+                <span>Filter</span>
+            </div>
+            <div class="btn-wrapper pull-right">
+                <ul class="clearfix">
+                    <li>
+                        <button class="filter-title-btn" ng-click="SupplierFollowUpDirectiveCtrl.ePage.Masters.Clear()">Clear</button>
+                    </li>
+                    <li>
+                        <input type="submit" class="filter-title-btn" ng-click="SupplierFollowUpDirectiveCtrl.ePage.Masters.Filter()" value="Apply">
+                    </li>
+                    <li>
+                        <span class="filter-toggle-icon" ng-click="SupplierFollowUpDirectiveCtrl.ePage.Masters.CloseFilter()">
+                            <i class="fa fa-arrow-right"></i>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="control-list clearfix p-0">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-left">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Consignee</label>
+                    <div class="input-group input-group-sm">
+                        <input type="hidden" ng-model="SupplierFollowUpDirectiveCtrl.ePage.Masters.FilterInput.BuyerFk">
+                        <div dynamic-lookup placeholder="Consignee" my-ng-model="SupplierFollowUpDirectiveCtrl.ePage.Masters.FilterInput.Buyer" obj="SupplierFollowUpDirectiveCtrl.ePage.Masters.FilterInput"
+                            prefix-data="'OrganizationList'" config="'OrdSUFBuyerSelection'" auto-complete-on-select="SupplierFollowUpDirectiveCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item, 'address', 'UIOrderFollowUp')"></div>
+                        <span class="input-group-btn">
+                            <button dynamic-list-modal obj="SupplierFollowUpDirectiveCtrl.ePage.Masters.FilterInput" field-name="'OrdSUFBuyerSelection'"
+                                prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="SupplierFollowUpDirectiveCtrl.ePage.Masters.SelectedLookupData($item, 'address', 'UIOrderFollowUp')"
+                                class="btn btn-default shiny" type="button">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-left">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Consignor</label>
+                    <div class="input-group input-group-sm">
+                        <input type="hidden" ng-model="SupplierFollowUpDirectiveCtrl.ePage.Masters.FilterInput.SupplierFK">
+                        <div dynamic-lookup placeholder="Consignor" my-ng-model="SupplierFollowUpDirectiveCtrl.ePage.Masters.FilterInput.Supplier"
+                            obj="SupplierFollowUpDirectiveCtrl.ePage.Masters.FilterInput" prefix-data="'OrganizationList'" config="'OrdSUFSupplierSelection'"
+                            auto-complete-on-select="SupplierFollowUpDirectiveCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item, 'address', 'UIOrderFollowUp')"
+                            required></div>
+                        <span class="input-group-btn">
+                            <button dynamic-list-modal obj="SupplierFollowUpDirectiveCtrl.ePage.Masters.FilterInput" field-name="'OrdSUFSupplierSelection'"
+                                prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="SupplierFollowUpDirectiveCtrl.ePage.Masters.SelectedLookupData($item, 'address', 'UIOrderFollowUp')"
+                                class="btn btn-default shiny" type="button">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- POL -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-left">
+                <div class="form-group">
+                    <label class="control-label text-single-line">POL</label>
+                    <div class="input-group input-group-sm">
+                        <input type="hidden" ng-model="SupplierFollowUpDirectiveCtrl.ePage.Masters.FilterInput.PortOfLoading_Pk">
+                        <div dynamic-lookup placeholder="Port Of Loading" my-ng-model="SupplierFollowUpDirectiveCtrl.ePage.Masters.FilterInput.PortOfLoading"
+                            obj="SupplierFollowUpDirectiveCtrl.ePage.Masters.FilterInput" auto-complete-on-select="SupplierFollowUpDirectiveCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item, 'address', 'UIOrderFollowUp')"
+                            prefix-data="'MstUNLOCO'" config="'PortOfLoading'"></div>
+                        <span class="input-group-btn">
+                            <button dynamic-list-modal obj="SupplierFollowUpDirectiveCtrl.ePage.Masters.FilterInput" field-name="'PortOfLoading'" prefix-data="'MstUNLOCO'"
+                                mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="SupplierFollowUpDirectiveCtrl.ePage.Masters.SelectedData($item)"
+                                class="btn btn-default shiny" type="button">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- FollowUp Send -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 text-left">
+                <div class="form-group">
+                    <label class="control-label">Followup</label>
+                    <div class="">
+                        <select chosen name="category-group" class="form-control" ng-model="SupplierFollowUpDirectiveCtrl.ePage.Masters.FilterInput.IsFollowUpSend"
+                            search-contains="true">
+                            <option value="">--Select--</option>
+                            <option value="">All</option>
+                            <option value="true">Follow Up Sent</option>
+                            <option value="false">Follow Up Not Send</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!-- Order # -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 text-left">
+                <div class="form-group">
+                    <label class="control-label">Order #</label>
+                    <input type="text" ng-model="SupplierFollowUpDirectiveCtrl.ePage.Masters.FilterInput.OrderNo" max-length="70" class="form-control input-sm"
+                        placeholder="Order #">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

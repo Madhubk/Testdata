@@ -1,0 +1,17 @@
+<div data-ng-if="SRVBookingCtrl.ePage.Masters.CurrentObj">
+    <!--Bookingg Menu Directive-->
+    <booking-menu  activity-form="SRVBookingCtrl.ePage.Masters.Entity.QuickView" current-Booking="SRVBookingCtrl.ePage.Masters.CurrentObj"></booking-menu>
+    <!--Standard Menu Directive-->
+    <div class="eaxis-footer-strip">
+        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
+            <standard-menu input="SRVBookingCtrl.ePage.Masters.StandardMenuInput" data-ng-if="!SRVBookingCtrl.ePage.Masters.CurrentObj.isNew"></standard-menu>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="SRVBookingCtrl.ePage.Masters.Save(SRVBookingCtrl.ePage.Masters.CurrentObj)" data-ng-bind="SRVBookingCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="SRVBookingCtrl.ePage.Masters.IsDisableSave" ></button>
+        </div>
+    </div>
+    <!-- <div class="eaxis-footer-strip">
+        <standard-menu obj="SRVBookingCtrl.ePage.Masters.CurrentObj" key-object="'UIShipmentHeader'" key-object-no="'ShipmentNo'"
+            config-name="shipmentConfig" entity="Shipment" entity-source="SHP" menu-config="SRVBookingCtrl.ePage.Masters.StandardMenuConfig"></standard-menu>
+    </div> -->
+</div>
