@@ -100,7 +100,7 @@
                                     "Icon": "glyphicon glyphicon-list-alt",
                                     "IsDisabled": false
                                 },{
-                                    "DisplayName": "Documents",
+                                    "DisplayName": "Document",
                                     "Value": "Documents",
                                     "Icon": "glyphicon glyphicon-list-alt",
                                     "IsDisabled": false
