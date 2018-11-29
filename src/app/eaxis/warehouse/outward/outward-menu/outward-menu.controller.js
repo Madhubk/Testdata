@@ -175,6 +175,123 @@
                             toastr.error("Cannot create pick for cancelled outward");
                         }
                     }
+                    else if ($index == 3) {
+
+                        // If not cancelled outward then create or prevent from creation
+                        if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus != 'CAN') {
+
+                            //check validation and create pick for this
+                            OutwardMenuCtrl.ePage.Masters.Config.GeneralValidation(OutwardMenuCtrl.currentOutward);
+                            if (OutwardMenuCtrl.ePage.Entities.Header.Validations) {
+                                OutwardMenuCtrl.ePage.Masters.Config.RemoveApiErrors(OutwardMenuCtrl.ePage.Entities.Header.Validations, $item.label);
+                            }
+
+                            if (OutwardMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList == 0) {
+                                //Check whether the outward is already dispatched or not
+                                if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length > 0) {
+                                    OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
+                                    if (!OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code) {
+                                        $event.preventDefault();
+                                        var modalOptions = {
+                                            closeButtonText: 'No',
+                                            actionButtonText: 'YES',
+                                            headerText: 'New Manifest Request..',
+                                            bodyText: 'This Order not yet attached to any Manifest. Do you wish to create new manifest?'
+                                        };
+                                        confirmation.showModal({}, modalOptions)
+                                            .then(function (result) {
+                                                helperService.getFullObjectUsingGetById(appConfig.Entities.TmsManifestList.API.GetById.Url, 'null').then(function (response) {
+                                                    if (response.data.Response) {
+                                                        debugger
+                                                        response.data.Response.TmsManifestHeader.PK = response.data.Response.PK;
+                                                        response.data.Response.TmsManifestHeader.SenderCode = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WAR_ORG_Code;
+                                                        response.data.Response.TmsManifestHeader.SenderName = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WAR_ORG_FullName;
+                                                        response.data.Response.TmsManifestHeader.Sender_ORG_FK = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WAR_ORG_FK;
+                                                        response.data.Response.TmsManifestHeader.ReceiverCode = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeCode;
+                                                        response.data.Response.TmsManifestHeader.ReceiverName = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeName;
+                                                        response.data.Response.TmsManifestHeader.Receiver_ORG_FK = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Consignee_FK;
+                                                        OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code = response.data.Response.TmsManifestHeader.ManifestNumber;
+                                                        OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk = response.data.Response.TmsManifestHeader.PK;
+                                                        OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IsModified = true;
+
+                                                        apiService.post("eAxisAPI", appConfig.Entities.TmsManifestList.API.Insert.Url, response.data.Response).then(function (response) {
+                                                            if (response.data.Status == 'Success') {
+                                                                var _obj = {
+                                                                    "PK": "",
+                                                                    "IsDeleted": false,
+                                                                    "IsModified": false,
+                                                                    "TMC_Sender_ORG_FK": OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WAR_ORG_FK,
+                                                                    "TMC_SenderCode": OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WAR_ORG_Code,
+                                                                    "TMC_SenderName": OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WAR_ORG_FullName,
+                                                                    "TMC_Receiver_ORG_FK": OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Consignee_FK,
+                                                                    "TMC_ReceiverCode": OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeCode,
+                                                                    "TMC_ReceiverName": OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeName,
+                                                                    "TMC_Client_ORG_FK": OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Client_FK,
+                                                                    "TMC_ClientId": OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ClientCode,
+                                                                    "TMC_ConsignmentNumber": OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID,
+                                                                    "TMC_ExpectedDeliveryDateTime": new Date(),
+                                                                    "TMC_ExpectedPickupDateTime": new Date(),
+                                                                    "TMC_FK": "",
+                                                                    "TMC_ServiceType": OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderType,
+                                                                    "TMM_ManifestNumber": response.data.Response.TmsManifestHeader.ManifestNumber,
+                                                                    "TMM_FK": response.data.Response.TmsManifestHeader.PK,
+                                                                    "TMC_SenderRef": OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ExternalReference,
+                                                                    "TMC_ReceiverRef": OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.CustomerReference,
+                                                                }
+                                                                response.data.Response.TmsManifestConsignment.push(_obj);
+
+                                                                apiService.post("eAxisAPI", appConfig.Entities.TmsManifestList.API.Update.Url, response.data.Response).then(function (response) {
+                                                                    if (response.data.Status == 'Success') {
+                                                                        apiService.get("eAxisAPI", appConfig.Entities.TmsManifestList.API.GetById.Url, response.data.Response.PK).then(function (response) {
+                                                                            if (response.data.Status == 'Success') {
+                                                                                OutwardMenuCtrl.ePage.Masters.ManifestDetails = response.data.Response;
+                                                                                OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code = response.data.Response.TmsManifestHeader.ManifestNumber;
+                                                                                OutwardMenuCtrl.ePage.Masters.active = 3;
+                                                                                OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
+                                                                            }
+                                                                        });
+                                                                    }
+                                                                });
+                                                            } else {
+                                                                toastr.error("Manifest Creation Failed. Please try again later.");
+                                                                $event.preventDefault();
+                                                                OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
+                                                            }
+                                                        });
+                                                    } else {
+                                                        $event.preventDefault();
+                                                        OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
+                                                    }
+                                                });
+                                            }, function () {
+                                                console.log("Cancelled");
+                                                OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
+                                            });
+                                    } else {
+                                        apiService.get("eAxisAPI", appConfig.Entities.TmsManifestList.API.GetById.Url + OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk).then(function (response) {
+                                            if (response.data.Response) {
+                                                OutwardMenuCtrl.ePage.Masters.ManifestDetails = response.data.Response;
+                                                OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
+                                            } else {
+                                                $event.preventDefault();
+                                                OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
+                                            }
+                                        });
+                                    }
+                                } else {
+                                    $event.preventDefault();
+                                    toastr.warning("Line is Empty so Manifest cannot be created");
+                                }
+                            } else {
+                                $event.preventDefault();
+                                OutwardMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(OutwardMenuCtrl.currentOutward);
+                            }
+
+                        } else {
+                            $event.preventDefault();
+                            toastr.error("Cannot create Manifest for cancelled outward");
+                        }
+                    }
                 }
             }
         };
@@ -236,7 +353,7 @@
                             }
                         }
                     });
-                   
+
                     var _index = outwardConfig.TabList.map(function (value, key) {
                         return value[value.label].ePage.Entities.Header.Data.PK
                     }).indexOf(OutwardMenuCtrl.currentOutward[OutwardMenuCtrl.currentOutward.label].ePage.Entities.Header.Data.PK);

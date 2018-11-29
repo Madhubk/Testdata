@@ -138,7 +138,12 @@
                                 "HttpType": "POST",
                                 "Url": "WmsUploadLineItems/Insert"
                             },
-
+                            "MstContainer": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "MstContainer/FindAll",
+                                "FilterID": "MSTCONT"
+                            },
                         },
 
                         "Meta": {
@@ -157,6 +162,11 @@
                                 "Value": "Pick",
                                 "Icon": "icomoon icon-pick",
                                 "GParentRef": "pick"
+                            }, {
+                                "DisplayName": "Dispatch",
+                                "Value": "Dispatch",
+                                "Icon": "fa fa-truck",
+                                "GParentRef": "dispatch"
                             }, {
                                 "DisplayName": "Containers",
                                 "Value": "Containers",

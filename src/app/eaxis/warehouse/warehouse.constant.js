@@ -206,6 +206,13 @@
                 'app/eaxis/warehouse/outward/outward-document/outward-document.controller.js',
                 'app/eaxis/warehouse/outward/outward-document/outward-document.directive.js'
             ]
+        }, {
+            name: 'outwardDispatch',
+            files: [
+                'app/eaxis/warehouse/outward/outward-dispatch/outward-dispatch.css',
+                'app/eaxis/warehouse/outward/outward-dispatch/outward-dispatch.controller.js',
+                'app/eaxis/warehouse/outward/outward-dispatch/outward-dispatch.directive.js'
+            ]
         },
         // endregion
         // --------------------- Pick -----------------------

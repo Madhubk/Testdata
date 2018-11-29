@@ -2097,6 +2097,11 @@
                             "HttpType": "POST",
                             "Url": "TmsManifestList/Update"
                         },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "TmsManifestList/Insert"
+                        },
                         "FindAll": {
                             "IsAPI": "true",
                             "HttpType": "POST",
