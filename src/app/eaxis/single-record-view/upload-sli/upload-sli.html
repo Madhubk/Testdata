@@ -1,0 +1,14 @@
+<div class="clearfix">
+    <uib-tabset id="chromeTab" active="UploadSLICtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+        <uib-tab data-ng-repeat="tab in UploadSLICtrl.ePage.Masters.TabList" data-ng-click="UploadSLICtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+            <uib-tab-heading title="{{tab.label}}">
+                <span data-ng-bind="tab.label"></span>
+            </uib-tab-heading>
+            <div class="padding-bottom-10 clearfix">
+                <!--PO Batch Upload Directive-->
+                <po-batch-upload-directive data-ng-if="!tab.isNewOrder" current-batch="tab" add-tab="UploadSLICtrl.ePage.Masters.AddTab1($item)"></po-batch-upload-directive>
+            </div>
+            <!-- <span data-ng-if="UploadSLICtrl.ePage.Masters.Config.GlobalVar.IsClosed" data-ng-init="UploadSLICtrl.ePage.Masters.Close($index, tab)"></span> -->
+        </uib-tab>
+    </uib-tabset>
+</div>

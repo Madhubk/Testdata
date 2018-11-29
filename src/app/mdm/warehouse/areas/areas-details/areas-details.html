@@ -7,14 +7,14 @@
                     <span class="text-single-line" ng-if="!AreasDetailsCtrl.currentAreas.isNew" data-ng-bind="AreasDetailsCtrl.ePage.Entities.Header.Data.Name"></span>
                 </uib-tab-heading>
                 <div>
-                    <div class="col-lg-12 pl-0 pr-0">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pl-0 pr-0">
                         <div style="height: 570px;padding-top:1px;">
                           <div class="rows margin-right-10 margin-left-5 margin-top-10 pt-10 mb-30" style="background-color: #f9f9f9; border: 1px solid #eee;">
-                            <div class="col-lg-4 p-0" style="border-right: 1px solid gray;">
-                              <label class="col-lg-12  mt-5 pb-10" style="font-weight: bold;color: gray;">Details</label>
-                                <div class="col-lg-12">
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0" style="border-right: 1px solid gray;">
+                              <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12  mt-5 pb-10" style="font-weight: bold;color: gray;">Details</label>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                                   <!--Area Name-->
-                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-3">
+                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                                     <div class="form-group">
                                       <div class="error-warning-container">
                                         <error-warning-directive data-ng-if="AreasDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Name.IsWarning && !AreasDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Name.IsError"
@@ -29,7 +29,7 @@
                                     </div>
                                   </div>
                                   <!--Area Type-->
-                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-3">
+                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                                     <div class="form-group">
                                       <div class="error-warning-container">
                                         <error-warning-directive data-ng-if="AreasDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.AreaType.IsWarning && !AreasDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.AreaType.IsError"
@@ -49,7 +49,7 @@
                                       </div>
                                   </div>
                                   <!--Warehouse Code-->
-                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-3">
+                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                                     <div class="form-group">
                                       <div class="error-warning-container">
                                           <error-warning-directive data-ng-if="AreasDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.WAR_WarehouseCode.IsWarning && !AreasDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.WAR_WarehouseCode.IsError"
@@ -62,12 +62,12 @@
                                         <div class="input-group input-group-sm">
                                         <!-- Dynamic look up Search in textbox -->
                                         <div dynamic-lookup placeholder="Warehouse Code" my-ng-model="AreasDetailsCtrl.ePage.Entities.Header.Data.WAR_WarehouseCode" auto-complete-on-select="AreasDetailsCtrl.ePage.Masters.SelectedLookupData($item)"
-                                        obj="AreasDetailsCtrl.ePage.Entities.Header.Data" prefix-data="'Warehouse'"
-                                        config="'Warehouse'" >
+                                        obj="AreasDetailsCtrl.ePage.Entities.Header.Data" page-name="'Warehouse'"
+                                        control-id="'Warehouse'" control-key="'Warehouse_3067'">
                                         </div>
                                       <!-- Look Up page opens when button clicks -->
                                         <span class="input-group-btn">
-                                          <button dynamic-list-modal obj="AreasDetailsCtrl.ePage.Entities.Header.Data" field-name="'Warehouse'" selected-data="AreasDetailsCtrl.ePage.Masters.SelectedLookupData($item.entity)"  prefix-data="'Warehouse'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                          <button dynamic-list-modal obj="AreasDetailsCtrl.ePage.Entities.Header.Data" control-id="'Warehouse'" control-key="'Warehouse_3067'" selected-data="AreasDetailsCtrl.ePage.Masters.SelectedLookupData($item.data.entity)"  page-name="'Warehouse'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
                                         </span>
                                         </div>
                                       </div>  
@@ -77,7 +77,7 @@
                                     </div>
                                   </div>
                                   <!--Warehouse Name -->
-                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-3">
+                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                                     <div class="form-group">
                                       <div class="error-warning-container">
                                             <error-warning-directive data-ng-if="AreasDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.WAR_WarehouseName.IsWarning && !AreasDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.WAR_WarehouseName.IsError"
@@ -93,45 +93,45 @@
                                   </div>
                                 </div>  
                             </div>
-                            <div class="col-lg-8 mypadding">
-                              <label class="col-lg-12  mt-5 pl-5 pb-10" style="font-weight: bold;color: gray;">Dimensions</label>
+                            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 mypadding">
+                              <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12  mt-5 pl-5 pb-10" style="font-weight: bold;color: gray;">Dimensions</label>
                               <div>
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-12">
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                   <div class="form-group">
                                     <label class="control-label text-single-line">Maximum Volume</label>
                                     <input type="text" class="form-control " value="{{AreasDetailsCtrl.ePage.Entities.Header.Data.MaxCubic}}&nbsp;{{AreasDetailsCtrl.ePage.Entities.Header.Data.CubicUQ}}"
                                     readonly="">
                                   </div>
                                 </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-12">
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                   <div class="form-group">
                                     <label class="control-label text-single-line">Maximum Weight</label>
                                     <input type="text" class="form-control " value="{{AreasDetailsCtrl.ePage.Entities.Header.Data.MaxWeight}}&nbsp;{{AreasDetailsCtrl.ePage.Entities.Header.Data.WeightUQ}}"
                                     readonly="">
                                   </div>
                                 </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-12">
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                   <div class="form-group">
                                     <label class="control-label text-single-line">Current Volume</label>
                                     <input type="text" class="form-control " value="{{AreasDetailsCtrl.ePage.Entities.Header.Data.Volume}}&nbsp;{{AreasDetailsCtrl.ePage.Entities.Header.Data.CubicUQ}}"
                                     readonly="">
                                   </div>
                                 </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-12">
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                   <div class="form-group">
                                     <label class="control-label text-single-line">Current Weight</label>
                                     <input type="text" class="form-control " value="{{AreasDetailsCtrl.ePage.Entities.Header.Data.Weight}}&nbsp;{{AreasDetailsCtrl.ePage.Entities.Header.Data.WeightUQ}}"
                                     readonly="">
                                   </div>
                                 </div>  
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-12">
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                   <div class="form-group">
                                     <label class="control-label text-single-line">Available Volume</label>
                                     <input type="text" class="form-control " value="{{AreasDetailsCtrl.ePage.Entities.Header.Data.AvailableVolume}}&nbsp;{{AreasDetailsCtrl.ePage.Entities.Header.Data.CubicUQ}}"
                                     readonly="">
                                   </div>
                                 </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-12">
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                   <div class="form-group">
                                     <label class="control-label text-single-line">Available Weight</label>
                                     <input type="text" class="form-control " value="{{AreasDetailsCtrl.ePage.Entities.Header.Data.AvailableWeight}}&nbsp;{{AreasDetailsCtrl.ePage.Entities.Header.Data.WeightUQ}}"

@@ -5,9 +5,9 @@
         .module("Application")
         .controller("TCDashboardController", TCDashboardController);
 
-    TCDashboardController.$inject = ["$location", "authService", "apiService", "helperService", "appConfig", "trustCenterConfig"];
+    TCDashboardController.$inject = ["$location", "authService", "helperService", "trustCenterConfig"];
 
-    function TCDashboardController($location, authService, apiService, helperService, appConfig, trustCenterConfig) {
+    function TCDashboardController($location, authService, helperService, trustCenterConfig) {
         /* jshint validthis: true */
         var TCDashboardCtrl = this;
         var _queryString = $location.path().split("/").pop();
@@ -22,24 +22,21 @@
             };
 
             TCDashboardCtrl.ePage.Masters.ActiveApplication = authService.getUserInfo().AppCode;
-            TCDashboardCtrl.ePage.Masters.ProductLogo = authService.getUserInfo().ProductLogo;
-            TCDashboardCtrl.ePage.Masters.DummyLogo = "assets/img/logo/product-logo-dummy.png";
 
             try {
                 TCDashboardCtrl.ePage.Masters.QueryString = JSON.parse(helperService.decryptData(_queryString));
 
-                if (TCDashboardCtrl.ePage.Masters.QueryString.Type) {
+                if (TCDashboardCtrl.ePage.Masters.QueryString.AppPk) {
                     InitBreadcrumb();
-                    InitTenant();
-                    InitApplications();
+                    InitApplication();
+                    InitDashboard();
                 }
             } catch (error) {
                 console.log(error);
             }
         }
 
-        // ========================Breadcrumb Start========================
-
+        // region Breadcrumb
         function InitBreadcrumb() {
             TCDashboardCtrl.ePage.Masters.Breadcrumb = {};
             TCDashboardCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick = OnBreadcrumbClick;
@@ -56,7 +53,7 @@
                 IsActive: false
             }, {
                 Code: "dashboard",
-                Description: TCDashboardCtrl.ePage.Masters.QueryString.BreadcrumbTitle,
+                Description: "Dashboard",
                 Link: "#",
                 IsRequireQueryString: false,
                 IsActive: true
@@ -70,106 +67,470 @@
                 $location.path($item.Link + "/" + helperService.encryptData($item.QueryStringObj));
             }
         }
+        // endregion
 
-        // ========================Breadcrumb End========================
-
-        // ========================Tenant Start========================
-
-        function InitTenant() {
-            TCDashboardCtrl.ePage.Masters.Tenant = {};
-            TCDashboardCtrl.ePage.Masters.Tenant.ActiveTenant = {};
-            TCDashboardCtrl.ePage.Masters.Tenant.ActiveTenant.TenantName = authService.getUserInfo().TenantName;
-
-            GetTenantDetails();
+        // region Application
+        function InitApplication() {
+            TCDashboardCtrl.ePage.Masters.Application = {};
+            TCDashboardCtrl.ePage.Masters.Application.OnApplicationChange = OnApplicationChange;
         }
 
-        function GetTenantDetails() {
-            var _filter = {
-                "pageSize": 100,
-                "currentPage": 1,
-                "SortColumn": "TenantCode",
-                "SortType": "desc",
-                "PK": authService.getUserInfo().TenantPK
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.SecTenant.API.MasterFindAll.FilterID
-            };
+        function OnApplicationChange($item) {
+            TCDashboardCtrl.ePage.Masters.Application.ActiveApplication = angular.copy($item);
 
-            apiService.post("authAPI", appConfig.Entities.SecTenant.API.MasterFindAll.Url, _input).then(function SuccessCallback(response) {
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        TCDashboardCtrl.ePage.Masters.Tenant.ActiveTenant = response.data.Response[0];
-                    }
-                }
-            });
-        }
-
-        // ========================Tenant End========================
-
-        // ========================Application Start========================
-
-        function InitApplications() {
-            TCDashboardCtrl.ePage.Masters.Applications = {};
-
-            TCDashboardCtrl.ePage.Masters.Applications.OnApplicationClick = OnApplicationClick;
-            TCDashboardCtrl.ePage.Masters.Applications.OnConfigurationAndDynamicPageClick = OnConfigurationAndDynamicPageClick;
-
-            GetApplicationList();
-            ConfigurationPageList();
-        }
-
-        function GetApplicationList() {
-            var _filter = {
-                "USR_FK": authService.getUserInfo().UserPK,
-                "PageSize": 100,
-                "PageNumber": 1,
-                "SortColumn": "SAP_AppCode",
-                "SortType": "ASC"
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.SecApp.API.FindAllAccess.FilterID
-            };
-
-            apiService.post("authAPI", appConfig.Entities.SecApp.API.FindAllAccess.Url, _input).then(function SuccessCallback(response) {
-                if (response.data.Response) {
-                    TCDashboardCtrl.ePage.Masters.Applications.ApplicationList = response.data.Response;
-
-                    if (TCDashboardCtrl.ePage.Masters.Applications.ApplicationList.length > 0) {
-                        OnApplicationClick(TCDashboardCtrl.ePage.Masters.Applications.ApplicationList[0]);
-                    }
-                } else {
-                    TCDashboardCtrl.ePage.Masters.Applications.ApplicationList = [];
-                }
-            });
-        }
-
-        function OnApplicationClick($item) {
-            TCDashboardCtrl.ePage.Masters.Applications.ActiveApplication = $item;
-
-            if (!TCDashboardCtrl.ePage.Masters.Applications.ActiveApplication.LogoStr) {
-                GetLogo();
+            if (!TCDashboardCtrl.ePage.Masters.Application.ActiveApplication) {
+                TCDashboardCtrl.ePage.Masters.Application.ActiveApplication = {
+                    "PK": TCDashboardCtrl.ePage.Masters.QueryString.AppPk,
+                    "AppCode": TCDashboardCtrl.ePage.Masters.QueryString.AppCode,
+                    "AppName": TCDashboardCtrl.ePage.Masters.QueryString.AppName
+                };
             }
         }
+        // endregion
 
-        function ConfigurationPageList() {
-            TCDashboardCtrl.ePage.Masters.Applications.RedirectPageList = trustCenterConfig.Entities.DashboardPageLink[TCDashboardCtrl.ePage.Masters.QueryString.Type];
+        // region Dashboard
+        function InitDashboard() {
+            TCDashboardCtrl.ePage.Masters.Dashboard = {};
+            TCDashboardCtrl.ePage.Masters.Dashboard.OnMenuClick = OnMenuClick;
+
+            GetConfigurationPageList();
         }
 
-        function OnConfigurationAndDynamicPageClick($item) {
-            var _queryString = {
-                "AppPk": TCDashboardCtrl.ePage.Masters.Applications.ActiveApplication.PK,
-                "AppCode": TCDashboardCtrl.ePage.Masters.Applications.ActiveApplication.AppCode,
-                "AppName": TCDashboardCtrl.ePage.Masters.Applications.ActiveApplication.AppName
+        function GetConfigurationPageList() {
+            TCDashboardCtrl.ePage.Masters.DashboardMenuList = {
+                "Column1": [{
+                    Title: "SYSTEM",
+                    List: [{
+                        Code: "Parties",
+                        Description: "Parties",
+                        Icon: "glyphicons glyphicons-group",
+                        Link: "TC/menu-group",
+                        Color: "#33a0d3",
+                        AdditionalData: {
+                            BreadcrumbTitle: "Parties",
+                            Input: {
+                                Code: "Parties"
+                            }
+                        },
+                        IsDisable : (authService.getUserInfo().TenantCode == "TBASE") ? false : true
+                    }, {
+                        Code: "BPMGroup",
+                        Description: "BPM Groups",
+                        Icon: "glyphicons glyphicons-group",
+                        Link: "TC/menu-group",
+                        Color: "#f3a175",
+                        AdditionalData: {
+                            BreadcrumbTitle: "BPM Groups",
+                            Input: {
+                                Code: "BPMGroups"
+                            }
+                        }
+                    }, {
+                        Code: "UserList",
+                        Description: "Users",
+                        Icon: "fa fa-user",
+                        Link: "TC/user-list",
+                        Color: "#dd4b39"
+                    }, {
+                        Code: "Session",
+                        Description: "Session",
+                        Icon: "glyphicons glyphicons-tick",
+                        Link: "TC/session",
+                        Color: "#00555c"
+                    }]
+                }, {
+                    Title: "COMPONENTS",
+                    List: [{
+                        Code: "Event",
+                        Description: "Event",
+                        Icon: "fa fa-calendar",
+                        Link: "TC/event",
+                        Color: "#a1755c"
+                    }, {
+                        Code: "Email",
+                        Description: "Email",
+                        Icon: "fa fa-envelope",
+                        Link: "TC/email",
+                        Color: "#FF0000"
+                    }, {
+                        Code: "Comments",
+                        Description: "Comments",
+                        Icon: "fa fa-comment",
+                        Link: "TC/comments",
+                        Color: " #87CEEB"
+                    }, {
+                        Code: "Files",
+                        Description: "Files (Document)",
+                        Icon: "fa fa-file",
+                        Link: "TC/document",
+                        Color: "#90ee90"
+                    }, {
+                        Code: "Exception",
+                        Description: "Exception",
+                        Icon: "fa fa-exclamation-triangle",
+                        Link: "TC/exception",
+                        Color: "#de1829"
+                    }, {
+                        Code: "StandardTypelist",
+                        Description: "Standard Typelist",
+                        Icon: "fa fa-list-alt",
+                        Link: "TC/sop-typelist",
+                        Color: "#797979"
+                    }]
+                }],
+                "Column2": [{
+                    Title: "CONFIGURATION",
+                    List: [{
+                        Code: "HtmlComponents",
+                        Description: "Html Components",
+                        Icon: "fa fa-puzzle-piece",
+                        Link: "TC/component",
+                        Color: "#33a0d3",
+                        AdditionalData: {
+                            BreadcrumbTitle: "Html Components",
+                            Input: {
+                                Code: "NOCTRL"
+                            }
+                        }
+                    }, {
+                        Code: "ApiMethodAccess",
+                        Description: "API Method Access",
+                        Icon: "fa fa-puzzle-piece",
+                        Link: "TC/component",
+                        Color: "#33a0d3",
+                        AdditionalData: {
+                            BreadcrumbTitle: "API Method Access",
+                            Input: {
+                                Code: "API"
+                            }
+                        }
+                    }, {
+                        Code: "Validation",
+                        Description: "Validation",
+                        Icon: "fa fa-file-text",
+                        Link: "TC/validation",
+                        Color: "#45668e"
+                    }, {
+                        Code: "Languages",
+                        Description: "Languages",
+                        Icon: "fa fa-language",
+                        Link: "TC/language",
+                        Color: "#ff8800"
+                    }, {
+                        Code: "SystemFilters",
+                        Description: "System Filters (Query)",
+                        Icon: "glyphicons glyphicons-filter",
+                        Link: "TC/application-settings",
+                        Color: "#01532f",
+                        AdditionalData: {
+                            BreadcrumbTitle: "System Filters (Query)",
+                            Input: {
+                                Code: "QUERY"
+                            }
+                        }
+                    }, {
+                        Code: "ManageStaticListing",
+                        Description: "Manage Static Listing",
+                        Icon: "fa fa-list",
+                        Link: "TC/manage-static-listing",
+                        Color: "#1da1f2"
+                    }, {
+                        Code: "DynamicExpressionFilter",
+                        Description: "Dynamic Expression Filter",
+                        Icon: "glyphicons glyphicons-filter",
+                        Link: "TC/filter-group",
+                        Color: "#405de6"
+                    }, {
+                        Code: "AppSettingsExcelConfig",
+                        Description: "Excel Template Configuration (Report)",
+                        Icon: "fa fa-file-excel-o",
+                        Link: "TC/application-settings",
+                        Color: "#3b210e",
+                        AdditionalData: {
+                            BreadcrumbTitle: "Excel Template Configuration (Report)",
+                            Input: {
+                                Code: "EXCELCONFIG"
+                            }
+                        }
+                    }, {
+                        Code: "AppSettingsSysConfig",
+                        Description: "Configuration",
+                        Icon: "glyphicons glyphicons-settings",
+                        Link: "TC/application-settings",
+                        Color: "#3b210e",
+                        AdditionalData: {
+                            BreadcrumbTitle: "Configuration",
+                            Input: {
+                                Code: "CONFIGURATION"
+                            }
+                        }
+                    }, {
+                        Code: "AppSettingsEmailSettings",
+                        Description: "Email Settings",
+                        Icon: "fa glyphicons glyphicons-message-in",
+                        Link: "TC/application-settings",
+                        Color: "#ff3d00",
+                        AdditionalData: {
+                            BreadcrumbTitle: "Email Settings",
+                            Input: {
+                                Code: "EMAILSETTINGS"
+                            }
+                        }
+                    }, {
+                        Code: "AppSettingsEntityResult",
+                        Description: "Entity Results",
+                        Icon: "fa fa-th-large",
+                        Link: "TC/application-settings",
+                        Color: "#01532f",
+                        AdditionalData: {
+                            BreadcrumbTitle: "Entity Results",
+                            Input: {
+                                Code: "ENTITYRESULT"
+                            }
+                        }
+                    }, {
+                        Code: "AppSettingsBulkQuery",
+                        Description: "Bulk Query",
+                        Icon: "fa fa-th-large",
+                        Link: "TC/application-settings",
+                        Color: "#01532f",
+                        AdditionalData: {
+                            BreadcrumbTitle: "Bulk Query",
+                            Input: {
+                                Code: "BULKQUERYOUTPUT"
+                            }
+                        }
+                    }]
+                }],
+                "Column3": [{
+                    Title: "MENU",
+                    List: [{
+                        Code: "Menu",
+                        Description: "Menu",
+                        Icon: "fa fa-bars",
+                        Link: "TC/menu",
+                        Color: "#fbad19",
+                        AdditionalData: {
+                            BreadcrumbTitle: "Menu",
+                            Input: {
+                                Code: "Menu"
+                            }
+                        }
+                    }, {
+                        Code: "Admin",
+                        Description: "Admin",
+                        Icon: "fa fa-bars",
+                        Link: "TC/menu",
+                        Color: "#fbad19",
+                        AdditionalData: {
+                            BreadcrumbTitle: "Admin",
+                            Input: {
+                                Code: "Admin"
+                            }
+                        }
+                    }, {
+                        Code: "TabMenu",
+                        Description: "Tab Menu",
+                        Icon: "fa fa-bars",
+                        Link: "TC/menu",
+                        Color: "#fbad19",
+                        AdditionalData: {
+                            BreadcrumbTitle: "Tab Menu",
+                            Input: {
+                                Code: "TabMenu"
+                            }
+                        }
+                    }, {
+                        Code: "Shortcut",
+                        Description: "Shortcut",
+                        Icon: "fa fa-bars",
+                        Link: "TC/menu",
+                        Color: "#fbad19",
+                        AdditionalData: {
+                            BreadcrumbTitle: "Shortcut",
+                            Input: {
+                                Code: "Shortcut"
+                            }
+                        }
+                    }, {
+                        Code: "InternalUrl",
+                        Description: "Internal Url",
+                        Icon: "fa fa-bars",
+                        Link: "TC/menu",
+                        Color: "#fbad19",
+                        AdditionalData: {
+                            BreadcrumbTitle: "Internal Url",
+                            Input: {
+                                Code: "InternalUrl"
+                            }
+                        }
+                    }, {
+                        Code: "Report",
+                        Description: "Report",
+                        Icon: "fa fa-bars",
+                        Link: "TC/menu",
+                        Color: "#fbad19",
+                        AdditionalData: {
+                            BreadcrumbTitle: "Report",
+                            Input: {
+                                Code: "Report"
+                            }
+                        }
+                    }, {
+                        Code: "Document",
+                        Description: "Document",
+                        Icon: "fa fa-bars",
+                        Link: "TC/menu",
+                        Color: "#fbad19",
+                        AdditionalData: {
+                            BreadcrumbTitle: "Document",
+                            Input: {
+                                Code: "Document"
+                            }
+                        }
+                    }]
+                }, {
+                    Title: "DYNAMIC PAGES",
+                    List: [{
+                        Code: "Page",
+                        Description: "Page",
+                        Icon: "fa fa-file",
+                        Link: "TC/page",
+                        Color: "#f94877"
+                    }, {
+                        Code: "RelatedLookup",
+                        Description: "Related Lookup",
+                        Icon: "fa fa-cog",
+                        Link: "TC/related-lookup",
+                        Color: "#fbad19"
+                    }, {
+                        Code: "ManageParameters",
+                        Description: "Manage Parameters",
+                        Icon: "fa fa-tasks",
+                        Link: "TC/manage-parameters",
+                        Color: "#00555c"
+                    }, {
+                        Code: "ShareTablesAndFields",
+                        Description: "Share Tables and Fields",
+                        Icon: "fa fa-table",
+                        Link: "TC/share-table",
+                        Color: "#a1755c"
+                    }]
+                }],
+                "Column4": [{
+                    Title: "DATA EXTRACTION",
+                    List: [{
+                        Code: "Audit",
+                        Description: "Audit",
+                        Icon: "fa fa-file-text",
+                        Link: "TC/data-extraction/audit",
+                        Color: "#bd081c"
+                    }, {
+                        Code: "Event",
+                        Description: "Event",
+                        Icon: "fa fa-calendar",
+                        Link: "/TC/data-extraction/event",
+                        Color: "#de1829"
+                    }, {
+                        Code: "Integration",
+                        Description: "Integration",
+                        Icon: "fa fa-compress",
+                        Link: "/TC/data-extraction/integration",
+                        Color: "#05b085"
+                    }, {
+                        Code: "FullTextSearch",
+                        Description: "Full Text Search",
+                        Icon: "fa fa-font",
+                        Link: "/TC/data-extraction/full-text-search",
+                        Color: "#05b085"
+                    }, {
+                        Code: "ReportFields",
+                        Description: "Report Fields",
+                        Icon: "fa fa-share-alt",
+                        Link: "/TC/data-extraction/report-fields",
+                        Color: "#05b085"
+                    }, {
+                        Code: "EntityScore",
+                        Description: "Entity Score",
+                        Icon: "fa fa-share-alt",
+                        Link: "/TC/data-extraction/entity-score",
+                        Color: "#05b085"
+                    }]
+                }, {
+                    Title: "WORK FLOW",
+                    List: [{
+                        Code: "Process",
+                        Description: "Process",
+                        Icon: "fa fa-cogs",
+                        Link: "TC/process",
+                        Color: "#405de6"
+                    }, {
+                        Code: "ActivityFormConfiguration",
+                        Description: "Activity Form Configuration",
+                        Icon: "fa fa-cog",
+                        Link: "TC/ebpm-types",
+                        Color: "#87ceeb",
+                        AdditionalData: {
+                            BreadcrumbTitle: "Activity Form",
+                            Input: {
+                                MappingCode: "ACTIVITY_CONFIG"
+                            }
+                        }
+                    }, {
+                        Code: "ProcessTopics",
+                        Description: "Process Topics",
+                        Icon: "fa fa-cog",
+                        Link: "TC/ebpm-types",
+                        Color: "#87ceeb",
+                        AdditionalData: {
+                            BreadcrumbTitle: "Process Topics",
+                            Input: {
+                                MappingCode: "PROCESS_TOPIC"
+                            }
+                        }
+                    }, {
+                        Code: "DelayReason",
+                        Description: "Delay Reason",
+                        Icon: "fa fa-cog",
+                        Link: "TC/ebpm-types",
+                        Color: "#87ceeb",
+                        AdditionalData: {
+                            BreadcrumbTitle: "Delay Reason",
+                            Input: {
+                                MappingCode: "DELAY_REASON"
+                            }
+                        }
+                    }, {
+                        Code: "Checklist",
+                        Description: "Checklist",
+                        Icon: "fa fa-cog",
+                        Link: "TC/ebpm-types",
+                        Color: "#87ceeb",
+                        AdditionalData: {
+                            BreadcrumbTitle: "Checklist",
+                            Input: {
+                                MappingCode: "CHECKLIST"
+                            }
+                        }
+                    }]
+                }]
             };
+        }
 
-            if ($item.Type == "ConfigType") {
-                _queryString.ConfigType = $item.AdditionalData;
-                _queryString.BreadcrumbTitle = $item.Description;
-            } else if ($item.Type == "EntitySource") {
-                _queryString.EntitySource = $item.AdditionalData;
-                _queryString.BreadcrumbTitle = $item.Description;
+        function OnMenuClick($item) {
+            if (TCDashboardCtrl.ePage.Masters.Application.ActiveApplication) {
+                var _queryString = {
+                    "AppCode": TCDashboardCtrl.ePage.Masters.Application.ActiveApplication.AppCode,
+                    "AppName": TCDashboardCtrl.ePage.Masters.Application.ActiveApplication.AppName,
+                    "AppPk": TCDashboardCtrl.ePage.Masters.Application.ActiveApplication.PK
+                };
+            } else {
+                var _queryString = TCDashboardCtrl.ePage.Masters.QueryString;
+            }
+
+            _queryString.AdditionalData = $item.AdditionalData;
+
+            if ($item.Link.indexOf("TC/application-settings") !== -1) {
                 _queryString.Type = "Type1";
             }
 
@@ -177,37 +538,7 @@
                 $location.path($item.Link + "/" + helperService.encryptData(_queryString));
             }
         }
-
-        // ========================Appliation End========================
-
-        function GetLogo() {
-            var _filter = {
-                EntityRefKey: TCDashboardCtrl.ePage.Masters.Applications.ActiveApplication.PK,
-                EntitySource: "SAP"
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.JobDocument.API.FindAll.FilterID
-            };
-
-            apiService.post("eAxisAPI", appConfig.Entities.JobDocument.API.FindAll.Url + TCDashboardCtrl.ePage.Masters.Applications.ActiveApplication.PK, _input).then(function SuccessCallback(response) {
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        DownloadDocument(response.data.Response[0]);
-                    }
-                }
-            });
-        }
-
-        function DownloadDocument(curDoc) {
-            apiService.get("eAxisAPI", appConfig.Entities.JobDocument.API.JobDocumentDownload.Url + curDoc.PK + "/" + TCDashboardCtrl.ePage.Masters.Applications.ActiveApplication.PK).then(function (response) {
-                if (response.data.Response) {
-                    if (response.data.Response !== "No Records Found!") {
-                        TCDashboardCtrl.ePage.Masters.Applications.ActiveApplication.LogoStr = "data:image/jpeg;base64," + response.data.Response.Base64str;
-                    }
-                }
-            });
-        }
+        // endregion
 
         Init();
     }

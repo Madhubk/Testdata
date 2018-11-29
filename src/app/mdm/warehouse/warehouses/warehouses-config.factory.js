@@ -6,37 +6,19 @@
 
         .factory('warehousesConfig', WarehousesConfig);
 
-    WarehousesConfig.$inject = ["$location", "$q", "apiService", "helperService", "$rootScope","toastr"];
+    WarehousesConfig.$inject = ["$location", "$q", "apiService", "helperService", "$rootScope","toastr","appConfig"];
 
-    function WarehousesConfig($location, $q, apiService, helperService, $rootScope,toastr) {
+    function WarehousesConfig($location, $q, apiService, helperService, $rootScope,toastr,appConfig) {
         var exports = {
             "Entities": {
                 "Header": {
                     "RowIndex": -1,
                     "API": {
-                        "FindConfig": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "DataEntry/Dynamic/FindConfig",
-                            "FilterID": "DYNDAT"
-                        },
-                        "DataEntry": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "DataEntryMaster/FindAll",
-                            "FilterID": "DYNDAT"
-                        },
                         "GetByID": {
                             "IsAPI": "true",
                             "HttpType": "GET",
                             "Url": "WmsWarehouselist/GetById/",
                             "FilterID": "WHSWARH"
-                        },
-                        "Validationapi":{
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "Validation/FindAll",
-                            "FilterID":"VALIDAT"
                         },
                     }
                 }
@@ -67,24 +49,6 @@
                         "Validations":"",
                         "RowIndex": -1,
                         "API": {
-                            "OrgAddress": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "OrgAddress/FindAll",
-                                "FilterID": "ORGADDR"
-                            },
-                            "CfxTypes": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "CfxTypes/FindAll/",
-                                "FilterID": "CFXTYPE"
-                            },
-                            "CmpBranch": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "CmpBranch/FindAll",
-                                "FilterID": "CMPBRAN"
-                            },
                             "InsertWarehouse": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
@@ -115,9 +79,64 @@
                                 "WmsArea":helperService.metaBase(),
                             },
                         },
-                        "CheckPoints":{
-                            "DisableSave":false,
+                        "GlobalVariables":{
+                            "Loading":false
                         },
+                        "TableProperties":{
+                            "WmsArea":{
+                                "HeaderProperties":[{
+                                    "columnname":"Checkbox",
+                                    "isenabled":true,
+                                    "property":"checkbox",
+                                    "position":'1',
+                                    "width":"45",
+                                    "display":false
+                                },{
+                                    "columnname":"S.No",
+                                    "isenabled":true,
+                                    "property":"sno",
+                                    "position":'2',
+                                    "width":"40",
+                                    "display":false
+                                },
+                                {
+                                    "columnname":"Area Name",
+                                    "isenabled":true,
+                                    "property":"areaname",
+                                    "position":"3",
+                                    "width":"200",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Area Type",
+                                    "isenabled":true,
+                                    "property":"areatype",
+                                    "position":"4",
+                                    "width":"200",
+                                    "display":true
+                                }],
+                                "checkbox":{
+                                    "isenabled":true,
+                                    "width":"45",
+                                    "position":"1"
+                                },
+                                "sno":{
+                                    "isenabled":true,
+                                    "width":"40",
+                                    "position":"2"
+                                },
+                                "areaname":{
+                                    "isenabled":true,
+                                    "width":"200",
+                                    "position":"3"
+                                },
+                                "areatype":{
+                                    "isenabled":true,
+                                    "width":"200",
+                                    "position":"4"
+                                },
+                            }
+                        }
                     }
                 }
             };
@@ -378,9 +397,9 @@
             };     
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": exports.Entities.Header.API.Validationapi.FilterID
+                "FilterID": appConfig.Entities.Validation.API.FindAll.FilterID
             };
-            apiService.post("eAxisAPI", exports.Entities.Header.API.Validationapi.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", appConfig.Entities.Validation.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     exports.ValidationValues=(response.data.Response);
                 }
@@ -392,36 +411,20 @@
             _input = _Data.Header.Data;
 
             //General Validations
-            if(!_input.WmsWarehouse.WarehouseCode || _input.WmsWarehouse.WarehouseCode){
-                OnChangeValues(_input.WmsWarehouse.WarehouseCode,'E4001',false,undefined,$item.label);
-            }
-            if(!_input.WmsWarehouse.WarehouseName || _input.WmsWarehouse.WarehouseName){
-                OnChangeValues(_input.WmsWarehouse.WarehouseName,'E4002',false,undefined,$item.label);
-            }
-            if(!_input.WmsWarehouse.WarehouseType || _input.WmsWarehouse.WarehouseType){
-                OnChangeValues(_input.WmsWarehouse.WarehouseType,'E4003',false,undefined,$item.label);
-            }
-            if(!_input.WmsWarehouse.BRN_Code || _input.WmsWarehouse.BRN_Code){
-                OnChangeValues(_input.WmsWarehouse.BRN_Code,'E4004',false,undefined,$item.label);
-            }
-            if(!_input.WmsWarehouse.BRN_BranchName || _input.WmsWarehouse.BRN_BranchName){
-                OnChangeValues(_input.WmsWarehouse.BRN_BranchName,'E4005',false,undefined,$item.label);
-            }
-            if(!_input.WmsWarehouse.CountryCode || _input.WmsWarehouse.CountryCode){
-                OnChangeValues(_input.WmsWarehouse.CountryCode,'E4006',false,undefined,$item.label);
-            }
-            if(!_input.WmsWarehouse.Organization || _input.WmsWarehouse.Organization){
-                OnChangeValues(_input.WmsWarehouse.Organization,'E4007',false,undefined,$item.label);
-            }
+            OnChangeValues(_input.WmsWarehouse.WarehouseCode,'E4001',false,undefined,$item.label);
+            OnChangeValues(_input.WmsWarehouse.WarehouseName,'E4002',false,undefined,$item.label);
+            OnChangeValues(_input.WmsWarehouse.WarehouseType,'E4003',false,undefined,$item.label);
+            OnChangeValues(_input.WmsWarehouse.BRN_Code,'E4004',false,undefined,$item.label);
+            OnChangeValues(_input.WmsWarehouse.BRN_BranchName,'E4005',false,undefined,$item.label);
+            OnChangeValues(_input.WmsWarehouse.CountryCode,'E4006',false,undefined,$item.label);
+            OnChangeValues(_input.WmsWarehouse.Organization,'E4007',false,undefined,$item.label);
 
             //Areas Validation
             if(_input.WmsArea.length>0){
                 angular.forEach(_input.WmsArea,function(value,key){
-                    if(!value.Name || value.Name)
                     OnChangeValues(value.Name,'E4009',true,key,$item.label);
-
-                    if(!value.AreaType || value.AreaType)
                     OnChangeValues(value.AreaType,'E4010',true,key,$item.label);
+                    OnChangeValues('value','E4011',true,key,$item.label);
                 });
             }
 

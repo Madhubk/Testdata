@@ -1,0 +1,25 @@
+<div class="clearfix help-topic-container">
+    <ul class="clearfix topic-list-wrapper" data-ng-if="HelpTopicCtrl.ePage.Masters.Topic.ListSource">
+        <li class="topic-list" data-ng-repeat="x in HelpTopicCtrl.ePage.Masters.Topic.ListSource" data-ng-include="'tree_item_renderer.html'"></li>
+    </ul>
+</div>
+
+<script type="text/ng-template" id="tree_item_renderer.html">
+    <div class="clearfix list-content">
+        <span class="topic-expand-icon cursor-pointer" data-ng-if="x.ItHasChild" data-ng-click="HelpTopicCtrl.ePage.Masters.Topic.OnTopicClick(x)"
+            data-nodrag="">
+            <i data-ng-class="{'fa fa-caret-right': (x.ItHasChild && !x.IsToggle), 'fa fa-caret-down': (x.ItHasChild && x.IsToggle)}"></i>
+        </span>
+        <span class="topic-name cursor-pointer" data-ng-bind="x.Title" data-ng-click="HelpTopicCtrl.ePage.Masters.Topic.OnTopicClick(x)"
+            data-ng-if="x.ItHasChild && x.IsActive"></span>
+        <a href="javascript:void(0);" class="topic-name" data-ng-bind="x.Title" data-ng-click="HelpTopicCtrl.ePage.Masters.Topic.OnTopicClick(x)"
+            data-ng-if="!x.ItHasChild && x.IsActive"></a>
+        <span class="topic-name-disabled cursor-pointer" data-ng-bind="x.Title" data-ng-click="HelpTopicCtrl.ePage.Masters.Topic.OnTopicClick(x)"
+            data-ng-if="x.ItHasChild && !x.IsActive"></span>
+        <a href="javascript:void(0);" class="topic-name-disabled" data-ng-bind="x.Title" data-ng-click="HelpTopicCtrl.ePage.Masters.Topic.OnTopicClick(x)"
+            data-ng-if="!x.ItHasChild && !x.IsActive"></a>
+    </div>
+    <ul class="clearfix sub-topic-list-wrapper" data-ng-if="x.IsToggle">
+        <li class="topic-list" data-ng-repeat="x in x.SubTopicList" data-ng-include="'tree_item_renderer.html'"></li>
+    </ul>
+</script>

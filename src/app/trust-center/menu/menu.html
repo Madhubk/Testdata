@@ -1,35 +1,39 @@
 <div class="clearfix tc-menu">
     <!-- Breadcrumb -->
     <div class="clearfix tc-breadcrumb" data-ng-if="MenuCtrl.ePage.Masters.ActiveApplication == 'TC'">
-        <i class="fa fa-home home-icon"></i>
-        <div class="breadcrumb-list-wrapper">
-            <ol class="breadcrumb">
-                <li data-ng-repeat="x in MenuCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
-                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="MenuCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
-                </li>
-                <li data-ng-repeat="x in MenuCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
-                    class="active"></li>
-            </ol>
+        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-xs-12 p-0">
+            <i class="fa fa-home home-icon"></i>
+            <div class="breadcrumb-list-wrapper">
+                <ol class="breadcrumb">
+                    <li data-ng-repeat="x in MenuCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                        <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="MenuCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                    </li>
+                    <li data-ng-repeat="x in MenuCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive"
+                        data-ng-bind="x.Description" class="active"></li>
+                </ol>
+            </div>
         </div>
-        <span class="tc-breadcrumb-app-name" data-ng-if="MenuCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="MenuCtrl.ePage.Masters.QueryString.AppName"></span>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12 p-4">
+            <tc-application-dropdown query-string="MenuCtrl.ePage.Masters.QueryString" on-application-change="MenuCtrl.ePage.Masters.Application.OnApplicationChange($item)"></tc-application-dropdown>
+        </div>
     </div>
     <!-- Header -->
     <div class="clearfix tc-header-container">
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
-            <div class="tc-header with-drop-down">
+            <div class="tc-header">
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 p-0">
-                    <select chosen class="form-control" data-ng-model="MenuCtrl.ePage.Masters.MenuType.ActiveMenuType.Key" data-ng-options="x.Key as x.Value for x  in MenuCtrl.ePage.Masters.MenuType.Listsource"
-                        data-ng-change="MenuCtrl.ePage.Masters.MenuType.OnMenuTypeChange((MenuCtrl.ePage.Masters.MenuType.Listsource | filter: {'Key': MenuCtrl.ePage.Masters.MenuType.ActiveMenuType.Key})[0])"></select>
+                    <span data-ng-bind="MenuCtrl.ePage.Masters.QueryString.AdditionalData.BreadcrumbTitle"></span>
                 </div>
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 p-5 pt-4 text-right">
-                    <button class="btn btn-xs btn-info" data-ng-click="MenuCtrl.ePage.Masters.Menu.AddNew()" data-ng-disabled="!MenuCtrl.ePage.Masters.MenuType.ActiveMenuType.Key">New</button>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 pr-5 text-right">
+                    <button class="btn btn-xs btn-info" data-ng-click="MenuCtrl.ePage.Masters.Menu.AddNew()">New</button>
                 </div>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">
             <div class="tc-header edit-view">
                 <span data-ng-bind="'Details'"></span>
-                <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10" data-ng-click="MenuCtrl.ePage.Masters.Menu.Edit()" data-ng-disabled="!MenuCtrl.ePage.Masters.Menu.ActiveMenu">Edit</button>
+                <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10" data-ng-click="MenuCtrl.ePage.Masters.Menu.Edit()"
+                    data-ng-disabled="!MenuCtrl.ePage.Masters.Menu.ActiveMenu">Edit</button>
                 <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="MenuCtrl.ePage.Masters.Menu.DeleteConfirmation()"
                     data-ng-bind="MenuCtrl.ePage.Masters.Menu.DeleteBtnText" data-ng-disabled="MenuCtrl.ePage.Masters.Menu.IsDisableDeleteBtn || !MenuCtrl.ePage.Masters.Menu.ActiveMenu"></button>
             </div>
@@ -51,7 +55,8 @@
                         <i>No Records...</i>
                     </div>
                     <li data-ng-if="MenuCtrl.ePage.Masters.Menu.MenuList && (MenuCtrl.ePage.Masters.Menu.MenuList | filter: MenuCtrl.ePage.Masters.Search).length > 0"
-                        data-ng-repeat="x in MenuCtrl.ePage.Masters.Menu.MenuList | filter: MenuCtrl.ePage.Masters.Search" data-ng-click="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Id != x.Id && MenuCtrl.ePage.Masters.Menu.OnMenuClick(x)"
+                        data-ng-repeat="x in MenuCtrl.ePage.Masters.Menu.MenuList | filter: MenuCtrl.ePage.Masters.Search"
+                        data-ng-click="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Id != x.Id && MenuCtrl.ePage.Masters.Menu.OnMenuClick(x)"
                         data-ng-class="{'active': MenuCtrl.ePage.Masters.Menu.ActiveMenu.Id == x.Id}">
                         <div class="clearfix tc-list">
                             <div class="tc-list-name">
@@ -63,7 +68,7 @@
                 </ul>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed">
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed" data-ng-if="MenuCtrl.ePage.Masters.Menu.ActiveMenu">
             <div class="pt-10 pb-10 tc-details-view clearfix">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <div class="clearfix form-group">
@@ -113,14 +118,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Menu Type</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="MenuCtrl.ePage.Masters.Menu.ActiveMenu.PageType || MenuCtrl.ePage.Masters.emptyText"></label>
-                        </div>
-                    </div>
-                </div> -->
             </div>
             <div class="tc-section-divider"></div>
             <div class="tc-list-container tc-list-container-inner-redirect clearfix" data-ng-if="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Id">
@@ -185,6 +182,21 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Module</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <select chosen name="category-group" class="form-control" ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.ModuleCode" ng-options="x.Key as x.Description for x in MenuCtrl.ePage.Masters.Menu.ModuleList"
+                                search-contains="true">
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Sub Module</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Sub Module" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.SubModuleCode">
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Display Order</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
                             <input type="text" class="form-control input-sm" placeholder="Display Order" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.DisplayOrder">
@@ -235,7 +247,7 @@
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
                             <span data-ng-click="MenuCtrl.ePage.Masters.Menu.OpenJsonModal('OtherConfig')" class="glyphicon glyphicon-pencil cursor-pointer mr-5"></span>Other Config</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <textarea rows="20" class="form-control input-sm no-resize" placeholder="Fields" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.OtherConfig"></textarea>
+                            <textarea rows="15" class="form-control input-sm no-resize" placeholder="Fields" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.OtherConfig"></textarea>
                         </div>
                     </div>
                 </form>

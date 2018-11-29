@@ -1,0 +1,238 @@
+<div class="clearfix col-lg-12 mt-15 mb-15">
+    <!-- Loading -->
+    <div class="text-center p-20 font-160" data-ng-if="!ConsolOrganizationDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader">
+        <i class="fa fa-spinner fa-spin"></i>
+    </div>
+    <!-- Editable Organization List-->
+    <div class="rows address-panel" data-ng-if="!ConsolOrganizationDetailsCtrl.readOnly">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 pr-0 padding-top-10 address-design">
+            <div class="padding-right-10">
+                <div class="form-group ship-font">
+                    <label class="control-label">Sending Agent</label>
+                    <div class="input-group input-group-sm">
+                        <input type="hidden" ng-model="ConsolOrganizationDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ORG_SendingForwarderFK">
+                        <div dynamic-lookup my-ng-model="ConsolOrganizationDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ORG_SendingForwarderCode"
+                            obj="ConsolOrganizationDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader"
+                            prefix-data="'OrganizationList'" config="'ConGeneralORG_SendingForwarderCode'" placeholder="Sending Agent Code"
+                            auto-complete-on-select="ConsolOrganizationDetailsCtrl.ePage.Masters.SelectedData($item,'OAD_SendingForwarderAddressFK')"></div>
+                        <span class="input-group-btn">
+                            <button dynamic-list-modal obj="ConsolOrganizationDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader"
+                                field-name="'ConGeneralORG_SendingForwarderCode'" prefix-data="'OrganizationList'" mode="2"
+                                grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConsolArrivalDepartureCtrl.ePage.Masters.SelectedData($item.data.entity,'OAD_SendingForwarderAddressFK')"
+                                class="btn btn-default shiny" type="button">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="padding-right-10">
+                <div class="form-group ship-font">
+                    <label class="control-label">Sending Agent Address</label>
+                    <select chosen ng-options="x.PK as x.Code for x in ConsolOrganizationDetailsCtrl.ePage.Masters.DropDownMasterListAddress.OAD_SendingForwarderAddressFK.ListSource"
+                        ng-model="ConsolOrganizationDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader.OAD_SendingForwarderAddressFK"
+                        class="form-control">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 pr-0 padding-top-10 address-consignee">
+            <!--Receiving Agent Code-->
+            <div class="padding-right-10">
+                <div class="form-group ship-font">
+                    <label class="control-label">Receiving Agent</label>
+                    <div class="input-group input-group-sm">
+                        <input type="hidden" ng-model="ConsolOrganizationDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ORG_ReceivingForwarderFK">
+                        <div dynamic-lookup my-ng-model="ConsolOrganizationDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ORG_ReceivingForwarderCode"
+                            obj="ConsolOrganizationDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader"
+                            prefix-data="'OrganizationList'" placeholder="Receiving Agent Code" config="'ConGeneralORG_ReceivingForwarderCode'"
+                            auto-complete-on-select="ConsolOrganizationDetailsCtrl.ePage.Masters.SelectedData($item,'OAD_ReceivingForwarderAddressFK')"></div>
+                        <span class="input-group-btn">
+                            <button dynamic-list-modal obj="ConsolOrganizationDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader"
+                                field-name="'ConGeneralORG_ReceivingForwarderCode'" prefix-data="'OrganizationList'"
+                                mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConsolOrganizationDetailsCtrl.ePage.Masters.SelectedData($item.data.entity,'OAD_ReceivingForwarderAddressFK')"
+                                class="btn btn-default shiny" type="button">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!--Receiving Agent Address-->
+            <div class="padding-right-10">
+                <div class="form-group ship-font">
+                    <label class="control-label">Receiving Agent Address</label>
+                    <select chosen ng-options="x.PK as x.Code for x in ConsolOrganizationDetailsCtrl.ePage.Masters.DropDownMasterListAddress.OAD_ReceivingForwarderAddressFK.ListSource"
+                        ng-model="ConsolOrganizationDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader.OAD_ReceivingForwarderAddressFK"
+                        class="form-control">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 pr-0 padding-top-10 address-consignee">
+            <!--Carrier Code-->
+            <div class="padding-right-10">
+                <div class="form-group ship-font">
+                    <label class="control-label">Carrier</label>
+                    <div class="input-group input-group-sm">
+                        <input type="hidden" ng-model="ConsolOrganizationDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ORG_CarrierFK">
+                        <div dynamic-lookup my-ng-model="ConsolOrganizationDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ORG_CarrierCode"
+                            obj="ConsolOrganizationDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader"
+                            prefix-data="'OrganizationList'" placeholder="Carrier Code" config="'ConGeneralORG_CarrierCode'"
+                            auto-complete-on-select="ConsolOrganizationDetailsCtrl.ePage.Masters.SelectedData($item,'OAD_CarrierAddressFK')"></div>
+                        <span class="input-group-btn">
+                            <button dynamic-list-modal obj="ConsolOrganizationDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader"
+                                field-name="'ConGeneralORG_CarrierCode'" prefix-data="'OrganizationList'" mode="2"
+                                grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConsolOrganizationDetailsCtrl.ePage.Masters.SelectedData($item.data.entity,'OAD_CarrierAddressFK')"
+                                class="btn btn-default shiny" type="button">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="padding-right-10">
+                <div class="form-group ship-font">
+                    <label class="control-label">Carrier Address</label>
+                    <select chosen ng-options="x.PK as x.Code for x in ConsolOrganizationDetailsCtrl.ePage.Masters.DropDownMasterListAddress.OAD_CarrierAddressFK.ListSource"
+                        ng-model="ConsolOrganizationDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader.OAD_CarrierAddressFK"
+                        class="input-group-sm form-control">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix">
+    <!-- Loading -->
+    <div class="text-center p-20 font-160" data-ng-if="!ConsolOrganizationDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader">
+        <i class="fa fa-spinner fa-spin"></i>
+    </div>
+    <fieldset disabled>
+        <div class="row mr-5 ml-5 mt-5 mb-10 address-panel" data-ng-if="ConsolOrganizationDetailsCtrl.readOnly">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 pr-0 padding-top-10 address-design">
+                <div class="padding-bottom-5">
+                    <div class="ship-font">
+                        <label class="control-label">Sending Agent</label>
+                    </div>
+                </div>
+                <div class="padding-right-10">
+                    <div class="form-group">
+                        <div class="input-group input-group-sm">
+                            <input type="hidden" ng-model="ConsolOrganizationDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ORG_SendingForwarderFK">
+                            <div dynamic-lookup my-ng-model="ConsolOrganizationDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ORG_SendingForwarderCode"
+                                obj="ConsolOrganizationDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader"
+                                prefix-data="'OrganizationList'" config="'ConGeneralORG_SendingForwarderCode'"
+                                placeholder="Sending Agent Code" auto-complete-on-select="ConsolOrganizationDetailsCtrl.ePage.Masters.SelectedData($item,'OAD_SendingForwarderAddressFK')"></div>
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal obj="ConsolOrganizationDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader"
+                                    field-name="'ConGeneralORG_SendingForwarderCode'" prefix-data="'OrganizationList'"
+                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConsolArrivalDepartureCtrl.ePage.Masters.SelectedData($item.data.entity,'OAD_SendingForwarderAddressFK')"
+                                    class="btn btn-default shiny" type="button">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="padding-bottom-5">
+                    <div class="ship-font"> <label class="control-label">Sending Agent Address</label>
+                    </div>
+                </div>
+                <div class="padding-right-10">
+                    <div class="form-group ship-font">
+                        <select disabled="true" chosen ng-options="x.PK as x.Code for x in ConsolOrganizationDetailsCtrl.ePage.Masters.DropDownMasterListAddress.OAD_SendingForwarderAddressFK.ListSource"
+                            ng-model="ConsolOrganizationDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader.OAD_SendingForwarderAddressFK"
+                            class="form-control">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 pr-0 padding-top-10 address-consignee">
+                <!--Receiving Agent Code-->
+                <div class="padding-bottom-5">
+                    <div class="ship-font"> <label class="control-label">Receiving Agent</label>
+                    </div>
+                </div>
+                <div class="padding-right-10">
+                    <div class="form-group">
+                        <div class="input-group input-group-sm">
+                            <input type="hidden" ng-model="ConsolOrganizationDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ORG_ReceivingForwarderFK">
+                            <div dynamic-lookup my-ng-model="ConsolOrganizationDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ORG_ReceivingForwarderCode"
+                                obj="ConsolOrganizationDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader"
+                                prefix-data="'OrganizationList'" placeholder="Receiving Agent Code" config="'ConGeneralORG_ReceivingForwarderCode'"
+                                auto-complete-on-select="ConsolOrganizationDetailsCtrl.ePage.Masters.SelectedData($item,'OAD_ReceivingForwarderAddressFK')"></div>
+
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal obj="ConsolOrganizationDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader"
+                                    field-name="'ConGeneralORG_ReceivingForwarderCode'" prefix-data="'OrganizationList'"
+                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConsolOrganizationDetailsCtrl.ePage.Masters.SelectedData($item.data.entity,'OAD_ReceivingForwarderAddressFK')"
+                                    class="btn btn-default shiny" type="button">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!--Receiving Agent Address-->
+                <div class="padding-bottom-5">
+                    <div class="ship-font"> <label class="control-label">Receiving Agent Address</label>
+                    </div>
+                </div>
+                <div class="padding-right-10">
+                    <div class="form-group ship-font">
+                        <select disabled="true" chosen ng-options="x.PK as x.Code for x in ConsolOrganizationDetailsCtrl.ePage.Masters.DropDownMasterListAddress.OAD_ReceivingForwarderAddressFK.ListSource"
+                            ng-model="ConsolOrganizationDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader.OAD_ReceivingForwarderAddressFK"
+                            class="form-control">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 pr-0 padding-top-10">
+                <!--Carrier Code-->
+                <div class="padding-bottom-5">
+                    <div class="ship-font">
+                        <label class="control-label">Carrier</label>
+                    </div>
+                </div>
+                <div class="padding-right-10">
+                    <div class="input-group input-group-sm">
+                        <input type="hidden" ng-model="ConsolOrganizationDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ORG_CarrierFK">
+                        <div dynamic-lookup my-ng-model="ConsolOrganizationDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ORG_CarrierCode"
+                            obj="ConsolOrganizationDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader"
+                            prefix-data="'OrganizationList'" placeholder="Carrier Code" config="'ConGeneralORG_CarrierCode'"
+                            auto-complete-on-select="ConsolOrganizationDetailsCtrl.ePage.Masters.SelectedData($item,'OAD_CarrierAddressFK')"></div>
+                        <span class="input-group-btn">
+                            <button dynamic-list-modal obj="ConsolOrganizationDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader"
+                                field-name="'ConGeneralORG_CarrierCode'" prefix-data="'OrganizationList'" mode="2"
+                                grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConsolOrganizationDetailsCtrl.ePage.Masters.SelectedData($item.data.entity,'OAD_CarrierAddressFK')"
+                                class="btn btn-default shiny" type="button">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+                <!--Carrier Address-->
+                <div class="padding-bottom-5">
+                    <div class="form-group ship-font">
+                        <label class="control-label">Carrier Address</label>
+                    </div>
+                </div>
+                <div class="padding-right-10">
+                    <div class="form-group ship-font">
+                        <select disabled="true" chosen ng-options="x.PK as x.Code for x in ConsolOrganizationDetailsCtrl.ePage.Masters.DropDownMasterListAddress.OAD_CarrierAddressFK.ListSource"
+                            ng-model="ConsolOrganizationDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader.OAD_CarrierAddressFK"
+                            class="input-group-sm form-control">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</div>

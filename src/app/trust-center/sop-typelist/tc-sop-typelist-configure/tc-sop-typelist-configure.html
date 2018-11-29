@@ -1,0 +1,22 @@
+<div class="clearfix">
+    <div class="clearfix">
+        <uib-tabset>
+            <!--Ebpm Typelist-->
+            <uib-tab>
+                <uib-tab-heading title="SOPTypelist">
+                    <i class="fa fa-file-o mr-5"></i>
+                    <span class="text-single-line" data-ng-bind="('SOPTypelist' | translate)"></span>
+                </uib-tab-heading>
+                <div data-ng-include="'app/trust-center/sop-typelist/tc-sop-typelist-configure/tabs/sop-typelist.html'"></div>
+            </uib-tab>
+           <!-- Parties -->
+            <!-- <uib-tab data-ng-if="TCEventConfigureCtrl.ePage.Masters.Event.FormView.PK">
+                <uib-tab-heading title="Parties">
+                    <i class="fa fa-list-alt mr-5"></i>
+                    <span class="text-single-line" data-ng-bind="('Parties' | translate)"></span>
+                </uib-tab-heading>
+                <div data-ng-include="'app/trust-center/event/tc-event-configure/tabs/parties.html'"></div>
+            </uib-tab> -->
+         </uib-tabset>
+    </div>
+</div>

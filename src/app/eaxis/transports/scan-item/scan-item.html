@@ -1,29 +1,61 @@
 <div class="page-content" data-ng-style="(!ScanItemCtrl.ePage.Masters.MenuVisibleType || ScanItemCtrl.ePage.Masters.MenuVisibleType == 'Grid') && {'margin-left': '0'}">
     <div class="clearfix set-bg-white col-lg-12">
-        <div class="dc-header set-bg-dc-headers">
+        <div ng-if="!ScanItemCtrl.ePage.Masters.Admin" class="dc-header set-bg-dc-headers">
             {{ScanItemCtrl.ePage.Masters.ScanItem.Sender}}-{{ScanItemCtrl.ePage.Masters.ScanItem.SenderName}}
         </div>
     </div>
     <div class="col-lg-12 container-fluid mt-5">
         <div class="panel panel-default">
-            <div class="panel-heading" style="color: #073fc3; font-weight: bold;">Item Details
-            </div>
+            <div class="panel-heading" style="color: #073fc3; font-weight: bold;">Item Details</div>
             <div class="panel-body">
-                 <!-- Saving Your Data -->
+                <!-- Saving Your Data -->
                 <div class="grid-loading-norecord-container ng-scope" style='z-index: 4;' data-ng-if="ScanItemCtrl.ePage.Masters.IsLoading">
-                    <div class="grid-no-record">Scanning your Data...</div>
+                    <div class="grid-no-record">
+                        <i class="fa fa-spinner fa-pulse"></i> Scanning...</div>
                 </div>
                 <div class="grid-loading-norecord-container ng-scope" style='z-index: 4;' data-ng-if="ScanItemCtrl.ePage.Masters.IsPending">
-                    <div class="grid-no-record">Loading ...</div>
+                    <div class="grid-no-record">
+                        <i class="fa fa-spinner fa-pulse"></i> Loading...</div>
                 </div>
                 <div class="clearfix padding-top-10">
                     <div class="clearfix">
+                        <!--DC-->
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 col-xl-2">
+                            <!-- <div class="form-group">
+                                <label class="control-label text-single-line">DC</label>
+                                <div class="input-group input-group-sm">
+                                    
+                                    <div dynamic-lookup placeholder="DC" my-ng-model="ScanItemCtrl.ePage.Masters.ScanItem.Sender"
+                                        auto-complete-on-select="ScanItemCtrl.ePage.Masters.SelectedLookupItem($item)"
+                                        obj="ScanItemCtrl.ePage.Masters"
+                                        prefix-data="'OrganizationList'" config="'Sender'">
+                                    </div>
+                                    
+                                    <span class="input-group-btn">
+                                        <button dynamic-list-modal prefix-data="'OrganizationList'" field-name="'Sender'" obj="ScanItemCtrl.ePage.Masters"
+                                            selected-data="ScanItemCtrl.ePage.Masters.SelectedLookupItem($item)" mode="2"
+                                            grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny" type="button">
+                                            <i class="fa fa-ellipsis-h"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div> -->
+                            <div class="form-group">
+                                <label class="control-label text-single-line">DC </label>
+                                <select chosen class="form-control" ng-model="ScanItemCtrl.ePage.Masters.ScanItem.Sender" ng-options="x.Code as x.Code+' - '+ x.FullName for x in ScanItemCtrl.ePage.Masters.DCList"
+                                ng-change="ScanItemCtrl.ePage.Masters.onchangesender(ScanItemCtrl.ePage.Masters.ScanItem.Sender)"
+                                search-contains="true">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                        </div>
+
                         <!--MHU Type-->
                         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 col-xl-2">
                             <div class="form-group">
                                 <label class="control-label text-single-line">MHU Type </label>
                                 <select chosen class="form-control" ng-model="ScanItemCtrl.ePage.Masters.ScanItem.ManifestType" ng-options="x.ProductCode as x.ProductCode+' - '+ x.ProductDescription for x in ScanItemCtrl.ePage.Masters.MHUType"
-                                    ng-change="ScanItemCtrl.ePage.Masters.onchangemanifest(ScanItemCtrl.ePage.Masters.ScanItem.ManifestType)"    
+                                    ng-change="ScanItemCtrl.ePage.Masters.onchangemanifest(ScanItemCtrl.ePage.Masters.ScanItem.ManifestType)"
                                     search-contains="true">
                                     <option value="">--Select--</option>
                                 </select>
@@ -31,10 +63,23 @@
                         </div>
                         <!--SSCC ID-->
                         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 col-xl-2">
-                            <div class="form-group">
-                                <label class="control-label text-single-line">SSCC ID </label>
-                                <input type="text" class="form-control input-sm" id="SSCCID" ng-model="ScanItemCtrl.ePage.Masters.ScanItem.SSCCID" capitalize ng-blur="ScanItemCtrl.ePage.Masters.StoreLocation(ScanItemCtrl.ePage.Masters.ScanItem.SSCCID)">
+                            <label class="hidden-xs control-label text-single-line">SSCC ID 
+                            </label>  
+                            <div class="input-group input-group-sm hidden-xs">
+                                <input type="text" class="form-control" ng-model="ScanItemCtrl.ePage.Masters.ScanItem.SSCCID" ng-keydown="ScanItemCtrl.ePage.Masters.handle($event)" no-special-except-comma capitalize>
+                                    <span class="input-group-btn" >
+                                        <button class="btn btn-default shiny" type="button" placeholder="SSCCID" ng-click="ScanItemCtrl.ePage.Masters.StoreLocation(ScanItemCtrl.ePage.Masters.ScanItem.SSCCID)">
+                                        <i class="fa fa-search"></i>
+                                        </button>
+                                    </span>
                             </div>
+                            <div class="form-group hidden-lg hidden-md hidden-sm">
+                                <label class="control-label text-single-line">SSCC ID </label>
+                                <input type="text" class="form-control input-sm" id="SSCCID" ng-model="ScanItemCtrl.ePage.Masters.ScanItem.SSCCID" no-special-except-comma capitalize
+                                ng-blur="ScanItemCtrl.ePage.Masters.StoreLocation(ScanItemCtrl.ePage.Masters.ScanItem.SSCCID)"
+                                ng-keydown="ScanItemCtrl.ePage.Masters.handle($event)">
+                            </div>
+                            <!-- ng-blur="ScanItemCtrl.ePage.Masters.StoreLocation(ScanItemCtrl.ePage.Masters.ScanItem.SSCCID)" -->
                         </div>
                         <!--Sender-->
                         <!-- <div class="col-xs-12 col-sm-4 col-md-4 col-lg-2 col-xl-2">
@@ -61,95 +106,99 @@
                         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 col-xl-2">
                             <div class="form-group">
                                 <label class="control-label text-single-line">Depot</label>
-                                <select chosen class="form-control" ng-model="ScanItemCtrl.ePage.Masters.ScanItem.Depot"
-                                 ng-options="x.ORG_MappingToCode as x.ORG_MappingToCode+' - '+ x.ORG_MappingToName for x in ScanItemCtrl.ePage.Masters.PartyDetails"
+                                <input title="{{ScanItemCtrl.ePage.Masters.ScanItem.Depot}}" type="text" readonly="" class="form-control input-sm" ng-model="ScanItemCtrl.ePage.Masters.ScanItem.Depot">
+                                <!-- <select chosen class="form-control" ng-model="ScanItemCtrl.ePage.Masters.ScanItem.Depot" ng-options="x.ORG_MappingToCode as x.ORG_MappingToCode+' - '+ x.ORG_MappingToName for x in ScanItemCtrl.ePage.Masters.PartyDetails"
                                     search-contains="true" ng-change="ScanItemCtrl.ePage.Masters.OnChangeDepot(ScanItemCtrl.ePage.Masters.ScanItem.Depot)">
-                                <option value="">--Select--</option>
-                                </select>
+                                    <option value="">--Select--</option>
+                                </select> -->
                             </div>
                         </div>
                         <!--Length-->
-                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2 col-xl-2">
+                        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-2 col-xl-2">
                             <div class="form-group">
                                 <label class="control-label text-single-line">Length</label>
-                                <input type="text" readonly="" class="form-control input-sm" ng-model="ScanItemCtrl.ePage.Masters.ScanItem.Depth">
+                                <input type="text" numbers-only class="form-control input-sm" ng-model="ScanItemCtrl.ePage.Masters.ScanItem.Length" ng-change="ScanItemCtrl.ePage.Masters.OnChangeItemValue()">
                             </div>
                         </div>
                         <!--Width-->
-                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2 col-xl-2">
+                        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-2 col-xl-2">
                             <div class="form-group">
                                 <label class="control-label text-single-line">Width</label>
-                                <input type="text" readonly="" class="form-control input-sm" ng-model="ScanItemCtrl.ePage.Masters.ScanItem.Width">
+                                <input type="text" numbers-only class="form-control input-sm" ng-model="ScanItemCtrl.ePage.Masters.ScanItem.Width" ng-change="ScanItemCtrl.ePage.Masters.OnChangeItemValue()">
                             </div>
                         </div>
                         <!--Height-->
-                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2 col-xl-2">
+                        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-2 col-xl-2">
                             <div class="form-group">
                                 <label class="control-label text-single-line">Height</label>
-                                <input type="text" readonly="" class="form-control input-sm" ng-model="ScanItemCtrl.ePage.Masters.ScanItem.Height">
+                                <input type="text" numbers-only class="form-control input-sm" ng-model="ScanItemCtrl.ePage.Masters.ScanItem.Height" ng-change="ScanItemCtrl.ePage.Masters.OnChangeItemValue()">
                             </div>
                         </div>
                         <!--Weight-->
-                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2 col-xl-2">
+                        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-2 col-xl-2">
                             <div class="form-group">
                                 <label class="control-label text-single-line">Weight</label>
-                                <input type="text" readonly="" class="form-control input-sm" ng-model="ScanItemCtrl.ePage.Masters.ScanItem.Weight">
+                                <input type="text" numbers-only class="form-control input-sm" ng-model="ScanItemCtrl.ePage.Masters.ScanItem.Weight">
                             </div>
                         </div>
                         <!--Event-->
-                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 col-xl-2">
+                        <div class="col-xs-12 col-sm-3 col-md-4 col-lg-2 col-xl-2">
                             <div class="form-group">
                                 <label class="control-label text-single-line">Event</label>
-                                <select chosen class="form-control" ng-model="ScanItemCtrl.ePage.Masters.ScanItem.EventFK" ng-change="ScanItemCtrl.ePage.Masters.OnChangeEvent(ScanItemCtrl.ePage.Masters.ScanItem.EventFK)" ng-options="x.PK as x.ReferenceKey+ ' - ' + x.ReferenceValue for x in ScanItemCtrl.ePage.Masters.PresentEvent"
+                                <select chosen class="form-control" ng-model="ScanItemCtrl.ePage.Masters.ScanItem.EventFK" ng-change="ScanItemCtrl.ePage.Masters.OnChangeEvent(ScanItemCtrl.ePage.Masters.ScanItem.EventFK)"
+                                    ng-options="x.PK as x.ReferenceKey+ ' - ' + x.ReferenceValue for x in ScanItemCtrl.ePage.Masters.PresentEvent"
                                     search-contains="true">
-                                <option value="">--Select--</option>
+                                    <option value="">--Select--</option>
                                 </select>
                             </div>
                         </div>
                         <!--Consol-->
-                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-2 col-xl-2">
+                        <div class="col-xs-12 col-sm-3 col-md-4 col-lg-2 col-xl-2">
                             <div class="form-group">
                                 <label class="control-label text-single-line">Consol</label>
-                                <select chosen class="form-control" ng-model="ScanItemCtrl.ePage.Masters.ScanItem.ConsolFK" ng-change="ScanItemCtrl.ePage.Masters.OnChangeConsol(ScanItemCtrl.ePage.Masters.ScanItem.ConsolFK)" ng-options="x.PK as x.ReferenceKey+ ' - ' + x.ReferenceValue for x in ScanItemCtrl.ePage.Masters.PresentConsol"
+                                <select chosen class="form-control" ng-model="ScanItemCtrl.ePage.Masters.ScanItem.ConsolFK" ng-change="ScanItemCtrl.ePage.Masters.OnChangeConsol(ScanItemCtrl.ePage.Masters.ScanItem.ConsolFK)"
+                                    ng-options="x.PK as x.ReferenceKey+ ' - ' + x.ReferenceValue for x in ScanItemCtrl.ePage.Masters.PresentConsol"
                                     search-contains="true">
-                                <option value="">--Select--</option>
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!--Tags-->
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-2">
+                            <div class="form-group">
+                                <label class="control-label text-single-line">Tag</label>
+                                <select chosen multiple class="form-control scan-item-multi" ng-model="ScanItemCtrl.ePage.Masters.ScanItem.Tagarray" ng-change="ScanItemCtrl.ePage.Masters.OnChangeTag(ScanItemCtrl.ePage.Masters.ScanItem.Tagarray)"
+                                    ng-options="x.Key as x.Key+ ' - ' + x.Value for x in ScanItemCtrl.ePage.Masters.DropDownMasterList.Tags.ListSource"
+                                    search-contains="true">
                                 </select>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="margin-top: -30px;">
                             <div class="col-lg-10 col-md-8"></div>
-                            <div class="col-lg-1 col-md-2"><button class="btn grays attach" data-ng-click="ScanItemCtrl.ePage.Masters.Cancel()">Cancel</button> </div>
-                            <div class="col-lg-1 col-md-2"><button class="btn btn-blue attach pull-right" data-ng-click="ScanItemCtrl.ePage.Masters.Save()">OK </button> </div>
-                        </div>    
+                            <div class="col-lg-1 col-md-2">
+                                <button class="btn grays attach" data-ng-click="ScanItemCtrl.ePage.Masters.Cancel()">Cancel</button>
+                            </div>
+                            <div class="col-lg-1 col-md-2">
+                                <button class="btn btn-blue attach pull-right" data-ng-click="ScanItemCtrl.ePage.Masters.Save()">OK </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- <div class="panel panel-default" ng-show = "ScanItemCtrl.ePage.Masters.ismanifestshows">
-            <div class="panel-heading" style="color: crimson; font-weight: bold;">Manifest
-            </div>
-            <div class="panel-body">
-                <div class="clearfix padding-top-10">
-                    <div class="clearfix">
-                        <div class="col-lg-1 col-sm-2" ng-repeat="x in  ScanItemCtrl.ePage.Masters.ManifestNolist | filter:{ManifestStatus:'DRF'}">
-                         <a href="" ng-click="ScanItemCtrl.ePage.Masters.OpenManifest(this.x)"> {{x.ManifestNumber}}</a>
-                        </div>            
-                    </div>    
-                </div>    
-            </div>    
-        </div> -->   
-        <!-- Saving Your Data -->
-        <div class="grid-loading-norecord-container ng-scope" style='margin-top: 150px' data-ng-if="ScanItemCtrl.ePage.Masters.IsLoadingToSave">
-            <div class="grid-no-record">Saving your Data...</div>
+        <div class="grid-loading-norecord-container ng-scope" style='margin-top: 60px' data-ng-if="ScanItemCtrl.ePage.Masters.IsLoadingToSave">
+            <div class="grid-no-record">
+                <i class="fa fa-spinner fa-pulse"></i>Saving your Data...</div>
         </div>
-        <div class="col-lg-3 col-xs-12 col-md-6 col-sm-6 mb-5" ng-show = "ScanItemCtrl.ePage.Masters.ismanifestshows" ng-repeat="x in  ScanItemCtrl.ePage.Masters.ManifestNolist | filter:{ManifestStatus:'DRF'}">
+        <div class="col-lg-3 col-xs-12 col-md-6 col-sm-6 mb-5" ng-show="ScanItemCtrl.ePage.Masters.ismanifestshows" ng-repeat="x in  ScanItemCtrl.ePage.Masters.ManifestNolist | filter:{ManifestStatus:'DRF'}">
             <div class="card">
                 <div class="content">
                     <div class="row">
                         <div class="col-xs-12 col-lg-12">
-
                             <div class="col-xs-9 col-lg-9">
-                                <p style="font-size: 13px;font-weight: bold;">{{x.ManifestNumber}}</p>
+                                <p class="fs-13 height-45">
+                                    <b>{{x.ManifestNumber}}</b>
+                                </p>
                             </div>
                             <div class="col-xs-3 col-lg-3 no-padding">
                                 <a href="" class="col-white" ng-click="ScanItemCtrl.ePage.Masters.OpenManifest(this.x)">
@@ -158,69 +207,69 @@
                                     </div>
                                 </a>
                             </div>
-                        </div>    
-                        
+                        </div>
+
                         <div class="col-xs-12 col-lg-12">
                             <div class="col-xs-4 col-lg-4">
-                                <span class="col-dgray pull-left" style="margin-top: 13px;">         {{x.ManifestType || ScanItemCtrl.ePage.Masters.emptyText}}
+                                <span class="col-dgray pull-left" style="margin-top: 13px;"> {{x.ManifestType || ScanItemCtrl.ePage.Masters.emptyText}}
                                 </span>
                             </div>
                             <div class="col-xs-8 col-lg-8">
                                 <span title="{{x.ReceiverName}}" class="contd ol-dgray pull-right" style="margin-top: 13px;">{{x.ReceiverName || ScanItemCtrl.ePage.Masters.emptyText}}</span>
                             </div>
-                        </div>    
-                    </div>
-                    <hr style="margin-top: 10px;margin-bottom: 10px;">
-                    <!-- <div class="footer"> -->
-                        <div class="clearfix">
-                            <div class="col-xs-9 col-lg-9 fs-10" >
-                                <span class="col-dgray pull-left">{{x.EstimatedDeliveryDate | date : 'dd-MMM-yyyy' }}</span>
-                            </div>
-
-                            <div class="col-xs-3 col-lg-3" >
-                                <a href="" ng-click="ScanItemCtrl.ePage.Masters.MoreManifest(this.x)" class="pull-right fs-10" >More...</a>
-                            </div>
                         </div>
-                    <!-- </div> -->
+                    </div>
                 </div>
+                <hr class="mt-10 mb-5">
+                <!-- <div class="footer"> -->
+                <div class="clearfix">
+                    <div class="col-xs-9 col-lg-9 fs-10">
+                        <span class="col-dgray pull-left">{{x.EstimatedDeliveryDate | date : 'dd-MMM-yyyy' }}</span>
+                    </div>
+
+                    <div class="col-xs-3 col-lg-3">
+                        <a href="" ng-click="ScanItemCtrl.ePage.Masters.MoreManifest(this.x)" class="pull-right fs-10">More...</a>
+                    </div>
+                </div>
+                <!-- </div> -->
                 <div class="plan" ng-if="x.IsManifestVisible">
                     <!-- <a class="pull-right" ng-click="ScanItemCtrl.ePage.Masters.CloseManifest(this.x)" href="">Close</a> -->
-                    <div class="header bordered-yellow">
+                    <div class="headers bordered-aqua">
                         <span class="text-single-line" title="{{x.ManifestNumber}}">{{x.ManifestNumber}} - </span>
                         <span>{{x.ManifestStatusDesc}} -</span>
                         <span>{{x.ManifestType}}</span>
                     </div>
-                    <div class="price yellow">
-                        <!-- <ul class="ls-none">
-                            <li>ActualDeliveryDate:{{x.ActualDeliveryDate| dateFormat}}</li>
-                            <li>ActualDispatchDate:{{x.ActualDispatchDate| dateFormat}}</li>
-                            <li>EstimatedDeliveryDate:{{x.EstimatedDeliveryDate| dateFormat}}</li>
-                            <li>EstimatedDispatchDate:{{x.EstimatedDispatchDate| dateFormat}}</li>
-                        </ul> -->
-                            <div>
-                                <span>ActualDeliveryDate</span>
-                                <span class="date">{{x.ActualDeliveryDate|| ScanItemCtrl.ePage.Masters.emptyText}}</span>
-                            </div>
-                            <div>
-                                <span>ActualDispatchDate</span>
-                                <span class="date">{{x.ActualDispatchDate || ScanItemCtrl.ePage.Masters.emptyText}}</span>
-                            </div>    
-                            <div>
-                                <span>EstimatedDeliveryDate</span>
-                                <span class="date">{{x.EstimatedDeliveryDate|| ScanItemCtrl.ePage.Masters.emptyText}}</span>
-                            </div>
-                            <div>    
-                                <span>EstimatedDispatchDate</span>
-                                <span class="date">{{x.EstimatedDispatchDate ||ScanItemCtrl.ePage.Masters.emptyText }}</span>    
-                            </div>    
+                    <div class="price aqua">
+                        <div>
+                            <span>ActualDeliveryDate</span>
+                            <span class="date">{{x.ActualDeliveryDate|| ScanItemCtrl.ePage.Masters.emptyText}}</span>
+                        </div>
+                        <div>
+                            <span>ActualDispatchDate</span>
+                            <span class="date">{{x.ActualDispatchDate || ScanItemCtrl.ePage.Masters.emptyText}}</span>
+                        </div>
+                        <div>
+                            <span>EstimatedDeliveryDate</span>
+                            <span class="date">{{x.EstimatedDeliveryDate|| ScanItemCtrl.ePage.Masters.emptyText}}</span>
+                        </div>
+                        <div>
+                            <span>EstimatedDispatchDate</span>
+                            <span class="date">{{x.EstimatedDispatchDate ||ScanItemCtrl.ePage.Masters.emptyText }}</span>
+                        </div>
                     </div>
                     <div class="monthly mt-10">
-                        <div class="pull-left">Transporter Details :</div> 
-                        <div class="pull-left ml-5 text-single-line" title="{{x.TransporterCode}} - {{x.TransporterName}}">{{x.TransporterCode}} - {{x.TransporterName}}</div></br>
-                        <div class="pull-left ml-5">{{x.VehicleNo}}</div></br>
-                        <div class="pull-left ml-5">{{x.VehicleTypeCode}}-{{x.VehicleTypeDescription}}</div>
+                        <div class="pull-left">Transporter Details :
+                        </div>
+                        <div class="pull-left ml-5 text-single-line" title="{{x.TransporterCode}} - {{x.TransporterName}}">{{x.TransporterCode}} - {{x.TransporterName}}
+                        </div>
+                        </br>
+                        <div class="pull-left ml-5">{{x.VehicleNo}}
+                        </div>
+                        </br>
+                        <div class="pull-left ml-5">{{x.VehicleTypeCode}}-{{x.VehicleTypeDescription}}
+                        </div>
                     </div>
-                    <a class="signup bg-yellow" ng-click="ScanItemCtrl.ePage.Masters.CloseManifest(this.x)" href="">Close</a>
+                    <a class="signup bg-aqua" ng-click="ScanItemCtrl.ePage.Masters.CloseManifest(this.x)" href="">Close</a>
                 </div>
             </div>
         </div>

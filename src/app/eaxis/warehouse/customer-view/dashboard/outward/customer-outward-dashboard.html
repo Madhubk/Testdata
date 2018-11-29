@@ -1,0 +1,139 @@
+<div class="page-content" data-ng-style="(!DashboardCtrl.ePage.Masters.MenuVisibleType || DashboardCtrl.ePage.Masters.MenuVisibleType == 'Grid') && {'margin-left': '0'}">
+    <!-- List Empty Response -->
+    <div class="dashboard-loading" data-ng-show="DashboardCtrl.ePage.Masters.IsLoading"></div>
+    <div class="clearfix border-bottom set-bg-white pt-20 pb-20">
+        <div class="col-lg-5 mt-5">
+            <span class="dashboard-inward-icon-box menu-icon icomoon icon-inward set-color-blue fs-22"></span>
+            <span class="dashboard-inward-title ml-10 fs-25">Customer Dashboard</span>
+        </div>
+        <div class="col-lg-7">
+            <div class="text-right">
+                <select class="btn btn-default select-rounded fs-12" ng-model="DashboardCtrl.ePage.Masters.userselected" ng-options="x.WarehouseCode+'-'+x.WarehouseName for x in DashboardCtrl.ePage.Masters.WarehouseDetails"
+                    ng-change="DashboardCtrl.ePage.Masters.Getsummarydetails(DashboardCtrl.ePage.Masters.userselected)"
+                    search-contains="true"></select>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-9">
+        <div class="row mt-15">
+            <div class="col-lg-6">
+                <div class="card card-chart p-15" data-count="10">
+                    <div class="card-header" data-background-color="rose" data-header-animation="true">
+                        <div class="ct-chart">
+                            <canvas id="lineChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-title fs-18">Outward Trends</div>
+                        <p class="category">Last 7 days outward details</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card card-chart p-15" data-count="10">
+                    <div class="card-header" data-background-color="green" data-header-animation="true">
+                        <div class="ct-chart">
+                            <canvas id="myChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-title fs-18">Product Wise Trends</div>
+                        <p class="category">Total Product and Units in Inventory Details</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="rows set-bg-white p-15 mt-20">
+            <div class="table-height">
+                <table class="table">
+                    <thead class="set-bg-f5f5f5">
+                        <tr>
+                            <th scope="col">Outward</th>
+                            <th scope="col">Total Packs</th>
+                            <th scope="col">Total Units</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat='x in DashboardCtrl.ePage.Masters.TableValues'>
+                            <td>{{x.Count}}</td>
+                            <td>{{x.TotalPacks}}</td>
+                            <td>{{x.TotalUnits}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3">
+        <div class="rows mt-15 set-bg-white p-15">
+            <div class="rows set-bg-white border-f5f5f5">
+                <div class="rows set-bg-blue-light">
+                    <span class="p-10 pull-left">Today Dispatch</span>
+                    <span class="inward-dashboard-icon fs-20">
+                                <i class="fa fa-calendar"></i>
+                            </span>
+                </div>
+                <div class="rows p-15 pt-5 text-center">
+                    <div class="fs-30">{{OutwardDashboardCtrl.ePage.Masters.SummaryDetails.TodayOrders ||'0'}}</div>
+                    <div class="inward-dashboard-details">Goods will Dispatch today</div>
+                </div>
+            </div>
+
+            <div class="rows set-bg-white border-f5f5f5 mt-15">
+                <div class="rows set-bg-blue-light">
+                    <span class="p-10 pull-left">Pending Dispatch</span>
+                    <span class="inward-dashboard-icon fs-20">
+                                <i class="fa fa-sticky-note"></i>
+                            </span>
+                </div>
+                <div class="rows p-15 pt-5 text-center">
+                    <div class="fs-30">
+                        {{OutwardDashboardCtrl.ePage.Masters.SummaryDetails.PendingOrders ||'0'}}</div>
+                    <div class="inward-dashboard-details">Goods Dispatched</div>
+                </div>
+            </div>
+
+            <div class="rows set-bg-white border-f5f5f5 mt-15">
+                <div class="rows set-bg-blue-light">
+                    <span class="p-10 pull-left">Waitng For Load</span>
+                    <span class="inward-dashboard-icon fs-20">
+                                <i class="fa fa-truck"></i>
+                            </span>
+                </div>
+                <div class="rows p-15 pt-5 text-center">
+                    <div class="fs-30">{{OutwardDashboardCtrl.ePage.Masters.SummaryDetails.WaitingForLoad ||'0'}}</div>
+                    <div class="inward-dashboard-details">Goods Dispatched and waiting for load</div>
+                </div>
+            </div>
+            <div class="rows set-bg-white border-f5f5f5 mt-15">
+                <div class="rows set-bg-blue-light">
+                    <span class="p-10 pull-left">Waitng For Pick</span>
+                    <span class="inward-dashboard-icon fs-20">
+                                <i class="fa fa-list"></i>
+                            </span>
+                </div>
+                <div class="rows p-15 pt-5 text-center">
+                    <div class="fs-30">
+                        {{OutwardDashboardCtrl.ePage.Masters.SummaryDetails.InPick ||'0'}}</div>
+                    <div class="inward-dashboard-details">Waiting for Pick</div>
+                </div>
+            </div>
+            <div class="rows set-bg-white border-f5f5f5 mt-15">
+                <div class="rows set-bg-blue-light">
+                    <span class="p-10 pull-left">Unfinalized</span>
+                    <span class="inward-dashboard-icon fs-20">
+                                <i class="fa fa-thumbs-down"></i>
+                            </span>
+                </div>
+                <div class="rows p-15 pt-5 text-center">
+                    <div class="fs-30">
+                        {{OutwardDashboardCtrl.ePage.Masters.SummaryDetails.UnFinalized ||'0'}}</div>
+                    <div class="inward-dashboard-details">Pick completed and not finalized</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -5,9 +5,9 @@
         .module("Application")
         .controller("LoginHistoryController", LoginHistoryController);
 
-    LoginHistoryController.$inject = ["$scope", "$location", "$timeout", "authService", "apiService", "helperService", "APP_CONSTANT", "appConfig", "toastr", "trustCenterConfig"];
+    LoginHistoryController.$inject = ["$location", "$timeout", "authService", "apiService", "helperService", "APP_CONSTANT", "trustCenterConfig"];
 
-    function LoginHistoryController($scope, $location, $timeout, authService, apiService, helperService, APP_CONSTANT, appConfig, toastr, trustCenterConfig) {
+    function LoginHistoryController($location, $timeout, authService, apiService, helperService, APP_CONSTANT, trustCenterConfig) {
         /* jshint validthis: true */
         var LoginHistoryCtrl = this;
         var _queryString = $location.path().split("/").pop();
@@ -61,10 +61,15 @@
                 IsRequireQueryString: false,
                 IsActive: false
             }, {
-                Code: "system",
-                Description: "System",
-                Link: "TC/dashboard/" + helperService.encryptData('{"Type":"System", "BreadcrumbTitle": "System"}'),
-                IsRequireQueryString: false,
+                Code: "dashboard",
+                Description: "Dashboard",
+                Link: "TC/dashboard",
+                IsRequireQueryString: true,
+                QueryStringObj: {
+                    "AppPk": LoginHistoryCtrl.ePage.Masters.QueryString.AppPk,
+                    "AppCode": LoginHistoryCtrl.ePage.Masters.QueryString.AppCode,
+                    "AppName": LoginHistoryCtrl.ePage.Masters.QueryString.AppName
+                },
                 IsActive: false
             }, {
                 Code: "user",
@@ -143,10 +148,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.SecLoginHistory.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.SecLoginHistory.API.FindAll.FilterID
             };
 
-            apiService.post("authAPI", appConfig.Entities.SecLoginHistory.API.FindAll.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("authAPI", trustCenterConfig.Entities.API.SecLoginHistory.API.FindAll.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     LoginHistoryCtrl.ePage.Masters.LoginHistory.ListSource = response.data.Response;
 
@@ -212,10 +217,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.SecSessionActivity.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.SecSessionActivity.API.FindAll.FilterID
             };
 
-            apiService.post("authAPI", appConfig.Entities.SecSessionActivity.API.FindAll.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("authAPI", trustCenterConfig.Entities.API.SecSessionActivity.API.FindAll.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     LoginHistoryCtrl.ePage.Masters.SessionActivity.ListSource = response.data.Response;
                 } else {
@@ -255,10 +260,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.NLog.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.NLog.API.FindAll.FilterID
             };
 
-            apiService.post("authAPI", appConfig.Entities.NLog.API.FindAll.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("authAPI", trustCenterConfig.Entities.API.NLog.API.FindAll.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     LoginHistoryCtrl.ePage.Masters.NLog.ListSource = response.data.Response;
                 } else {
@@ -306,10 +311,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.ElmahError.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.ElmahError.API.FindAll.FilterID
             };
 
-            apiService.post("authAPI", appConfig.Entities.ElmahError.API.FindAll.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("authAPI", trustCenterConfig.Entities.API.ElmahError.API.FindAll.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     LoginHistoryCtrl.ePage.Masters.ElmahError.ListSource = response.data.Response;
                 } else {

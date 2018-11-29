@@ -1,0 +1,131 @@
+<div class="clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding" data-ng-if="!ConsolGridCtrl.readOnly">
+        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0">
+            <span>
+                <button data-ng-disabled="ConsolGridCtrl.ePage.Entities.Header.Data.UIConShpMappings.length>0 && ConsolGridCtrl.btnVisible.Attach"
+                    dynamic-list-modal obj="ConsolGridCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'ConsolHeader'"
+                    control-id="'ShpAttachConsol'" control-key="ShpAttachConsol_3122" mode="3" is-full-obj="true"
+                    grid-refresh-fun-name="GetConsolDetails" grid-refresh-fun="ConsolGridCtrl.ePage.Masters.GridRefreshFun($item)"
+                    selected-data="ConsolGridCtrl.ePage.Masters.SelectedConsoleData($item)" class="btn btn-sm btn-outline-primary font-10"
+                    type="button" title="Add New"><span class="fa fa-plus"></span>&nbsp;&nbsp;Attach</button>
+            </span>
+            <span>
+                <button data-ng-disabled="ConsolGridCtrl.ePage.Entities.Header.Data.UIConShpMappings.length>0 && ConsolGridCtrl.btnVisible.AddNew"
+                    dynamic-list-modal obj="ConsolGridCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'ConsolHeader'"
+                    control-id="'ShpAttachConsol'" control-key="ShpAttachConsol_3122" mode="3" is-full-obj="true"
+                    grid-refresh-fun-name="GetConsolDetails" grid-refresh-fun="ConsolGridCtrl.ePage.Masters.GridRefreshFun($item)"
+                    selected-data="ConsolGridCtrl.ePage.Masters.SelectedConsoleData($item)" class="btn btn-sm btn-outline-primary font-10"
+                    type="button" title="Add New"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button>
+            </span>
+            <span>
+                <button data-ng-if="ConsolGridCtrl.btnVisible.Delete && ConsolGridCtrl.ePage.Entities.Header.Data.UIConShpMappings.length>0" data-ng-disabled="ConsolGridCtrl.ePage.Masters.selectedRow==-1"
+                    type="button" class="btn btn-sm btn-outline-primary font-10" title="Delete" data-ng-click="ConsolGridCtrl.ePage.Masters.SelectedGridRowConsol(ConsolGridCtrl.ePage.Masters.selectedRowObj) && ConsolGridCtrl.ePage.Masters.selectedRow!=-1">
+                    <span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button>
+            </span>
+            <span>
+                <button data-ng-if="ConsolGridCtrl.btnVisible.More" type="button" data-ng-disabled="ConsolGridCtrl.ePage.Masters.selectedRow==-1"
+                    class="btn btn-sm btn-outline-primary font-10" title="More" data-ng-click="ConsolGridCtrl.ePage.Masters.Routing.More(ConsolGridCtrl.ePage.Masters.selectedRow) && ConsolGridCtrl.ePage.Masters.selectedRow!=-1">
+                    <span class="fa fa-ellipsis-v"></span>&nbsp;&nbsp;More</button>
+            </span>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 p-0">
+            &nbsp;
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0">
+            &nbsp;
+        </div>
+    </div>
+    <div id="ConsolGridCtrl.ePage.Entities.Header.Data.UIConShpMappings.ConsolNo" class="fixedheader mb-0">
+
+        <table id="ConsolGridCtrl.ePage.Masters.AddScroll" style="height:200px;">
+            <thead>
+                <tr id="tableHeader">
+                    <th id="Consol" data-ng-if="ConsolGridCtrl.ePage.Masters.TableProperties.UIConShpMappings.HeaderProperties.ConsolNo.isenabled"
+                        data-ng-style="{ 'width': ConsolGridCtrl.ePage.Masters.TableProperties.UIConShpMappings.HeaderProperties.ConsolNo.width + 'px' }"
+                        title="Consol">Consol #</th>
+                    <th id="POL" data-ng-if="ConsolGridCtrl.ePage.Masters.TableProperties.UIConShpMappings.HeaderProperties.POL.isenabled"
+                        data-ng-style="{ 'width': ConsolGridCtrl.ePage.Masters.TableProperties.UIConShpMappings.HeaderProperties.POL.width + 'px' }"
+                        title="POL">POL</th>
+                    <th id="POD" data-ng-if="ConsolGridCtrl.ePage.Masters.TableProperties.UIConShpMappings.HeaderProperties.POD.isenabled"
+                        data-ng-style="{ 'width': ConsolGridCtrl.ePage.Masters.TableProperties.UIConShpMappings.HeaderProperties.POD.width + 'px' }"
+                        title="POD">POD</th>
+                    <th id="MBL" data-ng-if="ConsolGridCtrl.ePage.Masters.TableProperties.UIConShpMappings.HeaderProperties.MBL.isenabled"
+                        data-ng-style="{ 'width': ConsolGridCtrl.ePage.Masters.TableProperties.UIConShpMappings.HeaderProperties.MBL.width + 'px' }"
+                        title="MBL">MBL</th>
+                    <th id="Mode" data-ng-if="ConsolGridCtrl.ePage.Masters.TableProperties.UIConShpMappings.HeaderProperties.Mode.isenabled"
+                        data-ng-style="{ 'width': ConsolGridCtrl.ePage.Masters.TableProperties.UIConShpMappings.HeaderProperties.Mode.width + 'px' }"
+                        title="Mode">Mode</th>
+                    <th id="Mode" data-ng-if="ConsolGridCtrl.ePage.Masters.TableProperties.UIConShpMappings.HeaderProperties.Action.isenabled"
+                        data-ng-style="{ 'width': ConsolGridCtrl.ePage.Masters.TableProperties.UIConShpMappings.HeaderProperties.Action.width + 'px' }"
+                        title="Action">Action</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <tr id="tableBody" data-ng-if="ConsolGridCtrl.ePage.Entities.Header.Data.UIConShpMappings && ConsolGridCtrl.ePage.Entities.Header.Data.UIConShpMappings.length > 0"
+                    data-ng-class="{row_active: (ConsolGridCtrl.ePage.Masters.selectedRow==$index)}" 
+                    data-ng-click="ConsolGridCtrl.ePage.Masters.selectedRow = $index;ConsolGridCtrl.ePage.Masters.selectedRowObj=x"
+                    data-ng-repeat="x in ConsolGridCtrl.ePage.Entities.Header.Data.UIConShpMappings">
+                    <td id="Consol" data-ng-if="ConsolGridCtrl.ePage.Masters.TableProperties.UIConShpMappings.consolNo.isenabled"
+                        data-ng-style="{ 'width': ConsolGridCtrl.ePage.Masters.TableProperties.UIConShpMappings.consolNo.width + 'px' }">
+                        {{x.ConsolNo}}
+                    </td>
+                    <td id="POL" data-ng-if="ConsolGridCtrl.ePage.Masters.TableProperties.UIConShpMappings.POL.isenabled"
+                        data-ng-style="{ 'width': ConsolGridCtrl.ePage.Masters.TableProperties.UIConShpMappings.POL.width + 'px' }">
+                        {{x.FirstLoadPort}}
+                    </td>
+                    <td id="POD" data-ng-if="ConsolGridCtrl.ePage.Masters.TableProperties.UIConShpMappings.POD.isenabled"
+                        data-ng-style="{ 'width': ConsolGridCtrl.ePage.Masters.TableProperties.UIConShpMappings.POD.width + 'px' }">
+                        <div data-ng-if="$index!=ConsolGridCtrl.ePage.Masters.selectedRow || ConsolGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.LastDischargePort}}
+                        </div>
+                    </td>
+                    <td id="MBL" data-ng-if="ConsolGridCtrl.ePage.Masters.TableProperties.UIConShpMappings.MBL.isenabled"
+                        data-ng-style="{ 'width': ConsolGridCtrl.ePage.Masters.TableProperties.UIConShpMappings.MBL.width + 'px' }">
+                        {{x.MasterBillNo}}
+                    </td>
+                    <td id="Mode" data-ng-if="ConsolGridCtrl.ePage.Masters.TableProperties.UIConShpMappings.Mode.isenabled"
+                        data-ng-style="{ 'width': ConsolGridCtrl.ePage.Masters.TableProperties.UIConShpMappings.Mode.width + 'px' }">
+                        {{x.ContainerMode}}
+                    </td>
+                    <td id="Action" data-ng-if="ConsolGridCtrl.ePage.Masters.TableProperties.UIConShpMappings.Action.isenabled"
+                        data-ng-style="{ 'width': ConsolGridCtrl.ePage.Masters.TableProperties.UIConShpMappings.Action.width + 'px' }">
+                        <div class='table_cell'>
+                            <span>
+                                <a href="">
+                                    <i class="fa fa-trash order-icon" data-ng-click="ConsolGridCtrl.ePage.Masters.SelectedGridRowConsol(x)"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="grid-no-record" data-ng-if="ConsolGridCtrl.ePage.Entities.Header.Data.UIConShpMappings.length == 0">No
+            records found...</div>
+    </div>
+    <!-- Pagination -->
+    <div class="mr-10 ml-10">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pagination-border">
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3 col-xl-3 pt-10 p-0">
+                <ul uib-pagination boundary-links="true" total-items="ConsolGridCtrl.ePage.Entities.Header.Data.UIConShpMappings.length"
+                    data-ng-model="ConsolGridCtrl.ePage.Masters.Pagination.CurrentPage" class="pagination-sm" max-size="ConsolGridCtrl.ePage.Masters.Pagination.MaxSize"
+                    items-per-page="ConsolGridCtrl.ePage.Masters.Pagination.ItemsPerPage" num-pages="ConsolGridCtrl.ePage.Masters.Pagination.TotalPage"
+                    previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3 col-xl-3 pt-10">
+                <select data-ng-model="ConsolGridCtrl.ePage.Masters.Pagination.ItemsPerPage" data-ng-change="">
+                    <option data-ng-selected="true">25</option>
+                    <option>50</option>
+                    <option>100</option>
+                    <option>500</option>
+                </select> Records Per Page.
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 pt-10 pull-right">
+                <div class="">Page : {{ConsolGridCtrl.ePage.Masters.Pagination.CurrentPage}} /
+                    {{ConsolGridCtrl.ePage.Masters.Pagination.TotalPage}}</div>
+                <div class="">Total Records : {{ConsolGridCtrl.ePage.Entities.Header.Data.UIConShpMappings.length}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

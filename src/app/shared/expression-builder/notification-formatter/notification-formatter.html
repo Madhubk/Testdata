@@ -1,0 +1,81 @@
+<div class="exp-before-border">
+	<div class="clearfix text-center p-20" data-ng-if="notificationList && notificationList.length == 0">
+		<i>No records...!</i>
+	</div>
+	<div class="clearfix process-expression-group-wrapper" data-ng-repeat="x in notificationList">
+		<div class="col-lg-1 text-center">
+			<button class="btn btn-sm btn-danger width-65" data-ng-click="Notification.DeleteNotification(x, $index)">Remove</button>
+		</div>
+		<div class="col-lg-11 exp-wrapper">
+			<div class="clearfix mb-10">
+				<div class="col-sm-3">
+					<div class="form-group">
+						<label class="control-label">Template Name</label>
+						<i class="fa fa-plus-circle cursor-pointer" data-ng-click="Notification.AddNewNotificationTemplate()" style="position: absolute; top: 0; right: 15px; font-size: 20px;"
+						    title="Add Notification Template"></i>
+						<div class="clearfix position-relative">
+							<input type="text" class="form-control input-sm" data-ng-model="y.TemplateName" placeholder="Template Name" uib-typeahead="y.Key for y in Notification.GetNotificationTemplateList($viewValue)"
+							    typeahead-on-select="Notification.NotificationTemplateListSelect($item, $model, $label, $event)" typeahead-loading="x.IsTemplateLoading"
+							    typeahead-no-results="x.IsTemplateNoResults" typeahead-editable="false" typeahead-append-to-body='false'
+							    typeahead-min-length="" data-ng-blur="Notification.OnBlurAutoCompleteList($event, x)">
+							<div class="clearfix dropdown-menu typeahead" data-ng-if="x.IsTemplateNoResults">
+								<div class="auto-complete-no-result">No Results Found!</div>
+							</div>
+							<div class="clearfix dropdown-menu typeahead" data-ng-if="x.IsTemplateLoading">
+								<div class="auto-complete-no-result">
+									<i class="fa fa-spin fa-spinner"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3" data-ng-if="isToListRef">
+					<div class="form-group">
+						<label class="control-label">To List</label>
+						<div class="">
+							<select chosen class="form-control" data-ng-model="x.ToListRef" data-ng-options="x.Code as  x.Description for x in Notification.ToListSource">
+								<option value="">--Select--</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<label class="control-label">Subject</label>
+						<div class="clearfix">
+							<input type="text" class="form-control input-sm" data-ng-model="x.Subject" placeholder="Subject">
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<label class="control-label">Parameters</label>
+						<div class="clearfix">
+							<input type="text" class="form-control input-sm" data-ng-model="x.Parameters" placeholder="Parameters">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix">
+				<event-expression-formatter exp-list="x.Attachment" is-logical-operator="false" is-result="false" is-action="false"></event-expression-formatter>
+			</div>
+		</div>
+	</div>
+	<div class="clearfix text-right p-10 pt-0">
+		<button class="btn btn-default btn-xs" data-ng-click="Notification.AddNotification(x)">Add Group</button>
+	</div>
+</div>
+
+<!-- Notification Template -->
+<script type="text/ng-template" id="TCEventEditNotificationTemplate">
+	<div class="modal-header">
+		<h5 class="modal-title" id="modal-title">
+			<strong>Notification Template</strong>
+			<button class="btn btn-xs btn-primary pull-right ml-10" data-ng-click="Notification.SaveNotificationTemplate()">Save</button>
+			<button class="btn btn-xs btn-default pull-right ml-10" data-ng-click="Notification.CloseNotificationTemplateModal()">Close</button>
+		</h5>
+	</div>
+	<div class="modal-body p-10" id="modal-body">
+		<notification-template-formatter module-code="moduleCode" key="key" type-code="typeCode" input="Notification.NotificationObject"></notification-template-formatter>
+	</div>
+</script>

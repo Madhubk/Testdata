@@ -15,7 +15,8 @@
             controller: "OrderMenuController",
             controllerAs: "OrderMenuCtrl",
             scope: {
-                currentOrder: "="
+                currentOrder: "=",
+                currentObj: "="
             },
             bindToController: true
         };

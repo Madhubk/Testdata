@@ -1,0 +1,30 @@
+<div class="modal-header">
+    <span class="modal-title modalheader">Customize Table Columns</span>
+</div>
+<div class="modal-body pb-50">
+    <div class="column-list clearfix customstyle" dnd-list="TableProperties.HeaderProperties">
+        <div class="col-list clearfix" data-ng-repeat="x in TableProperties.HeaderProperties"
+            dnd-draggable="x" dnd-moved="TableProperties.HeaderProperties.splice($index, 1)"
+            dnd-effect-allowed="move" dnd-selected="SelectedGridColumn = x"
+            ng-class="{'selected': SelectedGridColumn === x}"  style="cursor: move; border-bottom: 2px inset;" ng-hide="x.display==false">
+        
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 p-0 pl-5 pr-5">{{$index - DontDislpay +1}}</div>
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 p-0 pl-5 pr-5">{{x.columnname}}</div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5 pr-5">
+                <input type="text" numbers-only class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Width" data-ng-model="x.width">
+            </div>
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 p-0 pl-5 pr-5">
+                <div class="checkbox m-0" title="Visible">
+                    <label>
+                        <input type="checkbox" data-ng-model="x.isenabled">
+                        <span class="text"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button ng-show="entitySource" class="btn btn-sm mb-15" ng-click="OK(true)">User Level Save</button>
+    <button class="btn btn-sm btn-primary mb-15" ng-click="OK(false)">Done</button>
+</div>

@@ -1,0 +1,31 @@
+<div class="col-lg-12 clearfix no-padding" ng-if="CompletePutawayCtrl.ePage.Entities.Header.Data">
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 mt-10">
+        <span class="error-warning-container">
+            <error-warning-directive data-ng-if="CompletePutawayCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PutOrPickCompDateTime.IsWarning && !CompletePutawayCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PutOrPickCompDateTime.IsError"
+                list="CompletePutawayCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PutOrPickCompDateTime.WARNING" type="'warning'"
+                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            <error-warning-directive data-ng-if="CompletePutawayCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PutOrPickCompDateTime.IsError"
+                list="CompletePutawayCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PutOrPickCompDateTime.ERROR" type="'error'"
+                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+        </span>
+        <div class="form-group ship-font">
+            <label class="control-label">Putaway Completed Date Time</label>
+            <div>
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="{{CompletePutawayCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                        data-ng-model="CompletePutawayCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickCompDateTime"
+                        datetime-picker="{{CompletePutawayCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}" datepicker-options="CompletePutawayCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-time="true" enable-date="true" default-date=""
+                        default-time="" save-as="CompletePutawayCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="CompletePutawayCtrl.ePage.Masters.DatePicker.isOpen['PutOrPickCompDateTime']"
+                        when-closed="" data-ng-click="" data-ng-change="CompletePutawayCtrl.ePage.Masters.OnFieldValueChange('E11072')"
+                        custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="CompletePutawayCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'PutOrPickCompDateTime')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

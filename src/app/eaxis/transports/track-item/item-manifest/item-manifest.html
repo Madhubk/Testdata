@@ -16,9 +16,9 @@
                         <div class='table_header'>Shipment No</div>
                         <div class='table_header'>Consol No</div>
                         <div class='table_header'>Seal No</div>
-                        <div class='table_header'>Vessal Name</div>
+                        <div class='table_header'>Vessel Name</div>
                         <div class='table_header'>Voyage No</div>
-                        <div class='table_header'>Shipment Arrival Date</div>
+                        <div class='table_header'>Arrival Date</div>
                         <div class='table_header'>Driver Name</div>
                         <div class='table_header'>Driver Contact No</div>
                         <div class='table_header'>Vehicle No</div>
@@ -66,7 +66,7 @@
                             <div class='table_cell'>{{x.TMM_SealNo || ItemManifestCtrl.ePage.Masters.emptyText}}</div>
                         </div>
                         <div class='table_small'>
-                            <div class='table_cell'>Vessal Name</div>
+                            <div class='table_cell'>Vessel Name</div>
                             <div class='table_cell'>{{x.TMM_VesselName || ItemManifestCtrl.ePage.Masters.emptyText}}</div>
                         </div>
                         <div class='table_small'>
@@ -74,7 +74,7 @@
                             <div class='table_cell'>{{x.TMM_VoyageNo || ItemManifestCtrl.ePage.Masters.emptyText}}</div>
                         </div>
                         <div class='table_small'>
-                            <div class='table_cell'>Shipment Arrival Date</div>
+                            <div class='table_cell'>Arrival Date</div>
                             <div class='table_cell'>{{x.TMM_ShipmentArrivalDate | dateFormat}}</div>
                         </div>
                         <div class='table_small'>
@@ -91,7 +91,7 @@
                         </div>
                         <div class='table_small'>
                             <div class='table_cell'>Vehicle Type</div>
-                            <div class='table_cell'>{{x.TMM_VehicleType || ItemManifestCtrl.ePage.Masters.emptyText}}</div>
+                            <div class='table_cell'>{{x.TMM_VehicleTypeDescription || ItemManifestCtrl.ePage.Masters.emptyText}}</div>
                         </div>
                         <div class='table_small'>
                             <div class='table_cell'>Total Amount</div>

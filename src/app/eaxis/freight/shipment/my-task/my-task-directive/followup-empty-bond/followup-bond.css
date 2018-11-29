@@ -1,0 +1,46 @@
+.empty-bond {
+    position: relative;
+    overflow: hidden;
+}
+
+.decision {
+    background-color: #f0f0f0;
+    padding: 5px;
+}
+.emptybond .tab-content {
+    border: 1px solid #ddd;
+}
+
+#emptybond .tab-content {
+    padding: 0;
+}
+#emptybond .mr-10.ml-10{
+    margin-left: 0 !important;
+    margin-right: 0!important;
+    }
+
+.emptybond-Document {
+    height: 300px;
+    overflow-y: auto;
+}
+.consol .tab-content {
+    border: 1px solid #ddd;
+}
+
+.empty-bond .fixedheader {
+    margin-left: 0;
+    margin-right: 0;
+}
+.empty-bond .container-pagination{
+    margin-right: 0px!important;
+    margin-left: 0px !important;
+}
+.empty-bond-con {
+    font-size: 15px;
+    text-align: center;
+}
+
+.empty-bond-loading {
+    font-size: 18px;
+    text-align: center
+}

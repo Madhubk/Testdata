@@ -5,11 +5,12 @@
         .module("Application")
         .controller("UserSettingController", UserSettingController);
 
-    UserSettingController.$inject = ["$rootScope", "$scope", "$location", "$window", "$timeout", "APP_CONSTANT", "authService", "apiService", "helperService", "toastr", "appConfig"];
+    UserSettingController.$inject = ["$timeout", "$location", "authService", "apiService", "helperService", "appConfig"];
 
-    function UserSettingController($rootScope, $scope, $location, $window, $timeout, APP_CONSTANT, authService, apiService, helperService, toastr, appConfig) {
+    function UserSettingController($timeout, $location, authService, apiService, helperService, appConfig) {
         /* jshint validthis: true */
         var UserSettingCtrl = this;
+        var _queryString = $location.search();
 
         function Init() {
             UserSettingCtrl.ePage = {
@@ -20,28 +21,36 @@
                 "Entities": {}
             };
 
+            UserSettingCtrl.ePage.Masters.UserId = authService.getUserInfo().UserId;
             UserSettingCtrl.ePage.Masters.AppCode = authService.getUserInfo().AppCode;
-            UserSettingCtrl.ePage.Masters.MenuVisibleType = authService.getUserInfo().Menu.VisibleType;
+            UserSettingCtrl.ePage.Masters.AppPk = authService.getUserInfo().AppPK;
 
-            if (UserSettingCtrl.ePage.Masters.AppCode != "TC") {
-                InitUserMenu();
-                InitFilter();
+            if (_queryString.q) {
+                UserSettingCtrl.ePage.Masters.QueryString = JSON.parse(helperService.decryptData(_queryString.q));
+
+                UserSettingCtrl.ePage.Masters.UserId = UserSettingCtrl.ePage.Masters.QueryString.UserId;
+                UserSettingCtrl.ePage.Masters.AppCode = UserSettingCtrl.ePage.Masters.QueryString.AppCode;
+                UserSettingCtrl.ePage.Masters.AppPk = UserSettingCtrl.ePage.Masters.QueryString.AppPk;
             }
+
+            UserSettingCtrl.ePage.Masters.MenuType = authService.getUserInfo().MenuType;
+
+            // InitParty();
+            // InitUserMenu();
+            // InitUserSetting();
         }
 
-        // ======================= User Menu Type ====================
-        function InitUserMenu() {
-            UserSettingCtrl.ePage.Masters.UserMenu = {};
-            UserSettingCtrl.ePage.Masters.UserMenu.MenuTypeList = ["List", "Grid"];
+        function InitUserSetting() {
+            UserSettingCtrl.ePage.Masters.UserSetting = {};
 
-            UserSettingCtrl.ePage.Masters.UserMenu.OnUserMenuChange = OnUserMenuChange;
-            CheckUserBasedMenuVisibleType();
+            GetUserSetting();
         }
 
-        function CheckUserBasedMenuVisibleType() {
+        function GetUserSetting() {
+            UserSettingCtrl.ePage.Masters.UserSetting.DefaultUserSetting = {};
             var _filter = {
-                "SourceEntityRefKey": authService.getUserInfo().UserId,
-                "AppCode": authService.getUserInfo().AppCode,
+                "SourceEntityRefKey": UserSettingCtrl.ePage.Masters.UserId,
+                "AppCode": UserSettingCtrl.ePage.Masters.AppCode,
                 "EntitySource": "APP_DEFAULT"
             };
             var _input = {
@@ -49,60 +58,73 @@
                 "FilterID": appConfig.Entities.UserSettings.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.FindAll.Url + UserSettingCtrl.ePage.Masters.AppPk, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
-                    var _response = response.data.Response;
-                    if (_response.length > 0) {
-                        UserSettingCtrl.ePage.Masters.UserMenu.DefaultMenuType = _response[0];
-                        var _curMenuType = JSON.parse(_response[0].Value).Dashboard.MenuType;
-                        UserSettingCtrl.ePage.Masters.UserMenu.MenuType = _curMenuType;
+                    if (response.data.Response.length > 0) {
+                        var _response = response.data.Response[0];
+
+                        _response.Value = JSON.parse(_response.Value);
+                        UserSettingCtrl.ePage.Masters.UserSetting.DefaultUserSetting = _response;
+
+                        if (UserSettingCtrl.ePage.Masters.UserSetting.DefaultUserSetting.Value) {
+                            if (UserSettingCtrl.ePage.Masters.UserSetting.DefaultUserSetting.Value.Dashboard) {
+                                UserSettingCtrl.ePage.Masters.UserMenu.MenuType = UserSettingCtrl.ePage.Masters.UserSetting.DefaultUserSetting.Value.Dashboard.MenuType;
+                            }
+
+                            if (UserSettingCtrl.ePage.Masters.UserSetting.DefaultUserSetting.Value.Party) {
+                                UserSettingCtrl.ePage.Masters.Party.ActiveParty = UserSettingCtrl.ePage.Masters.UserSetting.DefaultUserSetting.Value.Party;
+                            }
+                        }
                     }
                 }
             });
         }
 
-        function OnUserMenuChange($item) {
-            if ($item) {
-                UserSettingCtrl.ePage.Masters.UserMenu.MenuType = $item;
-                SaveUserMenuType();
-            }
-        }
+        function SaveUserSetting() {
+            var _input = UserSettingCtrl.ePage.Masters.UserSetting.DefaultUserSetting;
 
-        function SaveUserMenuType() {
-            var _input = UserSettingCtrl.ePage.Masters.UserMenu.DefaultMenuType;
-
-            if (_input) {
+            if (_input.PK) {
                 _input.IsModified = true;
-                _input.SAP_FK = authService.getUserInfo().AppPK;
-                _input.Value = JSON.parse(_input.Value);
-                _input.Value.Dashboard.MenuType = UserSettingCtrl.ePage.Masters.UserMenu.MenuType;
-                _input.Value = JSON.stringify(_input.Value);
             } else {
                 _input = {
-                    "SourceEntityRefKey": authService.getUserInfo().UserId,
-                    "AppCode": authService.getUserInfo().AppCode,
-                    "SAP_FK": authService.getUserInfo().AppPK,
+                    "SourceEntityRefKey": UserSettingCtrl.ePage.Masters.UserId,
+                    "AppCode": UserSettingCtrl.ePage.Masters.AppCode,
+                    "SAP_FK": UserSettingCtrl.ePage.Masters.AppPk,
                     "TenantCode": authService.getUserInfo().TenantCode,
                     "EntitySource": "APP_DEFAULT",
                     "Key": authService.getUserInfo().TenantCode,
                     "IsJSON": true,
-                    "IsModified": true,
-                    "Value": {
-                        "Dashboard": {
-                            "MenuType": UserSettingCtrl.ePage.Masters.UserMenu.MenuType
-                        }
-                    }
+                    "IsModified": true
                 };
-                _input.Value = JSON.stringify(_input.Value);
             }
 
-            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Upsert.Url + authService.getUserInfo().AppPK, [_input]).then(function SuccessCallback(response) {
+            _input.Value = {
+                Dashboard: {
+                    MenuType: UserSettingCtrl.ePage.Masters.UserMenu.MenuType
+                }
+            }
+            _input.Value = {};
+
+            if (UserSettingCtrl.ePage.Masters.UserMenu.MenuType) {
+                _input.Value.Dashboard = {
+                    MenuType: UserSettingCtrl.ePage.Masters.UserMenu.MenuType
+                };
+            }
+
+            if (UserSettingCtrl.ePage.Masters.Party.ActiveParty) {
+                _input.Value.Party = UserSettingCtrl.ePage.Masters.Party.ActiveParty;
+            }
+
+            _input.Value = JSON.stringify(_input.Value);
+
+            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Upsert.Url + UserSettingCtrl.ePage.Masters.AppPk, [_input]).then(function SuccessCallback(response) {
                 if (response.data.Response) {
-                    var _response = response.data.Response;
-                    if (_response.length > 0) {
-                        var _userInfo = authService.getUserInfo();
+                    if (response.data.Response.length > 0) {
+                        var _response = response.data.Response[0];
+                        var _userInfo = angular.copy(authService.getUserInfo());
+
                         if (_userInfo.AppCode !== "TC") {
-                            _userInfo.Menu.VisibleType = JSON.parse(_response[0].Value).Dashboard.MenuType;
+                            _userInfo.MenuType = JSON.parse(_response.Value).Dashboard.MenuType;
                         }
 
                         authService.setUserInfo();
@@ -115,119 +137,88 @@
             });
         }
 
+        // ======================= User Menu Type ====================
+        function InitUserMenu() {
+            UserSettingCtrl.ePage.Masters.UserMenu = {};
+            UserSettingCtrl.ePage.Masters.UserMenu.MenuTypeList = ["List", "Grid"];
+
+            UserSettingCtrl.ePage.Masters.UserMenu.OnUserMenuChange = OnUserMenuChange;
+        }
+
+        function OnUserMenuChange($item) {
+            SaveUserSetting();
+        }
+
         // ======================= User Filters ====================
-        function InitFilter() {
-            UserSettingCtrl.ePage.Masters.SystemFilter = {};
-            UserSettingCtrl.ePage.Masters.FavoriteFilter = {};
+        function InitParty() {
+            UserSettingCtrl.ePage.Masters.Party = {};
+            UserSettingCtrl.ePage.Masters.Party.SetAsDefault = SetAsDefault;
+            UserSettingCtrl.ePage.Masters.Party.SoftLoginWithParty = SoftLoginWithParty;
+            UserSettingCtrl.ePage.Masters.Party.OnPartyChange = OnPartyChange;
 
-            UserSettingCtrl.ePage.Masters.SystemFilter.SaveSystemFilter = SaveSystemFilter;
-            UserSettingCtrl.ePage.Masters.FavoriteFilter.SaveFavoriteFilter = SaveFavoriteFilter;
-
-            GetSystemFilterList();
-            GetFavoriteFilterList();
+            GetPartyList();
         }
 
-        function GetSystemFilterList() {
+        function GetPartyList() {
+            UserSettingCtrl.ePage.Masters.Party.ListSource = undefined;
+
             var _filter = {
-                "SAP_FK": authService.getUserInfo().AppPK,
-                "TenantCode": authService.getUserInfo().TenantCode,
-                "FilterType": "DASHBOARD"
+                "UserName": UserSettingCtrl.ePage.Masters.UserId,
+                "SAP_Code": UserSettingCtrl.ePage.Masters.AppCode
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.AppSettings.API.FindAll.FilterID
+                "FilterID": appConfig.Entities.SecMappings.API.GetPartiesByUserApp.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.AppSettings.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
+            apiService.post("authAPI", appConfig.Entities.SecMappings.API.GetPartiesByUserApp.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
-                    UserSettingCtrl.ePage.Masters.SystemFilter.ListSource = response.data.Response;
+                    UserSettingCtrl.ePage.Masters.Party.ListSource = response.data.Response;
                 } else {
-                    UserSettingCtrl.ePage.Masters.SystemFilter.ListSource = [];
+                    UserSettingCtrl.ePage.Masters.Party.ListSource = [];
                 }
             });
         }
 
-        function SaveSystemFilter($item) {
-            if ($item.IsStarred) {
-                _input = {
-                    "SourceEntityRefKey": authService.getUserInfo().UserId,
-                    "Key": $item.Key,
-                    "Value": $item.PK,
-                    "IsJSON": false,
-                    "SAP_FK": authService.getUserInfo().AppPK,
-                    "AppCode": authService.getUserInfo().AppCode,
-                    "TenantCode": authService.getUserInfo().TenantCode,
-                    "EntitySource": "DASHBOARD_STARRED",
-                    "IsModified": true,
-                    "IsDeleted": false
-                };
-            } else {
+        function OnPartyChange($item) {
+            var _item = {};
+
+            if ($item) {
+                _item.PK = $item.PK;
+                _item.Code = $item.Code;
+            }
+
+            UserSettingCtrl.ePage.Masters.Party.ActiveParty = _item;
+        }
+
+        function SoftLoginWithParty() {
+            if (UserSettingCtrl.ePage.Masters.Party.ActiveParty.PK) {
                 var _input = {
-                    "PK": $item.Starred_FK,
-                    "IsModified": true,
-                    "IsDeleted": true
+                    "grant_type": "password",
+                    "username": UserSettingCtrl.ePage.Masters.UserId,
+                    "AppCode": UserSettingCtrl.ePage.Masters.AppCode,
+                    "TNTCode": authService.getUserInfo().TenantCode,
+                    "Party_Pk": UserSettingCtrl.ePage.Masters.Party.ActiveParty.PK,
+                    "Party_Code": UserSettingCtrl.ePage.Masters.Party.ActiveParty.Code
                 };
-            }
 
-            if ($item.IsStarred && $item.Starred_FK == null) {
-                apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Upsert.Url + authService.getUserInfo().AppPK, [_input]).then(function (response) {
+                apiService.post("authAPI", appConfig.Entities.Token.API.SoftLoginToken.Url, _input).then(function SuccessCallback(response) {
                     if (response.data.Response) {
-                        $item.IsStarred = true;
-                        $item.Starred_FK = response.data.Response[0].PK;
-                    }
-                });
-            } else if (!$item.IsStarred && $item.Starred_FK != null) {
-                apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Upsert.Url + authService.getUserInfo().AppPK, [_input]).then(function (response) {
-                    if (response.data.Response) {
-                        $item.IsStarred = false;
-                        $item.Starred_FK = null;
-                    }
-                });
-            }
-        }
-
-        function GetFavoriteFilterList() {
-            var _filter = {
-                "SAP_FK": authService.getUserInfo().AppPK,
-                "TenantCode": authService.getUserInfo().TenantCode,
-                "SourceEntityRefKey": authService.getUserInfo().UserId
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.UserSettings.API.FindAll.FilterID
-            };
-
-            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
-                UserSettingCtrl.ePage.Masters.FavoriteFilter.ListSource = [];
-                if (response.data.Response) {
-                    var _response = response.data.Response;
-
-                    if (_response.length > 0) {
-                        _response.map(function (value, key) {
-                            if (value.EntitySource.indexOf("FAVORITES") !== -1) {
-                                value.Value = JSON.parse(value.Value);
-                                UserSettingCtrl.ePage.Masters.FavoriteFilter.ListSource.push(value);
+                        var _userInfo = angular.copy(authService.getUserInfo());
+                        var _isEmpty = angular.equals({}, response.data.Response);
+                        if (!_isEmpty) {
+                            for (var x in response.data.Response) {
+                                _userInfo[x] = response.data.Response[x];
                             }
-                        });
+                        }
+                        authService.setUserInfo(helperService.encryptData(_userInfo));
                     }
-                }
-            });
+                });
+            }
         }
 
-        function SaveFavoriteFilter($item, $index) {
-            $item.IsDisableBtn = true;
-            var _input = angular.copy($item);
-            _input.Value = JSON.stringify(_input.Value);
-            _input.IsModified = true;
-
-            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Upsert.Url + authService.getUserInfo().AppPK, [_input]).then(function (response) {
-                if (response.data.Response) {
-                    toastr.success("Saved Successfully...!");
-                } else {
-                    toastr.error("Failed to Save...!");
-                }
-                $item.IsDisableBtn = false;
-            });
+        function SetAsDefault() {
+            SaveUserSetting();
         }
 
         Init();

@@ -1,0 +1,120 @@
+.bg-color{
+    background-color: #ccc;
+}
+.card {
+    border-radius: 6px;
+    box-shadow: 0 2px 2px rgba(204, 197, 185, 0.5);
+    background-color: #ffffff;
+    color: #252422;
+    margin-bottom: 20px;
+    position: relative;
+    border: 1px solid #f0f0f0;
+    height: 180px;
+}
+.card .content {
+    padding: 10px 0px 0px 0px;
+    height: 100px;
+}
+.height-45{
+    height: 45px;
+}
+.font-style{
+    font-style: italic;
+}
+.text-depot{
+    text-align: center;
+}
+.a .hover{
+	text-decoration: none;
+}
+.attachlink{
+	background-color: #5db2ff;
+	color:  white;
+	margin-top:  -10px;
+	padding: 5px 5px 5px 15px;
+	border-radius: 0px 6px;
+	font-size: 10.5px;
+}
+.col-white{
+	color:  white;
+}
+.depot-contact-edit>.modal-dialog {
+    width: 62% !important;
+}
+.edit-box{
+    border: 1px solid #ccc;
+    margin-left: 15px;
+    width: 95%;
+}
+.line-height-14{
+    line-height: 14px !important;
+}
+.border-right{
+    border-right: 1px solid #ccc;
+}
+.code-text{
+    font-size: 15px;
+    color: #fff;
+}
+.mt-23{
+    margin-top: 23px;
+}
+.plan-text{
+    background: #dddddd8a;
+    padding: 15px 5px;
+    margin-left: 10px;
+    text-align: center;
+    font-weight: 800;
+    color: #aaa;
+    display: block;
+    font-size: 9px;
+    position: relative;
+}
+.label-color{
+    color: #737373b3 !important;
+}
+.bordered-right{
+    border-right: 1px solid #ccc;
+}
+.depot-circle{
+    width: 75px;
+    height: 75px;
+    background-color: #ddd;
+    border-color: #ccc;
+}
+.level-box{
+    height: 260px;
+    background-image: linear-gradient(to top,#fff,#da0707);
+    border-radius: 3px;
+    box-shadow: 0 0 3px rgba(0,0,0,.2);
+    background: #fff;
+}
+
+.card-edit-box {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+.card-edit-header {
+    padding: .75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: rgba(0,0,0,.03);
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+.card-edit-body {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem;
+}

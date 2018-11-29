@@ -5,9 +5,9 @@
         .module("Application")
         .factory('orderConfig', OrderConfig);
 
-    OrderConfig.$inject = ["$q", "helperService", "toastr"];
+    OrderConfig.$inject = ["$q", "helperService", "toastr", "apiService"];
 
-    function OrderConfig($q, helperService, toastr) {
+    function OrderConfig($q, helperService, toastr, apiService) {
         var exports = {
             "Entities": {
                 "Header": {
@@ -25,13 +25,32 @@
                             "HttpType": "GET",
                             "Url": "OrderList/OrderHeaderActivityClose/",
                             "FilterID": ""
+                        },
+                        "Validationapi": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "Validation/FindAll",
+                            "FilterID": "VALIDAT"
                         }
                     },
                     "Meta": {}
+                },
+                "GlobalVar": {
+                    "IsOrgMapping": true,
+                    "IsShowEditActivityPage": false,
+                    "ActivityName": "",
+                    "IsConformationEnable": false,
+                    "IsCargoRedinessEnable": false,
+                    "IsPreAdviceEnable": false,
+                    "IsConvertAsBookingEnable": false,
+                    "IsActiveOrderEnable": false,
+                    "Input": []
                 }
             },
             "TabList": [],
-            "GetTabDetails": GetTabDetails
+            "GetTabDetails": GetTabDetails,
+            "ValidationValues": "",
+            "ShowErrorWarningModal": ShowErrorWarningModal
         };
 
         return exports;
@@ -65,6 +84,7 @@
                             "MenuList": [{
                                 "DisplayName": "Order",
                                 "Value": "General",
+                                "GParentRef": "General",
                                 "Icon": "fa-cart-plus"
                             }, {
                                 "DisplayName": "Order Lines",
@@ -79,7 +99,7 @@
                                 "Value": "CargoReadiness",
                                 "Icon": "fa-truck"
                             }, {
-                                "DisplayName": "Vessel Plannig",
+                                "DisplayName": "Vessel Schedule",
                                 "Value": "ShpPreAdvice",
                                 "Icon": "fa-cubes"
                             }, {
@@ -101,7 +121,8 @@
                             "MstPackType": helperService.metaBase(),
                             "GoodsAvailAt": helperService.metaBase(),
                             "GoodsDeliveredTo": helperService.metaBase(),
-                            "AddressContactObject": {}
+                            "AddressContactObject": {},
+                            "Container": helperService.metaBase()
                         }
                     },
                     "OrderShipment": {
@@ -194,7 +215,7 @@
                                 "field": "PortOfDischarge",
                                 "displayName": "Delivery Port",
                                 "width": 100
-                            },{
+                            }, {
                                 "field": "Address1",
                                 "displayName": "Address 1",
                                 "width": 200
@@ -259,7 +280,7 @@
                             "isRowTemplate": false,
                             "columnDef": [{
                                 "field": "PartNo",
-                                "displayName": "Part #",
+                                "displayName": "UDF #",
                                 "width": 50
                             }, {
                                 "field": "InnerPacks",
@@ -404,7 +425,7 @@
                                 "IsAPI": "true",
                                 "HttpType": "POST",
                                 "Url": "PorOrderContainer/FindAll",
-                                "FilterID" : "ORDCONT"
+                                "FilterID": "ORDCONT"
                             }
                         },
                         "gridConfig": {
@@ -445,7 +466,7 @@
                                 "IsAPI": "true",
                                 "HttpType": "GET",
                                 "Url": "ShipmentHeader/GetById/",
-                                "FilterID" : "SHIPHEAD"
+                                "FilterID": "SHIPHEAD"
                             }
                         }
                     },
@@ -479,23 +500,23 @@
                                 "width": 50
                             }, {
                                 "field": "PartNo",
-                                "displayName": "Part #",
+                                "displayName": "UDF #",
                                 "width": 50
-                            },{
+                            }, {
                                 "field": "PartDesc",
-                                "displayName": "Part Desc.",
+                                "displayName": "UDF Desc.",
                                 "width": 150
                             }, {
                                 "field": "PartAttribute1",
-                                "displayName": "PartAttr1",
+                                "displayName": "UDF 1",
                                 "width": 75
                             }, {
                                 "field": "PartAttribute2",
-                                "displayName": "PartAttr2",
+                                "displayName": "UDF 2",
                                 "width": 75
                             }, {
                                 "field": "PartAttribute3",
-                                "displayName": "Part Attr3",
+                                "displayName": "UDF 3",
                                 "width": 75
                             }, {
                                 "field": "OrderedQuantity",
@@ -597,7 +618,6 @@
                         }
 
                     },
-
                     "ConShpMapping": {
                         "API": {
                             "FindAll": {
@@ -607,6 +627,9 @@
                                 "FilterID": "CONSHPMAP"
                             }
                         }
+                    },
+                    "GlobalVar": {
+                        "IsOrgMapping": true
                     }
                 }
             };
@@ -641,6 +664,7 @@
                             ePage: _exports
                         },
                         label: currentOrder.OrderCumSplitNo,
+                        code: currentOrder.OrderCumSplitNo,
                         isNew: isNew
                     };
                     exports.TabList.push(obj);
@@ -649,6 +673,10 @@
             }
             return deferred.promise;
 
+        }
+
+        function ShowErrorWarningModal(EntityObject) {
+            $("#errorWarningContainer" + EntityObject.label).toggleClass("open");
         }
     }
 })();

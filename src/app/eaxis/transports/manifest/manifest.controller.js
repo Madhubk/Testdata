@@ -21,9 +21,12 @@
                 "Entities": adminManifestConfig.Entities
             };
 
-            AdminManifestCtrl.ePage.Masters.taskName = "TransportsManifest";
             AdminManifestCtrl.ePage.Masters.dataentryName = "Manifest";
             AdminManifestCtrl.ePage.Masters.TabList = [];
+            
+            // Remove all Tabs while load shipment
+            adminManifestConfig.TabList = [];
+
             AdminManifestCtrl.ePage.Masters.activeTabIndex = 0;
             AdminManifestCtrl.ePage.Masters.isNewManifestClicked = false;
             AdminManifestCtrl.ePage.Masters.IsTabClick = false;
@@ -36,9 +39,61 @@
             AdminManifestCtrl.ePage.Masters.RemoveTab = RemoveTab;
             AdminManifestCtrl.ePage.Masters.CreateNewManifest = CreateNewManifest;
             AdminManifestCtrl.ePage.Masters.SaveandClose = SaveandClose;
-            
+            AdminManifestCtrl.ePage.Masters.UnDispatchClose = UnDispatchClose;
+
             adminManifestConfig.ValidationFindall();
+            getOrgSender();
         }
+
+        function UnDispatchClose(index, currentManifest) {
+            var currentManifest = currentManifest[currentManifest.label].ePage.Entities;
+            AdminManifestCtrl.ePage.Masters.TabList.splice(index, 1);
+
+            // apiService.get("eAxisAPI", AdminManifestCtrl.ePage.Entities.Header.API.SessionClose.Url + currentManifest.Header.Data.PK).then(function (response) {
+            //     if (response.data.Response === "Success") {
+            //     } else {
+            //         console.log("Tab close Error : " + response);
+            //     }
+            // });
+            AdminManifestCtrl.ePage.Masters.Config.SaveAndClose = false;
+            AdminManifestCtrl.ePage.Masters.Config.UnDispatchClose = false;
+            AdminManifestCtrl.ePage.Masters.activeTabIndex = index;
+        }
+
+        function getOrgSender() {
+            // get Sender ORG(location) based on USER
+            var _filter = {
+                "Code": authService.getUserInfo().UserId
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": "ORGUACC"
+            };
+            apiService.post("eAxisAPI", "OrgUserAcess/FindAll", _input).then(function SuccessCallback(response) {
+                if (response.data.Status == "Success") {
+                    if (response.data.Response.length > 0) {
+                        AdminManifestCtrl.ePage.Masters.UserAccessCode = response.data.Response[0].ORG_Code;
+                        getOrgHeader(AdminManifestCtrl.ePage.Masters.UserAccessCode);
+                    }
+                }
+            });
+        }
+
+        function getOrgHeader(item) {
+            var _filter = {
+                "OrgCode": item
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": AdminManifestCtrl.ePage.Entities.Header.API.OrgHeader.FilterID
+            };
+            apiService.post("eAxisAPI", AdminManifestCtrl.ePage.Entities.Header.API.OrgHeader.Url, _input).then(function SuccessCallback(response) {
+                if (response.data.Status == "Success") {
+                    AdminManifestCtrl.ePage.Masters.SenderDetails = response.data.Response[0];
+                }
+            });
+        }
+
 
         function SaveandClose(index, currentManifest) {
             var currentManifest = currentManifest[currentManifest.label].ePage.Entities;
@@ -67,7 +122,7 @@
 
             var _isExist = AdminManifestCtrl.ePage.Masters.TabList.some(function (value) {
                 if (!isNew) {
-                    if(value.label === currentManifest.entity.ManifestNumber)
+                    if (value.label === currentManifest.entity.ManifestNumber)
                         return true;
                     else
                         return false;
@@ -143,7 +198,7 @@
             } else {
                 toastr.info("New Record Already Opened...!");
             }
-        }    
+        }
         Init();
     }
 })();

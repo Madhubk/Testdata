@@ -1,0 +1,181 @@
+<div data-ng-if="!one_one_POBatchUploadCtrl.ePage.Masters.ShowLists && !one_one_POBatchUploadCtrl.ePage.Masters.APIDataFeed">
+    <div class="clearfix">
+        <div class="col-lg-12 po-batch-header pt-5 pb-5">
+            <span class="pull-left fs-20">Create Order(s)</span>
+            <button class="btn btn-default fs-12 pull-right" data-ng-click="one_one_POBatchUploadCtrl.ePage.Masters.ShowLists=true;one_one_POBatchUploadCtrl.ePage.Masters.activeTabIndex=0;one_one_POBatchUploadCtrl.ePage.Masters.EmptyTabList();">Uploaded
+                Orders List</button>
+        </div>
+    </div>
+    <div class="pt-20 pb-15">
+        <div class="clearfix text-center pt-20 pb-30">
+            <div class="fs-22">Multiple options for order(s) creation</div>
+            <div class="mt-10">Choose an action from below</div>
+        </div>
+        <div class="clearfix pt-10">
+            <div class="col-lg-4 col-md-4 col-sm-6 pl-5 pr-5 mb-10">
+                <div class="set-bg-white border-f5f5f5 text-center pt-20 pb-20">
+                    <img src="assets/img/po-batch/system-template.png">
+                    <div class="tile-heading til-bo mt-10">Upload System Template</div>
+                    <div class="set-color-999">Create Order(s) Using System Template</div>
+                    <fieldset disabled="true">
+                        <input class="btn btn-default mt-20" type="submit" value="Upload" data-ng-click="one_one_POBatchUploadCtrl.ePage.Masters.ShowLists=true;one_one_POBatchUploadCtrl.ePage.Masters.CreateBatchUplaod('STD')">
+                        <button class="btn btn-default mt-20" data-ng-click="one_one_POBatchUploadCtrl.ePage.Masters.TemplateDownload()"><i
+                                class="fa fa-download"></i></button>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 pl-5 pr-5 mb-10">
+                <div class="set-bg-white border-f5f5f5 text-center pt-20 pb-20">
+                    <img src="assets/img/po-batch/user.png">
+                    <div class="tile-heading til-bo mt-10">Upload Purchase Orders</div>
+                    <div class="set-color-999">Create Purchase Order(s) Using User Template</div>
+                    <input class="btn btn-default mt-20" type="submit" value="Upload" data-ng-click="one_one_POBatchUploadCtrl.ePage.Masters.CreatOrderUplaod('UPO')">
+                    <!-- <input class="btn btn-default mt-20" type="submit" value="Upload" data-ng-click="one_one_POBatchUploadCtrl.ePage.Masters.ShowLists=true;one_one_POBatchUploadCtrl.ePage.Masters.CreateBatchUplaod('UPO')"> -->
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 pl-5 pr-5 mb-10">
+                <div class="set-bg-white border-f5f5f5 text-center pt-20 pb-20">
+                    <img src="assets/img/po-batch/user.png">
+                    <div class="tile-heading til-bo mt-10">Upload Delivery Orders</div>
+                    <div class="set-color-999">Create Delivery Order(s) Using User Template</div>
+                    <input class="btn btn-default mt-20" type="submit" value="Upload" data-ng-click="one_one_POBatchUploadCtrl.ePage.Masters.CreatOrderUplaod('UDO')">
+                    <!-- <input class="btn btn-default mt-20" type="submit" value="Upload" data-ng-click="one_one_POBatchUploadCtrl.ePage.Masters.ShowLists=true;one_one_POBatchUploadCtrl.ePage.Masters.CreateBatchUplaod('UDO')"> -->
+                </div>
+            </div>
+            <!--<div class="col-lg-3 col-md-3 col-sm-6 pl-5 pr-5 mb-10">
+                <div class="set-bg-white border-f5f5f5 text-center pt-20 pb-20">
+                    <img src="assets/img/po-batch/create.png">
+                    <div class="tile-heading til-bo mt-10">Create New PO</div>
+                    <div class="set-color-999">Create Purchase Order Using Data Entry</div>
+                    <input class="btn btn-default mt-20" type="submit" value="Create New PO" data-ng-click="one_one_POBatchUploadCtrl.ePage.Masters.CreateNewOrder()">-->
+                    <!-- <input class="btn btn-default mt-20" type="submit" value="Create New PO" data-ng-click="one_one_POBatchUploadCtrl.ePage.Masters.ShowLists=true;one_one_POBatchUploadCtrl.ePage.Masters.CreateBatchUplaod('POR')"> -->
+                <!--</div>
+            </div>-->
+            <!--<div class="col-lg-3 col-md-3 col-sm-6 pl-5 mb-10">
+                <div class="set-bg-white border-f5f5f5 text-center pt-20 pb-20">
+                    <img src="assets/img/po-batch/integration.png">
+                    <div class="tile-heading til-bo mt-10">Integration Adapter</div>
+                    <div class="set-color-999">Create Order(s) Using Integration Adapter</div>
+                    <fieldset disabled="true">
+                        <input class="btn btn-default mt-20" type="submit" value="Integration" data-ng-click="OrderDashCtrl.ePage.Masters.order.ConvertToBooking()">
+                    </fieldset>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 pl-5 pr-5">
+                <div class="set-bg-white border-f5f5f5 text-center pt-20 pb-20">
+                    <img src="assets/img/po-batch/api.png">
+                    <div class="tile-heading til-bo mt-10">API Integration</div>
+                    <div class="set-color-999">Create Order(s) Using API</div>
+                    <fieldset disabled="true">
+                        <input class="btn btn-default mt-20" type="submit" value="Using API" data-ng-click="one_one_POBatchUploadCtrl.ePage.Masters.APIDataFeed=true;one_one_POBatchUploadCtrl.ePage.Masters.CreateOrder()">
+                    </fieldset>
+                </div>
+            </div>-->
+        </div>
+    </div>
+</div>
+<div data-ng-if="one_one_POBatchUploadCtrl.ePage.Masters.APIDataFeed">
+    <div class="clearfix po-batch-header pt-5 pb-5">
+        <div class="col-lg-6">
+            <div class="fs-20">Create Order(s) Using API</div>
+        </div>
+        <div class="col-lg-6 text-right">
+            <button class="btn btn-default" data-ng-disabled="one_one_POBatchUploadCtrl.ePage.Masters.SubmitOrderDisabled"
+                data-ng-click="one_one_POBatchUploadCtrl.ePage.Masters.APIDataFeed=false;one_one_POBatchUploadCtrl.ePage.Masters.ShowLists=false"><i
+                    class="fa fa-anlgle-double-left"></i> Back to Dashboard</button>
+        </div>
+    </div>
+    <div class="clearfix pt-10">
+        <div class="col-lg-3 pt-10"><b>Name</b></div>
+        <div class="col-lg-9">
+            <div class="row">
+                <div class="col-lg-6 pt-10"><b>Description</b></div>
+                <div class="col-lg-6">
+                    <div class="border-blue bg-light-blue border-radius-3 p-5">
+                        <div class="clearfix">
+                            <span class="set-bg-blue set-color-white border-radius-3 p-5 pl-20 pr-20 pull-left">GET</span>
+                            <b class="pull-left pl-10 pt-5">/pet/findByStatus</b>
+                            <span class="pull-left pl-10 pt-5">Finds Pets by status</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <hr class="mt-10 mb-10">
+    </div>
+    <div class="clearfix">
+        <div class="col-lg-3">
+            <div class="fs-18"><b>Body</b> <sup class="color-red">*required</sup></div>
+            <div class="set-color-999 mt-10">(body)</div>
+        </div>
+        <div class="col-lg-9">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div>Purchase order placed</div>
+                    <div class="mt-15"><b>Example Value</b> <span class="set-color-999">|</span> <b class="cursor-pointer"
+                            data-ng-click="one_one_POBatchUploadCtrl.ePage.Masters.ChangeJsonView()">Change View</b></div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="">Parameter content type</div>
+                    <div class="mt-10">
+                        <select class="rows">
+                            <option>Application/Json</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-10" style="height: 300px;" ng-jsoneditor="one_one_POBatchUploadCtrl.ePage.Masters.OnLookupConfigLoad"
+                ng-model="one_one_POBatchUploadCtrl.ePage.Masters.JsonInput" options="one_one_POBatchUploadCtrl.ePage.Masters.JsonEditiorOptions"></div>
+            <div class="mt-10">Response content type</div>
+            <div class="row mt-10">
+                <div class="col-lg-6">
+                    <div class="">
+                        <select class="select-width-50">
+                            <option>Application/Json</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-6"><button class="btn btn-primary select-width-50" data-ng-disabled="one_one_POBatchUploadCtrl.ePage.Masters.SubmitOrderDisabled"
+                        data-ng-click="one_one_POBatchUploadCtrl.ePage.Masters.SubmitOrder()">{{one_one_POBatchUploadCtrl.ePage.Masters.SubmitOrderText}}</button></div>
+            </div>
+        </div>
+    </div>
+</div>
+<uib-tabset id="chromeTab" data-ng-if="one_one_POBatchUploadCtrl.ePage.Masters.ShowLists" active="one_one_POBatchUploadCtrl.ePage.Masters.activeTabIndex"
+    class="tab-container chrometab-box">
+    <uib-tab>
+        <uib-tab-heading title="Order Upload">
+            <span data-ng-bind="'Order Upload'"></span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+        <div class="no-padding tab-list-view-wrapper">
+            <!--Order Grid Page-->
+            <dynamic-list dataentry-name="one_one_POBatchUploadCtrl.ePage.Masters.dataentryName" selected-grid-row="one_one_POBatchUploadCtrl.ePage.Masters.SelectedGridRow($item)"
+                mode="1" dataentry-object="one_one_POBatchUploadCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+            <div class="tab-loading" data-ng-show="one_one_POBatchUploadCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+    <uib-tab active="one_one_POBatchUploadCtrl.ePage.Masters.activeTabIndex == $index" data-ng-repeat="tab in one_one_POBatchUploadCtrl.ePage.Masters.TabList"
+        data-ng-click="one_one_POBatchUploadCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+        <uib-tab-heading title="{{tab.label}}">
+            <span data-ng-bind="tab.label"></span>
+            <i class="glyphicon glyphicon-remove" data-ng-click="one_one_POBatchUploadCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+        </uib-tab-heading>
+        <div class="padding-bottom-10 clearfix">
+            </document-modal>
+            <!--PO Batch Upload Directive-->
+            <one-one-po-batch-upload-directive data-ng-if="!tab.isNewOrder" current-batch="tab" add-tab="one_one_POBatchUploadCtrl.ePage.Masters.AddTab1($item)"></one-one-po-batch-upload-directive>
+        </div>
+        <span data-ng-if="one_one_POBatchUploadCtrl.ePage.Masters.Config.GlobalVar.IsClosed" data-ng-init="one_one_POBatchUploadCtrl.ePage.Masters.Close($index, tab)"></span>
+    </uib-tab>
+    <button class="btn btn-default" data-ng-click="one_one_POBatchUploadCtrl.ePage.Masters.CreateBatch()"
+        data-ng-disabled="true">+</button>
+    <!-- <button class="btn btn-default" data-ng-click="one_one_POBatchUploadCtrl.ePage.Masters.CreateBatch()"
+        data-ng-disabled="one_one_POBatchUploadCtrl.ePage.Masters.IsNewBatchClicked">+</button> -->
+    <button class="btn btn-default btn-po-batch-upload p-5" data-ng-disabled="one_one_POBatchUploadCtrl.ePage.Masters.SubmitOrderDisabled"
+        data-ng-click="one_one_POBatchUploadCtrl.ePage.Masters.APIDataFeed=false;one_one_POBatchUploadCtrl.ePage.Masters.ShowLists=false;one_one_POBatchUploadCtrl.ePage.Masters.activeTabIndex=0;"><i
+            class="fa fa-anlgle-double-left"></i> Back to Dashboard</button>
+</uib-tabset>

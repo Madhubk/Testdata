@@ -1,0 +1,116 @@
+<div class="clearfix rows">
+    <div class="col-xs-12 col-md-12 col-lg-12 col-xl-12 set-color-blue fs-20 bg-color">
+        <i class="fa fa-address-book" aria-hidden="true"></i>
+        <b> Depot Contacts</b>
+    </div>
+    <div class="clearfix col-xs-12 col-md-12 col-lg-12 col-xl-12 mt-20">
+        <div class="" ng-repeat="x in DepotContactCtrl.ePage.Masters.Details">
+            <div class="col-lg-4 col-sm-6 col-xs-12">
+                <div class="databox level-box">
+                    <div class="databox-top bg-white padding-10" style="height: 85px;">
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                            <div class="image-circular bordered-3 depot-circle">
+                                <div class="mt-23 text-depot">
+                                    <b class="code-text">{{x.Code}}</b>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8 text-align-left padding-10">
+                            <span class="databox-header carbon no-margin">{{x.Depot}}</span>
+                            <span class="databox-text lightcarbon no-margin"> No of Store(s) : {{x.NoOfStore}} </span>
+                        </div>
+                    </div>
+                    <div class="databox-bottom bg-white no-padding col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                            <h5 style="text-align: center;
+                                       color: black;">Level Load</h5>
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding  bordered-right">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                    <div class="col-lg-12 no-padding">
+                                        <div class="plan-text " ng-if="!x.LevelLoadDetails.EnableAutoPlan">
+                                            Manual Plan
+                                        </div>
+                                        <div class="plan-text" ng-if="x.LevelLoadDetails.EnableAutoPlan">
+                                            Auto Plan
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <span class="databox-text sonic-silver no-margin label-color fs-9">Last Processed</span>
+                                    <span class="databox-number lightcarbon no-margin fs-9 line-height-14">{{x.LevelLoadDetails.PlanLastProcessed | dateFormat}}</span>
+                                    <span class="databox-number lightcarbon no-margin fs-9 line-height-14">{{x.LevelLoadDetails.PlanLastProcessed | date : "h:mm:ss a"}}</span>
+                                </div>
+                            </div>
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding  bordered-right mt-5">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                    <div class="col-lg-12 mt-10 no-padding">
+                                        <div class="plan-text" ng-if="!x.LevelLoadDetails.EnableAutoCommit">
+                                            Manual Commit
+                                        </div>
+                                        <div class="plan-text" ng-if="x.LevelLoadDetails.EnableAutoCommit">
+                                            Auto Commit
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <!-- <span class="databox-text sonic-silver no-margin label-color fs-9">Last Processed</span>
+                                    <span class="databox-number lightcarbon no-margin fs-9 line-height-14">{{x.LevelLoadDetails.PlanLastProcessed | dateFormat}}</span>
+                                    <span class="databox-number lightcarbon no-margin fs-9 line-height-14">{{x.LevelLoadDetails.PlanLastProcessed | date : "h:mm:ss a"}}</span> -->
+                                    <span class="databox-text sonic-silver no-margin label-color fs-9 mt-10">Last Processed</span>
+                                    <span class="databox-number lightcarbon no-margin fs-9 line-height-14">{{x.LevelLoadDetails.CommitLastProcessed | dateFormat}}</span>
+                                    <span class="databox-number lightcarbon no-margin fs-9 line-height-14">{{x.LevelLoadDetails.CommitLastProcessed | date : "h:mm:ss a"}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                            <h5 style="text-align: center;
+                                           color: black;">National Load</h5>
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                    <div class="col-lg-12 no-padding">
+                                        <div class="plan-text" ng-if="!x.NationalLoadDetails.EnableAutoPlan">
+                                            Manual Plan
+                                        </div>
+                                        <div class="plan-text" ng-if="x.NationalLoadDetails.EnableAutoPlan">
+                                            Auto Plan
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <span class="databox-text sonic-silver no-margin label-color fs-9">Last Processed</span>
+                                    <span class="databox-number lightcarbon no-margin fs-9 line-height-14">{{x.NationalLoadDetails.PlanLastProcessed | dateFormat}}</span>
+                                    <span class="databox-number lightcarbon no-margin fs-9 line-height-14">{{x.NationalLoadDetails.PlanLastProcessed | date : "h:mm:ss a"}}</span>
+                                </div>
+                            </div>
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                    <div class="col-lg-12 mt-10 no-padding">
+                                        <div class="plan-text" ng-if="!x.NationalLoadDetails.EnableAutoCommit">
+                                            Manual Commit
+                                        </div>
+                                        <div class="plan-text" ng-if="x.NationalLoadDetails.EnableAutoCommit">
+                                            Auto Commit
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <!-- <span class="databox-text sonic-silver no-margin label-color fs-9">Last Processed</span>
+                                    <span class="databox-number lightcarbon no-margin fs-9 line-height-14">{{x.NationalLoadDetails.PlanLastProcessed | dateFormat}}</span>
+                                    <span class="databox-number lightcarbon no-margin fs-9 line-height-14">{{x.NationalLoadDetails.PlanLastProcessed | date : "h:mm:ss a"}}</span> -->
+                                    <span class="databox-text sonic-silver no-margin label-color fs-9 mt-10">Last Processed</span>
+                                    <span class="databox-number lightcarbon no-margin fs-9 line-height-14">{{x.NationalLoadDetails.CommitLastProcessed | dateFormat}}</span>
+                                    <span class="databox-number lightcarbon no-margin fs-9 line-height-14">{{x.NationalLoadDetails.CommitLastProcessed | date : "h:mm:ss a"}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="databox-row row-6 padding-10">
+                            <button class="btn btn-primary btn-sm pull-right" ng-click="DepotContactCtrl.ePage.Masters.OpenDepotDetails(x,$index)">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

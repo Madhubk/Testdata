@@ -1,0 +1,14 @@
+.my-task-standard-bar {
+    background-color: #f0f0f0;
+    padding: 5px 0;
+}
+
+.popover-sfu-date {
+    width: 390px !important;
+    max-width: 100% !important;
+    /* Max Width of the popover (depending on the container!) */
+}
+
+.sfc-crd {
+    min-height: 100%
+}

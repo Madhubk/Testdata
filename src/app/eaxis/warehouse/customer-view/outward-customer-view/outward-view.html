@@ -1,0 +1,36 @@
+<uib-tabset id="chromeTab" active="OutwardViewCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+    <uib-tab>
+        <uib-tab-heading title="Outward">
+            <span data-ng-bind="'Outward'" class="ng-binding">Outward</span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+        <div class="no-padding tab-list-view-wrapper">
+            <!--Outward Grid Page-->
+            <dynamic-list dataentry-name="OutwardViewCtrl.ePage.Masters.dataentryName" task-name="OutwardViewCtrl.ePage.Masters.taskName" grid-config-type="0"
+                selected-grid-row="OutwardViewCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" dataentry-object="OutwardViewCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+            <div class="tab-loading" data-ng-show="OutwardViewCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+
+    <uib-tab active="OutwardViewCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in OutwardViewCtrl.ePage.Masters.TabList" ng-click="OutwardViewCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+        <uib-tab-heading title="{{tab.label}}">
+            <span data-ng-bind="tab.label" class="mr-5"></span>
+            <i class="glyphicon glyphicon-remove" ng-click="OutwardViewCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+            <span class="error-warning-container-common" data-ng-if="tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length > 0">
+
+            </span>
+        </uib-tab-heading>
+        <div class="padding-bottom-10 clearfix">
+            <!--Outward Menu Directive-->
+            <Outward-view-detail current-Outward-view-detail="tab"></Outward-view-detail>
+            <div class="horizontal-space"></div>
+        </div>
+        <div class="eaxis-footer-strip">
+            <div class="col-xs-6 col-sm-8 col-md-8 col-lg-9 col-xl-9">
+                <standard-menu dataentry-object="OutwardViewCtrl.ePage.Masters.DataEntryObject" input="tab"></standard-menu>
+            </div>
+        </div>
+
+    </uib-tab>
+    
+</uib-tabset>

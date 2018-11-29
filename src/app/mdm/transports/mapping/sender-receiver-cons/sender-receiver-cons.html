@@ -1,0 +1,152 @@
+<div class="" ng-if="SenderReceiverConsCtrl.ePage.Entities.Header.CheckPoints.CfxMappingValues.length>0" ng-init="SenderReceiverConsCtrl.ePage.Masters.getCfxMappingDetails()"></div>
+<div class="p-10" ng-show='SenderReceiverConsCtrl.ePage.Masters.Lineslist'>
+    <div>
+        <span>
+            <button type="button" class="btn btn-sm btn-outline-secondary" title="Add New" data-ng-click="SenderReceiverConsCtrl.ePage.Masters.AddNewRow()">
+                <span class="fa fa-plus"></span>&nbsp;&nbsp;Add New
+            </button>
+        </span>
+        <span ng-hide='SenderReceiverConsCtrl.ePage.Masters.selectedRow==-1'>
+            <button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Copy" data-ng-click="SenderReceiverConsCtrl.ePage.Masters.CopyRow()">
+                <span class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button>
+        </span>
+        <span ng-hide='SenderReceiverConsCtrl.ePage.Masters.selectedRow==-1'>
+            <button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Edit" data-ng-click="SenderReceiverConsCtrl.ePage.Masters.Edit(SenderReceiverConsCtrl.ePage.Masters.selectedRow,'Edit List')">
+                <span class="fa fa-pencil"></span>&nbsp;&nbsp;Edit</button>
+        </span>
+        <span ng-hide='SenderReceiverConsCtrl.ePage.Masters.selectedRow==-1'>
+            <button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Delete" data-ng-click="SenderReceiverConsCtrl.ePage.Masters.RemoveRow()">
+                <span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button>
+        </span>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 pull-right">
+            
+            <input type="text" class="form-control input-sm" placeholder="Local Search.." data-ng-model="SenderReceiverConsCtrl.ePage.Masters.find"    
+            />
+            
+        </div>
+    </div>
+    <div id='SenderReceiverConsCtrl.ePage.Masters.your_div' class="wmstable_scroll" style="height:450px; padding-top: 2px;">
+        <div class="table" id="results">
+            <div class='theader'>
+                <div class='table_header'>List No</div>
+                <div class='table_header'>Sender</div>
+                <div class='table_header'>Service Type</div>
+                <div class='table_header'>Receiver</div>
+            </div>
+
+            <!-- List Empty Response -->
+            <div data-ng-if="SenderReceiverConsCtrl.ePage.Entities.Header.Data.SenderReceiverDetails.length==0">
+                <div class="grid-no-record" style="bottom: 250px;">No records found...</div>
+            </div>
+
+            <div class="grid-loading-norecord-container" data-ng-show="SenderReceiverConsCtrl.ePage.Masters.IsLoading">
+                    <div class="grid-no-record" style="bottom: 250px;">Loading...</div>
+            </div>
+
+            <div class='table_row' ng-repeat="x in SenderReceiverConsCtrl.ePage.Entities.Header.Data.SenderReceiverDetails |filter :SenderReceiverConsCtrl.ePage.Masters.find track by $index"
+                ng-click="SenderReceiverConsCtrl.ePage.Masters.setSelectedRow($index,x);" ng-class="{row_active: SenderReceiverConsCtrl.ePage.Masters.LineselectedRow==$index}"
+                style="font-size: 11px;">
+                <div class='table_small'>
+                    <div class='table_cell'>List No</div>
+                    <div class='table_cell'>{{$index+1}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Sender</div>
+                    <div class='table_cell'>{{x.MappingForCode || SenderReceiverConsCtrl.ePage.Masters.emptyText}} - {{x.ORG_MappingForName || SenderReceiverConsCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Service Type</div>
+                    <div class='table_cell'>{{x.AddRef1Code || SenderReceiverConsCtrl.ePage.Masters.emptyText}} - {{x.TYP_Value || SenderReceiverConsCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Receiver</div>
+                    <div class='table_cell'>{{x.MappingToCode || SenderReceiverConsCtrl.ePage.Masters.emptyText}} - {{x.ORG_MappingToName || SenderReceiverConsCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix" ng-hide='SenderReceiverConsCtrl.ePage.Masters.Lineslist' style="padding:5px">
+    <div class="panel panel-default mt-5">
+        <div class="panel-heading">
+            <span ng-show="SenderReceiverConsCtrl.ePage.Masters.HeaderName =='Copy Of List'">
+                {{SenderReceiverConsCtrl.ePage.Masters.HeaderName}} - {{SenderReceiverConsCtrl.ePage.Masters.selectedRow}}
+            </span>
+            <span ng-show="SenderReceiverConsCtrl.ePage.Masters.HeaderName!='Copy Of List'">
+                {{SenderReceiverConsCtrl.ePage.Masters.HeaderName}} - {{SenderReceiverConsCtrl.ePage.Masters.selectedRow+1}}
+            </span>
+            <span class="WOL-Status pull-right" ng-bind="SenderReceiverConsCtrl.ePage.Entities.Header.Data.SenderReceiverDetails[SenderReceiverConsCtrl.ePage.Masters.selectedRow].WorkOrderLineStatusDesc"></span>
+        </div>
+        <div class="panel-body">
+            <div class="col-lg-12 ex-line-padding">
+                <div class="ex-line-box" style="height:85px; padding-top:10px">
+                    <!-- Sender-->
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Sender</label>
+                            <div class="input-group input-group-sm">
+                                <!-- Dynamic look up Search in textbox -->
+                                <div dynamic-lookup placeholder="Sender" my-ng-model="SenderReceiverConsCtrl.ePage.Entities.Header.Data.SenderReceiverDetails[SenderReceiverConsCtrl.ePage.Masters.selectedRow].MappingForCode"
+                                    auto-complete-on-select="SenderReceiverConsCtrl.ePage.Masters.SelectedLookupDataSender($item)"
+                                    obj="SenderReceiverConsCtrl.ePage.Entities.Header.Data.SenderReceiverDetails[SenderReceiverConsCtrl.ePage.Masters.selectedRow]"
+                                    prefix-data="'OrganizationList'" config="'MappingSender'">
+                                </div>
+                                <!-- Look Up page opens when button clicks -->
+                                <span class="input-group-btn">
+                                    <button dynamic-list-modal obj="SenderReceiverConsCtrl.ePage.Entities.Header.Data.SenderReceiverDetails[SenderReceiverConsCtrl.ePage.Masters.selectedRow]"
+                                        field-name="'MappingSender'" selected-data="SenderReceiverConsCtrl.ePage.Masters.SelectedLookupDataSender($item)"
+                                        prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                        class="btn btn-default shiny" type="button">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Service Type -->
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Service Type</label>
+                            <select chosen class="form-control" style="height: 30px;" ng-model="SenderReceiverConsCtrl.ePage.Entities.Header.Data.SenderReceiverDetails[SenderReceiverConsCtrl.ePage.Masters.selectedRow].AddRef1Code"
+                                ng-options="x.Key as x.Key+' - '+ x.Value for x in SenderReceiverConsCtrl.ePage.Masters.DropDownMasterList.servicetypes.ListSource"
+                                search-contains="true" ng-change="SenderReceiverConsCtrl.ePage.Masters.OnChangeServiceType(SenderReceiverConsCtrl.ePage.Entities.Header.Data.SenderReceiverDetails[SenderReceiverConsCtrl.ePage.Masters.selectedRow].AddRef1Code)">
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--Receiver-->
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Receiver</label>
+                            <div class="input-group input-group-sm">
+                                <!-- Dynamic look up Search in textbox -->
+                                <div dynamic-lookup placeholder="Receiver" my-ng-model="SenderReceiverConsCtrl.ePage.Entities.Header.Data.SenderReceiverDetails[SenderReceiverConsCtrl.ePage.Masters.selectedRow].MappingToCode"
+                                    auto-complete-on-select="SenderReceiverConsCtrl.ePage.Masters.SelectedLookupDataReceiver($item)"
+                                    obj="SenderReceiverConsCtrl.ePage.Entities.Header.Data.SenderReceiverDetails[SenderReceiverConsCtrl.ePage.Masters.selectedRow]"
+                                    prefix-data="'OrganizationList'" config="'MappingReceiver'">
+                                </div>
+                                <!-- Look Up page opens when button clicks -->
+                                <span class="input-group-btn">
+                                    <button dynamic-list-modal obj="SenderReceiverConsCtrl.ePage.Entities.Header.Data.SenderReceiverDetails[SenderReceiverConsCtrl.ePage.Masters.selectedRow]"
+                                        field-name="'MappingReceiver'" selected-data="SenderReceiverConsCtrl.ePage.Masters.SelectedLookupDataReceiver($item)"
+                                        prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                        class="btn btn-default shiny" type="button">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-lg-offset-8 mt-5">
+                    <button class="btn btn-blue btn-sm mr-5 pull-right" title="Save" data-ng-click="SenderReceiverConsCtrl.ePage.Masters.Done()">
+                        <i class="fa fa-save pr-5"></i>Save</button>
+                    <!-- <button class="btn btn-primary btn-sm mr-5 pull-right" title="Delete" data-ng-click="SenderReceiverConsCtrl.ePage.Masters.RemoveRow()"><i class="fa fa-trash pr-5"></i>Delete</button> -->
+                    <button class="btn btn-primary btn-sm mr-5 pull-right" title="Back" data-ng-click="SenderReceiverConsCtrl.ePage.Masters.Back()">
+                        <i class="fa fa-angle-double-left pr-5"></i>Back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

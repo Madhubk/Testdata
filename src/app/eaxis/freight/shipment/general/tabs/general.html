@@ -1,402 +1,689 @@
 <!--General-->
-<div class="clearfix">
-    <div class="row margin-right-10 margin-left-10 margin-top-10 address-panel">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 pr-0 padding-top-10 address-design">
-            <!--Pickup Drop Mode-->
-            <div class="padding-bottom-5">
-                <div class="">
-                    <!--<i class="fa fa-map-marker"></i>-->
-                    <label class="control-label"> Consignor</label>
-                </div>
+<div class="clearfix pl-15 pr-15 mt-15">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <h1 class="title-message">{{GeneralCtrl.bookingType}}</h1>
+    </div>
+    <div class="rows address-panel">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 pt-10 address-design">
+            <!--Consignor-->
+            <div class="ship-font">
+                <label class="control-label">Consignor</label>
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Shipper_Code.IsWarning && !GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Shipper_Code.IsError"
+                        list="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Shipper_Code.WARNING" type="'warning'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Shipper_Code.IsError"
+                        list="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Shipper_Code.ERROR" type="'error'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
             </div>
-            <!--Estimated Pickup-->
-            <div class="padding-right-10">
-                <div class="form-group">
-                    <div class="input-group input-group-sm">
 
-                        <input type="hidden" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ORG_FK">
-                        <div dynamic-lookup placeholder="Organization Code" my-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ORG_Code"
-                            obj="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD" prefix-data="'OrganizationList'"
-                            config="'JobAddressOrg'" auto-complete-on-select="GeneralCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item, 'address', 'CRD')">
-                        </div>
-                        <span class="input-group-btn">
-                            <button dynamic-list-modal obj="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD" field-name="'JobAddressOrg'"
-                                prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="GeneralCtrl.ePage.Masters.SelectedLookupData($item, 'address', 'CRD')"
-                                class="btn btn-default shiny" type="button">
-                                <i class="fa fa-ellipsis-h"></i>
-                            </button>
-                        </span>
-
+            <div class="form-group">
+                <div class="input-group input-group-sm">
+                    <input type="hidden" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ORG_FK">
+                    <div dynamic-lookup placeholder="Organization Code" my-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ORG_Code"
+                        obj="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD" page-name="'OrganizationList'"
+                        control-id="'JobAddressOrgConsignor'" control-key="JobAddressOrgConsignor_3241" auto-complete-on-select="GeneralCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item, 'address','contact', 'CRD','CRG','E0031')">
                     </div>
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD" default-filter="GeneralCtrl.ePage.Masters.ConsignorFilter"
+                            control-id="'JobAddressOrgConsignor'" control-key="JobAddressOrgConsignor_3241" page-name="'OrganizationList'"
+                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="GeneralCtrl.ePage.Masters.SelectedLookupData($item, 'address','contact', 'CRD','CRG','E0031')"
+                            class="btn btn-default shiny" type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
                 </div>
             </div>
-            <div class="padding-right-10">
-                <div class="form-group">
-                    <div class="input-group input-group-sm">
-                        <input type="hidden" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OAD_Address_FK">
 
-                        <textarea class="form-control no-resize txtarea-height-45" disabled="disabled" placeholder="Please select consignor address"
-                            data-ng-model="GeneralCtrl.ePage.Masters.AddressContactBinding((GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.AddressList | filter: {PK: GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OAD_Address_FK})[0],'Address')"
-                            ng-model-options="{ getterSetter: true }"></textarea>
-                        <span class="input-group-btn">
-                            <button class="btn btn-default txtarea-height-45" type="button" data-ng-click="GeneralCtrl.ePage.Masters.IsCRDAddressOpen=!GeneralCtrl.ePage.Masters.IsCRDAddressOpen">
-                                <i class="fa fa-address-book-o"></i>
-                                <!--<i class="fa fa-caret-down"></i>-->
-                            </button>
-                        </span>
-                        <div class="dropdownWrapLeft animated fadeInDown" data-ng-show="GeneralCtrl.ePage.Masters.IsCRDAddressOpen">
-                            <address-wrapper obj="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.AddressList" type="'CRD'" list-source="'AddressList'"
-                                selected="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OAD_Address_FK" on-address-edit="GeneralCtrl.ePage.Masters.OnAddressEdit($item, 'CRD', 'Address')"
-                                on-address-change="GeneralCtrl.ePage.Masters.OnAddressChange($item, 'CRD', 'Address')"></address-wrapper>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="padding-right-10">
-                <div class="form-group">
-                    <div class="input-group input-group-sm">
-
-                        <input type="hidden" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OCT_FK">
-
-                        <textarea class="form-control no-resize txtarea-height-45" disabled="disabled" placeholder="Please select consignor contact"
-                            data-ng-model="GeneralCtrl.ePage.Masters.AddressContactBinding((GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ContactList | filter: {PK: GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OCT_FK})[0],'Contact')"
-                            ng-model-options="{ getterSetter: true }"></textarea>
-                        <span class="input-group-btn">
-                            <button class="btn btn-default txtarea-height-45" type="button" data-ng-click="GeneralCtrl.ePage.Masters.IsCRDContactOpen=!GeneralCtrl.ePage.Masters.IsCRDContactOpen">
-                                <i class="fa fa-phone"></i>
-                            </button>
-                        </span>
-                        <div class="dropdownWrapLeft animated fadeInDown" data-ng-show="GeneralCtrl.ePage.Masters.IsCRDContactOpen">
-                            <address-wrapper obj="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ContactList" type="'CRD'" list-source="'ContactList'"
-                                selected="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OCT_FK" on-address-change="GeneralCtrl.ePage.Masters.OnContactChange($item, 'CRD', 'Contact')"></address-wrapper>
-                        </div>
+            <div class="form-group">
+                <div class="input-group input-group-sm">
+                    <input type="hidden" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OAD_Address_FK">
+                    <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignor address" data-ng-model="GeneralCtrl.ePage.Masters.AddressContactBinding((GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.AddressList | filter: {PK: GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OAD_Address_FK})[0],'Address')"
+                        ng-model-options="{ getterSetter: true }"></textarea>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" data-ng-click="GeneralCtrl.ePage.Masters.IsCRDAddressOpen=!GeneralCtrl.ePage.Masters.IsCRDAddressOpen">
+                            <i class="fa fa-address-book-o"></i>
+                        </button>
+                    </span>
+                    <div class="dropdownWrapMiddle animated fadeInDown" data-ng-show="GeneralCtrl.ePage.Masters.IsCRDAddressOpen">
+                        <address-wrapper obj="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.AddressList" type="'CRD'" list-source="'AddressList'"
+                            selected="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OAD_Address_FK" on-address-edit="GeneralCtrl.ePage.Masters.OnAddressEdit($item, 'CRD', 'Address')"
+                            on-address-change="GeneralCtrl.ePage.Masters.OnAddressChange($item, 'CRD', 'Address','CRG')"></address-wrapper>
                     </div>
                 </div>
             </div>
 
-
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 pr-0 padding-top-10 address-consignee">
-            <!--Pickup Drop Mode-->
-            <div class="padding-bottom-5">
-                <div class="">
-                    <!--<i class="fa fa-globe"></i>-->
-                    <label class="control-label"> Consignee</label>
-                </div>
-            </div>
-            <!--Estimated Pickup-->
-            <!--Estimated Pickup-->
-            <div class="padding-right-10">
-                <div class="form-group">
-                    <div class="input-group input-group-sm">
-
-                        <input type="hidden" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ORG_FK">
-                        <div dynamic-lookup placeholder="Organization Code" my-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ORG_Code"
-                            obj="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED" prefix-data="'OrganizationList'"
-                            config="'JobAddressOrg'" auto-complete-on-select="GeneralCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item, 'address', 'CED')">
-                        </div>
-                        <span class="input-group-btn">
-                            <button dynamic-list-modal obj="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED" field-name="'JobAddressOrg'"
-                                prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="GeneralCtrl.ePage.Masters.SelectedLookupData($item, 'address', 'CED')"
-                                class="btn btn-default shiny" type="button">
-                                <i class="fa fa-ellipsis-h"></i>
-                            </button>
-                        </span>
-
+            <div class="form-group" data-ng-if="GeneralCtrl.ePage.Masters.IsContactEnable">
+                <div class="input-group input-group-sm">
+                    <input type="hidden" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OAD_Address_FK">
+                    <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignor contact" data-ng-model="GeneralCtrl.ePage.Masters.AddressContactBinding((GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.AddressList | filter: {PK: GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OAD_Address_FK})[0],'contact')"
+                        ng-model-options="{ getterSetter: true }"></textarea>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" data-ng-click="GeneralCtrl.ePage.Masters.IsCRDContactOpen=!GeneralCtrl.ePage.Masters.IsCRDContactOpen">
+                            <i class="fa fa-phone"></i>
+                        </button>
+                    </span>
+                    <div class="dropdownWrapLeft animated fadeInDown" data-ng-show="GeneralCtrl.ePage.Masters.IsCRDContactOpen">
+                        <address-wrapper obj="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ContactList" type="'CRD'" list-source="'ContactList'"
+                            selected="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OCT_FK" on-address-change="GeneralCtrl.ePage.Masters.OnContactChange($item, 'CRD', 'Contact','CRG')"></address-wrapper>
                     </div>
                 </div>
             </div>
-            <div class="padding-right-10">
-                <div class="form-group">
-                    <div class="input-group input-group-sm">
-
-                        <input type="hidden" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OAD_Address_FK">
-
-                        <textarea class="form-control no-resize txtarea-height-45" disabled="disabled" placeholder="Please select consignee address"
-                            data-ng-model="GeneralCtrl.ePage.Masters.AddressContactBinding((GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.AddressList | filter: {PK: GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OAD_Address_FK})[0],'Address')"
-                            ng-model-options="{ getterSetter: true }"></textarea>
-                        <span class="input-group-btn">
-                            <button class="btn btn-default txtarea-height-45" type="button" data-ng-click="GeneralCtrl.ePage.Masters.IsCEDAddressOpen=!GeneralCtrl.ePage.Masters.IsCEDAddressOpen">
-                                <i class="fa fa-address-book-o"></i>
-                            </button>
-                        </span>
-                        <div class="dropdownWrapMiddle animated fadeInDown" data-ng-show="GeneralCtrl.ePage.Masters.IsCEDAddressOpen">
-                            <address-wrapper obj="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.AddressList" type="'CED'" list-source="'AddressList'"
-                                selected="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OAD_Address_FK" on-address-edit="GeneralCtrl.ePage.Masters.OnAddressEdit($item, 'CED', 'Address')"
-                                on-address-change="GeneralCtrl.ePage.Masters.OnAddressChange($item, 'CED', 'Address')"></address-wrapper>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="padding-right-10">
-                <div class="form-group">
-                    <div class="input-group input-group-sm">
-
-                        <input type="hidden" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OCT_FK">
-
-                        <textarea class="form-control no-resize txtarea-height-45" disabled="disabled" placeholder="Please select consignee contact"
-                            data-ng-model="GeneralCtrl.ePage.Masters.AddressContactBinding((GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ContactList | filter: {PK: GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OCT_FK})[0],'Contact')"
-                            ng-model-options="{ getterSetter: true }"></textarea>
-                        <span class="input-group-btn">
-                            <button class="btn btn-default txtarea-height-45" type="button" data-ng-click="GeneralCtrl.ePage.Masters.IsCEDContactOpen=!GeneralCtrl.ePage.Masters.IsCEDContactOpen">
-                                <i class="fa fa-phone"></i>
-                            </button>
-                        </span>
-                        <div class="dropdownWrapMiddle animated fadeInDown" data-ng-show="GeneralCtrl.ePage.Masters.IsCEDContactOpen">
-                            <address-wrapper obj="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ContactList" type="'CED'" list-source="'ContactList'"
-                                selected="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OCT_FK" on-address-change="GeneralCtrl.ePage.Masters.OnContactChange($item, 'CED', 'Contact')"></address-wrapper>
-                        </div>
-
+            <div class="form-group" data-ng-if="!GeneralCtrl.ePage.Masters.IsContactEnable">
+                <div class="input-group input-group-sm">
+                    <input type="hidden" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OCT_FK">
+                    <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignor contact" data-ng-model="GeneralCtrl.ePage.Masters.AddressContactBinding((GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ContactList | filter: {PK: GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OCT_FK})[0],'Contact')"
+                        ng-model-options="{ getterSetter: true }"></textarea>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" data-ng-click="GeneralCtrl.ePage.Masters.IsCRDContactOpen=!GeneralCtrl.ePage.Masters.IsCRDContactOpen">
+                            <i class="fa fa-phone"></i>
+                        </button>
+                    </span>
+                    <div class="dropdownWrapLeft animated fadeInDown" data-ng-show="GeneralCtrl.ePage.Masters.IsCRDContactOpen">
+                        <address-wrapper obj="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ContactList" type="'CRD'" list-source="'ContactList'"
+                            selected="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OCT_FK" on-address-change="GeneralCtrl.ePage.Masters.OnContactChange($item, 'CRD', 'Contact','CRG')"></address-wrapper>
                     </div>
                 </div>
             </div>
 
 
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 pr-0 padding-top-10">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 pt-10 address-consignee">
             <!--Pickup Drop Mode-->
-            <div class="padding-bottom-5">
-                <div class="">
-                    <!--<i class="fa fa-location-arrow"></i>-->
-                    <label class="control-label"> Notify Party</label>
-                </div>
+            <div class="ship-font">
+                <!--<i class="fa fa-globe"></i>-->
+                <label class="control-label"> Consignee</label>
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Consignee_Code.IsWarning && !GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Consignee_Code.IsError"
+                        list="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Consignee_Code.WARNING" type="'warning'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Consignee_Code.IsError"
+                        list="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Consignee_Code.ERROR" type="'error'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
             </div>
             <!--Estimated Pickup-->
-            <div class="padding-right-10">
-                <div class="form-group">
-                    <div class="input-group input-group-sm">
+            <div class="form-group">
+                <div class="input-group input-group-sm">
+                    <input type="hidden" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ORG_FK">
+                    <div dynamic-lookup placeholder="Organization Code" my-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ORG_Code"
+                        obj="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED" page-name="'OrganizationList'"
+                        control-id="'JobAddressOrgConsignee'" control-key="JobAddressOrgConsignee_3245" auto-complete-on-select="GeneralCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item, 'address','contact', 'CED','CEG')">
+                    </div>
 
-                        <input type="hidden" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.ORG_FK">
-                        <div dynamic-lookup placeholder="Organization Code" my-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.ORG_Code"
-                            obj="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP" prefix-data="'OrganizationList'"
-                            config="'JobAddressOrg'" auto-complete-on-select="GeneralCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item, 'address', 'NPP')">
-                        </div>
-                        <span class="input-group-btn">
-                            <button dynamic-list-modal obj="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP" field-name="'JobAddressOrg'"
-                                prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="GeneralCtrl.ePage.Masters.SelectedLookupData($item, 'address', 'NPP')"
-                                class="btn btn-default shiny" type="button">
-                                <i class="fa fa-ellipsis-h"></i>
-                            </button>
-                        </span>
-
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED" default-filter="GeneralCtrl.ePage.Masters.ConsigneeFilter"
+                            control-id="'JobAddressOrgConsignee'" control-key="JobAddressOrgConsignee_3245" page-name="'OrganizationList'" 
+                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="GeneralCtrl.ePage.Masters.SelectedLookupData($item, 'address','contact', 'CED','CEG')"
+                            class="btn btn-default shiny" type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                    <span class="input-group-btn">
+                        <div data-ng-if="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Consignee_Code==null" ng-init="OnFieldValueChange('E0031')"></div>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group input-group-sm">
+                    <input type="hidden" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OAD_Address_FK">
+                    <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignee address" data-ng-model="GeneralCtrl.ePage.Masters.AddressContactBinding((GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.AddressList | filter: {PK: GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OAD_Address_FK})[0],'Address')"
+                        ng-model-options="{ getterSetter: true }"></textarea>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" data-ng-click="GeneralCtrl.ePage.Masters.IsCEDAddressOpen=!GeneralCtrl.ePage.Masters.IsCEDAddressOpen">
+                            <i class="fa fa-address-book-o"></i>
+                        </button>
+                    </span>
+                    <div class="dropdownWrapMiddle animated fadeInDown" data-ng-show="GeneralCtrl.ePage.Masters.IsCEDAddressOpen">
+                        <address-wrapper obj="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.AddressList" type="'CED'" list-source="'AddressList'"
+                            selected="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OAD_Address_FK" on-address-edit="GeneralCtrl.ePage.Masters.OnAddressEdit($item, 'CED', 'Address')"
+                            on-address-change="GeneralCtrl.ePage.Masters.OnAddressChange($item, 'CED', 'Address','CEG')"></address-wrapper>
                     </div>
                 </div>
             </div>
-            <div class="padding-right-10">
-                <div class="form-group">
-                    <div class="input-group input-group-sm">
 
-                        <input type="hidden" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.OAD_Address_FK">
-
-                        <textarea class="form-control no-resize txtarea-height-45" disabled="disabled" placeholder="Please select Notify Party address"
-                            data-ng-model="GeneralCtrl.ePage.Masters.AddressContactBinding((GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.AddressList | filter: {PK: GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.OAD_Address_FK})[0],'Address')"
-                            ng-model-options="{ getterSetter: true }"></textarea>
-                        <span class="input-group-btn">
-                            <button class="btn btn-default txtarea-height-45" type="button" data-ng-click="GeneralCtrl.ePage.Masters.IsNPPAddressOpen=!GeneralCtrl.ePage.Masters.IsNPPAddressOpen">
-                                <i class="fa fa-address-book-o"></i>
-                            </button>
-                        </span>
-                        <div class="dropdownWrapLast animated fadeInDown" data-ng-show="GeneralCtrl.ePage.Masters.IsNPPAddressOpen">
-                            <address-wrapper obj="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.AddressList" type="'NPP'" list-source="'AddressList'"
-                                selected="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.OAD_Address_FK" on-address-edit="GeneralCtrl.ePage.Masters.OnAddressEdit($item, 'NPP', 'Address')"
-                                on-address-change="GeneralCtrl.ePage.Masters.OnAddressChange($item, 'NPP', 'Address')"></address-wrapper>
-                        </div>
+            <div class="form-group" data-ng-if="GeneralCtrl.ePage.Masters.IsContactEnable1">
+                <div class="input-group input-group-sm">
+                    <input type="hidden" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OAD_Address_FK">
+                    <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignee contact" data-ng-model="GeneralCtrl.ePage.Masters.AddressContactBinding((GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.AddressList | filter: {PK: GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OAD_Address_FK})[0],'contact')"
+                        ng-model-options="{ getterSetter: true }"></textarea>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" data-ng-click="GeneralCtrl.ePage.Masters.IsCEDContactOpen=!GeneralCtrl.ePage.Masters.IsCEDContactOpen">
+                            <i class="fa fa-phone"></i>
+                        </button>
+                    </span>
+                    <div class="dropdownWrapMiddle animated fadeInDown" data-ng-show="GeneralCtrl.ePage.Masters.IsCEDContactOpen">
+                        <address-wrapper obj="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ContactList" type="'CED'" list-source="'ContactList'"
+                            selected="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OCT_FK" on-address-change="GeneralCtrl.ePage.Masters.OnContactChange($item, 'CED', 'Contact','CEG')"></address-wrapper>
                     </div>
                 </div>
             </div>
-            <div class="padding-right-10">
-                <div class="form-group">
-                    <div class="input-group input-group-sm">
-
-                        <input type="hidden" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.OCT_FK">
-
-                        <textarea class="form-control no-resize txtarea-height-45" disabled="disabled" placeholder="Please select Notify Party Contact"
-                            data-ng-model="GeneralCtrl.ePage.Masters.AddressContactBinding((GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.ContactList | filter: {PK: GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.OCT_FK})[0],'Contact')"
-                            ng-model-options="{ getterSetter: true }"></textarea>
-                        <span class="input-group-btn">
-                            <button class="btn btn-default txtarea-height-45" type="button" data-ng-click="GeneralCtrl.ePage.Masters.IsNPPContactOpen=!GeneralCtrl.ePage.Masters.IsNPPContactOpen">
-                                <i class="fa fa-phone"></i>
-                            </button>
-                        </span>
-                        <div class="dropdownWrapLast animated fadeInDown" data-ng-show="GeneralCtrl.ePage.Masters.IsNPPContactOpen">
-                            <address-wrapper obj="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.ContactList" type="'NPP'" list-source="'ContactList'"
-                                selected="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.OCT_FK" on-address-change="GeneralCtrl.ePage.Masters.OnContactChange($item, 'NPP', 'Contact')"></address-wrapper>
-                        </div>
+            <div class="form-group" data-ng-if="!GeneralCtrl.ePage.Masters.IsContactEnable1">
+                <div class="input-group input-group-sm">
+                    <input type="hidden" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OCT_FK">
+                    <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignee contact" data-ng-model="GeneralCtrl.ePage.Masters.AddressContactBinding((GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ContactList | filter: {PK: GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OCT_FK})[0],'Contact')"
+                        ng-model-options="{ getterSetter: true }"></textarea>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" data-ng-click="GeneralCtrl.ePage.Masters.IsCEDContactOpen=!GeneralCtrl.ePage.Masters.IsCEDContactOpen">
+                            <i class="fa fa-phone"></i>
+                        </button>
+                    </span>
+                    <div class="dropdownWrapMiddle animated fadeInDown" data-ng-show="GeneralCtrl.ePage.Masters.IsCEDContactOpen">
+                        <address-wrapper obj="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ContactList" type="'CED'" list-source="'ContactList'"
+                            selected="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OCT_FK" on-address-change="GeneralCtrl.ePage.Masters.OnContactChange($item, 'CED', 'Contact','CEG')"></address-wrapper>
                     </div>
                 </div>
             </div>
+
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 pt-10">
+            <!--Pickup Drop Mode-->
+            <div class="ship-font">
+                <!--<i class="fa fa-location-arrow"></i>-->
+                <label class="control-label"> Notify Party</label>
+            </div>
+            <div class="form-group ship-font">
+                <div class="input-group input-group-sm">
+                    <input type="hidden" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.ORG_FK">
+                    <div dynamic-lookup placeholder="Organization Code" my-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.ORG_Code"
+                        obj="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP" page-name="'OrganizationList'"
+                        control-id="'JobAddressOrgConsignee'" control-key="JobAddressOrgConsignee_3245" auto-complete-on-select="GeneralCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item, 'address', 'contact','NPP')">
+                    </div>
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP" default-filter="GeneralCtrl.ePage.Masters.ConsigneeFilter"
+                            control-id="'JobAddressOrgConsignee'" control-key="JobAddressOrgConsignee_3245" page-name="'OrganizationList'"
+                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="GeneralCtrl.ePage.Masters.SelectedLookupData($item, 'address','contact', 'NPP')"
+                            class="btn btn-default shiny" type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group ship-font">
+                <div class="input-group input-group-sm">
+                    <input type="hidden" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.OAD_Address_FK">
+                    <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select Notify Party address" data-ng-model="GeneralCtrl.ePage.Masters.AddressContactBinding((GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.AddressList | filter: {PK: GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.OAD_Address_FK})[0],'Address')"
+                        ng-model-options="{ getterSetter: true }"></textarea>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" data-ng-click="GeneralCtrl.ePage.Masters.IsNPPAddressOpen=!GeneralCtrl.ePage.Masters.IsNPPAddressOpen">
+                            <i class="fa fa-address-book-o"></i>
+                        </button>
+                    </span>
+                    <div class="dropdownWrapLast animated fadeInDown" data-ng-show="GeneralCtrl.ePage.Masters.IsNPPAddressOpen">
+                        <address-wrapper obj="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.AddressList" type="'NPP'" list-source="'AddressList'"
+                            selected="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.OAD_Address_FK" on-address-edit="GeneralCtrl.ePage.Masters.OnAddressEdit($item, 'NPP', 'Address')"
+                            on-address-change="GeneralCtrl.ePage.Masters.OnAddressChange($item, 'NPP', 'Address')"></address-wrapper>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group ship-font" data-ng-if="GeneralCtrl.ePage.Masters.IsContactEnable2">
+                <div class="input-group input-group-sm">
+                    <input type="hidden" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.OAD_Address_FK">
+                    <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select Notify Party Contact" data-ng-model="GeneralCtrl.ePage.Masters.AddressContactBinding((GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.AddressList | filter: {PK: GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.OAD_Address_FK})[0],'contact')"
+                        ng-model-options="{ getterSetter: true }"></textarea>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" data-ng-click="GeneralCtrl.ePage.Masters.IsNPPContactOpen=!GeneralCtrl.ePage.Masters.IsNPPContactOpen">
+                            <i class="fa fa-phone"></i>
+                        </button>
+                    </span>
+                    <div class="dropdownWrapLast animated fadeInDown" data-ng-show="GeneralCtrl.ePage.Masters.IsNPPContactOpen">
+                        <address-wrapper obj="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.ContactList" type="'NPP'" list-source="'ContactList'"
+                            selected="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.OCT_FK" on-address-change="GeneralCtrl.ePage.Masters.OnContactChange($item, 'NPP', 'Contact')"></address-wrapper>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group ship-font" data-ng-if="!GeneralCtrl.ePage.Masters.IsContactEnable2">
+                <div class="input-group input-group-sm">
+                    <input type="hidden" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.OCT_FK">
+                    <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select Notify Party Contact" data-ng-model="GeneralCtrl.ePage.Masters.AddressContactBinding((GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.ContactList | filter: {PK: GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.OCT_FK})[0],'Contact')"
+                        ng-model-options="{ getterSetter: true }"></textarea>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" data-ng-click="GeneralCtrl.ePage.Masters.IsNPPContactOpen=!GeneralCtrl.ePage.Masters.IsNPPContactOpen">
+                            <i class="fa fa-phone"></i>
+                        </button>
+                    </span>
+                    <div class="dropdownWrapLast animated fadeInDown" data-ng-show="GeneralCtrl.ePage.Masters.IsNPPContactOpen">
+                        <address-wrapper obj="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.ContactList" type="'NPP'" list-source="'ContactList'"
+                            selected="GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.OCT_FK" on-address-change="GeneralCtrl.ePage.Masters.OnContactChange($item, 'NPP', 'Contact')"></address-wrapper>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
 <div class="clearfix margin-top-20">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pr-0 pl-0">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">Booked Date </label>
-                <div class="input-group input-group-sm">
-                    <input type="text" class="form-control" placeholder="{{GeneralCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.BookedDate"
-                        uib-datepicker-popup="{{GeneralCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="GeneralCtrl.ePage.Masters.DatePicker.Options"
-                        is-open="GeneralCtrl.ePage.Masters.DatePicker.isOpen['isBookedDate']" />
-                    <span class="input-group-btn">
-                        <button class="btn btn-default shiny" data-ng-click="GeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isBookedDate')">
-                            <i class="fa fa-calendar"></i>
-                        </button>
-                    </span>
+    <!-- Booked Date -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <div class="error-warning-container">
+                <error-warning-directive data-ng-if="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.BookedDate.IsWarning && !GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.BookedDate.IsError"
+                    list="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.BookedDate.WARNING" type="'warning'" icon="fa fa-warning"
+                    parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.BookedDate.IsError" list="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.BookedDate.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </div>
+            <label class="control-label text-single-line">Booked Date </label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{GeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.BookedDate"
+                    datetime-picker="{{GeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datepicker-options="GeneralCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true" default-date=""
+                    default-time="" save-as="GeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="GeneralCtrl.ePage.Masters.DatePicker.isOpen['isBookedDate']"
+                    when-closed="" data-ng-click="" data-ng-change="GeneralCtrl.ePage.Masters.OnFieldValueChange('E0014')" custom-date-time-format
+                />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" data-ng-click="GeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isBookedDate')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+
+            </div>
+        </div>
+    </div>
+    <!--House Bill-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">House Bill </label>
+            <input type="text" class="form-control input-sm" max-length="40" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBill"
+                placeholder="House Bill" />
+        </div>
+    </div>
+    <!--Transport Mode-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="error-warning-container">
+            <error-warning-directive data-ng-if="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransportMode.IsWarning && !GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransportMode.IsError"
+                list="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransportMode.WARNING" type="'warning'" icon="fa fa-warning"
+                parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            <error-warning-directive data-ng-if="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransportMode.IsError"
+                list="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransportMode.ERROR" type="'error'" icon="fa fa-warning"
+                parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+        </div>
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line"> Transport Mode</label>
+            <select data-ng-disabled="GeneralCtrl.ePage.Masters.TransportModedisable==true || GeneralCtrl.ePage.Entities.Header.Data.UIConShpMappings.length > 0"
+                chosen class="form-control" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode"
+                data-ng-options="x.Key as x.Description for x in  GeneralCtrl.ePage.Masters.DropDownMasterList.SHP_TRANSTYPE.ListSource"
+                search-contains="true" data-ng-change="GeneralCtrl.ePage.Masters.OnTransportChange();GeneralCtrl.ePage.Masters.OnFieldValueChange('E0002')">
+                <option value="">--Select--</option>
+            </select>
+        </div>
+    </div>
+    <!--Container Mode-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="error-warning-container">
+            <error-warning-directive data-ng-if="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ContainerMode.IsWarning && !GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ContainerMode.IsError"
+                list="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ContainerMode.WARNING" type="'warning'" icon="fa fa-warning"
+                parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            <error-warning-directive data-ng-if="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ContainerMode.IsError"
+                list="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ContainerMode.ERROR" type="'error'" icon="fa fa-warning"
+                parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+        </div>
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line"> Container Mode</label>
+            <select data-ng-disabled="GeneralCtrl.ePage.Masters.TransportModedisable==true || GeneralCtrl.ePage.Entities.Header.Data.UIConShpMappings.length > 0 ||  GeneralCtrl.ePage.Masters.TransportMode"
+                chosen class="form-control" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode" ng-options="x.Key as x.Description for x in GeneralCtrl.ePage.Masters.DropDownMasterList.SHP_CNTMODE.ListSource| shpcntmode : GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode"
+                search-contains="true" data-ng-change="GeneralCtrl.ePage.Masters.OnFieldValueChange('E1107')">
+                <option value="">--Select--</option>
+            </select>
+        </div>
+    </div>
+    <!--Inco Term-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">Inco Term</label>
+            <div class="">
+                <select chosen name="category-group" class="form-control" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.IncoTerm"
+                    ng-options="x.Key as x.Description for x in GeneralCtrl.ePage.Masters.DropDownMasterList.INCOTERM.ListSource"
+                    search-contains="true" data-ng-change="GeneralCtrl.ePage.Masters.OnIncotermChange()">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <!-- payment-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">Payment</label>
+            <select chosen class="form-control" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PrepaidCollect" ng-options="x.Key as x.Description for x in GeneralCtrl.ePage.Masters.DropDownMasterList.SHP_PAYMENT.ListSource"
+                search-contains="true">
+            </select>
+        </div>
+    </div>
+    <!--Shipment Payment-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">Shipper COD</label>
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 pr-0">
+                    <input type="text" class="form-control input-sm no-border-right" numbers-only-dot sb-precision="2" max-length="8" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Shippercod"
+                        placeholder="Shipper COD" />
                 </div>
-            </div>
-        </div>
-        <!--House Bill-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label">House Bill </label>
-                <input type="text" class="form-control input-sm" max-length="40" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBill"
-                    placeholder="House Bill" />
-            </div>
-        </div>
-        <!--Transport-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">Transport Mode</label>
-                <div class="">
-                    <select chosen class="form-control" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode" ng-options="x.Key as x.Description for x in GeneralCtrl.ePage.Masters.DropDownMasterList.TRANSTYPE.ListSource"
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 pl-0">
+                    <select chosen name="category-group" class="form-control" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.RX_NKGoodsValueCur"
+                        ng-options="x.Code as x.Code + '-' + x.Desc for x in GeneralCtrl.ePage.Masters.DropDownMasterList.Currency.ListSource"
                         search-contains="true">
-                        <option value="">--Select--</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <!--Container-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">Container Mode</label>
-                <div class="">
-                    <select chosen class="form-control" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode" ng-options="x.Key as x.Description for x in GeneralCtrl.ePage.Masters.DropDownMasterList.CNTTYPE.ListSource"
-                        search-contains="true">
-                        <option value="">--Select--</option>
+                        <!-- <option value="">--Select--</option> -->
                     </select>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pr-0 pl-0">
-        <!--Origin-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">Origin </label>
-                <div class="input-group input-group-sm">
-                    <div dynamic-lookup placeholder="Origin" my-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin" obj="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
-                        prefix-data="'MstUNLOCO'" config="'ShpGeneralOrigin'"></div>
-                    <span class="input-group-btn">
-                        <button dynamic-list-modal obj="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader" field-name="'ShpGeneralOrigin'"
-                            prefix-data="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="GeneralCtrl.ePage.Masters.SelectedLookupData($item)"
-                            class="btn btn-default shiny" type="button">
-                            <i class="fa fa-ellipsis-h"></i>
-                        </button>
-                    </span>
+    <!-- Is Domestic -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <span class="error-warning-container">
+            <error-warning-directive data-ng-if="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IsDomestic.IsWarning && !GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IsDomestic.IsError"
+                list="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IsDomestic.WARNING" type="'warning'" icon="fa fa-warning"
+                parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            <error-warning-directive data-ng-if="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IsDomestic.IsError" list="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IsDomestic.ERROR"
+                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+        </span>
+        <div class="form-group ship-font">
+            <label class="control-label">Is Domestic</label>
+            <fieldset disabled='true'>
+                <div class="checkbox mt-0">
+                    <label>
+                        <input type="checkbox" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.IsDomestic" class="colored-blue">
+                        <span class="text"></span>
+                    </label>
                 </div>
-            </div>
+            </fieldset>
         </div>
-        <!--Destination-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">Destination </label>
-                <div class="input-group input-group-sm">
-
-                    <div dynamic-lookup placeholder="Destination" my-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination"
-                        obj="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader" prefix-data="'MstUNLOCO'" config="'ShpGeneralDestination'"></div>
-                    <span class="input-group-btn">
-                        <button dynamic-list-modal obj="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader" field-name="'ShpGeneralDestination'"
-                            prefix-data="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="GeneralCtrl.ePage.Masters.SelectedLookupData($item)"
-                            class="btn btn-default shiny" type="button">
-                            <i class="fa fa-ellipsis-h"></i>
-                        </button>
-                    </span>
-                </div>
-            </div>
-        </div>
-        <!--ETD-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="ontrol-label">ETD</label>
-                <div class="input-group input-group-sm">
-                    <input type="text" class="form-control" placeholder="{{GeneralCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETD"
-                        uib-datepicker-popup="{{GeneralCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="GeneralCtrl.ePage.Masters.DatePicker.Options"
-                        is-open="GeneralCtrl.ePage.Masters.DatePicker.isOpen['isETD']" />
-                    <span class="input-group-btn">
-                        <button class="btn btn-default shiny" data-ng-click="GeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETD')">
-                            <i class="fa fa-calendar"></i>
-                        </button>
-                    </span>
-                </div>
-            </div>
-        </div>
-        <!--ETA-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">ETA </label>
-                <div class="input-group input-group-sm">
-                    <input type="text" class="form-control" placeholder="{{GeneralCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETA"
-                        uib-datepicker-popup="{{GeneralCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="GeneralCtrl.ePage.Masters.DatePicker.Options"
-                        is-open="GeneralCtrl.ePage.Masters.DatePicker.isOpen['isETA']" />
-                    <span class="input-group-btn">
-                        <button class="btn btn-default shiny" data-ng-click="GeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETA')">
-                            <i class="fa fa-calendar"></i>
-                        </button>
-                    </span>
-                </div>
+    </div>
+    <!--Origin-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">Origin </label>
+            <div class="input-group input-group-sm">
+                <div dynamic-lookup placeholder="Origin" my-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin" obj="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                    page-name="'MstUNLOCO'" control-id="'ShpGeneralOrigin'" control-key="ShpGeneralOrigin_3107" auto-complete-on-select="GeneralCtrl.ePage.Masters.IsDomestic(GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin,GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination)"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader" control-id="'ShpGeneralOrigin'"
+                        control-key="ShpGeneralOrigin_3107" page-name="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                        selected-data="GeneralCtrl.ePage.Masters.SelectedLookupData($item);GeneralCtrl.ePage.Masters.IsDomestic(GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin,GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination)"
+                        class="btn btn-default shiny" type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                </span>
             </div>
         </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pr-0 pl-0">
-        <!--Shipment Type-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">Shipment Type</label>
-                <div class="">
-                    <select chosen class="form-control" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentType" ng-options="x.Key as x.Description for x in GeneralCtrl.ePage.Masters.DropDownMasterList.SHPTYPE.ListSource"
-                        search-contains="true">
-                        <option value="">--Select--</option>
-                    </select>
-                </div>
+    <!--Destination-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">Destination </label>
+            <div class="input-group input-group-sm">
+                <div dynamic-lookup placeholder="Destination" my-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination"
+                    obj="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'MstUNLOCO'" control-id="'ShpGeneralDestination'"
+                    control-key="ShpGeneralDestination_3104" auto-complete-on-select="GeneralCtrl.ePage.Masters.IsDomestic(GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin,GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination)"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader" control-id="'ShpGeneralDestination'"
+                        control-key="ShpGeneralDestination_3104" page-name="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                        selected-data="GeneralCtrl.ePage.Masters.SelectedLookupData($item);GeneralCtrl.ePage.Masters.IsDomestic(GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin,GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination)"
+                        class="btn btn-default shiny" type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                </span>
             </div>
         </div>
-        <!--Service Level-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label">Service Level </label>
-                <div class="">
-                    <select chosen name="category-group" class="form-control" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.RS_NKServiceLevel"
-                        ng-options="x.Code as  x.Code + ' - ' +x.Description for x in GeneralCtrl.ePage.Masters.DropDownMasterList.ServiceLevel.ListSource"
-                        search-contains="true">
-                        <option value="">--Select--</option>
-                    </select>
-                </div>
+    </div>
+    <!--Port of Loading-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">Port of Loading </label>
+            <div class="input-group input-group-sm">
+                <div dynamic-lookup placeholder="Load Port" my-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PortOfLoading"
+                    obj="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'MstUNLOCO'" control-id="'ShpRoutingLoadPort'"
+                    control-key="ShpRoutingLoadPort_3103" auto-complete-on-select="GeneralCtrl.ePage.Masters.PortOfLoadingAlert($item, 'portOfLoading')"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader" control-id="'ShpRoutingLoadPort'"
+                        control-key="ShpRoutingLoadPort_3103" page-name="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                        selected-data="GeneralCtrl.ePage.Masters.PortOfLoadingAlert($item.data.entity, 'portOfLoading');GeneralCtrl.ePage.Masters.SelectedLookupData($item, 'portOfLoading')"
+                        class="btn btn-default shiny" type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                </span>
             </div>
         </div>
-        <!--Inco Term-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">Inco Term</label>
-                <div class="">
-                    <select chosen name="category-group" class="form-control" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.IncoTerm"
-                        ng-options="x.Key as x.Description for x in GeneralCtrl.ePage.Masters.DropDownMasterList.INCOTERM.ListSource"
-                        search-contains="true">
-                        <option value="">--Select--</option>
-                    </select>
-                </div>
+    </div>
+    <!--Port of Destination-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">Port of Destination </label>
+            <div class="input-group input-group-sm">
+                <div dynamic-lookup placeholder="Discharge Port" my-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PortOfDischarge"
+                    obj="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'MstUNLOCO'" control-id="'ShpRoutingDischargePort'"
+                    control-key="ShpRoutingDischargePort_3102" auto-complete-on-select="GeneralCtrl.ePage.Masters.PortOfLoadingAlert($item, 'portOfDischarge')"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader" control-id="'ShpRoutingDischargePort'"
+                        control-key="ShpRoutingDischargePort_3102" page-name="'MstUNLOCO'" mode="2" grid-refresh-fun-name=""
+                        grid-refresh-fun="" selected-data="GeneralCtrl.ePage.Masters.PortOfLoadingAlert($item.data.entity, 'portOfDischarge');GeneralCtrl.ePage.Masters.SelectedLookupData($item,  'portOfDischarge')"
+                        class="btn btn-default shiny" type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                </span>
             </div>
         </div>
-        <!--Additional Terms-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">Additional Terms</label>
-                <div class="">
-                    <input type="text" class="form-control input-sm" placeholder="Additional Terms" max-length="100" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.AdditionalTerms"
-                    />
-                </div>
+    </div>
+    <!--ETD-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <span class="error-warning-container">
+            <error-warning-directive data-ng-if="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETD.IsWarning && !GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETD.IsError"
+                list="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETD.WARNING" type="'warning'" icon="fa fa-warning"
+                parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            <error-warning-directive data-ng-if="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETD.IsError" list="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETD.ERROR"
+                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+        </span>
+        <div class="form-group ship-font">
+            <label class="ontrol-label">ETD</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{GeneralCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETD"
+                    datetime-picker="{{GeneralCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}" datepicker-options="GeneralCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-time="true" enable-date="true" default-date=""
+                    default-time="" save-as="GeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="GeneralCtrl.ePage.Masters.DatePicker.isOpen['isETD']"
+                    when-closed="" data-ng-click="" custom-date-time-format data-ng-change="GeneralCtrl.ePage.Masters.OnFieldValueChange('E0042');GeneralCtrl.ePage.Masters.ETDChange();"
+                />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" data-ng-click="GeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETD')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
             </div>
         </div>
-
-
+    </div>
+    <!--ETA-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <span class="error-warning-container">
+            <error-warning-directive data-ng-if="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETA.IsWarning && !GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETA.IsError"
+                list="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETA.WARNING" type="'warning'" icon="fa fa-warning"
+                parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            <error-warning-directive data-ng-if="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETA.IsError" list="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETA.ERROR"
+                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+        </span>
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">ETA</label>
+            <div class="input-group input-group-sm">
+                <input type="text" data-ng-disabled='GeneralCtrl.ePage.Masters.IsETADisable' class="form-control" placeholder="{{GeneralCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                    ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETA" datetime-picker="{{GeneralCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                    datepicker-options="GeneralCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false" close-on-selection="false"
+                    enable-time="true" enable-date="true" default-date="" default-time="" save-as="GeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                    is-open="GeneralCtrl.ePage.Masters.DatePicker.isOpen['isETA']" when-closed="" data-ng-click="" custom-date-time-format
+                    data-ng-change="GeneralCtrl.ePage.Masters.OnFieldValueChange('E0043')" />
+                <span class="input-group-btn">
+                    <button data-ng-disabled='GeneralCtrl.ePage.Masters.IsETADisable' class="btn btn-default shiny" data-ng-click="GeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETA')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- Sending Agent -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <span class="error-warning-container">
+            <error-warning-directive data-ng-if="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExportForwarder_Code.IsWarning && !GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExportForwarder_Code.IsError"
+                list="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExportForwarder_Code.WARNING" type="'warning'"
+                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            <error-warning-directive data-ng-if="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExportForwarder_Code.IsError"
+                list="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExportForwarder_Code.ERROR" type="'error'"
+                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+        </span>
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">Sending Agent</label>
+            <div class="input-group input-group-sm">
+                <input type="hidden" my-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportForwarder_FK">
+                <div dynamic-lookup placeholder="Sending Agent" my-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportForwarder_Code"
+                    obj="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'OrganizationList'" control-id="'JobAddressOrgSendingForwarder'"
+                    control-key="JobAddressOrgSendingForwarder_3246" auto-complete-on-select="GeneralCtrl.ePage.Masters.AutoCompleteOnSelect($item,GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportForwarder_Code,'E0047',false);GeneralCtrl.ePage.Masters.OnFieldValueChange('E0047');"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader" control-id="'JobAddressOrgSendingForwarder'"
+                        control-key="JobAddressOrgSendingForwarder_3246" page-name="'OrganizationList'" mode="2" default-filter="GeneralCtrl.ePage.Masters.AgentFilter"
+                        grid-refresh-fun-name="" grid-refresh-fun="" selected-data="GeneralCtrl.ePage.Masters.SelectedLookupData($item,GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportForwarder_Code,'E0047',false);GeneralCtrl.ePage.Masters.OnFieldValueChange('E0047');"
+                        class="btn btn-default shiny" type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- Receiving Agent -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <span class="error-warning-container">
+            <error-warning-directive data-ng-if="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ImportForwarder_Code.IsWarning && !GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ImportForwarder_Code.IsError"
+                list="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ImportForwarder_Code.WARNING" type="'warning'"
+                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            <error-warning-directive data-ng-if="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ImportForwarder_Code.IsError"
+                list="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ImportForwarder_Code.ERROR" type="'error'"
+                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+        </span>
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">Receiving Agent</label>
+            <div class="input-group input-group-sm">
+                <input type="hidden" my-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ImportForwarder_FK">
+                <div dynamic-lookup placeholder="Receiving Agent" my-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ImportForwarder_Code"
+                    obj="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'OrganizationList'" control-id="'JobAddressOrgReceivingForwarder'"
+                    control-key="JobAddressOrgReceivingForwarder_3250" auto-complete-on-select="GeneralCtrl.ePage.Masters.AutoCompleteOnSelect($item,GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ImportForwarder_Code,'E0048',false);GeneralCtrl.ePage.Masters.OnFieldValueChange('E0048');"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader" control-id="'JobAddressOrgReceivingForwarder'"
+                        control-key="JobAddressOrgReceivingForwarder_3250" page-name="'OrganizationList'" mode="2" default-filter="GeneralCtrl.ePage.Masters.AgentFilter"
+                        grid-refresh-fun-name="" grid-refresh-fun="" selected-data="GeneralCtrl.ePage.Masters.SelectedLookupData($item,GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ImportForwarder_Code,'E0048',false);GeneralCtrl.ePage.Masters.OnFieldValueChange('E0048');"
+                        class="btn btn-default shiny" type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!--Shipment Type-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <span class="error-warning-container">
+            <error-warning-directive data-ng-if="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ShipmentType.IsWarning && !GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ShipmentType.IsError"
+                list="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ShipmentType.WARNING" type="'warning'" icon="fa fa-warning"
+                parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            <error-warning-directive data-ng-if="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ShipmentType.IsError" list="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ShipmentType.ERROR"
+                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+        </span>
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">Shipment Type</label>
+            <div class="">
+                <select chosen class="form-control" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentType" ng-options="x.Key as x.Description for x in GeneralCtrl.ePage.Masters.DropDownMasterList.SHPTYPE.ListSource"
+                    ng-change="GeneralCtrl.ePage.Masters.ErrorWarningConfig.OnFieldValueChange('Shipment', GeneralCtrl.currentShipment.code, GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentType, 'E0041', false)"
+                    search-contains="true">
+                    <!-- <option value="">--Select--</option> -->
+                </select>
+            </div>
+        </div>
+    </div>
+    <!--Service Level-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">Service Level </label>
+            <div class="">
+                <select chosen name="category-group" class="form-control" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.RS_NKServiceLevel"
+                    ng-options="x.Code as  x.Code + ' - ' +x.Description for x in GeneralCtrl.ePage.Masters.DropDownMasterList.ServiceLevel.ListSource"
+                    search-contains="true">
+                    <!-- <option value="">--Select--</option> -->
+                </select>
+            </div>
+        </div>
+    </div>
+    <!--Additional Terms-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">Additional Terms</label>
+            <div class="">
+                <input type="text" class="form-control input-sm" placeholder="Additional Terms" max-length="100" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.AdditionalTerms"
+                />
+            </div>
+        </div>
+    </div>
+    <!-- CargoCutoffDate -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">Cargo Cutoff Date</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{GeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.CargoCutoffDate"
+                    datetime-picker="{{GeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datepicker-options="GeneralCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true" default-date=""
+                    default-time="" save-as="GeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="GeneralCtrl.ePage.Masters.DatePicker.isOpen['isCargoCutoffDate']"
+                    when-closed="" data-ng-click="" custom-date-time-format data-ng-change="" />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" data-ng-click="GeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoCutoffDate')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- BookingCutoffDate -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">Booking Cutoff Date</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{GeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.BookingCutoffDate"
+                    datetime-picker="{{GeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datepicker-options="GeneralCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true" default-date=""
+                    default-time="" save-as="GeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="GeneralCtrl.ePage.Masters.DatePicker.isOpen['isBookingCutoffDate']"
+                    when-closed="" data-ng-click="" custom-date-time-format data-ng-change="" />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" data-ng-click="GeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isBookingCutoffDate')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- DocumentCutoffDate -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">Document Cutoff Date</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{GeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.DocumentCutoffDate"
+                    datetime-picker="{{GeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datepicker-options="GeneralCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true" default-date=""
+                    default-time="" save-as="GeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="GeneralCtrl.ePage.Masters.DatePicker.isOpen['isDocumentCutoffDate']"
+                    when-closed="" data-ng-click="" custom-date-time-format data-ng-change="" />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" data-ng-click="GeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isDocumentCutoffDate')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!--Additional Terms-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">{{GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode=='SEA' && GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode=='FCL'?'Carrier
+                Reference':GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode=='AIR'?'Flight Reference':GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode=='LCL'?'Co-Loader
+                Reference':'Reference'}}
+            </label>
+            <div class="">
+                <input type="text" class="form-control input-sm" placeholder="{{GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode=='SEA'
+                && GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode=='FCL'?'Carrier Reference':GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode=='AIR'?'Flight Reference':GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode=='LCL'?'Co-Loader Reference':'Reference'}}"
+                    max-length="100" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.CarrierReference"
+                />
+            </div>
+        </div>
     </div>
 </div>

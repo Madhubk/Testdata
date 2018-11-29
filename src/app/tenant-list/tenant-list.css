@@ -1,0 +1,235 @@
+/* Tenant List */
+
+.tenant-list-container {
+    margin: 30px auto;
+    text-align: center;
+}
+
+.tenant-list-inner-container {
+    height: 595px;
+    width: 450px;
+    margin: 0 5px;
+    padding: 40px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    display: inline-block;
+    position: relative;
+}
+
+.tenant-list-inner-container .product-logo {
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.tenant-list-inner-container .product-logo img {
+    height: 40px;
+}
+
+.tenant-heading {
+    text-align: left;
+}
+
+.tenant-heading span {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.tenant-list-inner-container .tenant-list-wrapper {
+    list-style: none;
+    margin: 0 -40px;
+    height: 456px;
+    padding: 15px 0;
+    position: relative;
+    overflow-y: auto;
+}
+
+.tenant-list-inner-container .tenant-list-wrapper .tenant-list {
+    position: relative;
+    cursor: pointer;
+    padding: 15px 40px;
+}
+
+.tenant-list-inner-container .tenant-list-wrapper .tenant-list:hover {
+    background: #eeeeee;
+}
+
+.tenant-list-inner-container .tenant-list-wrapper .tenant-list.another-tenant {
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    width: 100%;
+}
+
+.tenant-list-inner-container .tenant-list-wrapper .tenant-list.another-tenant .avatar {
+    background-color: gray;
+    border: 1px solid gray;
+}
+
+.tenant-list-inner-container .tenant-list-wrapper .avatar {
+    float: left;
+    -webkit-border-radius: 100%;
+    border-radius: 100%;
+    width: 36px;
+    height: 36px;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid #3b5998;
+    text-align: center;
+}
+
+.tenant-list-inner-container .tenant-list-wrapper .avatar span {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.6;
+    color: #444;
+}
+
+.tenant-list-inner-container .tenant-list-wrapper .tenant-list.another-tenant .avatar span {
+    color: #fff;
+}
+
+.tenant-list-inner-container .tenant-list-wrapper .tenant-list .tenant-code-container {
+    text-align: left;
+    margin: 0 75px 0 60px;
+    padding: 0;
+}
+
+.tenant-list-inner-container .tenant-list-wrapper .tenant-list.active .tenant-code-container {
+    margin: 0 0 0 60px;
+}
+
+.tenant-list-inner-container .tenant-list-wrapper .tenant-code-container .tenant-code {
+    font-size: 16px;
+    line-height: 1.25;
+    margin: 0;
+}
+
+.tenant-list-inner-container .tenant-list-wrapper .tenant-code-container .tenant-desc {
+    margin: 0;
+    font-size: 12px;
+    color: gray;
+}
+
+.tenant-list-conatiner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.tenant-list-container .tenant-list-inner-container .login-tenant-auto-complete {
+    margin: 40px 0;
+    text-align: left;
+    position: relative;
+}
+
+.tenant-list-container .tenant-list-inner-container .login-tenant-auto-complete input[type="text"] {
+    border: 0;
+    border-bottom: 1px solid #eee;
+    outline: none;
+    box-shadow: none;
+}
+
+.tenant-list-container .tenant-list-inner-container .login-tenant-auto-complete .dropdown-menu {
+    width: 100%;
+}
+
+.tenant-list-container .tenant-list-inner-container .back-to-tenant-list {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+}
+
+.tenant-list-container .tenant-list-inner-container .dropdown-menu.typeahead {
+    display: block !important;
+    font-size: 12px;
+}
+
+.tenant-list-container .tenant-list-inner-container .dropdown-menu.typeahead .auto-complete-no-result {
+    padding: 0 10px;
+}
+
+.tenant-list-container .tenant-list.active .avatar {
+    background-color: #3b5998;
+}
+
+.tenant-list-container .tenant-list.active .avatar span {
+    color: #fff;
+}
+
+.tenant-list-container .tenant-list.active .tenant-code-container {
+    font-weight: 600;
+}
+
+/* ---------------Loading Bar--------------- */
+
+.load-bar {
+    position: relative;
+    width: 100%;
+    height: 3px;
+}
+
+.bar {
+    content: "";
+    display: inline;
+    position: absolute;
+    width: 0;
+    height: 100%;
+    left: 50%;
+    text-align: center;
+}
+
+.bar:nth-child(1) {
+    background-color: #da4733;
+    animation: loading 3s linear infinite;
+}
+
+.bar:nth-child(2) {
+    background-color: #3b78e7;
+    animation: loading 3s linear 1s infinite;
+}
+
+.bar:nth-child(3) {
+    background-color: #fdba2c;
+    animation: loading 3s linear 2s infinite;
+}
+
+@keyframes loading {
+    from {
+        left: 50%;
+        width: 0;
+        z-index: 100;
+    }
+
+    33.3333% {
+        left: 0;
+        width: 100%;
+        z-index: 10;
+    }
+
+    to {
+        left: 0;
+        width: 100%;
+    }
+}
+
+.set-as-default-icon {
+    position: absolute;
+    top: 0;
+    right: 15px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.set-as-default-icon i {
+    font-size: 20px;
+    opacity: 0.5;
+}
+
+.set-as-default-icon i.active {
+    opacity: 1;
+    color: #53a93f !important;
+}

@@ -1,6 +1,7 @@
 <!-- Page Body -->
 <div class="clearfix padding-bottom-5" data-ng-if="PreAdviceCtrl.ePage.Masters.NotShowing">
-    <pre-advice-booking-directive entity="PreAdviceCtrl.ePage.Masters.ButtonValue" filter="PreAdviceCtrl.ePage.Masters.filter" reload="PreAdviceCtrl.ePage.Masters.Reload()" data-ng-if="PreAdviceCtrl.ePage.Masters.NotShowing"></pre-advice-booking-directive>
+    <pre-advice-booking-directive entity="PreAdviceCtrl.ePage.Masters.ButtonValue" filter="PreAdviceCtrl.ePage.Masters.filter"
+        reload="PreAdviceCtrl.ePage.Masters.Reload()" data-ng-if="PreAdviceCtrl.ePage.Masters.NotShowing"></pre-advice-booking-directive>
 </div>
 <div class="page-body p-5" data-ng-if="!PreAdviceCtrl.ePage.Masters.NotShowing">
     <uib-tabset id="chromeTab" active="PreAdviceCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
@@ -12,15 +13,16 @@
             <div class="no-padding tab-list-view-wrapper">
                 <!--PreAdvice Grid Page-->
                 <dynamic-list task-name="PreAdviceCtrl.ePage.Masters.taskName" grid-config-type="0" selected-grid-row="PreAdviceCtrl.ePage.Masters.SelectedGridRow($item)"
-                    dataentry-name="PreAdviceCtrl.ePage.Masters.dataentryName" default-filter="PreAdviceCtrl.ePage.Masters.filter" mode="1" data-ng-if="!PreAdviceCtrl.ePage.Masters.NotShowing"></dynamic-list>
+                    dataentry-name="PreAdviceCtrl.ePage.Masters.dataentryName" default-filter="PreAdviceCtrl.ePage.Masters.filter"
+                    mode="1" data-ng-if="!PreAdviceCtrl.ePage.Masters.NotShowing"></dynamic-list>
                 <div class="tab-loading" data-ng-show="PreAdviceCtrl.ePage.Masters.IsTabClick"></div>
             </div>
         </uib-tab>
-        <uib-tab active="PreAdviceCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in PreAdviceCtrl.ePage.Masters.TabList"
-            ng-click="PreAdviceCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+        <uib-tab active="PreAdviceCtrl.ePage.Masters.activeTabIndex == $index" data-ng-repeat="tab in PreAdviceCtrl.ePage.Masters.TabList"
+            data-ng-click="PreAdviceCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
             <uib-tab-heading title="{{tab.label}}">
                 <span data-ng-bind="tab.label"></span>
-                <i class="glyphicon glyphicon-remove" ng-click="PreAdviceCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+                <i class="glyphicon glyphicon-remove" data-ng-click="PreAdviceCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
             </uib-tab-heading>
             <div class="padding-bottom-10 clearfix">
                 <!--Pre-Advice  Directive-->

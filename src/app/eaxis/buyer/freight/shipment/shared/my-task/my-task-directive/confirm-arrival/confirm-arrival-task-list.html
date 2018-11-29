@@ -1,0 +1,69 @@
+<div id="confirm-arrival" class="clearfix">
+    <consol-details current-obj="ConfirmArrivalCtrl.ePage.Masters.TaskObj"></consol-details>
+</div>
+<div class="common_table_scroll common_table_hgt mt-10">
+    <div class="table" id="results">
+        <div class="theader">
+            <div class="table_header">Leg Order #</div>
+            <div class="table_header" title="Transport Mode">T.Mode</div>
+            <div class="table_header" title="Transport Type">T.Type</div>
+            <div class="table_header">Status</div>
+            <div class="table_header">Vessel</div>
+            <div class="table_header" title="Voyage/Flight">Voyage</div>
+            <div class="table_header">POL</div>
+            <div class="table_header">POD</div>
+            <div class="table_header">ETD</div>
+            <div class="table_header">ETA</div>
+            <div class="table_header">ATD</div>
+        </div>
+        <div class="table_row" data-ng-repeat="x in ConfirmArrivalCtrl.ePage.Masters.LegDetails | orderBy : 'LegOrder'">
+            <div class="table_small">
+                <div class="table_cell">Leg Order #</div>
+                <div class="table_cell">{{x.LegOrder}}</div>
+            </div>
+            <div class="table_small">
+                <div class="table_cell">T.Mode</div>
+                <div class="table_cell">
+                    {{x.TransportMode}}
+                </div>
+            </div>
+            <div class="table_small">
+                <div class="table_cell">T.Type</div>
+                <div class="table_cell">{{x.TransportType}}</div>
+            </div>
+            <div class="table_small">
+                <div class="table_cell">Status</div>
+                <div class="table_cell">{{x.Status}}</div>
+            </div>
+            <div class="table_small">
+                <div class="table_cell">Vessel</div>
+                <div class="table_cell">{{x.Vessel}}</div>
+            </div>
+            <div class="table_small">
+                <div class="table_cell">Voyage</div>
+                <div class="table_cell">{{x.VoyageFlight}}</div>
+            </div>
+            <div class="table_small">
+                <div class="table_cell">POL</div>
+                <div class="table_cell">{{x.ArrivalLocationOrg_Code}}</div>
+            </div>
+            <div class="table_small">
+                <div class="table_cell">POD</div>
+                <div class="table_cell">{{x.DepartureLocationOrg_Code}}</div>
+            </div>
+            <div class="table_small">
+                <div class="table_cell">ETD</div>
+                <div class="table_cell">{{x.ETD | date: 'dd-MMM-yyyy'}}</div>
+            </div>
+            <div class="table_small">
+                <div class="table_cell">ETA</div>
+                <div class="table_cell">{{x.ETA | date: 'dd-MMM-yyyy'}}</div>
+            </div>
+            <div class="table_small">
+                <div class="table_cell">ATD</div>
+                <div class="table_cell">{{x.ATD | date: 'dd-MMM-yyyy'}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="grid-no-record-common_table sw-grid" data-ng-if="ConfirmArrivalCtrl.ePage.Masters.LegDetails.length==0">No records found...</div>
+</div>

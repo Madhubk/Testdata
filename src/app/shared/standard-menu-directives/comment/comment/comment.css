@@ -16,3 +16,26 @@
     right: 40px;
     top: 9px;
 }
+
+.sm-comment-wrapper {
+    font-size: 12px;
+}
+
+.sm-comment-table {
+    width: 100%;
+}
+
+.sm-comment-table thead {
+    background-color: #f5f5f5;
+}
+
+.sm-comment-table tbody tr {
+    cursor: pointer;
+}
+
+.sm-comment-table tr th,
+.sm-comment-table tr td {
+    vertical-align: middle;
+    padding: 7px 10px;
+    max-width: 100px;
+}

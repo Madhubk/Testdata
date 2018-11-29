@@ -23,6 +23,7 @@
             StocktransferCtrl.ePage.Masters.dataentryName = "WarehouseStockTransfer";
             StocktransferCtrl.ePage.Masters.taskName = "StockTransfer";
             StocktransferCtrl.ePage.Masters.TabList = [];
+            stocktransferConfig.TabList = [];
             StocktransferCtrl.ePage.Masters.activeTabIndex = 0;
             StocktransferCtrl.ePage.Masters.isNewClicked = false;
             StocktransferCtrl.ePage.Masters.IsTabClick = false;

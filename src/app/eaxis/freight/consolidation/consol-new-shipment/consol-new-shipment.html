@@ -1,0 +1,210 @@
+<div class="modal-header">
+    <h5 class="modal-title pull-left">
+        <strong>Shipment Details</strong>
+    </h5>
+    <button type="button" class="btn btn-secondary btn-sm pull-right margin-left-5" ng-click="ConsolcreateshipmentModalCtrl.ePage.Masters.Cancel()">Close</button>
+    <button type="button" class="btn btn-primary btn-sm pull-right margin-left-5" ng-click="ConsolcreateshipmentModalCtrl.ePage.Masters.Save()"
+        data-ng-bind="ConsolcreateshipmentModalCtrl.ePage.Masters.SaveButton"></button>
+</div>
+<div class="modal-body">
+    <div class="col-lg-2 ex-line-padding" style="padding:10px">
+        <div class="ex-line-box1" style="padding-top:10px">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-2 pr-0 padding-top-10">
+                <div class="form-group ex-line-font">
+                    <label class="control-label text-single-line">Shipment No</label>
+                    <div class="input-group input-group-sm col-lg-12">
+                        <input type="hidden" data-ng-model="ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.ValidOrderNo"
+                        />
+                        <input type="text" class="form-control input-sm" placeholder="Shipment No" maxlength="35" data-ng-model="ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentNo"
+                            data-ng-blur="ConsolcreateshipmentModalCtrl.ePage.Masters.CheckOrderNo(ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data)"
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-10">
+        <div class="row margin-right-10 margin-left-10 margin-top-10 address-panel">
+            <!-- consignor -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-4 pr-0 padding-top-10 address-design">
+                <!--Pickup Drop Mode-->
+                <div class="padding-bottom-5">
+                    <div class="ex-line-font">
+                        <error-warning-directive data-ng-if="ConsolcreateshipmentModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignor.IsWarning && !ConsolcreateshipmentModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignor.IsError"
+                            list="ConsolcreateshipmentModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignor.WARNING"
+                            type="'warning'" icon="fa fa-warning" parent-type="'general'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        <error-warning-directive data-ng-if="ConsolcreateshipmentModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignor.IsError"
+                            list="ConsolcreateshipmentModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignor.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        <label class="control-label"> Consignor</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group input-group-sm">
+                        <input type="hidden" ng-model="ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ORG_FK">
+                        <div dynamic-lookup placeholder="Organization Code" my-ng-model="ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ORG_Code"
+                            obj="ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD" page-name="'OrganizationList'"
+                            control-id="'JobAddressOrgConsignor'" control-key="JobAddressOrgConsignor_3241" auto-complete-on-select="ConsolcreateshipmentModalCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'address','contact', 'CRD','CRG','E0031')">
+                        </div>
+                        <span class="input-group-btn">
+                            <button dynamic-list-modal obj="ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD" control-id="'JobAddressOrgConsignor'"
+                                control-key="JobAddressOrgConsignor_3241" page-name="'OrganizationList'" mode="2" grid-refresh-fun-name=""
+                                grid-refresh-fun="" selected-data="ConsolcreateshipmentModalCtrl.ePage.Masters.SelectedLookupData($item, 'address','contact', 'CRD','CRG','E0031')"
+                                class="btn btn-default shiny" type="button">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group input-group-sm">
+                        <input type="hidden" ng-model="ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OAD_Address_FK">
+                        <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignor address" data-ng-model="ConsolcreateshipmentModalCtrl.ePage.Masters.AddressContactBinding((ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.AddressList | filter: {PK: ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OAD_Address_FK})[0],'Address')"
+                            ng-model-options="{ getterSetter: true }"></textarea>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" data-ng-click="ConsolcreateshipmentModalCtrl.ePage.Masters.IsCRDAddressOpen=!ConsolcreateshipmentModalCtrl.ePage.Masters.IsCRDAddressOpen">
+                                <i class="fa fa-address-book-o"></i>
+                                <!--<i class="fa fa-caret-down"></i>-->
+                            </button>
+                        </span>
+                        <div class="dropdownWrapMiddle animated fadeInDown" data-ng-show="ConsolcreateshipmentModalCtrl.ePage.Masters.IsCRDAddressOpen">
+                            <address-wrapper obj="ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.AddressList" type="'CRD'"
+                                list-source="'AddressList'" selected="ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OAD_Address_FK"
+                                on-address-edit="ConsolcreateshipmentModalCtrl.ePage.Masters.OnAddressEdit($item, 'CRD', 'Address')"
+                                on-address-change="ConsolcreateshipmentModalCtrl.ePage.Masters.OnAddressChange($item, 'CRD', 'Address','CRG')"></address-wrapper>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" data-ng-if="ConsolcreateshipmentModalCtrl.ePage.Masters.IsContactEnable">
+                    <div class="input-group input-group-sm">
+                        <input type="hidden" ng-model="ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OAD_Address_FK">
+                        <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignor contact" data-ng-model="ConsolcreateshipmentModalCtrl.ePage.Masters.AddressContactBinding((ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.AddressList | filter: {PK: ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OAD_Address_FK})[0],'contact')"
+                            ng-model-options="{ getterSetter: true }"></textarea>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" data-ng-click="ConsolcreateshipmentModalCtrl.ePage.Masters.IsCRDContactOpen=!ConsolcreateshipmentModalCtrl.ePage.Masters.IsCRDContactOpen">
+                                <i class="fa fa-phone"></i>
+                            </button>
+                        </span>
+                        <div class="dropdownWrapLeft animated fadeInDown" data-ng-show="ConsolcreateshipmentModalCtrl.ePage.Masters.IsCRDContactOpen">
+                            <address-wrapper obj="ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ContactList" type="'CRD'"
+                                list-source="'ContactList'" selected="ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OCT_FK"
+                                on-address-change="ConsolcreateshipmentModalCtrl.ePage.Masters.OnContactChange($item, 'CRD', 'Contact','CRG')"></address-wrapper>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" data-ng-if="!ConsolcreateshipmentModalCtrl.ePage.Masters.IsContactEnable">
+                    <div class="input-group input-group-sm">
+                        <input type="hidden" ng-model="ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OCT_FK">
+                        <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignor contact" data-ng-model="ConsolcreateshipmentModalCtrl.ePage.Masters.AddressContactBinding((ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ContactList | filter: {PK: ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OCT_FK})[0],'Contact')"
+                            ng-model-options="{ getterSetter: true }"></textarea>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" data-ng-click="ConsolcreateshipmentModalCtrl.ePage.Masters.IsCRDContactOpen=!ConsolcreateshipmentModalCtrl.ePage.Masters.IsCRDContactOpen">
+                                <i class="fa fa-phone"></i>
+                            </button>
+                        </span>
+                        <div class="dropdownWrapLeft animated fadeInDown" data-ng-show="ConsolcreateshipmentModalCtrl.ePage.Masters.IsCRDContactOpen">
+                            <address-wrapper obj="ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ContactList" type="'CRD'"
+                                list-source="'ContactList'" selected="ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OCT_FK"
+                                on-address-change="ConsolcreateshipmentModalCtrl.ePage.Masters.OnContactChange($item, 'CRD', 'Contact','CRG')"></address-wrapper>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- consignee -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-4 pr-0 padding-top-10 address-consignee">
+                <!--Pickup Drop Mode-->
+                <div class="padding-bottom-5">
+                    <div class="ex-line-font">
+                        <error-warning-directive data-ng-if="ConsolcreateshipmentModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignee.IsWarning && !ConsolcreateshipmentModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignee.IsError"
+                            list="ConsolcreateshipmentModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignee.WARNING"
+                            type="'warning'" icon="fa fa-warning" parent-type="'general'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        <error-warning-directive data-ng-if="ConsolcreateshipmentModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignee.IsError"
+                            list="ConsolcreateshipmentModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignee.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        <label class="control-label"> Consignee</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group input-group-sm">
+                        <input type="hidden" ng-model="ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ORG_FK">
+                        <div dynamic-lookup placeholder="Organization Code" my-ng-model="ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ORG_Code"
+                            obj="ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED" page-name="'OrganizationList'"
+                            control-id="'JobAddressOrgConsignee'" control-key="JobAddressOrgConsignee_3245" auto-complete-on-select="ConsolcreateshipmentModalCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'address','contact', 'CED','CEG')">
+                        </div>
+
+                        <span class="input-group-btn">
+                            <button dynamic-list-modal obj="ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED" control-id="'JobAddressOrgConsignee'"
+                                control-key="JobAddressOrgConsignee_3245" page-name="'OrganizationList'" mode="2" grid-refresh-fun-name=""
+                                grid-refresh-fun="" selected-data="ConsolcreateshipmentModalCtrl.ePage.Masters.SelectedLookupData($item, 'address','contact', 'CED','CEG')"
+                                class="btn btn-default shiny" type="button">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                        </span>
+                        <span class="input-group-btn">
+                            <div data-ng-if="ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Consignee_Code==null" ng-init="OnFieldValueChange('E0031')"></div>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group input-group-sm">
+                        <input type="hidden" ng-model="ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OAD_Address_FK">
+                        <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignee address" data-ng-model="ConsolcreateshipmentModalCtrl.ePage.Masters.AddressContactBinding((ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.AddressList | filter: {PK: ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OAD_Address_FK})[0],'Address')"
+                            ng-model-options="{ getterSetter: true }"></textarea>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" data-ng-click="ConsolcreateshipmentModalCtrl.ePage.Masters.IsCEDAddressOpen=!ConsolcreateshipmentModalCtrl.ePage.Masters.IsCEDAddressOpen">
+                                <i class="fa fa-address-book-o"></i>
+                            </button>
+                        </span>
+                        <div class="dropdownWrapMiddle animated fadeInDown" data-ng-show="ConsolcreateshipmentModalCtrl.ePage.Masters.IsCEDAddressOpen">
+                            <address-wrapper obj="ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.AddressList" type="'CED'"
+                                list-source="'AddressList'" selected="ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OAD_Address_FK"
+                                on-address-edit="ConsolcreateshipmentModalCtrl.ePage.Masters.OnAddressEdit($item, 'CED', 'Address')"
+                                on-address-change="ConsolcreateshipmentModalCtrl.ePage.Masters.OnAddressChange($item, 'CED', 'Address','CEG')"></address-wrapper>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" data-ng-if="ConsolcreateshipmentModalCtrl.ePage.Masters.IsContactEnable1">
+                    <div class="input-group input-group-sm">
+                        <input type="hidden" ng-model="ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OAD_Address_FK">
+                        <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignee contact" data-ng-model="ConsolcreateshipmentModalCtrl.ePage.Masters.AddressContactBinding((ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.AddressList | filter: {PK: ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OAD_Address_FK})[0],'contact')"
+                            ng-model-options="{ getterSetter: true }"></textarea>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" data-ng-click="ConsolcreateshipmentModalCtrl.ePage.Masters.IsCEDContactOpen=!ConsolcreateshipmentModalCtrl.ePage.Masters.IsCEDContactOpen">
+                                <i class="fa fa-phone"></i>
+                            </button>
+                        </span>
+                        <div class="dropdownWrapMiddle animated fadeInDown" data-ng-show="ConsolcreateshipmentModalCtrl.ePage.Masters.IsCEDContactOpen">
+                            <address-wrapper obj="ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ContactList" type="'CED'"
+                                list-source="'ContactList'" selected="ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OCT_FK"
+                                on-address-change="ConsolcreateshipmentModalCtrl.ePage.Masters.OnContactChange($item, 'CED', 'Contact','CEG')"></address-wrapper>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" data-ng-if="!ConsolcreateshipmentModalCtrl.ePage.Masters.IsContactEnable1">
+                    <div class="input-group input-group-sm">
+                        <input type="hidden" ng-model="ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OCT_FK">
+                        <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignee contact" data-ng-model="ConsolcreateshipmentModalCtrl.ePage.Masters.AddressContactBinding((ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ContactList | filter: {PK: ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OCT_FK})[0],'Contact')"
+                            ng-model-options="{ getterSetter: true }"></textarea>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" data-ng-click="ConsolcreateshipmentModalCtrl.ePage.Masters.IsCEDContactOpen=!ConsolcreateshipmentModalCtrl.ePage.Masters.IsCEDContactOpen">
+                                <i class="fa fa-phone"></i>
+                            </button>
+                        </span>
+                        <div class="dropdownWrapMiddle animated fadeInDown" data-ng-show="ConsolcreateshipmentModalCtrl.ePage.Masters.IsCEDContactOpen">
+                            <address-wrapper obj="ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ContactList" type="'CED'"
+                                list-source="'ContactList'" selected="ConsolcreateshipmentModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OCT_FK"
+                                on-address-change="ConsolcreateshipmentModalCtrl.ePage.Masters.OnContactChange($item, 'CED', 'Contact','CEG')"></address-wrapper>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary btn-sm pull-right margin-left-5" ng-click="ConsolcreateshipmentModalCtrl.ePage.Masters.Cancel()">Close</button>
+    <button type="button" class="btn btn-primary btn-sm pull-right margin-left-5" ng-click="ConsolcreateshipmentModalCtrl.ePage.Masters.Save()"
+        data-ng-bind="ConsolcreateshipmentModalCtrl.ePage.Masters.SaveButton" data-ng-disabled="ConsolcreateshipmentModalCtrl.ePage.Masters.SaveButtonDisable"></button>
+</div>

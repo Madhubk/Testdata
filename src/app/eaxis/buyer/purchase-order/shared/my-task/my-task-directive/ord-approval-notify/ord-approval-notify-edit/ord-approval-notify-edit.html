@@ -1,0 +1,189 @@
+<div id="except-notify" class="widget-main except-notify-details p-5">
+    <div class="clearfix mt-5">
+        <div class="col-lg-12 col-md-12 col-xl-12">
+            <div class="panel panel-default">
+                <div class="panel-heading p-5">
+                    <b class="panel-title" ng-if="OrdApprovalNotifyEditDirectiveCtrl.ePage.Masters.ExceptionData.EntitySource == 'POH'">PO
+                        Details :</b>
+                    <b class="panel-title" ng-if="OrdApprovalNotifyEditDirectiveCtrl.ePage.Masters.ExceptionData.EntitySource == 'SHP'">Shipment
+                        Details :</b>
+                    <b class="panel-title" ng-if="OrdApprovalNotifyEditDirectiveCtrl.ePage.Masters.ExceptionData.EntitySource == 'BKG'">Booking
+                        Details :</b>
+                    <b class="panel-title" ng-if="OrdApprovalNotifyEditDirectiveCtrl.ePage.Masters.ExceptionData.EntitySource == 'CNT'">Container
+                        Details :</b>
+                    <span> {{OrdApprovalNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.SourceNo}} </span>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 mb-20">
+                            <div class="except-approvals-label">Buyer</div>
+                            <div class="except-approvals-value">
+                                <span ng-if="OrdApprovalNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.Buyer != 'null' || undefined">
+                                    {{OrdApprovalNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.Buyer}}
+                                </span>
+                                <span ng-if="OrdApprovalNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.Buyer == 'null' || undefined"></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 mb-20">
+                            <div class="except-approvals-label">Shipper</div>
+                            <div class="except-approvals-value">
+                                <span ng-if="OrdApprovalNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.Shipper != 'null' || undefined">
+                                    {{OrdApprovalNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.Shipper}}
+                                </span>
+                                <span ng-if="OrdApprovalNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.Shipper == 'null' || undefined"></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 mb-20">
+                            <div class="except-approvals-label">Container Type</div>
+                            <div class="except-approvals-value">
+                                <span ng-if="OrdApprovalNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.ContainerMode != 'null' || undefined">
+                                    {{OrdApprovalNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.ContainerMode}}
+                                </span>
+                                <span ng-if="OrdApprovalNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.ContainerMode == 'null' || undefined"></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 mb-20">
+                            <div class="except-approvals-label">Mode</div>
+                            <div class="except-approvals-value">
+                                <span ng-if="OrdApprovalNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.TransportMode != 'null' || undefined">
+                                    {{OrdApprovalNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.TransportMode}}
+                                </span>
+                                <span ng-if="OrdApprovalNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.TransportMode == 'null' || undefined"></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 mb-20">
+                            <div class="except-approvals-label">InoTerm</div>
+                            <div class="except-approvals-value">
+                                <span ng-if="OrdApprovalNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.IncoTerm != 'null' || undefined">
+                                    {{OrdApprovalNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.IncoTerm}}
+                                </span>
+                                <span ng-if="OrdApprovalNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.IncoTerm == 'null' || undefined"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+        <div class="panel panel-default p-20 pb-0">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-2 mb-20">
+                    <div class="except-approvals-label">Exception Type</div>
+                    <div class="except-approvals-value">
+                        <span>
+                            {{OrdApprovalNotifyEditDirectiveCtrl.ePage.Masters.ExceptionData.Type}}
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-2 mb-20">
+                    <div class="except-approvals-label">Exception Name</div>
+                    <div class="except-approvals-value">
+                        <span>
+                            {{OrdApprovalNotifyEditDirectiveCtrl.ePage.Masters.ExceptionData.Title}}
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-2 mb-20">
+                    <div class="except-approvals-label">Raised On</div>
+                    <div class="except-approvals-value">
+                        <span>
+                            {{OrdApprovalNotifyEditDirectiveCtrl.ePage.Masters.ExceptionData.CreatedDateTime |
+                            date:'dd-MMM-yyyy'}}
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-2 mb-20">
+                    <div class="except-approvals-label">Is Urgent</div>
+                    <div class="except-approvals-value">
+                        <span data-ng-if="!OrdApprovalNotifyEditDirectiveCtrl.ePage.Masters.ExceptionData.IsUrgent">
+                            <i class="glyphicon glyphicon-remove"></i>
+                        </span>
+                        <span data-ng-if="OrdApprovalNotifyEditDirectiveCtrl.ePage.Masters.ExceptionData.IsUrgent">
+                            <i class="glyphicon glyphicon-ok"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-2 mb-20">
+                    <div class="except-approvals-label">Is Schedule Revised</div>
+                    <div class="except-approvals-value">
+                        <span data-ng-if="!OrdApprovalNotifyEditDirectiveCtrl.ePage.Masters.ExceptionData.IsScheduleRevised">
+                            <i class="glyphicon glyphicon-remove"></i>
+                        </span>
+                        <span data-ng-if="OrdApprovalNotifyEditDirectiveCtrl.ePage.Masters.ExceptionData.IsScheduleRevised">
+                            <i class="glyphicon glyphicon-ok"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-2 mb-20 pr-0">
+                    <div class="except-approvals-label"></div>
+                    <div class="except-approvals-value mt-5">
+                        <textarea class="form-control no-resize" placeholder="Enter your comments" data-ng-model="OrdApprovalNotifyEditDirectiveCtrl.ePage.Masters.ExceptionComments"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <fieldset disabled='true'>
+                    <dynamic-control data-ng-if="OrdApprovalNotifyEditDirectiveCtrl.ePage.Masters.Exception.DataConfigResponse"
+                        input="OrdApprovalNotifyEditDirectiveCtrl.ePage.Masters.Exception.DataConfigResponse" mode="D"
+                        control-style="" view-type="'2'"></dynamic-control>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-2">
+        <exception-comments data-ng-if="OrdApprovalNotifyEditDirectiveCtrl.ePage.Masters.CommentsList" comments-list="OrdApprovalNotifyEditDirectiveCtrl.ePage.Masters.CommentsList"></exception-comments>
+    </div>
+    <div class="eaxis-footer-strip">
+        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
+            <div class="clearfix standard-menu-wrapper">
+                <div class="eaxis-footer-left">
+                    <!-- <ul>
+                        <li>
+                            <a href="javascript:void(0);" comment-modal mode="1" input="ActivityTemplate1Ctrl.ePage.Masters.StandardMenuInput">
+                                <i class="eaxis-footer-icon fa fa-comments"></i>
+                                <span class="eaxis-footer-text">Comment</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" document-modal mode="1" input="ActivityTemplate1Ctrl.ePage.Masters.StandardMenuInput">
+                                <i class="eaxis-footer-icon fa fa-file"></i>
+                                <span class="eaxis-footer-text">Document</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" email-modal mode="1" input="ActivityTemplate1Ctrl.ePage.Masters.StandardMenuInput">
+                                <i class="eaxis-footer-icon fa fa-envelope"></i>
+                                <span class="eaxis-footer-text">Email</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" exception-modal mode="1" input="ActivityTemplate1Ctrl.ePage.Masters.StandardMenuInput">
+                                <i class="eaxis-footer-icon fa fa-warning"></i>
+                                <span class="eaxis-footer-text">Exception</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" delay-reason-modal mode="1" input="ActivityTemplate1Ctrl.ePage.Masters.StandardMenuInput">
+                                <i class="eaxis-footer-icon fa fa-envelope"></i>
+                                <span class="eaxis-footer-text">Delay Reason</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" checklist-modal mode="1" input="ActivityTemplate1Ctrl.ePage.Masters.StandardMenuInput">
+                                <i class="eaxis-footer-icon fa fa-check-square-o"></i>
+                                <span class="eaxis-footer-text">Checklist</span>
+                            </a>
+                        </li>
+                    </ul> -->
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <button class="btn btn-primary btn-sm pull-right mt-5 mb-5 fs-12" data-ng-disabled="OrdApprovalNotifyEditDirectiveCtrl.ePage.Masters.IsMarkRead"
+                data-ng-click="OrdApprovalNotifyEditDirectiveCtrl.ePage.Masters.MarkAsRead()">Mark As Read</button>
+        </div>
+    </div>
+</div>

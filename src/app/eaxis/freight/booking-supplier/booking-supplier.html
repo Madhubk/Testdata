@@ -1,0 +1,45 @@
+﻿<uib-tabset id="chromeTab" active="BookingSupplierCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+    <uib-tab>
+        <uib-tab-heading title="">
+            <span data-ng-bind="'Booking'"></span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+        <div class="no-padding tab-list-view-wrapper">
+            <!--Booking Grid Page-->
+            <!-- <dynamic-list dataentry-name="BookingSupplierCtrl.ePage.Masters.dataentryName" task-name="BookingSupplierCtrl.ePage.Masters.taskName" grid-config-type="0"
+                selected-grid-row="BookingSupplierCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" default-filter="BookingSupplierCtrl.ePage.Masters.defaultFilter"></dynamic-list> -->
+            <dynamic-list dataentry-name="BookingSupplierCtrl.ePage.Masters.dataentryName" selected-grid-row="BookingSupplierCtrl.ePage.Masters.SelectedGridRow($item)"
+                mode="1" default-filter="BookingSupplierCtrl.ePage.Masters.defaultFilter" dataentry-object="BookingSupplierCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+            <div class="tab-loading" data-ng-show="BookingSupplierCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+    <uib-tab id="top" active="BookingSupplierCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in BookingSupplierCtrl.ePage.Masters.TabList"
+        ng-click="BookingSupplierCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+        <uib-tab-heading title="{{tab.label}}">
+            <span data-ng-bind="tab.label"></span>
+            <i class="glyphicon glyphicon-remove" ng-click="BookingSupplierCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+        </uib-tab-heading>
+        <div class="padding-bottom-10 clearfix">
+            <!--Booking Menu Directive-->
+            <booking-supplier-directive current-Booking="tab" data-ng-if="tab.isNew && BookingSupplierCtrl.ePage.Masters.currentBooking"></booking-supplier-directive>
+            <!--Track Shipment Details Directive-->
+            <track-shipment-details-directive data-ng-if="!tab.isNew" current-shipment="tab"></track-shipment-details-directive>
+            <!--Standard Menu Directive-->
+            <div class="eaxis-footer-strip">
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-8 col-xl-10">
+                <standard-menu input="tab" entity-name="'Booking'" data-ng-if="!tab.isNew"></standard-menu> 
+                    <standard-menu input="tab" dataentry-object="BookingSupplierCtrl.ePage.Masters.DataEntryObject" data-ng-if="!tab.isNew"></standard-menu>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                    <booking-action input="tab" data-ng-if="!tab.isNew"> </booking-action> 
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                    <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="BookingSupplierCtrl.ePage.Masters.Save(tab)"
+                        data-ng-bind="BookingSupplierCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="BookingSupplierCtrl.ePage.Masters.IsDisableSave"></button>
+                </div>
+            </div>
+            <!--Standard Menu Directive-->
+        </div>
+    </uib-tab>
+    <button class="btn btn-default" ng-click="BookingSupplierCtrl.ePage.Masters.CreateNewBooking()" data-ng-disabled="BookingSupplierCtrl.ePage.Masters.IsNewBookingClicked">+</button>
+</uib-tabset>

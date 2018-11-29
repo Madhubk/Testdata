@@ -1,137 +1,80 @@
-<div class="modal-header">
-    <h5 class="modal-title pull-left"><strong>{{OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.ContactName || 'Title'}}</strong></h5>
-    <input type="button" class="btn btn-warning btn-xs pull-right margin-left-5" ng-click="OrgContactModalCtrl.ePage.Masters.Cancel(OrgContactModalCtrl.ePage.Masters.OrgContact.FormView, 'OrgContact')"
-        value="Close" />
-    <input type="button" class="btn btn-primary btn-xs pull-right margin-left-5" ng-click="OrgContactModalCtrl.ePage.Masters.Validation(OrgContactModalCtrl.ePage.Masters.OrgContact.FormView, 'OrgContact')"
-        value="{{OrgContactModalCtrl.ePage.Masters.SaveButtonText}}" data-ng-disabled="OrgContactModalCtrl.ePage.Masters.IsDisableSave"
-    />
-</div>
-<div class="modal-body">
-    <div class="clearfix padding-5 padding-top-10">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <fieldset>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="form-group">
-                        <div class="error-warning-container">
-                            <error-warning-directive data-ng-if="OrgContactModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.ContactName.IsWarning && !OrgContactModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.ContactName.IsError"
-                            list="OrgContactModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.ContactName.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                            <error-warning-directive data-ng-if="OrgContactModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.ContactName.IsError" list="OrgContactModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.ContactName.ERROR"
-                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                        </div>
-                        <div class="">
-                            <label for="ContactName">Contact Name</label>
-                            <input type="text" class="form-control input-sm" placeholder="ContactName" data-ng-model="OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.ContactName"
-                            data-ng-change="OrgContactModalCtrl.ePage.Masters.OnChangeValues(OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.ContactName,'E9008')"/>
-                        </div>
+<ng-form name="ContactModalForm" class="clearfix">
+    <div class="modal-header">
+        <h5 class="modal-title pull-left">
+            <strong>Contact</strong>
+        </h5>
+        <input type="button" class="btn btn-warning btn-xs pull-right ml-5" data-ng-click="OrgContactModalCtrl.ePage.Masters.Cancel()"
+            value="Close" />
+        <input type="submit" class="btn btn-primary btn-xs pull-right ml-5" data-ng-click="OrgContactModalCtrl.ePage.Masters.SaveContact()"
+            value="{{OrgContactModalCtrl.ePage.Masters.SaveButtonText}}" data-ng-disabled="OrgContactModalCtrl.ePage.Masters.IsDisableSave" />
+    </div>
+    <div class="modal-body">
+        <div class="clearfix p-10">
+            <div class="form-group">
+                <div class="">
+                    <label for="ContactName">Contact Name</label>
+                    <input type="text" class="form-control input-sm" placeholder="ContactName" data-ng-model="OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.ContactName"
+                        data-ng-change="OrgContactModalCtrl.ePage.Masters.OnChangeValues(OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.ContactName,'E9008')" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="">
+                    <label for="Title">Job Title</label>
+                    <input type="text" class="form-control input-sm" placeholder="Job Title" data-ng-model="OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.Title"
+                        data-ng-change="OrgContactModalCtrl.ePage.Masters.OnChangeValues(OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.Title,'E9023')" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="">
+                    <label for="JobCategory">JobCategory</label>
+                    <div class="">
+                        <select chosen name="JobCategory" class="form-control" data-ng-model="OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.JobCategory" data-ng-options="x.Description as x.Key + ' - ' + x.Value for x in OrgContactModalCtrl.ePage.Masters.DropDownMasterList.JOBCATEGORY.ListSource" >
+                            <option value="">--Select--</option>
+                        </select>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="form-group">
-                        <div class="error-warning-container">
-                            <error-warning-directive data-ng-if="OrgContactModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.Title.IsWarning && !OrgContactModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.Title.IsError"
-                            list="OrgContactModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.Title.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                            <error-warning-directive data-ng-if="OrgContactModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.Title.IsError" list="OrgContactModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.Title.ERROR"
-                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                        </div>
-                        <div class="">
-                            <label for="Title">Job Title</label>
-                            <input type="text" class="form-control input-sm" placeholder="Job Title" data-ng-model="OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.Title"
-                            data-ng-change="OrgContactModalCtrl.ePage.Masters.OnChangeValues(OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.Title,'E9023')"/>
-                        </div>
+            </div>
+            <div class="form-group">
+                <label for="Phone">Work Phone</label>
+                <input type="text" class="form-control input-sm" placeholder="Work Phone" data-ng-model="OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.Phone" />
+            </div>
+            <div class="form-group">
+                <label for="Mobile">Mobile Phone</label>
+                <input type="text" class="form-control input-sm" placeholder="Mobile Phone" data-ng-model="OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.Mobile"/>
+            </div>
+            <div class="form-group">
+                <label for="HomePhone">Home Phone</label>
+                <input type="text" class="form-control input-sm" placeholder="Home Phone" data-ng-model="OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.HomePhone" />
+            </div>
+            <div class="form-group">
+                <label for="OtherPhone">Other Phone</label>
+                <input type="text" class="form-control input-sm" placeholder="Other Phone" data-ng-model="OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.OtherPhone" />
+            </div>
+            <div class="form-group">
+                <label for="Email">Email</label>
+                <input type="email" class="form-control input-sm" placeholder="Email" data-ng-model="OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.Email"
+                    ng-pattern="/^[a-zA-Z0-9.'_-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" ng-blur="OrgContactModalCtrl.ePage.Masters.MailPattern(OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.Email)" />
+            </div>
+            <div class="form-group">
+                <label for="Fax">Fax</label>
+                <input type="text" class="form-control input-sm" placeholder="Fax" data-ng-model="OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.Fax" />
+            </div>
+            <div class="form-group">
+                <div class="">
+                    <label for="Language">Language</label>
+                    <div class="">
+                        <select chosen name="Language" class="form-control" data-ng-model="OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.Language" data-ng-options="x.Key as x.Key + ' - ' + x.Value for x in OrgContactModalCtrl.ePage.Masters.DropDownMasterList.LANGUAGE.ListSource">
+                            <option value="">--Select--</option>
+                        </select>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="form-group">
-                        <div class="error-warning-container">
-                            <error-warning-directive data-ng-if="OrgContactModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.JobCategory.IsWarning && !OrgContactModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.JobCategory.IsError"
-                            list="OrgContactModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.JobCategory.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                            <error-warning-directive data-ng-if="OrgContactModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.JobCategory.IsError" list="OrgContactModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.JobCategory.ERROR"
-                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                        </div>
-                        <div class="">
-                            <label for="JobCategory">JobCategory</label>
-                            <div class="">
-                                <select chosen name="JobCategory" class="form-control" ng-model="OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.JobCategory"
-                                    ng-options="x.Description as x.Key + ' - ' + x.Value for x in OrganizationContactCtrl.ePage.Masters.DropDownMasterList.JOBCATEGORY.ListSource" data-ng-change="OrgContactModalCtrl.ePage.Masters.OnChangeJob(OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.JobCategory)"
-                                    search-contains="true">
-                                    <option value="">--Select--</option>
-                                </select>
-                            </div>    
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="form-group">
-                        <label for="Phone">Work Phone</label>
-                        <input type="text" class="form-control input-sm" placeholder="Work Phone" data-ng-model="OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.Phone"
-                        />
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="form-group">
-                        <label for="Mobile">Mobile Phone</label>
-                        <input type="text" class="form-control input-sm" placeholder="Mobile Phone" data-ng-model="OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.Mobile"
-                        ng-blur="OrgContactModalCtrl.ePage.Masters.Mpattern(OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.Mobile)"
-                        />
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="form-group">
-                        <label for="HomePhone">Home Phone</label>
-                        <input type="text" class="form-control input-sm" placeholder="Home Phone" data-ng-model="OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.HomePhone"
-                        />
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="form-group">
-                        <label for="OtherPhone">Other Phone</label>
-                        <input type="text" class="form-control input-sm" placeholder="Other Phone" data-ng-model="OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.OtherPhone"
-                        />
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="form-group">
-                        <label for="Email">Email</label>
-                        <input type="email" class="form-control input-sm" placeholder="Email" data-ng-model="OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.Email"
-                        ng-pattern="/^[a-zA-Z0-9.'_-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" ng-blur="OrgContactModalCtrl.ePage.Masters.MailPattern(OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.Email)"
-                        />
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="form-group">
-                        <label for="Fax">Fax</label>
-                        <input type="text" class="form-control input-sm" placeholder="Fax" data-ng-model="OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.Fax"
-                        />
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="form-group">
-                        <div class="error-warning-container">
-                            <error-warning-directive data-ng-if="OrgContactModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.Language.IsWarning && !OrgContactModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.Language.IsError"
-                            list="OrgContactModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.Language.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                            <error-warning-directive data-ng-if="OrgContactModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.Language.IsError" list="OrgContactModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.Language.ERROR"
-                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                        </div>
-                        <div class="">
-                            <label for="Language">Language</label>
-                            <div class="">
-                                <select chosen name="Language" class="form-control" ng-model="OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.Language"
-                                    ng-options="x.Key as x.Key + ' - ' + x.Value for x in OrganizationContactCtrl.ePage.Masters.DropDownMasterList.LANGUAGE.ListSource"  data-ng-change="OrgContactModalCtrl.ePage.Masters.OnChangeValues(OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.Language,'E9007')"
-                                    search-contains="true">
-                                    <option value="">--Select--</option>
-                                </select>
-                            </div>    
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
+            </div>
         </div>
     </div>
-</div>
-<div class="modal-footer">
-    <input type="button" class="btn btn-warning btn-xs pull-right margin-left-5" ng-click="OrgContactModalCtrl.ePage.Masters.Cancel(OrgContactModalCtrl.ePage.Masters.OrgContact.FormView, 'OrgContact')"
-        value="Close" />
-    <input type="button" class="btn btn-primary btn-xs pull-right margin-left-5" ng-click="OrgContactModalCtrl.ePage.Masters.Save(OrgContactModalCtrl.ePage.Masters.OrgContact.FormView, 'OrgContact')"
-        value="{{OrgContactModalCtrl.ePage.Masters.SaveButtonText}}" data-ng-disabled="OrgContactModalCtrl.ePage.Masters.IsDisableSave"
-    />
-</div>
+    <div class="modal-footer" style="bottom: 20px;">
+        <input type="button" class="btn btn-warning btn-xs pull-right ml-5" data-ng-click="OrgContactModalCtrl.ePage.Masters.Cancel()"
+            value="Close" />
+        <input type="submit" class="btn btn-primary btn-xs pull-right ml-5" data-ng-click="OrgContactModalCtrl.ePage.Masters.SaveContact()"
+            value="{{OrgContactModalCtrl.ePage.Masters.SaveButtonText}}" data-ng-disabled="OrgContactModalCtrl.ePage.Masters.IsDisableSave" />
+    </div>
+</ng-form>

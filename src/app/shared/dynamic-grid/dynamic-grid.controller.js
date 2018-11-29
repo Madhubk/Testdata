@@ -5,9 +5,9 @@
         .module("Application")
         .controller("GridController", GridController);
 
-    GridController.$inject = ["$scope", "apiService", "helperService", "toastr"];
+    GridController.$inject = ["$scope", "apiService", "helperService", "appConfig"];
 
-    function GridController($scope, apiService, helperService, toastr) {
+    function GridController($scope, apiService, helperService, appConfig) {
         var GridCtrl = this;
         // Mode:  1 -> Entity List, 2 -> Lookup, 3 -> Attach
 
@@ -27,26 +27,18 @@
 
         function GetGridConfig() {
             // Check data comes from local or API
-            if (GridCtrl.gridConfig._isAPI) {
-                GridCtrl.ePage.Masters.ConfigurePagination = {
-                    SortColumn: GridCtrl.inputData.OtherConfig.Pagination.SortColumn,
-                    SortType: GridCtrl.inputData.OtherConfig.Pagination.SortType,
-                    PageNumber: GridCtrl.inputData.OtherConfig.Pagination.PageNumber,
-                    PageSize: GridCtrl.inputData.OtherConfig.Pagination.PageSize
-                };
+            if (GridCtrl.isApi) {
+                GridCtrl.ePage.Masters.gridColumnList = GridCtrl.input.GridConfig.Header;
+                GridCtrl.ePage.Masters.FilterObj = GridCtrl.input.OtherConfig.Pagination;
 
                 GetGridDataDynamic();
             } else {
-                GridCtrl.ePage.Masters.ConfigurePagination = {
-                    SortColumn: GridCtrl.gridConfig._sortColumn,
-                    SortType: GridCtrl.gridConfig._sortType,
-                    PageNumber: GridCtrl.gridConfig._pageNumber,
-                    PageSize: GridCtrl.gridConfig._paginationPageSize
-                };
+                GridCtrl.ePage.Masters.gridData = GridCtrl.input.data;
+                GridCtrl.ePage.Masters.gridColumnList = GridCtrl.input.gridColumnList;
 
-                GridCtrl.ePage.Masters.gridData = GridCtrl.inputData;
-                GridCtrl.ePage.Masters.gridData.Count = GridCtrl.inputData.length;
-                GridCtrl.ePage.Masters.gridColumn = GridCtrl.gridConfig._columnDef;
+                if (GridCtrl.input.data) {
+                    GridCtrl.ePage.Masters.gridDataCount = GridCtrl.input.data.length;
+                }
 
                 (GridCtrl.ePage.Masters.gridData.length > 0) ? GridCtrl.ePage.Masters.IsNoRecords = false: GridCtrl.ePage.Masters.IsNoRecords = true;
 
@@ -59,163 +51,112 @@
         }
 
         function GetGridDataDynamic() {
-            GridCtrl.ePage.Masters.gridColumn = GridCtrl.inputData.GridConfig.Header;
-            var _filter = GridCtrl.ePage.Masters.ConfigurePagination;
-            var _api = GridCtrl.inputData.FilterAPI,
-                _inputObj = {
-                    "FilterID": GridCtrl.inputData.FilterID,
-                    "SearchInput": helperService.createToArrayOfObject(_filter)
-                },
-                _filterAPIArray = GridCtrl.inputData.FilterAPI.split("/"),
+            var _filter = GridCtrl.ePage.Masters.FilterObj;
+            var _input = {
+                "FilterID": GridCtrl.input.FilterID,
+                "SearchInput": helperService.createToArrayOfObject(_filter)
+            };
+
+            var _api = GridCtrl.input.FilterAPI,
+                _filterAPIArray = GridCtrl.input.FilterAPI.split("/"),
                 _isFindLookup = _filterAPIArray[_filterAPIArray.length - 2] === "FindLookup" ? true : false;
 
             if (_isFindLookup) {
                 _api = _filterAPIArray.slice(0, -1).join("/");
-                _inputObj.DBObjectName = GridCtrl.inputData.FilterAPI.split("/").pop();
+                _input.DBObjectName = GridCtrl.input.FilterAPI.split("/").pop();
             }
 
-            // Serach filter to API input
-            if (GridCtrl.inputData.Filter) {
-                if (GridCtrl.inputData.Filter.length > 0) {
-                    GridCtrl.inputData.Filter.map(function (value1, key1) {
-                        var _index = _inputObj.SearchInput.map(function (value2, key2) {
+            // Search filter to API input
+            if (GridCtrl.defaultFilter) {
+                if (GridCtrl.defaultFilter.length > 0) {
+                    GridCtrl.defaultFilter.map(function (value1, key1) {
+                        var _index = _input.SearchInput.map(function (value2, key2) {
                             return value2.FieldName;
                         }).indexOf(value1.FieldName);
 
                         if (_index === -1) {
-                            _inputObj.SearchInput.push(value1);
+                            _input.SearchInput.push(value1);
+                        } else {
+                            // _input.SearchInput[_index].value = value1.value;
                         }
                     });
                 }
             }
 
             // Grid API call
-            if (GridCtrl.inputData.OtherConfig.CSS.IsAutoListing) {
-                if (GridCtrl.inputData.RequestMethod == 'get') {
-                    GridDataGet(_api);
-                } else {
-                    GridDataPost(_api, _inputObj);
-                }
+            if (GridCtrl.input.OtherConfig.CSS.IsAutoListing) {
+                GetGridData(_api, _input);
             } else {
                 GridCtrl.ePage.Masters.gridData = [];
-                GridCtrl.ePage.Masters.gridData.Count = 0;
-                GridCtrl.ePage.Masters.IsSelectFilter = true;
+                GridCtrl.ePage.Masters.gridDataCount = 0;
+                GridCtrl.ePage.Masters.IsSelectAnyFilter = true;
                 ConfigGridOptions();
             }
         }
 
-        function GridDataGet(api) {
-            apiService.get("eAxisAPI", api).then(function (response) {
-                GridCtrl.ePage.Masters.IsLoading = false;
-                if (response.data.Response) {
-                    GridCtrl.ePage.Masters.gridData = response.data.Response;
-                    GridCtrl.ePage.Masters.gridData.Count = response.data.Count;
-
-                    if (GridCtrl.ePage.Masters.gridData.length === 0) {
-                        GridCtrl.ePage.Masters.IsNoRecords = true;
-                    } else {
-                        GridCtrl.ePage.Masters.IsNoRecords = false;
-                    }
-                } else {
-                    GridCtrl.ePage.Masters.gridData = [];
-                    GridCtrl.ePage.Masters.IsNoRecords = true;
-                }
-                ConfigGridOptions();
-            });
-        }
-
-        function GridDataPost(api, input) {
+        function GetGridData(api, input) {
             apiService.post("eAxisAPI", api, input).then(function (response) {
                 GridCtrl.ePage.Masters.IsLoading = false;
                 if (response.data.Response) {
                     GridCtrl.ePage.Masters.gridData = response.data.Response;
-                    GridCtrl.ePage.Masters.gridData.Count = response.data.Count;
+                    GridCtrl.ePage.Masters.gridDataCount = response.data.Count;
 
-                    if (GridCtrl.ePage.Masters.gridData.length === 0) {
-                        GridCtrl.ePage.Masters.IsNoRecords = true;
-                    } else {
-                        GridCtrl.ePage.Masters.IsNoRecords = false;
-                    }
+                    (GridCtrl.ePage.Masters.gridData.length === 0) ? GridCtrl.ePage.Masters.IsNoRecords = true: GridCtrl.ePage.Masters.IsNoRecords = false;
                 } else {
                     GridCtrl.ePage.Masters.gridData = [];
                     GridCtrl.ePage.Masters.IsNoRecords = true;
                 }
+
                 ConfigGridOptions();
             });
         }
 
         function ConfigGridOptions() {
-            if (GridCtrl.mode == 3) {
-                GridCtrl.gridConfig._multiSelect = true;
-                GridCtrl.gridConfig._enableRowHeaderSelection = true;
-                GridCtrl.gridConfig._enableRowSelection = true;
-            } else if (GridCtrl.mode == 2) {
-                GridCtrl.gridConfig._multiSelect = false;
-                GridCtrl.gridConfig._enableRowHeaderSelection = false;
-                GridCtrl.gridConfig._enableRowSelection = false;
-            } else if (GridCtrl.mode == 1) {}
-
-            GridCtrl.ePage.Masters.gridOptions = {
-                columnDefs: GridCtrl.ePage.Masters.gridColumn,
-                data: GridCtrl.ePage.Masters.gridData,
-                enableColumnResizing: GridCtrl.gridConfig._enableColumnResizing,
-                enableRowSelection: GridCtrl.gridConfig._enableRowSelection,
-                enableRowHeaderSelection: GridCtrl.gridConfig._enableRowHeaderSelection,
-                multiSelect: GridCtrl.gridConfig._multiSelect,
-                enableGridMenu: GridCtrl.gridConfig._enableGridMenu,
-                enableColumnMenus: GridCtrl.gridConfig._enableColumnMenus,
-                cellTooltip: GridCtrl.gridConfig._cellTooltip,
-                enableCellSelection: GridCtrl.gridConfig._enableCellSelection,
-                enableCellEdit: GridCtrl.gridConfig._enableCellEdit,
-                enableCellEditOnFocus: GridCtrl.gridConfig._enableCellEditOnFocus,
-                enablePinning: GridCtrl.gridConfig._enablePinning,
-                enableSorting: GridCtrl.gridConfig._enableSorting,
-                headerRowHeight: GridCtrl.gridConfig._headerRowHeight,
-                rowHeight: GridCtrl.gridConfig._rowHeight,
-                enableFiltering: GridCtrl.gridConfig._enableFiltering,
-                exporterMenuCsv: GridCtrl.gridConfig._exporterMenuCsv,
-                exporterCsvFilename: GridCtrl.gridConfig._exporterCsvFilename + ".csv",
-                exporterMenuPdf: GridCtrl.gridConfig._exporterMenuPdf,
-                exporterPdfFilename: GridCtrl.gridConfig._exporterPdfFilename + ".pdf",
-                useExternalSorting: GridCtrl.gridConfig._useExternalSorting,
-                useExternalPagination: GridCtrl.gridConfig._useExternalPagination,
-                enablePaginationControls: GridCtrl.gridConfig._enablePaginationControls,
-                paginationPageSizes: GridCtrl.gridConfig._paginationPageSizes,
-                paginationPageSize: (GridCtrl.ePage.Masters.ConfigurePagination.PageSize ? parseInt(GridCtrl.ePage.Masters.ConfigurePagination.PageSize) : GridCtrl.gridConfig._paginationPageSize),
-                rowTemplate: GridCtrl.gridConfig._rowTemplate,
-                totalItems: GridCtrl.ePage.Masters.gridData.Count,
-                onRegisterApi: OnRegisterAPI,
-                gridMenuShowHideColumns: GridCtrl.gridConfig._gridMenuShowHideColumns,
-                gridMenuCustomItems: [{
-                    title: "Export Excel",
-                    icon: "fa fa-file-excel-o",
-                    action: function ($event) {
-                        console.log("Export Excel");
-                    }
-                }]
+            var _gridMenuCustomIconFunctions = {
+                ExportExcel: ExportExcel
             };
+            var _gridOptions = angular.copy(GridCtrl.gridOptions);
+
+            _gridOptions.columnDefs = GridCtrl.ePage.Masters.gridColumnList;
+            _gridOptions.data = GridCtrl.ePage.Masters.gridData;
+            _gridOptions.totalItems = GridCtrl.ePage.Masters.gridDataCount;
+            _gridOptions.onRegisterApi = OnRegisterAPI;
+
+            if (_gridOptions.gridMenuCustomItems) {
+                if (_gridOptions.gridMenuCustomItems.length > 0) {
+                    _gridOptions.gridMenuCustomItems.map(function (value, key) {
+                        if (value.Code) {
+                            if (_gridMenuCustomIconFunctions[value.Code]) {
+                                value.action = _gridMenuCustomIconFunctions[value.Code];
+                            }
+                        }
+                    });
+                }
+            }
+
+            GridCtrl.ePage.Masters.gridOptions = _gridOptions;
         }
 
         function OnRegisterAPI(gridApi) {
             $scope.gridApi = gridApi;
             var _sortColumn, _sortType, _pageNumber, _pageSize;
 
-            if (GridCtrl.gridConfig._useExternalSorting) {
+            if (GridCtrl.ePage.Masters.gridOptions.useExternalSorting) {
                 gridApi.core.on.sortChanged($scope, function (grid, sortColumns) {
                     if (sortColumns.length > 0) {
                         var _pageNoSort, _pageSizeSort;
-                        if (GridCtrl.inputData.GridConfig.SortObjects[sortColumns[0].field]) {
-                            _sortColumn = GridCtrl.inputData.GridConfig.SortObjects[sortColumns[0].field];
+                        if (GridCtrl.input.GridConfig.SortObjects[sortColumns[0].field]) {
+                            _sortColumn = GridCtrl.input.GridConfig.SortObjects[sortColumns[0].field];
                         } else {
-                            _sortColumn = GridCtrl.ePage.Masters.ConfigurePagination.SortColumn;
+                            _sortColumn = GridCtrl.ePage.Masters.FilterObj.SortColumn;
                         }
                         _sortType = sortColumns[0].sort.direction;
                         GridCtrl.ePage.Masters.IsLoading = true;
 
-                        (_pageNumber) ? _pageNoSort = _pageNumber: _pageNoSort = GridCtrl.ePage.Masters.ConfigurePagination.PageNumber;
-                        (_pageNumber) ? _pageSizeSort = _pageSize: _pageSizeSort = GridCtrl.ePage.Masters.ConfigurePagination.PageSize;
+                        (_pageNumber) ? _pageNoSort = _pageNumber: _pageNoSort = GridCtrl.ePage.Masters.FilterObj.PageNumber;
+                        (_pageNumber) ? _pageSizeSort = _pageSize: _pageSizeSort = GridCtrl.ePage.Masters.FilterObj.PageSize;
 
-                        GridCtrl.ePage.Masters.ConfigurePagination = {
+                        GridCtrl.ePage.Masters.FilterObj = {
                             SortColumn: _sortColumn,
                             SortType: _sortType,
                             PageNumber: _pageNoSort,
@@ -227,15 +168,15 @@
                 });
             }
 
-            if (GridCtrl.gridConfig._useExternalPagination) {
+            if (GridCtrl.ePage.Masters.gridOptions.useExternalPagination) {
                 gridApi.pagination.on.paginationChanged($scope, function (pageNumber, pageSize) {
                     var _sortColumnPg, _sortTypePg;
                     GridCtrl.ePage.Masters.IsLoading = true;
 
-                    (_sortColumn) ? _sortColumnPg = _sortColumn: _sortColumnPg = GridCtrl.ePage.Masters.ConfigurePagination.SortColumn;
-                    (_sortType) ? _sortTypePg = _sortType: _sortTypePg = GridCtrl.ePage.Masters.ConfigurePagination.SortType;
+                    (_sortColumn) ? _sortColumnPg = _sortColumn: _sortColumnPg = GridCtrl.ePage.Masters.FilterObj.SortColumn;
+                    (_sortType) ? _sortTypePg = _sortType: _sortTypePg = GridCtrl.ePage.Masters.FilterObj.SortType;
 
-                    GridCtrl.ePage.Masters.ConfigurePagination = {
+                    GridCtrl.ePage.Masters.FilterObj = {
                         SortColumn: _sortColumnPg,
                         SortType: _sortTypePg,
                         PageNumber: pageNumber,
@@ -250,7 +191,11 @@
                 SelectedGridRow(row, 'rowSelection');
             });
 
-            if(GridCtrl.isLocalSearch){
+            gridApi.selection.on.rowSelectionChangedBatch($scope, function (rows) {
+                SelectedGridRow(rows, 'rowSelectionBatch');
+            });
+
+            if (GridCtrl.isLocalSearch) {
                 gridApi.grid.registerRowsProcessor(LocalSearch, 200);
             }
         }
@@ -263,8 +208,8 @@
             var matcher = new RegExp(GridCtrl.ePage.Masters.LocalSearch, "gi");
             renderableRows.forEach(function (row) {
                 var match = false;
-                GridCtrl.ePage.Masters.gridColumn.forEach(function (field) {
-                    if(row.entity[field.field]){
+                GridCtrl.ePage.Masters.gridColumnList.forEach(function (field) {
+                    if (row.entity[field.field]) {
                         if (row.entity[field.field].match(matcher)) {
                             match = true;
                         }
@@ -277,29 +222,116 @@
             return renderableRows;
         }
 
-        function SelectedGridRow(data, action) {
+        function SelectedGridRow(data, action, param1, param2, param3, param4, param5) {
             var _items = $scope.gridApi.selection.getSelectedRows();
             var _output = {
                 data: data,
-                action: action
+                action: action,
+                param1: param1,
+                param2: param2,
+                param3: param3,
+                param4: param4,
+                param5: param5,
+                items: _items,
+                dataEntryMaster: GridCtrl.input
             };
-            _output.data.DataEntryMaster = GridCtrl.inputData;
 
-            if (GridCtrl.mode == 3) {
-                if (_output.action == "rowSelection") {
-                    GridCtrl.selectedItems = _items;
-                } else if (_output.action == "dblClick" || _output.action == "link") {
-                    _output.data = [data.entity];
+            GridCtrl.selectedGridRow({
+                $item: _output
+            });
+        }
 
-                    GridCtrl.selectedGridRow({
-                        $item: _output
+        function ExportExcel($event) {
+            var _searchInput = angular.copy(GridCtrl.ePage.Masters.FilterObj)
+            _searchInput.PageNumber = GridCtrl.ePage.Masters.FilterObj.PageNumber;
+            _searchInput.PageSize = GridCtrl.ePage.Masters.gridOptions.totalItems;
+            _searchInput.SortColumn = GridCtrl.ePage.Masters.FilterObj.SortColumn;
+            _searchInput.SortType = GridCtrl.ePage.Masters.FilterObj.SortType;
+
+            if (GridCtrl.baseFilter) {
+                _searchInput = Object.assign({}, _searchInput, GridCtrl.baseFilter);
+            }
+
+            if(GridCtrl.defaultFilter){
+                if(GridCtrl.defaultFilter.length > 0){
+                    GridCtrl.defaultFilter.map(function(value, key){
+                        _searchInput[value.FieldName] = value.value;
                     });
                 }
-            } else {
-                GridCtrl.selectedGridRow({
-                    $item: _output
-                });
             }
+            _searchInput = helperService.createToArrayOfObject(_searchInput);
+
+            var _gridConfig = angular.copy(GridCtrl.input.GridConfig.Header);
+            _gridConfig.Header = [];
+            GridCtrl.input.GridConfig.Header.map(function (value, key) {
+                if (value.displayName && value.field && value.type) {
+                    var _obj = {
+                        DisplayName: value.displayName,
+                        FieldName: value.field,
+                        DataType: value.type,
+                        OrdinalPosition: key + 1
+                    };
+
+                    _gridConfig.Header.push(_obj);
+                }
+            });
+
+            var _api = GridCtrl.input.FilterAPI,
+                _filterAPIArray = GridCtrl.input.FilterAPI.split("/"),
+                _isFindLookup = _filterAPIArray[_filterAPIArray.length - 2] === "FindLookup" ? true : false;
+
+            if (_isFindLookup) {
+                _api = _filterAPIArray.slice(0, -1).join("/");
+                _input.DBObjectName = GridCtrl.input.FilterAPI.split("/").pop();
+            }
+
+            var _input = {
+                "FileName": GridCtrl.input.DataEntryName,
+                "FileType": "EXCEL",
+                "TemplateName": "DynamicReport",
+                "SheetName": "Default",
+                "DataObjs": [{
+                    "SectionName": "Header",
+                    "DataSource": "LOCAL",
+                    "DataObject": {
+                        "Date": GridCtrl.ePage.Masters.gridOptions.CreatedDateTime,
+                        "Title": GridCtrl.input.Title,
+                        "SubTitle": GridCtrl.ePage.Masters.gridOptions.ShipmentNo
+                    },
+                    "IsFilterEnabled": false
+                }, {
+                    "SectionName": "DynamicRow",
+                    "DataSource": "API",
+                    "IsApi": true,
+                    "ApiName": _api,
+                    "HttpMethod": "POST",
+                    "SearchInput": {
+                        "FilterID": GridCtrl.input.FilterID,
+                        "SearchInput": _searchInput
+                    },
+                    "RenderType": true,
+                    "IsList": true,
+                    "IsFilterEnabled": true,
+                    "GridConfig": _gridConfig.Header,
+                    "IsSelf": true,
+                    "IsAutoHeader": true,
+                    "AutoColumnWidth": 20
+                }],
+                "JobDocs": {
+                    "EntityRefKey": GridCtrl.input.DataEntry_PK,
+                    "EntitySource": "EXCELCONFIG",
+                    "EntityRefCode": GridCtrl.input.DataEntryName
+                },
+                "IsAsync": false,
+                "IsLocal": false,
+                "StartRow": 3
+            };
+
+            apiService.post("eAxisAPI", appConfig.Entities.Export.API.GridExcel.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    helperService.DownloadDocument(response.data.Response);
+                }
+            });
         }
 
         Init();

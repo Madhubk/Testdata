@@ -1,0 +1,264 @@
+<div class="clearfix">
+    <div id="CargoReadinessGrid{{one_three_CargoReadinessInlineCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder[0].OrderNo}}"
+        class="fixedheader mb-0">
+        <table id="one_three_CargoReadinessInlineCtrl.ePage.Masters.AddScroll" style="height:350px;">
+            <thead>
+                <tr id="tableHeader">
+                    <th id="checkbox" data-ng-if="one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.orderno.isenabled && !one_three_CargoReadinessInlineCtrl.readOnly"
+                        ng-style="{ 'width': one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.checkbox.width + 'px' }"
+                        title="Select">Select</th>
+                    <th id="orderno" data-ng-if="one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.orderno.isenabled"
+                        data-ng-style="{ 'width': one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.orderno.width + 'px' }"
+                        title="Order #">Order #</th>
+                    <th id="orderdate" data-ng-if="one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.orderdate.isenabled"
+                        data-ng-style="{ 'width': one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.orderdate.width + 'px' }"
+                        title="Order Date">Order Date</th>
+                    <th id="followupdate" data-ng-if="one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.followupdate.isenabled"
+                        data-ng-style="{ 'width': one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.followupdate.width + 'px' }"
+                        title="FollowUp Date">FollowUp Date</th>
+                    <th id="consignee" data-ng-if="one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.consignee.isenabled"
+                        data-ng-style="{ 'width': one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.consignee.width + 'px' }"
+                        title="Consignee">Consignee</th>
+                    <th id="consignor" data-ng-if="one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.consignor.isenabled"
+                        data-ng-style="{ 'width': one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.consignor.width + 'px' }"
+                        title="Consignor">Consignor</th>
+                    <th id="tmode" data-ng-if="one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.tmode.isenabled"
+                        data-ng-style="{ 'width': one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.tmode.width + 'px' }"
+                        title="T.Mode">T.Mode</th>
+                    <th id="cmode" data-ng-if="one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.cmode.isenabled"
+                        data-ng-style="{ 'width': one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.cmode.width + 'px' }"
+                        title="C.Mode">C.Mode</th>
+                    <th id="cargoreadydate" data-ng-if="one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.cargoreadydate.isenabled"
+                        data-ng-style="{ 'width': one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.cargoreadydate.width + 'px' }"
+                        title="Cargo Ready Date">Cargo Ready Date</th>
+                    <th id="comments" data-ng-if="one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.comments.isenabled"
+                        data-ng-style="{ 'width': one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.comments.width + 'px' }"
+                        title="Comments">Comments</th>
+                </tr>
+            </thead>
+            <tbody id="">
+                <tr id="tableBody" data-ng-if="!one_three_CargoReadinessInlineCtrl.readOnly" data-ng-class="{row_active: (one_three_CargoReadinessInlineCtrl.ePage.Masters.selectedRow==$index)}"
+                    data-ng-repeat="x in one_three_CargoReadinessInlineCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder | filter:{IsDeleted:false}"
+                    data-ng-click="one_three_CargoReadinessInlineCtrl.ePage.Masters.selectedRow = $index;one_three_CargoReadinessInlineCtrl.ePage.Masters.selectedRowObj=x">
+                    <!-- checkbox -->
+                    <td id="checkbox" data-ng-if="one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.checkbox.isenabled && !one_three_CargoReadinessInlineCtrl.readOnly"
+                        ng-style="{ 'width': one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.checkbox.width + 'px' ,'padding-top':'0px' }"
+                        ng-click="one_three_CargoReadinessInlineCtrl.ePage.Masters.Enable = true">
+                        <label class="mb-0 customcheckbox">
+                            <input type="checkbox" data-ng-checked="x.status" data-ng-change="one_three_CargoReadinessInlineCtrl.ePage.Masters.OnChange(x)"
+                                data-ng-model="x.status" />
+                            <span class="text"></span>
+                        </label>
+                    </td>
+                    <!-- Order # -->
+                    <td id="orderno" data-ng-if="one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.orderno.isenabled"
+                        data-ng-style="{ 'width': one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.orderno.width + 'px' }">
+                        <div data-ng-if="$index!=one_three_CargoReadinessInlineCtrl.ePage.Masters.selectedRow || one_three_CargoReadinessInlineCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.OrderNo || one_three_CargoReadinessInlineCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==one_three_CargoReadinessInlineCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                            {{x.OrderNo || one_three_CargoReadinessInlineCtrl.ePage.Masters.emptyText}}
+                            <!-- <div class="ship-font">
+                                <input type="text" class="form-control input-sm" placeholder="Order #" maxlength="35"
+                                    data-ng-model="x.OrderNo" />
+                            </div> -->
+                        </div>
+                    </td>
+                    <!-- Order Date -->
+                    <td id="orderdate" data-ng-if="one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.orderdate.isenabled"
+                        data-ng-style="{ 'width': one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.orderdate.width + 'px' }">
+                        <div data-ng-if="$index!=one_three_CargoReadinessInlineCtrl.ePage.Masters.selectedRow || one_three_CargoReadinessInlineCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.OrderDate | date:'dd-MMM-yyyy' || one_three_CargoReadinessInlineCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==one_three_CargoReadinessInlineCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                            {{x.OrderDate | date:'dd-MMM-yyyy' || one_three_CargoReadinessInlineCtrl.ePage.Masters.emptyText}}
+                            <!-- <div class="input-group input-group-sm col-lg-11">
+                                <input type="text" class="form-control" placeholder="{{one_three_CargoReadinessInlineCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                    data-ng-model="x.OrderDate" datetime-picker="{{one_three_CargoReadinessInlineCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                    datepicker-options="one_three_CargoReadinessInlineCtrl.ePage.Masters.DatePicker.Options"
+                                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                    enable-date="true" default-date="" default-time="" save-as="one_three_CargoReadinessInlineCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                    is-open="one_three_CargoReadinessInlineCtrl.ePage.Masters.DatePicker.isOpen['isOrderDate']"
+                                    when-closed="" data-ng-click="one_three_CargoReadinessInlineCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isOrderDate')"
+                                    custom-date-time-format />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default shiny" data-ng-click="one_three_CargoReadinessInlineCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isOrderDate')">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </span>
+                            </div> -->
+                        </div>
+                    </td>
+                    <!-- FollowUp Date -->
+                    <td id="followupdate" data-ng-if="one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.followupdate.isenabled"
+                        data-ng-style="{ 'width': one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.followupdate.width + 'px' }">
+                        <div data-ng-if="$index!=one_three_CargoReadinessInlineCtrl.ePage.Masters.selectedRow || one_three_CargoReadinessInlineCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.FollowUpDate | date:'dd-MMM-yyyy' || one_three_CargoReadinessInlineCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==one_three_CargoReadinessInlineCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                            {{x.FollowUpDate | date:'dd-MMM-yyyy' || one_three_CargoReadinessInlineCtrl.ePage.Masters.emptyText}}
+                            <!-- <div class="input-group input-group-sm col-lg-11">
+                                <input type="text" class="form-control" placeholder="{{one_three_CargoReadinessInlineCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                    data-ng-model="x.FollowUpDate" datetime-picker="{{one_three_CargoReadinessInlineCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                    datepicker-options="one_three_CargoReadinessInlineCtrl.ePage.Masters.DatePicker.Options"
+                                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                    enable-date="true" default-date="" default-time="" save-as="one_three_CargoReadinessInlineCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                    is-open="one_three_CargoReadinessInlineCtrl.ePage.Masters.DatePicker.isOpen['isFollowUpDate']"
+                                    when-closed="" data-ng-click="one_three_CargoReadinessInlineCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isFollowUpDate')"
+                                    custom-date-time-format />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default shiny" data-ng-click="one_three_CargoReadinessInlineCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isFollowUpDate')">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </span>
+                            </div> -->
+                        </div>
+                    </td>
+                    <!-- Consignee -->
+                    <td id="consignee" data-ng-if="one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.consignee.isenabled"
+                        data-ng-style="{ 'width': one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.consignee.width + 'px' }">
+                        <div data-ng-if="$index!=one_three_CargoReadinessInlineCtrl.ePage.Masters.selectedRow || one_three_CargoReadinessInlineCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.Buyer || one_three_CargoReadinessInlineCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==one_three_CargoReadinessInlineCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                            {{x.Buyer || one_three_CargoReadinessInlineCtrl.ePage.Masters.emptyText}}
+                            <!-- <div class="ship-font">
+                                <input type="text" class="form-control input-sm" placeholder="Order #" maxlength="35"
+                                    data-ng-model="x.Buyer" />
+                            </div> -->
+                        </div>
+                    </td>
+                    <!-- Consignor -->
+                    <td id="consignor" data-ng-if="one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.consignor.isenabled"
+                        data-ng-style="{ 'width': one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.consignor.width + 'px' }">
+                        <div data-ng-if="$index!=one_three_CargoReadinessInlineCtrl.ePage.Masters.selectedRow || one_three_CargoReadinessInlineCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.Supplier || one_three_CargoReadinessInlineCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==one_three_CargoReadinessInlineCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                            {{x.Supplier || one_three_CargoReadinessInlineCtrl.ePage.Masters.emptyText}}
+                            <!-- <div class="ship-font">
+                                <input type="text" class="form-control input-sm" placeholder="Order #" maxlength="35"
+                                    data-ng-model="x.Supplier" />
+                            </div> -->
+                        </div>
+                    </td>
+                    <!-- tmode -->
+                    <td id="tmode" data-ng-if="one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.tmode.isenabled"
+                        data-ng-style="{ 'width': one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.tmode.width + 'px' }">
+                        <div data-ng-if="$index!=one_three_CargoReadinessInlineCtrl.ePage.Masters.selectedRow || one_three_CargoReadinessInlineCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.TransportMode || one_three_CargoReadinessInlineCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==one_three_CargoReadinessInlineCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                            {{x.TransportMode || one_three_CargoReadinessInlineCtrl.ePage.Masters.emptyText}}
+                            <!-- <div class="ship-font">
+                                <input type="text" class="form-control input-sm" placeholder="Order #" maxlength="35"
+                                    data-ng-model="x.TransportMode" />
+                            </div> -->
+                        </div>
+                    </td>
+                    <!-- cmode -->
+                    <td id="cmode" data-ng-if="one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.cmode.isenabled"
+                        data-ng-style="{ 'width': one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.cmode.width + 'px' }">
+                        <div data-ng-if="$index!=one_three_CargoReadinessInlineCtrl.ePage.Masters.selectedRow || one_three_CargoReadinessInlineCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.ContainerMode || one_three_CargoReadinessInlineCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==one_three_CargoReadinessInlineCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                            {{x.ContainerMode || one_three_CargoReadinessInlineCtrl.ePage.Masters.emptyText}}
+                            <!-- <div class="ship-font">
+                                <input type="text" class="form-control input-sm" placeholder="Order #" maxlength="35"
+                                    data-ng-model="x.ContainerMode" />
+                            </div> -->
+                        </div>
+                    </td>
+                    <!-- Cargo Ready Date -->
+                    <td id="cargoreadydate" data-ng-if="one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.cargoreadydate.isenabled"
+                        data-ng-style="{ 'width': one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.cargoreadydate.width + 'px' }">
+                        <div data-ng-if="$index!=one_three_CargoReadinessInlineCtrl.ePage.Masters.selectedRow || one_three_CargoReadinessInlineCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.CargoReadyDate | date:'dd-MMM-yyyy' ||
+                            one_three_CargoReadinessInlineCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==one_three_CargoReadinessInlineCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                            <div class="input-group input-group-sm col-lg-11">
+                                <input type="text" class="form-control" placeholder="{{one_three_CargoReadinessInlineCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                    data-ng-model="x.CargoReadyDate" datetime-picker="{{one_three_CargoReadinessInlineCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                    datepicker-options="one_three_CargoReadinessInlineCtrl.ePage.Masters.DatePicker.Options"
+                                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                    enable-date="true" default-date="" default-time="" save-as="one_three_CargoReadinessInlineCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                    is-open="one_three_CargoReadinessInlineCtrl.ePage.Masters.DatePicker.isOpen['isCargoReadyDate']"
+                                    when-closed="" data-ng-click="one_three_CargoReadinessInlineCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoReadyDate')"
+                                    custom-date-time-format />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default shiny" data-ng-click="one_three_CargoReadinessInlineCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoReadyDate')">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </td>
+                    <!-- comments -->
+                    <td id="comments" data-ng-if="one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.comments.isenabled"
+                        data-ng-style="{ 'width': one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.comments.width + 'px' }">
+                        <div data-ng-if="$index!=one_three_CargoReadinessInlineCtrl.ePage.Masters.selectedRow || one_three_CargoReadinessInlineCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.Comments || one_three_CargoReadinessInlineCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==one_three_CargoReadinessInlineCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                            <div class="ship-font">
+                                <textarea class="form-control no-resize" rows="1" max-length="4000" data-ng-model="x.Comments"></textarea>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <!-- readonly start -->
+                <tr id="tableBody" data-ng-if="one_three_CargoReadinessInlineCtrl.readOnly" data-ng-repeat="x in one_three_CargoReadinessInlineCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder | filter:{IsDeleted:false}">
+                    <!-- Order # -->
+                    <td id="orderno" data-ng-if="one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.orderno.isenabled"
+                        data-ng-style="{ 'width': one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.orderno.width + 'px' }">
+                        {{x.OrderNo || one_three_CargoReadinessInlineCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- Order Date -->
+                    <td id="orderdate" data-ng-if="one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.orderdate.isenabled"
+                        data-ng-style="{ 'width': one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.orderdate.width + 'px' }">
+                        {{x.OrderDate || one_three_CargoReadinessInlineCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- followup date -->
+                    <td id="followupdate" data-ng-if="one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.followupdate.isenabled"
+                        data-ng-style="{ 'width': one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.followupdate.width + 'px' }">
+                        {{x.FollowUpDate || one_three_CargoReadinessInlineCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- consignee -->
+                    <td id="consignee" data-ng-if="one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.consignee.isenabled"
+                        data-ng-style="{ 'width': one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.consignee.width + 'px' }">
+                        {{x.Buyer || one_three_CargoReadinessInlineCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- consignor -->
+                    <td id="consignor" data-ng-if="one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.consignor.isenabled"
+                        data-ng-style="{ 'width': one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.consignor.width + 'px' }">
+                        {{x.Supplier || one_three_CargoReadinessInlineCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- T.Mode -->
+                    <td id="tmode" data-ng-if="one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.tmode.isenabled"
+                        data-ng-style="{ 'width': one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.tmode.width + 'px' }">
+                        {{x.TransportMode || one_three_CargoReadinessInlineCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- C.Mode -->
+                    <td id="cmode" data-ng-if="one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.cmode.isenabled"
+                        data-ng-style="{ 'width': one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.cmode.width + 'px' }">
+                        {{x.ContainerMode || one_three_CargoReadinessInlineCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- cargoreadydate -->
+                    <td id="cargoreadydate" data-ng-if="one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.cargoreadydate.isenabled"
+                        data-ng-style="{ 'width': one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.cargoreadydate.width + 'px' }">
+                        {{x.CargoReadyDate || one_three_CargoReadinessInlineCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- comments -->
+                    <td id="comments" data-ng-if="one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.comments.isenabled"
+                        data-ng-style="{ 'width': one_three_CargoReadinessInlineCtrl.ePage.Masters.TableProperties.UICargoReadiness.comments.width + 'px' }">
+                        {{x.Comments || one_three_CargoReadinessInlineCtrl.ePage.Masters.emptyText}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="grid-no-record" data-ng-if="one_three_CargoReadinessInlineCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.length == 0">No
+            records found...</div>
+    </div>
+</div>

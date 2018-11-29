@@ -1,0 +1,182 @@
+<div class="pre-alert error-modal-hide">
+    <div class="col-lg-12 col-sm-12 col-md-12 col-xl-12 col-xs-12">
+        <shipment-details-directive current-obj="VerifyPreAlertEditDirCtrl.ePage.Masters.TaskObj"></shipment-details-directive>
+    </div>
+    <div class="col-lg-12 col-md-12 col-xl-12 col-sm-12 col-xs-12 mb-10">
+        <div clas="clearfix">
+            <div class="row  mr-5 ml-5 mt-5 mb-10">
+                <uib-tabset id="prealert" style="border: 1px solid #ddd;">
+                    <!--Shipping Details Tab-->
+                    <uib-tab>
+                        <uib-tab-heading title="PreAlert">
+                            <i class="fa fa-list-alt margin-right-5"></i>
+                            <span class="text-single-line" data-ng-bind="'Verify PreAlert'"></span>
+                        </uib-tab-heading>
+                        <div data-ng-if="VerifyPreAlertEditDirCtrl.currentShipment">
+                            <div data-ng-include="'app/eaxis/freight/shipment/my-task/my-task-directive/verify-prealert/verify-prealert/verify-prealert-edit/tabs/prealert.html'"></div>
+                        </div>
+                    </uib-tab>
+                    <uib-tab>
+                        <uib-tab-heading title="Shipment">
+                            <i class="fa fa-list-alt margin-right-5"></i>
+                            <span class="text-single-line" data-ng-bind="'Shipment'"></span>
+                        </uib-tab-heading>
+                        <div class="hbl-loading" data-ng-if="!VerifyPreAlertEditDirCtrl.currentShipment">
+                            <i class="fa fa-spin fa-spinner"></i>
+                        </div>
+                        <div data-ng-if="VerifyPreAlertEditDirCtrl.currentShipment">
+                            <shipment-activity-details current-obj="VerifyPreAlertEditDirCtrl.currentShipment" read-only="false"></shipment-activity-details>
+                        </div>
+                    </uib-tab>
+                    <uib-tab>
+                        <uib-tab-heading title="package">
+                            <i class="fa fa-list-alt margin-right-5"></i>
+                            <span class="text-single-line" data-ng-bind="'package'"></span>
+                        </uib-tab-heading>
+                        <div class="hbl-loading" data-ng-if="!VerifyPreAlertEditDirCtrl.currentShipment">
+                            <i class="fa fa-spin fa-spinner"></i>
+                        </div>
+                        <div data-ng-if="VerifyPreAlertEditDirCtrl.currentShipment">
+                            <packing-grid current-object="VerifyPreAlertEditDirCtrl.currentShipment" freight-mode="'OUT'" btn-visible="{'AddNew':true,'Delete':true,'More':true}"
+                                table-properties="" read-only="false"></packing-grid>
+                        </div>
+                    </uib-tab>
+                </uib-tabset>
+            </div>
+        </div>
+    </div>
+    <!-- Consol Activity Form -->
+    <div class="col-lg-12 col-md-12 col-xl-12 col-sm-12 col-xs-12 mb-10">
+        <div clas="clearfix">
+            <div class="row  mr-5 ml-5  mb-5">
+                <uib-tabset id="prealert" style="border: 1px solid #ddd;">
+                    <uib-tab>
+                        <uib-tab-heading title="Consol">
+                            <i class="fa fa-list-alt margin-right-5"></i>
+                            <span class="text-single-line" data-ng-bind="'Consol'"></span>
+                        </uib-tab-heading>
+                        <div data-ng-if="VerifyPreAlertEditDirCtrl.currentConsol">
+                            <consol-activity-details current-obj="VerifyPreAlertEditDirCtrl.currentConsol" read-only="false"></consol-activity-details>
+                        </div>
+                    </uib-tab>
+                    <uib-tab>
+                        <uib-tab-heading title="Routing">
+                            <i class="fa fa-list-alt margin-right-5"></i>
+                            <span class="text-single-line" data-ng-bind="'Routing'"></span>
+                        </uib-tab-heading>
+                        <div class="pre-alert-con" data-ng-if="VerifyPreAlertEditDirCtrl.ePage.Masters.ConShpObj.length == 0">
+                            This shipment is Not Attached with any Cosnsol
+                        </div>
+                        <div class="pre-alert-loading" data-ng-if="VerifyPreAlertEditDirCtrl.ePage.Masters.ConShpObj.length>0 && !VerifyPreAlertEditDirCtrl.currentConsol">
+                            <i class="fa fa-spin fa-spinner"></i>
+                        </div>
+                        <div data-ng-if="VerifyPreAlertEditDirCtrl.currentConsol">
+                            <routing-grid current-object="VerifyPreAlertEditDirCtrl.currentConsol" key-object-name="'CON'" fk-name="'PK'" pk-name="'CON_PK'"
+                                api-header-name="'UIConConsolHeader'" api-header-field-name="'PK'" api-header-value-name="'CON_FK'"
+                                btn-visible="{'AddNew':true,'Delete':true,'More':true}" table-properties="" read-only="false"></routing-grid>
+                        </div>
+                    </uib-tab>
+                    <uib-tab>
+                        <uib-tab-heading title="Container">
+                            <i class="fa fa-list-alt margin-right-5"></i>
+                            <span class="text-single-line" data-ng-bind="'Container'"></span>
+                        </uib-tab-heading>
+                        <div class="pre-alert-con" data-ng-if="VerifyPreAlertEditDirCtrl.ePage.Masters.ConShpObj.length == 0">
+                            This shipment is Not Attached with any Cosnsol
+                        </div>
+                        <div class="pre-alert-loading" data-ng-if="VerifyPreAlertEditDirCtrl.ePage.Masters.ConShpObj.length>0 && !VerifyPreAlertEditDirCtrl.currentConsol">
+                            <i class="fa fa-spin fa-spinner"></i>
+                        </div>
+                        <div data-ng-if="VerifyPreAlertEditDirCtrl.currentConsol">
+                            <container-grid current-object="VerifyPreAlertEditDirCtrl.currentConsol" key-object-name="'CON'" api-header-name="'UIConConsolHeader'"
+                                api-header-field-name="'CON_FK'" api-header-value-name="'UICntContainers'" btn-visible="{'AddNew':true,'Delete':true,'More':true}"
+                                table-properties="" read-only="false">
+                            </container-grid>
+                        </div>
+                    </uib-tab>
+                </uib-tabset>
+            </div>
+        </div>
+    </div>
+    <!-- Documents & Comments -->
+    <div class="clearfix">
+        <!-- Document upload -->
+        <article class="col-sm-12 col-md-12 col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-lg fa-fw fa-file-text"></i>
+                    <span>File Upload Form </span>
+                </div>
+                <div class="panel-body no-padding prealert-Document">
+                    <article class="col-sm-12 col-md-12 col-lg-12 mt-10" data-ng-if="VerifyPreAlertEditDirCtrl.ePage.Masters.StandardMenuInput">
+                        <div class="" document input="VerifyPreAlertEditDirCtrl.ePage.Masters.StandardMenuInput" mode="3" list-source="VerifyPreAlertEditDirCtrl.ePage.Masters.DocListSource"
+                            config="VerifyPreAlertEditDirCtrl.ePage.Masters.StandardConfigInput" class="my-task-icon fa fa-file-text-o mr-5">
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </article>
+        <!-- Comments Details -->
+        <article class="col-sm-12 col-md-12 col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-lg fa-fw fa-file-text"></i>
+                    <span>Comments Details</span>
+                </div>
+                <div class="panel-body no-padding prealert-Document">
+                    <article class="col-sm-12 col-md-12 col-lg-12 mt-10" data-ng-if="VerifyPreAlertEditDirCtrl.ePage.Masters.StandardMenuInput">
+                        <div class="" comment input="VerifyPreAlertEditDirCtrl.ePage.Masters.StandardMenuInput" mode="3" config="VerifyPreAlertEditDirCtrl.ePage.Masters.CommentConfig"
+                            class="my-task-icon fa fa-file-text-o mr-5">
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </article>
+    </div>
+    <!-- Save & Complete Buttons -->
+    <div class="clearfix decision">
+        <div class="clearfix" data-ng-if="
+        VerifyPreAlertEditDirCtrl.ePage.Masters.StandardMenuInput">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 pt-5">
+                <a href="javascript: void(0)" document-modal input="VerifyPreAlertEditDirCtrl.ePage.Masters.StandardMenuInput" mode="1" class="my-task-icon fa fa-file-text-o mr-5"></a>
+                <span class="my-task-slash"></span>
+                <a href="javascript: void(0)" comment-modal input="VerifyPreAlertEditDirCtrl.ePage.Masters.StandardMenuInput" mode="1" class="my-task-icon fa fa-comment-o mr-5"></a>
+                <span class="my-task-slash"></span>
+                <a href="javascript: void(0)" email-modal input="VerifyPreAlertEditDirCtrl.ePage.Masters.StandardMenuInput" mode="1" class="my-task-icon fa fa-envelope-o mr-5"></a>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <input type="button" class="btn btn-success btn-sm pull-right ml-5" data-ng-click="VerifyPreAlertEditDirCtrl.ePage.Masters.Save()"
+                    data-ng-disabled="VerifyPreAlertEditDirCtrl.ePage.Masters.IsDisableSaveBtn" value="{{VerifyPreAlertEditDirCtrl.ePage.Masters.SaveBtnText}}">
+                <input type="button" class="btn btn-primary btn-sm pull-right ml-5" data-ng-click="VerifyPreAlertEditDirCtrl.ePage.Masters.Complete()"
+                    data-ng-disabled="VerifyPreAlertEditDirCtrl.ePage.Masters.IsDisableCompleteBtn" value="{{VerifyPreAlertEditDirCtrl.ePage.Masters.CompleteBtnText}}">
+            </div>
+        </div>
+    </div>
+    <div class="error-warning-container right" id="errorWarningContainer{{VerifyPreAlertEditDirCtrl.taskObj.PSI_InstanceNo}}">
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right" data-ng-click="VerifyPreAlertEditDirCtrl.ePage.Masters.ShowErrorWarningModal(VerifyPreAlertEditDirCtrl.taskObj.PSI_InstanceNo)">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+        </div>
+        <div class="error-warning-body">
+            <div class="clearfix" data-ng-if="VerifyPreAlertEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GlobalErrorWarningList.length > 0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in VerifyPreAlertEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 Stext-center">
+                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

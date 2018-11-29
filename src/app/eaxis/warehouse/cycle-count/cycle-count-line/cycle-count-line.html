@@ -1,318 +1,392 @@
-<div class="col-lg-9 p-0">
-    
-    <div class="p-10" ng-show='CycleCountLineCtrl.ePage.Masters.Lineslist'>
-        <div ng-show="CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.StocktakeStatus=='LOD'">
-            <span><button type="button" class="btn btn-sm btn-outline-secondary" title="Add New"  data-ng-click="CycleCountLineCtrl.ePage.Masters.AddNewRow()"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button></span>
-            <span ng-hide='CycleCountLineCtrl.ePage.Masters.selectedRow==-1'><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Delete"  data-ng-click="CycleCountLineCtrl.ePage.Masters.RemoveRow()"><span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button></span>        
-        </div>
-        <div id='CycleCountLineCtrl.ePage.Masters.your_div' class="wmstable_scroll" style="height:325px; padding-top: 2px;border-top: 1px outset;">
-            <div class="table" id="results">
-                <div class='theader'>
-                    <div class='table_header'>
-                        <label>
-                            <input type="checkbox" ng-change="CycleCountLineCtrl.ePage.Masters.SelectAllCheckBox()" ng-checked="CycleCountLineCtrl.ePage.Masters.SelectAll"
-                                ng-model="CycleCountLineCtrl.ePage.Masters.SelectAll" ng-disabled="CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.StocktakeStatus=='FIN'">
-                            <span class="text"></span>
-                        </label>
-                    </div>
-                    <div class='table_header'>Client</div>
-                    <div class='table_header'>Product</div>
-                    <div class='table_header'>Commodity</div>
-                    <div class='table_header'><span class="mr-20">Pallet ID</span></div>
-                    <div class='table_header'><span class="mr-60">Location</span></div>
-                    <div class='table_header'>Area</div>
-                    <div class='table_header'>Row</div>
-                    <div class='table_header'>System Units</div>
-                    <div class='table_header'>Last Count</div>
-                    <div class='table_header'><span class="mr-20">Count1</span></div>
-                    <div class='table_header'><span class="mr-60">Date Verified</span></div>
-                    <div class='table_header'><span class="mr-100">Comment</span></div>
-                    <div class='table_header'>Status</div>
-                    <div class='table_header'>Date Closed</div>
-                    <div class='table_header'>Pick Method</div>
-                    <div class='table_header'>Inv Status</div>
-                    <div class='table_header'><span class="mr-60">Expiry Date</span></div>
-                    <div class='table_header'><span class="mr-60">Packing Date</span></div>
-                    <div class='table_header' ng-show="CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.IMPartAttrib1Name">{{CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.IMPartAttrib1Name}}</div>
-                    <div class='table_header' ng-show="CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.IMPartAttrib2Name">{{CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.IMPartAttrib2Name}}</div>
-                    <div class='table_header' ng-show="CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.IMPartAttrib3Name">{{CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.IMPartAttrib3Name}}</div>
-                    <div class='table_header' ng-show="!CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.IMPartAttrib1Name">Part Attribute1</div>
-                    <div class='table_header' ng-show="!CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.IMPartAttrib2Name">Part Attribute2</div>
-                    <div class='table_header' ng-show="!CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.IMPartAttrib3Name">Part Attribute3</div>
-                </div>
-                    <!-- List Empty Response -->
-                    <div data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountLine.length==0">
-                    <div class="grid-no-record" style="bottom:100px">No records found...</div>
-                </div>
-    
-                <div class='table_row' ng-repeat="x in CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountLine | orderBy:'CreatedDateTime'  | filter:{IsDeleted:'false'}  track by $index" 
-                    ng-click="CycleCountLineCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: (CycleCountLineCtrl.ePage.Masters.selectedRow==$index), row_active_red :((x.SystemUnits > x.LastCount)&&(x.LastCount)),row_active_green :((x.SystemUnits < x.LastCount)&&(x.LastCount)) }" style="font-size: 11px;">
-                    
-
-                    <div class='table_small'>
-                        <div class='table_cell'>List No</div>
-                        <div class='table_cell pt-0 pb-0'>
-                            <label class="mb-0">
-                                <input type="checkbox" ng-disabled="x.Status=='CLO'" ng-checked="x.SingleSelect" ng-change="CycleCountLineCtrl.ePage.Masters.SingleSelectCheckBox()"
-                                    ng-model="x.SingleSelect"> </input>
-                                <span class="text"></span>
-                            </label>
-                            <span class="list-error-warning" data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR | listCount: 'RowIndex': $index">
-                                <error-warning-directive 
-                                    list="CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectRow'" parent-ref=""
-                                    g-parent-ref="" row-index="$index"
-                                    col-index="">
-                                </error-warning-directive>
-                            </span>
-                        </div>
-                        <span ng-if="CycleCountLineCtrl.ePage.Masters.selectedRow==$index && x.IsManuallyAdded" ng-init="CycleCountLineCtrl.ePage.Masters.OrgPartRelationValues($index)"></span>
-                    </div>
-                    <div class='table_small'>
-                        <div class='table_cell'>Client</div>
-                        <div class='table_cell' ng-if="x.IsManuallyAdded && x.Status!='CLO'">
-                            <div class="WMSLineError" ng-repeat="x in CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR">
-                                <error-warning-directive data-ng-if="x.ColIndex == 1 && x.RowIndex ==$parent.$index" list="CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="CycleCountLineCtrl.ePage.Masters.selectedRow" col-index="1">
-                                </error-warning-directive>
-                            </div>
-                            <div  class="input-group input-group-sm height-20">
-                                <div  dynamic-lookup placeholder="Client" my-ng-model="x.ClientFullName"
-                                    obj="x" prefix-data="'OrganizationList'"
-                                    config="'Client'" auto-complete-on-select="CycleCountLineCtrl.ePage.Masters.SelectedLookupDataClient($item,$index)" is-disabled='CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.Client'>
-                                </div>
-
-                                    <!-- Look Up page opens when button clicks -->
-                                <span class="input-group-btn height-20">
-                                    <button dynamic-list-modal obj="x" field-name="'Client'" selected-data="CycleCountLineCtrl.ePage.Masters.SelectedLookupDataClient($item.entity,$index)"  prefix-data="'OrganizationList'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button" is-disabled='CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.Client'><i class="fa fa-ellipsis-h"></i></button>
-                                </span>
-                                <span ng-if='!x.Client && x.PK  && (CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR | filter: {RowIndex: $index} | filter: {ColIndex: 1}).length==0'>
-                                    <span ng-init="CycleCountLineCtrl.ePage.Masters.OnChangeValues(x.ClientFullName,'E13002',true,$index)"></span>
-                                </span>
-                            </div>
-                        </div>
-                        <div class='table_cell'ng-if="!x.IsManuallyAdded || x.Status=='CLO'">{{x.ClientFullName || CycleCountLineCtrl.ePage.Masters.emptyText}}</div>
-                    </div>
-
-                    <div class='table_small'>
-                        <div class='table_cell'>Product</div>
-                        <div class='table_cell' ng-if="x.IsManuallyAdded && x.Status!='CLO'">
-                            <div class="WMSLineError" ng-repeat="x in CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR">
-                                <error-warning-directive data-ng-if="x.ColIndex == 2 && x.RowIndex ==$parent.$index" list="CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="CycleCountLineCtrl.ePage.Masters.selectedRow" col-index="2">
-                                </error-warning-directive>
-                            </div>
-                            <div class="input-group input-group-sm height-20">
-                                <!-- Dynamic look up Search in textbox -->
-                                <div dynamic-lookup placeholder="Product Code And Description" my-ng-model="x.Product"
-                                    obj="x"
-                                    prefix-data="'ProductRelatedParty'" config="'Product'" auto-complete-on-select="CycleCountLineCtrl.ePage.Masters.SelectedLookupProduct($item,$index)" is-disabled='!x.ClientFullName'>
-                                </div>
-
-                                <!-- Look Up page opens when button clicks -->
-                                <span class="input-group-btn height-20">
-                                    <button dynamic-list-modal obj="x" field-name="'Product'" selected-data="CycleCountLineCtrl.ePage.Masters.SelectedLookupProduct($item.entity,$index)"  prefix-data="'ProductRelatedParty'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button" is-disabled='!x.ClientFullName'><i class="fa fa-ellipsis-h"></i></button>
-                                </span>
-                                <span ng-if='!x.Product && x.PK  && (CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR | filter: {RowIndex: $index} | filter: {ColIndex: 2}).length==0'>
-                                    <span ng-init="CycleCountLineCtrl.ePage.Masters.OnChangeValues(x.Product,'E13003',true,$index)"></span>
-                                </span>
-                            </div> 
-                        </div>
-                        <div class='table_cell' ng-if="!x.IsManuallyAdded ||x.Status=='CLO'">{{x.Product || CycleCountLineCtrl.ePage.Masters.emptyText}}</div>
-                    </div>
-
-                    <div class='table_small'>
-                        <div class='table_cell'>Commodity</div>
-                        <div class='table_cell'>{{x.Commodity || CycleCountLineCtrl.ePage.Masters.emptyText}}</div>
-                    </div>
-
-                    <div class='table_small'>
-                        <div class='table_cell'>Pallet ID</div>
-                        <div class='table_cell' ng-if="x.IsManuallyAdded && x.Status!='CLO'">
-                            <div><input type="text"  class="form-control input-sm height-20" placeholder="Pallet ID"  ng-model="x.PalletID" /></div></div>
-                        <div class='table_cell' ng-if="!x.IsManuallyAdded || x.Status=='CLO'">{{x.PalletID || CycleCountLineCtrl.ePage.Masters.emptyText}}</div>
-                    </div>
-
-                    <div class='table_small'>
-                        <div class='table_cell'>Location</div>
-                        <div class='table_cell' ng-if="x.IsManuallyAdded && x.Status!='CLO'">
-                            <div class="WMSLineError" ng-repeat="x in CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR">
-                                <error-warning-directive data-ng-if="x.ColIndex == 3 && x.RowIndex ==$parent.$index" list="CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="CycleCountLineCtrl.ePage.Masters.selectedRow" col-index="3">
-                                </error-warning-directive>
-                            </div>
-                            <div class="input-group input-group-sm height-20">
-                                <!-- Dynamic look up Search in textbox -->
-                                <span ng-if="x.Location=='--'" ng-init="x.Location = ''"></span>
-                                <div dynamic-lookup placeholder="Location" my-ng-model="x.Location"
-                                    obj="x"
-                                    prefix-data="'WarehouseLocation'" config="'Location'" auto-complete-on-select="CycleCountLineCtrl.ePage.Masters.SelectedLookupLocation($item,$index)" is-disabled='CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.Location'>
-                                </div>
-
-                                <!-- Look Up page opens when button clicks -->
-                                <span class="input-group-btn height-20">
-                                    <button location-dashboard-modal filter="CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.WarehouseCode" obj="x" field-name="'Location'" selected-data="CycleCountLineCtrl.ePage.Masters.SelectedLookupLocation($item,$index)"  prefix-data="'WarehouseLocation'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button" is-disabled='CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.Location'><i class="fa fa-ellipsis-h"></i></button>
-                                </span>
-                                <span ng-if='!x.Location && x.PK  && (CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR | filter: {RowIndex: $index} | filter: {ColIndex: 3}).length==0'>
-                                    <span ng-init="CycleCountLineCtrl.ePage.Masters.OnChangeValues(x.Location,'E13004',true,$index)"></span>
-                                </span>
-                            </div>
-                        </div>
-                        <div class='table_cell' ng-if="!x.IsManuallyAdded || x.Status=='CLO'">{{x.Location || CycleCountLineCtrl.ePage.Masters.emptyText}}</div>
-                    </div>
-
-                    <div class='table_small'>
-                        <div class='table_cell'>Area</div>
-                        <div class='table_cell'>{{x.AreaName || CycleCountLineCtrl.ePage.Masters.emptyText}}</div>
-                    </div>
-
-                    <div class='table_small'>
-                        <div class='table_cell'>Row</div>
-                        <div class='table_cell'>{{x.RowName || CycleCountLineCtrl.ePage.Masters.emptyText}}</div>
-                    </div>
-
-                    <div class='table_small'>
-                        <div class='table_cell'>System Units</div>
-                        <div class='table_cell'>{{x.SystemUnits || CycleCountLineCtrl.ePage.Masters.emptyText}}</div>
-                    </div>
-
-                    <div class='table_small'>
-                        <div class='table_cell'>Last Count</div>
-                        <div class='table_cell'>{{x.CurrentCount || CycleCountLineCtrl.ePage.Masters.emptyText}}</div>
-                    </div>
-
-                    <div class='table_small'>
-                        <div class='table_cell'>Count1</div>
-                        <div class="table_cell" ng-if='CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.StocktakeStatus!="FIN" && x.Status!="CLO"'>
-                            <div><input type="text"  class="form-control input-sm height-20" placeholder="Count1"  ng-model="x.LastCount" ng-change="CycleCountLineCtrl.ePage.Masters.ChangeDateVerified(x.LastCount,$index);"/></div>
-                        </div>
-                        <div class="table_cell" ng-if="x.Status=='CLO'">{{x.LastCount || CycleCountLineCtrl.ePage.Masters.emptyText}}</div>
-                    </div>
-
-                    <div class='table_small'>
-                        <div class='table_cell'>Date Verified</div>
-                        <div class="table_cell" ng-if='CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.StocktakeStatus!="FIN" && x.Status!="CLO"'>
-                            <div class="input-group input-group-sm">
-                                <input type="text" class="form-control height-20" placeholder="{{CycleCountLineCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datetime-picker="{{CycleCountLineCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
-                                    ng-model="x.DateVerified" is-open="CycleCountLineCtrl.ePage.Masters.DatePicker.isOpen['isDateVerified'+[$index]]"
-                                    datepicker-options="CycleCountLineCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
-                                    close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" when-closed=""
-                                    save-as="CycleCountLineCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click=""
-                                    data-ng-change="" custom-date-time-format/>
-                                <span class="input-group-btn height-20">
-                                    <button type="button" class="btn btn-default" data-ng-click="CycleCountLineCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isDateVerified'+[$index])">
-                                        <i class="fa fa-calendar"></i>
-                                    </button>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="table_cell" ng-if="x.Status=='CLO'">{{x.DateVerified || CycleCountLineCtrl.ePage.Masters.emptyText | dateFormat}}</div>
-                    </div>
-
-                    <div class='table_small'>
-                        <div class='table_cell'>Comment</div>
-                        <div class="table_cell" ng-if='CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.StocktakeStatus!="FIN" && x.Status!="CLO"'>
-                            <div><input type="text"  class="form-control input-sm height-20" placeholder="Comment"  ng-model="x.LineComment" /></div>
-                        </div>
-                        <div class="table_cell" ng-if="x.Status=='CLO'">{{x.LineComment || CycleCountLineCtrl.ePage.Masters.emptyText}}</div>
-                    </div>
-                    <div class='table_small'>
-                        <div class='table_cell'>Status</div>
-                        <div class='table_cell'>{{x.Status || CycleCountLineCtrl.ePage.Masters.emptyText}}</div>
-                    </div>
-                    <div class='table_small'>
-                        <div class='table_cell'>Date Closed</div>
-                        <div class='table_cell'>{{x.DateClosed || CycleCountLineCtrl.ePage.Masters.emptyText | dateFormat}}</div>
-                    </div>
-                    <div class='table_small'>
-                        <div class='table_cell'>Pick Method</div>
-                        <div class='table_cell'>{{x.PickMethod || CycleCountLineCtrl.ePage.Masters.emptyText}}</div>
-                    </div>
-                    <div class='table_small'>
-                        <div class='table_cell'>Inv Status</div>
-                        <div class='table_cell' ng-if="x.IsManuallyAdded && x.Status!='CLO'">
-                            <div class="height-20">
-                                <select chosen class="form-control" ng-model="x.InventoryStatus" ng-options="x.Key as x.Key + ' - '  + x.Value for x in CycleCountLineCtrl.ePage.Masters.DropDownMasterList.InventoryStatus.ListSource"search-contains="true" >
-                                    <option value="">--Select--</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class='table_cell' ng-if="!x.IsManuallyAdded || x.Status=='CLO'">{{x.InventoryStatus || CycleCountLineCtrl.ePage.Masters.emptyText}}</div>
-                    </div>
-                    <div class='table_small'>
-                        <div class='table_cell'>Expiry Date</div>
-                        <div class='table_cell' ng-if="x.IsManuallyAdded && x.Status!='CLO'">
-                            <div ng-if="!x.UseExpiryDate"><input type="text"  class="form-control input-sm height-20" placeholder="Expiry Date"  ng-model="x.ExpiryDate" readonly=''/></div>
-                            <div class="input-group input-group-sm" ng-if="x.UseExpiryDate">
-                                <input type="text" class="form-control height-20" placeholder="{{CycleCountLineCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datetime-picker="{{CycleCountLineCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
-                                    ng-model="x.ExpiryDate" is-open="CycleCountLineCtrl.ePage.Masters.DatePicker.isOpen['isExpiryDate'+[$index]]"
-                                    datepicker-options="CycleCountLineCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
-                                    close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" when-closed=""
-                                    save-as="CycleCountLineCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click=""
-                                    data-ng-change="" custom-date-time-format/>
-                                <span class="input-group-btn height-20">
-                                    <button type="button" class="btn btn-default" data-ng-click="CycleCountLineCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isExpiryDate'+[$index])">
-                                        <i class="fa fa-calendar"></i>
-                                    </button>
-                                </span>
-                            </div>
-                        </div>
-                        <div class='table_cell' ng-if="!x.IsManuallyAdded || x.Status!='CLO'">{{x.ExpiryDate || CycleCountLineCtrl.ePage.Masters.emptyText | dateFormat}}</div>
-                    </div>
-                    <div class='table_small'>
-                        <div class='table_cell'>Packing Date</div>
-                        <div class='table_cell' ng-if="x.IsManuallyAdded && x.Status!='CLO'">
-                            <div ng-if="!x.UsePackingDate"><input type="text"  class="form-control input-sm height-20" placeholder="Packing Date"  ng-model="x.PackingDate" readonly=''/></div>
-                            <div class="input-group input-group-sm" ng-if="x.UsePackingDate">
-                                <input type="text" class="form-control height-20" placeholder="{{CycleCountLineCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datetime-picker="{{CycleCountLineCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
-                                    ng-model="x.PackingDate" is-open="CycleCountLineCtrl.ePage.Masters.DatePicker.isOpen['isPackingDate'+[$index]]"
-                                    datepicker-options="CycleCountLineCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
-                                    close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" when-closed=""
-                                    save-as="CycleCountLineCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click=""
-                                    data-ng-change="" custom-date-time-format/>
-                                <span class="input-group-btn height-20">
-                                    <button type="button" class="btn btn-default" data-ng-click="CycleCountLineCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPackingDate'+[$index])">
-                                        <i class="fa fa-calendar"></i>
-                                    </button>
-                                </span>
-                            </div>
-                        </div>
-                        <div class='table_cell' ng-if="!x.IsManuallyAdded || x.Status=='CLO'">{{x.PackingDate || CycleCountLineCtrl.ePage.Masters.emptyText | dateFormat}}</div>
-                    </div>
-                    
-                    <div class='table_small'>
-                        <div class='table_cell'>Part Attribute1</div>
-
-                        <div class='table_cell' ng-if="x.IsManuallyAdded && x.Status!='CLO'">
-                            <div><input type="text"  class="form-control input-sm height-20" placeholder="PartAttrib1"  ng-model="x.PartAttrib1" ng-disabled="(x.UsePartAttrib1 && x.IsPartAttrib1ReleaseCaptured)||(!x.UsePartAttrib1)"/></div>
-                        </div>
-                        <div class='table_cell' ng-if="!x.IsManuallyAdded || x.Status=='CLO'">{{x.PartAttrib1 || CycleCountLineCtrl.ePage.Masters.emptyText}}</div>
-                    </div>
-                    <div class='table_small'>
-                        <div class='table_cell'>Part Attribute2</div>
-
-                        <div class='table_cell' ng-if="x.IsManuallyAdded && x.Status!='CLO'">
-                            <div><input type="text"  class="form-control input-sm height-20" placeholder="PartAttrib2"  ng-model="x.PartAttrib2" ng-disabled="(x.UsePartAttrib2 && x.IsPartAttrib2ReleaseCaptured)||(!x.UsePartAttrib2)"/></div>
-                        </div>
-                        <div class='table_cell' ng-if="!x.IsManuallyAdded || x.Status=='CLO'">{{x.PartAttrib2 || CycleCountLineCtrl.ePage.Masters.emptyText}}</div>
-                    </div>
-                    <div class='table_small'>
-                        <div class='table_cell'>Part Attribute3</div>
-
-                        <div class='table_cell' ng-if="x.IsManuallyAdded && x.Status!='CLO'">
-                            <div><input type="text"  class="form-control input-sm height-20" placeholder="PartAttrib3"  ng-model="x.PartAttrib3" ng-disabled="(x.UsePartAttrib3 && x.IsPartAttrib3ReleaseCaptured)||(!x.UsePartAttrib3)"/></div>
-                        </div>
-                        <div class='table_cell' ng-if="!x.IsManuallyAdded || x.Status=='CLO'">{{x.PartAttrib3 || CycleCountLineCtrl.ePage.Masters.emptyText}}</div>
-                    </div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding">
+            <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+                <span><button type="button" class="btn btn-sm btn-outline-secondary font-10"  title="Add New"  data-ng-click="CycleCountLineCtrl.ePage.Masters.AddNewRow()" ng-disabled="CycleCountLineCtrl.ePage.Entities.Header.GlobalVariables.NonEditable || !CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.StocktakeStatus || CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.StocktakeStatus=='New'"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button></span>
+                <span><button type="button" class="btn btn-sm btn-outline-primary font-10"  title="Copy"  data-ng-click="CycleCountLineCtrl.ePage.Masters.CopyRow()" ng-disabled="!CycleCountLineCtrl.ePage.Masters.EnableDeleteButton || CycleCountLineCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"><span class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button></span>
+                <span><button type="button" class="btn btn-sm btn-outline-primary font-10"  title="Delete"  data-ng-click="CycleCountLineCtrl.ePage.Masters.RemoveRow()" ng-disabled="!CycleCountLineCtrl.ePage.Masters.EnableDeleteButton || CycleCountLineCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"><span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button></span>
+                <span><button type="button" class="btn btn-sm btn-outline-primary font-10"  title="Customize"  data-ng-click="CycleCountLineCtrl.ePage.Masters.EditTableColumns = true"><span class="fa fa-filter"></span>&nbsp;&nbsp;Customize</button></span>
+            </div>
+            <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0">
+                <div class="input-group">
+                    <div class="input-group-addon font-10"><i class="fa fa-search font-10"></i></div>
+                    <input type="text" class="form-control height-25 font-10" placeholder="Search" ng-model="CycleCountLineCtrl.ePage.Masters.SearchTable" data-ng-change="CycleCountLineCtrl.ePage.Masters.LocalSearchLengthCalculation()">
                 </div>
             </div>
         </div>
-    </div>  
-    <div class="col-lg-12">
-        <button class="btn btn-primary btn-sm pull-right" ng-click="CycleCountLineCtrl.ePage.Entities.Header.CheckPoints.CloseLinesClicked = true" ng-disabled="CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.StocktakeStatus=='FIN' || CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.StocktakeStatus=='New' || CycleCountLineCtrl.ePage.Entities.Header.CheckPoints.CloseLinesClicked =='true'"> Close Lines </button>
-    </div>        
-</div>
+        <div id="CylTable{{CycleCountLineCtrl.currentCycleCount.label}}" class="fixedheader mb-0" key-events table-object='CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountLine' enable='CycleCountLineCtrl.ePage.Masters.Enable' selected-row='CycleCountLineCtrl.ePage.Masters.selectedRow' unique-id='CylTable{{CycleCountLineCtrl.currentCycleCount.label}}'>
+            <table id="CycleCountLineCtrl.ePage.Masters.AddScroll" style="height: 275px">
+                <thead>
+                    <tr id="tableHeader">
+                        <th id="checkbox" data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.checkbox.isenabled"  ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.checkbox.width + 'px' }">
+                            <label class="customcheckbox">
+                                <input type="checkbox" ng-change="CycleCountLineCtrl.ePage.Masters.SelectAllCheckBox()" ng-checked="CycleCountLineCtrl.ePage.Masters.SelectAll"
+                                    ng-model="CycleCountLineCtrl.ePage.Masters.SelectAll" ng-disabled="CycleCountLineCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                                <span class="text"></span>
+                            </label>
+                        </th>
+                        <th id="sno" data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.sno.isenabled" ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.sno.width + 'px' }" title="S.No">S.No</th>
+                        <th id="client" data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.client.isenabled" ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.client.width + 'px' }" title="Client">Client</th>
+                        <th id="productcode"data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.productcode.isenabled" ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.productcode.width + 'px' }" title="Product Code">Product Code</th>
+                        <th id="productdescription"data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.productdescription.isenabled" ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.productdescription.width + 'px' }" title="Product Description">Product Description</th>
+                        <th id="commodity"data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.commodity.isenabled" ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.commodity.width + 'px' }" title="Commodity">Commodity</th>
+                        <th id="productcondition"data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.productcondition.isenabled" ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.productcondition.width + 'px' }" title="Product Condition">Product Condition</th>
+                        <th id="palletid" data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.palletid.isenabled" ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.palletid.width + 'px' }" title="Pallet ID">Pallet ID</th>
+                        <th id="location" data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.location.isenabled" ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.location.width + 'px' }" title="Location">Location</th>
+                        <th id="area"data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.area.isenabled" ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.area.width + 'px' }" title="Area">Area</th>
+                        <th id="row" data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.row.isenabled" ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.row.width + 'px' }" title="Row">Row</th>
+                        <th id="systemunits" data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.systemunits.isenabled" ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.systemunits.width + 'px' }" title="System Units">System Units</th>
+                        <th id="lastcount" data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.lastcount.isenabled" ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.lastcount.width + 'px' }" title="Last Count">Last Count</th>
+                        <th id="count1" data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.count1.isenabled" ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.count1.width + 'px' }" title="Count1">Count1</th>
+                        <th id="dateverified" data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.dateverified.isenabled" ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.dateverified.width + 'px' }" title="Date Verified">Date Verified</th>
+                        <th id="comment" data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.comment.isenabled" ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.comment.width + 'px' }" title="Comment">Comment</th>
+                        <th id="status" data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.status.isenabled" ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.status.width + 'px' }" title="Status">Status</th>
+                        <th id="dateclosed" data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.dateclosed.isenabled" ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.dateclosed.width + 'px' }" title="Date Closed">Date Closed</th>
+                        <th id="inventorystatus" data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.inventorystatus.isenabled" ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.inventorystatus.width + 'px' }" title="Inventory Status">Inventory Status</th>
+                        <th id="udf1"data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.udf1.isenabled" ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.udf1.width + 'px' }" title="UDF 1">
+                            <span ng-if="CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.IMPartAttrib1Name">{{CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.IMPartAttrib1Name}}</span>
+                            <span ng-if="!CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.IMPartAttrib1Name">UDF 1</span>
+                        </th>
+                        <th id="udf2" data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.udf2.isenabled" ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.udf2.width + 'px' }" title="UDF 2">
+                            <span ng-if="CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.IMPartAttrib2Name">{{CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.IMPartAttrib2Name}}</span>
+                            <span ng-if="!CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.IMPartAttrib2Name">UDF 2</span>
+                        </th>
+                        <th id="udf3" data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.udf3.isenabled" ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.udf3.width + 'px' }" title="UDF 3">
+                            <span ng-if="CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.IMPartAttrib3Name">{{CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.IMPartAttrib3Name}}</span>
+                            <span ng-if="!CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.IMPartAttrib3Name">UDF 3</span>
+                        </th>
+                        <th id="packingdate"data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.packingdate.isenabled" ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.packingdate.width + 'px' }" title="Packing Date">Packing Date</th>
+                        <th id="expirydate" data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.expirydate.isenabled" ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.expirydate.width + 'px' }" title="Expiry Date">Expiry Date</th>
+                       
+                    </tr>
+                </thead>
+                <tbody id="CyclCustomTable{{CycleCountLineCtrl.currentCycleCount.label}}">
+                    <tr id="tableBody" ng-repeat="x in CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountLine | filter:CycleCountLineCtrl.ePage.Masters.SearchTable | tableslice : (CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex) : (CycleCountLineCtrl.ePage.Masters.Pagination.CurrentPage * CycleCountLineCtrl.ePage.Masters.Pagination.ItemsPerPage)"  ng-click="CycleCountLineCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: (CycleCountLineCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true),row_active_red :((x.SystemUnits > x.LastCount)&&(x.LastCount)),row_active_green :((x.SystemUnits < x.LastCount)&&(x.LastCount))}" 
+                        watch-table table-properties="CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine"  unique-id="CyclCustomTable{{CycleCountLineCtrl.currentCycleCount.label}}" row-position="$index">
+                        <td id="checkbox" data-ng-show='CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.checkbox.isenabled'  ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.checkbox.width + 'px' ,'padding-top':'0px' }" ng-click="CycleCountLineCtrl.ePage.Masters.Enable = true">
+                            <label class="mb-0 customcheckbox">
+                                <input type="checkbox" ng-checked="x.SingleSelect" ng-change="CycleCountLineCtrl.ePage.Masters.SingleSelectCheckBox()"
+                                    ng-model="x.SingleSelect" ng-disabled="x.Status=='CLO' || CycleCountLineCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"> </input>
+                                <span class="text"></span>
+                            </label>
+                            <span class="list-error-warning" data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR | listCount: 'RowIndex': (($index) + CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex)">
+                                <error-warning-directive 
+                                    list="CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectRow'" parent-ref=""
+                                    g-parent-ref="" row-index="(($index) + CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex)"
+                                    col-index="">
+                                </error-warning-directive>
+                            </span>
+                        </td>
+                        <td id="sno"   data-ng-show='CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.sno.isenabled' ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.sno.width + 'px' }" ng-click="CycleCountLineCtrl.ePage.Masters.Enable = true">
+                            {{(($index +1) + CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex)}}
+                            <span ng-if="CycleCountLineCtrl.ePage.Masters.selectedRow==$index && x.IsManuallyAdded" ng-init="CycleCountLineCtrl.ePage.Masters.OrgPartRelationValues($index)"></span>
+                        </td>
+                        <td id="client"   data-ng-show='CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.client.isenabled' ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.client.width + 'px' }" ng-click="CycleCountLineCtrl.ePage.Masters.Enable = true">
+                            <div data-ng-if="$index!=CycleCountLineCtrl.ePage.Masters.selectedRow  || !x.IsManuallyAdded || x.Status=='CLO'" class="overflow-text">
+                                {{ x.ClientFullName || CycleCountLineCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==CycleCountLineCtrl.ePage.Masters.selectedRow && x.IsManuallyAdded && x.Status!='CLO'">
+                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
+                                    <div  class="input-group input-group-sm height-22">
+                                        <!-- Dynamic look up Search in textbox -->
+                                        <div  dynamic-lookup placeholder="Client" my-ng-model="x.ClientFullName"
+                                            obj="x" page-name="'OrganizationList'"
+                                            control-id="'Client'" control-key="'Client_3015'" auto-complete-on-select="CycleCountLineCtrl.ePage.Masters.SelectedLookupDataClient($item,(($index) + CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex))" is-disabled='CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.Client'>
+                                        </div>
+        
+                                            <!-- Look Up page opens when button clicks -->
+                                        <span class="input-group-btn height-20">
+                                            <button dynamic-list-modal obj="x" control-id="'Client'" control-key="'Client_3015'" selected-data="CycleCountLineCtrl.ePage.Masters.SelectedLookupDataClient($item.data.entity,(($index) + CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex))"  page-name="'OrganizationList'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button" is-disabled='CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.Client'><i class="fa fa-ellipsis-h"></i></button>
+                                        </span>
+                                        <span ng-if='!x.Client && x.PK  && (CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR | filter: {RowIndex: (($index) + CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex)} | filter: {ColIndex: 1}).length==0'>
+                                            <span ng-init="CycleCountLineCtrl.ePage.Masters.OnChangeValues(x.ClientFullName,'E13002',true,(($index) + CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex))"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR | filter:{RowIndex:(($parent.$index) + (CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex))} | listCount: 'ColIndex':1">
+                                    <error-warning-directive  list="CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR"
+                                        type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                        row-index="((CycleCountLineCtrl.ePage.Masters.selectedRow) + CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex)" col-index="1">
+                                    </error-warning-directive>
+                                </div>
+                            </div>
+                        </td>
+                        <td id="productcode"   data-ng-show='CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.productcode.isenabled' ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.productcode.width + 'px' }" ng-click="CycleCountLineCtrl.ePage.Masters.Enable = true">
+                            <div data-ng-if="$index!=CycleCountLineCtrl.ePage.Masters.selectedRow  || !x.IsManuallyAdded || x.Status=='CLO'" class="overflow-text">
+                                {{ x.ProductCode || CycleCountLineCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==CycleCountLineCtrl.ePage.Masters.selectedRow && x.IsManuallyAdded && x.Status!='CLO'">
+                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
+                                    <div  class="input-group input-group-sm height-22">
+                                       <!-- Dynamic look up Search in textbox -->
+                                        <div dynamic-lookup placeholder="Product Code" my-ng-model="x.ProductCode" obj="x"
+                                            page-name="'ProductRelatedParty'" control-id="'Product'" control-key="'Product_2845'" auto-complete-on-select="CycleCountLineCtrl.ePage.Masters.SelectedLookupProduct($item,(($index) + CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex))" is-disabled='!x.ClientFullName'>
+                                        </div>
 
+                                        <!-- Look Up page opens when button clicks -->
+                                        <span class="input-group-btn height-20">
+                                            <button dynamic-list-modal obj="x" control-id="'Product'" control-key="'Product_2845'" selected-data="CycleCountLineCtrl.ePage.Masters.SelectedLookupProduct($item.data.entity,(($index) + CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex))"  page-name="'ProductRelatedParty'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button" is-disabled='!x.ClientFullName'><i class="fa fa-ellipsis-h"></i></button>
+                                        </span>
+                                        <span ng-if='!x.ProductCode && x.PK  && (CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR | filter: {RowIndex: (($index) + CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex)} | filter: {ColIndex: 2}).length==0'>
+                                            <span ng-init="CycleCountLineCtrl.ePage.Masters.OnChangeValues(x.ProductCode,'E13003',true,(($index) + CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex))"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR | filter:{RowIndex:(($parent.$index) + (CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex))} | listCount: 'ColIndex':2">
+                                    <error-warning-directive  list="CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR"
+                                        type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                        row-index="((CycleCountLineCtrl.ePage.Masters.selectedRow) + CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex)" col-index="2">
+                                    </error-warning-directive>
+                                </div>
+                            </div>
+                        </td>
+                        <td id="productdescription"  data-ng-show='CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.productdescription.isenabled'  ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.productdescription.width + 'px' }" class="overflow-text" ng-click="CycleCountLineCtrl.ePage.Masters.Enable = true">
+                            {{ x.ProductDesc || CycleCountLineCtrl.ePage.Masters.emptyText}}
+                        </td>
+                        <td id="commodity"  data-ng-show='CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.commodity.isenabled'  ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.commodity.width + 'px' }" class="overflow-text" ng-click="CycleCountLineCtrl.ePage.Masters.Enable = true">
+                            {{ x.Commodity || CycleCountLineCtrl.ePage.Masters.emptyText}}
+                        </td>
+                        <td id="productcondition"  data-ng-show='CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.productcondition.isenabled'  ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.productcondition.width + 'px' }" >
+                            <div data-ng-if="$index!=CycleCountLineCtrl.ePage.Masters.selectedRow ||  !x.IsManuallyAdded || x.Status=='CLO'" class="overflow-text">
+                                {{ x.ProductCondition || CycleCountLineCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==CycleCountLineCtrl.ePage.Masters.selectedRow   && x.IsManuallyAdded && x.Status!='CLO'">
+                                <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0"  ng-click="CycleCountLineCtrl.ePage.Masters.Enable = false">
+                                    <select chosen class="form-control" ng-model="x.ProductCondition"ng-options="x.Key as x.Key + ' - '  + x.Value for x in CycleCountLineCtrl.ePage.Masters.DropDownMasterList.ProductCondition.ListSource" search-contains="true">
+                                        <option value="">--Select--</option>
+                                    </select>                                        
+                                </div>
+                            </div>
+                        </td>
+                        <td id="palletid"  data-ng-show='CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.palletid.isenabled'  ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.palletid.width + 'px' }" ng-click="CycleCountLineCtrl.ePage.Masters.Enable = true">
+                            <div data-ng-if="$index!=CycleCountLineCtrl.ePage.Masters.selectedRow ||  !x.IsManuallyAdded || x.Status=='CLO'" class="overflow-text" >
+                                {{ x.PalletID || CycleCountLineCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==CycleCountLineCtrl.ePage.Masters.selectedRow   && x.IsManuallyAdded && x.Status!='CLO'">
+                                <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
+                                    <input type="text"  class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Pallet Id"data-ng-model="x.PalletID">                                        
+                                </div>
+                            </div>
+                        </td>
+                        <td id="location"  data-ng-show='CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.location.isenabled'  ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.location.width + 'px' }" >
+                            <div data-ng-if="$index!=CycleCountLineCtrl.ePage.Masters.selectedRow ||  !x.IsManuallyAdded || x.Status=='CLO'" class="overflow-text">
+                                {{ x.Location || CycleCountLineCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==CycleCountLineCtrl.ePage.Masters.selectedRow &&  x.IsManuallyAdded && x.Status!='CLO'">
+                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
+                                    <div  class="input-group input-group-sm height-22">
+                                            <!-- Dynamic look up Search in textbox -->
+                                        <span ng-if="x.Location=='--'" ng-init="x.Location = ''"></span>
+                                        <div dynamic-lookup placeholder="Location" my-ng-model="x.Location"
+                                            obj="x"
+                                            page-name="'WarehouseLocation'" control-id="'Location'" control-key="'Location_2948'"  auto-complete-on-select="CycleCountLineCtrl.ePage.Masters.SelectedLookupLocation($item,(($index) + CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex))" is-disabled='CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.Location'>
+                                        </div>
+
+                                        <!-- Look Up page opens when button clicks -->
+                                        <span class="input-group-btn height-20">
+                                            <button location-dashboard-modal filter="CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.WarehouseCode" obj="x" control-id="'Location'" control-key="'Location_2948'"  selected-data="CycleCountLineCtrl.ePage.Masters.SelectedLookupLocation($item,(($index) + CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex))"  page-name="'WarehouseLocation'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button" is-disabled='CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.Location'><i class="fa fa-ellipsis-h"></i></button>
+                                        </span>
+                                        <span ng-if='!x.Location && x.PK  && (CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR | filter: {RowIndex: (($index) + CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex)} | filter: {ColIndex: 3}).length==0'>
+                                            <span ng-init="CycleCountLineCtrl.ePage.Masters.OnChangeValues(x.Location,'E13004',true,(($index) + CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex))"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR | filter:{RowIndex:(($parent.$index) + (CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex))} | listCount: 'ColIndex':3">
+                                    <error-warning-directive  list="CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR"
+                                        type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                        row-index="((CycleCountLineCtrl.ePage.Masters.selectedRow) + CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex)" col-index="3">
+                                    </error-warning-directive>
+                                </div>
+                            </div>
+                        </td>
+                        <td id="area"  data-ng-show='CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.area.isenabled'  ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.area.width + 'px' }" class="overflow-text" ng-click="CycleCountLineCtrl.ePage.Masters.Enable = true">
+                            {{ x.AreaName || CycleCountLineCtrl.ePage.Masters.emptyText}}
+                        </td>
+                        <td id="row"  data-ng-show='CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.row.isenabled'  ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.row.width + 'px' }" class="overflow-text" ng-click="CycleCountLineCtrl.ePage.Masters.Enable = true">
+                            {{ x.RowName || CycleCountLineCtrl.ePage.Masters.emptyText}}
+                        </td>
+                        <td id="systemunits"  data-ng-show='CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.systemunits.isenabled'  ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.systemunits.width + 'px' }" class="overflow-text" ng-click="CycleCountLineCtrl.ePage.Masters.Enable = true">
+                            {{ x.SystemUnits}}
+                        </td>
+                        <td id="lastcount"  data-ng-show='CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.lastcount.isenabled'  ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.lastcount.width + 'px' }" class="overflow-text" ng-click="CycleCountLineCtrl.ePage.Masters.Enable = true">
+                            {{ x.CurrentCount}}
+                        </td>
+                        <td id="count1"  data-ng-show='CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.count1.isenabled'  ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.count1.width + 'px' }" ng-click="CycleCountLineCtrl.ePage.Masters.Enable = true">
+                            <div data-ng-if="$index!=CycleCountLineCtrl.ePage.Masters.selectedRow ||  x.Status=='CLO' || CycleCountLineCtrl.ePage.Entities.Header.GlobalVariables.NonEditable" class="overflow-text">
+                                {{ x.LastCount}}
+                            </div>
+                            <div data-ng-if="$index==CycleCountLineCtrl.ePage.Masters.selectedRow && x.Status!='CLO' && !CycleCountLineCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                                <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
+                                    <input type="text" numbers-only-dot   class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Count1" data-ng-model="x.LastCount"
+                                    ng-change="CycleCountLineCtrl.ePage.Masters.ChangeDateVerified(x.LastCount,$index)">                                        
+                                </div>
+                            </div>
+                        </td>
+                        <td id="dateverified"  data-ng-show='CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.dateverified.isenabled'  ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.dateverified.width + 'px' }" ng-click="CycleCountLineCtrl.ePage.Masters.Enable = true">
+                            <div data-ng-if="$index!=CycleCountLineCtrl.ePage.Masters.selectedRow ||   x.Status=='CLO' || CycleCountLineCtrl.ePage.Entities.Header.GlobalVariables.NonEditable" class="overflow-text">
+                                {{ x.DateVerified || CycleCountLineCtrl.ePage.Masters.emptyText | dateFormat}}
+                            </div>
+                            <div data-ng-if="$index==CycleCountLineCtrl.ePage.Masters.selectedRow && x.Status!='CLO' && !CycleCountLineCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" class="form-control height-22" placeholder="{{CycleCountLineCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datetime-picker="{{CycleCountLineCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                            ng-model="x.DateVerified" is-open="CycleCountLineCtrl.ePage.Masters.DatePicker.isOpen['isDateVerified']"
+                                            datepicker-options="CycleCountLineCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                                            close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" when-closed=""
+                                            save-as="CycleCountLineCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click=""
+                                            data-ng-change="" custom-date-time-format/>
+                                        <span class="input-group-btn height-22">
+                                            <button type="button" class="btn btn-default" data-ng-click="CycleCountLineCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isDateVerified')">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td id="comment"  data-ng-show='CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.comment.isenabled'  ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.comment.width + 'px' }" ng-click="CycleCountLineCtrl.ePage.Masters.Enable = true">
+                            <div data-ng-if="$index!=CycleCountLineCtrl.ePage.Masters.selectedRow ||  x.Status=='CLO' || CycleCountLineCtrl.ePage.Entities.Header.GlobalVariables.NonEditable" class="overflow-text">
+                                {{ x.LineComment || CycleCountLineCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==CycleCountLineCtrl.ePage.Masters.selectedRow && x.Status!='CLO' && !CycleCountLineCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                                <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
+                                    <input type="text"  class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Comment" data-ng-model="x.LineComment">                                        
+                                </div>
+                            </div>
+                        </td>
+                        <td id="status"  data-ng-show='CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.status.isenabled'  ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.status.width + 'px' }" class="overflow-text" ng-click="CycleCountLineCtrl.ePage.Masters.Enable = true">
+                            {{ x.Status || CycleCountLineCtrl.ePage.Masters.emptyText}}
+                        </td>
+                        <td id="dateclosed"  data-ng-show='CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.dateclosed.isenabled'  ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.dateclosed.width + 'px' }" class="overflow-text" ng-click="CycleCountLineCtrl.ePage.Masters.Enable = true">
+                            {{ x.DateClosed || CycleCountLineCtrl.ePage.Masters.emptyText | dateFormat}}
+                        </td>
+                        <td id="inventorystatus"  data-ng-show='CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.inventorystatus.isenabled'  ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.inventorystatus.width + 'px' }" >
+                            <div data-ng-if="$index!=CycleCountLineCtrl.ePage.Masters.selectedRow || !x.IsManuallyAdded || x.Status=='CLO'" class="overflow-text">
+                                {{ x.InventoryStatus || CycleCountLineCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==CycleCountLineCtrl.ePage.Masters.selectedRow && x.IsManuallyAdded && x.Status!='CLO'">
+                                <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0"  ng-click="CycleCountLineCtrl.ePage.Masters.Enable = false">
+                                    <select chosen class="form-control" ng-model="x.InventoryStatus" ng-options="x.Key as x.Key + ' - '  + x.Value for x in CycleCountLineCtrl.ePage.Masters.DropDownMasterList.InventoryStatus.ListSource"
+                                        search-contains="true" >
+                                        <option value="">--Select--</option>
+                                    </select>                                        
+                                </div>
+                            </div>
+                        </td>
+                        <td id="udf1"  data-ng-show='CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.udf1.isenabled'  ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.udf1.width + 'px' }" ng-click="CycleCountLineCtrl.ePage.Masters.Enable = true">
+                            <div data-ng-if="$index!=CycleCountLineCtrl.ePage.Masters.selectedRow || !x.IsManuallyAdded || x.Status=='CLO'" class="overflow-text">
+                                {{ x.PartAttrib1 || CycleCountLineCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==CycleCountLineCtrl.ePage.Masters.selectedRow && x.IsManuallyAdded && x.Status!='CLO'">
+                                <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
+                                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="UDF 1"
+                                        data-ng-model="x.PartAttrib1" ng-disabled="!x.UsePartAttrib1 || x.IsPartAttrib1ReleaseCaptured" ng-blur="CycleCountLineCtrl.ePage.Masters.UDF(x,$index)">
+                                </div>
+                            </div>
+                        </td>
+                        <td id="udf2"  data-ng-show='CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.udf2.isenabled'  ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.udf2.width + 'px' }" ng-click="CycleCountLineCtrl.ePage.Masters.Enable = true">
+                            <div data-ng-if="$index!=CycleCountLineCtrl.ePage.Masters.selectedRow || !x.IsManuallyAdded || x.Status=='CLO'" class="overflow-text">
+                                {{ x.PartAttrib2 || CycleCountLineCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==CycleCountLineCtrl.ePage.Masters.selectedRow && x.IsManuallyAdded && x.Status!='CLO'">
+                                <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
+                                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="UDF 2" data-ng-model="x.PartAttrib2" ng-disabled="!x.UsePartAttrib2 || x.IsPartAttrib2ReleaseCaptured"
+                                        ng-blur="CycleCountLineCtrl.ePage.Masters.UDF(x,$index)">
+                                </div>
+                            </div>
+                        </td>
+                        <td id="udf3"  data-ng-show='CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.udf3.isenabled'  ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.udf3.width + 'px' }" ng-click="CycleCountLineCtrl.ePage.Masters.Enable = true">
+                            <div data-ng-if="$index!=CycleCountLineCtrl.ePage.Masters.selectedRow || !x.IsManuallyAdded || x.Status=='CLO'" class="overflow-text">
+                                {{ x.PartAttrib3 || CycleCountLineCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==CycleCountLineCtrl.ePage.Masters.selectedRow && x.IsManuallyAdded && x.Status!='CLO'">
+                                <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
+                                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="UDF 3" data-ng-model="x.PartAttrib3" ng-disabled="!x.UsePartAttrib3 || x.IsPartAttrib3ReleaseCaptured"
+                                        ng-blur="CycleCountLineCtrl.ePage.Masters.UDF(x,$index)">
+                                </div>
+                            </div>
+                        </td>
+                        <td id="packingdate"  data-ng-show='CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.packingdate.isenabled'  ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.packingdate.width + 'px' }" ng-click="CycleCountLineCtrl.ePage.Masters.Enable = true">
+                            <div data-ng-if="$index!=CycleCountLineCtrl.ePage.Masters.selectedRow || !x.IsManuallyAdded || x.Status=='CLO'" class="overflow-text">
+                                {{ x.PackingDate || CycleCountLineCtrl.ePage.Masters.emptyText | dateFormat}}
+                            </div>
+                            <div data-ng-if="$index==CycleCountLineCtrl.ePage.Masters.selectedRow && x.UsePackingDate && x.IsManuallyAdded && x.Status!='CLO'">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" class="form-control height-22" placeholder="{{CycleCountLineCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datetime-picker="{{CycleCountLineCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                            ng-model="x.PackingDate" is-open="CycleCountLineCtrl.ePage.Masters.DatePicker.isOpen['isPackingDate']"
+                                            datepicker-options="CycleCountLineCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                                            close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" when-closed=""
+                                            save-as="CycleCountLineCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click=""
+                                            data-ng-change="CycleCountLineCtrl.ePage.Masters.UDF(x,$index)" custom-date-time-format/>
+                                        <span class="input-group-btn height-22">
+                                            <button type="button" class="btn btn-default" data-ng-click="CycleCountLineCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPackingDate')">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td id="expirydate"  data-ng-show='CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.expirydate.isenabled'  ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.expirydate.width + 'px' }" ng-click="CycleCountLineCtrl.ePage.Masters.Enable = true">
+                            <div data-ng-if="$index!=CycleCountLineCtrl.ePage.Masters.selectedRow || !x.IsManuallyAdded || x.Status=='CLO'" class="overflow-text">
+                                {{ x.ExpiryDate || CycleCountLineCtrl.ePage.Masters.emptyText | dateFormat}}
+                            </div>
+                            <div data-ng-if="$index==CycleCountLineCtrl.ePage.Masters.selectedRow && x.UseExpiryDate && x.IsManuallyAdded && x.Status!='CLO'">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" class="form-control height-22" placeholder="{{CycleCountLineCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datetime-picker="{{CycleCountLineCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                            ng-model="x.ExpiryDate" is-open="CycleCountLineCtrl.ePage.Masters.DatePicker.isOpen['isExpiryDate']"
+                                            datepicker-options="CycleCountLineCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                                            close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" when-closed=""
+                                            save-as="CycleCountLineCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click=""
+                                            data-ng-change="CycleCountLineCtrl.ePage.Masters.UDF(x,$index)" custom-date-time-format/>
+                                        <span class="input-group-btn height-22">
+                                            <button type="button" class="btn btn-default" data-ng-click="CycleCountLineCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isExpiryDate')">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>         
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound"  ng-if="CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountLine.length==0">No Record Found...</div>
+
+            <!-- To show Customize Modal -->
+        <div ng-if='CycleCountLineCtrl.ePage.Masters.EditTableColumns'>
+            <customize-table table-properties="CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine" enable="CycleCountLineCtrl.ePage.Masters.EditTableColumns" unique-id="CyclCustomTable{{CycleCountLineCtrl.currentCycleCount.label}}" user-value='CycleCountLineCtrl.ePage.Masters.UserValue' entity-source='WMS_CYCLECOUNTLINE'></customize-table>
+        </div>
+        <!-- Call Directive If user has value -->
+        <div ng-if='CycleCountLineCtrl.ePage.Masters.UserHasValue' ng-init="CycleCountLineCtrl.ePage.Masters.UserHasValue=false">
+            <watch-table table-properties="CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine"  unique-id="CyclCustomTable{{CycleCountLineCtrl.currentCycleCount.label}}"></watch-table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="mr-10 ml-10">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pagination-border mb-0">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 pt-10 p-0">
+                    <ul uib-pagination boundary-links="true" total-items="CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountLine.length" ng-model="CycleCountLineCtrl.ePage.Masters.Pagination.CurrentPage" class="pagination-sm" max-size="CycleCountLineCtrl.ePage.Masters.Pagination.MaxSize" items-per-page="CycleCountLineCtrl.ePage.Masters.Pagination.ItemsPerPage" num-pages="CycleCountLineCtrl.ePage.Masters.Pagination.TotalPage" data-ng-change="CycleCountLineCtrl.ePage.Masters.PaginationChange()" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 pt-10">
+                    <select ng-model="CycleCountLineCtrl.ePage.Masters.Pagination.ItemsPerPage" ng-change="CycleCountLineCtrl.ePage.Masters.PaginationChange()"><option ng-selected="true">25</option><option>50</option><option>100</option><option>500</option></select> Records Per Page.
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 pt-15" data-ng-if="CycleCountLineCtrl.ePage.Masters.SearchTable">
+                    <div class="">Search Records : {{CycleCountLineCtrl.ePage.Masters.Pagination.LocalSearchLength}}</div>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 pt-10 pull-right">
+                    <div class="">Page : {{CycleCountLineCtrl.ePage.Masters.Pagination.CurrentPage}} / {{CycleCountLineCtrl.ePage.Masters.Pagination.TotalPage}}</div>
+                    <div class="">Total Records : {{CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountLine.length}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-10 mb-40">
+        <button class="btn btn-primary btn-sm pull-right" ng-click="CycleCountLineCtrl.ePage.Entities.Header.GlobalVariables.CloseLinesClicked = true" 
+        ng-disabled="CycleCountLineCtrl.ePage.Entities.Header.GlobalVariables.NonEditable  || CycleCountLineCtrl.ePage.Entities.Header.GlobalVariables.CloseLinesClicked =='true'|| !CycleCountLineCtrl.ePage.Masters.EnableCloseLineButton"> Close Lines </button>
+    </div>
+</div>

@@ -1,0 +1,204 @@
+<div class="hbl error-modal-hide">
+    <div class="col-lg-12 col-sm-12 col-md-12 col-xl-12 col-xs-12">
+        <shipment-details-directive current-obj="ObtainDestuffEditDirCtrl.ePage.Masters.TaskObj"></shipment-details-directive>
+    </div>
+    <!-- Shipment Activity Form -->
+    <div class="col-lg-12 col-md-12 col-xl-12 col-sm-12 col-xs-12 mb-10">
+        <div clas="clearfix">
+            <div class="row  mr-5 ml-5 mt-5 mb-10">
+                <uib-tabset id="hblshp" style="border: 1px solid #ddd;">
+                    <!--Shipping Details Tab-->
+                    <uib-tab>
+                        <uib-tab-heading title="DeStuff">
+                            <i class="fa fa-list-alt margin-right-5"></i>
+                            <span class="text-single-line" data-ng-bind="'De-stuff Date'"></span>
+                        </uib-tab-heading>
+                        <div class="hbl-loading" data-ng-if="!ObtainDestuffEditDirCtrl.currentShipment">
+                            <i class="fa fa-spin fa-spinner"></i>
+                        </div>
+                        <div>
+                            <div class="clearfix margin-top-20">
+                                <!--Destuff Date-->
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                    <div class="form-group ship-font">
+                                        <label class="control-label">De-Stuff Date </label>
+                                        <div class="input-group input-group-sm p-5">
+                                            <input type="text" class="form-control" placeholder="{{ObtainDestuffEditDirCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}" datetime-picker="{{ObtainDestuffEditDirCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                                                ng-model="ObtainDestuffEditDirCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.DestuffDate" is-open="ObtainDestuffEditDirCtrl.ePage.Masters.DatePicker.isOpen['isDestuffDate'+[$index]]"
+                                                datepicker-options="ObtainDestuffEditDirCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                                                close-on-selection="false" enable-time="true" enable-date="true" default-date=""
+                                                default-time="" when-closed="" save-as="ObtainDestuffEditDirCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                                data-ng-click="" data-ng-change="" custom-date-time-format/>
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default" data-ng-click="ObtainDestuffEditDirCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isDestuffDate'+[$index])">
+                                                    <i class="fa fa-calendar"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </uib-tab>
+                    <uib-tab>
+                        <uib-tab-heading title="HBL">
+                            <i class="fa fa-list-alt margin-right-5"></i>
+                            <span class="text-single-line" data-ng-bind="'Shipment'"></span>
+                        </uib-tab-heading>
+                        <div class="hbl-loading" data-ng-if="!ObtainDestuffEditDirCtrl.currentShipment">
+                            <i class="fa fa-spin fa-spinner"></i>
+                        </div>
+                        <div data-ng-if="ObtainDestuffEditDirCtrl.currentShipment">
+                            <shipment-activity-details current-obj="ObtainDestuffEditDirCtrl.currentShipment" read-only="false"></shipment-activity-details>
+                        </div>
+                    </uib-tab>
+                    <uib-tab>
+                        <uib-tab-heading title="package">
+                            <i class="fa fa-list-alt margin-right-5"></i>
+                            <span class="text-single-line" data-ng-bind="'package'"></span>
+                        </uib-tab-heading>
+                        <div class="hbl-loading" data-ng-if="!ObtainDestuffEditDirCtrl.currentShipment">
+                            <i class="fa fa-spin fa-spinner"></i>
+                        </div>
+                        <div data-ng-if="ObtainDestuffEditDirCtrl.currentShipment">
+                            <packing-grid current-object="ObtainDestuffEditDirCtrl.currentShipment" freight-mode="'OUT'" btn-visible="{'AddNew':true,'Delete':true,'More':true}"
+                                table-properties="" read-only="false"></packing-grid>
+                        </div>
+                    </uib-tab>
+                </uib-tabset>
+            </div>
+        </div>
+    </div>
+    <!-- Consol Activity Form -->
+    <div class="col-lg-12 col-md-12 col-xl-12 col-sm-12 col-xs-12 mb-10">
+        <div clas="clearfix">
+            <div class="row  mr-5 ml-5  mb-5">
+                <uib-tabset id="hblshp" style="border: 1px solid #ddd;">
+                    <uib-tab>
+                        <uib-tab-heading title="Consol">
+                            <i class="fa fa-list-alt margin-right-5"></i>
+                            <span class="text-single-line" data-ng-bind="'Consol'"></span>
+                        </uib-tab-heading>
+                        <div data-ng-if="ObtainDestuffEditDirCtrl.currentConsol">
+                            <consol-activity-details current-obj="ObtainDestuffEditDirCtrl.currentConsol" read-only="false"></consol-activity-details>
+                        </div>
+                    </uib-tab>
+                    <uib-tab>
+                        <uib-tab-heading title="Routing">
+                            <i class="fa fa-list-alt margin-right-5"></i>
+                            <span class="text-single-line" data-ng-bind="'Routing'"></span>
+                        </uib-tab-heading>
+                        <div class="hbl-con" data-ng-if="ObtainDestuffEditDirCtrl.ePage.Masters.ConShpObj.length == 0">
+                            This shipment is Not Attached with any Cosnsol
+                        </div>
+                        <div class="hbl-loading" data-ng-if="ObtainDestuffEditDirCtrl.ePage.Masters.ConShpObj.length>0 && !ObtainDestuffEditDirCtrl.currentConsol">
+                            <i class="fa fa-spin fa-spinner"></i>
+                        </div>
+                        <div data-ng-if="ObtainDestuffEditDirCtrl.currentConsol">
+                            <routing-grid current-object="ObtainDestuffEditDirCtrl.currentConsol" key-object-name="'CON'" fk-name="'PK'" pk-name="'CON_PK'"
+                                api-header-name="'UIConConsolHeader'" api-header-field-name="'PK'" api-header-value-name="'CON_FK'"
+                                btn-visible="{'AddNew':true,'Delete':true,'More':true}" table-properties="" read-only="false"></routing-grid>
+                        </div>
+                    </uib-tab>
+                    <uib-tab>
+                        <uib-tab-heading title="Container">
+                            <i class="fa fa-list-alt margin-right-5"></i>
+                            <span class="text-single-line" data-ng-bind="'Container'"></span>
+                        </uib-tab-heading>
+                        <div class="hbl-con" data-ng-if="ObtainDestuffEditDirCtrl.ePage.Masters.ConShpObj.length == 0">
+                            This shipment is Not Attached with any Cosnsol
+                        </div>
+                        <div class="hbl-loading" data-ng-if="ObtainDestuffEditDirCtrl.ePage.Masters.ConShpObj.length>0 && !ObtainDestuffEditDirCtrl.currentConsol">
+                            <i class="fa fa-spin fa-spinner"></i>
+                        </div>
+                        <div data-ng-if="ObtainDestuffEditDirCtrl.currentConsol">
+                            <container-grid current-object="ObtainDestuffEditDirCtrl.currentConsol" key-object-name="'CON'" api-header-name="'UIConConsolHeader'"
+                                api-header-field-name="'CON_FK'" api-header-value-name="'UICntContainers'" btn-visible="{'AddNew':true,'Delete':true,'More':true}"
+                                table-properties="" read-only="false">
+                            </container-grid>
+                           
+                        </div>
+                    </uib-tab>
+                </uib-tabset>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix">
+        <!-- Document upload -->
+        <article class="col-sm-12 col-md-12 col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-lg fa-fw fa-file-text"></i>
+                    <span>File Upload Form </span>
+                </div>
+                <div class="panel-body no-padding hbl-Document">
+                    <article class="col-sm-12 col-md-12 col-lg-12 mt-10" data-ng-if="ObtainDestuffEditDirCtrl.ePage.Masters.StandardMenuInput">
+                        <div class="" document input="ObtainDestuffEditDirCtrl.ePage.Masters.StandardMenuInput" mode="3" list-source="ObtainDestuffEditDirCtrl.ePage.Masters.DocListSource"
+                            config="ObtainDestuffEditDirCtrl.ePage.Masters.StandardConfigInput" class="my-task-icon fa fa-file-text-o mr-5">
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </article>
+        <!-- Comments Details -->
+        <article class="col-sm-12 col-md-12 col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-lg fa-fw fa-file-text"></i>
+                    <span>Comments Details</span>
+                </div>
+                <div class="panel-body no-padding hbl-Document">
+                    <article class="col-sm-12 col-md-12 col-lg-12 mt-10" data-ng-if="ObtainDestuffEditDirCtrl.ePage.Masters.StandardMenuInput">
+                        <div class="" comment input="ObtainDestuffEditDirCtrl.ePage.Masters.StandardMenuInput" mode="3" config="ObtainDestuffEditDirCtrl.ePage.Masters.CommentConfig"
+                            class="my-task-icon fa fa-file-text-o mr-5">
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </article>
+    </div>
+    <!-- Save & Complete Buttons -->
+    <div class="clearfix decision">
+        <div class="clearfix" data-ng-if="
+        ObtainDestuffEditDirCtrl.ePage.Masters.StandardMenuInput">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 pt-5">
+                <a href="javascript: void(0)" document-modal input="ObtainDestuffEditDirCtrl.ePage.Masters.StandardMenuInput" mode="1" class="my-task-icon fa fa-file-text-o mr-5"></a>
+                <span class="my-task-slash"></span>
+                <a href="javascript: void(0)" comment-modal input="ObtainDestuffEditDirCtrl.ePage.Masters.StandardMenuInput" mode="1" class="my-task-icon fa fa-comment-o mr-5"></a>
+                <span class="my-task-slash"></span>
+                <a href="javascript: void(0)" email-modal input="ObtainDestuffEditDirCtrl.ePage.Masters.StandardMenuInput" mode="1" class="my-task-icon fa fa-envelope-o mr-5"></a>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <input type="button" class="btn btn-primary btn-sm pull-right ml-5" data-ng-click="ObtainDestuffEditDirCtrl.ePage.Masters.Complete()"
+                    data-ng-disabled="ObtainDestuffEditDirCtrl.ePage.Masters.IsDisableCompleteBtn" value="{{ObtainDestuffEditDirCtrl.ePage.Masters.CompleteBtnText}}">
+            </div>
+        </div>
+    </div>
+    <div class="error-warning-container right" id="errorWarningContainer{{ObtainDestuffEditDirCtrl.taskObj.PSI_InstanceNo}}">
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right" data-ng-click="ObtainDestuffEditDirCtrl.ePage.Masters.ShowErrorWarningModal(ObtainDestuffEditDirCtrl.taskObj.PSI_InstanceNo)">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+        </div>
+        <div class="error-warning-body">
+            <div class="clearfix" data-ng-if="ObtainDestuffEditDirCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList.length > 0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in ObtainDestuffEditDirCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 Stext-center">
+                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

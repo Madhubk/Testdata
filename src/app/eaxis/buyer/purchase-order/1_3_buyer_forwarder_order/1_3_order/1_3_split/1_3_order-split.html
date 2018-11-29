@@ -1,0 +1,53 @@
+<div class="p-10">
+    <div>
+        <span>
+            <button type="button" class="btn btn-sm btn-outline-secondary" title="Create Sub PO" data-ng-click="one_three_OrdSplitCtrl.ePage.Masters.NewSplitRecord()">
+                <i class="fa fa-plus-circle"></i> Create Sub PO </button>
+        </span>
+    </div>
+    <div id='' class="common_table_scroll common_table_hgt pt-2">
+        <div class="table tab-position" id="results">
+            <div class='theader'>
+                <div class='table_header'>Sub PO #</div>
+                <div class='table_header'>Order Date</div>
+                <div class='table_header'>Confirm #</div>
+                <div class='table_header'>Confirm Date</div>
+                <div class='table_header'>Invoice #</div>
+                <div class='table_header'>Invoice Date</div>
+            </div>
+            <!-- grid list -->
+            <div class='table_row' data-ng-repeat="x in one_three_OrdSplitCtrl.ePage.Masters.SplitOrderList" style="font-size: 11px;">
+                <div class='table_small'>
+                    <div class='table_cell'>Sub PO #</div>
+                    <div class='table_cell'>
+                        <b>{{x.OrderNoSplit}}</b>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Order Date</div>
+                    <div class='table_cell'>{{x.OrderDate | date:'dd-MMM-yyyy'}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Confirm #</div>
+                    <div class='table_cell'>{{x.ConfirmNo}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Confirm Date</div>
+                    <div class='table_cell'>{{x.ConfirmDate | date:'dd-MMM-yyyy'}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Invoice #</div>
+                    <div class='table_cell'>{{x.InvoiceNo}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Invoice Date</div>
+                    <div class='table_cell'>{{x.InvoiceDate | date:'dd-MMM-yyyy'}}</div>
+                </div>
+            </div>
+        </div>
+        <!-- List Empty Response -->
+        <div class="grid-no-record-common_table" data-ng-if="one_three_OrdSplitCtrl.ePage.Entities.Header.Data.UIOrderLine_Buyer_Forwarder.length==0">No
+                records found...</div>
+        <div>
+    </div>
+</div>

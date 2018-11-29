@@ -1,0 +1,280 @@
+.routing-box {
+    background: #F6F6F6;
+    border: 1px solid #dfdddd;
+    margin: 0px 15px 0px 15px;
+}
+
+.text-single-line-label1 {
+    font-size: 17px;
+}
+
+.routing-box-line {
+    margin: 0px 15px 0px 15px;
+    border: 1px solid #dfdddd;
+    border-top: none;
+}
+
+.grid-no-record-border-box {
+    border: 1px solid #ddd;
+    border-top: none;
+}
+
+/* consol menu start  */
+.consol-menu>.nav-tabs.nav-justified>li>a {}
+
+.consol-menu>.nav-tabs.nav-justified>.show-address-sidebar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 34px;
+    margin: 0;
+    padding: 0;
+    width: 25px;
+    min-width: 25px;
+    z-index: 15;
+    max-width: 25px;
+    outline: none;
+}
+
+.consol-menu>.nav-tabs.nav-justified {
+    padding-right: 27px;
+}
+
+/* consol menu end */
+/* Consol general start */
+.service-details-heading .heading,
+.referance-details-heading .heading {
+    font-size: 18px;
+}
+
+.service-details-heading i,
+.referance-details-heading i {
+    font-size: 30px;
+}
+
+.service-details-heading i:hover,
+.referance-details-heading i:hover {
+    text-decoration: none;
+}
+
+.con-ref-hgt {
+    min-height: 150px;
+}
+
+.con-ref-empty-top {
+    top: 40px;
+    left: 35%;
+}
+
+/* Consol general end */
+/* consol details start */
+.ik-st-no,
+.ik-st-main-icon {
+    width: 100%;
+    float: left;
+    text-align: center;
+    margin-top: 18px;
+    line-height: 0;
+}
+
+.ik-st-no {
+    font-weight: bold;
+    font-size: 18px;
+    color: #4385f5;
+}
+
+.ik-st-main-icon {
+    font-size: 50px;
+}
+
+.task-list-des-sub-title-l,
+.task-list-des-sub-title-r {
+    color: #666;
+    font-size: 11px;
+    position: absolute;
+    top: -20px;
+}
+
+.task-list-des-sub-title-l {
+    left: 50px;
+}
+
+.task-list-des-sub-title-r {
+    right: 50px;
+}
+
+/* consol details end */
+/* consol shipment start */
+.ship-action,
+.ship-action li,
+.ship-action-label-value {
+    width: 100%;
+    float: left;
+}
+
+.ship-action {
+    padding: 0;
+}
+
+.ship-action li {
+    list-style: none;
+    padding: 5px 0;
+    border: 1px solid #e5e5e5;
+    background: #fbfbfb;
+    margin-top: 7px;
+}
+
+.ship-action-label-value,
+.org,
+.org1 {
+    margin-bottom: 1px;
+}
+
+.ship-action-label {
+    width: 25%;
+    float: left;
+    color: #999;
+}
+
+.ship-action-value {
+    width: 75%;
+    float: left;
+}
+
+.org {
+    font-size: 11px;
+}
+
+.org1 {
+    font-size: 12px;
+}
+
+.trash {
+    color: #d71921;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.calculation-activity {
+    background: #fbfbfb;
+    border-top: 1px solid #d71921;
+    border-bottom: 1px solid #d71921;
+}
+
+.ship-empty-top {
+    top: 25px;
+    left: 180%;
+}
+
+.calculation-total {
+    background: #fbfbfb;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    width: 100%;
+}
+
+/* consol shipment end */
+/*consol cnt form start */
+.contain-hgt {
+    min-height: 360px;
+    max-height: 360px;
+}
+
+.Concontainer .modal-dialog {
+    width: 70% !important;
+}
+
+/*consol cnt form end */
+/* consol packing start */
+.overal {
+    width: 100%;
+    float: left;
+    padding: 7px 10px 7px 10px;
+    border-radius: 3px;
+    background: #fbfbfb;
+    border: 1px solid #e5e5e5;
+}
+
+.firstRow {
+    width: 100%;
+}
+
+.consolNo {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.chekBx {
+    margin-top: 0px;
+}
+
+.fs-gray {
+    color: #b4b1b1;
+}
+
+.border-right {
+    border-right: 1px solid gray;
+}
+
+.pack-action li {
+    width: 100%;
+    float: left;
+    list-style: none;
+    padding: 5px 0;
+    border: 1px solid #e5e5e5;
+    background: #fbfbfb;
+    margin-top: 7px;
+}
+
+.Shipment-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #4385f5;
+}
+
+.pack-action-label-value {
+    width: 100%;
+    float: left;
+    margin-bottom: 1px;
+    margin-top: 1px;
+}
+
+.pack-action-label {
+    width: 23%;
+    float: left;
+    color: #999;
+}
+
+.action-label {
+    color: #999;
+}
+
+.pack-action-value {
+    width: 77%;
+    float: left;
+}
+
+.org {
+    font-size: 11px;
+    margin-bottom: 1px;
+}
+
+.org1 {
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+.trash {
+    color: #d71921;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.seal-width {
+    width: 100%;
+}
+
+/* consol packing end */

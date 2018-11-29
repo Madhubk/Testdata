@@ -1,0 +1,112 @@
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-15">
+    <div class="rows border-box border-radius-2 bg-fbfbfb">
+        <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 col-xl-2 pt-10 pb-10">
+            <div class="tab-profile-title text-single-line fs-16" data-ng-bind="IssueExitGatepassCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestNumber"></div>
+        </div>
+
+        <!--Sender-->
+        <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8 col-xl-8 border-left border-right pt-10 pb-10 ">
+            <div class="fs-14">
+                <span>
+                    {{IssueExitGatepassCtrl.ePage.Entities.Header.Data.OrgSender.FullName}}
+                </span>
+                <span class="ml-15 mr-15">
+                    <i class="fa fa-arrow-circle-right"></i>
+                </span>
+                <span>
+                    {{IssueExitGatepassCtrl.ePage.Entities.Header.Data.OrgReceiver.FullName}}
+                </span>
+            </div>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 mt-10">
+            <div class="tab-profile-sub-title text-single-line fs-14" title="{{IssueExitGatepassCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatus}} - {{IssueExitGatepassCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatusDesc}}"
+                data-ng-bind="IssueExitGatepassCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatusDesc"></div>
+        </div>
+    </div>
+</div>
+<div class="clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-10">
+    <div class="rows border-box border-radius-2 pt-15 height-60">
+        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <div class="color-999 fs-11">Gatepass No</div>
+                <div class="text-single-line">
+                    <span>{{IssueExitGatepassCtrl.ePage.Entities.Header.Data.GatepassList[0].GatepassNo ||IssueExitGatepassCtrl.ePage.Masters.Empty}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <div class="color-999 fs-11">Facility</div>
+                <span>{{IssueExitGatepassCtrl.ePage.Entities.Header.Data.GatepassList[0].ORG_Code||IssueExitGatepassCtrl.ePage.Masters.Empty}}
+                    - {{IssueExitGatepassCtrl.ePage.Entities.Header.Data.GatepassList[0].ORG_FullName||IssueExitGatepassCtrl.ePage.Masters.Empty}}</span>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <div class="color-999 fs-11">Transporter</div>
+                <span>{{IssueExitGatepassCtrl.ePage.Entities.Header.Data.GatepassList[0].TransporterCode||IssueExitGatepassCtrl.ePage.Masters.Empty}}
+                    - {{IssueExitGatepassCtrl.ePage.Entities.Header.Data.GatepassList[0].TransporterName||IssueExitGatepassCtrl.ePage.Masters.Empty}}</span>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <div class="color-999 fs-11">Purpose</div>
+                <span>{{IssueExitGatepassCtrl.ePage.Entities.Header.Data.GatepassList[0].Purpose ||IssueExitGatepassCtrl.ePage.Masters.Empty}}</span>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <div class="color-999 fs-11">Vehicle No</div>
+                <span>{{IssueExitGatepassCtrl.ePage.Entities.Header.Data.GatepassList[0].VehicleNo ||IssueExitGatepassCtrl.ePage.Masters.Empty}}</span>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <div class="color-999 fs-11">Vehicle Type</div>
+                <span>{{IssueExitGatepassCtrl.ePage.Entities.Header.Data.GatepassList[0].VehicleType ||IssueExitGatepassCtrl.ePage.Masters.Empty}}</span>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <div class="color-999 fs-11">Dock No</div>
+                <span>{{IssueExitGatepassCtrl.ePage.Entities.Header.Data.GatepassList[0].DockNo ||IssueExitGatepassCtrl.ePage.Masters.Empty}}</span>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <div class="color-999 fs-11">Driver Name</div>
+                <span>{{IssueExitGatepassCtrl.ePage.Entities.Header.Data.GatepassList[0].DriverName ||IssueExitGatepassCtrl.ePage.Masters.Empty}}</span>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <div class="color-999 fs-11">Driver Contact No</div>
+                <span>{{IssueExitGatepassCtrl.ePage.Entities.Header.Data.GatepassList[0].DriverContactNo ||IssueExitGatepassCtrl.ePage.Masters.Empty}}</span>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <div class="color-999 fs-11">Dockin Time</div>
+                <span>{{IssueExitGatepassCtrl.ePage.Entities.Header.Data.GatepassList[0].DockinTime | date:"dd-MMM-yyyy hh:mm a"}}</span>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <div class="color-999 fs-11">Dockout Time</div>
+                <span>{{IssueExitGatepassCtrl.ePage.Entities.Header.Data.GatepassList[0].DockoutTime | date:"dd-MMM-yyyy hh:mm a"}}</span>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <div class="color-999 fs-11">Gatein Time</div>
+                <span>{{IssueExitGatepassCtrl.ePage.Entities.Header.Data.GatepassList[0].GateinTime | date:"dd-MMM-yyyy hh:mm a"}}</span>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <div class="color-999 fs-11">Gateout Time</div>
+                <span>{{IssueExitGatepassCtrl.ePage.Entities.Header.Data.GatepassList[0].GateoutTime | date:"dd-MMM-yyyy hh:mm a"}}</span>
+            </div>
+        </div>
+    </div>
+</div>

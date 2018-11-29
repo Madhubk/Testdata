@@ -6,24 +6,29 @@
                 <!-- 3 Favorite List -->
                 <div class="selected-favorite-list" data-ng-repeat="x in DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemUserFavouriteList.ListSource"
                     data-ng-if="DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemUserFavouriteList.ListSource && DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemUserFavouriteList.ListSource.length > 0 && x.IsStarred"
-                    data-ng-init="DynamicListCtrl.ePage.Masters.DynamicList.Header.GetFavoriteCount(x, $index)" data-ng-click="(DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemUserFavouriteList.ActiveFilter != x.Key) && DynamicListCtrl.ePage.Masters.DynamicList.Header.OnFavoriteClick(x, 'starred')"
+                    data-ng-init="DynamicListCtrl.ePage.Masters.DynamicList.Header.GetFavoriteCount(x, $index)"
+                    data-ng-click="(DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemUserFavouriteList.ActiveFilter != x.Key) && DynamicListCtrl.ePage.Masters.DynamicList.Header.OnFavoriteClick(x, 'starred')"
                     data-ng-class="{'selected-user-favourites': DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemUserFavouriteList.ActiveFilter == x.Key}">
                     <span class="key">{{x.Key}}</span>
-                    <span class="count">{{x.Count | roundCount:2}}</span>
+                    <span class="count" title="{{x.Count}}">{{x.Count | roundCount:2}}</span>
                 </div>
                 <!-- System Filter-->
                 <div class="pull-left dropdown" data-ng-if="DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemFilter.ListSource && DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemFilter.ListSource.length > 0">
-                    <span class="pull-left" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false" data-ng-class="{'selected-user-favourites': DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemFilter.ActiveFilter}">
-                        <span class="key">{{DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemFilter.ActiveFilter || 'System'}}</span>
+                    <span class="pull-left" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false"
+                        data-ng-class="{'selected-user-favourites': DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemFilter.ActiveFilter}">
+                        <span class="key">{{DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemFilter.ActiveFilter
+                            || 'System'}}</span>
                         <i class="fa fa-angle-down"></i>
                     </span>
                     <div class="favorites dropdown-menu p-0" role="menu">
                         <div class="text-single-line list system-list" data-ng-repeat="x in  DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemFilter.ListSource"
                             data-ng-class="{'selected-user-favourites': DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemUserFavouriteList.ActiveFilter == x.Key}">
-                            <i class="star" data-ng-class="{'fa fa-star': x.IsStarred, 'fa fa-star-o': !x.IsStarred}" data-ng-click="DynamicListCtrl.ePage.Masters.DynamicList.Header.OnFavoriteStarClick(x, 'system', x.IsStarred)"></i>
+                            <i class="star" data-ng-class="{'fa fa-star': x.IsStarred, 'fa fa-star-o': !x.IsStarred}"
+                                data-ng-click="DynamicListCtrl.ePage.Masters.DynamicList.Header.OnFavoriteStarClick(x, 'system', x.IsStarred)"></i>
                             <a href="javascript:void(0);" data-ng-bind="x.Key" class="text" data-ng-click="(DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemUserFavouriteList.ActiveFilter != x.Key) && DynamicListCtrl.ePage.Masters.DynamicList.Header.OnFavoriteClick(x, 'system')"
                                 title="{{x.Key}}"></a>
-                            <i class="fa fa-check default-filter tick" title="Set default filter" data-ng-class="{'active': x.IsDefaultFilter}" data-ng-click="DynamicListCtrl.ePage.Masters.DynamicList.Header.SetUserDeafultFilter(x, 'system', x.IsDefaultFilter)"></i>
+                            <i class="fa fa-check-square-o default-filter tick" title="Set default filter"
+                                data-ng-class="{'active': x.IsDefaultFilter}" data-ng-click="DynamicListCtrl.ePage.Masters.DynamicList.Header.SetUserDeafultFilter(x, 'system', x.IsDefaultFilter)"></i>
                         </div>
                     </div>
                 </div>
@@ -31,16 +36,19 @@
                 <div class="pull-left dropdown" data-ng-if="DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ListSource && DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ListSource.length > 0"
                     data-ng-class="{'selected-user-favourites': DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ActiveFilter}">
                     <span class="pull-left" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
-                        <span class="key">{{DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ActiveFilter || 'User'}}</span>
+                        <span class="key">{{DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ActiveFilter ||
+                            'User'}}</span>
                         <i class="fa fa-angle-down"></i>
                     </span>
                     <div class="favorites dropdown-menu p-0" role="menu">
                         <div class="text-single-line list user-list" data-ng-repeat="x in  DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ListSource"
                             data-ng-class="{'selected-user-favourites': DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemUserFavouriteList.ActiveFilter == x.Key}">
-                            <i class="star" data-ng-class="{'fa fa-star': x.IsStarred, 'fa fa-star-o': !x.IsStarred}" data-ng-click="DynamicListCtrl.ePage.Masters.DynamicList.Header.OnFavoriteStarClick(x, 'user', x.IsStarred)"></i>
+                            <i class="star" data-ng-class="{'fa fa-star': x.IsStarred, 'fa fa-star-o': !x.IsStarred}"
+                                data-ng-click="DynamicListCtrl.ePage.Masters.DynamicList.Header.OnFavoriteStarClick(x, 'user', x.IsStarred)"></i>
                             <a href="javascript:void(0);" data-ng-bind="x.Key" class="text" data-ng-click="(DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemUserFavouriteList.ActiveFilter != x.Key) && DynamicListCtrl.ePage.Masters.DynamicList.Header.OnFavoriteClick(x, 'user');"
                                 title="{{x.Key}}"></a>
-                            <i class="fa fa-check default-filter tick" title="Set default filter" data-ng-class="{'active': x.IsDefaultFilter}" data-ng-click="DynamicListCtrl.ePage.Masters.DynamicList.Header.SetUserDeafultFilter(x, 'user', x.IsDefaultFilter)"></i>
+                            <i class="fa fa-check-square-o default-filter tick" title="Set default filter"
+                                data-ng-class="{'active': x.IsDefaultFilter}" data-ng-click="DynamicListCtrl.ePage.Masters.DynamicList.Header.SetUserDeafultFilter(x, 'user', x.IsDefaultFilter)"></i>
                             <i class="fa fa-trash remove" title="Delete" data-ng-click="DynamicListCtrl.ePage.Masters.DynamicList.Header.DeleteUserFavorites(x)"></i>
                         </div>
                     </div>
@@ -60,28 +68,50 @@
             </div>
             <!-- Buttons -->
             <div class="pull-right pt-5 pr-5">
-                <button class="btn btn-default btn-xs" data-ng-disabled="!DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy" data-ng-click="DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy && DynamicListCtrl.ePage.Masters.DynamicList.Header.CustomizeGridColumn()">Customize</button>
-                <button class="btn btn-default btn-xs" data-ng-click="DynamicListCtrl.ePage.Masters.DynamicList.Header.Attach()" data-ng-if="DynamicListCtrl.mode == 3"
-                    data-ng-disabled="!DynamicListCtrl.ePage.Masters.DynamicList.Grid.SelectedItems || DynamicListCtrl.ePage.Masters.DynamicList.Grid.SelectedItems.length == 0">Attach</button>
-                <button class="btn btn-default btn-xs" data-ng-disabled="!DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy" data-ng-click="DynamicListCtrl.ePage.Masters.DynamicList.Header.New()"
-                    data-ng-if="DynamicListCtrl.mode == 1 || DynamicListCtrl.mode == 2">New</button>
-                <button class="btn btn-default btn-xs" data-ng-disabled="!DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy" data-ng-click="DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy && DynamicListCtrl.ePage.Masters.DynamicList.Header.Reset()"
-                    data-ng-if="DynamicListCtrl.mode == 1">Reset</button>
+                <button class="btn btn-default btn-xs" data-ng-click="DynamicListCtrl.ePage.Masters.DynamicList.Header.Refresh()">Refresh</button>
+                <button class="btn btn-default btn-xs" data-ng-disabled="!DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy"
+                    data-ng-click="DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy && DynamicListCtrl.ePage.Masters.DynamicList.Header.CustomizeGridColumn()"
+                    data-ng-if="DynamicListCtrl.ePage.Masters.DynamicList.EnableCustomizeButton">Customize</button>
+                <button class="btn btn-default btn-xs" data-ng-click="DynamicListCtrl.ePage.Masters.DynamicList.Header.Attach()"
+                    data-ng-if="DynamicListCtrl.ePage.Masters.DynamicList.EnableAttachButton" data-ng-disabled="!DynamicListCtrl.ePage.Masters.DynamicList.Grid.SelectedItemList || DynamicListCtrl.ePage.Masters.DynamicList.Grid.SelectedItemList.length == 0">Attach</button>
+                <button class="btn btn-default btn-xs" data-ng-disabled="!DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy"
+                    data-ng-click="DynamicListCtrl.ePage.Masters.DynamicList.Header.New()" data-ng-if="DynamicListCtrl.ePage.Masters.DynamicList.EnableNewButton">New</button>
+                <button class="btn btn-default btn-xs" data-ng-disabled="!DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy"
+                    data-ng-click="DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy && DynamicListCtrl.ePage.Masters.DynamicList.Header.Reset()"
+                    data-ng-if="DynamicListCtrl.ePage.Masters.DynamicList.EnableResetButton">Reset</button>
                 <button class="btn btn-primary btn-xs filter-sidebar-setting" data-ng-disabled="!DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy"
-                    data-ng-click="DynamicListCtrl.ePage.Masters.DynamicList.Header.Filter()">
+                    data-ng-click="DynamicListCtrl.ePage.Masters.DynamicList.Header.Filter()" data-ng-if="DynamicListCtrl.ePage.Masters.DynamicList.EnableFilterButton">
                     <i class="fa fa-filter txt-color-blueDark"></i> Filter</button>
             </div>
+            <!-- Parties -->
+            <!-- <div class="parties-list pull-right ml-10 mr-10" data-ng-if="DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.Parties.IsEnableParties">
+                <div class="pull-left dropdown" data-ng-if="DynamicListCtrl.ePage.Masters.DynamicList.Parties.ListSource && DynamicListCtrl.ePage.Masters.DynamicList.Parties.ListSource.length > 0">
+                    <span class="pull-left" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+                        <span class="key" data-ng-bind="DynamicListCtrl.ePage.Masters.DynamicList.Parties.ActivePartyType.Party_Description"></span>
+                        <i class="fa fa-angle-down"></i>
+                    </span>
+                    <div class="favorites dropdown-menu dropdown-menu-right p-0" role="menu">
+                        <div class="text-single-line list" data-ng-repeat="x in  DynamicListCtrl.ePage.Masters.DynamicList.Parties.ListSource">
+                            <a href="javascript:void(0);" data-ng-bind="x.Party_Description" class="p-5" data-ng-click="DynamicListCtrl.ePage.Masters.DynamicList.Parties.OnPartyChange(x)"></a>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
         </div>
     </div>
     <!--Grid  -->
     <div class="gridview-wraper">
         <div class="clearfix">
-            <div class="text-center grid-view-loader p-20" data-ng-if="!DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy">
+            <div class="text-center grid-view-loader p-20" data-ng-if="!DynamicListCtrl.ePage.Masters.DynamicList.IsEmptyDataEntryName && !DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy">
                 <i class="fa fa-spin fa-spinner font-160"></i>
             </div>
+            <div class="text-center grid-view-loader p-20" data-ng-if="DynamicListCtrl.ePage.Masters.DynamicList.IsEmptyDataEntryName">
+                <i>No DataEntry Page...!</i>
+            </div>
             <div class="clearfix" data-ng-if="DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy">
-                <dynamic-grid mode="DynamicListCtrl.mode" input-data="DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy" grid-config="DynamicListCtrl.ePage.Masters.DynamicList.Grid.GridConfig"
-                    selected-grid-row="DynamicListCtrl.ePage.Masters.DynamicList.Grid.SelectedGridRow($item)" selected-items="DynamicListCtrl.ePage.Masters.DynamicList.Grid.SelectedItems"></dynamic-grid>
+                <dynamic-grid mode="DynamicListCtrl.mode" input="DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy"
+                    grid-options="DynamicListCtrl.ePage.Masters.DynamicList.Grid.GridOptions" selected-grid-row="DynamicListCtrl.ePage.Masters.DynamicList.Grid.SelectedGridRow($item)"
+                    is-api="true" default-filter="DynamicListCtrl.ePage.Masters.DynamicList.DefaultFilter" base-filter="DynamicListCtrl.ePage.Masters.DynamicList.BaseFilter"></dynamic-grid>
             </div>
         </div>
         <!-- Customize grid Column -->
@@ -93,7 +123,8 @@
                 <div class="btn-wrapper pull-right">
                     <ul class="clearfix">
                         <li>
-                            <input type="submit" class="save-btn" ng-click="DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.Save()" value="{{DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.SaveBtnText}}"
+                            <input type="submit" class="save-btn" ng-click="DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.Save()"
+                                value="{{DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.SaveBtnText}}"
                                 data-ng-disabled="DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.IsSaveBtnDisable">
                         </li>
                         <li>
@@ -127,8 +158,8 @@
                                 data-ng-repeat="x in DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.GridColumn">
                                 <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 p-0 pr-5">
                                     <span class="drag-icon" title="Change Order" dnd-draggable="x" dnd-moved="DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.GridColumn.splice($index, 1)"
-                                        dnd-effect-allowed="move" dnd-selected="DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.SelectedGridColum = x"
-                                        ng-class="{'selected': DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.SelectedGridColum === x}">:::</span>
+                                        dnd-effect-allowed="move" dnd-selected="DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.SelectedGridColumn = x"
+                                        ng-class="{'selected': DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.SelectedGridColumn === x}">:::</span>
                                 </div>
                                 <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 p-0 pl-5 pr-5">
                                     <div class="checkbox m-0" title="Visible">
@@ -139,11 +170,12 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0 pl-5 pr-5">
-                                    <input type="text" class="form-control input-xs" data-ng-model="x.displayName" placeholder="Column Name" title="Column Name"
-                                        data-ng-disabled="true">
+                                    <input type="text" class="form-control input-xs" data-ng-model="x.displayName"
+                                        placeholder="Column Name" title="Column Name" data-ng-disabled="true">
                                 </div>
                                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 p-0 pl-5">
-                                    <input type="text" class="form-control input-xs" data-ng-model="x.width" placeholder="Width" title="Width">
+                                    <input type="text" class="form-control input-xs" data-ng-model="x.width"
+                                        placeholder="Width" title="Width">
                                 </div>
                             </div>
                         </div>
@@ -152,12 +184,12 @@
                 <uib-tab heading="Filter" data-ng-click="DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.ActiveTab = 'filter'">
                     <div class="p-0">
                         <div data-ng-if="DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.Entities && DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.Entities.length > 0"
-                            ng-repeat="Entity in DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.Entities" class="clearfix">
+                            ng-repeat="Entity in DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.Entities"
+                            class="clearfix">
                             <div class="clearfix" ng-repeat="ConfigData in Entity.ConfigData" data-ng-if="ConfigData.AttributesDetails.UIControl !=  'pkey' && ConfigData.AttributesDetails.UIControl !=  'tenant'">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" ng-model="ConfigData.Include" data-ng-change="DynamicListCtrl.ePage.Masters.DynamicList.CustomizeList.SaveFilterDislike(ConfigData)"
-                                        />
+                                        <input type="checkbox" ng-model="ConfigData.Include" data-ng-change="DynamicListCtrl.ePage.Masters.DynamicList.CustomizeList.SaveFilterDislike(ConfigData)" />
                                         <span class="text">{{ConfigData.AttributesDetails.LabelText}}</span>
                                     </label>
                                 </div>
@@ -177,16 +209,17 @@
                     </div>
                     <div class="btn-wrapper pull-right">
                         <ul class="clearfix">
-                            <li ng-if="DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy.OtherConfig.IsUserFavoriteFilter">
+                            <li ng-if="DynamicListCtrl.ePage.Masters.DynamicList.EnableUserFavoriteButton">
                                 <div class="dynamic-filter-save-settings-icon" data-ng-click="DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy.IsShowSaveSettingsTxtBox = !DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy.IsShowSaveSettingsTxtBox">
                                     <i data-ng-class="DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy.IsShowSaveSettingsTxtBox ? 'fa fa-star' : 'fa fa-star-o'"></i>
                                 </div>
                             </li>
-                            <li data-ng-if="DynamicListCtrl.mode == 1">
-                                <button class="save-btn" ng-click="DynamicListCtrl.ePage.Masters.DynamicList.Filter.Clear()">Clear</button>
+                            <li data-ng-if="DynamicListCtrl.ePage.Masters.DynamicList.EnableClearButton">
+                                <a class="btn btn-default save-btn" ng-click="DynamicListCtrl.ePage.Masters.DynamicList.Filter.Clear()">Clear</a>
                             </li>
                             <li>
-                                <input type="submit" class="save-btn" ng-click="DynamicListCtrl.ePage.Masters.DynamicList.Filter.Apply()" value="{{DynamicListCtrl.ePage.Masters.DynamicList.Filter.ApplyBtnText}}"
+                                <input type="submit" class="save-btn" ng-click="DynamicListCtrl.ePage.Masters.DynamicList.Filter.Apply()"
+                                    value="{{DynamicListCtrl.ePage.Masters.DynamicList.Filter.ApplyBtnText}}"
                                     data-ng-disabled="DynamicListCtrl.ePage.Masters.DynamicList.Filter.IsApplyBtnDisable">
                             </li>
                             <li>
@@ -197,44 +230,35 @@
                         </ul>
                     </div>
                 </div>
-                <div class="clearfix header" ng-if="DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy.IsShowSaveSettingsTxtBox">
-                    <div class="clearfix p-5">
-                        <div class="input-group input-group-sm">
-                            <input type="text" class="form-control input-sm" placeholder="Name" data-ng-model="DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.Input.Key"
-                                maxlength="35">
-                            <span class="input-group-btn">
-                                <button class="btn btn-primary dl-filter-save-btn" type="button" ng-click="DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.Save()"
-                                    data-ng-bind="DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.SaveSettingBtnText"
-                                    data-ng-disabled="DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.IsDisableSaveSettingBtn"></button>
-                            </span>
-                        </div>
-                        <!-- <div class="clearfix pt-5 ">
-                            <div class="checkbox mt-5 mb-5 pull-left ml-5 mr-10">
-                                <label>
-                                    <input type="checkbox" data-ng-model="DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.Input.IsShowInDashboard">
-                                    <span class="text">Show In Dashboard</span>
-                                </label>
-                            </div>
-                            <div class="checkbox mt-5 mb-5 pull-left ml-5 mr-10">
-                                <label>
-                                    <input type="checkbox" data-ng-model="DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.Input.IsShowCount">
-                                    <span class="text">Show Count</span>
-                                </label>
-                            </div>
-                        </div> -->
-                    </div>
-                </div>
                 <div class="control-list clearfix p-0">
                     <div class="clearfix filter-set-height" data-ng-if="DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter">
-                        <dynamic-control input="DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter" mode="S" control-style="" default-filter="DynamicListCtrl.ePage.Masters.DynamicList.Filter.DefaultFilter"
-                            view-type="DynamicListCtrl.ePage.Masters.DynamicList.Filter.ViewType"></dynamic-control>
+                        <div class="clearfix header header-2" data-ng-if="DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy.IsShowSaveSettingsTxtBox">
+                            <div class="clearfix p-5">
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control input-sm" placeholder="Name" data-ng-model="DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.Input.Key"
+                                        maxlength="35">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary dl-filter-save-btn" type="button" ng-click="DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.Save()"
+                                            data-ng-bind="DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.SaveSettingBtnText"
+                                            data-ng-disabled="DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.IsDisableSaveSettingBtn"></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <dynamic-control list-mode="DynamicListCtrl.mode" input="DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter"
+                            mode="S" control-style="" default-filter="DynamicListCtrl.ePage.Masters.DynamicList.Filter.DefaultFilter"
+                            view-type="DynamicListCtrl.ePage.Masters.DynamicList.Filter.ViewType" base-filter-fields="DynamicListCtrl.ePage.Masters.DynamicList.BaseFilterFields"></dynamic-control>
                     </div>
                 </div>
             </form>
         </div>
     </div>
-    <!-- Standard Menu -->
-    <div class="eaxis-footer-strip" data-ng-if="DynamicListCtrl.ePage.Masters.DynamicList.Grid.IsStandardMenu">
-        <standard-menu input="DynamicListCtrl.ePage.Masters.DynamicList.Grid.StandardMenuInput" entity-name="DynamicListCtrl.ePage.Masters.DynamicList.Grid.StandardMenuEntityName"></standard-menu>
+    <!-- Standard Toolbar -->
+    <!-- <div class="eaxis-footer-strip" data-ng-if="DynamicListCtrl.ePage.Masters.DynamicList.Grid.IsStandardToolbar && !DynamicListCtrl.ePage.Masters.DynamicList.Grid.IsCustomToolbar">
+        <standard-menu input="DynamicListCtrl.ePage.Masters.DynamicList.Grid.StandardMenuInput" dataentry-object="DynamicListCtrl.ePage.Masters.DynamicList.DataEntry"></standard-menu>
+    </div> -->
+    <!-- Custom Toolbar -->
+    <div class="eaxis-footer-strip" data-ng-if="!DynamicListCtrl.ePage.Masters.DynamicList.Grid.IsStandardToolbar && DynamicListCtrl.ePage.Masters.DynamicList.Grid.IsCustomToolbar">
+        <custom-toolbar input="DynamicListCtrl.ePage.Masters.DynamicList.Grid.CustomToolbarInput" dataentry-object="DynamicListCtrl.ePage.Masters.DynamicList.DataEntry"></custom-toolbar>
     </div>
 </div>

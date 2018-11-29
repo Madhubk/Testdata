@@ -9,22 +9,58 @@
                 <uib-tab-heading title="{{x.DisplayName}}">
                     <i class="fa {{x.Icon}} margin-right-5"></i>
                     <span class="text-single-line" data-ng-bind="x.DisplayName"></span>
+                    <error-warning-directive data-ng-if="BookingMenuCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Booking',BookingMenuCtrl.currentBooking.code,x.GParentRef, 'W', 'GParent').length > 0 && BookingMenuCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Booking',BookingMenuCtrl.currentBooking.code,x.GParentRef, 'W', 'GParent').length == 0"
+                        list="BookingMenuCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList" type="'warning'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
+                    <error-warning-directive data-ng-if="BookingMenuCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Booking', BookingMenuCtrl.currentBooking.code,x.GParentRef, 'E', 'GParent').length > 0"
+                        list="BookingMenuCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList" type="'error'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
                 </uib-tab-heading>
                 <div>
                     <div ng-switch="x.Value">
                         <!--Menu directives-->
                         <div ng-switch-when="General" booking-directive current-Booking="BookingMenuCtrl.currentBooking"></div>
                         <div ng-switch-when="Order" booking-order current-Booking="BookingMenuCtrl.currentBooking"></div>
+                        <div ng-switch-when="Planning" booking-planning current-Booking="BookingMenuCtrl.currentBooking"></div>
                         <div ng-switch-when="ServiceAndReference" booking-service-and-reference current-Booking="BookingMenuCtrl.currentBooking"></div>
                         <div ng-switch-when="PickupAndDelivery" booking-pickup-and-delivery current-Booking="BookingMenuCtrl.currentBooking"></div>
-                        <div ng-switch-when="Address" data-ng-if="BookingMenuCtrl.currentBooking[BookingMenuCtrl.currentBooking.label].ePage.Entities.Header.Meta.AddressContactObject.CfxTypeList" address-directives current-obj="BookingMenuCtrl.currentBooking" entitysource="'SHP'"></div>
+                        <div ng-switch-when="Address" data-ng-if="BookingMenuCtrl.currentBooking[BookingMenuCtrl.currentBooking.label].ePage.Entities.Header.Data.UIAddressContactList.CfxTypeList"
+                            address-directives current-obj="BookingMenuCtrl.currentBooking" entitysource="'SHP'"></div>
                     </div>
                 </div>
             </uib-tab>
         </uib-tabset>
     </div>
+    <div class="error-warning-container right" id="errorWarningContainer{{BookingMenuCtrl.currentBooking.code}}">
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                <!-- <i class="fa fa-warning"></i>  -->
+                Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right" data-ng-click="BookingMenuCtrl.ePage.Masters.config.ShowErrorWarningModal(BookingMenuCtrl.currentBooking)">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+        </div>
+        <div class="error-warning-body">
+            <div class="clearfix" data-ng-if="BookingMenuCtrl.ePage.Masters.ErrorWarningConfig.Modules.Booking.Entity[BookingMenuCtrl.currentBooking.code].GlobalErrorWarningList.length>0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in BookingMenuCtrl.ePage.Masters.ErrorWarningConfig.Modules.Booking.Entity[BookingMenuCtrl.currentBooking.code].GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-     <!-- Standard Menu Directive -->
+    <!-- Standard Menu Directive -->
     <div class="eaxis-footer-strip">
         <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
             <standard-menu input="BookingMenuCtrl.ePage.Masters.StandardMenuInput" data-ng-if="!BookingMenuCtrl.currentBooking.isNew"></standard-menu>
@@ -33,5 +69,5 @@
             <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="BookingMenuCtrl.ePage.Masters.Save(BookingMenuCtrl.currentBooking)"
                 data-ng-bind="BookingMenuCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="BookingMenuCtrl.ePage.Masters.IsDisableSave"></button>
         </div>
-    </div> 
+    </div>
 </div>

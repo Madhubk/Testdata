@@ -29,9 +29,9 @@
         .module('Application')
         .controller('DynamicTableController', DynamicTableController);
 
-    DynamicTableController.$inject = ["$scope", "helperService", "$filter"];
+    DynamicTableController.$inject = ["helperService", "$filter"];
 
-    function DynamicTableController($scope, helperService, $filter) {
+    function DynamicTableController(helperService, $filter) {
         var DynamicTableCtrl = this;
 
         function Init() {

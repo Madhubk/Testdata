@@ -5,9 +5,9 @@
         .module("Application")
         .controller("PageController", PageController);
 
-    PageController.$inject = ["$scope", "$location", "authService", "apiService", "helperService", "appConfig", "APP_CONSTANT", "toastr", "confirmation"];
+    PageController.$inject = ["$location", "authService", "apiService", "helperService", "toastr", "confirmation", "trustCenterConfig"];
 
-    function PageController($scope, $location, authService, apiService, helperService, appConfig, APP_CONSTANT, toastr, confirmation) {
+    function PageController($location, authService, apiService, helperService, toastr, confirmation, trustCenterConfig) {
         var PageCtrl = this;
         var _queryString = $location.path().split("/").pop();
 
@@ -27,11 +27,12 @@
                 PageCtrl.ePage.Masters.QueryString = JSON.parse(helperService.decryptData(_queryString));
                 if (PageCtrl.ePage.Masters.QueryString.AppPk) {
                     InitBreadcrumb();
+                    InitApplication();
                     InitModule();
                     InitPage();
                 }
             } catch (error) {
-                console.log(error)
+                console.log(error);
             }
         }
 
@@ -52,10 +53,15 @@
                 IsRequireQueryString: false,
                 IsActive: false
             }, {
-                Code: "configuration",
-                Description: "Configuration",
-                Link: "TC/dashboard/" + helperService.encryptData('{"Type":"Configuration", "BreadcrumbTitle": "Configuration"}'),
-                IsRequireQueryString: false,
+                Code: "dashboard",
+                Description: "Dashboard",
+                Link: "TC/dashboard",
+                IsRequireQueryString: true,
+                QueryStringObj: {
+                    "AppPk": PageCtrl.ePage.Masters.QueryString.AppPk,
+                    "AppCode": PageCtrl.ePage.Masters.QueryString.AppCode,
+                    "AppName": PageCtrl.ePage.Masters.QueryString.AppName
+                },
                 IsActive: false
             }, {
                 Code: "page",
@@ -75,7 +81,29 @@
         }
 
         // ========================Breadcrumb End========================
+        // ========================ApplicationDropdown Start=============
 
+        function InitApplication() {
+            PageCtrl.ePage.Masters.Application = {};
+            PageCtrl.ePage.Masters.Application.OnApplicationChange = OnApplicationChange;
+        }
+
+        function OnApplicationChange($item) {
+            PageCtrl.ePage.Masters.Application.ActiveApplication = angular.copy($item);
+
+            if (!PageCtrl.ePage.Masters.Application.ActiveApplication) {
+                PageCtrl.ePage.Masters.Application.ActiveApplication = {
+                    "PK": PageCtrl.ePage.Masters.QueryString.AppPk,
+                    "AppCode": PageCtrl.ePage.Masters.QueryString.AppCode,
+                    "AppName": PageCtrl.ePage.Masters.QueryString.AppName
+                };
+            }
+
+            GetModuleList();
+            GetRedirectLinkList();
+        }
+
+        // ========================ApplicationDropdown End==========
         // ========================Module Start========================
 
         function InitModule() {
@@ -83,28 +111,32 @@
             PageCtrl.ePage.Masters.SubModule = {};
             PageCtrl.ePage.Masters.Module.OnModuleChange = OnModuleChange;
             PageCtrl.ePage.Masters.SubModule.OnSubModuleChange = OnSubModuleChange;
-
-            GetModuleList();
         }
 
         function GetModuleList() {
             var _filter = {
-                SortColumn:"TYP_Sequence",
-                SortType:"ASC",
-                PageNumber:"1",
-                PageSize:"1000",
-                TypeCode: "MODULE_MASTER"
+                SortColumn: "TYP_Sequence",
+                SortType: "ASC",
+                PageNumber: "1",
+                PageSize: "1000",
+                TypeCode: "MODULE_MASTER",
+                SAP_FK: PageCtrl.ePage.Masters.Application.ActiveApplication.PK
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.CfxTypes.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.CfxTypes.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.CfxTypes.API.FindAll.Url + PageCtrl.ePage.Masters.QueryString.AppPk, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxTypes.API.FindAll.Url + PageCtrl.ePage.Masters.Application.ActiveApplication.PK, _input).then(function (response) {
                 if (response.data.Response) {
                     PageCtrl.ePage.Masters.Module.ListSource = response.data.Response;
                     if (PageCtrl.ePage.Masters.Module.ListSource.length > 0) {
                         OnModuleChange(PageCtrl.ePage.Masters.Module.ListSource[0])
+                    } else {
+                        PageCtrl.ePage.Masters.SubModule.ListSource = [];
+                        PageCtrl.ePage.Masters.SubModule.ActiveSubModule = undefined;
+                        PageCtrl.ePage.Masters.Page.PageList = [];
+                        PageCtrl.ePage.Masters.Page.ActivePage = undefined;
                     }
                 }
             });
@@ -113,7 +145,9 @@
         function OnModuleChange($item) {
             PageCtrl.ePage.Masters.Module.ActiveModule = angular.copy($item);
 
-            GetSubModuleList();
+            if(PageCtrl.ePage.Masters.Module.ActiveModule){
+                GetSubModuleList();
+            }
         }
 
         function GetSubModuleList() {
@@ -122,17 +156,15 @@
             var _filter = {
                 "PropertyName": "DEM_Type",
                 "Group": PageCtrl.ePage.Masters.Module.ActiveModule.Key,
-                "SAP_FK": PageCtrl.ePage.Masters.QueryString.AppPk
-               // "IsAccessBased":"false"
-               
+                "SAP_FK": PageCtrl.ePage.Masters.Application.ActiveApplication.PK
+                // "IsAccessBased":"false"
             };
-
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.DataEntryMaster.API.GetColumnValuesWithFilters.FilterID
+                "FilterID": trustCenterConfig.Entities.API.DataEntryMaster.API.GetColumnValuesWithFilters.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.DataEntryMaster.API.GetColumnValuesWithFilters.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataEntryMaster.API.GetColumnValuesWithFilters.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     PageCtrl.ePage.Masters.SubModule.ListSource = response.data.Response;
                     if (PageCtrl.ePage.Masters.SubModule.ListSource.length > 0) {
@@ -159,16 +191,15 @@
         }
 
         // ========================Module End========================
-
         // ========================Page Start========================
 
         function InitPage() {
             PageCtrl.ePage.Masters.Page = {};
-            PageCtrl.ePage.Masters.Page.ActivePage = {};
             PageCtrl.ePage.Masters.Page.Edit = Edit;
             PageCtrl.ePage.Masters.Page.Copy = Copy;
             PageCtrl.ePage.Masters.Page.AddNew = AddNew;
             PageCtrl.ePage.Masters.Page.OnPageClick = OnPageClick;
+            PageCtrl.ePage.Masters.Page.OnRelatedLookupClick = OnRelatedLookupClick;
             PageCtrl.ePage.Masters.Page.DeleteConfirmation = DeleteConfirmation;
 
             PageCtrl.ePage.Masters.Page.DeleteBtnText = "Delete";
@@ -180,14 +211,14 @@
             var _filter = {
                 "Group": PageCtrl.ePage.Masters.Module.ActiveModule.Key,
                 "Type": PageCtrl.ePage.Masters.SubModule.ActiveSubModule,
-                "SAP_FK": PageCtrl.ePage.Masters.QueryString.AppPk
+                "SAP_FK": PageCtrl.ePage.Masters.Application.ActiveApplication.PK
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.DataEntryMaster.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.DataEntryMaster.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.DataEntryMaster.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataEntryMaster.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     PageCtrl.ePage.Masters.Page.PageList = response.data.Response;
                     if (PageCtrl.ePage.Masters.Page.PageList.length > 0) {
@@ -247,7 +278,7 @@
 
             var _input = [PageCtrl.ePage.Masters.Page.ActivePage];
 
-            apiService.post("eAxisAPI", appConfig.Entities.DataEntryMaster.API.Upsert.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataEntryMaster.API.Upsert.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     var _index = PageCtrl.ePage.Masters.Page.PageList.map(function (value, key) {
                         return value.DataEntry_PK;
@@ -270,8 +301,26 @@
             });
         }
 
+        function GetRedirectLinkList() {
+            PageCtrl.ePage.Masters.Page.RedirectPagetList = [{
+                Code: "RelatedLookup",
+                Description: "RelatedLookup",
+                Icon: "fa fa-cog",
+                Link: "TC/related-lookup",
+                Color: "#333333"
+            }];
+        }
+
         function AddOrEditPage() {
-            var _queryString = PageCtrl.ePage.Masters.QueryString;
+            if (PageCtrl.ePage.Masters.Application.ActiveApplication) {
+                var _queryString = {
+                    "AppPk": PageCtrl.ePage.Masters.Application.ActiveApplication.PK,
+                    "AppCode": PageCtrl.ePage.Masters.Application.ActiveApplication.AppCode,
+                    "AppName": PageCtrl.ePage.Masters.Application.ActiveApplication.AppName
+                };
+            } else {
+                var _queryString = PageCtrl.ePage.Masters.QueryString;
+            }
 
             if (PageCtrl.ePage.Masters.Page.ActivePage) {
                 _queryString.PagePk = PageCtrl.ePage.Masters.Page.ActivePage.DataEntry_PK;
@@ -287,6 +336,26 @@
             } else if (PageCtrl.ePage.Masters.ActiveApplication == 'EA') {
                 $location.path("EA/admin/page/edit/" + helperService.encryptData(_queryString));
             }
+        }
+
+        function OnRelatedLookupClick($item) {
+            if (PageCtrl.ePage.Masters.Application.ActiveApplication) {
+                var _queryString = {
+                    "AppPk": PageCtrl.ePage.Masters.Application.ActiveApplication.PK,
+                    "AppCode": PageCtrl.ePage.Masters.Application.ActiveApplication.AppCode,
+                    "AppName": PageCtrl.ePage.Masters.Application.ActiveApplication.AppName
+                };
+            } else {
+                var _queryString = PageCtrl.ePage.Masters.QueryString;
+            }
+            _queryString.DataEntry_PK = PageCtrl.ePage.Masters.Page.ActivePage.DataEntry_PK;
+            _queryString.DataEntryName = PageCtrl.ePage.Masters.Page.ActivePage.DataEntryName;
+            _queryString.BreadcrumbTitle = PageCtrl.ePage.Masters.Page.ActivePage.DataEntryName;
+            _queryString.EntityRefCode = PageCtrl.ePage.Masters.Page.ActivePage.EntityRefCode;
+            _queryString.EntityRefKey = PageCtrl.ePage.Masters.Page.ActivePage.EntityRefKey;
+            _queryString.EntitySource = PageCtrl.ePage.Masters.Page.ActivePage.EntitySource;
+
+            $location.path($item.Link + "/" + helperService.encryptData(_queryString));
         }
 
         // ========================Page End========================

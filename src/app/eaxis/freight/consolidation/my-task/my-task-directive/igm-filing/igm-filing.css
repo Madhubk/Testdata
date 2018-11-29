@@ -1,0 +1,46 @@
+.igm-filing {
+    position: relative;
+    overflow: hidden;
+}
+
+.decision {
+    background-color: #f0f0f0;
+    padding: 5px;
+}
+
+.igmfiling-Document {
+    height: 300px;
+    overflow-y: auto;
+}
+.consol .tab-content {
+    border: 1px solid #ddd;
+}
+
+.igm-filing .fixedheader {
+    margin-left: 0;
+    margin-right: 0;
+}
+.igm-filing.container-pagination{
+    margin-right: 0px!important;
+    margin-left: 0px !important;
+}
+.igm-filing-con {
+    font-size: 15px;
+    text-align: center;
+}
+
+.igm-filing-loading {
+    font-size: 18px;
+    text-align: center
+}
+.igmfiling .tab-content {
+    border: 1px solid #ddd;
+}
+
+#igmfiling .tab-content {
+    padding: 0;
+}
+#igmfiling .mr-10.ml-10{
+    margin-left: 0 !important;
+    margin-right: 0!important;
+    }

@@ -129,9 +129,12 @@
             apiService.post("eAxisAPI", ConsolPackingCtrl.ePage.Entities.PkgCntMapping.API.FindAllUnAllocatedPacks.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     ConsolPackingCtrl.ePage.Masters.UnAllocatedList = []
-                    ConsolPackingCtrl.ePage.Masters.UnAllocatedList = response.data.Response.Response;
-                    console.log(ConsolPackingCtrl.ePage.Masters.UnAllocatedList)
+                    ConsolPackingCtrl.ePage.Masters.UnAllocatedList = response.data.Response.Response; 
 
+                    if (ConsolPackingCtrl.ePage.Masters.UnAllocatedList.length > 0) {
+                        ConsolPackingCtrl.ePage.Entities.Header.Data.UnAllocatedList=[];
+                        ConsolPackingCtrl.ePage.Entities.Header.Data.UnAllocatedList = response.data.Response.Response;
+                    }
                 }
             });
         }

@@ -12,8 +12,9 @@
             restrict: "EA",
             scope: {
                 obj: "=",
-                fieldName: "=",
-                prefixData: "=",
+                pageName: "=",
+                controlId: "=",
+                controlKey: "=",
                 isFullObj: "=",
                 mode: "=",
                 gridRefreshFunName: "@",
@@ -29,6 +30,15 @@
         function Link(scope, ele, attr) {
             ele.on("click", function () {
                 if (!scope.isDisabled) {
+                    var _index = -1;
+                    for (var x in dynamicLookupConfig.Entities) {
+                        (scope.controlKey) ? _index = x.indexOf(scope.controlKey): _index = x.indexOf(scope.controlId);
+
+                        if (_index !== -1) {
+                            scope.LookupConfig = dynamicLookupConfig.Entities[x];
+                        }
+                    }
+
                     OpenModal();
                 }
             });
@@ -46,13 +56,13 @@
                     bindToController: true,
                     resolve: {
                         param: function () {
-                            dynamicLookupConfig.Entities[scope.prefixData].LookupConfig[scope.fieldName].setValues.map(function (value, key) {
-                                dynamicLookupConfig.Entities[scope.prefixData].LookupConfig[scope.fieldName].defaults[value.sField] = scope.obj[value.eField];
-                            });
+                            if (scope.mode === 2) {
+                                scope.LookupConfig.setValues.map(function (value, key) {
+                                    scope.LookupConfig.defaults[value.sField] = scope.obj[value.eField];
+                                });
+                            }
 
-                            var exports = {
-                                "fieldName": scope.fieldName
-                            };
+                            var exports = {};
                             return exports;
                         }
                     }
@@ -62,14 +72,14 @@
                             $item: response
                         });
 
-                        dynamicLookupConfig.Entities[scope.prefixData].LookupConfig[scope.fieldName].getValues.map(function (value, key) {
-                            scope.obj[value.eField] = response[value.sField];
-                        });
+                        if (scope.mode === 2) {
+                            scope.LookupConfig.selectedRow = response;
+                        }
                     },
                     function () {
                         console.log("Cancelled");
                     }
-                    );
+                );
             }
         }
     }

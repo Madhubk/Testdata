@@ -1,0 +1,11 @@
+<div class="clearfix pull-right fs-25 mb-10 pr-10">
+    <email-modal input="OrderConfirmationCtrl.ePage.Masters.Input" mode="2" type="OrderConfirmationCtrl.ePage.Masters.MailObj"
+        on-complete="OrderConfirmationCtrl.ePage.Masters.OnComplete($item)">
+        <button class="btn btn-default set-br-blue set-bg-blue-light fs-12" data-ng-disabled="OrderConfirmationCtrl.ePage.Masters.SelectedOrder.length == 0">
+            Order Confirmation Request
+        </button>
+    </email-modal>
+</div>
+<div class="clearfix" data-ng-if="OrderConfirmationCtrl.ePage.Masters.ConfirmList">
+    <order-confirm-directive mode="2" list="OrderConfirmationCtrl.ePage.Masters.ConfirmList" grid-change="OrderConfirmationCtrl.ePage.Masters.DataChanges({ item: item })"></order-confirm-directive>
+</div>

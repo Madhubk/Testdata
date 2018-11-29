@@ -1,182 +1,245 @@
-<div class="grid-loading-norecord-container ng-scope" style='z-index: 4;'data-ng-if="CycleCountGeneralCtrl.ePage.Entities.Header.CheckPoints.PageBlur"></div>
 
-<div class="col-lg-3 p-0">
-    <div class="noneditable ng-scope" data-ng-if="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.StocktakeStatus=='LOD' || CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.StocktakeStatus=='FIN'"></div>
+<div class="clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="rows bgStyle">
 
-    <div style="height:540px;padding-top:1px;">
-        <div class="row margin-right-10 margin-left-5 margin-top-10" style="background-color: #f9f9f9; border: 1px solid #eee;">
-            <div class="col-lg-12 mypadding mt-20" style="border-bottom:1px solid #eee;height:480px">
-                <div class="">
-                    <div class="wocstatus text-single-line text-center" ng-if="CycleCountGeneralCtrl.currentCycleCount.isNew" title="New"
-                        data-ng-bind="'New'"></div>
-                    <div class="wocstatus text-single-line text-center" ng-if="!CycleCountGeneralCtrl.currentCycleCount.isNew" title="{{CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.StocktakeStatus +'-'+ CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.CycleCountDesc}}"
-                        data-ng-bind="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.CycleCountDesc"></div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-10">
-                    <div class="form-group">
-                        <label class="control-label text-single-line">Stock Take Number</label>
-                        <div class="">
-                            <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Stock Take No"
-                                data-ng-model="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.StocktakeNumber" readonly=''>
-                        </div>
-                    </div>
-                </div>
-                <!--Date-->
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-10">
-                    <div class="form-group">
-                        <label class="control-label">Stock take Date</label>
-                        <div class="">
-                            <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Stock Take No" readonly='' value="{{CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.StocktakeDate | date:'MMM d, y h:mm:ss a'}}">
-                        </div>
-                    </div>
-                </div>
-                <!--Count Empty Location-->
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-10">
-                    <div class="form-group">
-                        <label class="control-label text-single-line">Count Empty Locations</label>
-                        <div class="">
-                            <select chosen class="form-control" ng-model="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.CountEmptyLocationsCategory"
-                                ng-options="x.Key as x.Key + ' - '  + x.Value for x in CycleCountGeneralCtrl.ePage.Masters.DropDownMasterList.EmptyLocation.ListSource"
-                                search-contains="true">
-                        <option value="">--Select--</option>
-                        </select>
-                        </div>
-                    </div>
-                </div>
-                <!-- Warehouse -->
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-10">
-                    <div class="form-group">
-                        <div class="error-warning-container">
-                            <error-warning-directive data-ng-if="CycleCountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.IsWarning && !CycleCountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.IsError"
-                                list="CycleCountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.WARNING" type="'warning'" icon="fa fa-warning"
-                                parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                            <error-warning-directive data-ng-if="CycleCountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.IsError" list="CycleCountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.ERROR"
-                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                        </div>
-                        <label class="control-label text-single-line">Warehouse</label>
-                        <div class="input-group input-group-sm">
-    
-                            <!-- Dynamic look up Search in textbox -->
-                            <div dynamic-lookup placeholder="Warehouse" my-ng-model="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.Warehouse" auto-complete-on-select="CycleCountGeneralCtrl.ePage.Masters.SelectedLookupDataWarCode($item)"
-                                obj="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader" prefix-data="'Warehouse'"
-                                config="'Warehouse'">
-                            </div>
-    
-                            <!-- Look Up page opens when button clicks -->
-                            <span class="input-group-btn">
-                                <button dynamic-list-modal obj="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader" field-name="'Warehouse'" selected-data="CycleCountGeneralCtrl.ePage.Masters.SelectedLookupDataWarCode($item.entity)"  prefix-data="'Warehouse'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
-                            </span>
-                            <span ng-if='!CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.Warehouse && !CycleCountGeneralCtrl.currentCycleCount.isNew'>
-                                <div ng-init="CycleCountGeneralCtrl.ePage.Masters.OnChangeValues(CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.Warehouse,'E13001')"></div>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <!--Client-->
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-10">
-                    <div class="form-group">
-                        <label class="control-label text-single-line">Client</label>
-                        <div class="input-group input-group-sm">
-    
-                            <!-- Dynamic look up Search in textbox -->
-                            <div dynamic-lookup placeholder="Client" my-ng-model="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.Client" auto-complete-on-select="CycleCountGeneralCtrl.ePage.Masters.SelectedLookupDataClient($item)"
-                                obj="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader" prefix-data="'OrganizationList'"
-                                config="'Client'">
-                            </div>
-    
-                            <!-- Look Up page opens when button clicks -->
-                            <span class="input-group-btn">
-                                <button dynamic-list-modal obj="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader" field-name="'Client'" selected-data="CycleCountGeneralCtrl.ePage.Masters.SelectedLookupDataClient($item.entity)"  prefix-data="'OrganizationList'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
-                            </span>
-                        </div>
+            <div class="noneditable ng-scope" data-ng-if="CycleCountGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable || CycleCountGeneralCtrl.ePage.Entities.Header.GlobalVariables.PartiallyNonEditable"></div>
+
+            <!--Status-->
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Status</label>
+                    <div class="">
+                        <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" data-ng-if="!CycleCountGeneralCtrl.currentCycleCount.isNew"
+                            data-ng-model="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.CycleCountDesc" readonly=''/>
+                        <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" data-ng-if="CycleCountGeneralCtrl.currentCycleCount.isNew" value="New" readonly=''>
                     </div>
                 </div>
             </div>
-        </div>                
-    </div>
-</div>
 
-<div class="col-lg-9 p-0">
-<!-- filter -->
-    <div class="clearfix margin-top-10">
-        <!--Type-->
-        <div class="noneditable ng-scope" data-ng-if="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.StocktakeStatus=='LOD' || CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.StocktakeStatus=='FIN'"></div>
+            <!--Stock Take Number-->
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Stock Take Number</label>
+                    <div class="">
+                        <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" data-ng-if="!CycleCountGeneralCtrl.currentCycleCount.isNew"
+                            data-ng-model="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.StocktakeNumber" readonly=''/>
+                        <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" data-ng-if="CycleCountGeneralCtrl.currentCycleCount.isNew" value="New" readonly=''>
+                    </div>
+                </div>
+            </div>
 
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">Type</label>
-                <div class="">
-                    <select chosen class="form-control" ng-model="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.StocktakeType"
-                        ng-options="x.Key as x.Key + ' - '  + x.Value for x in CycleCountGeneralCtrl.ePage.Masters.DropDownMasterList.CycleCountType.ListSource"
-                        search-contains="true">
+            <!--Date-->
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                <div class="form-group">
+                    <label class="control-label">Stock Take Date</label>
+                    <div class="">
+                        <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Stock Take No" readonly='' value="{{CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.StocktakeDate | date:'MMM d, y'}}">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Warehouse -->
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                <div class="form-group">
+                    <div class="error-warning-container">
+                        <error-warning-directive data-ng-if="CycleCountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.IsWarning && !CycleCountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.IsError"
+                            list="CycleCountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.WARNING" type="'warning'" icon="fa fa-warning"
+                            parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        <error-warning-directive data-ng-if="CycleCountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.IsError" list="CycleCountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    </div>
+                    <label class="control-label text-single-line">Warehouse</label>
+                    <div class="input-group input-group-sm">
+
+                        <!-- Dynamic look up Search in textbox -->
+                        <div dynamic-lookup placeholder="Warehouse" my-ng-model="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.Warehouse" auto-complete-on-select="CycleCountGeneralCtrl.ePage.Masters.SelectedLookupDataWarCode($item)"
+                            obj="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader" page-name="'Warehouse'"
+                            control-id="'Warehouse'" control-key="'Warehouse_3067'">
+                        </div>
+
+                        <!-- Look Up page opens when button clicks -->
+                        <span class="input-group-btn">
+                            <button dynamic-list-modal obj="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader" control-id="'Warehouse'" control-key="'Warehouse_3067'" selected-data="CycleCountGeneralCtrl.ePage.Masters.SelectedLookupDataWarCode($item.data.entity)"  page-name="'Warehouse'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                        </span>
+                        <span ng-if='!CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.Warehouse && !CycleCountGeneralCtrl.currentCycleCount.isNew'>
+                            <div ng-init="CycleCountGeneralCtrl.ePage.Masters.OnChangeValues(CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.Warehouse,'E13001')"></div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!--Client-->
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Client</label>
+                    <div class="input-group input-group-sm">
+
+                        <!-- Dynamic look up Search in textbox -->
+                        <div dynamic-lookup placeholder="Client" my-ng-model="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.Client" auto-complete-on-select="CycleCountGeneralCtrl.ePage.Masters.SelectedLookupDataClient($item)"
+                            obj="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader" page-name="'OrganizationList'"
+                            control-id="'Client'" control-key="'Client_3015'" is-disabled="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.ProductCode">
+                        </div>
+
+                        <!-- Look Up page opens when button clicks -->
+                        <span class="input-group-btn">
+                            <button dynamic-list-modal obj="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader" control-id="'Client'" control-key="'Client_3015'" selected-data="CycleCountGeneralCtrl.ePage.Masters.SelectedLookupDataClient($item.data.entity)"  page-name="'OrganizationList'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button" is-disabled="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.ProductCode"><i class="fa fa-ellipsis-h"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!--Count Empty Location-->
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Count Empty Locations</label>
+                    <div class="">
+                        <select chosen class="form-control" ng-model="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.CountEmptyLocationsCategory"
+                            ng-options="x.Key as x.Key + ' - '  + x.Value for x in CycleCountGeneralCtrl.ePage.Masters.DropDownMasterList.EmptyLocation.ListSource"
+                            search-contains="true">
                     <option value="">--Select--</option>
                     </select>
-                </div>
-            </div>
-        </div>
-       
-        <!--Row-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">Row</label>
-                <div class="input-group input-group-sm">
-    
-                    <!-- Dynamic look up Search in textbox -->
-                    <div dynamic-lookup placeholder="Row" my-ng-model="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.RowName"
-                        auto-complete-on-select="" obj="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader"
-                        prefix-data="'WarehouseRow'" config="'Row'" is-disabled='!CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.Warehouse'>
                     </div>
-    
-                    <!-- Look Up page opens when button clicks -->
-                    <span class="input-group-btn">
-                            <button dynamic-list-modal obj="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader" field-name="'Row'" selected-data="" is-disabled='!CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.Warehouse' prefix-data="'WarehouseRow'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
-                    </span>
                 </div>
             </div>
+
         </div>
-        <!--Area-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">Area</label>
-                <div class="input-group input-group-sm">
-    
-                    <!-- Dynamic look up Search in textbox -->
-                    <div dynamic-lookup placeholder="Area" my-ng-model="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.AreaName"
-                        auto-complete-on-select="" obj="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader"
-                        prefix-data="'WarehouseArea'" config="'Area'" is-disabled='!CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.Warehouse'>
-                    </div>
-    
-                    <!-- Look Up page opens when button clicks -->
-                    <span class="input-group-btn">
-                        <button dynamic-list-modal obj="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader" field-name="'Area'" selected-data=""  
-                        prefix-data="'WarehouseArea'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h" is-disabled='!CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.Warehouse'></i></button>
-                    </span>
+    </div>
+</div>
+   
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <span class="text-single-line custom_label">Filters</span>
+</div>
+
+<!-- Filters -->
+<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-7 mt-10">
+
+        <div class="noneditable ng-scope" data-ng-if="CycleCountGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable || CycleCountGeneralCtrl.ePage.Entities.Header.GlobalVariables.PartiallyNonEditable"></div>
+    <!--Row-->
+    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+        <div class="form-group">
+            <label class="control-label text-single-line">Row</label>
+            <div class="input-group input-group-sm">
+
+                <!-- Dynamic look up Search in textbox -->
+                <div dynamic-lookup placeholder="Row" my-ng-model="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.RowName"
+                    auto-complete-on-select="" obj="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader"
+                    page-name="'WarehouseRow'" control-id="'Row'" control-key="'Row_3205'" is-disabled='!CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.Warehouse'>
                 </div>
+
+                <!-- Look Up page opens when button clicks -->
+                <span class="input-group-btn">
+                        <button dynamic-list-modal obj="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader" control-id="'Row'" control-key="'Row_3205'" selected-data="" is-disabled='!CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.Warehouse' page-name="'WarehouseRow'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                </span>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">Location</label>
-                <div class="input-group input-group-sm">
-    
-                    <!-- Dynamic look up Search in textbox -->
-                    <div dynamic-lookup placeholder="Location" my-ng-model="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.Location"
-                        auto-complete-on-select="CycleCountGeneralCtrl.ePage.Masters.SelectedLookupDataLocation($item)" obj="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader"
-                        prefix-data="'WarehouseLocation'" config="'Location'" is-disabled='!CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.Warehouse'>
-                    </div>
-    
-                    <!-- Look Up page opens when button clicks -->
-    
-                    <span class="input-group-btn">
-                        <button location-dashboard-modal filter="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.WarehouseCode" prefix-data="'WarehouseLocation'" mode ="2"
-                        obj="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader" field-name="'Location'" 
-                        selected-data="CycleCountGeneralCtrl.ePage.Masters.SelectedLookupLocation($item,AdjustmentGeneralCtrl.ePage.Masters.selectedRow)"  grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h" is-disabled='!CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.Warehouse'></i></button>
-                    </span>
+    </div>
+
+     <!--Area-->
+     <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+        <div class="form-group">
+            <label class="control-label text-single-line">Area</label>
+            <div class="input-group input-group-sm">
+
+                <!-- Dynamic look up Search in textbox -->
+                <div dynamic-lookup placeholder="Area" my-ng-model="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.AreaName"
+                    auto-complete-on-select="" obj="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader"
+                    page-name="'WarehouseArea'" control-id="'Area'" control-key="'Area_3217'" is-disabled='!CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.Warehouse'>
                 </div>
+
+                <!-- Look Up page opens when button clicks -->
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader" control-id="'Area'" control-key="'Area_3217'" selected-data=""  
+                    page-name="'WarehouseArea'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h" is-disabled='!CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.Warehouse'></i></button>
+                </span>
             </div>
         </div>
-        <div>
-            <button class="btn btn-blue attach" data-ng-click="CycleCountGeneralCtrl.ePage.Entities.Header.CheckPoints.StockLoad = true" ng-disabled='CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.StocktakeStatus!="New"'> Load New Stocktake </button>
+    </div>
+
+    <!-- Location -->
+    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+        <div class="form-group">
+            <label class="control-label text-single-line">Location</label>
+            <div class="input-group input-group-sm">
+
+                <!-- Dynamic look up Search in textbox -->
+                <div dynamic-lookup placeholder="Location" my-ng-model="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.Location"
+                    auto-complete-on-select="CycleCountGeneralCtrl.ePage.Masters.SelectedLookupDataLocation($item)" obj="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader"
+                    page-name="'WarehouseLocation'" control-id="'Location'" control-key="'Location_2948'" is-disabled='!CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.Warehouse'>
+                </div>
+
+                <!-- Look Up page opens when button clicks -->
+
+                <span class="input-group-btn">
+                    <button location-dashboard-modal filter="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.WarehouseCode" page-name="'WarehouseLocation'" mode ="2"
+                    obj="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader" control-id="'Location'" control-key="'Location_2948'"
+                    selected-data="CycleCountGeneralCtrl.ePage.Masters.SelectedLookupDataLocation($item,AdjustmentGeneralCtrl.ePage.Masters.selectedRow)"  grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h" is-disabled='!CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.Warehouse'></i></button>
+                </span>
+            </div>
         </div>
+    </div>
+
+    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+        <div class="form-group">
+            <label class="control-label text-single-line">Type</label>
+            <div class="">
+                <select chosen class="form-control" ng-model="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.StocktakeType"
+                    ng-options="x.Key as x.Key + ' - '  + x.Value for x in CycleCountGeneralCtrl.ePage.Masters.DropDownMasterList.CycleCountType.ListSource"
+                    search-contains="true">
+                <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Touch Points Date -->
+    <div  class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8" data-ng-show="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.StocktakeType=='TC'">
+        <div class="">
+            <compare-date modal-value="CycleCountGeneralCtrl.ePage.Entities.Header.GlobalVariables.FinalizedDate" label="'Touch Count Date'" field-name="'WOL_FinalisedDate'"
+            is-disabled=""></compare-date>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 mt-10">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding mb-0">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xl-8 p-0">
+            <span>
+                <button style="font-size:11px" dynamic-list-modal obj="CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader" control-id="'ProductInInventory'" 
+                    selected-data="CycleCountGeneralCtrl.ePage.Masters.AttachProduct($item)" page-name="'ProductInInventory'" mode="3" control-key="'ProductInInventory_3312'" 
+                    grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-sm btn-outline-primary" default-filter="CycleCountGeneralCtrl.ePage.Masters.DefaultFilter"
+                    type="button" ng-disabled="CycleCountGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable || CycleCountGeneralCtrl.currentCycleCount.isNew || !CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.Client || CycleCountGeneralCtrl.ePage.Entities.Header.GlobalVariables.PartiallyNonEditable">
+                <i class="fa fa-plus-circle"></i> Attach</button>
+            </span>
+            <span><button type="button" style="font-size:11px" ng-disabled="CycleCountGeneralCtrl.ePage.Masters.selectedRow==-1 || CycleCountGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable || !CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.Client || CycleCountGeneralCtrl.ePage.Entities.Header.GlobalVariables.PartiallyNonEditable" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Delete"  data-ng-click="CycleCountGeneralCtrl.ePage.Masters.DeleteProduct(CycleCountGeneralCtrl.ePage.Masters.ProductDetails[CycleCountGeneralCtrl.ePage.Masters.selectedRow])"><span class="fa fa-minus-circle"></span>&nbsp;&nbsp;Detach</button></span>
+        </div>
+    </div>  
+    <div id="ProductTable{{CycleCountGeneralCtrl.currentCycleCount.label}}" class="fixedheader" key-events table-object='CycleCountGeneralCtrl.ePage.Masters.ProductDetails'  selected-row='CycleCountGeneralCtrl.ePage.Masters.selectedRow' unique-id='ProductTable{{CycleCountGeneralCtrl.currentCycleCount.label}}'>
+        <table  style="height: 125px">
+            <thead>
+                <tr id="tableHeader">
+                    <th  ng-style="{ 'width': '40px' }" title="S.No">S.No</th>
+                    <th  ng-style="{ 'width': '200px' }" title="Product Code">Product Code</th>
+                    <th  ng-style="{ 'width': '300px' }" title="Product Description">Product Description</th>
+                </tr>
+            </thead>
+            <tbody id="GeneralCustTable{{CycleCountGeneralCtrl.currentCycleCount.label}}">
+                <tr id="tableBody"  data-ng-repeat="x in CycleCountGeneralCtrl.ePage.Masters.ProductDetails" ng-click="CycleCountGeneralCtrl.ePage.Masters.setselectedRow($index)" ng-class="{row_active: (CycleCountGeneralCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}">
+                    <td ng-style="{ 'width': '40px' }" >{{$index+1}}</td>
+                    <td ng-style="{ 'width': '200px' }" class="overflow-text" >{{x.ProductCode}}</td>
+                    <td ng-style="{ 'width': '300px' }" class="overflow-text">{{x.ProductDescription}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:100px" ng-if="CycleCountGeneralCtrl.ePage.Masters.ProductDetails.length==0">No Record Found...</div>
+
+</div>
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-50 mt-10">
+    <div class="form-group">
+        <button class="btn btn-blue btn-sm pull-right" data-ng-click="CycleCountGeneralCtrl.ePage.Entities.Header.GlobalVariables.StockLoad = true" ng-disabled='CycleCountGeneralCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.StocktakeStatus!="New"'> Load New Stocktake </button>
     </div>
 </div>

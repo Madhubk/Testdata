@@ -1,0 +1,86 @@
+<div class="clearfix tc-ebpm-typelist-configure-ebpm-typelist-container pb-100 pt-10">
+    <form class="clearfix" novalidate>
+        <div class="clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Code </label>
+                    <input type="text" class="form-control input-sm" data-ng-model="TCEBPMTypelistConfigureCtrl.ePage.Masters.Typelist.FormView.Code"
+                        placeholder="Type Code" />
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Category </label>
+                    <input type="text" class="form-control input-sm" data-ng-model="TCEBPMTypelistConfigureCtrl.ePage.Masters.Typelist.FormView.Category"
+                        placeholder="Type Code" />
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Title </label>
+                    <input type="text" class="form-control input-sm" data-ng-model="TCEBPMTypelistConfigureCtrl.ePage.Masters.Typelist.FormView.Title"
+                        placeholder="Type Code" />
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Description </label>
+                    <input type="text" class="form-control input-sm" data-ng-model="TCEBPMTypelistConfigureCtrl.ePage.Masters.Typelist.FormView.Description"
+                        placeholder="Type Code" />
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Instruction </label>
+                    <input type="text" class="form-control input-sm" data-ng-model="TCEBPMTypelistConfigureCtrl.ePage.Masters.Typelist.FormView.Instruction"
+                        placeholder="Type Code" />
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Module Code </label>
+                    <select chosen class="form-control" data-ng-options="x.Value as x.Value for x in TCEBPMTypelistConfigureCtrl.ePage.Masters.Typelist.ModuleListSource"
+                        data-ng-model="TCEBPMTypelistConfigureCtrl.ePage.Masters.Typelist.FormView.ModuleCode" search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">SubModule Code </label>
+                    <input type="text" class="form-control input-sm" data-ng-model="TCEBPMTypelistConfigureCtrl.ePage.Masters.Typelist.FormView.SubModuleCode"
+                        placeholder="Type Code" />
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Party Type</label>
+                    <select chosen class="form-control" data-ng-options="x.PK as x.PartyName for x in TCEBPMTypelistConfigureCtrl.ePage.Masters.Parties.PartiesListSource"
+                        data-ng-model="TCEBPMTypelistConfigureCtrl.ePage.Masters.Typelist.FormView.PartyType_FK" search-contains="true"
+                        data-ng-change="TCEBPMTypelistConfigureCtrl.ePage.Masters.Typelist.OnPartyTypeChange((TCEBPMTypelistConfigureCtrl.ePage.Masters.Parties.PartiesListSource | filter: {'PK': TCEBPMTypelistConfigureCtrl.ePage.Masters.Typelist.FormView.PartyType_FK})[0])">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" data-ng-model="TCEBPMTypelistConfigureCtrl.ePage.Masters.Typelist.FormView.IsActive" class="colored-blue">
+                            <span class="text text-single-line">Is Active</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="eaxis-footer-strip">
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10"></div>
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+        <button class="btn btn-primary btn-sm pull-right mr-10 mt-6" data-ng-click="TCEBPMTypelistConfigureCtrl.ePage.Masters.SaveTypelist()"
+            data-ng-bind="TCEBPMTypelistConfigureCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="TCEBPMTypelistConfigureCtrl.ePage.Masters.IsDisableSave"></button>
+    </div>
+</div>
+

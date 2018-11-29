@@ -83,7 +83,7 @@
             <!--ShipmentArrivalDate-->
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2" ng-if="ReceiveItemsCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestType=='OCN'">
                 <div class="form-group">
-                    <label class="control-label text-single-line">Shipment Arrival Date</label>
+                    <label class="control-label text-single-line">Arrival Date</label>
                     <div class="text-single-line" ng-bind="ReceiveItemsCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ShipmentArrivalDate | dateFormat"></div>
                 </div>
             </div>
@@ -160,6 +160,15 @@
             </div>
         </div>
     </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">Consignment Number</label>
+            <div class="">
+                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Consignment Number"
+                    data-ng-model="ReceiveItemsCtrl.ePage.Masters.ConsignmentNumber" ng-blur="ReceiveItemsCtrl.ePage.Masters.UpdateDateThroughConsignment(ReceiveItemsCtrl.ePage.Masters.ConsignmentNumber)">
+            </div>
+        </div>
+    </div>
 </div>
 <div class="clearfix mt-10">
     <div class="col-lg-12">
@@ -169,8 +178,9 @@
                     <div class='table_header'>MHU Type</div>
                     <div class='table_header'>Item Code</div>
                     <div class='table_header'>Item Desc</div>
-                    <div class='table_header'>Receiver Ref </div>
-                    <div class='table_header'>Sender Ref</div>
+                    <div class='table_header'>Sender </div>
+                    <div class='table_header'>Receiver</div>
+                    <div class='table_header'>Consignment Number</div>
                     <div class='table_header'>Height</div>
                     <div class='table_header'>Width</div>
                     <div class='table_header'>Length</div>
@@ -201,12 +211,16 @@
                         <div class='table_cell'>{{x.TIT_ItemDesc || ReceiveItemsCtrl.ePage.Masters.emptyText}}</div>
                     </div>
                     <div class='table_small'>
-                        <div class='table_cell'>Receiver Ref</div>
-                        <div class='table_cell'>{{x.TIT_ReceiverRef || ReceiveItemsCtrl.ePage.Masters.emptyText}}</div>
+                        <div class='table_cell'>Sender</div>
+                        <div class='table_cell'>{{x.TIT_SenderCode || ReceiveItemsCtrl.ePage.Masters.emptyText}}-{{x.TIT_SenderName || ReceiveItemsCtrl.ePage.Masters.emptyText}}</div>
                     </div>
                     <div class='table_small'>
-                        <div class='table_cell'>Sender Ref</div>
-                        <div class='table_cell'>{{x.TIT_SenderRef || ReceiveItemsCtrl.ePage.Masters.emptyText}}</div>
+                        <div class='table_cell'>Receiver</div>
+                        <div class='table_cell'>{{x.TIT_ReceiverCode || ReceiveItemsCtrl.ePage.Masters.emptyText}}-{{x.TIT_ReceiverName || ReceiveItemsCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Consignment Number</div>
+                        <div class='table_cell'>{{x.TMC_ConsignmentNumber || ReceiveItemsCtrl.ePage.Masters.emptyText}}</div>
                     </div>
                     <div class='table_small'>
                         <div class='table_cell'>Height</div>
@@ -232,13 +246,13 @@
                         <div class='table_cell'>Received Date</div>
                         <div class='table_cell'>
                             <div class="input-group input-group-sm">
-                                <input type="text" class="form-control" placeholder="{{ReceiveItemsCtrl.ePage.Masters.DatePicker.Options.format}}" datetime-picker="{{ReceiveItemsCtrl.ePage.Masters.DatePicker.Options.format}}"
-                                    ng-model="x.DeliveryDateTime" is-open="ReceiveItemsCtrl.ePage.Masters.DatePicker.isOpen['isDeliveryDateTime'+[$index] ]"
+                                <input type="text" class="form-control" placeholder="{{ReceiveItemsCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datetime-picker="{{ReceiveItemsCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                    ng-model="x.DeliveryDateTime" is-open="ReceiveItemsCtrl.ePage.Masters.DatePicker.isOpen['isDeliveryDateTime'+[$index]]"
                                     datepicker-options="ReceiveItemsCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
                                     close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time=""
-                                    when-closed="ReceiveItemsCtrl.ePage.Masters.DatePicker.OnDeliveryDateTimeSelected(ReceiveItemsCtrl.ePage.Masters.DatePicker.DeliveryDateTime)"
+                                    save-as="ReceiveItemsCtrl.ePage.Masters.DatePicker.Options.saveFormat" when-closed="ReceiveItemsCtrl.ePage.Masters.DatePicker.OnDeliveryDateTimeSelected(ReceiveItemsCtrl.ePage.Masters.DatePicker.DeliveryDateTime)"
                                     data-ng-click="ReceiveItemsCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isDeliveryDateTime'+[$index])"
-                                    popup-placement="bottom-right" />
+                                    popup-placement="bottom-right" custom-date-time-format/>
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-default" data-ng-click="ReceiveItemsCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isDeliveryDateTime'+[$index])">
                                         <i class="fa fa-calendar"></i>

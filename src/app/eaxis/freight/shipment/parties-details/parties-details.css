@@ -1,0 +1,46 @@
+
+#parties-header .panel {
+  border-radius: 0;
+}
+
+#parties-header .panel-title {
+  font-size: 13px;
+  color: #1e2778;
+}
+
+.height-30 {
+  height: 30px !important;
+}
+
+.parties-header-span {
+  border: 2px solid #eee;
+  border-radius: 2px;
+  padding: 2px 7px;
+  font-size: 9px;
+}
+
+.parties-header-title {
+  padding: 7px 10px;
+  position: absolute;
+  left: 0;
+  top: -1px;
+  font-size: 11px;
+  font-weight: bold;
+  border-top: 2px solid #57889c;
+  color: #1e2778;
+  background: #fff;
+  border-right: 1px solid #ddd;
+}
+
+.parties-header-label,
+.parties-header-value {
+  font-size: 11px;
+}
+
+.parties-header-label {
+  color: #999;
+}
+
+.parties-header-value {
+  height: 15px;
+}

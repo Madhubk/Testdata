@@ -1,0 +1,79 @@
+<div class="ik-st-box">
+    <div class="col-sm-2 pt-10">
+        <div class="ik-st-no fs-15">
+            <a data-ng-href="javascript:void(0)" data-ng-click="ShpGeneralCtrl.ePage.Masters.SingleRecordView()">{{ShpGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentNo}}</a>
+        </div>
+        <div class="ik-st-main-icon">
+            <i class="fa fa-map-marker"></i>
+        </div>
+    </div>
+    <div class="col-sm-10 border-l">
+        <div class="ik-st-inner-box clearfix p-10">
+            <div class="ik-st-top-title">
+                <div class="ik-st-cnsha-l">
+                    <div class="ik-cnsha-title">{{ShpGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin}}</div>
+                </div>
+                <div class="ik-st-cnsha-r">
+                    <div class="ik-cnsha-title">{{ShpGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination}}</div>
+                </div>
+            </div>
+            <div class="ik-st-marker-box">
+                <span class="ik-st-icon-marker ik-st-icon-marker-left">
+                    <i class="fa fa-circle-o"></i>
+                </span>
+                <div class="ik-st-line">
+                    <div class="ik-st-content-1">
+                        <span class="task-list-des-sub-title-l">[ {{ShpGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.OriginDesc}} ]</span>
+                        <span class="task-list-des-sub-title-r">[ {{ShpGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.DestinationDesc}} ]</span>
+                    </div>
+                    <div class="ik-st-content">
+                        <span class="task-list-des-sub-title">
+                            <i class="icon-ocean32 fa-2x ng-scope"></i>
+                            {{ShpGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode}}
+                        </span>
+                        <span class="task-arrow">
+                            <i class="fa fa-caret-right"></i>
+                        </span>
+                        <span class="task-list-des-sub-title">{{ShpGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ContainerMode}}</span>
+                        <span class="task-slash">|</span>
+                        <span class="task-list-des-sub-title">{{ShpGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.IncoTerm}}</span>
+                        <span class="task-slash">|</span>
+                        <span class="task-list-des-sub-title">
+                            <i class="fa fa-calendar"></i> {{ShpGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETA |
+                            date : 'dd-MMM-yyyy'}} >
+                            <i class="fa fa-calendar"></i> {{ShpGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETD | date
+                            : 'dd-MMM-yyyy'}}
+                        </span>
+
+                    </div>
+                </div>
+                <span class="ik-st-icon-marker ik-st-icon-marker-right">
+                    <i class="fa fa-map-marker"></i>
+                </span>
+            </div>
+            <div class="ik-st-bottom-title">
+                <div class="ik-st-cnsha-l">
+                    <div class="ik-cnsha-title">{{ShpGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ConsigneeName}}</div>
+                    <div class="ik-st-address">
+                        <a data-toggle="tooltip" title="" class="">
+                            <span data-ng-if="ShpGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.Address1">{{ShpGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.Address1}}</span>
+                            <br>
+                            <span data-ng-if="ShpGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.Address2">{{ShpGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.Address2}}</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="ik-st-cnsha-r">
+                    <div class="ik-cnsha-title">{{ShpGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipperName}}</div>
+                    <div class="ik-st-address">
+                        <a data-toggle="tooltip" title="" class="">
+                            <span data-ng-if="ShpGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.Address1">{{ShpGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.Address1}}</span>
+                            <br>
+                            <span data-ng-if="ShpGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.Address2">{{ShpGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.Address2}}</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

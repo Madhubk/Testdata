@@ -1,0 +1,64 @@
+<div class="modal-header">
+    <h5 class="modal-title pull-left">
+        <strong>Package Details</strong>
+    </h5>
+    <input type="button" class="btn btn-primary btn-sm pull-right margin-left-5" ng-click="oneThreePackingModalCtrl.ePage.Masters.Package.ok()"
+        value="OK" />
+</div>
+<div class="modal-body" id="modal-body">
+    <div class="clearfix padding-top-10">
+        <!-- Packing Grid -->
+        <div class="" data-ng-if="oneThreePackingModalCtrl.currentShipment">
+            <packing-grid current-object="oneThreePackingModalCtrl.currentShipment" grid-data="oneThreePackingModalCtrl.ePage.Masters.Package.GridData" freight-mode="'STD'" btn-visible="{'AddNew':true,'Delete':true,'More':false}"
+                table-properties="" read-only="false"></packing-grid>
+        </div>
+        <div class="col-xs-12 col-lg-12 col-sm-12 col-md-12 col-xl-12 pt-10 pb-10 packing-total">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-1 col-xl-1 text-center">
+                <i class="fa fa-calculator fa-3x"></i>
+            </div>
+            <!-- Inner Packs-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                <div class="">
+                    Total Inner Packs :
+                    <b>{{oneThreePackingModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackageCount}} |
+                        {{oneThreePackingModalCtrl.ePage.Masters.Package.GridData[0].F3_NKPackType}}</b>
+                </div>
+                <div class="padding-top-5">
+                    Shipment Inner Packs :
+                    <b>{{oneThreePackingModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.InnerPackCount}} |
+                        {{oneThreePackingModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.InnerPackType}}</b>
+                </div>
+            </div>
+            <!-- Weight-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                <div class="">
+                    Total Weight :
+                    <b>{{oneThreePackingModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ActualWeight}} |
+                        {{oneThreePackingModalCtrl.ePage.Masters.Package.GridData[0].ActualWeightUQ}}</b>
+                </div>
+                <div class="padding-top-5">
+                    Shipment Weight :
+                    <b>{{oneThreePackingModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Weight}} |
+                        {{oneThreePackingModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.UnitOfWeight}}</b>
+                </div>
+            </div>
+            <!--Volume-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="">
+                    Total Volume :
+                    <b>{{oneThreePackingModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ActualVolume}} |
+                        {{oneThreePackingModalCtrl.ePage.Masters.Package.GridData[0].ActualVolumeUQ}}</b>
+                </div>
+                <div class="padding-top-5">
+                    Shipment Volume :
+                    <b> {{oneThreePackingModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Volume}} |
+                        {{oneThreePackingModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.UnitOfVolume}}</b>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <input type="button" class="btn btn-primary btn-sm pull-right margin-left-5" ng-click="oneThreePackingModalCtrl.ePage.Masters.Package.ok()"
+        value="OK" />
+</div>

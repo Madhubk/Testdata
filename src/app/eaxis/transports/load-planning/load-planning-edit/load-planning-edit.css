@@ -1,0 +1,41 @@
+.addressbox{
+    width: 100%;
+    float: left;
+    padding: 10px;
+    border-radius: 3px;
+    border: 1px solid #eee;
+    box-shadow: 1px 1px 5px #ddd;
+    position: relative;
+    height: 95px;
+    background: #fff;
+    font-size: 11px;
+    cursor: pointer;
+}
+.addressboxselected{
+    width: 100%;
+    float: left;
+    padding: 10px;
+    border-radius: 3px;
+    border: 1px solid #eee;
+    box-shadow: 1px 1px 5px #ddd;
+    position: relative;
+    height: 95px;
+    background: #e6e5e5;
+    font-size: 11px;
+    cursor: pointer;
+}
+.addressbox:hover{
+    -moz-box-shadow: 0 0 10px #ccc;
+    -webkit-box-shadow: 0 0 10px #ccc;
+    box-shadow: 0 0 10px #ccc;
+}
+.addressboxselected:hover{
+    -moz-box-shadow: 0 0 10px #ccc;
+    -webkit-box-shadow: 0 0 10px #ccc;
+    box-shadow: 0 0 10px #ccc;
+}
+
+
+.txt-center{
+    text-align: center;
+}

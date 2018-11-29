@@ -33,13 +33,13 @@
     padding: 8px 10px;
 }
 
-#customers td:first-child, #customers th:first-child {
+/*#customers td:first-child, #customers th:first-child {
     border-left: 1px solid transparent;
 }
 
 #customers td:last-child, #customers th:last-child {
     border-right: 1px solid transparent;
-}
+}*/
 
 #customers th {   
     text-align: left;
@@ -97,3 +97,19 @@
 .bg-fbfbfb{
     background: #fbfbfb;
 }
+.table1{
+    width: 100%;
+}
+.Width-18{
+    width: 18%;   
+}
+.no-padding{
+    padding : 0px;
+}
+.pading8{
+    padding: 8px 0px;
+}
+.padding1{
+    padding: 8px 3px;
+}
+

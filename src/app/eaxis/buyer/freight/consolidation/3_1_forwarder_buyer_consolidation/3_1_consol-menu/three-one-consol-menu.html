@@ -1,0 +1,76 @@
+<div class="clearfix consol-menu-wraper">
+    <div id="consolMenuWrapper{{ThreeOneConsolMenuCtrl.currentConsol.label}}" class="col-sm-12 no-padding-left no-padding-right" data-ng-class="ThreeOneConsolMenuCtrl.ePage.Masters.IsShowAddress ? 'col-sm-8' : 'col-sm-12'">
+        <uib-tabset class="shipment-menu tabs-left tabbable">
+            <div class="tab-profile">
+                <div class="tab-profile-title text-single-line text-center" data-ng-bind="ThreeOneConsolMenuCtrl.currentConsol.label"></div>
+            </div>
+            <uib-tab id="top" data-ng-repeat="x in ThreeOneConsolMenuCtrl.ePage.Masters.ConsolMenu.ListSource" deselect="ThreeOneConsolMenuCtrl.ePage.Masters.TabSelected(x,$selectedIndex,$event);"
+                index="$index" data-ng-click="ThreeOneConsolMenuCtrl.ePage.Masters.OnMenuClick(x)" data-ng-if="!x.IsDisabled">
+                <uib-tab-heading title="{{x.DisplayName}}">
+                    <i class="fa {{x.Icon}} margin-right-5"></i>
+                    <span class="text-single-line" data-ng-bind="x.DisplayName"></span>
+                    <error-warning-directive data-ng-if="ThreeOneConsolMenuCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Consolidation',ThreeOneConsolMenuCtrl.currentConsol.code,x.GParentRef, 'W', 'GParent').length > 0 && ThreeOneConsolMenuCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Consol', ThreeOneConsolMenuCtrl.currentConsol.code,x.GParentRef, 'E', 'GParent').length == 0"
+                        list="ThreeOneConsolMenuCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList" type="'warning'" icon="fa fa-warning"
+                        parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
+                    <error-warning-directive data-ng-if="ThreeOneConsolMenuCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Consolidation', ThreeOneConsolMenuCtrl.currentConsol.code,x.GParentRef, 'E', 'GParent').length > 0"
+                        list="ThreeOneConsolMenuCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList" type="'error'" icon="fa fa-warning"
+                        parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
+                </uib-tab-heading>
+                <div>
+                    <div data-ng-switch="x.Value">
+                        <!--Menu directives-->
+                        <div data-ng-switch-when="QuickView" three-one-quick-view obj="ThreeOneConsolMenuCtrl.currentConsol"></div>
+                        <div data-ng-switch-when="MyTask" three-one-consol-my-task current-consol="ThreeOneConsolMenuCtrl.currentConsol" list-source="ThreeOneConsolMenuCtrl.ePage.Masters.MyTask.ListSource"></div>
+                        <div data-ng-switch-when="General" three-one-consol-general current-consol="ThreeOneConsolMenuCtrl.currentConsol"></div>
+                        <div data-ng-switch-when="ArrivalDeparture" three-one-consol-arrival-departure current-consol="ThreeOneConsolMenuCtrl.currentConsol"></div>
+                        <div data-ng-switch-when="Shipments" three-one-consol-shipment current-consol="ThreeOneConsolMenuCtrl.currentConsol"></div>
+                        <routing-grid data-ng-switch-when="Routing" current-object="ThreeOneConsolMenuCtrl.currentConsol" key-object-name="'CON'" fk-name="'PK'" pk-name="'CON_PK'"
+                            api-header-name="'UIConConsolHeader'" api-header-field-name="'PK'" api-header-value-name="'CON_FK'"
+                            btn-visible="{'AddNew':true,'Delete':true,'More':true}" table-properties="" read-only="false"></routing-grid>
+                        <div data-ng-switch-when="Containers" three-one-consol-container current-consol="ThreeOneConsolMenuCtrl.currentConsol"></div>
+                        <div data-ng-switch-when="Packing" three-one-consol-packing current-consol="ThreeOneConsolMenuCtrl.currentConsol"></div>
+                        <div data-ng-switch-when="Address" data-ng-if="ThreeOneConsolMenuCtrl.currentConsol[ThreeOneConsolMenuCtrl.currentConsol.label].ePage.Entities.Header.Data.UIAddressContactList.CfxTypeList"
+                            address-directives current-obj="ThreeOneConsolMenuCtrl.currentConsol" entitysource="'CON'"></div>
+                    </div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+    <div class="error-warning-container right" id="errorWarningContainer{{ThreeOneConsolMenuCtrl.currentConsol.code}}">
+            <div class="error-warning-header clearfix">
+                <span class="title pull-left">
+                    <!-- <i class="fa fa-warning"></i>  -->
+                    Errors & Warnings
+                </span>
+                <span class="error-warning-toggle-icon pull-right" data-ng-click="ThreeOneConsolMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(ThreeOneConsolMenuCtrl.currentConsol)">
+                    <i class="fa fa-arrow-right"></i>
+                </span>
+            </div>
+            <div class="error-warning-body">
+                <div class="clearfix" data-ng-if="ThreeOneConsolMenuCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList.length>0">
+                    <div class="clearfix">
+                        <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in ThreeOneConsolMenuCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList">
+                            <div class="clearfix">
+                                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                    <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                                </div>
+                                <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                    <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                    <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- <div class="eaxis-footer-strip">
+        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
+            <standard-menu input="ThreeOneConsolMenuCtrl.ePage.Masters.StandardMenuInput" data-ng-if="!ThreeOneConsolMenuCtrl.currentConsol.isNew"></standard-menu>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="ThreeOneConsolMenuCtrl.ePage.Masters.Save(ThreeOneConsolMenuCtrl.currentConsol)"
+                data-ng-bind="ThreeOneConsolMenuCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="ThreeOneConsolMenuCtrl.ePage.Masters.IsDisableSave"></button>
+        </div>
+    </div> -->
+</div>

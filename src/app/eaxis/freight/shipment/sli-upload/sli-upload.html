@@ -1,0 +1,40 @@
+﻿<uib-tabset id="chromeTab" active="ShpSLIUploadCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+    <uib-tab>
+        <uib-tab-heading title="">
+            <span data-ng-bind="'SLI Upload'"></span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+        <div class="no-padding tab-list-view-wrapper">
+            <!--SLI Grid Page-->
+            <dynamic-list dataentry-name="ShpSLIUploadCtrl.ePage.Masters.dataentryName" selected-grid-row="ShpSLIUploadCtrl.ePage.Masters.SelectedGridRow($item)"
+                mode="1" default-filter="ShpSLIUploadCtrl.ePage.Masters.defaultFilter" dataentry-object="ShpSLIUploadCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+            <div class="tab-loading" data-ng-show="ShpSLIUploadCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+    <uib-tab id='top' active="ShpSLIUploadCtrl.ePage.Masters.activeTabIndex == $index" data-ng-repeat="tab in ShpSLIUploadCtrl.ePage.Masters.TabList"
+        data-ng-click="ShpSLIUploadCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+        <uib-tab-heading title="{{tab.label}}">
+            <span data-ng-bind="tab.label"></span>
+            <i class="glyphicon glyphicon-remove" data-ng-click="ShpSLIUploadCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+        </uib-tab-heading>
+        <div class="padding-bottom-10 clearfix">
+            <!--SLI Upload Menu Directive-->
+            <shp-sli-upload-directive current-sli="tab" data-ng-if="ShpSLIUploadCtrl.ePage.Masters.currentSLI"></shp-sli-upload-directive>
+            <!--Standard Menu Directive-->
+            <div class="eaxis-footer-strip">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <standard-menu input="tab" dataentry-object="ShpSLIUploadCtrl.ePage.Masters.DataEntryObject" data-ng-if="!tab.isNew"></standard-menu>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="ShpSLIUploadCtrl.ePage.Masters.Save(tab)"
+                        data-ng-bind="ShpSLIUploadCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="ShpSLIUploadCtrl.ePage.Masters.IsDisableSave"></button>
+                </div>
+            </div>
+            <!--Standard Menu Directive-->
+        </div>
+    </uib-tab>
+    <button class="btn btn-default" data-ng-click="ShpSLIUploadCtrl.ePage.Masters.CreateNewBooking()" data-ng-disabled="ShpSLIUploadCtrl.ePage.Masters.IsNewBookingClicked">+</button>
+    <button class="btn btn-default btn-shipment-booking" data-ng-disabled="ShipmentCtrl.ePage.Masters.IsNewShipmentClicked"
+        data-ng-click="ShpSLIUploadCtrl.ePage.Masters.ShipmentSelection('dashboard')"><i
+            class="fa fa-anlgle-double-left"></i> Back to Dashboard</button>
+</uib-tabset>

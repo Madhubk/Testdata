@@ -1,0 +1,41 @@
+.content-header1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 0;
+    margin-top: 10px;
+}
+
+.content-header2 {
+    font-size: 1.75rem;
+    margin-top: 32px;
+    font-weight: bold;
+}
+
+.content-header3 {
+    font-size: 1.50rem;
+    margin-top: -10px;
+    font-weight: bold;
+}
+
+.content-formatter {
+    margin-top: 1rem;
+    margin-bottom: 0;
+    display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
+
+.content-topic {
+    font-size: 20px;
+}
+
+.image-container img {
+    width: 75%;
+    box-shadow: 10px 10px 10px rgba(0,0,0,0.1);
+}
+
+.content-list {
+    border-right: 1px solid #f7f7f7;
+}

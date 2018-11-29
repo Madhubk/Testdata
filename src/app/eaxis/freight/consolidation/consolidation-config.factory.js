@@ -5,9 +5,9 @@
         .module("Application")
         .factory('consolidationConfig', ConsolidationConfig);
 
-    ConsolidationConfig.$inject = ["$location", "$q", "apiService", "toastr", "helperService"];
+    ConsolidationConfig.$inject = ["$location", "$q", "apiService", "toastr", "helperService", "errorWarningService"];
 
-    function ConsolidationConfig($location, $q, apiService, toastr, helperService) {
+    function ConsolidationConfig($location, $q, apiService, toastr, helperService, errorWarningService) {
         var exports = {
             "Entities": {
                 "Header": {
@@ -32,7 +32,10 @@
                 }
             },
             "TabList": [],
-            "GetTabDetails": GetTabDetails
+            "GetTabDetails": GetTabDetails,
+            "GeneralValidation": GeneralValidation,
+            "ShowErrorWarningModal": ShowErrorWarningModal,
+            "PortsComparison": PortsComparison
         };
         return exports;
 
@@ -66,42 +69,60 @@
                         },
                         "Meta": {
                             "MenuList": [{
-                                    "DisplayName": "Consol Details",
-                                    "Value": "General",
-                                    "Icon": "fa-tags"
-                                },
-                                {
-                                    "DisplayName": "Arrival & Departure",
-                                    "Value": "ArrivalDeparture",
-                                    "Icon": "fa-train"
-                                }, 
-                                {
-                                    "DisplayName": "Linked Shipments",
-                                    "Value": "Shipments",
-                                    "Icon": "fa-plane"
-                                },
-                                {
-                                    "DisplayName": "Routing",
-                                    "Value": "Routing",
-                                    "Icon": "fa-ship"
-                                },
-                                {
-                                    "DisplayName": "Containers",
-                                    "Value": "Containers",
-                                    "Icon": "fa-truck"
-                                },
-                                {
-                                    "DisplayName": "Packlines Allocation",
-                                    "Value": "Packing",
-                                    "Icon": "fa-suitcase"
-                                },
-                                {
-                                    "DisplayName": "Address",
-                                    "Value": "Address",
-                                    "Icon": "fa-address-card-o"
-                                }
+                                "DisplayName": "My Task",
+                                "Value": "MyTask",
+                                "Icon": "menu-icon icomoon icon-my-task",
+                                "IsDisabled": false
+                            },
+                            {
+                                "DisplayName": "Consol Details",
+                                "Value": "General",
+                                "Icon": "fa-tags",
+                                "GParentRef": "General",
+                                "IsDisabled": false
+                            },
+                            {
+                                "DisplayName": "Arrival & Departure",
+                                "Value": "ArrivalDeparture",
+                                "Icon": "fa-train",
+                                "IsDisabled": false
+                            },
+                            {
+                                "DisplayName": "Linked Shipments",
+                                "Value": "Shipments",
+                                "Icon": "fa-plane",
+                                "IsDisabled": false
+                            },
+                            {
+                                "DisplayName": "Routing",
+                                "Value": "Routing",
+                                "Icon": "fa-ship",
+                                "IsDisabled": false
+                            },
+                            {
+                                "DisplayName": "Containers",
+                                "Value": "Containers",
+                                "Icon": "fa-truck",
+                                "IsDisabled": false
+                            },
+                            {
+                                "DisplayName": "Packlines Allocation",
+                                "Value": "Packing",
+                                "Icon": "fa-suitcase",
+                                "IsDisabled": false
+                            },
+                            {
+                                "DisplayName": "Address",
+                                "Value": "Address",
+                                "Icon": "fa-address-card-o",
+                                "IsDisabled": false
+                            }
                             ]
                         }
+                    },
+                    "GlobalVariables": {
+                        "Loading": false,
+                        "NonEditable": false,
                     },
                     "ConsolShipment": {
                         "ListSource": [],
@@ -135,12 +156,12 @@
                             "GetById": {
                                 "IsAPI": "true",
                                 "HttpType": "GET",
-                                "Url": "CntContainerList/GetById/"
+                                "Url": "CntContainer/GetById/"
                             },
                             "Insert": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
-                                "Url": "CntContainer/Insert"
+                                "Url": "CntContainer/Insert2"
                             },
                             "Update": {
                                 "IsAPI": "true",
@@ -364,10 +385,11 @@
             if (isNew) {
                 _exports.Entities.Header.Data = currentConsol.data;
                 var obj = {
-                    [currentConsol.entity.ConsolNo]: {
+                    New: {
                         ePage: _exports
                     },
-                    label: currentConsol.entity.ConsolNo,
+                    label: 'New',
+                    code: currentConsol.entity.ConsolNo,
                     isNew: isNew
                 };
                 exports.TabList.push(obj);
@@ -390,6 +412,7 @@
                             ePage: _exports
                         },
                         label: currentConsol.ConsolNo,
+                        code: currentConsol.ConsolNo,
                         isNew: isNew
                     };
                     exports.TabList.push(obj);
@@ -397,6 +420,54 @@
                 });
             }
             return deferred.promise;
+        }
+
+        function ShowErrorWarningModal(EntityObject) {
+            $("#errorWarningContainer" + EntityObject.code).toggleClass("open");
+        }
+
+        function GeneralValidation($item) {
+            //General Page Validation
+            var _Data = $item[$item.label].ePage.Entities,
+                _input = _Data.Header.Data;
+            var _deferred = $q.defer();
+            errorWarningService.OnFieldValueChange("Consol", $item.code, _input.UIConConsolHeader.AgentType, 'E0001', false);
+            errorWarningService.OnFieldValueChange("Consol", $item.code, _input.UIConConsolHeader.FirstLoadPort, 'E0003', false);
+            errorWarningService.OnFieldValueChange("Consol", $item.code, _input.UIConConsolHeader.LastDischargePort, 'E0004', false);
+            errorWarningService.OnFieldValueChange("Consol", $item.code, _input.UIConConsolHeader.ContainerMode, 'E0005', false);
+            if (_input.UIConConsolHeader.FirstLoadPort && _input.UIConConsolHeader.LastDischargePort) {
+                var port = PortsComparison(_input.UIConConsolHeader.FirstLoadPort, _input.UIConConsolHeader.LastDischargePort)
+                if (port) {
+                    if (_input.UIConConsolHeader.IsDomestic) {
+                        errorWarningService.OnFieldValueChange("Consol", $item.code, true, 'E0002', false);
+                    } else {
+                        errorWarningService.OnFieldValueChange("Consol", $item.code, false, 'E0002', false);
+                    }
+                } else {
+                    if (!_input.UIConConsolHeader.IsDomestic) {
+                        errorWarningService.OnFieldValueChange("Consol", $item.code, true, 'E0002', false);
+                    } else {
+                        errorWarningService.OnFieldValueChange("Consol", $item.code, false, 'E0002', false);
+                    }
+                }
+            }
+
+
+            _deferred.resolve(errorWarningService);
+
+
+            return _deferred.promise;
+
+        }
+
+        function PortsComparison(Str1, Str2) {
+            if (Str1 && Str2) {
+                if (Str1.slice(0, 2) == Str2.slice(0, 2)) {
+                    return true
+                } else {
+                    return false
+                }
+            }
         }
     }
 })();

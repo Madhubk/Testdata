@@ -5,9 +5,9 @@
         .module("Application")
         .controller("ManageParameterController", ManageParameterController);
 
-    ManageParameterController.$inject = ["$scope", "$location", "$uibModal", "authService", "apiService", "helperService", "appConfig", "toastr", "confirmation", "$timeout", "jsonEditModal"];
+    ManageParameterController.$inject = ["$scope", "$location", "$uibModal", "authService", "apiService", "helperService", "toastr", "confirmation", "$timeout", "jsonEditModal", "trustCenterConfig"];
 
-    function ManageParameterController($scope, $location, $uibModal, authService, apiService, helperService, appConfig, toastr, confirmation, $timeout, jsonEditModal) {
+    function ManageParameterController($scope, $location, $uibModal, authService, apiService, helperService, toastr, confirmation, $timeout, jsonEditModal, trustCenterConfig) {
         var ManageParameterCtrl = this;
         var _queryString = $location.path().split("/").pop();
 
@@ -28,6 +28,7 @@
 
                 if (ManageParameterCtrl.ePage.Masters.QueryString.AppPk) {
                     InitBreadcrumb();
+                    InitApplication();
                     InitManageParametersListType();
                     InitManageParametersListTypeList();
                 }
@@ -53,10 +54,15 @@
                 IsRequireQueryString: false,
                 IsActive: false
             }, {
-                Code: "configuration",
-                Description: "Configuration",
-                Link: "TC/dashboard/" + helperService.encryptData('{"Type":"Configuration", "BreadcrumbTitle": "Configuration"}'),
-                IsRequireQueryString: false,
+                Code: "dashboard",
+                Description: "Dashboard",
+                Link: "TC/dashboard",
+                IsRequireQueryString: true,
+                QueryStringObj: {
+                    "AppPk": ManageParameterCtrl.ePage.Masters.QueryString.AppPk,
+                    "AppCode": ManageParameterCtrl.ePage.Masters.QueryString.AppCode,
+                    "AppName": ManageParameterCtrl.ePage.Masters.QueryString.AppName
+                },
                 IsActive: false
             }, {
                 Code: "manageparameters",
@@ -76,39 +82,56 @@
         }
 
         // ========================Breadcrumb End========================
+        // ========================Application Start=====================
+        function InitApplication() {
+            ManageParameterCtrl.ePage.Masters.Application = {};
+            ManageParameterCtrl.ePage.Masters.Application.OnApplicationChange = OnApplicationChange;
+        }
+
+        function OnApplicationChange($item) {
+            ManageParameterCtrl.ePage.Masters.Application.ActiveApplication = angular.copy($item);
+
+            if (!ManageParameterCtrl.ePage.Masters.Application.ActiveApplication) {
+                ManageParameterCtrl.ePage.Masters.Application.ActiveApplication = {
+                    "PK": ManageParameterCtrl.ePage.Masters.QueryString.AppPk,
+                    "AppCode": ManageParameterCtrl.ePage.Masters.QueryString.AppCode,
+                    "AppName": ManageParameterCtrl.ePage.Masters.QueryString.AppName
+                };
+            }
+
+            GetManageParametersListType();
+        }
 
         // ============== ManageParameters List Operation Type =========== //
 
         function InitManageParametersListType() {
             ManageParameterCtrl.ePage.Masters.ManageParametersListType = {};
             ManageParameterCtrl.ePage.Masters.ManageParametersListType.OnManageParametersListTypeClick = OnManageParametersListTypeClick;
-
-            GetManageParametersListType();
         }
 
         function GetManageParametersListType() {
             var _filter = {
                 "PropertyName": "DTY_TypeCode",
-                "SAP_FK": ManageParameterCtrl.ePage.Masters.QueryString.AppPk
+                "SAP_FK": ManageParameterCtrl.ePage.Masters.Application.ActiveApplication.PK
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.TypeMaster.API.GetColumnValuesWithFilters.FilterID
+                "FilterID": trustCenterConfig.Entities.API.TypeMaster.API.GetColumnValuesWithFilters.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.TypeMaster.API.GetColumnValuesWithFilters.Url, _input).then(function SuccessCallback(response) {
-                if (response.data.Response) {
-                    ManageParameterCtrl.ePage.Masters.ManageParametersListType.ListSource = response.data.Response;
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.TypeMaster.API.GetColumnValuesWithFilters.Url, _input).then(function SuccessCallback(response) {
+                    if (response.data.Response) {
+                        ManageParameterCtrl.ePage.Masters.ManageParametersListType.ListSource = response.data.Response;
 
-                    if (ManageParameterCtrl.ePage.Masters.ManageParametersListType.ListSource.length > 0) {
-                        OnManageParametersListTypeClick(ManageParameterCtrl.ePage.Masters.ManageParametersListType.ListSource[0]);
+                        if (ManageParameterCtrl.ePage.Masters.ManageParametersListType.ListSource.length > 0) {
+                            OnManageParametersListTypeClick(ManageParameterCtrl.ePage.Masters.ManageParametersListType.ListSource[0]);
+                        } else {
+                            OnManageParametersListTypeClick();
+                        }
                     } else {
-                        OnManageParametersListTypeClick();
+                        ManageParameterCtrl.ePage.Masters.ManageParametersListType.ListSource = [];
                     }
-                } else {
-                    ManageParameterCtrl.ePage.Masters.ManageParametersListType.ListSource = [];
-                }
-            });
+                });
         }
 
         function OnManageParametersListTypeClick($item) {
@@ -150,14 +173,14 @@
 
             var _filter = {
                 "TypeCode": ManageParameterCtrl.ePage.Masters.ManageParametersListType.ActiveManageParametersListType,
-                "SAP_FK": ManageParameterCtrl.ePage.Masters.QueryString.AppPk
+                "SAP_FK": ManageParameterCtrl.ePage.Masters.Application.ActiveApplication.PK
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.TypeMaster.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.TypeMaster.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.TypeMaster.API.FindAll.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.TypeMaster.API.FindAll.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.ListSource = response.data.Response;
 
@@ -206,7 +229,7 @@
             ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.SaveBtnText = "OK";
             ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.IsDisableSaveBtn = false;
 
-            EditModalInstance().result.then(function (response) {}, function () {
+            EditModalInstance().result.then(function (response) { }, function () {
                 Cancel();
             });
         }
@@ -223,11 +246,11 @@
                 }
             }
             _input.TenantCode = authService.getUserInfo().TenantCode;
-            _input.SAP_FK = ManageParameterCtrl.ePage.Masters.QueryString.AppPk;
+            _input.SAP_FK = ManageParameterCtrl.ePage.Masters.Application.ActiveApplication.PK;
             _input.IsModified = true;
             _input.IsDeleted = false;
 
-            apiService.post("eAxisAPI", appConfig.Entities.TypeMaster.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.TypeMaster.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     var _response = response.data.Response[0];
                     if (_response.OtherConfig) {
@@ -291,6 +314,8 @@
                 if (_index !== -1) {
                     ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.ActiveManageParametersListTypeList = angular.copy(ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.ListSource[_index]);
                 }
+            } else if (!ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.ActiveManageParametersListTypeListCopy) {
+                ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.ActiveManageParametersListTypeList = undefined;
             }
             ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.EditModal.dismiss('cancel');
         }
@@ -320,7 +345,7 @@
 
             var _input = [ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.ActiveManageParametersListTypeList];
 
-            apiService.post("eAxisAPI", appConfig.Entities.TypeMaster.API.Upsert.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.TypeMaster.API.Upsert.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     var _index = ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.ListSource.map(function (e) {
                         return e.PK

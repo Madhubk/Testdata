@@ -1482,7 +1482,7 @@ ngFileUpload.version = "12.2.13", ngFileUpload.service("UploadBase", ["$http", "
                     })
                 }
             }
-        }]), ngFileUpload.directive("fileUploadCustom", ['Upload', '$q', '$timeout', '$compile', '$uibModal', function (Upload, $q, $timeout, $compile, $uibModal) {
+        }]), ngFileUpload.directive("fileUploadCustom", ['Upload', '$q', '$timeout', '$compile', '$uibModal', "toastr", function (Upload, $q, $timeout, $compile, $uibModal, toastr) {
             var exports = {
                 restrict: "E",
                 scope: {
@@ -1537,11 +1537,23 @@ ngFileUpload.version = "12.2.13", ngFileUpload.service("UploadBase", ["$http", "
                 }
 
                 scope.SelectFiles = function (files, errFiles) {
-                    scope.getSelectedFiles({
-                        $item: files
-                    });
-                    scope.files = files;
-                    scope.UploadFiles();
+                    if (files) {
+                        if (files.length > 0) {
+                            if (files[0].size > 0) {
+                                scope.getSelectedFiles({
+                                    $item: files
+                                });
+                                scope.files = files;
+                                scope.UploadFiles();
+                            } else {
+                                toastr.warning("Cannot upload Empty Documents...!");
+                            }
+                        } else {
+                            // toastr.warning("Cannot upload...!");
+                        }
+                    } else {
+                        toastr.warning("Cannot upload...!");
+                    }
                 };
 
                 scope.UploadFiles = function () {
@@ -1570,11 +1582,20 @@ ngFileUpload.version = "12.2.13", ngFileUpload.service("UploadBase", ["$http", "
                                         scope.ReturnJsonObj();
                                     });
                                 }
+                            } else {
+                                scope.ngModel = [];
+                                file.IsFailed = true;
+                                scope.ReturnJsonObj();
                             }
                         }, function (response) {
                             if (response.status > 0)
-                                scope.errorMsg = response.status + ': ' + response.data;
-                        }, function (evt) {});
+                                file.errorMsg = response.status + ': ' + response.data;
+                            
+                            scope.ngModel = [];
+                            scope.ReturnJsonObj();
+                        }, function (evt) {
+                            file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+                        });
                     });
                 };
 

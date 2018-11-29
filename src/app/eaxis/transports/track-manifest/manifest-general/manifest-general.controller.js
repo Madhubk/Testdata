@@ -5,9 +5,9 @@
         .module("Application")
         .controller("ManifestGeneralController", ManifestGeneralController);
 
-    ManifestGeneralController.$inject = ["$rootScope", "$scope", "$state", "APP_CONSTANT", "authService", "apiService", "appConfig", "manifestConfig", "helperService", "$window", "$uibModal", "adminManifestConfig", "createmanifestConfig"];
+    ManifestGeneralController.$inject = ["$rootScope", "$scope", "$state", "APP_CONSTANT", "authService", "apiService", "appConfig", "manifestConfig", "helperService", "$window", "$uibModal", "adminManifestConfig", "createmanifestConfig", "$filter"];
 
-    function ManifestGeneralController($rootScope, $scope, $state, APP_CONSTANT, authService, apiService, appConfig, manifestConfig, helperService, $window, $uibModal, adminManifestConfig, createmanifestConfig) {
+    function ManifestGeneralController($rootScope, $scope, $state, APP_CONSTANT, authService, apiService, appConfig, manifestConfig, helperService, $window, $uibModal, adminManifestConfig, createmanifestConfig, $filter) {
 
         var ManifestGeneralCtrl = this;
 
@@ -33,6 +33,9 @@
             ManifestGeneralCtrl.ePage.Masters.OnChangeVehicleType = OnChangeVehicleType;
             ManifestGeneralCtrl.ePage.Masters.ChangeCarrierDetails = ChangeCarrierDetails;
             ManifestGeneralCtrl.ePage.Masters.OnChangeManifestType = OnChangeManifestType;
+            ManifestGeneralCtrl.ePage.Masters.onchangeEDD = onchangeEDD;
+            ManifestGeneralCtrl.ePage.Masters.OnDateChange = OnDateChange;
+            ManifestGeneralCtrl.ePage.Masters.today = new Date();
 
             if ($state.current.url == "/manifest") {
                 ManifestGeneralCtrl.ePage.Masters.Config = adminManifestConfig;
@@ -41,20 +44,75 @@
             } else {
                 ManifestGeneralCtrl.ePage.Masters.Config = manifestConfig;
             }
-
+            ManifestGeneralCtrl.ePage.Masters.ManifestTypeDetails = [];
             ManifestGeneralCtrl.ePage.Masters.DropDownMasterList = {};
 
             // DatePicker
             ManifestGeneralCtrl.ePage.Masters.DatePicker = {};
             ManifestGeneralCtrl.ePage.Masters.DatePicker.Options = APP_CONSTANT.DatePicker;
+
+            ManifestGeneralCtrl.ePage.Masters.DatePicker.OptionsDel = angular.copy(APP_CONSTANT.DatePicker);
+            ManifestGeneralCtrl.ePage.Masters.DatePicker.OptionsDis = angular.copy(APP_CONSTANT.DatePicker);
+            // var d = new Date("11-May-2018 01:00:00");
+            var today = new Date();
+            var yesterday = new Date(today);
+            yesterday = yesterday.setDate(today.getDate() - 1);
+            yesterday = new Date(yesterday);
+
+            ManifestGeneralCtrl.ePage.Masters.DatePicker.OptionsDis['minDate'] = today;
+
+            ManifestGeneralCtrl.ePage.Masters.DatePicker.OptionsDel['minDate'] = today;
+            
+
             ManifestGeneralCtrl.ePage.Masters.DatePicker.isOpen = [];
             ManifestGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
 
             generalOperation();
             GetNewManifestAddress();
             GetOrgReceiverAddress();
-            getOrgSender();
+
+            if (!ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderCode) {
+                getOrgSender();
+            } else {
+                GetOrgSenderAddress();
+                getManifestTypeBasedOnSender();
+                getManifestTypeBasedOnSenderReceiver();
+                getReceiverBasedOnSender();
+                getCarrierBasedOnSender();
+                getVehicleType();
+                getOrgHeader("Sender");
+                checkOrg();
+                ManifestGeneralCtrl.ePage.Entities.Header.CheckPoints.UserAccessCode = ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderCode;
+            }
         }
+
+        function OnDateChange(dispatch) {
+            ManifestGeneralCtrl.ePage.Masters.DatePicker.OptionsDel['minDate'] = ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDispatchDate;
+            OnChangeValues(dispatch, "E5545", false, undefined)
+        }
+
+        function checkOrg() {
+            // get Sender ORG(location) based on USER
+            var _filter = {
+                "Code": authService.getUserInfo().UserId
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": "ORGUACC"
+            };
+            apiService.post("eAxisAPI", "OrgUserAcess/FindAll", _input).then(function SuccessCallback(response) {
+                if (response.data.Status == "Success") {
+                    if (response.data.Response.length > 0) {
+                        ManifestGeneralCtrl.ePage.Masters.IsDisabledSender = true;
+                    } else {
+                        ManifestGeneralCtrl.ePage.Masters.UserOrganization = true;
+                        ManifestGeneralCtrl.ePage.Masters.IsDisabledSender = false;
+                        ManifestGeneralCtrl.ePage.Masters.IsVisibleSenderAddress = true;
+                    }
+                }
+            });
+        }
+
 
         function OnChangeManifestType() {
             getCarrierBasedOnSender();
@@ -62,6 +120,26 @@
         }
 
         function getManifestTypeBasedOnSender() {
+            var _filter = {
+                "SortColumn": "CFM_CreatedDateTime",
+                "SortType": "DESC",
+                "MappingCode": "SENDER_CARRIER",
+                "MappingFor_FK": ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.Sender_ORG_FK
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": ManifestGeneralCtrl.ePage.Entities.Header.API.CfxMappingFindall.FilterID
+            };
+            apiService.post("eAxisAPI", ManifestGeneralCtrl.ePage.Entities.Header.API.CfxMappingFindall.Url, _input).then(function SuccessCallback(response) {
+                if (response.data.Status == "Success") {
+                    angular.forEach(response.data.Response, function (value, key) {
+                        ManifestGeneralCtrl.ePage.Masters.ManifestTypeDetails.push(value);
+                    });
+                }
+            });
+        }
+
+        function getManifestTypeBasedOnSenderReceiver() {
             var _filter = {
                 "SortColumn": "CFM_CreatedDateTime",
                 "SortType": "DESC",
@@ -74,7 +152,9 @@
             };
             apiService.post("eAxisAPI", ManifestGeneralCtrl.ePage.Entities.Header.API.CfxMappingFindall.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Status == "Success") {
-                    ManifestGeneralCtrl.ePage.Masters.ManifestTypeDetails = response.data.Response;
+                    angular.forEach(response.data.Response, function (value, key) {
+                        ManifestGeneralCtrl.ePage.Masters.ManifestTypeDetails.push(value);
+                    });
                 }
             });
         }
@@ -94,7 +174,9 @@
             apiService.post("eAxisAPI", ManifestGeneralCtrl.ePage.Entities.Header.API.CfxMappingFindall.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Status == "Success") {
                     ManifestGeneralCtrl.ePage.Masters.CarrierDetails = response.data.Response;
-                    getVehicleType();
+                    if (!ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.VehicleTypeCode) {
+                        ManifestGeneralCtrl.ePage.Masters.VehicleType = "";
+                    }
                 }
             });
         }
@@ -107,7 +189,11 @@
                     ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.Transporter_ORG_FK = value.MappingTo_FK;
                 }
             });
-            getVehicleType();
+            if (item == null) {
+                ManifestGeneralCtrl.ePage.Masters.VehicleType = "";
+            } else {
+                getVehicleType();
+            }
             ManifestGeneralCtrl.ePage.Masters.OnChangeValues(ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterCode, 'E5508');
         }
 
@@ -133,6 +219,31 @@
             }
         }
 
+        function onchangeEDD(dispatch, delivery) {
+            if(dispatch&&delivery){
+                var dispatchdate = new Date(dispatch)
+                var deliverydate = new Date(delivery)
+                console.log(dispatchdate , deliverydate)
+                var dispatchdateonly = dispatchdate.getDate()
+                var deliverydateonly = deliverydate.getDate()
+                var dispatchmonth = dispatchdate.getMonth()
+                var deliverymonth = deliverydate.getMonth()
+                if (deliverydate < dispatchdate) {
+                    console.log("EstimatedDeliveryDate is not lesser than Estimated Pickup Date")
+                    OnChangeValues(null, "E5549")
+                // } else if (dispatchdateonly == deliverydateonly) {
+                //     if (dispatchmonth == deliverymonth) {
+                //         console.log("EstimatedDeliveryDate & Estimated Pickup Date is Equal")
+                //         OnChangeValues(null, "E5549")
+                //     } else {
+                //         OnChangeValues(ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDeliveryDate, "E5549")
+                //     }
+                } else {
+                    OnChangeValues(ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDeliveryDate, "E5549")
+                }
+            }    
+        }
+
         function getVehicleType() {
             var _filter = {
                 "SortColumn": "CFM_CreatedDateTime",
@@ -144,9 +255,34 @@
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": ManifestGeneralCtrl.ePage.Entities.Header.API.CfxMappingFindall.FilterID
             };
-            apiService.post("eAxisAPI", ManifestGeneralCtrl.ePage.Entities.Header.API.CfxMappingFindall.Url, _input).then(function SuccessCallback(response) {
+                apiService.post("eAxisAPI", ManifestGeneralCtrl.ePage.Entities.Header.API.CfxMappingFindall.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Status == "Success") {
                     ManifestGeneralCtrl.ePage.Masters.VehicleType = response.data.Response;
+                }
+            });
+        }
+
+        function getOrgHeader(item) {
+            if (item == "Sender") {
+                var orgCode = ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderCode
+            } else if (item == "Receiver") {
+                var orgCode = ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ReceiverCode
+            }
+            var _filter = {
+                "OrgCode": orgCode
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": ManifestGeneralCtrl.ePage.Entities.Header.API.OrgHeader.FilterID
+            };
+            apiService.post("eAxisAPI", ManifestGeneralCtrl.ePage.Entities.Header.API.OrgHeader.Url, _input).then(function SuccessCallback(response) {
+                if (response.data.Status == "Success") {
+                    if (item == "Sender") {
+                        ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderZone_FK = response.data.Response[0].TMZ_FK;
+                    } else if (item == "Receiver") {
+                        ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ReceiverZone_FK = response.data.Response[0].TMZ_FK;
+                    }
+
                 }
             });
         }
@@ -171,11 +307,11 @@
 
         function generalOperation() {
             // Sender
-            if (ManifestGeneralCtrl.ePage.Entities.Header.Data.OrgSender.Code == null)
-                ManifestGeneralCtrl.ePage.Entities.Header.Data.OrgSender.Code = "";
-            if (ManifestGeneralCtrl.ePage.Entities.Header.Data.OrgSender.FullName == null)
-                ManifestGeneralCtrl.ePage.Entities.Header.Data.OrgSender.FullName = "";
-            ManifestGeneralCtrl.ePage.Masters.Sender = ManifestGeneralCtrl.ePage.Entities.Header.Data.OrgSender.Code + ' - ' + ManifestGeneralCtrl.ePage.Entities.Header.Data.OrgSender.FullName;
+            if (ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderCode == null)
+                ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderCode = "";
+            if (ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderName == null)
+                ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderName = "";
+            ManifestGeneralCtrl.ePage.Masters.Sender = ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderCode + ' - ' + ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderName;
             if (ManifestGeneralCtrl.ePage.Masters.Sender == " - ")
                 ManifestGeneralCtrl.ePage.Masters.Sender = "";
         }
@@ -192,6 +328,7 @@
             apiService.post("eAxisAPI", "OrgUserAcess/FindAll", _input).then(function SuccessCallback(response) {
                 if (response.data.Status == "Success") {
                     if (response.data.Response.length > 0) {
+                        ManifestGeneralCtrl.ePage.Entities.Header.CheckPoints.UserAccessCode = response.data.Response[0].ORG_Code;
                         ManifestGeneralCtrl.ePage.Masters.IsDisabledSender = true;
                         ManifestGeneralCtrl.ePage.Entities.Header.Data.OrgSender.Code = response.data.Response[0].ORG_Code;
                         ManifestGeneralCtrl.ePage.Entities.Header.Data.OrgSender.FullName = response.data.Response[0].ORG_FullName;
@@ -202,14 +339,19 @@
                         ManifestGeneralCtrl.ePage.Masters.Sender = response.data.Response[0].ORG_Code + ' - ' + response.data.Response[0].ORG_FullName;
                         GetOrgSenderAddress();
                         getManifestTypeBasedOnSender();
+                        getManifestTypeBasedOnSenderReceiver();
                         getReceiverBasedOnSender();
                         getCarrierBasedOnSender();
+                        getOrgHeader("Sender");
                     } else {
                         if (ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderCode) {
                             getManifestTypeBasedOnSender();
+                            getManifestTypeBasedOnSenderReceiver();
                             getReceiverBasedOnSender();
                             getCarrierBasedOnSender();
+                            ManifestGeneralCtrl.ePage.Entities.Header.CheckPoints.UserAccessCode = ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderCode;
                         }
+                        ManifestGeneralCtrl.ePage.Masters.UserOrganization = true;
                         ManifestGeneralCtrl.ePage.Masters.IsDisabledSender = false;
                         ManifestGeneralCtrl.ePage.Masters.IsVisibleSenderAddress = true;
                     }
@@ -228,34 +370,36 @@
                     ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ReceiverName = value.ORG_MappingToName;
                 }
             });
+            getOrgHeader("Receiver");
             GetOrgReceiverAddress();
             OnChangeValues(ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ReceiverCode, 'E5500');
         }
 
         function SelectedLookupSender(item) {
-            if (item.entity) {
-                ManifestGeneralCtrl.ePage.Entities.Header.Data.OrgSender.Code = item.entity.Code;
-                ManifestGeneralCtrl.ePage.Entities.Header.Data.OrgSender.FullName = item.entity.FullName;
-                ManifestGeneralCtrl.ePage.Entities.Header.Data.OrgSender.PK = item.entity.PK;
-                ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.Sender_ORG_FK = item.entity.PK;
-                ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderCode = item.entity.Code;
-                ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderName = item.entity.FullName;
-                ManifestGeneralCtrl.ePage.Masters.Sender = item.entity.Code + '-' + item.entity.FullName;
+            if (item.data) {
+                ManifestGeneralCtrl.ePage.Entities.Header.Data.OrgSender.Code = item.data.entity.Code;
+                ManifestGeneralCtrl.ePage.Entities.Header.Data.OrgSender.FullName = item.data.entity.FullName;
+                ManifestGeneralCtrl.ePage.Entities.Header.Data.OrgSender.PK = item.data.entity.PK;
+                ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.Sender_ORG_FK = item.data.entity.PK;
+                ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderCode = item.data.entity.Code;
+                ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderName = item.data.entity.FullName;
+                ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderZone_FK = item.data.entity.TMZ_FK;
+                ManifestGeneralCtrl.ePage.Masters.Sender = item.data.entity.Code + '-' + item.data.entity.FullName;
 
                 angular.forEach(ManifestGeneralCtrl.ePage.Entities.Header.Data.JobAddress, function (value, key) {
                     if (value.AddressType == "SND") {
-                        value.ORG_FK = item.entity.PK;
-                        value.OAD_Address_FK = item.entity.OAD_PK;
-                        value.Address1 = item.entity.OAD_Address1;
-                        value.Address2 = item.entity.OAD_Address2;
-                        value.State = item.entity.OAD_State;
-                        value.PostCode = item.entity.OAD_PostCode;
-                        value.City = item.entity.OAD_City;
-                        value.Email = item.entity.OAD_Email;
-                        value.Mobile = item.entity.OAD_Mobile;
-                        value.Phone = item.entity.OAD_Phone;
-                        value.RN_NKCountryCode = item.entity.OAD_CountryCode;
-                        value.Fax = item.entity.OAD_Fax;
+                        value.ORG_FK = item.data.entity.PK;
+                        value.OAD_Address_FK = item.data.entity.OAD_PK;
+                        value.Address1 = item.data.entity.OAD_Address1;
+                        value.Address2 = item.data.entity.OAD_Address2;
+                        value.State = item.data.entity.OAD_State;
+                        value.Postcode = item.data.entity.OAD_PostCode;
+                        value.City = item.data.entity.OAD_City;
+                        value.Email = item.data.entity.OAD_Email;
+                        value.Mobile = item.data.entity.OAD_Mobile;
+                        value.Phone = item.data.entity.OAD_Phone;
+                        value.RN_NKCountryCode = item.data.entity.OAD_CountryCode;
+                        value.Fax = item.data.entity.OAD_Fax;
                     }
                 });
             }
@@ -266,6 +410,7 @@
                 ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.Sender_ORG_FK = item.PK;
                 ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderCode = item.Code;
                 ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderName = item.FullName;
+                ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderZone_FK = item.TMZ_FK;
                 ManifestGeneralCtrl.ePage.Masters.Sender = item.Code + '-' + item.FullName;
 
                 angular.forEach(ManifestGeneralCtrl.ePage.Entities.Header.Data.JobAddress, function (value, key) {
@@ -275,7 +420,7 @@
                         value.Address1 = item.OAD_Address1;
                         value.Address2 = item.OAD_Address2;
                         value.State = item.OAD_State;
-                        value.PostCode = item.OAD_PostCode;
+                        value.Postcode = item.OAD_PostCode;
                         value.City = item.OAD_City;
                         value.Email = item.OAD_Email
                         value.Mobile = item.OAD_Mobile;
@@ -285,6 +430,7 @@
                     }
                 });
             }
+            ManifestGeneralCtrl.ePage.Entities.Header.CheckPoints.UserAccessCode = ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderCode;
             GetOrgSenderAddress();
             getManifestTypeBasedOnSender();
             getCarrierBasedOnSender();
@@ -311,7 +457,7 @@
                             value.Address1 = response.data.Response[0].Address1;
                             value.Address2 = response.data.Response[0].Address2;
                             value.State = response.data.Response[0].State;
-                            value.PostCode = response.data.Response[0].PostCode;
+                            value.Postcode = response.data.Response[0].PostCode;
                             value.City = response.data.Response[0].City;
                             value.Email = response.data.Response[0].Email;
                             value.Mobile = response.data.Response[0].Mobile;
@@ -343,7 +489,7 @@
                             value.Address1 = response.data.Response[0].Address1;
                             value.Address2 = response.data.Response[0].Address2;
                             value.State = response.data.Response[0].State;
-                            value.PostCode = response.data.Response[0].PostCode;
+                            value.Postcode = response.data.Response[0].PostCode;
                             value.City = response.data.Response[0].City;
                             value.Email = response.data.Response[0].Email;
                             value.Mobile = response.data.Response[0].Mobile;
@@ -398,7 +544,7 @@
                     "City": "",
                     "State": "",
                     "JDA_RN_NKCountryCode": "",
-                    "PostCode": "",
+                    "Postcode": "",
                     "Email": "",
                     "Mobile": "",
                     "Phone": "",
@@ -422,7 +568,7 @@
                     "City": "",
                     "State": "",
                     "JDA_RN_NKCountryCode": "",
-                    "PostCode": "",
+                    "Postcode": "",
                     "Email": "",
                     "Mobile": "",
                     "Phone": "",

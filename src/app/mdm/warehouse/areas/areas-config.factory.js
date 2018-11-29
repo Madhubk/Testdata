@@ -5,38 +5,20 @@
          .module("Application")
          .factory("areasConfig",AreasConfig);
 
-    AreasConfig.$inject=["$location", "$q", "helperService","apiService","toastr"];
+    AreasConfig.$inject=["$location", "$q", "helperService","apiService","toastr","appConfig"];
 
-    function AreasConfig($location, $q, helperService, apiService,toastr){
+    function AreasConfig($location, $q, helperService, apiService,toastr,appConfig){
         var exports = {
             "Entities": {
                 "Header": {
                     "RowIndex": -1,
                     "API": {
-                        "FindConfig": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "DataEntry/Dynamic/FindConfig",
-                            "FilterID": "DYNDAT"
-                        },
-                        "DataEntry": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "DataEntryMaster/FindAll",
-                            "FilterID": "DYNDAT"
-                        },
                         "GetByID": {
                             "IsAPI": "true",
                             "HttpType": "GET",
                             "Url": "WmsArea/GetById/",
                             "FilterID": "WHSAREA"
-                        },
-                        "Validationapi":{
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "Validation/FindAll",
-                            "FilterID":"VALIDAT"
-                        },
+                        }
                     },
                     "Meta": {
 
@@ -69,12 +51,6 @@
                         "Validations":"",
                         "RowIndex": -1,
                         "API": {
-                            "Warehouse": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "WmsWarehouse/FindAll",
-                            "FilterID": "WMSWARH"
-                            },
                             "InsertAreas": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
@@ -296,9 +272,9 @@
             };     
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": exports.Entities.Header.API.Validationapi.FilterID
+                "FilterID": appConfig.Entities.Validation.API.FindAll.FilterID
             };
-            apiService.post("eAxisAPI", exports.Entities.Header.API.Validationapi.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", appConfig.Entities.Validation.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     exports.ValidationValues=(response.data.Response);
                 }
@@ -309,18 +285,10 @@
             var _Data = $item[$item.label].ePage.Entities,
             _input = _Data.Header.Data;
            
-            if(!_input.Name || _input.Name){
-                OnChangeValues(_input.Name,'E5001',false,undefined,$item.label);
-            }
-            if(!_input.AreaType || _input.AreaType){
-                OnChangeValues(_input.AreaType,'E5002',false,undefined,$item.label);
-            }
-            if(!_input.WAR_WarehouseCode || _input.WAR_WarehouseCode){
-                OnChangeValues(_input.WAR_WarehouseCode,'E5003',false,undefined,$item.label);
-            }
-            if(!_input.WAR_WarehouseName || _input.WAR_WarehouseName){
-                OnChangeValues(_input.WAR_WarehouseName,'E5004',false,undefined,$item.label);
-            }
+            OnChangeValues(_input.Name,'E5001',false,undefined,$item.label);
+            OnChangeValues(_input.AreaType,'E5002',false,undefined,$item.label);
+            OnChangeValues(_input.WAR_WarehouseCode,'E5003',false,undefined,$item.label);
+            OnChangeValues(_input.WAR_WarehouseName,'E5004',false,undefined,$item.label);
         }
 
         function OnChangeValues(fieldvalue,code,IsArray,RowIndex,label) { 

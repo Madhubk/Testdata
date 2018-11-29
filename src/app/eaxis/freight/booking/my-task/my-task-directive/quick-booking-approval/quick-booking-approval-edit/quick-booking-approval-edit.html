@@ -1,0 +1,840 @@
+<div class="clearfix p-30 text-center" data-ng-if="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.Loaded==false">
+    <i class="fa fa-spin fa-spinner" style="font-size: 18px;"></i>
+</div>
+<div class="verifyBookingApproval error-modal-hide pr-15" data-ng-if="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.Loaded==true">
+    <article class="col-sm-12 col-md-8 col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-lg fa-fw fa-file-text"></i>
+                <!-- <i class="fa fa-lg fa-fw icon-man236"></i> -->
+                <span data-localize="Consignor Details">Consignor Details</span>
+            </div>
+            <div class="panel-body no-padding">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-10">
+                    <div class="form-group">
+                        <label class="control-label text-single-line">Consignor Code</label>
+                        <div class="input-group col-lg-12">
+                            <input type="text" disabled="disabled" class="form-control input-sm" placeholder="" data-ng-model="QuickBookingApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Shipper_Code"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-10">
+                    <div class="form-group">
+                        <label class="control-label text-single-line">Consignor Name</label>
+                        <div class="input-group col-lg-12">
+                            <input type="text" disabled="disabled" class="form-control input-sm" placeholder="" data-ng-model="QuickBookingApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipperName"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                    <div class="form-group">
+                        <label class="control-label text-single-line">Consignor Address Short Code</label>
+                        <select chosen class="form-control" ng-disabled="true" data-ng-model="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.ConsignorAddressType"
+                            ng-options="addressType as addressType.Code for addressType in QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.OrgConsignorAddressDetails"
+                            search-contains="true">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                    <div class="form-group">
+                        <label class="control-label text-single-line">Consignor Contact</label>
+                        <select chosen class="form-control" ng-disabled="true" data-ng-model="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.ConsignorContact"
+                            ng-options="contact as contact.ContactName for contact in QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.OrgConsignorContactDetails"
+                            search-contains="true">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                    <div class="form-group">
+                        <label class="control-label text-single-line">Consignor Address Details</label>
+                        <div class="input-group">
+                            <textarea rows="3" style="width: 290px" class="col-lg-12" maxlength="250" name="info" ng-disabled="true" data-ng-model="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.ConsignorAddress"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                    <div class="form-group">
+                        <label class="control-label text-single-line">Consignor Contact Details</label>
+                        <div class="input-group">
+                            <textarea rows="3" style="width: 290px" class="col-lg-12" maxlength="250" name="info" ng-disabled="true" data-ng-model="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.ConsignorContactDetails"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+    <article class="col-sm-12 col-md-8 col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-lg fa-fw fa-file-text"></i>
+                <!-- <i class="fa fa-lg  fa-fw icon-package11"></i> -->
+                <span data-localize="Consignee Details">Consignee Details</span>
+            </div>
+            <div class="panel-body no-padding">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-10">
+                    <div class="form-group">
+                        <label class="control-label text-single-line">Consignee Code</label>
+                        <select chosen class="form-control" ng-disabled="true" data-ng-model="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.Buyer"
+                            ng-options="buyer as buyer.ORG_BuyerCode for buyer in QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.OrgBuyerDetails"
+                            search-contains="true">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-10">
+                    <div class="form-group">
+                        <label class="control-label text-single-line">Consignee Name</label>
+                        <div class="input-group col-lg-12">
+                            <input type="text" disabled="disabled" class="form-control input-sm" placeholder="" data-ng-model="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.buyerName"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                    <div class="form-group">
+                        <label class="control-label text-single-line">Consignee Address Short Code</label>
+                        <select chosen class="form-control" ng-disabled="true" data-ng-model="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.ConsigneeAddressType"
+                            ng-options="addressType as addressType.Code for addressType in QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.OrgConsigneeAddressDetails"
+                            search-contains="true">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                    <div class="form-group">
+                        <label class="control-label text-single-line">Consignee Contact</label>
+                        <select chosen class="form-control" ng-disabled="true" data-ng-model="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.ConsigneeContact"
+                            ng-options="contact as contact.ContactName for contact in QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.OrgConsigneeContactDetails"
+                            search-contains="true">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                    <div class="form-group">
+                        <label class="control-label text-single-line">Consignee Address Details</label>
+                        <div class="input-group">
+                            <textarea rows="3" style="width: 290px" class="col-lg-12" maxlength="250" name="info" ng-disabled="true" data-ng-model="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.ConsigneeAddress"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                    <div class="form-group">
+                        <label class="control-label text-single-line">Consignee Contact Details</label>
+                        <div class="input-group">
+                            <textarea rows="3" style="width: 290px" class="col-lg-12" maxlength="250" name="info" ng-disabled="true" data-ng-model="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.ConsigneeContactDetails"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+    <article class="col-sm-12 col-md-12 col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-lg fa-fw fa-file-text"></i>
+                <!-- <i class="fa fa-lg fa-fw icon-delivery38"></i> -->
+                <span>Attached Orders</span>
+            </div>
+            <div class="panel-body no-padding">
+
+                <div class="wmstable_scroll grid-min-hgt">
+                    <div class="table" id="results">
+                        <div class='theader'>
+                            <div class='table_header'>Order #</div>
+                            <div class='table_header'>Order Date</div>
+                            <div class='table_header'>Follow Up Date</div>
+                            <div class='table_header'>Consignee</div>
+                            <div class='table_header'>Consignor</div>
+                            <div class='table_header'>T.Mode</div>
+                            <div class='table_header'>C.Mode</div>
+                            <div class='table_header'>Cargo Ready Date</div>
+                            <div class='table_header'>Req In Store</div>
+                            <div class='table_header'>Req Ex. Store</div>
+                        </div>
+                        <!-- No recods -->
+                        <div data-ng-if="QuickBookingApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIOrderHeaders.length==0">
+                            <div class="grid-no-record set-top1">No record found..</div>
+                        </div>
+                        <!-- List Order(s) -->
+                        <div class='table_row' ng-repeat="x in QuickBookingApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIOrderHeaders" style="font-size: 11px;">
+                            <div class='table_small'>
+                                <div class='table_cell'>Order #</div>
+                                <div class='table_cell'>
+                                    {{x.OrderCumSplitNo}}
+                                </div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>Order Date</div>
+                                <div class='table_cell'>{{x.OrderDate | date:'dd-MMM-yyyy'}}</div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>Follow Up Date</div>
+                                <div class='table_cell'>{{x.FollowUpDate | date:'dd-MMM-yyyy'}}</div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>Consignee</div>
+                                <div class='table_cell'>{{x.Buyer}}</div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>Consignor</div>
+                                <div class='table_cell'>{{x.Supplier}}</div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>T.Mode</div>
+                                <div class='table_cell'>{{x.TransportMode}}</div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>C.Mode</div>
+                                <div class='table_cell'>{{x.ContainerMode}}</div>
+                            </div>
+                            <div class='table_small CargoDate'>
+                                <div class='table_cell'>Cargo Ready Date</div>
+                                <div class='table_cell'>
+                                    {{x.CargoReadyDate | date:'dd-MMM-yyyy'}}
+                                </div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>Req In Store</div>
+                                <div class='table_cell'>{{x.RequiredDeliveryDate | date:'dd-MMM-yyyy'}}</div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>Req Ex. Store</div>
+                                <div class='table_cell'>{{x.RequiredExWorksDate | date:'dd-MMM-yyyy'}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+    <article class="col-lg-12 col-md-12 col-xl-12 col-sm-12 col-xs-12">
+        <uib-tabset style="border: 1px solid #ddd;">
+            <uib-tab>
+                <uib-tab-heading title="General">
+                    <i class="fa fa-list-alt margin-right-5"></i>
+                    <span data-ng-bind="'General'"></span>
+                </uib-tab-heading>
+                <div class="mt-10">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 mt-10">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Transport Mode</label>
+                            <div class="input-group col-lg-12">
+                                <input type="text" disabled="disabled" class="form-control input-sm" placeholder="" data-ng-model="QuickBookingApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 mt-10">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Container Mode</label>
+                            <div class="input-group col-lg-12">
+                                <input type="text" disabled="disabled" class="form-control input-sm" placeholder="" data-ng-model="QuickBookingApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 mt-10">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">IncoTerm</label>
+                            <div class="input-group col-lg-12">
+                                <input type="text" disabled="disabled" class="form-control input-sm" placeholder="" data-ng-model="QuickBookingApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.IncoTerm"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 mt-10">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Cargo Ready Date</label>
+                            <div class="input-group col-lg-12">
+                                <input type="text" disabled="disabled" datepicker-options="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.DatePicker.Options"
+                                    class="form-control input-sm" placeholder="Cargo Ready Date" data-ng-model="QuickBookingApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.CargoReadyDate"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Origin</label>
+                            <div class="input-group col-lg-12">
+                                <input type="text" disabled="disabled" class="form-control input-sm" placeholder="" data-ng-model="QuickBookingApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">POL</label>
+                            <div class="input-group col-lg-12">
+                                <input type="text" disabled="disabled" class="form-control input-sm" placeholder="" data-ng-model="QuickBookingApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PortOfLoading"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">POD</label>
+                            <div class="input-group col-lg-12">
+                                <input type="text" disabled="disabled" class="form-control input-sm" placeholder="" data-ng-model="QuickBookingApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PortOfDischarge"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Destination</label>
+                            <div class="input-group col-lg-12">
+                                <input type="text" disabled="disabled" class="form-control input-sm" placeholder="" data-ng-model="QuickBookingApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                                    <div class="form-group">
+                                        <label class="control-label text-single-line">Pickup</label>
+                                        <select chosen class="form-control" ng-disabled="true" data-ng-model="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.serviceTypes.Pickup"
+                                            search-contains="true ">
+                                            <option value="false" data-localize="No">No</option>
+                                            <option value="PIC" data-localize="Yes">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                                    <div class="form-group">
+                                        <label class="control-label text-single-line">Export Clearance</label>
+                                        <select chosen class="form-control" ng-disabled="true" data-ng-model="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.serviceTypes.ExportClearance"
+                                            search-contains="true ">
+                                            <option value="false" data-localize="No">No</option>
+                                            <option value="EXC" data-localize="Yes">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                                    <div class="form-group">
+                                        <label class="control-label text-single-line">Factory Stuffing</label>
+                                        <select chosen class="form-control" ng-disabled="true" data-ng-model="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.serviceTypes.FactoryStuffing"
+                                            search-contains="true ">
+                                            <option value="false" data-localize="No">No</option>
+                                            <option value="FAS" data-localize="Yes">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                                    <div class="form-group">
+                                        <label class="control-label text-single-line">Delivery</label>
+                                        <select chosen class="form-control" ng-disabled="true" data-ng-model="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.serviceTypes.Delivery"
+                                            search-contains="true ">
+                                            <option value="false" data-localize="No">No</option>
+                                            <option value="DLV" data-localize="Yes">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                                    <div class="form-group">
+                                        <label class="control-label text-single-line">Import Clearance</label>
+                                        <select chosen class="form-control" ng-disabled="true" data-ng-model="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.serviceTypes.ImportClearance"
+                                            search-contains="true ">
+                                            <option value="false" data-localize="No">No</option>
+                                            <option value="IMC" data-localize="Yes">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                                    <div class="form-group">
+                                        <label class="control-label text-single-line">Cargo Insurance</label>
+                                        <select chosen class="form-control" ng-disabled="true" data-ng-model="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.serviceTypes.CargoInsurance"
+                                            search-contains="true ">
+                                            <option value="false" data-localize="No">No</option>
+                                            <option value="CAI" data-localize="Yes">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 pl-0">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                    <div class="form-group">
+                                        <label class="control-label text-single-line">Sending Agent</label>
+                                        <div class="input-group col-lg-12">
+                                            <input type="text" disabled="disabled" class="form-control input-sm" placeholder="" data-ng-model="QuickBookingApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportForwarder_Code"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                    <div class="form-group">
+                                        <label class="control-label text-single-line">Receiving Agent</label>
+                                        <div class="input-group col-lg-12">
+                                            <input type="text" disabled="disabled" class="form-control input-sm" placeholder="" data-ng-model="QuickBookingApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ImportForwarder_Code"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                    <div class="form-group">
+                                        <label class="control-label text-single-line">Additional Terms</label>
+                                        <div class="input-group">
+                                            <textarea rows="3" style="width: 290px" class="col-lg-12" maxlength="250" name="info" ng-disabled="true" data-ng-model="QuickBookingApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.AdditionalTerms"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                    <div class="form-group">
+                                        <label class="control-label text-single-line">Goods Desc</label>
+                                        <div class="input-group">
+                                            <textarea rows="3" style="width: 290px" class="col-lg-12" maxlength="250" name="info" ng-disabled="true" data-ng-model="QuickBookingApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.GoodsDesc"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </uib-tab>
+            <uib-tab>
+                <uib-tab-heading title="Container">
+                    <i class="fa fa-list-alt margin-right-5"></i>
+                    <span data-ng-bind="'Container'"></span>
+                </uib-tab-heading>
+                <div class="clearfix mt-10">
+                    <article class="col-sm-12 col-md-12 col-lg-12 containerForm">
+                        <div class="alert alert-info" id="info" ng-if="QuickBookingApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode=='AIR'">
+                            <i class="fa-fw fa-lg fa fa-exclamation"></i>
+                            <strong>Note!</strong> No container view for Air Bookings
+                        </div>
+                        <div class="alert alert-info" id="info" ng-if="QuickBookingApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode=='LCL'">
+                            <i class="fa-fw fa-lg fa fa-exclamation"></i>
+                            <strong>Note!</strong> No container view for LCL shipment
+                        </div>
+                        <div ng-if="QuickBookingApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode!='AIR' && !(QuickBookingApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode=='SEA' && QuickBookingApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode=='LCL')">
+                            <div class="">
+                                <div class="wmstable_scroll grid-min-hgt">
+                                    <div class="table" id="results">
+                                        <div class='theader'>
+                                            <div class='table_header'>Cont Count</div>
+                                            <div class='table_header'>Cont Type</div>
+                                            <div class='table_header'>Commodity</div>
+                                        </div>
+
+                                        <div data-ng-if="QuickBookingApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UICntContainer.length==0">
+                                            <div class="grid-no-record set-top">No record found..</div>
+                                        </div>
+
+                                        <div class='table_row' ng-repeat="x in QuickBookingApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UICntContainer" style="font-size: 11px;">
+
+                                            <div class='table_small'>
+                                                <div class='table_cell'>Cont Count</div>
+                                                <div class='table_cell'>
+                                                    {{x.ContainerCount}}
+                                                </div>
+                                            </div>
+
+                                            <div class='table_small'>
+                                                <div class='table_cell'>Cont Type</div>
+                                                <div class='table_cell'>{{x.RC_Type}}</div>
+                                            </div>
+                                            <div class='table_small'>
+                                                <div class='table_cell'>Commodity</div>
+                                                <div class='table_cell'>{{x.RH_NKContainerCommodityCode}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </uib-tab>
+            <uib-tab>
+                <uib-tab-heading title="Packing">
+                    <i class="fa fa-list-alt margin-right-5"></i>
+                    <span data-ng-bind="'Packing'"></span>
+                </uib-tab-heading>
+                <div class="clearfix mt-10">
+                    <article class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="">
+                            <div class="wmstable_scroll grid-min-hgt">
+                                <div class="table" id="results">
+                                    <div class='theader'>
+                                        <div class='table_header'>Count</div>
+                                        <div class='table_header'>Type</div>
+                                        <div class='table_header'>Weight</div>
+                                        <div class='table_header'>UW</div>
+                                        <div class='table_header'>Volume</div>
+                                        <div class='table_header'>UV</div>
+                                        <div class='table_header'>Length</div>
+                                        <div class='table_header'>Width</div>
+                                        <div class='table_header'>Height</div>
+                                        <div class='table_header'>UD</div>
+                                    </div>
+
+                                    <div data-ng-if="QuickBookingApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIJobPackLines.length==0">
+                                        <div class="grid-no-record set-top">No record found..</div>
+                                    </div>
+                                    <div class='table_row' ng-repeat="x in QuickBookingApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIJobPackLines" style="font-size: 11px;">
+                                        <div class='table_small'>
+                                            <div class='table_cell'>Count</div>
+                                            <div class='table_cell'>
+                                                {{x.PackageCount}}
+                                            </div>
+                                        </div>
+                                        <div class='table_small'>
+                                            <div class='table_cell'>Type</div>
+                                            <div class='table_cell'>{{x.F3_NKPackType}}</div>
+                                        </div>
+                                        <div class='table_small'>
+                                            <div class='table_cell'>Weight</div>
+                                            <div class='table_cell'>{{x.ActualWeight}}</div>
+                                        </div>
+                                        <div class='table_small'>
+                                            <div class='table_cell'>UW</div>
+                                            <div class='table_cell'>{{x.ActualWeightUQ}}</div>
+                                        </div>
+                                        <div class='table_small'>
+                                            <div class='table_cell'>Volume</div>
+                                            <div class='table_cell'>{{x.ActualVolume}}</div>
+                                        </div>
+                                        <div class='table_small'>
+                                            <div class='table_cell'>UV</div>
+                                            <div class='table_cell'>{{x.ActualVolumeUQ}}</div>
+                                        </div>
+                                        <div class='table_small'>
+                                            <div class='table_cell'>Length</div>
+                                            <div class='table_cell'>{{x.Length}}</div>
+                                        </div>
+                                        <div class='table_small'>
+                                            <div class='table_cell'>Width</div>
+                                            <div class='table_cell'>{{x.Width}}</div>
+                                        </div>
+                                        <div class='table_small'>
+                                            <div class='table_cell'>Height</div>
+                                            <div class='table_cell'>{{x.Height}}</div>
+                                        </div>
+                                        <div class='table_small'>
+                                            <div class='table_cell'>UD</div>
+                                            <div class='table_cell'>{{x.UnitOfDimension}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </uib-tab>
+            </uib-tab>
+            <uib-tab>
+                <uib-tab-heading title="Vessel Planning">
+                    <i class="fa fa-list-alt margin-right-5"></i>
+                    <span data-ng-bind="'Vessel Planning'"></span>
+                </uib-tab-heading>
+                <div class="clearfix">
+                    <div class="wmstable_scroll grid-min-hgt">
+                        <div class="table" id="results">
+                            <div class='theader'>
+                                <div class='table_header'>Action</div>
+                                <div class='table_header'>Carrier</div>
+                                <div class='table_header'>Vessel</div>
+                                <div class='table_header'>Voyage</div>
+                                <div class='table_header'>ETD</div>
+                                <div class='table_header'>ETA</div>
+                                <div class='table_header'>Carrier Booking #</div>
+                                <div class='table_header'>Cargo Cut-Off Date</div>
+                                <div class='table_header'>Document Cut-Off Date</div>
+                            </div>
+
+                            <div data-ng-if="QuickBookingApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIJobRoutes.length==0">
+                                <div class="grid-no-record set-top">No record found..</div>
+                            </div>
+
+                            <div class='table_row' ng-repeat="x in QuickBookingApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIJobRoutes" style="font-size: 11px;">
+                                <div class='table_small'>
+                                    <div class='table_cell'>Action</div>
+                                    <div class='table_cell'>
+                                        <input type="radio" name="">
+                                        <div class="text-center task-check align">
+                                            <label>
+                                                <input type="radio" data-ng-model="$parent.PK" data-ng-click="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.SelectVessel(x,$index)"
+                                                    data-ng-value="x.PK">
+                                                <span class="text"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>Carrier</div>
+                                    <div class='table_cell'>
+                                        {{x.CarrierOrg_Code}}
+                                    </div>
+                                </div>
+
+                                <div class='table_small'>
+                                    <div class='table_cell'>Vessel</div>
+                                    <div class='table_cell'>{{x.Vessel}}</div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>Voyage</div>
+                                    <div class='table_cell'>{{x.VoyageFlight}}</div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>ETD</div>
+                                    <div class='table_cell'>{{x.ETD | date:'dd-MMM-yy'}}</div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>ETA</div>
+                                    <div class='table_cell'>{{x.ETA | date:'dd-MMM-yy'}}</div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>Carrier Booking #</div>
+                                    <div class='table_cell'>{{x.CarrierReference}}</div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>Cargo Cut-Off Date</div>
+                                    <div class='table_cell'>{{x.CargoCutOffDate | date:'dd-MMM-yy'}}</div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>Document Cut-Off Date</div>
+                                    <div class='table_cell'>{{x.DocumentCutOffDate | date:'dd-MMM-yy'}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </article>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-xl-12 col-sm-12 col-xs-12 mt-10">
+            <!-- Document upload -->
+            <article class="col-sm-12 col-md-12 col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-lg fa-fw fa-file-text"></i>
+                        <span>File Upload Form </span>
+                    </div>
+                    <div class="panel-body no-padding" style="height: 300px;overflow-y: auto;">
+                        <article class="col-sm-12 col-md-12 col-lg-12 mt-10" data-ng-if="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.StandardMenuInput">
+                            <div class="" list-source="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.DocumentDetails" document input="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.StandardMenuInput"
+                                mode="3" config="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.StandardConfigInput" class="my-task-icon fa fa-file-text-o mr-5">
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </article>
+            <!-- Comments Details -->
+            <article class="col-sm-12 col-md-12 col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-lg fa-fw fa-file-text"></i>
+                        <span>Comments Details</span>
+                    </div>
+                    <div class="panel-body no-padding" style="height: 300px;overflow-y: auto;">
+                        <article class="col-sm-12 col-md-12 col-lg-12 mt-10" data-ng-if="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.StandardMenuInput">
+                            <div class="" list-source="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.CommentsDetails" comment input="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.StandardMenuInput"
+                                mode="3" config="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.StandardConfigInput" class="my-task-icon fa fa-file-text-o mr-5">
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+    <!-- <div class="clearfix">
+        <article class="col-sm-12 col-md-12 col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-lg fa-fw icon-container6"></i>
+                    <span>Vessel Planning</span>
+                </div>
+                <div class="panel-body no-padding">
+                    <div class="">
+                        <div class="wmstable_scroll grid-min-hgt">
+                            <div class="table" id="results">
+                                <div class='theader'>
+                                    <div class='table_header'>Action</div>
+                                    <div class='table_header'>Carrier</div>
+                                    <div class='table_header'>Vessel</div>
+                                    <div class='table_header'>Voyage</div>
+                                    <div class='table_header'>ETD</div>
+                                    <div class='table_header'>ETA</div>
+                                    <div class='table_header'>Carrier Booking #</div>
+                                    <div class='table_header'>Cargo Cut-Off Date</div>
+                                    <div class='table_header'>Document Cut-Off Date</div>
+                                </div>
+                               
+                                <div data-ng-if="QuickBookingApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UISailingList.length==0">
+                                    <div class="grid-no-record set-top">No record found..</div>
+                                </div>
+                               
+                                <div class='table_row' ng-repeat="x in QuickBookingApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UISailingList" style="font-size: 11px;">
+                                    <div class='table_small'>
+                                        <div class='table_cell'>Action</div>
+                                        <div class='table_cell'>
+                                            <input type="radio" name="">
+                                            <div class="text-center task-check align">
+                                                <label>
+                                                    <input type="radio" data-ng-model="$parent.PK" data-ng-click="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.SelectVessel(x,$index)"
+                                                        data-ng-value="x.PK">
+                                                    <span class="text"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class='table_small'>
+                                        <div class='table_cell'>Carrier</div>
+                                        <div class='table_cell'>
+                                            {{x.CarrierOrg_Code}}
+                                        </div>
+                                    </div>
+
+                                    <div class='table_small'>
+                                        <div class='table_cell'>Vessel</div>
+                                        <div class='table_cell'>{{x.Vessel}}</div>
+                                    </div>
+                                    <div class='table_small'>
+                                        <div class='table_cell'>Voyage</div>
+                                        <div class='table_cell'>{{x.VoyageFlight}}</div>
+                                    </div>
+                                    <div class='table_small'>
+                                        <div class='table_cell'>ETD</div>
+                                        <div class='table_cell'>{{x.ETD | date:'dd-MMM-yy'}}</div>
+                                    </div>
+                                    <div class='table_small'>
+                                        <div class='table_cell'>ETA</div>
+                                        <div class='table_cell'>{{x.ETA | date:'dd-MMM-yy'}}</div>
+                                    </div>
+                                    <div class='table_small'>
+                                        <div class='table_cell'>Carrier Booking #</div>
+                                        <div class='table_cell'>{{x.CarrierReference}}</div>
+                                    </div>
+                                    <div class='table_small'>
+                                        <div class='table_cell'>Cargo Cut-Off Date</div>
+                                        <div class='table_cell'>{{x.CargoCutOffDate | date:'dd-MMM-yy'}}</div>
+                                    </div>
+                                    <div class='table_small'>
+                                        <div class='table_cell'>Document Cut-Off Date</div>
+                                        <div class='table_cell'>{{x.DocumentCutOffDate | date:'dd-MMM-yy'}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+    <div class="clearfix">
+        <article class="col-sm-12 col-md-12 col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-lg fa-fw icon-documents7"></i>
+                    <span>Attached Document List</span>
+                </div>
+                <div class="panel-body no-padding">
+                    <div style="width: 100%; overflow: auto; height: 200px" id="documentView">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="ngHeaderText">Document Type</th>
+                                    <th class="ngHeaderText">File name</th>
+                                    <th class="ngHeaderText">File Size</th>
+                                    <th class="ngHeaderText">Uploaded by</th>
+                                    <th class="ngHeaderText">Uploaded Date Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="file in QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.DocumentDetails" style="font-size:11px">
+                                    <td>{{file.DocumentType}}</td>
+                                    <td>
+                                        <a href="javascript:void(0)">{{file.FileName}}</a>
+                                    </td>
+
+                                    <td>{{file.FileSize}}KB</td>
+                                    <td>{{file.CreatedBy| date:'dd-MMM-yy' }}</td>
+                                    <td>{{file.CreatedDateTime | date:'dd-MMM-yy'}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+    <div class="clearfix">
+        <article class="col-sm-12 col-md-12 col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-lg fa-fw icon-delivery35"></i>
+                    <span>Comments</span>
+                </div>
+                <div class="panel-body no-padding">
+                    <div class="clearfix mt-10">
+                        <div class="col-xs-12 col-lg-4 col-sm-12 col-md-12 col-xl-12">
+                            <span class="error-warning-container">
+                                <error-warning-directive data-ng-if="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.JobComments.IsWarning && !QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.JobComments.IsError"
+                                    list="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.JobComments.WARNING"
+                                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                                <error-warning-directive data-ng-if="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.JobComments.IsError"
+                                    list="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.JobComments.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            </span>
+                            <div class="form-group">
+                                <label class="control-label text-single-line">Comments</label>
+                                <div class="input-group">
+                                    <textarea rows="3" style="width: 225%" class="col-lg-12" maxlength="250" name="info" ng-change="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.OnFieldValueChange('MyTask',QuickBookingApprovalEditDirectiveCtrl.taskObj.PSI_InstanceNo,QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.JobComments,'E0035',false,undefined)"
+                                        data-ng-model="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.JobComments"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-lg-4 col-sm-12 col-md-12 col-xl-12">
+                            <div class="form-group">
+                                <label class="control-label text-single-line">Internal Comments</label>
+                                <div class="input-group">
+                                    <textarea rows="3" style="width: 290px" class="col-lg-12" maxlength="250" name="info" data-ng-model="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.InternalComments"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div> -->
+    <div class="col-xs-12 col-lg-12 col-sm-12 col-md-12 col-xl-12 mt-20">
+        <div class="pull-right">
+            <button class="btn btn-primary btn-sm  fs-12" ng-disabled="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.CompleteApproveDisabled || QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.SaveBothButtonDisabled"
+                data-ng-click="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.Approval('Approve',true)">
+                {{QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.CompleteApprove}}</button>
+            <button class="btn btn-primary btn-sm  fs-12" ng-disabled="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.CompleteRejectDisabled || QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.SaveBothButtonDisabled"
+                data-ng-click="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.Approval('Reject', false)">
+                {{QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.CompleteReject}}</button>
+        </div>
+    </div>
+    <div class="error-warning-container right" id="errorWarningContainer{{QuickBookingApprovalEditDirectiveCtrl.taskObj.PSI_InstanceNo}}">
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                <!-- <i class="fa fa-warning"></i>  -->
+                Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right" data-ng-click="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.ShowErrorWarningModal(QuickBookingApprovalEditDirectiveCtrl.taskObj.PSI_InstanceNo)">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+        </div>
+        <div class="error-warning-body">
+            <div class="clearfix" data-ng-if="QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GlobalErrorWarningList.length>0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in QuickBookingApprovalEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

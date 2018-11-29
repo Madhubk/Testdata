@@ -70,13 +70,36 @@
                 }
             });
         }
-        
-        function setSelectedRow(index) {
-            DcDepotStoreCtrl.ePage.Masters.selectedRow = index;
+
+        function setSelectedRow(index,x) {
+            angular.forEach(DcDepotStoreCtrl.ePage.Entities.Header.Data.DcDepotStoreDetails,function(value,key){
+                if(value.PK == x.PK){
+                    DcDepotStoreCtrl.ePage.Masters.selectedRow = key;        
+                }
+            })
+            DcDepotStoreCtrl.ePage.Masters.LineselectedRow = index;
         }
 
         function Back() {
-            DcDepotStoreCtrl.ePage.Masters.Lineslist = true;
+            var item = DcDepotStoreCtrl.ePage.Entities.Header.Data.DcDepotStoreDetails[DcDepotStoreCtrl.ePage.Masters.selectedRow];
+            if (item.PK == "") {
+                var modalOptions = {
+                    closeButtonText: 'Cancel',
+                    actionButtonText: 'Ok',
+                    headerText: 'Are you sure?',
+                    bodyText: 'Please save your changes. Otherwise given details will be discarded.'
+                };
+                confirmation.showModal({}, modalOptions)
+                    .then(function (result) {
+                        DcDepotStoreCtrl.ePage.Entities.Header.Data.DcDepotStoreDetails.splice(DcDepotStoreCtrl.ePage.Masters.selectedRow, 1);
+                        DcDepotStoreCtrl.ePage.Masters.Lineslist = true;
+                        DcDepotStoreCtrl.ePage.Masters.selectedRow = DcDepotStoreCtrl.ePage.Masters.selectedRow - 1;
+                    }, function () {
+                        console.log("Cancelled");
+                    });
+            } else {
+                DcDepotStoreCtrl.ePage.Masters.Lineslist = true;
+            }
         }
 
         function Done() {
@@ -147,9 +170,10 @@
             };
             confirmation.showModal({}, modalOptions)
                 .then(function (result) {
-                    DcDepotStoreCtrl.ePage.Entities.Header.Data.DcDepotStoreDetails.splice(DcDepotStoreCtrl.ePage.Masters.selectedRow, 1);
-                    toastr.success('Record Removed Successfully');
-                    DcDepotStoreCtrl.ePage.Masters.Lineslist = true;
+                    apiService.get("eAxisAPI", 'CfxMapping/Delete/' + item.PK).then(function (response) {
+                        toastr.success('Record Removed Successfully');
+                        getCfxMappingDetail();
+                    });
                     DcDepotStoreCtrl.ePage.Masters.selectedRow = DcDepotStoreCtrl.ePage.Masters.selectedRow - 1;
                 }, function () {
                     console.log("Cancelled");
@@ -178,22 +202,53 @@
         };
 
         function SaveList($item) {
-            if ($item.PK) {
-                $item.IsModified = true;
-                DcDepotStoreCtrl.ePage.Masters.IsLoadingToSave = true;
-                apiService.post("eAxisAPI", DcDepotStoreCtrl.ePage.Entities.Header.API.UpdateCfxMapping.Url, $item).then(function SuccessCallback(response) {
-                    if (response.data.Status == "Success") {
-                        DcDepotStoreCtrl.ePage.Entities.Header.Data.DcDepotStoreDetails[DcDepotStoreCtrl.ePage.Masters.selectedRow] = response.data.Response;
-                    }
-                });
+            if ($item.MappingForCode && $item.MappingToCode) {
+                if ($item.PK) {
+                    $item.IsModified = true;
+                    DcDepotStoreCtrl.ePage.Masters.IsLoadingToSave = true;
+                    apiService.post("eAxisAPI", DcDepotStoreCtrl.ePage.Entities.Header.API.UpdateCfxMapping.Url, $item).then(function SuccessCallback(response) {
+                        if (response.data.Status == "Success") {
+                            DcDepotStoreCtrl.ePage.Entities.Header.Data.DcDepotStoreDetails[DcDepotStoreCtrl.ePage.Masters.selectedRow] = response.data.Response;
+                        }
+                    });
+                } else {
+                    DcDepotStoreCtrl.ePage.Masters.IsLoadingToSave = true;
+                    apiService.post("eAxisAPI", DcDepotStoreCtrl.ePage.Entities.Header.API.InsertCfxMapping.Url, [$item]).then(function SuccessCallback(response) {
+                        if (response.data.Status == "Success") {
+                            DcDepotStoreCtrl.ePage.Entities.Header.Data.DcDepotStoreDetails[DcDepotStoreCtrl.ePage.Masters.selectedRow] = response.data.Response[0];
+                        }
+                    });
+                }
+                getCfxMappingDetail();
             } else {
-                DcDepotStoreCtrl.ePage.Masters.IsLoadingToSave = true;
-                apiService.post("eAxisAPI", DcDepotStoreCtrl.ePage.Entities.Header.API.InsertCfxMapping.Url, [$item]).then(function SuccessCallback(response) {
-                    if (response.data.Status == "Success") {
-                        DcDepotStoreCtrl.ePage.Entities.Header.Data.DcDepotStoreDetails[DcDepotStoreCtrl.ePage.Masters.selectedRow] = response.data.Response[0];
-                    }
-                });
+                toastr.warning("Dont leave any fields Empty")
             }
+        }
+
+        function getCfxMappingDetail() {
+            DcDepotStoreCtrl.ePage.Masters.IsLoading = true;
+            var _filter = {
+                "SortColumn": "CFM_CreatedDateTime",
+                "SortType": "ASC",
+                "PageNumber": 1,
+                "PageSize": 1000
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": DcDepotStoreCtrl.ePage.Entities.Header.API.CfxMappingFindall.FilterID
+            };
+            apiService.post("eAxisAPI", DcDepotStoreCtrl.ePage.Entities.Header.API.CfxMappingFindall.Url, _input).then(function SuccessCallback(response) {
+                if (response.data.Status == "Success") {
+                    DcDepotStoreCtrl.ePage.Entities.Header.CheckPoints.CfxMappingValues = response.data.Response;
+                    DcDepotStoreCtrl.ePage.Entities.Header.Data.DcDepotStoreDetails = [];
+                    angular.forEach(DcDepotStoreCtrl.ePage.Entities.Header.CheckPoints.CfxMappingValues, function (value, key) {
+                        if (value.MappingCode == "DC_DEPOT_STORE") {
+                            DcDepotStoreCtrl.ePage.Entities.Header.Data.DcDepotStoreDetails.push(value);
+                        }
+                    });
+                    DcDepotStoreCtrl.ePage.Masters.IsLoading = false;
+                }
+            });
         }
 
         Init();

@@ -1,0 +1,123 @@
+<div class="clearfix help-content-creation-container">
+    <div class="clearfix p-5 header">
+        <div class="col-sm-7">
+            <div class="text-single-line title" data-ng-bind="HelpContentCreationCtrl.ePage.Masters.QueryString.Title"></div>
+        </div>
+        <div class="col-sm-2 text-right">
+            <a href="javascript: void(0);" data-ng-click="HelpContentCreationCtrl.ePage.Masters.ContentCreation.AddNewContent()">Add
+                New</a>
+        </div>
+        <div class="col-sm-3">
+            <input type="text" class="form-control input-sm" placeholder="Search" data-ng-model="HelpContentCreationCtrl.ePage.Masters.ContentCreation.Search">
+        </div>
+    </div>
+    <div class="clearfix p-20 text-center" data-ng-if="!HelpContentCreationCtrl.ePage.Masters.ContentCreation.ContentListSource">
+        <i class="fa fa-spin fa-spinner font-160"></i>
+    </div>
+    <div class="clearfix p-20 text-center" data-ng-if="HelpContentCreationCtrl.ePage.Masters.ContentCreation.ContentListSource && (HelpContentCreationCtrl.ePage.Masters.ContentCreation.ContentListSource | filter: HelpContentCreationCtrl.ePage.Masters.ContentCreation.Search).length == 0">
+        <i>No Records...!</i>
+    </div>
+    <div class="clrarfix content-list p-20" data-ng-if="HelpContentCreationCtrl.ePage.Masters.ContentCreation.ContentListSource && (HelpContentCreationCtrl.ePage.Masters.ContentCreation.ContentListSource | filter: HelpContentCreationCtrl.ePage.Masters.ContentCreation.Search).length > 0">
+        <div class="clearfix content-row" data-ng-repeat="x in HelpContentCreationCtrl.ePage.Masters.ContentCreation.ContentListSource | orderBy: 'DisplayOrder' | filter: HelpContentCreationCtrl.ePage.Masters.ContentCreation.Search">
+            <span class="display-order-number">
+                <span data-ng-bind="x.DisplayOrder + '.'"></span>
+            </span>
+            <div class="clearfix ml-30 mr-30 content" data-ng-if="x.ContentType != 'Image'">
+                <span data-ng-bind-html="x.Content" style="display: inline-block;"></span>
+            </div>
+            <div class="clearfix ml-30 mr-30 content" data-ng-if="x.ContentType == 'Image'">
+                <span class="fa fa-image mr-10"></span>
+                <span data-ng-bind-html="x.Content" style="display: inline-block;"></span>
+            </div>
+            <span class="delete-content">
+                <i class="fa fa-trash cursor-pointer text-danger" data-ng-click="HelpContentCreationCtrl.ePage.Masters.ContentCreation.DeleteContent(x)"
+                    title="Remove"></i>
+            </span>
+            <span class="edit-content">
+                <i class="fa fa-pencil-square-o cursor-pointer text-info" data-ng-click="HelpContentCreationCtrl.ePage.Masters.ContentCreation.EditContent(x)" title="Edit"></i>
+            </span>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="HelpContentCreation">
+    <div class="modal-header">
+        <h5 class="modal-title pull-left" id="modal-title">
+            <strong>Content Creation</strong>
+        </h5>
+        <button class="btn btn-primary btn-xs pull-right ml-10" data-ng-click="HelpContentCreationCtrl.ePage.Masters.ContentCreation.SaveAndUpdateContent()"
+            data-ng-bind="HelpContentCreationCtrl.ePage.Masters.ContentCreation.SaveContenBtnTxt" data-ng-disabled="HelpContentCreationCtrl.ePage.Masters.ContentCreation.IsDisabledSaveContentBtn"></button>
+        <button class="btn btn-default btn-xs pull-right ml-10" data-ng-click="HelpContentCreationCtrl.ePage.Masters.ContentCreation.CloseContentModal()">Close</button>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div class="clearfix help-content-creation-modal">
+            <form class="form-horizontal" novalidate>
+                <div class="clearfix header">
+                    <div class="clearfix control-list-wrapper">
+                        <ul class="clearfix">
+                            <li class="control-list" data-ng-repeat="x in HelpContentCreationCtrl.ePage.Masters.ContentCreation.ControlListSource">
+                                <input type='radio' value='{{x.Code}}' name='radio' id='radio{{x.Code}}' data-ng-click="HelpContentCreationCtrl.ePage.Masters.ContentCreation.OnControlClick(x)"
+                                />
+                                <label class="radio-label" data-ng-class="{'active': HelpContentCreationCtrl.ePage.Masters.ContentCreation.ActiveControl.Code == x.Code}"
+                                    for='radio{{x.Code}}' data-ng-bind="x.Desc"></label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="body p-10">
+                    <div data-ng-if="!HelpContentCreationCtrl.ePage.Masters.ContentCreation.ActiveContentValue.ContentType" class="clearfix text-center p-20">
+                        <i>Select Any Control...!</i>
+                    </div>
+                    <div class="clearfix" data-ng-if="HelpContentCreationCtrl.ePage.Masters.ContentCreation.ActiveContentValue.ContentType">
+                        <div class="clearfix mb-10">
+                            <div class="col-sm-4 pl-0">
+                                <input type="text" class="form-control input-sm" data-ng-model="HelpContentCreationCtrl.ePage.Masters.ContentCreation.ActiveContentValue.DisplayOrder"
+                                    placeholder="Display Order">
+                            </div>
+                        </div>
+                        <div class="clearfix" data-ng-show="HelpContentCreationCtrl.ePage.Masters.ContentCreation.ActiveControl.Control == 'Textarea'">
+                            <textarea class="form-control input-sm no-resize" rows="5" placeholder="{{HelpContentCreationCtrl.ePage.Masters.ContentCreation.ActiveControl.Desc}}"
+                                data-ng-model="HelpContentCreationCtrl.ePage.Masters.ContentCreation.ActiveContentValue.Content"></textarea>
+                        </div>
+                        <div class="clearfix" data-ng-show="HelpContentCreationCtrl.ePage.Masters.ContentCreation.ActiveControl.Control == 'TextFormater'">
+                            <summernote config="HelpContentCreationCtrl.ePage.Masters.ContentCreation.SummernoteOptions" data-ng-model="HelpContentCreationCtrl.ePage.Masters.ContentCreation.ActiveContentValue.Content"></summernote>
+                        </div>
+                        <div class="clearfix" data-ng-show="HelpContentCreationCtrl.ePage.Masters.ContentCreation.ActiveControl.Control == 'Image'">
+                            <file-upload-custom class="file-upload-directive" data-ng-model="HelpContentCreationCtrl.ePage.Masters.ContentCreation.Image.fileDetails"
+                                size="{{HelpContentCreationCtrl.ePage.Masters.ContentCreation.Image.fileSize}}" auth="{{HelpContentCreationCtrl.ePage.Masters.ContentCreation.Image.Autherization}}"
+                                additional-value="{{HelpContentCreationCtrl.ePage.Masters.ContentCreation.Image.AdditionalValue}}"
+                                url="{{HelpContentCreationCtrl.ePage.Masters.ContentCreation.Image.UploadUrl}}" doc-type="image/*"
+                                multiple-file="false" is-disabled="false" fu-class="left" get-uploaded-files="HelpContentCreationCtrl.ePage.Masters.ContentCreation.Image.GetUploadedFiles($item, x, 'attach')"
+                                get-selected-files="HelpContentCreationCtrl.ePage.Masters.ContentCreation.Image.GetSelectedFiles($item, x, 'attach')"
+                                modal-template="" template="">
+                                <button class="btn btn-danger btn-sm mr-10">Upload</button>
+                            </file-upload-custom>
+                            <div class="clearfix">
+                                <div class="clearfix p-10" data-ng-if="HelpContentCreationCtrl.ePage.Masters.ContentCreation.Image.SelectedImage && !HelpContentCreationCtrl.ePage.Masters.ContentCreation.Image.UploadedImage">
+                                    <div class="col-sm-3">
+                                        <span data-ng-bind="HelpContentCreationCtrl.ePage.Masters.ContentCreation.Image.SelectedImage.name"></span>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="meter">
+                                            <span></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6"></div>
+                                </div>
+                                <div class="clearfix p-10" data-ng-if="HelpContentCreationCtrl.ePage.Masters.ContentCreation.Image.UploadedImage">
+                                    <div class="col-sm-3 pt-5">
+                                        <span class="mr-10 fa fa-image"></span>
+                                        <span data-ng-bind="HelpContentCreationCtrl.ePage.Masters.ContentCreation.ActiveContentValue.Content || HelpContentCreationCtrl.ePage.Masters.ContentCreation.Image.UploadedImage.FileName"></span>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control input-sm" placeholder="Name" data-ng-model="HelpContentCreationCtrl.ePage.Masters.ContentCreation.ActiveContentValue.Content">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</script>

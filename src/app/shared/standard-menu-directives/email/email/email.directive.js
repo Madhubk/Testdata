@@ -15,12 +15,16 @@
             controllerAs: 'EmailCtrl',
             bindToController: true,
             scope: {
-                input: "="
+                input: "=",
+                mode: "=",
+                type: "=",
+                closeModal: "&",
+                onComplete: "&"
             },
             link: Link
         };
         return exports;
 
-        function Link(scope, ele, attr) { }
+        function Link(scope, ele, attr) {}
     }
 })();

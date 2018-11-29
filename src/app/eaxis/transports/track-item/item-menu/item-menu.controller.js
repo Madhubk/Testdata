@@ -31,9 +31,6 @@
             ItemMenuCtrl.ePage.Masters.FinaliseSaveText = "Finalise";
             ItemMenuCtrl.ePage.Masters.Config = itemConfig;
 
-            // Standard Menu Configuration and Data
-            ItemMenuCtrl.ePage.Masters.StandardMenuInput = appConfig.Entities.standardMenuConfigList.TransportItem;
-            ItemMenuCtrl.ePage.Masters.StandardMenuInput.obj = ItemMenuCtrl.currentItem;
             ItemMenuCtrl.ePage.Masters.Validation = Validation;
             ItemMenuCtrl.ePage.Masters.SaveClose = SaveClose;
             ItemMenuCtrl.ePage.Masters.tabSelected = tabSelected;
@@ -136,12 +133,22 @@
                     }).indexOf(ItemMenuCtrl.currentItem[ItemMenuCtrl.currentItem.label].ePage.Entities.Header.Data.PK);
 
                     if (_index !== -1) {
-                        if (response.Data.Response) {
-                            itemConfig.TabList[_index][itemConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data.Response;
-                        }
-                        else {
-                            itemConfig.TabList[_index][itemConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data;
-                        }
+
+                        apiService.get("eAxisAPI", 'TmsItemList/GetById/' + ItemMenuCtrl.currentItem[ItemMenuCtrl.currentItem.label].ePage.Entities.Header.Data.PK).then(function (response) {
+                            if (response.data.Response) {
+                                itemConfig.TabList[_index][itemConfig.TabList[_index].label].ePage.Entities.Header.Data = response.data.Response;
+
+                                itemConfig.TabList.map(function (value, key) {
+                                    if (_index == key) {
+                                        if (value.New) {
+                                            value.label = ItemMenuCtrl.ePage.Entities.Header.Data.TmsItemHeader.ItemCode;
+                                            value[ItemMenuCtrl.ePage.Entities.Header.Data.TmsItemHeader.ItemCode] = value.New;
+                                            delete value.New;
+                                        }
+                                    }
+                                });
+                            }
+                        });
                         if (ItemMenuCtrl.ePage.Masters.SaveAndClose) {
                             ItemMenuCtrl.ePage.Masters.Config.SaveAndClose = true;
                             ItemMenuCtrl.ePage.Masters.SaveAndClose = false;
@@ -151,10 +158,12 @@
                             helperService.refreshGrid();
                         }
                     }
+                    toastr.success("Saved Successfully");
                     console.log("Success");
                     ItemMenuCtrl.ePage.Entities.Header.CheckPoints.Receiveline = false;
                 } else if (response.Status === "failed") {
                     console.log("Failed");
+                    toastr.error("save failed");
                     ItemMenuCtrl.ePage.Entities.Header.Validations = response.Validations;
                     angular.forEach(response.Validations, function (value, key) {
                         ItemMenuCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey.trim(), ItemMenuCtrl.currentItem.label, false, undefined, undefined, undefined, undefined, undefined);

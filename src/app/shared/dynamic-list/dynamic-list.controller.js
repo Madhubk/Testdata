@@ -5,9 +5,9 @@
         .module("Application")
         .controller("DynamicListController", DynamicListController);
 
-    DynamicListController.$inject = ["$injector", "$timeout", "$location", "authService", "APP_CONSTANT", "apiService", "helperService", "toastr", "dynamicLookupConfig", "appConfig", "confirmation"];
+    DynamicListController.$inject = ["$timeout", "$filter", "authService", "apiService", "helperService", "toastr", "dynamicLookupConfig", "appConfig", "APP_CONSTANT", "confirmation"];
 
-    function DynamicListController($injector, $timeout, $location, authService, APP_CONSTANT, apiService, helperService, toastr, dynamicLookupConfig, appConfig, confirmation) {
+    function DynamicListController($timeout, $filter, authService, apiService, helperService, toastr, dynamicLookupConfig, appConfig, APP_CONSTANT, confirmation) {
         var DynamicListCtrl = this;
 
         function Init() {
@@ -19,27 +19,28 @@
                 "Entities": DynamicListCtrl.config
             };
 
-            helperService.refreshGrid = InitDynamicList;
             InitDynamicList();
         }
 
         // region
         function InitDynamicList() {
             DynamicListCtrl.ePage.Masters.DynamicList = {};
+            if (DynamicListCtrl.baseFilter) {
+                DynamicListCtrl.ePage.Masters.DynamicList.BaseFilterFields = {};
+            }
 
             InitHeader();
             InitFilter();
             InitCustomized();
-            InitGrid();
 
             if (DynamicListCtrl.dataentryName && DynamicListCtrl.mode) {
                 GetDataEntryDetails();
             }
-
-            InitOrder();
         }
 
         function GetDataEntryDetails() {
+            DynamicListCtrl.ePage.Masters.DynamicList.BaseFilter = angular.copy(DynamicListCtrl.baseFilter);
+
             var _filter = {
                 DataEntryName: DynamicListCtrl.dataentryName,
                 IsRoleBassed: false,
@@ -54,19 +55,81 @@
                 if (response.data.Response) {
                     var _isEmpty = angular.equals({}, response.data.Response);
                     if (!_isEmpty) {
+                        if (response.data.Response.LookUpList) {
+                            dynamicLookupConfig.Entities = Object.assign({}, dynamicLookupConfig.Entities, response.data.Response.LookUpList);
+                        }
                         DynamicListCtrl.ePage.Masters.DynamicList.DataEntry = response.data.Response;
 
-                        if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.Pagination.NoOfColumn) {
-                            DynamicListCtrl.ePage.Masters.DynamicList.Filter.ViewType = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.Pagination.NoOfColumn;
+                        GetRelatedLookupList();
+
+                        if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.FilterAPI) {
+                            if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.FilterAPI.indexOf("@") !== -1) {
+                                var _filterAPI = angular.copy(DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.FilterAPI).split("/");
+
+                                _filterAPI.map(function (value, key) {
+                                    if (value.indexOf("@") !== -1) {
+                                        _filterAPI[key] = authService.getUserInfo()[_filterAPI[key].slice(1)];
+                                    }
+                                });
+
+                                DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.FilterAPI = _filterAPI.join("/");
+                            }
                         }
 
+                        var _colList = [];
+                        DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.GridConfig.Header.map(function (value, key) {
+                            if (!value.IsVisible && value.IsMandatory) {
+                                _colList.push(value);
+                            } else if (value.IsVisible) {
+                                _colList.push(value);
+                            }
+                        });
+
+                        if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.FilterConfig) {
+                            if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.FilterConfig.NoOfColumn) {
+                                DynamicListCtrl.ePage.Masters.DynamicList.Filter.ViewType = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.FilterConfig.NoOfColumn;
+                            }
+                        }
+
+                        DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.GridConfig.Header = _colList;
                         DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.GridColumnAll = angular.copy(DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.GridConfig.Header);
 
-                        if (DynamicListCtrl.mode != "1") {
-                            DynamicListCtrl.dataentryObject = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry;
-                        }
+                        DynamicListCtrl.dataentryObject = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry;
 
-                        GetUserDefaultFilter();
+                        InitGrid();
+
+                        if (DynamicListCtrl.mode == 1 && DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig) {
+                            if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableFavoriteShortcutFilter) {
+                                GetUserDefaultFilter();
+                            } else {
+                                SetDefaultFilter();
+                            }
+                        } else {
+                            SetDefaultFilter();
+                        }
+                    } else {
+                        DynamicListCtrl.ePage.Masters.DynamicList.IsEmptyDataEntryName = true;
+                    }
+                }
+            });
+        }
+
+        function GetRelatedLookupList() {
+            var _filter = {
+                PageFK: DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntry_PK,
+                SAP_FK: authService.getUserInfo().AppPK
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.DYN_RelatedLookup.API.GroupFindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", appConfig.Entities.DYN_RelatedLookup.API.GroupFindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    var _isEmpty = angular.equals({}, response.data.Response);
+
+                    if (!_isEmpty) {
+                        dynamicLookupConfig.Entities = Object.assign({}, dynamicLookupConfig.Entities, response.data.Response);
                     }
                 }
             });
@@ -74,7 +137,6 @@
 
         // Default Filter
         function GetUserDefaultFilter() {
-            var _response;
             var _filter = {
                 "SAP_FK": authService.getUserInfo().AppPK,
                 "TenantCode": authService.getUserInfo().TenantCode,
@@ -88,16 +150,23 @@
             };
 
             apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
+                var _response;
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
                         _response = response.data.Response[0];
                         if (_response.Value) {
                             _response.Value = JSON.parse(_response.Value);
-                            DynamicListCtrl.ePage.Masters.DynamicList.Filter.AppUserDefaultFilter = angular.copy(_response);
-                            DynamicListCtrl.ePage.Masters.DynamicList.Filter.UserDefaultFilter = angular.copy(_response);
+
+                            for (var x in _response.Value) {
+                                if (_response.Value[x].indexOf("@") != -1) {
+                                    _response.Value[x] = helperService.DateFilter(_response.Value[x]);
+                                }
+                            }
+
                             DynamicListCtrl.ePage.Masters.DynamicList.Filter.DefaultFilter = _response.Value;
 
-                            SetDefaultFilter();
+                            DynamicListCtrl.ePage.Masters.DynamicList.Filter.AppUserDefaultFilter = angular.copy(_response);
+                            DynamicListCtrl.ePage.Masters.DynamicList.Filter.UserDefaultFilter = angular.copy(_response);
                         }
                     }
                 }
@@ -134,13 +203,42 @@
                             DynamicListCtrl.ePage.Masters.DynamicList.Filter.AppDefaultFilter = angular.copy(_response);
                             var _appFilter = {};
 
-                            _response.Value.ExcuteInput.map(function (value, key) {
-                                if (value.value.indexOf('@') != -1) {
-                                    var _date = helperService.DateFilter(value.value);
-                                    value.value = _date;
+                            _response.Value.ExcuteInput.map(function (value1, key1) {
+                                if (value1.Type) {
+                                    if (value1.Type == "DateCompare") {
+                                        var _val = "";
+                                        if (typeof value1.value == "string") {
+                                            _val = JSON.parse(value1.value);
+                                        }
+
+                                        if (_val.length > 0) {
+                                            _val.map(function (value2, key2) {
+                                                if (value2.FilterInput && value2.FilterInput.length > 0) {
+                                                    value2.FilterInput.map(function (value3, key3) {
+                                                        value3.Value = $filter('date')(new Date(), APP_CONSTANT.DatePicker.dateFormat);
+                                                    });
+                                                }
+                                            });
+                                        }
+
+                                        value1.value = JSON.stringify(_val);
+                                    }
+                                } else {
+                                    var _value = "";
+                                    if (typeof value1.value == "string") {
+                                        _value = value1.value;
+                                    } else {
+                                        _value = value1.value.toString();
+                                    }
+
+                                    if (_value.indexOf('@') != -1) {
+                                        var _date = helperService.DateFilter(_value);
+                                        value1.value = _date;
+                                    }
                                 }
-                                _appFilter[value.FieldName] = value.value;
+                                _appFilter[value1.FieldName] = value1.value;
                             });
+
                             DynamicListCtrl.ePage.Masters.DynamicList.Filter.DefaultFilter = _appFilter;
                         }
                     }
@@ -159,9 +257,73 @@
                 }
             }
 
+            if (DynamicListCtrl.ePage.Masters.DynamicList.BaseFilter) {
+                for (var x in DynamicListCtrl.ePage.Masters.DynamicList.BaseFilter) {
+                    // DynamicListCtrl.ePage.Masters.DynamicList.Filter.DefaultFilter["IsDisabled" + x] = true;
+                    DynamicListCtrl.ePage.Masters.DynamicList.BaseFilterFields["IsDisabled" + x] = true;
+                }
+            }
+
+            if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig) {
+                DynamicListCtrl.ePage.Masters.DynamicList.EnableCustomizeButton = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableCustomizeButton;
+                DynamicListCtrl.ePage.Masters.DynamicList.EnableResetButton = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableResetButton;
+                DynamicListCtrl.ePage.Masters.DynamicList.EnableNewButton = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableNewButton;
+                DynamicListCtrl.ePage.Masters.DynamicList.EnableAttachButton = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableAttachButton;
+                DynamicListCtrl.ePage.Masters.DynamicList.EnableFilterButton = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableFilterButton;
+                DynamicListCtrl.ePage.Masters.DynamicList.EnableClearButton = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableClearButton;
+                DynamicListCtrl.ePage.Masters.DynamicList.EnableUserFavoriteButton = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableUserFavoriteButton;
+
+                if (DynamicListCtrl.mode == 1) {
+                    DynamicListCtrl.ePage.Masters.DynamicList.EnableAttachButton = false;
+                    if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableFavoriteShortcutFilter) {
+                        GetFavoriteShortcutList();
+                    }
+
+                    if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableCustomizeButton) {
+                        GetUserBasedGridColumList();
+                    } else {
+                        $timeout(function () {
+                            DynamicControlFilter();
+                        });
+                    }
+                } else if (DynamicListCtrl.mode == 2) {
+                    DynamicListCtrl.ePage.Masters.DynamicList.EnableAttachButton = false;
+                    DynamicListCtrl.ePage.Masters.DynamicList.EnableResetButton = false;
+                    DynamicListCtrl.ePage.Masters.DynamicList.EnableUserFavoriteButton = false;
+                    DynamicListCtrl.ePage.Masters.DynamicList.EnableClearButton = false;
+                    DynamicListCtrl.ePage.Masters.DynamicList.EnableCustomizeButton = false;
+
+                    (DynamicListCtrl.isNewButton) ? DynamicListCtrl.ePage.Masters.DynamicList.EnableNewButton = true: DynamicListCtrl.ePage.Masters.DynamicList.EnableNewButton = false;
+                    $timeout(function () {
+                        DynamicControlFilter();
+                    });
+                } else if (DynamicListCtrl.mode == 3) {
+                    DynamicListCtrl.ePage.Masters.DynamicList.EnableAttachButton = true;
+                    DynamicListCtrl.ePage.Masters.DynamicList.EnableResetButton = false;
+                    DynamicListCtrl.ePage.Masters.DynamicList.EnableNewButton = false;
+                    DynamicListCtrl.ePage.Masters.DynamicList.EnableUserFavoriteButton = false;
+                    DynamicListCtrl.ePage.Masters.DynamicList.EnableClearButton = false;
+                    DynamicListCtrl.ePage.Masters.DynamicList.EnableCustomizeButton = false;
+
+                    $timeout(function () {
+                        DynamicControlFilter();
+                    });
+                }
+            } else {
+                $timeout(function () {
+                    DynamicControlFilter();
+                });
+            }
+
             AddFilterControlVisibleDisable();
-            GetFavoriteShortcutList();
-            GetUserBasedGridColumList();
+
+            // if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.Parties) {
+            //     if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.Parties.IsEnableParties) {
+            //         if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.Parties.FKField) {
+            //             InitParties();
+            //         }
+            //     }
+            // }
         }
         // endregion
 
@@ -185,11 +347,14 @@
             DynamicListCtrl.ePage.Masters.DynamicList.Header.SetUserDeafultFilter = SetUserDeafultFilter;
 
             // Buttons
+            DynamicListCtrl.ePage.Masters.DynamicList.Header.Refresh = OnRefreshBtnClick;
             DynamicListCtrl.ePage.Masters.DynamicList.Header.CustomizeGridColumn = CustomizeGridColumn;
             DynamicListCtrl.ePage.Masters.DynamicList.Header.Reset = OnResetBtnClick;
             DynamicListCtrl.ePage.Masters.DynamicList.Header.Attach = OnAttachBtnClick;
             DynamicListCtrl.ePage.Masters.DynamicList.Header.New = OnNewBtnClick;
             DynamicListCtrl.ePage.Masters.DynamicList.Header.Filter = OnFilterBtnClick;
+
+            helperService.refreshGrid = OnRefreshBtnClick;
         }
 
         function GetFavoriteShortcutList() {
@@ -213,16 +378,13 @@
                     DynamicListCtrl.ePage.Masters.DynamicList.Header.FavoriteShortcutFilter.ListSource = [];
                 }
 
-                if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig
-                    .IsRecentFilter) {
+                if (DynamicListCtrl.mode == 1 && DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableRecentFilter) {
                     GetRecentFilterList();
                 }
-                if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig
-                    .IsSystemFilter) {
+                if (DynamicListCtrl.mode == 1 && DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableSystemDefaultFilter) {
                     GetSystemFilterList();
                 }
-                if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig
-                    .IsUserFavoriteFilter) {
+                if (DynamicListCtrl.mode == 1 && DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableUserDefaultFilter) {
                     GetUserFilterList();
                 }
             });
@@ -232,7 +394,7 @@
             DynamicListCtrl.ePage.Masters.DynamicList.Header.RecentFilter.ListSource = undefined;
             var _filter = {
                 ActionType: "Transaction",
-                EntitySource: DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.Pagination.EntitySource,
+                EntitySource: DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.FilterConfig.EntitySource,
                 CreatedBy: authService.getUserInfo().UserId,
             };
             var _input = {
@@ -252,7 +414,9 @@
         function GetSystemFilterList() {
             DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemFilter.ListSource = undefined;
             var _filter = {
+                "EntitySource": "QUERY",
                 "SourceEntityRefKey": DynamicListCtrl.dataentryName,
+                "TypeCode": DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntry_PK,
                 "SAP_FK": authService.getUserInfo().AppPK,
                 "TenantCode": authService.getUserInfo().TenantCode
             };
@@ -332,10 +496,38 @@
                 if (_data.ShowCount) {
                     obj.ShowCount = _data.ShowCount;
                     obj.IsExcute = _data.IsExcute;
-                    _data.CountInput.map(function (value, key) {
-                        if (value.value.indexOf("@") != -1) {
-                            var _date = helperService.DateFilter(value.value);
-                            value.value = _date;
+                    _data.CountInput.map(function (value1, key1) {
+                        if (value1.Type) {
+                            if (value1.Type == "DateCompare") {
+                                var _val = "";
+                                if (typeof value1.value == "string") {
+                                    _val = JSON.parse(value1.value);
+                                }
+
+                                if (_val.length > 0) {
+                                    _val.map(function (value2, key2) {
+                                        if (value2.FilterInput && value2.FilterInput.length > 0) {
+                                            value2.FilterInput.map(function (value3, key3) {
+                                                value3.Value = $filter('date')(new Date(), APP_CONSTANT.DatePicker.dateFormat);
+                                            });
+                                        }
+                                    });
+                                }
+
+                                value1.value = JSON.stringify(_val);
+                            }
+                        } else {
+                            var _value = "";
+                            if (typeof value1.value == "string") {
+                                _value = value1.value;
+                            } else {
+                                _value = value1.value.toString();
+                            }
+
+                            if (_value.indexOf('@') != -1) {
+                                var _date = helperService.DateFilter(_value);
+                                value1.value = _date;
+                            }
                         }
                     });
 
@@ -384,13 +576,45 @@
                     DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ActiveFilter = obj.Key;
                 } else if (type === "system") {
                     DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemFilter.ActiveFilter = obj.Key;
-                } else if (type === "starred") { }
+                } else if (type === "starred") {}
 
-                var _data = JSON.parse(obj.Value);
-                _data.ExcuteInput.map(function (value, key) {
-                    if (value.value.indexOf('@') != -1) {
-                        var _date = helperService.DateFilter(value.value);
-                        value.value = _date;
+                var _data = obj.Value;
+                if (typeof obj.Value == "string") {
+                    _data = JSON.parse(obj.Value);
+                }
+
+                _data.ExcuteInput.map(function (value1, key1) {
+                    if (value1.Type) {
+                        if (value1.Type == "DateCompare") {
+                            var _val = "";
+                            if (typeof value1.value == "string") {
+                                _val = JSON.parse(value1.value);
+                            }
+
+                            if (_val.length > 0) {
+                                _val.map(function (value2, key2) {
+                                    if (value2.FilterInput && value2.FilterInput.length > 0) {
+                                        value2.FilterInput.map(function (value3, key3) {
+                                            value3.Value = $filter('date')(new Date(), APP_CONSTANT.DatePicker.dateFormat);
+                                        });
+                                    }
+                                });
+                            }
+
+                            value1.value = JSON.stringify(_val);
+                        }
+                    } else {
+                        var _value = "";
+                        if (typeof value1.value == "string") {
+                            _value = value1.value;
+                        } else {
+                            _value = value1.value.toString();
+                        }
+
+                        if (_value.indexOf('@') != -1) {
+                            var _date = helperService.DateFilter(_value);
+                            value1.value = _date;
+                        }
                     }
                 });
 
@@ -426,11 +650,15 @@
 
                             apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Upsert.Url + authService.getUserInfo().AppPK, [_input]).then(function (response) {
                                 if (response.data.Response) {
-                                    DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemUserFavouriteList.ListSource[_index].IsStarred = true;
+                                    if (response.data.Response.length > 0) {
+                                        DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemUserFavouriteList.ListSource[_index].IsStarred = true;
+                                        var _obj = angular.copy(response.data.Response[0]);
+                                        DynamicListCtrl.ePage.Masters.DynamicList.Header.FavoriteShortcutFilter.ListSource.push(_obj);
+                                    }
                                 }
                             });
                         } else {
-                            toastr.warning("Cannot add more then 3 favourites", "Favourite Starred", );
+                            toastr.warning("Cannot add more than 3 favourites", "Favourite Starred");
                         }
                     } else {
                         DynamicListCtrl.ePage.Masters.DynamicList.Header.FavoriteShortcutFilter.ListSource.map(function (value, key) {
@@ -508,15 +736,15 @@
                     }
                 }
             };
-
-            // SelectedGridRow(_obj);
         }
 
         function SetUserDeafultFilter($item, type, isdefaultFilter) {
             var _item = $item;
             if (_item) {
                 if (_item.Value) {
-                    _item.Value = JSON.parse(_item.Value);
+                    if (typeof _item.Value == "string") {
+                        _item.Value = JSON.parse(_item.Value);
+                    }
 
                     if (_item.Value.ExcuteInput) {
                         if (!isdefaultFilter) {
@@ -599,20 +827,48 @@
         }
 
         // Button Actins
+        function OnRefreshBtnClick() {
+            ApplyFilter();
+        }
+
         function OnResetBtnClick() {
             ClearFilterInput();
+
             DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ActiveFilter = undefined;
             DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemFilter.ActiveFilter = undefined;
             DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemUserFavouriteList.ActiveFilter = undefined;
 
-            if (DynamicListCtrl.ePage.Masters.DynamicList.Filter.AppUserDefaultFilter) {
-                DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.Entities.map(function (value, key) {
-                    value.Data = DynamicListCtrl.ePage.Masters.DynamicList.Filter.AppUserDefaultFilter.Value;
-                });
+            if (DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.IsAutoListing) {
+                DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.OtherConfig.CSS.IsAutoListing = DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.IsAutoListing;
             }
 
-            DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.OtherConfig.CSS.IsAutoListing = DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.IsAutoListing;
-            DynamicControlFilter();
+            $timeout(function () {
+                if (DynamicListCtrl.ePage.Masters.DynamicList.BaseFilter) {
+                    DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.Entities.map(function (value, key) {
+                        if (!value.Data) {
+                            value.Data = {};
+                        }
+                        for (var x in DynamicListCtrl.ePage.Masters.DynamicList.BaseFilter) {
+                            value.Data[x] = DynamicListCtrl.ePage.Masters.DynamicList.BaseFilter[x];
+                            // DynamicListCtrl.ePage.Masters.DynamicList.Filter.DefaultFilter["IsDisabled" + x] = true;
+                            DynamicListCtrl.ePage.Masters.DynamicList.BaseFilterFields["IsDisabled" + x] = true;
+                        }
+                    });
+                }
+
+                if (DynamicListCtrl.ePage.Masters.DynamicList.Filter.AppUserDefaultFilter) {
+                    DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.Entities.map(function (value, key) {
+                        if (!value.Data) {
+                            value.Data = {};
+                        }
+                        for (var x in DynamicListCtrl.ePage.Masters.DynamicList.Filter.AppUserDefaultFilter.Value) {
+                            value.Data[x] = DynamicListCtrl.ePage.Masters.DynamicList.Filter.AppUserDefaultFilter.Value[x];
+                        }
+                    });
+                }
+
+                DynamicControlFilter();
+            });
         }
 
         function OnNewBtnClick() {
@@ -625,12 +881,13 @@
         }
 
         function OnAttachBtnClick() {
-            if (DynamicListCtrl.ePage.Masters.DynamicList.Grid.SelectedItems) {
-                if (DynamicListCtrl.ePage.Masters.DynamicList.Grid.SelectedItems.length > 0) {
+            if (DynamicListCtrl.ePage.Masters.DynamicList.Grid.SelectedItemList) {
+                if (DynamicListCtrl.ePage.Masters.DynamicList.Grid.SelectedItemList.length > 0) {
                     DynamicListCtrl.selectedGridRow({
                         $item: {
-                            "action": "multiSelect",
-                            "data": DynamicListCtrl.ePage.Masters.DynamicList.Grid.SelectedItems
+                            action: "multiSelect",
+                            data: DynamicListCtrl.ePage.Masters.DynamicList.Grid.SelectedItem,
+                            items: DynamicListCtrl.ePage.Masters.DynamicList.Grid.SelectedItemList
                         }
                     });
                 }
@@ -698,7 +955,7 @@
 
                             if (_response.Column.length > 0) {
                                 DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.GridColumnAll.map(function (value1, key1) {
-                                    (!value1.IsMandatory) ? value1.IsVisible = false : value1.IsVisible = true;
+                                    (!value1.IsMandatory) ? value1.IsVisible = false: value1.IsVisible = true;
 
                                     _response.Column.map(function (value2, key2) {
                                         if (value1.field == value2.field) {
@@ -724,7 +981,8 @@
         }
 
         function DynamicControlFilter($item) {
-            var _dataEntryCopy;
+            var _dataEntryCopy, _defaultFilter = [];
+            DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy = undefined;
 
             if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter) {
                 _dataEntryCopy = angular.copy(DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter);
@@ -732,18 +990,15 @@
                 _dataEntryCopy = angular.copy(DynamicListCtrl.ePage.Masters.DynamicList.DataEntry);
             }
 
-            DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy = undefined;
-
             $timeout(function () {
                 if ($item) {
                     _dataEntryCopy.FilterAPI = $item.API;
                     _dataEntryCopy.FilterID = $item.FilterID;
-                    _dataEntryCopy.RequestMethod = $item.ExcuteRequestMethod;
-                    _dataEntryCopy.Filter = $item.ExcuteInput;
+                    _defaultFilter = $item.ExcuteInput;
                 } else {
                     var _tempArray = [];
                     var _obj = {
-                        'FilterType': DynamicListCtrl.dataentryName
+                        'FilterType': DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntryName
                     };
                     _tempArray.push(helperService.createToArrayOfObject(_obj)[0]);
 
@@ -752,18 +1007,61 @@
                         _list.map(function (value, key) {
                             _tempArray.push(value);
                         });
-                        _dataEntryCopy.Filter = _tempArray;
+                        _defaultFilter = _tempArray;
                     });
                 }
 
                 if (DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.UserBasedGrid.ColumnList) {
                     if (DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.UserBasedGrid.ColumnList.length > 0) {
+                        var _colList = [];
+                        _dataEntryCopy.GridConfig.Header.map(function (value1, key1) {
+                            DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.UserBasedGrid.ColumnList.map(function (value2, key2) {
+                                if (value1.field == value2.field) {
+                                    value2 = value1;
+                                    _colList.push(value1);
+                                }
+                            });
+                        });
+
+                        // _dataEntryCopy.GridConfig.Header = _colList;
                         _dataEntryCopy.GridConfig.Header = DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.UserBasedGrid.ColumnList;
                     }
                 }
 
                 DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy = _dataEntryCopy;
                 DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter = angular.copy(_dataEntryCopy);
+                DynamicListCtrl.ePage.Masters.DynamicList.DefaultFilter = _defaultFilter;
+
+                if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.Parties) {
+                    if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.Parties.IsEnableParties) {
+                        if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.Parties.FKField) {
+                            var _party = [{
+                                SField: DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.Parties.FKField,
+                                EField: "Party_Pk"
+                            }, {
+                                SField: DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.Parties.CodeField,
+                                EField: "Party_Code"
+                            }];
+
+                            if (!DynamicListCtrl.ePage.Masters.DynamicList.DefaultFilter) {
+                                DynamicListCtrl.ePage.Masters.DynamicList.DefaultFilter = [];
+                            }
+
+                            // if (DynamicListCtrl.ePage.Masters.DynamicList.Parties.ActivePartyType) {
+                            //     _party.map(function (value, key) {
+                            //         // if (value.SField == "PartyType_FK") {
+                            //             var _filter = {
+                            //                 FieldName: value.SField,
+                            //                 Value: DynamicListCtrl.ePage.Masters.DynamicList.Parties.ActivePartyType[value.EField]
+                            //             };
+
+                            //             DynamicListCtrl.ePage.Masters.DynamicList.DefaultFilter.push(_filter);
+                            //         // }
+                            //     });
+                            // }
+                        }
+                    }
+                }
             });
         }
 
@@ -800,7 +1098,7 @@
                             "Key": "GridColumn",
                             "Value": {
                                 "Column": _column,
-                                'IsAutoListing': DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.IsAutoListing
+                                'IsAutoListing': (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.CSS.IsAutoListing) ? true : false
                             },
                             "IsJSON": true,
                             "IsModified": true
@@ -867,9 +1165,7 @@
                 _input.IsDeleted = true;
                 _input.PK = $item.Include_FK;
 
-                apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Upsert.Url + authService.getUserInfo().AppPK, [_input]).then(function (response) {
-
-                });
+                apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Upsert.Url + authService.getUserInfo().AppPK, [_input]).then(function (response) {});
             }
         }
         // endregion
@@ -894,62 +1190,71 @@
 
             DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.SaveSettingBtnText = "Save";
             DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.IsDisableSaveSettingBtn = false;
-
-            InitLookupMaster();
-        }
-
-        function InitLookupMaster() {
-            var _isEmptyLookupConfig = angular.equals({}, dynamicLookupConfig.Entities);
-            if (_isEmptyLookupConfig) {
-                GetLookupMasterList();
-            }
-        }
-
-        function GetLookupMasterList() {
-            var _dataEntryNameList = "OrganizationList,MstUNLOCO,CmpDepartment,CmpEmployee,CmpBranch,DGSubstance,OrgContact,MstCommodity,MstContainer,OrgSupplierPart,MstVessel,ShipmentSearch,ConsolHeader,OrderHeader,Warehouse,WarehouseRow,WarehouseArea,OrgHeader,WarehouseOutward,WarehouseInward,WarehouseTransport,ProductRelatedParty,MstServiceLevel,CurrencyMaster,CarrierServiceLevel,MDM_CarrierList,WarehouseLocation,InwardDockDoor,MstCountry,WarehouseLocationType,PickupAndDeliveryOrders,TransportPickupandDelivery,TransportsConsignment,TransportItem,TransportsManifest,TmsConsignmentItem,OrgZone,ConsignmentLeg";
-            var _filter = [{
-                "FieldName": "DataEntryNameList",
-                "value": _dataEntryNameList
-            }];
-            var _input = {
-                "searchInput": _filter,
-                "FilterID": appConfig.Entities.DataEntryMaster.API.FindAll.FilterID
-            };
-
-            apiService.post("eAxisAPI", appConfig.Entities.DataEntryMaster.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        response.data.Response.map(function (value, key) {
-                            dynamicLookupConfig.Entities[value.DataEntryName] = value;
-                        });
-                    }
-                }
-            });
         }
 
         function AddFilterControlVisibleDisable() {
             DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.Entities.map(function (value1, key1) {
-                if (DynamicListCtrl.ePage.Masters.DynamicList.Filter.DefaultFilter) {
-                    value1.Data = DynamicListCtrl.ePage.Masters.DynamicList.Filter.DefaultFilter;
-                }
-                if ((DynamicListCtrl.mode === 2 || DynamicListCtrl.mode === 3) && dynamicLookupConfig.Entities[DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntryName]) {
-                    if (dynamicLookupConfig.Entities[DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntryName].LookupConfig) {
-                        if (dynamicLookupConfig.Entities[DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntryName].LookupConfig[DynamicListCtrl.lookupConfigFieldName]) {
-                            value1.CSS = {};
-                            value1.ConfigData.map(function (value2, key2) {
-                                value1.CSS["Is" + value2.PropertyName + "Visible"] = true;
-                                value1.CSS["Is" + value2.PropertyName + "Disable"] = false;
+                if (value1.ConfigData && value1.ConfigData.length > 0) {
+                    value1.ConfigData.map(function (value3, key3) {
+                        if (value3.AttributesDetails.DefaultValue) {
+                            switch (value3.AttributesDetails.UIControl) {
+                                case "Lookup":
+                                    value3.AttributesDetails.DefaultValue = JSON.parse(value3.AttributesDetails.DefaultValue);
 
-                                if (dynamicLookupConfig.Entities[DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntryName].LookupConfig[DynamicListCtrl.lookupConfigFieldName].CSS) {
-                                    var _isEmpty = angular.equals({}, dynamicLookupConfig.Entities[DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntryName].LookupConfig[DynamicListCtrl.lookupConfigFieldName].CSS);
-
-                                    if (!_isEmpty) {
-                                        value1.CSS["Is" + value2.PropertyName + "Visible"] = dynamicLookupConfig.Entities[DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntryName].LookupConfig[DynamicListCtrl.lookupConfigFieldName].CSS["Is" + value2.PropertyName + "Visible"];
-                                        value1.CSS["Is" + value2.PropertyName + "Disable"] = dynamicLookupConfig.Entities[DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntryName].LookupConfig[DynamicListCtrl.lookupConfigFieldName].CSS["Is" + value2.PropertyName + "Disable"];
+                                    for (var x in value3.AttributesDetails.DefaultValue) {
+                                        if (x != value3.PropertyName) {
+                                            value1.Data[x] = value3.AttributesDetails.DefaultValue[x];
+                                        }
                                     }
-                                }
-                            });
+
+                                    value1.Data[value3.PropertyName] = value3.AttributesDetails.DefaultValue[value3.PropertyName];
+                                    break;
+                                case "checkbox":
+                                    value1.Data[value3.PropertyName] = (value3.AttributesDetails.DefaultValue == "true") ? true : false;
+                                    break;
+                                default:
+                                    value1.Data[value3.PropertyName] = value3.AttributesDetails.DefaultValue;
+                                    break;
+                            }
+                        } else {
+                            switch (value3.AttributesDetails.UIControl) {
+                                case "tenant":
+                                    value1.Data[value3.PropertyName] = authService.getUserInfo().TenantCode;
+                                    break;
+                                case "user":
+                                    value1.Data[value3.PropertyName] = authService.getUserInfo().UserId;
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
+                    });
+                }
+                if (DynamicListCtrl.ePage.Masters.DynamicList.Filter.DefaultFilter) {
+                    for (var x in DynamicListCtrl.ePage.Masters.DynamicList.Filter.DefaultFilter) {
+                        value1.Data[x] = DynamicListCtrl.ePage.Masters.DynamicList.Filter.DefaultFilter[x];
+                    }
+                }
+                if ((DynamicListCtrl.mode === 2 || DynamicListCtrl.mode === 3) && dynamicLookupConfig.Entities[DynamicListCtrl.lookupConfigControlKey]) {
+                    if (dynamicLookupConfig.Entities[DynamicListCtrl.lookupConfigControlKey].OtherConfig) {
+                        if (typeof dynamicLookupConfig.Entities[DynamicListCtrl.lookupConfigControlKey].OtherConfig == "string") {
+                            dynamicLookupConfig.Entities[DynamicListCtrl.lookupConfigControlKey].OtherConfig = JSON.parse(dynamicLookupConfig.Entities[DynamicListCtrl.lookupConfigControlKey].OtherConfig);
+                        }
+
+                        value1.CSS = {};
+                        value1.ConfigData.map(function (value2, key2) {
+                            value1.CSS["Is" + value2.PropertyName + "Visible"] = true;
+                            value1.CSS["Is" + value2.PropertyName + "Disable"] = false;
+
+                            if (dynamicLookupConfig.Entities[DynamicListCtrl.lookupConfigControlKey].OtherConfig.CSS) {
+                                var _isEmpty = angular.equals({}, dynamicLookupConfig.Entities[DynamicListCtrl.lookupConfigControlKey].OtherConfig.CSS);
+
+                                if (!_isEmpty) {
+                                    value1.CSS["Is" + value2.PropertyName + "Visible"] = dynamicLookupConfig.Entities[DynamicListCtrl.lookupConfigControlKey].OtherConfig.CSS["Is" + value2.PropertyName + "Visible"];
+                                    value1.CSS["Is" + value2.PropertyName + "Disable"] = dynamicLookupConfig.Entities[DynamicListCtrl.lookupConfigControlKey].OtherConfig.CSS["Is" + value2.PropertyName + "Disable"];
+                                }
+                            }
+                        });
                     }
                 }
             });
@@ -1041,10 +1346,27 @@
                 value.Data = {};
             });
             DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.Input = {};
+
+            $timeout(function () {
+                if (DynamicListCtrl.ePage.Masters.DynamicList.BaseFilter) {
+                    for (var x in DynamicListCtrl.ePage.Masters.DynamicList.BaseFilter) {
+                        DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.Entities.map(function (value, key) {
+                            value.Data = DynamicListCtrl.ePage.Masters.DynamicList.BaseFilter;
+                            // value.Data["IsDisabled" + x] = true;
+                            DynamicListCtrl.ePage.Masters.DynamicList.BaseFilterFields["IsDisabled" + x] = true;
+                        });
+                    }
+                }
+                DynamicListCtrl.ePage.Masters.DynamicList.BaseFilter = angular.copy(DynamicListCtrl.baseFilter);
+            });
         }
 
         function ApplyFilter() {
             ToggleFilterPanel();
+
+            DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ActiveFilter = undefined;
+            DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemFilter.ActiveFilter = undefined;
+            DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemUserFavouriteList.ActiveFilter = undefined;
 
             DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy.Filter = [];
             DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.Entities.map(function (value1, key1) {
@@ -1064,6 +1386,9 @@
             });
 
             DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.OtherConfig.CSS.IsAutoListing = true;
+
+            DynamicListCtrl.ePage.Masters.DynamicList.BaseFilter = angular.copy(DynamicListCtrl.baseFilter);
+
             DynamicControlFilter();
         }
         // endregion
@@ -1072,19 +1397,88 @@
         // region
         function InitGrid() {
             DynamicListCtrl.ePage.Masters.DynamicList.Grid = {};
-            DynamicListCtrl.ePage.Masters.DynamicList.Grid.IsStandardMenu = false;
-
             DynamicListCtrl.ePage.Masters.DynamicList.Grid.SelectedGridRow = SelectedGridRow;
 
-            DynamicListCtrl.ePage.Masters.DynamicList.Grid.GridConfig = APP_CONSTANT.DynamicGridConfig[DynamicListCtrl.gridConfigType].GridConfig;
+            var _gridOptions = {};
+
+            if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig) {
+                if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.GridOptions) {
+                    _gridOptions = angular.copy(DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.GridOptions);
+                    _gridOptions.paginationPageSize = JSON.parse(_gridOptions.paginationPageSize);
+                    _gridOptions.paginationPageSizes = JSON.parse(_gridOptions.paginationPageSizes);
+                    _gridOptions.headerRowHeight = JSON.parse(_gridOptions.headerRowHeight);
+                    _gridOptions.rowHeight = JSON.parse(_gridOptions.rowHeight);
+                    _gridOptions.gridMenuCustomItems = JSON.parse(_gridOptions.gridMenuCustomItems);
+                }
+            }
+
+            if (DynamicListCtrl.mode == 2) {
+                _gridOptions.enableRowSelection = false;
+                _gridOptions.enableRowHeaderSelection = false;
+                _gridOptions.enableGridMenu = false;
+                _gridOptions.multiSelect = false;
+            } else if (DynamicListCtrl.mode == 3) {
+                _gridOptions.enableRowSelection = true;
+                _gridOptions.enableRowHeaderSelection = true;
+                _gridOptions.enableGridMenu = false;
+                _gridOptions.multiSelect = true;
+            }
+
+            DynamicListCtrl.ePage.Masters.DynamicList.Grid.GridOptions = _gridOptions;
         }
 
         function SelectedGridRow($item) {
-            if ($item.action == 'favorite') {
-                SaveFavoriteItem($item.data);
-            } else if ($item.action == 'rowSelection') {
-                if (DynamicListCtrl.mode == 1) {
-                    ConfigureStandardMenu($item);
+            if (DynamicListCtrl.mode == 1) {
+                if ($item.action == 'favorite') {
+                    SaveFavoriteItem($item.data);
+                } else if ($item.action == 'rowSelection') {
+                    DynamicListCtrl.ePage.Masters.DynamicList.Grid.IsStandardToolbar = false;
+                    DynamicListCtrl.ePage.Masters.DynamicList.Grid.IsCustomToolbar = false;
+
+                    // if ($item.items.length == 1) {
+                    //     if ($item.dataEntryMaster.OtherConfig.ListingPageConfig.EnableStandardToolbar) {
+                    //         ConfigureStandardToolBar($item);
+                    //     } else if ($item.dataEntryMaster.OtherConfig.ListingPageConfig.EnableCustomToolbar) {
+                    //         ConfigureCustomToolBar($item);
+                    //     }
+                    // } else if ($item.items.length > 1) {
+                    //     if ($item.dataEntryMaster.OtherConfig.ListingPageConfig.EnableCustomToolbar) {
+                    //         ConfigureCustomToolBar($item);
+                    //     }
+                    // }
+
+                    if ($item.items.length > 0) {
+                        if ($item.dataEntryMaster.OtherConfig.ListingPageConfig.EnableCustomToolbar) {
+                            ConfigureCustomToolBar($item);
+                        }
+                    }
+                } else {
+                    DynamicListCtrl.selectedGridRow({
+                        $item: $item
+                    });
+                }
+            } else if (DynamicListCtrl.mode == 2) {
+                DynamicListCtrl.selectedGridRow({
+                    $item: $item
+                });
+            } else if (DynamicListCtrl.mode == 3) {
+                DynamicListCtrl.ePage.Masters.DynamicList.Grid.SelectedItem = $item.data;
+                DynamicListCtrl.ePage.Masters.DynamicList.Grid.SelectedItemList = $item.items;
+
+                if ($item.action == "link" || $item.action == "dblClick") {
+                    DynamicListCtrl.selectedGridRow({
+                        $item: {
+                            action: $item.action,
+                            data: [$item.data.entity],
+                            items: $item.items
+                        }
+                    });
+                } else if ($item.action == "rowSelection" || $item.action == "rowSelectionBatch") {
+
+                } else {
+                    DynamicListCtrl.selectedGridRow({
+                        $item: $item
+                    });
                 }
             } else {
                 DynamicListCtrl.selectedGridRow({
@@ -1112,17 +1506,21 @@
                     "TenantCode": authService.getUserInfo().TenantCode,
                     "EntitySource": DynamicListCtrl.dataentryName.toUpperCase() + "_STARRED",
                     "TypeCode": DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntry_PK,
-                    "IsModified": true,
-                    "IsDeleted": false
+                    "IsModified": true
                 };
             }
 
             apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Upsert.Url + authService.getUserInfo().AppPK, [_input]).then(function (response) {
                 if (response.data.Response) {
-                    if (!item.entity.IsStarred && item.entity.Starred_FK == null) {
-                        item.entity.IsStarred = true;
-                        item.entity.Starred_FK = response.data.Response[0].PK;
-                    } else if (item.entity.IsStarred && item.entity.Starred_FK != null) {
+                    if (response.data.Response.length > 0) {
+                        if (!item.entity.IsStarred && item.entity.Starred_FK == null) {
+                            item.entity.IsStarred = true;
+                            item.entity.Starred_FK = response.data.Response[0].PK;
+                        } else if (item.entity.IsStarred && item.entity.Starred_FK != null) {
+                            item.entity.IsStarred = false;
+                            item.entity.Starred_FK = null;
+                        }
+                    } else {
                         item.entity.IsStarred = false;
                         item.entity.Starred_FK = null;
                     }
@@ -1130,262 +1528,62 @@
             });
         }
 
-        function ConfigureStandardMenu($item) {
-            DynamicListCtrl.ePage.Masters.DynamicList.Grid.IsStandardMenu = false;
+        function ConfigureStandardToolBar($item) {
+            DynamicListCtrl.ePage.Masters.DynamicList.Grid.IsStandardToolbar = false;
             $timeout(function () {
-                var _dataEntryName = $item.data.DataEntryMaster.DataEntryName,
-                    _configData = appConfig.Entities.standardMenuConfigList[_dataEntryName];
-                var _StandardMenuInput = {
-                    [$item.data.entity[_configData.keyObjectNo]]: {
+                var _input = {
+                    [$item.items[0][DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.CodeFieldName]]: {
                         ePage: {
                             Entities: {
                                 Header: {
-                                    Data: $item.data.entity
+                                    Data: $item.items[0]
                                 }
                             }
                         }
                     },
                     isNew: false,
-                    label: $item.data.entity[_configData.keyObjectNo]
+                    label: $item.items[0][DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.CodeFieldName]
                 };
 
-                DynamicListCtrl.ePage.Masters.DynamicList.Grid.StandardMenuInput = angular.copy(_StandardMenuInput);
-                DynamicListCtrl.ePage.Masters.DynamicList.Grid.StandardMenuEntityName = angular.copy(_dataEntryName);
+                DynamicListCtrl.ePage.Masters.DynamicList.Grid.StandardMenuInput = angular.copy(_input);
 
-                ($item.data.isSelected ? DynamicListCtrl.ePage.Masters.DynamicList.Grid.IsStandardMenu = true : DynamicListCtrl.ePage.Masters.DynamicList.Grid.IsStandardMenu = false);
+                DynamicListCtrl.ePage.Masters.DynamicList.Grid.IsStandardToolbar = true;
+            });
+        }
+
+        function ConfigureCustomToolBar($item) {
+            DynamicListCtrl.ePage.Masters.DynamicList.Grid.IsCustomToolbar = false;
+            $timeout(function () {
+                var _input = angular.copy($item.items);
+                DynamicListCtrl.ePage.Masters.DynamicList.Grid.CustomToolbarInput = _input;
+
+                DynamicListCtrl.ePage.Masters.DynamicList.Grid.IsCustomToolbar = true;
             });
         }
         // endregion
 
-        // ========================Order========================
-        // region
-        function InitOrder() {
-            DynamicListCtrl.ePage.Masters.DynamicList.Order = {};
-            DynamicListCtrl.ePage.Masters.StandardMenuConfigList = appConfig.Entities.standardMenuConfigList[DynamicListCtrl.dataentryName];
+        // region Parties
+        function InitParties() {
+            DynamicListCtrl.ePage.Masters.DynamicList.Parties = {};
+            DynamicListCtrl.ePage.Masters.DynamicList.Parties.OnPartyChange = OnPartyChange;
 
-            // if (DynamicListCtrl.ePage.Masters.StandardMenuConfigList != undefined && DynamicListCtrl.mode === 1) {
-            //     DynamicListCtrl.ePage.Masters.ConfigName = $injector.get(DynamicListCtrl.ePage.Masters.StandardMenuConfigList.configName);
-            //     DynamicListCtrl.ePage.Masters.ConfigName.Entities.CopyOrder = CopyOrder;
-            //     DynamicListCtrl.ePage.Masters.ConfigName.Entities.CancelOrder = CancelOrder;
-            //     DynamicListCtrl.ePage.Masters.ConfigName.Entities.MakeIsActiveOrder = MakeIsActiveOrder;
-            //     DynamicListCtrl.ePage.Masters.ConfigName.Entities.SplitOrder = SplitOrder;
-            // }
-        }
+            DynamicListCtrl.ePage.Masters.DynamicList.Parties.ListSource = authService.getUserInfo().PartyList;
 
-        function CopyOrder(_obj, keyObject, _config) {
-            /*var r = confirm("Are You Sure Want To Copy? " + _obj.label);
-            if (r == true) {
-                apiService.get("eAxisAPI", _config.Entities.Header.API.OrderCopy.Url + _obj[_obj.label].ePage.Entities.Header.Data.PK).then(function (response) {
-                    var __obj = {
-                        entity: response.data.Response[keyObject],
-                        data: response.data.Response
-                    };
-
-                    DynamicListCtrl.ePage.Masters.ConfigName.Entities.AddTab(__obj, true);
-                });
-            }*/
-            // pop-up modal 
-            var modalOptions = {
-                closeButtonText: 'Cancel',
-                actionButtonText: 'Ok',
-                headerText: 'Order Copy?',
-                bodyText: 'Would you like to copy this order? ' + _obj.label
-            };
-            confirmation.showModal({}, modalOptions)
-                .then(function (result) {
-                    apiService.get("eAxisAPI", _config.Entities.Header.API.OrderCopy.Url + _obj[_obj.label].ePage.Entities.Header.Data.PK).then(function (response) {
-                        var __obj = {
-                            entity: response.data.Response[keyObject],
-                            data: response.data.Response
-                        };
-
-                        DynamicListCtrl.ePage.Masters.ConfigName.Entities.AddTab(__obj, true);
-                    });
-                    // $uibModalInstance.dismiss('close');
-                }, function () {
-                    console.log("Cancelled");
-                });
-        }
-
-        function SplitOrder(_obj, keyObject, _config) {
-            var tempArray = [];
-            if (_obj[_obj.label].ePage.Entities.Header.Data.UIPorOrderLines != undefined) {
-                // if (_obj[_obj.label].ePage.Entities.Header.Data.UIPorOrderLines.length > 0) {
-                //     _obj[_obj.label].ePage.Entities.Header.Data.UIPorOrderLines.map(function (val, key) {
-                //         if (val.Quantity != val.RecievedQuantity) {
-                //             tempArray.push(val);
-                //         }
-                //     });
-                //     if (tempArray.length == 0) {
-                //         toastr.warning("Actual and Received Quantity Both are Same...")
-                //     } else {
-                /*var r = confirm("Would you like to split the Order? " + _obj.label);
-                if (r == true) {
-                    apiService.get("eAxisAPI", _obj[_obj.label].ePage.Entities.Header.API.SplitOrderByOrderPk.Url + _obj[_obj.label].ePage.Entities.Header.Data.UIPorOrderHeader.PK).then(function (response) {
-
-                        var __obj = {
-                            entity: response.data.Response[keyObject],
-                            data: response.data.Response
-                        };
-
-                        DynamicListCtrl.ePage.Masters.ConfigName.Entities.AddTab(__obj, true);
-                    });
-                }*/
-                // pop-up modal 
-                var modalOptions = {
-                    closeButtonText: 'Cancel',
-                    actionButtonText: 'Ok',
-                    headerText: 'Split Order?',
-                    bodyText: 'Would you like to split the Order? ' + _obj.label
-                };
-                confirmation.showModal({}, modalOptions)
-                    .then(function (result) {
-                        apiService.get("eAxisAPI", _obj[_obj.label].ePage.Entities.Header.API.SplitOrderByOrderPk.Url + _obj[_obj.label].ePage.Entities.Header.Data.UIPorOrderHeader.PK).then(function (response) {
-                            var __obj = {
-                                entity: response.data.Response[keyObject],
-                                data: response.data.Response
-                            };
-                            DynamicListCtrl.ePage.Masters.ConfigName.Entities.AddTab(__obj, true);
-                        });
-                        // $uibModalInstance.dismiss('close');
-
-                    }, function () {
-                        console.log("Cancelled");
-                    });
-                //     }
-                // } else {
-                //     toastr.warning("Empty Order Lines...")
-                // }
-            } else {
-                toastr.warning("Can't Split Here...")
+            if (DynamicListCtrl.ePage.Masters.DynamicList.Parties.ListSource.length > 0) {
+                DynamicListCtrl.ePage.Masters.DynamicList.Parties.ActivePartyType = DynamicListCtrl.ePage.Masters.DynamicList.Parties.ListSource[0];
             }
         }
 
-        function CancelOrder(_obj, keyObject, _config) {
-            /*var r = confirm("Are You Sure Want To Cancel? " + _obj.label);
-            if (r == true) {
-                var __input = [{
-                    "EntityRefPK": _obj[_obj.label].ePage.Entities.Header.Data.PK,
-                    "Properties": [{
-                        "PropertyName": "POH_IsCancelled",
-                        "PropertyNewValue": true,
-                    }]
-                }];
-                apiService.post("eAxisAPI", _config.Entities.Header.API.CancelOrder.Url, __input).then(function (response) {
-                    if (response.data.Status == 'Success') {
-                        toastr.success(_obj.label + " Cancelled Successfully...!");
-                        DynamicListCtrl.ePage.Masters.IsStandardMenu = false;
-                        appConfig.Entities.refreshGrid();
-                    }
-                });
-            }*/
-            // pop-up modal 
-            var modalOptions = {
-                closeButtonText: 'Cancel',
-                actionButtonText: 'Ok',
-                headerText: 'Cancel?',
-                bodyText: 'Would you like to cancel this order? ' + _obj.label
-            };
-            confirmation.showModal({}, modalOptions)
-                .then(function (result) {
-                    var __input = [{
-                        "EntityRefPK": _obj[_obj.label].ePage.Entities.Header.Data.PK,
-                        "Properties": [{
-                            "PropertyName": "POH_IsCancelled",
-                            "PropertyNewValue": true,
-                        }]
-                    }];
-                    apiService.post("eAxisAPI", _config.Entities.Header.API.CancelOrder.Url, __input).then(function (response) {
-                        if (response.data.Status == 'Success') {
-                            toastr.success(_obj.label + " Cancelled Successfully...!");
-                            DynamicListCtrl.ePage.Masters.IsStandardMenu = false;
-                            appConfig.Entities.refreshGrid();
-                        }
-                    });
-                    // $uibModalInstance.dismiss('close');
-                }, function () {
-                    console.log("Cancelled");
-                });
-        }
-
-        function MakeIsActiveOrder(_obj, keyObject, _config) {
-            if (_obj[_obj.label].ePage.Entities.Header.Data[keyObject]) {
-                var __isValid = _obj[_obj.label].ePage.Entities.Header.Data[keyObject].IsValid;
-                var _label = __isValid ? "Inactive" : "Active"
+        function OnPartyChange($item) {
+            if (DynamicListCtrl.ePage.Masters.DynamicList.Parties.ActivePartyType) {
+                if (DynamicListCtrl.ePage.Masters.DynamicList.Parties.ActivePartyType.Party_Pk !== $item.Party_Pk) {
+                    DynamicListCtrl.ePage.Masters.DynamicList.Parties.ActivePartyType = $item;
+                }
             } else {
-                var __isValid = _obj[_obj.label].ePage.Entities.Header.Data.IsValid;
-                var _label = __isValid ? "Inactive" : "Active"
+                DynamicListCtrl.ePage.Masters.DynamicList.Parties.ActivePartyType = $item
             }
 
-            if (__isValid) {
-                var _isValid = false;
-            } else {
-                _isValid = true;
-            }
-            /*var r = confirm("Are You Sure Want To " + _label + " " + _obj.label);
-            if (r == true) {
-                var __input = [{
-                    "EntityRefPK": _obj[_obj.label].ePage.Entities.Header.Data[keyObject].PK,
-                    "Properties": [{
-                        "PropertyName": "POH_IsValid",
-                        "PropertyNewValue": _isValid,
-                    }]
-                }];
-                apiService.post("eAxisAPI", _config.Entities.Header.API.CancelOrder.Url, __input).then(function (response) {
-                    if (response.data.Status == 'Success') {
-                        if (__isValid) {
-                            toastr.success(_obj.label + " Inactive Successfully...!");
-                        } else {
-                            toastr.success(_obj.label + " Active Successfully...!");
-                        }
-                        DynamicListCtrl.ePage.Masters.IsStandardMenu = false;
-                        appConfig.Entities.refreshGrid();
-                    }
-                });
-            }*/
-            // pop-up modal 
-            var modalOptions = {
-                closeButtonText: 'Cancel',
-                actionButtonText: 'Ok',
-                headerText: 'Active/InActive?',
-                bodyText: 'Are You Sure Want To' + " " + _label + "? " + _obj.label
-            };
-            confirmation.showModal({}, modalOptions)
-                .then(function (result) {
-                    if (_obj[_obj.label].ePage.Entities.Header.Data[keyObject]) {
-                        var __input = [{
-                            "EntityRefPK": _obj[_obj.label].ePage.Entities.Header.Data[keyObject].PK,
-                            "Properties": [{
-                                "PropertyName": "POH_IsValid",
-                                "PropertyNewValue": _isValid,
-                            }]
-                        }];
-                    } else {
-                        var __input = [{
-                            "EntityRefPK": _obj[_obj.label].ePage.Entities.Header.Data.PK,
-                            "Properties": [{
-                                "PropertyName": "POH_IsValid",
-                                "PropertyNewValue": _isValid,
-                            }]
-                        }];
-                    }
-
-                    apiService.post("eAxisAPI", _config.Entities.Header.API.CancelOrder.Url, __input).then(function (response) {
-                        if (response.data.Status == 'Success') {
-                            if (__isValid) {
-                                toastr.success(_obj.label + " Inactive Successfully...!");
-                            } else {
-                                toastr.success(_obj.label + " Active Successfully...!");
-                            }
-                            DynamicListCtrl.ePage.Masters.IsStandardMenu = false;
-                            appConfig.Entities.refreshGrid();
-                        }
-                    });
-                    // $uibModalInstance.dismiss('close');
-
-                }, function () {
-                    console.log("Cancelled");
-                });
+            DynamicControlFilter();
         }
         // endregion
 

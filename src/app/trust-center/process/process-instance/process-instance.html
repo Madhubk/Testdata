@@ -17,7 +17,6 @@
     <div class="clearfix">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0 tc-page-height-fixed without-header overflow-hidden">
             <div class="clearfix">
-                <!-- Your Content Goes Here -->
                 <uib-tabset id="chromeTab" active="ProcessInstanceCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
                     <uib-tab>
                         <uib-tab-heading title="Instance">
@@ -25,10 +24,8 @@
                             <i class="fa fa-thumb-tack pinned-tab"></i>
                         </uib-tab-heading>
                         <div class="no-padding tab-list-view-wrapper">
-                            <!--ProcessInstance Grid Page-->
-                            <dynamic-list dataentry-name="ProcessInstanceCtrl.ePage.Masters.dataentryName" task-name="ProcessInstanceCtrl.ePage.Masters.taskName"
-                                grid-config-type="0" selected-grid-row="ProcessInstanceCtrl.ePage.Masters.SelectedGridRow($item)"
-                                mode="1" default-filter="ProcessInstanceCtrl.ePage.Masters.DefaultFilter"></dynamic-list>
+                            <!--Process Instance Grid Page-->
+                            <dynamic-list dataentry-name="ProcessInstanceCtrl.ePage.Masters.dataentryName" selected-grid-row="ProcessInstanceCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" default-filter="ProcessInstanceCtrl.ePage.Masters.DefaultFilter" dataentry-object="ProcessInstanceCtrl.ePage.Masters.dataentryObject"></dynamic-list>
                             <div class="tab-loading" data-ng-show="ProcessInstanceCtrl.ePage.Masters.IsTabClick"></div>
                         </div>
                     </uib-tab>
@@ -38,8 +35,8 @@
                             <span data-ng-bind="tab.label"></span>
                             <i class="glyphicon glyphicon-remove" ng-click="ProcessInstanceCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
                         </uib-tab-heading>
-                        <div class="padding-bottom-10 clearfix">
-                            <process-instance-work-item-details current-process-instance="tab"></process-instance-work-item-details>
+                        <div class="pb-150 clearfix">
+                            <process-instance-work-item-details current-process-instance="tab" mode="1"></process-instance-work-item-details>
                         </div>
                     </uib-tab>
                     <button class="btn btn-default" ng-click="ProcessInstanceCtrl.ePage.Masters.CreateNewProcessInstance(ProcessInstanceCtrl.ePage.Masters.ProcessInstance.NewDataSlot,ProcessInstanceCtrl.ePage.Masters.ProcessInstance.Mode)"

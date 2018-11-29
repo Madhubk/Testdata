@@ -3,11 +3,11 @@
 
     angular
         .module("Application")
-        .directive("iconColorList", FileUpload);
+        .directive("iconColorList", IconColorList);
 
-    FileUpload.$inject = ["$http", "$uibModal"];
+    IconColorList.$inject = ["$uibModal"];
 
-    function FileUpload($http, $uibModal) {
+    function IconColorList($uibModal) {
         var exports = {
             restrict: "EA",
             scope: {

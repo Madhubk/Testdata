@@ -1,0 +1,151 @@
+<div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-15">
+        <div class="rows border-box border-radius-2 bg-fbfbfb">
+
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 pt-20 pb-20 pl-40">
+                <div class="tab-profile-title text-single-line fs-20 mt-40" title="{{CreateManifestViewCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestNumber}}"
+                    data-ng-bind="CreateManifestViewCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestNumber"></div>
+
+                <div class="tab-profile-sub-title text-single-line fs-14" title="{{CreateManifestViewCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatus}} - {{CreateManifestViewCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatusDesc}}"
+                    data-ng-bind="CreateManifestViewCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatusDesc"></div>
+            </div>
+            <!--Sender-->
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 border-left border-right pt-20 pb-20">
+                <div class="fs-20 color-999">From</div>
+                <div class="fs-14">
+                    <b>{{CreateManifestViewCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderName}}</b> -
+                    <b ng-bind="CreateManifestViewCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderCode"></b>
+                </div>
+                <!--sender address-->
+                <div>
+                    <div class="color-999 mt-5" ng-show="CreateManifestViewCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderCode">
+                        <div class="text-single-line" title='{{CreateManifestViewCtrl.ePage.Entities.Header.Data.OrgSender.OAD_Address1}}'>{{CreateManifestViewCtrl.ePage.Entities.Header.Data.OrgSender.OAD_Address1 || CreateManifestViewCtrl.ePage.Masters.Empty}}
+                        </div>
+
+                        <div class="text-single-line" title='{{CreateManifestViewCtrl.ePage.Entities.Header.Data.OrgSender.OAD_Address2}}'>{{CreateManifestViewCtrl.ePage.Entities.Header.Data.OrgSender.OAD_Address2 || CreateManifestViewCtrl.ePage.Masters.Empty}}
+                        </div>
+                        <div class="text-single-line">
+                            <span title="{{CreateManifestViewCtrl.ePage.Entities.Header.Data.OrgSender.OAD_City}}">{{CreateManifestViewCtrl.ePage.Entities.Header.Data.OrgSender.OAD_City || CreateManifestViewCtrl.ePage.Masters.Empty}}
+                            </span>
+                        </div>
+
+                        <div class="text-single-line mt-10">
+                            <span title='{{CreateManifestViewCtrl.ePage.Entities.Header.Data.OrgSender.OAD_State}}'>
+                                <b>{{CreateManifestViewCtrl.ePage.Entities.Header.Data.OrgSender.OAD_State || CreateManifestViewCtrl.ePage.Masters.Empty}}</b>
+                            </span>
+                            <span class="pl-100" title="{{CreateManifestViewCtrl.ePage.Entities.Header.Data.OrgSender.OAD_PostCode}}">{{CreateManifestViewCtrl.ePage.Entities.Header.Data.OrgSender.OAD_PostCode || CreateManifestViewCtrl.ePage.Masters.Empty}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Receiver-->
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 border-left border-right pt-20 pb-20">
+                <div class="fs-20 color-999">To</div>
+
+                <div class="fs-14">
+                    <b>{{CreateManifestViewCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ReceiverName}}</b> -
+                    <b ng-bind="CreateManifestViewCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ReceiverCode"></b>
+                </div>
+                <!--Receiver address-->
+                <div>
+                    <div class="color-999 mt-5" ng-show="CreateManifestViewCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ReceiverCode">
+                        <div class="text-single-line" title='{{CreateManifestViewCtrl.ePage.Entities.Header.Data.OrgReceiver.OAD_Address1}}'>{{CreateManifestViewCtrl.ePage.Entities.Header.Data.OrgReceiver.OAD_Address1 || CreateManifestViewCtrl.ePage.Masters.Empty}}
+                        </div>
+
+                        <div class="text-single-line" title='{{CreateManifestViewCtrl.ePage.Entities.Header.Data.OrgReceiver.OAD_Address2}}'>{{CreateManifestViewCtrl.ePage.Entities.Header.Data.OrgReceiver.OAD_Address2 || CreateManifestViewCtrl.ePage.Masters.Empty}}
+                        </div>
+                        <div class="text-single-line">
+                            <span title="{{CreateManifestViewCtrl.ePage.Entities.Header.Data.OrgReceiver.OAD_City}}">{{CreateManifestViewCtrl.ePage.Entities.Header.Data.OrgReceiver.OAD_City || CreateManifestViewCtrl.ePage.Masters.Empty}}
+                            </span>
+                        </div>
+
+                        <div class="text-single-line mt-10">
+                            <span title='{{CreateManifestViewCtrl.ePage.Entities.Header.Data.OrgReceiver.OAD_State}}'>
+                                <b>{{CreateManifestViewCtrl.ePage.Entities.Header.Data.OrgReceiver.OAD_State || CreateManifestViewCtrl.ePage.Masters.Empty}}</b>
+                            </span>
+                            <span class="pl-100" title="{{CreateManifestViewCtrl.ePage.Entities.Header.Data.OrgReceiver.OAD_PostCode}}">{{CreateManifestViewCtrl.ePage.Entities.Header.Data.OrgReceiver.OAD_PostCode || CreateManifestViewCtrl.ePage.Masters.Empty}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--General-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pl-15">
+        <div class="rows border-box border-radius-2 pt-15 mt-10 height-100">
+
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11">Transporter</div>
+                    <div class="text-single-line">
+                        <span>{{CreateManifestViewCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterCode}}-{{CreateManifestViewCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterName}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11">Manifest Type
+                    </div>
+                    <div class="text-single-line">
+                        <span>{{CreateManifestViewCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestType}}-{{CreateManifestViewCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestTypeDesc}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11">Mode Of Transport</div>
+                    <div class="text-single-line">
+                        <span>{{CreateManifestViewCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransportMode}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11">Vehicle Type</div>
+                    <div class="text-single-line">
+                        <span>{{CreateManifestViewCtrl.ePage.Entities.Header.Data.TmsManifestHeader.VehicleTypeCode}}-{{CreateManifestViewCtrl.ePage.Entities.Header.Data.TmsManifestHeader.VehicleTypeDescription}}</span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11">Load Type</div>
+                    <div class="text-single-line">
+                        <span>{{CreateManifestViewCtrl.ePage.Entities.Header.Data.TmsManifestHeader.LoadType}}</span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11">No Of Orders</div>
+                    <div class="text-single-line">
+                        <span>{{CreateManifestViewCtrl.ePage.Entities.Header.Data.TmsManifestHeader.NoOfOrders}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11">Estimated Dispatch Date Time</div>
+                    <div class="text-single-line">
+                        <span>{{CreateManifestViewCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDispatchDate | date:"dd-MMM-yyyy h:mm a"}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11">Estimated Delivery Date Time</div>
+                    <div class="text-single-line">
+                        <span>{{CreateManifestViewCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDeliveryDate | date:"dd-MMM-yyyy h:mm a"}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

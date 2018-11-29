@@ -1,128 +1,408 @@
 <div class="clearfix tc-validation">
     <!-- Breadcrumb -->
     <div class="clearfix tc-breadcrumb" data-ng-if="ValidationCtrl.ePage.Masters.ActiveApplication == 'TC'">
-        <i class="fa fa-home home-icon"></i>
-        <div class="breadcrumb-list-wrapper">
-            <ol class="breadcrumb">
-                <li data-ng-repeat="x in ValidationCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
-                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="ValidationCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
-                </li>
-                <li data-ng-repeat="x in ValidationCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
-                    class="active"></li>
-            </ol>
+        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-xs-12 p-0">
+            <i class="fa fa-home home-icon"></i>
+            <div class="breadcrumb-list-wrapper">
+                <ol class="breadcrumb">
+                    <li data-ng-repeat="x in ValidationCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                        <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="ValidationCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                    <li data-ng-repeat="x in ValidationCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive"
+                        data-ng-bind="x.Description" class="active"></li>
+                    </li>
+                </ol>
+            </div>
         </div>
-        <span class="tc-breadcrumb-app-name" data-ng-if="ValidationCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="ValidationCtrl.ePage.Masters.QueryString.AppName"></span>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12 p-4">
+            <tc-application-dropdown query-string="ValidationCtrl.ePage.Masters.QueryString" on-application-change="ValidationCtrl.ePage.Masters.Application.OnApplicationChange($item)"></tc-application-dropdown>
+        </div>
+
     </div>
+
     <!-- Header -->
     <div class="clearfix tc-header-container">
-        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">
-            <div class="tc-header with-drop-down no-border-right">
-                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4 p-0 pr-5">
-                    <select chosen class="form-control" data-ng-model="ValidationCtrl.ePage.Masters.Module.ActiveModule.Key" data-ng-options="x.Key as x.Value for x  in ValidationCtrl.ePage.Masters.Module.ListSource"
-                        data-ng-change="ValidationCtrl.ePage.Masters.Module.OnModuleChange((ValidationCtrl.ePage.Masters.Module.ListSource | filter: {'Key': ValidationCtrl.ePage.Masters.Module.ActiveModule.Key})[0])"></select>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="tc-header with-drop-down">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 p-0">
+                    <select chosen class="form-control" data-ng-model="ValidationCtrl.ePage.Masters.Module.ActiveModule.Key"
+                        data-ng-options="x.Key as x.Value for x  in ValidationCtrl.ePage.Masters.Module.ListSource"
+                        data-ng-change="ValidationCtrl.ePage.Masters.Module.OnModuleChange((ValidationCtrl.ePage.Masters.Module.ListSource | filter: {'Key': ValidationCtrl.ePage.Masters.Module.ActiveModule.Key})[0])">
+                        <option value="">--Select--</option>
+                    </select>
                 </div>
-                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4 p-0 pl-5">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0"></div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pt-4 text-right">
+                    <button class="btn btn-xs btn-info" data-ng-disabled="!ValidationCtrl.ePage.Masters.Module.ActiveModule.PK"
+                        data-ng-click="ValidationCtrl.ePage.Masters.Module.ActiveModule.PK && ValidationCtrl.ePage.Masters.Validation.AddNew()">New</button>
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
-            <div class="tc-header p-5" style="font-weight: normal;">
-                <input type="text" class="form-control input-sm" placeholder="Search..." data-ng-model="ValidationCtrl.ePage.Masters.Search">
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">
+            <div class="tc-header edit-view">
+                <span data-ng-bind="'Details'"></span>
+                <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10" data-ng-click="ValidationCtrl.ePage.Masters.Validation.Edit()">Edit</button>
+                <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="ValidationCtrl.ePage.Masters.Validation.Delete()"
+                    data-ng-disabled="ValidationCtrl.ePage.Masters.Validation.IsDisableDeleteBtn || !ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.PK">Delete</button>
+                <button class=" btn btn-default btn-xs pull-right" data-ng-click="ValidationCtrl.ePage.Masters.ValidationGroup.OpenValidationGrouptModal()">Validation
+                    Group
+                </button>
             </div>
         </div>
     </div>
-    <!-- Body -->
-    <div class="clearfix m-5">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0 pb-20 tc-page-height-fixed">
-            <table class="table table-bordered table-responsive">
-                <thead>
-                    <th class="th-text tc-table-width-150"> Code</th>
-                    <th class="th-text tc-table-width-150">Key Text</th>
-                    <th class="th-text tc-table-width-150">Display Name</th>
-                    <th class="th-text">Message</th>
-                    <th class="th-text tc-table-width-125">Immediate Alert</th>
-                    <th class="th-text tc-table-width-125">It Has Parameter</th>
-                    <th class="th-text tc-table-width-70">IsError</th>
-                    <th class="th-text tc-table-width-70">Is Active</th>
-                    <th class="th-action tc-table-width-70" colspan="2">Action</th>
-                </thead>
-                <tbody>
+
+    <!--Body-->
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 tc-page-height-fixed">
+            <div class="tc-list-container">
+                <!--Search Record-->
+                <div class="tc-list-search">
+                    <input type="text" class="form-control input-sm" placeholder="Search..." data-ng-model="ValidationCtrl.ePage.Masters.Search">
+                </div>
+                <ul class="tc-list-ul">
                     <!-- Loading -->
-                    <tr data-ng-if="!ValidationCtrl.ePage.Masters.Validation.ListSource">
-                        <td colspan="20" class="text-center p-10">
-                            <i class="fa fa-spin fa-spinner" style="font-size:18px;"></i>
-                        </td>
-                    </tr>
+                    <div class="p-15 text-center tc-loading" data-ng-if="!ValidationCtrl.ePage.Masters.Validation.ListSource">
+                        <i class="fa fa-spin fa-spinner"></i>
+                    </div>
                     <!-- No Records -->
-                    <tr data-ng-if="(ValidationCtrl.ePage.Masters.Validation.ListSource | filter: ValidationCtrl.ePage.Masters.Search).length==0">
-                        <td colspan="20" class="text-center p-10">
-                            <i>No Records...!</i>
-                        </td>
-                    </tr>
+                    <div data-ng-if="(ValidationCtrl.ePage.Masters.Validation.ListSource | filter: ValidationCtrl.ePage.Masters.Search).length==0"
+                        class="p-15 text-center">
+                        <i>No Records...</i>
+                    </div>
                     <!-- Validation List -->
-                    <tr data-ng-if="ValidationCtrl.ePage.Masters.Validation.ListSource && ValidationCtrl.ePage.Masters.Validation.ListSource.length > 0"
-                        data-ng-repeat="item in ValidationCtrl.ePage.Masters.Validation.ListSource  | filter: ValidationCtrl.ePage.Masters.Search">
-                        <td>
-                            <input class="set-tabel-text" type="text" data-ng-model="item.Code" placeholder="Code">
-                        </td>
-                        <td>
-                            <input class="set-tabel-text" type="text" data-ng-model="item.CtrlKey" placeholder="Key Text">
-                        </td>
-                        <td>
-                            <input class="set-tabel-text" type="text" data-ng-model="item.DisplayName" placeholder="Display Name">
-                        </td>
-                        <td>
-                            <textarea rows="1" class="set-tabel-text no-resize" type="text" data-ng-model="item.Message" placeholder="Message"></textarea>
-                        </td>
-                        <td>
-                            <input class="set-tabel-text text-center" type="text" data-ng-model="item.ImmediateAlert" placeholder="Immediate  Alert">
-                        </td>
-                        <td class="text-center">
-                            <div class="checkbox m-0">
-                                <label>
-                                    <input type="checkbox" data-ng-model="item.ItHasParameter" class="colored-blue">
-                                    <span class="text"></span>
-                                </label>
+                    <li data-ng-if="ValidationCtrl.ePage.Masters.Validation.ListSource &&   ValidationCtrl.ePage.Masters.Validation.ListSource.length > 0"
+                        data-ng-repeat="x in ValidationCtrl.ePage.Masters.Validation.ListSource | filter: ValidationCtrl.ePage.Masters.Search"
+                        data-ng-click="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.PK != x.PK && ValidationCtrl.ePage.Masters.Validation.OnValidataionClick(x)"
+                        data-ng-class="{'active': ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.PK == x.PK}">
+                        <div class="clearfix tc-list">
+                            <div class="tc-list-name">
+                                <i class="fa fa-circle-o mr-10"></i>
+                                <span class="text-single-line" data-ng-bind="x.Code +' - '+ x.CtrlKey"></span>
                             </div>
-                        </td>
-                        <td class="text-center">
-                            <div class="checkbox m-0">
-                                <label>
-                                    <input type="checkbox" data-ng-model="item.IsError" class="colored-blue">
-                                    <span class="text"></span>
-                                </label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed" data-ng-if="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion">
+            <div class="pt-10 pb-10 tc-details-view clearfix">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Code</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.Code
+                               || ValidationCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Key Text</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.CtrlKey
+                                || ValidationCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Display Name</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.DisplayName
+                                || ValidationCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Title</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.Title
+                                || ValidationCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Message</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.Message
+                                || ValidationCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Parent</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.ParentRef
+                                || ValidationCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">GParent</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.GParentRef
+                                || ValidationCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Col Index</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.ColIndex"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Row Index</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.RowIndex"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Module</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.ModuleCode
+                                || ValidationCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Sub Module</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.SubModuleCode
+                                || ValidationCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Immediate Alert</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.ImmediateAlert 
+                               || ValidationCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">It Has Parameter</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.ItHasParameter == true ? 'true' : 'false'"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Is Error</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.IsError == true ? 'true' : 'false'"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Is Active</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.IsActive == true ? 'true' : 'false'"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Is Client</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.IsClient == true ? 'true' : 'false'"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tc-section-divider"></div>
+            <div class="tc-list-container tc-list-container-inner-redirect clearfix">
+                <ul class="tc-list-ul">
+                    <li data-ng-repeat="x in ValidationCtrl.ePage.Masters.Validation.RedirectPagetList" data-ng-click="ValidationCtrl.ePage.Masters.ValidationGroupMapping.OpenValidationGroupMappingModal()">
+                        <div class="clearfix tc-list">
+                            <div class="tc-list-name">
+                                <i class="fa {{x.Icon}} mr-10" data-ng-style="{'color': x.Color}"></i>
+                                <span class="text-single-line" data-ng-bind="x.Description"></span>
                             </div>
-                        </td>
-                        <td class="text-center">
-                            <div class="checkbox m-0">
-                                <label>
-                                    <input type="checkbox" data-ng-model="item.IsActive" class="colored-blue">
-                                    <span class="text"></span>
-                                </label>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="tc-validation-save-icon text-center" data-ng-click="ValidationCtrl.ePage.Masters.Validation.Save(item, $index)">
-                                <i class="fa fa-floppy-o cursor-pointer"></i>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="text-center" data-ng-click="ValidationCtrl.ePage.Masters.Validation.Delete(item, $index)">
-                                <i class="glyphicon glyphicon-trash text-danger cursor-pointer"></i>
-                            </div>
-                        </td>
-                    </tr>
-                    <!-- Add New -->
-                    <tr>
-                        <td colspan="20">
-                            <a data-ng-if="ValidationCtrl.ePage.Masters.Module.ActiveModule.Key" class="padding-10 pull-left" href="javascript:(0);"
-                                data-ng-click="ValidationCtrl.ePage.Masters.Validation.AddNew()">Add new...</a>
-                            <a data-ng-if="ValidationCtrl.ePage.Masters.Module.ActiveModule.Key" class="padding-10 pull-right" href="javascript:(0);"
-                                data-ng-click="ValidationCtrl.ePage.Masters.Validation.RedirectToAppSetting()">Open</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
+
+<!--Edit Template-->
+<script type="text/ng-template" id="editValidation">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="ValidationCtrl.ePage.Masters.Validation.Cancel()">&times;</button>
+        <h5 class="modal-title" id="modal-title">
+            <strong>Edit</strong>
+        </h5>
+    </div>
+    <div class="modal-body pt-10" id="modal-body">
+        <form class="clearfix form-horizontal">
+            <div class="clearfix">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-5 pb-5">
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Code</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Code" data-ng-model="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.Code">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Key Text</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Key Text" data-ng-model="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.CtrlKey">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Title</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                <input type="text" class="form-control input-sm" placeholder="Title" data-ng-model="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.Title">                             
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Expression
+                        </label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <textarea class="form-control no-resize" rows="10" placeholder="Expression" data-ng-model="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.Expression"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Related Input
+                            <span data-ng-click="ValidationCtrl.ePage.Masters.Validation.OpenJsonModal('RelatedInput')" class="glyphicon glyphicon-pencil cursor-pointer ml-5"></span>   
+                        </label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <textarea class="form-control no-resize" rows="10" placeholder="Related Input" data-ng-model="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.RelatedInput"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Parameter Config
+                            <span data-ng-click="ValidationCtrl.ePage.Masters.Validation.OpenJsonModal('ParameterConfig')" class="glyphicon glyphicon-pencil cursor-pointer ml-5"></span>   
+                        </label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <textarea class="form-control no-resize" rows="10" placeholder="Parameter Config" data-ng-model="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.ParameterConfig"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Message</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <textarea class="form-control no-resize" rows="10" placeholder="Message" data-ng-model="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.Message"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Parent</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Parent" data-ng-model="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.ParentRef">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">GParent</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="GParent" data-ng-model="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.GParentRef">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Col Index</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Col Index" data-ng-model="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.ColIndex">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Row Index</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Row Index" data-ng-model="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.RowIndex">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Display Name</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Display Name" data-ng-model="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.DisplayName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Module</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <select chosen class="form-control" data-ng-model="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.ModuleCode" data-ng-options="x.Key as x.Value for x  in ValidationCtrl.ePage.Masters.Module.ListSource">
+                            <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Sub Module</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Sub Module" data-ng-model="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.SubModuleCode">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Immediate Alert</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Immediate Alert" data-ng-model="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.ImmediateAlert">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">It Has Parameter</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" class="colored-blue" data-ng-model="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.ItHasParameter">
+                                    <span class="text"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Is Error</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" class="colored-blue" data-ng-model="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.IsError">
+                                    <span class="text"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Is Active</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" class="colored-blue" data-ng-model="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.IsActive">
+                                    <span class="text"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Is Client</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" class="colored-blue"  data-ng-model="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.IsClient">
+                                    <span class="text"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tc-section-divider-small"></div>
+             <div class="clearfix p-10">
+               <button class="btn btn-default tc-btn-save btn-xs pull-right ml-10"     data-ng-click="ValidationCtrl.ePage.Masters.Validation.Save()"
+                data-ng-bind="ValidationCtrl.ePage.Masters.Validation.SaveBtnText" data-ng-disabled="ValidationCtrl.ePage.Masters.Validation.IsDisableSaveBtn"></button>
+               <button class="btn btn-default tc-btn-cancel btn-xs pull-right ml-10" data-ng-click="ValidationCtrl.ePage.Masters.Validation.Cancel()">Cancel</button>
+            </div>
+           <div class="tc-section-divider-small mb-20"></div>
+        </form>
+    </div>
+</script>

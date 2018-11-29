@@ -1,0 +1,21 @@
+<div class="clearfix margin-top-20">
+    <!--  IGM Date -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">IGM Date</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{IGMAcknowledgeEditDirCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    ng-model="IGMAcknowledgeEditDirCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillIssueDate" datetime-picker="{{IGMAcknowledgeEditDirCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    datepicker-options="IGMAcknowledgeEditDirCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                    close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" save-as="IGMAcknowledgeEditDirCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                    is-open="IGMAcknowledgeEditDirCtrl.ePage.Masters.DatePicker.isOpen['isHBLContIssueDate']" when-closed=""
+                    data-ng-click="" data-ng-change="" custom-date-time-format />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" type="button" data-ng-click="IGMAcknowledgeEditDirCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isHBLContIssueDate')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

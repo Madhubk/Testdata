@@ -1,0 +1,58 @@
+<!-- Bulk Upload Option Popup -->
+<div class="clearfix">
+    <div class="modal-header">
+        <h4 class="modal-title">Product Bulk Upload</h3>
+    </div>
+
+    <div class="modal-body  pb-50">
+        <div class="form-group">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <label><b>Choose your option</b></label>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <label class="radio">
+                    <input type="radio" value="Insert"  ng-model="ProductBulkUploadCtrl.ePage.Masters.Documents.RadioButtonValue" data-ng-checked="ProductBulkUploadCtrl.ePage.Masters.Documents.RadioButtonValue == 'Insert'"/>
+                    <span class="text">Product Insert</span>
+                </label>
+                <label class="radio">
+                    <input type="radio" value="Update"  ng-model="ProductBulkUploadCtrl.ePage.Masters.Documents.RadioButtonValue" data-ng-checked="ProductBulkUploadCtrl.ePage.Masters.Documents.RadioButtonValue == 'Update'"/>
+                    <span class="text">Product Insert & Update</span>
+                </label>
+            </div>
+
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-10">
+                <div class="text-center"><i>Instructions</i></div>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-10">
+                <div><b><i>ProductInsert</b></i></div>
+                <p>
+                    1. Product Insert option is used to simply Validate the Product Details and Insert those details. </br>
+                </p>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-10">
+                <div><b><i>Product Insert & Update</b></i></div>
+                <p>
+                    1. Product Insert & Update option is used to insert new Product Details as well as update the existing product details.</br>
+                    2. In Product General Details except Product Code all the details can be updated.</br>
+                    3. In RelatedParty, it allows to update existing related organization details and also Insert new Organization.</br>
+                    4. In Unit conversion, it allows only to insert new conversion details.</br>
+                    5. In Barcode, it allows only to insert new barcode details.
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <file-upload-custom class="file-upload-directive" ng-model="ProductBulkUploadCtrl.ePage.Masters.Documents.fileDetails" size="{{ProductBulkUploadCtrl.ePage.Masters.Documents.fileSize}}"
+            auth="{{ProductBulkUploadCtrl.ePage.Masters.Documents.Autherization}}" additional-value="{{ProductBulkUploadCtrl.ePage.Masters.Documents.AdditionalValue}}"
+            url="{{ProductBulkUploadCtrl.ePage.Masters.Documents.UploadUrl}}" doc-type="*" multiple-file="true" is-disabled="false"
+            fu-class="left" get-uploaded-files="ProductBulkUploadCtrl.ePage.Masters.Documents.GetUploadedFiles($item, x, 'new')"
+            get-selected-files="ProductBulkUploadCtrl.ePage.Masters.Documents.GetSelectedFiles($item, x, 'new')" modal-template=""
+            template="">
+            <button class="btn btn-primary btn-sm mb-15">Upload</button>
+        </file-upload-custom>
+        <button class="btn btn-sm mb-15" type="button" ng-click="ProductBulkUploadCtrl.ePage.Masters.Documents.Close()">Close</button>
+        <button class="btn btn-sm mb-15 " type="button" ng-click="ProductBulkUploadCtrl.ePage.Masters.DownloadTemplate()">Download Template</button>
+    </div>
+</div>

@@ -1,8 +1,11 @@
-<div class="p-10" >
+<div class="p-10">
     <div>
-        <span><button type="button" class="btn btn-sm btn-outline-secondary" title="Add New"  data-ng-click="OrdLinesCtrl.ePage.Masters.PorOrderLine.addNew({'UICustomEntity':{}},'new')"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add Order Line</button></span>
+        <span>
+            <button type="button" class="btn btn-sm btn-outline-secondary" title="Add Order Line" data-ng-click="OrdLinesCtrl.ePage.Masters.PorOrderLine.addNew({'UICustomEntity':{}},'new')">
+                <i class="fa fa-plus-circle"></i> Add Order Line</button>
+        </span>
     </div>
-    <div id='' class="wmstable_scroll" style="height:300px; padding-top: 2px;">
+    <div id='' class="common_table_scroll common_table_hgt pt-2">
         <div class="table tab-position" id="results">
             <div class='theader'>
                 <div class='table_header'>Action</div>
@@ -13,15 +16,15 @@
                 <div class='table_header'>Price</div>
             </div>
 
-            <!-- List Empty Response -->
-            <div >
-                <div class="grid-no-record1" style="top:110px;" data-ng-if="OrdLinesCtrl.ePage.Entities.Header.Data.UIPorOrderLines.length==0">No records found...</div>
-            </div>
-
-            <div class='table_row' data-ng-repeat="x in OrdLinesCtrl.ePage.Entities.Header.Data.UIPorOrderLines  | orderBy:'LineNo'" style="font-size: 11px;">
+            <div class='table_row' data-ng-repeat="x in OrdLinesCtrl.ePage.Entities.Header.Data.UIPorOrderLines  | orderBy:'LineNo'"
+                style="font-size: 11px;">
                 <div class='table_small'>
                     <div class='table_cell'>Action</div>
-                    <div class='table_cell'><i class="fa fa-edit order-icon" data-ng-click="OrdLinesCtrl.ePage.Masters.PorOrderLine.EditLineItem(x)"></i> | <i class="fa fa-trash order-icon" data-ng-click="OrdLinesCtrl.ePage.Masters.PorOrderLine.RemoveLineItem(x,$index)"></i></div>
+                    <div class='table_cell'>
+                        <i class="fa fa-edit order-icon" data-ng-click="OrdLinesCtrl.ePage.Masters.PorOrderLine.EditLineItem(x)"></i>
+                        |
+                        <i class="fa fa-trash order-icon" data-ng-click="OrdLinesCtrl.ePage.Masters.PorOrderLine.RemoveLineItem(x,$index)"></i>
+                    </div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>List #</div>
@@ -35,22 +38,35 @@
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Packs</div>
-                    <div class='table_cell'>In : <b>{{x.InnerPacks}}</b> | Out: <b>{{x.OuterPacks}}</b></div>
+                    <div class='table_cell'>In :
+                        <b>{{x.InnerPacks}}</b> | Out:
+                        <b>{{x.OuterPacks}}</b>
+                    </div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Quantity</div>
-                    <div class='table_cell'>Org : <b>{{x.Quantity}}</b> | Inv : <b>{{x.InvoicedQuantity}}</b> | Rcv : <b>{{x.RecievedQuantity}}</b></div>
+                    <div class='table_cell'>Org :
+                        <b>{{(x.Quantity).toFixed(5)}}</b> | Inv :
+                        <b>{{(x.InvoicedQuantity).toFixed(5)}}</b> | Rcv :
+                        <b>{{(x.RecievedQuantity).toFixed(5)}}</b>
+                    </div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Price</div>
-                    <div class='table_cell'>Item : <b>{{x.ItemPrice}}</b> | Line : <b>{{x.LinePrice}}</b></div>
+                    <div class='table_cell'>Item :
+                        <b>{{(x.ItemPrice).toFixed(4)}}</b> | Line :
+                        <b>{{(x.LinePrice).toFixed(4)}}</b>
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- List Empty Response -->
+        <div class="grid-no-record-common_table" data-ng-if="OrdLinesCtrl.ePage.Entities.Header.Data.UIPorOrderLines.length==0">No
+            records found...</div>
     </div>
 </div>
 
-<div class="clearfix padding-top-10 padding-bottom-10 ng-scope total-alignment">
+<div class="clearfix padding-top-10 padding-bottom-10 total-alignment">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <!-- Line Count-->
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
@@ -76,21 +92,21 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
             <div class="">
                 Qty Ordered :
-                <b> {{OrdLinesCtrl.ePage.Masters.Consolidation[0].Quantity}}</b>
+                <b>{{(OrdLinesCtrl.ePage.Masters.Consolidation[0].Quantity).toFixed(5)}}</b>
             </div>
             <div class="padding-top-5">
                 Qty Invoiced :
-                <b>{{OrdLinesCtrl.ePage.Masters.Consolidation[0].InvoicedQuantity}}</b>
+                <b>{{(OrdLinesCtrl.ePage.Masters.Consolidation[0].InvoicedQuantity).toFixed(5)}}</b>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
             <div class="">
                 Qty Received :
-                <b>{{OrdLinesCtrl.ePage.Masters.Consolidation[0].RecievedQuantity}}</b>
+                <b>{{(OrdLinesCtrl.ePage.Masters.Consolidation[0].RecievedQuantity).toFixed(5)}}</b>
             </div>
             <div class="padding-top-5">
                 Qty Remaining :
-                <b> {{OrdLinesCtrl.ePage.Masters.Consolidation[0].QtyRemaining}}</b>
+                <b>{{(OrdLinesCtrl.ePage.Masters.Consolidation[0].QtyRemaining).toFixed(5)}}</b>
             </div>
         </div>
     </div>

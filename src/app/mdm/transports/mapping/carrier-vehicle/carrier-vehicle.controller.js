@@ -78,12 +78,37 @@
             });
         }
 
-        function setSelectedRow(index) {
-            CarrierVehicleCtrl.ePage.Masters.selectedRow = index;
+        function setSelectedRow(index, x) {
+            //CarrierVehicleCtrl.ePage.Masters.selectedRow = index;
+            CarrierVehicleCtrl.ePage.Masters.selectedRowPK = x.PK;
+            angular.forEach(CarrierVehicleCtrl.ePage.Entities.Header.Data.CarrierVehicleDetails,function(value,key){
+                if(value.PK == x.PK){
+                    CarrierVehicleCtrl.ePage.Masters.selectedRow = key;
+                }                
+            })
+            CarrierVehicleCtrl.ePage.Masters.LineselectedRow = index;
         }
 
         function Back() {
-            CarrierVehicleCtrl.ePage.Masters.Lineslist = true;
+            var item = CarrierVehicleCtrl.ePage.Entities.Header.Data.CarrierVehicleDetails[CarrierVehicleCtrl.ePage.Masters.selectedRow];
+            if (item.PK == "") {
+                var modalOptions = {
+                    closeButtonText: 'Cancel',
+                    actionButtonText: 'Ok',
+                    headerText: 'Are you sure?',
+                    bodyText: 'Please save your changes. Otherwise given details will be discarded.'
+                };
+                confirmation.showModal({}, modalOptions)
+                    .then(function (result) {
+                        CarrierVehicleCtrl.ePage.Entities.Header.Data.CarrierVehicleDetails.splice(CarrierVehicleCtrl.ePage.Masters.selectedRow, 1);
+                        CarrierVehicleCtrl.ePage.Masters.Lineslist = true;
+                        CarrierVehicleCtrl.ePage.Masters.selectedRow = CarrierVehicleCtrl.ePage.Masters.selectedRow - 1;
+                    }, function () {
+                        console.log("Cancelled");
+                    });
+            } else {
+                CarrierVehicleCtrl.ePage.Masters.Lineslist = true;
+            }
         }
 
         function Done() {
@@ -93,6 +118,7 @@
 
         function Edit(index, name) {
             CarrierVehicleCtrl.ePage.Masters.selectedRow = index;
+            console.log(CarrierVehicleCtrl.ePage.Entities.Header.Data.CarrierVehicleDetails[CarrierVehicleCtrl.ePage.Masters.selectedRow])
             CarrierVehicleCtrl.ePage.Masters.Lineslist = false;
             CarrierVehicleCtrl.ePage.Masters.HeaderName = name;
             $timeout(function () { $scope.$apply(); }, 500);
@@ -152,9 +178,10 @@
             };
             confirmation.showModal({}, modalOptions)
                 .then(function (result) {
-                    CarrierVehicleCtrl.ePage.Entities.Header.Data.CarrierVehicleDetails.splice(CarrierVehicleCtrl.ePage.Masters.selectedRow, 1);
-                    toastr.success('Record Removed Successfully');
-                    CarrierVehicleCtrl.ePage.Masters.Lineslist = true;
+                    apiService.get("eAxisAPI", 'CfxMapping/Delete/' + item.PK).then(function (response) {
+                        toastr.success('Record Removed Successfully');
+                        getCfxMappingDetail();
+                    });
                     CarrierVehicleCtrl.ePage.Masters.selectedRow = CarrierVehicleCtrl.ePage.Masters.selectedRow - 1;
                 }, function () {
                     console.log("Cancelled");
@@ -181,22 +208,53 @@
         };
 
         function SaveList($item) {
-            if ($item.PK) {
-                $item.IsModified = true;
-                CarrierVehicleCtrl.ePage.Masters.IsLoadingToSave = true;
-                apiService.post("eAxisAPI", CarrierVehicleCtrl.ePage.Entities.Header.API.UpdateCfxMapping.Url, $item).then(function SuccessCallback(response) {
-                    if (response.data.Status == "Success") {
-                        CarrierVehicleCtrl.ePage.Entities.Header.Data.CarrierVehicleDetails[CarrierVehicleCtrl.ePage.Masters.selectedRow] = response.data.Response;
-                    }
-                });
+            if ($item.MappingForCode && $item.AddRef1Code) {
+                if ($item.PK) {
+                    $item.IsModified = true;
+                    CarrierVehicleCtrl.ePage.Masters.IsLoadingToSave = true;
+                    apiService.post("eAxisAPI", CarrierVehicleCtrl.ePage.Entities.Header.API.UpdateCfxMapping.Url, $item).then(function SuccessCallback(response) {
+                        if (response.data.Status == "Success") {
+                            CarrierVehicleCtrl.ePage.Entities.Header.Data.CarrierVehicleDetails[CarrierVehicleCtrl.ePage.Masters.selectedRow] = response.data.Response;
+                        }
+                    });
+                } else {
+                    CarrierVehicleCtrl.ePage.Masters.IsLoadingToSave = true;
+                    apiService.post("eAxisAPI", CarrierVehicleCtrl.ePage.Entities.Header.API.InsertCfxMapping.Url, [$item]).then(function SuccessCallback(response) {
+                        if (response.data.Status == "Success") {
+                            CarrierVehicleCtrl.ePage.Entities.Header.Data.CarrierVehicleDetails[CarrierVehicleCtrl.ePage.Masters.selectedRow] = response.data.Response[0];
+                        }
+                    });
+                }
+                getCfxMappingDetail();
             } else {
-                CarrierVehicleCtrl.ePage.Masters.IsLoadingToSave = true;
-                apiService.post("eAxisAPI", CarrierVehicleCtrl.ePage.Entities.Header.API.InsertCfxMapping.Url, [$item]).then(function SuccessCallback(response) {
-                    if (response.data.Status == "Success") {
-                        CarrierVehicleCtrl.ePage.Entities.Header.Data.CarrierVehicleDetails[CarrierVehicleCtrl.ePage.Masters.selectedRow] = response.data.Response[0];
-                    }
-                });
+                toastr.warning("Dont leave any fields Empty")
             }
+
+        }
+        function getCfxMappingDetail() {
+            CarrierVehicleCtrl.ePage.Masters.IsLoading = true;
+            var _filter = {
+                "SortColumn": "CFM_CreatedDateTime",
+                "SortType": "ASC",
+                "PageNumber": 1,
+                "PageSize": 1000
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": CarrierVehicleCtrl.ePage.Entities.Header.API.CfxMappingFindall.FilterID
+            };
+            apiService.post("eAxisAPI", CarrierVehicleCtrl.ePage.Entities.Header.API.CfxMappingFindall.Url, _input).then(function SuccessCallback(response) {
+                if (response.data.Status == "Success") {
+                    CarrierVehicleCtrl.ePage.Entities.Header.CheckPoints.CfxMappingValues = response.data.Response;
+                    CarrierVehicleCtrl.ePage.Entities.Header.Data.CarrierVehicleDetails = [];
+                    angular.forEach(CarrierVehicleCtrl.ePage.Entities.Header.CheckPoints.CfxMappingValues, function (value, key) {
+                        if (value.MappingCode == "CARRIER_VEHICLE") {
+                            CarrierVehicleCtrl.ePage.Entities.Header.Data.CarrierVehicleDetails.push(value);
+                        }
+                    });
+                    CarrierVehicleCtrl.ePage.Masters.IsLoading = false;
+                }
+            });
         }
 
         Init();

@@ -1,32 +1,5 @@
 <div class="clearfix wms-menu-wraper">
     <div id="wmsMenuWrapper{{ItemMenuCtrl.currentItem.label}}" class="col-sm-12 no-padding-left no-padding-right">
-       <!--  <uib-tabset class="wms-menu tabs-left tabbable" active="ItemMenuCtrl.ePage.Masters.active">
-            <div class="tab-profile">
-                <div class="tab-profile-title text-single-line text-center" style="color: rgb(66, 50, 50);font-weight: 600;" ng-if="ItemMenuCtrl.currentItem.isNew==true?ItemMenuCtrl.ePage.Masters.title='Un Saved':ItemMenuCtrl.ePage.Masters.title=ItemMenuCtrl.currentItem.label"
-                    data-ng-bind="ItemMenuCtrl.ePage.Masters.title"></div>
-                <div class="wocstatusmenu text-single-line text-center" title="{{ItemMenuCtrl.ePage.Entities.Header.Data.TmsItemHeader.ItemStatus + ' - '+ ItemMenuCtrl.ePage.Entities.Header.Data.TmsItemHeader.ItemStatusDesc}}"
-                    data-ng-bind="ItemMenuCtrl.ePage.Entities.Header.Data.TmsItemHeader.ItemStatusDesc"></div>
-            </div>
-            <uib-tab ng-repeat="x in ItemMenuCtrl.ePage.Masters.ItemMenu.ListSource" index="$index" deselect="ItemMenuCtrl.ePage.Masters.tabSelected(x,$selectedIndex,$event);">
-                <uib-tab-heading title="{{x.DisplayName}}">
-                    <i class="fa {{x.Icon}} mr-5"></i>
-                    <span class="text-single-line" data-ng-bind="x.DisplayName"></span>
-                    <error-warning-directive data-ng-if="ItemMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, ItemMenuCtrl.currentItem.label, 'W', 'GParent').length > 0 && ItemMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, ItemMenuCtrl.currentItem.label, 'E', 'GParent').length == 0"
-                        list="ItemMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList" type="'warning'" icon="fa fa-warning"
-                        parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
-                    <error-warning-directive data-ng-if="ItemMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, ItemMenuCtrl.currentItem.label, 'E', 'GParent').length > 0"
-                        list="ItemMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList" type="'error'" icon="fa fa-warning"
-                        parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
-                </uib-tab-heading>
-                <div>
-                    <div ng-switch="x.Value">
-                        <div ng-switch-when="General" item-general current-item="ItemMenuCtrl.currentItem"></div>
-                        <div ng-switch-when="Consignment" item-consignment current-item="ItemMenuCtrl.currentItem" active-menu="x"></div>
-                        <div ng-switch-when="Manifest" item-manifest current-item="ItemMenuCtrl.currentItem" active-menu="x"></div>
-                    </div>
-                </div>
-            </uib-tab>
-        </uib-tabset> -->
         <div item-general current-item="ItemMenuCtrl.currentItem"></div>
         <div item-consignment current-item="ItemMenuCtrl.currentItem" ng-if="!ItemMenuCtrl.currentItem.isNew"></div>
         <div item-manifest current-item="ItemMenuCtrl.currentItem" ng-if="!ItemMenuCtrl.currentItem.isNew"></div>
@@ -66,13 +39,19 @@
 
     <div class="eaxis-footer-strip">
         <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-            <standard-menu entity-name="'TransportItem'" input="ItemMenuCtrl.currentItem"></standard-menu>
+            <standard-menu ng-if="!ItemMenuCtrl.currentItem.isNew" input="ItemMenuCtrl.currentItem" dataentry-object="ItemMenuCtrl.dataentryObject"></standard-menu>
         </div>
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
-            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="ItemMenuCtrl.ePage.Masters.Validation(ItemMenuCtrl.currentItem)"
-                data-ng-bind="ItemMenuCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="ItemMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave"></button>
-            <button class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6" data-ng-click="ItemMenuCtrl.ePage.Masters.SaveClose(ItemMenuCtrl.currentItem)"
-                data-ng-bind="ItemMenuCtrl.ePage.Masters.SaveAndCloseButtonText" data-ng-disabled="ItemMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave"></button>
+            <div class=" col-lg-4 mt-6 pl-0">
+            </div>
+            <div class=" col-lg-4 pl-0">
+                <button class="btn btn-primary item-btn-width-85 btn-sm mt-6" data-ng-click="ItemMenuCtrl.ePage.Masters.Validation(ItemMenuCtrl.currentItem)"
+                    data-ng-bind="ItemMenuCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="ItemMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave"></button>
+            </div>
+            <div class=" col-lg-4 pl-0">
+                <button class="btn btn-primary btn-sm mt-6" data-ng-click="ItemMenuCtrl.ePage.Masters.SaveClose(ItemMenuCtrl.currentItem)"
+                    data-ng-bind="ItemMenuCtrl.ePage.Masters.SaveAndCloseButtonText" data-ng-disabled="ItemMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave"></button>
+            </div>
         </div>
     </div>
 </div>

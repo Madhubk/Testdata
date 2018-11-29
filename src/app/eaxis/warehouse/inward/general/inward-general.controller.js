@@ -46,12 +46,11 @@
             InwardGeneralCtrl.ePage.Masters.PutawayCompletedDate = PutawayCompletedDate;
             InwardGeneralCtrl.ePage.Masters.Config = $injector.get("inwardConfig");
 
-
             GetDropDownList();
             GeneralOperations();
             GetBindValues();
             GetClientAddress();
-            AllocatePartAttribute();
+            AllocateUDF();
             GetOrgAddress();
             GetNewSupplierAddress();
         }
@@ -74,65 +73,67 @@
         }
 
         function CheckFutureDate(fieldvalue) {
-            var selectedDate = new Date(fieldvalue);
-            var now = new Date();
-            if (selectedDate > now) {
-                OnChangeValues(null, 'E3003')
-                OnChangeValues('value', 'E3034')
-            } else {
-                OnChangeValues('value', 'E3003')
-                OnChangeValues('value', 'E3034')
+            if(fieldvalue){
+                var selectedDate = new Date(fieldvalue);
+                var now = new Date();
+                if (selectedDate > now) {
+                    OnChangeValues(null, 'E3003')
+                    OnChangeValues('value', 'E3034')
+                } else {
+                    OnChangeValues('value', 'E3003')
+                    OnChangeValues('value', 'E3034')
+                }
             }
         }
 
         function PutawayStartedDate(fieldvalue){
-
             if(fieldvalue){
                 OnChangeValues('value', 'E3043');
-                PutawayCompletedDate(InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickCompDateTime);
-            }
 
-            if(!InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickSlipDateTime && fieldvalue){
-                OnChangeValues(null, 'E3041')
-            }else if(InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickSlipDateTime || !fieldvalue){
-                OnChangeValues('value', 'E3041');
-                OnChangeValues('value', 'E3042');
-            }
-            if(fieldvalue && InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickSlipDateTime){
-                if(fieldvalue > InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickSlipDateTime){
+                if(new Date(fieldvalue) > new Date(InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickSlipDateTime)){
                     OnChangeValues('value', 'E3042');
-                }else if(fieldvalue < InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickSlipDateTime){
+                }else if(new Date(fieldvalue) < new Date(InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickSlipDateTime)){
                     OnChangeValues(null, 'E3042');
+                    OnChangeValues('value', 'E3044');
                 }
+
+            }else if(!fieldvalue && InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickCompDateTime){
+                OnChangeValues(null, 'E3043');
+            }else{
+                OnChangeValues('value', 'E3042');
             }
         }
 
         function PutawayCompletedDate(fieldvalue){
-            if(!InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickStartDateTime && fieldvalue){
-                OnChangeValues(null, 'E3043')
-            }else if(InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickStartDateTime || !fieldvalue){
-                OnChangeValues('value', 'E3043');
-                OnChangeValues('value', 'E3044');
-            }
-            if(fieldvalue && InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickStartDateTime){
-                if(fieldvalue > InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickStartDateTime){
+
+            if(fieldvalue){
+                if(new Date(fieldvalue) > new Date(InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickStartDateTime)){
                     OnChangeValues('value', 'E3044');
-                }else if(fieldvalue < InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickStartDateTime){
+                }else if(new Date(fieldvalue) < new Date(InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickStartDateTime)){
                     OnChangeValues(null, 'E3044');
+                    OnChangeValues('value', 'E3042');
                 }
             }
         }
+        
         function OpenDatePicker($event, opened) {
-            $event.preventDefault();
-            $event.stopPropagation();
-            InwardGeneralCtrl.ePage.Masters.DatePicker.isOpen[opened] = true;
+            if(opened=="isPutOrPickStartDateTime" && !InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickSlipDateTime){
+                // do nothing
+            }else if(opened=="isPutOrPickCompDateTime" && !InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickStartDateTime){
+                //do nothing
+            }
+            else{
+                $event.preventDefault();
+                $event.stopPropagation();
+                InwardGeneralCtrl.ePage.Masters.DatePicker.isOpen[opened] = true;
+            }
         }
 
        
 
         function GetDropDownList() {
             // Get CFXType Dropdown list
-            var typeCodeList = ["WorkOrderSubType"];
+            var typeCodeList = ["WorkOrderSubType","WorkOrder_SubType"];
             var dynamicFindAllInput = [];
 
             typeCodeList.map(function (value, key) {
@@ -161,7 +162,7 @@
             InwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader = item;
             InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ORG_Client_FK = item.PK;
             OnChangeValues(InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Client, 'E3001');
-            AllocatePartAttribute();
+            AllocateUDF();
         }
 
         function SelectedLookupSupplier(item) {
@@ -270,9 +271,9 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": InwardGeneralCtrl.ePage.Entities.Header.API.OrgAddress.FilterID
+                "FilterID": appConfig.Entities.OrgAddress.API.FindAll.FilterID
             };
-            apiService.post("eAxisAPI", InwardGeneralCtrl.ePage.Entities.Header.API.OrgAddress.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", appConfig.Entities.OrgAddress.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     InwardGeneralCtrl.ePage.Masters.OrgSupplierAddress = response.data.Response;
                 }
@@ -316,6 +317,11 @@
 
             if(!InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PackagesSent)
             InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalPallets = 0;
+
+            if(InwardGeneralCtrl.currentInward.isNew){
+                InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ExternalReference = '';
+            }
+            
         }
 
         function GetBindValues() {
@@ -343,7 +349,7 @@
                 InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Supplier = ""
         }
 
-        function AllocatePartAttribute() {
+        function AllocateUDF() {
             if(InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ORG_Client_FK){
                 var _filter = {
                     "ORG_FK": InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ORG_Client_FK
@@ -351,10 +357,10 @@
     
                 var _input = {
                     "searchInput": helperService.createToArrayOfObject(_filter),
-                    "FilterID": InwardGeneralCtrl.ePage.Entities.Header.API.OrgMiscServ.FilterID
+                    "FilterID": appConfig.Entities.OrgMiscServ.API.FindAll.FilterID
                 };
     
-                apiService.post("eAxisAPI", InwardGeneralCtrl.ePage.Entities.Header.API.OrgMiscServ.Url, _input).then(function (response) {
+                apiService.post("eAxisAPI", appConfig.Entities.OrgMiscServ.API.FindAll.Url, _input).then(function (response) {
                     if (response.data.Response) {
                         InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.IMPartAttrib1Name = response.data.Response[0].IMPartAttrib1Name;
                         InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.IMPartAttrib2Name = response.data.Response[0].IMPartAttrib2Name;

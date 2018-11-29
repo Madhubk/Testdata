@@ -1,304 +1,367 @@
-<div class="widget-main track-shipment-container">
-    <div>
-        <div class="clearfix padding-10">
-            <div>
-                <div class="padding-10 pl-0" style="background-color: #f9f9f9; border: 1px solid #eee;">
-                    <div class="clearfix">
-                        <div class="col-lg-2">
-                            <span class="hiz-shipment">{{TrackShipmentDirectiveCtrl.currentShipment.label}}</span>
-                            <div class="">
-                                <span ng-if="TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBill!= null || undefined">HBL # : {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBill}} </span>
-                                <span ng-if="TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBill== null || undefined" data-ng-bind="'---'"></span>
+<div id="track-shipment" class="widget-main track-shipment-details p-5">
+    <div class="row p-5">
+        <div class="col-lg-2">
+            <div class="panel panel-default mb-0">
+                <div class="panel-heading p-5">
+                    <b class="panel-title">Shipment</b>
+                </div>
+                <div class="panel-body height-120">
+                    <div>
+                        <strong class="fs-16 set-color-red">{{TrackShipmentDirectiveCtrl.currentShipment.label}}</strong>
+                    </div>
+                    <div class="mt-15 mb-10">
+                        <span class="track-shipments-span">{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode}}</span>
+                        <span class="track-shipments-span ml-5">{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.IncoTerm}}</span>
+                        <span class="track-shipments-span ml-5">{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ContainerMode}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5 pl-0">
+            <div class="panel panel-default mb-0">
+                <div class="panel-heading height-30 position-relative">
+                    <div class="track-shipments-title">Shipper</div>
+                </div>
+                <div class="clearfix height-120 pt-10 pb-10">
+                    <div class="col-lg-3">
+                        <img src="assets/img/ExportGray.png">
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="mt-5">
+                            <b>{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ORG_Code}}</b>
+                        </div>
+                        <div class="mt-5">{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.Address1}}</div>
+                        <!-- <div class="mt-5">{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.Address2}}</div> -->
+                        <div class="mt-5">Origin
+                            <b class="ml-20">{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin}}</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5 pl-0">
+            <div class="panel panel-default mb-0">
+                <div class="panel-heading height-30 position-relative">
+                    <div class="track-shipments-title">Consignee</div>
+                </div>
+                <div class="clearfix height-120 pt-10 pb-10">
+                    <div class="col-lg-3">
+                        <img src="assets/img/ImportGray.png">
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="mt-5">
+                            <b>{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ORG_Code}}</b>
+                        </div>
+                        <div class="mt-5">{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.Address1}}</div>
+                        <!-- <div class="mt-5">{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.Address2}}</div> -->
+                        <div class="mt-5">Destination
+                            <b class="ml-20">{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination}}</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row p-5">
+        <div class="col-lg-12">
+            <div class="panel panel-default p-15 mb-0">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <img class="mt-20" src="assets/img/ShipmentGray.png" />
+                    </div>
+                    <div class="col-lg-10">
+                        <div class="col-lg-2 mb-10">
+                            <div class="track-shipments-label">HBL</div>
+                            <div class="track-shipments-value">
+                                {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBill}}
                             </div>
-
                         </div>
-                        <div class="col-lg-2">
-                            <div class="padding-left-20"><i class="fa fa-plane fa-2x"></i></div>
-                            <div class="">Airfreight</div>
-                        </div>
-                        <div class="col-lg-2">
-                            <div class="padding-bottom-5"><i class="fa fa-circle-o"></i> {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin}}</div>
-                            <div class=""><i class="fa fa-circle"></i> {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination}}</div>
-                        </div>
-
-                        <div class="col-lg-2">
-                            <div class="padding-left-20"><i class="fa fa-database fa-2x"></i></div>
-                            <div class="">
-                                Wt : <span ng-if="TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Weight != null || undefined">{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Weight}}</span>
-                                <span ng-if="TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Weight== null || undefined" data-ng-bind="'---'"></span>
-                                KG
+                        <div class="col-lg-2 mb-10">
+                            <div class="track-shipments-label">MBL</div>
+                            <div class="track-shipments-value">
+                                {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.MasterBillno}}
                             </div>
                         </div>
-                        <div class="col-lg-2">
-                            <div class="padding-left-20"><i class="fa fa-cube fa-2x"></i></div>
-                            <div class="">
-                                Vol : <span ng-if="TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Volume != null || undefined">{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Volume}}</span>
-                                <span ng-if="TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Volume== null || undefined" data-ng-bind="'---'"></span>
-                                M3
+                        <div class="col-lg-2 mb-10">
+                            <div class="track-shipments-label">Volume</div>
+                            <div class="track-shipments-value">
+                                {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Volume}} {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.UnitOfVolume}}
                             </div>
                         </div>
-                        <div class="col-lg-2">
-                            <div class="">No of Packages</div>
-                            <div class="hiz-shipment">
-                                6 | <span ng-if="TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackType!= null || undefined">{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackType}}</span>
-                                <span ng-if="TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackType== null || undefined" data-ng-bind="'---'"></span>
+                        <div class="col-lg-2 mb-10">
+                            <div class="track-shipments-label">Weight</div>
+                            <div class="track-shipments-value">
+                                {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Weight}} {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.UnitOfWeight}}
+                            </div>
+                        </div>
+                        <div class="col-lg-2 mb-10">
+                            <div class="track-shipments-label">PackType</div>
+                            <div class="track-shipments-value">
+                                {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.OuterPackCount}} {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.OuterPackType}}
+                            </div>
+                        </div>
+                        <div class="col-lg-2 mb-10">
+                            <div class="track-shipments-label">Shipper Reference</div>
+                            <div class="track-shipments-value">
+                                {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipperReference}}
+                            </div>
+                        </div>
+                        <div class="col-lg-2 mb-10">
+                            <div class="track-shipments-label">POL</div>
+                            <div class="track-shipments-value">
+                                {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin}}
+                            </div>
+                        </div>
+                        <div class="col-lg-2 mb-10">
+                            <div class="track-shipments-label">POD</div>
+                            <div class="track-shipments-value">
+                                {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination}}
+                            </div>
+                        </div>
+                        <div class="col-lg-2 mb-10">
+                            <div class="track-shipments-label">Carrier</div>
+                            <div class="track-shipments-value">
+                                {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Carrier}}
+                            </div>
+                        </div>
+                        <div class="col-lg-2 mb-10">
+                            <div class="track-shipments-label">Vessel</div>
+                            <div class="track-shipments-value">
+                                {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Vessel}}
+                            </div>
+                        </div>
+                        <div class="col-lg-2 mb-10">
+                            <div class="track-shipments-label">Voyage</div>
+                            <div class="track-shipments-value">
+                                {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Voyage}}
+                            </div>
+                        </div>
+                        <div class="col-lg-2 mb-10">
+                            <div class="track-shipments-label">Consignee Reference</div>
+                            <div class="track-shipments-value">
+                                {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ConsigneeRef}}
+                            </div>
+                        </div>
+                        <div class="col-lg-2 mb-10">
+                            <div class="track-shipments-label">ETD</div>
+                            <div class="track-shipments-value">
+                                {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETD | date:'dd-MMM-yyyy'}} </div>
+                        </div>
+                        <div class="col-lg-2 mb-10">
+                            <div class="track-shipments-label">ATD</div>
+                            <div class="track-shipments-value">
+                                {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ATD | date:'dd-MMM-yyyy'}}
+                            </div>
+                        </div>
+                        <div class="col-lg-2 mb-10">
+                            <div class="track-shipments-label">ETA</div>
+                            <div class="track-shipments-value">
+                                {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETA | date:'dd-MMM-yyyy'}}
+                            </div>
+                        </div>
+                        <div class="col-lg-2 mb-10">
+                            <div class="track-shipments-label">ATA</div>
+                            <div class="track-shipments-value">
+                                {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ATA | date:'dd-MMM-yyyy'}}
+                            </div>
+                        </div>
+                        <div class="col-lg-2 mb-10">
+                            <div class="track-shipments-label">Goods Desc.</div>
+                            <div class="track-shipments-value">
+                                {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.GoodsDesc}}</span>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-lg-3 pl-0 padding-right-5">
-                    <div class="clearfix">
-                        <div class="padding-top-5">
-                            <div class="address-box" style="background-color: #f9f9f9;">
-                                <div class="address-title padding-bottom-5  text-Ellipsis">Consignor</div>
-                                <div class="address-txt text-Ellipsis" title="{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ORG_Code}}">{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ORG_Code}}</div>
-                                <div class="address-txt text-Ellipsis" title="{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.Address1}}">{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.Address1}}</div>
-                                <div class="address-txt text-Ellipsis" title="{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.Address2}}">{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.Address2}} </div>
-                                <div class="address-ttx text-Ellipsis" title="{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.City}} {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.State}} {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.PostCode}}">{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.City}} {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.State}} {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.PostCode}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="row p-5">
+        <div class="col-lg-12">
+            <div id='' class="trackshipment_scroll">
+                <div class="table tab-position" id="results">
+                    <div class='theader'>
+                        <div class='table_header'>Consol #</div>
+                        <div class='table_header'>Mode</div>
+                        <div class='table_header'>Leg Order</div>
+                        <div class='table_header'>Transport Type</div>
+                        <div class='table_header'>Vessel</div>
+                        <div class='table_header'>Voyage Flight</div>
+                        <div class='table_header'>Load Port</div>
+                        <div class='table_header'>Disc Port</div>
+                        <div class='table_header'>ETD</div>
+                        <div class='table_header'>ATD</div>
+                        <div class='table_header'>ETA</div>
+                        <div class='table_header'>ATA</div>
+                    </div>
+                    <div class='table_row' data-ng-repeat="x in TrackShipmentDirectiveCtrl.ePage.Masters.TrackShipment.TrackShipmentConsol.GridData"
+                        style="font-size: 11px;">
+                        <div class='table_small'>
+                            <div class='table_cell'>Consol #</div>
+                            <div class='table_cell'>
+                                <b>{{x.ConsolNo}}</b>
                             </div>
                         </div>
-                    </div>
-                    <div class="clearfix">
-                        <div class="">
-                            <div class="address-box">
-                                <div class="address-title padding-bottom-5  text-Ellipsis">Consignee</div>
-                                <div class="address-txt text-Ellipsis" title="{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ORG_Code}}">{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ORG_Code}}</div>
-                                <div class="address-txt text-Ellipsis" title="{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.Address1}}">{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.Address1}}</div>
-                                <div class="address-txt text-Ellipsis" title="{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.Address2}}">{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.Address2}} </div>
-                                <div class="address-ttx text-Ellipsis" title="{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.City}} {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.State}} {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.PostCode}}">{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.City}} {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.State}} {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.PostCode}}</div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Mode</div>
+                            <div class='table_cell'>
+                                <b>{{x.TransportMode}}</b>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-9 pl-0 pr-0 padding-top-5">
-                    <div class="clearfix">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-3">
-                                        <b class="text-center">MBL</b><br>
-                                        <span ng-if="TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.MasterBillno != null || undefined">{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.MasterBillno}}</span>
-                                        <span ng-if="TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.MasterBillno== null || undefined" data-ng-bind="'---'"></span>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <b class="text-center">Shipper Ref</b><br>
-                                        <span ng-if="TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.BookingReference!= null || undefined">{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.BookingReference}}</span>
-                                        <span ng-if="TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.BookingReference== null || undefined" data-ng-bind="'---'"></span>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <b class="text-center">Consignee Ref</b><br>
-                                        <span ng-if="TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ConsigneeReference!= null || undefined">{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ConsigneeReference}}</span>
-                                        <span ng-if="TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ConsigneeReference== null || undefined" data-ng-bind="'---'"></span>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <b class="text-center">POL | POD</b><br>
-                                        <span ng-if="TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.POL!= null || undefined">{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.POL}}</span>
-                                        <span ng-if="TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.POL== null || undefined" data-ng-bind="'---'"></span>
-                                        <i class="fa fa-caret-right"></i> <span ng-if="TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.POD!= null || undefined">{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.POD}}</span>
-                                        <span ng-if="TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.POD== null || undefined" data-ng-bind="'---'"></span>
-
-                                    </div>
-                                </div>
-                                <div class="row  mt-20">
-
-                                    <div class="col-lg-3">
-                                        <b class="text-center">Carrrier</b><br>
-                                        <span ng-if="TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Carrrier!= null || undefined">{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Carrrier}}</span>
-                                        <span ng-if="TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Carrrier== null || undefined" data-ng-bind="'---'"></span>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <b class="text-center">Vessel</b><br>
-                                        <span ng-if="TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Vessel!= null || undefined">{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Vessel}}</span>
-                                        <span ng-if="TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Vessel== null || undefined" data-ng-bind="'---'"></span>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <b class="text-center">Voyage</b><br>
-                                        <span ng-if="TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Voyage!= null || undefined">{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Voyage}}</span>
-                                        <span ng-if="TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Voyage== null || undefined" data-ng-bind="'---'"></span>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <b class="text-center">ETD</b><br>
-                                        <span ng-if="TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETD!= null || undefined">{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETD | date:'dd-MMM-yyyy'}}</span>
-                                        <span ng-if="TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETD== null || undefined" data-ng-bind="'---'"></span>
-                                    </div>
-                                </div>
-                                <div class="row  mt-20">
-
-                                    <div class="col-lg-3">
-                                        <b class="text-center">ATD</b><br>
-                                        <span ng-if="TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ATD!= null || undefined">{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ATD | date:'dd-MMM-yyyy'}}</span>
-                                        <span ng-if="TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ATD== null || undefined" data-ng-bind="'---'"></span>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <b class="text-center">ETA</b><br>
-                                        <span ng-if="TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETA!= null || undefined">{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETA | date:'dd-MMM-yyyy'}}</span>
-                                        <span ng-if="TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETA== null || undefined" data-ng-bind="'---'"></span>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <b class="text-center">ATA</b><br>
-                                        <span ng-if="TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ATA!= null || undefined">{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ATA | date:'dd-MMM-yyyy'}}</span>
-                                        <span ng-if="TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ATA== null || undefined" data-ng-bind="'---'"></span>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <b class="text-center">Goods Desc</b><br>
-                                        <span ng-if="TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.GoodsDesc!= null || undefined">{{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.GoodsDesc}}</span>
-                                        <span ng-if="TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.GoodsDesc== null || undefined" data-ng-bind="'---'"></span>
-                                    </div>
-                                </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Leg Order</div>
+                            <div class='table_cell'>{{x.LastDischargePort}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Transport Type</div>
+                            <div class='table_cell'>{{x.TransportType}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Vessel</div>
+                            <div class='table_cell'>
+                                <b>{{x.Vessel}}</b>
+                            </div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Voyage Flight</div>
+                            <div class='table_cell'>
+                                <b>{{x.Voyage}}</b>
+                            </div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Load Port</div>
+                            <div class='table_cell'>
+                                <b>{{x.LoadPort}}</b>
+                            </div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Disc Port</div>
+                            <div class='table_cell'>
+                                <b>{{x.PortOfDischarge}}</b>
+                            </div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>ETD</div>
+                            <div class='table_cell'>
+                                <b>{{x.ETD | date:'dd-MMM-yyyy'}}</b>
+                            </div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>ATD</div>
+                            <div class='table_cell'>
+                                <b>{{x.ATD | date:'dd-MMM-yyyy'}}</b>
+                            </div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>ETA</div>
+                            <div class='table_cell'>
+                                <b>{{x.ETA | date:'dd-MMM-yyyy'}}</b>
+                            </div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>ATA</div>
+                            <div class='table_cell'>
+                                <b>{{x.ATA | date:'dd-MMM-yyyy'}}</b>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- List Empty Response -->
+                <div class="grid-no-record-order" data-ng-if="TrackShipmentDirectiveCtrl.ePage.Masters.TrackShipment.TrackShipmentConsol.GridData.length==0">No records found...</div>
+            </div>
+        </div>
+    </div>
+    <div class="row p-5">
+        <div class="col-lg-8">
+            <div id='' class="trackshipment_scroll">
+                <div class="table tab-position" id="results">
+                    <div class='theader'>
+                        <div class='table_header'>Order #</div>
+                        <div class='table_header'>Order Date</div>
+                        <div class='table_header'>Origin</div>
+                        <div class='table_header'>Req. Instore</div>
+                        <div class='table_header'>Req. ExWorks</div>
+                        <div class='table_header'>Custom Date</div>
+                    </div>
+                    <div class='table_row' data-ng-repeat="x in TrackShipmentDirectiveCtrl.ePage.Masters.TrackShipment.Order.GridData" style="font-size: 11px;">
+                        <div class='table_small'>
+                            <div class='table_cell'>Order #</div>
+                            <div class='table_cell'>
+                                <b>{{x.OrderNo}}</b>
+                            </div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Order Date</div>
+                            <div class='table_cell'>
+                                <b>{{x.OrderDate | date:'dd-MMM-yyyy'}}</b>
+                            </div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Origin</div>
+                            <div class='table_cell'>
+                                <b>{{x.Origin}}</b>
+                            </div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Req. Instore</div>
+                            <div class='table_cell'>
+                                <b>{{x.ReqInstore | date:'dd-MMM-yyyy'}}</b>
+                            </div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Req. ExWorks</div>
+                            <div class='table_cell'>
+                                <b>{{x.ReqExWorks | date:'dd-MMM-yyyy'}}</b>
+                            </div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Custom Date</div>
+                            <div class='table_cell'>
+                                <b>{{x.CustomDate | date:'dd-MMM-yyyy'}}</b>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- List Empty Response -->
+                <div class="grid-no-record-order" data-ng-if="TrackShipmentDirectiveCtrl.ePage.Masters.TrackShipment.Order.GridData.length==0">No records found...</div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div id='' class="trackshipment_scroll">
+                <div class="table tab-position" id="results">
+                    <div class='theader'>
+                        <div class='table_header'>Container #</div>
+                        <div class='table_header'>Type</div>
+                        <div class='table_header'>Seal1</div>
+                        <div class='table_header'>Seal2</div>
+                    </div>
+                    <div class='table_row' data-ng-repeat="x in TrackShipmentDirectiveCtrl.ePage.Masters.TrackShipment.TrackShipmentContainer.GridData"
+                        style="font-size: 11px;">
+                        <div class='table_small'>
+                            <div class='table_cell'>Container #</div>
+                            <div class='table_cell'>
+                                <b>{{x.ContainerNo}}</b>
+                            </div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Type</div>
+                            <div class='table_cell'>
+                                <b>{{x.RC_Type}}</b>
+                            </div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Seal1</div>
+                            <div class='table_cell'>{{x.SealNo}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Seal2</div>
+                            <div class='table_cell'>{{x.SealNo2}}</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- List Empty Response -->
+                <div class="grid-no-record-order" data-ng-if="TrackShipmentDirectiveCtrl.ePage.Masters.TrackShipment.TrackShipmentContainer.GridData.length==0">No records found...</div>
             </div>
         </div>
     </div>
 </div>
-<div>
-    <div class="clearfix">
-        <!--Grid directive-->
-        <div class="col-lg-8 pl-0 pt-0">
-            <div class="padding-left-20 padding-bottom-5"><span class="address-title">Routing</span></div>
-            <div class="clearfix padding-5 padding-left-10 pt-0">
-                <ul class="trackship-actions">
-                    <div class="text-center grid-view-loader" data-ng-if="!TrackShipmentDirectiveCtrl.ePage.Masters.TrackShipment.TrackShipmentConsol.GridData">
-                        <i class="fa fa-spin fa-spinner font-160"></i>
-                    </div>
-                    <li data-ng-if="TrackShipmentDirectiveCtrl.ePage.Masters.TrackShipment.TrackShipmentConsol.GridData.length==0">
-                        <div class="row">
-                            <div class="text-center">
-                                No Routing Legs Found...
-                            </div>
-                        </div>
-                    </li>
-                    <li data-ng-repeat="x in TrackShipmentDirectiveCtrl.ePage.Masters.TrackShipment.TrackShipmentConsol.GridData">
-                        <div class="col-lg-3">
-                            <div class=""> <a class="fontSizeColor" data-ng-click=""> {{x.ConsolNo}} </a> </div>
-                            <div class="trackship-wis margin-top-5"><span class="btn res-border">{{x.TransportMode}}</span><i class="fa fa-caret-right"></i><span class="btn-border">{{x.TransportType}}</span> | Leg #: {{x.LegOrder}}</div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="trackship-wis text-single-line">Ves: {{x.Vessel}}</div>
-                            <div class="trackship-wis margin-top-5 text-single-line">Voy: {{x.VoyageFlight}}</div>
-                        </div>
-                        <div class="col-lg-2">
-                            <div class="trackship-wis text-single-line">POL : {{x.FirstLoadPort}}</div>
-                            <div class="trackship-wis margin-top-5 text-single-line">POD : {{x.LastDischargePort}}</div>
-                        </div>
-                        <div class="col-lg-2">
-                            <div class="trackship-wis text-single-line">ETD: {{x.ETD |date:'dd-MMM-yyyy'}}</div>
-                            <div class="trackship-wis margin-top-5 text-single-line">ETA: {{x.ETA |date:'dd-MMM-yyyy'}}</div>
-                        </div>
-                        <div class="col-lg-2">
-                            <div class="trackship-wis text-single-line">ATD: {{x.ATD |date:'dd-MMM-yyyy'}}</div>
-                            <div class="trackship-wis margin-top-5 text-single-line">ATA: {{x.ATA |date:'dd-MMM-yyyy'}}</div>
-                        </div>
-
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-lg-4 pl-0 pt-0 pr-0">
-            <div class="padding-left-20 padding-bottom-5"><span class="address-title">Orders</span></div>
-            <div class="clearfix padding-right-10">
-                <ul class="trackship-actions">
-                    <div class="text-center grid-view-loader" data-ng-if="!TrackShipmentDirectiveCtrl.ePage.Masters.TrackShipment.TrackShipmentOrder.GridData">
-                        <i class="fa fa-spin fa-spinner font-160"></i>
-                    </div>
-                    <li data-ng-if="TrackShipmentDirectiveCtrl.ePage.Masters.TrackShipment.TrackShipmentOrder.GridData.length==0">
-                        <div class="row">
-                            <div class="text-center">
-                                No Orders Found...
-                            </div>
-                        </div>
-                    </li>
-                    <li data-ng-repeat="x in TrackShipmentDirectiveCtrl.ePage.Masters.TrackShipment.TrackShipmentOrder.GridData">
-                        <div class="col-lg-6">
-                            <div class=""> <a class="fontSizeColor" href="javascript:void(0);" data-ng-click="TrackShipmentDirectiveCtrl.ePage.Masters.TrackShipment.TrackShipmentOrder.SelectedOrder(x)"> {{x.OrderCumSplitNo}} </a> </div>
-                            <div class="trackship-wis margin-top-5">Order Date: {{x.OrderDate|date:'dd-MMM-yyyy'}} </div>
-
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="trackship-wis text-single-line">In Store: {{x.RequiredDeliveryDate|date:'dd-MMM-yyyy'}}</div>
-                            <div class="trackship-wis margin-top-5 text-single-line">Ex.Works: {{x.RequiredExWorksDate|date:'dd-MMM-yyyy'}}</div>
-                        </div>
-
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="clearfix">
-        <!--Grid directive-->
-        <div class="col-lg-8 pl-0 pt-0">
-            <div class="padding-left-20 padding-bottom-5"><span class="address-title">Packlines</span></div>
-            <div class="clearfix padding-5 padding-left-10 pt-0">
-                <ul class="trackship-actions">
-                    <div class="text-center grid-view-loader" data-ng-if="!TrackShipmentDirectiveCtrl.ePage.Masters.TrackShipment.TrackShipmentPackage.GridData">
-                        <i class="fa fa-spin fa-spinner font-160"></i>
-                    </div>
-                    <li data-ng-if="TrackShipmentDirectiveCtrl.ePage.Masters.TrackShipment.TrackShipmentPackage.GridData.length==0">
-                        <div class="row">
-                            <div class="text-center">
-                                No Packlines Found...
-                            </div>
-                        </div>
-                    </li>
-                    <li data-ng-repeat="x in TrackShipmentDirectiveCtrl.ePage.Masters.TrackShipment.TrackShipmentPackage.GridData">
-                        <div class="col-lg-2">
-                            <div class="trackship-wis text-single-line">Pack Count: {{x.PackageCount}}</div>
-                            <div class="trackship-wis margin-top-5">Pack Type: {{x.F3_NKPackType}} </div>
-
-                        </div>
-                        <div class="col-lg-2">
-                            <div class="trackship-wis text-single-line">Length: {{x.Length}}</div>
-                            <div class="trackship-wis margin-top-5 text-single-line">Width: {{x.Width}}</div>
-                        </div>
-                        <div class="col-lg-2">
-                            <div class="trackship-wis text-single-line">Height : {{x.Height}}</div>
-                            <div class="trackship-wis margin-top-5 text-single-line">Unit.D : {{x.UnitOfDimension}}</div>
-                        </div>
-                        <div class="col-lg-2">
-                            <div class="trackship-wis text-single-line">Weight: {{x.ActualWeight}}  {{x.ActualWeightUQ}}</div>
-                            <div class="trackship-wis margin-top-5 text-single-line">Volume:  {{x.ActualVolume}}  {{x.ActualVolumeUQ}}</div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="trackship-wis text-single-line">{{x.Description}} </div>
-                            <div class="trackship-wis margin-top-5 text-single-line"></div>
-                        </div>
-
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-lg-4 pl-0 pt-0 pr-0">
-            <div class="padding-left-20 padding-bottom-5"><span class="address-title">Containers</span></div>
-            <div class="clearfix padding-right-10">
-                <ul class="trackship-actions">
-                    <div class="text-center grid-view-loader" data-ng-if="!TrackShipmentDirectiveCtrl.ePage.Masters.TrackShipment.TrackShipmentContainer.GridData">
-                        <i class="fa fa-spin fa-spinner font-160"></i>
-                    </div>
-                    <li data-ng-if="TrackShipmentDirectiveCtrl.ePage.Masters.TrackShipment.TrackShipmentContainer.GridData.length==0">
-                        <div class="row">
-                            <div class="text-center">
-                                No Containers Found...
-                            </div>
-                        </div>
-                    </li>
-                    <li data-ng-repeat="x in TrackShipmentDirectiveCtrl.ePage.Masters.TrackShipment.TrackShipmentContainer.GridData">
-                        <div class="col-lg-6">
-                            <div class=""> <a class="fontSizeColor" data-ng-click=""> {{x.ContainerNo}} </a> </div>
-                            <div class="trackship-wis margin-top-5">Container Mode: {{x.ContainerMode}} </div>
-
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="trackship-wis text-single-line">Seal 1: {{x.SealNo1}}</div>
-                            <div class="trackship-wis margin-top-5 text-single-line">Seal 2: {{x.SealNo2}}</div>
-                        </div>
-
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-

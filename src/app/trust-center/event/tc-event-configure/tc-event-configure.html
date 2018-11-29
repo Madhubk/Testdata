@@ -1,0 +1,46 @@
+<div class="clearfix">
+    <div class="clearfix">
+        <uib-tabset>
+            <!--Event-->
+            <uib-tab>
+                <uib-tab-heading title="Event">
+                    <i class="fa fa-file-o mr-5"></i>
+                    <span class="text-single-line" data-ng-bind="('Event' | translate)"></span>
+                </uib-tab-heading>
+                <div data-ng-include="'app/trust-center/event/tc-event-configure/tabs/event.html'"></div>
+            </uib-tab>
+            <!--Rule-->
+            <uib-tab data-ng-if="TCEventConfigureCtrl.ePage.Masters.Event.FormView.PK">
+                <uib-tab-heading title="Package Details">
+                    <i class="fa fa-suitcase mr-5"></i>
+                    <span class="text-single-line" data-ng-bind="('Rule' | translate)"></span>
+                </uib-tab-heading>
+                <div data-ng-include="'app/trust-center/event/tc-event-configure/tabs/rule.html'"></div>
+            </uib-tab>
+            <!-- Parties -->
+            <uib-tab data-ng-if="TCEventConfigureCtrl.ePage.Masters.Event.FormView.PK">
+                <uib-tab-heading title="Parties">
+                    <i class="fa fa-list-alt mr-5"></i>
+                    <span class="text-single-line" data-ng-bind="('Parties' | translate)"></span>
+                </uib-tab-heading>
+                <div data-ng-include="'app/trust-center/event/tc-event-configure/tabs/parties.html'"></div>
+            </uib-tab>
+            <!-- Group Mapping -->
+            <uib-tab data-ng-if="TCEventConfigureCtrl.ePage.Masters.Event.FormView.PK">
+                <uib-tab-heading title="Group Mapping">
+                    <i class="fa fa-list-alt mr-5"></i>
+                    <span class="text-single-line" data-ng-bind="('Group Mapping' | translate)"></span>
+                </uib-tab-heading>
+                <div data-ng-include="'app/trust-center/event/tc-event-configure/tabs/group-mapping.html'"></div>
+            </uib-tab>
+            <!-- Event Group -->
+            <uib-tab data-ng-if="TCEventConfigureCtrl.ePage.Masters.Event.FormView.PK">
+                <uib-tab-heading title="Event Group">
+                    <i class="fa fa-list-alt mr-5"></i>
+                    <span class="text-single-line" data-ng-bind="('Event Group' | translate)"></span>
+                </uib-tab-heading>
+                <div data-ng-include="'app/trust-center/event/tc-event-configure/tabs/event-group.html'"></div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>

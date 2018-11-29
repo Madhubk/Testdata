@@ -1,0 +1,12 @@
+<div class="modal-header">
+	<button type="button" class="close" data-ng-click="PoModalCtrl.ePage.Masters.Cancel()">&times;</button>
+	<h5 class="modal-title" id="modal-title">
+		<strong>Upload <span data-ng-if="PoModalCtrl.ePage.Masters.Param.Type=='UPO'">Purchase</span><span data-ng-if="PoModalCtrl.ePage.Masters.Param.Type=='UDO'">Delivery</span>
+			Order(s) Template</strong>
+	</h5>
+</div>
+<div class="modal-body po-modal-hide" id="modal-body">
+	<div data-ng-if="PoModalCtrl.ePage.Masters.Param">
+		<one-one-po-batch-upload-directive current-batch="PoModalCtrl.ePage.Masters.Param.currentBatch" modal-close="PoModalCtrl.ePage.Masters.Close({item : item});"></one-one-po-batch-upload-directive>
+	</div>
+</div>

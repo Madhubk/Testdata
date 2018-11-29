@@ -1,0 +1,79 @@
+<div class="clearfix tc-email-configure-email-container pb-100 pt-10">
+    <form class="clearfix" novalidate>
+        <div class="clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Key </label>
+                    <input type="text" class="form-control input-sm" data-ng-model="TCEmailConfigureCtrl.ePage.Masters.Email.FormView.Key"
+                        placeholder="Key" />
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Value </label>
+                    <input type="text" class="form-control input-sm" data-ng-model="TCEmailConfigureCtrl.ePage.Masters.Email.FormView.Value"
+                        placeholder="Value" />
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                    <div class="form-group">
+                        <label class="control-label">Description </label>
+                        <input type="text" class="form-control input-sm" data-ng-model="TCEmailConfigureCtrl.ePage.Masters.Email.FormView.Description"
+                            placeholder="Description" />
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label class="control-label">TypeCode </label>
+                            <input type="text" class="form-control input-sm" data-ng-model="TCEmailConfigureCtrl.ePage.Masters.Email.FormView.TypeCode"
+                                placeholder="TypeCode" />
+                        </div>
+                    </div>
+                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <label class="control-label">Party Type</label>
+                            <select chosen class="form-control" data-ng-options="x.PK as x.PartyName for x in TCEmailConfigureCtrl.ePage.Masters.Parties.PartiesListSource"
+                                data-ng-model="TCEmailConfigureCtrl.ePage.Masters.Email.FormView.PartyType_FK" search-contains="true"
+                                data-ng-change="TCEmailConfigureCtrl.ePage.Masters.Email.OnPartyTypeChange((TCEmailConfigureCtrl.ePage.Masters.Parties.PartiesListSource | filter: {'PK': TCEmailConfigureCtrl.ePage.Masters.Email.FormView.PartyType_FK})[0])">
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </div>
+           
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <div class="clearfix">
+                    <div class="form-group">
+                        <label class="">
+                            Other Config
+                            <span data-ng-click="TCEmailConfigureCtrl.ePage.Masters.Email.OpenJsonModal('OtherConfig')" class="glyphicon glyphicon-pencil cursor-pointer ml-5"></span>
+                        </label>
+                        <div class="">
+                            <textarea class="form-control set-text-bg no-resize" style="height:100px;" data-ng-model="TCEmailConfigureCtrl.ePage.Masters.Email.FormView.OtherConfig"
+                                placeholder="Other Config"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+  
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" data-ng-model="TCEmailConfigureCtrl.ePage.Masters.Email.FormView.IsActive" class="colored-blue">
+                            <span class="text text-single-line">IsActive</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="eaxis-footer-strip">
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10"></div>
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+        <button class="btn btn-primary btn-sm pull-right mr-10 mt-6" data-ng-click="TCEmailConfigureCtrl.ePage.Masters.SaveEmail()"
+            data-ng-bind="TCEmailConfigureCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="TCEmailConfigureCtrl.ePage.Masters.IsDisableSave"></button>
+    </div>
+</div>

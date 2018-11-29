@@ -1,28 +1,31 @@
 <div class="clearfix tc-menu-groups">
     <!-- Breadcrumb -->
     <div class="clearfix tc-breadcrumb" data-ng-if="MenuGroupsCtrl.ePage.Masters.ActiveApplication == 'TC'">
-        <i class="fa fa-home home-icon"></i>
-        <div class="breadcrumb-list-wrapper">
-            <ol class="breadcrumb">
-                <li data-ng-repeat="x in MenuGroupsCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
-                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="MenuGroupsCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
-                </li>
-                <li data-ng-repeat="x in MenuGroupsCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
-                    class="active"></li>
-            </ol>
+        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-xs-12 p-0">
+            <i class="fa fa-home home-icon"></i>
+            <div class="breadcrumb-list-wrapper">
+                <ol class="breadcrumb">
+                    <li data-ng-repeat="x in MenuGroupsCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                        <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="MenuGroupsCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                    </li>
+                    <li data-ng-repeat="x in MenuGroupsCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive"
+                        data-ng-bind="x.Description" class="active"></li>
+                </ol>
+            </div>
         </div>
-        <span class="tc-breadcrumb-app-name" data-ng-if="MenuGroupsCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="MenuGroupsCtrl.ePage.Masters.QueryString.AppName"></span>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12 p-4">
+            <tc-application-dropdown query-string="MenuGroupsCtrl.ePage.Masters.QueryString" on-application-change="MenuGroupsCtrl.ePage.Masters.Application.OnApplicationChange($item)"></tc-application-dropdown>
+        </div>
     </div>
     <!-- Header -->
     <div class="clearfix tc-header-container">
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
-            <div class="tc-header with-drop-down">
+            <div class="tc-header">
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 p-0">
-                    <select chosen class="form-control" data-ng-model="MenuGroupsCtrl.ePage.Masters.MenuGroupType.ActiveMenuGroupType.Key" data-ng-options="x.Key as x.Value for x  in MenuGroupsCtrl.ePage.Masters.MenuGroupType.Listsource"
-                        data-ng-change="MenuGroupsCtrl.ePage.Masters.MenuGroupType.OnMenuGroupTypeChange((MenuGroupsCtrl.ePage.Masters.MenuGroupType.Listsource | filter: {'Key': MenuGroupsCtrl.ePage.Masters.MenuGroupType.ActiveMenuGroupType.Key})[0])"></select>
+                    <span data-ng-bind="MenuGroupsCtrl.ePage.Masters.QueryString.AdditionalData.BreadcrumbTitle"></span>
                 </div>
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 p-5 pt-4 text-right">
-                    <button class="btn btn-xs btn-info" data-ng-click="MenuGroupsCtrl.ePage.Masters.MenuGroups.AddNew()" data-ng-disabled="!MenuGroupsCtrl.ePage.Masters.MenuGroupType.ActiveMenuGroupType.Key">New</button>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 pr-5 text-right">
+                    <button class="btn btn-xs btn-info" data-ng-click="MenuGroupsCtrl.ePage.Masters.MenuGroups.AddNew()">New</button>
                 </div>
             </div>
         </div>
@@ -87,7 +90,7 @@
             <div class="tc-section-divider"></div>
             <div class="tc-list-container tc-list-container-inner-redirect clearfix" data-ng-if="MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups.PK">
                 <ul class="tc-list-ul">
-                    <li data-ng-click="MenuGroupsCtrl.ePage.Masters.MenuGroups.OnRedirectListClick(x)" data-ng-repeat="x in MenuGroupsCtrl.ePage.Masters.MenuGroups.RedirectPagetList | filter: {GroupType: MenuGroupsCtrl.ePage.Masters.MenuGroupType.ActiveMenuGroupType.Key}">
+                    <li data-ng-click="MenuGroupsCtrl.ePage.Masters.MenuGroups.OnRedirectListClick(x)" data-ng-repeat="x in MenuGroupsCtrl.ePage.Masters.MenuGroups.RedirectPagetList">
                         <div class="clearfix tc-list">
                             <div class="tc-list-name">
                                 <i class="fa {{x.Icon}} mr-10" data-ng-style="{'color': x.Color}"></i>
@@ -125,14 +128,15 @@
                             <input type="text" class="form-control input-sm" placeholder="Description" data-ng-model="MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups.Description">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">GroupType</label>
+                    <!-- <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Module</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <select chosen class="form-control" data-ng-model="MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups.GroupType" data-ng-options="x.Key as x.Key for x in  MenuGroupsCtrl.ePage.Masters.MenuGroupType.Listsource">
+                            <select chosen class="form-control" data-ng-options="x.Value as x.Value for x in MenuGroupsCtrl.ePage.Masters.MenuGroups.ModuleListSource"
+                                data-ng-model="MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups.ModuleCode" search-contains="true">
                                 <option value="">--Select--</option>
                             </select>
                         </div>
-                    </div>
+                    </div> -->
                 </form>
             </div>
         </div>

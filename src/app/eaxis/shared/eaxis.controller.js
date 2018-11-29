@@ -5,13 +5,23 @@
         .module("Application")
         .controller("EAxisController", EAxisController);
 
-    EAxisController.$inject = [];
+    EAxisController.$inject = ["helperService", "authService"];
 
-    function EAxisController() {
+    function EAxisController(helperService, authService) {
         /* jshint validthis: true */
         var EAxisCtrl = this;
 
-        function Init() {}
+        function Init() {
+            EAxisCtrl.ePage = {
+                "Title": "",
+                "Prefix": "eAxis",
+                "Masters": {},
+                "Meta": helperService.metaBase(),
+                "Entities": {}
+            };
+
+            EAxisCtrl.ePage.Masters.MenuVisibleType = authService.getUserInfo().MenuType;
+        }
 
         Init();
     }

@@ -19,10 +19,7 @@
                 "Meta": helperService.metaBase(),
                 "Entities": currentContainer
             };
-
         }
-
-
 
         Init();
     }

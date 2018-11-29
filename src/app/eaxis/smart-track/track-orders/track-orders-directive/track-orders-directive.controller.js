@@ -19,66 +19,101 @@
                 "Meta": helperService.metaBase(),
                 "Entities": currentOrder
             };
-            
+
             InitTrackOrders();
         }
-        
+
         function InitTrackOrders() {
             TrackOrderDirectiveCtrl.ePage.Masters.TrackOrder = {};
+            TrackOrderDirectiveCtrl.ePage.Masters.TrackOrder.TrackContainerPackage = {};
+            TrackOrderDirectiveCtrl.ePage.Masters.TrackOrder.TrackContainerPackage.GridData = [];
+            TrackOrderDirectiveCtrl.ePage.Masters.TrackOrder.TrackOrderContainer = {};
+            TrackOrderDirectiveCtrl.ePage.Masters.TrackOrder.TrackOrderContainer.GridData = [];
             TrackOrderDirectiveCtrl.ePage.Masters.TrackOrder.Data = TrackOrderDirectiveCtrl.ePage.Entities.Header.Data;
             TrackOrderDirectiveCtrl.ePage.Masters.TrackOrder.SelectedShipmentRow = SelectedShipmentRow;
             TrackOrderDirectiveCtrl.ePage.Masters.TrackOrder.TrackOrderShipment = TrackOrderShipment;
-
-            TrackOrderContainer();
-            TrackPorOrderLine();
+            TrackOrderDirectiveCtrl.ePage.Masters.TrackOrder.AddressContactBinding = AddressContactBinding;
+            if (TrackOrderDirectiveCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.SHP_FK) {
+                ShipmentList();
+            }
         }
 
-        function TrackPorOrderLine() {
-            // OrderLine Grid Config
-            TrackOrderDirectiveCtrl.ePage.Masters.TrackOrder.TrackPorOrderLine = {};
-            TrackOrderDirectiveCtrl.ePage.Masters.TrackOrder.TrackPorOrderLine.gridConfig = TrackOrderDirectiveCtrl.ePage.Entities.TrackPorOrderLine.gridConfig;
-            TrackOrderDirectiveCtrl.ePage.Masters.TrackOrder.TrackPorOrderLine.gridConfig.columnDef = TrackOrderDirectiveCtrl.ePage.Entities.TrackPorOrderLine.gridConfig.columnDef;
-            TrackOrderDirectiveCtrl.ePage.Masters.TrackOrder.TrackPorOrderLine.GridData = [];
-
-            apiService.get("eAxisAPI", appConfig.Entities.OrderList.API.GetById.Url+TrackOrderDirectiveCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.PK).then(function (response) {
-                if (response.data.Response) {
-                    TrackOrderDirectiveCtrl.ePage.Masters.TrackOrder.TrackPorOrderLine.GridData = response.data.Response.UIPorOrderLines;
-                    TrackOrderDirectiveCtrl.ePage.Masters.TrackOrder.TrackPorOrderLine.GridData.map(function (value , key) {
-                        value.RemainingQuantity = value.Quantity - value.RecievedQuantity;
-                    })
-                }
-            });
-        }
-        
-        function TrackOrderContainer() {
-            // Container Grid Config
-            TrackOrderDirectiveCtrl.ePage.Masters.TrackOrder.TrackOrderContainer = {};
-            TrackOrderDirectiveCtrl.ePage.Masters.TrackOrder.TrackOrderContainer.gridConfig = TrackOrderDirectiveCtrl.ePage.Entities.TrackOrderContainer.gridConfig;
-            TrackOrderDirectiveCtrl.ePage.Masters.TrackOrder.TrackOrderContainer.gridConfig.columnDef = TrackOrderDirectiveCtrl.ePage.Entities.TrackOrderContainer.gridConfig.columnDef;
-            TrackOrderDirectiveCtrl.ePage.Masters.TrackOrder.TrackOrderContainer.GridData = [];
-            TrackOrderDirectiveCtrl.ePage.Masters.TrackOrder.TrackOrderContainer.SelectedContainerRow = SelectedContainerRow;
-
+        function ShipmentList() {
             var _filter = {
-                OrderRefKey : TrackOrderDirectiveCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.PK
+                SHP_FK: TrackOrderDirectiveCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.SHP_FK
             }
             var _input = {
-                "searchInput" : helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.PorOrderContainer.API.FindAll.FilterID
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.JobPackLines.API.FindAll.FilterID
             }
 
-            apiService.post("eAxisAPI", appConfig.Entities.PorOrderContainer.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", appConfig.Entities.JobPackLines.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
-                    TrackOrderDirectiveCtrl.ePage.Masters.TrackOrder.TrackOrderContainer.GridData = response.data.Response;
+                    if (response.data.Response.length > 0) {
+                        ContainerList(response.data.Response);
+                    }
                 }
             });
+        }
+
+        function ContainerList(data) {
+            data.map(function (value, key) {
+                if (value.PkgCntMapping.length > 0) {
+                    value.PkgCntMapping.map(function (val, key) {
+                        TrackOrderDirectiveCtrl.ePage.Masters.TrackOrder.TrackContainerPackage.GridData.push(val);
+                    });
+                }
+            });
+            if (TrackOrderDirectiveCtrl.ePage.Masters.TrackOrder.TrackContainerPackage.GridData.length > 0) {
+                var _cntListInput = CommaSeperatedFieldValueFromList(TrackOrderDirectiveCtrl.ePage.Masters.TrackOrder.TrackContainerPackage.GridData, 'CNT');
+                var _filter = {
+                    CNT_PKS: _cntListInput
+                }
+                var _input = {
+                    "searchInput": helperService.createToArrayOfObject(_filter),
+                    "FilterID": appConfig.Entities.CntContainer.API.FindAll.FilterID
+                }
+                apiService.post("eAxisAPI", appConfig.Entities.CntContainer.API.FindAll.Url, _input).then(function (response) {
+                    if (response.data.Response) {
+                        if (response.data.Response.length > 0) {
+                            TrackOrderDirectiveCtrl.ePage.Masters.TrackOrder.TrackOrderContainer.GridData = response.data.Response;
+                        }
+                    } else {
+                        TrackOrderDirectiveCtrl.ePage.Masters.TrackOrder.TrackOrderContainer.GridData = [];
+                    }
+                });
+            }
+        }
+
+        function CommaSeperatedFieldValueFromList(item, fieldName) {
+            var field = "";
+            item.map(function (val, key) {
+                field += val[fieldName] + ','
+            });
+            return field.substring(0, field.length - 1);
+        }
+
+        function AddressContactBinding($item, type) {
+            var str = "";
+            if ($item != undefined && type == "Address") {
+                str = $item.Address1 + " " + $item.Address2;;
+                return str
+            } else if ($item != undefined && type == "Contact") {
+                str = $item.ContactName + " " + $item.Email + " " + $item.Phone;
+                return str
+            } else {
+                return str
+            }
         }
 
         function SelectedContainerRow(item) {
             _queryString = {
-                entity : item.data
+                entity: item.data
             };
             var _queryString = helperService.encryptData(_queryString);
-            $location.path('EA/smart-track/track-containers').search({item: _queryString});
+            $location.path('EA/smart-track/track-containers').search({
+                item: _queryString
+            });
         }
 
         function SelectedShipmentRow(SHP_FK) {
@@ -92,10 +127,12 @@
 
         function TrackOrderShipment(item) {
             _queryString = {
-                entity : item
+                entity: item
             };
             var _queryString = helperService.encryptData(_queryString);
-            $location.path('EA/smart-track/track-shipments').search({item :_queryString});
+            $location.path('EA/smart-track/track-shipments').search({
+                item: _queryString
+            });
         }
 
         Init();

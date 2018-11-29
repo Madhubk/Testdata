@@ -1,0 +1,173 @@
+﻿<div class="clearfix help-topic-creation-container" ui-tree="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.DNDOptions">
+    <div class="clearfix p-20 text-center" data-ng-if="!HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ListSource">
+        <i class="fa fa-spin fa-spinner font-160"></i>
+    </div>
+    <div class="clearfix header" data-ng-if="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ListSource">
+        <a href="javascript: void(0);" data-ng-click="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.AddNewTopic()">Add New</a>
+    </div>
+    <ul class="clearfix topic-list" data-ng-if="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ListSource && HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ListSource.length > 0"
+        ui-tree-nodes ng-model="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ListSource">
+        <li class="clearfix" data-ng-repeat="x in HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ListSource" data-ng-include="'helpTopic'"
+            data-ng-mouseover="x.IsShowIcons = true" data-ng-mouseleave="x.IsShowIcons = false" ui-tree-node></li>
+    </ul>
+</div>
+
+<script type="text/ng-template" id="helpTopic">
+    <div class="clearfix list-content">
+        <span class="drag-icon cursor-pointer mr-5" title="Change Order" ui-tree-handle>:::</span>
+        <span class="fa fa-pencil-square-o text-info cursor-pointer edit-topic-btn" data-ng-click="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.EditTopic(x)"
+            title="Edit"></span>
+        <span class="topic-expand-icon cursor-pointer" data-ng-if="x.ItHasChild" data-ng-click="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ToggleSubTopic($event, x, this)"
+            data-nodrag="">
+            <i data-ng-class="{'fa fa-caret-right': (x.ItHasChild && !x.IsToggle), 'fa fa-caret-down': (x.ItHasChild && x.IsToggle)}"></i>
+        </span>
+        <span class="topic-name cursor-pointer" data-ng-bind="x.Title" data-ng-click="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ToggleSubTopic($event, x, this)"
+            data-ng-if="x.ItHasChild && x.IsActive"></span>
+        <a href="javascript:void(0);" class="topic-name" data-ng-bind="x.Title" data-ng-click="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.OnTopicClick(x)"
+            data-ng-if="!x.ItHasChild && x.IsActive"></a>
+        <span class="topic-name-disabled cursor-pointer" data-ng-bind="x.Title" data-ng-click="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ToggleSubTopic($event, x, this)"
+            data-ng-if="x.ItHasChild && !x.IsActive"></span>
+        <a href="javascript:void(0);" class="topic-name-disabled" data-ng-bind="x.Title" data-ng-click="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.OnTopicClick(x)"
+            data-ng-if="!x.ItHasChild && !x.IsActive"></a>
+        <span class="fa fa-plus-circle text-success cursor-pointer add-topic-btn" data-ng-click="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.AddNewSubTopic(x)"
+            title="Add Sub Topic" data-ng-if="x.IsShowIcons"></span>
+        <span class="fa fa-trash text-danger cursor-pointer delete-topic-btn" data-ng-click="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.DeleteTopic(x, $parent)"
+            title="Delete" data-ng-if="!x.ItHasChild && x.IsShowIcons"></span>
+    </div>
+    <ul class="sub-topic {{x.PK}}" ui-tree-nodes ng-model="x.SubTopicList" data-ng-class="{hidden: collapsed}">
+        <li data-ng-repeat="x in x.SubTopicList" data-ng-include="'helpTopic'" data-ng-mouseover="x.IsShowIcons = true" data-ng-mouseleave="x.IsShowIcons = false"
+            ui-tree-node></li>
+    </ul>
+</script>
+
+<!-- Help Topic Creation -->
+<script type="text/ng-template" id="HelpTopicCreation">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.CloseTopicModal()">&times;</button>
+        <h5 class="modal-title" id="modal-title">
+            <strong>Topic</strong>
+        </h5>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div class="clearfix">
+            <form class="form-horizontal" novalidate>
+                <div class="clearfix help-modal-tab-container">
+                    <uib-tabset>
+                        <uib-tab>
+                            <uib-tab-heading>
+                                <span data-ng-bind="'Title'"></span>
+                            </uib-tab-heading>
+                            <div class="p-5 clearfix">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
+                                    <div class="form-group">
+                                        <label class="control-label">Title</label>
+                                        <div class="clearfix">
+                                            <textarea class="form-control input-sm no-resize mb-5" data-ng-model="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ModalValue.Title"
+                                                placeholder="Title" rows="3"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" class="colored-blue " data-ng-model="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ModalValue.IsPublic">
+                                            <span class="text text-single-line">Is Public</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" class="colored-blue " data-ng-model="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ModalValue.IsActive">
+                                            <span class="text text-single-line">Is Active</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </uib-tab>
+                        <uib-tab>
+                            <uib-tab-heading>
+                                <span data-ng-bind="'Category'"></span>
+                            </uib-tab-heading>
+                            <div class="p-5 clearfix">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Tags</label>
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                            <input type="text" class="form-control input-sm" data-ng-model="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ModalValue.Tags"
+                                                placeholder="Tags" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Type</label>
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                            <select chosen class="form-control" data-ng-model="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ModalValue.TopicType" data-ng-options="x.Code as x.Desc for x in HelpTopicCreationCtrl.ePage.Masters.HelpTopic.TopicTypeList"
+                                                disable-search="true">
+                                                <option value="">--Select--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Module</label>
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                            <select chosen class="form-control" data-ng-options="x.Key as x.Value for x in HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ModuleListSource"
+                                                data-ng-model="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ModalValue.Module"
+                                                search-contains="true">
+                                                <option value="">--Select--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Sub Module</label>
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                            <input type="text" class="form-control input-sm" data-ng-model="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ModalValue.SubModule"
+                                                placeholder="Sub Module" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Key for Detail</label>
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                            <input type="text" class="form-control input-sm" data-ng-model="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ModalValue.KeyforDetail"
+                                                placeholder="Key for Detail" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </uib-tab>
+                        <uib-tab data-ng-if="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ActiveTopic.PK">
+                            <uib-tab-heading>
+                                <span data-ng-bind="'Root Topic'"></span>
+                            </uib-tab-heading>
+                            <div class="p-5 clearfix">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Root Topic</label>
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                            <input type="text" class="form-control input-sm" data-ng-model="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ModalValue.Root_FK"
+                                                placeholder="Root Topic" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </uib-tab>
+                    </uib-tabset>
+                </div>
+                <div class="section-divider-small"></div>
+                <div class="clearfix p-10">
+                    <button class="btn btn-primary btn-xs pull-right ml-10" data-ng-click="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.SaveAndUpdateTopic()"
+                        data-ng-bind="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.SaveTopicBtnTxt" data-ng-disabled="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.IsDisabledSaveTopicBtn"></button>
+                    <button class="btn btn-default btn-xs pull-right ml-10" data-ng-click="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.CloseTopicModal()">Close</button>
+                </div>
+                <div class="section-divider-small"></div>
+            </form>
+        </div>
+    </div>
+</script>

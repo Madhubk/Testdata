@@ -20,16 +20,15 @@
                                     type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                             </div>
                             <label class="control-label text-single-line" style="color: gray;font-weight: 600;font-size: 12px;">Warehouse</label>
-                            <div class="input-group1 input-group-sm">
+                            <div class="input-group input-group-sm">
                                 <!-- Dynamic look up Search in textbox -->
                                 <div dynamic-lookup placeholder="Warehouse Code And Name" my-ng-model="AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Warehouse"
-                                    obj="AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader" prefix-data="'Warehouse'"
-                                    config="'Warehouse'" auto-complete-on-select="AsnrequestGeneralCtrl.ePage.Masters.SelectedLookupCode_Name($item)">
+                                    obj="AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader" page-name="'Warehouse'" control-id="'Warehouse'" control-key="'Warehouse_3067'" auto-complete-on-select="AsnrequestGeneralCtrl.ePage.Masters.SelectedLookupCode_Name($item)">
                                 </div>
 
                                 <!-- Look Up page opens when button clicks -->
                                 <span class="input-group-btn">
-                                        <button dynamic-list-modal obj="AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader" field-name="'Warehouse'" selected-data="AsnrequestGeneralCtrl.ePage.Masters.SelectedLookupCode_Name($item)"  prefix-data="'Warehouse'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                        <button dynamic-list-modal obj="AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader"  selected-data="AsnrequestGeneralCtrl.ePage.Masters.SelectedLookupCode_Name($item.data.entity)"  page-name="'Warehouse'" control-id="'Warehouse'" control-key="'Warehouse_3067'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
                                 </span>
                                 <span ng-if='!AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Warehouse&&!AsnrequestGeneralCtrl.currentAsnrequest.isNew'>
                                     <div ng-init="AsnrequestGeneralCtrl.ePage.Masters.OnChangeValues(AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Warehouse,'E3002')"></div>
@@ -58,17 +57,16 @@
                             </span>
                             </div>
                             <div class="col-lg-9 height-40 p-5">
-                                <div class="input-group1 input-group-sm">
+                                <div class="input-group input-group-sm">
                                     <!-- Dynamic look up Search in textbox -->
                                     <div dynamic-lookup placeholder="Client Code And Name" my-ng-model="AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Client"
                                         auto-complete-on-select="AsnrequestGeneralCtrl.ePage.Masters.SelectedLookupClient($item)"
-                                        obj="AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader" prefix-data="'OrganizationList'"
-                                        config="'Client'">
+                                        obj="AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader" page-name="'OrganizationList'" control-id="'Client'" control-key="'Client_3015'">
                                     </div>
                                     <!-- Look Up page opens when button clicks -->
                                     <span class="input-group-btn">
-                                    <button dynamic-list-modal obj="AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader" field-name="'Client'"
-                                        selected-data="AsnrequestGeneralCtrl.ePage.Masters.SelectedLookupClient($item)" prefix-data="'OrganizationList'"
+                                    <button dynamic-list-modal obj="AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader" page-name="'OrganizationList'" control-id="'Client'" control-key="'Client_3015'"
+                                        selected-data="AsnrequestGeneralCtrl.ePage.Masters.SelectedLookupClient($item.data.entity)" 
                                         mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny" type="button">
                                         <i class="fa fa-ellipsis-h"></i>
                                     </button>
@@ -112,17 +110,18 @@
                                 <label class="ml-5 control-label">Supplier</label>
                             </div>
                             <div class="col-lg-9 height-40  p-5">
-                                <div class="input-group1 input-group-sm">
+                                <div class="input-group input-group-sm">
                                     <!-- Dynamic look up Search in textbox -->
                                     <div dynamic-lookup placeholder="Supplier Code And Name" my-ng-model="AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Supplier"
                                         auto-complete-on-select="AsnrequestGeneralCtrl.ePage.Masters.SelectedLookupSupplier($item)"
-                                        obj="AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader" prefix-data="'OrganizationList'"
-                                        config="'Supplier'">
+                                        obj="AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader" page-name="'OrganizationList'"
+                                        control-id="'Supplier'" control-key="'Supplier_3042'">
                                     </div>
 
                                     <!-- Look Up page opens when button clicks -->
                                     <span class="input-group-btn">
-                                        <button dynamic-list-modal obj="AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader" field-name="'Supplier'" selected-data="AsnrequestGeneralCtrl.ePage.Masters.SelectedLookupSupplier($item)"  prefix-data="'OrganizationList'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                        <button dynamic-list-modal obj="AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader"  selected-data="AsnrequestGeneralCtrl.ePage.Masters.SelectedLookupSupplier($item.data.entity)"  page-name="'OrganizationList'"
+                                        control-id="'Supplier'" control-key="'Supplier_3042'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
                                     </span>
                                     <span class="input-group-btn" ng-show="AsnrequestGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Supplier">
                                         <button   class="btn btn-default shiny" type="button" ng-click="AsnrequestGeneralCtrl.ePage.Masters.OtherSupplierAddresses(AsnrequestGeneralCtrl.ePage.Masters.OrgSupplierAddress)"><i class="fa fa-address-card-o"></i></button>

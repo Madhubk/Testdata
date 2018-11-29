@@ -1,0 +1,57 @@
+<div class="clearfix login-forgot-password-form-container">
+    <div class="clearfix login-form-container" data-ng-if="!LoginFormCtrl.ePage.Masters.IsShowForgotPasswordForm">
+        <form class="clearfix" name="LoginFormCtrl.ePage.Masters.Login.LoginForm" novalidate>
+            <div class="form-group">
+                <div class="control-label title">Login to Myhub Plus</div>
+            </div>
+            <div class="form-group">
+                <input type="text" name="username" class="form-control" placeholder="Username" data-ng-model="LoginFormCtrl.ePage.Masters.Login.UserCredentials.username"
+                    autocomplete="off" required />
+                <div data-ng-if="LoginFormCtrl.ePage.Masters.Login.LoginForm.username.$invalid && LoginFormCtrl.ePage.Masters.Login.LoginForm.submitted">
+                    <span class="validate-error-text" data-ng-if="LoginFormCtrl.ePage.Masters.Login.LoginForm.username.$error.required">Enter
+                        your Username.</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="Password" name="password" data-ng-model="LoginFormCtrl.ePage.Masters.Login.UserCredentials.password"
+                    autocomplete="off" required />
+                <div data-ng-if="LoginFormCtrl.ePage.Masters.Login.LoginForm.password.$invalid && LoginFormCtrl.ePage.Masters.Login.LoginForm.submitted">
+                    <span class="validate-error-text" data-ng-if="LoginFormCtrl.ePage.Masters.Login.LoginForm.password.$error.required">Enter
+                        your Password.</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input class="btn btn-block login-btn" type="submit" value="{{LoginFormCtrl.ePage.Masters.Login.LoginBtnText}}"
+                    data-ng-click="LoginFormCtrl.ePage.Masters.Login.OnLoginClick()" data-ng-disabled="LoginFormCtrl.ePage.Masters.Login.IsDisabledLoginBtn">
+            </div>
+            <div class="form-group">
+                <a class="pull-left forgot-password-link" href="javascript: void(0);" data-ng-click="LoginFormCtrl.ePage.Masters.Login.OnForgotPasswordClick()">Forgot
+                    Password?</a>
+                <span class="pull-right" data-ng-bind="LoginFormCtrl.ePage.Masters.Version"></span>
+            </div>
+        </form>
+    </div>
+    <div class="clearfix forgot-password-form-container" data-ng-if="LoginFormCtrl.ePage.Masters.IsShowForgotPasswordForm">
+        <form class="clearfix" name="LoginFormCtrl.ePage.Masters.ForgotPassword.ForgotPasswordForm" novalidate>
+            <div class="form-group">
+                <div class="control-label title">Reset Password</div>
+            </div>
+            <div class="form-group">
+                <input type="text" name="username" class="form-control" placeholder="Username" data-ng-model="LoginFormCtrl.ePage.Masters.ForgotPassword.UserCredentials.username"
+                    autocomplete="off" required />
+                <div data-ng-if="LoginFormCtrl.ePage.Masters.ForgotPassword.ForgotPasswordForm.username.$invalid && LoginFormCtrl.ePage.Masters.ForgotPassword.ForgotPasswordForm.submitted">
+                    <span class="validate-error-text" data-ng-if="LoginFormCtrl.ePage.Masters.ForgotPassword.ForgotPasswordForm.username.$error.required">Enter
+                        your Username.</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input class="btn btn-block send-btn" type="submit" value="{{LoginFormCtrl.ePage.Masters.ForgotPassword.SendBtnText}}"
+                    data-ng-click="LoginFormCtrl.ePage.Masters.ForgotPassword.OnSendBtnClick()" data-ng-disabled="LoginFormCtrl.ePage.Masters.ForgotPassword.IsDisabledSendBtn">
+            </div>
+            <div class="form-group">
+                <a class="pull-left login-link" href="javascript: void(0);" data-ng-click="LoginFormCtrl.ePage.Masters.ForgotPassword.OnCancelBtnClick()">Login</a>
+                <span class="pull-right" data-ng-bind="LoginFormCtrl.ePage.Masters.Version"></span>
+            </div>
+        </form>
+    </div>
+</div>

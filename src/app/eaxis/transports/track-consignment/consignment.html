@@ -9,8 +9,7 @@
 
         <div class="no-padding tab-list-view-wrapper">
             <!--Consignment Grid Page-->
-            <dynamic-list dataentry-name="ConsignmentCtrl.ePage.Masters.dataentryName" task-name="ConsignmentCtrl.ePage.Masters.taskName"
-                grid-config-type="0" selected-grid-row="ConsignmentCtrl.ePage.Masters.SelectedGridRow($item)"
+            <dynamic-list dataentry-name="ConsignmentCtrl.ePage.Masters.dataentryName" dataentry-object="ConsignmentCtrl.ePage.Masters.DataEntryObject" selected-grid-row="ConsignmentCtrl.ePage.Masters.SelectedGridRow($item)"
                 mode="1"></dynamic-list>
             <div class="tab-loading" data-ng-show="ConsignmentCtrl.ePage.Masters.IsTabClick"></div>
         </div>
@@ -42,7 +41,7 @@
         <div class="padding-5 padding-bottom-10 clearfix">
 
             <!--Consignment Menu Directive-->
-            <consignment-menu current-consignment="tab"></consignment-menu>
+            <consignment-menu current-consignment="tab" dataentry-object="ConsignmentCtrl.ePage.Masters.DataEntryObject"></consignment-menu>
 
             <div class="horizontal-space"></div>
         </div>

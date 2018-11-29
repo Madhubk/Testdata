@@ -1,0 +1,137 @@
+<!-- <div class="" ng-if="ContainerMhuCtrl.ePage.Entities.Header.CheckPoints.CfxMappingValues.length>0" ng-init="ContainerMhuCtrl.ePage.Masters.getCfxMappingDetails()"></div> -->
+<div class="p-10" ng-show='ContainerMhuCtrl.ePage.Masters.Lineslist'>
+    <div>
+        <span>
+            <button type="button" class="btn btn-sm btn-outline-secondary" title="Add New" data-ng-click="ContainerMhuCtrl.ePage.Masters.AddNewRow()">
+                <span class="fa fa-plus"></span>&nbsp;&nbsp;Add New
+            </button>
+        </span>
+        <span ng-hide='ContainerMhuCtrl.ePage.Masters.selectedRow==-1'>
+            <button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Copy" data-ng-click="ContainerMhuCtrl.ePage.Masters.CopyRow()">
+                <span class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button>
+        </span>
+        <span ng-hide='ContainerMhuCtrl.ePage.Masters.selectedRow==-1'>
+            <button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Edit" data-ng-click="ContainerMhuCtrl.ePage.Masters.Edit(ContainerMhuCtrl.ePage.Masters.selectedRow,'Edit List')">
+                <span class="fa fa-pencil"></span>&nbsp;&nbsp;Edit</button>
+        </span>
+        <span ng-hide='ContainerMhuCtrl.ePage.Masters.selectedRow==-1'>
+            <button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Delete" data-ng-click="ContainerMhuCtrl.ePage.Masters.RemoveRow()">
+                <span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button>
+        </span>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 pull-right">
+            <input type="text" class="form-control input-sm" placeholder="Local Search.." data-ng-model="ContainerMhuCtrl.ePage.Masters.find"    
+            />
+        </div>
+    </div>
+    <div id='ContainerMhuCtrl.ePage.Masters.your_div' class="wmstable_scroll" style="height:450px; padding-top: 2px;">
+        <div class="table" id="results">
+            <div class='theader'>
+                <div class='table_header'>List No</div>
+                <div class='table_header'>NHU Type</div>
+                <div class='table_header'>Container Type</div>
+                <div class='table_header'>MhuSize</div>
+            </div>
+
+            <!-- List Empty Response -->
+            <div data-ng-if="ContainerMhuCtrl.ePage.Entities.Header.Data.ContainerMhuDetails.length==0">
+                <div class="grid-no-record" style="bottom: 250px;">No records found...</div>
+            </div>
+
+            <div class="grid-loading-norecord-container" data-ng-show="ContainerMhuCtrl.ePage.Masters.IsLoading">
+                    <div class="grid-no-record" style="bottom: 250px;">Loading...</div>
+                </div>
+
+            <div class='table_row' ng-repeat="x in ContainerMhuCtrl.ePage.Entities.Header.Data.ContainerMhuDetails | filter : ContainerMhuCtrl.ePage.Masters.find  track by $index"
+                ng-click="ContainerMhuCtrl.ePage.Masters.setSelectedRow($index,x);" ng-class="{row_active: ContainerMhuCtrl.ePage.Masters.LineselectedRow==$index}"
+                style="font-size: 11px;">
+                <div class='table_small'>
+                    <div class='table_cell'>List No</div>
+                    <div class='table_cell'>{{$index+1}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>MHU Type</div>
+                    <div class='table_cell'>{{x.OSP_Code || ContainerMhuCtrl.ePage.Masters.emptyText}} - {{x.ORG_Description || ContainerMhuCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Container Type</div>
+                    <div class='table_cell'>{{x.CNM_Code || ContainerMhuCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>MHU Size</div>
+                    <div class='table_cell'>{{x.MhuSize || ContainerMhuCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix" ng-hide='ContainerMhuCtrl.ePage.Masters.Lineslist' style="padding:5px">
+    <div class="panel panel-default mt-5">
+        <div class="panel-heading">
+            <span ng-show="ContainerMhuCtrl.ePage.Masters.HeaderName =='Copy Of List'">
+                {{ContainerMhuCtrl.ePage.Masters.HeaderName}} - {{ContainerMhuCtrl.ePage.Masters.selectedRow}}
+            </span>
+            <span ng-show="ContainerMhuCtrl.ePage.Masters.HeaderName!='Copy Of List'">
+                {{ContainerMhuCtrl.ePage.Masters.HeaderName}} - {{ContainerMhuCtrl.ePage.Masters.selectedRow+1}}
+            </span>
+            <span class="WOL-Status pull-right" ng-bind="ContainerMhuCtrl.ePage.Entities.Header.Data.ContainerMhuDetails[ContainerMhuCtrl.ePage.Masters.selectedRow].WorkOrderLineStatusDesc"></span>
+        </div>
+        <div class="panel-body">
+            <div class="col-lg-12 ex-line-padding">
+                <div class="ex-line-box" style="height:85px; padding-top:10px">
+                    <!-- MHU Type-->
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">MHU Type</label>
+                            <div class="input-group input-group-sm">
+                                <!-- Dynamic look up Search in textbox -->
+                                <div dynamic-lookup placeholder="MHU Type" my-ng-model="ContainerMhuCtrl.ePage.Entities.Header.Data.ContainerMhuDetails[ContainerMhuCtrl.ePage.Masters.selectedRow].OSP_Code"
+                                    auto-complete-on-select="ContainerMhuCtrl.ePage.Masters.SelectedLookupItem($item)"
+                                    obj="ContainerMhuCtrl.ePage.Entities.Header.Data.ContainerMhuDetails[ContainerMhuCtrl.ePage.Masters.selectedRow]"
+                                    prefix-data="'ProductRelatedParty'" config="'ConsignmentItemDetails'">
+                                </div>
+                                <!-- Look Up page opens when button clicks -->
+                                <span class="input-group-btn">
+                                    <button dynamic-list-modal prefix-data="'ProductRelatedParty'" field-name="'ConsignmentItemDetails'" obj="ContainerMhuCtrl.ePage.Entities.Header.Data.ContainerMhuDetails[ContainerMhuCtrl.ePage.Masters.selectedRow]"
+                                        selected-data="ContainerMhuCtrl.ePage.Masters.SelectedLookupItem($item)" mode="2"
+                                        grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny" type="button">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- MHU Size -->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">MHU Space</label>
+                            <div class="">
+                                <input type="text" numbers-only class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Volume"
+                                data-ng-model="ContainerMhuCtrl.ePage.Entities.Header.Data.ContainerMhuDetails[ContainerMhuCtrl.ePage.Masters.selectedRow].MhuSize">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Vehicle Type -->
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Vehicle Type</label>
+                            <select chosen class="form-control" style="height: 30px;" ng-model="ContainerMhuCtrl.ePage.Entities.Header.Data.ContainerMhuDetails[ContainerMhuCtrl.ePage.Masters.selectedRow].CNM_Code"
+                                ng-options="x.Code as x.Code +' - '+ x.Description for x in ContainerMhuCtrl.ePage.Masters.ContainerList | filter: {IsVehicle:true}"
+                                ng-change="ContainerMhuCtrl.ePage.Masters.OnChangeVehicleType(ContainerMhuCtrl.ePage.Entities.Header.Data.ContainerMhuDetails[ContainerMhuCtrl.ePage.Masters.selectedRow].CNM_Code)"
+                                search-contains="true">
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-lg-offset-8 mt-5">
+                    <button class="btn btn-blue btn-sm mr-5 pull-right" title="Save" data-ng-click="ContainerMhuCtrl.ePage.Masters.Done()">
+                        <i class="fa fa-save pr-5"></i>Save</button>
+                    <!-- <button class="btn btn-primary btn-sm mr-5 pull-right" title="Delete" data-ng-click="ContainerMhuCtrl.ePage.Masters.RemoveRow()"><i class="fa fa-trash pr-5"></i>Delete</button> -->
+                    <button class="btn btn-primary btn-sm mr-5 pull-right" title="Back" data-ng-click="ContainerMhuCtrl.ePage.Masters.Back()">
+                        <i class="fa fa-angle-double-left pr-5"></i>Back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

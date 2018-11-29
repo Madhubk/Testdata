@@ -5,9 +5,9 @@
         .module("Application")
         .controller("OutwardMenuController", OutwardMenuController);
 
-    OutwardMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "outwardConfig", "helperService", "appConfig", "authService", "$location", "$state", "toastr", "confirmation", "$injector", "$window"];
+    OutwardMenuController.$inject = ["$scope", "$rootScope", "$timeout", "APP_CONSTANT", "apiService", "outwardConfig", "helperService", "appConfig", "authService", "$location", "$state", "toastr", "confirmation", "$injector", "$window", "$uibModal"];
 
-    function OutwardMenuController($scope, $timeout, APP_CONSTANT, apiService, outwardConfig, helperService, appConfig, authService, $location, $state, toastr, confirmation, $injector, $window) {
+    function OutwardMenuController($scope, $rootScope, $timeout, APP_CONSTANT, apiService, outwardConfig, helperService, appConfig, authService, $location, $state, toastr, confirmation, $injector, $window, $uibModal) {
 
         var OutwardMenuCtrl = this;
         var Config = $injector.get("pickConfig");
@@ -15,7 +15,6 @@
         function Init() {
 
             var currentOutward = OutwardMenuCtrl.currentOutward[OutwardMenuCtrl.currentOutward.label].ePage.Entities;
-            console.log(currentOutward);
 
             OutwardMenuCtrl.ePage = {
                 "Title": "",
@@ -30,20 +29,23 @@
             // Menu list from configuration
             OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource = OutwardMenuCtrl.ePage.Entities.Header.Meta.MenuList;
             OutwardMenuCtrl.ePage.Masters.SaveButtonText = "Save";
-            OutwardMenuCtrl.ePage.Masters.FinaliseSaveText = "Finalise";
-            OutwardMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave = false;
-            OutwardMenuCtrl.ePage.Masters.Linesave = true;
+            OutwardMenuCtrl.ePage.Masters.FinaliseSaveText = "Finalize";
+            OutwardMenuCtrl.ePage.Masters.DisableSave = false;
 
-            // Standard Menu Configuration and Data
-            OutwardMenuCtrl.ePage.Masters.StandardMenuInput = appConfig.Entities.standardMenuConfigList.WarehouseOutward;
-            OutwardMenuCtrl.ePage.Masters.StandardMenuInput.obj = OutwardMenuCtrl.currentOutward;
             OutwardMenuCtrl.ePage.Masters.tabSelected = tabSelected;
             OutwardMenuCtrl.ePage.Masters.Validation = Validation;
             OutwardMenuCtrl.ePage.Masters.Config = outwardConfig;
+            OutwardMenuCtrl.ePage.Masters.CancelOutward = CancelOutward;
 
-            if(OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus == 'FIN'){
-                OutwardMenuCtrl.ePage.Entities.Header.CheckPoints.NotFinaliseStage = false;
+            if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus == 'FIN' || OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus == 'CAN') {
+                OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
+                OutwardMenuCtrl.ePage.Masters.DisableSave = true;
             }
+            $rootScope.SaveOutwardFromTask = SaveOutwardFromTask;
+        }
+
+        function SaveOutwardFromTask(callback) {
+            Validation(OutwardMenuCtrl.currentOutward, callback)
         }
 
         function tabSelected(tab, $index, $event) {
@@ -86,76 +88,98 @@
                         }
                     }
                     else if ($index == 2) {
-                        //Check whether pick is already created or not
-                        if(OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length > 0){
-                            OutwardMenuCtrl.ePage.Masters.IsLoadingToSave = true;
-                            if (!OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo) {
-                                $event.preventDefault();
-                                var modalOptions = {
-                                    closeButtonText: 'No',
-                                    actionButtonText: 'YES',
-                                    headerText: 'New Pick Request..',
-                                    bodyText: 'This Order not yet attached to any pick. Do you wish to create new pick?'
-                                };
-                                confirmation.showModal({}, modalOptions)
-                                    .then(function (result) {
-                                        helperService.getFullObjectUsingGetById(Config.Entities.Header.API.GetByID.Url, 'null').then(function (response) {
-                                            if (response.data.Response) {
-    
-                                                response.data.Response.Response.UIWmsPickHeader.PK = response.data.Response.Response.PK;
-                                                response.data.Response.Response.UIWmsPickHeader.PickOption = "AUT";
-                                                response.data.Response.Response.UIWmsPickHeader.WarehouseCode = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WarehouseCode;
-                                                response.data.Response.Response.UIWmsPickHeader.WarehouseName = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WarehouseName;
-                                                response.data.Response.Response.UIWmsPickHeader.WAR_FK = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WAR_FK;
-                                                OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo = response.data.Response.Response.PickNo
-                                                OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WPK_FK = response.data.Response.Response.PK;
-                                                OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo = response.data.Response.Response.UIWmsPickHeader.PickNo
-                                                OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickStartDateTime = new Date();
-                                                OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus = "OSP";
-                                                OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatusDesc = "Pick Started";
-                                                OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickOption = "AUT";
-                                                OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IsModified = true;
-                                                response.data.Response.Response.UIWmsOutward.push(OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader);
-    
-                                                apiService.post("eAxisAPI", 'WmsPickList/Insert', response.data.Response.Response).then(function (response) {
-                                                    if (response.data.Status == 'Success') {
-                                                        OutwardMenuCtrl.ePage.Masters.PickDetails = response.data.Response;
-                                                        OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo = response.data.Response.UIWmsPickHeader.PickNo;
-                                                        OutwardMenuCtrl.ePage.Masters.active = 2;
-                                                        OutwardMenuCtrl.ePage.Masters.IsLoadingToSave = false;
+
+                        // If not cancelled outward then create or prevent from creation
+                        if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus != 'CAN') {
+
+                            //check validation and create pick for this
+                            OutwardMenuCtrl.ePage.Masters.Config.GeneralValidation(OutwardMenuCtrl.currentOutward);
+                            if (OutwardMenuCtrl.ePage.Entities.Header.Validations) {
+                                OutwardMenuCtrl.ePage.Masters.Config.RemoveApiErrors(OutwardMenuCtrl.ePage.Entities.Header.Validations, $item.label);
+                            }
+
+                            if (OutwardMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList == 0) {
+                                //Check whether pick is already created or not
+                                if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length > 0) {
+                                    OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
+                                    if (!OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo) {
+                                        $event.preventDefault();
+                                        var modalOptions = {
+                                            closeButtonText: 'No',
+                                            actionButtonText: 'YES',
+                                            headerText: 'New Pick Request..',
+                                            bodyText: 'This Order not yet attached to any pick. Do you wish to create new pick?'
+                                        };
+                                        confirmation.showModal({}, modalOptions)
+                                            .then(function (result) {
+                                                helperService.getFullObjectUsingGetById(Config.Entities.Header.API.GetByID.Url, 'null').then(function (response) {
+                                                    if (response.data.Response) {
+
+                                                        response.data.Response.Response.UIWmsPickHeader.PK = response.data.Response.Response.PK;
+                                                        if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickOption) {
+                                                            response.data.Response.Response.UIWmsPickHeader.PickOption = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickOption;
+                                                        } else {
+                                                            response.data.Response.Response.UIWmsPickHeader.PickOption = "AUT";
+                                                        }
+                                                        response.data.Response.Response.UIWmsPickHeader.WarehouseCode = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WarehouseCode;
+                                                        response.data.Response.Response.UIWmsPickHeader.WarehouseName = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WarehouseName;
+                                                        response.data.Response.Response.UIWmsPickHeader.WAR_FK = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WAR_FK;
+                                                        OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo = response.data.Response.Response.PickNo
+                                                        OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WPK_FK = response.data.Response.Response.PK;
+                                                        OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo = response.data.Response.Response.UIWmsPickHeader.PickNo
+                                                        OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickStartDateTime = new Date();
+                                                        OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus = "OSP";
+                                                        OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatusDesc = "Pick Started";
+                                                        OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IsModified = true;
+                                                        response.data.Response.Response.UIWmsOutward.push(OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader);
+
+                                                        apiService.post("eAxisAPI", outwardConfig.Entities.Header.API.WmsPickInsert.Url, response.data.Response.Response).then(function (response) {
+                                                            if (response.data.Status == 'Success') {
+                                                                OutwardMenuCtrl.ePage.Masters.PickDetails = response.data.Response;
+                                                                OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo = response.data.Response.UIWmsPickHeader.PickNo;
+                                                                OutwardMenuCtrl.ePage.Masters.active = 2;
+                                                                OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
+                                                            }
+                                                        });
+                                                    } else {
+                                                        $event.preventDefault();
+                                                        OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
                                                     }
                                                 });
-                                            }else{
+                                            }, function () {
+                                                console.log("Cancelled");
+                                                OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
+                                            });
+                                    } else {
+                                        apiService.get("eAxisAPI", Config.Entities.Header.API.GetByID.Url + OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WPK_FK).then(function (response) {
+                                            if (response.data.Response) {
+                                                OutwardMenuCtrl.ePage.Masters.PickDetails = response.data.Response;
+                                                OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
+                                            } else {
                                                 $event.preventDefault();
-                                                OutwardMenuCtrl.ePage.Masters.IsLoadingToSave = false;
+                                                OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
                                             }
                                         });
-                                    }, function () {
-                                        console.log("Cancelled");
-                                        OutwardMenuCtrl.ePage.Masters.IsLoadingToSave = false;
-                                    });
-                            } else {
-                                apiService.get("eAxisAPI", Config.Entities.Header.API.GetByID.Url + OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WPK_FK).then(function (response) {
-                                    if (response.data.Response) {
-                                        OutwardMenuCtrl.ePage.Masters.PickDetails = response.data.Response;
-                                        OutwardMenuCtrl.ePage.Masters.IsLoadingToSave = false;
-                                    } else {
-                                        $event.preventDefault();
-                                        OutwardMenuCtrl.ePage.Masters.IsLoadingToSave = false;
                                     }
-                                });
+                                } else {
+                                    $event.preventDefault();
+                                    toastr.warning("Line is Empty so Pick cannot be created");
+                                }
+                            } else {
+                                $event.preventDefault();
+                                OutwardMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(OutwardMenuCtrl.currentOutward);
                             }
-                        }else{
+
+                        } else {
                             $event.preventDefault();
-                            toastr.warning("Line is Empty so Pick cannot be created");
+                            toastr.error("Cannot create pick for cancelled outward");
                         }
                     }
                 }
             }
         };
 
-        function Validation($item) {
-
+        function Validation($item, callback) {
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data,
                 _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
@@ -167,16 +191,17 @@
             }
 
             if (_errorcount.length == 0) {
-                Saveonly($item);
+                Saveonly($item, callback);
             } else {
                 OutwardMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(OutwardMenuCtrl.currentOutward);
             }
         }
 
-        function Saveonly($item) {
+        function Saveonly($item, callback) {
 
             OutwardMenuCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
-            OutwardMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave = true;
+            OutwardMenuCtrl.ePage.Masters.DisableSave = true;
+            OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true
 
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
@@ -186,12 +211,20 @@
                 _input.UIWmsOutwardHeader.PK = _input.PK;
                 _input.UIWmsOutwardHeader.CreatedDateTime = new Date();
                 _input.UIWmsOutwardHeader.WorkOrderType = 'ORD';
+                if (!_input.UIWmsOutwardHeader.ExternalReference) {
+                    _input.UIWmsOutwardHeader.ExternalReference = _input.UIWmsOutwardHeader.WorkOrderID;
+                }
             } else {
                 $item = filterObjectUpdate($item, "IsModified");
             }
 
 
             helperService.SaveEntity($item, 'Outward').then(function (response) {
+
+                OutwardMenuCtrl.ePage.Masters.SaveButtonText = "Save";
+                OutwardMenuCtrl.ePage.Masters.DisableSave = false;
+                OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
+
                 if (response.Status === "success") {
 
                     outwardConfig.TabList.map(function (value, key) {
@@ -203,40 +236,61 @@
                             }
                         }
                     });
-                    
+                   
                     var _index = outwardConfig.TabList.map(function (value, key) {
                         return value[value.label].ePage.Entities.Header.Data.PK
                     }).indexOf(OutwardMenuCtrl.currentOutward[OutwardMenuCtrl.currentOutward.label].ePage.Entities.Header.Data.PK);
 
                     if (_index !== -1) {
                         outwardConfig.TabList[_index][outwardConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data;
+                        //Changing Label name when WorkorderID changes
+                        if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID != outwardConfig.TabList[_index].label) {
+                            outwardConfig.TabList[_index].label = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID;
+                            outwardConfig.TabList[_index][outwardConfig.TabList[_index].label] = outwardConfig.TabList[_index][outwardConfig.TabList[_index].code];
+                            delete outwardConfig.TabList[_index][outwardConfig.TabList[_index].code];
+                            outwardConfig.TabList[_index].code = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID
+                        }
                         outwardConfig.TabList[_index].isNew = false;
                         if ($state.current.url == "/outward") {
                             helperService.refreshGrid();
                         }
-                    }   
+                    }
 
                     console.log("Success");
-                    OutwardMenuCtrl.ePage.Masters.SaveButtonText = "Save";
-                    OutwardMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave = false;
-                    if(OutwardMenuCtrl.ePage.Masters.SaveAndClose){
-                        if($state.current.url == "/outward"){
+                    if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus == 'CAN') {
+                        OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
+                        OutwardMenuCtrl.ePage.Masters.DisableSave = true;
+                        toastr.success("Cancelled Successfully...!");
+                    } else {
+                        toastr.success("Saved Successfully...!");
+                    }
+
+                    OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.PercentageValues = true;
+
+                    if (OutwardMenuCtrl.ePage.Masters.SaveAndClose) {
+                        if ($state.current.url == "/outward") {
                             OutwardMenuCtrl.ePage.Masters.Config.SaveAndClose = true;
-                            OutwardMenuCtrl.ePage.Masters.SaveAndClose = false;    
-                        }else{
+                            OutwardMenuCtrl.ePage.Masters.SaveAndClose = false;
+                        } else {
                             $window.close();
                         }
                     }
+                    if (callback) {
+                        callback()
+                    }
                 } else if (response.Status === "failed") {
                     console.log("Failed");
-                    OutwardMenuCtrl.ePage.Masters.SaveButtonText = "Save";
-                    OutwardMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave = false;
+                    toastr.error("Could not Save...!");
+
                     OutwardMenuCtrl.ePage.Entities.Header.Validations = response.Validations;
                     angular.forEach(response.Validations, function (value, key) {
                         OutwardMenuCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, OutwardMenuCtrl.currentOutward.label, false, undefined, undefined, undefined, undefined, value.GParentRef);
                     });
                     if (OutwardMenuCtrl.ePage.Entities.Header.Validations != null) {
                         OutwardMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(OutwardMenuCtrl.currentOutward);
+                    }
+                    if (callback) {
+                        callback()
                     }
                 }
 
@@ -256,6 +310,43 @@
             return obj;
         }
 
+        function CancelOutward($item) {
+            if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus != 'ENT') {
+                toastr.error("Pick Attched to this  Outward so it Cannot be Cancelled")
+            } else {
+                $uibModal.open({
+                    templateUrl: 'myModalContent.html',
+                    controller: function ($scope, $uibModalInstance) {
+
+                        $scope.close = function () {
+                            $uibModalInstance.dismiss('cancel');
+                        };
+
+                        $scope.ok = function () {
+                            var InsertCommentObject = [];
+                            var obj = {
+                                "Description": "General",
+                                "Comments": $scope.comment,
+                                "EntityRefKey": OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK,
+                                "EntityRefCode": OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID,
+                                "CommentsType": "GEN"
+                            }
+                            InsertCommentObject.push(obj);
+                            apiService.post("eAxisAPI", appConfig.Entities.JobComments.API.Insert.Url, InsertCommentObject).then(function (response) {
+
+                                OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.map(function (value, key) {
+                                    value.TotalUnits = 0;
+                                });
+                                OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.CancelledDate = new Date();
+                                Validation($item);
+
+                                $uibModalInstance.dismiss('cancel');
+                            });
+                        }
+                    }
+                });
+            }
+        }
 
         Init();
     }

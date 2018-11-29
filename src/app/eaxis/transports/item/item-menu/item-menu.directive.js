@@ -1,29 +1,30 @@
-(function(){
+(function () {
     "use strict";
 
     angular
-         .module("Application")
-         .directive("adminitemMenu",ItemMenu);
+        .module("Application")
+        .directive("adminitemMenu", ItemMenu);
 
-    ItemMenu.$inject=[];
+    ItemMenu.$inject = [];
 
-    function ItemMenu(){
+    function ItemMenu() {
 
         var exports = {
-            restrict : "EA",
+            restrict: "EA",
             templateUrl: "app/eaxis/transports/item/item-menu/item-menu.html",
             link: Link,
             controller: "ItemMenuController",
             controllerAs: "ItemMenuCtrl",
             scope: {
-                currentItem: "="
+                currentItem: "=",
+                dataentryObject: "="
             },
             bindToController: true
 
         };
         return exports;
-        
-        function Link(scope, elem, attr) {}
+
+        function Link(scope, elem, attr) { }
     }
 
 })();

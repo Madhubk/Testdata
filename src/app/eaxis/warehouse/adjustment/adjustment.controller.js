@@ -24,6 +24,7 @@
             AdjustmentCtrl.ePage.Masters.dataentryName = "WarehouseAdjustments";
             AdjustmentCtrl.ePage.Masters.taskName = "WarehouseAdjustments";
             AdjustmentCtrl.ePage.Masters.TabList = [];
+            adjustmentConfig.TabList = [];
             AdjustmentCtrl.ePage.Masters.activeTabIndex = 0;
             AdjustmentCtrl.ePage.Masters.isNewClicked = false;
             AdjustmentCtrl.ePage.Masters.IsTabClick = false;

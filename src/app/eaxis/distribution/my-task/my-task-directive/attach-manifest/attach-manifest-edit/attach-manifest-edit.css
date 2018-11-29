@@ -1,0 +1,71 @@
+.asnirupdateline-edit-modal .modal-dialog {
+    width: 1300px !important;
+}
+.my-task-standard-bar {
+    background-color: #f0f0f0;
+    padding: 5px 0;
+}
+.btn-save{
+    display: block;
+}
+.card {
+    border-radius: 6px;
+    box-shadow: 0 2px 2px rgba(204, 197, 185, 0.5);
+    background-color: #ffffff;
+    color: #252422;
+    margin-bottom: 20px;
+    position: relative;
+    border: 1px solid #f0f0f0;
+    height: 140px;
+}
+.card .content {
+    padding: 10px 0px 0px 0px;
+    height: 100px;
+}
+.height-20{
+    height: 20px;
+}
+.card .footer {
+    padding: 0;
+    line-height: 30px;
+}
+.footer {
+    background-attachment: fixed;
+    position: relative;
+    line-height: 20px;
+}
+.a .hover{
+	text-decoration: none;
+}
+.fs-10{
+	font-size: 10.5px;
+}
+.attachlink{
+	background-color: #5db2ff;
+	color:  white;
+	margin-top:  -10px;
+	    padding: 5px 5px 5px 15px;
+	border-radius: 0px 6px;
+	font-size: 10.5px;
+}
+.col-white{
+	color:  white;
+}
+.col-dgray{
+	color: darkgray;
+}
+.set-bg-dc-headers {
+   background: rgba(67, 133, 245, 0.2);
+   padding: 9px;
+}
+.dc-header{
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+}
+.contd{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}

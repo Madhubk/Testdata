@@ -1,0 +1,24 @@
+.tile-body-two, .tile-body{
+    padding: 15px;
+    color: #069;
+    text-shadow: 0 -1px 0 rgba(0,0,0,.4)
+}
+
+.tile-body-two {
+    line-height: 30px;
+}
+
+.tile .tile-body i, .tile .tile-body-two i {
+    font-size: 50px;
+    opacity: 0.3;
+    transition: all 1s;
+}
+
+.tile:hover .tile-body-two i {
+    color: #069;    
+    opacity: 1;
+}
+
+.tile .tile-body-two h2 {
+    font-size: 42px;
+}

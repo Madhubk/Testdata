@@ -2,22 +2,33 @@
     <div id="consolMenuWrapper{{ConsolMenuCtrl.currentConsol.label}}" class="col-sm-12 no-padding-left no-padding-right" data-ng-class="ConsolMenuCtrl.ePage.Masters.IsShowAddress ? 'col-sm-8' : 'col-sm-12'">
         <uib-tabset class="shipment-menu tabs-left tabbable">
             <div class="tab-profile">
-                <div class="tab-profile-title text-single-line text-center" data-ng-bind="ShipmentMenuCtrl.currentShipment.label"></div>
+                <div class="tab-profile-title text-single-line text-center" data-ng-bind="ConsolMenuCtrl.currentConsol.label"></div>
             </div>
-            <uib-tab ng-repeat="x in ConsolMenuCtrl.ePage.Masters.ConsolMenu.ListSource">
+            <uib-tab id="top" ng-repeat="x in ConsolMenuCtrl.ePage.Masters.ConsolMenu.ListSource" deselect="ConsolMenuCtrl.ePage.Masters.TabSelected(x,$selectedIndex,$event);"
+                index="$index" data-ng-click="ConsolMenuCtrl.ePage.Masters.OnMenuClick(x)" data-ng-if="!x.IsDisabled">
                 <uib-tab-heading title="{{x.DisplayName}}">
                     <i class="fa {{x.Icon}} margin-right-5"></i>
                     <span class="text-single-line" data-ng-bind="x.DisplayName"></span>
+                    <error-warning-directive data-ng-if="ConsolMenuCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Consolidation',ConsolMenuCtrl.currentConsol.code,x.GParentRef, 'W', 'GParent').length > 0 && ConsolMenuCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Consol', ConsolMenuCtrl.currentConsol.code,x.GParentRef, 'E', 'GParent').length == 0"
+                        list="ConsolMenuCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList" type="'warning'" icon="fa fa-warning"
+                        parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
+                    <error-warning-directive data-ng-if="ConsolMenuCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Consolidation', ConsolMenuCtrl.currentConsol.code,x.GParentRef, 'E', 'GParent').length > 0"
+                        list="ConsolMenuCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList" type="'error'" icon="fa fa-warning"
+                        parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
                 </uib-tab-heading>
                 <div>
                     <div ng-switch="x.Value">
                         <!--Menu directives-->
                         <div ng-switch-when="QuickView" quick-view obj="ConsolMenuCtrl.currentConsol"></div>
+                        <div ng-switch-when="MyTask" consol-my-task current-consol="ConsolMenuCtrl.currentConsol" list-source="ConsolMenuCtrl.ePage.Masters.MyTask.ListSource"></div>
                         <div ng-switch-when="General" consol-general current-consol="ConsolMenuCtrl.currentConsol"></div>
                         <div ng-switch-when="ArrivalDeparture" consol-arrival-departure current-consol="ConsolMenuCtrl.currentConsol"></div>
                         <div ng-switch-when="Shipments" consol-shipment current-consol="ConsolMenuCtrl.currentConsol"></div>
-                        <routing ng-switch-when="Routing" current-object="ConsolMenuCtrl.currentConsol" key-object-name="'CON'" fk-name="'PK'" pk-name="'CON_PK'"
-                            api-header-name="'ConsoleHeader'" api-header-field-name="'PK'" api-header-value-name="'CON_FK'"></routing>
+                        <routing-grid ng-switch-when="Routing" current-object="ConsolMenuCtrl.currentConsol" key-object-name="'CON'" fk-name="'PK'" pk-name="'CON_PK'"
+                            api-header-name="'UIConConsolHeader'" api-header-field-name="'PK'" api-header-value-name="'CON_FK'"
+                            btn-visible="{'AddNew':true,'Delete':true,'More':true}" table-properties="" read-only="false"></routing-grid>
+                        <!-- <routing ng-switch-when="Routing" ng-if="ConsolMenuCtrl.currentConsol" current-object="ConsolMenuCtrl.currentConsol" key-object-name="'CON'" fk-name="'PK'" pk-name="'CON_PK'"
+                            api-header-name="'UIConConsolHeader'" api-header-field-name="'PK'" api-header-value-name="'CON_FK'"></routing> -->
                         <div ng-switch-when="Containers" consol-container current-consol="ConsolMenuCtrl.currentConsol"></div>
                         <div ng-switch-when="Packing" consol-packing current-consol="ConsolMenuCtrl.currentConsol"></div>
                         <div ng-switch-when="Address" data-ng-if="ConsolMenuCtrl.currentConsol[ConsolMenuCtrl.currentConsol.label].ePage.Entities.Header.Data.UIAddressContactList.CfxTypeList"
@@ -27,6 +38,34 @@
             </uib-tab>
         </uib-tabset>
     </div>
+    <div class="error-warning-container right" id="errorWarningContainer{{ConsolMenuCtrl.currentConsol.code}}">
+            <div class="error-warning-header clearfix">
+                <span class="title pull-left">
+                    <!-- <i class="fa fa-warning"></i>  -->
+                    Errors & Warnings
+                </span>
+                <span class="error-warning-toggle-icon pull-right" data-ng-click="ConsolMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(ConsolMenuCtrl.currentConsol)">
+                    <i class="fa fa-arrow-right"></i>
+                </span>
+            </div>
+            <div class="error-warning-body">
+                <div class="clearfix" data-ng-if="ConsolMenuCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList.length>0">
+                    <div class="clearfix">
+                        <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in ConsolMenuCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList">
+                            <div class="clearfix">
+                                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                    <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                                </div>
+                                <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                    <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                    <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     <!-- <div class="eaxis-footer-strip">
         <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
             <standard-menu input="ConsolMenuCtrl.ePage.Masters.StandardMenuInput" data-ng-if="!ConsolMenuCtrl.currentConsol.isNew"></standard-menu>

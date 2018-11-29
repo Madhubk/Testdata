@@ -5,9 +5,9 @@
         .module("Application")
         .controller("MhuMenuController", MhuMenuController);
 
-    MhuMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "mhuConfig", "helperService", "appConfig", "authService", "$state"];
+    MhuMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "mhuConfig", "helperService", "appConfig", "authService", "$state", "toastr"];
 
-    function MhuMenuController($scope, $timeout, APP_CONSTANT, apiService, mhuConfig, helperService, appConfig, authService, $state) {
+    function MhuMenuController($scope, $timeout, APP_CONSTANT, apiService, mhuConfig, helperService, appConfig, authService, $state, toastr) {
 
         var MhuMenuCtrl = this;
 
@@ -24,12 +24,10 @@
 
             };
 
-            // Standard Menu Configuration and Data
-            MhuMenuCtrl.ePage.Masters.StandardMenuInput = appConfig.Entities.standardMenuConfigList.OrgSupplierPart;
-            MhuMenuCtrl.ePage.Masters.StandardMenuInput.obj = MhuMenuCtrl.currentMhu;
             // function
             MhuMenuCtrl.ePage.Masters.Save = Save;
             MhuMenuCtrl.ePage.Masters.SaveButtonText = "Save";
+            MhuMenuCtrl.ePage.Masters.SaveCloseButtonText = "Save & Close";
 
             MhuMenuCtrl.ePage.Masters.MhuMenu = {};
 
@@ -43,7 +41,7 @@
 
         }
 
-        function Validation($item) {
+        function Validation($item, type) {
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data,
                 _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
@@ -56,14 +54,19 @@
 
 
             if (_errorcount.length == 0) {
-                Save($item);
+                Save($item, type);
             } else {
                 MhuMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(MhuMenuCtrl.currentMhu);
             }
         }
 
-        function Save($item) {
-            MhuMenuCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
+        function Save($item, type) {
+            if (type == 'save') {
+                MhuMenuCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
+            } else {
+                MhuMenuCtrl.ePage.Masters.SaveCloseButtonText = "Please Wait...";
+                MhuMenuCtrl.ePage.Masters.SaveAndClose = true;
+            }
             MhuMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave = true;
 
             var _Data = $item[$item.label].ePage.Entities,
@@ -77,6 +80,7 @@
 
             helperService.SaveEntity($item, 'MHU').then(function (response) {
                 MhuMenuCtrl.ePage.Masters.SaveButtonText = "Save";
+                MhuMenuCtrl.ePage.Masters.SaveCloseButtonText = "Save & Close";
                 MhuMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave = false;
                 if (response.Status === "success") {
                     var _index = mhuConfig.TabList.map(function (value, key) {
@@ -85,18 +89,29 @@
 
                     if (_index !== -1) {
                         mhuConfig.TabList[_index][mhuConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data;
+                        mhuConfig.TabList.map(function (value, key) {
+                            if (_index == key) {
+                                if (value.New) {
+                                    value.label = MhuMenuCtrl.ePage.Entities.Header.Data.UIProductGeneral.PartNum;
+                                    value[MhuMenuCtrl.ePage.Entities.Header.Data.UIProductGeneral.PartNum] = value.New;
+                                    delete value.New;
+                                }
+                            }
+                        });
                         mhuConfig.TabList[_index].isNew = false;
                         if ($state.current.url == "/mhu") {
                             helperService.refreshGrid();
                         }
                     }
+                    toastr.success("Saved Successfully");
                     console.log("Success");
-                    if(MhuMenuCtrl.ePage.Masters.SaveAndClose){
+                    if (MhuMenuCtrl.ePage.Masters.SaveAndClose) {
                         MhuMenuCtrl.ePage.Masters.Config.SaveAndClose = true;
                         MhuMenuCtrl.ePage.Masters.SaveAndClose = false;
                     }
                 } else if (response.Status === "failed") {
                     console.log("Failed");
+                    //toastr.error("Saved Failed");
                     MhuMenuCtrl.ePage.Entities.Header.Validations = response.Validations;
                     angular.forEach(response.Validations, function (value, key) {
                         MhuMenuCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, MhuMenuCtrl.currentMhu.label, false, undefined, undefined, undefined, undefined, value.GParentRef);

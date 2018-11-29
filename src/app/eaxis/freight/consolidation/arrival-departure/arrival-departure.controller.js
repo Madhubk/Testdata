@@ -26,6 +26,24 @@
             ConsolArrivalDepartureCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
             ConsolArrivalDepartureCtrl.ePage.Masters.DropDownMasterList = consolidationConfig.Entities.Header.Meta;
             ConsolArrivalDepartureCtrl.ePage.Masters.SelectedData = SelectedData;
+            ConsolArrivalDepartureCtrl.ePage.Masters.DepatureCTO = {
+                "IsMiscFreightServices": "true"
+            }
+            ConsolArrivalDepartureCtrl.ePage.Masters.DepatureCFS = {
+                "IsMiscFreightServices": "true"
+            }
+            ConsolArrivalDepartureCtrl.ePage.Masters.DepatureContainerYard = {
+                "IsMiscFreightServices": "true"
+            }
+            ConsolArrivalDepartureCtrl.ePage.Masters.ArrivalCTO  = {
+                "IsMiscFreightServices": "true"
+            }
+            ConsolArrivalDepartureCtrl.ePage.Masters.ArrivalCFS = {
+                "IsMiscFreightServices": "true"
+            }
+            ConsolArrivalDepartureCtrl.ePage.Masters.ArrivalContainerYard = {
+                "IsMiscFreightServices": "true"
+            }
             ConsolArrivalDepartureCtrl.ePage.Masters.DropDownMasterListAddress = {
                 "OAD_DepartureCTOAddressFK": helperService.metaBase(),
                 "OAD_PackDepotAddressFK": helperService.metaBase(),

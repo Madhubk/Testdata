@@ -1,48 +1,55 @@
-<!-- hide save -->
-<span ng-if="!OrganizationCtrl.ePage.Masters.Lineslist" ng-init="OrganizationCtrl.ePage.Entities.Header.CheckPoints.DisableSave=true"></span>
-<span ng-if="OrganizationCtrl.ePage.Masters.Lineslist" ng-init="OrganizationCtrl.ePage.Entities.Header.CheckPoints.DisableSave=false"></span>
-
-<!-- Saving Your Data -->
-<div class="grid-loading-norecord-container ng-scope" style='z-index: 999;'data-ng-if="OrganizationCtrl.ePage.Masters.IsLoadingToSave">
-    <div class="grid-no-record">Saving your Data...</div>
-</div>
-<div class="p-10" ng-show='OrganizationCtrl.ePage.Masters.Lineslist' >
-    <div>
-        <span><button type="button" class="btn btn-sm btn-outline-secondary" title="Add New"  data-ng-click="OrganizationCtrl.ePage.Masters.AddNewRow()"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button></span>
-        <span ng-hide='OrganizationCtrl.ePage.Masters.selectedRow==-1'><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Copy"  data-ng-click="OrganizationCtrl.ePage.Masters.CopyRow()"><span class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button></span>
-        <span ng-hide='OrganizationCtrl.ePage.Masters.selectedRow==-1'><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Edit"  data-ng-click="OrganizationCtrl.ePage.Masters.Edit(OrganizationCtrl.ePage.Masters.selectedRow,'Edit List')"><span class="fa fa-pencil"></span>&nbsp;&nbsp;Edit</button></span>
-        <span ng-hide='OrganizationCtrl.ePage.Masters.selectedRow==-1'><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Delete"  data-ng-click="OrganizationCtrl.ePage.Masters.RemoveRow()"><span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button></span>        
+<div class="clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding">
+        <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+            <span><button type="button" class="btn btn-sm btn-outline-secondary font-10"  title="Add New"  data-ng-click="OrganizationCtrl.ePage.Masters.AddNewRow()"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button></span>
+            <span><button type="button" class="btn btn-sm btn-outline-primary font-10"  title="Copy"  data-ng-click="OrganizationCtrl.ePage.Masters.CopyRow()" ng-disabled="!OrganizationCtrl.ePage.Masters.EnableDeleteButton"><span class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button></span>
+            <span><button type="button" class="btn btn-sm btn-outline-primary font-10"  title="Delete"  data-ng-click="OrganizationCtrl.ePage.Masters.RemoveRow()" ng-disabled="!OrganizationCtrl.ePage.Masters.EnableDeleteButton"><span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button></span>
+            <span><button type="button" class="btn btn-sm btn-outline-primary font-10"  title="Customize"  data-ng-click="OrganizationCtrl.ePage.Masters.EditTableColumns = true"><span class="fa fa-filter"></span>&nbsp;&nbsp;Customize</button></span>
+        </div>
+        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0">
+            <div class="input-group">
+                <div class="input-group-addon font-10"><i class="fa fa-search font-10"></i></div>
+                <input type="text" class="form-control height-25 font-10" placeholder="Search" ng-model="OrganizationCtrl.ePage.Masters.SearchTable">
+            </div>      
+        </div>
     </div>
-    <div id='OrganizationCtrl.ePage.Masters.your_div' class="wmstable_scroll" style="height:442px; padding-top: 2px;">
-        <div class="table" id="results">
-            <div class='theader'>
-                <div class='table_header'>List No</div>
-                <div class='table_header'>Client</div>
-                <div class='table_header'>Relationship Type</div>
-                <div class='table_header'>Client UQ</div>
-                <div class='table_header'>Local Part Number</div>
-                <div class='table_header'>Local Part Description</div>
-                <div class='table_header'>Pick Mode</div>
-                <div class='table_header'>Use Part Attribute1</div>
-                <div class='table_header'>Use Part Attribute2</div>
-                <div class='table_header'>Use Part Attribute3</div>
-                <div class='table_header'>Use Packing Date</div>
-                <div class='table_header'>Use Expiry Date</div>
-                <div class='table_header'>Is PartAttribute1 ReleaseCaptured</div>
-                <div class='table_header'>Is PartAttribute2 ReleaseCaptured</div>
-                <div class='table_header'>Is PartAttribute3 ReleaseCaptured</div>
-            </div>
-
-            <!-- List Empty Response -->
-            <div data-ng-if="OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation.length==0">
-                <div class="grid-no-record" style="bottom:200px">No records found...</div>
-            </div>
-
-            <div class='table_row' ng-repeat="x in OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation | orderBy:'CreatedDateTime'| filter:{IsDeleted:'false'}  track by $index" 
-                ng-click="OrganizationCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: OrganizationCtrl.ePage.Masters.selectedRow==$index}" style="font-size: 11px;">
-                <div class='table_small'>
-                    <div class='table_cell'>List No</div>
-                    <div class='table_cell'>
+    <div id="OrganizationTable{{OrganizationCtrl.ePage.Entities.Header.Data.PK}}" class="fixedheader" key-events table-object='OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation' enable='OrganizationCtrl.ePage.Masters.Enable' selected-row='OrganizationCtrl.ePage.Masters.selectedRow' unique-id='OrganizationTable{{OrganizationCtrl.ePage.Entities.Header.Data.PK}}'>
+        <table id="OrganizationCtrl.ePage.Masters.AddScroll" style="height: 385px">
+            <thead>
+                <tr id="tableHeader">
+                    <th id="partcheckbox" data-ng-if="OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.partcheckbox.isenabled" ng-style="{ 'width': OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.partcheckbox.width + 'px' }">
+                        <label class="customcheckbox">
+                            <input type="checkbox" ng-change="OrganizationCtrl.ePage.Masters.SelectAllCheckBox()" ng-checked="OrganizationCtrl.ePage.Masters.SelectAll"
+                                ng-model="OrganizationCtrl.ePage.Masters.SelectAll">
+                            <span class="text"></span>
+                        </label>
+                    </th>
+                    <th id="partsno" data-ng-if="OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.partsno.isenabled" ng-style="{ 'width': OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.partsno.width + 'px' }" title="S.No">S.No</th>
+                    <th id="partclient" data-ng-if="OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.partclient.isenabled" ng-style="{ 'width': OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.partclient.width + 'px' }" title="Client">Client</th>
+                    <th id="relationshiptype" data-ng-if="OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.relationshiptype.isenabled" ng-style="{ 'width': OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.relationshiptype.width + 'px' }" title="Relationship Type">Relationship Type</th>
+                    <th id="clientuq"data-ng-if="OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.clientuq.isenabled" ng-style="{ 'width': OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.clientuq.width + 'px' }" title="Client UQ">Client UQ</th>
+                    <th id="useudf1" data-ng-if="OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.useudf1.isenabled" ng-style="{ 'width': OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.useudf1.width + 'px' }" title="Use User Defined Field 1">Use UDF 1</th>
+                    <th id="useudf2" data-ng-if="OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.useudf2.isenabled" ng-style="{ 'width': OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.useudf2.width + 'px' }" title="Use User Defined Field 2">Use UDF 2</th>
+                    <th id="useudf3"data-ng-if="OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.useudf3.isenabled" ng-style="{ 'width': OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.useudf3.width + 'px' }" title="Use User Defined Field 3">Use UDF 3</th>
+                    <th id="usepackingdate" data-ng-if="OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.usepackingdate.isenabled" ng-style="{ 'width': OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.usepackingdate.width + 'px' }" title="Use Packing Date">Use Packing Date</th>
+                    <th id="useexpirydate"data-ng-if="OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.useexpirydate.isenabled" ng-style="{ 'width': OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.useexpirydate.width + 'px' }" title="Use Expiry Date">Use Expiry Date</th>
+                    <th id="releasecaptured1" data-ng-if="OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.releasecaptured1.isenabled" ng-style="{ 'width': OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.releasecaptured1.width + 'px' }" title="Is UDF1 ReleaseCaptured">Is UDF1 ReleaseCaptured</th>
+                    <th id="releasecaptured2" data-ng-if="OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.releasecaptured2.isenabled" ng-style="{ 'width': OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.releasecaptured2.width + 'px' }" title="Is UDF2 ReleaseCaptured">Is UDF2 ReleaseCaptured</th>
+                    <th id="releasecaptured3"data-ng-if="OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.releasecaptured3.isenabled" ng-style="{ 'width': OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.releasecaptured3.width + 'px' }" title="Is UDF3 ReleaseCaptured">Is UDF3 ReleaseCaptured</th>
+                    <th id="pickmode" data-ng-if="OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.pickmode.isenabled" ng-style="{ 'width': OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.pickmode.width + 'px' }" title="Pick Mode">Pick Mode</th>
+                    <th id="localpartnumber" data-ng-if="OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.localpartnumber.isenabled" ng-style="{ 'width': OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.localpartnumber.width + 'px' }" title="Local Part Number">Local Part Number</th>
+                    <th id="localpartdescription"data-ng-if="OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.localpartdescription.isenabled" ng-style="{ 'width': OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.localpartdescription.width + 'px' }" title="Local Part Description">Local Part Description</th>
+                </tr>
+            </thead>
+            <tbody id="OrganizationCustomTable{{OrganizationCtrl.ePage.Entities.Header.Data.PK}}">
+                <tr id="tableBody" ng-repeat="x in OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation | filter:OrganizationCtrl.ePage.Masters.SearchTable"  ng-click="OrganizationCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: (OrganizationCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}" 
+                    watch-table table-properties="OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation"  unique-id="OrganizationCustomTable{{OrganizationCtrl.ePage.Entities.Header.Data.PK}}" row-position="$index">
+                    <td id="partcheckbox" data-ng-show='OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.partcheckbox.isenabled' ng-style="{ 'width': OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.partcheckbox.width + 'px' ,'padding-top':'0px' }" ng-click="OrganizationCtrl.ePage.Masters.Enable = true">
+                        <label class="mb-0 customcheckbox">
+                            <input type="checkbox" ng-checked="x.SingleSelect" ng-change="OrganizationCtrl.ePage.Masters.SingleSelectCheckBox()"
+                                ng-model="x.SingleSelect"></input>
+                            <span class="text"></span>
+                        </label>
                         <span class="list-error-warning" data-ng-if="OrganizationCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartRelation.ERROR | listCount: 'RowIndex': $index">
                             <error-warning-directive 
                                 list="OrganizationCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartRelation.ERROR"
@@ -50,259 +57,218 @@
                                 g-parent-ref="" row-index="$index"
                                 col-index="">
                             </error-warning-directive>
-                        </span> 
+                        </span>
+                    </td>
+                    <td id="partsno"   data-ng-show='OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.partsno.isenabled' ng-style="{ 'width': OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.partsno.width + 'px' }" ng-click="OrganizationCtrl.ePage.Masters.Enable = true">
                         {{$index+1}}
-                    </div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Client</div>
-                    <div class='table_cell'>{{x.Client || OrganizationCtrl.ePage.Masters.emptyText}}</div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Relationship Type</div>
-                    <div class='table_cell'>{{x.Relationship || OrganizationCtrl.ePage.Masters.emptyText}}</div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Client UQ</div>
-                    <div class='table_cell'>{{x.ClientUQ || OrganizationCtrl.ePage.Masters.emptyText}}</div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Local Part Number</div>
-                    <div class='table_cell'>{{x.LocalPartNumber || OrganizationCtrl.ePage.Masters.emptyText}}</div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Local Part Description</div>
-                    <div class='table_cell'>{{x.LocalPartDescription  || OrganizationCtrl.ePage.Masters.emptyText}}</div>
-                </div> 
-                <div class='table_small'>
-                    <div class='table_cell'>Pick Mode</div>
-                    <div class='table_cell'>{{x.PickMode || OrganizationCtrl.ePage.Masters.emptyText}}</div>
-                </div>  
-                <div class='table_small'>
-                    <div class='table_cell'>Use Part Attribute1</div>
-                    <div class='table_cell'>{{x.UsePartAttrib1 == true  ? "YES" : "NO"}}</div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Use Part Attribute2</div>
-                    <div class='table_cell'>{{x.UsePartAttrib2 == true ? "YES" : "NO"}}</div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Use Part Attribute3</div>
-                    <div class='table_cell'>{{x.UsePartAttrib3 == true  ? "YES" : "NO"}}</div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Use Packing Date</div>
-                    <div class='table_cell'>{{x.UsePackingDate == true ? "YES" : "NO"}}</div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Use Expiry Date</div>
-                    <div class='table_cell'>{{x.UseExpiryDate == true  ? "YES" : "NO"}}</div>
-                </div>  
-                <div class='table_small'>
-                    <div class='table_cell'>Is PartAttribute1 ReleaseCaptured</div>
-                    <div class='table_cell'>{{x.IsPartAttrib1ReleaseCaptured == true || x.IsPartAttrib1ReleaseCaptured == 1  ? "YES" : "NO"}}</div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Is PartAttribute2 ReleaseCaptured</div>
-                    <div class='table_cell'>{{x.IsPartAttrib2ReleaseCaptured == true || x.IsPartAttrib2ReleaseCaptured == 2 ? "YES" : "NO"}}</div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Is PartAttribute3 ReleaseCaptured</div>
-                    <div class='table_cell'>{{x.IsPartAttrib3ReleaseCaptured == true || x.IsPartAttrib3ReleaseCaptured == 3  ? "YES" : "NO"}}</div>
-                </div> 
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Editable Mode -->
-<div class="clearfix" ng-hide='OrganizationCtrl.ePage.Masters.Lineslist' style="padding:5px">
-    <div class="panel panel-default mt-5">
-        <div class="panel-heading">
-            <span ng-show="OrganizationCtrl.ePage.Masters.HeaderName =='Copy Of List'">
-                    {{OrganizationCtrl.ePage.Masters.HeaderName}} - {{OrganizationCtrl.ePage.Masters.selectedRow}}                     
-            </span>
-            <span ng-show="OrganizationCtrl.ePage.Masters.HeaderName!='Copy Of List'">
-                    {{OrganizationCtrl.ePage.Masters.HeaderName}} - {{OrganizationCtrl.ePage.Masters.selectedRow+1}}                     
-            </span>
-        </div>
-        <div class="panel-body">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ex-line-padding">
-                <div class="ex-line-box" style="height:210px;padding-top:10px">
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                            <div class="form-group">
-                                <div class="error-warning-container" ng-repeat="x in OrganizationCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartRelation.ERROR">
-                                    <error-warning-directive data-ng-if="x.ColIndex == 1 && x.RowIndex ==OrganizationCtrl.ePage.Masters.selectedRow"
-                                        list="OrganizationCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartRelation.ERROR"
-                                        type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
-                                        g-parent-ref="" row-index="OrganizationCtrl.ePage.Masters.selectedRow"
-                                        col-index="1">
-                                    </error-warning-directive>
-                                </div>
-                                <label class="control-label text-single-line">Client</label>
-                                <div  class="input-group input-group-sm">
-    
-                                    <span  ng-if="OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].Client ==' - '">
-                                        <span ng-init="OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].Client = ''"></span>
-                                    </span>
-                                    <div  dynamic-lookup placeholder="Client" my-ng-model="OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].Client"
-                                        obj="OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow]" prefix-data="'OrganizationList'"
-                                        config="'Client'" auto-complete-on-select="OrganizationCtrl.ePage.Masters.SelectedLookupDataClient($item,OrganizationCtrl.ePage.Masters.selectedRow)">
+                    </td>
+                    <td id="partclient"   data-ng-show='OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.partclient.isenabled' ng-style="{ 'width': OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.partclient.width + 'px' }" ng-click="OrganizationCtrl.ePage.Masters.Enable = true">
+                        <div data-ng-if="$index!=OrganizationCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                            {{x.Client || OrganizationCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==OrganizationCtrl.ePage.Masters.selectedRow">
+                            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
+                                <div  class="input-group input-group-sm height-22">
+                                    <div  dynamic-lookup placeholder="Client" my-ng-model="x.Client"
+                                        obj="x" page-name="'OrganizationList'" control-key="'ClientForProduct_3240'"
+                                        control-id="'ClientForProduct'" auto-complete-on-select="OrganizationCtrl.ePage.Masters.SelectedLookupDataClient($item,$index)">
                                     </div>
     
                                         <!-- Look Up page opens when button clicks -->
                                     <span class="input-group-btn">
-                                        <button dynamic-list-modal obj="OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow]" field-name="'Client'" selected-data="OrganizationCtrl.ePage.Masters.SelectedLookupDataClient($item.entity,OrganizationCtrl.ePage.Masters.selectedRow)"  prefix-data="'OrganizationList'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                        <button dynamic-list-modal obj="x" control-id="'ClientForProduct'" control-key="'ClientForProduct_3240'" selected-data="OrganizationCtrl.ePage.Masters.SelectedLookupDataClient($item.data.entity,$index)"  page-name="'OrganizationList'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                    </span> 
+                                    <span ng-if='!x.Client && x.PK  && (OrganizationCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartRelation.ERROR | filter: {RowIndex: $index} | filter: {ColIndex: 1}).length==0'>
+                                        <span ng-init="OrganizationCtrl.ePage.Masters.OnChangeValues(x.Client,'E7014',true,$index)"></span>
                                     </span>
-                                    <span ng-if='!OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].Client && OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].PK && !OrganizationCtrl.ePage.Masters.Lineslist && (OrganizationCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartRelation.ERROR | filter: {RowIndex: OrganizationCtrl.ePage.Masters.selectedRow} | filter: {ColIndex: 1}).length==0'>
-                                        <span ng-init="OrganizationCtrl.ePage.Masters.OnChangeValues(OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].Client,'E7014',true,OrganizationCtrl.ePage.Masters.selectedRow)"></span>
-                                    </span>
-                                </div>
+                                </div>                                       
+                            </div>
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="OrganizationCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartRelation.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':1">
+                                <error-warning-directive  list="OrganizationCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartRelation.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                    row-index="OrganizationCtrl.ePage.Masters.selectedRow" col-index="1">
+                                </error-warning-directive>
                             </div>
                         </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                            <div class="form-group">
-                                <div class="error-warning-container" ng-repeat="x in OrganizationCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartRelation.ERROR">
-                                    <error-warning-directive data-ng-if="x.ColIndex == 2 && x.RowIndex ==OrganizationCtrl.ePage.Masters.selectedRow"
-                                        list="OrganizationCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartRelation.ERROR"
-                                        type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
-                                        g-parent-ref="" row-index="OrganizationCtrl.ePage.Masters.selectedRow"
-                                        col-index="2">
-                                    </error-warning-directive>
-                                </div>
-                                <label class="control-label text-single-line">Relationship Type</label>
-                                <div  class="">
-                                    <select chosen class="form-control" ng-model="OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].Relationship" ng-options="x.Key as x.Key + ' - '  + x.Value for x in OrganizationCtrl.ePage.Masters.DropDownMasterList.WMSRelationShip.ListSource"
-                                        search-contains="true" ng-change="OrganizationCtrl.ePage.Masters.OnChangeValues(OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].Relationship,'E7015',true,OrganizationCtrl.ePage.Masters.selectedRow)">
-                                        <option value="">--Select--</option>
-                                    </select>
-                                </div>
-                            </div>
+                    </td>
+                    <td id="relationshiptype"  data-ng-show='OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.relationshiptype.isenabled'  ng-style="{ 'width': OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.relationshiptype.width + 'px' }">
+                        <div data-ng-if="$index!=OrganizationCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                            {{ x.Relationship || OrganizationCtrl.ePage.Masters.emptyText}}
                         </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                            <div class="form-group">
-                                <label class="control-label text-single-line">Client UQ</label>
-                                <select chosen class="form-control" ng-model="OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].ClientUQ" ng-options="x.Key as x.Key + ' - '  + x.Value for x in OrganizationCtrl.ePage.Masters.DropDownMasterList.INW_LINE_UQ.ListSource"
-                                 search-contains="true">
+                        <div data-ng-if="$index==OrganizationCtrl.ePage.Masters.selectedRow">
+                            <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0" ng-click="OrganizationCtrl.ePage.Masters.Enable = false">
+                                <select chosen class="form-control" ng-model="x.Relationship" ng-options="x.Key as x.Key + ' - '  + x.Value for x in OrganizationCtrl.ePage.Masters.DropDownMasterList.WMSRelationShip.ListSource"
+                                    search-contains="true" ng-change="OrganizationCtrl.ePage.Masters.OnChangeValues(x.Relationship,'E7015',true,$index)">
                                     <option value="">--Select--</option>
-                                </select>
+                                </select>              
+                            </div>
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="OrganizationCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartRelation.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':2">
+                                <error-warning-directive  list="OrganizationCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartRelation.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                    row-index="OrganizationCtrl.ePage.Masters.selectedRow" col-index="2">
+                                </error-warning-directive>
                             </div>
                         </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                            <div class="form-group">
-                                <label class="control-label text-single-line">Local Part Number</label>
-                                <div  class="">
-                                    <input type="text" maxlength="35" class="form-control input-sm" placeholder="Local Part Number" data-ng-model="OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].LocalPartNumber" />
-                                </div>
-                            </div>
+                    </td>
+                    <td id="clientuq"  data-ng-show='OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.clientuq.isenabled'  ng-style="{ 'width': OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.clientuq.width + 'px' }">
+                        <div data-ng-if="$index!=OrganizationCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                            {{ x.ClientUQ || OrganizationCtrl.ePage.Masters.emptyText}}
                         </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                            <div class="form-group">
-                                <label class="control-label text-single-line">Local Part Description</label>
-                                <div  class="">
-                                    <input type="text" class="form-control input-sm" placeholder="Local Part Description" data-ng-model="OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].LocalPartDescription" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                            <div class="form-group">
-                                <label class="control-label text-single-line">Pick Mode</label>
-                                <div  class="">
-                                    <span ng-if="OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].UsePartAttrib1 || OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].UsePartAttrib2 ||OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].UsePartAttrib3 ||OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].UsePackingDate || OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].UseExpiryDate"
-                                        ng-init = "OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].PickMode = 'ASP'"></span>
-                                        <span ng-if="!OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].UsePartAttrib1 && !OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].UsePartAttrib2 && !OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].UsePartAttrib3 && !OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].UsePackingDate && !OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].UseExpiryDate"
-                                        ng-init = "OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].PickMode = ''"></span>
-                                    <select chosen class="form-control" ng-model="OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].PickMode" ng-options="x.Key as  x.Key + ' - '  + x.Value for x in OrganizationCtrl.ePage.Masters.DropDownMasterList.PickMode.ListSource"search-contains="true">
+                        <div data-ng-if="$index==OrganizationCtrl.ePage.Masters.selectedRow">
+                            <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0" ng-click="OrganizationCtrl.ePage.Masters.Enable = false">
+                                <select chosen class="form-control" ng-model="x.ClientUQ" ng-options="x.Key as x.Key + ' - '  + x.Value for x in OrganizationCtrl.ePage.Masters.DropDownMasterList.INW_LINE_UQ.ListSource" search-contains="true">
                                         <option value="">--Select--</option>
-                                    </select>
+                                </select>              
+                            </div>
+                        </div>
+                    </td>
+                    <td id="useudf1"  data-ng-show='OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.useudf1.isenabled'  ng-style="{ 'width': OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.useudf1.width + 'px' }" ng-click="OrganizationCtrl.ePage.Masters.Enable = true">
+                            <div data-ng-if="$index!=OrganizationCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                                {{ x.UsePartAttrib1 == true  ? "YES" : "NO"}}
+                            </div>
+                            <div data-ng-if="$index==OrganizationCtrl.ePage.Masters.selectedRow">
+                                <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
+                                    <label class="mb-0 customcheckbox">
+                                        <input type="checkbox" ng-checked="x.UsePartAttrib1" ng-model="x.UsePartAttrib1" data-ng-disabled="!x.IMPartAttrib1Name"> </input>
+                                        <span class="text"></span>
+                                    </label>              
                                 </div>
                             </div>
+                    </td>
+                    <td id="useudf2"  data-ng-show='OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.useudf2.isenabled'  ng-style="{ 'width': OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.useudf2.width + 'px' }" ng-click="OrganizationCtrl.ePage.Masters.Enable = true">
+                        <div data-ng-if="$index!=OrganizationCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                            {{ x.UsePartAttrib2 == true  ? "YES" : "NO"}}
                         </div>
-                    </div>
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 mt-5">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                            <div class="form-group">
-                                <label class="control-label text-single-line">
-                                    <input type="checkbox" ng-checked="OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].UsePartAttrib1"  
-                                        ng-model="OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].UsePartAttrib1" data-ng-disabled="!OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].IMPartAttrib1Name"></input>
-                                    <span class="text">Use Part Attribute1</span>
-                                </label>
+                        <div data-ng-if="$index==OrganizationCtrl.ePage.Masters.selectedRow">
+                            <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
+                                <label class="mb-0 customcheckbox">
+                                    <input type="checkbox" ng-checked="x.UsePartAttrib2" ng-model="x.UsePartAttrib2" data-ng-disabled="!x.IMPartAttrib2Name"> </input>
+                                    <span class="text"></span>
+                                </label>              
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                            <div class="form-group">
-                                <label class="control-label text-single-line">
-                                    <input type="checkbox" ng-checked="OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].UsePartAttrib2"  
-                                        ng-model="OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].UsePartAttrib2" data-ng-disabled="!OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].IMPartAttrib2Name"></input>
-                                    <span class="text">Use Part Attribute2</span>
-                                </label>
+                    </td>
+                    <td id="useudf3"  data-ng-show='OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.useudf3.isenabled'  ng-style="{ 'width': OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.useudf3.width + 'px' }" ng-click="OrganizationCtrl.ePage.Masters.Enable = true">
+                        <div data-ng-if="$index!=OrganizationCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                            {{ x.UsePartAttrib3 == true  ? "YES" : "NO"}}
+                        </div>
+                        <div data-ng-if="$index==OrganizationCtrl.ePage.Masters.selectedRow">
+                            <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
+                                <label class="mb-0 customcheckbox">
+                                    <input type="checkbox" ng-checked="x.UsePartAttrib3" ng-model="x.UsePartAttrib3" data-ng-disabled="!x.IMPartAttrib3Name"> </input>
+                                    <span class="text"></span>
+                                </label>              
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                            <div class="form-group">
-                                <label class="control-label text-single-line">
-                                    <input type="checkbox" ng-checked="OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].UsePartAttrib3"  
-                                        ng-model="OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].UsePartAttrib3" data-ng-disabled="!OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].IMPartAttrib3Name "></input>
-                                    <span class="text">Use Part Attribute3</span>
-                                </label>
+                    </td>
+                    <td id="usepackingdate"  data-ng-show='OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.usepackingdate.isenabled'  ng-style="{ 'width': OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.usepackingdate.width + 'px' }" ng-click="OrganizationCtrl.ePage.Masters.Enable = true">
+                        <div data-ng-if="$index!=OrganizationCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                            {{ x.UsePackingDate == true  ? "YES" : "NO"}}
+                        </div>
+                        <div data-ng-if="$index==OrganizationCtrl.ePage.Masters.selectedRow">
+                            <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
+                                <label class="mb-0 customcheckbox">
+                                    <input type="checkbox" ng-checked="x.UsePackingDate" ng-model="x.UsePackingDate" data-ng-disabled="!x.IMUsePackingDate"> </input>
+                                    <span class="text"></span>
+                                </label>              
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                            <div class="form-group">
-                                <label class="control-label text-single-line">
-                                    <input type="checkbox" ng-checked="OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].UsePackingDate"  
-                                        ng-model="OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].UsePackingDate" data-ng-disabled="!OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].IMUsePackingDate"></input>
-                                    <span class="text">Use Packing Date</span>
-                                </label>
+                    </td>
+                    <td id="useexpirydate"  data-ng-show='OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.useexpirydate.isenabled'  ng-style="{ 'width': OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.useexpirydate.width + 'px' }" ng-click="OrganizationCtrl.ePage.Masters.Enable = true">
+                        <div data-ng-if="$index!=OrganizationCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                            {{ x.UseExpiryDate == true  ? "YES" : "NO"}}
+                        </div>
+                        <div data-ng-if="$index==OrganizationCtrl.ePage.Masters.selectedRow">
+                            <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
+                                <label class="mb-0 customcheckbox">
+                                    <input type="checkbox" ng-checked="x.UseExpiryDate" ng-model="x.UseExpiryDate" data-ng-disabled="!x.IMUseExpiryDate"> </input>
+                                    <span class="text"></span>
+                                </label>              
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                            <div class="form-group">
-                                <label class="control-label text-single-line">
-                                    <input type="checkbox" ng-checked="OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].UseExpiryDate"  
-                                        ng-model="OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].UseExpiryDate" data-ng-disabled="!OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].IMUseExpiryDate"></input>
-                                    <span class="text">Use Expiry Date</span>
-                                </label>
+                    </td>
+                    <td id="releasecaptured1"  data-ng-show='OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.releasecaptured1.isenabled'  ng-style="{ 'width': OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.releasecaptured1.width + 'px' }" ng-click="OrganizationCtrl.ePage.Masters.Enable = true">
+                        <div data-ng-if="$index!=OrganizationCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                            {{x.IsPartAttrib1ReleaseCaptured == true || x.IsPartAttrib1ReleaseCaptured == 1  ? "YES" : "NO"}}
+                        </div>
+                        <div data-ng-if="$index==OrganizationCtrl.ePage.Masters.selectedRow">
+                            <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
+                                <label class="mb-0 customcheckbox">
+                                    <input type="checkbox" ng-checked="x.IsPartAttrib1ReleaseCaptured" ng-model="x.IsPartAttrib1ReleaseCaptured" data-ng-disabled="!x.UsePartAttrib1"> </input>
+                                    <span class="text"></span>
+                                </label>              
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 mt-5 p-0">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
-                            <div class="form-group">
-                                <label class="control-label text-single-line">
-                                    <input type="checkbox" ng-checked="OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].IsPartAttrib1ReleaseCaptured"  
-                                        ng-model="OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].IsPartAttrib1ReleaseCaptured" data-ng-disabled="!OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].UsePartAttrib1"></input>
-                                    <span class="text" title="Is PartAttribute1 Release Captured">Is PartAttribute1 Release Captured</span>
-                                </label>
+                    </td>
+                    <td id="releasecaptured2"  data-ng-show='OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.releasecaptured2.isenabled'  ng-style="{ 'width': OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.releasecaptured2.width + 'px' }" ng-click="OrganizationCtrl.ePage.Masters.Enable = true">
+                        <div data-ng-if="$index!=OrganizationCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                            {{x.IsPartAttrib2ReleaseCaptured == true || x.IsPartAttrib2ReleaseCaptured == 1  ? "YES" : "NO"}}
+                        </div>
+                        <div data-ng-if="$index==OrganizationCtrl.ePage.Masters.selectedRow">
+                            <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
+                                <label class="mb-0 customcheckbox">
+                                    <input type="checkbox" ng-checked="x.IsPartAttrib2ReleaseCaptured" ng-model="x.IsPartAttrib2ReleaseCaptured" data-ng-disabled="!x.UsePartAttrib2"> </input>
+                                    <span class="text"></span>
+                                </label>              
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
-                            <div class="form-group">
-                                <label class="control-label text-single-line">
-                                    <input type="checkbox" ng-checked="OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].IsPartAttrib2ReleaseCaptured"  
-                                        ng-model="OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].IsPartAttrib2ReleaseCaptured" data-ng-disabled="!OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].UsePartAttrib2"></input>
-                                    <span class="text" title="Is PartAttribute2 Release Captured">Is PartAttribute2 Release Captured</span>
-                                </label>
+                    </td>
+                    <td id="releasecaptured3"  data-ng-show='OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.releasecaptured3.isenabled'  ng-style="{ 'width': OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.releasecaptured3.width + 'px' }" ng-click="OrganizationCtrl.ePage.Masters.Enable = true">
+                        <div data-ng-if="$index!=OrganizationCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                            {{x.IsPartAttrib3ReleaseCaptured == true || x.IsPartAttrib3ReleaseCaptured == 1  ? "YES" : "NO"}}
+                        </div>
+                        <div data-ng-if="$index==OrganizationCtrl.ePage.Masters.selectedRow">
+                            <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
+                                <label class="mb-0 customcheckbox">
+                                    <input type="checkbox" ng-checked="x.IsPartAttrib3ReleaseCaptured" ng-model="x.IsPartAttrib3ReleaseCaptured" data-ng-disabled="!x.UsePartAttrib3"> </input>
+                                    <span class="text"></span>
+                                </label>              
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
-                            <div class="form-group">
-                                <label class="control-label text-single-line">
-                                    <input type="checkbox" ng-checked="OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].IsPartAttrib3ReleaseCaptured"  
-                                        ng-model="OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].IsPartAttrib3ReleaseCaptured" data-ng-disabled="!OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow].UsePartAttrib3 "></input>
-                                    <span class="text" title="Is PartAttribute3 Release Captured">Is PartAttribute3 Release Captured</span>
-                                </label>
+                    </td>         
+                    <td id="pickmode"  data-ng-show='OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.pickmode.isenabled'  ng-style="{ 'width': OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.pickmode.width + 'px' }">
+                        <div data-ng-if="$index!=OrganizationCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                            {{ x.PickMode || OrganizationCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==OrganizationCtrl.ePage.Masters.selectedRow">
+                            <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0" ng-click="OrganizationCtrl.ePage.Masters.Enable = false">
+                                <select chosen class="form-control" ng-model="x.PickMode" ng-options="x.Key as  x.Key + ' - '  + x.Value for x in OrganizationCtrl.ePage.Masters.DropDownMasterList.PickMode.ListSource"search-contains="true">
+                                    <option value="">--Select--</option>
+                                </select>              
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-lg-offset-8 mt-5">
-                    <button class="btn btn-blue btn-sm mr-5 pull-right" title="Save" data-ng-click="OrganizationCtrl.ePage.Masters.Done()"><i class="fa fa-save pr-5"></i>Save</button>
-                    <button class="btn btn-primary btn-sm mr-5 pull-right" title="Delete" data-ng-click="OrganizationCtrl.ePage.Masters.RemoveRow()"><i class="fa fa-trash pr-5"></i>Delete</button>
-                    <button class="btn btn-primary btn-sm mr-5 pull-right" title="Back" data-ng-click="OrganizationCtrl.ePage.Masters.Back()"><i class="fa fa-angle-double-left pr-5"></i>Back</button>
-                </div>
-            </div>
-        </div>
+                    </td>
+                    <td id="localpartnumber"  data-ng-show='OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.localpartnumber.isenabled'  ng-style="{ 'width': OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.localpartnumber.width + 'px' }" ng-click="OrganizationCtrl.ePage.Masters.Enable = true">
+                        <div data-ng-if="$index!=OrganizationCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                            {{ x.LocalPartNumber || OrganizationCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==OrganizationCtrl.ePage.Masters.selectedRow">
+                            <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
+                                <input type="text" maxlength="35" class="form-control input-sm" placeholder="Local Part Number" data-ng-model="x.LocalPartNumber" />              
+                            </div>
+                        </div>
+                    </td>
+                    <td id="localpartdescription"  data-ng-show='OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.localpartdescription.isenabled'  ng-style="{ 'width': OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.localpartdescription.width + 'px' }" ng-click="OrganizationCtrl.ePage.Masters.Enable = true">
+                        <div data-ng-if="$index!=OrganizationCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                            {{ x.LocalPartDescription || OrganizationCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==OrganizationCtrl.ePage.Masters.selectedRow">
+                            <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
+                                <input type="text" class="form-control input-sm" placeholder="Local Part Description" data-ng-model="x.LocalPartDescription" /> 
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound"  ng-if="OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation.length==0">No Record Found...</div>
+</div>
+<!-- To show Customize Modal -->
+<div ng-if='OrganizationCtrl.ePage.Masters.EditTableColumns'>
+    <customize-table table-properties="OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation" enable="OrganizationCtrl.ePage.Masters.EditTableColumns" unique-id="OrganizationCustomTable{{OrganizationCtrl.ePage.Entities.Header.Data.PK}}" user-value='OrganizationCtrl.ePage.Masters.UserValue' entity-source='WMS_PRODUCTORGANIZATION'></customize-table>
+</div>
+ <!-- Call Directive If user has value -->
+ <div ng-if='OrganizationCtrl.ePage.Masters.UserHasValue' ng-init="OrganizationCtrl.ePage.Masters.UserHasValue">
+    <watch-table table-properties="OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation"  unique-id="OrganizationCustomTable{{OrganizationCtrl.ePage.Entities.Header.Data.PK}}"></watch-table>
 </div>

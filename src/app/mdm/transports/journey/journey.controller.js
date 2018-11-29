@@ -12,22 +12,24 @@
         var JourneyCtrl = this;
 
         function Init() {
-
+            
             JourneyCtrl.ePage = {
                 "Title": "",
                 "Prefix": "Journey",
                 "Masters": {},
                 "Meta": helperService.metaBase(),
-                "Entities": journeyConfig.Entities
+                "Entities": journeyConfig.Entities,
             };
 
-            JourneyCtrl.ePage.Masters.taskName = "Journey";
             JourneyCtrl.ePage.Masters.dataentryName = "Journey";
             JourneyCtrl.ePage.Masters.TabList = [];
             JourneyCtrl.ePage.Masters.activeTabIndex = 0;
             JourneyCtrl.ePage.Masters.isNewJourneyClicked = false;
             JourneyCtrl.ePage.Masters.IsTabClick = false;
             JourneyCtrl.ePage.Masters.Config = journeyConfig;
+
+            // Remove all Tabs while load shipment
+            journeyConfig.TabList = [];
 
             //functions
             JourneyCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
@@ -66,10 +68,21 @@
             JourneyCtrl.ePage.Masters.currentJourney = undefined;
 
             var _isExist = JourneyCtrl.ePage.Masters.TabList.some(function (value) {
+                // if (!isNew) {
+                //     return value.label === currentJourney.entity.Title;
+                // } else {
+                //     return false;
+                // }
                 if (!isNew) {
-                    return value.label === currentJourney.entity.Title;
+                    if (value.label === currentJourney.entity.Title)
+                        return true;
+                    else
+                        return false;
                 } else {
-                    return false;
+                    if (value.label === "New")
+                        return true;
+                    else
+                        return false;   
                 }
             });
 
@@ -129,7 +142,6 @@
                 }
             });
         }
-
         Init();
     }
 })();

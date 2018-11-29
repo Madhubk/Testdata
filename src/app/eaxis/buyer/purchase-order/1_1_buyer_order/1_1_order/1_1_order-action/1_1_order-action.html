@@ -1,0 +1,29 @@
+<ul class="shortcut-action-list">
+    <li class="dropup">
+        <div class="btn-group mt-6">
+            <a class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);"
+                aria-expanded="false">
+                More
+                <span class="fa fa-caret-up" title="Toggle dropdown menu"></span>
+            </a>
+            <ul class="dropdown-menu shortcut-action">
+                <li>
+                    <a href="javascript:void(0);" data-ng-click="one_one_OrderActionCtrl.ePage.Masters.Action.ActionMenuClick('copy');">
+                        <i class="fa fa-files-o"></i> Make Copy</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" data-ng-click="one_one_OrderActionCtrl.ePage.Masters.Action.ActionMenuClick('cancel');">
+                        <i class="fa fa-times"></i> Cancel Order</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" data-ng-click="one_one_OrderActionCtrl.ePage.Masters.Action.ActionMenuClick('active');">
+                        <i class="fa fa-toggle-on "></i> {{one_one_OrderActionCtrl.ePage.Masters.IsActive}}</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" data-ng-click="one_one_OrderActionCtrl.ePage.Masters.Action.ActionMenuClick('split');">
+                        <i class="fa fa-chain-broken"></i> Split Order</a>
+                </li>
+            </ul>
+        </div>
+    </li>
+</ul>

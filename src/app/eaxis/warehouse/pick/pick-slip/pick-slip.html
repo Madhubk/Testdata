@@ -1,214 +1,106 @@
-<div class="grid-loading-norecord-container" data-ng-show="PickSlipCtrl.ePage.Masters.IsLoading">
-    <div class="grid-loading">Loading...</div>
-</div>
-<div class="col-lg-12 margin-top-10" style="height:45%;">
-    <div class="">
-        <div class="wmstable_scroll" style="height:200px; padding-top: 2px;">
-            <div class="table" id="results">
-                <div class='theader'>
-                    <div class='table_header'>Client</div>
-                    <div class='table_header'>Product</div>
-                    <div class='table_header'>Commodity</div>
-                    <div class='table_header'>UQ</div>
-                    <div class='table_header'>Ordered Qty</div>
-                    <div class='table_header'>Shortfall Qty</div>
-                    <div class='table_header'>Sent Qty</div>
-                    <div class='table_header'>Allocated Qty</div>
-                    <div class='table_header'>Status</div>
-                    <div class='table_header'>Pallet Size</div>
-                    <div class='table_header'>Part Attribute1</div>
-                    <div class='table_header'>Part Attribute2</div>
-                    <div class='table_header'>Part Attribute3</div>
-                </div>
-
-                <!-- List Empty Response -->
-                <div data-ng-if="PickSlipCtrl.ePage.Entities.Header.Data.UIWmsOutwardLines.length==0">
-                    <div class="grid-no-record" style="bottom:38px">No records found...</div>
-                </div>
-                <div class="" ng-if="PickSlipCtrl.ePage.Masters.TempSelectedRow==0 && PickSlipCtrl.ePage.Entities.Header.Data.UIWmsOutwardLines.length!=0"
-                    data-ng-init="PickSlipCtrl.ePage.Masters.getProductDetails(PickSlipCtrl.ePage.Entities.Header.Data.UIWmsOutwardLines,0,undefined,PickSlipCtrl.ePage.Entities.Header.Data.UIWmsOutwardLines[0])"></div>
-                <div class='table_row' ng-repeat="x in PickSlipCtrl.ePage.Entities.Header.Data.UIWmsOutwardLines | orderBy:'CreatedDateTime'"
-                    data-ng-click="PickSlipCtrl.ePage.Masters.getProductDetails(PickSlipCtrl.ePage.Entities.Header.Data.UIWmsOutwardLines,$index,$event,x)"
-                    ng-class="{row_active: PickSlipCtrl.ePage.Masters.selectedRow==$index}" style="font-size: 11px;">
-                    <div class='table_small'>
-                        <div class='table_cell'>Client</div>
-                        <div class='table_cell'>{{x.ORG_ClientCode || PickSlipCtrl.ePage.Masters.emptyText}}</div>
-                    </div>
-                    <div class='table_small'>
-                        <div class='table_cell'>Product</div>
-                        <div class='table_cell'>{{x.ProductCode || PickSlipCtrl.ePage.Masters.emptyText}}-{{x.ProductDescription || PickSlipCtrl.ePage.Masters.emptyText}}</div>
-                    </div>
-                    <div class='table_small'>
-                        <div class='table_cell'>Commodity</div>
-                        <div class='table_cell'>{{x.MCC_NKCommodityCode}} - {{x.MCC_NKCommodityDesc}}</div>
-                    </div>
-                    <div class='table_small'>
-                        <div class='table_cell'>UQ</div>
-                        <div class='table_cell'>{{x.StockKeepingUnit || PickSlipCtrl.ePage.Masters.emptyText}}</div>
-                    </div>
-                    <div class='table_small'>
-                        <div class='table_cell'>Ordered Qty</div>
-                        <div class='table_cell'>{{x.Units || PickSlipCtrl.ePage.Masters.emptyText}}</div>
-                    </div>
-                    <div class='table_small'>
-                        <div class='table_cell'>Shortfall Qty</div>
-                        <div class='table_cell'>{{x.ShortQty || PickSlipCtrl.ePage.Masters.emptyText}}</div>
-                    </div>
-                    <div class='table_small'>
-                        <div class='table_cell'>Sent Qty</div>
-                        <div class='table_cell'>{{x.SentQty || PickSlipCtrl.ePage.Masters.emptyText}}</div>
-                    </div>
-                    <div class='table_small'>
-                        <div class='table_cell'>Allocated Qty</div>
-                        <div class='table_cell'>{{x.PickedQty || PickSlipCtrl.ePage.Masters.emptyText}}</div>
-                    </div>
-                    <div class='table_small'>
-                        <div class='table_cell'>Status</div>
-                        <div class='table_cell'>{{x.WorkOrderLineStatusDesc || PickSlipCtrl.ePage.Masters.emptyText}}</div>
-                    </div>
-                    <div class='table_small'>
-                        <div class='table_cell'>Pallet Size</div>
-                        <div class='table_cell'>{{x.PalletSize || PickSlipCtrl.ePage.Masters.emptyText}}</div>
-                    </div>
-                    <div class='table_small'>
-                        <div class='table_cell'>Part Attribute1</div>
-                        <div class='table_cell'>{{x.PartAttrib1 || PickSlipCtrl.ePage.Masters.emptyText}}</div>
-                    </div>
-                    <div class='table_small'>
-                        <div class='table_cell'>Part Attribute2</div>
-                        <div class='table_cell'>{{x.PartAttrib2 || PickSlipCtrl.ePage.Masters.emptyText}}</div>
-                    </div>
-                    <div class='table_small'>
-                        <div class='table_cell'>Part Attribute3</div>
-                        <div class='table_cell'>{{x.PartAttrib3 || PickSlipCtrl.ePage.Masters.emptyText}}</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="clearfix col-lg-12">
-    <label class="inventory-label">Available Inventory</label>
-    <button class="btn btn-blue attach" ng-disabled="PickSlipCtrl.ePage.Masters.IsDisableAllocateStock || PickSlipCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatus=='PIF'"
-        data-ng-click="PickSlipCtrl.ePage.Masters.ToAllocateStock()" ng-bind="PickSlipCtrl.ePage.Masters.AllocateStockText"> </button>
-</div>
 <div class="clearfix">
-    <div class="col-lg-12 margin-top-10" style="height:45%;">
-        <div class="">
-            <div class="wmstable_scroll" style="height:200px; padding-top: 2px;">
-                <div class="table" id="results">
-                    <div class='theader'>
-                        <div class='table_header'>Is Allocate</div>
-                        <div class='table_header'>Product</div>
-                        <div class='table_header'>Location</div>
-                        <div class='table_header'>Allocated Qty</div>
-                        <div class='table_header'>Available To Pick</div>
-                        <div class='table_header'>Total Qty</div>
-                        <div class='table_header'>Committed Qty</div>
-                        <div class='table_header'>Reserved Qty</div>
-                        <div class='table_header'>In Transit Qty</div>
-                        <div class='table_header'>Inv.Status</div>
-                        <div class='table_header'>Loc.Status</div>
-                        <div class='table_header'>Area</div>
-                        <div class='table_header'>Area Type</div>
-                        <div class='table_header'>Arrival Date</div>
-                        <div class='table_header'>Pallet ID</div>
-                        <div class='table_header'>Part Attribute1</div>
-                        <div class='table_header'>Part Attribute2</div>
-                        <div class='table_header'>Part Attribute3</div>
-                    </div>
-
-                    <!-- List Empty Response -->
-                    <div data-ng-if="PickSlipCtrl.ePage.Masters.PickInventoryList.length==0">
-                        <div class="grid-no-record" style="bottom:38px">No records found...</div>
-                    </div>
-                    <div class='table_row' ng-repeat="x in PickSlipCtrl.ePage.Masters.PickInventoryList | filter:{IsDeleted:'false'}  track by $index"
-                        style="font-size: 11px;">
-                        <div class='table_small'>
-                            <div class='table_cell'>Is Allocate</div>
-                            <div class='table_cell pt-0 pb-0'>
-                                <label class="mb-0">
-                                <input type="checkbox" ng-disabled="PickSlipCtrl.ePage.Entities.Header.CheckPoints.DisableAllocate" ng-change ="PickSlipCtrl.ePage.Masters.ToAllocateQty(x,$index)"
-                                    ng-checked="x.IsAllocate"  ng-model="x.IsAllocate">
-                                <span class="text" style="padding-left: 22px;"></span>
-                            </label>
-                            </div>
-                        </div>
-                        <div class='table_small'>
-                            <div class='table_cell'>Product</div>
-                            <div class='table_cell'>{{x.ProductCode || PickSlipCtrl.ePage.Masters.emptyText}}-{{x.ProductName || PickSlipCtrl.ePage.Masters.emptyText}}</div>
-                        </div>
-                        <div class='table_small'>
-                            <div class='table_cell'>Location</div>
-                            <div class='table_cell'>{{x.Location || PickSlipCtrl.ePage.Masters.emptyText}}</div>
-                        </div>
-                        <div class='table_small'>
-                            <div class='table_cell'>Allocated Qty</div>
-                            <div class='table_cell'>
-                                <input type="text" numbers-only ng-disabled="PickSlipCtrl.ePage.Entities.Header.CheckPoints.DisableAllocate" class="form-control height-20 ng-pristine ng-valid ng-not-empty ng-touched"
-                                    placeholder="Allocated Qty" data-ng-model="x.AllocatedQty" ng-blur="PickSlipCtrl.ePage.Masters.ToAllocateQtyCheckbox(x,$index)">
-                            </div>
-                        </div>
-                        <div class='table_small'>
-                            <div class='table_cell'>Available To Pick</div>
-                            <div class='table_cell'>{{x.AvailableToPick || PickSlipCtrl.ePage.Masters.emptyText}}</div>
-                        </div>
-                        <div class='table_small'>
-                            <div class='table_cell'>Total Qty</div>
-                            <div class='table_cell'>{{x.TotalUnits || PickSlipCtrl.ePage.Masters.emptyText}}</div>
-                        </div>
-                        <div class='table_small'>
-                            <div class='table_cell'>Committed Qty</div>
-                            <div class='table_cell'>{{x.CommitedUnit || PickSlipCtrl.ePage.Masters.emptyText}}</div>
-                        </div>
-                        <div class='table_small'>
-                            <div class='table_cell'>Reserved Qty</div>
-                            <div class='table_cell'>{{x.ReservedUnit || PickSlipCtrl.ePage.Masters.emptyText}}</div>
-                        </div>
-                        <div class='table_small'>
-                            <div class='table_cell'>In Transit Qty</div>
-                            <div class='table_cell'>{{x.InTransitUnit || PickSlipCtrl.ePage.Masters.emptyText}}</div>
-                        </div>
-                        <div class='table_small'>
-                            <div class='table_cell'>Inv.Status</div>
-                            <div class='table_cell'>{{x.OriginalInventoryStatus || PickSlipCtrl.ePage.Masters.emptyText}}</div>
-                        </div>
-                        <div class='table_small'>
-                            <div class='table_cell'>Loc.Status</div>
-                            <div class='table_cell'>{{x.LocationStatus || PickSlipCtrl.ePage.Masters.emptyText}}</div>
-                        </div>
-                        <div class='table_small'>
-                            <div class='table_cell'>Area</div>
-                            <div class='table_cell'>{{x.AreaName || PickSlipCtrl.ePage.Masters.emptyText}}</div>
-                        </div>
-                        <div class='table_small'>
-                            <div class='table_cell'>Area Type</div>
-                            <div class='table_cell'>{{x.AreaType || PickSlipCtrl.ePage.Masters.emptyText}}</div>
-                        </div>
-                        <div class='table_small'>
-                            <div class='table_cell'>Arrival Date</div>
-                            <div class='table_cell'>{{x.AdjustmentArrivalDate || PickSlipCtrl.ePage.Masters.emptyText | dateFormat}}</div>
-                        </div>
-                        <div class='table_small'>
-                            <div class='table_cell'>Pallet ID</div>
-                            <div class='table_cell'>{{x.PalletID || PickSlipCtrl.ePage.Masters.emptyText}}</div>
-                        </div>
-                        <div class='table_small'>
-                            <div class='table_cell'>Part Attribute1</div>
-                            <div class='table_cell'>{{x.PartAttrib1 || PickSlipCtrl.ePage.Masters.emptyText}}</div>
-                        </div>
-                        <div class='table_small'>
-                            <div class='table_cell'>Part Attribute2</div>
-                            <div class='table_cell'>{{x.PartAttrib2 || PickSlipCtrl.ePage.Masters.emptyText}}</div>
-                        </div>
-                        <div class='table_small'>
-                            <div class='table_cell'>Part Attribute3</div>
-                            <div class='table_cell'>{{x.PartAttrib3 || PickSlipCtrl.ePage.Masters.emptyText}}</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding">
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 p-0">
+            <span><button type="button" style="font-size:11px" class="btn btn-sm btn-outline-primary font-10"  title="Customize"  data-ng-click="PickSlipCtrl.ePage.Masters.EditTableColumnsForPickLineSummary = true"><span class="fa fa-filter"></span>&nbsp;&nbsp;Customize</button></span>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="input-group">
+                <div class="input-group-addon font-10"><i class="fa fa-search font-10"></i></div>
+                <input type="text" class="form-control height-25 font-10" placeholder="Search" ng-model="PickSlipCtrl.ePage.Masters.SearchTableForPickLineSummary">
+            </div>      
         </div>
     </div>
-    <div ng-if="PickSlipCtrl.ePage.Entities.Header.CheckPoints.CallInventoryFunction" data-ng-init="PickSlipCtrl.ePage.Masters.getProductDetails(PickSlipCtrl.ePage.Entities.Header.Data.UIWmsOutwardLines,0,undefined,PickSlipCtrl.ePage.Entities.Header.Data.UIWmsOutwardLines[0])"></div>
+    <div id="PickSlipTable{{PickSlipCtrl.currentPick.label}}" class="fixedheader" key-events table-object='PickSlipCtrl.ePage.Entities.Header.Data.UIWmsPickLineSummary' enable='PickSlipCtrl.ePage.Masters.EnableForPickLineSummary' selected-row='PickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary' unique-id='PickSlipTable{{PickSlipCtrl.currentPick.label}}'>
+        <table  style="height: 300px">
+            <thead>
+                <tr id="tableHeader">
+                    <th id="ssno" data-ng-if="PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.ssno.isenabled" ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.ssno.width + 'px' }" title="S.No">S.No</th>
+                    <th id="sclient" data-ng-if="PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sclient.isenabled" ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sclient.width + 'px' }" title="Client">Client</th>
+                    <th id="sproductcode"data-ng-if="PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sproductcode.isenabled" ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sproductcode.width + 'px' }" title="Product Code">Product Code</th>
+                    <th id="sproductdescription"data-ng-if="PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sproductdescription.isenabled" ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sproductdescription.width + 'px' }" title="Product Description">Product Description</th>
+                    <th id="spacks" data-ng-if="PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spacks.isenabled" ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spacks.width + 'px' }" title="Packs">Packs</th>
+                    <th id="spacktype" data-ng-if="PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spacktype.isenabled" ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spacktype.width + 'px' }" title="Pack Type">Pack Type</th>
+                    <th id="squantity"data-ng-if="PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.squantity.isenabled" ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.squantity.width + 'px' }" title="Quantity">Qty</th>
+                    <th id="squantityuq" data-ng-if="PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.squantityuq.isenabled" ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.squantityuq.width + 'px' }" title="Quanity UQ">Qty UQ</th>
+                    <th id="sproductcondition" data-ng-if="PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sproductcondition.isenabled" ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sproductcondition.width + 'px' }" title="Product Condition">Product Condition</th>
+                    <th id="slocation" data-ng-if="PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.slocation.isenabled" ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.slocation.width + 'px' }" title="Location">Location</th>
+                    <th id="sudf1" data-ng-if="PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sudf1.isenabled" ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sudf1.width + 'px' }" title="User Defined Field 1">UDF 1</th>
+                    <th id="sudf2" data-ng-if="PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sudf2.isenabled" ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sudf2.width + 'px' }" title="User Defined Field 2">UDF 2</th>
+                    <th id="sudf3" data-ng-if="PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sudf3.isenabled" ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sudf3.width + 'px' }" title="User Defined Field 3">UDF 3</th>
+                    <th id="spackingdate" data-ng-if="PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spackingdate.isenabled" ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spackingdate.width + 'px' }" title="Packing Date">Packing Date</th>
+                    <th id="sexpirydate" data-ng-if="PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sexpirydate.isenabled" ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sexpirydate.width + 'px' }" title="Expiry Date">Expiry Date</th>
+                    <th id="spickedqty" data-ng-if="PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spickedqty.isenabled" ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spickedqty.width + 'px' }" title="Picked Quantity">Picked Qty</th>
+                    <th id="spickeddatetime" data-ng-if="PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spickeddatetime.isenabled" ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spickeddatetime.width + 'px' }" title="Picked Date Time">Picked Date Time</th>
+                </tr>
+            </thead>
+            <tbody id="PickSlipCust{{PickSlipCtrl.currentPick.label}}">
+                <tr id="tableBody" ng-repeat="x in PickSlipCtrl.ePage.Entities.Header.Data.UIWmsPickLineSummary  | filter:PickSlipCtrl.ePage.Masters.SearchTableForPickLineSummary"  ng-click="PickSlipCtrl.ePage.Masters.setSelectedRowForPickLineSummary($index);" ng-class="{row_active: (PickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary==$index),copy_row_active :(x.IsCopied==true)}" 
+                    watch-table table-properties="PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary"  unique-id="PickSlipCust{{PickSlipCtrl.currentPick.label}}" row-position="$index">
+                    <td id="ssno"   data-ng-show='PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.ssno.isenabled' ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.ssno.width + 'px' }" >{{$index+1}}</td>
+                    <td id="sclient"   data-ng-show='PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sclient.isenabled' ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sclient.width + 'px' }" class="overflow-text">{{x.ClientCode}} - {{x.ClientName}}</td>
+                    <td id="sproductcode"   data-ng-show='PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sproductcode.isenabled' ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sproductcode.width + 'px' }" class="overflow-text">{{x.ProductCode}}</td>
+                    <td id="sproductdescription"   data-ng-show='PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sproductdescription.isenabled' ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sproductdescription.width + 'px' }" class="overflow-text">{{x.ProductDescription}}</td>
+                    <td id="spacks"   data-ng-show='PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spacks.isenabled' ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spacks.width + 'px' }" class="overflow-text">{{x.Packs || PickSlipCtrl.ePage.Masters.emptyText}}</td>
+                    <td id="spacktype"   data-ng-show='PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spacktype.isenabled' ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spacktype.width + 'px' }" class="overflow-text">{{x.PAC_PackType || PickSlipCtrl.ePage.Masters.emptyText}}</td>
+                    <td id="squantity"   data-ng-show='PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.squantity.isenabled' ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.squantity.width + 'px' }" class="overflow-text">{{x.Units || PickSlipCtrl.ePage.Masters.emptyText}}</td>
+                    <td id="squantityuq"   data-ng-show='PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.squantityuq.isenabled' ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.squantityuq.width + 'px' }" class="overflow-text">{{x.StockKeepingUnit || PickSlipCtrl.ePage.Masters.emptyText}}</td> 
+                    <td id="sproductcondition"   data-ng-show='PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sproductcondition.isenabled' ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sproductcondition.width + 'px' }" class="overflow-text">{{x.ProductCondition || PickSlipCtrl.ePage.Masters.emptyText}}</td> 
+                    <td id="slocation"   data-ng-show='PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.slocation.isenabled' ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.slocation.width + 'px' }" class="overflow-text" >{{x.Location || PickSlipCtrl.ePage.Masters.emptyText}}</td>
+                    <td id="sudf1"   data-ng-show='PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sudf1.isenabled' ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sudf1.width + 'px' }" class="overflow-text">{{x.PartAttrib1 || PickSlipCtrl.ePage.Masters.emptyText}}</td> 
+                    <td id="sudf2"   data-ng-show='PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sudf2.isenabled' ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sudf2.width + 'px' }" class="overflow-text">{{x.PartAttrib2 || PickSlipCtrl.ePage.Masters.emptyText}}</td>
+                    <td id="sudf3"   data-ng-show='PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sudf3.isenabled' ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sudf3.width + 'px' }" class="overflow-text">{{x.PartAttrib3 || PickSlipCtrl.ePage.Masters.emptyText}}</td>
+                    <td id="spackingdate"   data-ng-show='PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spackingdate.isenabled' ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spackingdate.width + 'px' }" class="overflow-text">{{x.PackingDate || PickSlipCtrl.ePage.Masters.emptyText | dateFormat}}</td>
+                    <td id="sexpirydate"   data-ng-show='PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sexpirydate.isenabled' ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sexpirydate.width + 'px' }" class="overflow-text">{{x.ExpiryDate || PickSlipCtrl.ePage.Masters.emptyText | dateFormat}}</td>
+                    <td id="spickedqty"   data-ng-show='PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spickedqty.isenabled' ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spickedqty.width + 'px' }" >
+                        <div data-ng-if="$index!=PickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary || PickSlipCtrl.ePage.Entities.Header.GlobalVariables.Finalized  || x.IsPicked=='True'" class="overflow-text">
+                            {{ x.PickedQty || PickSlipCtrl.ePage.Masters.emptyText | dateFormat}}
+                        </div>
+                        <div data-ng-if="$index==PickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary &&  !PickSlipCtrl.ePage.Entities.Header.GlobalVariables.Finalized &&  x.IsPicked!='True'">
+                            <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
+                                <input type="text" numbers-only-dot  class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Picked Qty" data-ng-model="x.PickedQty" ng-change="PickSlipCtrl.ePage.Masters.UpdatePickedDate(x)"
+                                    data-ng-disabled = "(x.IMPartAttrib1Type=='SER' && x.PartAttrib1 && !x.IsPartAttrib1ReleaseCaptured) || (x.IMPartAttrib2Type=='SER' && x.PartAttrib2 && !x.IsPartAttrib2ReleaseCaptured) || (x.IMPartAttrib3Type=='SER' && x.PartAttrib3 && !x.IsPartAttrib3ReleaseCaptured)">                                        
+                            </div>
+                        </div>
+                    </td> 
+                    <td id="spickeddatetime"   data-ng-show='PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spickeddatetime.isenabled' ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spickeddatetime.width + 'px' }" >
+                        <div data-ng-if="$index!=PickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary || PickSlipCtrl.ePage.Entities.Header.GlobalVariables.Finalized  || x.IsPicked=='True'" class="overflow-text">
+                            {{ x.PickedDateTime || PickSlipCtrl.ePage.Masters.emptyText | dateFormat}}
+                        </div>
+                        <div data-ng-if="$index==PickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary &&  !PickSlipCtrl.ePage.Entities.Header.GlobalVariables.Finalized &&  x.IsPicked!='True'">
+                            <div class="col-xs-10 col-sm-10 col-md-0 col-lg-10 col-xl-10 p-0">
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control height-22" placeholder="{{PickSlipCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datetime-picker="{{PickSlipCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                        ng-model="x.PickedDateTime" is-open="PickSlipCtrl.ePage.Masters.DatePicker.isOpen['isPickedDateTime']"
+                                        datepicker-options="PickSlipCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" when-closed=""
+                                        save-as="PickSlipCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click=""
+                                        data-ng-change="PickSlipCtrl.ePage.Masters.CheckFutureDate(x.PickedDateTime,$index);PickSlipCtrl.ePage.Masters.UpdatePickedQty(x)" custom-date-time-format/>
+                                    <span class="input-group-btn height-22">
+                                        <button type="button" class="btn btn-default" data-ng-click="PickSlipCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPickedDateTime')">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="PickSlipCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsPickLineSummary.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':1">
+                                <error-warning-directive  list="PickSlipCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsPickLineSummary.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                    row-index="PickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary" col-index="1">
+                                </error-warning-directive>
+                            </div>
+                        </div>
+                    </td>    
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound"  ng-if="PickSlipCtrl.ePage.Entities.Header.Data.UIWmsPickLineSummary.length==0">No Record Found...</div>
+</div>
+<!-- To show Customize Modal -->
+<div ng-if='PickSlipCtrl.ePage.Masters.EditTableColumnsForPickLineSummary'>
+    <customize-table table-properties="PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary" enable="PickSlipCtrl.ePage.Masters.EditTableColumnsForPickLineSummary" unique-id="PickSlipCust{{PickSlipCtrl.currentPick.label}}" user-value='PickSlipCtrl.ePage.Masters.UserValueForPickLineSummary' entity-source='WMS_PICKLINESUMMARY'></customize-table>
+</div>
+<!-- Call Directive If user has value -->
+<div ng-if='PickSlipCtrl.ePage.Masters.UserHasValueForPickLineSummary' ng-init="PickSlipCtrl.ePage.Masters.UserHasValueForPickLineSummary=false">
+    <watch-table table-properties="PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary"  unique-id="PickSlipCust{{PickSlipCtrl.currentPick.label}}"></watch-table>
 </div>

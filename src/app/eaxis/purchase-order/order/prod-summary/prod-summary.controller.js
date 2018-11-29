@@ -5,11 +5,12 @@
         .module("Application")
         .controller("prodSummaryController", prodSummaryController);
 
-    prodSummaryController.$inject = ["$scope", "appConfig", "helperService", "$uibModal"];
+    prodSummaryController.$inject = ["$scope", "helperService"];
 
-    function prodSummaryController($scope, appConfig, helperService, $uibModal) {
+    function prodSummaryController($scope, helperService) {
 
         var prodSummaryCtrl = this;
+
         function Init() {
             var currentOrder = prodSummaryCtrl.currentOrder[prodSummaryCtrl.currentOrder.label].ePage.Entities;
             prodSummaryCtrl.ePage = {

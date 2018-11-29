@@ -1,24 +1,30 @@
 <div class="clearfix tc-application-settings">
     <!-- Breadcrumb -->
     <div class="clearfix tc-breadcrumb" data-ng-if="AppSettingsCtrl.ePage.Masters.ActiveApplication == 'TC'">
-        <i class="fa fa-home home-icon"></i>
-        <div class="breadcrumb-list-wrapper">
-            <ol class="breadcrumb">
-                <li data-ng-repeat="x in AppSettingsCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
-                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="AppSettingsCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
-                </li>
-                <li data-ng-repeat="x in AppSettingsCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
-                    class="active"></li>
-            </ol>
+        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-xs-12 p-0">
+            <i class="fa fa-home home-icon"></i>
+            <div class="breadcrumb-list-wrapper">
+                <ol class="breadcrumb">
+                    <li data-ng-repeat="x in AppSettingsCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                        <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="AppSettingsCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                    </li>
+                    <li data-ng-repeat="x in AppSettingsCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive"
+                        data-ng-bind="x.Description" class="active"></li>
+                </ol>
+            </div>
         </div>
-        <span class="tc-breadcrumb-app-name" data-ng-if="AppSettingsCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="AppSettingsCtrl.ePage.Masters.QueryString.AppName"></span>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12 p-4">
+            <tc-application-dropdown query-string="AppSettingsCtrl.ePage.Masters.QueryString" on-application-change="AppSettingsCtrl.ePage.Masters.Application.OnApplicationChange($item)"></tc-application-dropdown>
+        </div>
     </div>
     <!-- Header -->
     <div class="clearfix">
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0">
             <div class="tc-header with-drop-down">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0 pl-12">
-                    <select chosen class="form-control" data-ng-model="AppSettingsCtrl.ePage.Masters.Module.ActiveModule.Key" data-ng-options="x.Key as x.Value for x in AppSettingsCtrl.ePage.Masters.Module.Listsource" data-ng-change="AppSettingsCtrl.ePage.Masters.Module.OnModuleChange((AppSettingsCtrl.ePage.Masters.Module.Listsource | filter :{Key : AppSettingsCtrl.ePage.Masters.Module.ActiveModule.Key})[0])"
+                    <select chosen class="form-control" data-ng-model="AppSettingsCtrl.ePage.Masters.Module.ActiveModule.Key"
+                        data-ng-options="x.Key as x.Value for x in AppSettingsCtrl.ePage.Masters.Module.Listsource"
+                        data-ng-change="AppSettingsCtrl.ePage.Masters.Module.OnModuleChange((AppSettingsCtrl.ePage.Masters.Module.Listsource | filter :{Key : AppSettingsCtrl.ePage.Masters.Module.ActiveModule.Key})[0])"
                         search-contains="true"></select>
                 </div>
             </div>
@@ -122,7 +128,8 @@
             <div class="tc-section-divider"></div>
             <div class="clearfix tc-list-container tc-list-container-inner-redirect" data-ng-if="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.PK">
                 <ul class="tc-list-ul">
-                    <li data-ng-click="AppSettingsCtrl.ePage.Masters.AppSettingsList.OnRedirectListClick(x)" data-ng-repeat="x in AppSettingsCtrl.ePage.Masters.AppSettingsList.RedirectPagetList">
+                    <li data-ng-click="AppSettingsCtrl.ePage.Masters.AppSettingsList.OnRedirectListClick(x)"
+                        data-ng-repeat="x in AppSettingsCtrl.ePage.Masters.AppSettingsList.RedirectPagetList">
                         <div class="clearfix tc-list">
                             <div class="tc-list-name">
                                 <i class="fa {{x.Icon}} mr-10" data-ng-style="{'color': x.Color}"></i>
@@ -160,13 +167,13 @@
                             <input type="text" class="form-control input-sm" placeholder="Code" data-ng-model="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.Key">
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" data-ng-if="AppSettingsCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code != 'EXCELCONFIG'">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Type Code</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
                             <input type="text" class="form-control input-sm" placeholder="Type Code" data-ng-model="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.TypeCode">
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" data-ng-if="AppSettingsCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code != 'EXCELCONFIG' && AppSettingsCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code != 'CONFIGURATION'">
                         <div class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">IsJSON</div>
                         <div class="checkbox">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
@@ -182,15 +189,19 @@
                     <div class="form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" data-ng-if="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.IsJSON">
                             JSON Editor
-                            <span data-ng-click="AppSettingsCtrl.ePage.Masters.AppSettingsList.OpenJsonModal()" data-ng-show="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.IsJSON"
-                                class="glyphicon glyphicon-pencil cursor-pointer ml-5" data-ng-if="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.IsJSON"></span>
+                            <span data-ng-click="AppSettingsCtrl.ePage.Masters.AppSettingsList.OpenJsonModal()" class="glyphicon glyphicon-pencil cursor-pointer ml-5"
+                                data-ng-if="AppSettingsCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code != 'EXCELCONFIG'"></span>
+                            <span data-ng-click="AppSettingsCtrl.ePage.Masters.AppSettingsList.OpenNotificationTemplateModal()" class="glyphicon glyphicon-pencil cursor-pointer ml-5"
+                                data-ng-if="AppSettingsCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code == 'EXCELCONFIG'"></span>
                         </label>
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" data-ng-if="!AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.IsJSON">
                             <span>Value</span>
                         </label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
                             <textarea rows="15" class="form-control input-sm no-resize" placeholder="Value" data-ng-model="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.Value"
-                                data-ng-show="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.IsJSON"></textarea>
+                                data-ng-if="AppSettingsCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code != 'EXCELCONFIG' && AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.IsJSON"></textarea>
+                            <pre class="json-display-disabled" data-ng-bind="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.Value"
+                                data-ng-if="AppSettingsCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code == 'EXCELCONFIG' && AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.IsJSON"></pre>
                             <input type="text" class="form-control input-sm" placeholder="value" data-ng-model="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.Value"
                                 data-ng-show="!AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.IsJSON">
                         </div>
@@ -218,5 +229,20 @@
             <button class="btn btn-default tc-btn-cancel btn-xs pull-right ml-10" data-ng-click="AppSettingsCtrl.ePage.Masters.AppSettingsList.Cancel()">Cancel</button>
         </div>
         <div class="tc-section-divider-small mb-20"></div>
+    </div>
+</script>
+
+
+<!-- Notification Template -->
+<script type="text/ng-template" id="TCEventEditNotification">
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-title">
+            <strong>Notification Template</strong>
+            <button class="btn btn-xs btn-primary pull-right ml-10" data-ng-click="AppSettingsCtrl.ePage.Masters.AppSettingsList.PrepareNotificationTemplate()">OK</button>
+            <button class="btn btn-xs btn-default pull-right ml-10" data-ng-click="AppSettingsCtrl.ePage.Masters.AppSettingsList.CloseNotificationTemplateModal()">Close</button>
+        </h5>
+    </div>
+    <div class="modal-body p-10" id="modal-body">
+        <notification-template-formatter input="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.NotificationObject"></notification-template-formatter>
     </div>
 </script>

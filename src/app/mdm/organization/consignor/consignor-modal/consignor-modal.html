@@ -1,7 +1,8 @@
 <div class="modal-header">
     <h5 class="modal-title pull-left">Mode details</h5>
     <button type="button" class="btn btn-secondary btn-xs pull-right margin-left-5" ng-click="ConsignorModePopUpModalCtrl.ePage.Masters.Cancel()">Close</button>
-    <button type="button" class="btn btn-primary btn-xs pull-right margin-left-5" ng-click="ConsignorModePopUpModalCtrl.ePage.Masters.Ok()" data-ng-bind="ConsignorModePopUpModalCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="ConsignorModePopUpModalCtrl.ePage.Masters.SaveButtonDisable"></button>
+    <button type="button" class="btn btn-primary btn-xs pull-right margin-left-5" ng-click="ConsignorModePopUpModalCtrl.ePage.Masters.Ok()"
+        data-ng-bind="ConsignorModePopUpModalCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="ConsignorModePopUpModalCtrl.ePage.Masters.SaveButtonDisable"></button>
 </div>
 <div class="modal-body ">
     <div class="horizontal-space"></div>
@@ -11,7 +12,9 @@
             <div class="form-group">
                 <label class="control-label">Transport Mode</label>
                 <div class="">
-                    <select chosen name="category-group" class="form-control" ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.TransportMode" ng-options="x.Key as x.Key + '-' + x.Value for x in ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.TRANSTYPE.ListSource" search-contains="true">
+                    <select chosen name="category-group" class="form-control" ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.TransportMode"
+                        ng-options="x.Key as x.Key + '-' + x.Value for x in ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.TRANSTYPE.ListSource"
+                        search-contains="true">
                         <option value="">--Select--</option>
                     </select>
                 </div>
@@ -21,7 +24,9 @@
             <div class="form-group">
                 <label class="control-label">Container Mode</label>
                 <div class="">
-                    <select chosen name="category-group" class="form-control" ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ContainerMode"  ng-options="x.Key as x.Key + '-' + x.Value for x in ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.CNTTYPE.ListSource" search-contains="true">
+                    <select chosen name="category-group" class="form-control" ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ContainerMode"
+                        ng-options="x.Key as x.Key + '-' + x.Value for x in ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.CNTTYPE.ListSource"
+                        search-contains="true">
                         <option value="">--Select--</option>
                     </select>
                 </div>
@@ -38,7 +43,9 @@
                             <div class="form-group">
                                 <label class="control-label">INCO Term</label>
                                 <div class="">
-                                    <select chosen name="category-group" class="form-control" ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.IncoTerm" ng-options="x.Key as x.Key + '-' + x.Value for x in ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.INCOTERM.ListSource" search-contains="true">
+                                    <select chosen name="category-group" class="form-control" ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.IncoTerm"
+                                        ng-options="x.Key as x.Key + '-' + x.Value for x in ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.INCOTERM.ListSource"
+                                        search-contains="true">
                                         <option value="">--Select--</option>
                                     </select>
                                 </div>
@@ -63,9 +70,15 @@
                                 <label class="control-label text-single-line">Origin Port</label>
                                 <div class="input-group input-group-sm">
                                     <input type="hidden" ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.LoadPortPK">
-                                    <div dynamic-lookup my-ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.LoadPort" obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView" auto-complete-on-select="ConsignorModePopUpModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)" prefix-data="'MstUNLOCO'" config="'LoadPort'"></div>
+                                    <div dynamic-lookup my-ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.LoadPort"
+                                        obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView"
+                                        auto-complete-on-select="ConsignorModePopUpModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)"
+                                        prefix-data="'MstUNLOCO'" config="'LoadPort'"></div>
                                     <span class="input-group-btn">
-                                        <button dynamic-list-modal obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView" field-name="'LoadPort'" prefix-data="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConsignorModePopUpModalCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                        <button dynamic-list-modal obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView"
+                                            field-name="'LoadPort'" prefix-data="'MstUNLOCO'" mode="2"
+                                            grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConsignorModePopUpModalCtrl.ePage.Masters.SelectedData($item)"
+                                            class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
                                     </span>
                                 </div>
 
@@ -76,9 +89,15 @@
                                 <label class="control-label text-single-line">Destination Port</label>
                                 <div class="input-group input-group-sm">
                                     <input type="hidden" ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.DestinationPortPK">
-                                    <div dynamic-lookup my-ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.DestinationPort" obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView" auto-complete-on-select="ConsignorModePopUpModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)" prefix-data="'MstUNLOCO'" config="'DestinationPort'"></div>
+                                    <div dynamic-lookup my-ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.DestinationPort"
+                                        obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView"
+                                        auto-complete-on-select="ConsignorModePopUpModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)"
+                                        prefix-data="'MstUNLOCO'" config="'DestinationPort'"></div>
                                     <span class="input-group-btn">
-                                        <button dynamic-list-modal obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView" field-name="'DestinationPort'" prefix-data="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConsignorModePopUpModalCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                        <button dynamic-list-modal obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView"
+                                            field-name="'DestinationPort'" prefix-data="'MstUNLOCO'" mode="2"
+                                            grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConsignorModePopUpModalCtrl.ePage.Masters.SelectedData($item)"
+                                            class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
                                     </span>
                                 </div>
 
@@ -86,26 +105,38 @@
                         </div>
                     </div>
                     <div class="row">
-                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
                             <div class="form-group">
                                 <label class="control-label text-single-line">Carrier</label>
                                 <input type="hidden" ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ORG_CarrierLinePK">
                                 <div class="input-group input-group-sm">
-                                    <div dynamic-lookup my-ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ORG_CarrierLineCode" obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView" auto-complete-on-select="ConsignorModePopUpModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)" prefix-data="'MDM_CarrierList'" config="'OrgCarrierCode'" ></div>
+                                    <div dynamic-lookup my-ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ORG_CarrierLineCode"
+                                        obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView"
+                                        auto-complete-on-select="ConsignorModePopUpModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)"
+                                        prefix-data="'OrgCarrierList'" config="'OrgCarrierCode'"></div>
                                     <span class="input-group-btn">
-                                        <button dynamic-list-modal obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView" field-name="'OrgCarrierCode'" prefix-data="'MDM_CarrierList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConsignorModePopUpModalCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                        <button dynamic-list-modal obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView"
+                                            field-name="'OrgCarrierCode'" prefix-data="'OrgCarrierList'" mode="2"
+                                            grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConsignorModePopUpModalCtrl.ePage.Masters.SelectedData($item)"
+                                            class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
                                     </span>
                                 </div>
                             </div>
                         </div>
-                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
                             <div class="form-group">
                                 <input type="hidden" ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ORG_SendingAgentPK">
                                 <label class="control-label text-single-line">Sending Agent</label>
                                 <div class="input-group input-group-sm">
-                                    <div dynamic-lookup my-ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ORG_SendingAgentCode" obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView" auto-complete-on-select="ConsignorModePopUpModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)" prefix-data="'OrganizationList'" config="'OrgSendingAgent'"></div>
+                                    <div dynamic-lookup my-ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ORG_SendingAgentCode"
+                                        obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView"
+                                        auto-complete-on-select="ConsignorModePopUpModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)"
+                                        prefix-data="'OrganizationList'" config="'OrgSendingAgent'"></div>
                                     <span class="input-group-btn">
-                                        <button dynamic-list-modal obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView" field-name="'OrgSendingAgent'" prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConsignorModePopUpModalCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                        <button dynamic-list-modal obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView"
+                                            field-name="'OrgSendingAgent'" prefix-data="'OrganizationList'" mode="2"
+                                            grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConsignorModePopUpModalCtrl.ePage.Masters.SelectedData($item)"
+                                            class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
                                     </span>
                                 </div>
                             </div>
@@ -115,9 +146,15 @@
                                 <input type="hidden" ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ORG_ReceivingAgentPK" />
                                 <label class="control-label text-single-line">Receiving Agent</label>
                                 <div class="input-group input-group-sm">
-                                    <div dynamic-lookup my-ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ORG_ReceivingAgentCode" obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView" auto-complete-on-select="ConsignorModePopUpModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)" prefix-data="'OrganizationList'" config="'OrgReceivingAgent'"></div>
+                                    <div dynamic-lookup my-ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ORG_ReceivingAgentCode"
+                                        obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView"
+                                        auto-complete-on-select="ConsignorModePopUpModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)"
+                                        prefix-data="'OrganizationList'" config="'OrgReceivingAgent'"></div>
                                     <span class="input-group-btn">
-                                        <button dynamic-list-modal obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView" field-name="'OrgReceivingAgent'" prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConsignorModePopUpModalCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                        <button dynamic-list-modal obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView"
+                                            field-name="'OrgReceivingAgent'" prefix-data="'OrganizationList'" mode="2"
+                                            grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConsignorModePopUpModalCtrl.ePage.Masters.SelectedData($item)"
+                                            class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
                                     </span>
                                 </div>
                             </div>
@@ -126,8 +163,14 @@
                             <div class="form-group"><label class="control-label">Ctrl Customer</label>
                                 <div class="input-group input-group-sm">
                                     <input type="hidden" ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ORG_ControllingCustomerFK">
-                                    <div dynamic-lookup my-ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ORG_ControllingCustomerCode" obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView" prefix-data="'OrganizationList'" config="'OrgCtrlCustomer'" auto-complete-on-select="ConsignorModePopUpModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)"></div>
-                                    <span class="input-group-btn"> <button dynamic-list-modal obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView" field-name="'OrgCtrlCustomer'" prefix-data="'OrganizationList'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConsignorModePopUpModalCtrl.ePage.Masters.SelectedData($item,'OAD_SendingForwarderAddressFK')" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i> </button></span>
+                                    <div dynamic-lookup my-ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ORG_ControllingCustomerCode"
+                                        obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView" prefix-data="'OrganizationList'"
+                                        config="'OrgCtrlCustomer'" auto-complete-on-select="ConsignorModePopUpModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)"></div>
+                                    <span class="input-group-btn"> <button dynamic-list-modal obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView"
+                                            field-name="'OrgCtrlCustomer'" prefix-data="'OrganizationList'" mode="2"
+                                            grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConsignorModePopUpModalCtrl.ePage.Masters.SelectedData($item,'OAD_SendingForwarderAddressFK')"
+                                            class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i>
+                                        </button></span>
                                 </div>
                             </div>
                         </div>
@@ -137,8 +180,14 @@
                             <div class="form-group"><label class="control-label">Import Customs Broker</label>
                                 <div class="input-group input-group-sm">
                                     <input type="hidden" ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ORG_ImportCustomsAgentPK">
-                                    <div dynamic-lookup my-ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ORG_ImportCustomsAgentCode" obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView" prefix-data="'OrganizationList'" config="'OrgImpCustomsBroker'" auto-complete-on-select="ConsignorModePopUpModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)"></div>
-                                    <span class="input-group-btn"> <button dynamic-list-modal obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView" field-name="'OrgImpCustomsBroker'" prefix-data="'OrganizationList'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConsignorModePopUpModalCtrl.ePage.Masters.SelectedData($item,'OAD_SendingForwarderAddressFK')" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i> </button></span>
+                                    <div dynamic-lookup my-ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ORG_ImportCustomsAgentCode"
+                                        obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView" prefix-data="'OrganizationList'"
+                                        config="'OrgImpCustomsBroker'" auto-complete-on-select="ConsignorModePopUpModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)"></div>
+                                    <span class="input-group-btn"> <button dynamic-list-modal obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView"
+                                            field-name="'OrgImpCustomsBroker'" prefix-data="'OrganizationList'" mode="2"
+                                            grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConsignorModePopUpModalCtrl.ePage.Masters.SelectedData($item,'OAD_SendingForwarderAddressFK')"
+                                            class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i>
+                                        </button></span>
                                 </div>
                             </div>
                         </div>
@@ -146,8 +195,16 @@
                             <div class="form-group"><label class="control-label">Pickup Port Transport Contractor</label>
                                 <div class="input-group input-group-sm">
                                     <input type="hidden" ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ORG_PickupCartageContractorPK">
-                                    <div dynamic-lookup my-ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ORG_PickupCartageContractorCode" obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView" prefix-data="'OrganizationList'" config="'OrgPickupPortTranCtr'" auto-complete-on-select="ConsignorModePopUpModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)"></div>
-                                    <span class="input-group-btn"> <button dynamic-list-modal obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView" field-name="'OrgPickupPortTranCtr'" prefix-data="'OrganizationList'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConsignorModePopUpModalCtrl.ePage.Masters.SelectedData($item,'OAD_SendingForwarderAddressFK')" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i> </button></span>
+                                    <div dynamic-lookup my-ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ORG_PickupCartageContractorCode"
+                                        obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView" page-name="'OrganizationList'"
+                                        control-id="'OrgPickupPortTranCtr'" control-key="'OrgPickupPortTranCtr_3297'"
+                                        auto-complete-on-select="ConsignorModePopUpModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)"></div>
+                                    <span class="input-group-btn"> <button dynamic-list-modal obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView"
+                                            page-name="'OrganizationList'" control-id="'OrgPickupPortTranCtr'"
+                                            control-key="'OrgPickupPortTranCtr_3297'" mode="2" grid-refresh-fun-name=""
+                                            grid-refresh-fun="" selected-data="ConsignorModePopUpModalCtrl.ePage.Masters.SelectedData($item,'OAD_SendingForwarderAddressFK')"
+                                            class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i>
+                                        </button></span>
                                 </div>
                             </div>
                         </div>
@@ -155,7 +212,9 @@
                             <div class="form-group">
                                 <label class="control-label">Delivery Address</label>
                                 <div class="">
-                                    <select chosen name="category-group" class="form-control" ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.DeliveryAddress" ng-options="x.DOC_Code as x.DOC_Code + ' - ' + x.DOC_Desc for x in OrganizationConsigneeCtrl.ePage.Masters.DeliveryAddress.ListSource" search-contains="true">
+                                    <select chosen name="category-group" class="form-control" ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.DeliveryAddress"
+                                        ng-options="x.DOC_Code as x.DOC_Code + ' - ' + x.DOC_Desc for x in OrganizationConsigneeCtrl.ePage.Masters.DeliveryAddress.ListSource"
+                                        search-contains="true">
                                         <option value="">--Select--</option>
                                     </select>
                                 </div>
@@ -165,7 +224,9 @@
                             <div class="form-group">
                                 <label class="control-label">Delivery Contact</label>
                                 <div class="">
-                                    <select chosen name="category-group" class="form-control" ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.DeliveryContact" ng-options="x.DOC_Code as x.DOC_Code + ' - ' + x.DOC_Desc for x in OrganizationConsigneeCtrl.ePage.Masters.DeliveryContact.ListSource" search-contains="true">
+                                    <select chosen name="category-group" class="form-control" ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.DeliveryContact"
+                                        ng-options="x.DOC_Code as x.DOC_Code + ' - ' + x.DOC_Desc for x in OrganizationConsigneeCtrl.ePage.Masters.DeliveryContact.ListSource"
+                                        search-contains="true">
                                         <option value="">--Select--</option>
                                     </select>
                                 </div>
@@ -177,7 +238,9 @@
                             <div class="form-group">
                                 <label class="control-label">Pickup Address</label>
                                 <div class="">
-                                    <select chosen name="category-group" class="form-control" ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.PickupAddress" ng-options="x.DOC_Code as x.DOC_Code + ' - ' + x.DOC_Desc for x in OrganizationConsigneeCtrl.ePage.Masters.PickupAddress.ListSource" search-contains="true">
+                                    <select chosen name="category-group" class="form-control" ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.PickupAddress"
+                                        ng-options="x.DOC_Code as x.DOC_Code + ' - ' + x.DOC_Desc for x in OrganizationConsigneeCtrl.ePage.Masters.PickupAddress.ListSource"
+                                        search-contains="true">
                                         <option value="">--Select--</option>
                                     </select>
                                 </div>
@@ -187,7 +250,9 @@
                             <div class="form-group">
                                 <label class="control-label">Pickup Contact</label>
                                 <div class="">
-                                    <select chosen name="category-group" class="form-control" ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.PickupContt" ng-options="x.DOC_Code as x.DOC_Code + ' - ' + x.DOC_Desc for x in OrganizationConsigneeCtrl.ePage.Masters.PickupContact.ListSource" search-contains="true">
+                                    <select chosen name="category-group" class="form-control" ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.PickupContt"
+                                        ng-options="x.DOC_Code as x.DOC_Code + ' - ' + x.DOC_Desc for x in OrganizationConsigneeCtrl.ePage.Masters.PickupContact.ListSource"
+                                        search-contains="true">
                                         <option value="">--Select--</option>
                                     </select>
                                 </div>
@@ -197,41 +262,57 @@
                             <div class="form-group"><label class="control-label">Delivery P.Trm</label>
                                 <div class="input-group input-group-sm">
                                     <input type="hidden" ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.DeliveryTrm">
-                                    <div dynamic-lookup my-ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ORG_ServiceLevelCode" obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView"
-                                    prefix-data="'OrganizationList'" config="'ConGeneralORG_SendingForwarderCode'" auto-complete-on-select="ConsignorModePopUpModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)"></div>
-                                    <span class="input-group-btn"> <button dynamic-list-modal obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView" field-name="'ConGeneralORG_SendingForwarderCode'" prefix-data="'OrganizationList'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConsignorModePopUpModalCtrl.ePage.Masters.SelectedData($item,'OAD_SendingForwarderAddressFK')" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i> </button></span>
+                                    <div dynamic-lookup my-ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ORG_ServiceLevelCode"
+                                        obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView" prefix-data="'OrganizationList'"
+                                        config="'ConGeneralORG_SendingForwarderCode'" auto-complete-on-select="ConsignorModePopUpModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)"></div>
+                                    <span class="input-group-btn"> <button dynamic-list-modal obj="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView"
+                                            field-name="'ConGeneralORG_SendingForwarderCode'" prefix-data="'OrganizationList'"
+                                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConsignorModePopUpModalCtrl.ePage.Masters.SelectedData($item,'OAD_SendingForwarderAddressFK')"
+                                            class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i>
+                                        </button></span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
                             <div class="form-group"><label class="control-label"></label>
-                                <div class="checkbox"><label><input type="checkbox" class="colored-blue" data-ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.IsOverrideDeliveryDays" / ><span class="text">Override Delivery Days</span></label></div>
+                                <div class="checkbox"><label><input type="checkbox" class="colored-blue" data-ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.IsOverrideDeliveryDays"
+                                            /><span class="text">Override Delivery Days</span></label></div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                            <div class="form-group"><label class="control-label">Original Bills</label><input type="text" ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.NoOfOriginalBills" max-length="70" class="form-control input-sm" placeholder="0"></div>
+                            <div class="form-group"><label class="control-label">Original Bills</label><input type="text"
+                                    ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.NoOfOriginalBills"
+                                    max-length="70" class="form-control input-sm" placeholder="0"></div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                            <div class="form-group"><label class="control-label">Copy Bills</label><input type="text" ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.NoOfCopyBills" max-length="70" class="form-control input-sm" placeholder="0"></div>
+                            <div class="form-group"><label class="control-label">Copy Bills</label><input type="text"
+                                    ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.NoOfCopyBills"
+                                    max-length="70" class="form-control input-sm" placeholder="0"></div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                            <div class="form-group"><label class="control-label">Delivery Dates Est</label><input type="text" ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.EstDeliveryDays" max-length="70" class="form-control input-sm" placeholder="0"></div>
+                            <div class="form-group"><label class="control-label">Delivery Dates Est</label><input type="text"
+                                    ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.EstDeliveryDays"
+                                    max-length="70" class="form-control input-sm" placeholder="0"></div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                            <div class="form-group"><label class="control-label">Goods Description</label><span class="textarea"><textarea class="form-control" placeholder="Goods Description" ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.GoodsDescription"></textarea></span></div>
+                            <div class="form-group"><label class="control-label">Goods Description</label><span class="textarea"><textarea
+                                        class="form-control" placeholder="Goods Description" ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.GoodsDescription"></textarea></span></div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                            <div class="form-group"><label class="control-label">Handling Instructions</label><span class="textarea"><textarea class="form-control" placeholder="Handling Instructions" ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.HandlingInstructions"></textarea></span></div>
+                            <div class="form-group"><label class="control-label">Handling Instructions</label><span
+                                    class="textarea"><textarea class="form-control" placeholder="Handling Instructions"
+                                        ng-model="ConsignorModePopUpModalCtrl.ePage.Masters.ModeData.FormView.HandlingInstructions"></textarea></span></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>   
+    </div>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-secondary btn-xs pull-right margin-left-5" ng-click="ConsignorModePopUpModalCtrl.ePage.Masters.Cancel()">Close</button>
-    <button type="button" class="btn btn-primary btn-xs pull-right margin-left-5" ng-click="ConsignorModePopUpModalCtrl.ePage.Masters.Ok()" data-ng-bind="ConsignorModePopUpModalCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="ConsignorModePopUpModalCtrl.ePage.Masters.SaveButtonDisable"></button>
+    <button type="button" class="btn btn-primary btn-xs pull-right margin-left-5" ng-click="ConsignorModePopUpModalCtrl.ePage.Masters.Ok()"
+        data-ng-bind="ConsignorModePopUpModalCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="ConsignorModePopUpModalCtrl.ePage.Masters.SaveButtonDisable"></button>
 </div>

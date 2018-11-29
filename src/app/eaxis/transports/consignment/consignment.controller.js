@@ -21,9 +21,12 @@
                 "Entities": adminConsignmentConfig.Entities
             };
 
-            AdminConsignmentCtrl.ePage.Masters.taskName = "TransportsConsignment";
             AdminConsignmentCtrl.ePage.Masters.dataentryName = "Consignment";
             AdminConsignmentCtrl.ePage.Masters.TabList = [];
+
+            // Remove all Tabs while load shipment
+            adminConsignmentConfig.TabList = [];
+
             AdminConsignmentCtrl.ePage.Masters.activeTabIndex = 0;
             AdminConsignmentCtrl.ePage.Masters.isNewConsignmentClicked = false;
             AdminConsignmentCtrl.ePage.Masters.IsTabClick = false;

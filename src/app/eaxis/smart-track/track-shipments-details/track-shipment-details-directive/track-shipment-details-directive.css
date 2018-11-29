@@ -1,0 +1,21 @@
+.my-task-list-view ul{
+  width: 100%;
+  float: left;
+  padding: 0;
+  margin: 0;
+}
+
+.my-task-list-view li{
+  list-style: none;
+  float: left;
+  width: 100%;
+  background: #f5f5f5;
+}
+
+.related-action-label, .track-shipments-label{
+  color: #999;
+}
+
+.line-height-1{
+  line-height: 1;
+}

@@ -1,7 +1,6 @@
-
 <div class="clearfix margin-top-10">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-        <div id='' class="wmstable_scroll" style="height:300px; padding-top: 2px;">
+        <div class="common_table_scroll common_table_hgt pt-2" data-ng-if="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'SEA'|| OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'FSA' || OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'ROA' || OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'RAI' || OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'UNK'">
             <div class="table tab-position" id="results">
                 <div class='theader'>
                     <div class='table_header'>Container #</div>
@@ -10,12 +9,9 @@
                     <div class='table_header'>Seal #</div>
                     <div class='table_header'>Action</div>
                 </div>
-                <!-- List Empty Response -->
-                <div >
-                    <div class="grid-no-record113" style="top:110px;" data-ng-if="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderContainer.length==0">No records found...</div>
-                </div>
-
-                <div class='table_row' data-ng-repeat="x in OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderContainer" style="font-size: 11px;">
+                <!-- table row start  -->
+                <div class='table_row' data-ng-repeat="x in OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderContainer"
+                    style="font-size: 11px;">
                     <div class='table_small'>
                         <div class='table_cell'>Container #</div>
                         <div class='table_cell'>
@@ -36,36 +32,37 @@
                     </div>
                     <div class='table_small'>
                         <div class='table_cell'>Action</div>
-                        <div class='table_cell'><i class="fa fa-edit order-icon" data-ng-click="OrdGeneralCtrl.ePage.Masters.SelectedGridRow(x,'edit')"></i> | <i class="fa fa-trash order-icon" data-ng-click="OrdGeneralCtrl.ePage.Masters.SelectedGridRow(x,'delete',$index)"></i></div>
+                        <div class='table_cell'>
+                            <i class="fa fa-edit order-icon" data-ng-click="OrdGeneralCtrl.ePage.Masters.SelectedGridRow(x,'edit')"></i>
+                            |
+                            <i class="fa fa-trash order-icon" data-ng-click="OrdGeneralCtrl.ePage.Masters.SelectedGridRow(x,'delete',$index)"></i>
+                        </div>
                     </div>
                 </div>
             </div>
+            <!-- List Empty Response -->
+            <div class="grid-no-record-common_table sw-grid" data-ng-if="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderContainer.length==0">No
+                records found...</div>
         </div>
     </div>
-    <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                <div class="text-center grid-view-loader" data-ng-if="!OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderContainer"><i class="fa fa-spin fa-spinner font-160"></i></div>
-                <dynamic-table data-ng-if="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderContainer" grid-data="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderContainer"
-                               grid-config="OrdGeneralCtrl.ePage.Entities.Container.gridConfig" selected-grid-row="OrdGeneralCtrl.ePage.Masters.SelectedGridRow($item)"></dynamic-table>
-            </div>
-        </div>
-    </div> -->
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4  padding-top-10 container-alignment">
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4  padding-top-10 container-alignment" data-ng-if="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'SEA'|| OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'FSA' || OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'ROA' || OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'RAI' || OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'UNK'">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
                 <div class="form-group ex-line-font">
                     <label class="control-label text-single-line">Container #</label>
                     <div class="">
-                        <input type="text" class="form-control input-sm" placeholder="Container #" max-length="4" data-ng-model="OrdGeneralCtrl.ePage.Masters.formView.ContainerNumber" />
+                        <input type="text" class="form-control input-sm" placeholder="Container #" maxlength="20"
+                            data-ng-model="OrdGeneralCtrl.ePage.Masters.formView.ContainerNumber" />
                     </div>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-                <div class="form-group">
+                <div class="form-group ex-line-font">
                     <label class="control-label text-single-line">Count</label>
                     <div class="">
-                        <input type="text" class="form-control input-sm" placeholder="Count" max-length="4" data-ng-model="OrdGeneralCtrl.ePage.Masters.formView.ContainerCount" />
+                        <input type="text" class="form-control input-sm" placeholder="Count" numbers-only maxlength="5"
+                            data-ng-model="OrdGeneralCtrl.ePage.Masters.formView.ContainerCount" />
                     </div>
                 </div>
             </div>
@@ -73,15 +70,18 @@
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
                 <div class="form-group ex-line-font">
-                    <input type="hidden" ng-model="OrdGeneralCtrl.ePage.Masters.formView.RC">
+                    <input type="hidden" data-ng-model="OrdGeneralCtrl.ePage.Masters.formView.RC">
                     <label class="control-label text-single-line">Type</label>
                     <div class="input-group input-group-sm">
-                        <div dynamic-lookup="" my-ng-model="OrdGeneralCtrl.ePage.Masters.formView.RC_Type"
-                             obj="OrdGeneralCtrl.ePage.Masters.formView" prefix-data="'MstContainer'"
-                             config="'OrderContainerType'">
+                        <div dynamic-lookup="" my-ng-model="OrdGeneralCtrl.ePage.Masters.formView.RC_Type" obj="OrdGeneralCtrl.ePage.Masters.formView"
+                            page-name="'MstContainer'" control-id="'OrderContainerType'" control-key="'OrderContainerType_3223'">
                         </div>
                         <span class="input-group-btn">
-                            <button dynamic-list-modal="" obj="OrdGeneralCtrl.ePage.Masters.formView" field-name="'OrderContainerType'" prefix-data="'MstContainer'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                            <button dynamic-list-modal="" obj="OrdGeneralCtrl.ePage.Masters.formView" control-id="'OrderContainerType'"
+                                control-key="'OrderContainerType_3223'" page-name="'MstContainer'" mode="2"
+                                grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny" type="button">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
                         </span>
                     </div>
                 </div>
@@ -90,21 +90,29 @@
                 <div class="form-group ex-line-font">
                     <label class="control-label text-single-line">Seal #</label>
                     <div class="">
-                        <input type="text" class="form-control input-sm" placeholder="Seal #" max-length="4" data-ng-model="OrdGeneralCtrl.ePage.Masters.formView.SealNum" />
+                        <input type="text" class="form-control input-sm" placeholder="Seal #" data-ng-model="OrdGeneralCtrl.ePage.Masters.formView.SealNum"
+                            maxlength="20" />
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 padding-bottom-10">
-                <input type="button" class="btn btn-primary btn-sm pull-right" data-ng-click="OrdGeneralCtrl.ePage.Masters.AddNew(OrdGeneralCtrl.ePage.Masters.formView, OrdGeneralCtrl.ePage.Masters.IsButtonAdd)" value="{{OrdGeneralCtrl.ePage.Masters.IsButtonAdd}}">
+                <button class="btn btn-sm btn-outline-secondary pull-right" data-ng-click="OrdGeneralCtrl.ePage.Masters.AddNew(OrdGeneralCtrl.ePage.Masters.formView, OrdGeneralCtrl.ePage.Masters.IsButtonAdd)"
+                    data-ng-if="OrdGeneralCtrl.ePage.Masters.IsButtonAdd == 'Update'">
+                    {{OrdGeneralCtrl.ePage.Masters.IsButtonAdd}}
+                </button>
+                <button class="btn btn-sm btn-outline-secondary pull-right" data-ng-click="OrdGeneralCtrl.ePage.Masters.AddNew(OrdGeneralCtrl.ePage.Masters.formView, OrdGeneralCtrl.ePage.Masters.IsButtonAdd)"
+                    value="{{OrdGeneralCtrl.ePage.Masters.IsButtonAdd}}" data-ng-if="OrdGeneralCtrl.ePage.Masters.IsButtonAdd == 'Add New'">
+                    <i class="fa fa-plus-circle"></i> {{OrdGeneralCtrl.ePage.Masters.IsButtonAdd}}
+                </button>
             </div>
         </div>
     </div>
 </div>
-<hr />
-<div class="clearfix margin-top-20">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+
+<div class="clearfix pack-alignment pt-10 mt-20 pb-10">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-2 mb-2">
         <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-1 col-xl-1 padding-10">
             <div class="row padding-left-10">
                 <i class="fa fa-suitcase fa-3x"></i>
@@ -116,10 +124,13 @@
                 <label class="control-label text-single-line">Packs</label>
                 <div class="clearfix">
                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
-                        <input type="text" class="form-control input-sm" placeholder="Packs" max-length="4" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.Packs" />
+                        <input type="text" class="form-control input-sm" placeholder="Packs" numbers-only maxlength="9"
+                            data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.Packs" />
                     </div>
                     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 no-padding">
-                        <select chosen class="form-control" ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.OrderPackType" ng-options="x.Code as x.Value for x in OrdGeneralCtrl.ePage.Entities.Header.Meta.MstPackType.ListSource" search-contains="true">
+                        <select chosen class="form-control" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.OrderPackType"
+                            data-ng-options="x.Code as x.Value for x in OrdGeneralCtrl.ePage.Entities.Header.Meta.MstPackType.ListSource"
+                            search-contains="true">
                             <option value="">--Select--</option>
                         </select>
                     </div>
@@ -132,10 +143,13 @@
                 <label class="control-label text-single-line">Actual Volume </label>
                 <div class="clearfix">
                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
-                        <input type="text" class="form-control input-sm" placeholder="ActualVolume" max-length="4" numbers-only sb-precision="3" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ActualVolume" />
+                        <input type="text" class="form-control input-sm" placeholder="0.000" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Dataz.UIPorOrderHeader.ActualVolume"
+                            numbers-only-dot sb-precision="3" />
                     </div>
                     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 no-padding">
-                        <select chosen class="form-control" ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.UnitOfVolume" ng-options="x.Key as x.Key + '-' + x.Value for x in OrdGeneralCtrl.ePage.Entities.Header.Meta.VOLUMEUNIT.ListSource" search-contains="true">
+                        <select chosen class="form-control" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.UnitOfVolume"
+                            data-ng-options="x.Key as x.Key + '-' + x.Value for x in OrdGeneralCtrl.ePage.Entities.Header.Meta.VOLUMEUNIT.ListSource"
+                            search-contains="true">
                             <option value="">--Select--</option>
                         </select>
                     </div>
@@ -148,10 +162,13 @@
                 <label class="control-label text-single-line">Actual Weight </label>
                 <div class="clearfix">
                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
-                        <input type="text" class="form-control input-sm" placeholder="Actual Weight" max-length="5" numbers-only sb-precision="3" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ActualWeight" />
+                        <input type="text" class="form-control input-sm" placeholder="0.000" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ActualWeight"
+                            numbers-only-dot sb-precision="3" />
                     </div>
                     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 no-padding">
-                        <select chosen class="form-control" ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.UnitofWeight" ng-options="x.Key as x.Key + '-' + x.Value for x in OrdGeneralCtrl.ePage.Entities.Header.Meta.WEIGHTUNIT.ListSource" search-contains="true">
+                        <select chosen class="form-control" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.UnitofWeight"
+                            data-ng-options="x.Key as x.Key + '-' + x.Value for x in OrdGeneralCtrl.ePage.Entities.Header.Meta.WEIGHTUNIT.ListSource"
+                            search-contains="true">
                             <option value="">--Select--</option>
                         </select>
                     </div>
@@ -160,4 +177,3 @@
         </div>
     </div>
 </div>
-<hr />

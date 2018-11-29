@@ -1,0 +1,41 @@
+<!-- Packing Grid -->
+<one-three-packing-grid current-object="oneThreeShipmentConsoleAndPackingCtrl.currentShipment" freight-mode="'OUT'" btn-visible="{'AddNew':true,'Delete':true,'More':true}"
+    table-properties="" read-only="false"></one-three-packing-grid>
+<!-- END -->
+<div class="clearfix pt-10 pb-10 mt-10 ng-scope pack-total">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-1 col-xl-1 pl-10">
+        <i class="fa fa-calculator fa-3x"></i>
+    </div>
+    <!-- Inner Packs-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+        <div class="">
+            Total Outer Packs :
+            <b>{{oneThreeShipmentConsoleAndPackingCtrl.ePage.Entities.Header.Data.OutPackageSum[0].PackageCount}} | {{oneThreeShipmentConsoleAndPackingCtrl.ePage.Masters.Package.GridData[0].F3_NKPackType}}</b>
+        </div>
+        <div class="padding-top-5">
+            Shipment Outer Packs :
+            <b>{{oneThreeShipmentConsoleAndPackingCtrl.ePage.Entities.Header.Data.UIShipmentHeader.OuterPackCount}} | {{oneThreeShipmentConsoleAndPackingCtrl.ePage.Entities.Header.Data.UIShipmentHeader.InnerPackType}}</b>
+        </div>
+    </div>
+    <!-- Weight-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+        <div class="">
+            Total Weight :
+            <b>{{oneThreeShipmentConsoleAndPackingCtrl.ePage.Entities.Header.Data.OutPackageSum[0].ActualWeight}} | {{oneThreeShipmentConsoleAndPackingCtrl.ePage.Masters.Package.GridData[0].ActualWeightUQ}}</b>
+        </div>
+        <div class="padding-top-5">
+            Shipment Weight :
+            <b>{{oneThreeShipmentConsoleAndPackingCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Weight}} | {{oneThreeShipmentConsoleAndPackingCtrl.ePage.Entities.Header.Data.UIShipmentHeader.UnitOfWeight}}</b>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="">
+            Total Volume :
+            <b>{{oneThreeShipmentConsoleAndPackingCtrl.ePage.Entities.Header.Data.OutPackageSum[0].ActualVolume}} | {{oneThreeShipmentConsoleAndPackingCtrl.ePage.Masters.Package.GridData[0].ActualVolumeUQ}}</b>
+        </div>
+        <div class="padding-top-5">
+            Shipment Volume :
+            <b> {{oneThreeShipmentConsoleAndPackingCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Volume}} | {{oneThreeShipmentConsoleAndPackingCtrl.ePage.Entities.Header.Data.UIShipmentHeader.UnitOfVolume}}</b>
+        </div>
+    </div>
+</div>

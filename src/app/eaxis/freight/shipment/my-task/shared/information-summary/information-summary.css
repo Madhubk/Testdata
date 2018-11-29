@@ -1,0 +1,15 @@
+.text-label{
+	font-weight: 500;
+    font-size: 12px;
+}
+
+.information-summary .dynamic-control-container .dynamic-control label.control-label {
+    color: gray;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.information-summary .dynamic-control-container .dynamic-control label.textEllipsis{
+    font-weight: 500;
+    font-size: 12px;
+}

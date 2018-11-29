@@ -1,48 +1,85 @@
+<div class="grid-loading-norecord-container ng-scope" style='z-index: 15;'data-ng-if="ReleaseMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading"></div>
+
 <div class="clearfix wms-menu-wraper">
-    <div release-details current-release="ReleaseMenuCtrl.currentRelease">
-    </div>
-    <div class="error-warning-container right" id="errorWarningContainer{{ReleaseMenuCtrl.currentRelease.label}}">
-        <div class="error-warning-header clearfix">
-            <span class="title pull-left">
-                <!-- <i class="fa fa-warning"></i>  -->
-                Errors & Warnings
-            </span>
-            <span class="error-warning-toggle-icon pull-right" data-ng-click="ReleaseMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(ReleaseMenuCtrl.currentRelease)">
-                <i class="fa fa-arrow-right"></i>
-            </span>
-        </div>
-        <div class="error-warning-body">
-            <div class="clearfix" data-ng-if="ReleaseMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length>0">
-                <div class="clearfix">
-                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in ReleaseMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList">
-                        <div class="clearfix">
-                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
-                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
-                            </div>
-                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
-                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
-                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+    <div class="widget-main">
+        <uib-tabset id="wmsMenuWrapper{{ReleaseMenuCtrl.currentOutward.label}}">
+            <uib-tab ng-repeat="x in ReleaseMenuCtrl.ePage.Masters.RelaseMenu.ListSource">
+                <uib-tab-heading title="{{x.DisplayName}}">
+                    <i class="{{x.Icon}} mr-5"></i>
+                    <span class="text-single-line" data-ng-bind="x.DisplayName"></span>
+                    <error-warning-directive data-ng-if="ReleaseMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, ReleaseMenuCtrl.currentRelease.label, 'W', 'GParent').length > 0 && ReleaseMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, ReleaseMenuCtrl.currentRelease.label, 'E', 'GParent').length == 0"
+                        list="ReleaseMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList" type="'warning'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
+                    <error-warning-directive data-ng-if="ReleaseMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, ReleaseMenuCtrl.currentRelease.label, 'E', 'GParent').length > 0"
+                        list="ReleaseMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList" type="'error'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>  
+                </uib-tab-heading>
+
+                <div class="finalisedstate" data-ng-if="ReleaseMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                    <span class="finaliseddatedescription">Pick {{ReleaseMenuCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatusDesc}} and it cannot be edited</span>
+                </div>
+
+                <div>
+                    <div ng-switch="x.Value">
+                        <div ng-switch-when="Details">
+                            <releases-general current-release="ReleaseMenuCtrl.currentRelease"></releases-general>                                    
+                        </div>
+                        <div ng-switch-when="PickAllocation">
+                            <pick-allocation current-pick="ReleaseMenuCtrl.currentRelease"></pick-allocation>                                    
+                        </div>
+                        <div ng-switch-when="PickSlip">
+                            <releases-pick-slip current-release="ReleaseMenuCtrl.currentRelease"></releases-pick-slip>                                    
+                        </div>
+                        <div ng-switch-when="Documents">
+                            <releases-documents current-release="ReleaseMenuCtrl.currentRelease"></releases-documents>                                    
+                        </div>
+                    </div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+
+        <div class="error-warning-container right" id="errorWarningContainer{{ReleaseMenuCtrl.currentRelease.label}}">
+            <div class="error-warning-header clearfix">
+                <span class="title pull-left">
+                    Errors & Warnings
+                </span>
+                <span class="error-warning-toggle-icon pull-right" data-ng-click="ReleaseMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(ReleaseMenuCtrl.currentRelease)">
+                    <i class="fa fa-arrow-right"></i>
+                </span>
+            </div>
+            <div class="error-warning-body">
+                <div class="clearfix" data-ng-if="ReleaseMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length>0">
+                    <div class="clearfix">
+                        <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in ReleaseMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList">
+                            <div class="clearfix">
+                                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                    <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                                </div>
+                                <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                    <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                    <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!--Footer-->
+
+        <!--Footer-->
     <div class="eaxis-footer-strip">
-        <div class="col-lg-8">
-            <standard-menu entity-name="'WarehouseRelease'" input="ReleaseMenuCtrl.currentRelease" data-ng-if="!ReleaseMenuCtrl.currentRelease.isNew"></standard-menu>
+        <div class="col-xs-6 col-sm-8 col-md-8 col-lg-9 col-xl-9">
+            <standard-menu dataentry-object="ReleaseMenuCtrl.dataentryObject" input="ReleaseMenuCtrl.currentRelease"></standard-menu>
         </div>
-        <div class="col-lg-4">
-            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="ReleaseMenuCtrl.ePage.Masters.FinalizePick(ReleaseMenuCtrl.currentRelease)"
-                data-ng-bind="ReleaseMenuCtrl.ePage.Masters.FinalisePickText" ng-disabled="ReleaseMenuCtrl.ePage.Masters.IsDisablePick"></button>
-                
-            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="ReleaseMenuCtrl.ePage.Masters.SaveClose(ReleaseMenuCtrl.currentRelease)"
-            data-ng-disabled="ReleaseMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave" data-ng-bind="ReleaseMenuCtrl.ePage.Masters.SaveAndCloseButtonText"></button>
-            
-            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="ReleaseMenuCtrl.ePage.Masters.Validation(ReleaseMenuCtrl.currentRelease)"
-                data-ng-bind="ReleaseMenuCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="ReleaseMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave"></button>
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 col-xl-3">
+            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="ReleaseMenuCtrl.ePage.Masters.Validation(ReleaseMenuCtrl.currentRelease)"data-ng-bind="ReleaseMenuCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="ReleaseMenuCtrl.ePage.Masters.DisableSave"></button>
+
+            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="ReleaseMenuCtrl.ePage.Masters.Validation(ReleaseMenuCtrl.currentRelease);ReleaseMenuCtrl.ePage.Masters.SaveAndClose = true" data-ng-disabled="ReleaseMenuCtrl.ePage.Masters.DisableSave">Save & Close</button>
+
+             <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="ReleaseMenuCtrl.ePage.Masters.FinalizePick(ReleaseMenuCtrl.currentRelease)" data-ng-disabled="ReleaseMenuCtrl.ePage.Masters.DisableSave">Finalize Pick</button>
         </div>
+    </div>
+
     </div>
 </div>
+

@@ -5,9 +5,9 @@
         .module("Application")
         .controller("TCUserController", TCUserController);
 
-    TCUserController.$inject = ["$scope", "$location", "$uibModal", "authService", "apiService", "helperService", "appConfig", "APP_CONSTANT", "toastr"];
+    TCUserController.$inject = ["$scope", "$location", "$uibModal", "authService", "apiService", "helperService", "toastr", "trustCenterConfig"];
 
-    function TCUserController($scope, $location, $uibModal, authService, apiService, helperService, appConfig, APP_CONSTANT, toastr) {
+    function TCUserController($scope, $location, $uibModal, authService, apiService, helperService, toastr, trustCenterConfig) {
         /* jshint validthis: true */
         var TCUserCtrl = this;
 
@@ -96,6 +96,8 @@
 
             TCUserCtrl.ePage.Masters.User.SaveBtnText = "OK";
             TCUserCtrl.ePage.Masters.User.IsDisableSaveBtn = false;
+
+            $scope.OnLogoChange = OnLogoChange;
         }
 
         function GetUserList() {
@@ -107,10 +109,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.UserExtended.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.UserExtended.API.FindAll.FilterID
             };
 
-            apiService.post("authAPI", appConfig.Entities.UserExtended.API.FindAll.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("authAPI", trustCenterConfig.Entities.API.UserExtended.API.FindAll.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     TCUserCtrl.ePage.Masters.User.UserList = response.data.Response;
 
@@ -140,7 +142,7 @@
 
             if ($item) {
                 if (!TCUserCtrl.ePage.Masters.User.ActiveUser.LogoStr) {
-                    InitLogoUpload(TCUserCtrl.ePage.Masters.User.ActiveUser);
+                    GetLogo();
                 }
             }
         }
@@ -159,9 +161,6 @@
         function Edit() {
             TCUserCtrl.ePage.Masters.User.SaveBtnText = "OK";
             TCUserCtrl.ePage.Masters.User.IsDisableSaveBtn = false;
-
-            TCUserCtrl.ePage.Masters.User.Logo.fileDetails = [];
-            TCUserCtrl.ePage.Masters.User.Logo.fileCount = 0;
 
             EditModalInstance().result.then(function (response) {}, function () {
                 Cancel();
@@ -187,13 +186,11 @@
                 TCUserCtrl.ePage.Masters.User.SaveBtnText = "Please Wait...";
                 TCUserCtrl.ePage.Masters.User.IsDisableSaveBtn = true;
 
-                TCUserCtrl.ePage.Masters.User.ActiveUser.TenantCode = authService.getUserInfo().TenantCode;
-                TCUserCtrl.ePage.Masters.User.ActiveUser.IsModified = true;
-                TCUserCtrl.ePage.Masters.User.ActiveUser.IsDeleted = false;
-
                 var _input = TCUserCtrl.ePage.Masters.User.ActiveUser;
+                _input.TenantCode = authService.getUserInfo().TenantCode;
+                _input.IsModified = true;
 
-                apiService.post("authAPI", appConfig.Entities.UserExtended.API[_apiAction].Url, _input).then(function SuccessCallback(response) {
+                apiService.post("authAPI", trustCenterConfig.Entities.API.UserExtended.API[_apiAction].Url, _input).then(function SuccessCallback(response) {
                     var _response = response.data.Response;
 
                     if (_response) {
@@ -229,133 +226,120 @@
 
         function Cancel() {
             if (!TCUserCtrl.ePage.Masters.User.ActiveUser) {
-                if (TCUserCtrl.ePage.Masters.User.UserList.length > 0) {
+                if (TCUserCtrl.ePage.Masters.User.UserList && TCUserCtrl.ePage.Masters.User.UserList.length > 0) {
                     TCUserCtrl.ePage.Masters.User.ActiveUser = angular.copy(TCUserCtrl.ePage.Masters.User.UserList[0]);
                 } else {
                     TCUserCtrl.ePage.Masters.User.ActiveUser = undefined;
                 }
             } else if (TCUserCtrl.ePage.Masters.User.ActiveUserCopy) {
-                var _index = TCUserCtrl.ePage.Masters.User.UserList.map(function (value, key) {
-                    return value.Id;
-                }).indexOf(TCUserCtrl.ePage.Masters.User.ActiveUserCopy.Id);
-
-                if (_index !== -1) {
-                    TCUserCtrl.ePage.Masters.User.ActiveUser = angular.copy(TCUserCtrl.ePage.Masters.User.UserList[_index]);
-                }
+                TCUserCtrl.ePage.Masters.User.ActiveUser = angular.copy(TCUserCtrl.ePage.Masters.User.ActiveUserCopy);
             }
 
             TCUserCtrl.ePage.Masters.User.EditModal.dismiss('cancel');
         }
 
-        function InitLogoUpload() {
-            TCUserCtrl.ePage.Masters.User.Logo = {};
-            TCUserCtrl.ePage.Masters.User.Logo.autherization = authService.getUserInfo().AuthToken;
-            TCUserCtrl.ePage.Masters.User.Logo.fileDetails = [];
-            TCUserCtrl.ePage.Masters.User.Logo.fileCount = 0;
-            TCUserCtrl.ePage.Masters.User.Logo.fileSize = 1;
-            TCUserCtrl.ePage.Masters.User.Logo.documentTypeList = [{
-                Value: "Logo",
-                DisplayName: "Logo"
-            }];
-            var _additionalValue = {
-                "Entity": "TrustCenter",
-                "Path": "TrustCenter,Users"
-            };
-            TCUserCtrl.ePage.Masters.User.Logo.additionalValue = JSON.stringify(_additionalValue);
-            TCUserCtrl.ePage.Masters.User.Logo.UploadUrl = APP_CONSTANT.URL.eAxisAPI + appConfig.Entities.DMS.API.DMSUpload.Url;
+        function OnLogoChange(event, input) {
+            var maxSize = input.dataset.maxSize / 1024; // in bytes to KB
+            TCUserCtrl.ePage.Masters.User.ActiveUser.LogoStr = undefined;
+            TCUserCtrl.ePage.Masters.User.ActiveUserCopy.LogoStr = undefined;
 
-            TCUserCtrl.ePage.Masters.User.Logo.GetUploadedFiles = GetUploadedFiles;
-            TCUserCtrl.ePage.Masters.User.Logo.GetSelectedFiles = GetSelectedFiles;
+            if (input.files.length > 0) {
+                var fileSize = input.files[0].size / 1024;
 
-            GetLogo();
+                if (fileSize > maxSize) {
+                    toastr.warning('File size should not be more then ' + maxSize + ' KB');
+                    TCUserCtrl.ePage.Masters.User.ActiveUser.LogoStr = TCUserCtrl.ePage.Masters.User.ActiveUser.Logo.Logo;
+                    TCUserCtrl.ePage.Masters.User.ActiveUserCopy.LogoStr = TCUserCtrl.ePage.Masters.User.ActiveUser.Logo.Logo;
+                    return false;
+                } else {
+                    var ext = input.files[0]['name'].substring(input.files[0]['name'].lastIndexOf('.') + 1).toLowerCase();
+                    if (input.files && input.files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+                        helperService.getImageBase64Str(input.files[0]).then(function (response) {
+                            TCUserCtrl.ePage.Masters.User.ActiveUser.LogoStr = angular.copy(response);
+                            TCUserCtrl.ePage.Masters.User.ActiveUserCopy.LogoStr = angular.copy(response);
+                            SaveLogo();
+                        }, function (error) {
+                            console.log(error);
+                        });
+                    }
+                }
+            }
         }
 
         function GetLogo() {
+            TCUserCtrl.ePage.Masters.User.ActiveUser.LogoStr = undefined;
+            TCUserCtrl.ePage.Masters.User.ActiveUserCopy.LogoStr = undefined;
             var _filter = {
+                "EntitySource": "USR_LOGO",
                 "EntityRefKey": TCUserCtrl.ePage.Masters.User.ActiveUser.Id,
-                "EntitySource": "USR"
+                "EntityRefCode": TCUserCtrl.ePage.Masters.User.ActiveUser.UserName
             };
+
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.JobDocument.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.SecLogo.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.JobDocument.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.SecLogo.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
-                        if (TCUserCtrl.ePage.Masters.User.ActiveUser) {
-                            TCUserCtrl.ePage.Masters.User.ActiveUser.JobDocument = response.data.Response;
-                            DownloadDocument(response.data.Response[0]);
-                        }
+                        TCUserCtrl.ePage.Masters.User.ActiveUser.LogoStr = response.data.Response[0].Logo;
+                        TCUserCtrl.ePage.Masters.User.ActiveUser.Logo = response.data.Response[0];
+                        TCUserCtrl.ePage.Masters.User.ActiveUserCopy.LogoStr = response.data.Response[0].Logo;
+                        TCUserCtrl.ePage.Masters.User.ActiveUserCopy.Logo = response.data.Response[0];
                     }
-                } else {
-                    console.log("Empty response");
                 }
             });
         }
 
-        function DownloadDocument(curDoc) {
-            apiService.get("eAxisAPI", appConfig.Entities.JobDocument.API.JobDocumentDownload.Url + curDoc.PK + "/" + authService.getUserInfo().AppPK).then(function (response) {
-                if (response.data.Response) {
-                    if (response.data.Response !== "No Records Found!") {
-                        if (TCUserCtrl.ePage.Masters.User.ActiveUser) {
-                            TCUserCtrl.ePage.Masters.User.ActiveUser.LogoStr = "data:image/jpeg;base64," + response.data.Response.Base64str;
-                        }
-                    }
-                } else {
-                    console.log("Invalid response");
-                }
-            });
-        }
-
-        function GetUploadedFiles(Files) {
-            if (TCUserCtrl.ePage.Masters.User.ActiveUser.JobDocument && TCUserCtrl.ePage.Masters.User.ActiveUser.JobDocument.length > 0) {
-                DeleteDocument(Files[0]);
+        function SaveLogo() {
+            if (TCUserCtrl.ePage.Masters.User.ActiveUser.Logo) {
+                UpdateLogo();
             } else {
-                InsertLogo(Files[0]);
+                InsertLogo();
             }
         }
 
-        function GetSelectedFiles(FIles) {
-
-        }
-
-        function DeleteDocument($item) {
-            if (TCUserCtrl.ePage.Masters.User.ActiveUser.JobDocument) {
-                var _DocFK = TCUserCtrl.ePage.Masters.User.ActiveUser.JobDocument[0].PK;
-                apiService.get("eAxisAPI", appConfig.Entities.JobDocument.API.Delete.Url + _DocFK + "/" + authService.getUserInfo().AppPK).then(function (response) {
-                    if (response.data.Response) {
-                        InsertLogo($item);
-                    } else {
-                        console.log("Empty Documents Response");
-                    }
-                });
-            } else {
-                InsertLogo($item);
-            }
-        }
-
-        function InsertLogo($item) {
+        function InsertLogo() {
             var _input = {
-                "FileName": $item.FileName,
-                "FileExtension": $item.FileExtension,
-                "ContentType": $item.DocType,
-                "IsActive": true,
-                "IsModified": true,
-                "IsDeleted": false,
-                "DocFK": $item.Doc_PK,
-                "EntitySource": "USR",
-                "EntityRefKey": TCUserCtrl.ePage.Masters.User.ActiveUser.Id
+                "EntitySource": "USR_LOGO",
+                "EntityRefKey": TCUserCtrl.ePage.Masters.User.ActiveUser.Id,
+                "EntityRefCode": TCUserCtrl.ePage.Masters.User.ActiveUser.UserName,
+                "Logo": TCUserCtrl.ePage.Masters.User.ActiveUser.LogoStr,
+                "IsModified": true
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.JobDocument.API.Upsert.Url + authService.getUserInfo().AppPK, [_input]).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.SecLogo.API.Insert.Url, [_input]).then(function (response) {
+                TCUserCtrl.ePage.Masters.User.ActiveUser.LogoStr = undefined;
+                TCUserCtrl.ePage.Masters.User.ActiveUserCopy.LogoStr = undefined;
                 if (response.data.Response) {
-                    TCUserCtrl.ePage.Masters.User.Logo.fileDetails = [];
-                    TCUserCtrl.ePage.Masters.User.Logo.fileCount = 0;
-
-                    DownloadDocument(response.data.Response[0]);
+                    if (response.data.Response.length > 0) {
+                        TCUserCtrl.ePage.Masters.User.ActiveUser.Logo = response.data.Response[0];
+                        TCUserCtrl.ePage.Masters.User.ActiveUser.LogoStr = response.data.Response[0].Logo;
+                        TCUserCtrl.ePage.Masters.User.ActiveUserCopy.Logo = response.data.Response[0];
+                        TCUserCtrl.ePage.Masters.User.ActiveUserCopy.LogoStr = response.data.Response[0].Logo;
+                    }
                 } else {
-                    console.log("Empty Documents Response");
+                    toastr.error("Couldn't Upload Logo...!");
+                }
+            });
+        }
+
+        function UpdateLogo() {
+            var _input = TCUserCtrl.ePage.Masters.User.ActiveUser.Logo;
+            _input.Logo = TCUserCtrl.ePage.Masters.User.ActiveUser.LogoStr;
+            _input.IsModified = true;
+
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.SecLogo.API.Update.Url, _input).then(function (response) {
+                TCUserCtrl.ePage.Masters.User.ActiveUser.LogoStr = undefined;
+                TCUserCtrl.ePage.Masters.User.ActiveUserCopy.LogoStr = undefined;
+                if (response.data.Response) {
+                    TCUserCtrl.ePage.Masters.User.ActiveUser.Logo = response.data.Response;
+                    TCUserCtrl.ePage.Masters.User.ActiveUser.LogoStr = response.data.Response.Logo;
+                    TCUserCtrl.ePage.Masters.User.ActiveUserCopy.Logo = response.data.Response;
+                    TCUserCtrl.ePage.Masters.User.ActiveUserCopy.LogoStr = response.data.Response.Logo;
+                } else {
+                    toastr.error("Couldn't Upload Logo...!");
                 }
             });
         }

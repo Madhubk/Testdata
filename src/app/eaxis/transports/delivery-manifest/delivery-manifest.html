@@ -1,0 +1,49 @@
+<uib-tabset id="chromeTab" active="DeliveryManifestCtrl.ePage.Masters.activeTabIndex" class="tms-manifest-container tab-container chrometab-box">
+
+    <uib-tab>
+        <uib-tab-heading title="Delivery Manifest">
+            <span data-ng-bind="'Delivery Manifest'" class="ng-binding">Delivery Manifest</span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+
+        <div class="no-padding tab-list-view-wrapper">
+            <!--Manifest Grid Page-->
+            <dynamic-list dataentry-name="DeliveryManifestCtrl.ePage.Masters.dataentryName" dataentry-object="DeliveryManifestCtrl.ePage.Masters.DataEntryObject"
+                selected-grid-row="DeliveryManifestCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" default-filter="DeliveryManifestCtrl.ePage.Masters.defaultFilter"></dynamic-list>
+            <div class="tab-loading" data-ng-show="DeliveryManifestCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+    <uib-tab active="DeliveryManifestCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in DeliveryManifestCtrl.ePage.Masters.TabList"
+        ng-click="DeliveryManifestCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+        <uib-tab-heading title="{{tab.label}}">
+            <span data-ng-bind="tab.label"></span>
+            <i class="glyphicon glyphicon-remove" ng-click="DeliveryManifestCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+            <span class="error-warning-container-common" data-ng-if="tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length > 0">
+                <span class="custom-warning-container" data-ng-if="(tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'W') > 0 && (tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'E') == 0">
+                    <button class="btn-warning" data-ng-click="DeliveryManifestCtrl.ePage.Masters.Config.ShowErrorWarningModal(tab)">
+                        <i class="fa fa-warning"></i>
+                    </button>
+                    <span class="custom-warning-count">{{tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType':
+                        'W'}}
+                    </span>
+                </span>
+                <span class="custom-error-container" data-ng-if="(tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'E') > 0">
+                    <button class="btn-error" data-ng-click="DeliveryManifestCtrl.ePage.Masters.Config.ShowErrorWarningModal(tab)">
+                        <i class="fa fa-warning"></i>
+                    </button>
+                    <span class="custom-error-count">{{tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType':
+                        'E'}}
+                    </span>
+                </span>
+            </span>
+        </uib-tab-heading>
+        <div class="padding-bottom-10 clearfix">
+            <!--Manifest Menu Directive-->
+            <delivery-manifest-menu current-manifest="tab" dataentry-object="DeliveryManifestCtrl.ePage.Masters.DataEntryObject"></delivery-manifest-menu>
+
+            <div class="horizontal-space"></div>
+        </div>
+        <span ng-if="DeliveryManifestCtrl.ePage.Masters.Config.SaveAndClose" ng-init="DeliveryManifestCtrl.ePage.Masters.SaveandClose(DeliveryManifestCtrl.ePage.Masters.activeTabIndex, tab)"></span>
+    </uib-tab>
+    <!-- <button class="btn btn-default" ng-click="DeliveryManifestCtrl.ePage.Masters.CreateNewManifest()" data-ng-disabled="DeliveryManifestCtrl.ePage.Masters.IsNewManifestClicked">+</button> -->
+</uib-tabset>

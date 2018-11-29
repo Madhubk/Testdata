@@ -16,7 +16,8 @@
             controller: "ItemMenuController",
             controllerAs: "ItemMenuCtrl",
             scope: {
-                currentItem: "="
+                currentItem: "=",
+                dataentryObject:"="
             },
             bindToController: true
 

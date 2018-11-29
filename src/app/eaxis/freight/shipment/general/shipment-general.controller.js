@@ -5,9 +5,9 @@
         .module("Application")
         .controller("GeneralController", GeneralController);
 
-    GeneralController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "helperService", "appConfig", "$filter", "toastr", "dynamicLookupConfig", "$injector", "confirmation", "$uibModal"];
+    GeneralController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "helperService", "appConfig", "$filter", "toastr", "dynamicLookupConfig", "$injector", "confirmation", "$uibModal", "errorWarningService"];
 
-    function GeneralController($rootScope, $scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, helperService, appConfig, $filter, toastr, dynamicLookupConfig, $injector, confirmation, $uibModal) {
+    function GeneralController($rootScope, $scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, helperService, appConfig, $filter, toastr, dynamicLookupConfig, $injector, confirmation, $uibModal, errorWarningService) {
         /* jshint validthis: true */
         var GeneralCtrl = this;
         var shipmentConfig = $injector.get("shipmentConfig");
@@ -21,14 +21,41 @@
                 "Meta": helperService.metaBase(),
                 "Entities": currentShipment,
             };
+            GeneralCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
+            GeneralCtrl.ePage.Masters.OnFieldValueChange = OnFieldValueChange;
+            GeneralCtrl.ePage.Masters.IsETADisable = false;
+            GeneralCtrl.ePage.Masters.isTransportModedisable = false;
+            GeneralCtrl.ePage.Masters.isTransportMode = true;
+            GeneralCtrl.ePage.Masters.isHBLKey = false;
+            GeneralCtrl.ePage.Masters.IsContactEnable = true;
+            GeneralCtrl.ePage.Masters.IsContactEnable1 = true;
+            GeneralCtrl.ePage.Masters.IsContactEnable2 = true;
+            GeneralCtrl.ePage.Masters.ETDChange = ETDChange;
 
+            GeneralCtrl.ePage.Masters.PortOfLoadingAlert = PortOfLoadingAlert;
+            GeneralCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList = errorWarningService.Modules.Shipment.Entity[GeneralCtrl.currentShipment.code].GlobalErrorWarningList;
+            GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.Shipment.Entity[GeneralCtrl.currentShipment.code];
             // DatePicker
             GeneralCtrl.ePage.Masters.DatePicker = {};
             GeneralCtrl.ePage.Masters.DatePicker.Options = APP_CONSTANT.DatePicker;
             GeneralCtrl.ePage.Masters.DatePicker.isOpen = [];
             GeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
 
+            GeneralCtrl.ePage.Masters.getOrgBuyerSupplierMapping = getOrgBuyerSupplierMapping;
+
             GeneralCtrl.ePage.Masters.DropDownMasterList = shipmentConfig.Entities.Header.Meta;
+            GeneralCtrl.ePage.Masters.IsDomestic = IsDomestic;
+            GeneralCtrl.ePage.Masters.OnIncotermChange = OnIncotermChange;
+
+            GeneralCtrl.ePage.Masters.ConsignorFilter = {
+                "IsConsignor": true
+            }
+            GeneralCtrl.ePage.Masters.ConsigneeFilter = {
+                "IsConsignee": true
+            }
+            GeneralCtrl.ePage.Masters.AgentFilter = {
+                "IsForwarder": true
+            }
 
             // Callback
             var _isEmpty = angular.equals({}, GeneralCtrl.ePage.Masters.DropDownMasterList);
@@ -36,52 +63,183 @@
                 GetMastersList();
             }
 
-            if (GeneralCtrl.currentShipment.isNew) {
-                CreateJobEntryNums();
+            GeneralCtrl.ePage.Entities.Header.Data.UIJobEntryNumsObj = {}
+            if (!GeneralCtrl.currentShipment.isNew) {
+                GeneralCtrl.ePage.Masters.IsETADisable = true;
+                GeneralCtrl.ePage.Masters.isTransportMode = true;
+                GeneralCtrl.ePage.Entities.Header.Data.UIJobEntryNumsObj.EntryType = "PMT"
             } else {
+                if (GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETD == null)
+                    GeneralCtrl.ePage.Masters.IsETADisable = true;
+                else
+                    GeneralCtrl.ePage.Masters.IsETADisable = false;
+                if (GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode == null) {
+                    GeneralCtrl.ePage.Masters.isTransportMode = true;
+                }
+                else {
+                    GeneralCtrl.ePage.Masters.isTransportMode = false;
+                }
                 // AssignDateToNewDateObject();
                 GetJobEntryDetails();
             }
 
             InitShipmentHeader();
             InitPackageDetails();
-
             $rootScope.GetContainerList = GetContainerList;
         }
 
+        function getOrgBuyerSupplierMapping() {
+            var _inputObj = {
+                "SupplierCode": GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Shipper_Code
+            }
+            var _input = {
+                "FilterID": appConfig.Entities.OrgBuyerSupplierMapping.API.FindAll.FilterID,
+                "SearchInput": helperService.createToArrayOfObject(_inputObj)
+            }
+            apiService.post("eAxisAPI", appConfig.Entities.OrgBuyerSupplierMapping.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    GeneralCtrl.ePage.Masters.OrgBuyerDetails = response.data.Response;
+                    if (GeneralCtrl.currentShipment.isNew) {
+                        var tempBuyObj = GeneralCtrl.ePage.Masters.OrgBuyerDetails[0];
+                        OnSelectBuyer(tempBuyObj);
+                    }
+                }
+            });
+        }
+
+        function OnSelectBuyer($item) {
+            if ($item) {
+                GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Consignee_Code = $item.ORG_BuyerCode;
+                GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Consignee_FK = $item.ORG_Buyer;
+                GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ORG_Code = $item.ORG_BuyerCode;
+                GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ORG_FK = $item.ORG_Buyer;
+                GeneralCtrl.ePage.Masters.buyerName = $item.ORG_BuyerCode;
+                GeneralCtrl.ePage.Masters.Buyer = $item;
+                var _input = GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Consignee_FK
+
+                apiService.get("eAxisAPI", appConfig.Entities.OrgHeader.API.GetById.Url + _input).then(function (response) {
+                    if (response.data.Response) {
+                        $item = response.data.Response;
+                        AddressContactList($item, 'CED', 'CEG');
+                        GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination = $item.OAD_RelatedPortCode;
+                        getMDMDefaulvalues();
+
+                    }
+                    else {
+                        GeneralCtrl.ePage.Masters.ConsigneeAddressType = [];
+                        GeneralCtrl.ePage.Masters.ConsigneeContact = [];
+                        GeneralCtrl.ePage.Masters.ConsigneeAddress = "";
+                        GeneralCtrl.ePage.Masters.ConsigneeContactDetails = "";
+                        GeneralCtrl.ePage.Masters.buyerName = "";
+                        GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Consignee_Code = ""
+                    }
+
+                });
+                //     var defaultAddress = GetOrgAddress($item, 'Consignee');
+                //     defaultAddress.then(function (res) {
+                //         if (res.length > 0) {
+                //             GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OAD_Address_FK = res[0].PK;
+                //             GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OAD_Code = res[0].Code;
+                //             GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.CompanyName = res[0].CompanyNameOverride;
+                //             GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.Address1 = res[0].Address1;
+                //             GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.Address2 = res[0].Address2;
+                //             GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.PostCode = res[0].PostCode;
+                //             GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.City = res[0].City;
+                //             GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.State = res[0].State;
+                //             GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.Country = res[0].Country;
+                //             var tempAddrObj = _.filter(res, {
+                //                 'PK': GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OAD_Address_FK
+                //             })[0];
+                //             GeneralCtrl.ePage.Masters.ConsigneeAddressType = tempAddrObj
+                //             GeneralCtrl.ePage.Masters.ConsigneeAddress = tempAddrObj.Address1 + "\n" + tempAddrObj.Address2 + "\n" + tempAddrObj.City + "\n" + tempAddrObj.State + "\n" + tempAddrObj.PostCode + "\n" + tempAddrObj.Phone + "\n" + tempAddrObj.Fax
+                //             if (tempAddrObj) {
+                //                 GeneralCtrl.ePage.Masters.ConsigneeAddressType = res[0];
+                //                 GeneralCtrl.ePage.Masters.ConsigneeAddress = res[0].Address1 + "\n" + res[0].Address2 + "\n" + res[0].City + "\n" + res[0].State + "\n" + res[0].PostCode + "\n" + res[0].Phone + "\n" + res[0].Fax;
+                //             }
+                //         } else {
+                //             GeneralCtrl.ePage.Masters.ConsigneeAddress = "";
+                //         }
+                //     });
+                //     var defaultContact = GetOrgContact($item, 'Consignee');
+                //     defaultContact.then(function (res) {
+                //         if (res.length > 0) {
+                //             GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OCT_FK = res[0].PK;
+                //             GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ContactName = res[0].ContactName;
+                //             GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.Phone = res[0].Phone;
+                //             GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.Mobile = res[0].Mobile;
+                //             GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.Email = res[0].Email;
+                //             GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.Fax = res[0].Fax;
+                //             GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.PhoneExtension = res[0].PhoneExtension;
+                //             GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.HomePhone = res[0].HomePhone;
+                //             GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OtherPhone = res[0].OtherPhone;
+                //             var tempContactObj = _.filter(res, {
+                //                 'PK': GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OCT_FK
+                //             })[0];
+                //             GeneralCtrl.ePage.Masters.ConsigneeContact = tempContactObj
+                //             GeneralCtrl.ePage.Masters.ConsigneeContactDetails = tempContactObj.Title + "\n" + tempContactObj.Email + "\n" + tempContactObj.Phone
+                //             if (tempContactObj) {
+                //                 GeneralCtrl.ePage.Masters.ConsigneeContact = res[0];
+                //                 GeneralCtrl.ePage.Masters.ConsigneeContactDetails = res[0].Title + "\n" + res[0].Email + "\n" + res[0].Phone;
+                //             }
+                //         } else {
+                //             GeneralCtrl.ePage.Masters.ConsigneeContactDetails = "";
+                //         }
+                //     });
+                // } else {
+                //     GeneralCtrl.ePage.Masters.ConsigneeAddressType = [];
+                //     GeneralCtrl.ePage.Masters.ConsigneeContact = [];
+                //     GeneralCtrl.ePage.Masters.ConsigneeAddress = "";
+                //     GeneralCtrl.ePage.Masters.ConsigneeContactDetails = "";
+                //     GeneralCtrl.ePage.Masters.buyerName = "";
+                //     GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Consignee_Code = ""
+                // }
+                // if (GeneralCtrl.currentShipment.isNew) {
+                //     GeneralCtrl.ePage.Entities.Header.Data.UIOrderHeaders = []
+                // }
+                OnFieldValueChange('E0032')
+                // GeneralCtrl.ePage.Masters.ErrorWarningConfig.OnFieldValueChange("BookingBranch", GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentNo, GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Consignee_Code, 'E0032', false);
+            }
+        }
         function OpenDatePicker($event, opened) {
             $event.preventDefault();
             $event.stopPropagation();
-
             GeneralCtrl.ePage.Masters.DatePicker.isOpen[opened] = true;
         }
 
         function GetJobEntryDetails() {
             GeneralCtrl.ePage.Entities.Header.Data.UIJobEntryNums.map(function (value, key) {
                 if (value.Category === "CUS") {
-                    GeneralCtrl.ePage.Masters.JobEntryNums = value;
-                    GeneralCtrl.ePage.Masters.JobEntryNums.ExpiryDate = new Date(GeneralCtrl.ePage.Masters.JobEntryNums.ExpiryDate);
-                    GeneralCtrl.ePage.Masters.JobEntryNums.IssueDate = new Date(GeneralCtrl.ePage.Masters.JobEntryNums.IssueDate);
+                    GeneralCtrl.ePage.Entities.Header.Data.UIJobEntryNumsObj = value;
                 }
             });
         }
 
-        function CreateJobEntryNums() {
-            // JobEntryNum
-            GeneralCtrl.ePage.Masters.JobEntryNums = {
-                EntityRefKey: GeneralCtrl.ePage.Entities.Header.Data.PK,
-                EntitySource: "JobShipment",
-                Category: "CUS",
-                RN_NKCountryCode: authService.getUserInfo().CountryCode,
-                EntryIsSystemGenerated: false,
-                IsValid: true
-            };
-            GeneralCtrl.ePage.Entities.Header.Data.UIJobEntryNums.push(GeneralCtrl.ePage.Masters.JobEntryNums);
+        function ETDChange() {
+            if (GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETD == null)
+                GeneralCtrl.ePage.Masters.IsETADisable = true;
+            else
+                GeneralCtrl.ePage.Masters.IsETADisable = false;
         }
+
+        // function ModeChange(obj) {
+
+        //     if (obj) {
+        //         GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode = obj.Key;
+        //         GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode = obj.PARENT_Key;
+        //     } else {
+        //         GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode = null;
+        //         GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode = null;
+        //     }
+        //     if (GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode == "AIR")
+        //         GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillCharges = "NON";
+        //     else
+        //         GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillCharges = null;
+        //     OnFieldValueChange('E0002');
+        // }
 
         function GetMastersList() {
             // Get CFXType Dropdown list
-            var typeCodeList = ["TRANSTYPE", "CNTTYPE", "SHPTYPE", "INCOTERM", "WEIGHTUNIT", "VOLUMEUNIT", "ENTRYDETAILS", "RELEASETYPE", "AIRWAY", "HOUSEBILL", "ONBOARD", "CHARGEAPLY", "DROPMODE", "HEIGHTUNIT", "PERIODTYPE", "USAGES", "PROFITANDLOSSRESON", "BILLSTATUS", "COMT_DESC", "COMT_Visibility", "COMT_Module", "COMT_Direction", "COMT_Frieght", "SERVICETYPE", "REFNUMTYPE", "ROUTEMODE", "ROUTESTATUS", "JOBADDR"];
+            var typeCodeList = ["SHPTYPE", "SHP_TRANSTYPE", "SHP_CNTMODE", "CNT_DELIVERYMODE", "INCOTERM", "WEIGHTUNIT", "VOLUMEUNIT", "ENTRYDETAILS", "RELEASETYPE", "AIRWAY", "HOUSEBILL", "ONBOARD", "CHARGEAPLY", "DROPMODE", "HEIGHTUNIT", "PERIODTYPE", "USAGES", "PROFITANDLOSSRESON", "BILLSTATUS", "COMT_DESC", "COMT_Visibility", "COMT_Module", "COMT_Direction", "COMT_Frieght", "SERVICETYPE", "REFNUMTYPE", "ROUTEMODE", "ROUTESTATUS", "JOBADDR", "SHIPPERCOD", "SHP_PAYMENT"];
             var dynamicFindAllInput = [];
 
             typeCodeList.map(function (value, key) {
@@ -103,6 +261,7 @@
                     });
                 }
             });
+
 
             // Get country
             var _inputCountry = {
@@ -177,6 +336,37 @@
             });
         }
 
+        function OnTransportChange() {
+            GeneralCtrl.ePage.Masters.isHBLKey = false;
+            GeneralCtrl.ePage.Masters.isTransportMode = false;
+            if (GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode == "AIR") {
+                GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillCharges = "NON";
+            } else {
+                GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillCharges = "SHW";
+            }
+
+            if (GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode !== "AIR") {
+                GeneralCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PrintOptionForPackagesOnAWB = null;
+            }
+
+            if (GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode == "AIR") {
+                GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillType = null;
+                GeneralCtrl.ePage.Masters.isHBLKey = true;
+            }
+            else if (GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode == "SEA") {
+                GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillType = "IAU"
+            } else {
+                GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillType = null;
+            }
+            if (GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode == '' || GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode == undefined) {
+                OnFieldValueChange('E1107')
+            }
+        }
+
+        function OnWeightChange() {
+            GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Chargeable = GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Weight;
+        }
+
         // ===================== Shipment Header Begin =====================
 
         function InitShipmentHeader() {
@@ -186,44 +376,209 @@
             GeneralCtrl.ePage.Masters.OnAddressChange = OnAddressChange;
             GeneralCtrl.ePage.Masters.OnContactChange = OnContactChange;
             GeneralCtrl.ePage.Masters.OnAddressEdit = OnAddressEdit;
+            // GeneralCtrl.ePage.Masters.modeChange = ModeChange;
             GeneralCtrl.ePage.Masters.AddressContactBinding = AddressContactBinding;
-
-            // GeneralCtrl.ePage.Entities.Header.Meta.AddressContactObject = GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList;
-        }
-
-        function SelectedLookupData($item, type, addressType) {
-            if (type === "address") {
-                AddressContactList($item.entity, addressType);
+            GeneralCtrl.ePage.Masters.OnTransportChange = OnTransportChange;
+            GeneralCtrl.ePage.Masters.OnWeightChange = OnWeightChange;
+            if (GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.BookedDate == null) {
+                $scope.date = new Date();
+                GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.BookedDate = $scope.date;
             }
         }
 
-        function AutoCompleteOnSelect($item, type, addressType) {
-            if (type === "address") {
-                AddressContactList($item, addressType);
+        function SelectedLookupData($item, type, type1, addressType, addressType1, code) {
+
+            OnFieldValueChange(code);
+            if (type == "address") {
+                AddressContactList($item.data.entity, addressType, addressType1);
+            }
+            if (type1 == "contact") {
+                AddressContactList($item.data.entity, addressType, addressType1);
+            }
+            if (addressType == 'CRD') {
+                GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin = $item.data.entity.OAD_RelatedPortCode;
+                getOrgBuyerSupplierMapping();
+                OnFieldValueChange('E0031');
+            }
+            if (addressType == 'CED') {
+                GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination = $item.data.entity.OAD_RelatedPortCode
+                if (GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin && GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination) {
+                    IsDomestic(GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin, GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination)
+                }
+                OnFieldValueChange('E0032');
+            }
+            if (type == 'portOfLoading') {
+                GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PortOfLoading = $item.data.entity.Code;
+            }
+            if (type == 'portOfDischarge') {
+                GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PortOfDischarge = $item.data.entity.Code;
+            }
+            getMDMDefaulvalues();
+        }
+
+        function AutoCompleteOnSelect($item, type, type1, addressType, addressType1) {
+            // GeneralCtrl.ePage.Masters.enable =true;
+            if ($item.Code != null) {
+                if (type === "address") {
+                    AddressContactList($item, addressType, addressType1);
+                }
+                if (type1 === "contact") {
+                    AddressContactList($item, addressType, addressType1);
+                }
+                if (addressType == 'CRD') {
+                    GeneralCtrl.ePage.Masters.IsContactEnable = true;
+                    GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin = $item.OAD_RelatedPortCode
+                    GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Shipper_FK = $item.PK
+                    GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Shipper_Code = $item.Code
+                    getOrgBuyerSupplierMapping();
+                }
+                if (addressType == 'CED') {
+                    GeneralCtrl.ePage.Masters.IsContactEnable1 = true;
+                    GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination = $item.OAD_RelatedPortCode
+                    GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Consignee_FK = $item.PK
+                    GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Consignee_Code = $item.Code
+                    if (GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin && GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination) {
+                        IsDomestic(GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin, GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination)
+                    }
+                    getMDMDefaulvalues();
+                }
+                if (addressType == 'NPP') {
+                    GeneralCtrl.ePage.Masters.IsContactEnable2 = true;
+                }
+            }
+            OnFieldValueChange('E0031');
+            OnFieldValueChange('E0032');
+        }
+
+        function GetOrgAddress(item, type) {
+            var _pk = "";
+            if (type === 'Consignor') {
+                _pk = item.PK
+            } else {
+                _pk = item.ORG_Buyer
+            }
+            var _inputObj = {
+                "ORG_FK": _pk
+            }
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_inputObj),
+                "FilterID": appConfig.Entities.OrgAddress.API.FindAll.FilterID
+            }
+
+            return apiService.post("eAxisAPI", appConfig.Entities.OrgAddress.API.FindAll.Url, _input).then(function (response) {
+                return GeneralCtrl.ePage.Masters["Org" + type + "AddressDetails"] = response.data.Response;
+            });
+        }
+
+        function getMDMDefaulvalues() {
+            if (GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ORG_Code && GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ORG_Code) {
+                apiService.get("eAxisAPI", appConfig.Entities.OrgBuyerSupplierMapping.API.GetMDMDfaultFields.Url + GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ORG_FK + '/' + GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ORG_FK).then(function (response) {
+                    if (response.data.Response) {
+                        if (response.data.Response.UIOrgBuySupMappingTrnMode.length > 0) {
+                            // if (GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode) {
+                            //     var obj = _.filter(GeneralCtrl.ePage.Masters.CfxTypesList.CntType, {
+                            //         'Key': GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode
+                            //     })[0];
+                            //     GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode = obj.PARENT_Key;
+                            //     GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode = obj.Key;
+                            // } else {
+                            //     var obj = _.filter(GeneralCtrl.ePage.Masters.CfxTypesList.CntType, {
+                            //         'Key': response.data.Response.UIOrgBuySupMappingTrnMode[0].ContainerMode
+                            //     })[0];
+                            //     GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode = obj.PARENT_Key;
+                            //     GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode = obj.Key;
+                            // }
+                            // GeneralCtrl.ePage.Masters.selectedMode = obj;
+                            GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.IncoTerm = response.data.Response.UIOrgBuySupMappingTrnMode[0].IncoTerm;
+                            OnIncotermChange();
+                            // GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PortOfLoading = response.data.Response.UIOrgBuySupMappingTrnMode[0].LoadPort;
+                            // GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PortOfDischarge = response.data.Response.UIOrgBuySupMappingTrnMode[0].DischargePort;
+                            GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode = response.data.Response.UIOrgBuySupMappingTrnMode[0].TransportMode;
+                            GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode = response.data.Response.UIOrgBuySupMappingTrnMode[0].ContainerMode;
+                            GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.RX_NKGoodsValueCur = response.data.Response.UIOrgBuyerSupplierMapping.Currency
+                            GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.RX_NKInsuranceCur = response.data.Response.UIOrgBuyerSupplierMapping.Currency
+
+                        }
+                    }
+                });
             }
         }
 
         function AddressContactBinding($item, type) {
             var str = "";
             if ($item != undefined && type == "Address") {
-                str = $item.Address1 + " " + $item.Address2;;
-                return str
-            } else if ($item != undefined && type == "Contact") {
-                str = $item.ContactName + " " + $item.Email + " " + $item.Phone;
-                return str
-            } else {
+                if ($item.Address1 == null || $item.Address1 == undefined) {
+                    $item.Address1 = "";
+                }
+                if ($item.Address2 == undefined || $item.Address2 == null) {
+                    $item.Address2 = "";
+                }
+                if ($item.Address1 || $item.Address2) {
+                    str = $item.Address1 + " " + $item.Address2;
+                    return str
+                }
+            }
+            if ($item != undefined && type == "contact") {
+                if ($item.CompanyNameOverride == null || $item.CompanyNameOverride == undefined) {
+                    $item.CompanyNameOverride = "";
+                }
+                if ($item.Email == undefined || $item.Email == null) {
+                    $item.Email = "";
+                }
+                if ($item.Phone == undefined || $item.Phone == null) {
+                    $item.Phone = "";
+                }
+                if ($item.CompanyNameOverride || $item.Email || $item.Phone) {
+                    str = $item.CompanyNameOverride + " " + $item.Email + " " + $item.Phone;
+                    return str
+                }
+
+            }
+            if ($item != undefined && type == "Contact") {
+                if ($item.ContactName == undefined || $item.ContactName == null) {
+                    $item.ContactName = "";
+                }
+                if ($item.Email == undefined || $item.Email == null) {
+                    $item.Email = "";
+                }
+                if ($item.Phone == null || $item.Phone == undefined) {
+                    $item.Phone = "";
+                }
+                if ($item.Phone || $item.Email || $item.ContactName) {
+                    str = $item.ContactName + " " + $item.Email + " " + $item.Phone;
+                    return str
+                }
+            }
+            else {
                 return str
             }
         }
 
-        function AddressContactList($item, addressType) {
-            GetAddressContactList($item, "OrgAddress", "AddressList", "PK", addressType, GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList);
-            GetAddressContactList($item, "OrgContact", "ContactList", "PK", addressType, GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList);
+
+        function AddressContactList($item, addressType, addressType1) {
+
+            var AddressList = GetAddressContactList($item, "OrgAddress", "AddressList", "PK", addressType, GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList, addressType1);
+            GetAddressContactList($item, "OrgContact", "ContactList", "PK", addressType, GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList, addressType1);
+            // main address list find
+            AddressList.then(function (value) {
+                value.map(function (val, key) {
+                    var IsMain = val.AddressCapability.some(function (value, key) {
+                        return value.IsMainAddress == true;
+                    });
+                    if (IsMain) {
+                        OnAddressChange(val, addressType, "Address", addressType1);
+                    }
+                });
+            });
         }
 
-        function GetAddressContactList(GetSelectedRow, api, listSource, keyName, addressType, obj) {
+        function GetAddressContactList(GetSelectedRow, api, listSource, keyName, addressType, obj, addressType1) {
             obj[addressType][listSource] = undefined;
             obj[addressType].IsModified = true;
+            if (addressType1) {
+                obj[addressType1][listSource] = undefined;
+                obj[addressType1].IsModified = true;
+            }
 
             var _filter = {
                 ORG_FK: GetSelectedRow[keyName]
@@ -233,16 +588,20 @@
                 "FilterID": appConfig.Entities[api].API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities[api].API.FindAll.Url, _input).then(function (response) {
+            return apiService.post("eAxisAPI", appConfig.Entities[api].API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     obj[addressType][listSource] = response.data.Response;
+                    if (addressType1) {
+                        obj[addressType1][listSource] = response.data.Response;
+                    }
+                    return response.data.Response;
                 } else {
                     console.log("Empty Response");
                 }
             });
         }
 
-        function OnAddressChange(selectedItem, addressType, type) {
+        function OnAddressChange(selectedItem, addressType, type, addressType1) {
             GeneralCtrl.ePage.Masters["Is" + addressType + "AddressOpen"] = false
             if (type === "Address") {
                 if (selectedItem) {
@@ -255,6 +614,9 @@
                     GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList[addressType].City = selectedItem.City;
                     GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList[addressType].State = selectedItem.State;
                     GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList[addressType].Country = selectedItem.RelatedPortCode.substring(0, 2);
+                    if (addressType1) {
+                        GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList[addressType1] = GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList[addressType];
+                    }
                 }
             }
         }
@@ -277,8 +639,39 @@
                     GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList[addressType].PhoneExtension = selectedItem.PhoneExtension;
                     GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList[addressType].HomePhone = selectedItem.HomePhone;
                     GeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList[addressType].OtherPhone = selectedItem.OtherPhone;
+                    if (addressType == 'CRD') {
+                        GeneralCtrl.ePage.Masters.IsContactEnable = false;
+                    }
+                    if (addressType == 'CED') {
+                        GeneralCtrl.ePage.Masters.IsContactEnable1 = false;
+                    }
+                    if (addressType == 'NPP') {
+                        GeneralCtrl.ePage.Masters.IsContactEnable2 = false;
+                    }
+
                 }
             }
+        }
+
+        function OnFieldValueChange(code) {
+            var _obj = {
+                ModuleName: ["Shipment"],
+                Code: [GeneralCtrl.currentShipment.code],
+                API: "Group",
+                FilterInput: {
+                    ModuleCode: "SHP",
+                    SubModuleCode: "SHP"
+                },
+                GroupCode: "SHP_GENERAL",
+                RelatedBasicDetails: [{
+                    // "UIField": "TEST",
+                    // "DbField": "TEST",
+                    // "Value": "TEST"
+                }],
+                EntityObject: GeneralCtrl.ePage.Entities.Header.Data,
+                ErrorCode: code ? [code] : []
+            };
+            errorWarningService.ValidateValue(_obj);
         }
 
         // ===================== Shipment Header End =====================
@@ -311,6 +704,18 @@
 
             if (GeneralCtrl.currentShipment.isNew) {
                 GeneralCtrl.ePage.Masters.Package.GridData = [];
+                GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBill = GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentNo;
+                GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.RS_NKServiceLevel = "STD"
+                GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.UnitOfWeight = "KG"
+                GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.UnitOfVolume = "M3"
+                GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.OuterPackType = "PLT"
+                GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.InnerPackType = "CTN"
+                GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentType = "STD"
+                GeneralCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PrintOptionForPackagesOnAWB = "DEF"
+                GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShippedOnBoard = "SHP"
+                GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillType = null;
+                GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillCharges = "SHW"
+                GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ReleaseType = "OBR"
             } else {
                 GetPackageList();
             }
@@ -465,17 +870,14 @@
                     param: function () {
                         var exports = {
                             "currentShipment": GeneralCtrl.currentShipment,
-                            "GridData": GeneralCtrl.ePage.Masters.Package.GridData
+                            // "GridData": GeneralCtrl.ePage.Masters.Package.GridData
                         };
                         return exports;
                     }
                 }
             }).result.then(
-                function (response) {
-
-                }
-                );
-
+                function (response) { }
+            );
         }
 
         function GetContainerList() {
@@ -522,35 +924,81 @@
             }
         }
 
-        // ===================== Package Details End =====================
-
-        function AssignDateToNewDateObject() {
-            // General
-            GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETD = new Date(GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETD);
-            GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETA = new Date(GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETA);
-            GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.BookedDate = new Date(GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.BookedDate);
-            // House Bill
-            GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillIssueDate = new Date(GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillIssueDate);
-            GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShippedOnBoardDate = new Date(GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShippedOnBoardDate);
-            // Pickup
-            GeneralCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.EstimatedPickup = new Date(GeneralCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.EstimatedPickup);
-            GeneralCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupRequiredBy = new Date(GeneralCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupRequiredBy);
-            GeneralCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupCartageAdvised = new Date(GeneralCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupCartageAdvised);
-            GeneralCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupCartageCompleted = new Date(GeneralCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupCartageCompleted);
-            GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.A_RCV = new Date(GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.A_RCV);
-            GeneralCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupLabourTime = new Date(GeneralCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupLabourTime);
-            GeneralCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.DemurrageOnPickupTime = new Date(GeneralCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.DemurrageOnPickupTime);
-            // Delivery
-            GeneralCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.FCLAvailable = new Date(GeneralCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.FCLAvailable);
-            GeneralCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.FCLStorageCommences = new Date(GeneralCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.FCLStorageCommences);
-            GeneralCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.EstimatedDelivery = new Date(GeneralCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.EstimatedDelivery);
-            GeneralCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.DeliveryCartageCompleted = new Date(GeneralCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.DeliveryCartageCompleted);
-            GeneralCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.DeliveryCartageAdvised = new Date(GeneralCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.DeliveryCartageAdvised);
-            GeneralCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.DeliveryRequiredBy = new Date(GeneralCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.DeliveryRequiredBy);
-            GeneralCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.DeliveryLabourTime = new Date(GeneralCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.DeliveryLabourTime);
-            GeneralCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.DemurrageOnDeliveryTime = new Date(GeneralCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.DemurrageOnDeliveryTime);
+        function IsDomestic($item1, $item2) {
+            if (shipmentConfig.PortsComparison($item1, $item2)) {
+                GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.IsDomestic = true;
+            }
+            else {
+                GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.IsDomestic = false;
+            }
         }
+
+        function OnIncotermChange() {
+            if (GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.IncoTerm == "EXW" || GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.IncoTerm == "FAS" || GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.IncoTerm == "FOB" || GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.IncoTerm == "FCA")
+                GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PrepaidCollect = "FRC";
+            else
+                GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PrepaidCollect = "FRP";
+        }
+
+        function PortOfLoadingAlert(_value, type) {
+            if (GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode != null) {
+                if (GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode == 'SEA' && _value.HasSeaport == true) {
+                }
+                else if (GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode == 'AIR' && _value.HasAirport == true) {
+                }
+                else {
+                    Alert(_value, type);
+                }
+            }
+            else {
+                toastr.warning("Please Select Transport Mode")
+            }
+        }
+        function Alert(_value, type) {
+            var modalOptions = {
+                closeButtonText: 'Cancel',
+                actionButtonText: 'Ok',
+                bodyText: 'Port is different from Transport mode'
+            };
+
+            confirmation.showModal({}, modalOptions)
+                .then(function (result) {
+
+                }, function () {
+                    if (type == 'portOfLoading') {
+                        GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PortOfLoading = "";
+                    }
+                    if (type == 'portOfDischarge') {
+                        GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PortOfDischarge = "";
+                    }
+                }
+                );
+        }
+
+        // ===================== Package Details End =====================
 
         Init();
     }
+
+    angular
+        .module("Application")
+        .filter('shpcntmode', function () {
+            return function (input, type) {
+                var _list = [];
+                if (input && type) {
+                    var x = input.map(function (value, key) {
+                        if (value.OtherConfig != "" && value.OtherConfig != undefined) {
+                            var _input = JSON.parse(value.OtherConfig).mode
+                            if (_input) {
+                                var _index = _input.indexOf(type);
+                                if (_index != -1) {
+                                    _list.push(value)
+                                }
+                            }
+                        }
+                    });
+                    return _list;
+                }
+            };
+        });
 })();

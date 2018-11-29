@@ -23,7 +23,7 @@
             OneLevelMappingCtrl.ePage.Masters.UserId = authService.getUserInfo().UserId;
             OneLevelMappingCtrl.ePage.Masters.Input = angular.copy(OneLevelMappingCtrl.input);
             OneLevelMappingCtrl.ePage.Masters.InputObject = angular.copy(OneLevelMappingCtrl.object);
-            
+
             OneLevelMappingCtrl.ePage.Masters.OnAccessClick = OnAccessClick;
             OneLevelMappingCtrl.ePage.Masters.ShowMoreAccess = ShowMoreAccess;
             OneLevelMappingCtrl.ePage.Masters.HideMoreAccess = HideMoreAccess;
@@ -38,39 +38,38 @@
         }
 
         function GetAccessToList() {
-            var _filter = {};
+             if (OneLevelMappingCtrl.ePage.Masters.Input.AccessTo.Input) {
+                var _isEmpty = angular.equals({}, OneLevelMappingCtrl.ePage.Masters.Input.AccessTo.Input);
 
-            if (OneLevelMappingCtrl.ePage.Masters.Input.AccessTo.Input) {
-                _filter = OneLevelMappingCtrl.ePage.Masters.Input.AccessTo.Input;
-            }
-            var _input = {
-                "searchInput": _filter,
-                "FilterID": OneLevelMappingCtrl.ePage.Masters.Input.AccessTo.FilterID
-            };
+                if (!_isEmpty) {
+                    var _input = OneLevelMappingCtrl.ePage.Masters.Input.AccessTo.Input;
 
-            apiService.post(OneLevelMappingCtrl.ePage.Masters.Input.AccessTo.API, OneLevelMappingCtrl.ePage.Masters.Input.AccessTo.APIUrl, _input).then(function SuccessCallback(response) {
-                if (response.data.Response) {
-                    OneLevelMappingCtrl.ePage.Masters.AccessToListTemp = angular.copy(response.data.Response);
-                    OneLevelMappingCtrl.ePage.Masters.AccessToList = response.data.Response;
+                    apiService.post(OneLevelMappingCtrl.ePage.Masters.Input.AccessTo.API, OneLevelMappingCtrl.ePage.Masters.Input.AccessTo.APIUrl, _input).then(function SuccessCallback(response) {
+                        if (response.data.Response) {
+                            OneLevelMappingCtrl.ePage.Masters.AccessToListTemp = angular.copy(response.data.Response);
+                            OneLevelMappingCtrl.ePage.Masters.AccessToList = response.data.Response;
 
-                    GetMappingList();
-                } else {
-                    OneLevelMappingCtrl.ePage.Masters.AccessToList = [];
+                            GetMappingList();
+                        } else {
+                            OneLevelMappingCtrl.ePage.Masters.AccessToList = [];
+                        }
+                    });
                 }
-            });
+            }
         }
 
         function GetMappingList() {
             var _filter = {
                 "MappingCode": OneLevelMappingCtrl.ePage.Masters.Input.MappingCode,
-                "Item_FK": OneLevelMappingCtrl.ePage.Masters.Input.Item_FK
+                "Item_FK": OneLevelMappingCtrl.ePage.Masters.Input.Item_FK,
+                "SAP_FK":authService.getUserInfo().AppPK
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.SecMappings.API.FindAll.FilterID
+                "FilterID": OneLevelMappingCtrl.ePage.Masters.Input.MappingAPI.FilterID
             };
 
-            apiService.post("authAPI", appConfig.Entities.SecMappings.API.FindAll.Url, _input).then(function SuccessCallback(response) {
+            apiService.post(OneLevelMappingCtrl.ePage.Masters.Input.MappingAPI.API,  OneLevelMappingCtrl.ePage.Masters.Input.MappingAPI.FindAll, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
                         OneLevelMappingCtrl.ePage.Masters.AccessToList.map(function (value1, key1) {
@@ -103,17 +102,18 @@
 
         function InsertAccess($item) {
             var _input = {
-                "TNT_FK": authService.getUserInfo().TenantPK,
-                "TenantCode": authService.getUserInfo().TenantCode,
+                // "TNT_FK": authService.getUserInfo().TenantPK,
+                // "TenantCode": authService.getUserInfo().TenantCode,
                 "SAP_FK": authService.getUserInfo().AppPK,
                 "SAP_Code": authService.getUserInfo().AppCode,
                 "MappingCode": OneLevelMappingCtrl.ePage.Masters.Input.MappingCode,
-
                 "Item_FK": OneLevelMappingCtrl.ePage.Masters.Input.Item_FK,
                 "ItemName": OneLevelMappingCtrl.ePage.Masters.Input.AccessTo.Type,
                 "ItemCode": OneLevelMappingCtrl.ePage.Masters.Input.ItemCode,
-
-                // "Access_FK": $item.PK,
+                "OtherEntity_FK": OneLevelMappingCtrl.ePage.Masters.Input.AccessTo.Input.ParentRefKey,
+                "OtherEntityCode": OneLevelMappingCtrl.ePage.Masters.Input.AccessTo.Input.ParentRefCode,
+                "OtherEntitySource": OneLevelMappingCtrl.ePage.Masters.Input.AccessTo.Input.ParentSource,
+                 // "Access_FK": $item.PK,
                 // "AccessCode": $item.ItemCode,
                 "AccessTo": OneLevelMappingCtrl.ePage.Masters.Input.ItemName,
                 "Access_FK": $item[OneLevelMappingCtrl.ePage.Masters.Input.AccessTo.ValueField],
@@ -123,24 +123,32 @@
                 "IsResticted": true
             };
 
-            apiService.post("authAPI", appConfig.Entities.SecMappings.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
-                if (response.data.Response) {
+            if (_input.PK) {
+                apiService.post(OneLevelMappingCtrl.ePage.Masters.Input.MappingAPI.API,  OneLevelMappingCtrl.ePage.Masters.Input.MappingAPI.Update, _input).then(function (response) {
+                    if (response.data.Response) {
+                        $item.IsChecked = true;
+                        $item.MappingResponse = response.data.Response[0];
+                        $item.MappingResponse.IsResticted = true;
+                    } else {
+                        toastr.error("Could not Save...!");
+                    }
+                });
+            } else {
+                apiService.post(OneLevelMappingCtrl.ePage.Masters.Input.MappingAPI.API,  OneLevelMappingCtrl.ePage.Masters.Input.MappingAPI.Insert, [_input]).then(function (response) {
+                    if(response.data.Response) {
                     $item.IsChecked = true;
                     $item.MappingResponse = response.data.Response[0];
                     $item.MappingResponse.IsResticted = true;
                 } else {
                     toastr.error("Could not Save...!");
                 }
-            });
+                });
+            }
         }
 
         function DeleteAccess($item) {
-            var _input = $item.MappingResponse;
-            _input.IsModified = true;
-            _input.IsDeleted = true;
-
-            apiService.post("authAPI", appConfig.Entities.SecMappings.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
-                if (response.data.Response) {
+           apiService.get(OneLevelMappingCtrl.ePage.Masters.Input.MappingAPI.API,  OneLevelMappingCtrl.ePage.Masters.Input.MappingAPI.Delete + '/' + $item.MappingResponse.PK).then(function SuccessCallback(response) {
+                 if (response.data.Response) {
                     $item.IsChecked = false;
                     delete $item.MappingResponse;
                 } else {
@@ -148,6 +156,7 @@
                 }
             });
         }
+
 
         function ShowMoreAccess($item) {
             OneLevelMappingCtrl.ePage.Masters.ActiveMoreAccess = angular.copy($item);
@@ -158,32 +167,45 @@
         }
 
         function SaveAccess() {
+            OneLevelMappingCtrl.ePage.Masters.SaveBtnTxt = "Please Wait...";
             OneLevelMappingCtrl.ePage.Masters.IsDisableAccessSaveBtn = true;
-            OneLevelMappingCtrl.ePage.Masters.AccessSaveBtnText = "Please Wait...";
 
             var _input = angular.copy(OneLevelMappingCtrl.ePage.Masters.ActiveMoreAccess.MappingResponse);
             _input.IsModified = true;
-
-            apiService.post("authAPI", appConfig.Entities.SecMappings.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        var _index = OneLevelMappingCtrl.ePage.Masters.AccessToList.map(function (value, key) {
-                            return value.PK;
-                        }).indexOf(OneLevelMappingCtrl.ePage.Masters.ActiveMoreAccess.PK);
-
-                        if (_index != -1) {
-                            OneLevelMappingCtrl.ePage.Masters.AccessToList[_index].MappingResponse = response.data.Response[0];
-                        }
+             if (_input.PK) {
+               apiService.post(OneLevelMappingCtrl.ePage.Masters.Input.MappingAPI.API,  OneLevelMappingCtrl.ePage.Masters.Input.MappingAPI.Update, _input).then(function (response) {
+                    if (response.data.Response) {
+                        OneLevelMappingCtrl.ePage.Masters.AccessToList = response.data.Response;
+                    } else {
+                        toastr.error("Could not Update...!");
                     }
-                } else {
-                    toastr.error("Could not Save...!");
-                }
 
-                OneLevelMappingCtrl.ePage.Masters.IsDisableAccessSaveBtn = false;
-                OneLevelMappingCtrl.ePage.Masters.AccessSaveBtnText = "Save";
-            });
-        }
+                    OneLevelMappingCtrl.ePage.Masters.IsDisableAccessSaveBtn = false;
+                    OneLevelMappingCtrl.ePage.Masters.AccessSaveBtnText = "Save";
+                });
+            } else {
+                apiService.post(OneLevelMappingCtrl.ePage.Masters.Input.MappingAPI.API,  OneLevelMappingCtrl.ePage.Masters.Input.MappingAPI.Insert, [_input]).then(function (response) {
+                    if (response.data.Response) {
+                        if (response.data.Response.length > 0) {
+                            var _index = OneLevelMappingCtrl.ePage.Masters.AccessToList.map(function (value, key) {
+                                return value.PK;
+                            }).indexOf(OneLevelMappingCtrl.ePage.Masters.ActiveMoreAccess.PK);
 
-        Init();
+                            if (_index != -1) {
+                                OneLevelMappingCtrl.ePage.Masters.AccessToList[_index].MappingResponse = response.data.Response[0];
+                            }
+                        }
+                    } else {
+                        toastr.error("Could not Save...!");
+                    }
+
+                    OneLevelMappingCtrl.ePage.Masters.IsDisableAccessSaveBtn = false;
+                    OneLevelMappingCtrl.ePage.Masters.AccessSaveBtnText = "Save";
+
+                });
+            }
+      }
+
+     Init();
     }
 })();

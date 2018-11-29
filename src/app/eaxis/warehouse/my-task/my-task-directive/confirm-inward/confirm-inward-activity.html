@@ -1,0 +1,31 @@
+<div class="col-lg-12 clearfix no-padding" ng-if="ConfirmInwardCtrl.ePage.Entities.Header.Data">
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 mt-10">
+        <span class="error-warning-container">
+            <error-warning-directive data-ng-if="ConfirmInwardCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.FinalisedDate.IsWarning && !ConfirmInwardCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.FinalisedDate.IsError"
+                list="ConfirmInwardCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.FinalisedDate.WARNING" type="'warning'"
+                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            <error-warning-directive data-ng-if="ConfirmInwardCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.FinalisedDate.IsError"
+                list="ConfirmInwardCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.FinalisedDate.ERROR" type="'error'" icon="fa fa-warning"
+                parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+        </span>
+        <div class="form-group ship-font">
+            <label class="control-label">Finalised Date</label>
+            <div>
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="{{ConfirmInwardCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                        data-ng-model="ConfirmInwardCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.FinalisedDate" datetime-picker="{{ConfirmInwardCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                        datepicker-options="ConfirmInwardCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                        close-on-selection="false" enable-time="true" enable-date="true" default-date="" default-time="" save-as="ConfirmInwardCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        is-open="ConfirmInwardCtrl.ePage.Masters.DatePicker.isOpen['FinalisedDate']" when-closed="" data-ng-click=""
+                        data-ng-change="ConfirmInwardCtrl.ePage.Masters.OnFieldValueChange('E11072')" custom-date-time-format
+                    />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="ConfirmInwardCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'FinalisedDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

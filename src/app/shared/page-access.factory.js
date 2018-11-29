@@ -5,24 +5,19 @@
         .module("Application")
         .factory("pageAccessService", PageAccessService);
 
-    PageAccessService.$inject = ["$rootScope", "$location", "$timeout", "$q", "authService", "toastr"];
+    PageAccessService.$inject = ["$rootScope", "$location", "$timeout", "$q", "authService", "APP_CONSTANT", "toastr"];
 
-    function PageAccessService($rootScope, $location, $timeout, $q, authService, toastr) {
-        var _locationPath = $location.path();
-        var _pageName = _locationPath.split('/')[1];
-        var _locationQueryStr = $location.search();
+    function PageAccessService($rootScope, $location, $timeout, $q, authService, APP_CONSTANT, toastr) {
         var exports = {
-            CheckAccess: CheckAccess,
-            CheckAuthToken: CheckAuthToken
+            CheckAuthToken: CheckAuthToken,
+            CheckPageAccess: CheckPageAccess
         };
         return exports;
 
-        function CheckAuthToken(pageName) {
-            var _pageName = angular.copy(pageName);
-
-            if (_pageName) {
-                if (_pageName === "login") {
-                    if (!authService.getUserInfo().AuthToken) {
+        function CheckAuthToken(url) {
+            if (url) {
+                if (url === "/login") {
+                    if (!authService.getUserInfo().AuthToken && authService.getUserInfo().Version != APP_CONSTANT.Version) {
                         return true;
                     } else {
                         $timeout(function () {
@@ -37,7 +32,7 @@
                     }
                 }
             } else {
-                if (authService.getUserInfo().AuthToken) {
+                if (authService.getUserInfo().AuthToken && authService.getUserInfo().Version === APP_CONSTANT.Version) {
                     return true;
                 } else {
                     $location.path("/login").search({
@@ -49,99 +44,69 @@
             }
         }
 
-        function CheckAccess(pageName) {
+        function CheckPageAccess(url) {
             var deferred = $q.defer();
-            _locationPath = $location.path();
-            _locationQueryStr = $location.search();
-            _pageName = angular.copy(pageName);
 
-            if (_pageName) {
-                if (_pageName === "/login") {
-                    if (authService.getUserInfo().AuthToken) {
-                        CheckLoginAccess().then(function (response) {
-                            deferred.resolve(response);
-                        });
-                    } else {
-                        deferred.resolve(true);
-                    }
-                } else {
-                    if (authService.getUserInfo().AuthToken) {
-                        CheckAuthAccess().then(function (response) {
-                            deferred.resolve(response);
-                        });
-                    } else {
-                        var _queryString = {};
-                        if (_locationPath != "/login") {
-                            _queryString.continue = _locationPath;
-                        }
-                        $location.path("/login").search(_queryString);
-                    }
-                }
+            if (authService.getUserInfo().AuthToken && authService.getUserInfo().Version === APP_CONSTANT.Version) {
+                CheckAuthAccess(url).then(function (response) {
+                    deferred.resolve(response);
+                });
             } else {
-                if (authService.getUserInfo().AuthToken) {
-                    CheckAuthAccess().then(function (response) {
-                        deferred.resolve(response);
-                    });
-                } else {
-                    $location.path("/login").search({
-                        continue: _locationPath
-                    });
-                }
+                authService.setUserInfo();
+                $timeout(function () {
+                    $location.path("/login").search({});
+                });
             }
+
             return deferred.promise;
         }
 
-        function CheckLoginAccess() {
+        function CheckAuthAccess(url) {
             var deferred = $q.defer();
 
-            if (_locationPath !== "" && _locationPath !== " " && _locationPath !== undefined && _locationPath !== null && _locationPath !== "/login") {
-                CheckPageAccess()
-                    .then(function (response) {
-                        if (response == true) {
-                            $location.path(_locationPath).search({});
-                        } else {
-                            $location.path(authService.getUserInfo().InternalUrl);
-                        }
-                    });
+            if (authService.getUserInfo().IsLinkLogin == true && url == "/login") {
+                authService.setUserInfo();
+                $timeout(function () {
+                    $location.path("/login").search({});
+                });
             } else {
-                CheckPageAccess()
-                    .then(function (response) {
-                        if (response == true) {
-                            if (_locationQueryStr.continue) {
-                                $location.path(_locationQueryStr.continue).search({});
-                            } else {
-                                $location.path(authService.getUserInfo().InternalUrl).search({});
-                            }
-                        } else {
-                            $location.path(authService.getUserInfo().InternalUrl).search({});
-                        }
-                    });
-            }
-            return deferred.promise;
-        }
-
-        function CheckAuthAccess() {
-            var deferred = $q.defer();
-
-            CheckPageAccess()
-                .then(function (response) {
+                CheckPageAccessMenu(url).then(function (response) {
                     if (response == true) {
-                        deferred.resolve(response);
+                        deferred.resolve(true);
                     } else {
-                        toastr.error("You don't have access to this page...!");
-                        $location.path(authService.getUserInfo().InternalUrl);
+                        if (url == "/login") {
+                            $location.path(authService.getUserInfo().InternalUrl).search({});
+                        } else {
+                            toastr.error("You do not have access to this page...!");
+
+                            if (authService.getUserInfo().AuthToken && authService.getUserInfo().Version === APP_CONSTANT.Version) {
+                                $location.path(authService.getUserInfo().InternalUrl).search({});
+                            } else {
+                                authService.setUserInfo();
+                                $timeout(function () {
+                                    $location.path("/login").search({});
+                                });
+                            }
+                        }
                     }
                 });
+            }
+
             return deferred.promise;
         }
 
-        function CheckPageAccess() {
+        function CheckPageAccessMenu(url) {
             var deferred = $q.defer();
-            var _listString = JSON.stringify(angular.copy(authService.getUserInfo().AccessMenuList)).toLowerCase();
-            var _index = _listString.indexOf(_pageName.toLowerCase());
+            if (authService.getUserInfo().AccessMenus && authService.getUserInfo().AccessMenus.length > 0) {
+                var _index = authService.getUserInfo().AccessMenus.map(function (value, key) {
+                    return value.Link;
+                }).indexOf(url);
 
-            if (_index !== -1) {
-                deferred.resolve(true);
+                if (_index !== -1) {
+                    deferred.resolve(true);
+                } else {
+                    deferred.resolve(false);
+                }
             } else {
                 deferred.resolve(false);
             }

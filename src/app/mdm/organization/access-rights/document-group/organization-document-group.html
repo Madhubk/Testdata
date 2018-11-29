@@ -1,0 +1,53 @@
+<div class="clearfix document-group-container">
+    <div class="clearfix document-group-container" data-ng-if="!OrganizationDocumentGroupCtrl.ePage.Masters.DocumentAction.IsShowDocumentAction">
+        <div class="clearfix" style="padding: 5px 0; background-color: #eee; font-weight: bold;">
+            <div class="col-sm-6">
+                <div class="text-single-line p-5">Document Group</div>
+            </div>
+        </div>
+        <div class="clearfix p-20 text-center" data-ng-if="!OrganizationDocumentGroupCtrl.ePage.Masters.DocumentGroup.DocumentGroupList">
+            <i class="fa fa-spin fa-spinner font-160"></i>
+        </div>
+        <div class="clearfix p-20 text-center" data-ng-if="OrganizationDocumentGroupCtrl.ePage.Masters.DocumentGroup.DocumentGroupList && OrganizationDocumentGroupCtrl.ePage.Masters.DocumentGroup.DocumentGroupList.length == 0">
+            <i>No Records...!</i>
+        </div>
+        <div class="clearfix" data-ng-repeat="x in OrganizationDocumentGroupCtrl.ePage.Masters.DocumentGroup.DocumentGroupList" style="border-bottom: 1px solid #eee; padding: 7px 0;"
+            data-ng-if="OrganizationDocumentGroupCtrl.ePage.Masters.DocumentGroup.DocumentGroupList && OrganizationDocumentGroupCtrl.ePage.Masters.DocumentGroup.DocumentGroupList.length > 0">
+            <div class="col-sm-6 pt-4">
+                <div class="checkbox m-0">
+                    <label>
+                        <input type="checkbox" class="colored-blue" data-ng-model="x.IsChecked" data-ng-click="OrganizationDocumentGroupCtrl.ePage.Masters.DocumentGroup.OnDocumentGroupClick($event, x)">
+                        <span class="text text-single-line" data-ng-bind="x.Desc"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-2 text-right pt-5">
+                <a href="javascript:void(0)" data-ng-if="x.IsChecked && x.Desc" data-ng-click="x.Desc && OrganizationDocumentGroupCtrl.ePage.Masters.DocumentGroup.OnDocumentGroupActionClick(x)">Action</a>
+            </div>
+
+        </div>
+    </div>
+    <div class="clearfix document-action-container" data-ng-if="OrganizationDocumentGroupCtrl.ePage.Masters.DocumentAction.IsShowDocumentAction">
+        <div class="clearfix heading">
+            <span class="fa fa-angle-double-left mr-10 cursor-pointer font-130" data-ng-click="OrganizationDocumentGroupCtrl.ePage.Masters.DocumentAction.GoToDocumentGroup()"></span>
+            <span data-ng-bind="OrganizationDocumentGroupCtrl.ePage.Masters.DocumentGroup.ActiveDocumentGroup.DocType + ' - ' + OrganizationDocumentGroupCtrl.ePage.Masters.DocumentGroup.ActiveDocumentGroup.Desc"></span>
+        </div>
+        <div class="clearfix" style="padding: 5px 0; background-color: #eee; font-weight: bold;">
+            <div class="col-sm-4">
+                <div class="text-single-line p-5">Parties</div>
+            </div>
+
+            <div class="col-sm-2">
+                <div class="text-single-line p-5"></div>
+            </div>
+            <div class="col-sm-2">
+                <div class="text-single-line p-5"></div>
+            </div>
+        </div>
+        <div class="clearfix">
+            <div class="col-sm-8">
+                <party-mapping mapping-input="OrganizationDocumentGroupCtrl.ePage.Masters.DocumentAction.MappingInput" is-restricted="true" data-ng-if="OrganizationDocumentGroupCtrl.ePage.Masters.DocumentAction.MappingInput"></party-mapping>
+            </div>
+        </div>
+    </div>
+</div>

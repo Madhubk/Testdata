@@ -25,16 +25,36 @@
             // DatePicker
             ReceiveItemsCtrl.ePage.Masters.DatePicker = {};
             ReceiveItemsCtrl.ePage.Masters.DatePicker.Options = APP_CONSTANT.DatePicker;
+
+            ReceiveItemsCtrl.ePage.Masters.DatePicker.OptionsDel = angular.copy(APP_CONSTANT.DatePicker)
+            var a = new Date();
+            a = a.setDate(a.getDate() - 1);
+            var date = new Date(a);
+            ReceiveItemsCtrl.ePage.Masters.DatePicker.OptionsDel['minDate'] = date;
+
             ReceiveItemsCtrl.ePage.Masters.DatePicker.isOpen = [];
             ReceiveItemsCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
 
             ReceiveItemsCtrl.ePage.Masters.Config = manifestConfig;
 
             ReceiveItemsCtrl.ePage.Masters.UpdateReceivedDateTime = UpdateReceivedDateTime;
+            ReceiveItemsCtrl.ePage.Masters.UpdateDateThroughConsignment = UpdateDateThroughConsignment;
 
         }
 
-         function OpenDatePicker($event, opened) {
+        function UpdateDateThroughConsignment(item) {
+            if(item){
+                angular.forEach(ReceiveItemsCtrl.ePage.Entities.Header.Data.TmsManifestItem, function (value, key) {
+                    if (value.TMC_ConsignmentNumber == item) {
+                        ReceiveItemsCtrl.ePage.Entities.Header.Data.TmsManifestItem = moveElementInArray(ReceiveItemsCtrl.ePage.Entities.Header.Data.TmsManifestItem, value, -key);
+                        value.DeliveryDateTime = new Date();
+                        value.Quantity = 1;
+                    }
+                }); 
+            }
+        }
+
+        function OpenDatePicker($event, opened) {
             $event.preventDefault();
             $event.stopPropagation();
             ReceiveItemsCtrl.ePage.Masters.DatePicker.isOpen[opened] = true;

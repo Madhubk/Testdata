@@ -24,23 +24,30 @@
 
             };
 
-            // Standard Menu Configuration and Data
-            ManifestMenuCtrl.ePage.Masters.StandardMenuInput = appConfig.Entities.standardMenuConfigList.TransportsManifest;
-            ManifestMenuCtrl.ePage.Masters.StandardMenuInput.obj = ManifestMenuCtrl.currentManifest;
-
             ManifestMenuCtrl.ePage.Masters.IsActiveMenu = ManifestMenuCtrl.activeMenu;
             ManifestMenuCtrl.ePage.Masters.Config = manifestConfig;
-            ManifestMenuCtrl.ePage.Masters.SaveButtonText = "Save";
+            if (ManifestMenuCtrl.ePage.Entities.Header.Data.ProcessInfo != null && ManifestMenuCtrl.ePage.Entities.Header.Data.ProcessInfo.length > 0) {
+                if (ManifestMenuCtrl.ePage.Entities.Header.Data.ProcessInfo[0].WSI_StepName == 'Confirm Manifest Arrival') {
+                    ManifestMenuCtrl.ePage.Masters.SaveButtonText = "Confirm Arrival";
+                } else {
+                    ManifestMenuCtrl.ePage.Masters.SaveButtonText = "Save";
+                }
+            } else {
+                ManifestMenuCtrl.ePage.Masters.SaveButtonText = "Save";
+            }
+
             ManifestMenuCtrl.ePage.Masters.SaveAndCloseButtonText = "Save & Close";
-            // ManifestMenuCtrl.ePage.Masters.DispatchButtonText = "Dispatch Manifest";
-            // ManifestMenuCtrl.ePage.Masters.UnDispatchButtonText = "UnDispatch Manifest"
             ManifestMenuCtrl.ePage.Masters.ShowMoreText = true;
             ManifestMenuCtrl.ePage.Masters.CompleteBtnText = "Complete";
+            ManifestMenuCtrl.ePage.Masters.SaveReceiveItemButtonText = "Save";
             ManifestMenuCtrl.ePage.Masters.IsComplete = false;
+
+            ManifestMenuCtrl.ePage.Masters.IsShowError = ManifestMenuCtrl.showError;
 
             // function
             ManifestMenuCtrl.ePage.Masters.SaveClose = SaveClose;
             ManifestMenuCtrl.ePage.Masters.Validation = Validation;
+            ManifestMenuCtrl.ePage.Masters.SaveReceiveItems = SaveReceiveItems;
             ManifestMenuCtrl.ePage.Masters.DispatchedManifest = DispatchedManifest;
             ManifestMenuCtrl.ePage.Masters.UnDispatchedManifest = UnDispatchedManifest;
             ManifestMenuCtrl.ePage.Masters.ReceiveItemConfirm = ReceiveItemConfirm;
@@ -57,6 +64,21 @@
 
             // Menu list from configuration
             ManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource = ManifestMenuCtrl.ePage.Entities.Header.Meta.MenuList;
+        }
+
+        function SaveReceiveItems($item) {
+            ManifestMenuCtrl.ePage.Masters.SaveReceiveItemButtonText = "Please Wait...";
+            var count = 0;
+            angular.forEach($item[$item.label].ePage.Entities.Header.Data.TmsManifestItem, function (value, key) {
+                if (value.DeliveryDateTime) {
+                    count = count + 1;
+                }
+            });
+            if (count == ManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestItem.length) {
+                $item[$item.label].ePage.Entities.Header.Data.TmsManifestHeader.ActualDeliveryDate = new Date();
+            }
+            Save($item);
+
         }
 
         function Print(item) {
@@ -95,7 +117,7 @@
                             a.click();
                             window.URL.revokeObjectURL(url);
                         };
-                    } ());
+                    }());
 
                     base64ToArrayBuffer(response.data);
                     ManifestMenuCtrl.ePage.Masters.ShowMoreText = true;
@@ -126,27 +148,41 @@
             ManifestMenuCtrl.ePage.Masters.IsMore = true;
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
-            if (_input.TmsManifestItem.length == 0) {
+            if (_input.TmsManifestItem.length == 0 && _input.TmsManifestConsignment.length == 0) {
                 _input.TmsManifestHeader.IsCancel = true;
                 Save($item);
             } else {
-                toastr.warning("Before cancel the Manifest detach all the ManifestItems");
+                toastr.warning("Before cancel the Manifest detach all the Consignment and Manifest Items in this manifest");
             }
         }
 
         function Complete($item) {
             ManifestMenuCtrl.ePage.Masters.IsDisableCompleteBtn = true;
             ManifestMenuCtrl.ePage.Masters.IsComplete = true;
-            // var count = 0;
-            // angular.forEach($item[$item.label].ePage.Entities.Header.Data.TmsManifestItem, function (value, key) {
-            //     if (value.DeliveryDateTime) {
-            //         count = count + 1;
-            //     }
-            // });
-            // if (count == ManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestItem.length) {
-            //     $item[$item.label].ePage.Entities.Header.Data.TmsManifestHeader.ActualDeliveryDate = new Date();
-            // }
-            Save($item);
+            var count = 0;
+            angular.forEach($item[$item.label].ePage.Entities.Header.Data.TmsManifestItem, function (value, key) {
+                if (value.DeliveryDateTime) {
+                    count = count + 1;
+                }
+            });
+            if (count == ManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestItem.length) {
+                $item[$item.label].ePage.Entities.Header.Data.TmsManifestHeader.ActualDeliveryDate = new Date();
+                Save($item);
+            } else {
+                var modalOptions = {
+                    closeButtonText: 'Cancel',
+                    actionButtonText: 'Ok',
+                    headerText: 'Are you sure?',
+                    bodyText: 'Some items are not yet received. Do you want complete the task?'
+                };
+                confirmation.showModal({}, modalOptions)
+                    .then(function (result) {
+                        $item[$item.label].ePage.Entities.Header.Data.TmsManifestHeader.ActualDeliveryDate = new Date();
+                        Save($item);
+                    }, function () {
+                        console.log("Cancelled");
+                    });
+            }
         }
 
         function CloseEditActivityModal() {
@@ -172,19 +208,23 @@
         }
 
         function DispatchedManifest($item) {
-            ManifestMenuCtrl.ePage.Masters.IsMore = true;
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
-            _input.TmsManifestHeader.ActualDispatchDate = new Date();
-            ManifestMenuCtrl.ePage.Masters.DispatchManifest = true;
-            Validation($item);
+
+            if (_input.TmsManifestItem.length > 0 && _input.TmsManifestConsignment.length > 0) {
+                _input.TmsManifestHeader.ActualDispatchDate = new Date();
+                ManifestMenuCtrl.ePage.Masters.IsMore = true;
+                Validation($item);
+            } else {
+                toastr.error("It can be dispatched only when the consignment and manifest item have values.")
+            }
         }
 
         function UnDispatchedManifest($item) {
             ManifestMenuCtrl.ePage.Masters.IsMore = true;
             var modalOptions = {
                 closeButtonText: 'No',
-                actionButtonText: 'YES',
+                actionButtonText: 'Yes',
                 headerText: 'Change Dispatched to UnDispatch..',
                 bodyText: 'Do You Want To Change?'
             };
@@ -236,7 +276,6 @@
                 ManifestMenuCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
             }
 
-            // ManifestMenuCtrl.ePage.Masters.ShowMoreText = false;
             ManifestMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave = true;
 
             var _Data = $item[$item.label].ePage.Entities,
@@ -247,9 +286,10 @@
             } else {
                 $item = filterObjectUpdate($item, "IsModified");
             }
-
-            if (ManifestMenuCtrl.ePage.Entities.Header.Data.ProcessInfo[0].WSI_StepName == 'Confirm Manifest Arrival') {
-                _input.TmsManifestHeader.ManifestStatus = "ARR";
+            if (ManifestMenuCtrl.ePage.Entities.Header.Data.ProcessInfo.length > 0) {
+                if (ManifestMenuCtrl.ePage.Entities.Header.Data.ProcessInfo[0].WSI_StepName == 'Confirm Manifest Arrival') {
+                    _input.TmsManifestHeader.ManifestStatus = "ARR";
+                }
             }
             _input.TmsManifestConsignment.map(function (value, key) {
                 value.TMM_FK = _input.TmsManifestHeader.PK;
@@ -280,27 +320,39 @@
                                     manifestConfig.TabList[_index][manifestConfig.TabList[_index].label].ePage.Entities.Header.Data = response.data.Response;
 
                                     manifestConfig.TabList.map(function (value, key) {
-                                        if (value.New) {
-                                            // if (value.code == ManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestNumber) {
-                                            value.label = ManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestNumber;
-                                            value[ManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestNumber] = value.New;
-                                            delete value.New;
-                                            // }
+                                        if (_index == key) {
+                                            if (value.New) {
+                                                // if (value.code == ManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestNumber) {
+                                                value.label = ManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestNumber;
+                                                value[ManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestNumber] = value.New;
+                                                delete value.New;
+                                                // }
+                                            }
                                         }
                                     });
+                                    if (ManifestMenuCtrl.ePage.Entities.Header.Data.ProcessInfo.length > 0) {
+                                        if (ManifestMenuCtrl.ePage.Entities.Header.Data.ProcessInfo[0].WSI_StepName == 'Confirm Manifest Arrival') {
+                                            ManifestMenuCtrl.ePage.Masters.SaveButtonText = "Confirm Arrival";
+                                        }
+                                    }
+                                    else {
+                                        ManifestMenuCtrl.ePage.Masters.SaveButtonText = "Save";
+                                    }
                                 }
                             });
+                            ManifestMenuCtrl.ePage.Masters.SaveReceiveItemButtonText = "Save";
+                            toastr.success("Saved Successfully");
                         } else {
+                            toastr.success("Cancelled Successfully");
                             ManifestMenuCtrl.ePage.Masters.Config.SaveAndClose = true;
                         }
-
 
                         if (ManifestMenuCtrl.ePage.Masters.SaveAndClose) {
                             ManifestMenuCtrl.ePage.Masters.Config.SaveAndClose = true;
                             ManifestMenuCtrl.ePage.Masters.SaveAndClose = false;
                         }
                         manifestConfig.TabList[_index].isNew = false;
-                        if ($state.current.url == "/manifest") {
+                        if ($state.current.url == "/track-manifest") {
                             helperService.refreshGrid();
                         }
                     }
@@ -312,36 +364,65 @@
                     } else {
                         ManifestResponse = response.Data;
                     }
-                    if (ManifestResponse.ProcessInfo[0].Status == 'COMPLETED' && response.Data.Response.ProcessInfo[0].WSI_StepNo == '1') {
-                        var data = {
-                            "From": "donotreply@20cube.com",
-                            "To": [
-                                "srajasiva@20cube.com",
-                                "mfelcia@20cube.com",
-                                "kkannan@20cube.com",
-                            ],
-                            "Cc": [
-                                "jreginold@20cube.com"
-                            ],
-                            "Bcc": [],
-                            "Body": response.Data.Response.TmsManifestHeader.ManifestNumber + "-" + "Manifest Dispatched",
-                            "Subject": "Manifest Number:" + response.Data.Response.TmsManifestHeader.ManifestNumber + " is Dispatched",
-                            "TemplateName": "Agent_Reply",
-                            "Attachments": [],
-                            "EmailType": "Agent_Reply",
-                            "ReplacementValues": {
-                                "body": "M00100355-Manifest Dispatched"
-                            },
-                            "FromName": "TMS Manifest"
+
+                    if (ManifestResponse.ProcessInfo.length > 0) {
+                        if (ManifestResponse.ProcessInfo[0].Status == 'COMPLETED' && ManifestResponse.ProcessInfo[0].WSI_StepNo == '1') {
+                            var data = [];
+                            var obj = {
+                                "PK": "7967ec60-15ad-4325-82a0-ebfe5c6cbaab",
+                                "EntityRefKey": "14d2cc93-01eb-4496-8d8d-1764aa633ab1",
+                                "EntitySource": "sample string 2",
+                                "EntityRefCode": "sample string 3",
+                                "ParentEntityRefKey": "317cab94-0995-49e3-b2c9-dad7b5f97be4",
+                                "ParentEntitySource": "sample string 4",
+                                "ParentEntityRefCode": "sample string 5",
+                                "AdditionalEntityRefKey": "e55d1b1b-ba5e-423d-a49b-8c1d9e31ea89",
+                                "AdditionalEntitySource": "sample string 6",
+                                "AdditionalEntityRefCode": "sample string 7",
+                                "FROM": "donotreply@20cube.com",
+                                "TO": "srajasiva@20cube.com",
+                                "CC": "mfelcia@20cube.com",
+                                "BCC": "kkannan@20cube.com",
+                                "Subject": ManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestNumber + "-" + "Manifest Dispatched",
+                                "Body": "Hi Team , Manifest Dispatched",
+                                "JOD_FK": "3f256d2a-5ffd-41dc-b42b-0c6c364c1737",
+                                "CreatedDateTime": "2018-05-23T08:39:56.4467748+00:00",
+                                "CreatedBy": "sample string 15",
+                                "ModifiedDateTime": "2018-05-23T08:39:56.4467748+00:00",
+                                "ModifiedBy": "sample string 16",
+                                "Status": "sample string 17",
+                                "IsModified": true,
+                                "IsDeleted": true,
+                                "TenantCode": "sample string 20",
+                                "PartyType_FK": "b390f6f8-0d0d-4b18-9953-8d7713be91e7",
+                                "PartyType_Code": "sample string 21",
+                                "IsShared": true,
+                                "IsResticted": true,
+                                "TypeCode": "sample string 24",
+                            }
+                            data.push(obj)
+                            apiService.post("eAxisAPI", "JobEmail/Insert", data).then(function SuccessCallback(response) {
+                                var _input =
+                                    {
+                                        "FROM": "donotreply@20cube.com",
+                                        "TO": ["srajasiva@20cube.com", "kkannan@20cube.com"],
+                                        "CC": ["mfelcia@20cube.com", "jreginold@20cube.com"],
+                                        "Subject": ManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestNumber + "-" + "Manifest Dispatched",
+                                        "Template": "temp1",
+                                        "Body": "<div style=\"color: blue;\" class=\"ng-scope\">\n     Manifest Dispatched,\n </div>"
+                                    }
+                                apiService.post("alertAPI", appConfig.Entities.NotificationEmail.API.Send.Url, _input).then(function SuccessCallback(response) {
+
+                                });
+                            });
                         }
-                        $http.post("http://api.20cube.com/mhb/Mail/Send", data).success(function (data, status) {
-                            console.log(status)
-                        });
                     }
 
+                    ManifestMenuCtrl.ePage.Masters.IsMore = false;
                     console.log("Success");
                 } else if (response.Status === "failed") {
                     console.log("Failed");
+                    toastr.error("save failed");
                     ManifestMenuCtrl.ePage.Entities.Header.Validations = response.Validations;
                     angular.forEach(response.Validations, function (value, key) {
                         ManifestMenuCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey.trim(), ManifestMenuCtrl.currentManifest.label, false, undefined, undefined, undefined, undefined, undefined);
@@ -349,6 +430,7 @@
                     if (ManifestMenuCtrl.ePage.Entities.Header.Validations != null) {
                         ManifestMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(ManifestMenuCtrl.currentManifest);
                     }
+                    ManifestMenuCtrl.ePage.Masters.IsMore = false;
                 }
             });
         }

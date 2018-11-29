@@ -1,0 +1,91 @@
+<div class="col-xs-12 col-lg-12 col-sm-12 col-md-12 col-xl-12 pl-0 pr-0">
+    <div class="table" id="results">
+        <div class='theader'>
+            <div class='table_header'>Select</div>
+            <div class='table_header'>Order #</div>
+            <div class='table_header'>Order Date</div>
+            <div class='table_header'>Consignee</div>
+            <div class='table_header'>Consignor</div>
+            <div class='table_header'>T.Mode</div>
+            <div class='table_header'>C.Mode</div>
+            <div class='table_header'>Carrier</div>
+            <div class='table_header'>Vessel</div>
+            <div class='table_header'>Voyage</div>
+            <div class='table_header'>ETA</div>
+            <div class='table_header'>ETD</div>
+            <div class='table_header'>CargoCutOff</div>
+            <div class='table_header'>BookingCutOff</div>
+        </div>
+        <!-- List Order(s) -->
+        <div class='table_row' ng-repeat="x in ConvertBookingBranchGridDirectiveCtrl.ePage.Masters.BookingList"
+            ng-class="{row_active: x.status === true}" style="font-size: 11px;">
+            <div class='table_small'>
+                <div class='table_cell'>Select</div>
+                <div class='table_cell'>
+                    <input type="checkbox" name="">
+                    <div class="text-center task-check align">
+                        <label>
+                            <input type="checkbox" data-ng-model="x.status" data-ng-change="ConvertBookingBranchGridDirectiveCtrl.ePage.Masters.Checkbox(x)">
+                            <span class="text"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>Order #</div>
+                <div class='table_cell'><a data-ng-click="ConvertBookingBranchGridDirectiveCtrl.ePage.Masters.SingleRecordView(x)">{{x.OrderCumSplitNo}}</a></div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>Order Date</div>
+                <div class='table_cell'>{{x.OrderDate | date:'dd-MMM-yyyy'}}</div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>Consignee</div>
+                <div class='table_cell'>{{x.Buyer}}</div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>Consignor</div>
+                <div class='table_cell'>{{x.Supplier}}</div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>T.Mode</div>
+                <div class='table_cell'>{{x.TransportMode}}</div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>C.Mode</div>
+                <div class='table_cell'>{{x.ContainerMode}}</div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>Carrier</div>
+                <div class='table_cell'>{{x.PlannedCarrier}}</div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>Vessel</div>
+                <div class='table_cell'>{{x.PlannedVessel}}</div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>Voyage</div>
+                <div class='table_cell'>{{x.PlannedVoyage}}</div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>PlannedETA</div>
+                <div class='table_cell'>{{x.PlannedETA | date:'dd-MMM-yyyy'}}</div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>PlannedETD</div>
+                <div class='table_cell'>{{x.PlannedETD | date:'dd-MMM-yyyy'}}</div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>CargoCutOffDate</div>
+                <div class='table_cell'>{{x.CargoCutOffDate | date:'dd-MMM-yyyy'}}</div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>BookingCutOffDate</div>
+                <div class='table_cell'>{{x.BookingCutOffDate | date:'dd-MMM-yyyy'}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- List Empty Response -->
+<div class="grid-no-record-ctob" data-ng-if="ConvertBookingBranchGridDirectiveCtrl.ePage.Masters.BookingList.length==0">No
+    records found...</div>

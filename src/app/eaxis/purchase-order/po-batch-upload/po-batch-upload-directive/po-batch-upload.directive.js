@@ -13,7 +13,7 @@
             templateUrl: "app/eaxis/purchase-order/po-batch-upload/po-batch-upload-directive/po-batch-upload-directive.html",
             link: Link,
             controller: "PoBatchUploadDirectiveController",
-            controllerAs: "PoBatchUploadDirectiveDirectiveCtrl",
+            controllerAs: "PoBatchUploadDirectiveCtrl",
             scope: {
                 currentBatch: "=",
                 addTab: "&"

@@ -17,10 +17,6 @@
             <div class='table_header'>Cargo Cut Off</div>
             <div class='table_header'>Booking Cut Off</div>
         </div>
-        <!-- List Empty Response -->
-        <div data-ng-if="PreAdviceGridDirectiveCtrl.ePage.Masters.PreAdviceOrderList.length==0">
-            <div class="grid-no-record grid-width" style="bottom:38px">No record found..</div>
-        </div>
         <!-- List Loading -->
         <div data-ng-show="PreAdviceGridDirectiveCtrl.ePage.Masters.spinner">
             <div class="grid-no-record grid-width" style="bottom:38px">
@@ -32,7 +28,8 @@
             </div>
         </div>
         <!-- List Order(s) -->
-        <div class='table_row' ng-repeat="x in PreAdviceGridDirectiveCtrl.ePage.Masters.PreAdviceOrderList" data-ng-class="{row_active: x.status === true}" ng-class="{row_active: x.status === true}" style="font-size: 11px;">
+        <div class='table_row' data-ng-repeat="x in PreAdviceGridDirectiveCtrl.ePage.Masters.PreAdviceOrderList"
+            data-ng-class="{row_active: x.status === true}" data-ng-class="{row_active: x.status === true}" style="font-size: 11px;">
             <div class='table_small'>
                 <div class='table_cell'>Select</div>
                 <div class='table_cell'>
@@ -47,7 +44,9 @@
             </div>
             <div class='table_small'>
                 <div class='table_cell'>Order #</div>
-                <div class='table_cell'><a data-ng-click="PreAdviceGridDirectiveCtrl.ePage.Masters.SingleRecordView(x)">{{x.OrderCumSplitNo}}</a></div>
+                <div class='table_cell'>
+                    <a data-ng-click="PreAdviceGridDirectiveCtrl.ePage.Masters.SingleRecordView(x)">{{x.OrderCumSplitNo}}</a>
+                </div>
             </div>
             <div class='table_small'>
                 <div class='table_cell'>Consignee</div>
@@ -79,11 +78,11 @@
             </div>
             <div class='table_small'>
                 <div class='table_cell'>POL</div>
-                <div class='table_cell'>{{x.PortOfLoading}}</div>
+                <div class='table_cell'>{{x.LoadPort}}</div>
             </div>
             <div class='table_small'>
                 <div class='table_cell'>POD</div>
-                <div class='table_cell'>{{x.PortOfDischarge}}</div>
+                <div class='table_cell'>{{x.DischargePort}}</div>
             </div>
             <div class='table_small'>
                 <div class='table_cell'>ETD</div>
@@ -102,5 +101,9 @@
                 <div class='table_cell'>{{x.BookingCutOffDate | date:'dd-MMM-yyyy'}}</div>
             </div>
         </div>
+    </div>
+    <!-- List Empty Response -->
+    <div data-ng-if="PreAdviceGridDirectiveCtrl.ePage.Masters.PreAdviceOrderList.length==0">
+        <div class="grid-no-record-pre">No record found..</div>
     </div>
 </div>

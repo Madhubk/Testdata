@@ -1,0 +1,227 @@
+<div class="col-lg-12 mt-15">
+    <div class="rows border-box border-radius-2 bg-fbfbfb">
+        <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 col-xl-2 pt-10 pb-10">
+            <div class="tab-profile-title text-single-line fs-16" data-ng-bind="PickupDeliveryCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestNumber"></div>
+        </div>
+        <!--Sender-->
+        <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8 col-xl-8 border-left border-right pt-10 pb-10 ">
+            <div class="fs-14">
+                <span>
+                    {{PickupDeliveryCtrl.ePage.Entities.Header.Data.OrgSender.FullName}}
+                </span>
+                <span class="ml-15 mr-15">
+                    <i class="fa fa-arrow-circle-right"></i>
+                </span>
+                <span>
+                    {{PickupDeliveryCtrl.ePage.Entities.Header.Data.OrgReceiver.FullName}}
+                </span>
+            </div>
+        </div>
+        <div class="col-lg-2 mt-10">
+            <div class="tab-profile-sub-title text-single-line fs-14" title="{{PickupDeliveryCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatus}} - {{PickupDeliveryCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatusDesc}}"
+                data-ng-bind="PickupDeliveryCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatusDesc"></div>
+        </div>
+    </div>
+</div>
+<div class="clearfix col-lg-12 mt-10">
+    <div class="rows border-box border-radius-2 pt-15 height-60">
+        <div class="col-lg-2">
+            <div class="form-group">
+                <div class="color-999 fs-11">Transporter</div>
+                <div class="text-single-line">
+                    <span>{{PickupDeliveryCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterName||PickupDeliveryCtrl.ePage.Masters.Empty}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="form-group">
+                <div class="color-999 fs-11">Manifest Type</div>
+                <span>{{PickupDeliveryCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestType||PickupDeliveryCtrl.ePage.Masters.Empty}}</span>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="form-group">
+                <div class="color-999 fs-11">Vehicle Type</div>
+                <span>{{PickupDeliveryCtrl.ePage.Entities.Header.Data.TmsManifestHeader.VehicleTypeDescription||PickupDeliveryCtrl.ePage.Masters.Empty}}</span>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="form-group">
+                <div class="color-999 fs-11">Load Type</div>
+                <span>{{PickupDeliveryCtrl.ePage.Entities.Header.Data.TmsManifestHeader.LoadType | dateFormat}}</span>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="form-group">
+                <div class="color-999 fs-11">Estimated Delivery Date</div>
+                <span>{{PickupDeliveryCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDeliveryDate|dateFormat}}</span>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="form-group">
+                <div class="color-999 fs-11">Estimated Dispatch Date</div>
+                <span>{{PickupDeliveryCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDispatchDate|dateFormat}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix col-lg-12 mt-10">
+    <div class="dmstable_scroll" id='PickupDeliveryCtrl.ePage.Masters.your_div' style="height:250px; padding-top: 2px;">
+        <div class="table" id="results">
+            <div class='theader' ng-if="PickupDeliveryCtrl.ePage.Entities.Header.CheckPoints.IsPickup">
+                <div class='table_header'>Consignment Number</div>
+                <div class='table_header'>Sender</div>
+                <div class='table_header'>Receiver</div>
+                <div class='table_header'>Service Type</div>
+                <div class='table_header'>Status</div>
+                <div class='table_header'>Sender Reference</div>
+                <div class='table_header'>Receiver Reference</div>
+                <div class='table_header'>Expected Pickup Date Time</div>
+                <div class='table_header'>Expected Delivery Date Time</div>
+                <div class='table_header'>Actual Pickup Date Time</div>
+            </div>
+            <div class='theader' ng-if="PickupDeliveryCtrl.ePage.Entities.Header.CheckPoints.IsDelivery">
+                <div class='table_header'>Consignment Number</div>
+                <div class='table_header'>Sender</div>
+                <div class='table_header'>Receiver</div>
+                <div class='table_header'>Service Type</div>
+                <div class='table_header'>Status</div>
+                <div class='table_header'>Sender Reference</div>
+                <div class='table_header'>Receiver Reference</div>
+                <div class='table_header'>Expected Pickup Date Time</div>
+                <div class='table_header'>Expected Delivery Date Time</div>
+                <div class='table_header'>Actual Delivery Date Time</div>
+                <div class='table_header'>Document</div>
+            </div>
+
+            <!-- List Empty Response -->
+            <div data-ng-if="PickupDeliveryCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.length==0">
+                <div class="text-no-record grid-width" style="bottom:38px">No Record Found</div>
+            </div>
+            <!-- For Pickup -->
+            <div class='table_row' ng-if="PickupDeliveryCtrl.ePage.Entities.Header.CheckPoints.IsPickup" ng-repeat="x in PickupDeliveryCtrl.ePage.Entities.Header.Data.TmsManifestConsignment | filter:{TMC_Sender_ORG_FK:PickupDeliveryCtrl.orgfk}"
+                ng-click="PickupDeliveryCtrl.ePage.Masters.setSelectedRow($index)" ng-class="{row_active: PickupDeliveryCtrl.ePage.Masters.selectedRow==$index}"
+                style="font-size: 11px;">
+                <div class='table_small'>
+                    <div class='table_cell'>Consignment Number</div>
+                    <div class='table_cell'>{{x.TMC_ConsignmentNumber || PickupDeliveryCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Sender</div>
+                    <div class='table_cell'>{{x.TMC_SenderCode || PickupDeliveryCtrl.ePage.Masters.emptyText}} - {{x.TMC_SenderName || PickupDeliveryCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Receiver</div>
+                    <div class='table_cell'>{{x.TMC_ReceiverCode || PickupDeliveryCtrl.ePage.Masters.emptyText}} - {{x.TMC_ReceiverName || PickupDeliveryCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Service Type</div>
+                    <div class='table_cell'>{{x.TMC_ServiceType || PickupDeliveryCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Status</div>
+                    <div class='table_cell'>{{x.TMC_Status || PickupDeliveryCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Sender Reference</div>
+                    <div class='table_cell'>{{x.TMC_SenderRef || PickupDeliveryCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Receiver Reference </div>
+                    <div class='table_cell'>{{x.TMC_ReceiverRef || PickupDeliveryCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Expected Pickup Date Time</div>
+                    <div class='table_cell'>{{x.TMC_ExpectedPickupDateTime | dateFormat}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Expected Delivery Date Time</div>
+                    <div class='table_cell'>{{x.TMC_ExpectedDeliveryDateTime | dateFormat}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Actual Pickup Date Time</div>
+                    <div class="input-group input-group-sm p-5" style="width: 190px;">
+                        <input type="text" class="form-control" placeholder="{{PickupDeliveryCtrl.ePage.Masters.DatePicker.Options.dateTimeFullFormat}}"
+                            datetime-picker="{{PickupDeliveryCtrl.ePage.Masters.DatePicker.Options.dateTimeFullFormat}}" ng-model="x.TMC_ActualPickupDateTime"
+                            is-open="PickupDeliveryCtrl.ePage.Masters.DatePicker.isOpen['isTMC_ActualPickupDateTime'+[$index]]"
+                            datepicker-options="PickupDeliveryCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                            close-on-selection="false" enable-time="true" enable-date="true" default-date="" default-time=""
+                            when-closed="" save-as="PickupDeliveryCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click=""
+                            data-ng-change="" custom-date-time-format/>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" data-ng-click="PickupDeliveryCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isTMC_ActualPickupDateTime'+[$index])">
+                                <i class="fa fa-calendar"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- For Delivery -->
+            <div class='table_row' ng-if="PickupDeliveryCtrl.ePage.Entities.Header.CheckPoints.IsDelivery" ng-repeat="x in PickupDeliveryCtrl.ePage.Entities.Header.Data.TmsManifestConsignment | filter:{TMC_Receiver_ORG_FK:PickupDeliveryCtrl.orgfk}"
+                ng-click="PickupDeliveryCtrl.ePage.Masters.setSelectedRow($index)" ng-class="{row_active: PickupDeliveryCtrl.ePage.Masters.selectedRow==$index}"
+                style="font-size: 11px;">
+                <div class='table_small'>
+                    <div class='table_cell'>Consignment Number</div>
+                    <div class='table_cell'>{{x.TMC_ConsignmentNumber || PickupDeliveryCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Sender</div>
+                    <div class='table_cell'>{{x.TMC_SenderCode || PickupDeliveryCtrl.ePage.Masters.emptyText}} - {{x.TMC_SenderName || PickupDeliveryCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Receiver</div>
+                    <div class='table_cell'>{{x.TMC_ReceiverCode || PickupDeliveryCtrl.ePage.Masters.emptyText}} - {{x.TMC_ReceiverName || PickupDeliveryCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Service Type</div>
+                    <div class='table_cell'>{{x.TMC_ServiceType || PickupDeliveryCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Status</div>
+                    <div class='table_cell'>{{x.TMC_Status || PickupDeliveryCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Sender Reference</div>
+                    <div class='table_cell'>{{x.TMC_SenderRef || PickupDeliveryCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Receiver Reference </div>
+                    <div class='table_cell'>{{x.TMC_ReceiverRef || PickupDeliveryCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Expected Pickup Date Time</div>
+                    <div class='table_cell'>{{x.TMC_ExpectedPickupDateTime | dateFormat}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Expected Delivery Date Time</div>
+                    <div class='table_cell'>{{x.TMC_ExpectedDeliveryDateTime | dateFormat}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Actual Delivery Date Time</div>
+                    <div class="input-group input-group-sm p-5" style="width: 190px;">
+                        <input type="text" class="form-control" placeholder="{{PickupDeliveryCtrl.ePage.Masters.DatePicker.Options.dateTimeFullFormat}}"
+                            datetime-picker="{{PickupDeliveryCtrl.ePage.Masters.DatePicker.Options.dateTimeFullFormat}}" ng-model="x.TMC_ActualDeliveryDateTime"
+                            is-open="PickupDeliveryCtrl.ePage.Masters.DatePicker.isOpen['isTMC_ActualDeliveryDateTime'+[$index]]"
+                            datepicker-options="PickupDeliveryCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                            close-on-selection="false" enable-time="true" enable-date="true" default-date="" default-time=""
+                            when-closed="" save-as="PickupDeliveryCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click=""
+                            data-ng-change="" custom-date-time-format/>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" data-ng-click="PickupDeliveryCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isTMC_ActualDeliveryDateTime'+[$index])">
+                                <i class="fa fa-calendar"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Document</div>
+                    <div class='table_cell'>
+                        <div data-ng-init="PickupDeliveryCtrl.ePage.Masters.StandardMenuConfig(x,$index)"></div>
+                        <i class="fa fa-file" style="font-size: 14px; margin-left: 20px;" document-modal input="PickupDeliveryCtrl.ePage.Masters.DocumentInput[$index]"
+                            mode="1" data-ng-if="PickupDeliveryCtrl.ePage.Masters.DocumentInput[$index]"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

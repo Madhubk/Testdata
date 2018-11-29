@@ -1,0 +1,157 @@
+<div class="clearfix padding-top-10" data-ng-if="LinerDeliveryEditDirCtrl.currentConsol">
+    <div class="clearfix">
+        <!-- CHA Name -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div> <label class="control-label">CHA Name</label>
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingRefNo.IsWarning && !LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingRefNo.IsError"
+                        list="LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingRefNo.WARNING" type="'warning'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingRefNo.IsError"
+                        list="LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingRefNo.ERROR" type="'error'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span></div>
+            <div class="form-group"> <input type="text" maxlength="30" ng-model="LinerDeliveryEditDirCtrl.ePage.Entities.Header.Data.UIConsolExtendedInfo.SIFilingRefNo"
+                    maxlength="12" class="form-control input-sm" placeholder="CHA Name" data-ng-change="LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.OnFieldValueChange('MyTask', LinerDeliveryEditDirCtrl.ePage.Masters.TaskObj.PSI_InstanceNo, LinerDeliveryEditDirCtrl.ePage.Entities.Header.Data.UIConsolExtendedInfo.SIFilingRefNo, 'E0010', false, undefined)">
+            </div>
+        </div>
+        <!-- Container Detention free Days -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div> <label class="control-label">Container Detention free Days</label>
+                    <span class="error-warning-container">
+                        <error-warning-directive data-ng-if="LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingRefNo.IsWarning && !LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingRefNo.IsError"
+                            list="LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingRefNo.WARNING" type="'warning'"
+                            icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        <error-warning-directive data-ng-if="LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingRefNo.IsError"
+                            list="LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingRefNo.ERROR" type="'error'"
+                            icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    </span></div>
+                <div class="form-group"> <input type="number" maxlength="30" ng-model="LinerDeliveryEditDirCtrl.ePage.Entities.Header.Data.UIConsolExtendedInfo.SIFilingRefNo"
+                        maxlength="12" class="form-control input-sm" placeholder="Container Detention free Days" data-ng-change="LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.OnFieldValueChange('MyTask', LinerDeliveryEditDirCtrl.ePage.Masters.TaskObj.PSI_InstanceNo, LinerDeliveryEditDirCtrl.ePage.Entities.Header.Data.UIConsolExtendedInfo.SIFilingRefNo, 'E0010', false, undefined)">
+                </div>
+            </div>
+        <!-- IGM Date -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div> <label class="control-label">IGM Date</label>
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SiFilingDate.IsWarning && !LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SiFilingDate.IsError"
+                        list="LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SiFilingDate.WARNING" type="'warning'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SiFilingDate.IsError"
+                        list="LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SiFilingDate.ERROR" type="'error'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span></div>
+            <div class="form-group">
+                <div class="input-group input-group-sm con-dt-value">
+                    <input type="text" class="form-control" placeholder="{{LinerDeliveryEditDirCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        data-ng-model="LinerDeliveryEditDirCtrl.ePage.Entities.Header.Data.UIConsolExtendedInfo.SIFilingDate" datetime-picker="{{LinerDeliveryEditDirCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="LinerDeliveryEditDirCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" save-as="LinerDeliveryEditDirCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        is-open="LinerDeliveryEditDirCtrl.ePage.Masters.DatePicker.isOpen['isSIFilingDate']" when-closed="" data-ng-click=""
+                        data-ng-change="LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.OnFieldValueChange('MyTask', LinerDeliveryEditDirCtrl.ePage.Masters.TaskObj.PSI_InstanceNo, LinerDeliveryEditDirCtrl.ePage.Entities.Header.Data.UIConsolExtendedInfo.SIFilingDate, 'E0009', false, undefined)"
+                        custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="LinerDeliveryEditDirCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isSIFilingDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- IGM Date -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div> <label class="control-label">IGM Acknoledgement Date</label>
+                    <span class="error-warning-container">
+                        <error-warning-directive data-ng-if="LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SiFilingDate.IsWarning && !LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SiFilingDate.IsError"
+                            list="LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SiFilingDate.WARNING" type="'warning'"
+                            icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        <error-warning-directive data-ng-if="LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SiFilingDate.IsError"
+                            list="LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SiFilingDate.ERROR" type="'error'"
+                            icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    </span></div>
+                <div class="form-group">
+                    <div class="input-group input-group-sm con-dt-value">
+                        <input type="text" class="form-control" placeholder="{{LinerDeliveryEditDirCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                            data-ng-model="LinerDeliveryEditDirCtrl.ePage.Entities.Header.Data.UIConsolExtendedInfo.SIFilingDate" datetime-picker="{{LinerDeliveryEditDirCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                            datepicker-options="LinerDeliveryEditDirCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                            close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" save-as="LinerDeliveryEditDirCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                            is-open="LinerDeliveryEditDirCtrl.ePage.Masters.DatePicker.isOpen['isSIFilingDate']" when-closed="" data-ng-click=""
+                            data-ng-change="LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.OnFieldValueChange('MyTask', LinerDeliveryEditDirCtrl.ePage.Masters.TaskObj.PSI_InstanceNo, LinerDeliveryEditDirCtrl.ePage.Entities.Header.Data.UIConsolExtendedInfo.SIFilingDate, 'E0009', false, undefined)"
+                            custom-date-time-format />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default shiny" data-ng-click="LinerDeliveryEditDirCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isSIFilingDate')">
+                                <i class="fa fa-calendar"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- Factory Destuffing Bond -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Factory Destuffing Bond</label>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" data-ng-model="LinerDeliveryEditDirCtrl.ePage.Entities.Header.Data.UIConsolExtendedInfo.IsHBLRequired"
+                                data-ng-checked="LinerDeliveryEditDirCtrl.ePage.Entities.Header.Data.UIConsolExtendedInfo.IsHBLRequired"
+                                class="colored-blue">
+                            <span class="text"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        <!-- Bond Type -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div>
+                <label class="control-label">Bond Type</label>
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingType.IsWarning && !LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingType.IsError"
+                        list="LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingType.WARNING" type="'warning'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingType.IsError"
+                        list="LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingType.ERROR" type="'error'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+            </div>
+            <div class="form-group">
+                <div class="con-dt-value">
+                    <select chosen ng-options="x.Key as x.Description for x in LinerDeliveryEditDirCtrl.ePage.Masters.DropDownMasterList.CON_SI_FILING_TYPE.ListSource"
+                        ng-model="LinerDeliveryEditDirCtrl.ePage.Entities.Header.Data.UIConsolExtendedInfo.SIFilingType" class="form-control"
+                        data-ng-change="LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.OnFieldValueChange('MyTask', LinerDeliveryEditDirCtrl.ePage.Masters.TaskObj.PSI_InstanceNo, LinerDeliveryEditDirCtrl.ePage.Entities.Header.Data.UIConsolExtendedInfo.SIFilingType, 'E0011', false, undefined)">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+         <!-- Security Deposit -->
+         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Factory Destuffing Bond</label>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" data-ng-model="LinerDeliveryEditDirCtrl.ePage.Entities.Header.Data.UIConsolExtendedInfo.IsHBLRequired"
+                                data-ng-checked="LinerDeliveryEditDirCtrl.ePage.Entities.Header.Data.UIConsolExtendedInfo.IsHBLRequired"
+                                class="colored-blue">
+                            <span class="text"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <!-- Security Deposit Amount -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div> <label class="control-label">Security Deposit Amount</label>
+                    <span class="error-warning-container">
+                        <error-warning-directive data-ng-if="LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingRefNo.IsWarning && !LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingRefNo.IsError"
+                            list="LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingRefNo.WARNING" type="'warning'"
+                            icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        <error-warning-directive data-ng-if="LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingRefNo.IsError"
+                            list="LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingRefNo.ERROR" type="'error'"
+                            icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    </span></div>
+                <div class="form-group"> <input type="number" maxlength="30" ng-model="LinerDeliveryEditDirCtrl.ePage.Entities.Header.Data.UIConsolExtendedInfo.SIFilingRefNo"
+                        maxlength="12" class="form-control input-sm" placeholder="Security Deposit Amount" data-ng-change="LinerDeliveryEditDirCtrl.ePage.Masters.ErrorWarningConfig.OnFieldValueChange('MyTask', LinerDeliveryEditDirCtrl.ePage.Masters.TaskObj.PSI_InstanceNo, LinerDeliveryEditDirCtrl.ePage.Entities.Header.Data.UIConsolExtendedInfo.SIFilingRefNo, 'E0010', false, undefined)">
+                </div>
+            </div>
+    </div>
+</div>

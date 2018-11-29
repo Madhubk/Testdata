@@ -1,0 +1,8 @@
+<div class="col-lg-12 no-padding information-summary">
+    <dynamic-control data-ng-if="InformationSummaryCtrl.ePage.Masters.DynamicControl" input="InformationSummaryCtrl.ePage.Masters.DynamicControl"
+        mode="D" current="InformationSummaryCtrl.ePage.Entities" controls-data="InformationSummaryCtrl.ePage.Masters.ControlsData($item)"
+        view-type="2"></dynamic-control>
+</div>
+<div class="col-lg-12 no-padding" data-ng-if="!InformationSummaryCtrl.ePage.Masters.DynamicControl">
+    <div class="warning-message">Information Summary Not Yet Configured.</div>'
+</div>

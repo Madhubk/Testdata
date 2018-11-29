@@ -1,4 +1,4 @@
-(function() {
+(function () {
     "use strict";
 
     angular
@@ -20,14 +20,16 @@
                 "Meta": helperService.metaBase(),
                 "Entities": consignmentConfig.Entities
             };
-            
-            ConsignmentCtrl.ePage.Masters.taskName = "TransportsConsignment";
+
             ConsignmentCtrl.ePage.Masters.dataentryName = "TransportsConsignment";
             ConsignmentCtrl.ePage.Masters.TabList = [];
             ConsignmentCtrl.ePage.Masters.activeTabIndex = 0;
             ConsignmentCtrl.ePage.Masters.isNewConsignmentClicked = false;
             ConsignmentCtrl.ePage.Masters.IsTabClick = false;
             ConsignmentCtrl.ePage.Masters.Config = consignmentConfig;
+
+            // Remove all Tabs while load shipment
+            consignmentConfig.TabList = [];
 
             //functions
             ConsignmentCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
@@ -66,11 +68,11 @@
         function AddTab(currentConsignment, isNew) {
             ConsignmentCtrl.ePage.Masters.currentConsignment = undefined;
 
-            var _isExist = ConsignmentCtrl.ePage.Masters.TabList.some(function(value) {
+            var _isExist = ConsignmentCtrl.ePage.Masters.TabList.some(function (value) {
                 if (!isNew) {
-                    if(value.label === currentConsignment.entity.ConsignmentNumber)
+                    if (value.label === currentConsignment.entity.ConsignmentNumber)
                         return true;
-                    else 
+                    else
                         return false;
                 } else {
                     if (value.label === "New")
@@ -89,9 +91,9 @@
                     _currentConsignment = currentConsignment;
                 }
 
-                consignmentConfig.GetTabDetails(_currentConsignment, isNew).then(function(response) {
+                consignmentConfig.GetTabDetails(_currentConsignment, isNew).then(function (response) {
                     ConsignmentCtrl.ePage.Masters.TabList = response;
-                    $timeout(function() {
+                    $timeout(function () {
                         ConsignmentCtrl.ePage.Masters.activeTabIndex = ConsignmentCtrl.ePage.Masters.TabList.length;
                         ConsignmentCtrl.ePage.Masters.CurrentActiveTab(currentConsignment.entity.ConsignmentNumber);
                         ConsignmentCtrl.ePage.Masters.IsTabClick = false;
@@ -129,7 +131,7 @@
             });
             if (!_isExist) {
                 ConsignmentCtrl.ePage.Masters.isNewConsignmentClicked = true;
-                helperService.getFullObjectUsingGetById(ConsignmentCtrl.ePage.Entities.Header.API.GetByID.Url, 'null').then(function(response) {
+                helperService.getFullObjectUsingGetById(ConsignmentCtrl.ePage.Entities.Header.API.GetByID.Url, 'null').then(function (response) {
                     if (response.data.Response) {
                         var _obj = {
                             entity: response.data.Response.TmsConsignmentHeader,
@@ -144,7 +146,7 @@
             } else {
                 toastr.info("New Record Already Opened...!");
             }
-        }    
+        }
         Init();
     }
 })();

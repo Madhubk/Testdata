@@ -1,0 +1,173 @@
+<div class="p-10" style="min-height:515px;">
+    <div class="clearfix">
+        <button dynamic-list-modal obj="ThreeOneConsolShipmentCtrl.ePage.Masters.ConsolShipment.GridData" page-name="'ShipmentSearch'"
+            control-id="'ConsolAttachShipment'" control-key="ConsolAttachShipment_3232" mode="3" is-full-obj="true"
+            grid-refresh-fun-name="GetRelatedShipmentDetails" grid-refresh-fun="ThreeOneConsolShipmentCtrl.ePage.Masters.GridRefreshFun($item)"
+            selected-data="ThreeOneConsolShipmentCtrl.ePage.Masters.SelectedData($item)" class="btn btn-primary pull-right margin-right-5"
+            type="button">
+            <i class="fa fa-paperclip"></i> Attach Shipment
+        </button>
+        <button class="btn btn-primary pull-right margin-right-5" type="button">
+            <i class="fa fa-chain"></i> Merge Shipment
+        </button>
+    </div>
+    <!-- attachment order grid -->
+    <div id='' class="common_table_scroll common_table_hgt pt-2">
+        <div class="table tab-position" id="results">
+            <div class='theader'>
+                <div class='table_header'>Total : <strong>
+                        {{ThreeOneConsolShipmentCtrl.ePage.Masters.ConsolShipment.GridData.length}} </strong>
+                    Shipment
+                    Attached with this consol.</div>
+            </div>
+            <div class='theader'>
+                <div class='table_header'>Shipment #</div>
+                <div class='table_header'>Consignor</div>
+                <div class='table_header'>Consignee</div>
+                <div class='table_header'>Origin</div>
+                <div class='table_header'>Destination</div>
+                <div class='table_header'>HBL</div>
+                <div class='table_header'>Outer Pack</div>
+                <div class='table_header'>Inner Pack</div>
+                <div class='table_header'>Weight</div>
+                <div class='table_header'>Volume</div>
+                <div class='table_header'>ETA</div>
+                <div class='table_header'>ETD</div>
+                <div class='table_header'>Action</div>
+            </div>
+            <div class='table_row' data-ng-repeat="x in ThreeOneConsolShipmentCtrl.ePage.Masters.ConsolShipment.GridData"
+                data-ng-if="ThreeOneConsolShipmentCtrl.ePage.Masters.ConsolShipment.GridData.length > 0" style="font-size: 11px;">
+                <div class='table_small'>
+                    <div class='table_cell'>Shipment #</div>
+                    <div class='table_cell'>
+                        <b>
+                            <a class="fontSizeColor" data-ng-click="RoutingCtrl.ePage.Masters.SingleRecordView(x)">
+                                {{x.ShipmentNo}} </a>
+                        </b>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Consignor</div>
+                    <div class='table_cell'>
+                        <span data-ng-bind="x.ORG_Shipper_Code"></span>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Consignee</div>
+                    <div class='table_cell'>
+                        <span data-ng-bind="x.ORG_Consignee_Code"></span>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Origin</div>
+                    <div class='table_cell'>
+                        <span data-ng-bind="x.Origin"></span>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Destination</div>
+                    <div class='table_cell'>
+                        <span data-ng-bind="x.Destination"></span>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>HBL</div>
+                    <div class='table_cell'>
+                        <span data-ng-bind="x.HouseBill"></span>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Outer Pack</div>
+                    <div class='table_cell'>
+                        <span data-ng-bind="x.OuterPackCount"></span>
+                        <span data-ng-bind="x.OuterPackCount"></span>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Inner Pack</div>
+                    <div class='table_cell'>
+                        <span data-ng-bind="x.InnerPackCount"></span>
+                        <span data-ng-bind="x.InnerPackType"></span>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Weight</div>
+                    <div class='table_cell'>
+                        <span data-ng-bind="x.Weight"></span>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Volume</div>
+                    <div class='table_cell'>
+                        <span data-ng-bind="x.Volume"></span>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>ETD</div>
+                    <div class='table_cell'>
+                        <span data-ng-bind="x.ETD | date:'dd-MMM-yyyy'"></span>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>ETA</div>
+                    <div class='table_cell'>
+                        <span data-ng-bind="x.ETA | date:'dd-MMM-yyyy'"></span>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Action</div>
+                    <div class='table_cell'>
+                        <span>
+                            <a>
+                                <i class="fa fa-trash order-icon" data-ng-click="ThreeOneConsolShipmentCtrl.ePage.Masters.ShipmentDeleteConfirmation(x)"></i>
+                            </a>
+                            <!-- <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" ng-model="x.checked" class="colored-blue">
+                                    <span class="text"></span>
+                                </label>
+                            </div> -->
+                        </span>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- List Empty Response -->
+        <div class="grid-no-record-border-box text-center p-30" data-ng-if="!ThreeOneConsolShipmentCtrl.ePage.Masters.ConsolShipment.GridData">
+            <i class="fa fa-spin fa-spinner fs-20"></i>
+        </div>
+        <div class="grid-no-record-common_table" data-ng-if="ThreeOneConsolShipmentCtrl.ePage.Masters.ConsolShipment.GridData.length==0">No
+            records found...</div>
+    </div>
+    <div class="col-xs-12 col-lg-12 col-sm-12 col-md-12 col-xl-12 pt-10 pb-10 calculation-total">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-1 col-xl-1 text-center">
+            <i class="fa fa-calculator fa-3x"></i>
+        </div>
+        <!-- Shipment Count-->
+        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12">
+            <div class="">
+                Packs :
+                <b>{{ThreeOneConsolShipmentCtrl.ePage.Masters.packlist.PackCount}}</b>
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12">
+            <div class="">
+                Weight :
+                <b>{{ThreeOneConsolShipmentCtrl.ePage.Masters.packlist.Weight}}</b>
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12">
+            <div class="">
+                Volume :
+                <b>{{ThreeOneConsolShipmentCtrl.ePage.Masters.packlist.Volume}}</b>
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12">
+            <div class="">
+                Chargeable :
+                <b>{{ThreeOneConsolShipmentCtrl.ePage.Masters.packlist.Chargeable}}</b>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,226 @@
+<div class="clearfix tc-document-type-configure-document-type-container pb-100 pt-10">
+    <form class="clearfix" novalidate>
+        <div class="clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Reference Type </label>
+                    <input type="text" class="form-control input-sm" data-ng-model="TCDocumentTypeConfigureCtrl.ePage.Masters.DocumentType.FormView.ReferenceType"
+                        placeholder="Reference Type" />
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Doc Type </label>
+                    <input type="text" class="form-control input-sm" data-ng-model="TCDocumentTypeConfigureCtrl.ePage.Masters.DocumentType.FormView.DocType"
+                        placeholder="DocType" />
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Description </label>
+                    <input type="text" class="form-control input-sm" data-ng-model="TCDocumentTypeConfigureCtrl.ePage.Masters.DocumentType.FormView.Desc"
+                        placeholder="Description" />
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Module Code </label>
+                    <select chosen class="form-control" data-ng-options="x.Value as x.Value for x in TCDocumentTypeConfigureCtrl.ePage.Masters.DocumentType.ModuleListSource"
+                        data-ng-model="TCDocumentTypeConfigureCtrl.ePage.Masters.DocumentType.FormView.ModuleCode" search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Sub Module Code </label>
+                    <input type="text" class="form-control input-sm" data-ng-model="TCDocumentTypeConfigureCtrl.ePage.Masters.DocumentType.FormView.SubModuleCode"
+                        placeholder="Sub Module Code" />
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">State </label>
+                    <input type="text" class="form-control input-sm" data-ng-model="TCDocumentTypeConfigureCtrl.ePage.Masters.DocumentType.FormView.State"
+                        placeholder="State" />
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Source </label>
+                    <input type="text" class="form-control input-sm" data-ng-model="TCDocumentTypeConfigureCtrl.ePage.Masters.DocumentType.FormView.Source"
+                        placeholder="Source" />
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Party Type</label>
+                    <select chosen class="form-control" data-ng-options="x.PK as x.PartyName for x in TCDocumentTypeConfigureCtrl.ePage.Masters.Parties.PartiesListSource"
+                        data-ng-model="TCDocumentTypeConfigureCtrl.ePage.Masters.DocumentType.FormView.PartyType_FK" search-contains="true"
+                        data-ng-change="TCDocumentTypeConfigureCtrl.ePage.Masters.DocumentType.OnPartyTypeChange((TCDocumentTypeConfigureCtrl.ePage.Masters.Parties.PartiesListSource | filter: {'PK': TCDocumentTypeConfigureCtrl.ePage.Masters.DocumentType.FormView.PartyType_FK})[0])">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">SE_NKDocument Received Event </label>
+                    <input type="text" class="form-control input-sm" data-ng-model="TCDocumentTypeConfigureCtrl.ePage.Masters.DocumentType.FormView.SE_NKDocumentReceivedEvent"
+                        placeholder="Source" />
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <div class="clearfix">
+                    <div class="form-group">
+                        <label class="">
+                            Other Config
+                            <span data-ng-click="TCDocumentTypeConfigureCtrl.ePage.Masters.DocumentType.OpenJsonModal('OtherConfig')" class="glyphicon glyphicon-pencil cursor-pointer ml-5"></span>
+                        </label>
+                        <div class="">
+                            <textarea class="form-control set-text-bg no-resize" style="height:100px;" data-ng-model="TCDocumentTypeConfigureCtrl.ePage.Masters.DocumentType.FormView.OtherConfig"
+                                placeholder="Other Config"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" data-ng-model="TCDocumentTypeConfigureCtrl.ePage.Masters.DocumentType.FormView.IsBranchSpecific" class="colored-blue">
+                            <span class="text text-single-line">Is Branch Specific</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" data-ng-model="TCDocumentTypeConfigureCtrl.ePage.Masters.DocumentType.FormView.IsCompanySpecific"
+                                class="colored-blue">
+                            <span class="text text-single-line">Is Company Specific</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" data-ng-model="TCDocumentTypeConfigureCtrl.ePage.Masters.DocumentType.FormView.IsDepartmentSpecific"
+                                class="colored-blue">
+                            <span class="text text-single-line">Is Department Specific</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" data-ng-model="TCDocumentTypeConfigureCtrl.ePage.Masters.DocumentType.FormView.IsPublished" class="colored-blue">
+                            <span class="text text-single-line">IsPublished</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" data-ng-model="TCDocumentTypeConfigureCtrl.ePage.Masters.DocumentType.FormView.IsSystem" class="colored-blue">
+                            <span class="text text-single-line">IsSystem</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" data-ng-model="TCDocumentTypeConfigureCtrl.ePage.Masters.DocumentType.FormView.LogSystemCreatedDocsToEDocs"
+                                class="colored-blue">
+                            <span class="text text-single-line">LogSystem CreatedDocs To EDocs</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" data-ng-model="TCDocumentTypeConfigureCtrl.ePage.Masters.DocumentType.FormView.OriginalDocumentReleasedOnPayment"
+                                class="colored-blue">
+                            <span class="text text-single-line">Original Document Released On Payment</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" data-ng-model="TCDocumentTypeConfigureCtrl.ePage.Masters.DocumentType.FormView.SaveVersions" class="colored-blue">
+                            <span class="text text-single-line">Save Versions</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" data-ng-model="TCDocumentTypeConfigureCtrl.ePage.Masters.DocumentType.FormView.ForceUserToRead" class="colored-blue text-single-line">
+                            <span class="text">Force User To Read</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" data-ng-model="TCDocumentTypeConfigureCtrl.ePage.Masters.DocumentType.FormView.HPPclPrintFile" class="colored-blue text-single-line">
+                            <span class="text">HP Pcl Print File</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" data-ng-model="TCDocumentTypeConfigureCtrl.ePage.Masters.DocumentType.FormView.AllowMultiplePeriodicDocs"
+                                class="colored-blue">
+                            <span class="text text-single-line">Allow Multiple Periodic Docs</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" data-ng-model="TCDocumentTypeConfigureCtrl.ePage.Masters.DocumentType.FormView.IsActive" class="colored-blue">
+                            <span class="text text-single-line">IsActive</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="eaxis-footer-strip">
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10"></div>
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+        <button class="btn btn-primary btn-sm pull-right mr-10 mt-6" data-ng-click="TCDocumentTypeConfigureCtrl.ePage.Masters.SaveDocumentType()"
+            data-ng-bind="TCDocumentTypeConfigureCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="TCDocumentTypeConfigureCtrl.ePage.Masters.IsDisableSave"></button>
+    </div>
+</div>

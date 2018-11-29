@@ -4,45 +4,83 @@
             <!--Order Details-->
             <uib-tab index=0>
                 <uib-tab-heading title="Order Line">
-                    <i class="fa fa-th-list margin-right-5"></i> <span class="text-single-line" data-ng-bind="'Order Line'"></span>
+                    <i class="fa fa-th-list margin-right-5"></i>
+                    <span class="text-single-line" data-ng-bind="'Order Line'"></span>
                 </uib-tab-heading>
                 <div class="order-line-form">
                     <div class="clearfix padding-top-20">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
-                            <div class="form-group">
-                                <label class="control-label text-single-line">Description</label>
-                                <div class="">
-                                    <input type="text" class="form-control input-sm" placeholder="Description" data-ng-model="OrdLinesFormCtrl.ePage.Masters.OrderLines.LineDescription"
-                                    />
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-1 col-xl-1">
+                            <div class="form-group ex-line-font">
+                                <label class="control-label text-single-line">Line #</label>
+                                <div class="" style="width:40px;">
+                                    <input type="text" class="form-control input-sm" readonly="readonly" placeholder="#"
+                                        data-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.LineNo" />
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
-                            <div class="form-group">
-                                <label class="control-label text-single-line">Additional Terms</label>
-                                <div class="">
-                                    <input type="text" class="form-control input-sm" placeholder="Additional Terms" data-ng-model="OrdLinesFormCtrl.ePage.Masters.OrderLines.AdditionalInfo"
-                                    />
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="form-group ex-line-font">
+                                <label class="control-label text-single-line">Part #</label>
+                                <!-- <div class="">
+                                    <input type="text" class="form-control input-sm" placeholder="Part #" data-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.PartNo"
+                                        maxlength="35" />
+                                </div> -->
+                                <div class="input-group input-group-sm">
+                                    <div dynamic-lookup my-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.PartNo"
+                                        obj="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines" page-name="'OrgSupplierPart'"
+                                        control-key="'OrdOrgSupplierPartNo_3057'" control-id="'OrdOrgSupplierPartNo'"
+                                        is-editable="true"></div>
+                                    <span class="input-group-btn">
+                                        <button dynamic-list-modal obj="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines"
+                                            control-key="'OrdOrgSupplierPartNo_3057'" control-id="'OrdOrgSupplierPartNo'"
+                                            page-name="'OrgSupplierPart'" mode="2" grid-refresh-fun-name=""
+                                            grid-refresh-fun="" selected-data="OrdLinesFormCtrl.ePage.Masters.SelectedData($item)"
+                                            class="btn btn-default shiny" type="button">
+                                            <i class="fa fa-ellipsis-h"></i>
+                                        </button>
+                                    </span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                            <!-- <div class="form-group">
-                                <label class="control-label">Order Status</label>
+                            <div class="form-group ex-line-font">
+                                <label class="control-label text-single-line">Description</label>
                                 <div class="">
-                                    <select chosen name="category-group" class="form-control" ng-model="OrdLinesFormCtrl.ePage.Masters.OrderLines.LineStatus"
-                                        ng-options="x.Key as x.Key + '-' + x.Value for x in OrdLinesFormCtrl.ePage.Masters.Meta.ORDSTATUS.ListSource">
-                                    <option value="">--Select--</option>
-                                </select>
+                                    <input type="text" class="form-control input-sm" placeholder="Description"
+                                        data-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.LineDescription"
+                                        maxlength="100" />
                                 </div>
-                            </div> -->
-                            <div class="form-group">
-                                <label class="control-label">Country Of Origin</label>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group ex-line-font">
+                                <label class="control-label text-single-line">Quantity</label>
                                 <div class="">
-                                    <select chosen name="category-group" class="form-control" ng-model="OrdLinesFormCtrl.ePage.Masters.OrderLines.OriginCountry"
-                                        ng-options="x.COU_Code as x.COU_Code + ' - ' + x.COU_Desc for x in OrdLinesFormCtrl.ePage.Masters.Meta.Country.ListSource">
-                                    <option value="">--Select--</option>
-                                </select>
+                                    <input type="text" class="form-control input-sm" placeholder="0.00000"
+                                        numbers-only-dot sb-precision="5" data-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.Quantity"
+                                        data-ng-blur="OrdLinesFormCtrl.ePage.Masters.AutoPopulate('Qty', OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.ItemPrice, OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.LinePrice, OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.Quantity)"
+                                        maxlength="14" />
+                                </div>
+                            </div>
+                        </div>
+                        <!--Actual Weight-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group ex-line-font">
+                                <label class="control-label text-single-line">Actual
+                                    Weight </label>
+                                <div class="clearfix">
+                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
+                                        <input type="text" class="form-control input-sm" placeholder="0.000"
+                                            numbers-only-dot sb-precision="3" data-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.ActualWeight"
+                                            maxlength="8" />
+                                    </div>
+                                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 no-padding">
+                                        <select chosen class="form-control" data-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.UnitOfWeight"
+                                            data-ng-options="x.Key as x.Key + '-' + x.Value for x in OrdLinesFormCtrl.ePage.Masters.Meta.WEIGHTUNIT.ListSource"
+                                            search-contains="true">
+                                            <option value="">--Select--</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -50,247 +88,409 @@
                     <div class="clearfix">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9 col-xl-9">
                             <div class="row">
+                                <!-- Qty Invoiced -->
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                    <div class="form-group">
-                                        <label class="control-label text-single-line">Confirm #</label>
+                                    <div class="form-group ex-line-font">
+                                        <label class="control-label text-single-line">Qty Invoiced</label>
                                         <div class="">
-                                            <input type="text" class="form-control input-sm" placeholder="Confirm #" data-ng-model="OrdLinesFormCtrl.ePage.Masters.OrderLines.ConfirmNo"
-                                            />
+                                            <input type="text" class="form-control input-sm" placeholder="0.00000"
+                                                numbers-only-dot sb-precision="5" data-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.InvoicedQuantity"
+                                                data-ng-blur="OrdLinesFormCtrl.ePage.Masters.AutoPopulate('Qty', OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.ItemPrice, OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.LinePrice, OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.Quantity)"
+                                                maxlength="14" />
                                         </div>
                                     </div>
                                 </div>
+                                <!-- Qty  Received -->
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                    <div class="form-group">
-                                        <label class="control-label text-single-line">Confirm Date</label>
-
-                                        <div class="input-group input-group-sm">
-                                            <input type="text" class="form-control" placeholder="{{OrdLinesFormCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="OrdLinesFormCtrl.ePage.Masters.OrderLines.ConfirmDate"
-                                                data-ng-click="OrdLinesFormCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isConfirmDate')"
-                                                uib-datepicker-popup="{{OrdLinesFormCtrl.ePage.Masters.DatePicker.Options.format}}"
-                                                datepicker-options="OrdLinesFormCtrl.ePage.Masters.DatePicker.Options" is-open="OrdLinesFormCtrl.ePage.Masters.DatePicker.isOpen['isConfirmDate']"
-                                            />
-                                            <span class="input-group-btn">
-                                            <button class="btn btn-default shiny" data-ng-click="OrdLinesFormCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isConfirmDate')"><i class="fa fa-calendar"></i></button>
-                                        </span>
+                                    <div class="form-group ex-line-font">
+                                        <label class="control-label text-single-line">Qty Received</label>
+                                        <div class="">
+                                            <input type="text" class="form-control input-sm" placeholder="0.00000"
+                                                numbers-only-dot sb-precision="5" data-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.RecievedQuantity"
+                                                maxlength="14" />
                                         </div>
                                     </div>
                                 </div>
+                                <!-- Qty Remaining -->
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                    <div class="form-group">
-                                        <label class="control-label text-single-line">Req.Ex Works</label>
-                                        <div class="input-group input-group-sm">
-                                            <input type="text" class="form-control" placeholder="{{OrdLinesFormCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="OrdLinesFormCtrl.ePage.Masters.OrderLines.ReqExWorksDate"
-                                                data-ng-click="OrdLinesFormCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isReqExWorksDate')"
-                                                uib-datepicker-popup="{{OrdLinesFormCtrl.ePage.Masters.DatePicker.Options.format}}"
-                                                datepicker-options="OrdLinesFormCtrl.ePage.Masters.DatePicker.Options" is-open="OrdLinesFormCtrl.ePage.Masters.DatePicker.isOpen['isReqExWorksDate']"
-                                            />
-                                            <span class="input-group-btn">
-                                            <button class="btn btn-default shiny" data-ng-click="OrdLinesFormCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isReqExWorksDate')"><i class="fa fa-calendar"></i></button>
-                                        </span>
+                                    <div class="form-group ex-line-font">
+                                        <label class="control-label text-single-line">Qty Remaining</label>
+                                        <div class="">
+                                            <input type="text" class="form-control input-sm" placeholder="0.00000"
+                                                readonly="readonly" value="{{(OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.Quantity - OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.RecievedQuantity).toFixed(5)}}" />
                                         </div>
-
                                     </div>
                                 </div>
+                                <!-- Unit of Qty -->
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                    <div class="form-group">
-                                        <label class="control-label text-single-line">Req.In Store</label>
-                                        <div class="input-group input-group-sm">
-                                            <input type="text" class="form-control" placeholder="{{OrdLinesFormCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="OrdLinesFormCtrl.ePage.Masters.OrderLines.LineDropDate"
-                                                data-ng-click="OrdLinesFormCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isLineDropDate')"
-                                                uib-datepicker-popup="{{OrdLinesFormCtrl.ePage.Masters.DatePicker.Options.format}}"
-                                                datepicker-options="OrdLinesFormCtrl.ePage.Masters.DatePicker.Options" is-open="OrdLinesFormCtrl.ePage.Masters.DatePicker.isOpen['isLineDropDate']"
-                                            />
-                                            <span class="input-group-btn">
-                                            <button class="btn btn-default shiny" data-ng-click="OrdLinesFormCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isLineDropDate')"><i class="fa fa-calendar"></i></button>
-                                        </span>
+                                    <div class="form-group ex-line-font">
+                                        <label class="control-label text-single-line">Unit of Qty</label>
+                                        <div class="">
+                                            <select chosen name="category-group" class="form-control" data-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.OrderUnitOfQuantity"
+                                                data-ng-options="x.Code as x.Code + '-'+ x.Description for x in OrdLinesFormCtrl.ePage.Masters.Meta.ListSource">
+                                                <option value="">--Select--</option>
+                                            </select>
                                         </div>
-
                                     </div>
                                 </div>
+                                <!-- Country Of Origin -->
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                    <div class="form-group">
+                                    <div class="form-group ex-line-font">
+                                        <label class="control-label">Country Of Origin</label>
+                                        <div class="">
+                                            <select chosen name="category-group" class="form-control" data-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.OriginCountry"
+                                                data-ng-options="x.COU_Code as x.COU_Code + ' - ' + x.COU_Desc for x in OrdLinesFormCtrl.ePage.Masters.Meta.Country.ListSource">
+                                                <option value="">--Select--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Item Price -->
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                    <div class="form-group ex-line-font">
+                                        <label class="control-label text-single-line">Item Price</label>
+                                        <div class="">
+                                            <input type="text" class="form-control input-sm" placeholder="0.0000"
+                                                numbers-only-dot sb-precision="4" data-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.ItemPrice"
+                                                data-ng-blur="OrdLinesFormCtrl.ePage.Masters.AutoPopulate('Item Price', OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.ItemPrice, OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.LinePrice, OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.Quantity)"
+                                                maxlength="11" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Line Price -->
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                    <div class="form-group ex-line-font">
+                                        <label class="control-label text-single-line">Line Price</label>
+                                        <div class="">
+                                            <input type="text" class="form-control input-sm" placeholder="0.0000"
+                                                numbers-only-dot sb-precision="4" data-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.LinePrice"
+                                                data-ng-blur="OrdLinesFormCtrl.ePage.Masters.AutoPopulate('Line Price', OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.ItemPrice, OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.LinePrice, OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.Quantity)"
+                                                maxlength="11" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Inco Term -->
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                    <div class="form-group ex-line-font">
                                         <label class="control-label">Inco Term</label>
                                         <div class="">
-                                            <select chosen name="category-group" class="form-control" ng-model="OrdLinesFormCtrl.ePage.Masters.OrderLines.IncoTerm" ng-options="x.Key as x.Key + '-' + x.Value for x in OrdLinesFormCtrl.ePage.Masters.Meta.INCOTERM.ListSource">
-                                            <option value="">--Select--</option>
-                                        </select>
+                                            <select chosen name="category-group" class="form-control" data-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.IncoTerm"
+                                                data-ng-options="x.Key as x.Key + '-' + x.Value for x in OrdLinesFormCtrl.ePage.Masters.Meta.INCOTERM.ListSource">
+                                                <option value="">--Select--</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Outer Packs-->
+                                <!-- Outer Packs -->
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                    <div class="form-group">
+                                    <div class="form-group ex-line-font">
                                         <label class="control-label text-single-line">Outer Packs</label>
                                         <div class="clearfix">
                                             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
-                                                <input type="text" class="form-control input-sm" placeholder="Outer Packs" numbers-only data-ng-model="OrdLinesFormCtrl.ePage.Masters.OrderLines.OuterPacks"
-                                                />
+                                                <input type="text" class="form-control input-sm" placeholder="Outer Packs"
+                                                    numbers-only data-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.OuterPacks"
+                                                    maxlength="5" />
                                             </div>
                                             <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 no-padding">
-                                                <select chosen name="category-group" class="form-control" ng-model="OrdLinesFormCtrl.ePage.Masters.OrderLines.OuterPacksUQ"
-                                                    ng-options="x.Code as x.Code for x in OrdLinesFormCtrl.ePage.Masters.Meta.ListSource">
-                                                <option value="">--Select--</option>
-                                            </select>
+                                                <select chosen name="category-group" class="form-control" data-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.OuterPacksUQ"
+                                                    data-ng-options="x.Code as x.Code + '-'+ x.Description for x in OrdLinesFormCtrl.ePage.Masters.Meta.ListSource">
+                                                    <option value="">--Select--</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Inner Packs-->
+                                <!-- Length , Width , Height -->
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                    <div class="form-group">
+                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
+                                        <div class="form-group ex-line-font">
+                                            <label class="control-label text-single-line">Length</label>
+                                            <div class="clearfix">
+                                                <input type="text" numbers-only-dot sb-precision="3" class="form-control input-sm no-border-right"
+                                                    maxlength="9" data-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.OuterPackLength"
+                                                    data-ng-blur="OrdLinesFormCtrl.ePage.Masters.OnChangesVolume(OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.UnitOfVolume, OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.OuterPackUnitOfDimension, OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.OuterPackLength, OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.OuterPackWidth, OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.OuterPackHeight, OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.OuterPacks)"
+                                                    placeholder="0.000" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
+                                        <div class="form-group ex-line-font">
+                                            <label class="control-label text-single-line">Width</label>
+                                            <div class="clearfix">
+                                                <input type="text" numbers-only-dot sb-precision="3" class="form-control input-sm no-border-right"
+                                                    maxlength="9" data-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.OuterPackWidth"
+                                                    data-ng-blur="OrdLinesFormCtrl.ePage.Masters.OnChangesVolume(OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.UnitOfVolume, OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.OuterPackUnitOfDimension, OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.OuterPackLength, OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.OuterPackWidth, OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.OuterPackHeight, OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.OuterPacks)"
+                                                    placeholder="0.000" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
+                                        <div class="form-group ex-line-font">
+                                            <label class="control-label text-single-line">Height</label>
+                                            <div class="clearfix">
+                                                <input type="text" numbers-only-dot sb-precision="3" class="form-control input-sm"
+                                                    maxlength="9" data-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.OuterPackHeight"
+                                                    data-ng-blur="OrdLinesFormCtrl.ePage.Masters.OnChangesVolume(OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.UnitOfVolume, OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.OuterPackUnitOfDimension, OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.OuterPackLength, OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.OuterPackWidth, OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.OuterPackHeight, OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.OuterPacks)"
+                                                    placeholder="0.000" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Unit Of Dimension-->
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                    <div class="form-group ex-line-font">
+                                        <label class="control-label">Unit Of Dimension</label>
+                                        <div class="">
+                                            <select chosen name="category-group" class="form-control" data-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.OuterPackUnitOfDimension"
+                                                data-ng-options="x.Key as x.Description for x in OrdLinesFormCtrl.ePage.Masters.Meta.HEIGHTUNIT.ListSource"
+                                                search-contains="true" data-ng-change="OrdLinesFormCtrl.ePage.Masters.OnChangesVolume(OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.UnitOfVolume, OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.OuterPackUnitOfDimension, OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.OuterPackLength, OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.OuterPackWidth, OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.OuterPackHeight, OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.OuterPacks)">
+                                                <option value="">--Select--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Inner Packs -->
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                    <div class="form-group ex-line-font">
                                         <label class="control-label text-single-line">Inner Packs</label>
                                         <div class="clearfix">
                                             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
-                                                <input type="text" class="form-control input-sm" placeholder="Inner Packs" numbers-only data-ng-model="OrdLinesFormCtrl.ePage.Masters.OrderLines.InnerPacks"
-                                                />
+                                                <input type="text" class="form-control input-sm" placeholder="Inner Packs"
+                                                    numbers-only data-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.InnerPacks"
+                                                    maxlength="5" />
                                             </div>
                                             <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 no-padding">
-                                                <select chosen name="category-group" class="form-control" ng-model="OrdLinesFormCtrl.ePage.Masters.OrderLines.InnerPacksUQ"
-                                                    ng-options="x.Code as x.Code for x in OrdLinesFormCtrl.ePage.Masters.Meta.ListSource">
-                                                <option value="">--Select--</option>
-                                            </select>
+                                                <select chosen name="category-group" class="form-control" data-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.InnerPacksUQ"
+                                                    data-ng-options="x.Code as x.Code + '-'+ x.Description for x in OrdLinesFormCtrl.ePage.Masters.Meta.ListSource">
+                                                    <option value="">--Select--</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <!-- Total Packs -->
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                    <div class="form-group">
+                                    <div class="form-group ex-line-font">
                                         <label class="control-label text-single-line">Total Packs</label>
                                         <div>
-                                            <input type="text" class="form-control input-sm" readonly="readonly" value="{{OrdLinesFormCtrl.ePage.Masters.OrderLines.OuterPacks * OrdLinesFormCtrl.ePage.Masters.OrderLines.InnerPacks}}"
-                                            />
+                                            <input type="text" class="form-control input-sm" readonly="readonly" value="{{OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.OuterPacks * OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.InnerPacks}}" />
                                         </div>
                                     </div>
                                 </div>
+                                <!-- Com.Invoice # -->
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                    <div class="form-group">
-                                        <label class="control-label text-single-line">Quantity</label>
-                                        <div class="">
-                                            <input type="text" class="form-control input-sm" placeholder="Quantity" numbers-only sb-precision="5" data-ng-model="OrdLinesFormCtrl.ePage.Masters.OrderLines.Quantity"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                    <div class="form-group">
-                                        <label class="control-label text-single-line">Qty Invoiced</label>
-                                        <div class="">
-                                            <input type="text" class="form-control input-sm" placeholder="Quantity Invoiced" numbers-only sb-precision="5" data-ng-model="OrdLinesFormCtrl.ePage.Masters.OrderLines.InvoicedQuantity"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                    <div class="form-group">
-                                        <label class="control-label text-single-line">Qty Received</label>
-                                        <div class="">
-                                            <input type="text" class="form-control input-sm" placeholder="Quantity Received" numbers-only sb-precision="5" data-ng-model="OrdLinesFormCtrl.ePage.Masters.OrderLines.RecievedQuantity"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                    <div class="form-group">
-                                        <label class="control-label text-single-line">Unit of Qty</label>
-                                        <div class="">
-                                            <select chosen name="category-group" class="form-control" ng-model="OrdLinesFormCtrl.ePage.Masters.OrderLines.PackType" ng-options="x.Code as x.Value for x in OrdLinesFormCtrl.ePage.Masters.Meta.ListSource">
-                                            <option value="">--Select--</option>
-                                        </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                    <div class="form-group">
-                                        <label class="control-label text-single-line">Item Price</label>
-                                        <div class="">
-                                            <input type="text" class="form-control input-sm" placeholder="Item Price" numbers-only sb-precision="4" data-ng-model="OrdLinesFormCtrl.ePage.Masters.OrderLines.ItemPrice"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                    <div class="form-group">
-                                        <label class="control-label text-single-line">Line Price</label>
-                                        <div class="">
-                                            <input type="text" class="form-control input-sm" placeholder="Line Price" numbers-only sb-precision="4" data-ng-model="OrdLinesFormCtrl.ePage.Masters.OrderLines.LinePrice"                                            
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                    <div class="form-group">
+                                    <div class="form-group ex-line-font">
                                         <label class="control-label text-single-line">Com.Invoice #</label>
                                         <div class="">
-                                            <input type="text" class="form-control input-sm" placeholder="Com.Invoice #" data-ng-model="OrdLinesFormCtrl.ePage.Masters.OrderLines.CommercialInvoiceNo"
-                                            />
+                                            <input type="text" class="form-control input-sm" placeholder="Com.Invoice #"
+                                                data-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.CommercialInvoiceNo"
+                                                maxlength="20" />
                                         </div>
                                     </div>
                                 </div>
+                                <!-- Confirm # -->
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                    <!-- <div class="form-group">
-                                        <label class="control-label">Country Of Origin</label>
+                                    <div class="form-group ex-line-font">
+                                        <label class="control-label text-single-line">Confirm #</label>
                                         <div class="">
-                                            <select chosen name="category-group" class="form-control" ng-model="OrdLinesFormCtrl.ePage.Masters.OrderLines.OriginCountry"
-                                                ng-options="x.COU_Code as x.COU_Code + ' - ' + x.COU_Desc for x in OrdLinesFormCtrl.ePage.Masters.Meta.Country.ListSource">
-                                            <option value="">--Select--</option>
-                                        </select>
+                                            <input type="text" class="form-control input-sm" placeholder="Confirm #"
+                                                data-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.ConfirmNo"
+                                                maxlength="35" />
                                         </div>
-                                    </div> -->
-                                    <div class="form-group">
+                                    </div>
+                                </div>
+                                <!-- Confirm Date -->
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                    <div class="form-group ex-line-font">
+                                        <label class="control-label text-single-line">Confirm Date</label>
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" class="form-control" placeholder="{{OrdLinesFormCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                                data-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.ConfirmDate"
+                                                datetime-picker="{{OrdLinesFormCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                                datepicker-options="OrdLinesFormCtrl.ePage.Masters.DatePicker.Options"
+                                                datepicker-append-to-body="false" close-on-selection="false"
+                                                enable-time="false" enable-date="true" default-date="" default-time=""
+                                                save-as="OrdLinesFormCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                                is-open="OrdLinesFormCtrl.ePage.Masters.DatePicker.isOpen['isConfirmDate']"
+                                                when-closed="" data-ng-click="OrdLinesFormCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isConfirmDate')"
+                                                data-ng-change="" custom-date-time-format />
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default shiny" data-ng-click="OrdLinesFormCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isConfirmDate')">
+                                                    <i class="fa fa-calendar"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Req.Ex Works -->
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                    <div class="form-group ex-line-font">
+                                        <span class="error-warning-container">
+                                            <error-warning-directive data-ng-if="OrdLinesFormCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ReqExWorksDate.IsWarning && !OrdLinesFormCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ReqExWorksDate.IsError"
+                                                list="OrdLinesFormCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ReqExWorksDate.WARNING"
+                                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
+                                                g-parent-ref=""></error-warning-directive>
+                                            <error-warning-directive data-ng-if="OrdLinesFormCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ReqExWorksDate.IsError"
+                                                list="OrdLinesFormCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ReqExWorksDate.ERROR"
+                                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
+                                                g-parent-ref=""></error-warning-directive>
+                                        </span>
+                                        <label class="control-label text-single-line">Req.Ex Works</label>
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" class="form-control" placeholder="{{OrdLinesFormCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                                data-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.ReqExWorksDate"
+                                                datetime-picker="{{OrdLinesFormCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                                datepicker-options="OrdLinesFormCtrl.ePage.Masters.DatePicker.Options"
+                                                datepicker-append-to-body="false" close-on-selection="false"
+                                                enable-time="false" enable-date="true" default-date="" default-time=""
+                                                save-as="OrdLinesFormCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                                is-open="OrdLinesFormCtrl.ePage.Masters.DatePicker.isOpen['isReqExWorksDate']"
+                                                when-closed="" data-ng-click="OrdLinesFormCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isReqExWorksDate')"
+                                                data-ng-change="OrdLinesFormCtrl.ePage.Masters.DatePicker.OnChangeDatePicker('ReqExWorksDate',['E1037', 'E1036'])"
+                                                custom-date-time-format />
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default shiny" data-ng-click="OrdLinesFormCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isReqExWorksDate')">
+                                                    <i class="fa fa-calendar"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Req.In Store -->
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                    <div class="form-group ex-line-font">
+                                        <span class="error-warning-container">
+                                            <error-warning-directive data-ng-if="OrdLinesFormCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.LineDropDate.IsWarning && !OrdLinesFormCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.LineDropDate.IsError"
+                                                list="OrdLinesFormCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.LineDropDate.WARNING"
+                                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
+                                                g-parent-ref=""></error-warning-directive>
+                                            <error-warning-directive data-ng-if="OrdLinesFormCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.LineDropDate.IsError"
+                                                list="OrdLinesFormCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.LineDropDate.ERROR"
+                                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
+                                                g-parent-ref=""></error-warning-directive>
+                                        </span>
+                                        <label class="control-label text-single-line">Req.In Store</label>
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" class="form-control" placeholder="{{OrdLinesFormCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                                data-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.LineDropDate"
+                                                datetime-picker="{{OrdLinesFormCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                                datepicker-options="OrdLinesFormCtrl.ePage.Masters.DatePicker.Options"
+                                                datepicker-append-to-body="false" close-on-selection="false"
+                                                enable-time="false" enable-date="true" default-date="" default-time=""
+                                                save-as="OrdLinesFormCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                                is-open="OrdLinesFormCtrl.ePage.Masters.DatePicker.isOpen['isLineDropDate']"
+                                                when-closed="" data-ng-click="OrdLinesFormCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isLineDropDate')"
+                                                data-ng-change="OrdLinesFormCtrl.ePage.Masters.DatePicker.OnChangeDatePicker('LineDropDate',['E1037', 'E1036'])"
+                                                custom-date-time-format />
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default shiny" data-ng-click="OrdLinesFormCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isLineDropDate')">
+                                                    <i class="fa fa-calendar"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Additional Terms -->
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                    <div class="form-group ex-line-font">
+                                        <label class="control-label text-single-line">Additional Terms</label>
+                                        <div class="">
+                                            <input type="text" class="form-control input-sm" placeholder="Additional Terms"
+                                                data-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.AdditionalInfo" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Status -->
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                    <div class="form-group ex-line-font">
                                         <label class="control-label">Order Status</label>
                                         <div class="">
-                                            <select chosen name="category-group" class="form-control" ng-model="OrdLinesFormCtrl.ePage.Masters.OrderLines.LineStatus"
-                                                ng-options="x.Key as x.Key + '-' + x.Value for x in OrdLinesFormCtrl.ePage.Masters.Meta.ORDSTATUS.ListSource">
-                                            <option value="">--Select--</option>
-                                        </select>
+                                            <select chosen name="category-group" class="form-control" data-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.LineStatus"
+                                                data-ng-options="x.Key as x.Key + '-' + x.Value for x in OrdLinesFormCtrl.ePage.Masters.Meta.ORDSTATUS.ListSource">
+                                                <option value="">--Select--</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
-
+                                <!--   -->
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                    <div class="form-group ex-line-font">
+                                        <label class="control-label text-single-line">Container Packing Order</label>
+                                        <div class="">
+                                            <input type="text" class="form-control input-sm" placeholder="0.00000"
+                                                numbers-only data-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.ContainerPackingOrder"
+                                                maxlength="4" />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                    <div class="form-group ex-line-font">
+                                        <label class="control-label text-single-line">Actual Volume </label>
+                                        <div class="clearfix">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
+                                                <input type="text" class="form-control input-sm" placeholder="0.000"
+                                                    numbers-only-dot sb-precision="3" data-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.ActualVolume"
+                                                    maxlength="11" />
+                                            </div>
+                                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 no-padding">
+                                                <select chosen class="form-control" data-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.UnitOfVolume"
+                                                    data-ng-options="x.Key as x.Key + '-' + x.Value for x in OrdLinesFormCtrl.ePage.Masters.Meta.VOLUMEUNIT.ListSource"
+                                                    search-contains="true" data-ng-change="OrdLinesFormCtrl.ePage.Masters.OnChangesVolume(OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.UnitOfVolume, OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.OuterPackUnitOfDimension, OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.OuterPackLength, OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.OuterPackWidth, OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.OuterPackHeight, OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.OuterPacks)">
+                                                    <option value="">--Select--</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 bord-alig">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                                        <div class="form-group">
-                                            <label class="control-label text-single-line">UDF #</label>
-                                            <div class="input-group input-group-sm">
-                                                <div dynamic-lookup my-ng-model="OrdLinesFormCtrl.ePage.Masters.OrderLines.PartNo" obj="OrdLinesFormCtrl.ePage.Masters.OrderLines"
-                                                    prefix-data="'OrgSupplierPart'" config="'OrdOrgSupplierPartNo'"></div>
-                                                <span class="input-group-btn">
-                                                <button dynamic-list-modal obj="OrdLinesFormCtrl.ePage.Masters.OrderLines" field-name="'OrdOrgSupplierPartNo'" prefix-data="'OrgSupplierPart'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdLinesFormCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
-                                            </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                                        <div class="form-group">
+                                        <div class="form-group ex-line-font">
                                             <label class="control-label text-single-line">UDF 1</label>
                                             <div class="">
-                                                <input type="text" class="form-control input-sm" placeholder="UDF 1" data-ng-model="OrdLinesFormCtrl.ePage.Masters.OrderLines.PartAttribute1"
-                                                />
+                                                <input type="text" class="form-control input-sm" placeholder="UDF 1"
+                                                    data-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.PartAttribute1"
+                                                    maxlength="20" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                                        <div class="form-group">
+                                        <div class="form-group ex-line-font">
                                             <label class="control-label text-single-line">UDF 2</label>
                                             <div class="">
-                                                <input type="text" class="form-control input-sm" placeholder="UDF 2" data-ng-model="OrdLinesFormCtrl.ePage.Masters.OrderLines.PartAttribute2"
-                                                />
+                                                <input type="text" class="form-control input-sm" placeholder="UDF 2"
+                                                    data-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.PartAttribute2"
+                                                    maxlength="20" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                                        <div class="form-group">
+                                        <div class="form-group ex-line-font">
                                             <label class="control-label text-single-line">UDF 3</label>
                                             <div class="">
-                                                <input type="text" class="form-control input-sm" placeholder="UDF 3" data-ng-model="OrdLinesFormCtrl.ePage.Masters.OrderLines.PartAttribute3"
-                                                />
+                                                <input type="text" class="form-control input-sm" placeholder="UDF 3"
+                                                    data-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.PartAttribute3"
+                                                    maxlength="20" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Container # -->
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                        <div class="form-group ex-line-font">
+                                            <label class="control-label text-single-line">Container #</label>
+                                            <div class="">
+                                                <select chosen multiple search-contains="true" name="category-group"
+                                                    class="form-control" data-ng-model="OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.ContainerNumber"
+                                                    data-ng-options="x.ContainerNo for x in OrdLinesFormCtrl.ePage.Entities.Header.Meta.Container.ListSource"
+                                                    data-ng-change="OrdLinesFormCtrl.ePage.Masters.OnContainerChange((OrdLinesFormCtrl.ePage.Entities.Header.Meta.Container.ListSource | filter: {ContainerNo: OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.ContainerNumber})[0], OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLines.ContainerNumber)"
+                                                    search-contains="true">
+                                                    <option value=""></option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -303,199 +503,164 @@
             <!--Additional Info-->
             <uib-tab index=1>
                 <uib-tab-heading title="Additional Info">
-                    <i class="fa fa-external-link margin-right-5"></i> <span class="text-single-line" data-ng-bind="'Additional Info'"></span>
+                    <i class="fa fa-external-link margin-right-5"></i>
+                    <span class="text-single-line" data-ng-bind="'Additional Info'"></span>
                 </uib-tab-heading>
                 <div class="clearfix padding-top-20">
-                            <dynamic-control data-ng-if="OrdLinesFormCtrl.ePage.Masters.DynamicControl" input="OrdLinesFormCtrl.ePage.Masters.DynamicControl"
+                    <dynamic-control data-ng-if="OrdLinesFormCtrl.ePage.Masters.DynamicControl" input="OrdLinesFormCtrl.ePage.Masters.DynamicControl"
                         mode="S" controls-data="OrdLinesFormCtrl.ePage.Masters.ControlsData($item)"></dynamic-control>
                 </div>
             </uib-tab>
-
             <!--Job Delivery-->
-            <uib-tab ng-click="OrdLinesFormCtrl.ePage.Masters.LineDeliveryTab()" index=2>
+            <uib-tab data-ng-click="OrdLinesFormCtrl.ePage.Masters.LineDeliveryTab()" index=2>
                 <uib-tab-heading title="Line Delivery">
-                    <i class="fa fa-truck  margin-right-5"></i> <span class="text-single-line" data-ng-bind="'Line Delivery'"></span>
+                    <i class="fa fa-truck  margin-right-5"></i>
+                    <span class="text-single-line" data-ng-bind="'Line Delivery'"></span>
                 </uib-tab-heading>
 
-                <div class="clearfix">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" data-ng-if="!OrdLinesFormCtrl.ePage.Masters.LineDelivery.IsFormView">
-                        <div class="clearfix">
-                            <button class="btn btn-primary pull-right" data-ng-click="OrdLinesFormCtrl.ePage.Masters.AddNewDelivery()">
-                                <i class="fa fa-plus-circle"></i> Add Line Delivery</button>
-                        </div>
-                        <!-- <div class="clearfix mt-20">
-                            <div class="text-center grid-view-loader" data-ng-if="!OrdLinesFormCtrl.ePage.Masters.LineDelivery.GridData">
-                                <i class="fa fa-spin fa-spinner font-160"></i>
+                <div class="clearfix" data-ng-if="!OrdLinesFormCtrl.ePage.Masters.LineDelivery.IsFormView">
+                    <div class="clearfix">
+                        <button class="btn btn-sm btn-outline-secondary pull-right" data-ng-click="OrdLinesFormCtrl.ePage.Masters.AddNewDelivery()">
+                            <i class="fa fa-plus-circle"></i> Add Line Delivery</button>
+                    </div>
+                    <div id='' class="common_table_scroll common_table_hgt pt-2">
+                        <div class="table tab-position" id="results">
+                            <div class='theader'>
+                                <div class='table_header'>Destination Port</div>
+                                <div class='table_header'>Delivery Point</div>
+                                <div class='table_header'>Address 1</div>
+                                <div class='table_header'>Address 2</div>
+                                <div class='table_header'>Qty.Delivered</div>
+                                <div class='table_header'>Action</div>
                             </div>
-                            <dynamic-table data-ng-if="OrdLinesFormCtrl.ePage.Masters.LineDelivery.GridData" grid-data="OrdLinesFormCtrl.ePage.Masters.LineDelivery.GridData"
-                                grid-config="OrdLinesFormCtrl.ePage.Masters.LineDelivery.gridConfig" selected-grid-row="OrdLinesFormCtrl.ePage.Masters.LineDelivery.SelectedGridRow($item)"></dynamic-table>
-                        </div> -->
-                        <div class="p-10" >
-                            <div id='' class="wmstable_scroll" style="height:300px; padding-top: 2px;">
-                                <div class="table tab-position" id="results">
-                                    <div class='theader'>
-                                        <div class='table_header'>Destination Port</div>
-                                        <div class='table_header'>Delivery Point</div>
-                                        <div class='table_header'>Address 1</div>
-                                        <div class='table_header'>Address 2</div>
-                                        <div class='table_header'>Qty.Delivered</div>
-                                        <div class='table_header'>Action</div>
-
+                            <!-- Table row started -->
+                            <div class='table_row' data-ng-repeat="x in OrdLinesFormCtrl.ePage.Masters.LineDelivery.GridData"
+                                style="font-size: 11px;">
+                                <div class='table_small'>
+                                    <div class='table_cell'>Destination Port</div>
+                                    <div class='table_cell'>
+                                        <b>{{x.DestinationPort}}</b>
                                     </div>
-
-                                    <!-- List Empty Response -->
-                                    <div >
-                                        <div class="grid-no-record13" style="top:100px;" data-ng-if="OrdLinesFormCtrl.ePage.Masters.LineDelivery.GridData.length==0">No records found...</div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>Delivery Point</div>
+                                    <div class='table_cell'>
+                                        <b>{{x.DeliveryPoint}}</b>
                                     </div>
-
-                                    <div class='table_row' data-ng-repeat="x in OrdLinesFormCtrl.ePage.Masters.LineDelivery.GridData" style="font-size: 11px;">
-                                        <div class='table_small'>
-                                            <div class='table_cell'>Destination Port</div>
-                                            <div class='table_cell'>
-                                                <b>{{x.DestinationPort}}</b>
-                                            </div>
-                                        </div>
-                                        <div class='table_small'>
-                                            <div class='table_cell'>Delivery Point</div>
-                                            <div class='table_cell'>
-                                                <b>{{x.DeliveryPoint}}</b>
-                                            </div>
-                                        </div>
-                                        <div class='table_small'>
-                                            <div class='table_cell'>Address 1</div>
-                                            <div class='table_cell'>{{x.Address1}}</div>
-                                        </div>
-                                        <div class='table_small'>
-                                            <div class='table_cell'>Address 2</div>
-                                            <div class='table_cell'>{{x.Address2}}</div>
-                                        </div>
-                                        <div class='table_small'>
-                                            <div class='table_cell'>Qty.Delivered</div>
-                                            <div class='table_cell'>{{x.Allocated}}</div>
-                                        </div>
-                                        <div class='table_small'>
-                                            <div class='table_cell'>Action</div>
-                                            <div class='table_cell'><i class="fa fa-edit order-icon" data-ng-click="OrdLinesFormCtrl.ePage.Masters.LineDelivery.SelectedGridRow(x,'edit')"></i> | <i class="fa fa-trash order-icon" data-ng-click="OrdLinesFormCtrl.ePage.Masters.LineDelivery.SelectedGridRow(x,'delete',$index)"></i></div>
-                                        </div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>Address 1</div>
+                                    <div class='table_cell'>{{x.Address1}}</div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>Address 2</div>
+                                    <div class='table_cell'>{{x.Address2}}</div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>Qty.Delivered</div>
+                                    <div class='table_cell'>{{x.Allocated}}</div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>Action</div>
+                                    <div class='table_cell'>
+                                        <i class="fa fa-edit order-icon" data-ng-click="OrdLinesFormCtrl.ePage.Masters.LineDelivery.SelectedGridRow(x,'edit')"></i>
+                                        |
+                                        <i class="fa fa-trash order-icon" data-ng-click="OrdLinesFormCtrl.ePage.Masters.LineDelivery.SelectedGridRow(x,'delete',$index)"></i>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <!-- List Empty Response -->
+                        <div class="grid-no-record-common_table" data-ng-if="OrdLinesFormCtrl.ePage.Masters.LineDelivery.GridData.length==0">No
+                            records found...</div>
+                    </div>
+                </div>
+                <div class="clearfix" data-ng-if="OrdLinesFormCtrl.ePage.Masters.LineDelivery.IsFormView">
+                    <div class="clearfix margin-bottom-10 service-details-heading">
+                        <div class="text-center clearfix">
+                            <i class="fa fa-angle-double-left pull-left btn btn-link" data-ng-click="OrdLinesFormCtrl.ePage.Masters.LineDelivery.IsFormView = false"></i>
+                            <span class="heading">Line Delivery Details</span>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" data-ng-if="OrdLinesFormCtrl.ePage.Masters.LineDelivery.IsFormView">
-                            <div class="clearfix margin-bottom-10 service-details-heading">
-                                <div class="text-center clearfix">
-                                    <i class="fa fa-angle-double-left pull-left btn btn-link" data-ng-click="OrdLinesFormCtrl.ePage.Masters.LineDelivery.IsFormView = false"></i>
-                                    <span class="heading">Line Delivery Details</span>
+                    <div class="clearfix">
+                        <!--Delivery Point-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group ex-line-font">
+                                <label class="control-label text-single-line">Delivery Point</label>
+                                <div class="input-group input-group-sm">
+                                    <div dynamic-lookup my-ng-model="OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView.DeliveryPoint"
+                                        obj="OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView" page-name="'MstUNLOCO'"
+                                        control-key="'DeliveryPoint_3315'" control-id="'DeliveryPoint'"></div>
+                                    <span class="input-group-btn">
+                                        <button dynamic-list-modal obj="OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView"
+                                            control-key="'DeliveryPoint_3315'" control-id="'DeliveryPoint'" page-name="'MstUNLOCO'"
+                                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedData($item)"
+                                            class="btn btn-default shiny" type="button">
+                                            <i class="fa fa-ellipsis-h"></i>
+                                        </button>
+                                    </span>
                                 </div>
                             </div>
-                            <div class="clearfix">
-                                <!--Destiation Port-->
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                    <div class="form-group">
-                                        <label class="control-label text-single-line">Destiation Port</label>
-                                        <div class="input-group input-group-sm">
-
-                                            <div dynamic-lookup my-ng-model="OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView.DeliveryPoint" obj="OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView"
-                                                prefix-data="'MstUNLOCO'" config="'DeliveryPoint'"></div>
-                                            <span class="input-group-btn">
-                                                <button dynamic-list-modal obj="OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView" field-name="'DeliveryPoint'" prefix-data="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--Delivery Point-->
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                    <div class="form-group">
-                                        <label class="control-label text-single-line">Delivery Point</label>
-                                        <div class="input-group input-group-sm">
-
-                                            <div dynamic-lookup my-ng-model="OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView.DestinationPort" obj="OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView"
-                                                prefix-data="'MstUNLOCO'" config="'DestinationPort'"></div>
-
-                                            <span class="input-group-btn">
-                                                <button dynamic-list-modal obj="OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView" field-name="'DestinationPort'" prefix-data="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--Location-->
-                                <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                    <div class="form-group">
-                                        <label class="control-label">Location </label>
-                                        <div class="input-group input-group-sm">
-
-                                            <input type="hidden" ng-model="OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView.ORG_Contractor_FK">
-                                            <div dynamic-lookup placeholder="Location" my-ng-model="OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView.ORG_Location_Code"
-                                                 obj="OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView" prefix-data="'OrganizationList'"
-                                                 config="'ShpLineDeliveryLocation'" auto-complete-on-select="OrdLinesFormCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'Location')"></div>
-                                            <span class="input-group-btn">
-                                                <button dynamic-list-modal obj="OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView" field-name="'ShpLineDeliveryLocation'" prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdLinesFormCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button" data-ng-click="OrdLinesFormCtrl.ePage.Masters.LineDelivery.IsClicked = 'true'"><i class="fa fa-ellipsis-h"></i></button>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div> -->
-                                <!-- Address 1-->
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                    <div class="form-group">
-                                        <label class="control-label">Address1</label>
-                                        <div class="">
-                                            <input type="text" name="" class="form-control input-sm" ng-model="OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView.Address1" placeholder="Address1">
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                    <div class="form-group">
-                                        <label class="control-label">Address1</label>
-                                        <div class="">
-                                            <select chosen name="category-group" class="form-control" ng-model="OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView.OAD_Location_FK"
-                                                    ng-options="x.PK as x.Code for x in OrdLinesFormCtrl.ePage.Masters.LocationAddress.ListSource"
-                                                    search-contains="true">
-                                                <option value="">--Select--</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div> -->
-                                <!-- Address 2-->
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                    <div class="form-group">
-                                        <label class="control-label">Address2</label>
-                                        <div class="">
-                                            <input type="text" name="" class="form-control input-sm" ng-model="OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView.Address2" placeholder="Address2">
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Address 2-->
-                                <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                    <div class="form-group">
-                                        <label class="control-label">Address2</label>
-                                        <div class="">
-                                            <select chosen name="category-group" class="form-control" ng-model="OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView.OAD_Location_FK"
-                                                    ng-options="x.PK as x.Code for x in OrdLinesFormCtrl.ePage.Masters.LocationAddress.ListSource"
-                                                    search-contains="true">
-                                                <option value="">--Select--</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div> -->
-                                <!-- Address 2-->
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                    <div class="form-group">
-                                        <label class="control-label">Qty.Delivered</label>
-                                        <div class="">
-                                            <input type="text" class="form-control input-sm" placeholder="Quantity" numbers-only sb-precision="5" data-ng-model="OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView.Allocated"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Update and Save -->
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 margin-top-30">
-                                    <input type="button" class="btn btn-primary btn-sm pull-right margin-left-5" data-ng-click="OrdLinesFormCtrl.ePage.Masters.LineDelivery.AddToGridLineDelivery(OrdLinesFormCtrl.ePage.Masters.LineDelivery.SaveButtonText)"
-                                           value="{{OrdLinesFormCtrl.ePage.Masters.LineDelivery.SaveButtonText}}">
+                        </div>
+                        <!--Destination Port-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group ex-line-font">
+                                <label class="control-label text-single-line">Destination Port</label>
+                                <div class="input-group input-group-sm">
+                                    <div dynamic-lookup my-ng-model="OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView.DestinationPort"
+                                        obj="OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView" page-name="'MstUNLOCO'"
+                                        control-key="'DestinationPort_3094'" control-id="'DestinationPort'"></div>
+                                    <span class="input-group-btn">
+                                        <button dynamic-list-modal obj="OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView"
+                                            control-key="'DestinationPort_3094'" control-id="'DestinationPort'"
+                                            page-name="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                            selected-data="OrdGeneralCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny"
+                                            type="button">
+                                            <i class="fa fa-ellipsis-h"></i>
+                                        </button>
+                                    </span>
                                 </div>
                             </div>
-                            <div class="clearfix">
+                        </div>
+                        <!-- Address 1-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group ex-line-font">
+                                <label class="control-label">Address1</label>
+                                <div class="">
+                                    <input type="text" name="" class="form-control input-sm" readonly="readonly"
+                                        data-ng-model="OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView.Address1"
+                                        placeholder="Address1">
+                                </div>
                             </div>
+                        </div>
+                        <!-- Address 2-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group ex-line-font">
+                                <label class="control-label">Address2</label>
+                                <div class="">
+                                    <input type="text" name="" class="form-control input-sm" readonly="readonly"
+                                        data-ng-model="OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView.Address2"
+                                        placeholder="Address2">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Qty.Delivered-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group ex-line-font">
+                                <label class="control-label">Qty.Delivered</label>
+                                <div class="">
+                                    <input type="text" class="form-control input-sm" placeholder="0.00000"
+                                        numbers-only-dot sb-precision="5" data-ng-model="OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView.Allocated" />
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Update and Save -->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 margin-top-30">
+                            <input type="button" class="btn btn-primary btn-sm pull-right margin-left-5" data-ng-click="OrdLinesFormCtrl.ePage.Masters.LineDelivery.AddToGridLineDelivery(OrdLinesFormCtrl.ePage.Masters.LineDelivery.SaveButtonText)"
+                                value="{{OrdLinesFormCtrl.ePage.Masters.LineDelivery.SaveButtonText}}">
+                        </div>
+                    </div>
+                    <div class="clearfix">
                     </div>
                 </div>
                 <div class="clearfix padding-top-20" data-ng-if="OrdLinesFormCtrl.ePage.Masters.LineDelivery.IsFormView">

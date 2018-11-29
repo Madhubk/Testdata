@@ -1,0 +1,137 @@
+.help-topic-creation-container>.header {
+    background-color: #f7f7f7;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.help-topic-creation-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.help-topic-creation-container .sub-topic {
+    border-left: 1px solid #eee;
+    margin-left: 15px;
+    padding-left: 31px;
+}
+
+.help-topic-creation-container ul li {
+    padding: 7px;
+}
+
+.help-topic-creation-container ul li .list-content {
+    padding: 2px 5px;
+}
+
+.help-topic-creation-container ul .add-topic-btn,
+.help-topic-creation-container ul .edit-topic-btn,
+.help-topic-creation-container ul .delete-topic-btn {
+    font-size: 120%;
+    position: relative;
+    top: 1px;
+}
+
+.help-topic-creation-container ul .edit-topic-btn {
+    top: 2px;
+    margin-right: 10px;
+}
+
+.help-topic-creation-modal .modal-dialog {
+    width: 500px;
+}
+
+.help-topic-creation-modal .modal-dialog .modal-body {
+    padding: 0;
+}
+
+.help-topic-creation-modal .modal-dialog .modal-body .help-modal-tab-container {
+    height: 300px;
+    overflow-y: auto;
+}
+
+.sub-topic.angular-ui-tree-drag {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list-content .topic-expand-icon {
+    font-size: 18px;
+    position: relative;
+    top: 2px;
+}
+
+.list-content .topic-name, .list-content .topic-name-disabled {
+    margin-right: 10px;
+}
+
+.list-content .add-topic-btn,
+.list-content .delete-topic-btn {
+    margin-right: 10px;
+}
+
+.list-content .topic-name-disabled{
+    opacity: 0.5;
+}
+
+/* ============================= */
+
+.btn {
+    margin-right: 8px;
+}
+
+.angular-ui-tree-handle {
+    color: #7c9eb2;
+    padding: 2px 5px;
+    font-size: 15px;
+    margin-right: 10px;
+}
+
+.angular-ui-tree-placeholder {
+    background: #f0f9ff;
+    border: 2px dashed #bed2db;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+tr.angular-ui-tree-empty {
+    height: 100px
+}
+
+.group-title {
+    background-color: #687074 !important;
+    color: #FFF !important;
+}
+
+/* --- Tree --- */
+
+.tree-node {
+    border: 1px solid #dae2ea;
+    background: #f8faff;
+    color: #7c9eb2;
+}
+
+.nodrop {
+    background-color: #f2dede;
+}
+
+.tree-node-content {
+    margin: 10px;
+}
+
+.tree-handle {
+    padding: 10px;
+    background: #428bca;
+    color: #FFF;
+    margin-right: 10px;
+}
+
+.angular-ui-tree-placeholder {
+    background: #f0f9ff;
+    border: 2px dashed #bed2db;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}

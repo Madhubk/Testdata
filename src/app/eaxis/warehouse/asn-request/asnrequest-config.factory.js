@@ -5,37 +5,19 @@
         .module("Application")
         .factory("asnrequestConfig", AsnrequestConfig);
 
-    AsnrequestConfig.$inject = ["$location", "$q", "helperService", "apiService", "toastr"];
+    AsnrequestConfig.$inject = ["$location", "$q", "helperService", "apiService", "toastr","appConfig"];
 
-    function AsnrequestConfig($location, $q, helperService, apiService, toastr) {
+    function AsnrequestConfig($location, $q, helperService, apiService, toastr,appConfig) {
         var exports = {
             "Entities": {
                 "Header": {
                     "RowIndex": -1,
                     "API": {
-                        "FindConfig": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "DataEntry/Dynamic/FindConfig",
-                            "FilterID": "DYNDAT"
-                        },
-                        "DataEntry": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "DataEntryMaster/FindAll",
-                            "FilterID": "DYNDAT"
-                        },
                         "GetByID": {
                             "IsAPI": "true",
                             "HttpType": "GET",
                             "Url": "WmsInwardList/GetById/",
                             "FilterID": "WMSWORK"
-                        },
-                        "Validationapi": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "Validation/FindAll",
-                            "FilterID": "VALIDAT"
                         },
                         "UpdateInwardProcess": {
                             "IsAPI": "true",
@@ -72,12 +54,6 @@
                         "RowIndex": -1,
                         "Validations": "",
                         "API": {
-                            "OrgAddress": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "OrgAddress/FindAll",
-                                "FilterID": "ORGADDR"
-                            },
                             "InsertInward": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
@@ -302,9 +278,9 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": exports.Entities.Header.API.Validationapi.FilterID
+                "FilterID": appConfig.Entities.Validation.API.FindAll.FilterID
             };
-            apiService.post("eAxisAPI", exports.Entities.Header.API.Validationapi.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", appConfig.Entities.Validation.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     exports.ValidationValues = (response.data.Response);
                 }
@@ -316,12 +292,8 @@
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
 
-            if (!_input.UIWmsInwardHeader.Client || _input.UIWmsInwardHeader.Client) {
-                OnChangeValues(_input.UIWmsInwardHeader.Client, 'E3001', false, undefined, $item.label);
-            }
-            if (!_input.UIWmsInwardHeader.Warehouse || _input.UIWmsInwardHeader.Warehouse) {
-                OnChangeValues(_input.UIWmsInwardHeader.Warehouse, 'E3002', false, undefined, $item.label);
-            }
+            OnChangeValues(_input.UIWmsInwardHeader.Client, 'E3001', false, undefined, $item.label);
+            OnChangeValues(_input.UIWmsInwardHeader.Warehouse, 'E3002', false, undefined, $item.label);
         }
         function OnChangeValues(fieldvalue, code, IsArray, RowIndex, label) {
             angular.forEach(exports.ValidationValues, function (value, key) {

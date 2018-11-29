@@ -97,6 +97,18 @@
                                 "Url": "OrgAddress/FindAll",
                                 "FilterID": "ORGADDR"
                             },
+                            "OrgHeader": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "OrgHeader/FindAll",
+                                "FilterID": "ORGHEAD"
+                            },
+                            "CfxOrgMapping": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "CfxOrgMapping/FindAll",
+                                "FilterID": "CFXORMAP"
+                            },
                         },
 
                         "Meta": {
@@ -401,9 +413,8 @@
         function GeneralValidation($item) {
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
-            if (!_input.TmsItemHeader.ItemCode || _input.TmsItemHeader.ItemCode) {
+            
                 OnChangeValues(_input.TmsItemHeader.ItemCode, 'E8001', false, undefined, $item.label);
-            }
         }
 
         function OnChangeValues(fieldvalue, code, IsArray, RowIndex, label) {

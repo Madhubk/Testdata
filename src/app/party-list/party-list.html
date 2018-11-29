@@ -1,0 +1,42 @@
+<div class="party-list-container">
+    <div class="party-list-inner-container">
+        <div class="product-logo">
+            <img data-ng-src="{{PartyListCtrl.ePage.Masters.ProductLogo}}" alt="">
+            <a href="javascript:void(0);" class="pull-right font-120 pt-10" data-ng-click="PartyListCtrl.ePage.Masters.GoBack()">Back</a>
+        </div>
+        <div class="party-heading">
+            <span>Choose a Party</span>
+        </div>
+        <ul class="clearfix party-list-wrapper">
+            <li class="clearfix p-20" data-ng-if="!PartyListCtrl.ePage.Masters.PartyList">
+                <i class="fa fa-spin fa-spinner font-160"></i>
+            </li>
+            <li class="clearfix p-20" data-ng-if="PartyListCtrl.ePage.Masters.PartyList && PartyListCtrl.ePage.Masters.PartyList.length == 0">
+                <i>No Items...!</i>
+            </li>
+            <li class="clearfix party-list" data-ng-class="{'active': PartyListCtrl.ePage.Masters.DefaultParty.PK == x.PK}"
+                data-ng-repeat="x in PartyListCtrl.ePage.Masters.PartyList" data-ng-if="PartyListCtrl.ePage.Masters.PartyList && PartyListCtrl.ePage.Masters.PartyList.length > 0"
+                data-ng-mouseover="(PartyListCtrl.ePage.Masters.DefaultParty.PK !== x.PK) ? x.IsShowDefault = true : ''"
+                data-ng-mouseleave="(PartyListCtrl.ePage.Masters.DefaultParty.PK !== x.PK) ? x.IsShowDefault = false : ''">
+                <div class="avatar" data-ng-click="PartyListCtrl.ePage.Masters.OnPartyClick(x)">
+                    <span data-ng-bind="(x.Code || x.Name) | getCharacters: 1"></span>
+                </div>
+                <div class="party-code-container" data-ng-click="PartyListCtrl.ePage.Masters.OnPartyClick(x)">
+                    <p class="party-code text-single-line" data-ng-bind="x.Name" title="{{x.Name}}"></p>
+                    <p class="party-desc text-single-line" data-ng-bind="x.Code" title="{{x.Code}}"></p>
+                </div>
+                <div class="set-as-default-icon" data-ng-if="PartyListCtrl.ePage.Masters.DefaultParty.PK !== x.PK && x.IsShowDefault">
+                    <button class="btn btn-link btn-sm" data-ng-click="PartyListCtrl.ePage.Masters.DefaultParty.PK !== x.PK && PartyListCtrl.ePage.Masters.SetAsDefaultParty(x, $event)"
+                        data-ng-disabled="PartyListCtrl.ePage.Masters.DefaultParty.PK == x.PK">Set As Default</button>
+                </div>
+            </li>
+        </ul>
+        <div class="party-list-conatiner-overlay" data-ng-if="PartyListCtrl.ePage.Masters.IsShowPartyListOverlay">
+            <div class="load-bar">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </div>
+    </div>
+</div>

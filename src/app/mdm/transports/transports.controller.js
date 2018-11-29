@@ -20,7 +20,7 @@
                 "Entities": {}
             };
 
-            TransportsCtrl.ePage.Masters.MenuVisibleType = authService.getUserInfo().Menu.VisibleType;
+            TransportsCtrl.ePage.Masters.MenuVisibleType = authService.getUserInfo().MenuType;
         }
 
         Init();

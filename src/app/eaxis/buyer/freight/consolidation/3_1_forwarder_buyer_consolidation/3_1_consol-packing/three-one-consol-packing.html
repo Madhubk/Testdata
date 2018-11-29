@@ -1,0 +1,192 @@
+<div class="clearfix">
+    <div class="clearfix margin-top-20" data-ng-show="ThreeOneConsolPackingCtrl.ePage.Masters.IsContainer">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="pack-action">
+                <li data-ng-if="ThreeOneConsolPackingCtrl.ePage.Entities.Header.Data.UICntContainers.length==0">
+                    <div class="row">
+                        <div class="text-center">
+                            No Containers Found...
+                        </div>
+                    </div>
+                </li>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4" data-ng-repeat="x in ThreeOneConsolPackingCtrl.ePage.Entities.Header.Data.UICntContainers">
+                    <div class="overal">
+                        <div class="firstRow">
+                            <div class="padding-bottom-5">
+                                <div class="fontSizeColor"> {{x.ContainerNo}} <span class="pull-right"> <i class="fa fa-edit"></i></span></div>
+                            </div>
+                            <div class="">
+                                <span class="fs-gray padding-right-5">Type : {{x.ContainerMode}}</span>
+                                <i class="fa fa-caret-right fs-gray"></i>
+                                <span class="fs-gray padding-left-5 padding-right-5">Size : {{x.RC_Type}}</span>
+                                <i class="fa fa-caret-right fs-gray"></i>
+                                <span class="fs-gray padding-left-5 seal-width">
+                                    Seal # :
+                                    {{x.SealNo}}
+                                </span>
+                            </div>
+                            <div class="padding-top-10">
+                                <a class="padding-right-5" ng-click="ThreeOneConsolPackingCtrl.ePage.Masters.AllocatePacklines(x)">Allocate
+                                    Packlines</a> |
+                                <a class="padding-left-5" ng-click="ThreeOneConsolPackingCtrl.ePage.Masters.UnAllocatePacklines(x)">
+                                    Unallocate Packlines</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix margin-top-10" data-ng-show="ThreeOneConsolPackingCtrl.ePage.Masters.IsUnallocate">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="clearfix margin-bottom-10 service-details-heading">
+                <div class="text-center clearfix">
+                    <i class="fa fa-angle-double-left pull-left btn btn-link" data-ng-click="ThreeOneConsolPackingCtrl.ePage.Masters.IsUnallocate = false;ThreeOneConsolPackingCtrl.ePage.Masters.IsContainer=true"></i>
+                    <span class="heading">Packlines Allocation</span>
+                    <button class="btn btn-primary pull-right margin-right-10" data-ng-click="ThreeOneConsolPackingCtrl.ePage.Masters.SaveAllocatePacklines()">
+                        <i class="fa fa-plus-circle"></i> Allocate Packlines
+                    </button>
+                </div>
+            </div>
+            <div class="pack-action">
+                <div class="text-center grid-view-loader" data-ng-if="!ThreeOneConsolPackingCtrl.ePage.Masters.UnAllocatedList">
+                    <i class="fa fa-spin fa-spinner font-160"></i>
+                </div>
+                <li data-ng-if="ThreeOneConsolPackingCtrl.ePage.Masters.UnAllocatedList.length==0">
+                    <div class="row">
+                        <div class="text-center">
+                            No Packlines Available to Allocate.
+                        </div>
+                    </div>
+                </li>
+                <li data-ng-repeat="x in ThreeOneConsolPackingCtrl.ePage.Masters.UnAllocatedList">
+                    <div class="clearfix">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 pl-0">
+                                <div class="fontSizeColor">{{x.ShipmentNo}}</div>
+                                <div class="org1 text-single-line">
+                                    <span>{{x.ShipperCode}}</span>
+                                    <i class="fa fa-caret-right" aria-hidden="true"></i>
+                                    <span>{{x.ConsigneeCode}}</span>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 pl-0">
+                                <div class="pack-action-label-value">
+                                    <div class="pack-action-label">HBL</div>
+                                    <div class="pack-action-value">: {{x.HouseBill}}</div>
+                                </div>
+                                <div class="pack-action-label-value">
+                                    <div class="pack-action-label">Packs</div>
+                                    <div class="pack-action-value">: {{x.PackageCount}} {{x.F3_NKPackType}}</div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 pl-0">
+                                <div class="pack-action-label-value">
+                                    <div class="pack-action-label">Weight</div>
+                                    <div class="pack-action-value">: {{x.ActualWeight}} {{x.ActualWeightUQ}}</div>
+                                </div>
+                                <div class="pack-action-label-value">
+                                    <div class="pack-action-label">Volume</div>
+                                    <div class="pack-action-value">: {{x.ActualVolume}} {{x.ActualVolumeUQ}}</div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 pl-0">
+                                <div class="pack-action-label-value">
+                                    <div class="action-label">Length X Width X Height</div>
+                                </div>
+                                <div class="pack-action-label-value">
+                                    <div class="">{{x.Length}} X {{x.Width}} X {{x.Height}}</div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-1 col-xl-1">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" ng-model="x.checked" class="colored-blue">
+                                        <span class="text"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix margin-top-10" data-ng-show="ThreeOneConsolPackingCtrl.ePage.Masters.IsAllocate">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="clearfix margin-bottom-10 service-details-heading">
+                <div class="text-center clearfix">
+                    <i class="fa fa-angle-double-left pull-left btn btn-link" data-ng-click="ThreeOneConsolPackingCtrl.ePage.Masters.IsAllocate = false;ThreeOneConsolPackingCtrl.ePage.Masters.IsContainer=true"></i>
+                    <span class="heading">Packlines Unallocation</span>
+                    <button class="btn btn-primary pull-right margin-right-10" data-ng-click="ThreeOneConsolPackingCtrl.ePage.Masters.SaveUnAllocatePacklines()">
+                        <i class="fa fa-plus-circle"></i> Unallocate Packlines
+                    </button>
+                </div>
+            </div>
+            <div class="pack-action">
+                <div class="text-center grid-view-loader" data-ng-if="!ThreeOneConsolPackingCtrl.ePage.Masters.AllocatedList">
+                    <i class="fa fa-spin fa-spinner font-160"></i>
+                </div>
+                <li data-ng-if="ThreeOneConsolPackingCtrl.ePage.Masters.AllocatedList.length==0">
+                    <div class="row">
+                        <div class="text-center">
+                            No Packlines Available to Unallocate.
+                        </div>
+                    </div>
+                </li>
+                <li data-ng-repeat="x in ThreeOneConsolPackingCtrl.ePage.Masters.AllocatedList">
+                    <div class="clearfix">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 pl-0">
+                                <div class="fontSizeColor">{{x.ShipmentNo}}</div>
+                                <div class="org1 text-single-line">
+                                    <span>
+                                        {{x.ConsignorCode}}
+                                    </span>
+                                    <i class="fa fa-caret-right" aria-hidden="true"></i>
+                                    <span>{{x.ConsigneeCode}}</span>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 pl-0">
+                                <div class="pack-action-label-value">
+                                    <div class="pack-action-label">HBL</div>
+                                    <div class="pack-action-value">: {{x.HouseBill}}</div>
+                                </div>
+                                <div class="pack-action-label-value">
+                                    <div class="pack-action-label">Packs</div>
+                                    <div class="pack-action-value">: {{x.PackageCount}} {{x.F3_NKPackType}}</div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 pl-0">
+                                <div class="pack-action-label-value">
+                                    <div class="pack-action-label">Weight</div>
+                                    <div class="pack-action-value">: {{x.ActualWeight}} {{x.ActualWeightUQ}}</div>
+                                </div>
+                                <div class="pack-action-label-value">
+                                    <div class="pack-action-label">Volume</div>
+                                    <div class="pack-action-value">: {{x.ActualVolume}} {{x.ActualVolumeUQ}}</div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 pl-0">
+                                <div class="pack-action-label-value">
+                                    <div class="action-label">Length X Width X Height</div>
+                                </div>
+                                <div class="pack-action-label-value">
+                                    <div class="">{{x.Length}} X {{x.Width}} X {{x.Height}}</div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-1 col-xl-1">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" ng-model="x.checked" class="colored-blue">
+                                        <span class="text"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </div>
+        </div>
+    </div>
+</div>

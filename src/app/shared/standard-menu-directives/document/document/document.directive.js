@@ -11,13 +11,15 @@
         var exports = {
             restrict: "EA",
             templateUrl: "app/shared/standard-menu-directives/document/document/document.html",
-            controller: 'DocumentController',
-            controllerAs: 'DocumentCtrl',
+            controller: 'SMDocumentController',
+            controllerAs: 'SMDocumentCtrl',
             bindToController: true,
             scope: {
                 input: "=",
                 mode: "=",
+                config: "=",
                 type: "=",
+                listSource: "=?",
                 closeModal: "&"
             },
             link: Link

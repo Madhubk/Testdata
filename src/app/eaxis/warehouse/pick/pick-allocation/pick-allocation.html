@@ -1,0 +1,171 @@
+<div class="grid-loading-norecord-container ng-scope" style='z-index: 15;'data-ng-if="PickAllocationCtrl.ePage.Masters.Loading">
+    <div class="grid-no-record">{{PickAllocationCtrl.ePage.Masters.LoadingValue}}</div>
+</div>
+<!-- Fetching Inventory Records If common save has been clicked -->
+<span data-ng-if="PickAllocationCtrl.ePage.Entities.Header.GlobalVariables.FetchingInventoryDetails" ng-init="PickAllocationCtrl.ePage.Masters.GetInventoryDetails(PickAllocationCtrl.ePage.Masters.SelectedOutwardLineDetails)"></span>
+
+<div class="clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding">
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 p-0">
+            <span><button type="button" style="font-size:11px" class="btn btn-sm btn-outline-primary font-10"  title="Customize"  data-ng-click="PickAllocationCtrl.ePage.Masters.EditTableColumns = true"><span class="fa fa-filter"></span>&nbsp;&nbsp;Customize</button></span>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="input-group">
+                <div class="input-group-addon font-10"><i class="fa fa-search font-10"></i></div>
+                <input type="text" class="form-control height-25 font-10" placeholder="Search" ng-model="PickAllocationCtrl.ePage.Masters.SearchTable">
+            </div>      
+        </div>
+    </div>
+    <div id="PickOutLineTable{{PickAllocationCtrl.currentPick.label}}" class="fixedheader mb-0" key-events table-object='PickAllocationCtrl.ePage.Entities.Header.Data.UIWmsOutwardLines' enable='PickAllocationCtrl.ePage.Masters.Enable' selected-row='PickAllocationCtrl.ePage.Masters.selectedRow' unique-id='PickOutLineTable{{PickAllocationCtrl.currentPick.label}}'>
+        <table style="height: 200px">
+            <thead>
+                <tr id="tableHeader">
+                    <th id="lsno" data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lsno.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lsno.width + 'px' }" title="S.No">S.No</th>
+                    <th id="lclient" data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lclient.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lclient.width + 'px' }" title="Client">Client</th>
+                    <th id="lproductcode" data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lproductcode.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lproductcode.width + 'px' }" title="Product Code">Product Code</th>
+                    <th id="lproductdescription" data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lproductdescription.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lproductdescription.width + 'px' }" title="Product Description">Product Description</th>
+                    <th id="lpacks"data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lpacks.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lpacks.width + 'px' }" title="Ordered Packs">Packs</th>
+                    <th id="lpacksuq"data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lpacksuq.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lpacksuq.width + 'px' }" title="Ordered Packs UQ">Packs UQ</th>
+                    <th id="luq"data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.luq.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.luq.width + 'px' }" title="Ordered Quantity UQ">Qty UQ</th>
+                    <th id="lproductcondition"data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lproductcondition.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lproductcondition.width + 'px' }" title="Product Condition">Product Condition</th>
+                    <th id="lorderedqty" data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lorderedqty.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lorderedqty.width + 'px' }" title="Ordered Quantity">Ordered Qty</th>
+                    <th id="lshortfallqty" data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lshortfallqty.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lshortfallqty.width + 'px' }" title="Shortfall Quantity">Shortfall Qty</th>
+                    <th id="lallocatedqty"data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lallocatedqty.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lallocatedqty.width + 'px' }" title="LAllocated Quantity">Allocated Qty</th>
+                    <th id="ludf1" data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.ludf1.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.ludf1.width + 'px' }" title="User Defined Field 1">UDF 1</th>
+                    <th id="ludf2" data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.ludf2.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.ludf2.width + 'px' }" title="User Defined Field 2">UDF 2</th>
+                    <th id="ludf3" data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.ludf3.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.ludf3.width + 'px' }" title="USer Defined Field 3">UDF 3</th>
+                    <th id="lpackingdate" data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lpackingdate.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lpackingdate.width + 'px' }" title="Packing Date">Packing Date</th>
+                    <th id="lexpirydate" data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lexpirydate.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lexpirydate.width + 'px' }" title="Expiry Date">Expiry Date</th>
+                    <th id="lstatus" data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lstatus.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lstatus.width + 'px' }" title="Status">Status</th>
+                    <th id="lorderno" data-ng-if='PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lorderno.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lorderno.width + 'px' }" title="Outward No" >Outward No</th>      
+                </tr>
+            </thead>
+            <tbody id="PickOutLineCustTable{{PickAllocationCtrl.currentPick.label}}" >
+                <tr id="tableBody" ng-repeat="x in PickAllocationCtrl.ePage.Entities.Header.Data.UIWmsOutwardLines   | filter:PickAllocationCtrl.ePage.Masters.SearchTable"  ng-click="PickAllocationCtrl.ePage.Masters.setSelectedRow(x,$index)" ng-class="{row_active: (PickAllocationCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}" 
+                    watch-table table-properties="PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines"  unique-id="PickOutLineCustTable{{PickAllocationCtrl.currentPick.label}}" row-position="$index">
+                    <td id="lsno"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lsno.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lsno.width + 'px' }" >{{$index+1}}</td>
+                    <td id="lclient"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lclient.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lclient.width + 'px' }" class="overflow-text">{{x.ORG_ClientCode}} - {{x.ORG_ClientName}}</td>
+                    <td id="lproductcode"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lproductcode.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lproductcode.width + 'px' }" class="overflow-text">{{x.ProductCode}}</td>
+                    <td id="lproductdescription"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lproductdescription.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lproductdescription.width + 'px' }" class="overflow-text">{{x.ProductDescription}}</td>
+                    <td id="lpacks"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lpacks.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lpacks.width + 'px' }" class="overflow-text">{{x.Packs || 0}}</td>
+                    <td id="lpacksuq"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lpacksuq.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lpacksuq.width + 'px' }" class="overflow-text">{{x.PAC_PackType || PickAllocationCtrl.ePage.Masters.emptyText}}</td>
+                    <td id="luq"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.luq.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.luq.width + 'px' }" class="overflow-text">{{x.StockKeepingUnit || PickAllocationCtrl.ePage.Masters.emptyText}}</td>
+                    <td id="lproductcondition"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lproductcondition.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lproductcondition.width + 'px' }" class="overflow-text">{{x.ProductCondition || PickAllocationCtrl.ePage.Masters.emptyText}}</td>
+                    <td id="lorderedqty"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lorderedqty.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lorderedqty.width + 'px' }" class="overflow-text">{{x.Units || 0}}</td>
+                    <td id="lshortfallqty"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lshortfallqty.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lshortfallqty.width + 'px' }" class="overflow-text">{{x.ShortFallQty || 0}}</td>
+                    <td id="lallocatedqty"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lallocatedqty.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lallocatedqty.width + 'px' }" class="overflow-text">{{x.AllocatedQty || 0}}</td>
+                    <td id="ludf1"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.ludf1.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.ludf1.width + 'px' }" class="overflow-text" >{{x.PartAttrib1 || PickAllocationCtrl.ePage.Masters.emptyText}}</td> 
+                    <td id="ludf2"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.ludf2.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.ludf2.width + 'px' }"class="overflow-text" >{{x.PartAttrib2 || PickAllocationCtrl.ePage.Masters.emptyText}}</td>
+                    <td id="ludf3"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.ludf3.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.ludf3.width + 'px' }" class="overflow-text">{{x.PartAttrib3 || PickAllocationCtrl.ePage.Masters.emptyText}}</td> 
+                    <td id="lpackingdate"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lpackingdate.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lpackingdate.width + 'px' }" class="overflow-text">{{x.PackingDate || PickAllocationCtrl.ePage.Masters.emptyText | dateFormat}}</td> 
+                    <td id="lexpirydate"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lexpirydate.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lexpirydate.width + 'px' }" class="overflow-text">{{x.ExpiryDate || PickAllocationCtrl.ePage.Masters.emptyText | dateFormat}}</td> 
+                    <td id="lstatus"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lstatus.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lstatus.width + 'px' }" class="overflow-text">{{x.WorkOrderLineStatusDesc || PickAllocationCtrl.ePage.Masters.emptyText}}</td>      
+                    <td id="lorderno"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lorderno.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lorderno.width + 'px' }" class="overflow-text">{{x.WorkOrderID}}</td>      
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" ng-if="PickAllocationCtrl.ePage.Entities.Header.Data.UIWmsOutwardLines.length==0">No Record Found...</div>
+        <!-- To show Customize Modal -->
+    <div ng-if='PickAllocationCtrl.ePage.Masters.EditTableColumns'>
+        <customize-table table-properties="PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines" enable="PickAllocationCtrl.ePage.Masters.EditTableColumns" unique-id="PickOutLineCustTable{{PickAllocationCtrl.currentPick.label}}" user-value='PickAllocationCtrl.ePage.Masters.UserValue' entity-source='WMS_PICKOUTWARDLINES'></customize-table>
+    </div>
+    <!-- Call Directive If user has value -->
+    <div ng-if='PickAllocationCtrl.ePage.Masters.UserHasValue' ng-init="PickAllocationCtrl.ePage.Masters.UserHasValue=false">
+        <watch-table table-properties="PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines"  unique-id="PickOutLineCustTable{{PickAllocationCtrl.currentPick.label}}"></watch-table>
+    </div>
+</div>
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-10">
+    <span class="text-single-line custom_label">Inventory Details</span>
+    <button class="btn btn-blue btn-sm pull-right ml-10" data-ng-disabled="!PickAllocationCtrl.ePage.Masters.EnableAllocateStock" data-ng-click="PickAllocationCtrl.ePage.Masters.AllocateStock()">Allocate Stock</button>
+    <button class="btn btn-blue btn-sm pull-right" data-ng-disabled="!PickAllocationCtrl.ePage.Masters.EnableAllocateStock || ReleasesPickSlipCtrl.ePage.Entities.Header.Data.UIWmsReleaseLine.length>0" data-ng-click="PickAllocationCtrl.ePage.Masters.DeAllocateStock()">Deallocate Stock</button>
+</div>
+
+
+<div class="clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding">
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 p-0">
+            <span><button type="button" style="font-size:11px" class="btn btn-sm btn-outline-primary font-10"  title="Customize"  data-ng-click="PickAllocationCtrl.ePage.Masters.EditTableColumnsForInventory = true"><span class="fa fa-filter"></span>&nbsp;&nbsp;Customize</button></span>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="input-group">
+                <div class="input-group-addon font-10"><i class="fa fa-search font-10"></i></div>
+                <input type="text" class="form-control height-25 font-10" placeholder="Search" ng-model="PickAllocationCtrl.ePage.Masters.SearchTableForInventory">
+            </div>      
+        </div>
+    </div>
+    <div id="PickInvenTable{{PickAllocationCtrl.currentPick.label}}" class="fixedheader mb-60" key-events  unique-id='PickInvenTable{{PickAllocationCtrl.currentPick.label}}'>
+        <table style="height: 200px">
+            <thead>
+                <tr id="tableHeader">
+                    <th id="icheckbox" data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.icheckbox.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.icheckbox.width + 'px' }" title="Is Allocate">Is Allocate</th>
+                    <th id="isno" data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.isno.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.isno.width + 'px' }" title="S.No">S.No</th>
+                    <th id="iproductcode" data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iproductcode.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iproductcode.width + 'px' }" title="Product Code">Product Code</th>
+                    <th id="iproductdescription" data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iproductdescription.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iproductdescription.width + 'px' }" title="Product Description">Product Description</th>
+                    <th id="ilocation" data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.ilocation.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.ilocation.width + 'px' }" title="Location">Location</th>
+                    <th id="iallocatedqty"data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iallocatedqty.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iallocatedqty.width + 'px' }" title="Allocated Quantity">Allocated Qty</th>
+                    <th id="iinlocationqty" data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iinlocationqty.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iinlocationqty.width + 'px' }" title="In Location Quantity">InLocation Qty</th>
+                    <th id="iavailabletopick" data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iavailabletopick.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iavailabletopick.width + 'px' }" title="Available To Pick">Available To Pick</th>
+                    <th id="icommittedqty"data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.icommittedqty.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.icommittedqty.width + 'px' }" title="Committed Quantity">Committed Qty</th>
+                    <th id="ireservedqty" data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.ireservedqty.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.ireservedqty.width + 'px' }" title="Reserved Quantity">Reserved Qty</th>
+                    <th id="iinstransitqty" data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iinstransitqty.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iinstransitqty.width + 'px' }" title="In Transit Quantity">In Transit Qty</th>
+                    <th id="itotalqty" data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.itotalqty.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.itotalqty.width + 'px' }" title="Total Quantity">Total Qty</th>
+                    <th id="iinventorystatus" data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iinventorystatus.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iinventorystatus.width + 'px' }" title="Inventory Status">Inventory Status</th>
+                    <th id="ilocationstatus" data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.ilocationstatus.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.ilocationstatus.width + 'px' }" title="Location Status">Location Status</th>
+                    <th id="iarrivaldate" data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iarrivaldate.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iarrivaldate.width + 'px' }" title="Arrival Date">Arrival Date</th>
+                    <th id="iudf1" data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iudf1.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iudf1.width + 'px' }" title="User Defined Field 1">UDF 1</th>
+                    <th id="iudf2" data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iudf2.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iudf2.width + 'px' }" title="User Defined Field 2">UDF 2</th>
+                    <th id="iudf3" data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iudf3.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iudf3.width + 'px' }" title="USer Defined Field 3">UDF 3</th>
+                    <th id="ipackingdate" data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.ipackingdate.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.ipackingdate.width + 'px' }" title="Packing Date">Packing Date</th>
+                    <th id="iexpirydate" data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iexpirydate.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iexpirydate.width + 'px' }" title="Expiry Date">Expiry Date</th>
+                </tr>
+            </thead>
+            <tbody id="PickInvenCustTable{{PickAllocationCtrl.currentPick.label}}">
+                <tr id="tableBody" ng-repeat="x in PickAllocationCtrl.ePage.Masters.InventoryDetails   | filter:PickAllocationCtrl.ePage.Masters.SearchTableForInventory"
+                    watch-table table-properties="PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList"  unique-id="PickInvenCustTable{{PickAllocationCtrl.currentPick.label}}" row-position="$index">
+                    <td id="icheckbox"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.icheckbox.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.icheckbox.width + 'px' }" >
+                        <label class="mb-0 customcheckbox">
+                            <input type="checkbox" ng-checked="x.IsAllocate" ng-change="PickAllocationCtrl.ePage.Masters.ManualAllocationUsingCheckBox(x)"
+                                ng-model="x.IsAllocate" ng-disabled="x.IsDisabled || x.DisableCheckBox"> </input>
+                            <span class="text"></span>
+                        </label>
+                    </td>
+                    <td id="isno"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.isno.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.isno.width + 'px' }" >{{$index+1}}</td>
+                    <td id="iproductcode"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iproductcode.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iproductcode.width + 'px' }" class="overflow-text">{{x.ProductCode}}</td>
+                    <td id="iproductdescription"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iproductdescription.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iproductdescription.width + 'px' }" class="overflow-text">{{x.ProductName}}</td>
+                    <td id="ilocation"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.ilocation.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.ilocation.width + 'px' }" class="overflow-text">{{x.Location || PickAllocationCtrl.ePage.Masters.emptyText}}</td>
+                    <td id="iallocatedqty"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iallocatedqty.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iallocatedqty.width + 'px' }" >
+                        <input type="text" setDecimals-only-dot  class="height-22 form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Allocated Qty" data-ng-model="x.AllocatedQty" ng-disabled="x.IsDisabled || x.DisableTextBox" ng-blur="PickAllocationCtrl.ePage.Masters.ManualAllocationUsingTextBox(x)"> 
+                    </td>
+                    <td id="iinlocationqty"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iinlocationqty.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iinlocationqty.width + 'px' }" class="overflow-text">{{x.InLocationQty || 0  | setDecimal:3}}</td>
+                    <td id="iavailabletopick"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iavailabletopick.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iavailabletopick.width + 'px' }" class="overflow-text">{{x.AvailableToPick || 0  | setDecimal:3}}</td>
+                    <td id="icommittedqty"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.icommittedqty.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.icommittedqty.width + 'px' }" class="overflow-text">{{x.CommitedUnit || 0 | setDecimal:3}}</td>
+                    <td id="ireservedqty"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.ireservedqty.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.ireservedqty.width + 'px' }"class="overflow-text">{{x.ReservedUnit || 0 | setDecimal:3}}</td> 
+                    <td id="iinstransitqty"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iinstransitqty.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iinstransitqty.width + 'px' }" class="overflow-text">{{x.InTransitUnit || 0 | setDecimal:3}}</td>
+                    <td id="itotalqty"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.itotalqty.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.itotalqty.width + 'px' }" class="overflow-text">{{x.TotalUnits || 0 | setDecimal:3}}</td>
+                    <td id="iinventorystatus"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iinventorystatus.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iinventorystatus.width + 'px' }" class="overflow-text">{{x.OriginalInventoryStatusDesc || PickAllocationCtrl.ePage.Masters.emptyText}}</td> 
+                    <td id="ilocationstatus"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.ilocationstatus.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.ilocationstatus.width + 'px' }" class="overflow-text">{{x.LocationStatusDescription || PickAllocationCtrl.ePage.Masters.emptyText}}</td> 
+                    <td id="iarrivaldate"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iarrivaldate.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iarrivaldate.width + 'px' }" class="overflow-text">{{x.AdjustmentArrivalDate || PickAllocationCtrl.ePage.Masters.emptyText | dateFormat}}</td> 
+                    <td id="iudf1"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iudf1.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iudf1.width + 'px' }" class="overflow-text">{{x.PartAttrib1 || PickAllocationCtrl.ePage.Masters.emptyText}}</td>      
+                    <td id="iudf2"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iudf2.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iudf2.width + 'px' }" class="overflow-text">{{x.PartAttrib2 || PickAllocationCtrl.ePage.Masters.emptyText}}</td>      
+                    <td id="iudf3"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iudf3.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iudf3.width + 'px' }" class="overflow-text">{{x.PartAttrib3 || PickAllocationCtrl.ePage.Masters.emptyText}}</td>      
+                    <td id="ipackingdate"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.ipackingdate.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.ipackingdate.width + 'px' }" class="overflow-text">{{x.PackingDate || PickAllocationCtrl.ePage.Masters.emptyText | dateFormat}}</td>      
+                    <td id="iexpirydate"   data-ng-show='PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iexpirydate.isenabled' ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.iexpirydate.width + 'px' }" class="overflow-text">{{x.ExpiryDate || PickAllocationCtrl.ePage.Masters.emptyText | dateFormat}}</td>      
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:400px" ng-if="PickAllocationCtrl.ePage.Masters.InventoryDetails.length==0">No Record Found...</div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:400px" ng-if="!PickAllocationCtrl.ePage.Masters.InventoryDetails">Click On the above Ordered Lines to view Inventory..</div>
+        
+    <!-- To show Customize Modal -->
+    <div ng-if='PickAllocationCtrl.ePage.Masters.EditTableColumnsForInventory'>
+        <customize-table table-properties="PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList" enable="PickAllocationCtrl.ePage.Masters.EditTableColumnsForInventory" unique-id="PickInvenCustTable{{PickAllocationCtrl.currentPick.label}}" user-value='PickAllocationCtrl.ePage.Masters.UserValueForInventory' entity-source='WMS_PICKINVENTORY'></customize-table>
+    </div>
+    <!-- Call Directive If user has value -->
+    <div ng-if='PickAllocationCtrl.ePage.Masters.UserHasValueForInventory' ng-init="PickAllocationCtrl.ePage.Masters.UserHasValueForInventory=false">
+        <watch-table table-properties="PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList"  unique-id="PickInvenCustTable{{PickAllocationCtrl.currentPick.label}}"></watch-table>
+    </div>
+</div>
+

@@ -4,7 +4,7 @@
         <span>
             <button type="button" class="btn btn-sm btn-outline-secondary" title="Add New" data-ng-click="CarrierVehicleCtrl.ePage.Masters.AddNewRow()">
                 <span class="fa fa-plus"></span>&nbsp;&nbsp;Add New
-        </button>
+            </button>
         </span>
         <span ng-hide='CarrierVehicleCtrl.ePage.Masters.selectedRow==-1'>
             <button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Copy" data-ng-click="CarrierVehicleCtrl.ePage.Masters.CopyRow()">
@@ -18,6 +18,10 @@
             <button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Delete" data-ng-click="CarrierVehicleCtrl.ePage.Masters.RemoveRow()">
                 <span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button>
         </span>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 pull-right">
+            <input type="text" class="form-control input-sm" placeholder="Local Search.." data-ng-model="CarrierVehicleCtrl.ePage.Masters.find"    
+            />
+        </div>
     </div>
     <div id='CarrierVehicleCtrl.ePage.Masters.your_div' class="wmstable_scroll" style="height:450px; padding-top: 2px;">
         <div class="table" id="results">
@@ -32,8 +36,12 @@
                 <div class="grid-no-record" style="bottom: 250px;">No records found...</div>
             </div>
 
-            <div class='table_row' ng-repeat="x in CarrierVehicleCtrl.ePage.Entities.Header.Data.CarrierVehicleDetails track by $index"
-                ng-click="CarrierVehicleCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: CarrierVehicleCtrl.ePage.Masters.selectedRow==$index}"
+            <div class="grid-loading-norecord-container" data-ng-show="CarrierVehicleCtrl.ePage.Masters.IsLoading">
+                    <div class="grid-no-record" style="bottom: 250px;">Loading...</div>
+                </div>
+
+            <div class='table_row' ng-repeat="x in CarrierVehicleCtrl.ePage.Entities.Header.Data.CarrierVehicleDetails | filter : CarrierVehicleCtrl.ePage.Masters.find  track by $index"
+                ng-click="CarrierVehicleCtrl.ePage.Masters.setSelectedRow($index,x);" ng-class="{row_active: CarrierVehicleCtrl.ePage.Masters.LineselectedRow==$index}"
                 style="font-size: 11px;">
                 <div class='table_small'>
                     <div class='table_cell'>List No</div>
@@ -79,8 +87,12 @@
                                 </div>
                                 <!-- Look Up page opens when button clicks -->
                                 <span class="input-group-btn">
-                                    <button dynamic-list-modal obj="CarrierVehicleCtrl.ePage.Entities.Header.Data.CarrierVehicleDetails[CarrierVehicleCtrl.ePage.Masters.selectedRow]" field-name="'MappingCarrierFor'" selected-data="CarrierVehicleCtrl.ePage.Masters.SelectedLookupDataSender($item)"  
-                                    prefix-data="'OrganizationList'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                    <button dynamic-list-modal obj="CarrierVehicleCtrl.ePage.Entities.Header.Data.CarrierVehicleDetails[CarrierVehicleCtrl.ePage.Masters.selectedRow]"
+                                        field-name="'MappingCarrierFor'" selected-data="CarrierVehicleCtrl.ePage.Masters.SelectedLookupDataSender($item)"
+                                        prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                        class="btn btn-default shiny" type="button">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
                                 </span>
                             </div>
                         </div>
@@ -99,9 +111,11 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-lg-offset-8 mt-5">
-                    <button class="btn btn-blue btn-sm mr-5 pull-right" title="Save" data-ng-click="CarrierVehicleCtrl.ePage.Masters.Done()"><i class="fa fa-save pr-5"></i>Save</button>
-                    <button class="btn btn-primary btn-sm mr-5 pull-right" title="Delete" data-ng-click="CarrierVehicleCtrl.ePage.Masters.RemoveRow()"><i class="fa fa-trash pr-5"></i>Delete</button>
-                    <button class="btn btn-primary btn-sm mr-5 pull-right" title="Back" data-ng-click="CarrierVehicleCtrl.ePage.Masters.Back()"><i class="fa fa-angle-double-left pr-5"></i>Back</button>
+                    <button class="btn btn-blue btn-sm mr-5 pull-right" title="Save" data-ng-click="CarrierVehicleCtrl.ePage.Masters.Done()">
+                        <i class="fa fa-save pr-5"></i>Save</button>
+                    <!-- <button class="btn btn-primary btn-sm mr-5 pull-right" title="Delete" data-ng-click="CarrierVehicleCtrl.ePage.Masters.RemoveRow()"><i class="fa fa-trash pr-5"></i>Delete</button> -->
+                    <button class="btn btn-primary btn-sm mr-5 pull-right" title="Back" data-ng-click="CarrierVehicleCtrl.ePage.Masters.Back()">
+                        <i class="fa fa-angle-double-left pr-5"></i>Back</button>
                 </div>
             </div>
         </div>

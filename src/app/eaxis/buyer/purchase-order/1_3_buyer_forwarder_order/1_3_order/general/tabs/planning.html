@@ -1,0 +1,581 @@
+<div class="clearfix padding-top-10">
+    <!-- Goods Origin -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Goods Origin</label>
+            <div class="input-group input-group-sm">
+                <div dynamic-lookup my-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.GoodsAvailableAt"
+                    obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder" page-name="'MstUNLOCO'"
+                    control-key="'GoodsAvailableAt_3088'" control-id="'GoodsAvailableAt'"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder"
+                        control-key="'GoodsAvailableAt_3088'" control-id="'GoodsAvailableAt'" page-name="'MstUNLOCO'"
+                        mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="one_three_OrdGeneralCtrl.ePage.Masters.SelectedLookupData($item)"
+                        class="btn btn-default shiny" type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- Goods Available At -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Goods Available At</label>
+            <div class="">
+                <select chosen class="form-control" data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ORA_DeliveryAdress"
+                    data-ng-options="x.Code as x.Code for x in one_three_OrdGeneralCtrl.ePage.Entities.Header.Meta.GoodsAvailAt.ListSource"
+                    search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <!-- Goods Destination -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Goods Destination</label>
+            <div class="input-group input-group-sm">
+                <div dynamic-lookup my-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.GoodsDeliveredTo"
+                    obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder" page-name="'MstUNLOCO'"
+                    control-key="'GoodsDeliveredTo_3093'" control-id="'GoodsDeliveredTo'"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder"
+                        control-key="'GoodsDeliveredTo_3093'" control-id="'GoodsDeliveredTo'" page-name="'MstUNLOCO'"
+                        mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="one_three_OrdGeneralCtrl.ePage.Masters.SelectedLookupData($item)"
+                        class="btn btn-default shiny" type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- Goods Deliverd To -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Goods Delivered To</label>
+            <div class="">
+                <select chosen class="form-control" data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.JDA_DeliveryAdress"
+                    data-ng-options="x.Code as x.Code for x in one_three_OrdGeneralCtrl.ePage.Entities.Header.Meta.GoodsDeliveredTo.ListSource"
+                    search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <!-- POL -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">POL</label>
+            <div class="input-group input-group-sm">
+                <div dynamic-lookup my-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.PortOfLoading"
+                    obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder" page-name="'MstUNLOCO'"
+                    control-id="'PortOfLoading'" control-key="'PortOfLoading_3086'"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder"
+                        page-name="'MstUNLOCO'" control-id="'PortOfLoading'" control-key="'PortOfLoading_3086'" mode="2"
+                        grid-refresh-fun-name="" grid-refresh-fun="" selected-data="one_three_OrdGeneralCtrl.ePage.Masters.SelectedLookupData($item)"
+                        class="btn btn-default shiny" type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- POD -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">POD</label>
+            <div class="input-group input-group-sm">
+                <div dynamic-lookup my-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.PortOfDischarge"
+                    obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder" page-name="'MstUNLOCO'"
+                    control-key="'POD_3308'" control-id="'POD'"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder"
+                        control-key="'POD_3308'" control-id="'POD'" page-name="'MstUNLOCO'" mode="2"
+                        grid-refresh-fun-name="" grid-refresh-fun="" selected-data="one_three_OrdGeneralCtrl.ePage.Masters.SelectedLookupData($item)"
+                        class="btn btn-default shiny" type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- Export Forwarder -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ex-line-font">
+            <div class="error-warning-container">
+                <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.SendingAgentCode.IsWarning && !one_three_OrdGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.SendingAgentCode.IsError"
+                    list="one_three_OrdGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.SendingAgentCode.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'general'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.SendingAgentCode.IsError"
+                    list="one_three_OrdGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.SendingAgentCode.ERROR" type="'error'"
+                    icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </div>
+            <input type="hidden" data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ORG_SendingAgent_FK">
+            <label class="control-label text-single-line">Export Forwarder</label>
+            <div class="input-group input-group-sm">
+                <div dynamic-lookup my-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.SendingAgentCode"
+                    obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder" page-name="'OrganizationList'"
+                    control-key="'OrderSendingAgent_Code_3012'" control-id="'OrderSendingAgent_Code'"
+                    auto-complete-on-select="one_three_OrdGeneralCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'org', 'Export')"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder"
+                        control-key="'OrderSendingAgent_Code_3012'" control-id="'OrderSendingAgent_Code'" page-name="'OrganizationList'"
+                        mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="one_three_OrdGeneralCtrl.ePage.Masters.SelectedLookupData($item, 'org', 'Export')"
+                        class="btn btn-default shiny" type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- Import Forwarder -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ex-line-font">
+            <div class="error-warning-container">
+                <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ReceivingAgentCode.IsWarning && !one_three_OrdGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ReceivingAgentCode.IsError"
+                    list="one_three_OrdGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ReceivingAgentCode.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'general'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ReceivingAgentCode.IsError"
+                    list="one_three_OrdGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ReceivingAgentCode.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </div>
+            <input type="hidden" data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ORG_ReceivingAgent_FK" />
+            <label class="control-label text-single-line">Import Forwarder</label>
+            <div class="input-group input-group-sm">
+                <div dynamic-lookup my-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ReceivingAgentCode"
+                    obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder" page-name="'OrganizationList'"
+                    control-key="'OrderReceivingAgent_Code_3007'" control-id="'OrderReceivingAgent_Code'"
+                    auto-complete-on-select="one_three_OrdGeneralCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'org', 'Import')"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder"
+                        control-key="'OrderReceivingAgent_Code_3007'" control-id="'OrderReceivingAgent_Code'" page-name="'OrganizationList'"
+                        mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="one_three_OrdGeneralCtrl.ePage.Masters.SelectedLookupData($item, 'org', 'Import')"
+                        class="btn btn-default shiny" type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- Controlling Customer -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ex-line-font">
+            <input type="hidden" data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ORG_ControlCustom_FK" />
+            <label class="control-label text-single-line">Controlling Customer</label>
+            <div class="input-group input-group-sm">
+                <div dynamic-lookup my-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ControlCustomCode"
+                    obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder" page-name="'OrganizationList'"
+                    control-key="'ControllingCustomer_3265'" control-id="'ControllingCustomer'"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder"
+                        control-key="'ControllingCustomer_3265'" control-id="'ControllingCustomer'" page-name="'OrganizationList'"
+                        mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="one_three_OrdGeneralCtrl.ePage.Masters.SelectedLookupData($item)"
+                        class="btn btn-default shiny" type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- Buying House Agent -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ex-line-font">
+            <input type="hidden" data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.BuyingHouseAgent_FK" />
+            <label class="control-label text-single-line">Buying House Agent</label>
+            <div class="input-group input-group-sm">
+                <div dynamic-lookup my-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.BuyingHouseAgent_Code"
+                    obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder" page-name="'OrganizationList'"
+                    control-key="'JobAddressOrgConsignor_3241'" control-id="'JobAddressOrgConsignor'"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder"
+                        control-key="'JobAddressOrgConsignor_3241'" control-id="'JobAddressOrgConsignor'" page-name="'OrganizationList'"
+                        mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="one_three_OrdGeneralCtrl.ePage.Masters.SelectedLookupData($item)"
+                        class="btn btn-default shiny" type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- Carrier -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Carrier</label>
+            <input type="hidden" data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ORG_Carrier_FK">
+            <div class="input-group input-group-sm">
+                <div dynamic-lookup my-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.CarrierCode"
+                    obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder" page-name="'OrgCarrierList'"
+                    control-key="'OrdCarrierCode_2836'" control-id="'OrdCarrierCode'"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder"
+                        control-key="'OrdCarrierCode_2836'" control-id="'OrdCarrierCode'" page-name="'OrgCarrierList'"
+                        mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="one_three_OrdGeneralCtrl.ePage.Masters.SelectedLookupData($item)"
+                        class="btn btn-default shiny" type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- House Bill -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">House Bill</label>
+            <div class="">
+                <input type="text" class="form-control input-sm" placeholder="House Bill" maxlength="35" data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.WayBill" />
+            </div>
+        </div>
+    </div>
+    <!-- Master Bill -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Master Bill</label>
+            <div class="">
+                <input type="text" class="form-control input-sm" placeholder="Master Bill" maxlength="35" data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.MasterWaybill" />
+            </div>
+        </div>
+    </div>
+    <!-- Export CHA -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ex-line-font">
+            <input type="hidden" data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ExportCHA_FK">
+            <label class="control-label text-single-line">Export CHA</label>
+            <div class="input-group input-group-sm">
+                <div dynamic-lookup my-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ExportCHA_Code"
+                    obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder" page-name="'OrganizationList'"
+                    control-key="'OrderCHA_Code_3313'" control-id="'OrderCHA_Code'" auto-complete-on-select="one_three_OrdGeneralCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'org', 'Export')"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder"
+                        control-key="'OrderCHA_Code_3313'" control-id="'OrderCHA_Code'" page-name="'OrganizationList'"
+                        mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="one_three_OrdGeneralCtrl.ePage.Masters.SelectedLookupData($item, 'org', 'Export')"
+                        class="btn btn-default shiny" type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- Import CHA -->
+    <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ex-line-font">
+            <input type="hidden" data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ImportCHA_FK" />
+            <label class="control-label text-single-line">Import CHA</label>
+            <div class="input-group input-group-sm">
+                <div dynamic-lookup my-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ImportCHA_Code"
+                    obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder" page-name="'OrganizationList'"
+                    control-key="'OrderReceivingAgent_Code_3007'" control-id="'OrderReceivingAgent_Code'"
+                    auto-complete-on-select="one_three_OrdGeneralCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'org', 'Import')"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder"
+                        control-key="'OrderReceivingAgent_Code_3007'" control-id="'OrderReceivingAgent_Code'" page-name="'OrganizationList'"
+                        mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="one_three_OrdGeneralCtrl.ePage.Masters.SelectedLookupData($item, 'org', 'Import')"
+                        class="btn btn-default shiny" type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div> -->
+
+</div>
+
+<!-- row by details -->
+<div class="clearfix">
+    <div class="padding-top-5 routing-box">
+        <div class="padding-left-10 ex-line-font">
+            <label class="control-label text-single-line text-single-line-label1">
+                <i class="fa fa-ship"></i> Departure Details</label>
+        </div>
+    </div>
+    <div class="clearfix padding-top-5 routing-box-line">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3" data-ng-if="(one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'SEA' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'FCL') ||(one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'SEA' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'LCL') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'SEA' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'BLK') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'SEA' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'LQD') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'SEA' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'BBK') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'SEA' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'ROR') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'SEA' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'OTH') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'FSA' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'LCL') ||  (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'FSA' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'LSE') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'FSA' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'ULD') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'FSA' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'OTH') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'FAS' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'LSE') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'FAS' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'ULD') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'FAS' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'ULD') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'FAS' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'LCL') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'FAS' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'OTH')">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Departure Vessel</label>
+                <div class="input-group input-group-sm">
+                    <div dynamic-lookup my-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.DepartureVessel"
+                        obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder"
+                        auto-complete-on-select="one_three_OrdGeneralCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'Departure Vessel', 'DepartureVessel')"
+                        page-name="'MstVessel'" control-key="'OrdDepartureVessel_3183'" control-id="'OrdDepartureVessel'"></div>
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder"
+                            control-key="'OrdDepartureVessel_3183'" control-id="'OrdDepartureVessel'" page-name="'MstVessel'"
+                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="one_three_OrdGeneralCtrl.ePage.Masters.SelectedLookupData($item, 'Departure Vessel', 'DepartureVessel')"
+                            class="btn btn-default shiny" type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Departure Voyage/Flight</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm" placeholder="Departure Voyage / Flight" maxlength="35"
+                        data-ng-blur="one_three_OrdGeneralCtrl.ePage.Masters.FieldChanges('DepartureVoyage')"
+                        data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.DepartureVoyage" />
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group ex-line-font">
+                <div class="error-warning-container">
+                    <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedDepartureDate.IsWarning && !one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedDepartureDate.IsError"
+                        list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedDepartureDate.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'general'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedDepartureDate.IsError"
+                        list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedDepartureDate.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
+                <label class="control-label">Departure ETD</label>
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.EstimatedDepartureDate"
+                        datetime-picker="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                        default-date="" default-time="" save-as="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        is-open="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isEstimatedDepartureDate']"
+                        when-closed="" data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedDepartureDate')"
+                        data-ng-change="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OnChangeDatePicker('EstimatedDepartureDate')"
+                        custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedDepartureDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group ex-line-font" data-ng-if="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.IsDateEnable">
+                <div class="error-warning-container">
+                    <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedArrivalDate.IsWarning && !one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedArrivalDate.IsError"
+                        list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedArrivalDate.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'general'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedArrivalDate.IsError"
+                        list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedArrivalDate.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
+                <label class="control-label">Departure ETA</label>
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.EstimatedArrivalDate"
+                        datetime-picker="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                        default-date="" default-time="" save-as="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        is-open="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isEstimatedArrivalDate']"
+                        when-closed="" data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedArrivalDate')"
+                        data-ng-change="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OnChangeDatePicker('EstimatedArrivalDate')"
+                        custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedArrivalDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix padding-top-10">
+    <div class="padding-top-5 routing-box">
+        <div class="padding-left-10 ex-line-font">
+            <label class="control-label text-single-line text-single-line-label1">
+                <i class="fa fa-ship"></i> Intermediate Details</label>
+        </div>
+    </div>
+    <div class="clearfix padding-top-5 routing-box-line">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3" data-ng-if="(one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'SEA' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'FCL') ||(one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'SEA' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'LCL') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'SEA' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'BLK') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'SEA' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'LQD') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'SEA' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'BBK') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'SEA' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'ROR') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'SEA' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'OTH') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'FSA' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'LCL') ||  (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'FSA' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'LSE') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'FSA' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'ULD') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'FSA' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'OTH') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'FAS' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'LSE') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'FAS' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'ULD') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'FAS' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'ULD') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'FAS' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'LCL') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'FAS' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'OTH')">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Intermediate Vessel</label>
+                <div class="input-group input-group-sm">
+                    <div dynamic-lookup my-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.IntermediateVessel"
+                        obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder" page-name="'MstVessel'"
+                        control-key="'OrdIntermediateVessel_3188'" control-id="'OrdIntermediateVessel'"
+                        auto-complete-on-select="one_three_OrdGeneralCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'Intermediate Vessel')"></div>
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder"
+                            control-key="'OrdIntermediateVessel_3188'" control-id="'OrdIntermediateVessel'" page-name="'MstVessel'"
+                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="one_three_OrdGeneralCtrl.ePage.Masters.SelectedLookupData($item, 'Intermediate Vessel')"
+                            class="btn btn-default shiny" type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Intermediate Voyage/Flight</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm" placeholder="Intermediate Voyage / Flight"
+                        maxlength="35" data-ng-blur="one_three_OrdGeneralCtrl.ePage.Masters.FieldChanges('IntermediateVoyage')"
+                        data-ng-disabled="one_three_OrdGeneralCtrl.ePage.Masters.IsDisable" data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.IntermediateVoyage" />
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group ex-line-font" data-ng-if="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.IsDateEnable">
+                <div class="error-warning-container">
+                    <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ArrivalIntermediateDate1.IsWarning && !one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ArrivalIntermediateDate1.IsError"
+                        list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ArrivalIntermediateDate1.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'general'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ArrivalIntermediateDate1.IsError"
+                        list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ArrivalIntermediateDate1.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
+                <label class="control-label text-single-line">Intermediate ETD</label>
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ArrivalIntermediateDate1"
+                        datetime-picker="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                        default-date="" default-time="" save-as="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        is-open="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isArrivalIntermediateDate1']"
+                        when-closed="" data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isArrivalIntermediateDate1')"
+                        data-ng-change="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OnChangeDatePicker('ArrivalIntermediateDate1')"
+                        custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isArrivalIntermediateDate1')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group ex-line-font" data-ng-if="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.IsDateEnable">
+                <div class="error-warning-container">
+                    <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ArrivalIntermediateDate2.IsWarning && !one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ArrivalIntermediateDate2.IsError"
+                        list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ArrivalIntermediateDate2.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'general'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ArrivalIntermediateDate2.IsError"
+                        list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ArrivalIntermediateDate2.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
+                <label class="control-label text-single-line">Intermediate ETA</label>
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ArrivalIntermediateDate2"
+                        datetime-picker="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                        default-date="" default-time="" save-as="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        is-open="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isArrivalIntermediateDate2']"
+                        when-closed="" data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isArrivalIntermediateDate2')"
+                        data-ng-change="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OnChangeDatePicker('ArrivalIntermediateDate2')"
+                        custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isArrivalIntermediateDate2')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix padding-top-10">
+    <div class="clearfix padding-top-5 routing-box">
+        <div class="padding-left-10 ex-line-font">
+            <label class="control-label text-single-line text-single-line-label1">
+                <i class="fa fa-ship"></i> Arrival Details</label>
+        </div>
+    </div>
+    <div class="clearfix padding-top-5 routing-box-line">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3" data-ng-if="(one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'SEA' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'FCL') ||(one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'SEA' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'LCL') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'SEA' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'BLK') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'SEA' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'LQD') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'SEA' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'BBK') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'SEA' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'ROR') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'SEA' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'OTH') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'FSA' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'LCL') ||  (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'FSA' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'LSE') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'FSA' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'ULD') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'FSA' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'OTH') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'FAS' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'LSE') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'FAS' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'ULD') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'FAS' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'ULD') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'FAS' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'LCL') || (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode == 'FAS' && one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode == 'OTH')">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Arrival Vessel</label>
+                <div class="input-group input-group-sm">
+                    <div dynamic-lookup my-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ArrivalVessel"
+                        obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder" page-name="'MstVessel'"
+                        control-key="'OrdArrivalVessel_3189'" control-id="'OrdArrivalVessel'" auto-complete-on-select="one_three_OrdGeneralCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'Arrival Vessel', 'ArrivalVessel')"></div>
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder"
+                            page-name="'MstVessel'" control-key="'OrdArrivalVessel_3189'" control-id="'OrdArrivalVessel'"
+                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="one_three_OrdGeneralCtrl.ePage.Masters.SelectedLookupData($item, 'Arrival Vessel', 'ArrivalVessel')"
+                            class="btn btn-default shiny" type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Arrival Voyage/Flight</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm" placeholder="Arrival Voyage / Flight" maxlength="35"
+                        data-ng-blur="one_three_OrdGeneralCtrl.ePage.Masters.FieldChanges('ArrivalVoyage')"
+                        data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ArrivalVoyage"
+                        data-ng-disabled="one_three_OrdGeneralCtrl.ePage.Masters.IsDisable" />
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group ex-line-font" data-ng-if="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.IsDateEnable">
+                <div class="error-warning-container">
+                    <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedDepartureDate2.IsWarning && !one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedDepartureDate2.IsError"
+                        list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedDepartureDate2.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'general'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedDepartureDate2.IsError"
+                        list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedDepartureDate2.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
+                <label class="control-label text-single-line">Arrival ETD</label>
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.EstimatedDepartureDate2"
+                        datetime-picker="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                        default-date="" default-time="" save-as="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        is-open="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isEstimatedDepartureDate2']"
+                        when-closed="" data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedDepartureDate2')"
+                        data-ng-change="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OnChangeDatePicker('EstimatedDepartureDate2')"
+                        custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedDepartureDate2')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group ex-line-font">
+                <div class="error-warning-container">
+                    <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ActualArrivalDate.IsWarning && !one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ActualArrivalDate.IsError"
+                        list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ActualArrivalDate.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'general'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ActualArrivalDate.IsError"
+                        list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ActualArrivalDate.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
+                <label class="control-label text-single-line">Arrival ETA</label>
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ActualArrivalDate"
+                        datetime-picker="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                        default-date="" default-time="" save-as="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        is-open="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isActualArrivalDate']"
+                        when-closed="" data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isActualArrivalDate')"
+                        data-ng-change="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OnChangeDatePicker('ActualArrivalDate')"
+                        custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isActualArrivalDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

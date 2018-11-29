@@ -26,10 +26,8 @@
 
             AsnrequestGeneralCtrl.ePage.Masters.userselected = "";
 
-            AsnrequestGeneralCtrl.ePage.Masters.dynamicLookupConfig = dynamicLookupConfig.Entities;
             
-            AsnrequestGeneralCtrl.ePage.Masters.StandardMenuInput = appConfig.Entities.standardMenuConfigList.WarehouseInward;
-            AsnrequestGeneralCtrl.ePage.Masters.StandardMenuInput.obj = AsnrequestGeneralCtrl.currentAsnrequest;
+            
 
             AsnrequestGeneralCtrl.ePage.Masters.SelectedLookupCode_Name = SelectedLookupCode_Name;
             AsnrequestGeneralCtrl.ePage.Masters.SelectedLookupClient = SelectedLookupClient;
@@ -41,9 +39,9 @@
             
             AsnrequestGeneralCtrl.ePage.Masters.StandardMenuDocumentInput = {
                 // Entity
-                "EntityRefKey": AsnrequestGeneralCtrl.ePage.Masters.StandardMenuInput.obj[AsnrequestGeneralCtrl.ePage.Masters.StandardMenuInput.obj.label].ePage.Entities.Header.Data.PK,
-                "EntityRefCode": AsnrequestGeneralCtrl.ePage.Masters.StandardMenuInput.obj.label,
-                "EntitySource": AsnrequestGeneralCtrl.ePage.Masters.StandardMenuInput.EntitySource
+                // "EntityRefKey": AsnrequestGeneralCtrl.ePage.Masters.StandardMenuInput.obj[AsnrequestGeneralCtrl.ePage.Masters.StandardMenuInput.obj.label].ePage.Entities.Header.Data.PK,
+                // "EntityRefCode": AsnrequestGeneralCtrl.ePage.Masters.StandardMenuInput.obj.label,
+                // "EntitySource": AsnrequestGeneralCtrl.ePage.Masters.StandardMenuInput.EntitySource
             };
 
             AsnrequestGeneralCtrl.ePage.Masters.DocumentType={
@@ -78,21 +76,22 @@
 
         function GetDynamicLookupConfig() {
             // Get DataEntryNameList 
-            var DataEntryNameList = "Warehouse,OrganizationList,MstServiceLevel";
-            var dynamicFindAllInput = [{
-                "FieldName": "DataEntryNameList",
-                "value": DataEntryNameList
-            }];
+            var _filter = {
+                pageName: 'WarehouseInward'
+            };
             var _input = {
-                "searchInput": dynamicFindAllInput,
-                "FilterID": "DYNDAT"
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.DYN_RelatedLookup.API.GroupFindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", "DataEntryMaster/FindAll", _input).then(function (response) {
-                var res = response.data.Response;
-                res.map(function (value, key) {
-                    AsnrequestGeneralCtrl.ePage.Masters.dynamicLookupConfig[value.DataEntryName] = value;
-                });
+            apiService.post("eAxisAPI", appConfig.Entities.DYN_RelatedLookup.API.GroupFindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    var _isEmpty = angular.equals({}, response.data.Response);
+
+                    if (!_isEmpty) {
+                        dynamicLookupConfig.Entities = Object.assign({}, dynamicLookupConfig.Entities, response.data.Response);
+                    }
+                }
             });
         }
 
@@ -253,17 +252,14 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": AsnrequestGeneralCtrl.ePage.Entities.Header.API.OrgAddress.FilterID
+                "FilterID": appConfig.Entities.OrgAddress.API.FindAll.FilterID
             };
-            apiService.post("eAxisAPI", AsnrequestGeneralCtrl.ePage.Entities.Header.API.OrgAddress.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", appConfig.Entities.OrgAddress.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     AsnrequestGeneralCtrl.ePage.Masters.OrgSupplierAddress = response.data.Response;
                 }
             });
         }
-
-
-
 
 
         function GeneralOperations() {

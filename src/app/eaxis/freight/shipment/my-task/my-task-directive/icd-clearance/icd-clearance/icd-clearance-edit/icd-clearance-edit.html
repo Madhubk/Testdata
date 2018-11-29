@@ -1,0 +1,183 @@
+<div class="icd error-modal-hide">
+    <div class="col-lg-12 col-sm-12 col-md-12 col-xl-12 col-xs-12">
+        <shipment-details-directive current-obj="IcdClearanceEditCtrl.ePage.Masters.TaskObj"></shipment-details-directive>
+    </div>
+    <!-- Shipment Activity Form -->
+    <div class="col-lg-12 col-md-12 col-xl-12 col-sm-12 col-xs-12 mb-10">
+        <div clas="clearfix">
+            <div class="row  mr-5 ml-5 mt-5 mb-10">
+                <uib-tabset id="icdshp" style="border: 1px solid #ddd;">
+                    <!--Shipping Details Tab-->
+                    <uib-tab>
+                        <uib-tab-heading title="ICD">
+                            <i class="fa fa-list-alt margin-right-5"></i>
+                            <span class="text-single-line" data-ng-bind="'ICD Clearance'"></span>
+                        </uib-tab-heading>
+                        <div data-ng-include="'app/eaxis/freight/shipment/my-task/my-task-directive/icd-clearance/icd-clearance/icd-clearance-edit/tabs/icd-clearance-edit-details.html'">
+                        </div>
+                    </uib-tab>
+                    <uib-tab>
+                        <uib-tab-heading title="Shipment">
+                            <i class="fa fa-list-alt margin-right-5"></i>
+                            <span class="text-single-line" data-ng-bind="'Shipment'"></span>
+                        </uib-tab-heading>
+                        <div class="icd-loading" data-ng-if="!IcdClearanceEditCtrl.currentShipment">
+                            <i class="fa fa-spin fa-spinner"></i>
+                        </div>
+                        <div data-ng-if="IcdClearanceEditCtrl.currentShipment">
+                            <shipment-activity-details current-obj="IcdClearanceEditCtrl.currentShipment" read-only="false"></shipment-activity-details>
+                        </div>
+                    </uib-tab>
+                    <uib-tab>
+                        <uib-tab-heading title="package">
+                            <i class="fa fa-list-alt margin-right-5"></i>
+                            <span class="text-single-line" data-ng-bind="'package'"></span>
+                        </uib-tab-heading>
+                        <div class="icd-loading" data-ng-if="!IcdClearanceEditCtrl.currentShipment">
+                            <i class="fa fa-spin fa-spinner"></i>
+                        </div>
+                        <div data-ng-if="IcdClearanceEditCtrl.currentShipment">
+                            <packing-grid current-object="IcdClearanceEditCtrl.currentShipment" freight-mode="'STD'" btn-visible="{'AddNew':true,'Delete':true,'More':true}"
+                                table-properties="" read-only="false"></packing-grid>
+                        </div>
+                    </uib-tab>
+                </uib-tabset>
+            </div>
+        </div>
+    </div>
+    <!-- Consol Activity Form -->
+    <div class="col-lg-12 col-md-12 col-xl-12 col-sm-12 col-xs-12 mb-10">
+        <div clas="clearfix">
+            <div class="row  mr-5 ml-5  mb-5">
+                <uib-tabset id="icdshp" style="border: 1px solid #ddd;">
+                    <uib-tab>
+                        <uib-tab-heading title="Consol">
+                            <i class="fa fa-list-alt margin-right-5"></i>
+                            <span class="text-single-line" data-ng-bind="'Consol'"></span>
+                        </uib-tab-heading>
+                        <div data-ng-if="IcdClearanceEditCtrl.currentConsol">
+                            <consol-activity-details current-obj="IcdClearanceEditCtrl.currentConsol" read-only="false"></consol-activity-details>
+                        </div>
+                    </uib-tab>
+                    <uib-tab>
+                        <uib-tab-heading title="Routing">
+                            <i class="fa fa-list-alt margin-right-5"></i>
+                            <span class="text-single-line" data-ng-bind="'Routing'"></span>
+                        </uib-tab-heading>
+                        <div class="icd-con" data-ng-if="IcdClearanceEditCtrl.ePage.Masters.ConShpObj.length == 0">
+                            This shipment is Not Attached with any Consol
+                        </div>
+                        <div class="icd-loading" data-ng-if="IcdClearanceEditCtrl.ePage.Masters.ConShpObj.length>0 && !IcdClearanceEditCtrl.currentConsol">
+                            <i class="fa fa-spin fa-spinner"></i>
+                        </div>
+                        <div data-ng-if="IcdClearanceEditCtrl.currentConsol">
+                            <routing-grid current-object="IcdClearanceEditCtrl.currentConsol" key-object-name="'CON'" fk-name="'PK'" pk-name="'CON_PK'"
+                                api-header-name="'UIConConsolHeader'" api-header-field-name="'PK'" api-header-value-name="'CON_FK'"
+                                btn-visible="{'AddNew':true,'Delete':true,'More':true}" table-properties="" read-only="false"></routing-grid>
+                        </div>
+                    </uib-tab>
+                    <uib-tab>
+                        <uib-tab-heading title="Container">
+                            <i class="fa fa-list-alt margin-right-5"></i>
+                            <span class="text-single-line" data-ng-bind="'Container'"></span>
+                        </uib-tab-heading>
+                        <div class="icd-con" data-ng-if="IcdClearanceEditCtrl.ePage.Masters.ConShpObj.length == 0">
+                            This shipment is Not Attached with any Consol
+                        </div>
+                        <div class="icd-loading" data-ng-if="IcdClearanceEditCtrl.ePage.Masters.ConShpObj.length>0 && !IcdClearanceEditCtrl.currentConsol">
+                            <i class="fa fa-spin fa-spinner"></i>
+                        </div>
+                        <div data-ng-if="IcdClearanceEditCtrl.currentConsol">
+                            <container-grid current-object="IcdClearanceEditCtrl.currentConsol" key-object-name="'CON'" api-header-name="'UIConConsolHeader'"
+                                api-header-field-name="'CON_FK'" api-header-value-name="'UICntContainers'" btn-visible="{'AddNew':true,'Delete':true,'More':true}"
+                                table-properties="" read-only="false">
+                            </container-grid>
+                            <!-- <container-grid current-object="IcdClearanceEditCtrl.currentShipment" key-object-name="'SHP'" api-header-name="'UIShipmentHeader'"
+                                api-header-field-name="'BookingOnlyLink'" api-header-value-name="'UICntContainer'" btn-visible="{'AddNew':true,'Delete':true,'More':true}"
+                                table-properties="IcdClearanceEditCtrl.ePage.Masters.TableValues" read-only="false">
+                            </container-grid> -->
+                        </div>
+                    </uib-tab>
+                </uib-tabset>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix">
+        <!-- Document upload -->
+        <article class="col-sm-12 col-md-12 col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-lg fa-fw fa-file-text"></i>
+                    <span>File Upload Form </span>
+                </div>
+                <div class="panel-body no-padding icd-Document">
+                    <article class="col-sm-12 col-md-12 col-lg-12 mt-10" data-ng-if="IcdClearanceEditCtrl.ePage.Masters.StandardMenuInput">
+                        <div class="" document input="IcdClearanceEditCtrl.ePage.Masters.StandardMenuInput" mode="3" list-source="IcdClearanceEditCtrl.ePage.Masters.DocListSource"
+                            config="IcdClearanceEditCtrl.ePage.Masters.StandardConfigInput" class="my-task-icon fa fa-file-text-o mr-5">
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </article>
+        <!-- Comments Details -->
+        <article class="col-sm-12 col-md-12 col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-lg fa-fw fa-file-text"></i>
+                    <span>Comments Details</span>
+                </div>
+                <div class="panel-body no-padding icd-Document">
+                    <article class="col-sm-12 col-md-12 col-lg-12 mt-10" data-ng-if="IcdClearanceEditCtrl.ePage.Masters.StandardMenuInput">
+                        <div class="" comment input="IcdClearanceEditCtrl.ePage.Masters.StandardMenuInput" mode="3" list-source="IcdClearanceEditCtrl.ePage.Masters.CommentListSource"
+                            config="IcdClearanceEditCtrl.ePage.Masters.CommentConfig" class="my-task-icon fa fa-file-text-o mr-5">
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </article>
+    </div>
+    <!-- Save & Complete Buttons -->
+    <div class="clearfix decision">
+        <div class="clearfix" data-ng-if="
+        IcdClearanceEditCtrl.ePage.Masters.StandardMenuInput">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 pt-5">
+                <a href="javascript: void(0)" document-modal input="IcdClearanceEditCtrl.ePage.Masters.StandardMenuInput" mode="1" class="my-task-icon fa fa-file-text-o mr-5"></a>
+                <span class="my-task-slash"></span>
+                <a href="javascript: void(0)" comment-modal input="IcdClearanceEditCtrl.ePage.Masters.StandardMenuInput" mode="1" class="my-task-icon fa fa-comment-o mr-5"></a>
+                <span class="my-task-slash"></span>
+                <a href="javascript: void(0)" email-modal input="IcdClearanceEditCtrl.ePage.Masters.StandardMenuInput" mode="1" class="my-task-icon fa fa-envelope-o mr-5"></a>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <input type="button" class="btn btn-primary btn-sm pull-right ml-5" data-ng-click="IcdClearanceEditCtrl.ePage.Masters.Complete()"
+                    data-ng-disabled="IcdClearanceEditCtrl.ePage.Masters.IsDisableCompleteBtn" value="{{IcdClearanceEditCtrl.ePage.Masters.CompleteBtnText}}">
+            </div>
+        </div>
+    </div>
+    <div class="error-warning-container right" id="errorWarningContainer{{IcdClearanceEditCtrl.taskObj.PSI_InstanceNo}}">
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right" data-ng-click="IcdClearanceEditCtrl.ePage.Masters.ShowErrorWarningModal(IcdClearanceEditCtrl.taskObj.PSI_InstanceNo)">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+        </div>
+        <div class="error-warning-body">
+            <div class="clearfix" data-ng-if="IcdClearanceEditCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GlobalErrorWarningList.length > 0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in IcdClearanceEditCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 Stext-center">
+                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -5,14 +5,18 @@
         .module("Application")
         .directive("mytaskdefault", MyTaskDefaultDirective);
 
-    function MyTaskDefaultDirective() {
+    MyTaskDefaultDirective.$inject = ["$templateCache"];
+
+    function MyTaskDefaultDirective($templateCache) {
+        var _template = `<div class="clearfix my-task-default-container">
+                                            <div class="warning-message p-20 font-140 text-center warning">Task Not Yet Configured.</div>
+                                        </div>`;
+        $templateCache.put("MyTaskDefault.html", _template);
+
         var exports = {
             restrict: "EA",
-            templateUrl: "app/eaxis/my-task/my-task-dynamic-directive/my-task-default/my-task-default.html",
+            templateUrl: "MyTaskDefault.html",
             link: Link,
-            controller: "MyTaskDefaultDirectiveController",
-            controllerAs: "MyTaskDefaultDirectiveCtrl",
-            bindToController: true,
             scope: {
                 taskObj: "="
             },

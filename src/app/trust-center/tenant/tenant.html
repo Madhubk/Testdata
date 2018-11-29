@@ -7,8 +7,8 @@
                 <li data-ng-repeat="x in TCTenantCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
                     <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="TCTenantCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
                 </li>
-                <li data-ng-repeat="x in TCTenantCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
-                    class="active"></li>
+                <li data-ng-repeat="x in TCTenantCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive"
+                    data-ng-bind="x.Description" class="active"></li>
             </ol>
         </div>
     </div>
@@ -63,13 +63,16 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed">
             <div class="tc-avatar-lg clearfix">
-                <div class="avatar-container">
-                    <file-upload-custom class="file-upload-directive" ng-model="TCTenantCtrl.ePage.Masters.Tenant.Logo.fileDetails" size="TCTenantCtrl.ePage.Masters.Tenant.Logo.fileSize"  auth="{{TCTenantCtrl.ePage.Masters.Tenant.Logo.autherization}}" additional-value="{{TCTenantCtrl.ePage.Masters.Tenant.Logo.additionalValue}}" url="{{TCTenantCtrl.ePage.Masters.Tenant.Logo.UploadUrl}}"  doc-type="image/*" multiple-file="false" is-disabled="!TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.PK"
-                        get-uploaded-files="TCTenantCtrl.ePage.Masters.Tenant.Logo.GetUploadedFiles($item)" get-selected-files="TCTenantCtrl.ePage.Masters.Tenant.Logo.GetSelectedFiles($item)"   fu-class="tc-tenant left" modal-template="" template="" >
-                        <img data-ng-src="{{TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.LogoStr}}" alt="" data-ng-if="TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.LogoStr">
-                        <span data-ng-bind="TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.TenantCode | getCharacters: 2" data-ng-if="!TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.LogoStr"></span>
-                        <div class='change-logo'>Change</div>
-                    </file-upload-custom>
+                <div class="tc-custom-file-upload">
+                    <img data-ng-src="{{TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.LogoStr}}" alt="" data-ng-if="TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.LogoStr">
+                    <span data-ng-bind="TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.TenantCode | getCharacters: 1"
+                        data-ng-if="!TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.LogoStr"></span>
+                    <div data-ng-if="TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant" class='change-logo'>Change
+                        <label>
+                            <input type="file" accept="image/*" class="hide" onchange="angular.element(this).scope().OnLogoChange(event, this)"
+                                data-max-size="204800" />
+                        </label>
+                    </div>
                 </div>
             </div>
             <div class="tc-section-divider"></div>
@@ -95,7 +98,7 @@
                     <div class="form-group" data-ng-if="!TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.PK">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Tenant Code</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <input type="text" class="form-control input-sm" placeholder="Tenant Code" data-ng-model="TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.TenantCode">
+                            <input type="text" class="form-control input-sm" placeholder="Tenant Code" data-ng-model="TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.TenantCode" maxlength="5">
                         </div>
                     </div>
                     <div class="form-group">

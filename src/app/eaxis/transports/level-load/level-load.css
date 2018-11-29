@@ -1,0 +1,79 @@
+.set-bg-dc-header {
+    background: rgba(67, 133, 245, 0.2);
+    padding: 9px;
+ }
+ .dc-headers{
+     font-weight: 600;
+     font-size: 14px;
+     /*text-align: center;*/
+ }
+
+ .td-dateEnd
+ {
+     border-right:2px solid #bbb !important;
+ }
+ .tr-boldBorder
+ {
+     
+     border-bottom:2px solid #bbb !important;
+ }
+ .store-bg
+ {
+     background-color:aliceblue;
+ }
+ .header-bg
+ {
+     background-color:#f8f8f8;
+ }
+ .td-shortfall
+ {
+     background-color: #ef919161;
+ }
+ .txt-bolder
+ {
+     font-weight:bold;
+ }
+ .Width-18{
+    width: 12%;
+ }
+ .pading8{
+    padding: 8px 0px;
+}
+.table1{
+    width: 100%;
+}
+.tms-table-title{
+    font-weight: bold;
+}
+
+#customers {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#customers td, #customers th {
+    border: 1px solid #ddd;
+    padding: 8px 10px;
+}
+
+#customers th {   
+    text-align: left;
+    font-weight:bold;
+    background: #f3f3f3;
+}
+.level-load-btn{
+    padding: 4px 10px;
+}
+.level-load-txt{
+    height: 28px;
+}
+.level-load-txt{
+    
+}
+.padding1{
+    padding: 8px 3px;
+}
+
+.aliceblue{
+    background-color: aliceblue;
+}

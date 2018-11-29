@@ -1,0 +1,227 @@
+<div class="clearfix margin-top-10">
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+       <div class="form-group">
+           <label class="control-label text-single-line">Client</label>
+           <div class="">
+               <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" value="{{InventoryGeneralCustCtrl.ePage.Entities.Header.Data[0].ClientCode + ' - '  + InventoryGeneralCustCtrl.ePage.Entities.Header.Data[0].ClientName}}" readonly="">
+           </div>
+       </div>
+    </div> 
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+       <div class="form-group">
+           <label class="control-label text-single-line">Warehouse</label>
+           <div class="">
+               <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" value="{{InventoryGeneralCustCtrl.ePage.Entities.Header.Data[0].WAR_WarehouseCode + ' - '  + InventoryGeneralCustCtrl.ePage.Entities.Header.Data[0].WAR_WarehouseName}}" readonly="">
+           </div>
+       </div>
+   </div>
+   <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+       <div class="form-group">
+           <label class="control-label text-single-line">Product</label>
+           <div class="">
+               <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" value="{{InventoryGeneralCustCtrl.ePage.Entities.Header.Data[0].ProductCode + ' - '  + InventoryGeneralCustCtrl.ePage.Entities.Header.Data[0].ProductName}}" readonly="">
+           </div>
+       </div>
+   </div>
+   <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3" data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.CheckPoints.DataEntryName =='CustomerInventoryByAttribute'">
+       <div class="form-group">
+           <label class="control-label text-single-line">UDF 1</label>
+           <div class="">
+               <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" data-ng-model="InventoryGeneralCustCtrl.ePage.Entities.Header.Data[0].PartAttrib1" readonly="">
+           </div>
+       </div>
+   </div>
+   <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3" data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.CheckPoints.DataEntryName =='CustomerInventoryByAttribute'">
+       <div class="form-group">
+           <label class="control-label text-single-line">UDF 2</label>
+           <div class="">
+               <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" data-ng-model="InventoryGeneralCustCtrl.ePage.Entities.Header.Data[0].PartAttrib2" readonly="">
+           </div>
+       </div>
+   </div>
+   <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3" data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.CheckPoints.DataEntryName =='CustomerInventoryByAttribute'">
+       <div class="form-group">
+           <label class="control-label text-single-line">UDF 3</label>
+           <div class="">
+               <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" data-ng-model="InventoryGeneralCustCtrl.ePage.Entities.Header.Data[0].PartAttrib3" readonly="">
+           </div>
+       </div>
+   </div>
+   <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3" data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.CheckPoints.DataEntryName =='CustomerInventoryByAttribute'">
+       <div class="form-group">
+           <label class="control-label text-single-line">Packing Date</label>
+           <div class="">
+               <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" data-ng-model="InventoryGeneralCustCtrl.ePage.Entities.Header.Data[0].PackingDate" readonly="">
+           </div>
+       </div>
+   </div>
+   <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3" data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.CheckPoints.DataEntryName =='CustomerInventoryByAttribute'">
+       <div class="form-group">
+           <label class="control-label text-single-line">Expiry Date</label>
+           <div class="">
+               <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" data-ng-model="InventoryGeneralCustCtrl.ePage.Entities.Header.Data[0].ExpiryDate" readonly="">
+           </div>
+       </div>
+   </div>
+   <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3" data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.CheckPoints.DataEntryName =='CustomerInventoryByLocation'">
+       <div class="form-group">
+           <label class="control-label text-single-line">Location</label>
+           <div class="">
+               <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" data-ng-model="InventoryGeneralCustCtrl.ePage.Entities.Header.Data[0].Location" readonly="">
+           </div>
+       </div>
+   </div>
+</div>
+
+<div class="p-15" >
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custom_label">
+        Inventory Details
+    </div>
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding">
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 p-0">
+                <span><button type="button" class="btn btn-sm btn-outline-primary font-10"  title="Customize"  data-ng-click="InventoryGeneralCustCtrl.ePage.Masters.EditTableColumnsForGeneral = true"><span class="fa fa-filter"></span>&nbsp;&nbsp;Customize</button></span>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0">
+                <div class="input-group">
+                    <div class="input-group-addon font-10"><i class="fa fa-search font-10"></i></div>
+                    <input type="text" class="form-control height-25 font-10" placeholder="Search" ng-model="InventoryGeneralCustCtrl.ePage.Masters.SearchTableForGeneral">
+                </div>      
+            </div>
+        </div>
+        <div id="GenTable{{InventoryGeneralCustCtrl.currentInventory.label}}" class="fixedheader" key-events table-object='InventoryGeneralCustCtrl.ePage.Entities.Header.Data' enable='InventoryGeneralCustCtrl.ePage.Masters.EnableForGeneral' selected-row='InventoryGeneralCustCtrl.ePage.Masters.selectedRowForGeneral' unique-id='GenTable{{InventoryGeneralCustCtrl.currentInventory.label}}'>
+            <table style="height: 300px">
+                <thead>
+                    <tr id="tableHeader">
+                        <th id="gsno" data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gsno.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gsno.width + 'px' }" title="S.No">S.No</th>
+                        <th id="greceiptreference" data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.greceiptreference.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.greceiptreference.width + 'px' }" title="Receipt Reference">Receipt Ref</th>
+                        <th id="gclient"data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gclient.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gclient.width + 'px' }" title="Client">Client</th>
+                        <th id="gwarehouse" data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gwarehouse.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gwarehouse.width + 'px' }" title="Warehouse">Warehouse</th>
+                        <th id="gproductcode" data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gproductcode.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gproductcode.width + 'px' }" title="Product Code">Product Code</th>
+                        <th id="gproductdescription" data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gproductdescription.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gproductdescription.width + 'px' }" title="Product Description">Product Description</th>
+                        <th id="glocation"data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.glocation.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.glocation.width + 'px' }" title="Location">Location</th>
+                        <th id="ginventorystatus" data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.ginventorystatus.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.ginventorystatus.width + 'px' }" title="Inventory Status">Inv Status</th>
+                        <th id="gtotalqty" data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gtotalqty.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gtotalqty.width + 'px' }" title="Total Qty">Total Qty</th>
+                        <th id="ginlocationqty" data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.ginlocationqty.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.ginlocationqty.width + 'px' }" title="In Location Qty">In Location Qty</th>
+                        <th id="gcommitedqty"data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gcommitedqty.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gcommitedqty.width + 'px' }" title="Commited Qty">Commited Qty</th>
+                        <th id="gintransitqty" data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gintransitqty.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gintransitqty.width + 'px' }" title="In Transit Qty">In Transit Qty</th>
+                        <th id="greservedqty" data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.greservedqty.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.greservedqty.width + 'px' }" title="Reserved Qty">Reserved Qty</th>
+                        <th id="gavailabletopick"data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gavailabletopick.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gavailabletopick.width + 'px' }" title="Available To Pick">Available To Pick</th>
+                        <th id="garrivaldate" data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.garrivaldate.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.garrivaldate.width + 'px' }" title="Arrival Date">Arrival Date</th>
+                        <th id="gpalletid" data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gpalletid.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gpalletid.width + 'px' }" title="Pallet ID">Pallet ID</th>
+                        <th id="gareaname"data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gareaname.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gareaname.width + 'px' }" title="Area Name">Area Name</th>
+                        <th id="gudf1" data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gudf1.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gudf1.width + 'px' }" title="User Defined Field 1">UDF 1</th>
+                        <th id="gudf2" data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gudf2.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gudf2.width + 'px' }" title="User Defined Field 2">UDF 2</th>
+                        <th id="gudf3"data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gudf3.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gudf3.width + 'px' }" title="USer Defined Field 3">UDF 3</th>
+                        <th id="gpackingdate" data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gpackingdate.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gpackingdate.width + 'px' }" title="Packing Date">Packing Date</th>
+                        <th id="gexpirydate" data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gexpirydate.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gexpirydate.width + 'px' }" title="Expiry Date">Expiry Date</th>
+                    </tr>
+                </thead>
+                <tbody id="GenCustomTable{{InventoryGeneralCustCtrl.currentInventory.label}}">
+                    <tr id="tableBody" ng-repeat="x in InventoryGeneralCustCtrl.ePage.Entities.Header.Data | orderBy:'CreatedDateTime'  | filter:InventoryGeneralCustCtrl.ePage.Masters.SearchTableForGeneral"  ng-click="InventoryGeneralCustCtrl.ePage.Masters.setSelectedRowForGeneral($index);" ng-class="{row_active: (InventoryGeneralCustCtrl.ePage.Masters.selectedRowForGeneral==$index),copy_row_active :(x.IsCopied==true)}" 
+                        watch-table table-properties="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General"  unique-id="GenCustomTable{{InventoryGeneralCustCtrl.currentInventory.label}}" row-position="$index">
+                        <td id="gsno"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gsno.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gsno.width + 'px' }" class="overflow-text">{{$index+1}}</td>
+                        <td id="greceiptreference"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.greceiptreference.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.greceiptreference.width + 'px' }" class="overflow-text">{{x.ExternalReference ||InventoryGeneralCustCtrl.ePage.Masters.emptyText}}</td>
+                        <td id="gclient"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gclient.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gclient.width + 'px' }" class="overflow-text">{{x.ClientCode}} - {{x.ClientName}}</td>
+                        <td id="gwarehouse"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gwarehouse.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gwarehouse.width + 'px' }" class="overflow-text">{{x.WAR_WarehouseCode}} - {{x.WAR_WarehouseName}}</td>
+                        <td id="gproductcode"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gproductcode.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gproductcode.width + 'px' }" class="overflow-text">{{x.ProductCode}}</td>
+                        <td id="gproductdescription"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gproductdescription.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gproductdescription.width + 'px' }" class="overflow-text">{{x.ProductName}}</td>
+                        <td id="glocation"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.glocation.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.glocation.width + 'px' }" class="overflow-text">{{ x.Location||InventoryGeneralCustCtrl.ePage.Masters.emptyText}}</td>
+                        <td id="ginventorystatus"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.ginventorystatus.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.ginventorystatus.width + 'px' }" class="overflow-text">{{ x.OriginalInventoryStatusDesc||InventoryGeneralCustCtrl.ePage.Masters.emptyText}}</td>
+                        <td id="gtotalqty"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gtotalqty.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gtotalqty.width + 'px' }" class="overflow-text">{{x.TotalUnits || 0}}</td>
+                        <td id="ginlocationqty"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.ginlocationqty.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.ginlocationqty.width + 'px' }" class="overflow-text">{{x.InLocationQty || 0}}</td>
+                        <td id="gcommitedqty"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gcommitedqty.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gcommitedqty.width + 'px' }" class="overflow-text">{{x.CommitedUnit || 0}}</td>
+                        <td id="gintransitqty"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gintransitqty.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gintransitqty.width + 'px' }" class="overflow-text">{{x.InTransitUnit || 0}}</td>
+                        <td id="greservedqty"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.greservedqty.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.greservedqty.width + 'px' }" class="overflow-text">{{x.ReservedUnit || 0}}</td>
+                        <td id="gavailabletopick"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gavailabletopick.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gavailabletopick.width + 'px' }" class="overflow-text">{{ x.availableToPick || 0 }}</td>
+                        <td id="garrivaldate"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.garrivaldate.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.garrivaldate.width + 'px' }" class="overflow-text" >{{ x.AdjustmentArrivalDate||InventoryGeneralCustCtrl.ePage.Masters.emptyText | dateFormat}}</td>       
+                        <td id="gpalletid"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gpalletid.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gpalletid.width + 'px' }" class="overflow-text">{{x.PalletID || InventoryGeneralCustCtrl.ePage.Masters.emptyText }}</td>
+                        <td id="gareaname"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gareaname.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gareaname.width + 'px' }" class="overflow-text">{{x.AreaName ||InventoryGeneralCustCtrl.ePage.Masters.emptyText}}</td>
+                        <td id="gudf1"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gudf1.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gudf1.width + 'px' }" class="overflow-text">{{x.PartAttrib1 ||InventoryGeneralCustCtrl.ePage.Masters.emptyText}}</td>
+                        <td id="gudf2"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gudf2.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gudf2.width + 'px' }" class="overflow-text">{{x.PartAttrib2 ||InventoryGeneralCustCtrl.ePage.Masters.emptyText}}</td>
+                        <td id="gudf3"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gudf3.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gudf3.width + 'px' }" class="overflow-text">{{x.PartAttrib3 ||InventoryGeneralCustCtrl.ePage.Masters.emptyText}}</td>
+                        <td id="gpackingdate"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gpackingdate.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gpackingdate.width + 'px' }" class="overflow-text">{{ x.PackingDate||InventoryGeneralCustCtrl.ePage.Masters.emptyText | dateFormat}}</td>
+                        <td id="gexpirydate"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gexpirydate.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General.gexpirydate.width + 'px' }" class="overflow-text">{{ x.ExpiryDate||InventoryGeneralCustCtrl.ePage.Masters.emptyText | dateFormat}}</td>              
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound"  ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.Data.length==0">No Record Found...</div>
+    </div>
+    <!-- To show Customize Modal -->
+    <div ng-if='InventoryGeneralCustCtrl.ePage.Masters.EditTableColumnsForGeneral'>
+        <customize-table table-properties="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.General" enable="InventoryGeneralCustCtrl.ePage.Masters.EditTableColumnsForGeneral" unique-id="GenCustomTable{{InventoryGeneralCustCtrl.currentInventory.label}}"></customize-table>
+    </div>
+    
+</div>
+
+<div class="p-15" data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.CheckPoints.DataEntryName=='CustomerWarehouseInventory'">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custom_label">
+        Pick Slip Details
+    </div>
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding">
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 p-0">
+                <span><button type="button" class="btn btn-sm btn-outline-primary font-10"  title="Customize"  data-ng-click="InventoryGeneralCustCtrl.ePage.Masters.EditTableColumns = true"><span class="fa fa-filter"></span>&nbsp;&nbsp;Customize</button></span>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0">
+                <div class="input-group">
+                    <div class="input-group-addon font-10"><i class="fa fa-search font-10"></i></div>
+                    <input type="text" class="form-control height-25 font-10" placeholder="Search" ng-model="InventoryGeneralCustCtrl.ePage.Masters.SearchTable">
+                </div>      
+            </div>
+        </div>
+        <div id="PickTable{{InventoryGeneralCustCtrl.currentInventory.label}}" class="fixedheader mb-0" key-events table-object='InventoryGeneralCustCtrl.ePage.Masters.PickSlipDetails' enable='InventoryGeneralCustCtrl.ePage.Masters.Enable' selected-row='InventoryGeneralCustCtrl.ePage.Masters.selectedRow' unique-id='PickTable{{InventoryGeneralCustCtrl.currentInventory.label}}'>
+            <table style="height: 300px">
+                <thead>
+                    <tr id="tableHeader">
+                        <th id="psno" data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.psno.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.psno.width + 'px' }" title="S.No">S.No</th>
+                        <th id="ppickno" data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.ppickno.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.ppickno.width + 'px' }" title="Pick No">Pick No</th>
+                        <th id="pclient"data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pclient.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pclient.width + 'px' }" title="Client">Client</th>
+                        <th id="pproductcode" data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pproductcode.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pproductcode.width + 'px' }" title="Product Code">Product Code</th>
+                        <th id="pproductdescription" data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pproductdescription.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pproductdescription.width + 'px' }" title="Product Description">Product Description</th>
+                        <th id="ppacks" data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.ppacks.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.ppacks.width + 'px' }" title="Packs">Packs</th>
+                        <th id="ppacksuq"data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.ppacksuq.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.ppacksuq.width + 'px' }" title="Packs UQ">Packs UQ</th>
+                        <th id="pqty" data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pqty.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pqty.width + 'px' }" title="Quantity">Qty</th>
+                        <th id="pqtyuq" data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pqtyuq.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pqtyuq.width + 'px' }" title="Quantity UQ">Qty UQ</th>
+                        <th id="plocation" data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.plocation.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.plocation.width + 'px' }" title="Location">Location</th>
+                        <th id="pudf1"data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pudf1.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pudf1.width + 'px' }" title="User Defined Field 1">UDF 1</th>
+                        <th id="pudf2" data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pudf2.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pudf2.width + 'px' }" title="USer Defined Field 2">UDF 2</th>
+                        <th id="pudf3" data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pudf3.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pudf3.width + 'px' }" title="User Defined Field 3">UDF 3</th>
+                        <th id="ppackingdate"data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.ppackingdate.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.ppackingdate.width + 'px' }" title="Packing Date">Packing Date</th>
+                        <th id="pexpirydate" data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pexpirydate.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pexpirydate.width + 'px' }" title="Expiry Date">Expiry Date</th>
+                        <th id="ppickeddatetime" data-ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.ppickeddatetime.isenabled" ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.ppickeddatetime.width + 'px' }" title="Picked Date Time">Picked Date Time</th>
+                    </tr>
+                </thead>
+                <tbody id="PicCustomTable{{InventoryGeneralCustCtrl.currentInventory.label}}">
+                    <tr id="tableBody" ng-repeat="x in InventoryGeneralCustCtrl.ePage.Masters.PickSlipDetails | orderBy:'CreatedDateTime'  | filter:InventoryGeneralCustCtrl.ePage.Masters.SearchTable"  ng-click="InventoryGeneralCustCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: (InventoryGeneralCustCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}" 
+                        watch-table table-properties="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails"  unique-id="PicCustomTable{{InventoryGeneralCustCtrl.currentInventory.label}}" row-position="$index">
+                        <td id="psno"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.psno.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.psno.width + 'px' }" >{{$index+1}}</td>
+                        <td id="ppickno"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.ppickno.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.ppickno.width + 'px' }" class="overflow-text">{{x.PickNo ||InventoryGeneralCustCtrl.ePage.Masters.emptyText}}</td>
+                        <td id="pclient"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pclient.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pclient.width + 'px' }" class="overflow-text">{{x.ClientCode}} - {{x.ClientName}}</td>
+                        <td id="pproductcode"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pproductcode.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pproductcode.width + 'px' }" class="overflow-text">{{x.ProductCode}}</td>
+                        <td id="pproductdescription"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pproductdescription.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pproductdescription.width + 'px' }" class="overflow-text">{{x.ProductDescription}}</td>
+                        <td id="ppacks"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.ppacks.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.ppacks.width + 'px' }" class="overflow-text">{{x.Packs || InventoryGeneralCustCtrl.ePage.Masters.emptyText}}</td>
+                        <td id="ppacksuq"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.ppacksuq.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.ppacksuq.width + 'px' }" class="overflow-text" >{{x.PAC_PackType ||InventoryGeneralCustCtrl.ePage.Masters.emptyText}}</td>
+                        <td id="pqty"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pqty.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pqty.width + 'px' }" class="overflow-text">{{x.Units ||InventoryGeneralCustCtrl.ePage.Masters.emptyText}}</td>       
+                        <td id="pqtyuq"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pqtyuq.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pqtyuq.width + 'px' }" class="overflow-text">{{x.StockKeepingUnit ||InventoryGeneralCustCtrl.ePage.Masters.emptyText}}</td>
+                        <td id="plocation"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.plocation.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.plocation.width + 'px' }" class="overflow-text">{{x.Location ||InventoryGeneralCustCtrl.ePage.Masters.emptyText}}</td>
+                        <td id="pudf1"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pudf1.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pudf1.width + 'px' }" class="overflow-text">{{x.PartAttrib1 ||InventoryGeneralCustCtrl.ePage.Masters.emptyText}}</td>
+                        <td id="pudf2"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pudf2.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pudf2.width + 'px' }" class="overflow-text">{{x.PartAttrib2 ||InventoryGeneralCustCtrl.ePage.Masters.emptyText}}</td>
+                        <td id="pudf3"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pudf3.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pudf3.width + 'px' }" class="overflow-text">{{ x.PartAttrib3||InventoryGeneralCustCtrl.ePage.Masters.emptyText}}</td>
+                        <td id="ppackingdate"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.ppackingdate.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.ppackingdate.width + 'px' }" class="overflow-text">{{ x.PackingDate||InventoryGeneralCustCtrl.ePage.Masters.emptyText | dateFormat}}</td>
+                        <td id="pexpirydate"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pexpirydate.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.pexpirydate.width + 'px' }" class="overflow-text">{{ x.ExpiryDate||InventoryGeneralCustCtrl.ePage.Masters.emptyText | dateFormat}}</td>       
+                        <td id="ppickeddatetime"   data-ng-show='InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.ppickeddatetime.isenabled' ng-style="{ 'width': InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.ppickeddatetime.width + 'px' }" class="overflow-text">{{ x.PickedDateTime||InventoryGeneralCustCtrl.ePage.Masters.emptyText | dateFormat}}</td>       
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound"  ng-if="InventoryGeneralCustCtrl.ePage.Entities.Header.Data.PickSlipDetails.length==0">No Record Found...</div>
+    </div>
+    <!-- To show Customize Modal -->
+    <div ng-if='InventoryGeneralCustCtrl.ePage.Masters.EditTableColumns'>
+        <customize-table table-properties="InventoryGeneralCustCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails" enable="InventoryGeneralCustCtrl.ePage.Masters.EditTableColumns" unique-id="PicCustomTable{{InventoryGeneralCustCtrl.currentInventory.label}}"></customize-table>
+    </div>
+
+</div>
+  

@@ -25,11 +25,6 @@
             };
 
             InventoryMenuCtrl.ePage.Masters.Inventory = {};
-
-            // Standard Menu Configuration and Data
-            InventoryMenuCtrl.ePage.Masters.StandardMenuInput = appConfig.Entities.standardMenuConfigList.WarehouseInventory;
-            InventoryMenuCtrl.ePage.Masters.StandardMenuInput.obj = InventoryMenuCtrl.currentInventory;
-
         }
         Init();
 

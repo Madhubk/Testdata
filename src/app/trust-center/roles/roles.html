@@ -7,8 +7,8 @@
                 <li data-ng-repeat="x in RolesCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
                     <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="RolesCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
                 </li>
-                <li data-ng-repeat="x in RolesCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
-                    class="active"></li>
+                <li data-ng-repeat="x in RolesCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive"
+                    data-ng-bind="x.Description" class="active"></li>
             </ol>
         </div>
         <span class="tc-breadcrumb-app-name" data-ng-if="RolesCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="RolesCtrl.ePage.Masters.QueryString.AppName"></span>
@@ -28,8 +28,9 @@
         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">
             <div class="tc-header edit-view">
                 <span data-ng-bind="'Details'"></span>
-                <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10" data-ng-click="RolesCtrl.ePage.Masters.Role.Edit()" data-ng-disabled="!RolesCtrl.ePage.Masters.Role.ActiveRole.PK">Edit</button>
-                <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="RolesCtrl.ePage.Masters.Role.DeleteConfirmation()"
+                <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10" data-ng-click="RolesCtrl.ePage.Masters.Role.Edit()"
+                    data-ng-disabled="!RolesCtrl.ePage.Masters.Role.ActiveRole.PK">Edit</button>
+                <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="RolesCtrl.ePage.Masters.Role.Delete()"
                     data-ng-bind="RolesCtrl.ePage.Masters.Role.DeleteBtnText" data-ng-disabled="RolesCtrl.ePage.Masters.Role.IsDisableDeleteBtn || !RolesCtrl.ePage.Masters.Role.ActiveRole.PK"></button>
             </div>
         </div>
@@ -42,15 +43,15 @@
                     <input type="text" class="form-control input-sm" placeholder="Search..." data-ng-model="RolesCtrl.ePage.Masters.Search">
                 </div>
                 <ul class="tc-list-ul">
-                    <div class="p-15 text-center tc-loading" data-ng-if="!RolesCtrl.ePage.Masters.Role.RoleList">
+                    <div class="p-15 text-center tc-loading" data-ng-if="!RolesCtrl.ePage.Masters.Role.ListSource">
                         <i class="fa fa-spin fa-spinner"></i>
                     </div>
-                    <div data-ng-if="RolesCtrl.ePage.Masters.Role.RoleList && (RolesCtrl.ePage.Masters.Role.RoleList | filter: RolesCtrl.ePage.Masters.Search).length===0"
+                    <div data-ng-if="RolesCtrl.ePage.Masters.Role.ListSource && (RolesCtrl.ePage.Masters.Role.ListSource | filter: RolesCtrl.ePage.Masters.Search).length===0"
                         class="p-15 text-center">
                         <i>No Records...</i>
                     </div>
-                    <li data-ng-if="RolesCtrl.ePage.Masters.Role.RoleList && (RolesCtrl.ePage.Masters.Role.RoleList | filter: RolesCtrl.ePage.Masters.Search).length > 0"
-                        data-ng-repeat="x in RolesCtrl.ePage.Masters.Role.RoleList | filter: RolesCtrl.ePage.Masters.Search"
+                    <li data-ng-if="RolesCtrl.ePage.Masters.Role.ListSource && (RolesCtrl.ePage.Masters.Role.ListSource | filter: RolesCtrl.ePage.Masters.Search).length > 0"
+                        data-ng-repeat="x in RolesCtrl.ePage.Masters.Role.ListSource | filter: RolesCtrl.ePage.Masters.Search"
                         data-ng-click="RolesCtrl.ePage.Masters.Role.ActiveRole.PK != x.PK && RolesCtrl.ePage.Masters.Role.OnRoleClick(x)"
                         data-ng-class="{'active': RolesCtrl.ePage.Masters.Role.ActiveRole.PK == x.PK}">
                         <div class="clearfix tc-list">
@@ -85,7 +86,7 @@
             <div class="tc-section-divider" data-ng-if="RolesCtrl.ePage.Masters.Role.ActiveRole.PK"></div>
             <div class="tc-list-container tc-list-container-inner-redirect clearfix" data-ng-if="RolesCtrl.ePage.Masters.Role.ActiveRole.PK">
                 <ul class="tc-list-ul">
-                    <li data-ng-click="RolesCtrl.ePage.Masters.Role.OnUserListClick(x)" data-ng-repeat="x in RolesCtrl.ePage.Masters.Role.RedirectPagetList">
+                    <li data-ng-click="RolesCtrl.ePage.Masters.Role.OnRedirectLinkClick(x)" data-ng-repeat="x in RolesCtrl.ePage.Masters.Role.RedirectPagetList">
                         <div class="clearfix tc-list">
                             <div class="tc-list-name">
                                 <i class="fa {{x.Icon}} mr-10" data-ng-style="{'color': x.Color}"></i>
@@ -93,6 +94,12 @@
                             </div>
                         </div>
                     </li>
+                </ul>
+            </div>
+            <div class="tc-section-divider" data-ng-if="RolesCtrl.ePage.Masters.Role.ActiveRole.PK"></div>
+            <div class="tc-list-container tc-list-container-inner-redirect clearfix" data-ng-if="RolesCtrl.ePage.Masters.Role.ActiveRole.PK">
+                <ul class="tc-list-ul">
+                    <li><a href="javascript:void(0);" data-ng-click="RolesCtrl.ePage.Masters.Role.OnAppTenantPublishClick()">Publish Changes</a></li>
                 </ul>
             </div>
         </div>
@@ -121,6 +128,21 @@
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Description</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
                             <input type="text" class="form-control input-sm" placeholder="Description" data-ng-model="RolesCtrl.ePage.Masters.Role.ActiveRole.RoleDescription">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Home URL</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <select chosen class="form-control" data-ng-options="x.Item_FK as x.ItemCode for x in RolesCtrl.ePage.Masters.Menu.ListSource"
+                                data-ng-model="RolesCtrl.ePage.Masters.Role.ActiveRole.HomeURL" search-contains="true">
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Role Referance</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control" placeholder="Role Ref" data-ng-model="RolesCtrl.ePage.Masters.Role.ActiveRole.RoleRef">
                         </div>
                     </div>
                 </form>
@@ -155,4 +177,18 @@
             </div>
         </div>
     </div>
+</script>
+
+<!--App Tenant Edit Template-->
+<script type="text/ng-template" id="appTenantEdit">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="RolesCtrl.ePage.Masters.Role.AppTenantCancel()">&times;</button>
+    </div>
+    <div class="modal-body pt-10" id="modal-body">
+        <div class="clearfix p-20 text-center" data-ng-if="!RolesCtrl.ePage.Masters.Role.RePublishAccess">
+            <i class="fa fa-spin fa-spinner font-120"></i>
+        </div>
+        <div class="clearfix" data-ng-if="RolesCtrl.ePage.Masters.Role.RePublishAccess">
+            <pre class="json-disabled">{{RolesCtrl.ePage.Masters.Role.RePublishAccess}}</pre>
+        </div>
 </script>

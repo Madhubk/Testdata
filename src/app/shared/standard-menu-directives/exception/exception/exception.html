@@ -1,7 +1,7 @@
 <div class="exception-list-container clearfix">
     <!-- Header -->
     <div class="sm-header" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.ViewMode == 'List'">
-        <button class="btn btn-danger btn-sm mr-10" data-ng-click="ExceptionCtrl.ePage.Masters.Exception.Compose()" data-ng-if="ExceptionCtrl.mode == '2'"
+        <button class="btn btn-danger btn-sm mr-10" data-ng-click="ExceptionCtrl.ePage.Masters.Exception.Compose()" data-ng-if="ExceptionCtrl.mode == '2' && !ExceptionCtrl.ePage.Entities.IsReadOnly"
             data-ng-disabled="!ExceptionCtrl.type">Compose</button>
         <button class="btn btn-default btn-sm mr-10" data-ng-click="ExceptionCtrl.ePage.Masters.Exception.ListView.Refresh()">Refresh</button>
     </div>
@@ -19,7 +19,7 @@
             <ul class="p-0" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.SideBar.MstExceptionList && ExceptionCtrl.ePage.Masters.Exception.SideBar.MstExceptionList.length > 0">
                 <li class="text-single-line" data-ng-class="{'active': x.Key == ExceptionCtrl.ePage.Masters.Exception.SideBar.ActiveMstException.Key}"
                     data-ng-repeat="x in ExceptionCtrl.ePage.Masters.Exception.SideBar.MstExceptionList" data-ng-click="ExceptionCtrl.ePage.Masters.Exception.SideBar.OnListClick(x)">{{x.Value}}
-                    <i class="fa fa-plus-circle attach-icon" data-ng-if="x.Value != 'All'" data-ng-click="ExceptionCtrl.ePage.Masters.Exception.Compose(x)"></i>
+                    <i class="fa fa-plus-circle attach-icon" data-ng-if="x.Value != 'All' && !ExceptionCtrl.ePage.Entities.IsReadOnly" data-ng-click="ExceptionCtrl.ePage.Masters.Exception.Compose(x)"></i>
                 </li>
             </ul>
         </div>
@@ -78,23 +78,79 @@
                         </div>
                         <div class="user-name pt-5" data-ng-bind="(ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.CreatedBy == ExceptionCtrl.ePage.Masters.Exception.UserId) ? 'Me' : ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.CreatedBy"></div>
                         <!-- Access -->
-                        <div data-ng-if="ExceptionCtrl.mode == '1' && ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.CreatedBy == ExceptionCtrl.ePage.Masters.Exception.UserId"
-                            class="pull-right dropdown comment-access-dropdown-menu" one-level-mapping input="ExceptionCtrl.ePage.Masters.Exception.ReadView.GroupMapping"
-                            object="ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.ReadView.GroupMapping"></div>
+                        <div class="pull-right dropdown comment-access-dropdown-menu" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.ReadView.GroupMapping && (ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.CreatedBy ==  ExceptionCtrl.ePage.Masters.Exception.UserId || (ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.CreatedBy != ExceptionCtrl.ePage.Masters.Exception.UserId && !ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.IsResticted && ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.IsShared)) && ExceptionCtrl.mode == '1' && !ExceptionCtrl.ePage.Entities.IsReadOnly"
+                            one-level-mapping input="ExceptionCtrl.ePage.Masters.Exception.ReadView.GroupMapping" object="ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException"></div>
                         <div class="date pt-5" data-ng-bind="ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.CreatedDateTime | date:'MMM dd'"></div>
                     </div>
                     <div class="message clearfix pb-20">
                         <!-- <div class="" data-ng-bind-html="ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.Description"></div> -->
                     </div>
-                    <div class="clearfix position-relative text-center">
+                    <div class="clearfix position-relative text-center" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.SideBar.DataConfigResponse">
                         <div class="more-items-line-middle"></div>
-                        <button data-ng-if="ExceptionCtrl.ePage.Masters.Exception.SideBar.DataConfigResponse" class="btn btn-more-items" data-ng-click="ExceptionCtrl.ePage.Masters.Exception.ReadView.IsShowDynamicForm = !ExceptionCtrl.ePage.Masters.Exception.ReadView.IsShowDynamicForm">Show {{ExceptionCtrl.ePage.Masters.Exception.ReadView.IsShowDynamicForm ? 'less' : 'more'}}</button>
+                        <button  class="btn btn-more-items" data-ng-click="ExceptionCtrl.ePage.Masters.Exception.ReadView.IsShowDynamicForm = !ExceptionCtrl.ePage.Masters.Exception.ReadView.IsShowDynamicForm">Show {{ExceptionCtrl.ePage.Masters.Exception.ReadView.IsShowDynamicForm ? 'less' : 'more'}}</button>
                     </div>
                     <!-- Dynamic Control -->
                     <div class="clearfix" data-ng-show="ExceptionCtrl.ePage.Masters.Exception.ReadView.IsShowDynamicForm">
                         <div class="clearfix position-relative" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.SideBar.DataConfigResponse">
                             <dynamic-control input="ExceptionCtrl.ePage.Masters.Exception.SideBar.DataConfigResponse" mode="D" control-style="" view-type="'2'"></dynamic-control>
                             <div class="dynamic-control-overlay"></div>
+                        </div>
+                    </div>
+                    <!-- Attachment -->
+                    <div class="clearfix email-attachment-container mb-20 mt-20">
+                        <div class="comment-header mb-5 clearfix">Attachments</div>
+                        <div class="clearfix p-5" data-ng-if="!ExceptionCtrl.ePage.Entities.IsReadOnly">
+                            <file-upload-custom class="file-upload-directive" ng-model="ExceptionCtrl.ePage.Masters.Exception.Attachment.fileDetails"
+                                size="{{ExceptionCtrl.ePage.Masters.Exception.Attachment.fileSize}}" auth="{{ExceptionCtrl.ePage.Masters.Exception.Attachment.Autherization}}"
+                                additional-value="{{ExceptionCtrl.ePage.Masters.Exception.Attachment.AdditionalValue}}" url="{{ExceptionCtrl.ePage.Masters.Exception.Attachment.UploadUrl}}"
+                                doc-type="*" multiple-file="true" is-disabled="false" fu-class="left" get-uploaded-files="ExceptionCtrl.ePage.Masters.Exception.Attachment.GetUploadedFiles($item)"
+                                get-selected-files="ExceptionCtrl.ePage.Masters.Exception.Attachment.GetSelectedFiles($item)"
+                                modal-template="" template="">
+                                <button class="btn btn-danger btn-sm mr-10">Attach</button>
+                            </file-upload-custom>
+                        </div>
+                        <div class="clearfix text-center p-20" data-ng-if="!ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.AttachmentList">
+                            <i class="fa fa-spin fa-spinner font-160"></i>
+                        </div>
+                        <div class="clearfix text-center p-20" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.AttachmentList && ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.AttachmentList.length == 0">
+                            <i>No Records...!</i>
+                        </div>
+                        <div class="clearfix attachment-container-list-view" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.AttachmentList && ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.AttachmentList.length > 0">
+                            <div class="clearfix list" data-ng-if="x.IsNew"
+                                data-ng-repeat="x in ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.AttachmentList">
+                                <div class="clearfix p-10" data-ng-if="x.IsNew">
+                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                        <div class="loading-file-name">
+                                            <span>{{x.name}}</span>
+                                        </div>
+                                        <div class="meter">
+                                            <span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix" data-ng-if="!x.IsNew">
+                                    <div class="p-5 text-single-line">
+                                        <span class="action-icon text-danger cursor-pointer mr-10" style="position: relative; top: 3px;" data-ng-click="ExceptionCtrl.ePage.Masters.Exception.Attachment.DeleteAttachment(x, $index)" title="Remove" data-ng-if="!ExceptionCtrl.ePage.Entities.IsReadOnly">
+                                            <i class="glyphicon glyphicon-trash"></i>
+                                        </span>
+                                        <img data-ng-src="assets/img/file-types/{{x.FileName | getFileExtension}}.png" alt="">
+                                        <a href="javascript:void(0);" data-ng-bind="x.FileName" title="{{x.FileName}}" data-ng-click="x.PK && ExceptionCtrl.ePage.Masters.Exception.Attachment.DownloadAttachment(x)"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="attachment-list" data-ng-if="!x.IsNew"
+                                data-ng-repeat="x in ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.AttachmentList">
+                                <div class="clearfix">
+                                    <div class="clearfix icon">
+                                        <i class="fa fa-file"></i>
+                                        <i class="glyphicon glyphicon-trash" data-ng-click="ExceptionCtrl.ePage.Masters.Exception.Attachment.DeleteAttachment(x, $index)" title="Remove" data-ng-if="!ExceptionCtrl.ePage.Entities.IsReadOnly"></i>
+                                    </div>
+                                    <div class="p-5 text-single-line attachment-name">
+                                        <img data-ng-src="assets/img/file-types/{{x.FileName | getFileExtension}}.png" alt="" class="mr-5">
+                                        <a href="javascript:void(0);" data-ng-bind="x.FileName" title="{{x.FileName}}" data-ng-click="x.PK && ExceptionCtrl.ePage.Masters.Exception.Attachment.DownloadAttachment(x)"></a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <!-- Comment -->

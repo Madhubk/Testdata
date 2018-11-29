@@ -1,0 +1,52 @@
+<div class="clearfix my-task-activity-page-warpper">
+    <div class="clearfix edit-activity-body pb-50">
+        <dynamic-tab-left data-ng-if="bookingBuyerSupplierTemplateCtrl.currentBooking" list-source="bookingBuyerSupplierTemplateCtrl.ePage.Masters.MenuListSource"
+            obj="bookingBuyerSupplierTemplateCtrl.ePage.Masters.MenuObj"></dynamic-tab-left>
+    </div>
+    <!--Standard Menu Directive-->
+    <div class="eaxis-footer-strip">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <!-- <standard-menu input="tab" entity-name="'Booking'" data-ng-if="!tab.isNew"></standard-menu> -->
+            <standard-menu input="bookingBuyerSupplierTemplateCtrl.currentBooking" dataentry-object="bookingBuyerSupplierTemplateCtrl.dataentryObject"
+                data-ng-if="!bookingBuyerSupplierTemplateCtrl.currentBooking.isNew"></standard-menu>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <input type="button" data-ng-if="bookingBuyerSupplierTemplateCtrl.currentBooking.isNew" ng-disabled="bookingBuyerSupplierTemplateCtrl.ePage.Masters.SaveBookingApprovalDisabled"
+                value="{{bookingBuyerSupplierTemplateCtrl.ePage.Masters.SaveBookingApproval}}" class="btn btn-primary btn-sm pull-right margin-right-10 mt-6"
+                ng-click="bookingBuyerSupplierTemplateCtrl.ePage.Masters.Save(bookingBuyerSupplierTemplateCtrl.currentBooking) ">
+            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-if="!bookingBuyerSupplierTemplateCtrl.currentBooking.isNew"
+                data-ng-click="bookingBuyerSupplierTemplateCtrl.ePage.Masters.Save(bookingBuyerSupplierTemplateCtrl.currentBooking)"
+                data-ng-bind="bookingBuyerSupplierTemplateCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="bookingBuyerSupplierTemplateCtrl.ePage.Masters.IsDisableSave"></button>
+        </div>
+    </div>
+    <!--Standard Menu Directive-->
+    <div class="error-warning-container right" id="errorWarningContainer{{bookingBuyerSupplierTemplateCtrl.currentBooking.code}}">
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                <!-- <i class="fa fa-warning"></i>  -->
+                Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right" data-ng-click="bookingBuyerSupplierTemplateCtrl.ePage.Masters.config.ShowErrorWarningModal(bookingBuyerSupplierTemplateCtrl.currentBooking)">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+        </div>
+        <div class="error-warning-body">
+            <div class="clearfix" data-ng-if="bookingBuyerSupplierTemplateCtrl.ePage.Masters.ErrorWarningConfig.Modules.BookingSupplier.Entity[bookingBuyerSupplierTemplateCtrl.currentBooking.code].GlobalErrorWarningList.length>0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in bookingBuyerSupplierTemplateCtrl.ePage.Masters.ErrorWarningConfig.Modules.BookingSupplier.Entity[bookingBuyerSupplierTemplateCtrl.currentBooking.code].GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

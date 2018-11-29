@@ -1,12 +1,88 @@
-<uib-tabset id="chromeTab" active="0" class="tab-container chrometab-box">
-    <uib-tab>
-        <uib-tab-heading title="Order">
-            <span data-ng-bind="'Order Report'"></span>
-            <i class="fa fa-thumb-tack pinned-tab"></i>
-        </uib-tab-heading>
-        <div class="no-padding tab-list-view-wrapper">
-            <!--Order Report Grid Page-->
-            <dynamic-list dataentry-name="OrderReportCtrl.ePage.Masters.dataentryName" default-filter="OrderReportCtrl.ePage.Masters.DefaultFilter" grid-config-type="0" selected-grid-row="OrderReportCtrl.ePage.Masters.SelectedGridRow($item)" task-name="OrderReportCtrl.ePage.Masters.taskName" grid-config-type="0" mode="1"></dynamic-list>
+<div class="clearfix test">
+    <div class="chrometab-box1">
+        <div class="ik-box1">
+            <span data-ng-bind="'Order Reports'" class="ik-title">Order Reports</span>
         </div>
-    </uib-tab>
-</uib-tabset>
+        <div class="clearfix p-20 text-center" data-ng-if="OrderReportCtrl.ePage.Masters.ChildMenuList && OrderReportCtrl.ePage.Masters.ChildMenuList.length===0">
+            <i>No Records...!</i>
+        </div>
+        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 p-0" data-ng-if="OrderReportCtrl.ePage.Masters.ChildMenuList && OrderReportCtrl.ePage.Masters.ChildMenuList.length>0">
+            <div class="orders-container border">
+                <div class="">
+                    <div class="orders-header">
+                        <span class="menu-desc">Order Reports</span>
+                        <span>
+                            <a class="item-more-icon margin-right-30" data-ng-if="OrderReportCtrl.ePage.Masters.ChildMenuList.length>0"
+                                href="" data-toggle="collapse" data-target="#Order{{$index}}">
+                                <i></i>
+                            </a>
+                        </span>
+                    </div>
+                    <ul id="Order{{$index}}" class="orders-list collapse in">
+                        <li class="order-item filter-sidebar-setting" data-ng-repeat="x in OrderReportCtrl.ePage.Masters.ChildMenuList"
+                            data-ng-class="{active_list: OrderReportCtrl.ePage.Masters.selectedRow==$index}">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <!-- <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                        <div class="notification-icon margin-top-10">
+                                            <i class="{{x.Icon | getIconColorForMenu: 'icon'}} bg-darkorange white"></i>
+                                        </div>
+                                    </div> -->
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                        <div class="item-booker">{{x.Key}}</div>
+                                        <div class="item-time">
+                                            <span class="font-style">{{x.SourceEntityRefKey}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pt-20">
+                                        <div class="meter" data-ng-if="x.IsDownloading==true">
+                                            <span></span>
+                                        </div>
+                                        <div class="text-single-line" data-ng-if="x.DocumentName">
+                                            <a href="" title="{{x.DocumentName}}" data-ng-click="OrderReportCtrl.ePage.Masters.DownloadReport(x)">{{x.DocumentName}}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="item-more-icon" href="" data-ng-click="OrderReportCtrl.ePage.Masters.GetConfigDetails(x,$index)">
+                                <i></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="grid-loading-norecord-container data-ng-scope" data-ng-show="OrderReportCtrl.ePage.Masters.IsLoading"></div>
+    </div>
+</div>
+<!--FIlter Bar  -->
+<div id="filterSideBar{{OrderReportCtrl.ePage.Masters.DynamicControl.DataEntryName}}" data-ng-if="OrderReportCtrl.ePage.Masters.DynamicControl"
+    class="dynamic-filter-sidebar-wrapper report-fix clearfix filter-text" data-ng-class="OrderReportCtrl.ePage.Masters.ViewType == 1 ? 'one-column' : 'two-column'">
+    <form name="filterSidebar" novalidate>
+        <div class="header clearfix">
+            <div class="title pull-left">
+                <i class="fa fa-filter"></i>
+                <span>Filter</span>
+            </div>
+            <div class="btn-wrapper pull-right">
+                <ul class="clearfix">
+                    <li>
+                        <input type="submit" class="filter-title-btn" data-ng-click="OrderReportCtrl.ePage.Masters.CloseFilter()"
+                            data-ng-disabled="!OrderReportCtrl.ePage.Masters.DynamicControl" value="Close">
+                    </li>
+                    <li>
+                        <input type="submit" class="filter-title-btn" data-ng-click="OrderReportCtrl.ePage.Masters.GenerateReports()"
+                            data-ng-disabled="!OrderReportCtrl.ePage.Masters.DynamicControl" value="Generate Report">
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="filter-list clearfix">
+            <div class="clearfix" data-ng-if="OrderReportCtrl.ePage.Masters.DynamicControl">
+                <dynamic-control input="OrderReportCtrl.ePage.Masters.DynamicControl" mode="S" control-style=""
+                    default-filter="OrderReportCtrl.ePage.Masters.defaultFilter" toggle="OrderReportCtrl.ePage.Masters.IsDynamicControlAccess"
+                    view-type="OrderReportCtrl.ePage.Masters.ViewType"></dynamic-control>
+            </div>
+        </div>
+    </form>
+</div>

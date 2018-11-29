@@ -1,6 +1,4 @@
-.tab-list-view-wrapper {
-    position: relative;
-}
+
 
 .tab-list-view-wrapper .tab-loading {
     position: absolute;
@@ -12,6 +10,3 @@
     z-index: 999;
 }
 
-.chrometab-box {
-    border: 1px solid #bcbbd0;
-}

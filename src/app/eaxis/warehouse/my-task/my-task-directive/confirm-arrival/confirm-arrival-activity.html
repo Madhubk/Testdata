@@ -1,0 +1,31 @@
+<div class="col-lg-12 clearfix no-padding" ng-if="ConfirmArrivalCtrl.ePage.Entities.Header.Data">
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 mt-10">
+        <span class="error-warning-container">
+            <error-warning-directive data-ng-if="ConfirmArrivalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ArrivalDate.IsWarning && !ConfirmArrivalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ArrivalDate.IsError"
+                list="ConfirmArrivalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ArrivalDate.WARNING" type="'warning'"
+                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            <error-warning-directive data-ng-if="ConfirmArrivalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ArrivalDate.IsError"
+                list="ConfirmArrivalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ArrivalDate.ERROR" type="'error'" icon="fa fa-warning"
+                parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+        </span>
+        <div class="form-group ship-font">
+            <label class="control-label">Arrival Date Time</label>
+            <div>
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="{{ConfirmArrivalCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                        data-ng-model="ConfirmArrivalCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate" datetime-picker="{{ConfirmArrivalCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                        datepicker-options="ConfirmArrivalCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                        close-on-selection="false" enable-time="true" enable-date="true" default-date="" default-time="" save-as="ConfirmArrivalCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        is-open="ConfirmArrivalCtrl.ePage.Masters.DatePicker.isOpen['ArrivalDate']" when-closed="" data-ng-click=""
+                        data-ng-change="ConfirmArrivalCtrl.ePage.Masters.OnFieldValueChange('E11072')" custom-date-time-format
+                    />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="ConfirmArrivalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'ArrivalDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

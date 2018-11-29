@@ -5,10 +5,10 @@
         .module("Application")
         .factory('poBatchUploadConfig', PoBatchUploadConfig);
 
-    PoBatchUploadConfig.$inject = ["$q", "helperService", "toastr"];
+    PoBatchUploadConfig.$inject = ["$q", "helperService", "toastr", "apiService"];
 
-    function PoBatchUploadConfig($q, helperService, toastr) {
-    
+    function PoBatchUploadConfig($q, helperService, toastr, apiService) {
+
         var exports = {
             "Entities": {
                 "Header": {
@@ -26,13 +26,24 @@
                             "HttpType": "GET",
                             "Url": "OrderList/OrderHeaderActivityClose/",
                             "FilterID": ""
+                        },
+                        "Validationapi": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "Validation/FindAll",
+                            "FilterID": "VALIDAT"
                         }
                     },
                     "Meta": {}
                 }
             },
+            "GlobalVar": {
+                "IsClosed": false,
+                "DocType": ""
+            },
             "TabList": [],
-            "GetTabDetails": GetTabDetails
+            "GetTabDetails": GetTabDetails,
+            "ValidationValues": ""
         };
 
         return exports;
@@ -83,6 +94,7 @@
                             "MenuList": [{
                                 "DisplayName": "Order",
                                 "Value": "General",
+                                "GParentRef": "general",
                                 "Icon": "fa-cart-plus"
                             }, {
                                 "DisplayName": "Order Lines",
@@ -97,7 +109,7 @@
                                 "Value": "CargoReadiness",
                                 "Icon": "fa-truck"
                             }, {
-                                "DisplayName": "Vessel Plannig",
+                                "DisplayName": "Vessel Schedule",
                                 "Value": "ShpPreAdvice",
                                 "Icon": "fa-cubes"
                             }, {
@@ -113,6 +125,16 @@
                                 "Value": "Address",
                                 "Icon": "fa-address-card-o"
                             }],
+                            "ErrorWarning": {
+                                "GlobalErrorWarningList": [],
+                                "OrderNo": helperService.metaBase(),
+                                "OrderDate": helperService.metaBase(),
+                                "IncoTerm": helperService.metaBase(),
+                                "TransportMode": helperService.metaBase(),
+                                "ContainerMode": helperService.metaBase(),
+                                "Buyer": helperService.metaBase(),
+                                "Supplier": helperService.metaBase()
+                            },
                             "Currency": helperService.metaBase(),
                             "ServiceLevel": helperService.metaBase(),
                             "Country": helperService.metaBase(),
@@ -180,7 +202,6 @@
                             }
                         }
                     },
-
                     "PorOrderLine": {
                         "RowIndex": -1,
                         "API": {
@@ -225,7 +246,7 @@
                             "isRowTemplate": false,
                             "columnDef": [{
                                 "field": "PartNo",
-                                "displayName": "Part #",
+                                "displayName": "UDF #",
                                 "width": 50
                             }, {
                                 "field": "InnerPacks",
@@ -443,12 +464,14 @@
                             }
                         }
                     }
-
+                },
+                "GlobalVar": {
+                    "IsClosed": false,
+                    "DocType": ""
                 }
             };
 
             if (isNew) {
-                
                 _exports.Entities.Header.Data = currentObj.data;
                 var obj = {
                     New: {
@@ -472,12 +495,13 @@
                     }
 
                     _exports.Entities.Header.Data = response.data.Response;
-                    
+
                     var obj = {
                         [currentObj[keyObjNo]]: {
                             ePage: _exports
                         },
                         label: currentObj[keyObjNo],
+                        code: currentObj[keyObjNo],
                         isNew: isNew,
                         isNewOrder: isNewOrder
                     };
@@ -486,7 +510,6 @@
                 });
             }
             return deferred.promise;
-
         }
     }
 })();

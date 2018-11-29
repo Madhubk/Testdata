@@ -1,0 +1,203 @@
+<div id="except-notify" class="widget-main except-notify-details p-5">
+    <div class="clearfix mt-5">
+        <div class="col-lg-12 col-md-12 col-xl-12">
+            <div class="panel panel-default">
+                <div class="panel-heading p-5">
+                    <b class="panel-title" data-ng-if="ExceptNotifyEditDirectiveCtrl.ePage.Masters.ExceptionData.EntitySource == 'POH'">PO Details :</b>
+                    <b class="panel-title" data-ng-if="ExceptNotifyEditDirectiveCtrl.ePage.Masters.ExceptionData.EntitySource == 'SHP'">Shipment Details :</b>
+                    <b class="panel-title" data-ng-if="ExceptNotifyEditDirectiveCtrl.ePage.Masters.ExceptionData.EntitySource == 'BKG'">Booking Details :</b>
+                    <b class="panel-title" data-ng-if="ExceptNotifyEditDirectiveCtrl.ePage.Masters.ExceptionData.EntitySource == 'CNT'">Container Details :</b>
+                    <span> {{ExceptNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.SourceNo}} </span>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 mb-20">
+                            <div class="except-notifys-label">Buyer</div>
+                            <div class="except-notifys-value">
+                                <span data-ng-if="ExceptNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.Buyer != 'null' || undefined">
+                                    {{ExceptNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.Buyer}}
+                                </span>
+                                <span data-ng-if="ExceptNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.Buyer == 'null' || undefined"></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 mb-20">
+                            <div class="except-notifys-label">Shipper</div>
+                            <div class="except-notifys-value">
+                                <span data-ng-if="ExceptNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.Shipper != 'null' || undefined">
+                                    {{ExceptNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.Shipper}}
+                                </span>
+                                <span data-ng-if="ExceptNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.Shipper == 'null' || undefined"></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 mb-20">
+                            <div class="except-notifys-label">Container Type</div>
+                            <div class="except-notifys-value">
+                                <span data-ng-if="ExceptNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.ContainerMode != 'null' || undefined">
+                                    {{ExceptNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.ContainerMode}}
+                                </span>
+                                <span data-ng-if="ExceptNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.ContainerMode == 'null' || undefined"></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 mb-20">
+                            <div class="except-notifys-label">Mode</div>
+                            <div class="except-notifys-value">
+                                <span data-ng-if="ExceptNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.TransportMode != 'null' || undefined">
+                                    {{ExceptNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.TransportMode}}
+                                </span>
+                                <span data-ng-if="ExceptNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.TransportMode == 'null' || undefined"></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 mb-20">
+                            <div class="except-notifys-label">InoTerm</div>
+                            <div class="except-notifys-value">
+                                <span data-ng-if="ExceptNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.IncoTerm != 'null' || undefined">
+                                    {{ExceptNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.IncoTerm}}
+                                </span>
+                                <span data-ng-if="ExceptNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.IncoTerm == 'null' || undefined"></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 mb-20">
+                            <div class="except-notifys-label">Carrier</div>
+                            <div class="except-notifys-value">
+                                <span data-ng-if="ExceptNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.Carrier !=  'null' || undefined">
+                                    {{ExceptNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.Carrier}}
+                                </span>
+                                <span data-ng-if="ExceptNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.Carrier == 'null' || undefined"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 mb-20">
+                            <div class="except-notifys-label">Voyage</div>
+                            <div class="except-notifys-value">
+                                <span data-ng-if="ExceptNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.Voyage != 'null' || undefined">
+                                    {{ExceptNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.Voyage}}
+                                </span>
+                                <span data-ng-if="ExceptNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.Voyage == 'null' || undefined"></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 mb-20">
+                            <div class="except-notifys-label">Vessel</div>
+                            <div class="except-notifys-value">
+                                <span data-ng-if="ExceptNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.Vessel != 'null' || undefined">
+                                    {{ExceptNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.Vessel}}
+                                </span>
+                                <span data-ng-if="ExceptNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.Vessel == 'null' || undefined"></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 mb-20">
+                            <div class="except-notifys-label">ETD</div>
+                            <div class="except-notifys-value">
+                                <span data-ng-if="ExceptNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.ETD != 'null' || undefined">
+                                    {{ExceptNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.ETD | date:'dd-MMM-yyyy'}}
+                                </span>
+                                <span data-ng-if="ExceptNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.ETD == 'null' || undefined"></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 mb-20">
+                            <div class="except-notifys-label">ETA</div>
+                            <div class="except-notifys-value">
+                                <span data-ng-if="ExceptNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.ETA != 'null' || undefined">
+                                    {{ExceptNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.ETA | date:'dd-MMM-yyyy'}}
+                                </span>
+                                <span data-ng-if="ExceptNotifyEditDirectiveCtrl.ePage.Masters.TaskObj.ETA == 'null' || undefined"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="panel panel-default p-20 pb-0">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 mb-20">
+                    <div class="except-notifys-label">Exception Type</div>
+                    <div class="except-notifys-value">
+                        <span>
+                            {{ExceptNotifyEditDirectiveCtrl.ePage.Masters.ExceptionData.Type}}
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 mb-20">
+                    <div class="except-notifys-label">Exception Name</div>
+                    <div class="except-notifys-value">
+                        <span>
+                            {{ExceptNotifyEditDirectiveCtrl.ePage.Masters.ExceptionData.Title}}
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 mb-20">
+                    <div class="except-notifys-label">Raised On</div>
+                    <div class="except-notifys-value">
+                        <span>
+                            {{ExceptNotifyEditDirectiveCtrl.ePage.Masters.ExceptionData.CreatedDateTime | date:'dd-MMM-yyyy'}}
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 mb-20">
+                    <div class="except-notifys-label">Is Urgent</div>
+                    <div class="except-notifys-value">
+                        <span data-ng-if="ExceptNotifyEditDirectiveCtrl.ePage.Masters.ExceptionData.IsUrgent">
+                            <i class="glyphicon glyphicon-ok"></i>
+                        </span>
+                        <span data-ng-if="!ExceptNotifyEditDirectiveCtrl.ePage.Masters.ExceptionData.IsUrgent">
+                            <i class="glyphicon glyphicon-remove"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 mb-20">
+                    <div class="except-rejects-label">Is Schedule Revised</div>
+                    <div class="except-rejects-value">
+                        <span data-ng-if="!ExceptNotifyEditDirectiveCtrl.ePage.Masters.ExceptionData.IsScheduleRevised">
+                            <i class="glyphicon glyphicon-remove"></i>
+                        </span>
+                        <span data-ng-if="ExceptNotifyEditDirectiveCtrl.ePage.Masters.ExceptionData.IsScheduleRevised">
+                            <i class="glyphicon glyphicon-ok"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 mb-20">
+                    <div class="except-notifys-label">Revised Carrier</div>
+                    <div class="except-notifys-value">
+                        <span>
+                            {{ExceptNotifyEditDirectiveCtrl.ePage.Masters.ExceptionData.RelatedDetails.ORG_CarrierCode}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 mb-20">
+                    <div class="except-notifys-label">Revised Vessel/Voyage</div>
+                    <div class="except-notifys-value">
+                        <span>
+                            {{ExceptNotifyEditDirectiveCtrl.ePage.Masters.ExceptionData.RelatedDetails.Vessel}}/{{ExceptNotifyEditDirectiveCtrl.ePage.Masters.ExceptionData.RelatedDetails.Voyage}}
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 mb-20">
+                    <div class="except-notifys-label">Revised ETA</div>
+                    <div class="except-notifys-value">
+                        <span>
+                            {{ExceptNotifyEditDirectiveCtrl.ePage.Masters.ExceptionData.RelatedDetails.ETA | date:'dd-MMM-yyyy'}}
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 mb-20">
+                    <div class="except-notifys-label">Revised ETD</div>
+                    <div class="except-notifys-value">
+                        <span>
+                            {{ExceptNotifyEditDirectiveCtrl.ePage.Masters.ExceptionData.RelatedDetails.ETD | date:'dd-MMM-yyyy'}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix mr-20">
+        <div class="pull-right">
+            <button class="btn btn-default set-br-blue set-bg-blue-light fs-12" data-ng-click="ExceptNotifyEditDirectiveCtrl.ePage.Masters.MarkAsRead()" data-ng-disabled="ExceptNotifyEditDirectiveCtrl.ePage.Masters.IsMarkRead">
+                <i class="glyphicon glyphicon-ok"></i>{{ExceptNotifyEditDirectiveCtrl.ePage.Masters.IsReadBtn}} Mark As Read</button>
+        </div>
+    </div>
+</div>

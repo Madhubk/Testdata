@@ -1,6 +1,6 @@
 // https://github.com/Gillardo/bootstrap-ui-datetime-picker
-// Version: 2.6.0
-// Released: 2017-05-12 
+// Version: 2.6.3
+// Released: 2018-04-25 
 angular.module('ui.bootstrap.datetimepicker', ['ui.bootstrap.dateparser', 'ui.bootstrap.position'])
     .constant('uiDatetimePickerConfig', {
         dateFormat: 'yyyy-MM-dd HH:mm',
@@ -12,6 +12,7 @@ angular.module('ui.bootstrap.datetimepicker', ['ui.bootstrap.dateparser', 'ui.bo
         },
         initialPicker: 'date',
         reOpenDefault: false,
+        disableFocusStealing: false,
         enableDate: true,
         enableTime: true,
         buttonBar: {
@@ -74,7 +75,7 @@ angular.module('ui.bootstrap.datetimepicker', ['ui.bootstrap.dateparser', 'ui.bo
 
             this.init = function (_ngModel) {
                 ngModel = _ngModel;
-                ngModelOptions = ngModel.$options || uiDatetimePickerConfig.ngModelOptions;
+                ngModelOptions = extractOptions(ngModel);
 
                 $scope.buttonBar = angular.isDefined($attrs.buttonBar) ? $scope.$parent.$eval($attrs.buttonBar) : uiDatetimePickerConfig.buttonBar;
 
@@ -88,8 +89,11 @@ angular.module('ui.bootstrap.datetimepicker', ['ui.bootstrap.dateparser', 'ui.bo
                 // determine the picker to open when control is re-opened
                 $scope.reOpenDefault = angular.isDefined($attrs.reOpenDefault) ? $attrs.reOpenDefault : uiDatetimePickerConfig.reOpenDefault;
 
+                // determine if picker should steal focus from datebox on popup
+                $scope.disableFocusStealing = angular.isDefined($attrs.disableFocusStealing) ? $attrs.disableFocusStealing : uiDatetimePickerConfig.disableFocusStealing;
+
                 // check if an illegal combination of options exists
-                if ($scope.initialPicker == 'date' && !$scope.enableDate) {
+                if ($scope.initialPicker === 'date' && !$scope.enableDate) {
                     throw new Error("datetimePicker can't have initialPicker set to date and have enableDate set to false.");
                 }
 
@@ -130,17 +134,9 @@ angular.module('ui.bootstrap.datetimepicker', ['ui.bootstrap.dateparser', 'ui.bo
                     '<div uib-timepicker style="margin:0 auto"></div>' +
                     '</div>');
 
-                $scope.ngModelOptions = angular.copy(ngModelOptions);
-
-                if ($scope.ngModelOptions.updateOnDefault === true) {
-                    $scope.ngModelOptions.updateOn = $scope.ngModelOptions.updateOn ?
-                    $scope.ngModelOptions.updateOn + ' default' : 'default';
-                }
-
                 // get attributes from directive
                 popupEl.attr({
                     'ng-model': 'date',
-                    'ng-model-options': 'ngModelOptions',
                     'ng-change': 'dateSelection(date)'
                 });
 
@@ -184,13 +180,13 @@ angular.module('ui.bootstrap.datetimepicker', ['ui.bootstrap.dateparser', 'ui.bo
                 // add a solution to set time picker options min and max.
                 angular.forEach(['minDate', 'maxDate', 'initDate'], function (key) {
                     if ($scope.datepickerOptions[key]) {
-                        if (key == 'minDate') {
+                        if (key === 'minDate') {
                             if ($scope.timepickerOptions.min) {
                                 timepickerEl.attr('min', 'timepickerOptions.min');
                             } else {
                                 timepickerEl.attr('min', 'datepickerOptions.minDate');
                             }
-                        } else if (key == 'maxDate') {
+                        } else if (key === 'maxDate') {
                             if ($scope.timepickerOptions.max) {
                                 timepickerEl.attr('max', 'timepickerOptions.max');
                             } else {
@@ -213,7 +209,7 @@ angular.module('ui.bootstrap.datetimepicker', ['ui.bootstrap.dateparser', 'ui.bo
                             return value;
                         }
 
-                        $scope.date = uibDateParser.fromTimezone(value, ngModelOptions.timezone);
+                        $scope.date = uibDateParser.fromTimezone(value, ngModelOptions.getOption('timezone'));
 
                         dateFormat = dateFormat.replace(/M!/, 'MM')
                             .replace(/d!/, 'dd');
@@ -222,7 +218,7 @@ angular.module('ui.bootstrap.datetimepicker', ['ui.bootstrap.dateparser', 'ui.bo
                     });
                 } else {
                     ngModel.$formatters.push(function (value) {
-                        $scope.date = uibDateParser.fromTimezone(value, ngModelOptions.timezone);
+                        $scope.date = uibDateParser.fromTimezone(value, ngModelOptions.getOption('timezone'));
                         return value;
                     });
                 }
@@ -303,9 +299,9 @@ angular.module('ui.bootstrap.datetimepicker', ['ui.bootstrap.dateparser', 'ui.bo
                     if (!isHtml5DateInput) {
                         dateFormat = dateFormat.replace(/M!/, 'MM')
                             .replace(/d!/, 'dd');
-                        return uibDateParser.filter(uibDateParser.fromTimezone(value, ngModelOptions.timezone), dateFormat);
+                        return uibDateParser.filter(uibDateParser.fromTimezone(value, ngModelOptions.getOption('timezone')), dateFormat);
                     } else {
-                        return uibDateParser.fromTimezone(value, ngModelOptions.timezone).toLocaleString();
+                        return uibDateParser.fromTimezone(value, ngModelOptions.getOption('timezone')).toLocaleString();
                     }
                 }
             };
@@ -343,7 +339,11 @@ angular.module('ui.bootstrap.datetimepicker', ['ui.bootstrap.dateparser', 'ui.bo
 
             // Inner change
             $scope.dateSelection = function (dt, opt) {
-
+				if(opt == "clear"){
+					$scope.oldDate = null;
+					$scope.date = null;
+				}
+			
                 // check if timePicker is being shown and merge dates, so that the date
                 // part is never changed, only the time
                 if ($scope.enableTime && $scope.showPicker === 'time') {
@@ -358,12 +358,12 @@ angular.module('ui.bootstrap.datetimepicker', ['ui.bootstrap.dateparser', 'ui.bo
                         // dt will not be undefined if the now or today button is pressed
                         if (dt && dt != null) {
                             // get the existing date and update the time
-                            var date = new Date($scope.date);
-                            date.setHours(dt.getHours());
-                            date.setMinutes(dt.getMinutes());
-                            date.setSeconds(dt.getSeconds());
-                            date.setMilliseconds(dt.getMilliseconds());
-                            dt = date;
+                            var date1 = new Date($scope.date);
+                            date1.setHours(dt.getHours());
+                            date1.setMinutes(dt.getMinutes());
+                            date1.setSeconds(dt.getSeconds());
+                            date1.setMilliseconds(dt.getMilliseconds());
+                            dt = date1;
                         }
                     
                     // In case we have an invalid time, save the previous date part
@@ -375,7 +375,7 @@ angular.module('ui.bootstrap.datetimepicker', ['ui.bootstrap.dateparser', 'ui.bo
                 if (angular.isDefined(dt)) {
                     if (!$scope.date) {
                         var defaultTime = angular.isDefined($attrs.defaultTime) ? $attrs.defaultTime : uiDatetimePickerConfig.defaultTime;
-                        var t = new Date('2001-01-01 ' + defaultTime);
+                        var t = new Date('2001/01/01 ' + defaultTime);
 
                         if (!isNaN(t) && dt != null) {
                             dt.setHours(t.getHours());
@@ -401,7 +401,7 @@ angular.module('ui.bootstrap.datetimepicker', ['ui.bootstrap.dateparser', 'ui.bo
 
                 if (closeOnDateSelection) {
                     // do not close when using timePicker as make impossible to choose a time
-                    if ($scope.showPicker != 'time' && date != null) {
+                    if ($scope.showPicker !== 'time' && date != null) {
                         // if time is enabled, swap to timePicker
                         if ($scope.enableTime) {
                             $scope.open('time');
@@ -434,7 +434,9 @@ angular.module('ui.bootstrap.datetimepicker', ['ui.bootstrap.dateparser', 'ui.bo
                     $scope.dropdownStyle.left = position.left + 'px';
 
                     $timeout(function () {
-                        $scope.$broadcast('uib:datepicker.focus');
+                        if (!$scope.disableFocusStealing) {
+                            $scope.$broadcast('uib:datepicker.focus');
+                        }
                         $document.bind('click', documentClickBind);
                     }, 0, false);
 
@@ -446,14 +448,14 @@ angular.module('ui.bootstrap.datetimepicker', ['ui.bootstrap.dateparser', 'ui.bo
 
             $scope.isDisabled = function (date) {
                 if (date === 'today' || date === 'now')
-                    date = uibDateParser.fromTimezone(new Date(), ngModelOptions.timezone);
+                    date = uibDateParser.fromTimezone(new Date(), ngModelOptions.getOption('timezone'));
 
                 var dates = {};
                 angular.forEach(['minDate', 'maxDate'], function (key) {
                     if (!$scope.datepickerOptions[key]) {
                         dates[key] = null;
                     } else if (angular.isDate($scope.datepickerOptions[key])) {
-                        dates[key] = uibDateParser.fromTimezone(new Date($scope.datepickerOptions[key]), ngModelOptions.timezone);
+                        dates[key] = uibDateParser.fromTimezone(new Date($scope.datepickerOptions[key]), ngModelOptions.getOption('timezone'));
                     } else {
                         dates[key] = new Date(dateFilter($scope.datepickerOptions[key], 'medium'));
                     }
@@ -477,7 +479,7 @@ angular.module('ui.bootstrap.datetimepicker', ['ui.bootstrap.dateparser', 'ui.bo
                 var date = null;
                 var isNow = opt === 'now';
 
-                if (opt === 'today' || opt == 'now') {
+                if (opt === 'today' || opt === 'now') {
                     var now = new Date();
                     if (angular.isDate($scope.date)) {
                         date = new Date($scope.date);
@@ -518,7 +520,7 @@ angular.module('ui.bootstrap.datetimepicker', ['ui.bootstrap.dateparser', 'ui.bo
 
                 // in order to update the timePicker, we need to update the model reference!
                 // as found here https://angular-ui.github.io/bootstrap/#/timepicker
-                if (picker == 'time') {
+                if (picker === 'time') {
                     $timeout(function () {
                         $scope.date = parseDateString(ngModel.$viewValue);
                     }, 50);
@@ -536,6 +538,14 @@ angular.module('ui.bootstrap.datetimepicker', ['ui.bootstrap.dateparser', 'ui.bo
                 // if enableDate and enableTime are true, reopen the picker in date mode first
                 if ($scope.enableDate && $scope.enableTime)
                     $scope.showPicker = $scope.reOpenDefault === false ? 'date' : $scope.reOpenDefault;
+
+                // manually trigger the blur event
+                if (ngModelOptions.getOption('updateOn') === 'blur') {
+                    $element[0].focus();
+                    $timeout(function() {
+                        $element[0].blur();
+                    }, 50);
+                }
 
                 // if a on-close-fn has been defined, lets call it
                 // we only call this if closePressed is defined!
@@ -562,6 +572,28 @@ angular.module('ui.bootstrap.datetimepicker', ['ui.bootstrap.dateparser', 'ui.bo
                 $element.unbind('keydown', inputKeydownBind);
                 $document.unbind('click', documentClickBind);
             });
+
+            function extractOptions(ngModelCtrl) {
+                var ngModelOptions;
+
+                if (angular.version.minor < 6) { // in angular < 1.6 $options could be missing
+                    // guarantee a value
+                    ngModelOptions = angular.isObject(ngModelCtrl.$options) ?
+                        ngModelCtrl.$options :
+                        {
+                            timezone: null
+                        };
+
+                    // mimic 1.6+ api
+                    ngModelOptions.getOption = function (key) {
+                        return ngModelOptions[key];
+                    };
+                } else { // in angular >=1.6 $options is always present
+                    ngModelOptions = ngModelCtrl.$options;
+                }
+
+                return ngModelOptions;
+            }
 
             function documentClickBind(evt) {
                 var popup = $popup[0];
@@ -602,7 +634,11 @@ angular.module('ui.bootstrap.datetimepicker', ['ui.bootstrap.dateparser', 'ui.bo
             }
 
             function parseDateString(viewValue) {
+                // disabled as not functioning correctly
+                // viewValue = applyMask(viewValue) || viewValue;
+              
                 var date = uibDateParser.parse(viewValue, dateFormat, $scope.date);
+
                 if (isNaN(date)) {
                     for (var i = 0; i < altInputFormats.length; i++) {
                         date = uibDateParser.parse(viewValue, altInputFormats[i], $scope.date);
@@ -631,7 +667,7 @@ angular.module('ui.bootstrap.datetimepicker', ['ui.bootstrap.dateparser', 'ui.bo
                 if (angular.isString(viewValue)) {
                     var date = parseDateString(viewValue);
                     if (!isNaN(date)) {
-                        return uibDateParser.toTimezone(date, ngModelOptions.timezone);
+                        return uibDateParser.toTimezone(date, ngModelOptions.getOption('timezone'));
                     }
 
                     return undefined;
@@ -643,10 +679,8 @@ angular.module('ui.bootstrap.datetimepicker', ['ui.bootstrap.dateparser', 'ui.bo
             function validateMinMax(value) {
                 if ($scope.datepickerOptions.minDate && value < $scope.datepickerOptions.minDate) {
                     return false;
-                } else if ($scope.datepickerOptions.maxDate && value > $scope.datepickerOptions.maxDate) {
-                    return false;
                 } else {
-                    return true;
+                    return !($scope.datepickerOptions.maxDate && value > $scope.datepickerOptions.maxDate);
                 }
             }
 
@@ -673,6 +707,43 @@ angular.module('ui.bootstrap.datetimepicker', ['ui.bootstrap.dateparser', 'ui.bo
                     return false;
                 }
             }
+            
+            /**
+          	* @description Applies the given mask to the given value.
+          	* @param {string} value The raw value.
+          	* @param {string} mask The mask string.
+          	* @return {string} The value after the mask is applied.
+          	*/
+          	function applyMask(value) {
+          	  
+          	  var allowedChars = "mMdDyYsShH";
+          		if (!value) {
+          			return "";
+          		}
+          		
+          		var pattern = dateFormat.replace(/[mMdDyYsShH]/gi, "\\d");
+          		var regx = new RegExp(pattern);
+          		if(regx.test(value)) {
+          		  return value;
+          		}
+          		
+          		var maskedValue = "";
+          		var maskArray = dateFormat.split("");
+          		var valueArray = value.split("");
+          		var valueArrayIndex = 0;
+          
+          		for (var maskArrayIndex = 0; maskArrayIndex < maskArray.length; maskArrayIndex++) {
+          			if (allowedChars.indexOf(maskArray[maskArrayIndex]) > -1) {
+          				if (valueArrayIndex >= valueArray.length) {
+          					break;
+          				}
+          				maskedValue += valueArray[valueArrayIndex++];
+          			} else {
+          				maskedValue += maskArray[maskArrayIndex];
+          			}
+          		}
+          		return maskedValue;
+          	}
 
         }])
     .directive('datetimePicker', function () {
@@ -715,6 +786,7 @@ angular.module('ui.bootstrap.datetimepicker', ['ui.bootstrap.dateparser', 'ui.bo
             templateUrl: 'template/time-picker.html'
         };
     });
+
 angular.module('ui.bootstrap.datetimepicker').run(['$templateCache', function($templateCache) {
   'use strict';
 

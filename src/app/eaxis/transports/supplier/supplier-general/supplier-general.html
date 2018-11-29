@@ -1,0 +1,170 @@
+<div class="clearfix margin-top-10">
+    <div class="clearfix">
+        <!--Sender-->
+        <div class="col-lg-6">
+            <div class="inner-dashboard-box">
+                <div class="rows border-bottom">
+                    <div class="col-lg-4 height-40  border-right pt-10 pb-10">
+                        <span class="dashboard-item-icon-box">
+                            <i class="icomoon icon-supplier"></i>
+                        </span>
+                        <label class="ml-5 control-label">Sender</label>
+                        <span class="error-warning-container">
+                            <error-warning-directive data-ng-if="SupplierGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.SenderCode.IsWarning && !SupplierGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.SenderCode.IsError"
+                                list="SupplierGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.SenderCode.WARNING" type="'warning'"
+                                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            <error-warning-directive data-ng-if="SupplierGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.SenderCode.IsError" list="SupplierGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.SenderCode.ERROR"
+                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        </span>
+                    </div>
+                    <div class="col-lg-8 height-40  p-5">
+                        <div class="input-group input-group-sm">
+                            <!-- Dynamic look up Search in textbox -->
+                            <div dynamic-lookup placeholder="Sender" is-disabled="SupplierGeneralCtrl.ePage.Masters.IsDisabledSender" title="{{SupplierGeneralCtrl.ePage.Masters.Sender}}"
+                                my-ng-model="SupplierGeneralCtrl.ePage.Masters.Sender" auto-complete-on-select="SupplierGeneralCtrl.ePage.Masters.SelectedLookupSender($item)"
+                                obj="SupplierGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader" prefix-data="'OrganizationList'"
+                                config="'SenderCon'">
+                            </div>
+
+                            <!-- Look Up page opens when button clicks -->
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal is-disabled="SupplierGeneralCtrl.ePage.Masters.IsDisabledSender" obj="SupplierGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader"
+                                    field-name="'SenderCon'" selected-data="SupplierGeneralCtrl.ePage.Masters.SelectedLookupSender($item)"
+                                    prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny"
+                                    type="button">  
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                            </span>
+                            <span class="input-group-btn" ng-show="SupplierGeneralCtrl.ePage.Masters.Sender && SupplierGeneralCtrl.ePage.Masters.IsVisibleSenderAddress">
+                                <button class="btn btn-default shiny" type="button" ng-click="SupplierGeneralCtrl.ePage.Masters.OtherAddresses(SupplierGeneralCtrl.ePage.Masters.OrgSenderAddress,'Sender')">
+                                    <i class="fa fa-address-card-o"></i>
+                                </button>
+                            </span>
+                            <span ng-if="!SupplierGeneralCtrl.ePage.Masters.Sender">
+                                <span data-ng-init="SupplierGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.SenderCode=''"></span>
+                                <span data-ng-init="SupplierGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.SenderName=''"></span>
+                            </span>
+                            <span ng-if='!SupplierGeneralCtrl.ePage.Masters.Sender && !SupplierGeneralCtrl.currentManifest.isNew'>
+                                <div ng-init="SupplierGeneralCtrl.ePage.Masters.OnChangeValues(SupplierGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.SenderCode,'E5501')"></div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="rows p-5 height-115">
+                    <div ng-show="SupplierGeneralCtrl.ePage.Masters.Sender" ng-repeat="x in SupplierGeneralCtrl.ePage.Entities.Header.Data.JobAddress | filter: {AddressType:'SND'}">
+                        <div class="col-lg-8 addressstyle">
+                            <div class="text-single-line font-12" title='{{x.Address1}}'>{{x.Address1 }}</div>
+                            <div class="text-single-line" title='{{x.Address2}}'>{{x.Address2 }}</div>
+                            <div class="text-single-line" title='{{x.State}}'>{{x.State}}</div>
+                            <div class="text-single-line">
+                                <span ng-show="x.City" title="{{x.City}}">{{x.City}} -</span>
+                                <span ng-show="x.PostCode" title="{{x.PostCode}}">{{x.PostCode}}</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 p-0 mt-50">
+                            <div class="pull-right addressstyle1 font-12" ng-show="x.Mobile" title="{{x.Mobile}}">{{x.Mobile}}
+                                <i class="fa fa-phone ml-5 mr-5"></i>
+                            </div>
+                            <div class="pull-right addressstyle1 font-12" ng-show="x.Email" title="{{x.Email}}">{{x.Email}}
+                                <i class="fa fa-envelope-o ml-5 mr-5"></i>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 mt-15">
+                            <div class="col-lg-4 mt-10">
+                                <label class="control-label text-single-line">Sender Reference</label>
+                            </div>
+                            <div class="col-lg-8">    
+                                <input type="text" class="form-control input-sm" placeholder="SenderReference"
+                                data-ng-model="SupplierGeneralCtrl.ePage.Masters.SenderRef">    
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Receiver-->
+        <div class="col-lg-6">
+            <div class="inner-dashboard-box">
+                <div class="rows border-bottom">
+                    <div class="col-lg-4 height-40  border-right pt-10 pb-10">
+                        <span class="dashboard-item-icon-box">
+                            <i class="icomoon icon-supplier"></i>
+                        </span>
+                        <label class="ml-5 control-label">Receiver</label>
+                        <span class="error-warning-container">
+                            <error-warning-directive data-ng-if="SupplierGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ReceiverCode.IsWarning && !SupplierGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ReceiverCode.IsError"
+                                list="SupplierGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ReceiverCode.WARNING" type="'warning'"
+                                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            <error-warning-directive data-ng-if="SupplierGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ReceiverCode.IsError"
+                                list="SupplierGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ReceiverCode.ERROR" type="'error'"
+                                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        </span>
+                    </div>
+                    <div class="col-lg-7 height-40 pt-5">
+                        <select ng-if="!SupplierGeneralCtrl.ePage.Masters.SenderDetail.IsDistributionCentre" chosen class="form-control" style="height: 30px;"
+                            ng-model="SupplierGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ReceiverCode" ng-options="x.ORG_MappingToCode as x.ORG_MappingToCode+' - '+ x.ORG_MappingToName for x in SupplierGeneralCtrl.ePage.Masters.ReceiverList | unique:'ORG_MappingToCode'"
+                            title="{{SupplierGeneralCtrl.ePage.Masters.Receiver}}" ng-change='SupplierGeneralCtrl.ePage.Masters.OnChangeReceiver(SupplierGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ReceiverCode)'
+                            search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+
+                        <select ng-if="SupplierGeneralCtrl.ePage.Masters.SenderDetail.IsDistributionCentre" chosen class="form-control" style="height: 30px;"
+                            ng-model="SupplierGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ReceiverCode" ng-options="x.ORG_BasedOnCode as x.ORG_BasedOnCode+' - '+ x.ORG_BasedOnName for x in SupplierGeneralCtrl.ePage.Masters.ReceiverList | unique:'ORG_BasedOnCode'"
+                            title="{{SupplierGeneralCtrl.ePage.Masters.Receiver}}" ng-change='SupplierGeneralCtrl.ePage.Masters.OnChangeReceiver(SupplierGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ReceiverCode)'
+                            search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-1 height-40  p-5" style="margin-left: -20px;">
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-btn" ng-show="SupplierGeneralCtrl.ePage.Masters.Receiver">
+                                <button class="btn btn-default shiny" type="button" ng-click="SupplierGeneralCtrl.ePage.Masters.OtherAddresses(SupplierGeneralCtrl.ePage.Masters.OrgReceiverAddress,'Receiver')">
+                                    <i class="fa fa-address-card-o"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="rows p-5 height-115">
+                    <div ng-show="SupplierGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ReceiverCode" ng-repeat="x in SupplierGeneralCtrl.ePage.Entities.Header.Data.JobAddress | filter: {AddressType:'REC'}">
+                        <div class="col-lg-8 addressstyle">
+                            <div class="text-single-line font-12" title='{{x.Address1}}'>{{x.Address1 }}</div>
+                            <div class="text-single-line" title='{{x.Address2}}'>{{x.Address2 }}</div>
+                            <div class="text-single-line" title='{{x.State}}'>{{x.State}}</div>
+                            <div class="text-single-line">
+                                <span ng-show="x.City" title="{{x.City}}">{{x.City}} -</span>
+                                <span ng-show="x.PostCode" title="{{x.PostCode}}">{{x.PostCode}}</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 p-0 mt-50">
+                            <div class="pull-right addressstyle1 font-12" ng-show="x.Mobile" title="{{x.Mobile}}">{{x.Mobile}}
+                                <i class="fa fa-phone ml-5 mr-5"></i>
+                            </div>
+                            <div class="pull-right addressstyle1 font-12" ng-show="x.Email" title="{{x.Email}}">{{x.Email}}
+                                <i class="fa fa-envelope-o ml-5 mr-5"></i>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 mt-15">
+                            <div class="col-lg-4 mt-10">
+                                <label class="control-label text-single-line">Receiver Reference</label>
+                            </div>
+                            <div class="col-lg-8">    
+                                <input type="text" class="form-control input-sm" placeholder="ReceiverReference"
+                                data-ng-model="SupplierGeneralCtrl.ePage.Masters.ReceiverRef">    
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 mt-5"  ng-show = "SupplierGeneralCtrl.currentSupplier.isNew" >
+        <div class="col-lg-4">
+        </div>        
+        <div class="col-lg-4 ml-100">
+                <button class="btn btn-primary" data-ng-click="SupplierGeneralCtrl.ePage.Masters.Validation(SupplierGeneralCtrl.currentSupplier)">Add New Item</button>
+        </div>
+        <div class="col-lg-4">
+        </div>
+    </div>
+</div>

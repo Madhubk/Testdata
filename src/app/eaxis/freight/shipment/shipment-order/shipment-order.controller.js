@@ -20,7 +20,6 @@
                 "Meta": helperService.metaBase(),
                 "Entities": currentShipment
             };
-
             ShipmentOrderCtrl.ePage.Masters.EmptyText = "NA";
             ShipmentOrderCtrl.ePage.Masters.ShipmentOrder = {};
             ShipmentOrderCtrl.ePage.Masters.ShipmentOrder.IsSelected = false;
@@ -30,6 +29,18 @@
             ShipmentOrderCtrl.ePage.Masters.DeleteConfirmation = DeleteConfirmation;
             ShipmentOrderCtrl.ePage.Masters.SelectedData = SelectedData;
             ShipmentOrderCtrl.ePage.Masters.OrderItemCall = OrderItemCall;
+            ShipmentOrderCtrl.ePage.Masters.GetNewOrder = GetNewOrder;
+            ShipmentOrderCtrl.ePage.Masters.Obj = currentShipment;
+            ShipmentOrderCtrl.ePage.Masters.DefaultFilters = {
+                "IsCancelled": false,
+                "IsShpCreated": false,
+                //consignor
+                "Supplier": ShipmentOrderCtrl.ePage.Masters.Obj.Header.Data.UIShipmentHeader.ORG_Consignee_Code,
+                //Consignee
+                "Buyer": ShipmentOrderCtrl.ePage.Masters.Obj.Header.Data.UIShipmentHeader.ORG_Shipper_Code,
+                "PortOfLoading": ShipmentOrderCtrl.ePage.Masters.Obj.Header.Data.UIShipmentHeader.PortOfLoading,
+                "PortOfDischarge": ShipmentOrderCtrl.ePage.Masters.Obj.Header.Data.UIShipmentHeader.PortOfDischarge
+            };
 
             if (ShipmentOrderCtrl.currentShipment.isNew) {
                 ShipmentOrderCtrl.ePage.Entities.Header.Data.UIOrderHeaders = [];
@@ -176,20 +187,57 @@
                 "EntityRefPK": $item.PK,
                 "Properties": [{
                     "PropertyName": "POH_SHP_FK",
-                    "PropertyNewValue": '00000000-0000-0000-0000-000000000000'
+                    "PropertyNewValue": null
                 }, {
                     "PropertyName": "POH_ShipmentNo",
-                    "PropertyNewValue": ''
+                    "PropertyNewValue": null
                 }]
-            }]
+            }];
             apiService.post("eAxisAPI", ShipmentOrderCtrl.ePage.Entities.ShipmentOrder.API.OrderAttach.Url, _input).then(function (response) {
                 if (response.data.Response) {
-                    // GetOrderListing();
+                    GetOrderListing();
                     ShipmentOrderCtrl.ePage.Entities.Header.Data.UIOrderHeaders.splice(_index, 1);
                 }
             });
         }
 
+        function GetNewOrder() {
+            var obj = {
+                "POH_SHP_FK": ShipmentOrderCtrl.ePage.Entities.Header.Data.PK,
+                "POH_ShipmentNo": ShipmentOrderCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentNo
+            }
+            helperService.getFullObjectUsingGetById(appConfig.Entities.BuyerOrder.API["1_1_listgetbyid"].Url, 'null').then(function (response) {
+                if (response.data.Response) {
+                    var modalInstance = $uibModal.open({
+                        animation: true,
+                        backdrop: "static",
+                        keyboard: false,
+                        windowClass: "Concontainer right",
+                        scope: $scope,
+                        // size : "sm",
+                        templateUrl: "app/eaxis/freight/shipment/shipment-new-order/shipment-new-order.html",
+                        controller: 'ShipmentcreateorderModalController',
+                        controllerAs: "ShipmentcreateorderModalCtrl",
+                        bindToController: true,
+                        resolve: {
+                            param: function () {
+                                var exports = {
+                                    "neworder": response.data.Response,
+                                    "shpobj": obj,
+                                    "ShipmentOrder": ShipmentOrderCtrl.ePage.Entities.ShipmentOrder
+                                };
+                                return exports;
+                            }
+                        }
+                    }).result.then(
+                        function (response) {
+                            if (response) {
+                                GetOrderListing();
+                            }
+                        });
+                }
+            });
+        }
 
         function SelectedData($item) {
             ShipmentOrderGridRefreshFun($item)

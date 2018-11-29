@@ -21,13 +21,15 @@
                 "Entities": legConfig.Entities
             };
 
-            LegCtrl.ePage.Masters.taskName = "Leg";
             LegCtrl.ePage.Masters.dataentryName = "Leg";
             LegCtrl.ePage.Masters.TabList = [];
             LegCtrl.ePage.Masters.activeTabIndex = 0;
             LegCtrl.ePage.Masters.isNewLegClicked = false;
             LegCtrl.ePage.Masters.IsTabClick = false;
             LegCtrl.ePage.Masters.Config = legConfig;
+
+            // Remove all Tabs while load shipment
+            legConfig.TabList = [];
 
             //functions
             LegCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
@@ -66,10 +68,22 @@
             LegCtrl.ePage.Masters.currentLeg = undefined;
 
             var _isExist = LegCtrl.ePage.Masters.TabList.some(function (value) {
+                // if (!isNew) {
+                //     value.label === currentLeg.entity.Title;
+                //     return value[value.label].ePage.Entities.Header.Data.PK === currentLeg.entity.PK;
+                // } else {
+                //     return false;
+                // }
                 if (!isNew) {
-                    return value.label === currentLeg.entity.Title;
+                    if (value[value.label].ePage.Entities.Header.Data.PK === currentLeg.entity.PK)
+                        return true;
+                    else
+                        return false;
                 } else {
-                    return false;
+                    if (value.label === "New")
+                        return true;
+                    else
+                        return false;   
                 }
             });
 
@@ -119,7 +133,7 @@
             helperService.getFullObjectUsingGetById(LegCtrl.ePage.Entities.Header.API.GetByID.Url, 'null').then(function (response) {
                 if (response.data.Response) {
                     var _obj = {
-                        entity: response.data.Response.TmsLegHeader,
+                        entity: response.data.Response,
                         data: response.data.Response
                     };
                     LegCtrl.ePage.Masters.AddTab(_obj, true);

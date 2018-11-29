@@ -5,32 +5,70 @@
             <div class="tab-profile">
                 <div class="tab-profile-title text-single-line text-center" data-ng-bind="ShipmentMenuCtrl.currentShipment.label"></div>
             </div>
-            <uib-tab ng-repeat="x in ShipmentMenuCtrl.ePage.Masters.ShipmentMenu.ListSource" index="$index" data-ng-click="ShipmentMenuCtrl.ePage.Masters.OnMenuClick(x)"
-                data-ng-if="!x.IsDisabled">
+            <uib-tab data-ng-repeat="x in ShipmentMenuCtrl.ePage.Masters.ShipmentMenu.ListSource" deselect="ShipmentMenuCtrl.ePage.Masters.TabSelected(x,$selectedIndex,$event);"
+                index="$index" data-ng-click="ShipmentMenuCtrl.ePage.Masters.OnMenuClick(x)" data-ng-if="!x.IsDisabled">
                 <uib-tab-heading title="{{x.DisplayName}}">
-                    <i class="fa {{x.Icon}} margin-right-5"></i>
+                    <i class="fa {{x.Icon}} mr-5"></i>
                     <span class="text-single-line" data-ng-bind="x.DisplayName"></span>
+                    <error-warning-directive data-ng-if="ShipmentMenuCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Shipment',ShipmentMenuCtrl.currentShipment.code,x.GParentRef, 'W', 'GParent').length > 0 && ShipmentMenuCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Shipment', ShipmentMenuCtrl.currentShipment.code,x.GParentRef, 'E', 'GParent').length == 0"
+                        list="ShipmentMenuCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList" type="'warning'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
+                    <error-warning-directive data-ng-if="ShipmentMenuCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Shipment', ShipmentMenuCtrl.currentShipment.code,x.GParentRef, 'E', 'GParent').length > 0"
+                        list="ShipmentMenuCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList" type="'error'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
                 </uib-tab-heading>
-                <div>
-                    <div ng-switch="x.Value">
-                        <div ng-switch-when="QuickView" quick-view obj="ShipmentMenuCtrl.currentShipment"></div>
-                        <div ng-switch-when="MyTask" shipment-my-task current-shipment="ShipmentMenuCtrl.currentShipment" list-source="ShipmentMenuCtrl.ePage.Masters.MyTask.ListSource"></div>
-                        <div ng-switch-when="General" shipment-general current-shipment="ShipmentMenuCtrl.currentShipment"></div>
-                        <div ng-switch-when="Order" shipment-order current-shipment="ShipmentMenuCtrl.currentShipment"></div>
-                        <div ng-switch-when="ConsolAndPacking" shipment-console-and-packing current-shipment="ShipmentMenuCtrl.currentShipment"></div>
-                        <div ng-switch-when="ServiceAndReference" shipment-service-and-reference current-shipment="ShipmentMenuCtrl.currentShipment"></div>
-                        <routing ng-switch-when="Routing" current-object="ShipmentMenuCtrl.currentShipment" key-object-name="'SHP'" fk-name="'PK'"
-                            pk-name="'EntityRefKey'" api-header-name="'ConsoleHeader'" api-header-field-name="'PK'" api-header-value-name="'CON_FK'"></routing>
-                        <div ng-switch-when="RelatedShipment" related-shipment current-shipment="ShipmentMenuCtrl.currentShipment"></div>
-                        <div ng-switch-when="PickupAndDelivery" shipment-pickup-and-delivery current-shipment="ShipmentMenuCtrl.currentShipment"></div>
-                        <div ng-switch-when="Job" shipment-billing current-shipment="ShipmentMenuCtrl.currentShipment"></div>
-                        <div ng-switch-when="Address" data-ng-if="ShipmentMenuCtrl.currentShipment[ShipmentMenuCtrl.currentShipment.label].ePage.Entities.Header.Data.UIAddressContactList.CfxTypeList"
-                            address-directives current-obj="ShipmentMenuCtrl.currentShipment" entitysource="'SHP'"></div>
-                        <div ng-switch-when="Documents" shipment-documents current-shipment="ShipmentMenuCtrl.currentShipment"></div>
-                        <div ng-switch-when="DynamicTable" shipment-dynamic-table current-object="ShipmentMenuCtrl.currentShipment"></div>
-                    </div>
+                <div ng-switch="x.Value">
+                    <div ng-switch-when="QuickView" quick-view obj="ShipmentMenuCtrl.currentShipment"></div>
+                    <div ng-switch-when="MyTask" shipment-my-task current-shipment="ShipmentMenuCtrl.currentShipment"
+                        list-source="ShipmentMenuCtrl.ePage.Masters.MyTask.ListSource" data-ng-if="ShipmentMenuCtrl.ePage.Masters.MyTask.ListSource && ShipmentMenuCtrl.ePage.Masters.MyTask.ListSource.length > 0"></div>
+                    <div ng-switch-when="General" shipment-general booking-type="ShipmentMenuCtrl.bookingType"
+                        current-shipment="ShipmentMenuCtrl.currentShipment"></div>
+                    <div ng-switch-when="Order" shipment-order current-shipment="ShipmentMenuCtrl.currentShipment"></div>
+                    <div ng-switch-when="ConsolAndPacking" shipment-console-and-packing current-shipment="ShipmentMenuCtrl.currentShipment"></div>
+                    <div ng-switch-when="ServiceAndReference" shipment-service-and-reference current-shipment="ShipmentMenuCtrl.currentShipment"></div>
+                    <routing-grid ng-switch-when="Routing" current-object="ShipmentMenuCtrl.currentShipment"
+                        key-object-name="'SHP'" fk-name="'PK'" pk-name="'EntityRefKey'" api-header-name="'UIShipmentHeader'"
+                        api-header-field-name="'PK'" api-header-value-name="'CON_FK'" btn-visible="{'AddNew':true,'Delete':true,'More':true,'Refresh': true}"
+                        table-properties="ShipmentMenuCtrl.ePage.Masters.TableProperty" read-only="false"></routing-grid>
+                    <!-- <routing ng-switch-when="Routing" current-object="ShipmentMenuCtrl.currentShipment" key-object-name="'SHP'" fk-name="'PK'"
+                        pk-name="'EntityRefKey'" api-header-name="'UIShipmentHeader'" api-header-field-name="'PK'" api-header-value-name="'CON_FK'"></routing> -->
+                    <div ng-switch-when="RelatedShipment" related-shipment current-shipment="ShipmentMenuCtrl.currentShipment"></div>
+                    <div ng-switch-when="PickupAndDelivery" shipment-pickup-and-delivery current-shipment="ShipmentMenuCtrl.currentShipment"></div>
+                    <div ng-switch-when="Job" shipment-billing current-shipment="ShipmentMenuCtrl.currentShipment"></div>
+                    <div ng-switch-when="Address" data-ng-if="ShipmentMenuCtrl.currentShipment[ShipmentMenuCtrl.currentShipment.label].ePage.Entities.Header.Data.UIAddressContactList.CfxTypeList"
+                        address-directives current-obj="ShipmentMenuCtrl.currentShipment" entitysource="'SHP'"></div>
+                    <div ng-switch-when="Documents" shipment-documents current-shipment="ShipmentMenuCtrl.currentShipment"></div>
+                    <div ng-switch-when="DynamicTable" shipment-dynamic-table current-object="ShipmentMenuCtrl.currentShipment"></div>
                 </div>
             </uib-tab>
         </uib-tabset>
+    </div>
+    <div class="error-warning-container right" id="errorWarningContainer{{ShipmentMenuCtrl.currentShipment.code}}">
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                <!-- <i class="fa fa-warning"></i>  -->
+                Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right" data-ng-click="ShipmentMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(ShipmentMenuCtrl.currentShipment)">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+        </div>
+        <div class="error-warning-body">
+            <div class="clearfix" data-ng-if="ShipmentMenuCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList.length>0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in ShipmentMenuCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

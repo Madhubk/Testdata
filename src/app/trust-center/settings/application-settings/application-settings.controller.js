@@ -5,9 +5,9 @@
         .module("Application")
         .controller("ApplicationSettingsController", ApplicationSettingsController);
 
-    ApplicationSettingsController.$inject = ["$scope", "$location", "$timeout", "$uibModal", "authService", "apiService", "helperService", "appConfig", "toastr", "confirmation", "jsonEditModal"];
+    ApplicationSettingsController.$inject = ["$scope", "$location", "$timeout", "$uibModal", "authService", "apiService", "helperService", "toastr", "confirmation", "jsonEditModal", "trustCenterConfig"];
 
-    function ApplicationSettingsController($scope, $location, $timeout, $uibModal, authService, apiService, helperService, appConfig, toastr, confirmation, jsonEditModal) {
+    function ApplicationSettingsController($scope, $location, $timeout, $uibModal, authService, apiService, helperService, toastr, confirmation, jsonEditModal, trustCenterConfig) {
         /* jshint validthis: true */
         var AppSettingsCtrl = this;
         var _queryString = $location.path().split("/").pop();
@@ -29,6 +29,7 @@
 
                 if (AppSettingsCtrl.ePage.Masters.QueryString.AppPk) {
                     InitBreadcrumb();
+                    InitApplication();
                     InitModule();
                     InitAppSettingsModule();
                     InitAppSettingsList();
@@ -49,8 +50,8 @@
 
         function GetBreadcrumbList() {
             var _breadcrumbTitle = "";
-            if (AppSettingsCtrl.ePage.Masters.QueryString.BreadcrumbTitle) {
-                _breadcrumbTitle = " (" + AppSettingsCtrl.ePage.Masters.QueryString.BreadcrumbTitle + ")";
+            if (AppSettingsCtrl.ePage.Masters.QueryString.AdditionalData.BreadcrumbTitle) {
+                _breadcrumbTitle = " (" + AppSettingsCtrl.ePage.Masters.QueryString.AdditionalData.BreadcrumbTitle + ")";
             }
 
             var _listSourceType = {
@@ -61,10 +62,15 @@
                     IsRequireQueryString: false,
                     IsActive: false
                 }, {
-                    Code: "system",
-                    Description: "System",
-                    Link: "TC/dashboard/" + helperService.encryptData('{"Type":"System", "BreadcrumbTitle": "System"}'),
-                    IsRequireQueryString: false,
+                    Code: "dashboard",
+                    Description: "Dashboard",
+                    Link: "TC/dashboard",
+                    IsRequireQueryString: true,
+                    QueryStringObj: {
+                        "AppPk": AppSettingsCtrl.ePage.Masters.QueryString.AppPk,
+                        "AppCode": AppSettingsCtrl.ePage.Masters.QueryString.AppCode,
+                        "AppName": AppSettingsCtrl.ePage.Masters.QueryString.AppName
+                    },
                     IsActive: false
                 }, {
                     Code: "applicationsettings",
@@ -118,13 +124,31 @@
 
         // ========================Breadcrumb End========================
 
+        //==========================Application Start=====================
+        function InitApplication() {
+            AppSettingsCtrl.ePage.Masters.Application = {};
+            AppSettingsCtrl.ePage.Masters.Application.OnApplicationChange = OnApplicationChange;
+        }
+
+        function OnApplicationChange($item) {
+            AppSettingsCtrl.ePage.Masters.Application.ActiveApplication = angular.copy($item);
+
+            if (!AppSettingsCtrl.ePage.Masters.Application.ActiveApplication) {
+                AppSettingsCtrl.ePage.Masters.Application.ActiveApplication = {
+                    "PK": AppSettingsCtrl.ePage.Masters.QueryString.AppPk,
+                    "AppCode": AppSettingsCtrl.ePage.Masters.QueryString.AppCode,
+                    "AppName": AppSettingsCtrl.ePage.Masters.QueryString.AppName
+                };
+            }
+
+            GetModuleList();
+        }
+
         //=============== Module List Start ============ /
 
         function InitModule() {
             AppSettingsCtrl.ePage.Masters.Module = {};
             AppSettingsCtrl.ePage.Masters.Module.OnModuleChange = OnModuleChange;
-
-            GetModuleList();
         }
 
         function GetModuleList() {
@@ -133,10 +157,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.CfxTypes.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.CfxTypes.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.CfxTypes.API.FindAll.Url + AppSettingsCtrl.ePage.Masters.QueryString.AppPk, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxTypes.API.FindAll.Url + AppSettingsCtrl.ePage.Masters.Application.ActiveApplication.PK, _input).then(function (response) {
                 if (response.data.Response) {
                     AppSettingsCtrl.ePage.Masters.Module.Listsource = response.data.Response;
 
@@ -171,17 +195,17 @@
             AppSettingsCtrl.ePage.Masters.AppSettingsModule.ListSource = undefined;
             var _filter = {
                 "PropertyName": 'SVS_SourceEntityRefKey',
-                "SAP_FK": AppSettingsCtrl.ePage.Masters.QueryString.AppPk,
-                "EntitySource": AppSettingsCtrl.ePage.Masters.QueryString.EntitySource,
+                "SAP_FK": AppSettingsCtrl.ePage.Masters.Application.ActiveApplication.PK,
+                "EntitySource": AppSettingsCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code,
                 "TenantCode": authService.getUserInfo().TenantCode,
                 "ModuleCode": AppSettingsCtrl.ePage.Masters.Module.ActiveModule.Key
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.AppSettings.API.GetColumnValuesWithFilters.FilterID
+                "FilterID": trustCenterConfig.Entities.API.AppSettings.API.GetColumnValuesWithFilters.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.AppSettings.API.GetColumnValuesWithFilters.Url + AppSettingsCtrl.ePage.Masters.QueryString.AppPk, _input).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.AppSettings.API.GetColumnValuesWithFilters.Url + AppSettingsCtrl.ePage.Masters.Application.ActiveApplication.PK, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     AppSettingsCtrl.ePage.Masters.AppSettingsModule.ListSource = response.data.Response;
                     if (AppSettingsCtrl.ePage.Masters.AppSettingsModule.ListSource.length > 0) {
@@ -204,7 +228,7 @@
                 GetAppSettingsList();
             } else {
                 AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList = {};
-                AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.EntitySource = AppSettingsCtrl.ePage.Masters.QueryString.EntitySource;
+                AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.EntitySource = AppSettingsCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code;
                 AppSettingsCtrl.ePage.Masters.AppSettingsList.ListSource = [];
             }
         }
@@ -232,9 +256,13 @@
             AppSettingsCtrl.ePage.Masters.AppSettingsList.DeleteBtnText = "Delete";
             AppSettingsCtrl.ePage.Masters.AppSettingsList.IsDisableDeleteBtn = false;
 
-            if (AppSettingsCtrl.ePage.Masters.QueryString.EntitySource == "ENTITYRESULT") {
+            if (AppSettingsCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code == "ENTITYRESULT") {
                 GetRedirectLinkList();
             }
+
+            AppSettingsCtrl.ePage.Masters.AppSettingsList.OpenNotificationTemplateModal = OpenNotificationTemplateModal;
+            AppSettingsCtrl.ePage.Masters.AppSettingsList.CloseNotificationTemplateModal = CloseNotificationTemplateModal;
+            AppSettingsCtrl.ePage.Masters.AppSettingsList.PrepareNotificationTemplate = PrepareNotificationTemplate;
         }
 
         function GetAppSettingsList() {
@@ -244,16 +272,16 @@
             var _filter = {
                 "SourceEntityRefKey": AppSettingsCtrl.ePage.Masters.AppSettingsModule.ActiveAppSettingsModule,
                 "TenantCode": authService.getUserInfo().TenantCode,
-                "SAP_FK": AppSettingsCtrl.ePage.Masters.QueryString.AppPk,
-                "EntitySource": AppSettingsCtrl.ePage.Masters.QueryString.EntitySource,
+                "SAP_FK": AppSettingsCtrl.ePage.Masters.Application.ActiveApplication.PK,
+                "EntitySource": AppSettingsCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code,
                 "ModuleCode": AppSettingsCtrl.ePage.Masters.Module.ActiveModule.Key,
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.AppSettings.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.AppSettings.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.AppSettings.API.FindAll.Url + AppSettingsCtrl.ePage.Masters.QueryString.AppPk, _input).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.AppSettings.API.FindAll.Url + AppSettingsCtrl.ePage.Masters.Application.ActiveApplication.PK, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     AppSettingsCtrl.ePage.Masters.AppSettingsList.ListSource = response.data.Response;
                     if (AppSettingsCtrl.ePage.Masters.AppSettingsList.ListSource.length > 0) {
@@ -269,6 +297,13 @@
 
         function AddNew() {
             AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList = {};
+
+            if (AppSettingsCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code == 'EXCELCONFIG') {
+                AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.IsJSON = true;
+            } else if (AppSettingsCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code == 'CONFIGURATION') {
+                AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.IsJSON = false;
+            }
+
             Edit();
         }
 
@@ -288,13 +323,13 @@
             };
 
             if ($item.EntitySource === "LANGUAGE") {
-                _filterId = appConfig.Entities.Multilingual.API.DynamicFindAll.FilterID;
-                _apiUrl = appConfig.Entities.Multilingual.API.DynamicFindAll.Url;
+                _filterId = trustCenterConfig.Entities.API.Multilingual.API.DynamicFindAll.FilterID;
+                _apiUrl = trustCenterConfig.Entities.API.Multilingual.API.DynamicFindAll.Url;
             } else
-            if ($item.EntitySource === "VALIDATION") {
-                _filterId = appConfig.Entities.Validation.API.DynamicFindAll.FilterID;
-                _apiUrl = appConfig.Entities.Validation.API.DynamicFindAll.Url;
-            }
+                if ($item.EntitySource === "VALIDATION") {
+                    _filterId = trustCenterConfig.Entities.API.Validation.API.DynamicFindAll.FilterID;
+                    _apiUrl = trustCenterConfig.Entities.API.Validation.API.DynamicFindAll.Url;
+                }
 
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
@@ -324,7 +359,21 @@
             AppSettingsCtrl.ePage.Masters.AppSettingsList.SaveBtnText = "OK";
             AppSettingsCtrl.ePage.Masters.AppSettingsList.IsDisableSaveBtn = false;
 
-            EditModalInstance().result.then(function (response) {}, function () {
+            if (AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.Value) {
+                AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.NotificationObject = AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.Value;
+
+                if (AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.IsJSON) {
+                    AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.Value = JSON.parse(AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.Value);
+
+                    AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.Value = JSON.stringify(AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.Value, undefined, 2);
+                }
+            } else {
+                if (AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.IsJSON) {
+                    AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.Value = "{}";
+                }
+            }
+
+            EditModalInstance().result.then(function (response) { }, function () {
                 Cancel();
             });
         }
@@ -339,14 +388,14 @@
                 var _input = angular.copy(AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList);
 
                 _input.TenantCode = authService.getUserInfo().TenantCode;
-                _input.SAP_FK = AppSettingsCtrl.ePage.Masters.QueryString.AppPk;
-                _input.EntitySource = AppSettingsCtrl.ePage.Masters.QueryString.EntitySource;
+                _input.SAP_FK = AppSettingsCtrl.ePage.Masters.Application.ActiveApplication.PK;
+                _input.EntitySource = AppSettingsCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code;
                 _input.IsModified = true;
                 _input.IsDeleted = false;
                 _input.ModuleCode = AppSettingsCtrl.ePage.Masters.Module.ActiveModule.Key;
-                _input.AppCode = AppSettingsCtrl.ePage.Masters.QueryString.AppCode;
+                _input.AppCode = AppSettingsCtrl.ePage.Masters.Application.ActiveApplication.AppCode;
 
-                apiService.post("eAxisAPI", appConfig.Entities.AppSettings.API.Upsert.Url + AppSettingsCtrl.ePage.Masters.QueryString.AppPk, [_input]).then(function SuccessCallback(response) {
+                apiService.post("eAxisAPI", trustCenterConfig.Entities.API.AppSettings.API.Upsert.Url + AppSettingsCtrl.ePage.Masters.Application.ActiveApplication.PK, [_input]).then(function SuccessCallback(response) {
                     if (response.data.Response) {
                         var _response = response.data.Response[0];
                         var _indexTypeCode = AppSettingsCtrl.ePage.Masters.AppSettingsModule.ListSource.map(function (e) {
@@ -437,7 +486,7 @@
 
             var _input = [AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList];
 
-            apiService.post("eAxisAPI", appConfig.Entities.AppSettings.API.Upsert.Url + AppSettingsCtrl.ePage.Masters.QueryString.AppPk, _input).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.AppSettings.API.Upsert.Url + AppSettingsCtrl.ePage.Masters.Application.ActiveApplication.PK, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     var _index = AppSettingsCtrl.ePage.Masters.AppSettingsList.ListSource.map(function (e) {
                         return e.PK
@@ -515,11 +564,19 @@
         }
 
         function OnRedirectListClick($item) {
-            var _queryString = {
-                "AppPk": AppSettingsCtrl.ePage.Masters.QueryString.AppPk,
-                "AppCode": AppSettingsCtrl.ePage.Masters.QueryString.AppCode,
-                "AppName": AppSettingsCtrl.ePage.Masters.QueryString.AppName
-            };
+            if (AppSettingsCtrl.ePage.Masters.Application.ActiveApplication) {
+                var _queryString = {
+                    "AppPk": AppSettingsCtrl.ePage.Masters.Application.ActiveApplication.PK,
+                    "AppCode": AppSettingsCtrl.ePage.Masters.Application.ActiveApplication.AppCode,
+                    "AppName": AppSettingsCtrl.ePage.Masters.Application.ActiveApplication.AppName
+                };
+            } else {
+                var _queryString = {
+                    "AppPk": AppSettingsCtrl.ePage.Masters.QueryString.AppPk,
+                    "AppCode": AppSettingsCtrl.ePage.Masters.QueryString.AppCode,
+                    "AppName": AppSettingsCtrl.ePage.Masters.QueryString.AppName
+                };
+            }
 
             if ($item.Type === 1) {
                 _queryString.DisplayName = AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.Value;
@@ -533,6 +590,52 @@
             if ($item.Link !== "#") {
                 $location.path($item.Link + "/" + helperService.encryptData(_queryString));
             }
+        }
+
+        // ====================================
+        function EditNotificationTemplateModalInstance() {
+            return AppSettingsCtrl.ePage.Masters.AppSettingsList.EditNotificationModal = $uibModal.open({
+                animation: true,
+                keyboard: true,
+                backdrop: "static",
+                windowClass: "tc-edit-notification-modal right",
+                scope: $scope,
+                template: `<div ng-include src="'TCEventEditNotification'"></div>`
+            });
+        }
+
+        function CloseNotificationTemplateModal() {
+            AppSettingsCtrl.ePage.Masters.AppSettingsList.EditNotificationModal.dismiss('cancel');
+        }
+
+        function OpenNotificationTemplateModal() {
+            if (!AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.NotificationObject) {
+                AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.NotificationObject = {};
+            }
+
+            if (AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.Value) {
+                if (typeof AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.Value == "string") {
+                    AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.NotificationObject = JSON.parse(AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.Value);
+                }
+            } else {
+                AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.NotificationObject = {};
+            }
+
+            EditNotificationTemplateModalInstance().result.then(function (response) { }, function () {
+                CloseNotificationTemplateModal();
+            });
+        }
+
+        function PrepareNotificationTemplate() {
+            if (AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.NotificationObject) {
+                AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.Value = AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.NotificationObject;
+
+                AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.Value = JSON.stringify(AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.Value, undefined, 2);
+            } else {
+                AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.Value = "{}";
+            }
+
+            CloseNotificationTemplateModal();
         }
 
         Init();

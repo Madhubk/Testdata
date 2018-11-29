@@ -5,62 +5,92 @@
         .module("Application")
         .controller("OrganizationController", OrganizationController);
 
-    OrganizationController.$inject = ["$timeout", "apiService", "authService", "appConfig", "helperService", "organizationConfig", "toastr"];
+    OrganizationController.$inject = ["$timeout", "apiService", "authService", "helperService", "appConfig", "organizationConfig", "toastr"];
 
-    function OrganizationController($timeout, apiService, authService, appConfig, helperService, organizationConfig, toastr) {
+    function OrganizationController($timeout, apiService, authService, helperService, appConfig, organizationConfig, toastr) {
         var OrganizationCtrl = this;
 
         function Init() {
             OrganizationCtrl.ePage = {
                 "Title": "",
-                "Prefix": "Organization_General",
+                "Prefix": "Organization",
                 "Masters": {},
                 "Meta": helperService.metaBase(),
                 "Entities": organizationConfig.Entities
             };
 
-            // For list directive
-            OrganizationCtrl.ePage.Masters.taskName = "organization";
             OrganizationCtrl.ePage.Masters.dataEntryName = "OrganizationList";
-            debugger
-            // OrganizationCtrl.ePage.Masters.OrderData = [];
+            OrganizationCtrl.ePage.Masters.config = organizationConfig;
+
             OrganizationCtrl.ePage.Masters.TabList = [];
-            OrganizationCtrl.ePage.Masters.activeTabIndex = 0;
+            organizationConfig.TabList = [];
+            OrganizationCtrl.ePage.Masters.ActiveTabIndex = 0;
             OrganizationCtrl.ePage.Masters.IsTabClick = false;
             OrganizationCtrl.ePage.Masters.IsNewOrgClicked = false;
-            OrganizationCtrl.ePage.Masters.SaveButtonText = "Save";
-            OrganizationCtrl.ePage.Masters.IsDisableSave = false;
-            OrganizationCtrl.ePage.Masters.EnableSearchResult = false;
+
             OrganizationCtrl.ePage.Masters.AddTab = AddTab;
             OrganizationCtrl.ePage.Masters.RemoveTab = RemoveTab;
             OrganizationCtrl.ePage.Masters.CurrentActiveTab = CurrentActiveTab;
-            OrganizationCtrl.ePage.Masters.Logout = Logout;
-            OrganizationCtrl.ePage.Masters.CreateNewOrganization = CreateNewOrganization;
+            OrganizationCtrl.ePage.Masters.CreateNew = CreateNew;
             OrganizationCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
-            OrganizationCtrl.ePage.Masters.TopMenuToggle = TopMenuToggle;
-            OrganizationCtrl.ePage.Masters.config = organizationConfig;
 
             OrganizationCtrl.ePage.Masters.config.ValidationFindall();
-            OrganizationCtrl.ePage.Masters.MenuVisibleType = authService.getUserInfo().Menu.VisibleType;
-            GetNewOrganization();
-        }
-        
-        function GetNewOrganization() {
+
             if (OrganizationCtrl.ePage.Entities.Header.Message == true) {
-                CreateNewOrganization();
+                CreateNew();
             }
+
+            GetMastersDropDownList();
         }
 
-        function CreateNewOrganization() {
-            var _isExist = OrganizationCtrl.ePage.Masters.TabList.some(function (value) {
-                if (value.label === "New")
-                    return true;
-                else
-                    return false;
+        function GetMastersDropDownList() {
+            // Get CFXType Dropdown list
+            var typeCodeList = ["LANGUAGE", "ADDRTYPE", "JOBCATEGORY"];
+            var dynamicFindAllInput = [];
+
+            typeCodeList.map(function (value, key) {
+                dynamicFindAllInput[key] = {
+                    "FieldName": "TypeCode",
+                    "value": value
+                };
             });
-            if(!_isExist){
+            var _input = {
+                "searchInput": dynamicFindAllInput,
+                "FilterID": appConfig.Entities.CfxTypes.API.DynamicFindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", appConfig.Entities.CfxTypes.API.DynamicFindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
+                if (response.data.Response) {
+                    typeCodeList.map(function (value, key) {
+                        OrganizationCtrl.ePage.Entities.Header.Meta[value] = helperService.metaBase();
+                        OrganizationCtrl.ePage.Entities.Header.Meta[value].ListSource = response.data.Response[value];
+                    });
+                }
+            });
+
+            // country list
+            var _inputCountry = {
+                "searchInput": [],
+                "FilterID": appConfig.Entities.MstCountry.API.FindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", appConfig.Entities.MstCountry.API.FindAll.Url, _inputCountry).then(function (response) {
+                if (response.data.Response) {
+                    OrganizationCtrl.ePage.Entities.Header.Meta.Country = helperService.metaBase();
+                    OrganizationCtrl.ePage.Entities.Header.Meta.Country.ListSource = response.data.Response;
+                }
+            });
+        }
+
+        function CreateNew() {
+            var _isExist = OrganizationCtrl.ePage.Masters.TabList.some(function (value) {
+                return value.label === "New";
+            });
+
+            if (!_isExist) {
                 OrganizationCtrl.ePage.Masters.IsNewOrgClicked = true;
-                helperService.getFullObjectUsingGetById(OrganizationCtrl.ePage.Entities.Header.API.GetByID.Url, 'null').then(function (response) {
+
+                helperService.getFullObjectUsingGetById(OrganizationCtrl.ePage.Entities.Header.API.GetById.Url, 'null').then(function (response) {
                     if (response.data.Response) {
                         var _obj = {
                             entity: response.data.Response.OrgHeader,
@@ -69,34 +99,30 @@
                         OrganizationCtrl.ePage.Masters.AddTab(_obj, true);
                         OrganizationCtrl.ePage.Masters.IsNewOrgClicked = false;
                     } else {
-                        console.log("Empty New Organization response");
+                        console.log("Empty Org Response");
                     }
                 });
-            }else {
-                toastr.info("New Record Already Opened...!");
+            } else {
+                toastr.warning("Record Already Opened...!");
             }
         }
-        
-        function RemoveTab(event, index, currentOrganization) {
+
+        function RemoveTab(event, index, currentTab) {
             event.preventDefault();
             event.stopPropagation();
-            var currentOrganization = currentOrganization[currentOrganization.label].ePage.Entities;
-            OrganizationCtrl.ePage.Masters.TabList.splice(index, 1);
+            var _currentTab = currentTab[currentTab.label].ePage.Entities;
 
-            apiService.get("eAxisAPI", OrganizationCtrl.ePage.Entities.Header.API.SessionClose.Url + currentOrganization.Header.Data.OrgHeader.PK).then(function(response){
-                if (response.data.Response === "Successfully Cleared") {
-                } else {
-                    console.log("Tab close Error : " + response);
-                }
-            });
+            apiService.get("eAxisAPI", OrganizationCtrl.ePage.Entities.Header.API.OrganizationActivityClose.Url + _currentTab.Header.Data.OrgHeader.PK).then(function (response) {});
+
+            OrganizationCtrl.ePage.Masters.TabList.splice(index, 1);
         }
 
-        function AddTab(currentOrganization, isNew) {
-            OrganizationCtrl.ePage.Masters.currentOrganization = undefined;
+        function AddTab(currentTab, isNew) {
+            OrganizationCtrl.ePage.Masters.CurrentTab = undefined;
 
             var _isExist = OrganizationCtrl.ePage.Masters.TabList.some(function (value) {
                 if (!isNew) {
-                    if (value.label === currentOrganization.entity.Code)
+                    if (value.label === currentTab.entity.Code)
                         return true;
                     else
                         return false;
@@ -107,55 +133,54 @@
                         return false;
                 }
             });
-            
+
             if (!_isExist) {
                 OrganizationCtrl.ePage.Masters.IsTabClick = true;
-                var _currentOrganization = undefined;
+                var _currentTab = undefined;
                 if (!isNew) {
-                    _currentOrganization = currentOrganization.entity;
+                    _currentTab = currentTab.entity;
                 } else {
-                    _currentOrganization = currentOrganization;
+                    _currentTab = currentTab;
                 }
 
-                organizationConfig.GetTabDetails(_currentOrganization, isNew).then(function (response) {
+                organizationConfig.GetTabDetails(_currentTab, isNew).then(function (response) {
+                    var _entity = {};
                     OrganizationCtrl.ePage.Masters.TabList = response;
+
+                    if (OrganizationCtrl.ePage.Masters.TabList.length > 0) {
+                        OrganizationCtrl.ePage.Masters.TabList.map(function (value, key) {
+                            if (value.code == currentTab.entity.Code) {
+                                _entity = value[value.label].ePage.Entities.Header.Data;
+                            }
+                        });
+                    }
+
                     $timeout(function () {
-                        OrganizationCtrl.ePage.Masters.activeTabIndex = OrganizationCtrl.ePage.Masters.TabList.length;
-                        OrganizationCtrl.ePage.Masters.CurrentActiveTab(currentOrganization.entity.Code);
+                        OrganizationCtrl.ePage.Masters.ActiveTabIndex = OrganizationCtrl.ePage.Masters.TabList.length;
+                        OrganizationCtrl.ePage.Masters.CurrentActiveTab(currentTab.entity.Code, _entity);
                         OrganizationCtrl.ePage.Masters.IsTabClick = false;
                     });
                 });
             } else {
-                toastr.info('Organization already opened');
+                toastr.warning('Record already opened...!');
             }
         }
 
-        function CurrentActiveTab(currentTab) {
+        function CurrentActiveTab(currentTab, entity) {
             if (currentTab.label !== undefined) {
                 currentTab = currentTab.label
             } else {
                 currentTab = currentTab;
             }
-            OrganizationCtrl.ePage.Masters.currentOrganization = currentTab;
+            OrganizationCtrl.ePage.Masters.CurrentTab = currentTab;
         }
 
         function SelectedGridRow($item) {
             if ($item.action === "link" || $item.action === "dblClick") {
                 OrganizationCtrl.ePage.Masters.AddTab($item.data, false);
-            }else if ($item.action === "new") {
-                CreateNewOrganization();
+            } else if ($item.action === "new") {
+                CreateNew();
             }
-        }
-
-        function Logout() {
-            apiService.logout();
-        }
-
-        function TopMenuToggle() {
-            $(".eaxis-tab-box > .nav-tabs").slideToggle("slow");
-            $(".eaxis-tab-box-2 > .nav-tabs").css({
-                "display": "none"
-            });
         }
 
         Init();

@@ -5,9 +5,9 @@
         .module("Application")
         .controller("ProcessScenariosController", ProcessScenariosController);
 
-    ProcessScenariosController.$inject = ["$scope", "$location", "authService", "apiService", "helperService", "appConfig", "APP_CONSTANT", "toastr", "confirmation"];
+    ProcessScenariosController.$inject = ["$location", "authService", "apiService", "helperService", "trustCenterConfig"];
 
-    function ProcessScenariosController($scope, $location, authService, apiService, helperService, appConfig, APP_CONSTANT, toastr, confirmation) {
+    function ProcessScenariosController($location, authService, apiService, helperService, trustCenterConfig) {
         /* jshint validthis: true */
         var ProcessScenariosCtrl = this;
         var _queryString = $location.path().split("/").pop();
@@ -26,9 +26,9 @@
 
             try {
                 ProcessScenariosCtrl.ePage.Masters.QueryString = JSON.parse(helperService.decryptData(_queryString));
-
                 if (ProcessScenariosCtrl.ePage.Masters.QueryString.AppPk) {
                     InitBreadcrumb();
+                    InitModuleList();
                     InitProcessScenarios();
                 }
             } catch (error) {
@@ -58,10 +58,15 @@
                 IsRequireQueryString: false,
                 IsActive: false
             }, {
-                Code: "configuration",
-                Description: "Configuration",
-                Link: "TC/dashboard/" + helperService.encryptData('{"Type":"Configuration", "BreadcrumbTitle": "Configuration"}'),
-                IsRequireQueryString: false,
+                Code: "dashboard",
+                Description: "Dashboard",
+                Link: "TC/dashboard",
+                IsRequireQueryString: true,
+                QueryStringObj: {
+                    "AppPk": ProcessScenariosCtrl.ePage.Masters.QueryString.AppPk,
+                    "AppCode": ProcessScenariosCtrl.ePage.Masters.QueryString.AppCode,
+                    "AppName": ProcessScenariosCtrl.ePage.Masters.QueryString.AppName
+                },
                 IsActive: false
             }, {
                 Code: "process",
@@ -93,120 +98,185 @@
 
         // ========================Breadcrumb End========================
 
+        //====================== Init ModuleList ===========================
+
+        function InitModuleList() {
+            ProcessScenariosCtrl.ePage.Masters.Module = {};
+            ProcessScenariosCtrl.ePage.Masters.Module.OnModuleChange = OnModuleChange;
+
+            GetModuleList();
+        }
+
+
+        function GetModuleList() {
+            var _filter = {
+                SortColumn: "TYP_Sequence",
+                SortType: "ASC",
+                PageNumber: "1",
+                PageSize: "1000",
+                TypeCode: "MODULE_MASTER"
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": trustCenterConfig.Entities.API.CfxTypes.API.FindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxTypes.API.FindAll.Url + ProcessScenariosCtrl.ePage.Masters.QueryString.AppPk, _input).then(function (response) {
+                if (response.data.Response) {
+                    ProcessScenariosCtrl.ePage.Masters.Module.ListSource = response.data.Response;
+                    if (ProcessScenariosCtrl.ePage.Masters.Module.ListSource.length > 0) {
+                        OnModuleChange(ProcessScenariosCtrl.ePage.Masters.Module.ListSource[0])
+                    }
+                }
+            });
+        }
+
+        function OnModuleChange($item) {
+            ProcessScenariosCtrl.ePage.Masters.Module.ActiveModule = $item;
+            if ($item) {
+                GetProcessScenariosList();
+            }
+        }
+
+
+
+        //======================================================================
+
+
         function InitProcessScenarios() {
             ProcessScenariosCtrl.ePage.Masters.ProcessScenarios = {};
+            ProcessScenariosCtrl.ePage.Masters.Module = {};
+            ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.SelectedCompany = {};
             ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.Save = Save;
             ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.AddNewRow = AddNewRow;
             ProcessScenariosCtrl.ePage.Masters.RemoveRecord = RemoveRecord;
-
-            ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.OnCompanyChange = OnCompanyChange;
-
-            GetModuleList();
-            GetCompanyList();
-            GetBranchList();
-            GetDepartmentList();
-            GetWarehouseList();
-            // GetOrganizationList();
+            ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.GetCompanyList = GetCompanyList;
+            ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.OnCompanySelect = OnCompanySelect;
+            ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.GetBranchList = GetBranchList;
+            ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.GetDepartmentList = GetDepartmentList;
+            ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.GetWarehouseList = GetWarehouseList;
+            ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.GetOrganizationList = GetOrganizationList;
+            ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.GetCountryList = GetCountryList;
 
             GetProcessScenariosList();
         }
 
-        function GetModuleList() {
-            var _filter = {};
+        function GetCompanyList($viewValue) {
+            var _filter = {
+                "Name": $viewValue
+            };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.CmpCompany.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.CmpCompany.API.FindAll.FilterID,
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.CmpCompany.API.FindAll.Url, _input).then(function (response) {
+            return apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CmpCompany.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
-                    ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ModuleList = response.data.Response;
-                } else {
-                    ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ModuleList = [];
+                    return response.data.Response;
                 }
             });
         }
 
-        function GetCompanyList() {
-            var _filter = {};
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.CmpCompany.API.FindAll.FilterID
+        function OnCompanySelect($item, $model, $label, $event) {
+            if ($item) {
+                // ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.SelectedCompany = $item;
+                //  GetBranchList("");
+
+            }
+        }
+
+        function GetBranchList($viewValue, $item) {
+            var _filter = {
+                "Autocompletefield": $viewValue,
+                "CMP_Code": $item.CMP_Code
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.CmpCompany.API.FindAll.Url, _input).then(function (response) {
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": trustCenterConfig.Entities.API.CmpBranch.API.FindAll.FilterID,
+            };
+
+            return apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CmpBranch.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
-                    ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.CompanyList = response.data.Response;
-                } else {
-                    ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.CompanyList = [];
+                    return response.data.Response;
                 }
             });
         }
 
-        function OnCompanyChange($item) {
-            console.log($item);
+        function OnBranchSelect($item, $model, $label, $event) {
+            return GetBranchList($item);
         }
 
-        function GetBranchList() {
-            var _filter = {};
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.CmpBranch.API.FindAll.FilterID
+
+        function GetDepartmentList($viewValue) {
+            var _filter = {
+                "Autocompletefield": $viewValue,
+
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.CmpBranch.API.FindAll.Url, _input).then(function (response) {
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": trustCenterConfig.Entities.API.CmpDepartment.API.FindAll.FilterID,
+            };
+
+            return apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CmpDepartment.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
-                    ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.BranchList = response.data.Response;
-                } else {
-                    ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.BranchList = [];
+                    return response.data.Response;
                 }
             });
         }
 
-        function GetDepartmentList() {
-            var _filter = {};
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.CmpDepartment.API.FindAll.FilterID
+
+        function GetWarehouseList($viewValue) {
+            var _filter = {
+                "Autocompletefield": $viewValue,
+
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.CmpDepartment.API.FindAll.Url, _input).then(function (response) {
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": trustCenterConfig.Entities.API.WmsWarehouse.API.FindAll.FilterID,
+            };
+
+            return apiService.post("eAxisAPI", trustCenterConfig.Entities.API.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
-                    ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.DepartmentList = response.data.Response;
-                } else {
-                    ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.DepartmentListList = [];
+                    return response.data.Response;
                 }
             });
         }
 
-        function GetWarehouseList() {
-            var _filter = {};
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.WmsWarehouse.API.FindAll.FilterID
+        function GetOrganizationList($viewValue) {
+            var _filter = {
+                "Autocompletefield": $viewValue,
+
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": trustCenterConfig.Entities.API.OrgHeader.API.FindAll.FilterID,
+            };
+
+            return apiService.post("eAxisAPI", trustCenterConfig.Entities.API.OrgHeader.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
-                    ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.WarehouseList = response.data.Response;
-                } else {
-                    ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.WarehouseList = [];
+                    return response.data.Response;
                 }
             });
         }
 
-        function GetOrganizationList() {
-            var _filter = {};
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.OrgHeader.API.FindAll.FilterID
+        function GetCountryList($viewValue) {
+            var _filter = {
+                "Autocompletefield": $viewValue,
+
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.OrgHeader.API.FindAll.Url, _input).then(function (response) {
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": trustCenterConfig.Entities.API.MstCountry.API.FindAll.FilterID,
+            };
+
+            return apiService.post("eAxisAPI", trustCenterConfig.Entities.API.MstCountry.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
-                    ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.OrganizationList = response.data.Response;
-                } else {
-                    ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.OrganizationList = [];
+                    return response.data.Response;
                 }
             });
         }
@@ -214,17 +284,17 @@
         function GetProcessScenariosList() {
             var _filter = {
                 "SAP_FK": ProcessScenariosCtrl.ePage.Masters.QueryString.AppPk,
+                "PSM_FK": ProcessScenariosCtrl.ePage.Masters.QueryString.PK,
                 "TenantCode": authService.getUserInfo().TenantCode
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.EBPMProcessScenario.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.EBPMProcessScenario.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMProcessScenario.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EBPMProcessScenario.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList = response.data.Response;
-
                     ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosListCopy = angular.copy(response.data.Response);
 
                 } else {
@@ -240,17 +310,18 @@
         }
 
         function Save() {
-            // var _isEquals = angular.equals(ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosListCopy, ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList);
-            // console.log(_isEquals, ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosListCopy, ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList);
-
             ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList.map(function (value, key) {
                 value.IsModified = true;
                 value.IsDeleted = false;
+                value.PSM_FK = ProcessScenariosCtrl.ePage.Masters.QueryString.PK;
+                value.SAP_FK = ProcessScenariosCtrl.ePage.Masters.QueryString.AppPk;
+                value.STDName = ProcessScenariosCtrl.ePage.Masters.QueryString.Item.ProcessDescription;
+
             });
 
             var _input = ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList;
 
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMProcessScenario.API.Upsert.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EBPMProcessScenario.API.Upsert.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList = response.data.Response;
                 }
@@ -258,15 +329,13 @@
         }
 
         function RemoveRecord($item, $index) {
-
-
             if ($item.PK) {
                 $item.IsModified = true;
                 $item.IsDeleted = true;
 
                 var _input = [$item];
 
-                apiService.post("eAxisAPI", appConfig.Entities.EBPMProcessScenario.API.Upsert.Url, _input).then(function (response) {
+                apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EBPMProcessScenario.API.Upsert.Url, _input).then(function (response) {
 
                     if (response.data.Response) {
                         ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList.splice($index, 1);

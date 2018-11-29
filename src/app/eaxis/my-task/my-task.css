@@ -1,153 +1,7 @@
-.my-task-wrapper .control-list {
-    width: 100%;
-    float: left;
-}
-
-.my-task-wrapper .control-list ul {
-    padding: 0;
-}
-
-.my-task-wrapper .control-list li {
-    width: 100%;
-    float: left;
-    list-style: none;
-    padding: 10px 0;
-    border-bottom: 1px solid #ddd;
-}
-
-.control-count {
-    width: 28px;
-    height: 21px;
-    display: inline-block;
-    color: #fff;
-    margin-top: 8px;
-    font-weight: bold;
-}
-
-.control-title,
-.control-title-2 {
-    width: 100%;
-    float: left;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.control-title {
-    font-weight: bold;
-}
-
-.control-title-2 {
-    color: #999;
-}
-
-.color-red {
-    color: #d71921;
-}
-
-.color-blue {
-    color: #2196f3;
-}
-
-.color-green {
-    color: #8cc474;
-}
-
-/* =============MyTask Directive=============== */
-
 .my-task-title {
     font-size: 18px;
     font-weight: 600;
     margin-top: 10px;
-}
-
-.my-task-wrapper ul {
-    padding: 0;
-    margin: 0;
-}
-
-.my-task-wrapper .my-task-header {
-    width: 100%;
-    padding: 7px 18px;
-    background: #f6f6f6;
-    border-radius: 4px 4px 0 0;
-    border-bottom: 1px solid #ddd;
-}
-
-.my-task-wrapper .my-task-header div {
-    color: #555;
-}
-
-.my-task-wrapper .my-task-body {
-    width: 100%;
-    padding: 14px 0;
-}
-
-.my-task-wrapper .my-task-body .my-task-title-inner {
-    font-weight: 700;
-    font-size: 16px;
-}
-
-.my-task-wrapper .my-task-body .my-task-inner-icon {
-    padding: 10px;
-    text-align: center;
-}
-
-.my-task-wrapper .my-task-body .my-task-inner-icon i {
-    font-size: 30px;
-}
-
-.my-task-wrapper .my-task-body .a-button,
-.my-task-wrapper .my-task-body .a-button-2,
-.my-task-wrapper .my-task-head-icon {
-    background: #e7e9ec;
-    border-radius: 3px;
-    border-color: #ADB1B8 #A2A6AC #8D9096;
-    border-style: solid;
-    border-width: 1px;
-    cursor: pointer;
-    display: inline-block;
-    text-align: center;
-    text-decoration: none !important;
-    vertical-align: middle;
-    background: #eff1f3;
-    background: -webkit-linear-gradient(top, #f7f8fa, #e7e9ec);
-    background: linear-gradient(to bottom, #f7f8fa, #e7e9ec);
-    overflow: hidden;
-    height: 34px;
-    box-shadow: 0 1px 0 rgba(255, 255, 255, .6) inset;
-    border-radius: 2px;
-    font-size: 13px;
-    line-height: 30px;
-    white-space: nowrap;
-    color: #111;
-}
-
-.my-task-wrapper .my-task-head-icon {
-    width: 33px;
-    height: 27px !important;
-    line-height: 25px !important;
-}
-
-.my-task-wrapper .my-task-body .a-button.a-button-primary {
-    background: #0096ff;
-    border-color: #007fd8 #0277c9 #016db9;
-    color: #fff;
-    width: 100%;
-}
-
-.my-task-wrapper .my-task-body .my-task-directive-icon-wrapper {
-    text-align: center;
-    padding: 10px 0;
-}
-
-.my-task-wrapper .my-task-body .my-task-directive-icon {
-    margin-right: 10px;
-    font-size: 14px;
-}
-
-.my-task-wrapper .my-task-body .my-task-directive-icon:hover {
-    text-decoration: none;
 }
 
 .font-600 {
@@ -176,23 +30,179 @@
     display: block;
 }
 
-.my-task-list li.list {
-    border: 1px solid #ddd;
-    margin-top: 15px;
-    border-radius: 4px;
+/*** Tablet View ***/
+@media only screen and (max-width: 768px) {
+    .mytask-tablet-view {
+        width: 80%;
+        height: 80%;
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 999;
+        overflow-y: auto;
+        border: 2px solid #ccc;
+        border-right: 0;
+        background: #fff;
+        padding-top: 15px;
+    }
+
+    .control-count {
+        width: 55px !important;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .mytask-tablet-view {
+        width: 95%;
+    }
+
+    .control-count {
+        width: 25px !important;
+    }
+}
+
+.except-reject-box {
+    border: 1px solid #eee;
+    height: 100%;
+    overflow-x: auto;
+}
+
+.except-comments {
+    padding-left: 35px;
+}
+
+.except-comment-icon {
+    position: absolute;
+    top: 3px;
+    left: 15px;
+}
+
+/* ===================== */
+.work-item-status-count .control-list {
+    width: 100%;
+    float: left;
+}
+
+.work-item-status-count .control-list ul {
+    padding: 0;
+}
+
+.work-item-status-count .control-list li {
     width: 100%;
     float: left;
     list-style: none;
+    padding: 10px 5px;
+    border-bottom: 1px solid #ddd;
 }
 
-.my-task-assign-to .dropdown-menu {
-    width: 250px;
+.work-item-status-count .control-list li.task-changed {
+    border-left: 3px solid #ff0000;
+    background-color: #f7f7f7;
 }
 
-.my-task-assign-to .dropdown-menu.assigned {
-    width: 310px;
+.control-count {
+    width: 30px;
+    display: inline-block;
+    color: #fff;
+    font-weight: bold;
 }
 
-.my-task-assign-to .save {
-    margin-left: 134px;
+.control-title,
+.control-title-2 {
+    width: 100%;
+    float: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.control-title {
+    font-weight: bold;
+}
+
+.control-title-2 {
+    color: #999;
+}
+
+.txt-color-red {
+    color: #d71921;
+}
+
+.txt-color-blue {
+    color: #2196f3;
+}
+
+.txt-color-green {
+    color: #8cc474;
+}
+
+.txt-color-black {
+    color: #000;
+}
+
+.error-modal-hide {
+    overflow: hidden;
+    position: relative;
+}
+
+.error-warning-confirm {
+    right: 0px !important;
+    bottom: 30px !important;
+    z-index: 9 !important;
+}
+
+.error-warning-cnr {
+    position: absolute !important;
+    right: 5px !important;
+    top: 2px !important;
+    z-index: 9 !important;
+    width: 16px;
+    height: 15px;
+    background: #fff;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.total-alignment {
+    background: #fbfbfb;
+    border-top: 1px solid #cdcaca;
+    position: absolute;
+    bottom: 145px;
+    border-bottom: 1px solid #cdcaca;
+    left: 0;
+    width: 100%;
+}
+
+.except-approvals-span {
+    border: 2px solid #eee;
+    border-radius: 2px;
+    padding: 2px 7px;
+    font-size: 12px;
+}
+
+.except-approvals-title {
+    padding: 7px 10px;
+    position: absolute;
+    left: 0;
+    top: -1px;
+    font-size: 11px;
+    font-weight: bold;
+    border-top: 2px solid #57889c;
+    color: #1e2778;
+    background: #fff;
+    border-right: 1px solid #ddd;
+}
+
+.except-approvals-label,
+.except-approvals-value {
+    font-size: 13px;
+}
+
+.except-approvals-label {
+    color: gray;
+    font-weight: 600;
+}
+
+.pl-28 {
+    padding-left: 28px;
 }

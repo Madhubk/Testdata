@@ -1,0 +1,59 @@
+<div id="parties-header" class="clearfix pb-10">
+    <div class="col-lg-4 pl-0">
+        <div class="panel panel-default mb-0">
+            <div class="panel-heading height-30 position-relative">
+                <div class="parties-header-title">Shipper</div>
+            </div>
+            <div class="clearfix height-120 pt-10 pb-10">
+                <div class="col-lg-3">
+                    <img src="assets/img/ExportGray.png">
+                </div>
+                <div class="col-lg-9">
+                    <div class="mt-5">
+                        <b>{{PartiesDetailsCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipperName}}</b>
+                    </div>
+                    <div class="mt-5">{{PartiesDetailsCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.Address1}}</div>
+                    <div class="mt-5">{{PartiesDetailsCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.Address2}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="panel panel-default mb-0">
+            <div class="panel-heading height-30 position-relative">
+                <div class="parties-header-title">Consignee</div>
+            </div>
+            <div class="clearfix height-120 pt-10 pb-10">
+                <div class="col-lg-3">
+                    <img src="assets/img/ImportGray.png">
+                </div>
+                <div class="col-lg-9">
+                    <div class="mt-5">
+                        <b>{{PartiesDetailsCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ConsigneeName}}</b>
+                    </div>
+                    <div class="mt-5">{{PartiesDetailsCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.Address1}}</div>
+                    <div class="mt-5">{{PartiesDetailsCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.Address2}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 pr-0">
+        <div class="panel panel-default mb-0">
+            <div class="panel-heading height-30 position-relative">
+                <div class="parties-header-title">Notify Party</div>
+            </div>
+            <div class="clearfix height-120 pt-10 pb-10">
+                <div class="col-lg-3">
+                    <img src="assets/img/ExportGray.png">
+                </div>
+                <div class="col-lg-9">
+                    <div class="mt-5">
+                        <b>{{PartiesDetailsCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.ORG_Code}}</b>
+                    </div>
+                    <div class="mt-5">{{PartiesDetailsCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.Address1}}</div>
+                    <div class="mt-5">{{PartiesDetailsCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.Address2}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -55,7 +55,6 @@
             }, {
                 "Name": "Backlog",
                 "Url": "#/TS/backlog"
-
             }];
 
             TSTimeSheetCtrl.ePage.Masters.Logout = Logout;
@@ -67,9 +66,10 @@
             TSTimeSheetCtrl.ePage.Masters.UserFIlter = helperService.metaBase();
 
             // Grid
-            TSTimeSheetCtrl.ePage.Masters.gridData = [];
-            TSTimeSheetCtrl.ePage.Masters.gridConfig = TSTimeSheetCtrl.ePage.Entities.SupportHeader.Grid.GridConfig;
-            TSTimeSheetCtrl.ePage.Masters.gridConfig._columnDef = TSTimeSheetCtrl.ePage.Entities.SupportHeader.Grid.ColumnDef;
+            TSTimeSheetCtrl.ePage.Masters.gridInput = {
+                gridColumnList: TSTimeSheetCtrl.ePage.Entities.SupportHeader.Grid.ColumnDef
+            };
+            TSTimeSheetCtrl.ePage.Masters.gridOptions = TSTimeSheetCtrl.ePage.Entities.SupportHeader.Grid.GridOptions;
 
             // Functions
             TSTimeSheetCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
@@ -122,10 +122,8 @@
                         TSTimeSheetCtrl.ePage.Masters.Project.ListSource = response.data.Response;
 
                         // Set default value
-                        //TSTimeSheetCtrl.ePage.Masters.Data.Code = response.data.Response[0].Code;
                         if (!TSTimeSheetCtrl.ePage.Masters.DefaultProjectCode) {
                             getCurProject = TSTimeSheetCtrl.ePage.Masters.Project.ListSource[0];
-                            // TSTimeSheetCtrl.ePage.Masters.Data.Code = response.data.Response[0].Code;
                         } else {
                             TSTimeSheetCtrl.ePage.Masters.Project.ListSource.map(function (value, key) {
                                 if (value.Code === TSTimeSheetCtrl.ePage.Masters.DefaultProjectCode) {
@@ -145,7 +143,6 @@
 
         function GetDefaultProject() {
             var _filter = {
-                // "EntitySource": "USER",
                 "USR_SAP_FK": authService.getUserInfo().AppPK,
                 "EntitySource": "APP_DEFAULT",
                 "SourceEntityRefKey": authService.getUserInfo().UserId
@@ -160,7 +157,6 @@
                 if (_isExist) {
                     _isExist.map(function (value, key) {
                         var y = JSON.parse(value.Value);
-                        // TSTimeSheetCtrl.ePage.Masters.Data.Code = y.PRJ.Code;
                         TSTimeSheetCtrl.ePage.Masters.CurrentProject.Code = y.PRJ.Code;
                         TSTimeSheetCtrl.ePage.Masters.DefaultProjectCode = y.PRJ.Code;
                     });
@@ -174,6 +170,7 @@
             TSTimeSheetCtrl.ePage.Masters.CurrentProject = currentProject;
             TSTimeSheetCtrl.ePage.Masters.User.ListSource = undefined;
             TSTimeSheetCtrl.ePage.Masters.UserFIlter.ListSource = [];
+
             LoadSprint();
             LoadUser();
         }
@@ -194,7 +191,6 @@
                         TSTimeSheetCtrl.ePage.Masters.Sprint.ListSource = response.data.Response;
                         response.data.Response.map(function (value, key) {
                             if (value.IsCurrent) {
-                                // TSTimeSheetCtrl.ePage.Masters.Data.SprintCode = value.PK;
                                 TSTimeSheetCtrl.ePage.Masters.OnSprintChange(value);
                             }
                         });
@@ -209,7 +205,6 @@
 
         function OnSprintChange(currentSprint) {
             TSTimeSheetCtrl.ePage.Masters.CurrentSprint = currentSprint;
-            TSTimeSheetCtrl.ePage.Masters.gridData = undefined;
             TSTimeSheetCtrl.ePage.Masters.FilterUser();
         }
 
@@ -221,7 +216,6 @@
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": appConfig.Entities.CfxMenus.API.FindAll.FilterID,
-                // "DBObjectName": "MvwTEAM_Users"
             };
 
             // API Call
@@ -241,7 +235,6 @@
         }
 
         function FilterUser($event, currentUser) {
-            TSTimeSheetCtrl.ePage.Masters.gridData = undefined;
             if (currentUser) {
                 var checkbox = $event.target,
                     check = checkbox.checked,
@@ -259,6 +252,7 @@
         }
 
         function GetGridData() {
+            TSTimeSheetCtrl.ePage.Masters.gridInput.data = undefined;
             var _filter = {
                 UserId: TSTimeSheetCtrl.ePage.Masters.UserFIlter.ListSource.toString(),
                 TAR_FK: TSTimeSheetCtrl.ePage.Masters.CurrentSprint.PK,
@@ -272,7 +266,7 @@
 
             apiService.post("eAxisAPI", appConfig.Entities.TeamEffort.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
-                    TSTimeSheetCtrl.ePage.Masters.gridData = response.data.Response;
+                    TSTimeSheetCtrl.ePage.Masters.gridInput.data = response.data.Response;
                 } else {
                     console.log("Empty grid data");
                 }

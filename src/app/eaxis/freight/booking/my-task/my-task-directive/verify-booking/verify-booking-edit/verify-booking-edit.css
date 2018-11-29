@@ -1,0 +1,46 @@
+/* .verifyBooking .panel {
+    border-radius: 0px !important;
+    border: 1px solid #92A2A8 !important;
+}
+
+.verifyBooking .panel-default>.panel-heading {
+    border-radius: 0px !important;
+    border-bottom: 1px solid #92A2A8 !important;
+    height: 30px;
+    padding: 6px 10px 10px !important;
+    background: #CCDADF !important;
+    color: #2b363c !important;
+} */
+
+.containerForm .alert {
+    margin-bottom: 20px;
+    margin-top: 0;
+    color: #675100;
+    border-width: 0;
+    border-left-width: 5px;
+    padding: 10px;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+}
+
+.containerForm .alert-info {
+    border-color: #9cb4c5;
+    color: #305d8c;
+    background: #d6dde7;
+}
+
+.grid-min-hgt {
+    min-height: 100px;
+    max-height: 500px;
+}
+
+.verifyBooking .set-top {
+    bottom: 38px;
+    margin-top: 55px;
+}
+
+.verifyBooking .set-top1 {
+    bottom: 38px;
+    margin-top: 80px;
+}

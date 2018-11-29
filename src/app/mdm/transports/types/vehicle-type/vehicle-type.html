@@ -1,0 +1,112 @@
+<div class="" ng-if="VehicleTypeCtrl.ePage.Entities.Header.CheckPoints.CfxMappingValues.length>0" ng-init="VehicleTypeCtrl.ePage.Masters.getCfxMappingDetails()"></div>
+<div class="p-10" ng-show='VehicleTypeCtrl.ePage.Masters.Lineslist'>
+    <div>
+        <span>
+            <button type="button" class="btn btn-sm btn-outline-secondary" title="Add New" data-ng-click="VehicleTypeCtrl.ePage.Masters.AddNewRow()">
+                <span class="fa fa-plus"></span>&nbsp;&nbsp;Add New
+            </button>
+        </span>
+        <span ng-hide='VehicleTypeCtrl.ePage.Masters.selectedRow==-1'>
+            <button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Copy" data-ng-click="VehicleTypeCtrl.ePage.Masters.CopyRow()">
+                <span class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button>
+        </span>
+        <span ng-hide='VehicleTypeCtrl.ePage.Masters.selectedRow==-1'>
+            <button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Edit" data-ng-click="VehicleTypeCtrl.ePage.Masters.Edit(VehicleTypeCtrl.ePage.Masters.selectedRow,'Edit List')">
+                <span class="fa fa-pencil"></span>&nbsp;&nbsp;Edit</button>
+        </span>
+        <span ng-hide='VehicleTypeCtrl.ePage.Masters.selectedRow==-1'>
+            <button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Delete" data-ng-click="VehicleTypeCtrl.ePage.Masters.RemoveRow()">
+                <span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button>
+        </span>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 pull-right">
+
+            <input type="text" class="form-control input-sm" placeholder="Local Search.." data-ng-model="VehicleTypeCtrl.ePage.Masters.find"
+            />
+
+        </div>
+    </div>
+    <div id='VehicleTypeCtrl.ePage.Masters.your_div' class="wmstable_scroll" style="height:450px; padding-top: 2px;">
+        <div class="table" id="results">
+            <div class='theader'>
+                <div class='table_header'>List No</div>
+                <div class='table_header'>Vehicle Type</div>
+                <div class='table_header'>Vehicle Type Description</div>
+            </div>
+
+            <!-- List Empty Response -->
+            <div data-ng-if="VehicleTypeCtrl.ePage.Entities.Header.Data.VehicleTypeDetails.length==0">
+                <div class="grid-no-record" style="bottom: 250px;">No records found...</div>
+            </div>
+
+            <div class="grid-loading-norecord-container" data-ng-show="VehicleTypeCtrl.ePage.Masters.IsLoading">
+                <div class="grid-no-record" style="bottom: 250px;">Loading...</div>
+            </div>
+
+            <div class='table_row' ng-repeat="x in VehicleTypeCtrl.ePage.Entities.Header.Data.VehicleTypeDetails| filter : VehicleTypeCtrl.ePage.Masters.find track by $index"
+                ng-click="VehicleTypeCtrl.ePage.Masters.setSelectedRow($index,x);" ng-class="{row_active: VehicleTypeCtrl.ePage.Masters.LinesselectedRow==$index}"
+                style="font-size: 11px;">
+                <div class='table_small'>
+                    <div class='table_cell'>List No</div>
+                    <div class='table_cell'>{{$index+1}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Vehicle Type</div>
+                    <div class='table_cell'>{{x.Code || VehicleTypeCtrl.ePage.Masters.emptyText}} </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Vehicle Type Description</div>
+                    <div class='table_cell'>{{x.Description || VehicleTypeCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix" ng-hide='VehicleTypeCtrl.ePage.Masters.Lineslist' style="padding:5px">
+    <div class="panel panel-default mt-5">
+        <div class="panel-heading">
+            <span ng-show="VehicleTypeCtrl.ePage.Masters.HeaderName =='Copy Of List'">
+                {{VehicleTypeCtrl.ePage.Masters.HeaderName}} - {{VehicleTypeCtrl.ePage.Masters.selectedRow}}
+            </span>
+            <span ng-show="VehicleTypeCtrl.ePage.Masters.HeaderName!='Copy Of List'">
+                {{VehicleTypeCtrl.ePage.Masters.HeaderName}} - {{VehicleTypeCtrl.ePage.Masters.selectedRow+1}}
+            </span>
+            <span class="WOL-Status pull-right" ng-bind="VehicleTypeCtrl.ePage.Entities.Header.Data.VehicleTypeDetails[VehicleTypeCtrl.ePage.Masters.selectedRow].WorkOrderLineStatusDesc"></span>
+        </div>
+        <div class="panel-body">
+            <div class="col-lg-12 ex-line-padding">
+                <div class="ex-line-box" style="height:85px; padding-top:10px">
+                    <!-- Carrier-->
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Vehicle Type</label>
+                            <div class="">
+                                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Vehicle Type" no-special-char
+                                data-ng-model="VehicleTypeCtrl.ePage.Entities.Header.Data.VehicleTypeDetails[VehicleTypeCtrl.ePage.Masters.selectedRow].Code"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Service Type Desc -->
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Vehicle Type Description</label>
+                            <div class="">
+                                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Vehicle Type Description" no-special-char
+                                data-ng-model="VehicleTypeCtrl.ePage.Entities.Header.Data.VehicleTypeDetails[VehicleTypeCtrl.ePage.Masters.selectedRow].Description"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-lg-offset-8 mt-5">
+                    <button class="btn btn-blue btn-sm mr-5 pull-right" title="Save" data-ng-click="VehicleTypeCtrl.ePage.Masters.Done()">
+                        <i class="fa fa-save pr-5"></i>Save</button>
+                    <!-- <button class="btn btn-primary btn-sm mr-5 pull-right" title="Delete" data-ng-click="VehicleTypeCtrl.ePage.Masters.RemoveRow()"><i class="fa fa-trash pr-5"></i>Delete</button> -->
+                    <button class="btn btn-primary btn-sm mr-5 pull-right" title="Back" data-ng-click="VehicleTypeCtrl.ePage.Masters.Back()">
+                        <i class="fa fa-angle-double-left pr-5"></i>Back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

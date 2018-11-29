@@ -5,9 +5,9 @@
         .module("Application")
         .controller("LocationDashboardModalController", LocationDashboardModalController);
 
-    LocationDashboardModalController.$inject = ["$rootScope", "$scope", "$uibModalInstance", "APP_CONSTANT", "helperService", "param", "apiService", "appConfig", "$timeout", "dynamicLookupConfig"];
+    LocationDashboardModalController.$inject = ["$rootScope", "$scope", "$uibModalInstance", "APP_CONSTANT", "helperService", "param", "apiService", "appConfig", "$timeout", "dynamicLookupConfig","locationConfig"];
 
-    function LocationDashboardModalController($rootScope, $scope, $uibModalInstance, APP_CONSTANT, helperService, param, apiService, appConfig, $timeout, dynamicLookupConfig) {
+    function LocationDashboardModalController($rootScope, $scope, $uibModalInstance, APP_CONSTANT, helperService, param, apiService, appConfig, $timeout, dynamicLookupConfig,locationConfig) {
         /* jshint validthis: true */
         var LocationDashboardModalCtrl = this;
 
@@ -22,7 +22,27 @@
 
             LocationDashboardModalCtrl.ePage.Masters.selectedItem = {};
             LocationDashboardModalCtrl.ePage.Meta.NoRecord = false;
-            LocationDashboardModalCtrl.ePage.Masters.defaultFilter = dynamicLookupConfig.Entities[LocationDashboardModalCtrl.prefixData].LookupConfig[param.fieldName].defaults;
+
+            if (LocationDashboardModalCtrl.mode == 2) {
+                var _index = -1;
+                for (var x in dynamicLookupConfig.Entities) {
+                    (LocationDashboardModalCtrl.controlKey) ? _index = x.indexOf(LocationDashboardModalCtrl.controlKey): _index = x.indexOf(LocationDashboardModalCtrl.controlId);
+
+                    if (_index !== -1) {
+                        LocationDashboardModalCtrl.ePage.Masters.LookupConfig = dynamicLookupConfig.Entities[x];
+                    }
+                }
+                LocationDashboardModalCtrl.ePage.Masters.defaultFilter = LocationDashboardModalCtrl.ePage.Masters.LookupConfig.defaults;
+            }
+
+            // Add custom filter objects
+            var _isEmpty = angular.equals({}, LocationDashboardModalCtrl.defaultFilter);
+
+            if (!_isEmpty) {
+                for (var x in LocationDashboardModalCtrl.defaultFilter) {
+                    LocationDashboardModalCtrl.ePage.Masters.defaultFilter[x] = LocationDashboardModalCtrl.defaultFilter[x];
+                }
+            }
 
             GetRowFindAlldetails(LocationDashboardModalCtrl.filter);
 
@@ -72,12 +92,13 @@
                             value1.CSS["Is" + value2.PropertyName + "Visible"] = true;
                             value1.CSS["Is" + value2.PropertyName + "Disable"] = false;
 
-                            if (dynamicLookupConfig.Entities[LocationDashboardModalCtrl.ePage.Masters.DynamicControl.DataEntryName].LookupConfig[LocationDashboardModalCtrl.fieldName].CSS) {
-                                var _isEmpty = angular.equals({}, dynamicLookupConfig.Entities[LocationDashboardModalCtrl.ePage.Masters.DynamicControl.DataEntryName].LookupConfig[LocationDashboardModalCtrl.fieldName].CSS);
+                            if (dynamicLookupConfig.Entities[LocationDashboardModalCtrl.controlKey].OtherConfig) {
+                                var myData = JSON.parse(dynamicLookupConfig.Entities[LocationDashboardModalCtrl.controlKey].OtherConfig);
+                                var _isEmpty = angular.equals({}, myData.CSS);
 
                                 if (!_isEmpty) {
-                                    value1.CSS["Is" + value2.PropertyName + "Visible"] = dynamicLookupConfig.Entities[LocationDashboardModalCtrl.ePage.Masters.DynamicControl.DataEntryName].LookupConfig[LocationDashboardModalCtrl.fieldName].CSS["Is" + value2.PropertyName + "Visible"];
-                                    value1.CSS["Is" + value2.PropertyName + "Disable"] = dynamicLookupConfig.Entities[LocationDashboardModalCtrl.ePage.Masters.DynamicControl.DataEntryName].LookupConfig[LocationDashboardModalCtrl.fieldName].CSS["Is" + value2.PropertyName + "Disable"];
+                                    value1.CSS["Is" + value2.PropertyName + "Visible"] = myData.CSS["Is" + value2.PropertyName + "Visible"];
+                                    value1.CSS["Is" + value2.PropertyName + "Disable"] = myData.CSS["Is" + value2.PropertyName + "Disable"];
                                 }
                             }
                         });
@@ -90,6 +111,7 @@
         }
 
         function Filter() {
+            
             $(".filter-sidebar-wrapper").toggleClass("open");
 
             LocationDashboardModalCtrl.ePage.Masters.DynamicControl.Entities[0].ConfigData.map(function (value, key) {
@@ -230,7 +252,7 @@
                 "FilterID": "WMSROW",
             };
 
-            apiService.post("eAxisAPI", "WmsRow/FindAll", _input).then(function (response) {
+            apiService.post("eAxisAPI",locationConfig.Entities.Header.API.RowFindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     LocationDashboardModalCtrl.ePage.Masters.RowDetails = response.data.Response;
                     if (LocationDashboardModalCtrl.ePage.Masters.RowDetails.length == 0) {
@@ -270,7 +292,7 @@
                             "searchInput": searchInput1,
                             "FilterID": "WMSLOWAL",
                         };
-                        apiService.post("eAxisAPI", "WmsLocationWithAllocation/FindAll", _input1).then(function (response) {
+                        apiService.post("eAxisAPI",locationConfig.Entities.Header.API.WmsLocationWithAllocation.Url, _input1).then(function (response) {
                             if (response.data.Response) {
                                 angular.forEach(response.data.Response, function (value1, key) {
                                     if (value1.AllocatedUnits == null)

@@ -1,0 +1,50 @@
+﻿<uib-tabset id="chromeTab" active="BookingBranchCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+    <uib-tab>
+        <uib-tab-heading title="">
+            <span data-ng-bind="'Booking'"></span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+        <div class="no-padding tab-list-view-wrapper">
+            <!--Booking Grid Page-->
+            <!-- <dynamic-list dataentry-name="BookingBranchCtrl.ePage.Masters.dataentryName" task-name="BookingBranchCtrl.ePage.Masters.taskName" grid-config-type="0"
+                selected-grid-row="BookingBranchCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" default-filter="BookingBranchCtrl.ePage.Masters.defaultFilter"></dynamic-list> -->
+            <dynamic-list dataentry-name="BookingBranchCtrl.ePage.Masters.dataentryName" selected-grid-row="BookingBranchCtrl.ePage.Masters.SelectedGridRow($item)"
+                mode="1" default-filter="BookingBranchCtrl.ePage.Masters.defaultFilter" dataentry-object="BookingBranchCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+            <div class="tab-loading" data-ng-show="BookingBranchCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+    <uib-tab id='top' active="BookingBranchCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in BookingBranchCtrl.ePage.Masters.TabList"
+        ng-click="BookingBranchCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+        <uib-tab-heading title="{{tab.label}}">
+            <span data-ng-bind="tab.label"></span>
+            <i class="glyphicon glyphicon-remove" ng-click="BookingBranchCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+        </uib-tab-heading>
+        <div class="padding-bottom-10 clearfix">
+            <!--Booking Menu Directive-->
+            <booking-branch-directive current-Booking="tab" data-ng-if="tab.isNew && BookingBranchCtrl.ePage.Masters.currentBooking"></booking-branch-directive>
+            <!--Track Shipment Details Directive-->
+            <track-shipment-details-directive data-ng-if="!tab.isNew" current-shipment="tab"></track-shipment-details-directive>
+            <!--Standard Menu Directive-->
+            <div class="eaxis-footer-strip">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <!-- <standard-menu input="tab" entity-name="'Booking'" data-ng-if="!tab.isNew"></standard-menu> -->
+                    <standard-menu input="tab" dataentry-object="BookingBranchCtrl.ePage.Masters.DataEntryObject" data-ng-if="!tab.isNew"></standard-menu>
+                </div>
+                <!-- <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                    <booking-action input="tab" data-ng-if="!tab.isNew"> </booking-action>
+                </div> -->
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <input type="button" data-ng-if="tab.isNew" ng-disabled="BookingBranchCtrl.ePage.Masters.SaveBookingVerifiedDisabled || BookingBranchCtrl.ePage.Masters.SaveBothButtonDisabled"
+                        value="{{BookingBranchCtrl.ePage.Masters.SaveBookingVerified}}" class="btn btn-primary pull-right " ng-click="BookingBranchCtrl.ePage.Masters.Save(tab,'Verified','ApprovalRequired') ">
+                    <input type="button" data-ng-if="tab.isNew" ng-disabled="BookingBranchCtrl.ePage.Masters.SaveBookingApprovalDisabled || BookingBranchCtrl.ePage.Masters.SaveBothButtonDisabled"
+                        value="{{BookingBranchCtrl.ePage.Masters.SaveBookingApproval}}" class="btn btn-primary pull-right mr-10"
+                        ng-click="BookingBranchCtrl.ePage.Masters.Save(tab,'Approval','ApprovalRequired') ">
+                    <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-if="!tab.isNew" data-ng-click="BookingBranchCtrl.ePage.Masters.Save(tab)"
+                        data-ng-bind="BookingBranchCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="BookingBranchCtrl.ePage.Masters.IsDisableSave"></button>
+                </div>
+            </div>
+            <!--Standard Menu Directive-->
+        </div>
+    </uib-tab>
+    <button class="btn btn-default" ng-click="BookingBranchCtrl.ePage.Masters.CreateNewBooking()" data-ng-disabled="BookingBranchCtrl.ePage.Masters.IsNewBookingClicked">+</button>
+</uib-tabset>

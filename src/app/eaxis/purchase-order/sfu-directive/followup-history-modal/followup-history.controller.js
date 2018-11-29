@@ -26,6 +26,7 @@
             FollowUpModalCtrl.ePage.Masters.SfuHistory = param.HistoryList;
             FollowUpModalCtrl.ePage.Masters.Cancel = Cancel;
         }
+
         function Cancel() {
             $uibModalInstance.dismiss('cancel');
         }

@@ -1,0 +1,79 @@
+<div class="clearfix padding-top-10">
+    <div class="clearfix">
+        <!-- SIFiling Reference -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">SI Reference Number</label>
+                <input type="text" maxlength="30" ng-model="ExpSeaConsolMblApprovalToCarrierGlbDirCtrl.ePage.Entities.Header.Data.UIConsolExtendedInfo.SIFilingRefNo"
+                    maxlength="12" class="form-control input-sm" placeholder="SI Ref. #" data-ng-change="ExpSeaConsolMblApprovalToCarrierGlbDirCtrl.ePage.Masters.ErrorWarningConfig.OnFieldValueChange('MyTask', ExpSeaConsolMblApprovalToCarrierGlbDirCtrl.ePage.Masters.TaskObj.PSI_InstanceNo, ExpSeaConsolMblApprovalToCarrierGlbDirCtrl.ePage.Entities.Header.Data.UIConsolExtendedInfo.SIFilingRefNo, 'E0010', false, undefined)">
+            </div>
+        </div>
+        <!-- SIFilingDate -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">SI Filing Date</label>
+                <div>
+                    <div>
+                        <div class="input-group input-group-sm con-dt-value">
+                            <input type="text" class="form-control" placeholder="{{ExpSeaConsolMblApprovalToCarrierGlbDirCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                data-ng-model="ExpSeaConsolMblApprovalToCarrierGlbDirCtrl.ePage.Entities.Header.Data.UIConsolExtendedInfo.SIFilingDate"
+                                datetime-picker="{{ExpSeaConsolMblApprovalToCarrierGlbDirCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datepicker-options="ExpSeaConsolMblApprovalToCarrierGlbDirCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                                default-date="" default-time="" save-as="ExpSeaConsolMblApprovalToCarrierGlbDirCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="ExpSeaConsolMblApprovalToCarrierGlbDirCtrl.ePage.Masters.DatePicker.isOpen['isSIFilingDate']"
+                                when-closed="" data-ng-click="" data-ng-change="ExpSeaConsolMblApprovalToCarrierGlbDirCtrl.ePage.Masters.ErrorWarningConfig.OnFieldValueChange('MyTask', ExpSeaConsolMblApprovalToCarrierGlbDirCtrl.ePage.Masters.TaskObj.PSI_InstanceNo, ExpSeaConsolMblApprovalToCarrierGlbDirCtrl.ePage.Entities.Header.Data.UIConsolExtendedInfo.SIFilingDate, 'E0009', false, undefined)"
+                                custom-date-time-format />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default shiny" data-ng-click="ExpSeaConsolMblApprovalToCarrierGlbDirCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isSIFilingDate')">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- SIFilingType -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">SI Filing Type</label>
+                <div class="con-dt-value">
+                    <select chosen ng-options="x.Key as x.Description for x in ExpSeaConsolMblApprovalToCarrierGlbDirCtrl.ePage.Masters.DropDownMasterList.CON_SI_FILING_TYPE.ListSource"
+                        ng-model="ExpSeaConsolMblApprovalToCarrierGlbDirCtrl.ePage.Entities.Header.Data.UIConsolExtendedInfo.SIFilingType"
+                        class="form-control">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <!-- HBL Approval -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Is HBL Approval Required</label>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" data-ng-model="ExpSeaConsolMblApprovalToCarrierGlbDirCtrl.ePage.Entities.Header.Data.UIConsolExtendedInfo.IsHBLRequired"
+                            data-ng-checked="ExpSeaConsolMblApprovalToCarrierGlbDirCtrl.ePage.Entities.Header.Data.UIConsolExtendedInfo.IsHBLRequired"
+                            class="colored-blue">
+                        <span class="text"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <!-- MBL Approval -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Is MBL Approval Required</label>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" data-ng-model="ExpSeaConsolMblApprovalToCarrierGlbDirCtrl.ePage.Entities.Header.Data.UIConsolExtendedInfo.IsMBLRequired"
+                            data-ng-checked="ExpSeaConsolMblApprovalToCarrierGlbDirCtrl.ePage.Entities.Header.Data.UIConsolExtendedInfo.IsMBLRequired"
+                            class="colored-blue">
+                        <span class="text"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

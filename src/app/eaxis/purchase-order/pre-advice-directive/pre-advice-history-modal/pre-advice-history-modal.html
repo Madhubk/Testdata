@@ -1,0 +1,60 @@
+<div class="modal-header">
+    <h5 class="modal-title pull-left">
+        <strong>Shipment Pre-Advice History</strong>
+    </h5>
+    <button type="button" class="close" data-ng-click="PreAdviceHistroyModalCtrl.ePage.Masters.Cancel()">&times;</button>
+</div>
+<div class="modal-body">
+    <div class="col-xs-12 col-lg-12 col-sm-12 col-md-12 col-xl-12 mr-0 ml-0 pl-0 pr-0">
+        <div class="pre_scroll pre-hgt">
+            <div class="table" id="results">
+                <div class='theader'>
+                    <div class='table_header'>Date Sent</div>
+                    <div class='table_header'>Sent By</div>
+                    <div class='table_header'>To</div>
+                    <div class='table_header'>Subject</div>
+                    <div class='table_header'>Consignee</div>
+                    <div class='table_header'>Consignor</div>
+                    <div class='table_header'>Order #</div>
+                </div>
+                <!-- List Order(s) -->
+                <div class='table_row' data-ng-repeat="x in PreAdviceHistroyModalCtrl.ePage.Masters.PreAdviceHistory"
+                    data-ng-class="{row_active: PreAdviceHistroyModalCtrl.ePage.Masters.PreAdviceHistory == $index}"
+                    style="font-size: 11px;">
+                    <div class='table_small'>
+                        <div class='table_cell'>Date Sent</div>
+                        <div class='table_cell'>{{x.CreatedDateTime | date:'dd-MMM-yyyy'}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Sent By</div>
+                        <div class='table_cell'>{{x.CreatedBy}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>To</div>
+                        <div class='table_cell'>{{x.TO}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Subject</div>
+                        <div class='table_cell'>{{x.Subject}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Buyer</div>
+                        <div class='table_cell'>{{x.Buyer}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Supplier</div>
+                        <div class='table_cell'>{{x.Supplier}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Order #</div>
+                        <div class='table_cell'>{{x.OrderNo}}</div>
+                    </div>
+                </div>
+            </div>
+            <!-- List Empty Response -->
+            <div data-ng-if="PreAdviceHistroyModalCtrl.ePage.Masters.PreAdviceHistory.length==0">
+                <div class="grid-no-record-pre">No record found..</div>
+            </div>
+        </div>
+    </div>
+</div>

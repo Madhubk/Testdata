@@ -18,7 +18,8 @@
                     <div class="form-group">
                         <label class="control-label">Shipper Reference</label>
                         <div class="">
-                            <input type="text" class="form-control input-sm" placeholder="Shipper Reference" max-length="40" data-ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.BookingReference">
+                            <input type="text" class="form-control input-sm" placeholder="Shipper Reference" max-length="40"
+                                data-ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.BookingReference">
                         </div>
                     </div>
                 </div>
@@ -42,11 +43,13 @@
                         <div class="input-group input-group-sm">
                             <input type="hidden" ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_ExportBroker_FK">
                             <div dynamic-lookup placeholder="Organization Code" my-ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_ExportBroker_Code"
-                                obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader" prefix-data="'OrganizationList'"
-                                config="'ShpExportBrokerOrg'" auto-complete-on-select="BookingPickupAndDeliveryCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item,'address', 'Export','UIShipmentHeader')"></div>
+                                obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                                page-name="'OrganizationList'" control-id="'ShpExportBrokerOrg'" control-key="'ShpExportBrokerOrg_2494'"
+                                auto-complete-on-select="BookingPickupAndDeliveryCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item,'address', 'Export','UIShipmentHeader')"></div>
                             <span class="input-group-btn">
-                                <button dynamic-list-modal obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader" field-name="'ShpExportBrokerOrg'"
-                                    prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingPickupAndDeliveryCtrl.ePage.Masters.SelectedLookupData($item,'address', 'Export','UIShipmentHeader')"
+                                <button dynamic-list-modal obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                                    page-name="'OrganizationList'" control-id="'ShpExportBrokerOrg'" control-key="'ShpExportBrokerOrg_2494'"
+                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingPickupAndDeliveryCtrl.ePage.Masters.SelectedLookupData($item,'address', 'Export','UIShipmentHeader')"
                                     class="btn btn-default shiny" type="button">
                                     <i class="fa fa-ellipsis-h"></i>
                                 </button>
@@ -62,11 +65,13 @@
                         <div class="input-group input-group-sm">
                             <input type="hidden" ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.ORG_FK">
                             <div dynamic-lookup placeholder="Organization Code" my-ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.ORG_Code"
-                                obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG" prefix-data="'OrganizationList'"
-                                config="'JobAddressOrg'" auto-complete-on-select="BookingPickupAndDeliveryCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item, 'address', 'CRG','UIAddressContactList')"></div>
+                                obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG"
+                                page-name="'OrganizationList'" control-id="'JobAddressOrgConsignor'" control-key="'JobAddressOrgConsignor_2486'"
+                                auto-complete-on-select="BookingPickupAndDeliveryCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item, 'address', 'CRG','UIAddressContactList')"></div>
                             <span class="input-group-btn">
-                                <button dynamic-list-modal obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG" field-name="'JobAddressOrg'"
-                                    prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingPickupAndDeliveryCtrl.ePage.Masters.SelectedLookupData($item, 'address', 'CRG','UIAddressContactList')"
+                                <button dynamic-list-modal obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG"
+                                    page-name="'OrganizationList'" control-id="'JobAddressOrgConsignor'" control-key="'JobAddressOrgConsignor_2486'"
+                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingPickupAndDeliveryCtrl.ePage.Masters.SelectedLookupData($item, 'address', 'CRG','UIAddressContactList')"
                                     class="btn btn-default shiny" type="button">
                                     <i class="fa fa-ellipsis-h"></i>
                                 </button>
@@ -81,7 +86,8 @@
                         <div class="input-group input-group-sm">
                             <input type="hidden" ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.OAD_Address_FK">
 
-                            <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignor address" data-ng-model="BookingPickupAndDeliveryCtrl.ePage.Masters.AddressContactBinding((BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.AddressList | filter: {PK: BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.OAD_Address_FK})[0],'Address')"
+                            <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignor address"
+                                data-ng-model="BookingPickupAndDeliveryCtrl.ePage.Masters.AddressContactBinding((BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.AddressList | filter: {PK: BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.OAD_Address_FK})[0],'Address')"
                                 ng-model-options="{ getterSetter: true }"></textarea>
                             <span class="input-group-btn">
                                 <button class="btn btn-default" type="button" data-ng-click="BookingPickupAndDeliveryCtrl.ePage.Masters.IsCRGAddressOpen=!BookingPickupAndDeliveryCtrl.ePage.Masters.IsCRGAddressOpen">
@@ -90,8 +96,8 @@
                                 </button>
                             </span>
                             <div class="dropdownWrapMiddle dropdownWrapSmall animated fadeInDown" data-ng-show="BookingPickupAndDeliveryCtrl.ePage.Masters.IsCRGAddressOpen">
-                                <address-wrapper obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.AddressList" type="'CRG'"
-                                    list-source="'AddressList'" selected="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.OAD_Address_FK"
+                                <address-wrapper obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.AddressList"
+                                    type="'CRG'" list-source="'AddressList'" selected="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.OAD_Address_FK"
                                     on-address-edit="BookingPickupAndDeliveryCtrl.ePage.Masters.OnAddressEdit($item,'OAD_Address_FK', 'CRG', 'Address','UIAddressContactList')"
                                     on-address-change="BookingPickupAndDeliveryCtrl.ePage.Masters.OnAddressChange($item,'OAD_Address_FK', 'CRG', 'Address','UIAddressContactList')"></address-wrapper>
                             </div>
@@ -107,7 +113,8 @@
 
                             <input type="hidden" ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.OCT_FK">
 
-                            <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignor contact" data-ng-model="BookingPickupAndDeliveryCtrl.ePage.Masters.AddressContactBinding((BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.ContactList | filter: {PK: BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.OCT_FK})[0],'Contact')"
+                            <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignor contact"
+                                data-ng-model="BookingPickupAndDeliveryCtrl.ePage.Masters.AddressContactBinding((BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.ContactList | filter: {PK: BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.OCT_FK})[0],'Contact')"
                                 ng-model-options="{ getterSetter: true }"></textarea>
                             <span class="input-group-btn">
                                 <button class="btn btn-default" type="button" data-ng-click="BookingPickupAndDeliveryCtrl.ePage.Masters.IsCRGContactOpen=!BookingPickupAndDeliveryCtrl.ePage.Masters.IsCRGContactOpen">
@@ -115,8 +122,8 @@
                                 </button>
                             </span>
                             <div class="dropdownWrapLast dropdownWrapSmall animated fadeInDown" data-ng-show="BookingPickupAndDeliveryCtrl.ePage.Masters.IsCRGContactOpen">
-                                <address-wrapper obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.ContactList" type="'CRG'"
-                                    list-source="'ContactList'" selected="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.OCT_FK"
+                                <address-wrapper obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.ContactList"
+                                    type="'CRG'" list-source="'ContactList'" selected="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.OCT_FK"
                                     on-address-change="BookingPickupAndDeliveryCtrl.ePage.Masters.OnContactChange($item,'OCT_FK', 'CRG', 'Contact','UIAddressContactList')"></address-wrapper>
                             </div>
                         </div>
@@ -130,11 +137,13 @@
                         <div class="input-group input-group-sm">
                             <input type="hidden" ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_ExportReceivingCFS_FK">
                             <div dynamic-lookup placeholder="Organization Code" my-ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_ExportReceivingCFS_Code"
-                                obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader" prefix-data="'OrganizationList'"
-                                config="'ShpPickupCFSOrg'" auto-complete-on-select="BookingPickupAndDeliveryCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item,'address', 'PCFS','UIShipmentHeader')"></div>
+                                obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                                page-name="'OrganizationList'" control-id="'ShpPickupCFSOrg'" control-key="'ShpPickupCFSOrg_2504'"
+                                auto-complete-on-select="BookingPickupAndDeliveryCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item,'address', 'PCFS','UIShipmentHeader')"></div>
                             <span class="input-group-btn">
-                                <button dynamic-list-modal obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader" field-name="'ShpPickupCFSOrg'"
-                                    prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingPickupAndDeliveryCtrl.ePage.Masters.SelectedLookupData($item,'address', 'PCFS','UIShipmentHeader')"
+                                <button dynamic-list-modal obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                                    page-name="'OrganizationList'" control-id="'ShpPickupCFSOrg'" control-key="'ShpPickupCFSOrg_2504'"
+                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingPickupAndDeliveryCtrl.ePage.Masters.SelectedLookupData($item,'address', 'PCFS','UIShipmentHeader')"
                                     class="btn btn-default shiny" type="button">
                                     <i class="fa fa-ellipsis-h"></i>
                                 </button>
@@ -149,7 +158,8 @@
                         <div class="input-group input-group-sm">
                             <input type="hidden" ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.OAD_ExportReceivingDepot_FK">
 
-                            <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignor address" data-ng-model="BookingPickupAndDeliveryCtrl.ePage.Masters.AddressContactBinding((BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PCFS.AddressList | filter: {PK: BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.OAD_ExportReceivingDepot_FK})[0],'Address')"
+                            <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignor address"
+                                data-ng-model="BookingPickupAndDeliveryCtrl.ePage.Masters.AddressContactBinding((BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PCFS.AddressList | filter: {PK: BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.OAD_ExportReceivingDepot_FK})[0],'Address')"
                                 ng-model-options="{ getterSetter: true }"></textarea>
                             <span class="input-group-btn">
                                 <button class="btn btn-default" type="button" data-ng-click="BookingPickupAndDeliveryCtrl.ePage.Masters.IsPCFSAddressOpen=!BookingPickupAndDeliveryCtrl.ePage.Masters.IsPCFSAddressOpen">
@@ -158,8 +168,8 @@
                                 </button>
                             </span>
                             <div class="dropdownWrapMiddle dropdownWrapSmall animated fadeInDown" data-ng-show="BookingPickupAndDeliveryCtrl.ePage.Masters.IsPCFSAddressOpen">
-                                <address-wrapper obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PCFS.AddressList" type="'PCFS'"
-                                    list-source="'AddressList'" selected="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.OAD_ExportReceivingDepot_FK"
+                                <address-wrapper obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PCFS.AddressList"
+                                    type="'PCFS'" list-source="'AddressList'" selected="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.OAD_ExportReceivingDepot_FK"
                                     on-address-edit="BookingPickupAndDeliveryCtrl.ePage.Masters.OnAddressEdit($item,'OAD_ExportReceivingDepot_FK', 'PCFS', 'Address','UIShipmentHeader')"
                                     on-address-change="BookingPickupAndDeliveryCtrl.ePage.Masters.OnAddressChange($item,'OAD_ExportReceivingDepot_FK', 'PCFS', 'Address','UIShipmentHeader')"></address-wrapper>
                             </div>
@@ -175,7 +185,8 @@
 
                             <input type="hidden" ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportOrgContact_FK">
 
-                            <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignor contact" data-ng-model="BookingPickupAndDeliveryCtrl.ePage.Masters.AddressContactBinding((BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PCFS.ContactList | filter: {PK: BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportOrgContact_FK})[0],'Contact')"
+                            <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignor contact"
+                                data-ng-model="BookingPickupAndDeliveryCtrl.ePage.Masters.AddressContactBinding((BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PCFS.ContactList | filter: {PK: BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportOrgContact_FK})[0],'Contact')"
                                 ng-model-options="{ getterSetter: true }"></textarea>
                             <span class="input-group-btn">
                                 <button class="btn btn-default" type="button" data-ng-click="BookingPickupAndDeliveryCtrl.ePage.Masters.IsPCFSContactOpen=!BookingPickupAndDeliveryCtrl.ePage.Masters.IsPCFSContactOpen">
@@ -183,8 +194,8 @@
                                 </button>
                             </span>
                             <div class="dropdownWrapLast dropdownWrapSmall animated fadeInDown" data-ng-show="BookingPickupAndDeliveryCtrl.ePage.Masters.IsPCFSContactOpen">
-                                <address-wrapper obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PCFS.ContactList" type="'PCFS'"
-                                    list-source="'ContactList'" selected="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportOrgContact_FK"
+                                <address-wrapper obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PCFS.ContactList"
+                                    type="'PCFS'" list-source="'ContactList'" selected="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportOrgContact_FK"
                                     on-address-change="BookingPickupAndDeliveryCtrl.ePage.Masters.OnContactChange($item,'ExportOrgContact_FK', 'PCFS', 'Contact','UIShipmentHeader')"></address-wrapper>
                             </div>
                         </div>
@@ -199,11 +210,13 @@
                         <div class="input-group input-group-sm">
                             <input type="hidden" ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG.ORG_FK">
                             <div dynamic-lookup placeholder="Organization Code" my-ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG.ORG_Code"
-                                obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG" prefix-data="'OrganizationList'"
-                                config="'JobAddressOrg'" auto-complete-on-select="BookingPickupAndDeliveryCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item, 'address', 'PAG','UIAddressContactList')"></div>
+                                obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG"
+                                page-name="'OrganizationList'" control-id="'JobAddressOrgConsignor'" control-key="'JobAddressOrgConsignor_2486'"
+                                auto-complete-on-select="BookingPickupAndDeliveryCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item, 'address', 'PAG','UIAddressContactList')"></div>
                             <span class="input-group-btn">
-                                <button dynamic-list-modal obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG" field-name="'JobAddressOrg'"
-                                    prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingPickupAndDeliveryCtrl.ePage.Masters.SelectedLookupData($item, 'address', 'PAG','UIAddressContactList')"
+                                <button dynamic-list-modal obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG"
+                                    page-name="'OrganizationList'" control-id="'JobAddressOrgConsignor'" control-key="'JobAddressOrgConsignor_2486'"
+                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingPickupAndDeliveryCtrl.ePage.Masters.SelectedLookupData($item, 'address', 'PAG','UIAddressContactList')"
                                     class="btn btn-default shiny" type="button">
                                     <i class="fa fa-ellipsis-h"></i>
                                 </button>
@@ -219,7 +232,8 @@
                         <div class="input-group input-group-sm">
                             <input type="hidden" ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG.OAD_Address_FK">
 
-                            <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignor address" data-ng-model="BookingPickupAndDeliveryCtrl.ePage.Masters.AddressContactBinding((BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG.AddressList | filter: {PK: BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG.OAD_Address_FK})[0],'Address')"
+                            <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignor address"
+                                data-ng-model="BookingPickupAndDeliveryCtrl.ePage.Masters.AddressContactBinding((BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG.AddressList | filter: {PK: BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG.OAD_Address_FK})[0],'Address')"
                                 ng-model-options="{ getterSetter: true }"></textarea>
                             <span class="input-group-btn">
                                 <button class="btn btn-default" type="button" data-ng-click="BookingPickupAndDeliveryCtrl.ePage.Masters.IsPAGAddressOpen=!BookingPickupAndDeliveryCtrl.ePage.Masters.IsPAGAddressOpen">
@@ -228,8 +242,8 @@
                                 </button>
                             </span>
                             <div class="dropdownWrapMiddle dropdownWrapSmall animated fadeInDown" data-ng-show="BookingPickupAndDeliveryCtrl.ePage.Masters.IsPAGAddressOpen">
-                                <address-wrapper obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG.AddressList" type="'PAG'"
-                                    list-source="'AddressList'" selected="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG.OAD_Address_FK"
+                                <address-wrapper obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG.AddressList"
+                                    type="'PAG'" list-source="'AddressList'" selected="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG.OAD_Address_FK"
                                     on-address-edit="BookingPickupAndDeliveryCtrl.ePage.Masters.OnAddressEdit($item,'OAD_Address_FK', 'PAG', 'Address','UIAddressContactList')"
                                     on-address-change="BookingPickupAndDeliveryCtrl.ePage.Masters.OnAddressChange($item,'OAD_Address_FK', 'PAG', 'Address','UIAddressContactList')"></address-wrapper>
                             </div>
@@ -244,7 +258,8 @@
 
                             <input type="hidden" ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG.OCT_FK">
 
-                            <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignor contact" data-ng-model="BookingPickupAndDeliveryCtrl.ePage.Masters.AddressContactBinding((BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG.ContactList | filter: {PK: BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG.OCT_FK})[0],'Contact')"
+                            <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignor contact"
+                                data-ng-model="BookingPickupAndDeliveryCtrl.ePage.Masters.AddressContactBinding((BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG.ContactList | filter: {PK: BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG.OCT_FK})[0],'Contact')"
                                 ng-model-options="{ getterSetter: true }"></textarea>
                             <span class="input-group-btn">
                                 <button class="btn btn-default" type="button" data-ng-click="BookingPickupAndDeliveryCtrl.ePage.Masters.IsPAGContactOpen=!BookingPickupAndDeliveryCtrl.ePage.Masters.IsPAGContactOpen">
@@ -252,8 +267,8 @@
                                 </button>
                             </span>
                             <div class="dropdownWrapLast dropdownWrapSmall animated fadeInDown" data-ng-show="BookingPickupAndDeliveryCtrl.ePage.Masters.IsPAGContactOpen">
-                                <address-wrapper obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG.ContactList" type="'PAG'"
-                                    list-source="'ContactList'" selected="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG.OCT_FK"
+                                <address-wrapper obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG.ContactList"
+                                    type="'PAG'" list-source="'ContactList'" selected="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG.OCT_FK"
                                     on-address-change="BookingPickupAndDeliveryCtrl.ePage.Masters.OnContactChange($item,'OCT_FK', 'PAG', 'Contact','UIAddressContactList')"></address-wrapper>
                             </div>
                         </div>
@@ -267,11 +282,13 @@
                         <div class="input-group input-group-sm">
                             <input type="hidden" ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupTransportFK">
                             <div dynamic-lookup placeholder="Organization Code" my-ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupTransportCode"
-                                obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery" prefix-data="'OrganizationList'"
-                                config="'ShpPickupTransCompOrg'" auto-complete-on-select="BookingPickupAndDeliveryCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item,'address', 'Pickup','UIJobPickupAndDelivery')"></div>
+                                obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery"
+                                page-name="'OrganizationList'" control-id="'ShpPickupTransCompOrg'" control-key="'ShpPickupTransCompOrg_2503'"
+                                auto-complete-on-select="BookingPickupAndDeliveryCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item,'address', 'Pickup','UIJobPickupAndDelivery')"></div>
                             <span class="input-group-btn">
-                                <button dynamic-list-modal obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery" field-name="'ShpPickupTransCompOrg'"
-                                    prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingPickupAndDeliveryCtrl.ePage.Masters.SelectedLookupData($item,'address', 'Pickup','UIJobPickupAndDelivery')"
+                                <button dynamic-list-modal obj="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery"
+                                    page-name="'OrganizationList'" control-id="'ShpPickupTransCompOrg'" control-key="'ShpPickupTransCompOrg_2503'"
+                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingPickupAndDeliveryCtrl.ePage.Masters.SelectedLookupData($item,'address', 'Pickup','UIJobPickupAndDelivery')"
                                     class="btn btn-default shiny" type="button">
                                     <i class="fa fa-ellipsis-h"></i>
                                 </button>
@@ -287,7 +304,8 @@
                         <div class="input-group input-group-sm">
                             <input type="hidden" ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupTransportAddressFK">
 
-                            <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignor address" data-ng-model="BookingPickupAndDeliveryCtrl.ePage.Masters.AddressContactBinding((BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.Pickup.AddressList | filter: {PK: BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupTransportAddressFK})[0],'Address')"
+                            <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignor address"
+                                data-ng-model="BookingPickupAndDeliveryCtrl.ePage.Masters.AddressContactBinding((BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.Pickup.AddressList | filter: {PK: BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupTransportAddressFK})[0],'Address')"
                                 ng-model-options="{ getterSetter: true }"></textarea>
                             <span class="input-group-btn">
                                 <button class="btn btn-default" type="button" data-ng-click="BookingPickupAndDeliveryCtrl.ePage.Masters.IsPickupAddressOpen=!BookingPickupAndDeliveryCtrl.ePage.Masters.IsPickupAddressOpen">
@@ -312,10 +330,11 @@
 
                             <input type="hidden" ng-model="BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupTransportContactFK">
 
-                            <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignor contact" data-ng-model="BookingPickupAndDeliveryCtrl.ePage.Masters.AddressContactBinding((BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.Pickup.ContactList | filter: {PK: BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupTransportContactFK})[0],'Contact')"
+                            <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignor contact"
+                                data-ng-model="BookingPickupAndDeliveryCtrl.ePage.Masters.AddressContactBinding((BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.Pickup.ContactList | filter: {PK: BookingPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupTransportContactFK})[0],'Contact')"
                                 ng-model-options="{ getterSetter: true }"></textarea>
                             <span class="input-group-btn">
-                                <button class="btn btn-default" type="button" data-ng-click="BookingPickupAndDeliveryCtrl.ePage.Masters.IsPCFSContactOpen=!BookingPickupAndDeliveryCtrl.ePage.Masters.IsPickupContactOpen">
+                                <button class="btn btn-default" type="button" data-ng-click="BookingPickupAndDeliveryCtrl.ePage.Masters.IsPickupContactOpen=!BookingPickupAndDeliveryCtrl.ePage.Masters.IsPickupContactOpen">
                                     <i class="fa fa-phone"></i>
                                 </button>
                             </span>

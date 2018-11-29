@@ -1,3 +1,4 @@
+<div class="grid-loading-norecord-container ng-scope" style='z-index: 15;'data-ng-if="LocationMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading"></div>
 <div class="clearfix wms-menu-wraper">
     <div class=" col-sm-12 no-padding-left no-padding-right">
         <div location-details current-location="LocationMenuCtrl.currentLocation">
@@ -34,15 +35,15 @@
     </div>
     <!-- Footer -->
     <div class="eaxis-footer-strip">
-        <div class="col-lg-9">
-            <standard-menu entity-name="'WarehouseRow'" input="LocationMenuCtrl.currentLocation"></standard-menu>
+        <div class="col-xs-6 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+            <standard-menu dataentry-object="LocationMenuCtrl.dataentryObject" input="LocationMenuCtrl.currentLocation"></standard-menu>
         </div>
-        <div class="col-lg-3">
+        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 col-xl-3">
             <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="LocationMenuCtrl.ePage.Masters.Validation(LocationMenuCtrl.currentLocation)"
                 data-ng-bind="LocationMenuCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="LocationMenuCtrl.ePage.Masters.IsDisableSave"></button>
             <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="LocationMenuCtrl.ePage.Masters.SaveAndClose = true;LocationMenuCtrl.ePage.Masters.Validation(LocationMenuCtrl.currentLocation)"
                 data-ng-bind = "LocationMenuCtrl.ePage.Masters.SaveandcloseButtonText"               
-                data-ng-disabled="LocationMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave">Save And Close</button>
+                data-ng-disabled="LocationMenuCtrl.ePage.Masters.IsDisableSave"></button>
         </div>
     </div>
 </div>

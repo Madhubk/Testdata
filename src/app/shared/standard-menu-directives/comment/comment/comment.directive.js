@@ -16,9 +16,11 @@
             bindToController: true,
             scope: {
                 input: "=",
+                config: "=",
                 mode: "=",
                 type: "=",
-                closeModal: "&"
+                closeModal: "&",
+                listSource: "=?"
             },
             link: Link
         };

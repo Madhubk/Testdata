@@ -5,9 +5,9 @@
         .module("Application")
         .directive("dynamicControl", DynamicControlDirective);
 
-    DynamicControlDirective.$inject = ["$rootScope", "$timeout", "$location", "apiService"];
+    DynamicControlDirective.$inject = [];
 
-    function DynamicControlDirective($rootScope, $timeout, $location, apiService) {
+    function DynamicControlDirective() {
         var exports = {
             restrict: 'EA',
             templateUrl: 'app/shared/dynamic-control/dynamic-control.html',
@@ -16,6 +16,7 @@
             scope: {
                 input: '=',
                 mode: '@',
+                listMode: "=",
                 viewType: "=",
                 dataentryName: "=",
                 configName: "=",
@@ -24,15 +25,11 @@
                 controlStyle: '@',
                 isSaveBtn: "=",
                 selectedGridRow: "&",
-                pkey: "="
+                pkey: "=",
+                baseFilterFields: "="
             },
-            link: Link,
             bindToController: true
         };
         return exports;
-
-        function Link(scope, elem, attr) {
-
-        }
     }
 })();

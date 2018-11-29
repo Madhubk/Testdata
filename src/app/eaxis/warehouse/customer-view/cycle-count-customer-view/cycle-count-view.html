@@ -1,0 +1,36 @@
+<uib-tabset id="chromeTab" active="CycleCountViewCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+    <uib-tab>
+        <uib-tab-heading title="Cycle Count">
+            <span data-ng-bind="'Cycle Count'" class="ng-binding">Cycle Count</span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+
+        <div class="no-padding tab-list-view-wrapper">
+
+            <!--Cycle Count Grid Page-->
+            <dynamic-list dataentry-name="CycleCountViewCtrl.ePage.Masters.dataentryName" task-name="CycleCountViewCtrl.ePage.Masters.taskName"
+                grid-config-type="0" selected-grid-row="CycleCountViewCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" dataentry-object=" CycleCountViewCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+            <div class="tab-loading" data-ng-show="CycleCountViewCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+
+
+    <uib-tab active="CycleCountViewCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in CycleCountViewCtrl.ePage.Masters.TabList"
+        ng-click="CycleCountViewCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+        <uib-tab-heading title="{{tab.label}}">
+            <span data-ng-bind="tab.label"></span>
+            <i class="glyphicon glyphicon-remove" ng-click="CycleCountViewCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+            <span class="error-warning-container-common" data-ng-if="tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length > 0">
+            </span>
+        </uib-tab-heading>
+
+        <div class="padding-bottom-10 clearfix">
+
+            <!--Cycle Count Menu Directive-->
+            <cycle-count-view-detail current-cycle-count-view-detail="tab" dataentry-object="CycleCountViewCtrl.ePage.Masters.DataEntryObject"></cycle-count-view-detail>
+            <div class="horizontal-space"></div>
+        </div>
+    </uib-tab>
+
+
+</uib-tabset>

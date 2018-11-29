@@ -28,8 +28,17 @@
             MappingMenuCtrl.ePage.Masters.MappingMenu = {};
             MappingMenuCtrl.ePage.Masters.DropDownMasterList = {};
 
+            MappingMenuCtrl.ePage.Masters.ManifestEvent = ManifestEvent;
+            MappingMenuCtrl.ePage.Masters.ConsignmentEvent = ConsignmentEvent;
+
             // Menu list from configuration
             MappingMenuCtrl.ePage.Masters.MappingMenu.ListSource = MappingMenuCtrl.ePage.Entities.Header.Meta.MenuList;
+        }
+        function ManifestEvent(){
+
+        }
+        function ConsignmentEvent(){
+            
         }
         Init();
     }

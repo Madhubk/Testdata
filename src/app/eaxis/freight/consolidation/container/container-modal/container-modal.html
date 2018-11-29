@@ -6,8 +6,9 @@
     <button type="button" class="btn btn-primary btn-sm pull-right margin-left-5" ng-click="ContainerPopUpModalCtrl.ePage.Masters.Save()"
         data-ng-bind="ContainerPopUpModalCtrl.ePage.Masters.SaveButton" data-ng-disabled="ContainerPopUpModalCtrl.ePage.Masters.SaveButtonDisable"></button>
 </div>
-<div class="modal-body">
-    <container-form-directive data-ng-if="ContainerPopUpModalCtrl.ePage.Masters.Container.FormView" current-container="ContainerPopUpModalCtrl.ePage.Masters.Container.FormView"></container-form-directive>
+<div class="modal-body" data-ng-if="ContainerPopUpModalCtrl.ePage.Masters.Container.FormView">
+    <container-form-directive ref-code="{{ContainerPopUpModalCtrl.ePage.Masters.refCode}}" current-container="ContainerPopUpModalCtrl.ePage.Masters.Container.FormView"
+    current-consol="ContainerPopUpModalCtrl.ePage.Entities.Header.Data"></container-form-directive>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-secondary btn-sm pull-right margin-left-5" ng-click="ContainerPopUpModalCtrl.ePage.Masters.Cancel()">Close</button>

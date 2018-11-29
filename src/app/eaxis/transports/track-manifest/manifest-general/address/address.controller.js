@@ -91,7 +91,7 @@
                     }
                 });
             }
-            Cancel();
+            // Cancel();
         }
 
         Init();

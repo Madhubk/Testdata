@@ -1,0 +1,24 @@
+<div class="validation-group-container clearfix">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="TCValidationGroupMappingCtrl.ePage.Masters.ValidationGroup.Close()">&times;</button>
+        <h5 class="modal-title" id="modal-title">
+            <strong>Validation Group</strong>
+        </h5>
+    </div>
+    <div class="clearfix p-20 text-center" data-ng-if="!TCValidationGroupMappingCtrl.ePage.Masters.ValidationGroup.ListSource">
+        <i class="fa fa-spin fa-spinner font-160"></i>
+    </div>
+    <div class="clearfix p-20 text-center" data-ng-if="TCValidationGroupMappingCtrl.ePage.Masters.ValidationGroup.ListSource && TCValidationGroupMappingCtrl.ePage.Masters.ValidationGroup.ListSource.length == 0">
+        <i>No Records...!</i>
+    </div>
+    <div class="clearfix" data-ng-if="TCValidationGroupMappingCtrl.ePage.Masters.ValidationGroup.ListSource && TCValidationGroupMappingCtrl.ePage.Masters.ValidationGroup.ListSource.length > 0">
+        <div class="col-sm-6" data-ng-repeat="x in TCValidationGroupMappingCtrl.ePage.Masters.ValidationGroup.ListSource">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" class="colored-blue" data-ng-model="x.IsChecked" data-ng-click="TCValidationGroupMappingCtrl.ePage.Masters.ValidationGroup.OnValidationGroupClick($event, x)">
+                    <span class="text text-single-line" data-ng-bind="x.GroupName"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

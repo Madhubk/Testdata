@@ -37,6 +37,11 @@
                             "Url": "Validation/FindAll",
                             "FilterID": "VALIDAT"
                         },
+                        "GenerateReport": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "Communication/GenerateReport",
+                        }
                     },
                     "Meta": {
 
@@ -92,6 +97,47 @@
                                 "Url": "OrgAddress/FindAll",
                                 "FilterID": "ORGADDR"
                             },
+                            "CfxOrgMapping": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "CfxOrgMapping/FindAll",
+                                "FilterID": "CFXORMAP"
+                            },
+                            "OrgHeader": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "OrgHeader/FindAll",
+                                "FilterID": "ORGHEAD"
+                            },
+                            "TmsJourney": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "TmsJourney/FindAll",
+                                "FilterID": "TMSJNY"
+                            },
+                            "TmsJourneyLeg": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "TmsJourneyLeg/FindAll",
+                                "FilterID": "TMSJNL"
+                            },
+                            "CfxMapping": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "CfxMapping/FindAll",
+                                "FilterID": "CFXMAPP"
+                            },
+                            "ItemDetails": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "TmsItem/FindAll",
+                                "FilterID": "TMSITE"
+                            },
+                            "GenerateReport": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "Communication/GenerateReport",
+                            },
                         },
 
                         "Meta": {
@@ -114,13 +160,21 @@
                             ],
                             "ErrorWarning": {
                                 "GlobalErrorWarningList": [],
-                                // "ConsignmentNumber": helperService.metaBase(),
+                                "SenderCode": helperService.metaBase(),
+                                "ReceiverCode": helperService.metaBase(),
+                                "ServiceType": helperService.metaBase(),
+                                "SenderCarrierCode": helperService.metaBase(),
+                                "Item Duplicate": helperService.metaBase(),
+                                "ExpectedPickupDateTime": helperService.metaBase(),
+                                "TmsConsignmentItem": helperService.metaBase(),
                             },
                         },
                         "CheckPoints": {
                             "DisableSave": false,
                             "DisableAllocate": false,
-                            "SaveAndClose": false
+                            "SaveAndClose": false,
+                            "CurrentLocationCode": "",
+                            "IsStore":false
                         },
                     },
                 }
@@ -397,8 +451,26 @@
         function GeneralValidation($item) {
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
-            if (!_input.TmsConsignmentHeader.ConsignmentNumber || _input.TmsConsignmentHeader.ConsignmentNumber) {
-                OnChangeValues(_input.TmsConsignmentHeader.ConsignmentNumber, 'E8001', false, undefined, $item.label);
+            
+                OnChangeValues(_input.TmsConsignmentHeader.SenderCode, 'E5516', false, undefined, $item.label);
+               
+                OnChangeValues(_input.TmsConsignmentHeader.ReceiverCode, 'E5517', false, undefined, $item.label);
+            
+                OnChangeValues(_input.TmsConsignmentHeader.ServiceType, 'E5518', false, undefined, $item.label);
+            
+                OnChangeValues(_input.TmsConsignmentHeader.SenderCarrierCode, 'E5519', false, undefined, $item.label);
+            
+            //     OnChangeValues(_input.TmsConsignmentHeader.JourneyTitle, 'E5520', false, undefined, $item.label);
+            if(_input.TmsConsignmentHeader.ServiceType == "STS" || _input.TmsConsignmentHeader.ServiceType == "PRF"){
+                OnChangeValues(_input.TmsConsignmentHeader.ExpectedPickupDateTime, 'E5521', false, undefined, $item.label);
+            }    
+            //TmsConsignmentItem Validation
+            if (_input.TmsConsignmentItem.length > 0) {
+                angular.forEach(_input.TmsConsignmentItem, function (value, key) {                    
+                    OnChangeValues(value.TIT_ItemCode, 'E5547', true, key, $item.label);
+
+                    OnChangeValues(value.TIT_ItemRef_ID, 'E5548', true, key, $item.label);
+                });
             }
         }
 
@@ -411,10 +483,18 @@
         }
 
         function GetErrorMessage(fieldvalue, value, IsArray, RowIndex, label) {
-            if (!fieldvalue) {
-                PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey.trim(), label, undefined, undefined, undefined, undefined, undefined, undefined);
+            if (!IsArray) {
+                if (!fieldvalue) {
+                    PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, label, undefined, undefined, undefined, undefined, undefined, value.GParentRef);
+                } else {
+                    RemoveErrorWarning(value.Code, "E", value.CtrlKey, label);
+                }
             } else {
-                RemoveErrorWarning(value.Code, "E", value.CtrlKey.trim(), label);
+                if (!fieldvalue) {
+                    PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, label, IsArray, RowIndex, value.ColIndex, value.DisplayName, undefined, value.GParentRef);
+                } else {
+                    RemoveErrorWarning(value.Code, "E", value.CtrlKey, label, IsArray, RowIndex, value.ColIndex);
+                }
             }
         }
 

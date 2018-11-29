@@ -1,0 +1,76 @@
+
+.tab-list-view-wrapper .tab-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    z-index: 999;
+}
+
+.border-box{
+    border: 1px solid #eee;
+}
+.border-radius-2{
+    border-radius: 2px;
+}
+.bg-fbfbfb{
+    background: #fbfbfb;
+}
+.tab-profile-title{
+    font-weight: bold;
+}
+.tab-profile-sub-title{
+    font-weight: bold;
+    color: #999;
+}
+.border-right{
+    border-right: 1px solid #f5f5f5;
+}
+.border-left{
+    border-left: 1px solid #f5f5f5;
+}
+.dms-table-title{
+    font-weight: bold;
+}
+.no-record{
+    font-style:italic;
+    text-align: center;
+}
+.tableclass {
+    border-collapse: collapse;
+    width: 100%;
+}
+.tableclass td, .tableclass th {
+    border: 1px solid #ddd;
+    padding: 10px 10px;
+}
+.tableclass th {   
+    text-align: left;
+    font-weight:bold;
+    background: #f3f3f3;
+}
+.tableclass td:first-child, .tableclass th:first-child {
+    border-left: 1px solid transparent;
+}
+.tableclass td:last-child, .tableclass th:last-child {
+    border-right: 1px solid transparent;
+}
+.text-no-record {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 30px;
+    text-align: center;
+    border: 1px solid;
+    color: #D1001C;
+    border: 1px solid #CCCC66;
+    background-color: #FAFFBD;
+    padding: 5px 10px;
+    border-radius: 3px;
+    width: 142px;
+}

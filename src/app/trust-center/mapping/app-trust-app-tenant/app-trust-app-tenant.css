@@ -1,0 +1,9 @@
+.tc-app-trust-app-tenant .form-group .dropdown-menu {
+    display: block !important;
+    left: 15px;
+}
+
+.tc-app-trust-app-tenant .dropdown-menu .auto-complete-no-result {
+    padding: 0 10px;
+    font-size: 12px;
+}

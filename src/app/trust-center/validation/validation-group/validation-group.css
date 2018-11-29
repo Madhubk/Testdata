@@ -1,0 +1,24 @@
+.validation-group-container .modal-dialog {
+    width: 650px !important;
+}
+
+.validation-group-container .groupname {
+    margin-bottom: 10px;
+    margin-right: 10px;
+    display: inline-block;
+    background-color: #eee;
+    padding: 5px 10px;
+    border-radius: 20px;
+    position: relative;
+}
+
+.validation-group-container .groupname i.fa-close {
+    top: -5px;
+    right: -2px;
+    position: relative;
+    opacity: 0.4;
+}
+
+.validation-group-container .groupname i.fa-close:hover {
+    opacity: 1;
+}

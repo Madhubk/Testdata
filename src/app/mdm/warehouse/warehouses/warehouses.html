@@ -11,7 +11,7 @@
         <div class="no-padding tab-list-view-wrapper">
             <!--Areas Grid Page-->
             <dynamic-list dataentry-name="WarehousesCtrl.ePage.Masters.dataentryName" task-name="WarehousesCtrl.ePage.Masters.taskName"
-                grid-config-type="0" selected-grid-row="WarehousesCtrl.ePage.Masters.SelectedGridRow($item)"
+                grid-config-type="0" selected-grid-row="WarehousesCtrl.ePage.Masters.SelectedGridRow($item)" dataentry-object="WarehousesCtrl.ePage.Masters.DataEntryObject"
                 mode="1"></dynamic-list>
 
             <div class="tab-loading" data-ng-show="WarehousesCtrl.ePage.Masters.IsTabClick"></div>
@@ -43,7 +43,7 @@
         <div class="padding-5 padding-bottom-10 clearfix">
 
             <!--Warehouse Menu Directive-->
-            <warehouse-menu current-warehouse="tab"></warehouse-menu>
+            <warehouse-menu current-warehouse="tab" dataentry-object="WarehousesCtrl.ePage.Masters.DataEntryObject"></warehouse-menu>
 
             <div class="horizontal-space"></div>
         </div>

@@ -1,0 +1,7 @@
+.contain-hgt {
+    min-height: 360px;
+    max-height: 360px;
+}
+.widget .widget-header{
+    min-height:35px!important;
+}

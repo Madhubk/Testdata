@@ -9,15 +9,19 @@
                 </uib-tab-heading>
                 <div>
                     <div ng-switch="x.Value">
-                        <!--Menu directives-->
                         <div ng-switch-when="SenderCarrier" sender-carrier></div>
                         <div ng-switch-when="SenderReceiver" sender-receiver></div>
+                        <div ng-switch-when="ReceiverCarrier" receiver-carrier></div>
+                        <div ng-switch-when="SenderReceiverCons" sender-receiver-cons></div>
                         <div ng-switch-when="StoreDepot" store-depot></div>
                         <div ng-switch-when="DCDepotStore" dc-depot-store></div>
                         <div ng-switch-when="CarrierVehicle" carrier-vehicle></div>
-                    </div>
+                        <div ng-switch-when="ServiceType" service-type></div>
+                        <div ng-switch-when="ContainerMhu" container-mhu></div>
+                    </div> 
                 </div>
             </uib-tab>
         </uib-tabset>
     </div>
 </div>
+

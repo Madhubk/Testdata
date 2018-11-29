@@ -7,20 +7,20 @@
         .config(Config);
 
     // Run
-    Run.$inject = ['$rootScope', '$state', '$stateParams', '$window', '$location', '$templateCache', 'authService', 'apiService'];
+    Run.$inject = ['$rootScope', '$state', '$stateParams', '$window', '$location'];
 
-    function Run($rootScope, $state, $stateParams, $window, $location, $templateCache, authService, apiService) {
-        $rootScope.online = true;
+    function Run($rootScope, $state, $stateParams, $window, $location) {
+        $rootScope.IsInternetOnline = true;
         // Internet Check
         $window.addEventListener("offline", function () {
             $rootScope.$apply(function () {
-                $rootScope.online = false;
+                $rootScope.IsInternetOnline = false;
             });
         }, false);
 
         $window.addEventListener("online", function () {
             $rootScope.$apply(function () {
-                $rootScope.online = true;
+                $rootScope.IsInternetOnline = true;
             });
         }, false);
 
@@ -28,13 +28,7 @@
         $rootScope.$stateParams = $stateParams;
 
         $rootScope.EnteredUrl = undefined;
-        if (!$rootScope.EnteredUrl) {
-            $rootScope.EnteredUrl = $location.path();
-        }
-
-        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-            // debugger;
-        });
+        $rootScope.EnteredUrl = $location.path();
     }
 
     // Configuration for route
@@ -55,7 +49,7 @@
             allowHtml: true,
             closeButton: false,
             closeHtml: '<button>&times;</button>',
-            extendedTimeOut: 1000,
+            extendedTimeOut: 5000,
             iconClasses: {
                 error: 'toast-error',
                 info: 'toast-info',
@@ -98,15 +92,16 @@
                 resolve: {
                     CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
                         var deferred = $q.defer();
-                        pageAccessService.CheckAccess("/login").then(function (response) {
+                        pageAccessService.CheckPageAccess("/login").then(function (response) {
                             if (response == true) {
                                 deferred.resolve();
                             }
                         });
+                        deferred.resolve();
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load('login');
+                        return $ocLazyLoad.load(['Login']);
                     }]
                 },
                 onEnter: function () {},
@@ -114,8 +109,62 @@
                     $rootScope.EnteredUrl = undefined;
                 }
             })
-            .state('userSetting', {
-                url: '/user-setting',
+            .state('tenantList', {
+                url: '/tenant-list',
+                templateUrl: 'app/tenant-list/tenant-list.html',
+                controller: "TenantListController as TenantListCtrl",
+                ncyBreadcrumb: {
+                    label: 'Tenant'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        deferred.resolve();
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(['TenantList']);
+                    }]
+                }
+            })
+            .state('partyList', {
+                url: '/party-list',
+                templateUrl: 'app/party-list/party-list.html',
+                controller: "PartyListController as PartyListCtrl",
+                ncyBreadcrumb: {
+                    label: 'Party'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        deferred.resolve();
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(['PartyList']);
+                    }]
+                }
+            })
+            .state('roleList', {
+                url: '/role-list',
+                templateUrl: 'app/role-list/role-list.html',
+                controller: "RoleListController as RoleListCtrl",
+                ncyBreadcrumb: {
+                    label: 'Role'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        deferred.resolve();
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(['RoleList']);
+                    }]
+                }
+            })
+            .state('userSettings', {
+                url: '/user-settings',
                 templateUrl: 'app/user-setting/user-setting.html',
                 controller: "UserSettingController as UserSettingCtrl",
                 ncyBreadcrumb: {
@@ -124,7 +173,7 @@
                 resolve: {
                     CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
                         var deferred = $q.defer();
-                        pageAccessService.CheckAccess("/user-setting").then(function (response) {
+                        pageAccessService.CheckPageAccess("/user-settings").then(function (response) {
                             if (response == true) {
                                 deferred.resolve();
                             }
@@ -136,12 +185,12 @@
                     }]
                 }
             })
-            .state('externalUrlRedirect', {
-                url: '/external-url-redirect',
-                templateUrl: 'app/shared/external-url-redirect/external-url-redirect.html',
-                controller: "ExternalUrlRedirectController as ExternalUrlRedirectCtrl",
+            .state('elink', {
+                url: '/elink',
+                templateUrl: 'app/shared/elink/elink.html',
+                controller: "ELinkController as ELinkCtrl",
                 ncyBreadcrumb: {
-                    label: 'External Url'
+                    label: 'eLink'
                 },
                 resolve: {
                     CheckAccess: ["$q", function ($q) {
@@ -150,7 +199,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(['ExternalUrlRedirect']);
+                        return $ocLazyLoad.load(['ELink']);
                     }]
                 }
             });

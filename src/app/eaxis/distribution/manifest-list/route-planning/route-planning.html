@@ -1,0 +1,105 @@
+<!-- <script src="route-planning.controller.js"></script> -->
+<div ng-if="RoutePlanningCtrl.ePage.Entities.Header.CheckPoints.IsConsignmentAttach" data-ng-init="RoutePlanningCtrl.ePage.Masters.getConsignmentList()"></div>
+<div class="clearfix pt-10 mb-50" style="background: #f5f7fa !important;">
+    <div class="widget-main">
+        <div class="rows">
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <div class="row">
+                    <div class="col-lg-12 border-r pr-0" style="padding: 0px;">
+                        <div class="eaxis-div-box height-auto-600">
+                            <div class="col-lg-12 mt-10">
+                                <button class="btn btn-primary  pull-right" ng-click="RoutePlanningCtrl.ePage.Masters.SelectedOrg()">Save and Get Route</button>
+                            </div>
+                            <div class="rows mt-10" dnd-list="RoutePlanningCtrl.ePage.Entities.Header.Data.JobAddress">
+                                <div class="text-center" data-ng-if="RoutePlanningCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.length === 0">
+                                    <i>No Records...!</i>
+                                </div>
+                                <div class="cursor-pointer" ng-repeat="x in RoutePlanningCtrl.ePage.Entities.Header.Data.JobAddress" dnd-draggable="x" dnd-moved="RoutePlanningCtrl.ePage.Entities.Header.Data.JobAddress.splice($index, 1)"
+                                    dnd-effect-allowed="move" draggable="true" style="margin-top:5px;">
+
+                                    <!-- KPI -->
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custom-widget" ng-if="x.AddressType=='PIC' || x.AddressType=='DEL'">
+                                        <div class="widget" ng-click="RoutePlanningCtrl.ePage.Masters.getMap($index)">
+                                            <div class="widget-body  no-padding">
+                                                <div class="tickets-container set-bg-white">
+                                                    <ul class="tickets-list" id="style-1">
+                                                        <div class="row ">
+                                                            <div class="companies-left">
+                                                                <span class="circle org_circle" data-ng-class="x.AddressType=='PIC' ? 'pickup-color' : 'delivery-color'">
+                                                                    <p>{{RoutePlanningCtrl.ePage.Masters.alphabet($index-2)}}</p>
+                                                                </span>
+                                                            </div>
+                                                            <div class="ticket-user col-lg-8">
+                                                                <span class="widget-caption themesecondary text-hidden">{{x.ORG_FullName || emptyText}}</span>
+                                                                <span class="user-company pull-left" data-ng-if="x.AddressType=='PIC'">Pickup Point</span>
+                                                                <span class="user-company pull-left" data-ng-if="x.AddressType=='DEL'">Delivery Point</span>
+                                                                <div class="text-center pull-right" ng-show="RoutePlanningCtrl.ePage.Masters.IsShowError[$index]==true" title="Please drag your location">
+                                                                    <span class=" fa fa-warning" style="color: rgb(237, 67, 55);"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="widget-header bordered-bottom">
+                                                <div class="user-company address-text col-lg-12">{{x.ORG_FullName || emptyText}}</div>
+                                                <div class="user-company address-text col-lg-12" style="font-size: 12px;">{{x.Address1 || emptyText}}, </br> {{x.Address2 || emptyText}},</br>
+                                                    {{x.City || emptyText}} - {{x.State || emptyText}} - {{x.Postcode || emptyText}} </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-4 col-sm-6" style="margin-top: 10px;" data-ng-if="RoutePlanningCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.length > 0">
+                <!-- <span class="col-lg-12">Total Distance : {{RoutePlanningCtrl.ePage.Masters.Distance}} Kilometres</span> -->
+                <div class="col-lg-12 mt-15" ng-if="!RoutePlanningCtrl.ePage.Masters.showMap">
+                    <div class="rows border-box border-radius-2 bg-white">
+                        <!--Sender-->
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 border-left border-right pt-10 pb-10 ">
+                            <div class="fs-14">
+                                <span>
+                                    {{RoutePlanningCtrl.ePage.Entities.Header.Data.JobAddress[2].ORG_FullName}}
+                                </span>
+                                <span class="ml-15 mr-15">
+                                    <i class="fa fa-arrow-circle-right"></i>
+                                </span>
+                                <span>
+                                    {{RoutePlanningCtrl.ePage.Entities.Header.Data.JobAddress[RoutePlanningCtrl.ePage.Entities.Header.Data.JobAddress.length-1].ORG_FullName}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 mt-10">
+                            <div class="tab-profile-sub-title text-single-line fs-14">Total Distance : {{RoutePlanningCtrl.ePage.Entities.Header.Data.TmsManifestHeader.Distance}}
+                                Kilometres
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 mt-10">
+                    <ui-gmap-google-map ng-show="!RoutePlanningCtrl.ePage.Masters.showMap" ng-if='RoutePlanningCtrl.ePage.Masters.show' id='RoutePlanningCtrl.ePage.Masters.map'
+                        center='RoutePlanningCtrl.ePage.Masters.map.center' control='RoutePlanningCtrl.ePage.Masters.map.control'
+                        zoom='RoutePlanningCtrl.ePage.Masters.map.zoom'>
+                        <ui-gmap-marker coords="RoutePlanningCtrl.ePage.Masters.coords" idkey="'0'">
+                        </ui-gmap-marker>
+                        <ui-gmap-polyline ng-repeat="p in RoutePlanningCtrl.ePage.Masters.polylines" path="p.path" stroke="p.stroke" visible='p.visible'
+                            geodesic='p.geodesic' fit="false" editable="p.editable" draggable="p.draggable"></ui-gmap-polyline>
+                    </ui-gmap-google-map>
+                    <div ng-show="!RoutePlanningCtrl.ePage.Masters.showMap" id="RoutePlanningCtrl.ePage.Masters.showdirection{{RoutePlanningCtrl.currentManifest.label}}==true"
+                        style="height: 500px;"></div>
+                </div>
+                <div class="col-lg-12">
+                    <!-- search box -->
+                    <input ng-show="RoutePlanningCtrl.ePage.Masters.showMap" data-ng-change="RoutePlanningCtrl.ePage.Masters.getSearch()" ng-model="pacInput"
+                        id="pac-input" class="controls" type="text" placeholder="Search Box" autocomplete="off" style="z-index: 1; position: absolute; top: 0px; left: 228px;width:50%;">
+                    <!-- marker -->
+                    <div ng-show="RoutePlanningCtrl.ePage.Masters.showMap" id="RoutePlanningCtrl.ePage.Masters.showMap{{RoutePlanningCtrl.currentManifest.label}}"
+                        style="height: 500px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

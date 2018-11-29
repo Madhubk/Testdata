@@ -1,0 +1,401 @@
+<div class="clearfix tc-data-extraction-EntityScore-container">
+    <!-- Breadcrumb -->
+    <div class="clearfix tc-breadcrumb" data-ng-if="DataExtEntityScoreCtrl.ePage.Masters.ActiveApplication == 'TC'">
+        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-xs-12 p-0">
+            <i class="fa fa-home home-icon"></i>
+            <div class="breadcrumb-list-wrapper">
+                <ol class="breadcrumb">
+                    <li data-ng-repeat="x in DataExtEntityScoreCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                        <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="DataExtEntityScoreCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                    </li>
+                    <li data-ng-repeat="x in DataExtEntityScoreCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive"
+                        data-ng-bind="x.Description" class="active"></li>
+                </ol>
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12 p-4">
+            <tc-application-dropdown query-string="DataExtEntityScoreCtrl.ePage.Masters.QueryString"
+                on-application-change="DataExtEntityScoreCtrl.ePage.Masters.Application.OnApplicationChange($item)"></tc-application-dropdown>
+        </div>
+    </div>
+    <!-- Header -->
+    <div class="clearfix tc-header-container">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="tc-header with-add-new">
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-5">
+                    <div class="text-single-line" data-ng-bind="'Entity Score'"></div>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-5 pt-4 text-right">
+                    <button class="btn btn-xs btn-info" data-ng-click="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.AddNew()">New</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">
+            <div class="tc-header edit-view">
+                <span data-ng-bind="'Details'"></span>
+                <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10" data-ng-click="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.Edit()"
+                    data-ng-disabled="!DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore.PK">Edit</button>
+                <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.Delete()"
+                    data-ng-bind="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DeleteBtnText"
+                    data-ng-disabled="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.IsDisableDeleteBtn || !DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore.PK"></button>
+            </div>
+        </div>
+    </div>
+    <!-- Body -->
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 tc-page-height-fixed">
+            <div class="tc-list-container">
+                <div class="tc-list-search">
+                    <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="DataExtEntityScoreCtrl.ePage.Masters.Search">
+                </div>
+                <ul class="tc-list-ul">
+                    <div class="p-15 text-center tc-loading" data-ng-if="!DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreList">
+                        <i class="fa fa-spin fa-spinner"></i>
+                    </div>
+                    <div data-ng-if="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreList && (DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreList | filter: DataExtEntityScoreCtrl.ePage.Masters.Search).length===0"
+                        class="p-15 text-center">
+                        <i>No Records...</i>
+                    </div>
+                    <li data-ng-if="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreList && (DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreList | filter: DataExtEntityScoreCtrl.ePage.Masters.Search).length > 0"
+                        data-ng-repeat="x in DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreList | filter: DataExtEntityScoreCtrl.ePage.Masters.Search"
+                        data-ng-click="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore.PK != x.PK && DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.OnDataExtEntityScoreClick(x)"
+                        data-ng-class="{'active': DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore.PK == x.PK}">
+                        <div class="clearfix tc-list">
+                            <div class="tc-list-name">
+                                <i class="fa fa-circle-o mr-10"></i>
+                                <span class="text-single-line" data-ng-bind="x.UIEntityName"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed">
+            <div class="pt-10 pb-10 tc-details-view clearfix">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Entity Name</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore.UIEntityName || DataExtEntityScoreCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Class Source</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore.ClassSource || DataExtEntityScoreCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">DB Source</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore.DBSource || DataExtEntityScoreCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Entity Source</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore.EntitySource || DataExtEntityScoreCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Entity RefKey</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore.EntityRefKey || DataExtEntityScoreCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Entity RefCode</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore.EntityRefCode || DataExtEntityScoreCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tc-section-divider"></div>
+            <div class="clearfix mb-30 tc-data-config-field-container tc-list-container" data-ng-if="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore.PK">
+                <div class="tc-list-header ng-binding">DATA CONFIG FIELDS</div>
+                <div class="clearfix header">
+
+                    <!-- <div class="col-lg-3 pr-0">
+                        <div class="text-single-line" data-ng-bind="'External Code'"></div>
+                    </div> -->
+                    <div class="col-lg-4 pr-0">
+                        <div class="text-single-line" data-ng-bind="'Field Name'"></div>
+                    </div>
+                    <div class="col-lg-4 pr-0">
+                        <div class="text-single-line" data-ng-bind="'Display Name'"></div>
+                    </div>
+                    <div class="col-lg-4 text-right">
+                        <!-- <span class="fa fa-plus-circle cursor-pointer" data-ng-click="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.AddNewField(undefined, 'Main')"></span> -->
+                        <a href="javascript:void(0)" data-ng-click="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.AddNewField('Main')">Add</a>
+                    </div>
+                </div>
+
+                <div class="clearfix p-5">
+                    <div class="clearfix text-center p-20" data-ng-if="!DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ListSource">
+                        <i class="fa fa-spin fa-spinner font-160"></i>
+                    </div>
+                    <div class="clearfix text-center p-20" data-ng-if="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ListSource && DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ListSource.length == 0">
+                        <i>No Records...!</i>
+                    </div>
+                    <div class="clearfix pt-5 pb-5" data-ng-class="{'highlight-bg' : x.ItemType == 'Main'}" data-ng-if="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ListSource && DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ListSource.length > 0"
+                        data-ng-repeat="x in DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ListSource | orderBy:['SortField','SortNo']">
+                        <!-- <div class="col-lg-3 pr-0" data-ng-if="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ActiveDataExtEntityScoreFields.IsExternalCode">
+                            <div class="text-single-line" data-ng-bind="x.External_Code" title="{{x.External_Code}}"></div>
+                        </div> -->
+                        <div class="col-lg-4 pr-0">
+                            <div class="text-single-line" data-ng-bind="x.DbField" title="{{x.DbField}}"></div>
+                        </div>
+                        <div class="col-lg-4 pr-0">
+                            <div class="text-single-line" data-ng-bind="x.UIField" title="{{x.UIField}}"></div>
+                        </div>
+                        <div class="col-lg-4 text-right">
+                            <span class="ml-5 mr-5" data-ng-if="x.ItemType == 'Main'"></span>
+                            <a href="javascript:void(0)" data-ng-click="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.EditDataConfigField(x)"
+                                title="Edit">Edit</a>
+                            <span class="ml-5 mr-5" data-ng-if="x.ItemType == 'Main'">|</span>
+                            <a href="javascript:void(0)" data-ng-click=" DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.Delete(x)"
+                                title="Delete">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Entiy Score -->
+<script type="text/ng-template" id="dataExtEntityScoreEdit">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.CloseDataExtEntityScoreModal()">&times;</button>
+        <h5 class="modal-title" id="modal-title">
+            <strong>Edit</strong>
+        </h5>
+    </div>
+    <div class="modal-body pt-10" id="modal-body">
+        <div class="clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group tc-autocomplete-container">
+                    <label class="control-label">Entity Name</label>
+                    <input type="text" class="form-control input-sm" placeholder="Entity Name" data-ng-model="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore.UIEntityName"
+                        uib-typeahead="x.Name as x.Name for x in DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.GetTargetTableList($viewValue)"
+                        typeahead-on-select="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.OnTargetTableSelect($item, $model, $label, $event)"
+                        typeahead-loading="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore.IsLoading"
+                        typeahead-editable="false" typeahead-append-to-body='false' typeahead-min-length="" />
+                    <div class="clearfix dropdown-menu auto-complete" data-ng-if="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore.IsAutocompleteNoResults">
+                        <div class="auto-complete-no-result">No Results Found!</div>
+                    </div>
+                    <div class="clearfix dropdown-menu auto-complete" data-ng-if="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore.IsAutocompleteLoading">
+                        <div class="auto-complete-no-result">
+                            <i class="fa fa-spin fa-spinner"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Class Source</label>
+                    <div class="clearfix">
+                        <input type="text" class="form-control input-sm" placeholder="Class Source" data-ng-model="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore.ClassSource">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">DB Source</label>
+                    <div class="clearfix">
+                        <input type="text" class="form-control input-sm" placeholder="DB Source" data-ng-model="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore.DBSource">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Entity Source</label>
+                    <div class="clearfix">
+                        <input type="text" class="form-control input-sm" placeholder="Entity Source" data-ng-model="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore.EntitySource">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Entity RefKey</label>
+                    <select chosen class="form-control" ng-model="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore.EntityRefKey"
+                        data-ng-options="x.ColumnName as x.ColumnName for x in DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.TargetFieldList"
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Entity RefCode</label>
+                    <select chosen class="form-control" ng-model="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore.EntityRefCode"
+                    data-ng-options="x.ColumnName as x.ColumnName for x in DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.TargetFieldList"
+                    search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Parent Entity RefKey</label>
+                    <select chosen class="form-control" ng-model="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore.ParentEntityRefKey"
+                        data-ng-options="x.ColumnName as x.ColumnName for x in DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.TargetFieldList"
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Parent Entity Source</label>
+                    <div class="clearfix">
+                        <input type="text" class="form-control input-sm" placeholder="Parent Entity Source" data-ng-model="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore.ParentEntitySource">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Parent Entity RefCode</label>
+                    <select chosen class="form-control" ng-model="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore.ParentEntityRefCode"
+                    data-ng-options="x.ColumnName as x.ColumnName for x in DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.TargetFieldList"
+                    search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Additional Entity RefKey</label>
+                    <select chosen class="form-control" ng-model="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore.AdditionalEntityRefKey"
+                        data-ng-options="x.ColumnName as x.ColumnName for x in DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.TargetFieldList"
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Additional Entity Source</label>
+                    <div class="clearfix">
+                        <input type="text" class="form-control input-sm" placeholder="Additional Entity Source" data-ng-model="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore.AdditionalEntitySource">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Additional Entity RefCode</label>
+                    <select chosen class="form-control" ng-model="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore.AdditionalEntityRefCode"
+                    data-ng-options="x.ColumnName as x.ColumnName for x in DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.TargetFieldList"
+                    search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+                </div>
+            </div>
+            <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="form-group">
+                    <label class="control-label">
+                        Fields
+                        <span data-ng-click="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.OpenJsonModal()" class="glyphicon glyphicon-pencil cursor-pointer ml-5"></span>
+                    </label>
+                    <div class="clearfix">
+                        <textarea rows="15" class="form-control input-sm no-resize" placeholder="Fields" data-ng-model="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore.Fields"></textarea>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+        <div class="tc-section-divider-small"></div>
+        <div class="clearfix p-10">
+            <button class="btn btn-default tc-btn-save btn-xs pull-right ml-10" data-ng-click="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.Save()"
+                data-ng-bind="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.SaveBtnText" data-ng-disabled="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.IsDisableSaveBtn"></button>
+            <button class="btn btn-default tc-btn-cancel btn-xs pull-right ml-10" data-ng-click="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.CloseDataExtEntityScoreModal()">Cancel</button>
+        </div>
+        <div class="tc-section-divider-small mb-20"></div>
+    </div>
+</script>
+
+<!-- Field Edit Template -->
+<script type="text/ng-template" id="DataExtEntityScoreFieldsEdit">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.Close()">&times;</button>
+        <h5 class="modal-title" id="modal-title">
+            <strong>Edit</strong>
+        </h5>
+    </div>
+    <div class="modal-body pt-10" id="modal-body">
+        <form class="clearfix form-horizontal" novalidate>
+            <div class="clearfix pl-15 pr-15">
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">Expression Type</label>
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                        <select chosen class="form-control" ng-model="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ActiveDataExtEntityScoreFields.ExpressionType"
+                            data-ng-options="x as x for x in  DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.Expression.ExpressionTypeList"
+                            disable-search="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">Expression
+                        <i class="fa fa-pencil cursor-pointer ml-5" data-ng-click="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.Expression.OnEditExpression()"></i>
+                    </label>
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                        <pre class="json-display-disabled" data-ng-bind="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ActiveDataExtEntityScoreFields.Expression"></pre>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">Score Value</label>
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                        <select chosen class="form-control" ng-model="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ActiveDataExtEntityScoreFields.DbField"
+                            data-ng-options="x.ColumnName as x.ColumnName for x in DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.FieldList"
+                            search-contains="true" data-ng-change="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ActiveDataExtEntityScoreFields.UIField = DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ActiveDataExtEntityScoreFields.DbField">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">Description</label>
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                        <input type="text" class="form-control input-sm" placeholder="Display Name" data-ng-model="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ActiveDataExtEntityScoreFields.UIField"
+                        />
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="tc-section-divider-small"></div>
+    <div class="clearfix p-10">
+        <input type="submit" class="btn btn-default tc-btn-save btn-xs pull-right ml-10" data-ng-click="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.Save()"
+            value="{{DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.SaveBtnText}}" data-ng-disabled="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.IsDisableSaveBtn"
+        />
+        <button class="btn btn-default tc-btn-cancel btn-xs pull-right ml-10" data-ng-click="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.Close()">Cancel</button>
+    </div>
+    <div class="tc-section-divider-small mb-20"></div>
+    </form>
+    </div>
+</script>
+
+<!-- Edit Expression-->
+<script type="text/ng-template" id="editExpression">
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-title">
+            <strong>Expression</strong>
+            <button class="btn btn-xs btn-primary pull-right ml-10" data-ng-click="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.Expression.PrepareExpression()">OK</button>
+            <button class="btn btn-xs btn-default pull-right ml-10" data-ng-click="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.Expression.CloseEditExpressionModal()">Close</button>
+        </h5>
+    </div>
+    <div class="modal-body p-20 pl-0" id="modal-body">
+        <event-expression-group-formatter exp-group-list="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ActiveDataExtEntityScoreFields.ExpressionGroup"
+            is-logical-operator="true" is-result="true"></event-expression-group-formatter>
+    </div>
+</script>

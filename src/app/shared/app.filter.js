@@ -3,7 +3,24 @@
 
     angular
         .module("Application")
-        .filter("formatTimer", formatTimerFilter);
+        .filter("formatTimer", formatTimerFilter)
+        .filter("effortCalculation", EffortCalculation)
+        .filter("getCharacters", GetCharacters)
+        .filter("duration", Duration)
+        .filter("getIconColorForMenu", GetIconColorForMenu)
+        .filter("roundCount", RoundCount)
+        .filter("dateFormat", DateFormat)
+        .filter('auditHistory', AuditHistory)
+        .filter("listCount", ListCount)
+        .filter("auditGroup", AuditGroup)
+        .filter("convertHtmlToText", ConvertHtmlToText)
+        .filter("convertToTrustHtml", ConvertToTrustHtml)
+        .filter("getFileExtension", GetFileExtension)
+        .filter("unique", Unique)
+        .filter("dateTimeDifference", DateTimeDifference);
+
+    ConvertHtmlToText.$inject = ["$compile"];
+    ConvertToTrustHtml.$inject = ["$sce"];
 
     function formatTimerFilter() {
         return function (input) {
@@ -16,10 +33,6 @@
             return (z(hours) + ':' + z(minutes) + ':' + z(seconds));
         };
     }
-
-    angular
-        .module("Application")
-        .filter("effortCalculation", EffortCalculation);
 
     function EffortCalculation() {
         return function (input, effortRemain, effort) {
@@ -43,19 +56,11 @@
         };
     }
 
-    angular
-        .module("Application")
-        .filter("getCharacters", GetCharacters);
-
     function GetCharacters() {
         return function (input, length) {
             return (!!input) ? input.substring(0, length).toUpperCase() : '';
         }
     }
-
-    angular
-        .module("Application")
-        .filter("duration", Duration);
 
     function Duration() {
         return function (input) {
@@ -65,10 +70,6 @@
             return _duration;
         }
     }
-
-    angular
-        .module("Application")
-        .filter("getIconColorForMenu", GetIconColorForMenu);
 
     function GetIconColorForMenu() {
         return function (input, type) {
@@ -80,10 +81,6 @@
             }
         };
     }
-
-    angular
-        .module("Application")
-        .filter("roundCount", RoundCount);
 
     function RoundCount() {
         return function (input, number) {
@@ -104,35 +101,26 @@
         };
     }
 
-    angular
-        .module("Application")
-        .filter("dateFormat", DateFormat);
-
     function DateFormat($filter, APP_CONSTANT) {
-        var angularDateFilter = $filter('date');
-        return function (input) {
-            return angularDateFilter(input, APP_CONSTANT.DatePicker.format);
+        return function (input, type) {
+            return $filter('date')(input, type ? APP_CONSTANT.DatePicker[type] : APP_CONSTANT.DatePicker.dateFormat);
         };
     }
-
-    angular
-        .module("Application")
-        .filter('auditHistory', AuditHistory);
 
     function AuditHistory() {
         return function (text, item) {
             var _historyFilter = "";
             if (item.Actions == "I") {
                 if (item.OldValue != null && item.NewValue != null) {
-                    _historyFilter = "<span>" + item.OldValue + "</span> Updated by <b> " + item.NewValue + "</b>";
+                    _historyFilter = "<span>" + item.OldValue + "</span> Changed to <b> " + item.NewValue + "</b>";
                 } else if (item.OldValue == null && item.NewValue != null) {
-                    _historyFilter = "<b>" + item.NewValue + "</b> Inserted";
+                    _historyFilter = "<b>" + item.NewValue + "</b> Added";
                 }
             } else if (item.Actions == "U") {
                 if (item.OldValue != null && item.NewValue != null) {
-                    _historyFilter = "<span>" + item.OldValue + "</span> Updated by <b> " + item.NewValue + "<b>";
+                    _historyFilter = "<span>" + item.OldValue + "</span> Changed to <b> " + item.NewValue + "<b>";
                 } else if (item.OldValue == null && item.NewValue != null) {
-                    _historyFilter = "<b>" + item.NewValue + "</b> Updated";
+                    _historyFilter = "<b>" + item.NewValue + "</b> Changed";
                 }
             }
             return _historyFilter;
@@ -140,10 +128,6 @@
     }
 
     // Get List Count
-    angular
-        .module("Application")
-        .filter("listCount", ListCount);
-
     function ListCount() {
         return function (input, key, value) {
             var _output = [];
@@ -159,10 +143,6 @@
     }
 
     // Audit Group by
-    angular
-        .module("Application")
-        .filter("auditGroup", AuditGroup);
-
     function AuditGroup() {
         return function (item) {
             console.log(item)
@@ -181,12 +161,6 @@
     }
 
     // Convert HTML to Text
-    angular
-        .module("Application")
-        .filter("convertHtmlToText", ConvertHtmlToText);
-
-    ConvertHtmlToText.$inject = ["$compile"];
-
     function ConvertHtmlToText($compile) {
         return function (input) {
             if (input) {
@@ -200,12 +174,6 @@
     }
 
     // Convert HTML to TrustHtml
-    angular
-        .module("Application")
-        .filter("convertToTrustHtml", ConvertToTrustHtml);
-
-    ConvertToTrustHtml.$inject = ["$sce"];
-
     function ConvertToTrustHtml($sce) {
         return function (input) {
             if (input) {
@@ -218,12 +186,6 @@
     }
 
     // Get File Extension
-    angular
-        .module("Application")
-        .filter("getFileExtension", GetFileExtension);
-
-    GetFileExtension.$inject = [];
-
     function GetFileExtension() {
         return function (input) {
             if (input) {
@@ -241,4 +203,109 @@
         }
     }
 
+    // Unique
+    function Unique() {
+        return function (items, filterOn) {
+            if (filterOn === false) {
+                return items;
+            }
+
+            if ((filterOn || angular.isUndefined(filterOn)) && angular.isArray(items)) {
+                var hashCheck = {},
+                    newItems = [];
+
+                var extractValueToCompare = function (item) {
+                    if (angular.isObject(item) && angular.isString(filterOn)) {
+                        return item[filterOn];
+                    } else {
+                        return item;
+                    }
+                };
+
+                angular.forEach(items, function (item) {
+                    var isDuplicate = false;
+
+                    for (var i = 0; i < newItems.length; i++) {
+                        if (angular.equals(extractValueToCompare(newItems[i]), extractValueToCompare(item))) {
+                            isDuplicate = true;
+                            break;
+                        }
+                    }
+                    if (!isDuplicate) {
+                        newItems.push(item);
+                    }
+                });
+                items = newItems;
+            }
+            return items;
+        };
+    }
+
+    // MyTask Time Difference
+    function DateTimeDifference() {
+        return function (input, p_allowFuture, outputType) {
+            var substitute = function (stringOrFunction, number, strings) {
+                    var string = $.isFunction(stringOrFunction) ? stringOrFunction(number, dateDifference) : stringOrFunction;
+                    var value = (strings.numbers && strings.numbers[number]) || number;
+                    return string.replace(/%d/i, value);
+                },
+                nowTime = (new Date()).getTime(),
+                date = (new Date(input)).getTime(),
+                allowFuture = p_allowFuture || false,
+                strings = {
+                    prefixAgo: null,
+                    prefixFromNow: null,
+                    suffixAgo: "overdue",
+                    suffixFromNow: "due",
+                    seconds: "less than a minute",
+                    minute: "about a minute",
+                    minutes: "%d minutes",
+                    hour: "about an hour",
+                    hours: "about %d hours",
+                    day: "a day",
+                    days: "%d days",
+                    month: "about a month",
+                    months: "%d months",
+                    year: "about a year",
+                    years: "%d years"
+                },
+                dateDifference = nowTime - date,
+                words,
+                seconds = Math.abs(dateDifference) / 1000,
+                minutes = seconds / 60,
+                hours = minutes / 60,
+                days = hours / 24,
+                years = days / 365,
+                separator = strings.wordSeparator == undefined ? " " : strings.wordSeparator,
+                prefix = strings.prefixAgo,
+                suffix = strings.suffixAgo;
+
+            if (allowFuture) {
+                if (dateDifference < 0) {
+                    prefix = strings.prefixFromNow;
+                    suffix = strings.suffixFromNow;
+                }
+            }
+
+            words = seconds < 45 && substitute(strings.seconds, Math.round(seconds), strings) ||
+                seconds < 90 && substitute(strings.minute, 1, strings) ||
+                minutes < 45 && substitute(strings.minutes, Math.round(minutes), strings) ||
+                minutes < 90 && substitute(strings.hour, 1, strings) ||
+                hours < 24 && substitute(strings.hours, Math.round(hours), strings) ||
+                hours < 42 && substitute(strings.day, 1, strings) ||
+                days < 30 && substitute(strings.days, Math.round(days), strings) ||
+                days < 45 && substitute(strings.month, 1, strings) ||
+                days < 365 && substitute(strings.months, Math.round(days / 30), strings) ||
+                years < 1.5 && substitute(strings.year, 1, strings) ||
+                substitute(strings.years, Math.round(years), strings);
+
+            var _value = $.trim([prefix, words, suffix].join(separator));
+            var _obj = {
+                Desc: (_value.split(' ')[0] > 40) ? input : _value,
+                IsDeley: (suffix == "overdue") ? true : false
+            };
+            
+            return _obj[outputType];
+        };
+    }
 })();

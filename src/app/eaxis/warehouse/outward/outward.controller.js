@@ -5,9 +5,9 @@
          .module("Application")
          .controller("OutwardController",OutwardController);
 
-    OutwardController.$inject = ["$location", "APP_CONSTANT", "authService", "apiService", "helperService","outwardConfig","$timeout","toastr","appConfig"];
+    OutwardController.$inject = ["$scope","$location", "APP_CONSTANT", "authService", "apiService", "helperService","outwardConfig","$timeout","toastr","appConfig","$uibModal"];
 
-    function OutwardController($location, APP_CONSTANT, authService, apiService, helperService,outwardConfig, $timeout,toastr,appConfig){
+    function OutwardController($scope,$location, APP_CONSTANT, authService, apiService, helperService,outwardConfig, $timeout,toastr,appConfig,$uibModal){
 
         var OutwardCtrl = this;
         
@@ -25,6 +25,7 @@
             OutwardCtrl.ePage.Masters.taskName = "WarehouseOutward";
             OutwardCtrl.ePage.Masters.dataentryName = "WarehouseOutward";
             OutwardCtrl.ePage.Masters.TabList = []; 
+            outwardConfig.TabList = [];
             OutwardCtrl.ePage.Masters.activeTabIndex = 0;
             OutwardCtrl.ePage.Masters.isNewClicked = false;
             OutwardCtrl.ePage.Masters.IsTabClick = false;
@@ -40,6 +41,7 @@
              OutwardCtrl.ePage.Masters.RemoveTab = RemoveTab;
              OutwardCtrl.ePage.Masters.CreateNewOutward = CreateNewOutward;
              OutwardCtrl.ePage.Masters.SaveandClose = SaveandClose;
+             OutwardCtrl.ePage.Masters.BulkUploadOption = BulkUploadOption;
  
              GetNewOutward();
     }
@@ -164,6 +166,20 @@
             OutwardCtrl.ePage.Masters.activeTabIndex = 0;
         }
 
+        function BulkUploadOption(){
+            $uibModal.open({
+                animation: true,
+                backdrop: "static",
+                keyboard: true,
+                windowClass: "general-edit right bulkuploadoutward",
+                scope: $scope,
+
+                templateUrl: 'app/eaxis/warehouse/outward/outward-batch-upload/outward-batch-upload.html',
+                controller: 'OutwardBatchUploadController as OutwardBatchUploadCtrl',
+                bindToController: true,
+            });
+        }
+        
     Init();
  }
 

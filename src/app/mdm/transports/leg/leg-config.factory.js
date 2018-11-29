@@ -41,7 +41,10 @@
                     "Meta": {
 
 
-                    }
+                    },
+                    "CheckPoints": {
+                        "LabelText": "",
+                    },
                 }
 
             },
@@ -93,6 +96,11 @@
                                 "Url": "OrgAddress/FindAll",
                                 "FilterID": "ORGADDR"
                             },
+                            "GetByID": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "TmsLegTemplate/GetById/"
+                            },
                         },
 
                         "Meta": {
@@ -104,7 +112,12 @@
                             }],
                             "ErrorWarning": {
                                 "GlobalErrorWarningList": [],
-                                // "SenderCode": helperService.metaBase(),
+                                "FromZoneName": helperService.metaBase(),
+                                "ToZoneName": helperService.metaBase(),
+                                "Title": helperService.metaBase(),
+                                "LegType": helperService.metaBase(),
+                                "ManifestType": helperService.metaBase(),
+                                "TransitDays": helperService.metaBase()
                             },
                         },
                         "CheckPoints": {
@@ -116,14 +129,15 @@
 
 
             if (isNew) {
-                _exports.Entities.Header.Data = currentLeg.data;
-                _exports.Entities.Header.GetById = currentLeg.data;
+                _exports.Entities.Header.Data = currentLeg.data.Response;
+                _exports.Entities.Header.GetById = currentLeg.data.Response;
                 _exports.Entities.Header.Validations = currentLeg.Validations;
                 var obj = {
-                    [currentLeg.entity.Title]: {
+                    New: {
                         ePage: _exports
                     },
-                    label: currentLeg.entity.Title,
+                    label: 'New',
+                    Code: currentLeg.entity.Title,
                     isNew: isNew
                 };
                 exports.TabList.push(obj);
@@ -360,14 +374,20 @@
         }
 
         function ShowErrorWarningModal(EntityObject) {
-            $("#errorWarningContainer" + EntityObject.label).toggleClass("open");
+            if (EntityObject.label != "New") {
+                exports.Entities.Header.CheckPoints.LebelText = EntityObject.label;
+                exports.Entities.Header.CheckPoints.LebelText = exports.Entities.Header.CheckPoints.LebelText.replace(/ +/g, "");
+                $("#errorWarningContainer" + exports.Entities.Header.CheckPoints.LebelText).toggleClass("open");
+            } else {
+                $("#errorWarningContainer" + EntityObject.label).toggleClass("open");
+            }
         }
 
         // Validations
         function ValidationFindall() {
             var _filter = {
                 "ModuleCode": "TMS",
-                "SubModuleCode": "MAN"
+                "SubModuleCode": "LEG"
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
@@ -384,9 +404,24 @@
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
 
-            // if (!_input.TmsLegHeader.SenderCode || _input.TmsLegHeader.SenderCode) {
-            //     OnChangeValues(_input.TmsLegHeader.SenderCode, 'E5501', false, undefined, $item.label);
-            // }
+            if (!_input.FromZoneName || _input.FromZoneName) {
+                OnChangeValues(_input.FromZoneName, 'E5531', false, undefined, $item.label);
+            }
+            if (!_input.ToZoneName || _input.ToZoneName) {
+                OnChangeValues(_input.ToZoneName, 'E5530', false, undefined, $item.label);
+            }
+            if (!_input.Title || _input.Title) {
+                OnChangeValues(_input.Title, 'E5532', false, undefined, $item.label);
+            }
+            if (!_input.LegType || _input.LegType) {
+                OnChangeValues(_input.LegType, 'E5533', false, undefined, $item.label);
+            }
+            if (!_input.ManifestType || _input.ManifestType) {
+                OnChangeValues(_input.ManifestType, 'E5534', false, undefined, $item.label);
+            }
+            if (!_input.TransitDays || _input.TransitDays) {
+                OnChangeValues(_input.TransitDays, 'E5535', false, undefined, $item.label);
+            }
         }
 
         function OnChangeValues(fieldvalue, code, IsArray, RowIndex, label) {

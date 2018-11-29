@@ -1,0 +1,18 @@
+<uib-tabset id="Gatepass">
+    <!--General Tab-->
+    <uib-tab>
+        <uib-tab-heading title="Gatepass Details">
+            <i class="fa fa-truck margin-right-5"></i>
+            <span class="text-single-line" data-ng-bind="'Gatepass Details'"></span>
+        </uib-tab-heading>
+        <gatepass-general current-gatepass="GatepassMenuCtrl.currentGatepass" dataentry-object="GatepassMenuCtrl.dataentryObject"></gatepass-general>
+    </uib-tab>
+    <!--Details-->
+    <uib-tab>
+        <uib-tab-heading title="Gatepass Details">
+            <i class="fa fa-suitcase margin-right-5"></i>
+            <span class="text-single-line" data-ng-bind="'Manifest Details'"></span>
+        </uib-tab-heading>
+        <manifest-details current-gatepass="GatepassMenuCtrl.currentGatepass" dataentry-object="GatepassMenuCtrl.dataentryObject"></manifest-details>
+    </uib-tab>
+</uib-tabset>

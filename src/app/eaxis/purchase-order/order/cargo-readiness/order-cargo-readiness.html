@@ -1,63 +1,65 @@
 <div class="clearfix">
     <div class="col-lg-12 ex-line-padding" style="padding:10px">
         <div class="ex-line-box13" style="padding-top:10px">
-            <div class="col-lg-3">
+            <div class="col-lg-2">
                 <div class="form-group ex-line-font">
                     <label class="control-label">Follow Up Date</label>
                     <div class="input-group input-group-sm">
-                        <input type="text" class="form-control" placeholder="{{OrdCargoReadinessCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="OrdCargoReadinessCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.FollowUpDate"
-                            data-ng-click="OrdCargoReadinessCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isFollowUpDate')" uib-datepicker-popup="{{OrdCargoReadinessCtrl.ePage.Masters.DatePicker.Options.format}}"
-                            datepicker-options="OrdCargoReadinessCtrl.ePage.Masters.DatePicker.Options" is-open="OrdCargoReadinessCtrl.ePage.Masters.DatePicker.isOpen['isFollowUpDate']"
-                        />
+                        <input type="text" class="form-control" placeholder="{{OrdCargoReadinessCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                            data-ng-model="OrdCargoReadinessCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.FollowUpDate"
+                            datetime-picker="{{OrdCargoReadinessCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                            datepicker-options="OrdCargoReadinessCtrl.ePage.Masters.DatePicker.Options"
+                            datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                            enable-date="true" default-date="" default-time="" save-as="OrdCargoReadinessCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                            is-open="OrdCargoReadinessCtrl.ePage.Masters.DatePicker.isOpen['isFollowUpDate']"
+                            when-closed="" data-ng-click="" data-ng-change="" custom-date-time-format />
                         <span class="input-group-btn">
-                             <button class="btn btn-default shiny" data-ng-click="OrdCargoReadinessCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isFollowUpDate')"><i class="fa fa-calendar"></i></button>
+                            <button class="btn btn-default shiny" data-ng-click="OrdCargoReadinessCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isFollowUpDate')">
+                                <i class="fa fa-calendar"></i>
+                            </button>
                         </span>
                     </div>
                 </div>
             </div>
-            <!-- <div class="col-lg-3">
+            <!-- Cargo Ready On -->
+            <div class="col-lg-2">
                 <div class="form-group ex-line-font">
-                    <label class="control-label text-single-line">Goods Available At</label>
+                    <label class="control-label text-single-line">Cargo Ready On</label>
                     <div class="input-group input-group-sm">
-                        <div dynamic-lookup my-ng-model="OrdCargoReadinessCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.GoodsAvailableAt" obj="OrdCargoReadinessCtrl.ePage.Entities.Header.Data.UIPorOrderHeader"
-                            prefix-data="'MstUNLOCO'" config="'GoodsAvailableAt'"></div>
+                        <input type="text" class="form-control" placeholder="{{OrdCargoReadinessCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                            data-ng-model="OrdCargoReadinessCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.CargoReadyDate"
+                            datetime-picker="{{OrdCargoReadinessCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                            datepicker-options="OrdCargoReadinessCtrl.ePage.Masters.DatePicker.Options"
+                            datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                            enable-date="true" default-date="" default-time="" save-as="OrdCargoReadinessCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                            is-open="OrdCargoReadinessCtrl.ePage.Masters.DatePicker.isOpen['isCargoReadyDate']"
+                            when-closed="" data-ng-click="OrdCargoReadinessCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoReadyDate')"
+                            data-ng-change="" custom-date-time-format />
                         <span class="input-group-btn">
-                            <button dynamic-list-modal obj="OrdCargoReadinessCtrl.ePage.Entities.Header.Data.UIPorOrderHeader" field-name="'GoodsAvailableAt'" prefix-data="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdCargoReadinessCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                            <button class="btn btn-default shiny" data-ng-click="OrdCargoReadinessCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoReadyDate')">
+                                <i class="fa fa-calendar"></i>
+                            </button>
                         </span>
                     </div>
                 </div>
-            </div> -->
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-3">
                 <div class="form-group ex-line-font">
                     <label class="control-label text-single-line">Cargo Ready At</label>
                     <div class="">
-                        <select chosen class="form-control" ng-model="OrdCargoReadinessCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ORA_DeliveryAdress"
-                            ng-options="x.Code as x.Code for x in OrdCargoReadinessCtrl.ePage.Entities.Header.Meta.GoodsAvailAt.ListSource"
+                        <select chosen class="form-control" data-ng-model="OrdCargoReadinessCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ORA_DeliveryAdress"
+                            data-ng-options="x.Code as x.Code for x in OrdCargoReadinessCtrl.ePage.Entities.Header.Meta.GoodsAvailAt.ListSource"
                             search-contains="true">
                             <option value="">--Select--</option>
                         </select>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
-                <div class="form-group ex-line-font">
-                    <label class="control-label text-single-line">Cargo Ready On</label>
-                    <div class="input-group input-group-sm">
-                        <input type="text" class="form-control" placeholder="{{OrdCargoReadinessCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="OrdCargoReadinessCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.CargoReadyDate"
-                               data-ng-click="OrdCargoReadinessCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoReadyDate')"
-                               uib-datepicker-popup="{{OrdCargoReadinessCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="OrdCargoReadinessCtrl.ePage.Masters.DatePicker.Options"
-                               is-open="OrdCargoReadinessCtrl.ePage.Masters.DatePicker.isOpen['isCargoReadyDate']" />
-                        <span class="input-group-btn">
-                            <button class="btn btn-default shiny" data-ng-click="OrdCargoReadinessCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoReadyDate')"><i class="fa fa-calendar"></i></button>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
+            <div class="col-lg-4">
                 <div class="form-group ex-line-font">
                     <label class="control-label text-single-line">Cargo Ready Comments</label>
                     <div class="input-group input-group-sm col-lg-12">
-                        <textarea class="form-control follow-up-comments no-resize" max-length="4000" data-ng-model="OrdCargoReadinessCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.Comments"></textarea>
+                        <textarea class="form-control no-resize" max-length="4000" data-ng-model="OrdCargoReadinessCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.Comments"></textarea>
                     </div>
                 </div>
             </div>
@@ -65,44 +67,44 @@
     </div>
 </div>
 
-<div class="p-10" >
-    <label>FollowUp History</label>
-    <div id='' class="wmstable_scroll" style="height:300px; padding-top: 2px;">
-        <div class="table tab-position" id="results">
-            <div class='theader'>
-                <div class='table_header'>Date Send</div>
-                <div class='table_header'>Sent By</div>
-                <div class='table_header'>To</div>
-                <div class='table_header'>Subject</div>
+<div class="clearfix p-10">
+    <div class="clearfix">
+        <label>FollowUp History</label>
+        <div id='' class="common_table_scroll common_table_hgt pt-2">
+            <div class="table tab-position" id="results">
+                <div class='theader'>
+                    <div class='table_header'>Date Sent</div>
+                    <div class='table_header'>Subject</div>
+                    <div class='table_header'>Sent By</div>
+                    <div class='table_header'>To</div>
+                </div>
+                <div class='table_row' data-ng-repeat="x in OrdCargoReadinessCtrl.ePage.Masters.FollowUpHistoryGroup"
+                    style="font-size: 11px;">
+                    <div class='table_small'>
+                        <div class='table_cell'>Date Sent</div>
+                        <div class='table_cell'>
+                            <b>{{x.CreatedDateTime | date :'dd-MMM-yyyy'}}</b>
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Subject</div>
+                        <div class='table_cell'>{{x.Subject}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Send By</div>
+                        <div class='table_cell'>
+                            <b>{{x.CreatedBy}}</b>
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>To</div>
+                        <div class='table_cell'>{{x.TO}}</div>
+                    </div>
+                </div>
             </div>
-
             <!-- List Empty Response -->
-            <div >
-                <div class="grid-no-record3" style="top:110px;" data-ng-if="OrdCargoReadinessCtrl.ePage.Masters.FollowUpHistory.length==0">No records found...</div>
-            </div>
-
-            <div class='table_row' data-ng-repeat="x in OrdCargoReadinessCtrl.ePage.Masters.FollowUpHistory" style="font-size: 11px;">
-                <div class='table_small'>
-                    <div class='table_cell'>Date Send</div>
-                    <div class='table_cell'>
-                        <b>{{x.CreatedDateTime | date :'dd-MMM-yyyy'}}</b>
-                    </div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Send By</div>
-                    <div class='table_cell'>
-                        <b>{{x.CreatedBy}}</b>
-                    </div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>To</div>
-                    <div class='table_cell'>{{x.EmailRecipient}}</div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Subject</div>
-                    <div class='table_cell'>{{x.MailSubject}}</div>
-                </div>
-            </div>
+            <div class="grid-no-record-common_table" data-ng-if="OrdCargoReadinessCtrl.ePage.Masters.FollowUpHistoryGroup.length==0">No
+                records found...</div>
         </div>
     </div>
 </div>

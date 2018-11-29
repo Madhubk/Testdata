@@ -116,6 +116,12 @@
                             "ErrorWarning": {
                                 "GlobalErrorWarningList": [],
                                 "PartNum": helperService.metaBase(),
+                                "Length" : helperService.metaBase(),
+                                "Width"  : helperService.metaBase(),
+                                "Height" : helperService.metaBase(),
+                                "MeasureUQ" : helperService.metaBase(),
+                                "Weight": helperService.metaBase(),
+                                "WeightUQ": helperService.metaBase(),
                                 "Desc": helperService.metaBase(),
                                 "UIOrgPartRelation": helperService.metaBase(),
                             },
@@ -133,10 +139,11 @@
                 _exports.Entities.Header.Data = currentMhu.data;
                 _exports.Entities.Header.GetById = currentMhu.data;
                 var obj = {
-                    [currentMhu.entity.PartNum]: {
+                    New: {
                         ePage: _exports
                     },
-                    label: currentMhu.entity.PartNum,
+                    label: 'New',
+                    Code:currentMhu.entity.PartNum,
                     isNew: isNew
                 };
                 exports.TabList.push(obj);
@@ -404,6 +411,30 @@
             }
             if(!_input.UIProductGeneral.Desc || _input.UIProductGeneral.Desc){
                 OnChangeValues(_input.UIProductGeneral.Desc,'E12002',false,undefined,$item.label);
+            }
+            if (_input.UIProductGeneral.PartNum && _input.UIProductGeneral.PartNum.length > 30) {
+                OnChangeValues(null,'E12007',false,undefined,$item.label);
+            }
+            if (_input.UIProductGeneral.PartNum && _input.UIProductGeneral.PartNum.length < 30) {
+                OnChangeValues(_input.UIProductGeneral.PartNum,'E12007',false,undefined,$item.label);
+            }
+            if(!_input.UIProductGeneral.Length || _input.UIProductGeneral.Length){
+                OnChangeValues(_input.UIProductGeneral.Length,'E12008',false,undefined,$item.label);
+            }
+            if(!_input.UIProductGeneral.Width || _input.UIProductGeneral.Width){
+                OnChangeValues(_input.UIProductGeneral.Width,'E12009',false,undefined,$item.label);
+            }
+            if(!_input.UIProductGeneral.Height || _input.UIProductGeneral.Height){
+                OnChangeValues(_input.UIProductGeneral.Height,'E12010',false,undefined,$item.label);
+            }
+            if(!_input.UIProductGeneral.MeasureUQ || _input.UIProductGeneral.MeasureUQ){
+                OnChangeValues(_input.UIProductGeneral.MeasureUQ,'E12011',false,undefined,$item.label);
+            }
+            if(!_input.UIProductGeneral.Weight || _input.UIProductGeneral.Weight){
+                OnChangeValues(_input.UIProductGeneral.Weight,'E12012',false,undefined,$item.label);
+            }
+            if(!_input.UIProductGeneral.WeightUQ || _input.UIProductGeneral.WeightUQ){
+                OnChangeValues(_input.UIProductGeneral.WeightUQ,'E12013',false,undefined,$item.label);
             }
 
             // Related Organization Validation

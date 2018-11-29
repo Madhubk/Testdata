@@ -1,13 +1,16 @@
-<div ng-show="OrderDashCtrl.ePage.Masters.Container">
+<div data-ng-show="OrderDashCtrl.ePage.Masters.Container">
     <div class="form-group">
         <div class="col-lg-6 p-0 pr-5">
             <div class="form-group">
                 <label class="control-label text-single-line">From</label>
                 <div class="input-group input-group-sm">
-                    <input type="text" class="form-control" placeholder="{{OrderDashCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="OrderDashCtrl.ePage.Masters.FromDate"
-                        data-ng-click="OrderDashCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'FromDate')"
-                        uib-datepicker-popup="{{OrderDashCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="OrderDashCtrl.ePage.Masters.DatePicker.Options"
-                        is-open="OrderDashCtrl.ePage.Masters.DatePicker.isOpen['FromDate']" />
+                    <input type="text" class="form-control" placeholder="{{OrderDashCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        data-ng-model="OrderDashCtrl.ePage.Masters.FromDate" datetime-picker="{{OrderDashCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="OrderDashCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time=""
+                        save-as="OrderDashCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="OrderDashCtrl.ePage.Masters.DatePicker.isOpen['isFromDate']"
+                        when-closed="" data-ng-click="OrderDashCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isFromDate')"
+                        data-ng-change="" custom-date-time-format />
                     <span class="input-group-btn">
                         <button class="btn btn-default shiny" data-ng-click="OrderDashCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'FromDate')">
                             <i class="fa fa-calendar"></i>
@@ -20,10 +23,13 @@
             <div class="form-group">
                 <label class="control-label text-single-line">To</label>
                 <div class="input-group input-group-sm">
-                    <input type="text" class="form-control" placeholder="{{OrderDashCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="OrderDashCtrl.ePage.Masters.ToDate"
-                        data-ng-click="OrderDashCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'ToDate')"
-                        uib-datepicker-popup="{{OrderDashCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="OrderDashCtrl.ePage.Masters.DatePicker.Options"
-                        is-open="OrderDashCtrl.ePage.Masters.DatePicker.isOpen['ToDate']" />
+                    <input type="text" class="form-control" placeholder="{{OrderDashCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        data-ng-model="OrderDashCtrl.ePage.Masters.ToDate" datetime-picker="{{OrderDashCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="OrderDashCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time=""
+                        save-as="OrderDashCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="OrderDashCtrl.ePage.Masters.DatePicker.isOpen['isToDate']"
+                        when-closed="" data-ng-click="OrderDashCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isToDate')"
+                        data-ng-change="" custom-date-time-format />
                     <span class="input-group-btn">
                         <button class="btn btn-default shiny" data-ng-click="OrderDashCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'ToDate')">
                             <i class="fa fa-calendar"></i>
@@ -34,39 +40,44 @@
         </div>
         <div class="col-lg-12 p-0 pb-5">
             <div class="col-lg-3 pull-right">
-                <button class="btn btn-blue btn-sm pull-right mt-6" title="Search" 
-                data-ng-click="OrderDashCtrl.ePage.Masters.GetContainerByDate(OrderDashCtrl.ePage.Masters.FromDate,OrderDashCtrl.ePage.Masters.ToDate);">Search</button>
+                <button class="btn btn-blue btn-sm pull-right mt-6" title="Search" data-ng-click="OrderDashCtrl.ePage.Masters.GetContainerByDate(OrderDashCtrl.ePage.Masters.FromDate,OrderDashCtrl.ePage.Masters.ToDate);">Search</button>
             </div>
         </div>
     </div>
 </div>
 
-<div ng-show="OrderDashCtrl.ePage.Masters.Volume">
+<div data-ng-show="OrderDashCtrl.ePage.Masters.Volume">
     <div class="form-group">
         <div class="col-lg-6 p-0 pr-5">
-                <div class="form-group">
-                    <label class="control-label text-single-line">From</label>
-                    <div class="input-group input-group-sm">
-                        <input type="text" class="form-control" placeholder="{{OrderDashCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="OrderDashCtrl.ePage.Masters.FromDate1"
-                            data-ng-click="OrderDashCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'FromDate1')"
-                            uib-datepicker-popup="{{OrderDashCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="OrderDashCtrl.ePage.Masters.DatePicker.Options"
-                            is-open="OrderDashCtrl.ePage.Masters.DatePicker.isOpen['FromDate1']" />
-                        <span class="input-group-btn">
-                            <button class="btn btn-default shiny" data-ng-click="OrderDashCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'FromDate1')">
-                                <i class="fa fa-calendar"></i>
-                            </button>
-                        </span>
-                    </div>
+            <div class="form-group">
+                <label class="control-label text-single-line">From</label>
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="{{OrderDashCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        data-ng-model="OrderDashCtrl.ePage.Masters.FromDate1" datetime-picker="{{OrderDashCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="OrderDashCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time=""
+                        save-as="OrderDashCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="OrderDashCtrl.ePage.Masters.DatePicker.isOpen['isFromDate1']"
+                        when-closed="" data-ng-click="OrderDashCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isFromDate1')"
+                        data-ng-change="" custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="OrderDashCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'FromDate1')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
                 </div>
             </div>
+        </div>
         <div class="col-lg-6 p-0 pl-5">
             <div class="form-group">
                 <label class="control-label text-single-line">To</label>
                 <div class="input-group input-group-sm">
-                    <input type="text" class="form-control" placeholder="{{OrderDashCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="OrderDashCtrl.ePage.Masters.ToDate1"
-                        data-ng-click="OrderDashCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'ToDate1')"
-                        uib-datepicker-popup="{{OrderDashCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="OrderDashCtrl.ePage.Masters.DatePicker.Options"
-                        is-open="OrderDashCtrl.ePage.Masters.DatePicker.isOpen['ToDate1']" />
+                    <input type="text" class="form-control" placeholder="{{OrderDashCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        data-ng-model="OrderDashCtrl.ePage.Masters.ToDate1" datetime-picker="{{OrderDashCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="OrderDashCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time=""
+                        save-as="OrderDashCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="OrderDashCtrl.ePage.Masters.DatePicker.isOpen['isToDate1']"
+                        when-closed="" data-ng-click="OrderDashCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isToDate1')"
+                        data-ng-change="" custom-date-time-format />
                     <span class="input-group-btn">
                         <button class="btn btn-default shiny" data-ng-click="OrderDashCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'ToDate1')">
                             <i class="fa fa-calendar"></i>
@@ -77,8 +88,7 @@
         </div>
         <div class="col-lg-12 p-0 pb-5">
             <div class="col-lg-3 pull-right">
-                <button class="btn btn-blue btn-sm pull-right mt-6" title="Search" 
-                data-ng-click="OrderDashCtrl.ePage.Masters.GetVolumeByDate(OrderDashCtrl.ePage.Masters.FromDate1,OrderDashCtrl.ePage.Masters.ToDate1);">Search</button>
+                <button class="btn btn-blue btn-sm pull-right mt-6" title="Search" data-ng-click="OrderDashCtrl.ePage.Masters.GetVolumeByDate(OrderDashCtrl.ePage.Masters.FromDate1,OrderDashCtrl.ePage.Masters.ToDate1);">Search</button>
             </div>
         </div>
     </div>

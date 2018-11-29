@@ -15,7 +15,8 @@
             controller: "WarehouseMenuController",
             controllerAs: "WarehouseMenuCtrl",
             scope: {
-                currentWarehouse: "="
+                currentWarehouse: "=",
+                dataentryObject:"="
             },
             bindToController: true
         };

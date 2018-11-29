@@ -1,0 +1,206 @@
+<div class="clearfix task-group-action-container">
+    <!-- Event Group -->
+    <div class="clearfix task-group-container" data-ng-if="!OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.IsShowTaskAction">
+        <div class="clearfix" style="padding: 5px 0; background-color: #eee; font-weight: bold;">
+            <div class="col-sm-6">
+                <div class="text-single-line p-5">Task Group</div>
+            </div>
+            <div class="col-sm-4">
+                <div class="text-single-line p-5">Task</div>
+            </div>
+            <div class="col-sm-2">
+                <div class="text-single-line p-5"></div>
+            </div>
+        </div>
+        <div class="clearfix p-20 text-center" data-ng-if="!OrganizationTaskGroupCtrl.ePage.Masters.TaskGroup.TaskGroupList">
+            <i class="fa fa-spin fa-spinner font-160"></i>
+        </div>
+        <div class="clearfix p-20 text-center" data-ng-if="OrganizationTaskGroupCtrl.ePage.Masters.TaskGroup.TaskGroupList && OrganizationTaskGroupCtrl.ePage.Masters.TaskGroup.TaskGroupList.length == 0">
+            <i>No Records...!</i>
+        </div>
+        <div class="clearfix" data-ng-repeat="x in OrganizationTaskGroupCtrl.ePage.Masters.TaskGroup.TaskGroupList" style="border-bottom: 1px solid #eee; padding: 7px 0;"
+            data-ng-if="OrganizationTaskGroupCtrl.ePage.Masters.TaskGroup.TaskGroupList && OrganizationTaskGroupCtrl.ePage.Masters.TaskGroup.TaskGroupList.length > 0">
+            <div class="col-sm-6 pt-4">
+                <div class="checkbox m-0">
+                    <label>
+                        <input type="checkbox" class="colored-blue" data-ng-model="x.IsChecked" data-ng-click="OrganizationTaskGroupCtrl.ePage.Masters.TaskGroup.OnTaskGroupClick($event, x)">
+                        <span class="text text-single-line" data-ng-bind="x.ProcessName"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <select chosen class="form-control" data-ng-model="x.StepCode" data-ng-options="y.StepCode as y.StepName for y in x.TaskGroupMappingList"
+                    search-contains="true" data-ng-if="x.IsChecked" data-ng-change="OrganizationTaskGroupCtrl.ePage.Masters.TaskGroup.OnTaskChange((x.TaskGroupMappingList | filter: {StepCode: x.StepCode})[0], x)">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+            <div class="col-sm-2 text-right pt-5">
+                <a href="javascript:void(0)" data-ng-if="x.IsChecked && x.StepCode" data-ng-click="x.StepCode && OrganizationTaskGroupCtrl.ePage.Masters.TaskGroup.OnTaskGroupActionClick(x)">Action</a>
+            </div>
+        </div>
+    </div>
+    <!-- Task Action -->
+    <div class="clearfix task-action-container" data-ng-if="OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.IsShowTaskAction">
+        <div class="clearfix heading">
+            <span class="fa fa-angle-double-left mr-10 cursor-pointer font-130" data-ng-click="OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.GoToTaskGroup()"></span>
+            <span data-ng-bind="OrganizationTaskGroupCtrl.ePage.Masters.TaskGroup.ActiveTaskGroup.ProcessCode + ' - ' + OrganizationTaskGroupCtrl.ePage.Masters.TaskGroup.ActiveTaskGroup.ProcessName"></span>
+        </div>
+        <div class="clearfix" style="padding: 5px 0; background-color: #eee; font-weight: bold;">
+            <div class="col-sm-4">
+                <div class="text-single-line p-5">Parties</div>
+            </div>
+            <div class="col-sm-4">
+                <div class="text-single-line p-5">Email</div>
+            </div>
+            <div class="col-sm-2">
+                <div class="text-single-line p-5"></div>
+            </div>
+            <div class="col-sm-2">
+                <div class="text-single-line p-5"></div>
+            </div>
+        </div>
+        <div class="clearfix p-20 text-center" data-ng-if="!OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.PartyTypeList">
+            <i class="fa fa-spin fa-spinner font-160"></i>
+        </div>
+        <div class="clearfix p-20 text-center" data-ng-if="OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.PartyTypeList && OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.PartyTypeList.length == 0">
+            <i>No Records...!</i>
+        </div>
+        <div class="clearfix" data-ng-repeat="x in OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.PartyTypeList" style="border-bottom: 1px solid #eee; padding: 7px 0; padding-bottom: 3px;"
+            data-ng-if="OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.PartyTypeList && OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.PartyTypeList.length > 0">
+            <div class="col-sm-4">
+                <div class="text-single-line" data-ng-bind="x.PartyName"></div>
+                <!-- <div class="text-single-line" data-ng-bind="x.ConfigType"></div> -->
+            </div>
+            <div class="col-sm-4">
+                <select chosen name="category-group" class="form-control" ng-model="x.ConfigType" ng-options="y.Code as y.Name for y in  OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.ProcessTypeList"
+                    search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+            <!-- <div class="col-sm-4 pt-4">
+                <div class="text-single-line" data-ng-bind="x.EmailTemplate.contactlist"></div>
+            </div> -->
+            <div class="col-sm-2 pt-4" data-ng-if="x.ConfigType == 'EditTemplate'">
+                <a href="javascript:void(0);" data-ng-click="OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.OpenTaskActionModal(x, 'OrgTaskActionEmailTemplate')">
+                    <div data-ng-bind="x.ConfigType"></div>
+                    <i class="fa fa-check-circle ml-4" data-ng-if="x.EmailTemplate.OtherConfig"></i>
+
+                </a>
+            </div>
+            <div class="col-sm-2 pt-4" data-ng-if="x.ConfigType == 'TaskConfig'">
+                <a href="javascript:void(0);" data-ng-click="OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.OpenTaskActionModal(x, 'OrgTaskActionConfigTask')">
+                    <div data-ng-bind="x.ConfigType"></div>
+                    <i class="fa fa-check-circle ml-4" data-ng-if="x.TaskConfig.OtherConfig"></i>
+
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Email Template -->
+<script type="text/ng-template" id="OrgTaskActionEmailTemplate">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.CloseActionModal()">&times;</button>
+        <h5 class="modal-title" id="modal-title">
+            <strong>Email Template</strong>
+        </h5>
+    </div>
+    <div class="modal-body pt-10" id="modal-body">
+        <div class="clearfix">
+            <form class="form-horizontal" novalidate>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-5 pb-5">
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Email</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <select chosen multiple class="form-control" data-ng-model="OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.ActiveTaskAction.EmailTemplate.contactlist"
+                                data-ng-options="y.Email as y.ContactName for y in OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.ContactList"
+                                search-contains="true"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-5 pb-5">
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Template
+                            <span data-ng-click="OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.Notification.OnEditNotification()" class="glyphicon glyphicon-pencil cursor-pointer ml-5"></span>
+                        </label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <textarea class="form-control input-sm no-resize" rows="10" data-ng-model="OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.ActiveTaskAction.EmailTemplate.OtherConfig"
+                                placeholder="Template"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="section-divider-small"></div>
+        <div class="clearfix p-10">
+            <button class="btn btn-primary tc-btn-save btn-xs pull-right ml-10" data-ng-click="OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.SaveTaskActionEmailTemplate()">Save</button>
+            <button class="btn btn-danger tc-btn-cancel btn-xs pull-right ml-10" data-ng-click="OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.DeleteTaskActionEmailTemplate()"
+                data-ng-disabled="!OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.ActiveTaskAction.EmailTemplate.PK">Delete</button>
+        </div>
+        <div class="section-divider-small mb-20"></div>
+    </div>
+</script>
+
+<!-- Task Config-->
+<script type="text/ng-template" id="OrgTaskActionConfigTask">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.CloseActionModal()">&times;</button>
+        <h5 class="modal-title" id="modal-title">
+            <strong>Configure Task</strong>
+        </h5>
+    </div>
+    <div class="modal-body pt-10" id="modal-body">
+        <div class="clearfix">
+            <form class="form-horizontal" novalidate>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-5 pb-5">
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                            Configuration
+                            <span data-ng-click="OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.TaskConfig.OnEditTaskConfig()" class="glyphicon glyphicon-pencil cursor-pointer ml-5"></span>
+                        </label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <textarea class="form-control input-sm no-resize" rows="10" data-ng-model="OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.ActiveTaskAction.TaskConfig.OtherConfig"
+                                placeholder="Configuration"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="section-divider-small"></div>
+        <div class="clearfix p-10">
+            <button class="btn btn-primary tc-btn-save btn-xs pull-right ml-10" data-ng-click="OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.SaveTaskActionEmailTemplate()">Save</button>
+            <button class="btn btn-danger tc-btn-cancel btn-xs pull-right ml-10" data-ng-click="OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.DeleteTaskActionEmailTemplate()"
+                data-ng-disabled="!OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.ActiveTaskAction.PK">Delete</button>
+        </div>
+        <div class="section-divider-small mb-20"></div>
+    </div>
+</script>
+
+<!-- Notification Template -->
+<script type="text/ng-template" id="OrgTaskEditNotification">
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-title">
+            <strong>Notification</strong>
+            <button class="btn btn-xs btn-primary pull-right ml-10" data-ng-click="OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.Notification.PrepareNotification()">OK</button>
+            <button class="btn btn-xs btn-default pull-right ml-10" data-ng-click="OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.Notification.CloseNotificationModal()">Close</button>
+        </h5>
+    </div>
+    <div class="modal-body p-20 pl-0" id="modal-body">
+        <event-notification-formatter notification-list="OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.ActiveTaskAction.EmailTemplate.NotificationGroup"></event-notification-formatter>
+    </div>
+</script>
+
+<!-- Task Config Template -->
+<script type="text/ng-template" id="OrgTaskEditTaskConfig">
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-title">
+            <strong>Task Config</strong>
+            <button class="btn btn-xs btn-primary pull-right ml-10" data-ng-click="OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.TaskConfig.PrepareTaskConfig()">OK</button>
+            <button class="btn btn-xs btn-default pull-right ml-10" data-ng-click="OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.TaskConfig.CloseTaskConfigModal()">Close</button>
+        </h5>
+    </div>
+    <div class="modal-body p-20 pl-0" id="modal-body">
+        <event-task-config-formatter task-config-list="OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.ActiveTaskAction.TaskConfig.TaskConfigGroup"></event-task-config-formatter>
+    </div>
+</script>

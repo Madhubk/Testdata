@@ -1,17 +1,21 @@
 <div class="clearfix tc-component">
     <!-- Breadcrumb -->
     <div class="clearfix tc-breadcrumb" data-ng-if="ComponentCtrl.ePage.Masters.ActiveApplication == 'TC'">
-        <i class="fa fa-home home-icon"></i>
-        <div class="breadcrumb-list-wrapper">
-            <ol class="breadcrumb">
-                <li data-ng-repeat="x in ComponentCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
-                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="ComponentCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
-                </li>
-                <li data-ng-repeat="x in ComponentCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
-                    class="active"></li>
-            </ol>
+        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-xs-12 p-0">
+            <i class="fa fa-home home-icon"></i>
+            <div class="breadcrumb-list-wrapper">
+                <ol class="breadcrumb">
+                    <li data-ng-repeat="x in ComponentCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                        <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="ComponentCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                    </li>
+                    <li data-ng-repeat="x in ComponentCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive"
+                        data-ng-bind="x.Description" class="active"></li>
+                </ol>
+            </div>
         </div>
-        <span class="tc-breadcrumb-app-name" data-ng-if="ComponentCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="ComponentCtrl.ePage.Masters.QueryString.AppName"></span>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12 p-4">
+            <tc-application-dropdown query-string="ComponentCtrl.ePage.Masters.QueryString" on-application-change="ComponentCtrl.ePage.Masters.Application.OnApplicationChange($item)"></tc-application-dropdown>
+        </div>
     </div>
     <!-- Header -->
     <div class="clearfix">
@@ -126,7 +130,8 @@
             <div class="tc-section-divider"></div>
             <div class="tc-list-container tc-list-container-inner-redirect clearfix" data-ng-if="ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList.PK">
                 <ul class="tc-list-ul">
-                    <li data-ng-click="ComponentCtrl.ePage.Masters.ComponentListTypeList.OnRedirectListClick(x)" data-ng-repeat="x in ComponentCtrl.ePage.Masters.ComponentListTypeList.RedirectPagetList">
+                    <li data-ng-click="ComponentCtrl.ePage.Masters.ComponentListTypeList.OnRedirectListClick(x)"
+                        data-ng-repeat="x in ComponentCtrl.ePage.Masters.ComponentListTypeList.RedirectPagetList">
                         <div class="clearfix tc-list">
                             <div class="tc-list-name">
                                 <i class="fa {{x.Icon}} mr-10" data-ng-style="{'color': x.Color}"></i>
@@ -156,12 +161,6 @@
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4"> Name</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
                             <input type="text" class="form-control input-sm" placeholder="Name" data-ng-model="ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList.OperationName">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Type</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <input type="text" class="form-control input-sm" placeholder="Type" data-ng-model="ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList.OperationType">
                         </div>
                     </div>
                     <div class="form-group">

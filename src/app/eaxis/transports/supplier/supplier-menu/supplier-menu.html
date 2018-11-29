@@ -1,0 +1,90 @@
+<div class="clearfix wms-menu-wraper">
+    <div id="wmsMenuWrapper{{SupplierMenuCtrl.currentSupplier.label}}" class="col-sm-12 no-padding-left no-padding-right">
+        <div ng-if="SupplierMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Status=='DRF'">
+            <div supplier-general current-supplier="SupplierMenuCtrl.currentSupplier">
+            </div>  
+            <div consignment-item current-consignment="SupplierMenuCtrl.currentSupplier" ng-if="!SupplierMenuCtrl.currentSupplier.isNew">
+            </div>
+        </div>    
+        <div ng-if="SupplierMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Status!='DRF'">
+            <div consignment-read-only current-consignment="SupplierMenuCtrl.currentSupplier">
+            </div>  
+        </div>
+    </div>
+
+
+    <div class="error-warning-container right" id="errorWarningContainer{{SupplierMenuCtrl.currentSupplier.label}}">
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                <!-- <i class="fa fa-warning"></i>  -->
+                Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right" data-ng-click="SupplierMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(SupplierMenuCtrl.currentSupplier)">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+        </div>
+        <div class="error-warning-body">
+            <div class="clearfix" data-ng-if="SupplierMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length>0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in SupplierMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- To move to Receive line tab -->
+    <span ng-if="SupplierMenuCtrl.ePage.Entities.Header.CheckPoints.Receiveline" ng-init="SupplierMenuCtrl.ePage.Masters.active = 3"></span>
+
+    <!--Footer-->
+    <div class="eaxis-footer-strip">
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+            <standard-menu input="SupplierMenuCtrl.currentSupplier" dataentry-object="SupplierMenuCtrl.dataentryObject" ng-if="!SupplierMenuCtrl.currentSupplier.isNew"></standard-menu>
+        </div>
+        <div class=" col-lg-3">
+            <div class=" col-lg-4 mt-6 pl-0">
+                <div class="dropup">
+                    <a class="btn btn-secondary btn-sm dropdown-toggle supplier-btn-width-85" ng-if="!SupplierMenuCtrl.currentSupplier.isNew"
+                        ng-show="SupplierMenuCtrl.ePage.Masters.ShowMoreText" data-toggle="dropdown" href="javascript:void(0);"
+                        aria-expanded="false">
+                        More
+                        <span class="fa fa-caret-up" title="Toggle dropdown menu"></span>
+                    </a>
+                    <a class="btn btn-secondary btn-sm dropdown-toggle supplier-btn-width-85" ng-hide="SupplierMenuCtrl.ePage.Masters.ShowMoreText"
+                        data-toggle="" href="javascript:void(0);" aria-expanded="false">
+                        Please Wait...
+                    </a>
+                    <ul class="dropdown-menu shortcut-action" style="min-width: 120px;">
+                        <li>
+                            <a href="javascript:void(0);" data-ng-click="SupplierMenuCtrl.ePage.Masters.Print(SupplierMenuCtrl.ePage.Masters.DocumentValues[0])">Print</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" ng-if="SupplierMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Status=='DRF'" data-ng-click="SupplierMenuCtrl.ePage.Masters.Cancel(SupplierMenuCtrl.currentSupplier)">Cancel</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class=" col-lg-4 pl-0">
+                <button class="btn btn-primary btn-sm supplier-btn-width-85 mt-6" data-ng-click="SupplierMenuCtrl.ePage.Masters.Validation(SupplierMenuCtrl.currentSupplier)"
+                    data-ng-bind="SupplierMenuCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="SupplierMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave"></button>
+            </div>
+            <div class=" col-lg-4 pl-0">
+                <button class="btn btn-primary btn-sm mt-6" data-ng-click="SupplierMenuCtrl.ePage.Masters.SaveClose(SupplierMenuCtrl.currentSupplier)"
+                    data-ng-bind="SupplierMenuCtrl.ePage.Masters.SaveAndCloseButtonText" data-ng-disabled="SupplierMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave"></button>
+            </div>
+
+
+
+        </div>
+
+    </div>
+</div>

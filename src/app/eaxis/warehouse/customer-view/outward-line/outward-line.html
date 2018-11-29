@@ -1,0 +1,16 @@
+<uib-tabset id="chromeTab" active="OutwardLineCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+    <uib-tab>
+        <uib-tab-heading title="Outward">
+            <span data-ng-bind="'Outward Line'" class="ng-binding">Outward Line</span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+        <div class="no-padding tab-list-view-wrapper">
+            <!--Outward view Grid Page-->
+            <dynamic-list dataentry-name="OutwardLineCtrl.ePage.Masters.dataentryName" task-name="OutwardLineCtrl.ePage.Masters.taskName" grid-config-type="0"
+                selected-grid-row="OutwardLineCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" dataentry-object="OutwardLineCtrl.ePage.Masters.DataEntryObject" default-filter="OutwardLineCtrl.ePage.Masters.DefaultFilter"
+                base-filter="OutwardLineCtrl.ePage.Masters.DefaultFilter"></dynamic-list>
+            <div class="tab-loading" data-ng-show="OutwardLineCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+    
+</uib-tabset>

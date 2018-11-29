@@ -1,0 +1,215 @@
+<div class="modal-header">
+    <h5 class="modal-title pull-left">
+        <strong>Order Details</strong>
+    </h5>
+    <button type="button" class="btn btn-secondary btn-sm pull-right margin-left-5" ng-click="ShipmentcreateorderModalCtrl.ePage.Masters.Cancel()">Close</button>
+    <button type="button" class="btn btn-primary btn-sm pull-right margin-left-5" data-ng-disabled="ShipmentcreateorderModalCtrl.ePage.Masters.IsDisabled"
+        ng-click="ShipmentcreateorderModalCtrl.ePage.Masters.Save()" data-ng-bind="ShipmentcreateorderModalCtrl.ePage.Masters.SaveButton"></button>
+</div>
+<div class="modal-body">
+    <div class="col-lg-2 ex-line-padding" style="padding:10px">
+        <div class="ex-line-box1" style="padding-top:10px">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-2 pr-0 padding-top-10">
+                <div class="form-group ex-line-font">
+                    <label class="control-label text-single-line">Order #</label>
+                    <div class="input-group input-group-sm col-lg-12">
+                        <input type="hidden" data-ng-model="ShipmentcreateorderModalCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.ValidOrderNo" />
+                        <input type="text" class="form-control input-sm" placeholder="Order No" maxlength="35" data-ng-model="ShipmentcreateorderModalCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.OrderNo"
+                            data-ng-blur="ShipmentcreateorderModalCtrl.ePage.Masters.CheckOrderNo(ShipmentcreateorderModalCtrl.ePage.Entities.Header.Data)"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 pr-0 padding-top-10">
+                <div class="form-group ex-line-font">
+                    <div class="error-warning-container">
+                        <error-warning-directive data-ng-if="ShipmentcreateorderModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.OrderDate.IsWarning && !ShipmentcreateorderModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.OrderDate.IsError"
+                            list="ShipmentcreateorderModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.OrderDate.WARNING"
+                            type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        <error-warning-directive data-ng-if="ShipmentcreateorderModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.OrderDate.IsError"
+                            list="ShipmentcreateorderModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.OrderDate.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    </div>
+                    <label class="control-label">Order Date</label>
+                    <div class="input-group input-group-sm col-lg-12">
+                        <input type="text" class="form-control" placeholder="{{ShipmentcreateorderModalCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                            data-ng-model="ShipmentcreateorderModalCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.OrderDate" datetime-picker="{{ShipmentcreateorderModalCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                            datepicker-options="ShipmentcreateorderModalCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                            close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time=""
+                            save-as="ShipmentcreateorderModalCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="ShipmentcreateorderModalCtrl.ePage.Masters.DatePicker.isOpen['isOrderDate']"
+                            when-closed="" data-ng-click="ShipmentcreateorderModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isOrderDate')"
+                            data-ng-change="ShipmentcreateorderModalCtrl.ePage.Masters.CommonErrorObjInput('Order', ShipmentcreateorderModalCtrl.currentOrder, 'ORD', 'ORD', ['E1006'])"
+                            custom-date-time-format />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default shiny" data-ng-click="ShipmentcreateorderModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isOrderDate')">
+                                <i class="fa fa-calendar"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-10">
+        <div class="row margin-right-10 margin-left-10 margin-top-10 address-panel">
+            <!-- consignee -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-4 pr-0 padding-top-10 address-consignee">
+                <!--Pickup Drop Mode-->
+                <div class="padding-bottom-5">
+                    <div class="ex-line-font">
+                        <error-warning-directive data-ng-if="ShipmentcreateorderModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignee.IsWarning && !ShipmentcreateorderModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignee.IsError"
+                            list="ShipmentcreateorderModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignee.WARNING"
+                            type="'warning'" icon="fa fa-warning" parent-type="'general'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        <error-warning-directive data-ng-if="ShipmentcreateorderModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignee.IsError"
+                            list="ShipmentcreateorderModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignee.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        <label class="control-label"> Consignee</label>
+                    </div>
+                </div>
+                <!--Estimated Pickup-->
+                <div class="padding-right-10">
+                    <div class="form-group">
+                        <div class="input-group input-group-sm">
+                            <input type="hidden" data-ng-model="ShipmentcreateorderModalCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.Buyer">
+                            <input type="hidden" data-ng-model="ShipmentcreateorderModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.ORG_FK">
+                            <div dynamic-lookup placeholder="Organization Code" my-ng-model="ShipmentcreateorderModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.ORG_Code"
+                                obj="ShipmentcreateorderModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP" page-name="'OrganizationList'"
+                                control-key="'JobAddressOrgConsignee_3245'" control-id="'JobAddressOrgConsignee'" auto-complete-on-select="ShipmentcreateorderModalCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'address', 'SCP')">
+                            </div>
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal obj="ShipmentcreateorderModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP" control-key="'JobAddressOrgConsignee_3245'"
+                                    control-id="'JobAddressOrgConsignee'" page-name="'OrganizationList'" mode="2" grid-refresh-fun-name=""
+                                    grid-refresh-fun="" selected-data="ShipmentcreateorderModalCtrl.ePage.Masters.SelectedLookupData($item, 'address', 'SCP')"
+                                    class="btn btn-default shiny" type="button">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="padding-right-10">
+                    <div class="form-group">
+                        <div class="input-group input-group-sm">
+                            <input type="hidden" data-ng-model="ShipmentcreateorderModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.OAD_Address_FK">
+                            <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignee address" data-ng-model="ShipmentcreateorderModalCtrl.ePage.Masters.AddressContactBinding((ShipmentcreateorderModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.AddressList | filter: {PK: ShipmentcreateorderModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.OAD_Address_FK})[0],'Address')"
+                                data-ng-model-options="{ getterSetter: true }"></textarea>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" data-ng-click="ShipmentcreateorderModalCtrl.ePage.Masters.IsSCPAddressOpen=!ShipmentcreateorderModalCtrl.ePage.Masters.IsSCPAddressOpen">
+                                    <i class="fa fa-address-book-o"></i>
+                                </button>
+                            </span>
+                            <div class="dropdownWrapMiddle animated fadeInDown" data-ng-show="ShipmentcreateorderModalCtrl.ePage.Masters.IsSCPAddressOpen">
+                                <address-wrapper obj="ShipmentcreateorderModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.AddressList" type="'SCP'"
+                                    list-source="'AddressList'" selected="ShipmentcreateorderModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.OAD_Address_FK"
+                                    on-address-edit="ShipmentcreateorderModalCtrl.ePage.Masters.OnAddressEdit($item, 'SCP', 'Address')"
+                                    on-address-change="ShipmentcreateorderModalCtrl.ePage.Masters.OnAddressChange($item, 'SCP', 'Address')"></address-wrapper>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="padding-right-10">
+                    <div class="form-group">
+                        <div class="input-group input-group-sm">
+                            <input type="hidden" data-ng-model="ShipmentcreateorderModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.OCT_FK">
+                            <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignee contact" data-ng-model="ShipmentcreateorderModalCtrl.ePage.Masters.AddressContactBinding((ShipmentcreateorderModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.ContactList | filter: {PK: ShipmentcreateorderModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.OCT_FK})[0],'Contact')"
+                                data-ng-model-options="{ getterSetter: true }"></textarea>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" data-ng-click="ShipmentcreateorderModalCtrl.ePage.Masters.IsSCPContactOpen=!ShipmentcreateorderModalCtrl.ePage.Masters.IsSCPContactOpen">
+                                    <i class="fa fa-phone"></i>
+                                </button>
+                            </span>
+                            <div class="dropdownWrapMiddle animated fadeInDown" data-ng-show="ShipmentcreateorderModalCtrl.ePage.Masters.IsSCPContactOpen">
+                                <address-wrapper obj="ShipmentcreateorderModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.ContactList" type="'SCP'"
+                                    list-source="'ContactList'" selected="ShipmentcreateorderModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.OCT_FK"
+                                    on-address-change="ShipmentcreateorderModalCtrl.ePage.Masters.OnContactChange($item, 'SCP', 'Contact')"></address-wrapper>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- consignor -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-4 pr-0 padding-top-10 address-design">
+                <!--Pickup Drop Mode-->
+                <div class="padding-bottom-5">
+                    <div class="ex-line-font">
+                        <error-warning-directive data-ng-if="ShipmentcreateorderModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignor.IsWarning && !ShipmentcreateorderModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignor.IsError"
+                            list="ShipmentcreateorderModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignor.WARNING"
+                            type="'warning'" icon="fa fa-warning" parent-type="'general'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        <error-warning-directive data-ng-if="ShipmentcreateorderModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignor.IsError"
+                            list="ShipmentcreateorderModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignor.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        <label class="control-label"> Consignor</label>
+                    </div>
+                </div>
+                <!--Estimated Pickup-->
+                <div class="padding-right-10">
+                    <div class="form-group">
+                        <div class="input-group input-group-sm">
+                            <input type="hidden" data-ng-model="ShipmentcreateorderModalCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.Supplier">
+                            <input type="hidden" data-ng-model="ShipmentcreateorderModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.ORG_FK">
+                            <div dynamic-lookup placeholder="Organization Code" my-ng-model="ShipmentcreateorderModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.ORG_Code"
+                                obj="ShipmentcreateorderModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA" page-name="'OrganizationList'"
+                                control-key="'JobAddressOrgConsignor_3241'" control-id="'JobAddressOrgConsignor'" auto-complete-on-select="ShipmentcreateorderModalCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'address', 'CRA')">
+                            </div>
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal obj="ShipmentcreateorderModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA" control-key="'JobAddressOrgConsignor_3241'"
+                                    control-id="'JobAddressOrgConsignor'" page-name="'OrganizationList'" mode="2" grid-refresh-fun-name=""
+                                    grid-refresh-fun="" selected-data="ShipmentcreateorderModalCtrl.ePage.Masters.SelectedLookupData($item, 'address', 'CRA')"
+                                    class="btn btn-default shiny" type="button">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                            </span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="padding-right-10">
+                    <div class="form-group">
+                        <div class="input-group input-group-sm">
+                            <input type="hidden" data-ng-model="ShipmentcreateorderModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.OAD_Address_FK">
+                            <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignor address" data-ng-model="ShipmentcreateorderModalCtrl.ePage.Masters.AddressContactBinding((ShipmentcreateorderModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.AddressList | filter: {PK: ShipmentcreateorderModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.OAD_Address_FK})[0],'Address')"
+                                data-ng-model-options="{ getterSetter: true }"></textarea>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" data-ng-click="ShipmentcreateorderModalCtrl.ePage.Masters.IsCRAAddressOpen=!ShipmentcreateorderModalCtrl.ePage.Masters.IsCRAAddressOpen">
+                                    <i class="fa fa-address-book-o"></i>
+                                    <!--<i class="fa fa-caret-down"></i>-->
+                                </button>
+                            </span>
+                            <div class="dropdownWrapLeft animated fadeInDown" data-ng-show="ShipmentcreateorderModalCtrl.ePage.Masters.IsCRAAddressOpen">
+                                <address-wrapper obj="ShipmentcreateorderModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.AddressList" type="'CRA'"
+                                    list-source="'AddressList'" selected="ShipmentcreateorderModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.OAD_Address_FK"
+                                    on-address-edit="ShipmentcreateorderModalCtrl.ePage.Masters.OnAddressEdit($item, 'CRA', 'Address')"
+                                    on-address-change="ShipmentcreateorderModalCtrl.ePage.Masters.OnAddressChange($item, 'CRA', 'Address')"></address-wrapper>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="padding-right-10">
+                    <div class="form-group">
+                        <div class="input-group input-group-sm">
+                            <input type="hidden" data-ng-model="ShipmentcreateorderModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.OCT_FK">
+                            <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignor contact" data-ng-model="ShipmentcreateorderModalCtrl.ePage.Masters.AddressContactBinding((ShipmentcreateorderModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.ContactList | filter: {PK: ShipmentcreateorderModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.OCT_FK})[0],'Contact')"
+                                data-ng-model-options="{ getterSetter: true }"></textarea>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" data-ng-click="ShipmentcreateorderModalCtrl.ePage.Masters.IsCRAContactOpen=!ShipmentcreateorderModalCtrl.ePage.Masters.IsCRAContactOpen">
+                                    <i class="fa fa-phone"></i>
+                                </button>
+                            </span>
+                            <div class="dropdownWrapLeft animated fadeInDown" data-ng-show="ShipmentcreateorderModalCtrl.ePage.Masters.IsCRAContactOpen">
+                                <address-wrapper obj="ShipmentcreateorderModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.ContactList" type="'CRA'"
+                                    list-source="'ContactList'" selected="ShipmentcreateorderModalCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.OCT_FK"
+                                    on-address-change="ShipmentcreateorderModalCtrl.ePage.Masters.OnContactChange($item, 'CRA', 'Contact')"></address-wrapper>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary btn-sm pull-right margin-left-5" ng-click="ShipmentcreateorderModalCtrl.ePage.Masters.Cancel()">Close</button>
+    <button type="button" class="btn btn-primary btn-sm pull-right margin-left-5" ng-click="ShipmentcreateorderModalCtrl.ePage.Masters.Save()"
+        data-ng-bind="ShipmentcreateorderModalCtrl.ePage.Masters.SaveButton" data-ng-disabled="ShipmentcreateorderModalCtrl.ePage.Masters.IsDisabled"></button>
+</div>

@@ -4,7 +4,7 @@
 </div>
 <div class="modal-body pb-50">
     <div ng-repeat="x in SupplierAddressCtrl.ePage.Entities.otheraddress">
-        <div class="col-lg-6 mt-15" ng-click="SupplierAddressCtrl.ePage.Masters.AddressChosen(x)">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 mt-15" ng-click="SupplierAddressCtrl.ePage.Masters.AddressChosen(x)">
             <div ng-class="{addressboxselected: x.PK == SupplierAddressCtrl.ePage.Masters.CurrentSupplierAddress.OAD_Address_FK, addressbox:x.PK != SupplierAddressCtrl.ePage.Masters.CurrentSupplierAddress.OAD_Address_FK}">
                 <div class="text-single-line" title='{{x.Address1}}'><b>{{x.Address1 }}</b></div>
                 <div class="text-single-line" title='{{x.Address2}}'>{{x.Address2 }}</div>

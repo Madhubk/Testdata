@@ -16,7 +16,8 @@
             controller: "AdjustmentMenuController",
             controllerAs: "AdjustmentMenuCtrl",
             scope: {
-                currentAdjustment: "="
+                currentAdjustment: "=",
+                dataentryObject:'='
             },
             bindToController: true
 

@@ -1,0 +1,21 @@
+<div class="clearfix tc-dynamic-details-view">
+    <div class="clearfix tc-breadcrumb" data-ng-if="DynamicDetailsViewCtrl.ePage.Masters.ActiveApplication == 'TC'">
+        <i class="fa fa-home home-icon"></i>
+        <div class="breadcrumb-list-wrapper">
+            <ol class="breadcrumb">
+                <li data-ng-repeat="x in DynamicDetailsViewCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="DynamicDetailsViewCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                </li>
+                <li data-ng-repeat="x in DynamicDetailsViewCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
+                    class="active"></li>
+            </ol>
+        </div>
+        <span class="tc-breadcrumb-app-name" data-ng-if="DynamicDetailsViewCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="DynamicDetailsViewCtrl.ePage.Masters.QueryString.AppName"></span>
+    </div>
+    <div class="clearfix">
+        <div class="tc-page-height-fixed without-header">
+            <dynamic-details-view data-ng-if="DynamicDetailsViewCtrl.ePage.Masters.dataentryName" dataentry-name="DynamicDetailsViewCtrl.ePage.Masters.dataentryName"
+                pkey="DynamicDetailsViewCtrl.ePage.Masters.Pkey" mode="0" default-filter=""></dynamic-details-view>
+        </div>
+    </div>
+</div>

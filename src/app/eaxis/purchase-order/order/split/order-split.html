@@ -1,4 +1,3 @@
-
 <div class="clearfix" data-ng-if="OrdSplitCtrl.ePage.Masters.SplitOrderList.length==0">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
     </div>
@@ -8,7 +7,7 @@
                 <h5>
                     <strong class="ribbon-content">No Sub PO Created yet,</strong>
                     <!-- <a class="padding-left-10" href="#/EA/supplierfollowup" target="_blank"> -->
-                        <input type="button" class="btn btn-blue btn-primary" value="Sub PO" data-ng-click="OrdSplitCtrl.ePage.Masters.NewSplitRecord()" />
+                    <input type="button" class="btn btn-blue btn-primary" value="Create Sub PO" data-ng-click="OrdSplitCtrl.ePage.Masters.NewSplitRecord()" />
                     <!-- </a> -->
                 </h5>
             </div>
@@ -27,8 +26,9 @@
                 <div class='table_header'>Invoice Date</div>
             </div>
             <!-- List Empty Response -->
-            <div >
-                <div class="grid-no-record1" style="top:110px;" data-ng-if="OrdSplitCtrl.ePage.Masters.SplitOrderList.length==0">No records found...</div>
+            <div>
+                <div class="grid-no-record1" style="top:110px;" data-ng-if="OrdSplitCtrl.ePage.Masters.SplitOrderList.length==0">No
+                    records found...</div>
             </div>
 
             <div class='table_row' data-ng-repeat="x in OrdSplitCtrl.ePage.Masters.SplitOrderList" style="font-size: 11px;">

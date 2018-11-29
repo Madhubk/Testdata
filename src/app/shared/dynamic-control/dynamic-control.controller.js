@@ -5,9 +5,9 @@
         .module("Application")
         .controller("DynamicControlController", DynamicControlController);
 
-    DynamicControlController.$inject = ["$scope", "$location", "$timeout", "APP_CONSTANT", "apiService", "authService", "helperService", "$http", "$injector", "appConfig", "dynamicLookupConfig"];
+    DynamicControlController.$inject = ["$location", "$timeout", "APP_CONSTANT", "apiService", "authService", "helperService", "$injector", "appConfig", "dynamicLookupConfig"];
 
-    function DynamicControlController($scope, $location, $timeout, APP_CONSTANT, apiService, authService, helperService, $http, $injector, appConfig, dynamicLookupConfig) {
+    function DynamicControlController($location, $timeout, APP_CONSTANT, apiService, authService, helperService, $injector, appConfig, dynamicLookupConfig) {
         var DynamicControlCtrl = this;
 
         function Init() {
@@ -22,7 +22,7 @@
                 DynamicControlCtrl.ePage.Masters.Pkey = DynamicControlCtrl.pkey;
             }
 
-            if ($location.path().indexOf('single-record-view') != -1) {
+            if ($location.path().indexOf('/single-record-view/') != -1) {
                 // var _Config = $injector.get('shipmentConfig');
                 // var _Config = $injector.get(DynamicControlCtrl.configName);
                 var Entity = $location.path().split("/").pop();
@@ -41,6 +41,7 @@
             }
 
             DynamicControlCtrl.ePage.Masters.TenantCode = authService.getUserInfo().TenantCode;
+            DynamicControlCtrl.ePage.Masters.AppCode = authService.getUserInfo().AppCode;
             DynamicControlCtrl.ePage.Masters.UserId = authService.getUserInfo().UserId;
             DynamicControlCtrl.ePage.Masters.ModeFilter = ModeFilter;
             DynamicControlCtrl.ePage.Masters.EditCall = EditCall;
@@ -68,44 +69,17 @@
                 }
             }
 
-            var _isEmpty = angular.equals({}, dynamicLookupConfig.Entities);
-            if (_isEmpty) {
-                GetLookupMasterList();
-            }
             if (!DynamicControlCtrl.input && DynamicControlCtrl.dataentryName && DynamicControlCtrl.mode == "S") {
                 GetDynamicControl();
             } else if (DynamicControlCtrl.input) {
-                if (DynamicControlCtrl.mode == "S") {
+                if (DynamicControlCtrl.mode == "S" && DynamicControlCtrl.listMode == '1') {
                     GetDynamicAccessControl();
                 }
                 GetDataEntryDynamicList();
             }
         }
 
-        function GetLookupMasterList() {
-            var _dataEntryNameList = "OrganizationList,MstUNLOCO,CmpDepartment,CmpEmployee,CmpBranch,DGSubstance,OrgContact,MstCommodity,MstContainer,OrgSupplierPart,MstVessel,ShipmentSearch,ConsolHeader,OrderHeader,Warehouse,WarehouseRow,WarehouseArea,OrgHeader,WarehouseOutward,WarehouseInward,WarehouseTransport,ProductRelatedParty,MstServiceLevel,CurrencyMaster,CarrierServiceLevel,MDM_CarrierList,WarehouseLocation,InwardDockDoor,MstCountry,WarehouseLocationType,PickupAndDeliveryOrders,TransportPickupandDelivery,TransportsConsignment,TransportItem,TransportsManifest,TmsConsignmentItem";
-            var _filter = [{
-                "FieldName": "DataEntryNameList",
-                "value": _dataEntryNameList
-            }];
-            var _input = {
-                "searchInput": _filter,
-                "FilterID": appConfig.Entities.DataEntryMaster.API.FindAll.FilterID
-            };
-
-            apiService.post("eAxisAPI", appConfig.Entities.DataEntryMaster.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        response.data.Response.map(function (value, key) {
-                            dynamicLookupConfig.Entities[value.DataEntryName] = value;
-                        });
-                    }
-                }
-            });
-        }
-
         function GetDynamicControl() {
-            // Get Dynamic filter controls
             var _filter = {
                 DataEntryName: DynamicControlCtrl.dataentryName,
                 IsRoleBassed: "false",
@@ -122,7 +96,7 @@
                     console.log("Dynamic control config Empty Response");
                 } else {
                     DynamicControlCtrl.input = response.data.Response;
-                    if (DynamicControlCtrl.mode == "S") {
+                    if (DynamicControlCtrl.mode == "S" && DynamicControlCtrl.listMode == '1') {
                         GetDynamicAccessControl();
                     }
                 }
@@ -188,7 +162,7 @@
                 if (response.data.Response) {
                     if (response.data.Response[0] != null) {
                         entityObj.Data = response.data.Response[0];
-                        if ($location.path().indexOf('single-record-view') != -1) {
+                        if ($location.path().indexOf('/single-record-view/') != -1) {
                             UIDynamicFunData();
                         }
                     }
@@ -234,24 +208,25 @@
             var inputObj = {};
             inputObj.SearchInput = [];
 
-            if (entity.Data != null) {
-                for (var i = 0; i < obj.PossibleFilters.length; i++) {
-                    if (obj.PossibleFilters[i].FieldName != obj.AttributesDetails.UIDisplay) {
-                        if (entity.Data[obj.PossibleFilters[i].FieldName] != undefined) {
-                            if (entity.Data[obj.PossibleFilters[i].FieldName]) {
-                                obj.PossibleFilters[i].Value = entity.Data[obj.PossibleFilters[i].FieldName];
-                            } else {
-                                obj.PossibleFilters[i].Value = "";
+            if (Value != "#") {
+                if (entity.Data != null) {
+                    for (var i = 0; i < obj.PossibleFilters.length; i++) {
+                        if (obj.PossibleFilters[i].FieldName != obj.AttributesDetails.UIDisplay) {
+                            if (entity.Data[obj.PossibleFilters[i].FieldName] != undefined) {
+                                if (entity.Data[obj.PossibleFilters[i].FieldName]) {
+                                    obj.PossibleFilters[i].Value = entity.Data[obj.PossibleFilters[i].FieldName];
+                                } else {
+                                    obj.PossibleFilters[i].Value = "";
+                                }
                             }
+                        } else {
+                            obj.PossibleFilters[i].Value = Value;
+                            inputObj.SearchInput.push(obj.PossibleFilters[i]);
                         }
-                    } else {
-                        obj.PossibleFilters[i].Value = Value;
-                        inputObj.SearchInput.push(obj.PossibleFilters[i]);
                     }
                 }
             }
 
-            // inputObj.SearchInput = obj.PossibleFilters;
             inputObj.FilterID = obj.AttributesDetails.FilterID;
             inputObj.DBObjectName = obj.AttributesDetails.DBSource;
 
@@ -264,12 +239,22 @@
             });
         }
 
-        function SelectedData($item, Entity, ControlId) {
-            if (Entity.Data == undefined) {
+        function SelectedData($item, Entity, ControlKey) {
+            var _index = -1,
+                _lookupConfig;
+            for (var x in dynamicLookupConfig.Entities) {
+                (ControlKey) ? _index = x.indexOf(ControlKey): _index = x.indexOf(ControlKey);
+
+                if (_index !== -1) {
+                    _lookupConfig = dynamicLookupConfig.Entities[x];
+                }
+            }
+            if (!Entity.Data) {
                 Entity.Data = {}
-            };
-            $item.DataEntryMaster.LookupConfig[ControlId].getValues.map(function (value, key) {
-                Entity.Data[value.eField] = $item.entity[$item.DataEntryMaster.LookupConfig[ControlId].getValues[key].sField];
+            }
+
+            _lookupConfig.getValues.map(function (value, key) {
+                Entity.Data[value.eField] = $item.data.entity[_lookupConfig.getValues[key].sField];
             });
         }
 

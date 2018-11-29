@@ -21,12 +21,14 @@
                 "Entities": mhuConfig.Entities
             };
 
-            MhuCtrl.ePage.Masters.taskName = "Mhu";
             MhuCtrl.ePage.Masters.dataentryName = "Mhu";
             MhuCtrl.ePage.Masters.TabList = [];
             MhuCtrl.ePage.Masters.activeTabIndex = 0;
             MhuCtrl.ePage.Masters.isNewMhuClicked = false;
             MhuCtrl.ePage.Masters.IsTabClick = false;
+
+            // Remove all Tabs while load shipment
+            mhuConfig.TabList = [];
 
             //functions
             MhuCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
@@ -53,10 +55,21 @@
             MhuCtrl.ePage.Masters.currentMhu = undefined;
 
             var _isExist = MhuCtrl.ePage.Masters.TabList.some(function (value) {
+                // if (!isNew) {
+                //     return value.label === currentMhu.entity.PartNum;
+                // } else {
+                //     return false;
+                // }
                 if (!isNew) {
-                    return value.label === currentMhu.entity.PartNum;
+                    if (value.label === currentMhu.entity.PartNum)
+                        return true;
+                    else
+                        return false;
                 } else {
-                    return false;
+                    if (value.label === "New")
+                        return true;
+                    else
+                        return false;   
                 }
             });
 
@@ -131,7 +144,7 @@
             MhuCtrl.ePage.Masters.Config.SaveAndClose = false;
             
             apiService.get("eAxisAPI", MhuCtrl.ePage.Entities.Header.API.SessionClose.Url + currentMhu.Header.Data.PK).then(function(response){
-                if (response.data.Response === "Success") {
+                if (response.data.Status === "Success") {
                 } else {
                     console.log("Tab close Error : " + response);
                 }

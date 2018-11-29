@@ -1,0 +1,94 @@
+<div class="clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding" data-ng-if="!oneThreeContainerGridCtrl.readOnly">
+        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0">
+            <span>
+                <button data-ng-if="oneThreeContainerGridCtrl.btnVisible.Delete" data-ng-disabled="oneThreeContainerGridCtrl.ePage.Masters.selectedRow==-1"
+                    type="button" class="btn btn-sm btn-outline-primary font-10" title="Delete" data-ng-click="oneThreeContainerGridCtrl.ePage.Masters.Package.PackageDeleteConfirmation(oneThreeContainerGridCtrl.ePage.Masters.selectedRow, oneThreeContainerGridCtrl.ePage.Masters.selectedRowObj) && oneThreeContainerGridCtrl.ePage.Masters.selectedRow!=-1">
+                    <span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button>
+            </span>
+            <span>
+                <button data-ng-if="oneThreeContainerGridCtrl.btnVisible.More" type="button" data-ng-disabled="oneThreeContainerGridCtrl.ePage.Masters.selectedRow==-1"
+                    class="btn btn-sm btn-outline-primary font-10" title="More" data-ng-click="oneThreeContainerGridCtrl.ePage.Masters.Package.More(oneThreeContainerGridCtrl.ePage.Masters.selectedRow,oneThreeContainerGridCtrl.ePage.Masters.selectedRowObj) && oneThreeContainerGridCtrl.ePage.Masters.selectedRow!=-1">
+                    <span class="fa fa-ellipsis-v"></span>&nbsp;&nbsp;More</button>
+            </span>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 p-0">
+            &nbsp;
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0">
+            &nbsp;
+        </div>
+    </div>
+    <div id="oneThreeContainerGridCtrl.ePage.Entities.Header.Meta.Container.ListSource.ContainerNo" class="fixedheader mb-0">
+
+        <table id="oneThreeContainerGridCtrl.ePage.Masters.AddScroll" style="height:200px;">
+            <thead>
+                <tr id="tableHeader">
+                    <th id="Consol" data-ng-if="oneThreeContainerGridCtrl.ePage.Masters.TableProperties.ContainerList.HeaderProperties.ContainerNo.isenabled"
+                        data-ng-style="{ 'width': oneThreeContainerGridCtrl.ePage.Masters.TableProperties.ContainerList.HeaderProperties.ContainerNo.width + 'px' }"
+                        title="Consol">Container #</th>
+                    <th id="POL" data-ng-if="oneThreeContainerGridCtrl.ePage.Masters.TableProperties.ContainerList.HeaderProperties.ContainerCount.isenabled"
+                        data-ng-style="{ 'width': oneThreeContainerGridCtrl.ePage.Masters.TableProperties.ContainerList.HeaderProperties.ContainerCount.width + 'px' }"
+                        title="POL">Count</th>
+                    <th id="POD" data-ng-if="oneThreeContainerGridCtrl.ePage.Masters.TableProperties.ContainerList.HeaderProperties.RC_Type.isenabled"
+                        data-ng-style="{ 'width': oneThreeContainerGridCtrl.ePage.Masters.TableProperties.ContainerList.HeaderProperties.RC_Type.width + 'px' }"
+                        title="POD">Type</th>
+                    <th id="MBL" data-ng-if="oneThreeContainerGridCtrl.ePage.Masters.TableProperties.ContainerList.HeaderProperties.SealNo.isenabled"
+                        data-ng-style="{ 'width': oneThreeContainerGridCtrl.ePage.Masters.TableProperties.ContainerList.HeaderProperties.SealNo.width + 'px' }"
+                        title="MBL">Seal #</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <tr id="tableBody" data-ng-if="oneThreeContainerGridCtrl.ePage.Entities.Header.Meta.Container && oneThreeContainerGridCtrl.ePage.Entities.Header.Meta.Container.ListSource.length > 0"
+                    data-ng-class="{row_active: (oneThreeContainerGridCtrl.ePage.Masters.selectedRow==$index)}" data-ng-repeat="x in oneThreeContainerGridCtrl.ePage.Entities.Header.Meta.Container.ListSource">
+                    <td id="Consol" data-ng-if="oneThreeContainerGridCtrl.ePage.Masters.TableProperties.ContainerList.ContainerNo.isenabled"
+                        data-ng-style="{ 'width': oneThreeContainerGridCtrl.ePage.Masters.TableProperties.ContainerList.ContainerNo.width + 'px' }">
+                        {{x.ContainerNo}}
+                    </td>
+                    <td id="POL" data-ng-if="oneThreeContainerGridCtrl.ePage.Masters.TableProperties.ContainerList.ContainerCount.isenabled"
+                        data-ng-style="{ 'width': oneThreeContainerGridCtrl.ePage.Masters.TableProperties.ContainerList.ContainerCount.width + 'px' }">
+                        {{x.ContainerCount}}
+                    </td>
+                    <td id="POD" data-ng-if="oneThreeContainerGridCtrl.ePage.Masters.TableProperties.ContainerList.RC_Type.isenabled"
+                        data-ng-style="{ 'width': oneThreeContainerGridCtrl.ePage.Masters.TableProperties.ContainerList.RC_Type.width + 'px' }">
+                        <div data-ng-if="$index!=oneThreeContainerGridCtrl.ePage.Masters.selectedRow || oneThreeContainerGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.RC_Type}}
+                        </div>
+                    </td>
+                    <td id="MBL" data-ng-if="oneThreeContainerGridCtrl.ePage.Masters.TableProperties.ContainerList.SealNo.isenabled"
+                        data-ng-style="{ 'width': oneThreeContainerGridCtrl.ePage.Masters.TableProperties.ContainerList.SealNo.width + 'px' }">
+                        {{x.SealNo}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="grid-no-record" data-ng-if="oneThreeContainerGridCtrl.ePage.Entities.Header.Meta.Container.ListSource.length == 0">No
+            records found...</div>
+    </div>
+    <!-- Pagination -->
+    <div class="mr-10 ml-10">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pagination-border">
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3 col-xl-3 pt-10 p-0">
+                <ul uib-pagination boundary-links="true" total-items="oneThreeContainerGridCtrl.ePage.Entities.Header.Meta.Container.ListSource.length"
+                    data-ng-model="oneThreeContainerGridCtrl.ePage.Masters.Pagination.CurrentPage" class="pagination-sm"
+                    max-size="oneThreeContainerGridCtrl.ePage.Masters.Pagination.MaxSize" items-per-page="oneThreeContainerGridCtrl.ePage.Masters.Pagination.ItemsPerPage"
+                    num-pages="oneThreeContainerGridCtrl.ePage.Masters.Pagination.TotalPage" previous-text="&lsaquo;" next-text="&rsaquo;"
+                    first-text="&laquo;" last-text="&raquo;"></ul>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3 col-xl-3 pt-10">
+                <select data-ng-model="oneThreeContainerGridCtrl.ePage.Masters.Pagination.ItemsPerPage" data-ng-change="">
+                    <option data-ng-selected="true">25</option>
+                    <option>50</option>
+                    <option>100</option>
+                    <option>500</option>
+                </select> Records Per Page.
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 pt-10 pull-right">
+                <div class="">Page : {{oneThreeContainerGridCtrl.ePage.Masters.Pagination.CurrentPage}} /
+                    {{oneThreeContainerGridCtrl.ePage.Masters.Pagination.TotalPage}}</div>
+                <div class="">Total Records : {{oneThreeContainerGridCtrl.ePage.Entities.Header.Meta.Container.ListSource.length}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

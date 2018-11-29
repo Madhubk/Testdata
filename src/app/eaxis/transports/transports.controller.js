@@ -5,9 +5,9 @@
         .module("Application")
         .controller("TransportsController", TransportsController);
 
-    TransportsController.$inject = ["authService", "helperService"];
+    TransportsController.$inject = ["helperService"];
 
-    function TransportsController(authService, helperService) {
+    function TransportsController(helperService) {
         /* jshint validthis: true */
         var TransportsCtrl = this;
 
@@ -19,8 +19,6 @@
                 "Meta": helperService.metaBase(),
                 "Entities": {}
             };
-
-            TransportsCtrl.ePage.Masters.MenuVisibleType = authService.getUserInfo().Menu.VisibleType;
         }
 
         Init();

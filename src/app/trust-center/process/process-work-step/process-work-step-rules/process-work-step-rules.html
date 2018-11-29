@@ -1,259 +1,374 @@
 <div class="modal-header">
   <div class="process-popup-header">
     <i class="glyphicons glyphicons-show-thumbnails-with-lines"></i>
-    <span>{{ProcessWorkStepRulesCtrl.ePage.Masters.Param.Mode}}</span>
+    <span class="mr-10">{{ProcessWorkStepRulesCtrl.ePage.Masters.Param.Mode}}</span>
+    <span class="mr-10">|</span>
+    <span class="mr-10">{{ProcessWorkStepRulesCtrl.ePage.Masters.Param.Item.Description}}</span>
+    <span class="mr-10">|</span>
+    <span class="mr-10">{{ProcessWorkStepRulesCtrl.ePage.Masters.Param.Item.StepNo}}</span>
     <button class="btn btn-warning mr-10 btn-xs pull-right" data-ng-click="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.CloseModal()">Close</button>
     <button class="btn btn-primary process-btn mr-10 btn-xs" data-ng-click="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.AddNewRule()"
       data-ng-disabled="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.IsDisableAddRuleBtn">{{ProcessWorkStepRulesCtrl.ePage.Masters.Rules.AddRuleBtnText}}</button>
   </div>
 </div>
 <div class="modal-body">
-  <div class="clearfix">
-    <div class="process-popup-box clearfix">
-      <div class="clearfix">
-        <div class="process-popup-content-box">
-          <div class="process-popup-content-sub-header clearfix">
-            <div class="col-lg-8">
-              <b>{{ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.RuleName}}</b>
-            </div>
-            <div class="col-lg-4">
-              <span class="process-popup-internal pl-50">{{ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.ActionType}}</span>
-              <div class="dropdown pull-right process-drop" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ListSource.length > 0">
-                <button class="btn process-btn-dropdown" type="button" data-toggle="dropdown">
-                  <span class="glyphicons glyphicons-chevron-down dropdown-arrow"></span>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-width-300">
-                  <li data-ng-repeat="x in  ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ListSource">
-                    <a href="javascript:(0);" ng-click="(ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.PK != x.PK) && ProcessWorkStepRulesCtrl.ePage.Masters.Rules.OnRuleChange(x)">{{x.RuleName}}</a>
-                  </li>
-                </ul>
+  <div class="process-popup-box clearfix">
+    <div class="process-popup-content-box">
+      <div class="process-popup-content-sub-header clearfix">
+        <div class="col-lg-8">
+          <b>{{ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.RuleName}}</b>
+        </div>
+        <div class="col-lg-4">
+          <span class="process-popup-internal pl-50">{{ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.ActionType}}</span>
+          <div class="dropdown pull-right process-drop" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ListSource.length > 0">
+            <button class="btn process-btn-dropdown" type="button" data-toggle="dropdown">
+              <span class="glyphicons glyphicons-chevron-down dropdown-arrow"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-width-300">
+              <li data-ng-repeat="x in  ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ListSource">
+                <a href="javascript:(0);" ng-click="(ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.PK != x.PK) && ProcessWorkStepRulesCtrl.ePage.Masters.Rules.OnRuleChange(x)">{{x.RuleName}}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix text-center p-20" data-ng-if="!ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ListSource">
+        <i class="fa fa-spinner fa-spin" style="font-size:18px;"></i>
+      </div>
+      <div class="clearfix text-center p-20" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ListSource && ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ListSource.length == 0">
+        <i>No Records...!</i>
+      </div>
+      <div class="process-popup-tabcontent clearfix" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule">
+        <uib-tabset justified="true">
+          <uib-tab heading="General">
+            <uib-tab-heading>
+              <div data-ng-click="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveTab = 'General'">General</div>
+            </uib-tab-heading>
+            <div class="clearfix p-5 pt-15">
+              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                <div class="form-group">
+                  <label for="RuleName"> Rule Name</label>
+                  <input type="text" class="form-control input-sm" placeholder="Rule Name" data-ng-model="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.RuleName"
+                  />
+                </div>
+              </div>
+              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                <div class="form-group">
+                  <label for="Remarks"> Remarks</label>
+                  <input type="text" class="form-control input-sm" placeholder="Remarks" data-ng-model="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.Remarks"
+                  />
+                </div>
+              </div>
+              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                <div class="form-group">
+                  <label for="inputText0">Action Type</label>
+                  <select chosen class="form-control" data-ng-model="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.ActionType" ng-options="x.Code as x.Name  for x in  ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActionTypeList"
+                    search-contains="true" disable-search="true">
+                    <option value="">--Select--</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                <div class="form-group">
+                  <label for="inputText0">&nbsp;</label>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" data-ng-model="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.IsActive" class="colored-blue">
+                      <span class="text">Is Active</span>
+                    </label>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="clearfix text-center p-20" data-ng-if="!ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ListSource">
-            <i class="fa fa-spinner fa-spin" style="font-size:18px;"></i>
-          </div>
-          <div class="clearfix text-center p-20" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ListSource && ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ListSource.length == 0">
-            <i>No Records...!</i>
-          </div>
-          <div class="process-popup-tabcontent clearfix" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule">
-            <uib-tabset justified="true">
-              <uib-tab heading="General">
-                <uib-tab-heading>
-                  <div data-ng-click="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveTab = 'General'">General</div>
-                </uib-tab-heading>
-                <div class="clearfix p-5 pt-15">
-                  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                    <div class="form-group">
-                      <label for="RuleName"> Rule Name</label>
-                      <input type="text" class="form-control input-sm" placeholder="Rule Name" data-ng-model="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.RuleName"
+          </uib-tab>
+          <uib-tab heading="Mandatory">
+            <uib-tab-heading>
+              <div data-ng-click="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveTab = 'Mandatory'">Mandatory</div>
+            </uib-tab-heading>
+            <div class="process-workstep-directive-container">
+              <process-work-step-directive data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule" input="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.MandatorySteps"
+                instance-list="ProcessWorkStepRulesCtrl.ePage.Masters.InstanceMandatoryStepsList" mode="1"></process-work-step-directive>
+            </div>
+          </uib-tab>
+          <uib-tab heading="Custom Rules">
+            <uib-tab-heading>
+              <div data-ng-click="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveTab = 'Rules'">Custom Rules</div>
+            </uib-tab-heading>
+            <div class="process-workstep-directive-container">
+              <div class="clearfix form-horizontal p-10">
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <select chosen class="form-control" data-ng-options="x.Code as x.Desc for x in ProcessWorkStepRulesCtrl.ePage.Masters.Rules.RuleTypeList"
+                      data-ng-model="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.RuleType" data-ng-change="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.OnRuleTypeChange()">
+                      <!-- <option value="">--Select--</option> -->
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix p-10" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.RuleType == 'Expression1'">
+                <process-work-step-directive data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule" input="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.Rules"
+                  instance-list="ProcessWorkStepRulesCtrl.ePage.Masters.InstanceRulesList" mode="2"></process-work-step-directive>
+              </div>
+              <div class="clearfix p-10" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.RuleType == 'Expression2'">
+                <event-expression-group-formatter exp-group-list="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.Rules" is-logical-operator="true"
+                  is-result="true"></event-expression-group-formatter>
+              </div>
+            </div>
+          </uib-tab>
+          <uib-tab heading="Actions">
+            <uib-tab-heading>
+              <div data-ng-click="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveTab = 'Actions'">Actions</div>
+            </uib-tab-heading>
+            <div class="clearfix p-5 pt-15">
+              <div class="col-lg-3">
+                <div class="clearfix p-5 mb-10">
+                  <a class="process-popup-contebt-footer-add pull-right mt-5" href="javascript:(0);" data-ng-click="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.AddAction()">
+                    <i class="glyphicons glyphicons-plus process-plus-circle-icon"></i> New Action</a>
+                </div>
+                <div class="clearfix pt-5 pb-5">
+                  <div class="clearfix" data-ng-if="!ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.WorkStepActions || ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.WorkStepActions.length==0">
+                    <div class="row">
+                      <div class="text-center">No Records...!</div>
+                    </div>
+                  </div>
+                  <div class="work-step-action-list clearfix cursor-pointer" data-ng-class="{'active': ProcessWorkStepRulesCtrl.ePage.Masters.Actions.ActiveAction.PK == action.PK}"
+                    data-ng-repeat="action in  ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.WorkStepActions" data-ng-click="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.EditAction(action, $index)"
+                    data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.WorkStepActions || ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.WorkStepActions.length>0">
+                    <div class="col-lg-9">
+                      <div>{{action.ResultType}}</div>
+                    </div>
+                    <div class="col-lg-3 p-0 text-center">
+                      <div>{{action.InitStepNo}}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-9 pr-0" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.ActiveAction" style="border-left: 1px solid #eee;">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                  <div class="form-group">
+                    <label class="control-label"> Action No</label>
+                    <div class="">
+                      <input type="text" class="form-control input-sm" placeholder="Action No" data-ng-model="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.ActionNo"
                       />
                     </div>
                   </div>
-                  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                    <div class="form-group">
-                      <label for="Remarks"> Remarks</label>
-                      <input type="text" class="form-control input-sm" placeholder="Remarks" data-ng-model="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.Remarks"
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                  <div class="form-group">
+                    <label class="control-label"> Action Name</label>
+                    <div class="">
+                      <input type="text" class="form-control input-sm" placeholder="Action Name" data-ng-model="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.ActionName"
                       />
                     </div>
                   </div>
-                  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                    <div class="form-group">
-                      <label for="inputText0">Action Type</label>
-                      <select chosen class="form-control" data-ng-model="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.ActionType" ng-options="x.Code as x.Name  for x in  ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActionTypeList"
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                  <div class="form-group">
+                    <label class="control-label">Result Type</label>
+                    <div class="">
+                      <select chosen class="form-control" data-ng-model="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.ResultType" ng-options="x.Code as x.Name for x in ProcessWorkStepRulesCtrl.ePage.Masters.Actions.ResultTypeList"
                         search-contains="true" disable-search="true">
                         <option value="">--Select--</option>
                       </select>
                     </div>
                   </div>
-                  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                    <div class="form-group">
-                      <label for="inputText0">&nbsp;</label>
-                      <div class="checkbox">
-                        <label>
-                          <input type="checkbox" data-ng-model="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.IsActive" class="colored-blue">
-                          <span class="text">Is Active</span>
-                        </label>
-                      </div>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                  <div class="form-group">
+                    <label class="control-label">Action Type</label>
+                    <div class="">
+                      <select chosen class="form-control" data-ng-model="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.ActionType" data-ng-options="x.Code as x.Name for x in ProcessWorkStepRulesCtrl.ePage.Masters.Actions.ActionTypeList"
+                        search-contains="true" disable-search="true">
+                        <option value="">--Select--</option>
+                      </select>
                     </div>
                   </div>
                 </div>
-              </uib-tab>
-              <uib-tab heading="Mandatory">
-                <uib-tab-heading>
-                  <div data-ng-click="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveTab = 'Mandatory'">Mandatory</div>
-                </uib-tab-heading>
-                <div class="process-workstep-directive-container">
-                  <process-work-step-directive data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule" input="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.MandatorySteps"
-                    instance-list="ProcessWorkStepRulesCtrl.ePage.Masters.InstanceMandatoryStepsList" mode="1"></process-work-step-directive>
-                </div>
-              </uib-tab>
-              <uib-tab heading="Custom Rules">
-                <uib-tab-heading>
-                  <div data-ng-click="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveTab = 'Rules'">Custom Rules</div>
-                </uib-tab-heading>
-                <div class="process-workstep-directive-container">
-                  <process-work-step-directive data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule" input="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.Rules"
-                    instance-list="ProcessWorkStepRulesCtrl.ePage.Masters.InstanceRulesList" mode="2"></process-work-step-directive>
-                </div>
-              </uib-tab>
-              <uib-tab heading="Actions">
-                <uib-tab-heading>
-                  <div data-ng-click="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveTab = 'Actions'">Actions</div>
-                </uib-tab-heading>
-                <div class="clearfix p-5 pt-15">
-                  <div class="col-lg-4">
-                    <div class="clearfix p-5 mb-10">
-                      <a class="process-popup-contebt-footer-add pull-right mt-5" href="javascript:(0);" data-ng-click="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.AddAction()">
-                        <i class="glyphicons glyphicons-plus process-plus-circle-icon"></i> New Action</a>
-                    </div>
-                    <div class="clearfix pt-5 pb-5">
-                      <div class="clearfix" data-ng-if="!ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.WorkStepActions || ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.WorkStepActions.length==0">
-                        <div class="row">
-                          <div class="text-center">No Records...!</div>
-                        </div>
-                      </div>
-                      <div class="work-step-action-list clearfix cursor-pointer" data-ng-class="{'active': ProcessWorkStepRulesCtrl.ePage.Masters.Actions.ActiveAction.PK == action.PK}"
-                        data-ng-repeat="action in  ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.WorkStepActions"
-                        data-ng-click="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.EditAction(action, $index)" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.WorkStepActions || ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.WorkStepActions.length>0">
-                        <div class="col-lg-9">
-                          <div>{{action.ResultType}}</div>
-                        </div>
-                        <div class="col-lg-3 p-0 text-center">
-                          <div>{{action.InitStepNo}}</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-8 pr-0" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.ActiveAction" style="border-left: 1px solid #eee;">
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                      <div class="form-group">
-                        <label class="control-label"> Action No</label>
-                        <div class="">
-                          <input type="text" class="form-control input-sm" placeholder="Action No" data-ng-model="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.ActionNo"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                      <div class="form-group">
-                        <label class="control-label"> Action Name</label>
-                        <div class="">
-                          <input type="text" class="form-control input-sm" placeholder="Action Name" data-ng-model="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.ActionName"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                      <div class="form-group">
-                        <label class="control-label">Result Type</label>
-                        <div class="">
-                          <select chosen class="form-control" data-ng-model="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.ResultType" ng-options="x.Code as x.Name for x in ProcessWorkStepRulesCtrl.ePage.Masters.Actions.ResultTypeList"
-                            search-contains="true" disable-search="true">
-                            <option value="">--Select--</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                      <div class="form-group">
-                        <label class="control-label">Action Type</label>
-                        <div class="">
-                          <select chosen class="form-control" data-ng-model="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.ActionType" ng-options="x.Code as x.Name for x in ProcessWorkStepRulesCtrl.ePage.Masters.Actions.ActionTypeList"
-                            search-contains="true" disable-search="true">
-                            <option value="">--Select--</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                      <div class="form-group">
-                        <label class="control-label"> Remarks</label>
-                        <div class="">
-                          <input type="text" class="form-control input-sm" placeholder="Remarks" data-ng-model="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.Remarks"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.ActionType != 'REGULAR'">
-                      <div class="form-group">
-                        <label class="control-label" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.ActionType == 'REGULAR'">Process Name</label>
-                        <label class="control-label" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.ActionType == 'CHILD'">Child Process Name</label>
-                        <label class="control-label" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.ActionType == 'EXTERNAL'">External Process Name</label>
-                        <div class="">
-                          <select chosen class="form-control" data-ng-model="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.Process" ng-options="x.ProcessName as x.ProcessName for x in ProcessWorkStepRulesCtrl.ePage.Masters.Actions.EBPMProcessMasterList"
-                            search-contains="true" disable-search="true">
-                            <option value="">--Select--</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.ActionType == 'CHILD'">
-                      <div class="process-work-step-condition-details">Wait for Condition Details</div>
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.ActionType == 'CHILD'">
-                      <div class="form-group">
-                        <label class="control-label">Child - Call Back Step No</label>
-                        <div class="">
-                          <input type="text" class="form-control input-sm" placeholder="Call Back Step No" data-ng-model="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.ChildReturnBackStepNo"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.ActionType == 'CHILD'">
-                      <div class="form-group">
-                        <label class="control-label">Child - Call Back Mode</label>
-                        <div class="">
-                          <select chosen class="form-control" data-ng-model="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.ChildReturnBackOn"
-                            ng-options="x.Code as x.Name for x in ProcessWorkStepRulesCtrl.ePage.Masters.Actions.CallBackModeListAfter"
-                            search-contains="true" disable-search="true">
-                            <option value="">--Select--</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                      <div class="form-group">
-                        <label class="control-label" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.ActionType == 'CHILD'">Step No (Parent Dependant)</label>
-                        <label class="control-label" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.ActionType != 'CHILD'">Step No</label>
-                        <div class="">
-                          <input type="text" class="form-control input-sm" placeholder="Step No" data-ng-model="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.InitStepNo"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.ActionType == 'CHILD'">
-                      <div class="form-group">
-                        <label class="control-label">Parent Dependant Mode</label>
-                        <div class="">
-                          <select chosen class="form-control" data-ng-model="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.EnableAutoMandatoryRulesOn"
-                            ng-options="x.Code as x.Name for x in ProcessWorkStepRulesCtrl.ePage.Masters.Actions.CallBackModeListBefore"
-                            search-contains="true" disable-search="true">
-                            <option value="">--Select--</option>
-                          </select>
-                        </div>
-                      </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                  <div class="form-group">
+                    <label class="control-label"> Remarks</label>
+                    <div class="">
+                      <input type="text" class="form-control input-sm" placeholder="Remarks" data-ng-model="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.Remarks"
+                      />
                     </div>
                   </div>
                 </div>
-              </uib-tab>
-            </uib-tabset>
-          </div>
-          <div class="clearfix p-5" style="border-top: 1px solid #eee;" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule && ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveTab != 'Actions'">
-            <button class="btn btn-primary process-btn process-btn-save btn-xs pull-right ml-10" data-ng-click="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.SaveRules()"
-              data-ng-disabled="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.IsDisableRulesSaveBtn">{{ProcessWorkStepRulesCtrl.ePage.Masters.Rules.RulesSaveBtnText}}</button>
-            <button class="btn btn-danger btn-xs pull-right ml-10" data-ng-click="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.DeleteRules()"
-              data-ng-disabled="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.IsDisableRulesDeleteBtn">{{ProcessWorkStepRulesCtrl.ePage.Masters.Rules.RulesDeleteBtnText}}</button>
-          </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.ActionType != 'REGULAR'">
+                  <div class="form-group">
+                    <label class="control-label" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.ActionType == 'REGULAR'">Process Name</label>
+                    <label class="control-label" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.ActionType == 'CHILD'">Child Process Name</label>
+                    <label class="control-label" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.ActionType == 'EXTERNAL'">External Process Name</label>
+                    <div class="input-group input-group-sm">
+                      <select chosen class="form-control" data-ng-model="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.Process" ng-options="x.ProcessName as x.ProcessName for x in ProcessWorkStepRulesCtrl.ePage.Masters.Actions.EBPMProcessMasterList">
+                        <option value="">--Select--</option>
+                      </select>
+                      <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.TaskConfig.OnEditTaskConfig()"
+                          data-ng-disabled="!ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.Process">
+                          <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                      </span>
+                    </div>
+                    <!-- <div class="">
+                      <select chosen class="form-control" data-ng-model="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.Process" ng-options="x.ProcessName as x.ProcessName for x in ProcessWorkStepRulesCtrl.ePage.Masters.Actions.EBPMProcessMasterList"
+                        search-contains="true" disable-search="true">
+                        <option value="">--Select--</option>
+                      </select>
+                    </div> -->
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.ActionType == 'CHILD'">
+                  <div class="process-work-step-condition-details">Wait for Condition Details</div>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.ActionType == 'CHILD'">
+                  <div class="form-group">
+                    <label class="control-label">Child - Call Back Step No</label>
+                    <div class="">
+                      <input type="text" class="form-control input-sm" placeholder="Call Back Step No" data-ng-model="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.ChildReturnBackStepNo"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.ActionType == 'CHILD'">
+                  <div class="form-group">
+                    <label class="control-label">Child - Call Back Mode</label>
+                    <div class="">
+                      <select chosen class="form-control" data-ng-model="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.ChildReturnBackOn"
+                        ng-options="x.Code as x.Name for x in ProcessWorkStepRulesCtrl.ePage.Masters.Actions.CallBackModeListAfter"
+                        search-contains="true" disable-search="true">
+                        <option value="">--Select--</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                  <div class="form-group">
+                    <label class="control-label" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.ActionType == 'CHILD'">Step No (Parent Dependant)</label>
+                    <label class="control-label" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.ActionType != 'CHILD'">Step No</label>
+                    <div class="">
+                      <input type="text" class="form-control input-sm" placeholder="Step No" data-ng-model="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.InitStepNo"
+                      />
+                    </div>
+                  </div>
+                </div>
 
-          <div class="clearfix p-5" style="border-top: 1px solid #eee;" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule && ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveTab == 'Actions'">
-            <button class="btn btn-primary process-btn process-btn-save btn-xs pull-right ml-10" data-ng-click="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.SaveAction(ProcessWorkStepRulesCtrl.ePage.Masters.Actions.ActiveAction)"
-              data-ng-disabled="!ProcessWorkStepRulesCtrl.ePage.Masters.Actions.ActiveAction || ProcessWorkStepRulesCtrl.ePage.Masters.IsDisableActionSaveBtn">{{ProcessWorkStepRulesCtrl.ePage.Masters.ActionSaveBtnText}}</button>
-            <button class="btn btn-danger btn-xs pull-right ml-10" data-ng-click="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.DeleteAction()"
-              data-ng-disabled="!ProcessWorkStepRulesCtrl.ePage.Masters.Actions.ActiveAction || ProcessWorkStepRulesCtrl.ePage.Masters.IsDisableActionDeleteBtn">{{ProcessWorkStepRulesCtrl.ePage.Masters.ActionDeleteBtnText}}</button>
-          </div>
-        </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.ActionType == 'CHILD'">
+                  <div class="form-group">
+                    <label class="control-label">Parent Dependant Mode</label>
+                    <div class="">
+                      <select chosen class="form-control" data-ng-model="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.EnableAutoMandatoryRulesOn"
+                        ng-options="x.Code as x.Name for x in ProcessWorkStepRulesCtrl.ePage.Masters.Actions.CallBackModeListBefore"
+                        search-contains="true" disable-search="true">
+                        <option value="">--Select--</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                  <div class="clearfix">
+                    <div class="form-group">
+                      <label class="">
+                        Event Config
+                        <span data-ng-click="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.OpenJsonModal('EventConfig')" class="glyphicon glyphicon-pencil cursor-pointer ml-5"></span>
+                      </label>
+                      <div class="">
+                        <textarea class="form-control no-resize" rows="3" data-ng-model="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.EventConfig"
+                          placeholder="Event Config"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                  <div class="clearfix">
+                    <div class="form-group">
+                      <label class="">
+                        Notification Config
+                        <span data-ng-click="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.Notification.OnEditNotification()" class="glyphicon glyphicon-pencil cursor-pointer ml-5"></span>
+                      </label>
+                      <div class="">
+                        <textarea class="form-control no-resize" rows="3" data-ng-model="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.NotificationConfig"
+                          placeholder="Notification Config"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.ActionType == 'REGULAR'">
+                  <div class="clearfix">
+                    <div class="form-group">
+                      <label class="">
+                        Task Config
+                        <span data-ng-click="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.TaskConfig.OnEditTaskConfig()" class="glyphicon glyphicon-pencil cursor-pointer ml-5"></span>
+                      </label>
+                      <div class="">
+                        <textarea class="form-control no-resize" rows="3" data-ng-model="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfig"
+                          placeholder="Task Config"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                  <div class="clearfix">
+                    <div class="form-group">
+                      <label class="">
+                        API Config
+                        <span data-ng-click="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.OpenJsonModal('APIConfig')" class="glyphicon glyphicon-pencil cursor-pointer ml-5"></span>
+                      </label>
+                      <div class="">
+                        <textarea class="form-control no-resize" rows="3" data-ng-model="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.APIConfig"
+                          placeholder="API Config"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </uib-tab>
+        </uib-tabset>
+      </div>
+      <div class="clearfix p-5" style="border-top: 1px solid #eee;" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule && ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveTab != 'Actions'">
+        <button class="btn btn-primary process-btn process-btn-save btn-xs pull-right ml-10" data-ng-click="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.SaveRules()"
+          data-ng-disabled="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.IsDisableRulesSaveBtn">{{ProcessWorkStepRulesCtrl.ePage.Masters.Rules.RulesSaveBtnText}}</button>
+        <button class="btn btn-danger btn-xs pull-right ml-10" data-ng-click="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.DeleteRules()"
+          data-ng-disabled="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.IsDisableRulesDeleteBtn">{{ProcessWorkStepRulesCtrl.ePage.Masters.Rules.RulesDeleteBtnText}}</button>
+      </div>
+
+      <div class="clearfix p-5" style="border-top: 1px solid #eee;" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule && ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveTab == 'Actions'">
+        <button class="btn btn-primary process-btn process-btn-save btn-xs pull-right ml-10" data-ng-click="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.SaveAction(ProcessWorkStepRulesCtrl.ePage.Masters.Actions.ActiveAction)"
+          data-ng-disabled="!ProcessWorkStepRulesCtrl.ePage.Masters.Actions.ActiveAction || ProcessWorkStepRulesCtrl.ePage.Masters.IsDisableActionSaveBtn">{{ProcessWorkStepRulesCtrl.ePage.Masters.ActionSaveBtnText}}</button>
+        <button class="btn btn-danger btn-xs pull-right ml-10" data-ng-click="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.DeleteAction()"
+          data-ng-disabled="!ProcessWorkStepRulesCtrl.ePage.Masters.Actions.ActiveAction || ProcessWorkStepRulesCtrl.ePage.Masters.IsDisableActionDeleteBtn">{{ProcessWorkStepRulesCtrl.ePage.Masters.ActionDeleteBtnText}}</button>
       </div>
     </div>
   </div>
 </div>
+
+
+<!-- Notification Template -->
+<script type="text/ng-template" id="ProcessWorkStepEditNotification">
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-title">
+      <strong>Notification</strong>
+      <button class="btn btn-xs btn-primary pull-right ml-10" data-ng-click="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.Notification.PrepareNotification()">OK</button>
+      <button class="btn btn-xs btn-default pull-right ml-10" data-ng-click="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.Notification.CloseNotificationModal()">Close</button>
+    </h5>
+  </div>
+  <div class="modal-body p-20 pl-0" id="modal-body">
+    <event-notification-formatter notification-list="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.NotificationGroup"
+      is-to-list-ref="true"></event-notification-formatter>
+  </div>
+</script>
+
+<!-- Task Config Template -->
+<script type="text/ng-template" id="ProcessWorkStepEditTaskConfig">
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-title">
+      <strong>Task Config</strong>
+      <button class="btn btn-xs btn-primary pull-right ml-10" data-ng-click="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.TaskConfig.PrepareTaskConfig()">OK</button>
+      <button class="btn btn-xs btn-default pull-right ml-10" data-ng-click="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.TaskConfig.CloseTaskConfigModal()">Close</button>
+    </h5>
+  </div>
+  <div class="modal-body p-20 pl-0" id="modal-body">
+    <event-task-config-formatter task-config-list="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfigGroup" process-name="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.Process"
+      is-disable-multiple-group="true" config="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.TaskDirConfig"></event-task-config-formatter>
+  </div>
+</script>

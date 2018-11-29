@@ -71,12 +71,35 @@
             });
         }
 
-        function setSelectedRow(index) {
-            StoreDepotCtrl.ePage.Masters.selectedRow = index;
+        function setSelectedRow(index, x) {
+            angular.forEach(StoreDepotCtrl.ePage.Entities.Header.Data.StoreDepotDetails,function(value,key){
+                if(x.PK == value.PK){
+                    StoreDepotCtrl.ePage.Masters.selectedRow = key;
+                }
+            })
+            StoreDepotCtrl.ePage.Masters.LineselectedRow = index;
         }
 
         function Back() {
-            StoreDepotCtrl.ePage.Masters.Lineslist = true;
+            var item = StoreDepotCtrl.ePage.Entities.Header.Data.StoreDepotDetails[StoreDepotCtrl.ePage.Masters.selectedRow];
+            if (item.PK == "") {
+                var modalOptions = {
+                    closeButtonText: 'Cancel',
+                    actionButtonText: 'Ok',
+                    headerText: 'Are you sure?',
+                    bodyText: 'Please save your changes. Otherwise given details will be discarded.'
+                };
+                confirmation.showModal({}, modalOptions)
+                    .then(function (result) {
+                        StoreDepotCtrl.ePage.Entities.Header.Data.StoreDepotDetails.splice(StoreDepotCtrl.ePage.Masters.selectedRow, 1);
+                        StoreDepotCtrl.ePage.Masters.Lineslist = true;
+                        StoreDepotCtrl.ePage.Masters.selectedRow = StoreDepotCtrl.ePage.Masters.selectedRow - 1;
+                    }, function () {
+                        console.log("Cancelled");
+                    });
+            } else {
+                StoreDepotCtrl.ePage.Masters.Lineslist = true;
+            }
         }
 
         function Done() {
@@ -147,9 +170,10 @@
             };
             confirmation.showModal({}, modalOptions)
                 .then(function (result) {
-                    StoreDepotCtrl.ePage.Entities.Header.Data.StoreDepotDetails.splice(StoreDepotCtrl.ePage.Masters.selectedRow, 1);
-                    toastr.success('Record Removed Successfully');
-                    StoreDepotCtrl.ePage.Masters.Lineslist = true;
+                    apiService.get("eAxisAPI", 'CfxMapping/Delete/' + item.PK).then(function (response) {
+                        toastr.success('Record Removed Successfully');
+                        getCfxMappingDetail();
+                    });
                     StoreDepotCtrl.ePage.Masters.selectedRow = StoreDepotCtrl.ePage.Masters.selectedRow - 1;
                 }, function () {
                     console.log("Cancelled");
@@ -178,22 +202,53 @@
         };
 
         function SaveList($item) {
-            if ($item.PK) {
-                $item.IsModified = true;
-                StoreDepotCtrl.ePage.Masters.IsLoadingToSave = true;
-                apiService.post("eAxisAPI", StoreDepotCtrl.ePage.Entities.Header.API.UpdateCfxMapping.Url, $item).then(function SuccessCallback(response) {
-                    if (response.data.Status == "Success") {
-                        StoreDepotCtrl.ePage.Entities.Header.Data.StoreDepotDetails[StoreDepotCtrl.ePage.Masters.selectedRow] = response.data.Response;
-                    }
-                });
+            if ($item.MappingForCode && $item.MappingToCode && $item.MappingBasedOnCode) {
+                if ($item.PK) {
+                    $item.IsModified = true;
+                    StoreDepotCtrl.ePage.Masters.IsLoadingToSave = true;
+                    apiService.post("eAxisAPI", StoreDepotCtrl.ePage.Entities.Header.API.UpdateCfxMapping.Url, $item).then(function SuccessCallback(response) {
+                        if (response.data.Status == "Success") {
+                            StoreDepotCtrl.ePage.Entities.Header.Data.StoreDepotDetails[StoreDepotCtrl.ePage.Masters.selectedRow] = response.data.Response;
+                        }
+                    });
+                } else {
+                    StoreDepotCtrl.ePage.Masters.IsLoadingToSave = true;
+                    apiService.post("eAxisAPI", StoreDepotCtrl.ePage.Entities.Header.API.InsertCfxMapping.Url, [$item]).then(function SuccessCallback(response) {
+                        if (response.data.Status == "Success") {
+                            StoreDepotCtrl.ePage.Entities.Header.Data.StoreDepotDetails[StoreDepotCtrl.ePage.Masters.selectedRow] = response.data.Response[0];
+                        }
+                    });
+                }
+                getCfxMappingDetail();
             } else {
-                StoreDepotCtrl.ePage.Masters.IsLoadingToSave = true;
-                apiService.post("eAxisAPI", StoreDepotCtrl.ePage.Entities.Header.API.InsertCfxMapping.Url, [$item]).then(function SuccessCallback(response) {
-                    if (response.data.Status == "Success") {
-                        StoreDepotCtrl.ePage.Entities.Header.Data.StoreDepotDetails[StoreDepotCtrl.ePage.Masters.selectedRow] = response.data.Response[0];
-                    }
-                });
+                toastr.warning("Dont leave any fields Empty")
             }
+        }
+
+        function getCfxMappingDetail() {
+            StoreDepotCtrl.ePage.Masters.IsLoading = true;
+            var _filter = {
+                "SortColumn": "CFM_CreatedDateTime",
+                "SortType": "ASC",
+                "PageNumber": 1,
+                "PageSize": 1000
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": StoreDepotCtrl.ePage.Entities.Header.API.CfxMappingFindall.FilterID
+            };
+            apiService.post("eAxisAPI", StoreDepotCtrl.ePage.Entities.Header.API.CfxMappingFindall.Url, _input).then(function SuccessCallback(response) {
+                if (response.data.Status == "Success") {
+                    StoreDepotCtrl.ePage.Entities.Header.CheckPoints.CfxMappingValues = response.data.Response;
+                    StoreDepotCtrl.ePage.Entities.Header.Data.StoreDepotDetails = [];
+                    angular.forEach(StoreDepotCtrl.ePage.Entities.Header.CheckPoints.CfxMappingValues, function (value, key) {
+                        if (value.MappingCode == "STORE_DEPOT") {
+                            StoreDepotCtrl.ePage.Entities.Header.Data.StoreDepotDetails.push(value);
+                        }
+                    });
+                    StoreDepotCtrl.ePage.Masters.IsLoading = false;
+                }
+            });
         }
 
         Init();

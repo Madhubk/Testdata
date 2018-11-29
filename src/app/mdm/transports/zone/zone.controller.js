@@ -21,13 +21,15 @@
                 "Entities": zoneConfig.Entities
             };
 
-            ZoneCtrl.ePage.Masters.taskName = "Zone";
             ZoneCtrl.ePage.Masters.dataentryName = "OrgZone";
             ZoneCtrl.ePage.Masters.TabList = [];
             ZoneCtrl.ePage.Masters.activeTabIndex = 0;
             ZoneCtrl.ePage.Masters.isNewZoneClicked = false;
             ZoneCtrl.ePage.Masters.IsTabClick = false;
             ZoneCtrl.ePage.Masters.Config = zoneConfig;
+
+            // Remove all Tabs while load shipment
+            zoneConfig.TabList = [];
 
             //functions
             ZoneCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
@@ -36,7 +38,7 @@
             ZoneCtrl.ePage.Masters.RemoveTab = RemoveTab;
             ZoneCtrl.ePage.Masters.CreateNewZone = CreateNewZone;
             ZoneCtrl.ePage.Masters.SaveandClose = SaveandClose;
-            
+
             zoneConfig.ValidationFindall();
         }
 
@@ -66,10 +68,21 @@
             ZoneCtrl.ePage.Masters.currentZone = undefined;
 
             var _isExist = ZoneCtrl.ePage.Masters.TabList.some(function (value) {
-                if (!isNew) {
-                    return value.label === currentZone.entity.Title;
+                // if (!isNew) {
+                //     return value.label === currentZone.entity.Title;
+                // } else {
+                //     return false;
+                // }
+                 if (!isNew) {
+                    if (value[value.label].ePage.Entities.Header.Data.PK === currentZone.entity.PK)
+                        return true;
+                    else
+                        return false;
                 } else {
-                    return false;
+                    if (value.label === "New")
+                        return true;
+                    else
+                        return false;   
                 }
             });
 
@@ -119,7 +132,7 @@
             helperService.getFullObjectUsingGetById(ZoneCtrl.ePage.Entities.Header.API.GetByID.Url, 'null').then(function (response) {
                 if (response.data.Response) {
                     var _obj = {
-                        entity: response.data.Response.TmsZoneHeader,
+                        entity: response.data.Response,
                         data: response.data.Response
                     };
                     ZoneCtrl.ePage.Masters.AddTab(_obj, true);

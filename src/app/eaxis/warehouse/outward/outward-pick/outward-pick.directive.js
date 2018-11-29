@@ -16,7 +16,8 @@
             controller: "OutwardPickController",
             controllerAs: "OutwardPickCtrl",
             scope: {
-                pickDetails: "="
+                pickDetails: "=",
+                currentOutward : "="
             },
             bindToController: true
 

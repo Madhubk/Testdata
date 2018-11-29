@@ -5,9 +5,9 @@
         .module("Application")
         .controller("PickMenuController", PickMenuController);
 
-    PickMenuController.$inject = ["$scope", "$rootScope", "$timeout", "APP_CONSTANT", "apiService", "pickConfig", "helperService", "appConfig", "authService", "$state"];
+    PickMenuController.$inject = ["$scope", "$rootScope", "$timeout", "APP_CONSTANT", "apiService", "pickConfig", "helperService", "appConfig", "authService", "$state","confirmation","toastr","$window","$uibModal","$filter"];
 
-    function PickMenuController($scope, $rootScope, $timeout, APP_CONSTANT, apiService, pickConfig, helperService, appConfig, authService, $state) {
+    function PickMenuController($scope, $rootScope, $timeout, APP_CONSTANT, apiService, pickConfig, helperService, appConfig, authService, $state,confirmation,toastr,$window,$uibModal,$filter) {
 
         var PickMenuCtrl = this;
 
@@ -24,31 +24,19 @@
 
             };
 
-            // Standard Menu Configuration and Data
-            PickMenuCtrl.ePage.Masters.StandardMenuInput = appConfig.Entities.standardMenuConfigList.WarehousePick;
-            PickMenuCtrl.ePage.Masters.StandardMenuInput.obj = PickMenuCtrl.currentPick;
-            // function
+            PickMenuCtrl.ePage.Masters.PickMenu = {};
+            PickMenuCtrl.ePage.Masters.PickMenu.ListSource = PickMenuCtrl.ePage.Entities.Header.Meta.MenuList;
+
             PickMenuCtrl.ePage.Masters.Validation = Validation;
-            PickMenuCtrl.ePage.Masters.SaveClose = SaveClose;
+            PickMenuCtrl.ePage.Masters.CancelPick = CancelPick;
 
             PickMenuCtrl.ePage.Masters.Config = pickConfig;
             PickMenuCtrl.ePage.Masters.SaveButtonText = "Save";
-            PickMenuCtrl.ePage.Masters.SaveAndCloseButtonText = "Save & Close";
 
-            PickMenuCtrl.ePage.Masters.PickMenu = {};
-            PickMenuCtrl.ePage.Masters.DropDownMasterList = {};
-
-            // Menu list from configuration
-            PickMenuCtrl.ePage.Masters.PickMenu.ListSource = PickMenuCtrl.ePage.Entities.Header.Meta.MenuList;
-
-            PickMenuCtrl.ePage.Entities.Header.CheckPoints.CallInventoryFunction = false;
-            if (PickMenuCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatusDesc == 'Finalized') {
-                PickMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave = true;
+            if (PickMenuCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatus == 'PIF' || PickMenuCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatus == 'CAN') {
+                PickMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
+                PickMenuCtrl.ePage.Masters.DisableSave = true;
             }
-        }
-        function SaveClose($item) {
-            PickMenuCtrl.ePage.Masters.SaveAndClose = true;
-            Validation($item);
         }
 
         function Validation($item) {
@@ -70,12 +58,10 @@
         }
 
         function Save($item) {
-            if (PickMenuCtrl.ePage.Masters.SaveAndClose) {
-                PickMenuCtrl.ePage.Masters.SaveAndCloseButtonText = "Please Wait...";
-            } else {
-                PickMenuCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
-            }
-            PickMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave = true;
+            
+            PickMenuCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
+            PickMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
+            PickMenuCtrl.ePage.Masters.DisableSave = true;
 
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
@@ -93,14 +79,26 @@
                 value.WPK_FK = _input.UIWmsPickHeader.PK;
             })
 
+            
+            //Updating the status when manual allocation and deallocation happens
+            _input.UIWmsOutward.map(function(value,key){
+                _input.UIWmsPickLine.map(function(val,k){
+                    if(!val.Units){
+                        if(value.PK==val.WOD_FK){
+                            value.PutOrPickSlipDateTime  = null;
+                            value.PutOrPickCompDateTime  = null;
+                            value.WorkOrderStatus = "OSP";
+                            value.WorkOrderStatusDesc = "Pick Started";
+                        }
+                    }
+                })
+            });
+
             helperService.SaveEntity($item, 'Pick').then(function (response) {
 
-                if (PickMenuCtrl.ePage.Masters.SaveAndClose) {
-                    PickMenuCtrl.ePage.Masters.SaveAndCloseButtonText = "Save & Close";
-                } else {
-                    PickMenuCtrl.ePage.Masters.SaveButtonText = "Save";
-                }
-                PickMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave = false;
+                PickMenuCtrl.ePage.Masters.SaveButtonText = "Save";
+                PickMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
+                PickMenuCtrl.ePage.Masters.DisableSave = false;
 
                 if (response.Status === "success") {
 
@@ -119,27 +117,15 @@
                     }).indexOf(PickMenuCtrl.currentPick[PickMenuCtrl.currentPick.label].ePage.Entities.Header.Data.PK);
 
                     if (_index !== -1) {
+                        pickConfig.TabList[_index][pickConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data;
+                        pickConfig.TabList[_index].isNew = false;
                         if ($state.current.url == "/pick") {
                             helperService.refreshGrid();
                         }
-                        if (response.Data.Response) {
-                            pickConfig.TabList[_index][pickConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data.Response;
-                        }
-                        else {
-                            pickConfig.TabList[_index][pickConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data;
-                        }
-                        PickMenuCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.FinalisedDate = 'null';
-                        PickMenuCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickNumber = 'null';
-                        
-                        pickConfig.TabList[_index][pickConfig.TabList[_index].label].ePage.Entities.Header.Data.UIWmsPickLineSummary.map(function (value, key) {
-                            if (value.PickedDateTime) {
-                                PickMenuCtrl.ePage.Entities.Header.CheckPoints.CallInventoryFunction = true;
-                            }
-                        })
-                        pickConfig.TabList[_index].isNew = false;
 
-                        $rootScope.toCheckNew();
+                        PickMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardLines = $filter('orderBy')(PickMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardLines, 'PK');
                     }
+
                     if (PickMenuCtrl.ePage.Masters.SaveAndClose) {
                         if ($state.current.url == "/pick") {
                             PickMenuCtrl.ePage.Masters.Config.SaveAndClose = true;
@@ -149,8 +135,24 @@
                         }
                     }
                     console.log("Success");
+                    if(PickMenuCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatus == 'CAN'){
+                        PickMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
+                        PickMenuCtrl.ePage.Masters.DisableSave = true;
+                        toastr.success("Cancelled Successfully...!");
+                    }else{
+                        toastr.success("Saved Successfully...!");
+                    }
+                    
+                    PickMenuCtrl.ePage.Entities.Header.GlobalVariables.FetchingInventoryDetails = true;
+
+                    if(PickMenuCtrl.ePage.Masters.SaveAndClose){
+                        PickMenuCtrl.ePage.Masters.Config.SaveAndClose = true;
+                        PickMenuCtrl.ePage.Masters.SaveAndClose = false;
+                    }
+
                 } else if (response.Status === "failed") {
                     console.log("Failed");
+                    toastr.error("Could not Save...!");
                     PickMenuCtrl.ePage.Entities.Header.Validations = response.Validations;
                     angular.forEach(response.Validations, function (value, key) {
                         PickMenuCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey.trim(), PickMenuCtrl.currentPick.label, false, undefined, undefined, undefined, undefined, undefined);
@@ -172,6 +174,74 @@
                 }
             }
             return obj;
+        }
+
+        function CancelPick($item){
+            var myData = PickMenuCtrl.ePage.Entities.Header.Data.UIWmsOutward.some(function(value,key){
+                if(value.WorkOrderStatus =='FIN')
+                return true;
+            })
+            if(myData){
+                toastr.info("Outward is finalized so pick cannot be cancelled")
+            }else{
+                $uibModal.open({
+                    templateUrl: 'myModalContent.html',
+                    controller: function ($scope, $uibModalInstance) {
+                        
+                        $scope.close = function () {
+                            $uibModalInstance.dismiss('cancel');
+                        };
+    
+                        $scope.ok = function(){
+                            var InsertCommentObject = [];
+                            var obj ={
+                                "Description":"General",
+                                "Comments": $scope.comment,
+                                "EntityRefKey": PickMenuCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PK,
+                                "EntityRefCode": PickMenuCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickNo,
+                                "CommentsType":"GEN"
+                            }
+                            InsertCommentObject.push(obj);
+                            apiService.post("eAxisAPI", appConfig.Entities.JobComments.API.Insert.Url, InsertCommentObject).then(function(response){
+    
+                                angular.forEach(PickMenuCtrl.ePage.Entities.Header.Data.UIWmsPickLine,function(value,key){
+                                    value.Units=0;
+                                    value.IsDeleted = true;
+                                    value.IsModified = true;
+                                });
+                                angular.forEach(PickMenuCtrl.ePage.Entities.Header.Data.UIWmsOutward,function(value,key){
+                                    value.PickNo = ''
+                                    value.WPK_FK = null;
+                                    value.PutOrPickStartDateTime = null;
+                                    value.PutOrPickSlipDateTime  = null;
+                                    value.PutOrPickCompDateTime  = null;
+                                    value.WorkOrderStatus = "ENT";
+                                    value.WorkOrderStatusDesc = "Entered";
+                                    value.PickOption = "";
+                                    value.IsDeleted = true;
+                                });
+                                PickMenuCtrl.ePage.Masters.DisableSave = true;
+                                PickMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
+                                apiService.post("eAxisAPI",PickMenuCtrl.ePage.Entities.Header.API.UpdatePick.Url, PickMenuCtrl.ePage.Entities.Header.Data).then(function (response) {
+                                    PickMenuCtrl.ePage.Masters.DisableSave = false;
+                                    PickMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
+                                    if (response.data.Response) {
+                                        apiService.get("eAxisAPI",pickConfig.Entities.Header.API.GetByID.Url + response.data.Response.PK).then(function (response) {
+                                            PickMenuCtrl.ePage.Entities.Header.Data = response.data.Response;
+
+                                            PickMenuCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatus = 'CAN';
+                                            PickMenuCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatusDesc = 'Cancelled';
+                                            Save($item)
+                                        });
+                                    }
+                                });
+                                
+                                $uibModalInstance.dismiss('cancel');
+                            });
+                        }
+                    }
+                });
+            }
         }
 
         Init();

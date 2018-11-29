@@ -37,6 +37,12 @@
                             "Url": "Validation/FindAll",
                             "FilterID": "VALIDAT"
                         },
+                        "OrgHeader": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "OrgHeader/FindAll",
+                            "FilterID": "ORGHEAD"
+                        },
                     },
                     "Meta": {
 
@@ -99,6 +105,12 @@
                                 "Url": "CfxOrgMapping/FindAll",
                                 "FilterID": "CFXORMAP"
                             },
+                            "OrgHeader": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "OrgHeader/FindAll",
+                                "FilterID": "ORGHEAD"
+                            },
                             "GenerateReport": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
@@ -128,26 +140,30 @@
                                 "SenderCode": helperService.metaBase(),
                                 "ReceiverCode": helperService.metaBase(),
                                 "ManifestType": helperService.metaBase(),
-                                "ConsolNo": helperService.metaBase(),
                                 "DriveName": helperService.metaBase(),
                                 "DriverContactNo": helperService.metaBase(),
-                                "SealNo": helperService.metaBase(),
-                                "ShipmentNo": helperService.metaBase(),
                                 "TransporterCode": helperService.metaBase(),
                                 "VehicleNo": helperService.metaBase(),
                                 "VehicleTypeCode": helperService.metaBase(),
+                                "ContainerTypeCode": helperService.metaBase(),
+                                "ConsolNo": helperService.metaBase(),
+                                "SealNo": helperService.metaBase(),
+                                "ShipmentNo": helperService.metaBase(),
                                 "VesselName": helperService.metaBase(),
                                 "VoyageNo": helperService.metaBase(),
-                                "ShipmentArrivalDate": helperService.metaBase(),
                                 "ContainerNo": helperService.metaBase(),
-                                "ContainerTypeCode": helperService.metaBase()
+                                "EstimatedDispatchDate": helperService.metaBase(),
+                                "EstimatedDeliveryDate": helperService.metaBase(),
+                                "ShipmentArrivalDate": helperService.metaBase(),
                             },
                         },
                         "CheckPoints": {
                             "DisableSave": false,
                             "DisableAllocate": false,
                             "Consignment": false,
-                            "SaveAndClose": false
+                            "SaveAndClose": false,
+                            "UnDispatchClose": false,
+                            "UserAccessCode": ""
                         },
                     },
                 }
@@ -424,60 +440,66 @@
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
 
-            if (!_input.TmsManifestHeader.SenderCode || _input.TmsManifestHeader.SenderCode) {
                 OnChangeValues(_input.TmsManifestHeader.SenderCode, 'E5501', false, undefined, $item.label);
-            }
-            if (!_input.TmsManifestHeader.ReceiverCode || _input.TmsManifestHeader.ReceiverCode) {
+            
+            
                 OnChangeValues(_input.TmsManifestHeader.ReceiverCode, 'E5500', false, undefined, $item.label);
-            }
-            if (!_input.TmsManifestHeader.ManifestType || _input.TmsManifestHeader.ManifestType) {
+            
+            
                 OnChangeValues(_input.TmsManifestHeader.ManifestType, 'E5502', false, undefined, $item.label);
-            }
-            if (!_input.TmsManifestHeader.SealNo || _input.TmsManifestHeader.SealNo) {
-                OnChangeValues(_input.TmsManifestHeader.SealNo, 'E5506', false, undefined, $item.label);
-            }
-            if (!_input.TmsManifestHeader.TransporterCode || _input.TmsManifestHeader.TransporterCode) {
+            
+            
                 OnChangeValues(_input.TmsManifestHeader.TransporterCode, 'E5508', false, undefined, $item.label);
-            }
-            if (_input.TmsManifestHeader.ManifestType == "LEH") {
-                if (!_input.TmsManifestHeader.DriveName || _input.TmsManifestHeader.DriveName) {
-                    OnChangeValues(_input.TmsManifestHeader.DriveName, 'E5504', false, undefined, $item.label);
-                }
-                if (!_input.TmsManifestHeader.DriverContactNo || _input.TmsManifestHeader.DriverContactNo) {
-                    OnChangeValues(_input.TmsManifestHeader.DriverContactNo, 'E5505', false, undefined, $item.label);
-                }
-                if (!_input.TmsManifestHeader.VehicleNo || _input.TmsManifestHeader.VehicleNo) {
-                    OnChangeValues(_input.TmsManifestHeader.VehicleNo, 'E5509', false, undefined, $item.label);
-                }
-                if (!_input.TmsManifestHeader.VehicleTypeCode || _input.TmsManifestHeader.VehicleTypeCode) {
-                    OnChangeValues(_input.TmsManifestHeader.VehicleTypeCode, 'E5510', false, undefined, $item.label);
-                }
-            }
-            else if (_input.TmsManifestHeader.ManifestType == "OCN") {
-                if (!_input.TmsManifestHeader.VesselName || _input.TmsManifestHeader.VesselName) {
-                    OnChangeValues(_input.TmsManifestHeader.VesselName, 'E5511', false, undefined, $item.label);
-                }
-                if (!_input.TmsManifestHeader.ShipmentNo || _input.TmsManifestHeader.ShipmentNo) {
-                    OnChangeValues(_input.TmsManifestHeader.ShipmentNo, 'E5507', false, undefined, $item.label);
-                }
-                if (!_input.TmsManifestHeader.ConsolNo || _input.TmsManifestHeader.ConsolNo) {
-                    OnChangeValues(_input.TmsManifestHeader.ConsolNo, 'E5503', false, undefined, $item.label);
-                }
-                if (!_input.TmsManifestHeader.VoyageNo || _input.TmsManifestHeader.VoyageNo) {
-                    OnChangeValues(_input.TmsManifestHeader.VoyageNo, 'E5512', false, undefined, $item.label);
-                }
-                if (!_input.TmsManifestHeader.ContainerNo || _input.TmsManifestHeader.ContainerNo) {
-                    OnChangeValues(_input.TmsManifestHeader.ContainerNo, 'E5514', false, undefined, $item.label);
-                }
-                if (!_input.TmsManifestHeader.ContainerTypeCode || _input.TmsManifestHeader.ContainerTypeCode) {
-                    OnChangeValues(_input.TmsManifestHeader.ContainerTypeCode, 'E5515', false, undefined, $item.label);
+            
+            
+                OnChangeValues(_input.TmsManifestHeader.EstimatedDispatchDate, 'E5545', false, undefined, $item.label);
+            
+            
+                OnChangeValues(_input.TmsManifestHeader.EstimatedDeliveryDate, 'E5546', false, undefined, $item.label);
+            
+            if(_input.TmsManifestHeader.EstimatedDispatchDate && _input.TmsManifestHeader.EstimatedDeliveryDate )
+                OnChangeValues(_input.TmsManifestHeader.EstimatedDeliveryDate, 'E5549', false, undefined, $item.label);
+
+            if (_input.ProcessInfo.length > 0) {
+                if (_input.ProcessInfo[0].WSI_StepName == "Confirm Manifest Arrival") {
+                    OnChangeValues(_input.TmsManifestHeader.ShipmentArrivalDate, 'E5513', false, undefined, $item.label);
                 }
             }
 
-            if (_input.ProcessInfo[0].WSI_StepName == "Confirm Arrival at Port") {
-                if (!_input.TmsManifestHeader.ShipmentArrivalDate || _input.TmsManifestHeader.ShipmentArrivalDate) {
-                    OnChangeValues(_input.TmsManifestHeader.ShipmentArrivalDate, 'E5513', false, undefined, $item.label);
-                }
+            if (_input.TmsManifestHeader.ManifestType == "LDY") {
+                
+                    OnChangeValues(_input.TmsManifestHeader.DriveName, 'E5504', false, undefined, $item.label);
+                
+                
+                    OnChangeValues(_input.TmsManifestHeader.DriverContactNo, 'E5505', false, undefined, $item.label);
+                
+                
+                    OnChangeValues(_input.TmsManifestHeader.VehicleNo, 'E5509', false, undefined, $item.label);
+                
+                
+                    OnChangeValues(_input.TmsManifestHeader.VehicleTypeCode, 'E5510', false, undefined, $item.label);
+                
+            }
+            else if (_input.TmsManifestHeader.ManifestType == "LEH") {
+                
+                    OnChangeValues(_input.TmsManifestHeader.VehicleTypeCode, 'E5510', false, undefined, $item.label);
+                
+            }
+            else if (_input.TmsManifestHeader.ManifestType == "OCN") {
+                
+                OnChangeValues(_input.TmsManifestHeader.ContainerTypeCode, 'E5515', false, undefined, $item.label);
+
+                OnChangeValues(_input.TmsManifestHeader.ContainerNo, 'E5514', false, undefined, $item.label);
+            
+                OnChangeValues(_input.TmsManifestHeader.VoyageNo, 'E5512', false, undefined, $item.label);
+            
+                OnChangeValues(_input.TmsManifestHeader.VesselName, 'E5511', false, undefined, $item.label);
+            
+                OnChangeValues(_input.TmsManifestHeader.ShipmentNo, 'E5507', false, undefined, $item.label);
+            
+                OnChangeValues(_input.TmsManifestHeader.SealNo, 'E5506', false, undefined, $item.label);
+
+                OnChangeValues(_input.TmsManifestHeader.ConsolNo, 'E5503', false, undefined, $item.label);
             }
         }
 

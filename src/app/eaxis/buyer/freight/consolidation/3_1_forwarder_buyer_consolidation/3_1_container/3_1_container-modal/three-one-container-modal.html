@@ -1,0 +1,17 @@
+<div class="modal-header">
+    <h5 class="modal-title pull-left">
+        <strong>Container Details</strong>
+    </h5>
+    <button type="button" class="btn btn-secondary btn-sm pull-right margin-left-5" data-ng-click="ThreeOneContainerPopUpModalCtrl.ePage.Masters.Cancel()">Close</button>
+    <button type="button" class="btn btn-primary btn-sm pull-right margin-left-5" data-ng-click="ThreeOneContainerPopUpModalCtrl.ePage.Masters.Save()"
+        data-ng-bind="ThreeOneContainerPopUpModalCtrl.ePage.Masters.SaveButton" data-ng-disabled="ThreeOneContainerPopUpModalCtrl.ePage.Masters.SaveButtonDisable"></button>
+</div>
+<div class="modal-body" data-ng-if="ThreeOneContainerPopUpModalCtrl.ePage.Masters.Container.FormView">
+    <three-one-container-form-directive ref-code="{{ThreeOneContainerPopUpModalCtrl.ePage.Masters.refCode}}" current-container="ThreeOneContainerPopUpModalCtrl.ePage.Masters.Container.FormView"
+        current-consol="ThreeOneContainerPopUpModalCtrl.ePage.Entities.Header.Data"></three-one-container-form-directive>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary btn-sm pull-right margin-left-5" data-ng-click="ThreeOneContainerPopUpModalCtrl.ePage.Masters.Cancel()">Close</button>
+    <button type="button" class="btn btn-primary btn-sm pull-right margin-left-5" data-ng-click="ThreeOneContainerPopUpModalCtrl.ePage.Masters.Save()"
+        data-ng-bind="ThreeOneContainerPopUpModalCtrl.ePage.Masters.SaveButton" data-ng-disabled="ThreeOneContainerPopUpModalCtrl.ePage.Masters.SaveButtonDisable"></button>
+</div>

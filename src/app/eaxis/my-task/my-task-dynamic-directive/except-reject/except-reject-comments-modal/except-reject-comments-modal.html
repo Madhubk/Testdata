@@ -1,0 +1,44 @@
+<div class="modal-header">
+	<button type="button" class="close" data-ng-click="CommentsHisModalCtrl.ePage.Masters.Close();">&times;</button>
+	<h5 class="modal-title" id="modal-title">
+		<strong>Comments History</strong>
+	</h5>
+</div>
+<div class="modal-body" id="modal-body">
+	<div id='' class="common_table_scroll common_table_hgt pt-5">
+		<div class="table" id="results">
+			<div class='theader'>
+				<div class='table_header'>Comments Type</div>
+				<div class='table_header'>Created By</div>
+				<div class='table_header'>Created On</div>
+				<div class='table_header'>Comments</div>
+				<div class='table_header'>Description</div>
+			</div>
+			<!-- List Order(s) -->
+			<div class='table_row' data-ng-if="CommentsHisModalCtrl.ePage.Masters.CommentHistory.length>0" date-ng-repeat="x in CommentsHisModalCtrl.ePage.Masters.CommentHistory">
+				<div class='table_small'>
+					<div class='table_cell'>Comments Type</div>
+					<div class='table_cell'>{{x.CommentsType}}</div>
+				</div>
+				<div class='table_small'>
+					<div class='table_cell'>Created By</div>
+					<div class='table_cell'>{{x.CreatedBy}}</div>
+				</div>
+				<div class='table_small'>
+					<div class='table_cell'>Created On</div>
+					<div class='table_cell'>{{x.CreatedDateTime | date:'dd-MMM-yyyy'}}</div>
+				</div>
+				<div class='table_small'>
+					<div class='table_cell'>Comments</div>
+					<div class='table_cell'>{{x.Comments}}</div>
+				</div>
+				<div class='table_small'>
+					<div class='table_cell'>Description</div>
+					<div class='table_cell'>{{x.Description}}</div>
+				</div>
+			</div>
+		</div>
+		<!-- List Empty Response -->
+		<div class="grid-no-record-common_table" data-ng-if="CommentsHisModalCtrl.ePage.Masters.CommentHistory.length==0">No record found..</div>
+	</div>
+</div>

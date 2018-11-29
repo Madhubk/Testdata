@@ -25,6 +25,7 @@
             InventoryCtrl.ePage.Masters.IsActiveDetail = true;
 
             InventoryCtrl.ePage.Masters.TabList = [];
+            inventoryConfig.TabList = [];
             InventoryCtrl.ePage.Masters.activeTabIndex = 0;
             InventoryCtrl.ePage.Masters.InventorySummaryDetails = [];
 
@@ -35,9 +36,18 @@
             InventoryCtrl.ePage.Masters.CurrentActiveTab = CurrentActiveTab;
             InventoryCtrl.ePage.Masters.RemoveTab = RemoveTab;
             InventoryCtrl.ePage.Masters.InventorySummary = InventorySummary;
+            InventoryCtrl.ePage.Masters.CloseTab=CloseTab;
+
+            InventoryCtrl.ePage.Masters.Config=inventoryConfig;
 
         }
 
+        function CloseTab(index, currentInventory){
+            var currentInventory = currentInventory[currentInventory.label].ePage.Entities;
+            InventoryCtrl.ePage.Masters.TabList.splice(index-1, 1);
+            InventoryCtrl.ePage.Masters.Config.IsCloseTab = false;
+            InventoryCtrl.ePage.Masters.activeTabIndex = 0;
+        }
 
         function InventorySummary(value) {
             InventoryCtrl.ePage.Masters.dataentryName = undefined;

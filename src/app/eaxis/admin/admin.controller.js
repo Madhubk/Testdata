@@ -5,9 +5,9 @@
         .module("Application")
         .controller("EAxisAdminController", EAxisAdminController);
 
-    EAxisAdminController.$inject = ["authService", "apiService", "helperService", "toastr", "appConfig"];
+    EAxisAdminController.$inject = ["helperService"];
 
-    function EAxisAdminController(authService, apiService, helperService, toastr, appConfig) {
+    function EAxisAdminController(helperService) {
         /* jshint validthis: true */
         var EAxisAdminCtrl = this;
 
@@ -19,8 +19,6 @@
                 "Meta": helperService.metaBase(),
                 "Entities": {}
             };
-
-            EAxisAdminCtrl.ePage.Masters.MenuVisibleType = authService.getUserInfo().Menu.VisibleType;
         }
 
         Init();

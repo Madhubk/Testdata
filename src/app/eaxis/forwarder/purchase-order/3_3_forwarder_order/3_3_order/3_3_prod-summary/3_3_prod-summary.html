@@ -1,0 +1,101 @@
+<div class="p-10">
+    <div id='' class="common_table_scroll common_table_hgt pt-2">
+        <div class="table tab-position" id="results">
+            <div class='theader'>
+                <div class='table_header'>Part #</div>
+                <div class='table_header'>Inner Packs</div>
+                <div class='table_header'>Outer Packs</div>
+                <div class='table_header'>Qty</div>
+                <div class='table_header'>Invoiced Qty</div>
+                <div class='table_header'>Received Qty</div>
+                <div class='table_header'>Remaining Qty</div>
+            </div>
+            <div class='table_row' data-ng-repeat="x in three_three_ProdSummaryCtrl.ePage.Masters.res" style="font-size: 11px;">
+                <div class='table_small'>
+                    <div class='table_cell'>Part #</div>
+                    <div class='table_cell'>
+                        <b data-ng-if="x.PartNo == 'null'"></b>
+                        <b data-ng-if="x.PartNo !='null'">{{x.PartNo}}</b>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Inner Packs</div>
+                    <div class='table_cell'>
+                        {{x.InnerPacks}}
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Outer Packs</div>
+                    <div class='table_cell'>{{x.OuterPacks}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Qty</div>
+                    <div class='table_cell'>{{(x.Quantity).toFixed(5)}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Invoiced Qty</div>
+                    <div class='table_cell'>{{(x.InvoicedQuantity).toFixed(5)}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Recieved Qty</div>
+                    <div class='table_cell'>{{(x.RecievedQuantity).toFixed(5)}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Remaining Qty</div>
+                    <div class='table_cell'>{{(x.QtyRemaining).toFixed(5)}}</div>
+                </div>
+            </div>
+        </div>
+        <!-- List Empty Response -->
+        <div>
+            <div class="grid-no-record-common_table" data-ng-if="three_three_ProdSummaryCtrl.ePage.Masters.res.length==0">No
+                records found...</div>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix padding-top-10 padding-bottom-10 data-ng-scope port-alignment">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <!-- Line Count-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+            <div class="">
+                Total Lines
+                <div class="padding-top-5">
+                    <b>{{three_three_ProdSummaryCtrl.ePage.Masters.Consolidation[0].Count}}</b>
+                </div>
+            </div>
+        </div>
+        <!-- Inner Packs-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="">
+                Inner Packs :
+                <b>{{three_three_ProdSummaryCtrl.ePage.Masters.Consolidation[0].InnerPacks}}</b>
+            </div>
+            <div class="padding-top-5">
+                Outer Packs :
+                <b>{{three_three_ProdSummaryCtrl.ePage.Masters.Consolidation[0].OuterPacks}}</b>
+            </div>
+        </div>
+        <!-- Qty Ordered-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="">
+                Qty Ordered :
+                <b>{{(three_three_ProdSummaryCtrl.ePage.Masters.Consolidation[0].Quantity).toFixed(5)}}</b>
+            </div>
+            <div class="padding-top-5">
+                Qty Invoiced :
+                <b>{{(three_three_ProdSummaryCtrl.ePage.Masters.Consolidation[0].InvoicedQuantity).toFixed(5)}}</b>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="">
+                Qty Received :
+                <b>{{(three_three_ProdSummaryCtrl.ePage.Masters.Consolidation[0].RecievedQuantity).toFixed(5)}}</b>
+            </div>
+            <div class="padding-top-5">
+                Qty Remaining :
+                <b>{{(three_three_ProdSummaryCtrl.ePage.Masters.Consolidation[0].QtyRemaining).toFixed(5)}}</b>
+            </div>
+        </div>
+    </div>
+</div>

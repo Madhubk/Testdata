@@ -8,7 +8,7 @@
 
         <div class="no-padding tab-list-view-wrapper">
             <!--Manifest Grid Page-->
-            <dynamic-list dataentry-name="AdminManifestCtrl.ePage.Masters.dataentryName" task-name="AdminManifestCtrl.ePage.Masters.taskName" grid-config-type="0"
+            <dynamic-list dataentry-name="AdminManifestCtrl.ePage.Masters.dataentryName" dataentry-object="AdminManifestCtrl.ePage.Masters.DataEntryObject"
                 selected-grid-row="AdminManifestCtrl.ePage.Masters.SelectedGridRow($item)" mode="1"></dynamic-list>
             <div class="tab-loading" data-ng-show="AdminManifestCtrl.ePage.Masters.IsTabClick"></div>
         </div>
@@ -16,32 +16,37 @@
     <uib-tab active="AdminManifestCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in AdminManifestCtrl.ePage.Masters.TabList"
         ng-click="AdminManifestCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
         <uib-tab-heading title="{{tab.label}}">
-            <span ng-if="tab.isNew==true?AdminManifestCtrl.ePage.Masters.title='New':AdminManifestCtrl.ePage.Masters.title=tab.label" data-ng-bind="AdminManifestCtrl.ePage.Masters.title"></span>
+            <span ng-if="tab.isNew==true?AdminManifestCtrl.ePage.Masters.title='New':AdminManifestCtrl.ePage.Masters.title=tab.label"
+                data-ng-bind="AdminManifestCtrl.ePage.Masters.title"></span>
             <i class="glyphicon glyphicon-remove" ng-click="AdminManifestCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
             <span class="error-warning-container-common" data-ng-if="tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length > 0">
-                    <span class="custom-warning-container" data-ng-if="(tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'W') > 0 && (tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'E') == 0">
-                        <button class="btn-warning" data-ng-click="AdminManifestCtrl.ePage.Masters.Config.ShowErrorWarningModal(tab)">
-                            <i class="fa fa-warning"></i>
-                        </button>
-                        <span class="custom-warning-count">{{tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount:
-                            'MessageType': 'W'}}</span>
-            </span>
-            <span class="custom-error-container" data-ng-if="(tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'E') > 0">
-                        <button class="btn-error" data-ng-click="AdminManifestCtrl.ePage.Masters.Config.ShowErrorWarningModal(tab)">
-                            <i class="fa fa-warning"></i>
-                        </button>
-                        <span class="custom-error-count">{{tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount:
-                            'MessageType': 'E'}}</span>
-            </span>
+                <span class="custom-warning-container" data-ng-if="(tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'W') > 0 && (tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'E') == 0">
+                    <button class="btn-warning" data-ng-click="AdminManifestCtrl.ePage.Masters.Config.ShowErrorWarningModal(tab)">
+                        <i class="fa fa-warning"></i>
+                    </button>
+                    <span class="custom-warning-count">{{tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType':
+                        'W'}}
+                    </span>
+                </span>
+                <span class="custom-error-container" data-ng-if="(tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'E') > 0">
+                    <button class="btn-error" data-ng-click="AdminManifestCtrl.ePage.Masters.Config.ShowErrorWarningModal(tab)">
+                        <i class="fa fa-warning"></i>
+                    </button>
+                    <span class="custom-error-count">{{tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType':
+                        'E'}}
+                    </span>
+                </span>
             </span>
         </uib-tab-heading>
         <div class="padding-5 padding-bottom-10 clearfix">
             <!--Manifest Menu Directive-->
-            <adminmanifest-menu current-manifest="tab"></adminmanifest-menu>
+            <adminmanifest-menu current-manifest="tab" dataentry-object="AdminManifestCtrl.ePage.Masters.DataEntryObject"></adminmanifest-menu>
 
             <div class="horizontal-space"></div>
         </div>
         <span ng-if="AdminManifestCtrl.ePage.Masters.Config.SaveAndClose" ng-init="AdminManifestCtrl.ePage.Masters.SaveandClose(AdminManifestCtrl.ePage.Masters.activeTabIndex, tab)"></span>
+        <span ng-if="AdminManifestCtrl.ePage.Masters.Config.UnDispatchClose" ng-init="AdminManifestCtrl.ePage.Masters.UnDispatchClose(AdminManifestCtrl.ePage.Masters.activeTabIndex, tab)"></span>
     </uib-tab>
-    <button class="btn btn-default" ng-click="AdminManifestCtrl.ePage.Masters.CreateNewManifest()" data-ng-disabled="AdminManifestCtrl.ePage.Masters.IsNewManifestClicked">+</button>
+    <button class="btn btn-default" ng-if="!AdminManifestCtrl.ePage.Masters.UserAccessCode.IsStore" ng-click="AdminManifestCtrl.ePage.Masters.CreateNewManifest()"
+        data-ng-disabled="AdminManifestCtrl.ePage.Masters.IsNewManifestClicked">+</button>
 </uib-tabset>

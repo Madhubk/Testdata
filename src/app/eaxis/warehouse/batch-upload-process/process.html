@@ -1,0 +1,33 @@
+
+<uib-tabset id="chromeTab" active="ProcessCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+    
+    <uib-tab>
+        <uib-tab-heading title="Batch Upload Details">
+            <span data-ng-bind="'Batch Upload Details'" class="ng-binding">Batch Upload Details</span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+
+        <div class="no-padding tab-list-view-wrapper">
+            <!--Batch Upload Details Grid Page-->
+            <dynamic-list dataentry-name="ProcessCtrl.ePage.Masters.dataentryName" task-name="ProcessCtrl.ePage.Masters.taskName" grid-config-type="0" selected-grid-row="ProcessCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" 
+            dataentry-object="ProcessCtrl.ePage.Masters.DataEntryObject" default-filter="ProcessCtrl.ePage.Masters.DefaultFilter" base-filter="ProcessCtrl.ePage.Masters.DefaultFilter"></dynamic-list>
+            <div class="tab-loading" data-ng-show="ProcessCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+
+    <uib-tab active="ProcessCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in ProcessCtrl.ePage.Masters.TabList" ng-click="ProcessCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+        <uib-tab-heading title="{{tab.label}}">
+            <span  data-ng-bind="tab.label" class="mr-5"></span>
+            <i class="glyphicon glyphicon-remove" ng-click="ProcessCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+        </uib-tab-heading>
+        <div class="padding-bottom-10 clearfix">
+            <!--Batch Upload Details Details Directive-->
+            <batch-upload-details current-process="tab"></batch-upload-details>
+            <div class="horizontal-space"></div>
+        </div>
+
+    </uib-tab>
+    
+</uib-tabset>
+               
+        

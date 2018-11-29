@@ -1,0 +1,215 @@
+
+.set-bg-dc-headers {
+    background: rgba(67, 133, 245, 0.2);
+    padding: 9px;
+}
+
+.dc-header {
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+}
+
+.td-dateEnd {
+    border-right: 2px solid #bbb !important;
+}
+
+.tr-boldBorder {
+    border-bottom: 2px solid #bbb !important;
+}
+
+.store-bg {
+    background-color: aliceblue;
+}
+
+.header-bg {
+    background-color: #f8f8f8;
+}
+
+.td-shortfall {
+    background-color: #ef919161;
+}
+
+.txt-bolder {
+    font-weight: bold;
+}
+
+.plan {
+    background: #fff;
+    color: #333;
+    padding: 0;
+    width: 100%;
+    float: left;
+    _display: inline;
+    position: relative;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+    margin-bottom: 20px;
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgeG1sbnM9Imh0d…0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2xlc3NoYXQtZ2VuZXJhdGVkKSIgLz48L3N2Zz4=);
+    background-image: -webkit-linear-gradient(bottom, #fff, #f3f3f3);
+    background-image: -moz-linear-gradient(bottom, #fff, #f3f3f3);
+    background-image: -o-linear-gradient(bottom, #fff, #f3f3f3);
+    background-image: linear-gradient(to top, #fff, #f3f3f3);
+}
+
+.bordered-azure {
+    border-color: #2dc3e8 !important;
+}
+
+.plan .header {
+    position: relative;
+    font-size: 20px;
+    font-weight: normal;
+    text-transform: uppercase;
+    padding: 15px;
+    margin: 0;
+    border-bottom: 2px solid;
+    /*box-shadow: 0px 2px 6px -2px;*/
+    box-shadow: 0px 4px 8px -3px #a7a6a6;
+}
+
+.plan ul {
+    margin: 20px;
+    padding: 0;
+    list-style: none;
+}
+
+.plan ul li {
+    line-height: 2;
+}
+
+.pl-45 {
+    padding-left: 45px;
+}
+
+.pl-42 {
+    padding-left: 42px;
+}
+
+.pl-32 {
+    padding-left: 32px;
+}
+
+.pl-22 {
+    padding-left: 22px;
+}
+
+.pl-52 {
+    padding-left: 52px;
+}
+
+.pl-38 {
+    padding-left: 38px;
+}
+
+.tms-table-title {
+    font-weight: bold;
+}
+
+#LoadPlanning {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#LoadPlanning td,
+#LoadPlanning th {
+    border: 1px solid #ddd;
+    padding: 8px 10px;
+    text-align: center;
+}
+
+#LoadPlanning th {
+    text-align: left;
+    font-weight: bold;
+    background: #f3f3f3;
+    text-align: center;
+}
+
+.loadcard {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: .25rem;
+}
+
+.load-card-header {
+    padding: .75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: rgba(0, 0, 0, .03);
+    border-bottom: 1px solid rgba(0, 0, 0, .125);
+}
+
+.load-card-body {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem;
+}
+
+.drop-layer {
+    height: 400px;
+    border: 1px solid gray;
+}
+
+.plan-panel {
+    padding-bottom: 10px;
+    border: 1px solid #dfdfdf;
+    padding-top: 10px;
+}
+
+.plan-subpanel {
+    cursor: move;
+}
+
+.widget-header>.widget-caption {
+    line-height: 34px;
+    padding: 0;
+    margin: 0;
+    float: left;
+    text-align: center;
+    font-weight: 400 !important;
+    font-size: 13px;
+}
+
+.widget-header.bordered-bottom {
+    border-bottom: 3px solid #fff;
+}
+
+.widget-header {
+    position: relative;
+    min-height: 35px;
+    background: #fff;
+    -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, .3);
+    -moz-box-shadow: 0 0 4px rgba(0, 0, 0, .3);
+    box-shadow: 0 0 4px rgba(0, 0, 0, .3);
+    color: #555;
+    padding-left: 12px;
+    text-align: right;
+}
+
+.widget {
+    padding: 0;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    margin: 0 0 30px 0;
+}
+
+.widget-body {
+    background-color: #fbfbfb;
+    -webkit-box-shadow: 1px 0 10px 1px rgba(0, 0, 0, .3);
+    -moz-box-shadow: 1px 0 10px 1px rgba(0, 0, 0, .3);
+    box-shadow: 1px 0 10px 1px rgba(0, 0, 0, .3);
+    padding: 12px;
+}

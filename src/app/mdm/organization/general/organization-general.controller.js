@@ -4,11 +4,10 @@
         .module("Application")
         .controller("OrganizationGeneralController", OrganizationGeneralController);
 
-    OrganizationGeneralController.$inject = ["$rootScope", "$scope", "$location", "APP_CONSTANT", "authService", "$uibModal", "apiService", "appConfig", "organizationConfig", "helperService", "toastr", "$timeout"];
+    OrganizationGeneralController.$inject = ["$scope", "$uibModal", "apiService", "appConfig", "helperService"];
 
-    function OrganizationGeneralController($rootScope, $scope, $location, APP_CONSTANT, authService, $uibModal, apiService, appConfig, organizationConfig, helperService, toastr, $timeout) {
+    function OrganizationGeneralController($scope, $uibModal, apiService, appConfig, helperService) {
         var OrganizationGeneralCtrl = this;
-        $scope.emptyText = "-";
 
         function Init() {
             var currentOrganization = OrganizationGeneralCtrl.currentOrganization[OrganizationGeneralCtrl.currentOrganization.label].ePage.Entities;
@@ -18,11 +17,11 @@
                 "Prefix": "Organization_General",
                 "Masters": {},
                 "Meta": helperService.metaBase(),
-                "Entities": currentOrganization,
+                "Entities": currentOrganization
             };
 
             OrganizationGeneralCtrl.ePage.Masters.OrgHeader = {};
-            OrganizationGeneralCtrl.ePage.Masters.OrgAddress = {};
+            OrganizationGeneralCtrl.ePage.Masters.OrgHeader.EmptyText = "-";
 
             OrganizationGeneralCtrl.ePage.Masters.OrgHeader.DataList = [{
                 "DispName": "Active",
@@ -51,23 +50,24 @@
             }, {
                 "DispName": "Services",
                 "Value": "IsService"
-            },{
+            }, {
                 "DispName": "Distribution Center",
                 "Value": "IsDistributionCentre"
-            },{
+            }, {
                 "DispName": "Depot",
                 "Value": "IsRoadFreightDepot"
-            },{
+            }, {
                 "DispName": "Store",
                 "Value": "IsStore"
             }];
 
             OrganizationGeneralCtrl.ePage.Masters.OpenEditForm = OpenEditForm;
+
             SetMainAddress();
-            if(OrganizationGeneralCtrl.currentOrganization.isNew == true){
-               OpenEditForm(OrganizationGeneralCtrl.ePage.Entities.Header.Data, 'general', true)    
+
+            if (OrganizationGeneralCtrl.currentOrganization.isNew == true) {
+                OpenEditForm(OrganizationGeneralCtrl.ePage.Entities.Header.Data, 'general', true)
             }
-            
         }
 
         function OpenEditForm($item, type, isNewMode) {
@@ -95,7 +95,6 @@
                 function (response) {
                     var _obj = {
                         "OrgHeader": OrgHeaderResponse
-                        
                     };
                     _obj[response.type]();
                 },
@@ -111,29 +110,32 @@
                     OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader = response.data.Response.OrgHeader;
                     OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgAddress = response.data.Response.OrgAddress;
                     OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgMiscServ = response.data.Response.OrgMiscServ;
+
+                    SetMainAddress()
                 }
             });
         }
 
         function SetMainAddress() {
-            var _address = [];
-            var _index;
             if (OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgAddress.length > 0) {
                 OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgAddress.map(function (value, key) {
-                    if(value.AddressCapability == null)
-                    {
-                        value.AddressC1apability = [];
-                    }    
-                    value.AddressCapability.map(function (val, index) {
-                        if (val.AddressType === "OFC") {
-                            if (val.IsMainAddress) {
-                                OrganizationGeneralCtrl.ePage.Masters.MainAddress = value;
+                    if (!value.AddressCapability) {
+                        value.AddressCapability = [];
+                    }
+
+                    if (value.AddressCapability.length > 0) {
+                        value.AddressCapability.map(function (val, index) {
+                            if (val.AddressType === "OFC") {
+                                if (val.IsMainAddress) {
+                                    OrganizationGeneralCtrl.ePage.Masters.MainAddress = value;
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
                 });
             }
         }
+
         Init();
     }
 })();

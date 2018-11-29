@@ -1,0 +1,26 @@
+<div class="exp-before-border">
+	<div class="clearfix text-center p-20" data-ng-if="expGroupList && expGroupList.length == 0">
+		<i>No records...!</i>
+	</div>
+	<div class="clearfix process-expression-group-wrapper" data-ng-repeat="x in expGroupList">
+		<div class="col-lg-1 text-center">
+			<div class="dropdown mb-20" data-ng-if="isLogicalOperator">
+				<button class="btn btn-sm btn-default process-btn-dropdown width-65" type="button" data-toggle="dropdown">{{x.LogicalOperator}}
+					<span class="caret ml-10"></span>
+				</button>
+				<ul class="dropdown-menu">
+					<li data-ng-repeat="Operator in ExpressionGroup.LogicalOperatorList">
+						<a href="javascript:(0);" data-ng-click="x.LogicalOperator = Operator.Code">{{Operator.Code}}</a>
+					</li>
+				</ul>
+			</div>
+			<button class="btn btn-sm btn-danger width-65" data-ng-click="ExpressionGroup.DeleteExpressionGroup(x, $index)">Remove</button>
+		</div>
+		<div class="col-lg-11 exp-wrapper">
+			<event-expression-formatter exp-list="x.Expressions" is-logical-operator="true" is-result="true" is-action="false"></event-expression-formatter>
+		</div>
+	</div>
+	<div class="clearfix text-right p-10 pt-0">
+		<button class="btn btn-default btn-xs" data-ng-click="ExpressionGroup.AddExpressionGroup(x)">Add Group</button>
+	</div>
+</div>

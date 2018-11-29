@@ -30,6 +30,7 @@
             InwardCtrl.ePage.Masters.dataentryName = "WarehouseInward";
             InwardCtrl.ePage.Masters.taskName = "WarehouseInward";
             InwardCtrl.ePage.Masters.TabList = [];
+            inwardConfig.TabList = [];
             InwardCtrl.ePage.Masters.activeTabIndex = 0;
             InwardCtrl.ePage.Masters.isNewClicked = false;
             InwardCtrl.ePage.Masters.IsTabClick = false;
@@ -57,10 +58,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": "WMSINW"
+                "FilterID": InwardCtrl.ePage.Entities.Header.API.FindAllInward.FilterID
             };
 
-            apiService.post("eAxisAPI", "WmsInward/FindAll", _input).then(function (response) {
+            apiService.post("eAxisAPI",InwardCtrl.ePage.Entities.Header.API.FindAllInward.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     InwardCtrl.ePage.Masters.InwardDetails = {
                         "entity": response.data.Response[0]
@@ -130,14 +131,6 @@
                 currentTab = currentTab;
             }
             InwardCtrl.ePage.Masters.currentInward = currentTab;
-
-            // Standard Menu Configuration and Data
-            InwardCtrl.ePage.Masters.TabList.map(function (value, key) {
-                if (value.label === InwardCtrl.ePage.Masters.currentInward) {
-                    InwardCtrl.ePage.Masters.StandardMenuInput = appConfig.Entities.standardMenuConfigList.WarehouseInward;
-                    InwardCtrl.ePage.Masters.StandardMenuInput.obj = value;
-                }
-            });
         }
 
 

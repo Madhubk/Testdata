@@ -28,6 +28,8 @@
             OrgWarehouseCtrl.ePage.Masters.OpenEditForm = OpenEditForm;
             OrgWarehouseCtrl.ePage.Masters.OnCompanySelect = OnCompanySelect;
             OrgWarehouseCtrl.ePage.Masters.RemoveRow = RemoveRow;
+            OrgWarehouseCtrl.ePage.Masters.Config=organizationConfig;
+            InitBarcode();
 
         //    GetCompanyListing();
         //  Miscservice();
@@ -199,12 +201,28 @@
                 }
             }).result.then(
                 function (response) {
-                    var _obj = {
-                        "WmsClientPickPackParamsByWms": PickDataResponse,
-                        "WmsClientParameterByWarehouse": ReceiveDataResponse,
-                        "OrgMiscServ":MiscservResponse
-                    };
-                        _obj[response.entity](response); 
+                    if(response.entity == "OrgBarcode"){
+                        if (response.Data.OrgBarcode.length > 0) {
+                            angular.forEach(response.Data.OrgBarcode, function (val, key) {
+                                if (val.Key == "BarcodeType" || val.Key == "QRCodeType") {
+                                    OrgWarehouseCtrl.ePage.Masters.BarcodeType = val.Value;
+                                } else if (val.Key == "BarcodeRule" || val.Key == "QRCodeRule") {
+                                    OrgWarehouseCtrl.ePage.Masters.BarcodeRule = val.Value;
+                                } else if (val.Key == "PackingDateRule") {
+                                    OrgWarehouseCtrl.ePage.Masters.PackDate = val.Value;
+                                } else if (val.Key == "ExpiryDateRule") {
+                                    OrgWarehouseCtrl.ePage.Masters.ExpiryDate = val.Value;
+                                }
+                            })
+                        } 
+                    }else{
+                        var _obj = {
+                            "WmsClientPickPackParamsByWms": PickDataResponse,
+                            "WmsClientParameterByWarehouse": ReceiveDataResponse,
+                            "OrgMiscServ":MiscservResponse
+                        };
+                            _obj[response.entity](response); 
+                    }                    
                 },
                 function () {
                     console.log("Cancelled");
@@ -264,6 +282,21 @@
                     OrgWarehouseCtrl.ePage.Entities.Header.Data.WmsClientParameterByWarehouse = response.data.Response;
                 }
             });            
+        }
+        function InitBarcode(){
+            if (OrgWarehouseCtrl.ePage.Entities.Header.Data.OrgBarcode.length > 0) {
+                angular.forEach(OrgWarehouseCtrl.ePage.Entities.Header.Data.OrgBarcode, function (val, key) {
+                    if (val.Key == "BarcodeType" || val.Key == "QRCodeType") {
+                        OrgWarehouseCtrl.ePage.Masters.BarcodeType = val.Value;
+                    } else if (val.Key == "BarcodeRule" || val.Key == "QRCodeRule") {
+                        OrgWarehouseCtrl.ePage.Masters.BarcodeRule = val.Value;
+                    } else if (val.Key == "PackingDateRule") {
+                        OrgWarehouseCtrl.ePage.Masters.PackDate = val.Value;
+                    } else if (val.Key == "ExpiryDateRule") {
+                        OrgWarehouseCtrl.ePage.Masters.ExpiryDate = val.Value;
+                    }
+                })
+            } 
         }
         Init();
     }

@@ -1,0 +1,35 @@
+<div class="clearfix">
+    <div class="col-lg-8">
+        <div class="border-box pt-10 pb-10">
+            <div class="clearfix">
+                <div class="col-lg-4">
+                    <div class="fs-12 color-aaa">Buyer:</div>
+                    <div class="text-ellipsis">{{ExceptNotifyDirectiveCtrl.ePage.Masters.ExceptionObj.Buyer}}</div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="fs-12 color-aaa">Supplier:</div>
+                    <div class="text-ellipsis">{{ExceptNotifyDirectiveCtrl.ePage.Masters.ExceptionObj.Supplier}}</div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="text-ellipsis">{{ExceptNotifyDirectiveCtrl.ePage.Masters.ExceptionData.Type}}</div>
+                    <span class="urgent" data-ng-if="ExceptNotifyDirectiveCtrl.ePage.Masters.ExceptionData.IsUrgent">Urgent</span>
+                </div>
+            </div>
+            <!-- <div class="clearfix mt-10 position-relative">
+                <i class="except-comment-icon fa fa-comment-o"></i>
+                <div class="except-comments-empty color-aaa pr-15 fs-12" data-ng-if="!ExceptNotifyDirectiveCtrl.ePage.Masters.Text"></div>
+                <div class="except-comments color-aaa pr-15 fs-12" data-ng-if="ExceptNotifyDirectiveCtrl.ePage.Masters.Text">{{ExceptNotifyDirectiveCtrl.ePage.Masters.Text | limitTo : 2000 : 0}}</div>
+            </div> -->
+            <div class="clearfix mt-10 position-relative">
+                <i class="except-comment-icon fa fa-comment-o"></i>
+                <div class="except-comments color-aaa pr-15 fs-12" data-ng-text-truncate="ExceptNotifyDirectiveCtrl.ePage.Masters.ExceptionData.Description" data-ng-tt-chars-threshold="150"
+                    data-ng-tt-more-label="more" data-ng-tt-less-label="less"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 pr-0 pl-28">
+        <textarea class="form-control no-resize" placeholder="Comments" data-ng-model="ExceptNotifyDirectiveCtrl.ePage.Masters.ExceptionComments"></textarea>
+        <button class="my-task-btn my-task-directive-btn mt-5" data-ng-disabled="ExceptNotifyDirectiveCtrl.ePage.Masters.IsMarkRead"
+            data-ng-click="ExceptNotifyDirectiveCtrl.ePage.Masters.MarkAsRead()">{{ExceptNotifyDirectiveCtrl.ePage.Masters.IsReadBtn}}</button>
+    </div>
+</div>

@@ -1,19 +1,43 @@
-.contact-edit.contact>.modal-dialog {
+.contact-edit-modal.contact>.modal-dialog {
     width: 500px !important;
 }
 
-.org-edit-delete {
-    top: 5px;
-}
-
-.org-contact-header {
-    font-size: 16px;
+.org-header {
+    font-size: 20px;
     position: relative;
-    padding: 9px 0px;
+    padding: 5px;
+    font-weight: 600;
     color: #1f497d;
     border-bottom: 1px solid #ddd;
 }
 
-.fs-28 {
-    font-size: 28px;
+.org-address-contact-box {
+    border: 1px solid #ddd;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    border-radius: 0 10px 0 10px;
+}
+
+.org-address-contact-box.active {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+}
+
+.org-address-contact-box .rtl .text-single-line {
+    direction: rtl;
+}
+
+.org-address-contact-box .org-address-icon {
+    width: 20px;
+    color: #ccc;
+}
+
+.org-address-contact-box .org-address-contact-edit-delete {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.org-address-contact-box .org-address-contact-edit-delete i {
+    color: #aaa;
+    font-size: 16px;
+    cursor: pointer;
 }

@@ -1,0 +1,34 @@
+<uib-tabset id="chromeTab" active="InventoryCustCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+
+    <uib-tab>
+        <uib-tab-heading title="Inventory">
+            <span data-ng-bind="'Inventory'" class="ng-binding">Inventory</span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+
+        <div class="no-padding tab-list-view-wrapper">
+
+            <dynamic-list ng-if="InventoryCustCtrl.ePage.Masters.dataentryName" dataentry-name="InventoryCustCtrl.ePage.Masters.dataentryName"
+                task-name="InventoryCustCtrl.ePage.Masters.taskName" grid-config-type="0" selected-grid-row="InventoryCustCtrl.ePage.Masters.SelectedGridRow($item)"
+                mode="1" dataentry-object="InventoryCustCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+            <div class="tab-loading" data-ng-show="InventoryCustCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+
+    <uib-tab active="InventoryCustCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in InventoryCustCtrl.ePage.Masters.TabList"
+        ng-click="InventoryCustCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+
+        <uib-tab-heading title="{{tab[tab.label].ePage.Entities.Header.Data[0].ClientCode+ '-' +tab[tab.label].ePage.Entities.Header.Data[0].ProductCode}}">
+            <span>{{tab[tab.label].ePage.Entities.Header.Data[0].ClientCode+ '-' +tab[tab.label].ePage.Entities.Header.Data[0].ProductCode}}</span>
+            <i class="glyphicon glyphicon-remove" ng-click="InventoryCustCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+        </uib-tab-heading>
+
+        <div class="padding-bottom-10 clearfix">
+            <inventory-menu-cust current-inventory="tab"></inventory-menu-cust>
+        </div>
+    </uib-tab>
+    <button class="btn btn-inventory" ng-class="InventoryCustCtrl.ePage.Masters.IsActiveDetail?'selected-btn':'btn-default'" ng-click="InventoryCustCtrl.ePage.Masters.InventorySummary('Details')" style="margin-left:auto;">Detailed Inventory </button>
+    <button class="btn btn-inventory" ng-class="InventoryCustCtrl.ePage.Masters.IsActiveProduct?'selected-btn':'btn-default'" ng-click="InventoryCustCtrl.ePage.Masters.InventorySummary('Product')">Product Wise </button>
+    <button class="btn btn-inventory" ng-class="InventoryCustCtrl.ePage.Masters.IsActiveAttribute?'selected-btn':'btn-default'" ng-click="InventoryCustCtrl.ePage.Masters.InventorySummary('Attribute')">Attribute Wise </button>
+    <button class="btn btn-inventory" ng-class="InventoryCustCtrl.ePage.Masters.IsActiveLocation?'selected-btn':'btn-default'" ng-click="InventoryCustCtrl.ePage.Masters.InventorySummary('Location')">Location Wise </button>
+</uib-tabset>

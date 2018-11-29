@@ -5,9 +5,9 @@
         .module("Application")
         .controller("DynamicDetailsViewDirectiveController", DynamicDetailsViewController);
 
-    DynamicDetailsViewController.$inject = ["$scope", "$location", "$window", "$timeout", "$uibModal", "authService", "apiService", "helperService", "toastr", "appConfig"];
+    DynamicDetailsViewController.$inject = ["$scope", "$uibModal", "authService", "apiService", "helperService", "toastr", "appConfig"];
 
-    function DynamicDetailsViewController($scope, $location, $window, $timeout, $uibModal, authService, apiService, helperService, toastr, appConfig) {
+    function DynamicDetailsViewController($scope, $uibModal, authService, apiService, helperService, toastr, appConfig) {
         var DynamicDetailsViewDirectiveCtrl = this;
 
         function Init() {
@@ -18,6 +18,8 @@
                 "Meta": helperService.metaBase(),
                 "Entities": {}
             };
+
+            DynamicDetailsViewDirectiveCtrl.ePage.Masters.AppCode = authService.getUserInfo().AppCode;
 
             DynamicDetailsViewDirectiveCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
             DynamicDetailsViewDirectiveCtrl.ePage.Masters.CloseModal = CloseModal;

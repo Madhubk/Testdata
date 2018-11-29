@@ -16,7 +16,8 @@
             bindToController: true,
             scope: {
                 input: "=",
-                object: "="
+                object: "=",
+                icon: "="
             },
             link: Link
         };

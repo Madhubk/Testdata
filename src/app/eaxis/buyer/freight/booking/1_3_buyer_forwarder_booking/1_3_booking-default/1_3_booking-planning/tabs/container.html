@@ -1,0 +1,23 @@
+<div class="clearfix mt-10">
+    <div class="row padding-10 pb-0 containerForm">
+        <div class="col-sm-12 col-md-8 col-lg-12">
+            <div class="alert alert-info" id="info" ng-if="bkgBuyerForwarderPlanningCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode!='SEA'">
+                <i class="fa-fw fa-lg fa fa-exclamation"></i>
+                <strong>Note!</strong> No container view for
+                {{bkgBuyerForwarderPlanningCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode}}
+                Bookings
+            </div>
+            <div class="alert alert-info" id="info" ng-if="bkgBuyerForwarderPlanningCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode=='LCL'">
+                <i class="fa-fw fa-lg fa fa-exclamation"></i>
+                <strong>Note!</strong> No container view for LCL shipment
+            </div>
+            <div data-ng-if="bkgBuyerForwarderPlanningCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode=='SEA' && bkgBuyerForwarderPlanningCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode=='FCL'">
+                <container-grid data-ng-if="bkgBuyerForwarderPlanningCtrl.obj" current-object="bkgBuyerForwarderPlanningCtrl.obj"
+                    key-object-name="'SHP'" api-header-name="'UIShipmentHeader'" api-header-field-name="'SHP_BookingOnlyLink'"
+                    api-header-value-name="'UICntContainer'" btn-visible="{'AddNew':true,'Delete':true,'More':false}"
+                    table-properties="bkgBuyerForwarderPlanningCtrl.ePage.Masters.ContainerHeader" read-only="false">
+                </container-grid>
+            </div>
+        </div>
+    </div>
+</div>

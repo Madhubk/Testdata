@@ -1,0 +1,27 @@
+<div class="clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="padding: 0px;">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="border: 1px solid #ddd;height: 100px;">
+        <div class="my-task-dispatch-manifest-container mt-10">
+            <div class="my-task-content-shipper col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                {{AttachManifestDirectiveCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.ORG_Code}} - {{AttachManifestDirectiveCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.ORG_FullName}}
+            </div>
+            <div class="my-task-content-shipper col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                {{AttachManifestDirectiveCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.TransporterCode}} - {{AttachManifestDirectiveCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.TransporterName}}
+            </div>
+            <div class="my-task-expected-date col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                Purpose : {{AttachManifestDirectiveCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.Purpose}}
+            </div>
+            <div class="my-task-expected-date col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                Vehicle Type : {{AttachManifestDirectiveCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.VehicleType}}
+            </div>
+            <div class="my-task-expected-date col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4" data-ng-if="AttachManifestDirectiveCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.VehicleNo">
+                <i class="fa fa-truck"></i> {{AttachManifestDirectiveCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.VehicleNo}}
+            </div>
+            <div class="my-task-expected-date col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4" data-ng-if="AttachManifestDirectiveCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.DriverName">
+                <i class="fa fa-user"></i> {{AttachManifestDirectiveCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.DriverName}}
+            </div>
+            <div class="my-task-expected-date col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4" data-ng-if="AttachManifestDirectiveCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.DriverContactNo">
+                <i class="fa fa-phone-square"></i> {{AttachManifestDirectiveCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.DriverContactNo}}
+            </div>
+        </div>
+    </div>
+</div>

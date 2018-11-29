@@ -1,0 +1,229 @@
+<div class="clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding">
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 p-0">
+            <span><button type="button" style="font-size:11px" class="btn btn-sm btn-outline-primary font-10"  title="Customize"  data-ng-click="ReleasesPickSlipCtrl.ePage.Masters.EditTableColumnsForPickLineSummary = true"><span class="fa fa-filter"></span>&nbsp;&nbsp;Customize</button></span>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="input-group">
+                <div class="input-group-addon font-10"><i class="fa fa-search font-10"></i></div>
+                <input type="text" class="form-control height-25 font-10" placeholder="Search" ng-model="ReleasesPickSlipCtrl.ePage.Masters.SearchTableForPickLineSummary">
+            </div>      
+        </div>
+    </div>
+    <div id="PickLineSumm{{ReleasesPickSlipCtrl.currentRelease.label}}" class="fixedheader" key-events table-object='ReleasesPickSlipCtrl.ePage.Entities.Header.Data.UIWmsPickLineSummary' enable='ReleasesPickSlipCtrl.ePage.Masters.EnableForPickLineSummary' selected-row='ReleasesPickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary' unique-id='PickLineSumm{{ReleasesPickSlipCtrl.currentRelease.label}}'>
+        <table style="height: 200px">
+            <thead>
+                <tr id="tableHeader">
+                    <th id="ssno" data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.ssno.isenabled" ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.ssno.width + 'px' }" title="S.No">S.No</th>
+                    <th id="sclient" data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sclient.isenabled" ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sclient.width + 'px' }" title="Client">Client</th>
+                    <th id="sproductcode"data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sproductcode.isenabled" ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sproductcode.width + 'px' }" title="Product Code">Product Code</th>
+                    <th id="sproductdescription"data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sproductdescription.isenabled" ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sproductdescription.width + 'px' }" title="Product Description">Product Description</th>
+                    <th id="spacks" data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spacks.isenabled" ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spacks.width + 'px' }" title="Packs">Packs</th>
+                    <th id="spacktype" data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spacktype.isenabled" ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spacktype.width + 'px' }" title="Pack Type">Pack Type</th>
+                    <th id="squantity"data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.squantity.isenabled" ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.squantity.width + 'px' }" title="Quantity">Qty</th>
+                    <th id="squantityuq" data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.squantityuq.isenabled" ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.squantityuq.width + 'px' }" title="Quanity UQ">Qty UQ</th>
+                    <th id="sproductcondition" data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sproductcondition.isenabled" ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sproductcondition.width + 'px' }" title="Product Condition">Product Condition</th>
+                    <th id="slocation" data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.slocation.isenabled" ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.slocation.width + 'px' }" title="Location">Location</th>
+                    <th id="sudf1" data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sudf1.isenabled" ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sudf1.width + 'px' }" title="User Defined Field 1">UDF 1</th>
+                    <th id="sudf2" data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sudf2.isenabled" ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sudf2.width + 'px' }" title="USer Defined Field 2">UDF 2</th>
+                    <th id="sudf3" data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sudf3.isenabled" ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sudf3.width + 'px' }" title="USer Defined Field 3">UDF 3</th>
+                    <th id="spackingdate" data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spackingdate.isenabled" ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spackingdate.width + 'px' }" title="Packing Date">Packing Date</th>
+                    <th id="sexpirydate" data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sexpirydate.isenabled" ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sexpirydate.width + 'px' }" title="Expiry Date">Expiry Date</th>
+                    <th id="spickedqty" data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spickedqty.isenabled" ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spickedqty.width + 'px' }" title="Picked Quantity">Picked Qty</th>
+                    <th id="spickeddatetime" data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spickeddatetime.isenabled" ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spickeddatetime.width + 'px' }" title="Picked Date Time">Picked Date Time</th>
+                </tr>
+            </thead>
+            <tbody id="PickLineCustSumm{{ReleasesPickSlipCtrl.currentRelease.label}}">
+                <tr id="tableBody" ng-repeat="x in ReleasesPickSlipCtrl.ePage.Entities.Header.Data.UIWmsPickLineSummary  | filter:ReleasesPickSlipCtrl.ePage.Masters.SearchTableForPickLineSummary"  ng-click="ReleasesPickSlipCtrl.ePage.Masters.setSelectedRowForPickLineSummary($index);ReleasesPickSlipCtrl.ePage.Masters.EnableReleaseCapturesTable(x)" ng-class="{row_active: (ReleasesPickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary==$index),copy_row_active :(x.IsCopied==true)}" 
+                    watch-table table-properties="ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary"  unique-id="PickLineCustSumm{{ReleasesPickSlipCtrl.currentRelease.label}}" row-position="$index">
+                    <td id="ssno"   data-ng-show='ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.ssno.isenabled' ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.ssno.width + 'px' }" >{{$index+1}}
+                        <span class="list-error-warning" data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsPickLineSummary.ERROR | listCount: 'RowIndex': $index">
+                            <error-warning-directive 
+                                list="ReleasesPickSlipCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsPickLineSummary.ERROR"
+                                type="'error'" icon="fa fa-warning" parent-type="'arrayObjectRow'" parent-ref=""
+                                g-parent-ref="" row-index="$index"
+                                col-index="">
+                            </error-warning-directive>
+                        </span>
+                    </td>
+                    <td id="sclient"   data-ng-show='ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sclient.isenabled' ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sclient.width + 'px' }" class="overflow-text">{{x.ClientCode}} - {{x.ClientName}}</td>
+                    <td id="sproductcode"   data-ng-show='ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sproductcode.isenabled' ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sproductcode.width + 'px' }" class="overflow-text">{{x.ProductCode}}</td>
+                    <td id="sproductdescription"   data-ng-show='ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sproductdescription.isenabled' ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sproductdescription.width + 'px' }" class="overflow-text">{{x.ProductDescription}}</td>
+                    <td id="spacks"   data-ng-show='ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spacks.isenabled' ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spacks.width + 'px' }" class="overflow-text">{{x.Packs || ReleasesPickSlipCtrl.ePage.Masters.emptyText}}</td>
+                    <td id="spacktype"   data-ng-show='ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spacktype.isenabled' ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spacktype.width + 'px' }" class="overflow-text">{{x.PAC_PackType || ReleasesPickSlipCtrl.ePage.Masters.emptyText}}</td>
+                    <td id="squantity"   data-ng-show='ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.squantity.isenabled' ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.squantity.width + 'px' }" class="overflow-text">{{x.Units || ReleasesPickSlipCtrl.ePage.Masters.emptyText}}</td>
+                    <td id="squantityuq"   data-ng-show='ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.squantityuq.isenabled' ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.squantityuq.width + 'px' }" class="overflow-text">{{x.StockKeepingUnit || ReleasesPickSlipCtrl.ePage.Masters.emptyText}}</td> 
+                    <td id="sproductcondition"   data-ng-show='ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sproductcondition.isenabled' ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sproductcondition.width + 'px' }" class="overflow-text">{{x.ProductCondition || ReleasesPickSlipCtrl.ePage.Masters.emptyText}}</td> 
+                    <td id="slocation"   data-ng-show='ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.slocation.isenabled' ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.slocation.width + 'px' }" class="overflow-text">{{x.Location || ReleasesPickSlipCtrl.ePage.Masters.emptyText}}</td>
+                    <td id="sudf1"   data-ng-show='ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sudf1.isenabled' ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sudf1.width + 'px' }" class="overflow-text">{{x.PartAttrib1 || ReleasesPickSlipCtrl.ePage.Masters.emptyText}}</td> 
+                    <td id="sudf2"   data-ng-show='ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sudf2.isenabled' ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sudf2.width + 'px' }" class="overflow-text">{{x.PartAttrib2 || ReleasesPickSlipCtrl.ePage.Masters.emptyText}}</td>
+                    <td id="sudf3"   data-ng-show='ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sudf3.isenabled' ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sudf3.width + 'px' }" class="overflow-text">{{x.PartAttrib3 || ReleasesPickSlipCtrl.ePage.Masters.emptyText}}</td>
+                    <td id="spackingdate"   data-ng-show='ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spackingdate.isenabled' ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spackingdate.width + 'px' }" class="overflow-text">{{x.PackingDate || ReleasesPickSlipCtrl.ePage.Masters.emptyText | dateFormat}}</td>
+                    <td id="sexpirydate"   data-ng-show='ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sexpirydate.isenabled' ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sexpirydate.width + 'px' }" class="overflow-text">{{x.ExpiryDate || ReleasesPickSlipCtrl.ePage.Masters.emptyText | dateFormat}}</td>
+                    <td id="spickedqty"   data-ng-show='ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spickedqty.isenabled' ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spickedqty.width + 'px' }" class="overflow-text" >{{ x.PickedQty || ReleasesPickSlipCtrl.ePage.Masters.emptyText | dateFormat}}</td> 
+                    <td id="spickeddatetime"   data-ng-show='ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spickeddatetime.isenabled' ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spickeddatetime.width + 'px' }" class="overflow-text">{{ x.PickedDateTime || ReleasesPickSlipCtrl.ePage.Masters.emptyText | dateFormat}}</td>    
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound"  ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.Data.UIWmsPickLineSummary.length==0">No Record Found...</div>
+
+        <!-- To show Customize Modal -->
+    <div ng-if='ReleasesPickSlipCtrl.ePage.Masters.EditTableColumnsForPickLineSummary'>
+        <customize-table table-properties="ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary" enable="ReleasesPickSlipCtrl.ePage.Masters.EditTableColumnsForPickLineSummary" unique-id="PickLineCustSumm{{ReleasesPickSlipCtrl.currentRelease.label}}" user-value='ReleasesPickSlipCtrl.ePage.Masters.UserValueForPickLineSummary' entity-source='WMS_PICKLINESUMMARY'></customize-table>
+    </div>
+    <!-- Call Directive If user has value -->
+    <div ng-if='ReleasesPickSlipCtrl.ePage.Masters.UserHasValueForPickLineSummary' ng-init="ReleasesPickSlipCtrl.ePage.Masters.UserHasValueForPickLineSummary=false">
+        <watch-table table-properties="ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary"  unique-id="PickLineCustSumm{{ReleasesPickSlipCtrl.currentRelease.label}}"></watch-table>
+    </div>
+</div>
+
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 margin-top-5">
+    <span class="text-single-line custom_label">Release Capture Lines</span>
+</div>
+
+<div class="clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding">
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 p-0">
+            <span><button type="button" class="btn btn-sm btn-outline-secondary font-10"  title="Add New"  data-ng-click="ReleasesPickSlipCtrl.ePage.Masters.AddNewRowForUIWmsReleaseLine()" ng-disabled="!ReleasesPickSlipCtrl.ePage.Masters.EnableAddAndEditReleaseLine"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button></span>
+            <span><button type="button" class="btn btn-sm btn-outline-primary font-10"  title="Copy"  data-ng-click="ReleasesPickSlipCtrl.ePage.Masters.CopyRowForUIWmsReleaseLine()" ng-disabled="!ReleasesPickSlipCtrl.ePage.Masters.EnableDeleteButtonForUIWmsReleaseLine"><span class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button></span>
+            <span><button type="button" class="btn btn-sm btn-outline-primary font-10"  title="Delete"  data-ng-click="ReleasesPickSlipCtrl.ePage.Masters.RemoveRowForUIWmsReleaseLine()" ng-disabled="!ReleasesPickSlipCtrl.ePage.Masters.EnableDeleteButtonForUIWmsReleaseLine"><span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button></span>
+            <span><button type="button" class="btn btn-sm btn-outline-primary font-10"  title="Customize"  data-ng-click="ReleasesPickSlipCtrl.ePage.Masters.EditTableColumnsForUIWmsReleaseLine = true"><span class="fa fa-filter"></span>&nbsp;&nbsp;Customize</button></span>
+            <span>
+                <label class="">
+                    <input type="checkbox" ng-checked="ReleasesPickSlipCtrl.ePage.Masters.ShowAllLines" ng-change="ReleasesPickSlipCtrl.ePage.Masters.ShowAllFunc(ReleasesPickSlipCtrl.ePage.Masters.ShowAllLines)"
+                        ng-model="ReleasesPickSlipCtrl.ePage.Masters.ShowAllLines" ng-disabled="ReleasesPickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary==-1"> </input>
+                    <span class="text" style="font-weight: 600">Show All</span>
+            </label>
+        </span>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0 pull-right">
+            <div class="input-group">
+                <div class="input-group-addon font-10"><i class="fa fa-search font-10"></i></div>
+                <input type="text" class="form-control height-25 font-10" placeholder="Search" ng-model="ReleasesPickSlipCtrl.ePage.Masters.SearchTableForUIWmsReleaseLine">
+            </div>      
+        </div>
+    </div>
+    <div class="fixedheader" id="RelCaptTable{{ReleasesPickSlipCtrl.currentRelease.label}}"  key-events table-object='ReleasesPickSlipCtrl.ePage.Entities.Header.Data.UIWmsReleaseLine' enable='ReleasesPickSlipCtrl.ePage.Masters.EnableForUIWmsReleaseLine' selected-row='ReleasesPickSlipCtrl.ePage.Masters.selectedRowForRelaseCaptures' unique-id="RelCaptTable{{ReleasesPickSlipCtrl.currentRelease.label}}">
+        <table id="ReleasesPickSlipCtrl.ePage.Masters.AddScroll" style="height: 200px">
+            <thead>
+                <tr id="tableHeader">
+                    <th id="rcheckbox" data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine.rcheckbox.isenabled" ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine.rcheckbox.width + 'px' }">
+                        <label class="customcheckbox">
+                            <input type="checkbox" ng-change="ReleasesPickSlipCtrl.ePage.Masters.SelectAllCheckBoxForUIWmsReleaseLine()" ng-checked="ReleasesPickSlipCtrl.ePage.Masters.SelectAllForUIWmsReleaseLine"
+                                ng-model="ReleasesPickSlipCtrl.ePage.Masters.SelectAllForUIWmsReleaseLine" ng-disabled="!ReleasesPickSlipCtrl.ePage.Masters.EnableAddAndEditReleaseLine">
+                            <span class="text"></span>
+                        </label>
+                    </th>
+                    <th id="rsno" data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine.rsno.isenabled" ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine.rsno.width + 'px' }" title="S.No">S.No</th>
+                    <th id="rqty" data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine.rqty.isenabled" ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine.rqty.width + 'px' }" title="Quantity">Qty</th>
+                    <th id="rudf1"data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine.rudf1.isenabled" ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine.rudf1.width + 'px' }" title="User Defined Field 1">UDF 1</th>
+                    <th id="rudf2"data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine.rudf2.isenabled" ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine.rudf2.width + 'px' }" title="User Defined Field 2">UDF 2</th>
+                    <th id="rudf3"data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine.rudf3.isenabled" ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine.rudf3.width + 'px' }" title="User Defined Field 3">UDF 3</th>
+                </tr>
+            </thead>
+            <tbody id="RelCaptCustomTable{{ReleasesPickSlipCtrl.currentRelease.label}}"> 
+                <tr id="tableBody" ng-repeat="x in ReleasesPickSlipCtrl.ePage.Entities.Header.Data.UIWmsReleaseLine | filter:ReleasesPickSlipCtrl.ePage.Masters.SelectedPickLinePK | filter:ReleasesPickSlipCtrl.ePage.Masters.SearchTableForUIWmsReleaseLine"  ng-click="ReleasesPickSlipCtrl.ePage.Masters.setSelectedRowForUIWmsReleaseLine($index);" ng-class="{row_active: (ReleasesPickSlipCtrl.ePage.Masters.selectedRowForUIWmsReleaseLine==$index),copy_row_active :(x.IsCopied==true),row_active_green :(x.WPL_FK==ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.PK)}" 
+                    watch-table table-properties="ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine"  unique-id="RelCaptCustomTable{{ReleasesPickSlipCtrl.currentRelease.label}}" row-position="$index" data-ng-if="ReleasesPickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary!=-1">
+                    <td id="rcheckbox" data-ng-show='ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine.rcheckbox.isenabled' ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine.rcheckbox.width + 'px','padding-top':'0px' }" >
+                        <label class="mb-0 customcheckbox">
+                            <input type="checkbox" ng-checked="x.SingleSelect" ng-change="ReleasesPickSlipCtrl.ePage.Masters.SingleSelectCheckBoxForUIWmsReleaseLine()"
+                                ng-model="x.SingleSelect" ng-disabled="x.WorkOrderLineStatus =='FIN' || x.WPL_FK!=ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.PK"> </input>
+                            <span class="text"></span>
+                        </label>
+                        <span class="list-error-warning" data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsReleaseLine.ERROR | listCount: 'RowIndex': $index">
+                            <error-warning-directive 
+                                list="ReleasesPickSlipCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsReleaseLine.ERROR"
+                                type="'error'" icon="fa fa-warning" parent-type="'arrayObjectRow'" parent-ref=""
+                                g-parent-ref="" row-index="$index"
+                                col-index="">
+                            </error-warning-directive>
+                        </span>
+                    </td>
+                    <td id="rsno"   data-ng-show='ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine.rsno.isenabled' ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine.rsno.width + 'px' }" >
+                        {{$index+1}}
+                    </td>
+                    <td id="rqty"   data-ng-show='ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine.rqty.isenabled' ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine.rqty.width + 'px' }" >
+                        <div data-ng-if="$index!=ReleasesPickSlipCtrl.ePage.Masters.selectedRowForUIWmsReleaseLine" class="overflow-text">
+                            {{ x.Units || ReleasesPickSlipCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==ReleasesPickSlipCtrl.ePage.Masters.selectedRowForUIWmsReleaseLine">
+                            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
+                                <input type="text " numbers-only-dot class="height-22 form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Units"  data-ng-model="x.Units" ng-change="ReleasesPickSlipCtrl.ePage.Masters.UnitValidation(x,$index)" ng-disabled="x.WorkOrderLineStatus =='FIN'">                                        
+                            </div>
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsReleaseLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':4">
+                                <error-warning-directive  list="ReleasesPickSlipCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsReleaseLine.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                    row-index="ReleasesPickSlipCtrl.ePage.Masters.selectedRowForUIWmsReleaseLine" col-index="4">
+                                </error-warning-directive>
+                            </div>
+                        </div>
+                    </td>
+                    <td id="rudf1"  data-ng-show='ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine.rudf1.isenabled'  ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine.rudf1.width + 'px' }">
+                        <div data-ng-if="$index!=ReleasesPickSlipCtrl.ePage.Masters.selectedRowForUIWmsReleaseLine" class="overflow-text">
+                            {{ x.PartAttrib1 || ReleasesPickSlipCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==ReleasesPickSlipCtrl.ePage.Masters.selectedRowForUIWmsReleaseLine">
+                            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
+                                <input type="text"  class="height-22 form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="UDF 1"  data-ng-model="x.PartAttrib1" ng-disabled="!x.IsPartAttrib1ReleaseCaptured || x.WorkOrderLineStatus =='FIN'" ng-blur="ReleasesPickSlipCtrl.ePage.Masters.UDF(x,$index)">                                        
+                            </div>
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsReleaseLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':1">
+                                <error-warning-directive  list="ReleasesPickSlipCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsReleaseLine.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                    row-index="ReleasesPickSlipCtrl.ePage.Masters.selectedRowForUIWmsReleaseLine" col-index="1">
+                                </error-warning-directive>
+                            </div>
+                        </div>
+                    </td> 
+                    <td id="rudf2"  data-ng-show='ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine.rudf2.isenabled'  ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine.rudf2.width + 'px' }">
+                        <div data-ng-if="$index!=ReleasesPickSlipCtrl.ePage.Masters.selectedRowForUIWmsReleaseLine" class="overflow-text">
+                            {{ x.PartAttrib2 || ReleasesPickSlipCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==ReleasesPickSlipCtrl.ePage.Masters.selectedRowForUIWmsReleaseLine">
+                            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
+                                <input type="text"  class="height-22 form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="UDF 2"  data-ng-model="x.PartAttrib2" ng-disabled="!x.IsPartAttrib2ReleaseCaptured || x.WorkOrderLineStatus =='FIN'" ng-blur="ReleasesPickSlipCtrl.ePage.Masters.UDF(x,$index)">                                        
+                            </div>
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsReleaseLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':2">
+                                <error-warning-directive  list="ReleasesPickSlipCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsReleaseLine.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                    row-index="ReleasesPickSlipCtrl.ePage.Masters.selectedRowForUIWmsReleaseLine" col-index="2">
+                                </error-warning-directive>
+                            </div>
+                        </div>
+                    </td>
+                    <td id="rudf3"  data-ng-show='ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine.rudf3.isenabled'  ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine.rudf3.width + 'px' }">
+                        <div data-ng-if="$index!=ReleasesPickSlipCtrl.ePage.Masters.selectedRowForUIWmsReleaseLine" class="overflow-text">
+                            {{ x.PartAttrib3 || ReleasesPickSlipCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==ReleasesPickSlipCtrl.ePage.Masters.selectedRowForUIWmsReleaseLine">
+                            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
+                                <input type="text"  class="height-22 form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="UDF 3"  data-ng-model="x.PartAttrib3" ng-disabled="!x.IsPartAttrib3ReleaseCaptured || x.WorkOrderLineStatus =='FIN'" ng-blur="ReleasesPickSlipCtrl.ePage.Masters.UDF(x,$index)">                                        
+                            </div>
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsReleaseLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':3">
+                                <error-warning-directive  list="ReleasesPickSlipCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsReleaseLine.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                    row-index="ReleasesPickSlipCtrl.ePage.Masters.selectedRowForUIWmsReleaseLine" col-index="3">
+                                </error-warning-directive>
+                            </div>
+                        </div>
+                    </td>        
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:450px" ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.Data.UIWmsReleaseLine.length==0 && ReleasesPickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary!=-1">No Record Found...</div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:450px" ng-if="ReleasesPickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary==-1">Click on the above pick slip line to Add and View Release Capture Line...</div>
+    
+    <!-- To show Customize Modal -->
+    <div ng-if='ReleasesPickSlipCtrl.ePage.Masters.EditTableColumnsForUIWmsReleaseLine'>
+        <customize-table table-properties="ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine" enable="ReleasesPickSlipCtrl.ePage.Masters.EditTableColumnsForUIWmsReleaseLine" unique-id="RelCaptCustomTable{{ReleasesPickSlipCtrl.currentRelease.label}}" user-value='ReleasesPickSlipCtrl.ePage.Masters.UserValueForUIWmsReleaseLine' entity-source='RELEASELINE'></customize-table>
+    </div>
+     <!-- Call Directive If user has value -->
+    <div ng-if='ReleasesPickSlipCtrl.ePage.Masters.UserHasValueForUIWmsReleaseLine' ng-init="ReleasesPickSlipCtrl.ePage.Masters.UserHasValueForUIWmsReleaseLine=false">
+        <watch-table table-properties="ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine"  unique-id="RelCaptCustomTable{{ReleasesPickSlipCtrl.currentRelease.label}}"></watch-table>
+    </div>
+</div>
+
+
+

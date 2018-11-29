@@ -17,8 +17,7 @@
                         "GetByID": {
                             "IsAPI": "true",
                             "HttpType": "GET",
-                            "Url": "CntContainerList/GetById/",
-                            "FilterID" : "CONTHEAD"
+                            "Url": "ContainerList/GetById/",
                         },
                         "ContainerActivityClose": {
                             "IsAPI": "true",
@@ -159,7 +158,7 @@
                         });
                     }
 
-                    _exports.Entities.Header.Data = response.data.Response;
+                    _exports.Entities.Header.Data = response.data.Response.UICntContainer;
 
                     var obj = {
                         [currentContainer.ContainerNo]: {

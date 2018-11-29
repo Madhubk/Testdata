@@ -24,6 +24,7 @@
             PickCtrl.ePage.Masters.taskName = "WarehousePick";
             PickCtrl.ePage.Masters.dataentryName = "WarehousePick";
             PickCtrl.ePage.Masters.TabList = [];
+            pickConfig.TabList = [];
             PickCtrl.ePage.Masters.activeTabIndex = 0;
             PickCtrl.ePage.Masters.isNewPickClicked = false;
             PickCtrl.ePage.Masters.IsTabClick = false;

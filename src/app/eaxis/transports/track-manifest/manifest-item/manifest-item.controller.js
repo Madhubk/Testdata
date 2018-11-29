@@ -66,7 +66,7 @@
                 });
                 if (!_isExist) {
                     var obj = {
-                        "TIT_ItemRef_ID": value.TIT_ItemRef_ID,
+                            "TIT_ItemRef_ID": value.TIT_ItemRef_ID,
                         "TIT_ItemCode": value.TIT_ItemCode,
                         "TIT_ItemDesc": value.TIT_ItemDesc,
                         "TIT_ReceiverRef": value.TIT_ReceiverRef,
@@ -82,6 +82,7 @@
                         "TIT_ItemStatus": value.TIT_ItemStatus,
                         "TMC_ConsignmentNumber": value.TMC_ConsignmentNumber,
                         "TMC_FK": value.TMC_FK,
+                        "Quantity": value.Quantity,
                         "IsDeleted": value.IsDeleted,
                         "IsModified": value.IsModified
                     }
@@ -129,7 +130,7 @@
             $window.open("#/EA/single-record-view/manifestitem/" + _queryString, "_blank");
         }
 
-        function RemoveRow() {
+        function RemoveRow($item) {
             var item = ManifestItemCtrl.ePage.Entities.Header.Data.TmsManifestItem[ManifestItemCtrl.ePage.Masters.selectedRow]
             var modalOptions = {
                 closeButtonText: 'Cancel',
@@ -139,13 +140,16 @@
             };
             confirmation.showModal({}, modalOptions)
                 .then(function (result) {
-                    // if (item.PK) {
-                    //     apiService.get("eAxisAPI", ManifestItemCtrl.ePage.Entities.Header.API.LineDelete.Url + item.PK).then(function(response) {
-                    //     });
-                    // }
-                    ManifestItemCtrl.ePage.Entities.Header.Data.TmsManifestItem.splice(ManifestItemCtrl.ePage.Masters.selectedRow, 1);
-                    toastr.success('Record Removed Successfully');
-                    ManifestItemCtrl.ePage.Masters.selectedRow = ManifestItemCtrl.ePage.Masters.selectedRow - 1;
+                    item.IsDeleted = true;
+                    ManifestItemCtrl.ePage.Entities.Header.Data = filterObjectUpdate(ManifestItemCtrl.ePage.Entities.Header.Data, "IsModified");
+                    apiService.post("eAxisAPI", 'TmsManifestList/Update', ManifestItemCtrl.ePage.Entities.Header.Data).then(function (response) {
+                        if (response.data.Response) {
+                            apiService.get("eAxisAPI", 'TmsManifestList/GetById/' + response.data.Response.Response.PK).then(function (response) {
+                                ManifestItemCtrl.ePage.Entities.Header.Data = response.data.Response;
+                                toastr.success('Item Removed Successfully');
+                            });
+                        }
+                    });
                 }, function () {
                     console.log("Cancelled");
                 });

@@ -1,0 +1,49 @@
+<uib-tabset id="chromeTab" active="PickupManifestCtrl.ePage.Masters.activeTabIndex" class="tms-manifest-container tab-container chrometab-box">
+
+    <uib-tab>
+        <uib-tab-heading title="Pickup Manifest">
+            <span data-ng-bind="'Pickup Manifest'" class="ng-binding">Pickup Manifest</span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+
+        <div class="no-padding tab-list-view-wrapper">
+            <!--Manifest Grid Page-->
+            <dynamic-list dataentry-name="PickupManifestCtrl.ePage.Masters.dataentryName" dataentry-object="PickupManifestCtrl.ePage.Masters.DataEntryObject"
+                selected-grid-row="PickupManifestCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" default-filter="PickupManifestCtrl.ePage.Masters.defaultFilter"></dynamic-list>
+            <div class="tab-loading" data-ng-show="PickupManifestCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+    <uib-tab active="PickupManifestCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in PickupManifestCtrl.ePage.Masters.TabList"
+        ng-click="PickupManifestCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+        <uib-tab-heading title="{{tab.label}}">
+            <span data-ng-bind="tab.label"></span>
+            <i class="glyphicon glyphicon-remove" ng-click="PickupManifestCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+            <span class="error-warning-container-common" data-ng-if="tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length > 0">
+                <span class="custom-warning-container" data-ng-if="(tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'W') > 0 && (tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'E') == 0">
+                    <button class="btn-warning" data-ng-click="PickupManifestCtrl.ePage.Masters.Config.ShowErrorWarningModal(tab)">
+                        <i class="fa fa-warning"></i>
+                    </button>
+                    <span class="custom-warning-count">{{tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType':
+                        'W'}}
+                    </span>
+                </span>
+                <span class="custom-error-container" data-ng-if="(tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'E') > 0">
+                    <button class="btn-error" data-ng-click="PickupManifestCtrl.ePage.Masters.Config.ShowErrorWarningModal(tab)">
+                        <i class="fa fa-warning"></i>
+                    </button>
+                    <span class="custom-error-count">{{tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType':
+                        'E'}}
+                    </span>
+                </span>
+            </span>
+        </uib-tab-heading>
+        <div class="padding-bottom-10 clearfix">
+            <!--Manifest Menu Directive-->
+            <pickup-manifest-menu current-manifest="tab" dataentry-object="PickupManifestCtrl.ePage.Masters.DataEntryObject"></pickup-manifest-menu>
+
+            <div class="horizontal-space"></div>
+        </div>
+        <span ng-if="PickupManifestCtrl.ePage.Masters.Config.SaveAndClose" ng-init="PickupManifestCtrl.ePage.Masters.SaveandClose(PickupManifestCtrl.ePage.Masters.activeTabIndex, tab)"></span>
+    </uib-tab>
+    <!-- <button class="btn btn-default" ng-click="PickupManifestCtrl.ePage.Masters.CreateNewManifest()" data-ng-disabled="PickupManifestCtrl.ePage.Masters.IsNewManifestClicked">+</button> -->
+</uib-tabset>

@@ -5,48 +5,48 @@
         .module("Application")
         .factory('organizationConfig', OrganizationConfig);
 
-    OrganizationConfig.$inject = ["$location", "$q", "apiService", "helperService", "toastr", "appConfig"];
+    OrganizationConfig.$inject = ["$q", "apiService", "helperService", "toastr"];
 
-    function OrganizationConfig($location, $q, apiService, helperService, toastr, appConfig) {
+    function OrganizationConfig($q, apiService, helperService, toastr) {
         var exports = {
             "Entities": {
                 "Header": {
                     "Data": {},
                     "RowIndex": -1,
                     "API": {
-                        "GetByID": {
+                        "GetById": {
                             "IsAPI": "true",
                             "HttpType": "GET",
                             "Url": "Org/GetById/",
                             "FilterID": "ORGLIST"
                         },
-                        "Validationapi":{
+                        "Validationapi": {
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "Validation/FindAll",
-                            "FilterID":"VALIDAT"
+                            "FilterID": "VALIDAT"
                         },
-                        "SessionClose": {
+                        "OrganizationActivityClose": {
                             "IsAPI": "true",
                             "HttpType": "GET",
                             "Url": "Org/OrganizationActivityClose/",
-                        },
+                        }
                     },
-                    "Meta": { },  
-                    },
-                    "Message": false
+                    "Meta": {},
                 },
+                "Message": false
+            },
             "TabList": [],
-            "ValidationValues":[],
+            "ValidationValues": [],
             "GetTabDetails": GetTabDetails,
-            "GeneralValidation":GeneralValidation,
-            "PushErrorWarning":PushErrorWarning,
-            "RemoveErrorWarning":RemoveErrorWarning,
-            "RemoveApiErrors":RemoveApiErrors,
-            "GetErrorWarningCountParent":GetErrorWarningCountParent,
-            "ShowErrorWarningModal":ShowErrorWarningModal,  
-            "ValidationFindall":ValidationFindall,
-            "refreshgrid":refreshgrid,
+            "GeneralValidation": GeneralValidation,
+            "PushErrorWarning": PushErrorWarning,
+            "RemoveErrorWarning": RemoveErrorWarning,
+            "RemoveApiErrors": RemoveApiErrors,
+            "GetErrorWarningCountParent": GetErrorWarningCountParent,
+            "ShowErrorWarningModal": ShowErrorWarningModal,
+            "ValidationFindall": ValidationFindall,
+            "refreshgrid": refreshgrid,
         };
         return exports;
 
@@ -85,84 +85,84 @@
                         },
                         "Meta": {
                             "Language": helperService.metaBase(),
-                                "ErrorWarning": {
-                                    "GlobalErrorWarningList": [],
-                                    "Code": helperService.metaBase(),
-                                    "FullName": helperService.metaBase(),
-                                    "Address1": helperService.metaBase(),
-                                    "City": helperService.metaBase(),
-                                    "RelatedPortCode": helperService.metaBase(),
-                                    "PostCode": helperService.metaBase(),
-                                    "Language": helperService.metaBase(),
-                                    "ContactName": helperService.metaBase(),
-                                    "JobCategory": helperService.metaBase(),
-                                    "CMP_FK": helperService.metaBase(),
-                                    "BRN_ControllingBranch": helperService.metaBase(),
-                                    "Title":helperService.metaBase(),
-                                    "State":helperService.metaBase(),
-                                    "CMP_Name":helperService.metaBase(),
-                                    "AddressType":helperService.metaBase(),
-                                    "OAD_Address1":helperService.metaBase(),
-                                    "WarehouseCode":helperService.metaBase(),
-                                    "CountryCode":helperService.metaBase(),
-                                    "RelatedParty_PK":helperService.metaBase(),
-                                    "IMPartAttrib1Name":helperService.metaBase(),
-                                    "IMPartAttrib2Name":helperService.metaBase(),
-                                    "IMPartAttrib3Name":helperService.metaBase(),
-                                    "IMPartAttrib1Type":helperService.metaBase(),
-                                    "IMPartAttrib2Type":helperService.metaBase(),
-                                    "IMPartAttrib3Type":helperService.metaBase()
-                                },
+                            "ErrorWarning": {
+                                "GlobalErrorWarningList": [],
+                                "Code": helperService.metaBase(),
+                                "FullName": helperService.metaBase(),
+                                "Address1": helperService.metaBase(),
+                                "City": helperService.metaBase(),
+                                "RelatedPortCode": helperService.metaBase(),
+                                "PostCode": helperService.metaBase(),
+                                "Language": helperService.metaBase(),
+                                "ContactName": helperService.metaBase(),
+                                "JobCategory": helperService.metaBase(),
+                                "CMP_FK": helperService.metaBase(),
+                                "BRN_ControllingBranch": helperService.metaBase(),
+                                "Title": helperService.metaBase(),
+                                "State": helperService.metaBase(),
+                                "CMP_Name": helperService.metaBase(),
+                                "AddressType": helperService.metaBase(),
+                                "OAD_Address1": helperService.metaBase(),
+                                "WarehouseCode": helperService.metaBase(),
+                                "CountryCode": helperService.metaBase(),
+                                "RelatedParty_PK": helperService.metaBase(),
+                                "IMPartAttrib1Name": helperService.metaBase(),
+                                "IMPartAttrib2Name": helperService.metaBase(),
+                                "IMPartAttrib3Name": helperService.metaBase(),
+                                "IMPartAttrib1Type": helperService.metaBase(),
+                                "IMPartAttrib2Type": helperService.metaBase(),
+                                "IMPartAttrib3Type": helperService.metaBase()
+                            },
                             "MenuList": [{
                                 "DisplayName": "General",
                                 "Value": "General",
                                 "Icon": "fa fa-plane",
-                                "GParentRef":'general'
+                                "GParentRef": 'general'
                             }, {
                                 "DisplayName": "Address",
                                 "Value": "Address",
                                 "Icon": "fa fa-map-marker",
-                                "GParentRef":"address"
+                                "GParentRef": "address"
                             }, {
                                 "DisplayName": "Contact",
                                 "Value": "Contact",
                                 "Icon": "fa fa-user",
-                                "GParentRef":"contact"
+                                "GParentRef": "contact"
                             }, {
                                 "DisplayName": "Company",
                                 "Value": "Company",
                                 "Icon": "fa fa-building-o",
-                                "GParentRef":"company"
+                                "GParentRef": "company"
                             }, {
                                 "DisplayName": "Employee",
                                 "Value": "Employee",
                                 "Icon": "fa fa-users",
-                                "GParentRef":"Employee"
+                                "GParentRef": "Employee"
                             }, {
                                 "DisplayName": "RelatedParties",
                                 "Value": "RelatedParties",
                                 "Icon": "fa fa-user",
-                                "GParentRef":"RelatedParty"
+                                "GParentRef": "RelatedParty"
                             }, {
                                 "DisplayName": "Warehouse",
                                 "Value": "Warehouse",
                                 "Icon": "fa fa-cubes",
-                                "GParentRef":"Miscserv"
-                            },{
+                                "GParentRef": "Miscserv"
+                            }, {
                                 "DisplayName": "Consignee",
                                 "Value": "Consignee",
                                 "Icon": "fa fa-user",
-                                "GParentRef":"Consignee"
+                                "GParentRef": "Consignee"
                             }, {
                                 "DisplayName": "Consignor",
                                 "Value": "Consignor",
                                 "Icon": "fa fa-user",
-                                "GParentRef":"Consignor"
-                            },{
+                                "GParentRef": "Consignor"
+                            }, {
                                 "DisplayName": "Visibility",
                                 "Value": "Visibility",
                                 "Icon": "fa fa-eye",
-                                "GParentRef":"Visibility"
+                                "GParentRef": "Visibility"
                             }]
                         },
                         "SupplierHeader": {
@@ -240,79 +240,79 @@
                                 "columnDef": [{
                                     "field": "TransportMode",
                                     "displayName": "Mode",
-                                    "width" : 100,
+                                    "width": 100,
                                     "cellTemplate": "<a class='text-single-line' href='javascript:void(0);' ng-click= 'DynamicTableCtrl.ePage.Masters.SelectedGridRow(x, $parent.$parent.$index, \"Link\")'>{{x[y.field]}}</a>",
                                 }, {
                                     "field": "ContainerMode",
-                                    "width" : 100,
+                                    "width": 100,
                                     "displayName": "Cnt.Mode"
                                 }, {
                                     "field": "IncoTerm",
-                                    "width" : 100,
+                                    "width": 100,
                                     "displayName": "INCO"
                                 }, {
                                     "field": "DefaultServiceLevel",
-                                    "width" : 100,
+                                    "width": 100,
                                     "displayName": "Service Level"
                                 }, {
                                     "field": "IsOverrideDeliveryDays",
-                                    "width" : 100,
+                                    "width": 100,
                                     "displayName": "Override Delivery"
                                 }, {
                                     "field": "IsOverrideDeliveryDays",
-                                    "width" : 100,
+                                    "width": 100,
                                     "displayName": "Div.Days"
                                 }, {
                                     "field": "NoOfOriginalBills",
-                                    "width" : 100,
+                                    "width": 100,
                                     "displayName": "Original Bills"
                                 }, {
                                     "field": "NoOfCopyBills",
-                                    "width" : 100,
+                                    "width": 100,
                                     "displayName": "Copy Bills"
                                 }, {
                                     "field": "PlaceOfDeliveryPort",
-                                    "width" : 100,
+                                    "width": 100,
                                     "displayName": "Load Port"
                                 }, {
                                     "field": "OriginPort",
-                                    "width" : 100,
+                                    "width": 100,
                                     "displayName": "Origin Port"
                                 }, {
                                     "field": "PickUpAddress",
-                                    "width" : 100,
+                                    "width": 100,
                                     "displayName": "PickUp Address"
                                 }, {
                                     "field": "PickUpCtct",
-                                    "width" : 100,
+                                    "width": 100,
                                     "displayName": "PickUp Ctct."
                                 }, {
                                     "field": "PickUpPTrm",
-                                    "width" : 100,
+                                    "width": 100,
                                     "displayName": "PickUp P.Trm."
                                 }, {
                                     "field": "PlaceOfReceivalPort",
-                                    "width" : 100,
+                                    "width": 100,
                                     "displayName": "Discharge"
                                 }, {
                                     "field": "Destiation",
-                                    "width" : 100,
+                                    "width": 100,
                                     "displayName": "Origin Port"
                                 }, {
                                     "field": "DeliveryAddress",
-                                    "width" : 100,
+                                    "width": 100,
                                     "displayName": "DlryAddress"
                                 }, {
                                     "field": "DeliveryContact",
-                                    "width" : 100,
+                                    "width": 100,
                                     "displayName": "DlryCtct"
                                 }, {
                                     "field": "Deliveryp_Term",
-                                    "width" : 100,
+                                    "width": 100,
                                     "displayName": "Dlv.P.Trm"
                                 }, {
                                     "field": "NotifyParty",
-                                    "width" : 100,
+                                    "width": 100,
                                     "displayName": "NotifyParty"
                                 }]
                             }
@@ -344,51 +344,51 @@
                                 "columnDef": [{
                                     "field": "Catagory",
                                     "displayName": "Catagory",
-                                    "width" : 100
+                                    "width": 100
                                 }, {
                                     "field": "Type",
                                     "displayName": "Type",
-                                    "width" : 100
+                                    "width": 100
                                 }, {
                                     "field": "Description",
                                     "displayName": "Description",
-                                    "width" : 200
+                                    "width": 200
                                 }, {
                                     "field": "Period",
                                     "displayName": "Period",
-                                    "width" : 100
+                                    "width": 100
                                 }, {
                                     "field": "DateReceived",
                                     "displayName": "Date Received",
-                                    "width" : 100
+                                    "width": 100
                                 }, {
                                     "field": "ValidToDate",
                                     "displayName": "Valid To Date",
-                                    "width" : 100
+                                    "width": 100
                                 }, {
                                     "field": "DocNum",
                                     "displayName": "Doc.Num",
-                                    "width" : 100
+                                    "width": 100
                                 }, {
                                     "field": "Usage",
                                     "displayName": "Usage",
-                                    "width" : 100
+                                    "width": 100
                                 }, {
                                     "field": "Country",
                                     "displayName": "Country",
-                                    "width" : 100
+                                    "width": 100
                                 }, {
                                     "field": "OriginalReq",
                                     "displayName": "Original Req.",
-                                    "width" : 100
+                                    "width": 100
                                 }, {
                                     "field": "CreditControl",
                                     "displayName": "Credit Control",
-                                    "width" : 100
+                                    "width": 100
                                 }, {
                                     "field": "DocOwner",
                                     "displayName": "Doc Owner",
-                                    "width" : 100
+                                    "width": 100
                                 }]
                             }
                         },
@@ -411,13 +411,13 @@
                                 },
                                 "Insert": {
                                     "IsAPI": "true",
-                                    "HttpType": "GET",
+                                    "HttpType": "POST",
                                     "Url": "OrgConsigneeConsignorRelationship/Insert",
                                     "FilterID": ""
                                 },
                                 "Update": {
                                     "IsAPI": "true",
-                                    "HttpType": "GET",
+                                    "HttpType": "POST",
                                     "Url": "OrgConsigneeConsignorRelationship/Update",
                                     "FilterID": ""
                                 }
@@ -438,37 +438,37 @@
                                     "field": "ORG_SupplierCode",
                                     "displayName": "Code",
                                     "cellTemplate": "<a class='text-single-line' href='javascript:void(0);' ng-click= 'DynamicTableCtrl.ePage.Masters.SelectedGridRow(x, $parent.$parent.$index, \"Link\")'>{{x[y.field]}}</a>",
-                                    "width" : 100
+                                    "width": 100
                                 }, {
                                     "field": "UNLOCO",
                                     "displayName": "UNLOCO",
-                                    "width" : 100
+                                    "width": 100
                                 }, {
                                     "field": "ImporterCountry",
                                     "displayName": "Imp. Ctry",
-                                    "width" : 100
+                                    "width": 100
                                 }, {
                                     "field": "Currency",
                                     "displayName": "Currency",
-                                    "width" : 50
+                                    "width": 50
                                 }, {
                                     "field": "InitialShipmentExpectedDate",
                                     "displayName": "1st Ship",
                                     "cellTemplate": "<div>{{x[y.field] | date:'dd-MMM-yyyy'}}</div>",
-                                    "width" : 100
+                                    "width": 100
                                 }, {
                                     "field": "ValuationBasis",
                                     "displayName": "Valuation Basis",
-                                    "width" : 100
+                                    "width": 100
                                 }, {
                                     "field": "IsRelatedParty",
                                     "displayName": "Transfer Related",
                                     "cellTemplate": "<div><span ng-show='x[y.field]'>Yes-Related</span><span ng-show='!x[y.field]'>No-Unrelated</span></div>",
-                                    "width" : 100
+                                    "width": 100
                                 }, {
                                     "field": "AuthorityToLeave",
                                     "displayName": "ATL",
-                                    "width" : 50
+                                    "width": 50
                                 }]
                             }
                         },
@@ -518,37 +518,37 @@
                                     "field": "ORG_BuyerCode",
                                     "displayName": "Code",
                                     "cellTemplate": "<a class='text-single-line' href='javascript:void(0);' ng-click= 'DynamicTableCtrl.ePage.Masters.SelectedGridRow(x, $parent.$parent.$index, \"Link\")'>{{x[y.field]}}</a>",
-                                    "width" : 100
+                                    "width": 100
                                 }, {
                                     "field": "UNLOCO",
                                     "displayName": "UNLOCO",
-                                    "width" : 100
+                                    "width": 100
                                 }, {
                                     "field": "ImporterCountry",
                                     "displayName": "Imp. Ctry",
-                                    "width" : 100
+                                    "width": 100
                                 }, {
                                     "field": "Currency",
                                     "displayName": "Currency",
-                                    "width" : 50
+                                    "width": 100
                                 }, {
                                     "field": "InitialShipmentExpectedDate",
                                     "displayName": "1st Ship",
                                     "cellTemplate": "<div>{{x[y.field] | date:'dd-MMM-yyyy'}}</div>",
-                                    "width" : 100
+                                    "width": 100
                                 }, {
                                     "field": "ValuationBasis",
                                     "displayName": "Valuation Basis",
-                                    "width" : 100
+                                    "width": 120
                                 }, {
                                     "field": "IsRelatedParty",
                                     "displayName": "Transfer Related",
                                     "cellTemplate": "<div><span ng-show='x[y.field]'>Yes-Related</span><span ng-show='!x[y.field]'>No-Unrelated</span></div>",
-                                    "width" : 100
+                                    "width": 150
                                 }, {
                                     "field": "AuthorityToLeave",
                                     "displayName": "ATL",
-                                    "width" : 50
+                                    "width": 50
                                 }]
                             }
                         },
@@ -641,10 +641,10 @@
                                 }
                             },
                             "Meta": {},
-                            }
                         }
                     }
-                };
+                }
+            };
 
             if (isNew) {
                 _exports.Entities.Header.Data = currentOrganization.data;
@@ -661,7 +661,7 @@
                 exports.TabList.push(_obj);
                 deferred.resolve(exports.TabList);
             } else {
-                helperService.getFullObjectUsingGetById(exports.Entities.Header.API.GetByID.Url, currentOrganization.PK).then(function (response) {
+                helperService.getFullObjectUsingGetById(exports.Entities.Header.API.GetById.Url, currentOrganization.PK).then(function (response) {
                     if (response.data.Messages) {
                         response.data.Messages.map(function (value, key) {
                             if (value.Type === "Warning" && value.MessageDesc !== "") {
@@ -686,6 +686,7 @@
             }
             return deferred.promise;
         }
+
         function PushErrorWarning(Code, Message, MessageType, IsAlert, MetaObject, EntityObject, IsArray, RowIndex, ColIndex, DisplayName, ParentRef, GParentRef) {
             if (Code) {
                 var _obj = {
@@ -837,145 +838,140 @@
             }
             return _parentList;
         }
+
         function ShowErrorWarningModal(EntityObject) {
-            if(EntityObject.label){
-                $("#errorWarningContainer" + EntityObject.label).toggleClass("open");    
-            }else if(EntityObject.label == ""){
+            if (EntityObject.label) {
                 $("#errorWarningContainer" + EntityObject.label).toggleClass("open");
-            }
-            else if(EntityObject.Header.Data.OrgHeader) {
-                $("#errorWarningContainer" + EntityObject.Header.Data.OrgHeader.Code).toggleClass("open");    
-            }else if(EntityObject.OrgHeader){
+            } else if (EntityObject.label == "") {
+                $("#errorWarningContainer" + EntityObject.label).toggleClass("open");
+            } else if (EntityObject.Header.Data.OrgHeader) {
+                $("#errorWarningContainer" + EntityObject.Header.Data.OrgHeader.Code).toggleClass("open");
+            } else if (EntityObject.OrgHeader) {
                 $("#errorWarningContainer" + EntityObject.OrgHeader.Code).toggleClass("open");
             }
         }
-        function ValidationFindall(){
+
+        function ValidationFindall() {
             var _filter = {
                 "ModuleCode": "WMS",
-                "SubModuleCode":"ORG"
-            };     
+                "SubModuleCode": "ORG"
+            };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": exports.Entities.Header.API.Validationapi.FilterID
             };
             apiService.post("eAxisAPI", exports.Entities.Header.API.Validationapi.Url, _input).then(function (response) {
                 if (response.data.Response) {
-                    exports.ValidationValues=(response.data.Response);
-                }
-            });
-        }
-        function GeneralValidation($item, Type, index){
-        var _Data = $item.Entities, 
-            _input = _Data.Header.Data;
-        if(Type == 'OrgHeader')
-        {
-            if(!_input.OrgHeader.FullName || _input.OrgHeader.FullName){
-                OnChangeValues(_input.OrgHeader.FullName,'E9002',false,undefined,$item.label);
-            }
-            if(!_input.OrgHeader.Code || _input.OrgHeader.Code){
-                OnChangeValues(_input.OrgHeader.Code,'E9001',false,undefined,$item.label);
-            }
-            if(!_input.OrgAddress[0].Address1 || _input.OrgAddress[0].Address1){
-                OnChangeValues(_input.OrgAddress[0].Address1,'E9003',false,undefined,$item.label);
-            }
-            if(!_input.OrgAddress[0].City || _input.OrgAddress[0].City){
-                OnChangeValues(_input.OrgAddress[0].City,'E9004',false,undefined,$item.label);
-            }
-            if(!_input.OrgAddress[0].RelatedPortCode || _input.OrgAddress[0].RelatedPortCode){
-                OnChangeValues(_input.OrgAddress[0].RelatedPortCode,'E9005',false,undefined,$item.label);
-            }
-            if(!_input.OrgAddress[0].PostCode || _input.OrgAddress[0].PostCode){
-                OnChangeValues(_input.OrgAddress[0].PostCode,'E9006',false,undefined,$item.label);
-            }
-            if(!_input.OrgAddress[0].Language || _input.OrgAddress[0].Language){
-                OnChangeValues(_input.OrgAddress[0].Language,'E9007',false,undefined,$item.label);
-            }
-            if(!_input.OrgAddress[0].State || _input.OrgAddress[0].State){
-                OnChangeValues(_input.OrgAddress[0].State,'E9022',false,undefined,$item.label);
-            }
-            if(!_input.OrgAddress[0].CountryCode || _input.OrgAddress[0].CountryCode){
-                OnChangeValues(_input.OrgAddress[0].CountryCode,'E9031',false,undefined,$item.label);
-            }
-        }
-        else if(Type == 'OrgAddress')
-        {
-        if(!_input.OrgAddress[index].Address1 || _input.OrgAddress[index].Address1){
-                OnChangeValues(_input.OrgAddress[index].Address1,'E9024',false,undefined,_input.OrgHeader.Code);
-            }
-            if(!_input.OrgAddress[index].City || _input.OrgAddress[index].City){
-                OnChangeValues(_input.OrgAddress[index].City,'E9025',false,undefined,_input.OrgHeader.Code);
-            }
-            if(!_input.OrgAddress[index].RelatedPortCode || _input.OrgAddress[index].RelatedPortCode){
-                OnChangeValues(_input.OrgAddress[index].RelatedPortCode,'E9026',false,undefined,_input.OrgHeader.Code);
-            }
-            if(!_input.OrgAddress[index].PostCode || _input.OrgAddress[index].PostCode){
-                OnChangeValues(_input.OrgAddress[index].PostCode,'E9028',false,undefined,_input.OrgHeader.Code);
-            }
-            if(!_input.OrgAddress[index].Language || _input.OrgAddress[index].Language){
-                OnChangeValues(_input.OrgAddress[index].Language,'E9029',false,undefined,_input.OrgHeader.Code);
-            }
-            if(!_input.OrgAddress[index].State || _input.OrgAddress[index].State){
-                OnChangeValues(_input.OrgAddress[index].State,'E9027',false,undefined,_input.OrgHeader.Code);
-            }
-            if(!_input.OrgAddress[index].CountryCode || _input.OrgAddress[index].CountryCode){
-                OnChangeValues(_input.OrgAddress[index].CountryCode,'E9032',false,undefined,_input.OrgHeader.Code);
-            } 
-        }
-        else if(Type == 'OrgContact')
-        {
-            if(!_input.OrgContact[index].ContactName || _input.OrgContact[index].ContactName){
-                OnChangeValues(_input.OrgContact[index].ContactName,'E9008',false,undefined,_input.OrgHeader.Code);
-            }
-            if(!_input.OrgContact[index].Title || _input.OrgContact[index].Title){
-                OnChangeValues(_input.OrgContact[index].Title,'E9023',false,undefined,_input.OrgHeader.Code);
-            }  
-            if(!_input.OrgContact[index].JobCategory || _input.OrgContact[index].JobCategory){
-                OnChangeValues(_input.OrgContact[index].JobCategory,'E9009',false,undefined,_input.OrgHeader.Code);
-            } 
-        }
-        else if(Type == 'OrgCompanyData')
-        {
-            if(!_input.OrgCompanyData[index].CMP_FK || _input.OrgCompanyData[index].CMP_FK){
-                OnChangeValues(_input.OrgCompanyData[index].CMP_FK,'E9030',false,undefined,_input.OrgHeader.Code);
-            }
-            if(!_input.OrgCompanyData[index].BRN_ControllingBranch || _input.OrgCompanyData[index].BRN_ControllingBranch){
-                OnChangeValues(_input.OrgCompanyData[index].BRN_ControllingBranch,'E9011',false,undefined,_input.OrgHeader.Code);
-            }
-        }
-    }
-
-        function OnChangeValues(fieldvalue,code,IsArray,RowIndex,label) { 
-            angular.forEach(exports.ValidationValues,function(value,key){
-                if(value.Code.trim() === code){
-                    GetErrorMessage(fieldvalue,value,IsArray,RowIndex,label);
+                    exports.ValidationValues = (response.data.Response);
                 }
             });
         }
 
-        function GetErrorMessage(fieldvalue,value,IsArray,RowIndex,label){
-            if(!IsArray){
+        function GeneralValidation($item, Type, index) {
+            var _Data = $item.Entities,
+                _input = _Data.Header.Data;
+            if (Type == 'OrgHeader') {
+                if (!_input.OrgHeader.FullName || _input.OrgHeader.FullName) {
+                    OnChangeValues(_input.OrgHeader.FullName, 'E9002', false, undefined, $item.label);
+                }
+                if (!_input.OrgHeader.Code || _input.OrgHeader.Code) {
+                    OnChangeValues(_input.OrgHeader.Code, 'E9001', false, undefined, $item.label);
+                }
+                if (!_input.OrgAddress[0].Address1 || _input.OrgAddress[0].Address1) {
+                    OnChangeValues(_input.OrgAddress[0].Address1, 'E9003', false, undefined, $item.label);
+                }
+                if (!_input.OrgAddress[0].City || _input.OrgAddress[0].City) {
+                    OnChangeValues(_input.OrgAddress[0].City, 'E9004', false, undefined, $item.label);
+                }
+                if (!_input.OrgAddress[0].RelatedPortCode || _input.OrgAddress[0].RelatedPortCode) {
+                    OnChangeValues(_input.OrgAddress[0].RelatedPortCode, 'E9005', false, undefined, $item.label);
+                }
+                if (!_input.OrgAddress[0].PostCode || _input.OrgAddress[0].PostCode) {
+                    OnChangeValues(_input.OrgAddress[0].PostCode, 'E9006', false, undefined, $item.label);
+                }
+                if (!_input.OrgAddress[0].Language || _input.OrgAddress[0].Language) {
+                    OnChangeValues(_input.OrgAddress[0].Language, 'E9007', false, undefined, $item.label);
+                }
+                if (!_input.OrgAddress[0].State || _input.OrgAddress[0].State) {
+                    OnChangeValues(_input.OrgAddress[0].State, 'E9022', false, undefined, $item.label);
+                }
+                if (!_input.OrgAddress[0].CountryCode || _input.OrgAddress[0].CountryCode) {
+                    OnChangeValues(_input.OrgAddress[0].CountryCode, 'E9031', false, undefined, $item.label);
+                }
+            } else if (Type == 'OrgAddress') {
+                if (!_input.OrgAddress[index].Address1 || _input.OrgAddress[index].Address1) {
+                    OnChangeValues(_input.OrgAddress[index].Address1, 'E9024', false, undefined, _input.OrgHeader.Code);
+                }
+                if (!_input.OrgAddress[index].City || _input.OrgAddress[index].City) {
+                    OnChangeValues(_input.OrgAddress[index].City, 'E9025', false, undefined, _input.OrgHeader.Code);
+                }
+                if (!_input.OrgAddress[index].RelatedPortCode || _input.OrgAddress[index].RelatedPortCode) {
+                    OnChangeValues(_input.OrgAddress[index].RelatedPortCode, 'E9026', false, undefined, _input.OrgHeader.Code);
+                }
+                if (!_input.OrgAddress[index].PostCode || _input.OrgAddress[index].PostCode) {
+                    OnChangeValues(_input.OrgAddress[index].PostCode, 'E9028', false, undefined, _input.OrgHeader.Code);
+                }
+                if (!_input.OrgAddress[index].Language || _input.OrgAddress[index].Language) {
+                    OnChangeValues(_input.OrgAddress[index].Language, 'E9029', false, undefined, _input.OrgHeader.Code);
+                }
+                if (!_input.OrgAddress[index].State || _input.OrgAddress[index].State) {
+                    OnChangeValues(_input.OrgAddress[index].State, 'E9027', false, undefined, _input.OrgHeader.Code);
+                }
+                if (!_input.OrgAddress[index].CountryCode || _input.OrgAddress[index].CountryCode) {
+                    OnChangeValues(_input.OrgAddress[index].CountryCode, 'E9032', false, undefined, _input.OrgHeader.Code);
+                }
+            } else if (Type == 'OrgContact') {
+                if (!_input.OrgContact[index].ContactName || _input.OrgContact[index].ContactName) {
+                    OnChangeValues(_input.OrgContact[index].ContactName, 'E9008', false, undefined, _input.OrgHeader.Code);
+                }
+                if (!_input.OrgContact[index].Title || _input.OrgContact[index].Title) {
+                    OnChangeValues(_input.OrgContact[index].Title, 'E9023', false, undefined, _input.OrgHeader.Code);
+                }
+                if (!_input.OrgContact[index].JobCategory || _input.OrgContact[index].JobCategory) {
+                    OnChangeValues(_input.OrgContact[index].JobCategory, 'E9009', false, undefined, _input.OrgHeader.Code);
+                }
+            } else if (Type == 'OrgCompanyData') {
+                if (!_input.OrgCompanyData[index].CMP_FK || _input.OrgCompanyData[index].CMP_FK) {
+                    OnChangeValues(_input.OrgCompanyData[index].CMP_FK, 'E9030', false, undefined, _input.OrgHeader.Code);
+                }
+                if (!_input.OrgCompanyData[index].BRN_ControllingBranch || _input.OrgCompanyData[index].BRN_ControllingBranch) {
+                    OnChangeValues(_input.OrgCompanyData[index].BRN_ControllingBranch, 'E9011', false, undefined, _input.OrgHeader.Code);
+                }
+            }
+        }
+
+        function OnChangeValues(fieldvalue, code, IsArray, RowIndex, label) {
+            angular.forEach(exports.ValidationValues, function (value, key) {
+                if (value.Code.trim() === code) {
+                    GetErrorMessage(fieldvalue, value, IsArray, RowIndex, label);
+                }
+            });
+        }
+
+        function GetErrorMessage(fieldvalue, value, IsArray, RowIndex, label) {
+            if (!IsArray) {
                 if (!fieldvalue) {
-                    PushErrorWarning(value.Code,value.Message,"E",true,value.CtrlKey,label,undefined,undefined,undefined,undefined,undefined,value.GParentRef);
+                    PushErrorWarning(value.Code, value.Message, "E", true, value.CtrlKey, label, undefined, undefined, undefined, undefined, undefined, value.GParentRef);
                 } else {
-                    RemoveErrorWarning(value.Code,"E",value.CtrlKey,label);
+                    RemoveErrorWarning(value.Code, "E", value.CtrlKey, label);
                 }
-            }else{
+            } else {
                 if (!fieldvalue) {
-                    PushErrorWarning(value.Code,value.Message,"E",true,value.CtrlKey,label,IsArray, RowIndex, value.ColIndex, value.DisplayName, undefined, value.GParentRef);
+                    PushErrorWarning(value.Code, value.Message, "E", true, value.CtrlKey, label, IsArray, RowIndex, value.ColIndex, value.DisplayName, undefined, value.GParentRef);
                 } else {
-                    RemoveErrorWarning(value.Code,"E",value.CtrlKey,label,IsArray, RowIndex, value.ColIndex);
+                    RemoveErrorWarning(value.Code, "E", value.CtrlKey, label, IsArray, RowIndex, value.ColIndex);
                 }
             }
         }
 
-        function RemoveApiErrors(item,label){
-            angular.forEach(item,function(value,key){
-                RemoveErrorWarning(value.Code,"E",value.CtrlKey,label);
+        function RemoveApiErrors(item, label) {
+            angular.forEach(item, function (value, key) {
+                RemoveErrorWarning(value.Code, "E", value.CtrlKey, label);
             });
         }
-        function refreshgrid()
-        {
-            helperService.refreshGrid();
+
+        function refreshgrid() {
+            // helperService.refreshGrid();
         }
     }
 

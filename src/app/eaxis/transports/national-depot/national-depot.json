@@ -1,0 +1,170 @@
+[
+    {
+        "Depot": "SWDE",
+        "Store": "S109",
+        "TransitDays": 5,
+        "Details": [
+            {
+                "Date": "07-may-2018",
+                "StockOnhand": 3,
+                "ToBeReceived": 5,
+                "ToBeSent": 4,
+                "ShortFallIems": 0
+            },
+            {
+                "Date": "08-may-2018",
+                "StockOnhand": 4,
+                "ToBeReceived": 2,
+                "ToBeSent": 3,
+                "ShortFallIems": 0
+            },
+            {
+                "Date": "09-may-2018",
+                "StockOnhand": 3,
+                "ToBeReceived": 2,
+                "ToBeSent": 6,
+                "ShortFallIems": -1
+            },
+            {
+                "Date": "10-may-2018",
+                "StockOnhand": 0,
+                "ToBeReceived": 3,
+                "ToBeSent": 1,
+                "ShortFallIems": 0
+            },
+            {
+                "Date": "11-may-2018",
+                "StockOnhand": 2,
+                "ToBeReceived": 6,
+                "ToBeSent": 6,
+                "ShortFallIems": 0
+            }
+        ]
+    },
+    {
+        "Depot": "SWDE",
+        "Store": "S009",
+        "TransitDays": 2,
+        "Details": [
+            {
+                "Date": "07-may-2018",
+                "StockOnhand": 12,
+                "ToBeReceived": 3,
+                "ToBeSent": 5,
+                "ShortFallIems": 0
+            },
+            {
+                "Date": "08-may-2018",
+                "StockOnhand": 10,
+                "ToBeReceived": 7,
+                "ToBeSent": 6,
+                "ShortFallIems": 0
+            },
+            {
+                "Date": "09-may-2018",
+                "StockOnhand": 11,
+                "ToBeReceived": 8,
+                "ToBeSent": 3,
+                "ShortFallIems": 0
+            },
+            {
+                "Date": "10-may-2018",
+                "StockOnhand": 16,
+                "ToBeReceived": 5,
+                "ToBeSent": 11,
+                "ShortFallIems": 0
+            },
+            {
+                "Date": "11-may-2018",
+                "StockOnhand": 10,
+                "ToBeReceived": 6,
+                "ToBeSent": 6,
+                "ShortFallIems": 0
+            }
+        ]
+    },
+    {
+        "Depot": "SWDE",
+        "Store": "S061",
+        "TransitDays": 4,
+        "Details": [
+            {
+                "Date": "07-may-2018",
+                "StockOnhand": 2,
+                "ToBeReceived": 4,
+                "ToBeSent": 3,
+                "ShortFallIems": 0
+            },
+            {
+                "Date": "08-may-2018",
+                "StockOnhand": 3,
+                "ToBeReceived": 6,
+                "ToBeSent": 10,
+                "ShortFallIems": -1
+            },
+            {
+                "Date": "09-may-2018",
+                "StockOnhand": 0,
+                "ToBeReceived": 5,
+                "ToBeSent": 2,
+                "ShortFallIems": 0
+            },
+            {
+                "Date": "10-may-2018",
+                "StockOnhand": 3,
+                "ToBeReceived": 0,
+                "ToBeSent": 2,
+                "ShortFallIems": 0
+            },
+            {
+                "Date": "11-may-2018",
+                "StockOnhand": 1,
+                "ToBeReceived": 8,
+                "ToBeSent": 3,
+                "ShortFallIems": 0
+            }
+        ]
+    },
+    {
+        "Depot": "SWDE",
+        "Store": "A009",
+        "TransitDays": 7,
+        "Details": [
+            {
+                "Date": "07-may-2018",
+                "StockOnhand": 4,
+                "ToBeReceived": 4,
+                "ToBeSent": 5,
+                "ShortFallIems": 0
+            },
+            {
+                "Date": "08-may-2018",
+                "StockOnhand": 3,
+                "ToBeReceived": 3,
+                "ToBeSent": 4,
+                "ShortFallIems": 2
+            },
+            {
+                "Date": "09-may-2018",
+                "StockOnhand": 2,
+                "ToBeReceived": 3,
+                "ToBeSent": 4,
+                "ShortFallIems": 0
+            },
+            {
+                "Date": "10-may-2018",
+                "StockOnhand": 1,
+                "ToBeReceived": 4,
+                "ToBeSent": 2,
+                "ShortFallIems": 0
+            },
+            {
+                "Date": "11-may-2018",
+                "StockOnhand": 3,
+                "ToBeReceived": 7,
+                "ToBeSent": 5,
+                "ShortFallIems": 0
+            }
+        ]
+    }
+]

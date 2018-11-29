@@ -1,0 +1,42 @@
+
+<div class="clearfix dms-menu-wraper">
+    <div id="dmsMenuWrapper{{ManifestTransMenuCtrl.currentManifestTrans.label}}" class="col-sm-12 no-padding-left no-padding-right">
+        <uib-tabset class="dms-menu tabs-left tabbable" active="ManifestTransMenuCtrl.ePage.Masters.active">
+            <div class="tab-profile">
+                <div  class="tab-profile-title text-single-line text-center" style="color: rgb(66, 50, 50);font-weight: 600;" data-ng-bind="ManifestTransMenuCtrl.currentManifestTrans.label" title="ManifestTransMenuCtrl.currentManifestTrans.label"></div>
+            </div>
+            <uib-tab ng-repeat="x in ManifestTransMenuCtrl.ePage.Masters.ManifestTransMenu.ListSource" >
+                <uib-tab-heading title="{{x.DisplayName}}">
+                    <i class="{{x.Icon}} mr-5"></i>
+                    <span class="text-single-line" data-ng-bind="x.DisplayName"></span>
+                </uib-tab-heading>
+
+                <div>
+                    <div ng-switch="x.Value">
+                        <!--Menu directives-->
+                        <div ng-switch-when="CreateManifest" dms-manifest-general current-manifest="ManifestTransMenuCtrl.currentManifestTrans"></div>
+                        <div ng-switch-when="Orders" dms-manifest-orders current-manifest="ManifestTransMenuCtrl.currentManifestTrans"></div>
+                        <div ng-switch-when="ManifestItems" dms-manifest-item current-manifest="ManifestTransMenuCtrl.currentManifestTrans"></div>
+                        <div ng-switch-when="GatePassList" gate-pass current-gate-pass="ManifestTransMenuCtrl.currentManifestTrans"></div>                        
+                        <div ng-switch-when="Routing" route-planning current-manifest="ManifestTransMenuCtrl.currentManifestTrans"></div>                        
+                        <div ng-switch-when="Tracking" tracking current-manifest="ManifestTransMenuCtrl.currentManifestTrans"></div> 
+                        
+                    </div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+  
+    <!--Footer-->
+
+    <div class="eaxis-footer-strip">
+        <div class="col-xs-6 col-sm-8 col-md-8 col-lg-9 col-xl-9">
+            <standard-menu dataentry-object="ManifestTransMenuCtrl.dataentryObject" input="ManifestTransMenuCtrl.currentManifestTrans"></standard-menu>
+        </div>
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 col-xl-3">
+            <button class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6" data-ng-click="ManifestTransMenuCtrl.ePage.Masters.Save(ManifestTransMenuCtrl.currentManifestTrans)" data-ng-bind="ManifestTransMenuCtrl.ePage.Masters.SaveButtonText"
+                data-ng-disabled="ManifestTransMenuCtrl.ePage.Masters.DisableSave"></button>
+        </div>
+    </div>
+
+</div>

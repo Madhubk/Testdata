@@ -1,0 +1,75 @@
+<div class="ik-st-box">
+    <div class="col-sm-2 pt-10">
+        <div class="ik-st-no"><a data-ng-href="javascript:void(0)" data-ng-click="ConsolDetailsCtrl.ePage.Masters.SingleRecordView()">{{ConsolDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ConsolNo}}</a></div>
+        <div class="ik-st-main-icon">
+            <i class="fa fa-map-marker"></i>
+        </div>
+    </div>
+    <div class="col-sm-10 border-l">
+        <div class="ik-st-inner-box clearfix p-10">
+            <div class="ik-st-top-title">
+                <div class="ik-st-cnsha-l">
+                    <div class="ik-cnsha-title">{{ConsolDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader.FirstLoadPort}}</div>
+                </div>
+                <div class="ik-st-cnsha-r">
+                    <div class="ik-cnsha-title">{{ConsolDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader.LastDischargePort}}</div>
+                </div>
+            </div>
+            <div class="ik-st-marker-box">
+                <span class="ik-st-icon-marker ik-st-icon-marker-left">
+                    <i class="fa fa-circle-o"></i>
+                </span>
+                <div class="ik-st-line">
+                    <div class="ik-st-content-1">
+                        <span class="task-list-des-sub-title-l">[ {{ConsolDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader.LoadPortDesc}} ]</span>
+                        <span class="task-list-des-sub-title-r">[ {{ConsolDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader.DischargePortDesc}} ]</span>
+                    </div>
+                    <div class="ik-st-content">
+                        <span class="task-list-des-sub-title">
+                            <i class="icon-ocean32 fa-2x ng-scope"></i>
+                            {{ConsolDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader.TransportMode}}
+                        </span>
+                        <span class="task-arrow">
+                            <i class="fa fa-caret-right"></i>
+                        </span>
+                        <span class="task-list-des-sub-title">{{ConsolDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ContainerMode}}</span>
+                        <span class="task-slash">|</span>
+                        <span class="task-list-des-sub-title">{{ConsolDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader.IncoTerm}}</span>
+                        <span class="task-slash">|</span>
+                        <span class="task-list-des-sub-title">
+                            <i class="fa fa-calendar"></i> {{ConsolDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader.FirstForeignPortDate |
+                            date : 'dd-MMM-yyyy'}} > <i class="fa fa-calendar"></i> {{ConsolDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader.LastForeignPortDate
+                            | date : 'dd-MMM-yyyy'}}
+                        </span>
+                    </div>
+                </div>
+                <span class="ik-st-icon-marker ik-st-icon-marker-right">
+                    <i class="fa fa-map-marker"></i>
+                </span>
+            </div>
+            <div class="ik-st-bottom-title">
+                <div class="ik-st-cnsha-l">
+                    <div class="ik-cnsha-title">{{ConsolDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader.SendingAgentName}}</div>
+                    <div class="ik-st-address">
+                        <a data-toggle="tooltip" title="" class="">
+                            <span data-ng-if="ConsolDetailsCtrl.ePage.Masters.DropDownMasterListAddress.OAD_SendingForwarderAddressFK.Address1">{{ConsolDetailsCtrl.ePage.Masters.DropDownMasterListAddress.OAD_SendingForwarderAddressFK.Address1}}</span>
+                            <br>
+                            <span data-ng-if="ConsolDetailsCtrl.ePage.Masters.DropDownMasterListAddress.OAD_SendingForwarderAddressFK.Address2">{{ConsolDetailsCtrl.ePage.Masters.DropDownMasterListAddress.OAD_SendingForwarderAddressFK.Address2}}</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="ik-st-cnsha-r">
+                    <div class="ik-cnsha-title">{{ConsolDetailsCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ReceivingAgentName}}</div>
+                    <div class="ik-st-address">
+                        <a data-toggle="tooltip" title="" class="">
+                            <span data-ng-if="ConsolDetailsCtrl.ePage.Masters.DropDownMasterListAddress.OAD_ReceivingForwarderAddressFK.Address1">{{ConsolDetailsCtrl.ePage.Masters.DropDownMasterListAddress.OAD_ReceivingForwarderAddressFK.Address1}}</span>
+                            <br>
+                            <span data-ng-if="ConsolDetailsCtrl.ePage.Masters.DropDownMasterListAddress.OAD_ReceivingForwarderAddressFK.Address2">{{ConsolDetailsCtrl.ePage.Masters.DropDownMasterListAddress.OAD_ReceivingForwarderAddressFK.Address2}}</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

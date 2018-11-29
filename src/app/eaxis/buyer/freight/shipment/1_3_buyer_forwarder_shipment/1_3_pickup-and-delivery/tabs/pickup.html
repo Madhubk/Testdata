@@ -1,0 +1,380 @@
+<div class="clearfix mt-10">
+    <!--Export Broker Organization Code-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">Export Broker</label>
+            <div class="input-group input-group-sm">
+                <input type="hidden" ng-model="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_ExportBroker_FK">
+                <div dynamic-lookup placeholder="Organization Code" my-ng-model="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_ExportBroker_Code"
+                    obj="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'OrganizationList'"
+                    control-key="ShpExportBrokerOrg_2960" control-id="'ShpExportBrokerOrg'" auto-complete-on-select="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item, 'Export')"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader" control-id="'ShpExportBrokerOrg'"
+                        control-key="ShpExportBrokerOrg_2960" page-name="'OrganizationList'" mode="2" grid-refresh-fun-name=""
+                        grid-refresh-fun="" selected-data="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.SelectedLookupData($item, 'Export')"
+                        class="btn btn-default shiny" type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!--Pickup - Transport Company Organization Code-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">Transport Company</label>
+            <div class="input-group input-group-sm">
+                <input type="hidden" ng-model="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupTransportFK">
+                <div dynamic-lookup placeholder="Organization Code" my-ng-model="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupTransportCode"
+                    obj="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery" page-name="'OrganizationList'"
+                    control-key="ShpPickupTransCompOrg_2969" control-id="'ShpPickupTransCompOrg'" auto-complete-on-select="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item, 'Pickup')"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery" control-id="'ShpPickupTransCompOrg'"
+                        control-key="ShpPickupTransCompOrg_2969" page-name="'OrganizationList'" mode="2" grid-refresh-fun-name=""
+                        grid-refresh-fun="" selected-data="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.SelectedLookupData($item, 'Pickup')"
+                        class="btn btn-default shiny" type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!--Pickup - Transport Company Address-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">Address</label>
+            <div class="">
+                <select  chosen class="form-control" ng-model="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupTransportAddressFK"
+                    ng-options="x.PK as x.Code for x in oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.Pickup.AddressList"
+                    data-ng-change="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.OnAddressChange((oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.Pickup.AddressList | filter: {PK: oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupTransportAddressFK})[0], 'Pickup')"
+                    search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <!--Pickup - Transport Company Contact-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">Contact</label>
+            <div class="">
+                <select  chosen class="form-control" ng-model="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupTransportContactFK"
+                    ng-options="x.PK as x.ContactName for x in oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.Pickup.ContactList"
+                    data-ng-change="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.OnContactChange((oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.Pickup.ContactList | filter: {PK: oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupTransportContactFK})[0], 'Pickup')"
+                    search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!--Pickup Agent Organization Code-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">Pickup Agent</label>
+            <div class="input-group input-group-sm">
+                <input type="hidden" ng-model="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG.ORG_FK">
+                <div dynamic-lookup placeholder="Organization Code" my-ng-model="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG.ORG_Code"
+                    obj="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG" page-name="'OrganizationList'"
+                    control-id="'JobAddressOrgForwarder'" control-key="JobAddressOrgForwarder_3252" auto-complete-on-select="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item, 'address', 'PAG')"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.PAG" control-id="'JobAddressOrgForwarder'"
+                        control-key="JobAddressOrgForwarder_3252" page-name="'OrganizationList'" mode="2" grid-refresh-fun-name=""
+                        grid-refresh-fun="" selected-data="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.SelectedLookupData($item, 'address', 'PAG')"
+                        class="btn btn-default shiny" type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!--Pickup from Organization Code-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">Pickup from</label>
+            <div class="input-group input-group-sm">
+                <input type="hidden" ng-model="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.ORG_FK">
+                <div dynamic-lookup placeholder="Organization Code" my-ng-model="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.ORG_Code"
+                    obj="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG" page-name="'OrganizationList'"
+                    control-id="'JobAddressOrgConsignor'" control-key="JobAddressOrgConsignor_3243" auto-complete-on-select="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item, 'address', 'CRG')"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG" control-id="'JobAddressOrgConsignor'"
+                        page-name="'OrganizationList'" control-key="JobAddressOrgConsignor_3243" mode="2" grid-refresh-fun-name=""
+                        grid-refresh-fun="" selected-data="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.SelectedLookupData($item, 'address', 'CRG')"
+                        class="btn btn-default shiny" type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!--Pickup from Address-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">Address</label>
+            <div class="">
+                <select  chosen class="form-control" ng-model="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.OAD_Address_FK"
+                    ng-options="x.PK as x.Code for x in oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.AddressList"
+                    data-ng-change="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.OnAddressChange((oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.AddressList | filter: {PK: oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.OAD_Address_FK})[0], 'CRG', 'address')"
+                    search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <!--Pickup from Contact-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">Contact</label>
+            <div class="">
+                <select  chosen class="form-control" ng-model="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.OCT_FK"
+                    ng-options="x.PK as x.ContactName for x in oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.ContactList"
+                    data-ng-change="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.OnContactChange((oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.ContactList | filter: {PK: oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRG.OCT_FK})[0], 'CRG', 'address')"
+                    search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <!--Pickup - CFS Organization Code-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">CFS</label>
+            <div class="input-group input-group-sm">
+                <input type="hidden" ng-model="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_ExportReceivingCFS_FK">
+                <div dynamic-lookup placeholder="Organization Code" my-ng-model="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_ExportReceivingCFS_Code"
+                    obj="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'OrganizationList'"
+                    control-key="ShpPickupCFSOrg_2866" control-id="'ShpPickupCFSOrg'" auto-complete-on-select="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item, 'PCFS')"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader" control-id="'ShpPickupCFSOrg'"
+                        control-key="ShpPickupCFSOrg_2866" page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                        selected-data="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.SelectedLookupData($item, 'PCFS','')" class="btn btn-default shiny"
+                        type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!--Pickup - CFS Address-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">Address</label>
+            <div class="">
+                <select  chosen class="form-control" ng-model="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.OAD_ExportReceivingDepot_FK"
+                    ng-options="x.PK as x.Code for x in oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PCFS.AddressList"
+                    data-ng-change="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.OnAddressChange((oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PCFS.AddressList | filter: {PK: oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.OAD_ExportReceivingDepot_FK})[0], 'PCFS')"
+                    search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <!--Pickup - CFS Contact-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">Contact</label>
+            <div class="">
+                <select  chosen class="form-control" ng-model="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportOrgContact_FK"
+                    ng-options="x.PK as x.ContactName for x in oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PCFS.ContactList"
+                    data-ng-change="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.OnContactChange((oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PCFS.ContactList | filter: {PK: oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportOrgContact_FK})[0], 'PCFS')"
+                    search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="clearfix mt-10">
+    <!--Pickup Drop Mode-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">Drop Mode</label>
+            <div class="">
+                <select  chosen name="category-group" class="form-control" ng-model="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.FCLPickupEquipmentNeeded"
+                    ng-options="x.Key as x.Description for x in oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DropDownMasterList.DROPMODE.ListSource"
+                    search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <!--Estimated Pickup-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">Estimated Pickup</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    ng-model="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.EstimatedPickup"
+                    datetime-picker="{{oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datepicker-options="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true" default-date=""
+                    default-time="" save-as="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.isOpen['isEstimatedPickup']"
+                    when-closed="" data-ng-click="" data-ng-change="" custom-date-time-format />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" data-ng-click="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedPickup')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!--Requested By-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">Requested By</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    ng-model="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupRequiredBy"
+                    datetime-picker="{{oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datepicker-options="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true" default-date=""
+                    default-time="" save-as="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.isOpen['isRequestedBy']"
+                    when-closed="" data-ng-click="" data-ng-change="" custom-date-time-format />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" data-ng-click="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isRequestedBy')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!--Pickup Port Tran Advice-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">Port Tran Advised</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    ng-model="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupCartageAdvised"
+                    datetime-picker="{{oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datepicker-options="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true" default-date=""
+                    default-time="" save-as="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.isOpen['isPickupPortTranAdvice']"
+                    when-closed="" data-ng-click="" data-ng-change="" custom-date-time-format />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" data-ng-click="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPickupPortTranAdvice')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!--Actual Pickup-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">Actual Pickup</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    ng-model="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupCartageCompleted"
+                    datetime-picker="{{oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datepicker-options="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true" default-date=""
+                    default-time="" save-as="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.isOpen['isActualPickup']"
+                    when-closed="" data-ng-click="" data-ng-change="" custom-date-time-format />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" data-ng-click="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isActualPickup')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!--Interim Receipt-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">Interim Receipt</label>
+            <div class="">
+                <input type="text" class="form-control input-sm" placeholder="Interim Receipt" max-length="70" data-ng-model="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.InterimReceipt">
+            </div>
+        </div>
+    </div>
+    <!--Interim Receipt Date-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">Interim Receipt Date</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    ng-model="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.A_RCV" datetime-picker="{{oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    datepicker-options="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                    close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" save-as="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                    is-open="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.isOpen['isIntermReceipt']" when-closed=""
+                    data-ng-click="" data-ng-change="" custom-date-time-format />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" data-ng-click="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isIntermReceipt')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!--Shipper Reference-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">Shipper's Reference</label>
+            <div class="">
+                <input type="text" class="form-control input-sm" placeholder="Shipper Reference" max-length="40" data-ng-model="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader.BookingReference">
+            </div>
+        </div>
+    </div>
+
+    <!--Pickup Labour Time-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">Labour Charge</label>
+            <div class="">
+                <input type="text" class="form-control input-sm" placeholder="Labour Charge" max-length="8" numbers-only-dot sb-precision="2"
+                    data-ng-model="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupLabourCharge">
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">Labour Duration</label>
+            <div class="">
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="{{oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.Options.timeFormat}}"
+                        data-ng-model="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupLabourTime"
+                        datetime-picker="{{oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.Options.timeFormat}}" datepicker-options="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-time="true" enable-date="false" default-date=""
+                        default-time="" save-as="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.isOpen['isPickupLabourTime']"
+                        when-closed="" data-ng-click="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPickupLabourTime')"
+                        custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default shiny" data-ng-click="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPickupLabourTime')">
+                            <i class="fa fa-clock-o"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">Demurage Charge</label>
+            <div class="">
+                <input type="text" class="form-control input-sm" placeholder="Demurage Charge" max-length="8" numbers-only-dot sb-precision="2"
+                    data-ng-model="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.DemurrageOnPickupCharge">
+            </div>
+        </div>
+    </div>
+    <!--Pickup Demurage Time-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">Demurage Duration</label>
+            <div class="">
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="{{oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.Options.timeFormat}}"
+                        data-ng-model="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.DemurrageOnPickupTime"
+                        datetime-picker="{{oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.Options.timeFormat}}" datepicker-options="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-time="true" enable-date="false" default-date=""
+                        default-time="" save-as="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.isOpen['isDemurrageOnPickupTime']"
+                        when-closed="" data-ng-click="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isDemurrageOnPickupTime')"
+                        custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default shiny" data-ng-click="oneThreeShipmentPickupAndDeliveryCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isDemurrageOnPickupTime')">
+                            <i class="fa fa-clock-o"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

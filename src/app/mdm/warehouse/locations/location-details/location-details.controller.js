@@ -5,9 +5,9 @@
         .module("Application")
         .controller("LocationDetailsController", LocationDetailsController);
 
-    LocationDetailsController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "locationConfig", "helperService", "$filter", "$uibModal", "toastr", "appConfig"];
+    LocationDetailsController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "locationConfig", "helperService", "$filter", "$uibModal", "toastr", "appConfig","$sce"];
 
-    function LocationDetailsController($rootScope, $scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, locationConfig, helperService, $filter, $uibModal, toastr, appConfig) {
+    function LocationDetailsController($rootScope, $scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, locationConfig, helperService, $filter, $uibModal, toastr, appConfig,$sce) {
         / jshint validthis: true /
         var LocationDetailsCtrl = this;
         function Init() {
@@ -22,97 +22,138 @@
                 "Meta": helperService.metaBase(),
                 "Entities": currentLocation
             };
+
             LocationDetailsCtrl.ePage.Masters.Config = locationConfig;
-            // function call from html
-            LocationDetailsCtrl.ePage.Masters.active = 0;
-            LocationDetailsCtrl.ePage.Masters.select = select;
-            LocationDetailsCtrl.ePage.Masters.SelectedAll = SelectedAll;
-            LocationDetailsCtrl.ePage.Masters.update = update;
-            LocationDetailsCtrl.ePage.Masters.SelectedLookupDataWarCode = SelectedLookupDataWarCode;
-            LocationDetailsCtrl.ePage.Masters.SelectedLookupDataAreaCode = SelectedLookupDataAreaCode;
-            LocationDetailsCtrl.ePage.Masters.GetLocations = GetLocations;
-            LocationDetailsCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
-            LocationDetailsCtrl.ePage.Masters.StatusDesc = StatusDesc;
-            LocationDetailsCtrl.ePage.Masters.checkSequence = checkSequence;
 
-
-            // variable declaration
-            LocationDetailsCtrl.ePage.Masters.Count = 0;
-            LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.Trays = 1;
-            LocationDetailsCtrl.ePage.Masters.GenerateLocationDetails = false;
-            LocationDetailsCtrl.ePage.Masters.GenerateButtonText = "Show";
-            LocationDetailsCtrl.ePage.Masters.DropDownMasterList = {};
+            //For table
             LocationDetailsCtrl.ePage.Masters.SelectAll = false;
-            LocationDetailsCtrl.ePage.Masters.LocationDetails = false;
-            LocationDetailsCtrl.ePage.Masters.IsLoadingToSave = false;
-
-            generalOperations();
-            GetDropDownList();
-            //GetLocations(LocationDetailsCtrl.currentLocation);
+            LocationDetailsCtrl.ePage.Masters.EnableUpdateButton = false;
+            LocationDetailsCtrl.ePage.Masters.Enable = true;
+            LocationDetailsCtrl.ePage.Masters.selectedRow = -1;
             LocationDetailsCtrl.ePage.Masters.emptyText = '-';
+            LocationDetailsCtrl.ePage.Masters.SearchTable = '';
 
-        };
-        function StatusDesc(x) {
-            angular.forEach(LocationDetailsCtrl.ePage.Masters.DropDownMasterList.LocStatus.ListSource, function (value, key) {
-                if (value.Key == x) {
-                    LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.LocationStatusDescription = value.Value;
+            LocationDetailsCtrl.ePage.Masters.SelectAllCheckBox = SelectAllCheckBox;
+            LocationDetailsCtrl.ePage.Masters.SingleSelectCheckBox = SingleSelectCheckBox;
+            LocationDetailsCtrl.ePage.Masters.setSelectedRow = setSelectedRow;
+            
+            LocationDetailsCtrl.ePage.Masters.DropDownMasterList = {};
+
+            LocationDetailsCtrl.ePage.Masters.GetPickPathSequenceValue = GetPickPathSequenceValue;
+            LocationDetailsCtrl.ePage.Masters.SelectedLookupWarehouse = SelectedLookupWarehouse;
+            LocationDetailsCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
+            LocationDetailsCtrl.ePage.Masters.GetLocations = GetLocations;
+            LocationDetailsCtrl.ePage.Masters.CheckMaximumValues = CheckMaximumValues;
+            LocationDetailsCtrl.ePage.Masters.UpdateV2 = UpdateV2;
+            LocationDetailsCtrl.ePage.Masters.GenerateBarcode = GenerateBarcode;
+
+            GetUserBasedGridColumList();
+            GeneralOperations();
+            GetDropDownList();
+            GetOtherWarehouseDetails();
+        }
+
+         //#region User Based Table Column
+         function GetUserBasedGridColumList(){
+            var _filter = {
+                "SAP_FK": authService.getUserInfo().AppPK,
+                "TenantCode": authService.getUserInfo().TenantCode,
+                "SourceEntityRefKey": authService.getUserInfo().UserId,
+                "EntitySource": "WMS_LOCATIONMASTER",
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.UserSettings.API.FindAll.FilterID
+            };
+    
+            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function(response){
+                if(response.data.Response[0]){
+                    LocationDetailsCtrl.ePage.Masters.UserValue= response.data.Response[0];
+                    if(response.data.Response[0].Value!=''){
+                        var obj = JSON.parse(response.data.Response[0].Value)
+                        LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation = obj;
+                        LocationDetailsCtrl.ePage.Masters.UserHasValue =true;
+                    }
+                }else{
+                    LocationDetailsCtrl.ePage.Masters.UserValue = undefined;
                 }
-            });
+            })
         }
-
-        function OnChangeValues(fieldvalue, code) {
-            angular.forEach(LocationDetailsCtrl.ePage.Masters.Config.ValidationValues, function (value, key) {
-                if (value.Code.trim() === code) {
-                    GetErrorMessage(fieldvalue, value)
-                }
-            });
-        }
-
-        function GetErrorMessage(fieldvalue, value) {
-            if (!fieldvalue) {
-                LocationDetailsCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, LocationDetailsCtrl.currentLocation.label, false, undefined, undefined, undefined, undefined, undefined);
-            } else {
-                LocationDetailsCtrl.ePage.Masters.Config.RemoveErrorWarning(value.Code, "E", value.CtrlKey, LocationDetailsCtrl.currentLocation.label);
-            }
-        }
-
-
-        function generalOperations() {
-            if (LocationDetailsCtrl.currentLocation.isNew == true) {
-                LocationDetailsCtrl.ePage.Masters.IsDisabledWarehouse = true;
-            } else {
-                LocationDetailsCtrl.ePage.Masters.IsDisabledWarehouse = false;
-            }
-            // general operations
+        //#endregion
+        
+        //#region GeneralOperations
+        function GeneralOperations(){
+            
             if (LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.WarehouseName == null)
                 LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.WarehouseName = "";
             if (LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.WarehouseCode == null)
                 LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.WarehouseCode = "";
-            LocationDetailsCtrl.ePage.Masters.WarehouseName = LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.WarehouseCode + "-" + LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.WarehouseName;
-            if (LocationDetailsCtrl.ePage.Masters.WarehouseName == '-')
-                LocationDetailsCtrl.ePage.Masters.WarehouseName = "";
+
+                LocationDetailsCtrl.ePage.Masters.Warehouse = LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.WarehouseCode + "-" + LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.WarehouseName;
+            if (LocationDetailsCtrl.ePage.Masters.Warehouse == '-')
+                LocationDetailsCtrl.ePage.Masters.Warehouse = "";
+
+            if(!LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.Trays){
+                LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.Trays = 1;
+            } 
+            GetLocationLocalVariables();
         }
-        // lookup for warehouse
-        function SelectedLookupDataWarCode(item) {
-            if (item.entity) {
-                LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.WAR_FK = item.entity.PK;
-                LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.WarehouseName = item.entity.WarehouseName;
-                LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.WarehouseCode = item.entity.WarehouseCode;
-                LocationDetailsCtrl.ePage.Masters.WarehouseName = LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.WarehouseCode + "-" + LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.WarehouseName;
-            }
-            else {
-                LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.WAR_FK = item.PK;
-                LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.WarehouseName = item.WarehouseName;
-                LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.WarehouseCode = item.WarehouseCode;
-                LocationDetailsCtrl.ePage.Masters.WarehouseName = item.WarehouseCode + "-" + item.WarehouseName;
-            }
-            OnChangeValues(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.WarehouseCode, 'E6001');
-            if (LocationDetailsCtrl.currentLocation.isNew == true) {
-                DefaultPickPathUpdate();
+
+        function GetLocationLocalVariables(){
+
+            LocationDetailsCtrl.ePage.Masters.LocalVariables ={
+                "WAR_WarehouseCode":LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.WarehouseCode,
+                "WAA_Name":"",
+                "WAA_FK":"",
+                "LocationStatus":"",
+                "LocationStatusDescription":"",
+                "LocationType":"",
+                "PickMethod":"",
+                "PickMethodsDescription":"",
+                "MaxWeight":"",
+                "MaxWeightUnit":"",
+                "MaxCubic":"",
+                "MaxCubicUnit":"",
+                "MaxQuantity":"",
             }
         }
 
-        function DefaultPickPathUpdate() {
+        function SelectedLookupWarehouse(item) {
+            
+            LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.WAR_FK = item.PK;
+            LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.WarehouseName = item.WarehouseName;
+            LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.WarehouseCode = item.WarehouseCode;
+            LocationDetailsCtrl.ePage.Masters.Warehouse = item.WarehouseCode + "-" + item.WarehouseName;
+            OnChangeValues(LocationDetailsCtrl.ePage.Masters.Warehouse, 'E6001');
+
+            GetOtherWarehouseDetails().then(function(response){
+                GetPickPathSequenceValue('value');
+            })
+        }
+
+        function GetPickPathSequenceValue(item){
+            if(item=='value'){
+                LocationDetailsCtrl.ePage.Masters.max = 0;
+                angular.forEach(LocationDetailsCtrl.ePage.Masters.OtherWarehouseDetails, function (value, key) {
+                    if (value.PickPathSequence > LocationDetailsCtrl.ePage.Masters.max) {
+                        LocationDetailsCtrl.ePage.Masters.max = value.PickPathSequence;
+                    }
+                });
+                LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.PickPathSequence = LocationDetailsCtrl.ePage.Masters.max + 1;
+            }else{
+            var myData = LocationDetailsCtrl.ePage.Masters.OtherWarehouseDetails.some(function(value,key){
+                if(parseInt(value.PickPathSequence)==parseInt(item) && value.WAR_FK==LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.WAR_FK)
+                return true;
+            })
+            if(myData){
+                toastr.error("RowPath Sequence is Already Used in Another Row");
+                LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.PickPathSequence = "";
+                }
+            }
+        }
+
+        function GetOtherWarehouseDetails() {
+            var deferred = $q.defer();
             var _filter = {
                 "WAR_FK": LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.WAR_FK,
             };
@@ -121,234 +162,15 @@
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": locationConfig.Entities.Header.API.RowFindAll.FilterID,
             };
-            apiService.post("eAxisAPI", LocationDetailsCtrl.ePage.Entities.Header.API.RowFindAll.Url, _input).then(function (response) {                
-                LocationDetailsCtrl.ePage.Masters.max = 0;
-                LocationDetailsCtrl.ePage.Masters.OtherWarehouseDetails = response.data.Response;
-                angular.forEach(response.data.Response, function (value, key) {
-                    if (value.PickPathSequence > LocationDetailsCtrl.ePage.Masters.max) {
-                        LocationDetailsCtrl.ePage.Masters.max = value.PickPathSequence;
-                    }
-                });
-                LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.PickPathSequence = LocationDetailsCtrl.ePage.Masters.max + 1;
-            });
-        }
-
-        function checkSequence(item){
-            if(item){
-                var myData = LocationDetailsCtrl.ePage.Masters.OtherWarehouseDetails.some(function(value,key){
-                    if(parseInt(value.PickPathSequence)==parseInt(item) && value.WAR_FK==LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.WAR_FK)
-                    return true;
-                })
-                if(myData){
-                        toastr.error("RowPath Sequence is Already Used in Another Row");
-                        LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.PickPathSequence = "";
-                    }
-            }
-        }
-        // lookup for area
-        function SelectedLookupDataAreaCode(item) {
-            if (item.entity) {
-                LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.WAA_Name = item.entity.Name;
-                LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.WAA_FK = item.entity.PK;
-            }
-            else {
-                LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.WAA_Name = item.Name;
-                LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.WAA_FK = item.PK;
-            }
-        }
-        // select common checkbox
-        function SelectedAll(details) {
-            if (LocationDetailsCtrl.ePage.Masters.SelectAll == true) {
-                LocationDetailsCtrl.ePage.Masters.enable = true;
-                angular.forEach(details, function (value, key) {
-                    value.singleselect = true;
+            if(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.WAR_FK){
+                apiService.post("eAxisAPI", LocationDetailsCtrl.ePage.Entities.Header.API.RowFindAll.Url, _input).then(function (response) {                
+                    LocationDetailsCtrl.ePage.Masters.OtherWarehouseDetails = response.data.Response;
+                    deferred.resolve(LocationDetailsCtrl.ePage.Masters.OtherWarehouseDetails);
                 });
             }
-            else {
-                LocationDetailsCtrl.ePage.Masters.enable = false;
-                angular.forEach(details, function (value, key) {
-                    value.singleselect = false;
-                });
-            }
-        }
-        // select single checkbox
-        function select(details, index) {
-            if (details[index].singleselect == false) {
-                LocationDetailsCtrl.ePage.Masters.SelectAll = false;
-                LocationDetailsCtrl.ePage.Masters.Count--;
-            }
-            else {
-                LocationDetailsCtrl.ePage.Masters.Count++;
-                var count = 0;
-                for (var i in details) {
-                    if (details[i].singleselect == true) {
-                        count++;
-                        if (details.length <= count) {
-                            LocationDetailsCtrl.ePage.Masters.SelectAll = true;
-                        }
-                        else {
-                            LocationDetailsCtrl.ePage.Masters.SelectAll = false;
-                        }
-                    }
-                }
-            }
-            if (LocationDetailsCtrl.ePage.Masters.Count == 0) {
-                LocationDetailsCtrl.ePage.Masters.enable = false;
-            }
-            else {
-                LocationDetailsCtrl.ePage.Masters.enable = true;
-            }
-        }
-        // update location details
-        function update(details) {
-
-            if (LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.MaxWeight) {
-                if (LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.MaxWeightUnit) {
-                    OnChangeValues(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.MaxWeightUnit, 'E6012');
-                }
-                else {
-                    OnChangeValues(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.MaxWeightUnit, 'E6012');
-                }
-            }
-            if (LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.MaxCubic) {
-                if (LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.MaxCubicUnit) {
-                    OnChangeValues(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.MaxCubicUnit, 'E6013');
-                }
-                else {
-                    OnChangeValues(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.MaxCubicUnit, 'E6013');
-                }
-            }
-            if (LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length == 0) {
-
-                for (var i in details) {
-                    if (details[i].singleselect == true) {
-                        details[i].IsModified = true;
-                        if (LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.MaxWeight)
-                            details[i].MaxWeight = LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.MaxWeight;
-                        if (LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.MaxWeightUnit)
-                            details[i].MaxWeightUnit = LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.MaxWeightUnit;
-                        if (LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.MaxCubic)
-                            details[i].MaxCubic = LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.MaxCubic;
-                        if (LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.MaxCubicUnit)
-                            details[i].MaxCubicUnit = LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.MaxCubicUnit;
-                        if (LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.WAA_FK)
-                            details[i].WAA_FK = LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.WAA_FK;
-                        if (LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.WAA_Name)
-                            details[i].WAA_Name = LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.WAA_Name;
-                        if (LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.LocationType)
-                            details[i].LocationType = LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.LocationType;
-                        if (LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.LocationStatus) {
-                            StatusDesc(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.LocationStatus);
-                            details[i].LocationStatus = LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.LocationStatus;
-                            details[i].LocationStatusDescription = LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.LocationStatusDescription;
-                        }
-
-                        if (LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.PickMethod)
-                            details[i].PickMethod = LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.PickMethod;
-                        if (LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.MaxQuantity)
-                            details[i].MaxQuantity = LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.MaxQuantity;
-                        if (LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.FinalisedPickCount)
-                            details[i].FinalisedPickCount = LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.FinalisedPickCount;
-                    }
-                }
-                details = filterObjectUpdate(details, "IsModified");
-                apiService.post("eAxisAPI", LocationDetailsCtrl.ePage.Entities.Header.API.updateOnlyLocation.Url, details).then(function (response) {
-                    if (response.data.Response) {
-                        LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation = response.data.Response;
-                        LocationDetailsCtrl.ePage.Masters.SelectAll = false;
-                    }
-                });
-            }
-        }
-        function filterObjectUpdate(obj, key) {
-            for (var i in obj) {
-                if (!obj.hasOwnProperty(i)) continue;
-                if (typeof obj[i] == 'object') {
-                    filterObjectUpdate(obj[i], key);
-                } else if (i == key) {
-                    obj[key] = true;
-                }
-            }
-            return obj;
-        }
-        // get location details
-        function GetLocations($item) {
-            var _Data = $item[$item.label].ePage.Entities,
-                input = _Data.Header.Data,
-                _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
-
-            //Validation Call
-            LocationDetailsCtrl.ePage.Masters.Config.GeneralValidation($item);
-            if (LocationDetailsCtrl.ePage.Entities.Header.Validations) {
-                LocationDetailsCtrl.ePage.Masters.Config.RemoveApiErrors(LocationDetailsCtrl.ePage.Entities.Header.Validations, $item.label);
-            }
-
-            if (_errorcount.length == 0) {
-                Save($item);
-            } else {
-                LocationDetailsCtrl.ePage.Masters.Config.ShowErrorWarningModal(LocationDetailsCtrl.currentLocation);
-            }
+            return deferred.promise;
         }
 
-        function Save($item) {
-            LocationDetailsCtrl.ePage.Masters.IsLoadingToSave = true;
-            LocationDetailsCtrl.ePage.Masters.SelectAll = false;
-
-            var _Data = $item[$item.label].ePage.Entities,
-                input = _Data.Header.Data;
-            if ($item.isNew) {
-                input.WmsRow.PK = input.PK;
-            } else {
-                $item = filterObjectUpdate($item, "IsModified");
-            }
-
-            helperService.SaveEntity($item, 'Location').then(function (response) {
-                if (response.Status === "success") {
-
-                    locationConfig.TabList.map(function (value, key) {
-                        if (value.New) {
-                            if (value.code == '') {
-                                value.label = LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.Name;
-                                value[LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.Name] = value.New;
-                                delete value.New;
-                            }
-                        }
-                    });
-
-                    var _index = locationConfig.TabList.map(function (value, key) {
-                        return value[value.label].ePage.Entities.Header.Data.PK;
-                    }).indexOf(LocationDetailsCtrl.currentLocation[LocationDetailsCtrl.currentLocation.label].ePage.Entities.Header.Data.PK);
-
-                    if (_index !== -1) {
-                        if (response.Data.Response) {
-                            locationConfig.TabList[_index][locationConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data.Response;
-                        }
-                        else {
-                            locationConfig.TabList[_index][locationConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data;
-                        }
-                        locationConfig.TabList[_index].isNew = false;
-                        LocationDetailsCtrl.ePage.Masters.LocationDetails = true;
-                        if ($state.current.url == "/location") {
-                            helperService.refreshGrid();
-                        }
-                    }
-                    console.log("Success");
-                    LocationDetailsCtrl.ePage.Masters.IsLoadingToSave = false;
-                    LocationDetailsCtrl.ePage.Masters.active = 1;
-
-                } else if (response.Status === "failed") {
-                    console.log("Failed");
-                    LocationDetailsCtrl.ePage.Entities.Header.Validations = response.Validations;
-                    angular.forEach(response.Validations, function (value, key) {
-                        LocationDetailsCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, LocationDetailsCtrl.currentLocation.label, false, undefined, undefined, undefined, undefined, undefined);
-                    });
-                    if (LocationDetailsCtrl.ePage.Entities.Header.Validations != null) {
-                        LocationDetailsCtrl.ePage.Masters.Config.ShowErrorWarningModal(LocationDetailsCtrl.currentLocation);
-                    }
-                }
-            });
-        }
-        // typeCodeList details
         function GetDropDownList() {
             // Get CFXType Dropdown list
             var typeCodeList = ["WEIGHTUNIT", "CubicUnit", "PickMethod", "LocStatus"];
@@ -374,7 +196,280 @@
                 }
             });
         }
+        //#endregion
 
+        //#region  Validation
+
+        function CheckMaximumValues(){
+            if((LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxWeightUnit && !LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxWeight) || (!LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxWeightUnit && LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxWeight)){
+                OnChangeValues(null,'E6012')
+            }else{
+                OnChangeValues('value','E6012')
+            }
+
+            if((LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxCubicUnit && !LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxCubic) || (!LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxCubicUnit && LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxCubic)){
+                OnChangeValues(null,'E6013')
+            }else{
+                OnChangeValues('value','E6013')
+            }
+        }
+
+        function OnChangeValues(fieldvalue, code) {
+            angular.forEach(LocationDetailsCtrl.ePage.Masters.Config.ValidationValues, function (value, key) {
+                if (value.Code.trim() === code) {
+                    GetErrorMessage(fieldvalue, value)
+                }
+            });
+        }
+
+        function GetErrorMessage(fieldvalue, value) {
+            if (!fieldvalue) {
+                LocationDetailsCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, LocationDetailsCtrl.currentLocation.label, false, undefined, undefined, undefined, undefined, undefined);
+            } else {
+                LocationDetailsCtrl.ePage.Masters.Config.RemoveErrorWarning(value.Code, "E", value.CtrlKey, LocationDetailsCtrl.currentLocation.label);
+            }
+        }
+        //#endregion
+
+        //#region Checkboxselection
+        function setSelectedRow(index){
+            LocationDetailsCtrl.ePage.Masters.selectedRow = index;
+        }
+
+        function SelectAllCheckBox(){
+            angular.forEach(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation, function (value, key) {
+            if (LocationDetailsCtrl.ePage.Masters.SelectAll){
+                value.SingleSelect = true;
+                LocationDetailsCtrl.ePage.Masters.EnableUpdateButton = true;
+            }
+            else{
+                value.SingleSelect = false;
+                LocationDetailsCtrl.ePage.Masters.EnableUpdateButton = false;
+            }
+            });
+        }
+    
+        function SingleSelectCheckBox() {
+            var Checked = LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.some(function (value, key) {
+                 if(!value.SingleSelect)
+                 return true;
+            });
+            if (Checked) {
+                LocationDetailsCtrl.ePage.Masters.SelectAll = false;
+            } else {
+                LocationDetailsCtrl.ePage.Masters.SelectAll = true;
+            }
+    
+            var Checked1 = LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.some(function (value, key) {
+                return value.SingleSelect == true;
+            });
+            if (Checked1) {
+                LocationDetailsCtrl.ePage.Masters.EnableUpdateButton = true;
+            } else {
+                LocationDetailsCtrl.ePage.Masters.EnableUpdateButton = false;
+            }
+        }
+        //#endregion
+
+        //#region  Save
+        function GetLocations($item,$event) {
+            var _Data = $item[$item.label].ePage.Entities,
+                input = _Data.Header.Data,
+                _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
+
+            //Validation Call
+            LocationDetailsCtrl.ePage.Masters.Config.GeneralValidation($item);
+            if (LocationDetailsCtrl.ePage.Entities.Header.Validations) {
+                LocationDetailsCtrl.ePage.Masters.Config.RemoveApiErrors(LocationDetailsCtrl.ePage.Entities.Header.Validations, $item.label);
+            }
+
+            if (_errorcount.length == 0) {
+                Save($item);
+            } else {
+                LocationDetailsCtrl.ePage.Masters.Config.ShowErrorWarningModal(LocationDetailsCtrl.currentLocation);
+            }
+        }
+
+        function UpdateV2(){
+            LocationDetailsCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
+
+            angular.forEach(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation,function(value,key){
+                if(value.SingleSelect){
+                    if(LocationDetailsCtrl.ePage.Masters.LocalVariables.WAA_Name){
+                        value.WAA_Name = LocationDetailsCtrl.ePage.Masters.LocalVariables.WAA_Name;
+                        value.WAA_FK =LocationDetailsCtrl.ePage.Masters.LocalVariables.WAA_FK;
+                    }
+                    if(LocationDetailsCtrl.ePage.Masters.LocalVariables.LocationStatus){
+                        value.LocationStatus = LocationDetailsCtrl.ePage.Masters.LocalVariables.LocationStatus;
+                        value.LocationStatusDescription = LocationDetailsCtrl.ePage.Masters.LocalVariables.LocationStatusDescription;
+                    }
+                    if(LocationDetailsCtrl.ePage.Masters.LocalVariables.LocationType){
+                        value.LocationType = LocationDetailsCtrl.ePage.Masters.LocalVariables.LocationType;
+                    }
+                    if(LocationDetailsCtrl.ePage.Masters.LocalVariables.PickMethod){
+                        value.PickMethod = LocationDetailsCtrl.ePage.Masters.LocalVariables.PickMethod;
+                        value.PickMethodsDescription = LocationDetailsCtrl.ePage.Masters.LocalVariables.PickMethodsDescription;
+                    }
+                    if(LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxWeight){
+                        value.MaxWeight = LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxWeight;
+                        value.MaxWeightUnit = LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxWeightUnit;
+                    }
+                    if(LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxCubic){
+                        value.MaxCubic = LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxCubic;
+                        value.MaxCubicUnit = LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxCubicUnit;
+                    }
+                    if(LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxQuantity){
+                        value.MaxQuantity = LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxQuantity;
+                    }
+                }
+            });
+            LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation = filterObjectUpdate(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation, "IsModified");
+            apiService.post("eAxisAPI", LocationDetailsCtrl.ePage.Entities.Header.API.updateOnlyLocation.Url, LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation).then(function (response) {
+                LocationDetailsCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
+                LocationDetailsCtrl.ePage.Masters.EnableUpdateButton = false;
+
+                if (response.data.Response) {
+                    GetLocationLocalVariables();
+                    LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation = response.data.Response;
+                    toastr.success("Location Updated Successfully.. ")
+                }
+            });
+        }
+
+        function Save($item) {
+            LocationDetailsCtrl.ePage.Masters.active = 0;
+            LocationDetailsCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
+
+            var _Data = $item[$item.label].ePage.Entities,
+                input = _Data.Header.Data;
+            if ($item.isNew) {
+                input.WmsRow.PK = input.PK;
+                input.WmsRow.CreatedDateTime = new Date();
+            } else {
+                $item = filterObjectUpdate($item, "IsModified");
+            }
+
+            helperService.SaveEntity($item, 'Location').then(function (response) {
+                LocationDetailsCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
+                
+                if (response.Status === "success") {
+                    locationConfig.TabList.map(function (value, key) {
+                        if (value.New) {
+                            if (value.code == '') {
+                                value.label = LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.Name;
+                                value[LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.Name] = value.New;
+                                delete value.New;
+                                value.code=LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.Name;
+                            }
+                        }
+                    });
+
+                    var _index = locationConfig.TabList.map(function (value, key) {
+                        return value[value.label].ePage.Entities.Header.Data.PK;
+                    }).indexOf(LocationDetailsCtrl.currentLocation[LocationDetailsCtrl.currentLocation.label].ePage.Entities.Header.Data.PK);
+
+                    if (_index !== -1) {
+                        if (response.Data.Response) {
+                            locationConfig.TabList[_index][locationConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data.Response;
+                        }
+                        else {
+                            locationConfig.TabList[_index][locationConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data;
+                        }
+                        
+                        //Changing Label name when row name changes
+                        if(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.Name != locationConfig.TabList[_index].label){
+                            locationConfig.TabList[_index].label = LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.Name;
+                            locationConfig.TabList[_index][locationConfig.TabList[_index].label] = locationConfig.TabList[_index][locationConfig.TabList[_index].code];
+                            delete locationConfig.TabList[_index][locationConfig.TabList[_index].code];
+                            locationConfig.TabList[_index].code = LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.Name
+                        }
+
+                        locationConfig.TabList[_index].isNew = false;
+                        if ($state.current.url == "/location") {
+                            helperService.refreshGrid();
+                        }
+                    }
+                    console.log("Success");
+                    toastr.success("Saved Successfully...!");
+                    LocationDetailsCtrl.ePage.Masters.active = 1;
+
+                } else if (response.Status === "failed") {
+                    console.log("Failed");
+                    toastr.error("Could not Save...!");
+                    LocationDetailsCtrl.ePage.Entities.Header.Validations = response.Validations;
+                    angular.forEach(response.Validations, function (value, key) {
+                        LocationDetailsCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, LocationDetailsCtrl.currentLocation.label, false, undefined, undefined, undefined, undefined, undefined);
+                    });
+                    if (LocationDetailsCtrl.ePage.Entities.Header.Validations != null) {
+                        LocationDetailsCtrl.ePage.Masters.Config.ShowErrorWarningModal(LocationDetailsCtrl.currentLocation);
+                    }
+                }
+            });
+        }
+        
+        function filterObjectUpdate(obj, key) {
+            for (var i in obj) {
+                if (!obj.hasOwnProperty(i)) continue;
+                if (typeof obj[i] == 'object') {
+                    filterObjectUpdate(obj[i], key);
+                } else if (i == key) {
+                    obj[key] = true;
+                }
+            }
+            return obj;
+        }
+        //#endregion
+        
+        //#region Generate Barcode
+        function GenerateBarcode(){
+            LocationDetailsCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
+            LocationDetailsCtrl.ePage.Masters.BarcodeGenerationList = [];
+            LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.map(function(value,key){
+                if(value.SingleSelect){
+                    LocationDetailsCtrl.ePage.Masters.BarcodeGenerationList.push(value);
+                }
+            });
+            apiService.post("eAxisAPI", LocationDetailsCtrl.ePage.Entities.Header.API.LocationBarcode.Url, LocationDetailsCtrl.ePage.Masters.BarcodeGenerationList).then(function (response){
+                if(response.data.Response){
+                    LocationDetailsCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
+                    $uibModal.open({
+                        windowClass: "general-edit  locationbarcode",
+                        templateUrl: 'app/mdm/warehouse/locations/location-details/tabs/location-barcode-modal.html',
+                        controller: function ($scope, $uibModalInstance) {
+                            
+                            function base64ToArrayBuffer(base64) {
+                                var binaryString = window.atob(base64);
+                                var binaryLen = binaryString.length;
+                                var bytes = new Uint8Array(binaryLen);
+                                for (var i = 0; i < binaryLen; i++) {
+                                    var ascii = binaryString.charCodeAt(i);
+                                    bytes[i] = ascii;
+                                }
+                                var blob = new Blob([(bytes)], {
+                                    type: "application/pdf"
+                                });
+                                var fileURL = URL.createObjectURL(blob);
+                                $scope.Barcodecontent = $sce.trustAsResourceUrl(fileURL);
+                                var a = document.createElement("a");
+                                document.body.appendChild(a);
+                                a.style = "display: none";
+                                a.href = fileURL;
+                                a.download = 'locationbarcode.pdf';
+                            }
+        
+                            base64ToArrayBuffer(response.data.Response);
+        
+                            $scope.cancel = function () {
+                                $uibModalInstance.dismiss('cancel');
+                            };
+                        }
+                    });
+                }else{
+                    toastr.error("Could Not Generate Barcode");
+                }
+            });
+        }
+        //#endregion
         Init();
     }
 })();

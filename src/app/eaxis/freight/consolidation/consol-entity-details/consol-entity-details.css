@@ -1,0 +1,12 @@
+.con-dt-label,
+.con-dt-value {
+  font-size: 11px;
+}
+
+.con-dt-label {
+  color: #999;
+}
+
+.con-dt-value {
+  height: 15px;
+}

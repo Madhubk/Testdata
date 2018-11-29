@@ -1,37 +1,38 @@
 <!-- Non Editable -->
-<div class="noneditable ng-scope" data-ng-if="!InwardGeneralCtrl.ePage.Entities.Header.CheckPoints.NotFinaliseStage"></div>
+<div class="noneditable ng-scope" data-ng-if="InwardGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"></div>
 <!--General-->
 <div class="clearfix padding-top-10">
     <div class="clearfix">
-
-           <!--Client-->
-        <div class="col-lg-6">
+        <!--Client-->
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
             <div class="inner-dashboard-box">
                 <div class="rows border-bottom">
-                    <div class="col-lg-3 height-40 border-right pt-10 pb-10">
+                    <div class="col-xs-3 col-sm-3 col-md-4 col-lg-3 col-xl-3 height-40 border-right pt-10 pb-10">
                         <span class="dashboard-inward-icon-box">
                             <i class="icomoon icon-organization-client"></i>
                         </span>
                         <label class="ml-5 control-label">Client</label>
                         <span class="error-warning-container">
                             <error-warning-directive data-ng-if="InwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Client.IsWarning && !InwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Client.IsError"
-                                list="InwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Client.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                                list="InwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Client.WARNING" type="'warning'"
+                                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                             <error-warning-directive data-ng-if="InwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Client.IsError" list="InwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Client.ERROR"
                                 type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                         </span>
                     </div>
-                    <div class="col-lg-9 height-40 p-5">
-                        <div class="input-group1 input-group-sm">
+                    <div class="col-xs-9 col-sm-9 col-md-8 col-lg-9 col-xl-9 height-40 p-5">
+                        <div class="input-group input-group-sm">
                             <!-- Dynamic look up Search in textbox -->
                             <div dynamic-lookup placeholder="Client Code And Name" my-ng-model="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Client"
                                 auto-complete-on-select="InwardGeneralCtrl.ePage.Masters.SelectedLookupClient($item)" obj="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader"
-                                prefix-data="'OrganizationList'" config="'Client'">
+                                page-name="'OrganizationList'" control-id="'Client'" control-key="'Client_3015'" is-disabled="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsAsnLine.length!=0 || InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length!=0">
                             </div>
                             <!-- Look Up page opens when button clicks -->
                             <span class="input-group-btn">
-                                <button dynamic-list-modal obj="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader" field-name="'Client'"
-                                    selected-data="InwardGeneralCtrl.ePage.Masters.SelectedLookupClient($item.entity)" prefix-data="'OrganizationList'"
-                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny" type="button">
+                                <button dynamic-list-modal obj="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader" control-id="'Client'" control-key="'Client_3015'"
+                                    selected-data="InwardGeneralCtrl.ePage.Masters.SelectedLookupClient($item.data.entity)" page-name="'OrganizationList'"
+                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny" type="button"
+                                    is-disabled="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsAsnLine.length!=0 || InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length!=0">
                                     <i class="fa fa-ellipsis-h"></i>
                                 </button>
                             </span>
@@ -43,7 +44,7 @@
                 </div>
                 <div class="rows p-5 height-70">
                     <div ng-show="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Client">
-                        <div class="col-lg-8 addressstyle">
+                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 addressstyle">
                             <div class="text-single-line font-12" title='{{InwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address1}}'>{{InwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address1}}</div>
                             <div class="text-single-line" title='{{InwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address2}}'>{{InwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address2}}</div>
                             <div class="text-single-line" title='{{InwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_State}}'>{{InwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_State}}</div>
@@ -52,39 +53,48 @@
                                 <span ng-show="InwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_PostCode" title="{{InwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_PostCode}}">{{InwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_PostCode}}</span>
                             </div>
                         </div>
-                        <div class="col-lg-4 p-0 mt-30">
-                            <div class="pull-right addressstyle1 font-12"  ng-show="InwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Mobile" title="{{InwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Mobile}}">{{InwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Mobile}}<i class="fa fa-phone ml-5 mr-5"></i></div>
-                            <div class="pull-right addressstyle1 font-12"  ng-show="InwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Email" title="{{InwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Email}}">{{InwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Email}}<i class="fa fa-envelope-o ml-5 mr-5"></i></div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0 mt-30">
+                            <div class="pull-right text-single-line font-12" ng-show="InwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Mobile"
+                                title="{{InwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Mobile}}">
+                                <i class="fa fa-phone ml-5 mr-5"></i>{{InwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Mobile}}</div>
+                            <div class="pull-right text-single-line font-12" ng-show="InwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Email"
+                                title="{{InwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Email}}">
+                                <i class="fa fa-envelope-o ml-5 mr-5"></i>{{InwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Email}}</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <!--Supplier-->
-        <div class="col-lg-6">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
             <div class="inner-dashboard-box">
                 <div class="rows border-bottom">
-                    <div class="col-lg-3 height-40  border-right pt-10 pb-10">
+                    <div class="col-xs-3 col-sm-3 col-md-4 col-lg-3 col-xl-3 height-40  border-right pt-10 pb-10">
                         <span class="dashboard-inward-icon-box">
                             <i class="icomoon icon-supplier"></i>
                         </span>
                         <label class="ml-5 control-label">Supplier</label>
                     </div>
-                    <div class="col-lg-9 height-40  p-5">
-                        <div class="input-group1 input-group-sm">
+                    <div class="col-xs-9 col-sm-9 col-md-8 col-lg-9 col-xl-9 height-40  p-5">
+                        <div class="input-group input-group-sm">
                             <!-- Dynamic look up Search in textbox -->
-                            <div dynamic-lookup placeholder="Supplier Code And Name" my-ng-model="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Supplier" auto-complete-on-select="InwardGeneralCtrl.ePage.Masters.SelectedLookupSupplier($item)"
-                                obj="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader" prefix-data="'OrganizationList'"
-                                config="'Supplier'">
+                            <div dynamic-lookup placeholder="Supplier Code And Name" my-ng-model="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Supplier"
+                                auto-complete-on-select="InwardGeneralCtrl.ePage.Masters.SelectedLookupSupplier($item)" obj="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader"
+                                page-name="'OrganizationList'" control-id="'Supplier'" control-key="'Supplier_3042'">
                             </div>
 
-                                    <!-- Look Up page opens when button clicks -->
+                            <!-- Look Up page opens when button clicks -->
                             <span class="input-group-btn">
-                                <button dynamic-list-modal obj="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader" field-name="'Supplier'" selected-data="InwardGeneralCtrl.ePage.Masters.SelectedLookupSupplier($item.entity)"  prefix-data="'OrganizationList'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                <button dynamic-list-modal obj="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader" control-id="'Supplier'" selected-data="InwardGeneralCtrl.ePage.Masters.SelectedLookupSupplier($item.data.entity)"
+                                    page-name="'OrganizationList'" control-key="'Supplier_3042'" mode="2" grid-refresh-fun-name=""
+                                    grid-refresh-fun="" class="btn btn-default shiny" type="button">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
                             </span>
                             <span class="input-group-btn" ng-show="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Supplier">
-                                <button   class="btn btn-default shiny" type="button" ng-click="InwardGeneralCtrl.ePage.Masters.OtherSupplierAddresses(InwardGeneralCtrl.ePage.Masters.OrgSupplierAddress)"><i class="fa fa-address-card-o"></i></button>
+                                <button class="btn btn-default shiny" type="button" ng-click="InwardGeneralCtrl.ePage.Masters.OtherSupplierAddresses(InwardGeneralCtrl.ePage.Masters.OrgSupplierAddress)">
+                                    <i class="fa fa-address-card-o"></i>
+                                </button>
                             </span>
                             <span ng-if='!InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Supplier' ng-init="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.SupplierCode='';InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.SupplierName='';InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ORG_Supplier_FK=''"></span>
                         </div>
@@ -92,7 +102,7 @@
                 </div>
                 <div class="rows p-5 height-70">
                     <div ng-show="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Supplier" ng-repeat="x in InwardGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress | filter: {AddressType:'SUD'}">
-                        <div class="col-lg-8 addressstyle">
+                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 addressstyle">
                             <div class="text-single-line font-12" title='{{x.Address1}}'>{{x.Address1 }}</div>
                             <div class="text-single-line" title='{{x.Address2}}'>{{x.Address2 }}</div>
                             <div class="text-single-line" title='{{x.State}}'>{{x.State}}</div>
@@ -101,9 +111,11 @@
                                 <span ng-show="x.PostCode" title="{{x.PostCode}}">{{x.PostCode}}</span>
                             </div>
                         </div>
-                        <div class="col-lg-4 p-0 mt-30">
-                            <div class="pull-right addressstyle1 font-12"  ng-show="x.Mobile" title="{{x.Mobile}}">{{x.Mobile}}<i class="fa fa-phone ml-5 mr-5"></i></div>
-                            <div class="pull-right addressstyle1 font-12"  ng-show="x.Email" title="{{x.Email}}">{{x.Email}}<i class="fa fa-envelope-o ml-5 mr-5"></i></div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0 mt-30">
+                            <div class="pull-right text-single-line font-12" ng-show="x.Mobile" title="{{x.Mobile}}">
+                                <i class="fa fa-phone ml-5 mr-5"></i>{{x.Mobile}}</div>
+                            <div class="pull-right text-single-line font-12" ng-show="x.Email" title="{{x.Email}}">
+                                <i class="fa fa-envelope-o ml-5 mr-5"></i>{{x.Email}}</div>
                         </div>
                     </div>
                 </div>
@@ -111,15 +123,10 @@
         </div>
     </div>
 </div>
-
-
-
-
 <div class="clearfix margin-top-10">
-
     <div class="clearfix mt-5">
         <!--Warehouse Code And Name-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
                 <div class="error-warning-container">
                     <error-warning-directive data-ng-if="InwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.IsWarning && !InwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.IsError"
@@ -129,18 +136,20 @@
                         type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                 </div>
                 <label class="control-label text-single-line">Warehouse</label>
-                <div class="input-group1 input-group-sm">
+                <div class="input-group input-group-sm">
                     <!-- Dynamic look up Search in textbox -->
                     <div dynamic-lookup placeholder="Warehouse Code And Name" my-ng-model="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Warehouse"
-                        obj="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader" prefix-data="'Warehouse'" config="'Warehouse'"
-                        auto-complete-on-select="InwardGeneralCtrl.ePage.Masters.SelectedLookupWarehouse($item)">
+                        obj="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader" page-name="'Warehouse'" control-id="'Warehouse'"
+                        control-key="'Warehouse_3067'" auto-complete-on-select="InwardGeneralCtrl.ePage.Masters.SelectedLookupWarehouse($item)"
+                        is-disabled="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsAsnLine.length!=0 || InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length!=0">
                     </div>
 
                     <!-- Look Up page opens when button clicks -->
                     <span class="input-group-btn">
-                        <button dynamic-list-modal obj="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader" field-name="'Warehouse'"
-                            selected-data="InwardGeneralCtrl.ePage.Masters.SelectedLookupWarehouse($item.entity)" prefix-data="'Warehouse'"
-                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny" type="button">
+                        <button dynamic-list-modal obj="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader" control-id="'Warehouse'"
+                            selected-data="InwardGeneralCtrl.ePage.Masters.SelectedLookupWarehouse($item.data.entity)" page-name="'Warehouse'"
+                            control-key="'Warehouse_3067'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny"
+                            type="button" is-disabled="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsAsnLine.length!=0 || InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length!=0">
                             <i class="fa fa-ellipsis-h"></i>
                         </button>
                     </span>
@@ -152,7 +161,7 @@
         </div>
 
         <!--Work Order Sub Type-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
                 <div class="error-warning-container">
                     <error-warning-directive data-ng-if="InwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.WorkOrderSubType.IsWarning && !InwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.WorkOrderSubType.IsError"
@@ -174,12 +183,9 @@
         </div>
 
         <!--Inward Reference-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line">Inward Reference</label>
-                <span ng-if='InwardGeneralCtrl.currentInward.isNew'ng-init="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ExternalReference = ''"></span>
-                <span ng-if='!InwardGeneralCtrl.currentInward.isNew && !InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ExternalReference'
-                    ng-init="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ExternalReference = InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderID"></span>
                 <div class="">
                     <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Inward Reference"
                         data-ng-model="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ExternalReference">
@@ -188,7 +194,7 @@
         </div>
 
         <!--Customer Reference-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line">Customer Reference</label>
                 <div class="">
@@ -198,54 +204,20 @@
             </div>
         </div>
     </div>
-
     <div class="clearfix">
-
-        <!--Service Level-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">Service Level</label>
-                <div class="input-group1 input-group-sm">
-                    <!-- Dynamic look up Search in textbox -->
-                    <div dynamic-lookup placeholder="Service Level Code And Description" my-ng-model="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ServiceLevel"
-                        obj="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader" prefix-data="'MstServiceLevel'"
-                        config="'ServiceLevel'" auto-complete-on-select="InwardGeneralCtrl.ePage.Masters.SelectedLookupServiceLevel($item)">
-                    </div>
-
-                    <!-- Look Up page opens when button clicks -->
-                    <span class="input-group-btn">
-                        <button dynamic-list-modal obj="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader" field-name="'ServiceLevel'"
-                            selected-data="InwardGeneralCtrl.ePage.Masters.SelectedLookupServiceLevel($item.entity)" prefix-data="'MstServiceLevel'"
-                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny" type="button">
-                            <i class="fa fa-ellipsis-h"></i>
-                        </button>
-                    </span>
-                </div>
-            </div>
-        </div>
-
         <!--Booking Date-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label">Booking Date</label>
-                <div class="input-group input-group-sm">
-                    <input type="text" class="form-control" placeholder="{{InwardGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datetime-picker="{{InwardGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
-                        ng-model="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.BookingDate" is-open="InwardGeneralCtrl.ePage.Masters.DatePicker.isOpen['isBookingDate']"
-                        datepicker-options="InwardGeneralCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
-                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" when-closed=""
-                        save-as="InwardGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click=""
-                        data-ng-change="" custom-date-time-format/>
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" data-ng-click="InwardGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isBookingDate')">
-                            <i class="fa fa-calendar"></i>
-                        </button>
-                    </span>
+                <div class="">
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Booking Date"
+                        value="{{InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.BookingDate | date:'dd-MMM-y'}}"
+                        readonly=''>
                 </div>
             </div>
         </div>
-
         <!--ETD-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line">ETD</label>
                 <div class="input-group input-group-sm">
@@ -253,8 +225,8 @@
                         ng-model="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ETD" is-open="InwardGeneralCtrl.ePage.Masters.DatePicker.isOpen['isETD']"
                         datepicker-options="InwardGeneralCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
                         close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" when-closed=""
-                        save-as="InwardGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click=""
-                        data-ng-change="" custom-date-time-format/>
+                        save-as="InwardGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click="" data-ng-change=""
+                        custom-date-time-format/>
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default" data-ng-click="InwardGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETD')">
                             <i class="fa fa-calendar"></i>
@@ -263,9 +235,8 @@
                 </div>
             </div>
         </div>
-
         <!--ETA-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line">ETA</label>
                 <div class="input-group input-group-sm">
@@ -273,8 +244,8 @@
                         ng-model="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ETA" is-open="InwardGeneralCtrl.ePage.Masters.DatePicker.isOpen['isETA']"
                         datepicker-options="InwardGeneralCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
                         close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" when-closed=""
-                        save-as="InwardGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click=""
-                        data-ng-change="" custom-date-time-format/>
+                        save-as="InwardGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click="" data-ng-change=""
+                        custom-date-time-format/>
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default" data-ng-click="InwardGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETA')">
                             <i class="fa fa-calendar"></i>
@@ -283,13 +254,8 @@
                 </div>
             </div>
         </div>
-
-    </div>
-
-    <div class="clearfix">
-
         <!--Arrival Date-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
                 <div class="error-warning-container">
                     <error-warning-directive data-ng-if="InwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ArrivalDate.IsWarning && !InwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ArrivalDate.IsError"
@@ -300,12 +266,13 @@
                 </div>
                 <label class="control-label text-single-line">Arrival Date</label>
                 <div class="input-group input-group-sm">
-                    <input type="text" class="form-control" placeholder="{{InwardGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datetime-picker="{{InwardGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
-                        ng-model="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate" is-open="InwardGeneralCtrl.ePage.Masters.DatePicker.isOpen['isArrivalDate']"
-                        datepicker-options="InwardGeneralCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
-                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" when-closed=""
-                        save-as="InwardGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click=""
-                        data-ng-change="InwardGeneralCtrl.ePage.Masters.CheckFutureDate(InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate)" custom-date-time-format/>
+                    <input type="text" class="form-control" placeholder="{{InwardGeneralCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                        datetime-picker="{{InwardGeneralCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}" ng-model="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate"
+                        is-open="InwardGeneralCtrl.ePage.Masters.DatePicker.isOpen['isArrivalDate']" datepicker-options="InwardGeneralCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-time="true" enable-date="true" default-date=""
+                        default-time="" when-closed="" save-as="InwardGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        data-ng-click="" data-ng-change="InwardGeneralCtrl.ePage.Masters.CheckFutureDate(InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate)"
+                        custom-date-time-format/>
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default" data-ng-click="InwardGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isArrivalDate')">
                             <i class="fa fa-calendar"></i>
@@ -314,25 +281,28 @@
                 </div>
             </div>
         </div>
-
+    </div>
+    <div class="clearfix">
         <!--Putaway Started Date-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
                 <div class="error-warning-container">
                     <error-warning-directive data-ng-if="InwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PutOrPickStartDateTime.IsWarning && !InwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PutOrPickStartDateTime.IsError"
                         list="InwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PutOrPickStartDateTime.WARNING" type="'warning'"
                         icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                    <error-warning-directive data-ng-if="InwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PutOrPickStartDateTime.IsError" list="InwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PutOrPickStartDateTime.ERROR"
-                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="InwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PutOrPickStartDateTime.IsError"
+                        list="InwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PutOrPickStartDateTime.ERROR" type="'error'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                 </div>
                 <label class="control-label text-single-line">Putaway Started Date</label>
                 <div class="input-group input-group-sm">
-                    <input type="text" class="form-control" placeholder="{{InwardGeneralCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}" datetime-picker="{{InwardGeneralCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                    <input type="text" class="form-control" placeholder="{{InwardGeneralCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                        datetime-picker="{{InwardGeneralCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}" ng-disabled="!InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickSlipDateTime"
                         ng-model="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickStartDateTime" is-open="InwardGeneralCtrl.ePage.Masters.DatePicker.isOpen['isPutOrPickStartDateTime']"
                         datepicker-options="InwardGeneralCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
                         close-on-selection="false" enable-time="true" enable-date="true" default-date="" default-time="" when-closed=""
-                        save-as="InwardGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click=""
-                        data-ng-change="InwardGeneralCtrl.ePage.Masters.PutawayStartedDate(InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickStartDateTime)" custom-date-time-format/>
+                        save-as="InwardGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click="" data-ng-change="InwardGeneralCtrl.ePage.Masters.PutawayStartedDate(InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickStartDateTime)"
+                        custom-date-time-format/>
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default" data-ng-click="InwardGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPutOrPickStartDateTime')">
                             <i class="fa fa-calendar"></i>
@@ -341,25 +311,26 @@
                 </div>
             </div>
         </div>
-
         <!--Putaway Completed Date-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
                 <div class="error-warning-container">
                     <error-warning-directive data-ng-if="InwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PutOrPickCompDateTime.IsWarning && !InwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PutOrPickCompDateTime.IsError"
                         list="InwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PutOrPickCompDateTime.WARNING" type="'warning'"
                         icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                    <error-warning-directive data-ng-if="InwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PutOrPickCompDateTime.IsError" list="InwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PutOrPickCompDateTime.ERROR"
-                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="InwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PutOrPickCompDateTime.IsError"
+                        list="InwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PutOrPickCompDateTime.ERROR" type="'error'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                 </div>
                 <label class="control-label text-single-line">Putaway Completed Date</label>
                 <div class="input-group input-group-sm">
-                    <input type="text" class="form-control" placeholder="{{InwardGeneralCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}" datetime-picker="{{InwardGeneralCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                    <input type="text" class="form-control" placeholder="{{InwardGeneralCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                        datetime-picker="{{InwardGeneralCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}" ng-disabled="!InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickStartDateTime"
                         ng-model="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickCompDateTime" is-open="InwardGeneralCtrl.ePage.Masters.DatePicker.isOpen['isPutOrPickCompDateTime']"
                         datepicker-options="InwardGeneralCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
                         close-on-selection="false" enable-time="true" enable-date="true" default-date="" default-time="" when-closed=""
-                        save-as="InwardGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click=""
-                        data-ng-change="InwardGeneralCtrl.ePage.Masters.PutawayCompletedDate(InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickCompDateTime)" custom-date-time-format/>
+                        save-as="InwardGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click="" data-ng-change="InwardGeneralCtrl.ePage.Masters.PutawayCompletedDate(InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickCompDateTime)"
+                        custom-date-time-format/>
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default" data-ng-click="InwardGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPutOrPickCompDateTime')">
                             <i class="fa fa-calendar"></i>
@@ -368,42 +339,39 @@
                 </div>
             </div>
         </div>
-
         <!--Total Packages-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line">Total Packages</label>
                 <div class="">
                     <input type="text" numbers-only class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Total Packages"
-                        data-ng-model="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PackagesSent" ng-blur="InwardGeneralCtrl.ePage.Entities.Header.CheckPoints.PercentageValues = true">
+                        data-ng-model="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PackagesSent" ng-blur="InwardGeneralCtrl.ePage.Entities.Header.GlobalVariables.PercentageValues = true">
                 </div>
             </div>
         </div>
-
-    </div>
-    
-    <div class="clearfix">
         <!--Total Units-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line">Total Units</label>
                 <div class="">
                     <input type="text" numbers-only class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Total Units"
-                        data-ng-model="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalUnits" ng-blur="InwardGeneralCtrl.ePage.Entities.Header.CheckPoints.PercentageValues = true">
+                        data-ng-model="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalUnits" ng-blur="InwardGeneralCtrl.ePage.Entities.Header.GlobalVariables.PercentageValues = true">
                 </div>
             </div>
         </div>
-
+    </div>
+    <div class="clearfix">
         <!--Total Pallets-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line">Total Pallets</label>
                 <div class="">
                     <input type="text" numbers-only class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Total Pallets"
-                        data-ng-model="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalPallets" ng-blur="InwardGeneralCtrl.ePage.Entities.Header.CheckPoints.PercentageValues = true">
+                        data-ng-model="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalPallets" ng-blur="InwardGeneralCtrl.ePage.Entities.Header.GlobalVariables.PercentageValues = true">
                 </div>
             </div>
         </div>
+        
     </div>
 
 </div>
@@ -412,7 +380,7 @@
     <!-- Milestone -->
     <div class="clearfix padding-top-10 padding-bottom-10 ng-scope" style="background:#fbfbfb;border-top:1px solid gray;border-bottom:1px solid gray">
 
-        <div class="col-lg-12 col-sm-12 col-xs-12">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
 
             <div id="WiredWizard" class="wizard wizard-wired" data-target="#WiredWizardsteps">
 
@@ -423,12 +391,13 @@
                             <div ng-show="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.CreatedDateTime" style="cursor:default; font-size:11px"
                                 class="ng-binding ng-hide">
                                 <span>
-                                    <b>Order Created</b>
+                                    <b>Entered</b>
                                 </span>
-                                <br> {{InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.CreatedDateTime |  date:'MMM d, y h:mm:ss a'}}
+                                <br> {{InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.CreatedDateTime | date:'MMM
+                                d, y h:mm:ss a'}}
                             </div>
                             <div ng-show="!InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.CreatedDateTime" class="">
-                                <span style="font-size: 12px;">Order Created</span>
+                                <span style="font-size: 12px;">Entered</span>
                             </div>
                         </span>
                         <span class="chevron"></span>
@@ -443,7 +412,8 @@
                                     <b>Goods Arrived</b>
                                 </span>
                                 <br>
-                                <span>{{InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate | date:'MMM d, y h:mm:ss a'}}</span>
+                                <span>{{InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate | date:'MMM
+                                    d, y h:mm:ss a'}}</span>
                             </div>
                             <div ng-show="!InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate" class="">
                                 <span style="font-size: 12px;">Goods Arrived</span>
@@ -461,7 +431,8 @@
                                     <b>Location Allocated</b>
                                 </span>
                                 <br>
-                                <span>{{InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickSlipDateTime | date:'MMM d, y h:mm:ss a'}}</span>
+                                <span>{{InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickSlipDateTime |
+                                    date:'MMM d, y h:mm:ss a'}}</span>
                             </div>
                             <div ng-show="!InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickSlipDateTime" class="">
                                 <span style="font-size: 12px;">Location Allocated</span>
@@ -479,7 +450,8 @@
                                     <b>Putaway Started</b>
                                 </span>
                                 <br>
-                                <span>{{InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickStartDateTime | date:'MMM d, y h:mm:ss a'}}</span>
+                                <span>{{InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickStartDateTime |
+                                    date:'MMM d, y h:mm:ss a'}}</span>
                             </div>
                             <div ng-show="!InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickStartDateTime" class="">
                                 <span style="font-size: 12px;">Putaway Started</span>
@@ -497,7 +469,8 @@
                                     <b>Putaway Completed</b>
                                 </span>
                                 <br>
-                                <span>{{InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickCompDateTime | date:'MMM d, y h:mm:ss a'}}</span>
+                                <span>{{InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickCompDateTime |
+                                    date:'MMM d, y h:mm:ss a'}}</span>
                             </div>
                             <div ng-show="!InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickCompDateTime" class="">
                                 <span style="font-size: 12px;">Putaway Completed</span>
@@ -513,13 +486,14 @@
                             <div ng-show="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.FinalisedDate" style="cursor:default; font-size:11px"
                                 class="ng-binding ng-hide">
                                 <span>
-                                    <b>Finalised</b>
+                                    <b>Finalized</b>
                                 </span>
                                 <br>
-                                <span>{{InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.FinalisedDate | date:'MMM d, y h:mm:ss a'}}</span>
+                                <span>{{InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.FinalisedDate | date:'MMM
+                                    d, y h:mm:ss a'}}</span>
                             </div>
                             <div ng-show="!InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.FinalisedDate" class="">
-                                <span style="font-size: 12px;">Finalised</span>
+                                <span style="font-size: 12px;">Finalized</span>
                             </div>
                         </span>
                         <span class="chevron"></span>

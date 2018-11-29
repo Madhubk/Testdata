@@ -23,6 +23,7 @@
             AreasCtrl.ePage.Masters.dataentryName = "WarehouseArea";
 
             AreasCtrl.ePage.Masters.TabList = [];
+            areasConfig.TabList = [];
             AreasCtrl.ePage.Masters.activeTabIndex = 0;
             AreasCtrl.ePage.Masters.IsDisableSave = false;
             AreasCtrl.ePage.Masters.IsNewAreasClicked = false;

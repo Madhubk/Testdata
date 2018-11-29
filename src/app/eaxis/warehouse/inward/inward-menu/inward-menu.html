@@ -1,3 +1,5 @@
+<div class="grid-loading-norecord-container ng-scope" style='z-index: 15;'data-ng-if="InwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading"></div>
+
 <div class="clearfix wms-menu-wraper">
     <div id="wmsMenuWrapper{{InwardMenuCtrl.currentInward.label}}" class="col-sm-12 no-padding-left no-padding-right">
         <uib-tabset class="wms-menu tabs-left tabbable" active="InwardMenuCtrl.ePage.Masters.active">
@@ -16,10 +18,11 @@
                         list="InwardMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList" type="'error'"
                         icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>  
                 </uib-tab-heading>
-                <div class="finalisedstate" ng-show="!InwardMenuCtrl.ePage.Entities.Header.CheckPoints.NotFinaliseStage">
-                    <span ng-if="!InwardMenuCtrl.ePage.Entities.Header.CheckPoints.NotFinaliseStage" ng-init="InwardMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave = 'true'"></span>
-                    <span class="finaliseddatedescription">Inward Finalized and it cannot be edited</span>
+
+                <div class="finalisedstate" ng-show="InwardMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                    <span class="finaliseddatedescription">Inward {{InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatusDesc}} and it cannot be edited</span>
                 </div>
+
                 <div>
                     <div ng-switch="x.Value">
 
@@ -74,21 +77,45 @@
     </div>
 
      <!-- To move to Receive line tab -->
-     <span ng-if="InwardMenuCtrl.ePage.Entities.Header.CheckPoints.Receiveline" ng-init="InwardMenuCtrl.ePage.Masters.active = 3"></span>
+     <span ng-if="InwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Receiveline" ng-init="InwardMenuCtrl.ePage.Masters.active = 3"></span>
      <!--Footer-->
 
+
     <div class="eaxis-footer-strip">
-        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-            <standard-menu entity-name="'WarehouseInward'" input="InwardMenuCtrl.currentInward"></standard-menu>
+        <div class="col-xs-6 col-sm-8 col-md-8 col-lg-9 col-xl-9">
+            <standard-menu dataentry-object="InwardMenuCtrl.dataentryObject" input="InwardMenuCtrl.currentInward"></standard-menu>
         </div>
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
-            <button class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6" data-ng-click="InwardMenuCtrl.ePage.Masters.Validation(InwardMenuCtrl.currentInward)" data-ng-bind="InwardMenuCtrl.ePage.Masters.SaveButtonText"
-                data-ng-disabled="InwardMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave"></button>
-            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="InwardMenuCtrl.ePage.Masters.Validation(InwardMenuCtrl.currentInward);InwardMenuCtrl.ePage.Masters.SaveAndClose = true"
-                data-ng-disabled="InwardMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave">Save & Close</button>
-            <button ng-show="InwardMenuCtrl.ePage.Entities.Header.CheckPoints.NotFinaliseStage" class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6" data-ng-click="InwardMenuCtrl.ePage.Masters.FinaliseSave(InwardMenuCtrl.currentInward)" data-ng-bind="InwardMenuCtrl.ePage.Masters.FinaliseSaveText"
-                data-ng-disabled="InwardMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave"></button>
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 col-xl-3">
+            <span class="dropup pull-right">
+                <button class="btn btn-primary btn-sm margin-right-10 mt-6 dropdown-toggle" type="button" data-toggle="dropdown" ng-disabled="InwardMenuCtrl.ePage.Masters.DisableSave">More<span class="ml-5 caret"></span></button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li><a href="javascript:void(0);" data-ng-click="InwardMenuCtrl.ePage.Masters.Validation(InwardMenuCtrl.currentInward);InwardMenuCtrl.ePage.Masters.SaveAndClose = true" >Save & Close</a></li>
+                    <li><a href="javascript:void(0);" data-ng-click="InwardMenuCtrl.ePage.Masters.FinaliseSave(InwardMenuCtrl.currentInward)" >Finalize</a></li>
+                    <li><a href="javascript:void(0);" data-ng-click="InwardMenuCtrl.ePage.Masters.CancelInward(InwardMenuCtrl.currentInward)">Cancel Inward</a></li>
+                </ul>
+            </span>
+            <span class="">
+                <button class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6" data-ng-click="InwardMenuCtrl.ePage.Masters.Validation(InwardMenuCtrl.currentInward)" ng-disabled="InwardMenuCtrl.ePage.Masters.DisableSave" data-ng-bind="InwardMenuCtrl.ePage.Masters.SaveButtonText">Save</button> 
+            </span> 
         </div>
     </div>
 
 </div>
+
+
+<!-- Cancelling Inward Popup -->
+<script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Inward Cancellation..</h3>
+    </div>
+    <div class="modal-body"  style="height:200px">
+        <div class="form-group">
+            <label for="comment">Leave Your Comment</label>
+            <textarea class="form-control" rows="2"  ng-model="comment"></textarea>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="!comment">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="close()">Close</button>
+    </div>
+</script>

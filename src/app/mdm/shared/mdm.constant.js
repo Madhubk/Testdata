@@ -3,30 +3,16 @@
 
     var MDM_CONSTANT = {
         ocLazyLoadModules: [
-            // -------------MDM-------------
             // region
             {
-                name: 'MD',
+                name: 'MDM',
                 files: [
                     'app/mdm/shared/mdm.css',
                     'app/mdm/shared/mdm.controller.js'
                 ]
-            }, {
-                name: 'MDHome',
-                files: [
-                    'app/mdm/home/home.css',
-                    'app/mdm/home/home.controller.js'
-                ]
-            }, {
-                name: 'MDDashboard',
-                files: [
-                    'app/mdm/dashboard/dashboard.css',
-                    'app/mdm/dashboard/dashboard.controller.js'
-                ]
             },
             // endregion
-            // -------------Organization-------------
-            // region
+            // region Organization
             {
                 name: 'organization',
                 files: [
@@ -59,12 +45,6 @@
                 files: [
                     'app/mdm/organization/address/organization-address.css',
                     'app/mdm/organization/address/organization-address.controller.js',
-                    'app/mdm/organization/address/organization-address.directive.js'
-                ]
-            }, {
-                name: 'organizationAddressModal',
-                files: [
-                    'app/mdm/organization/address/organization-address-modal/address-modal.css',
                     'app/mdm/organization/address/organization-address-modal/address-modal.controller.js'
                 ]
             }, {
@@ -72,12 +52,6 @@
                 files: [
                     'app/mdm/organization/contact/organization-contact.css',
                     'app/mdm/organization/contact/organization-contact.controller.js',
-                    'app/mdm/organization/contact/organization-contact.directive.js'
-                ]
-            }, {
-                name: 'organizationContactModal',
-                files: [
-                    'app/mdm/organization/contact/organization-contact-modal/contact-modal.css',
                     'app/mdm/organization/contact/organization-contact-modal/contact-modal.controller.js'
                 ]
             }, {
@@ -203,10 +177,58 @@
                     'app/mdm/organization/reference/org-reference-modal/org-reference-modal.css',
                     'app/mdm/organization/reference/org-reference-modal/org-reference-modal.controller.js'
                 ]
+            }, {
+                name: 'organizationAccessRights',
+                files: [
+                    'app/mdm/organization/access-rights/organization-access-rights.css',
+                    'app/mdm/organization/access-rights/organization-access-rights.directive.js',
+                    'app/mdm/organization/access-rights/organization-access-rights.controller.js'
+                ]
+            }, {
+                name: 'organizationEventGroup',
+                files: [
+                    'app/mdm/organization/access-rights/event-group/organization-event-group.css',
+                    'app/mdm/organization/access-rights/event-group/organization-event-group.directive.js',
+                    'app/mdm/organization/access-rights/event-group/organization-event-group.controller.js'
+                ]
+            }, {
+                name: 'organizationTaskGroup',
+                files: [
+                    'app/mdm/organization/access-rights/task-group/organization-task-group.css',
+                    'app/mdm/organization/access-rights/task-group/organization-task-group.directive.js',
+                    'app/mdm/organization/access-rights/task-group/organization-task-group.controller.js'
+                ]
+            }, {
+                name: 'organizationCommentGroup',
+                files: [
+                    'app/mdm/organization/access-rights/comment-group/organization-comment-group.css',
+                    'app/mdm/organization/access-rights/comment-group/organization-comment-group.directive.js',
+                    'app/mdm/organization/access-rights/comment-group/organization-comment-group.controller.js'
+                ]
+            }, {
+                name: 'organizationDocumentGroup',
+                files: [
+                    'app/mdm/organization/access-rights/document-group/organization-document-group.css',
+                    'app/mdm/organization/access-rights/document-group/organization-document-group.directive.js',
+                    'app/mdm/organization/access-rights/document-group/organization-document-group.controller.js'
+                ]
+            }, {
+                name: 'organizationExceptionGroup',
+                files: [
+                    'app/mdm/organization/access-rights/exception-group/organization-exception-group.css',
+                    'app/mdm/organization/access-rights/exception-group/organization-exception-group.directive.js',
+                    'app/mdm/organization/access-rights/exception-group/organization-exception-group.controller.js'
+                ]
+            }, {
+                name: 'organizationEmailGroup',
+                files: [
+                    'app/mdm/organization/access-rights/email-group/organization-email-group.css',
+                    'app/mdm/organization/access-rights/email-group/organization-email-group.directive.js',
+                    'app/mdm/organization/access-rights/email-group/organization-email-group.controller.js'
+                ]
             },
             // endregion
-            // -------------Employee-------------
-            // region
+            // region Employee
             {
                 name: 'MDEmployee',
                 files: [
@@ -236,8 +258,7 @@
                 ]
             },
             // endregion
-            // -------------Branch-------------
-            // region
+            // region Branch
             {
                 name: 'MDBranch',
                 files: [
@@ -267,8 +288,7 @@
                 ]
             },
             // endregion
-            // -------------Department-------------
-            // region
+            // region Department
             {
                 name: 'MDDepartment',
                 files: [
@@ -298,8 +318,7 @@
                 ]
             },
             // endregion
-            // -------------Company-------------
-            // region
+            // region Company
             {
                 name: 'MDCompany',
                 files: [
@@ -329,14 +348,20 @@
                 ]
             },
             // endregion
-            //-------------------Products-----------------
-            // region
+            // region Products
             {
                 name: 'products',
                 files: [
                     'app/mdm/products/products.css',
                     'app/mdm/products/products.controller.js',
-                    'app/mdm/products/products-config.factory.js'
+                    'app/mdm/products/products-config.factory.js',
+                    'app/mdm/warehouse/customize-table/customize-table.css',
+                    'app/mdm/warehouse/customize-table/customize-table.directive.js'
+                ]
+            }, {
+                name: 'productBulkUpload',
+                files: [
+                    'app/mdm/products/product-bulk-upload/product-bulk-upload.controller.js',
                 ]
             }, {
                 name: 'productMenu',
@@ -424,44 +449,44 @@
                 ]
             },
             // endregion
-            // --------------------- warehouse --------------------------
-            // region
+            // region warehouse
             {
-                name: 'warehouse',
+                name: 'MasterWarehouse',
                 files: [
                     'app/mdm/warehouse/warehouse.css',
-                    'app/mdm/warehouse/warehouse.controller.js'
+                    'app/mdm/warehouse/warehouse.controller.js',
+                    'app/mdm/warehouse/customize-table/customize-table.css',
+                    'app/mdm/warehouse/customize-table/customize-table.directive.js'
+
                 ]
             }, {
-                name: 'warehouses',
+                name: 'MasterWarehouses',
                 files: [
                     'app/mdm/warehouse/warehouses/warehouses.css',
                     'app/mdm/warehouse/warehouses/warehouses.controller.js',
                     'app/mdm/warehouse/warehouses/warehouses-config.factory.js'
                 ]
             }, {
-                name: 'warehousesMenu',
+                name: 'MasterWarehousesMenu',
                 files: [
                     'app/mdm/warehouse/warehouses/warehouse-menu/warehouse-menu.controller.js',
                     'app/mdm/warehouse/warehouses/warehouse-menu/warehouse-menu.directive.js'
                 ]
             }, {
-                name: 'warehousesDetails',
+                name: 'MasterWarehousesDetails',
                 files: [
                     'app/mdm/warehouse/warehouses/warehouse-details/warehouse-details.controller.js',
                     'app/mdm/warehouse/warehouses/warehouse-details/warehouse-details.directive.js',
                     'app/mdm/warehouse/warehouses/warehouse-details/warehouse-details.css'
                 ]
             }, {
-                name: 'warehouseAddress',
+                name: 'MasterWarehouseAddress',
                 files: [
                     'app/mdm/warehouse/warehouses/warehouse-details/organizationaddress/address.controller.js',
                     'app/mdm/warehouse/warehouses/warehouse-details/organizationaddress/address.css'
                 ]
             },
-            // endregion
-            // --------------------- area -------------------------
-            // region
+            // area
             {
                 name: 'areas',
                 files: [
@@ -484,9 +509,7 @@
                     'app/mdm/warehouse/areas/areas-menu/areas-menu.directive.js'
                 ]
             },
-            // endregion
-            // ----------------- location ------------------
-            // region
+            // location
             {
                 name: 'location',
                 files: [
@@ -500,12 +523,6 @@
                     'app/mdm/warehouse/locations/location-config.factory.js',
                     'app/mdm/warehouse/locations/location-dashboard/location-dashboard.css',
                     'app/mdm/warehouse/locations/location-dashboard/location-dashboard.controller.js'
-                ]
-            }, {
-                name: 'locationDashboardV2',
-                files: [
-                    'app/mdm/warehouse/locations/location-dashboard-V2/location-dashboardV2.css',
-                    'app/mdm/warehouse/locations/location-dashboard-V2/location-dashboardV2.controller.js'
                 ]
             }, {
                 name: 'LocationDashboardModal',
@@ -530,16 +547,37 @@
                 ]
             },
             // endregion
-            // --------- TMS START --------------
+            // region Vehicle Master
             {
-                name: 'Transports',
+                name: 'Vehicle',
+                files: [
+                    'app/mdm/vehicle/vehicle.css',
+                    'app/mdm/vehicle/vehicle.controller.js',
+                    'app/mdm/vehicle/vehicle-config.factory.js'
+                ]
+            }, {
+                name: 'VehicleMenu',
+                files: [
+                    'app/mdm/vehicle/vehicle-menu/vehicle-menu.controller.js',
+                    'app/mdm/vehicle/vehicle-menu/vehicle-menu.directive.js'
+                ]
+            }, {
+                name: 'VehicleGeneral',
+                files: [
+                    'app/mdm/vehicle/vehicle-general/vehicle-general.controller.js',
+                    'app/mdm/vehicle/vehicle-general/vehicle-general.directive.js'
+                ]
+            },
+            // endregion
+            // region TMS
+            {
+                name: 'MDMTransports',
                 files: [
                     'app/mdm/transports/transports.css',
                     'app/mdm/transports/transports.controller.js',
                 ]
             },
-            // --------------- MHU ------------
-            // region
+            // MHU
             {
                 name: 'mhu',
                 files: [
@@ -569,9 +607,7 @@
                     'app/mdm/transports/mhu/mhu-general/related-organization/related-organization.directive.js'
                 ]
             },
-            // endregion
-            // --------------- Journey ------------
-            // region
+            // Journey
             {
                 name: 'journey',
                 files: [
@@ -579,10 +615,16 @@
                     'app/mdm/transports/journey/journey.controller.js',
                     'app/mdm/transports/journey/journey-config.factory.js'
                 ]
+            }, {
+                name: 'journeyGeneral',
+                files: [
+                    'app/mdm/transports/journey/journey-general/journey-general.css',
+                    'app/mdm/transports/journey/journey-general/journey-general.controller.js',
+                    'app/mdm/transports/journey/journey-general/journey-general.directive.js'
+                ]
             },
-            // endregion
             // --------------- Leg ------------
-            // region
+            // Leg
             {
                 name: 'leg',
                 files: [
@@ -590,10 +632,15 @@
                     'app/mdm/transports/leg/leg.controller.js',
                     'app/mdm/transports/leg/leg-config.factory.js'
                 ]
+            }, {
+                name: 'legGeneral',
+                files: [
+                    'app/mdm/transports/leg/leg-general/leg-general.css',
+                    'app/mdm/transports/leg/leg-general/leg-general.controller.js',
+                    'app/mdm/transports/leg/leg-general/leg-general.directive.js'
+                ]
             },
-            // endregion
-            // --------------- Zone ------------
-            // region
+            // Zone
             {
                 name: 'zone',
                 files: [
@@ -601,10 +648,47 @@
                     'app/mdm/transports/zone/zone.controller.js',
                     'app/mdm/transports/zone/zone-config.factory.js'
                 ]
+            }, {
+                name: 'zoneGeneral',
+                files: [
+                    'app/mdm/transports/zone/zone-general/zone-general.css',
+                    'app/mdm/transports/zone/zone-general/zone-general.controller.js',
+                    'app/mdm/transports/zone/zone-general/zone-general.directive.js'
+                ]
             },
-            // endregion
-            // --------------- Mapping ------------
-            // region
+            // Non working days
+            {
+                name: 'nonWorkingDays',
+                files: [
+                    'app/mdm/transports/non-working-days/non-working-days.css',
+                    'app/mdm/transports/non-working-days/non-working-days.controller.js',
+                    'app/mdm/transports/non-working-days/non-working-days-config.factory.js'
+                ]
+            }, {
+                name: 'nonWorkingDaysGeneral',
+                files: [
+                    'app/mdm/transports/non-working-days/general/general.css',
+                    'app/mdm/transports/non-working-days/general/general.controller.js',
+                    'app/mdm/transports/non-working-days/general/general.directive.js'
+                ]
+            },
+            // Region
+            {
+                name: 'region',
+                files: [
+                    'app/mdm/transports/region/region.css',
+                    'app/mdm/transports/region/region.controller.js',
+                    'app/mdm/transports/region/region-config.factory.js'
+                ]
+            }, {
+                name: 'regionGeneral',
+                files: [
+                    'app/mdm/transports/region/region-general/region-general.css',
+                    'app/mdm/transports/region/region-general/region-general.controller.js',
+                    'app/mdm/transports/region/region-general/region-general.directive.js'
+                ]
+            },
+            // Mapping
             {
                 name: 'mapping',
                 files: [
@@ -654,9 +738,95 @@
                     'app/mdm/transports/mapping/dc-depot-store/dc-depot-store.controller.js',
                     'app/mdm/transports/mapping/dc-depot-store/dc-depot-store.directive.js'
                 ]
-            }
-
+            }, {
+                name: 'mappingServiceType',
+                files: [
+                    'app/mdm/transports/mapping/service-type/service-type.css',
+                    'app/mdm/transports/mapping/service-type/service-type.controller.js',
+                    'app/mdm/transports/mapping/service-type/service-type.directive.js'
+                ]
+            }, {
+                name: 'mappingContainermhu',
+                files: [
+                    'app/mdm/transports/mapping/container-mhu/container-mhu.css',
+                    'app/mdm/transports/mapping/container-mhu/container-mhu.controller.js',
+                    'app/mdm/transports/mapping/container-mhu/container-mhu.directive.js'
+                ]
+            }, {
+                name: 'mappingReceiverCarrier',
+                files: [
+                    'app/mdm/transports/mapping/receiver-carrier/receiver-carrier.css',
+                    'app/mdm/transports/mapping/receiver-carrier/receiver-carrier.controller.js',
+                    'app/mdm/transports/mapping/receiver-carrier/receiver-carrier.directive.js'
+                ]
+            }, {
+                name: 'mappingSenderReceiverCons',
+                files: [
+                    'app/mdm/transports/mapping/sender-receiver-cons/sender-receiver-cons.css',
+                    'app/mdm/transports/mapping/sender-receiver-cons/sender-receiver-cons.controller.js',
+                    'app/mdm/transports/mapping/sender-receiver-cons/sender-receiver-cons.directive.js'
+                ]
+            },
             // endregion
+
+            //mapping
+            {
+                name: 'types',
+                files: [
+                    'app/mdm/transports/types/types.css',
+                    'app/mdm/transports/types/types.controller.js',
+                    'app/mdm/transports/types/types-config.factory.js'
+                ]
+            }, {
+                name: 'typesMenu',
+                files: [
+                    'app/mdm/transports/types/types-menu/types-menu.css',
+                    'app/mdm/transports/types/types-menu/types-menu.controller.js',
+                    'app/mdm/transports/types/types-menu/types-menu.directive.js'
+                ]
+            }, {
+                name: 'typesServiceType',
+                files: [
+                    'app/mdm/transports/types/service-type/service-type.css',
+                    'app/mdm/transports/types/service-type/service-type.controller.js',
+                    'app/mdm/transports/types/service-type/service-type.directive.js'
+                ]
+            }, {
+                name: 'typesTags',
+                files: [
+                    'app/mdm/transports/types/tags/tags.css',
+                    'app/mdm/transports/types/tags/tags.controller.js',
+                    'app/mdm/transports/types/tags/tags.directive.js'
+                ]
+            }, {
+                name: 'typesVehicleType',
+                files: [
+                    'app/mdm/transports/types/vehicle-type/vehicle-type.css',
+                    'app/mdm/transports/types/vehicle-type/vehicle-type.controller.js',
+                    'app/mdm/transports/types/vehicle-type/vehicle-type.directive.js'
+                ]
+            }, {
+                name: 'typesLevelLoadType',
+                files: [
+                    'app/mdm/transports/types/level-load-type/level-load-type.css',
+                    'app/mdm/transports/types/level-load-type/level-load-type.controller.js',
+                    'app/mdm/transports/types/level-load-type/level-load-type.directive.js'
+                ]
+            }, {
+                name: 'typesManifestType',
+                files: [
+                    'app/mdm/transports/types/manifest-type/manifest-type.css',
+                    'app/mdm/transports/types/manifest-type/manifest-type.controller.js',
+                    'app/mdm/transports/types/manifest-type/manifest-type.directive.js'
+                ]
+            }, {
+                name: 'typesConsolEvent',
+                files: [
+                    'app/mdm/transports/types/consol-event/consol-event.css',
+                    'app/mdm/transports/types/consol-event/consol-event.controller.js',
+                    'app/mdm/transports/types/consol-event/consol-event.directive.js'
+                ]
+            }
         ]
     };
 

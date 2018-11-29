@@ -1,0 +1,34 @@
+<form class="clearfix task-assign-start-complete-wrapper" role="form" data-ng-if="OverrideKpiCtrl.ePage.Masters.Task">
+    <div class="form-group pl-10 pr-10 pt-5">
+        <label class="control-label">Due Date</label>
+        <div class="input-group input-group-sm">
+            <input type="text" class="form-control" placeholder="{{OverrideKpiCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                data-ng-model="OverrideKpiCtrl.ePage.Entities.DueDate" datetime-picker="{{OverrideKpiCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                datepicker-options="OverrideKpiCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                close-on-selection="false" enable-time="true" enable-date="true" default-date="" default-time=""
+                save-as="OverrideKpiCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="OverrideKpiCtrl.ePage.Masters.DatePicker.isOpen"
+                when-closed="" data-ng-click="" data-ng-change="OverrideKpiCtrl.ePage.Masters.OnDateChange()"
+                custom-date-time-format />
+            <span class="input-group-btn">
+                <button class="btn btn-default shiny" data-ng-click="OverrideKpiCtrl.ePage.Masters.DatePicker.OpenDatePicker($event)">
+                    <i class="fa fa-calendar"></i>
+                </button>
+            </span>
+        </div>
+    </div>
+    <div class="form-group pl-10 pr-10">
+        <label class="control-label">Delay Reason</label>
+        <select chosen class="form-control" data-ng-model="OverrideKpiCtrl.ePage.Entities.WSL_FK"
+            data-ng-options="x.PK as x.Name for x in OverrideKpiCtrl.ePage.Masters.DelayReason.ListSource" data-ng-change="OverrideKpiCtrl.ePage.Masters.DelayReason.OnChange((OverrideKpiCtrl.ePage.Masters.DelayReason.ListSource | filter : {'PK': OverrideKpiCtrl.ePage.Entities.WSL_FK})[0])">
+            <option value="">--Select--</option>
+        </select>
+    </div>
+    <div class="form-group pl-10 pr-10">
+        <textarea class="form-control no-resize" rows="3" data-ng-model="OverrideKpiCtrl.ePage.Entities.Remarks"
+            placeholder="Comment"></textarea>
+    </div>
+    <div class="clearfix pb-5 pr-10 pl-10 text-right">
+        <button class="btn btn-primary btn-xs pull-right" data-ng-click="OverrideKpiCtrl.ePage.Masters.Submit()"
+            data-ng-bind="OverrideKpiCtrl.ePage.Masters.SubmitBtnText" data-ng-disabled="OverrideKpiCtrl.ePage.Masters.IsDisableSubmitBtn"></button>
+    </div>
+</form>

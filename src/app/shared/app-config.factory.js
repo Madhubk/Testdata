@@ -10,819 +10,6 @@
     function AppConfig() {
         var exports = {
             "Entities": {
-                "Menu": {
-                    "List": [],
-                    "VisibleType": null
-                },
-                "standardMenuConfigList": {
-                    "MenuList": [{
-                        "Name": "comment",
-                        "DisplayName": "Comment",
-                        "Icon": "fa fa-comments"
-                    }, {
-                        "Name": "document",
-                        "DisplayName": "Document",
-                        "Icon": "fa fa-file"
-                    }, {
-                        "Name": "email-template",
-                        "DisplayName": "Email",
-                        "Icon": "fa fa-envelope"
-                    }, {
-                        "Name": "email-template-creation",
-                        "DisplayName": "Email Template",
-                        "Icon": "fa fa-envelope"
-                    }, {
-                        "Name": "exception",
-                        "DisplayName": "Exception",
-                        "Icon": "fa fa-warning"
-                    }, {
-                        "Name": "email",
-                        "DisplayName": "Email",
-                        "Icon": "fa fa-envelope"
-                    }, {
-                        "Name": "event",
-                        "DisplayName": "Event",
-                        "Icon": "fa fa-calendar"
-                    }, {
-                        "Name": "audit-log",
-                        "DisplayName": "Audit Log",
-                        "Icon": "fa fa-user"
-                    }, {
-                        "Name": "integration",
-                        "DisplayName": "Integration",
-                        "Icon": "fa fa-user"
-                    }, {
-                        "Name": "task",
-                        "DisplayName": "Task",
-                        "Icon": "fa fa-user"
-                    }, {
-                        "Name": "event-data",
-                        "DisplayName": "Data Event",
-                        "Icon": "fa fa-calendar"
-                    }],
-                    "ShipmentSearch": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "email-template-creation": false,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "task": false,
-                            "event-data": false,
-                            "integration": false,
-                        },
-                        "keyObject": "UIShipmentHeader",
-                        "keyObjectNo": "ShipmentNo",
-                        "configName": "shipmentConfig",
-                        "entity": "Shipment",
-                        "entitySource": "SHP"
-                    },
-                    "Booking": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "task": true,
-                            "event-data": true,
-                            "integration": false,
-                        },
-                        "keyObject": "UIShipmentHeader",
-                        "keyObjectNo": "ShipmentNo",
-                        "configName": "BookingConfig",
-                        "entity": "Booking",
-                        "entitySource": "SHP"
-                    },
-                    "ConsolHeader": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "task": true,
-                            "event-data": true,
-                            "integration": false,
-                        },
-                        "keyObject": "UIConConsolHeader",
-                        "keyObjectNo": "ConsolNo",
-                        "configName": "consolidationConfig",
-                        "entity": "Consol",
-                        "entitySource": "CON"
-                    },
-                    "OrderHeader": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "event-data": false,
-                            "task": true,
-                            "integration": false,
-                        },
-                        "keyObject": "UIPorOrderHeader",
-                        "keyObjectNo": "OrderNo",
-                        "configName": "orderConfig",
-                        "entity": "Order",
-                        "entitySource": "POH"
-                    },
-                    "TrackOrder": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "event-data": false,
-                            "task": true,
-                            "integration": false,
-                        },
-                        "keyObject": "UIPorOrderHeader",
-                        "keyObjectNo": "OrderNo",
-                        "configName": "orderConfig",
-                        "entity": "Order",
-                        "entitySource": "POH"
-                    },
-                    "TrackShipment": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "email-template-creation": true,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "task": true,
-                            "event-data": true,
-                            "integration": false,
-                        },
-                        "keyObject": "UIShipmentHeader",
-                        "keyObjectNo": "ShipmentNo",
-                        "configName": "shipmentConfig",
-                        "entity": "Shipment",
-                        "entitySource": "SHP"
-                    },
-                    "supplierfollowup": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "event-data": false,
-                            "task": false,
-                            "integration": false,
-                        },
-                        "keyObject": "UIOrderFollowUp",
-                        "keyObjectNo": "FollowUpId",
-                        "configName": "sufflierFollowupConfig",
-                        "entity": "supplierfollowup",
-                        "entitySource": "POH"
-                    },
-                    "preadvice": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "event-data": false,
-                            "task": false,
-                            "integration": false,
-                        },
-                        "keyObject": "UIPorPreAdviceShipment",
-                        "keyObjectNo": "PreAdviceId",
-                        "configName": "preAdviceConfig",
-                        "entity": "shipmentPreAdvice",
-                        "entitySource": "POH"
-                    },
-                    "orderlines": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "event-data": false,
-                            "task": false,
-                            "integration": false,
-                        },
-                        "keyObject": "UIPorOrderLines",
-                        "keyObjectNo": "LineNo",
-                        "configName": "orderLinesConfig",
-                        "entity": "orderlines",
-                        "entitySource": "POH"
-                    },
-                    "PorOrderLine": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "event-data": false,
-                            "task": false,
-                            "integration": false,
-                        },
-                        "keyObject": "UIPorOrderLines",
-                        "keyObjectNo": "LineNo",
-                        "configName": "orderLinesConfig",
-                        "entity": "orderlines",
-                        "entitySource": "POH"
-                    },
-                    "POBatchUpload": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "event-data": false,
-                            "task": false,
-                            "integration": false,
-                        },
-                        "keyObject": "UIPorOrderLines",
-                        "keyObjectNo": "BatchUploadNo",
-                        "configName": "poBatchUploadConfig",
-                        "entity": "PorBatchUpload",
-                        "entitySource": "BAT"
-                    },
-                    "OrderReport": {
-                        "StandardMenuConfig": {
-                            "comment": false,
-                            "document": false,
-                            "email": false,
-                            "email-template": false,
-                            "event": false,
-                            "exception": false,
-                            "audit-log": false,
-                            "event-data": false,
-                            "task": false,
-                            "integration": false,
-                        },
-                        "keyObject": "UIPorOrderHeader",
-                        "keyObjectNo": "OrderNo",
-                        "configName": "orderConfig",
-                        "entity": "Order",
-                        "entitySource": "POH"
-                    },
-                    "WarehouseArea": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "email-template-creation": false,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "task": false,
-                            "event-data": false,
-                            "integration": false,
-                        },
-                        "keyObject": "UIWmsInwardHeader",
-                        "keyObjectNo": "Name",
-                        "configName": "areasConfig",
-                        "entity": "WarehouseArea",
-                        "entitySource": "WAK"
-                    },
-                    "WarehouseRow": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "email-template-creation": false,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "task": false,
-                            "event-data": false,
-                            "integration": false,
-                        },
-                        "keyObject": "WmsLocation",
-                        "keyObjectNo": "Name",
-                        "configName": "locationConfig",
-                        "entity": "WarehouseLocation",
-                        "entitySource": "WLO"
-                    },
-                    "Warehouse": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "email-template-creation": false,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "task": false,
-                            "event-data": false,
-                            "integration": false,
-                        },
-                        "keyObject": "WmsWarehouse",
-                        "keyObjectNo": "WarehouseCode",
-                        "configName": "warehousesConfig",
-                        "entity": "Warehouse",
-                        "entitySource": "WAR"
-                    },
-                    "OrgSupplierPart": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "email-template-creation": false,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "task": false,
-                            "event-data": false,
-                            "integration": false,
-                        },
-                        "keyObject": "UIProductGeneral",
-                        "keyObjectNo": "PartNum",
-                        "configName": "productConfig",
-                        "entity": "OrgSupplierPart",
-                        "entitySource": "OSP"
-                    },
-                    "WarehouseInward": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "email-template-creation": false,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "task": false,
-                            "event-data": false,
-                            "integration": false,
-                        },
-                        "keyObject": "UIWmsInwardHeader",
-                        "keyObjectNo": "WorkOrderID",
-                        "configName": "inwardConfig",
-                        "entity": "WarehouseInward",
-                        "EntitySource": "WMS"
-                    },
-                    "WarehousePick": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "email-template-creation": false,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "task": false,
-                            "event-data": false,
-                            "integration": false,
-                        },
-                        "keyObject": "UIWmsPickHeader",
-                        "keyObjectNo": "PickNo",
-                        "configName": "pickConfig",
-                        "entity": "WarehousePick",
-                        "entitySource": "WPK"
-                    },
-                    "TransportPickupandDelivery": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "email-template-creation": false,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "task": false,
-                            "event-data": false,
-                            "integration": false,
-                        },
-                        "keyObject": "UIWmsPickupAndDeliveryPointsHeader",
-                        "keyObjectNo": "ReferenceNo",
-                        "configName": "pickupanddeliveryConfig",
-                        "entity": "TransportPickupandDelivery",
-                        "entitySource": "TPD"
-                    },
-                    "TransportsManifest": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "email-template-creation": false,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "task": false,
-                            "event-data": false,
-                            "integration": false,
-                        },
-                        "keyObject": "TmsManifestHeader",
-                        "keyObjectNo": "ManifestNumber",
-                        "configName": "manifestConfig",
-                        "entity": "TransportsManifest",
-                        "entitySource": "TMM"
-                    },
-                    "Journey": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "task": true,
-                            "event-data": true,
-                            "integration": false,
-                        },
-                        "keyObject": "TmsJourneyHeader",
-                        "keyObjectNo": "Title",
-                        "configName": "journeyConfig",
-                        "entity": "Journey",
-                        "entitySource": "TMJ"
-                    },
-                    "Leg": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "task": true,
-                            "event-data": true,
-                            "integration": false,
-                        },
-                        "keyObject": "TmsLegHeader",
-                        "keyObjectNo": "Title",
-                        "configName": "legConfig",
-                        "entity": "Leg",
-                        "entitySource": "TML"
-                    },
-                    "Zone": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "task": true,
-                            "event-data": true,
-                            "integration": false,
-                        },
-                        "keyObject": "TmsZoneHeader",
-                        "keyObjectNo": "Name",
-                        "configName": "zoneConfig",
-                        "entity": "Zone",
-                        "entitySource": "TMZ"
-                    },
-                    "CfxMapping": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "task": true,
-                            "event-data": true,
-                            "integration": false,
-                        },
-                        "keyObject": "TmsCfxMappingHeader",
-                        "keyObjectNo": "MappingCode",
-                        "configName": "senderCarrierConfig",
-                        "entity": "CfxMapping",
-                        "entitySource": "CFM"
-                    },
-                    "TransportsConsignment": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "task": true,
-                            "event-data": true,
-                            "integration": false,
-                        },
-                        "keyObject": "TmsConsignmentHeader",
-                        "keyObjectNo": "ConsignmentNumber",
-                        "configName": "consignmentConfig",
-                        "entity": "TransportsConsignment",
-                        "entitySource": "TMC"
-                    },
-                    "TransportItem": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "task": true,
-                            "event-data": true,
-                            "integration": false,
-                        },
-                        "keyObject": "TmsItemHeader",
-                        "keyObjectNo": "ItemCode",
-                        "configName": "itemConfig",
-                        "entity": "TransportItem",
-                        "entitySource": "TIT"
-                    },
-                    "ProductRelatedParty": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "email-template-creation": false,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "task": false,
-                            "event-data": false,
-                            "integration": false,
-                        },
-                        "keyObject": "UIProductGeneral",
-                        "keyObjectNo": "ProductCode",
-                        "configName": "mhuConfig",
-                        "entity": "ProductRelatedParty",
-                        "entitySource": "OPR"
-                    },
-                    "WarehouseRelease": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "email-template-creation": false,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "task": false,
-                            "event-data": false,
-                            "integration": false,
-                        },
-                        "keyObject": "UIWmsPickHeader",
-                        "keyObjectNo": "PickNo",
-                        "configName": "releaseConfig",
-                        "entity": "WarehouseRelease",
-                        "entitySource": "WPK"
-                    },
-                    "report": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "email-template-creation": false,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "task": false,
-                            "event-data": false,
-                            "integration": false,
-                        },
-                        "keyObject": "UIWmsPickHeader",
-                        "keyObjectNo": "PickNo",
-                        "configName": "reportConfig",
-                        "entity": "WarehouseReports",
-                        "entitySource": "WPK"
-                    },
-                    "WarehouseOutward": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "email-template-creation": false,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "task": false,
-                            "event-data": false,
-                            "integration": false,
-                        },
-                        "keyObject": "UIWmsOutwardHeader",
-                        "keyObjectNo": "WorkOrderID",
-                        "configName": "outwardConfig",
-                        "entity": "WarehouseOutward",
-                        "entitySource": "WMS"
-                    },
-                    "WarehouseTransport": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "email-template-creation": false,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "task": false,
-                            "event-data": false,
-                            "integration": false,
-                        },
-                        "keyObject": "WmsTransport",
-                        "keyObjectNo": "TransportRefNo",
-                        "configName": "transportConfig",
-                        "entity": "WarehouseTransport",
-                        "entitySource": "TPT"
-                    },
-                    "WarehouseInventory": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "email-template-creation": false,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "task": false,
-                            "event-data": false,
-                            "integration": false,
-                        },
-                        "keyObject": "UIWmsInventory",
-                        "keyObjectNo": "WorkInventoryID",
-                        "configName": "inventoryConfig",
-                        "entity": "WarehouseInventory",
-                        "entitySource": "REC"
-                    },
-                    "InventorySummary": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "email-template-creation": false,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "task": false,
-                            "event-data": false,
-                            "integration": false,
-                        },
-                        "keyObject": "UIWmsInventory",
-                        "keyObjectNo": "WorkInventoryID",
-                        "configName": "inventoryConfig",
-                        "entity": "InventorySummary",
-                        "entitySource": "REC"
-                    },
-                    "WarehouseAdjustments": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "email-template-creation": false,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "task": false,
-                            "event-data": false,
-                            "integration": false,
-                        },
-                        "keyObject": "UIAdjustmentHeader",
-                        "keyObjectNo": "WorkOrderID",
-                        "configName": "adjustmentConfig",
-                        "entity": "WarehouseAdjustments",
-                        "entitySource": "WOD"
-                    },
-                    "WarehouseCycleCount": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "email-template-creation": false,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "task": false,
-                            "event-data": false,
-                            "integration": false,
-                        },
-                        "keyObject": "UIWmsCycleCounttHeader",
-                        "keyObjectNo": "StocktakeNumber",
-                        "configName": "cycleCountConfig",
-                        "entity": "WarehouseCycleCount",
-                        "entitySource": "WCC"
-                    },
-                    "WarehouseStockTransfer": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "email-template-creation": false,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "task": false,
-                            "event-data": false,
-                            "integration": false,
-                        },
-                        "keyObject": "UIWmsStockTransferHeader",
-                        "keyObjectNo": "WorkOrderID",
-                        "configName": "stocktransferConfig",
-                        "entity": "WarehouseStockTransfer",
-                        "entitySource": "WOD"
-                    },
-                    "OrganizationList": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "email-template-creation": false,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "task": false,
-                            "event-data": false,
-                            "integration": false,
-                        },
-                        "keyObject": "OrgHeader",
-                        "keyObjectNo": "Code",
-                        "configName": "organizationConfig",
-                        "entity": "OrganizationList",
-                        "entitySource": "ORG"
-                    },
-                    "ContainerList": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "task": true,
-                            "event-data": true,
-                            "integration": false,
-                        },
-                        "keyObject": "UICntContainer",
-                        "keyObjectNo": "ContainerNo",
-                        "configName": "ContainerConfig",
-                        "entity": "ContainerList",
-                        "entitySource": "CNT"
-                    },
-                    "TrackContainer": {
-                        "StandardMenuConfig": {
-                            "comment": true,
-                            "document": true,
-                            "email": false,
-                            "email-template": true,
-                            "event": true,
-                            "exception": true,
-                            "audit-log": true,
-                            "task": true,
-                            "event-data": true,
-                            "integration": false,
-                        },
-                        "keyObject": "UICntContainer",
-                        "keyObjectNo": "ContainerNo",
-                        "configName": "trackContainerConfig",
-                        "entity": "TrackContainer",
-                        "entitySource": "CNT"
-                    }
-                },
                 "Token": {
                     "RowIndex": -1,
                     "API": {
@@ -840,6 +27,36 @@
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "Token/Logout"
+                        },
+                        "EmailLinkToken": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "Token/EmailLinkToken/"
+                        }
+                    }
+                },
+                "UsePrivileges": {
+                    "RowIndex": -1,
+                    "API": {
+                        "PublishPrivilegesByUser": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "UsePrivileges/PublishPrivilegesByUser"
+                        },
+                        "AppTenantRolePublish": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "UsePrivileges/AppTenantRolePublish"
+                        },
+                        "UserTenantRolePublish": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "UsePrivileges/UserTenantRolePublish"
+                        },
+                        "PublishAllUsers": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "UsePrivileges/PublishAllUsers"
                         }
                     }
                 },
@@ -862,6 +79,32 @@
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "SecApp/Upsert"
+                        }
+                    }
+                },
+                "SecLogo": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "SecLogo/FindAll",
+                            "FilterID": "SECLOGO"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "SecLogo/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "SecLogo/Update"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "SecLogo/Delete/"
                         }
                     }
                 },
@@ -900,6 +143,44 @@
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "SecMappings/Upsert"
+                        },
+                        "GetPartiesByUserName": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "SecMappings/GetPartiesByUserName/"
+                        },
+                        "GetRoleByUserName": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "SecMappings/GetRoleByUserName/"
+                        },
+                        "ListPKDelete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "SecMappings/ListPKDelete/"
+                        },
+                        "FindAllTenantByUser": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "SecMappings/FindAllTenantByUser",
+                            "FilterID": "SECMAPP"
+                        },
+                        "UpsertUserWithRole": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "SecMappings/UpsertUserWithRole"
+                        },
+                        "GetPartiesByUserApp": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "SecMappings/GetPartiesByUserApp",
+                            "FilterID": "SECMAPP"
+                        },
+                        "GetRoleByUserApp": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "SecMappings/GetRoleByUserApp",
+                            "FilterID": "SECMAPP"
                         }
                     }
                 },
@@ -922,6 +203,17 @@
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "SecTenant/Upsert"
+                        },
+                        "GetByTenant": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "SecTenant/GetByTenant/"
+                        },
+                        "CopyBaseTenantBehavior": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "SecTenant/CopyBaseTenantBehavior",
+                            "FilterID": "SECTENA"
                         }
                     }
                 },
@@ -1052,6 +344,11 @@
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "User/ChangePassword"
+                        },
+                        "ResetPassword": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "User/ResetPassword"
                         }
                     }
                 },
@@ -1137,16 +434,103 @@
                         }
                     }
                 },
+                "EventGroup": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindLookup": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "DataEntry/Dynamic/FindLookup",
+                            "FilterID": "EVEGRP",
+                            "DBObjectName": "EventGroup"
+                        },
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "EventGroup/FindAll",
+                            "FilterID": "EVEGR"
+                        },
+                        "Upsert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "EventGroup/Upsert"
+                        }
+                    }
+                },
+                "EventGroupMapping": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "EventGroupMapping/FindAll",
+                            "FilterID": "EVGRMA"
+                        },
+                        "Upsert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "EventGroupMapping/Upsert"
+                        }
+                    }
+                },
+                "OrgEventGroup": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "OrgEventGroup/FindAll",
+                            "FilterID": "OREVGR"
+                        },
+                        "Upsert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "OrgEventGroup/Upsert"
+                        }
+                    }
+                },
+                "OrgEventEmailContacts": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "OrgEventEmailContacts/FindAll",
+                            "FilterID": "OREEMC"
+                        },
+                        "Upsert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "OrgEventEmailContacts/Upsert"
+                        }
+                    }
+                },
+                "OrgEventTask": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "OrgEventTask/FindAll",
+                            "FilterID": "ORGEVTA"
+                        },
+                        "Upsert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "OrgEventTask/Upsert"
+                        }
+                    }
+                },
                 "DataEntryProcessTaskMapping": {
                     "RowIndex": -1,
                     "API": {
                         "FindAll": {
-                            "IsAPI": true,
+                            "IsAPI": "true",
                             "Url": "DataEntryProcessTaskMapping/FindAll",
                             "FilterID": "DYN_PRS"
                         },
                         "Upsert": {
-                            "IsAPI": true,
+                            "IsAPI": "true",
                             "Url": "DataEntryProcessTaskMapping/Upsert"
                         }
                     }
@@ -1231,6 +615,37 @@
                         }
                     }
                 },
+                "SecParties": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "SecParties/FindAll",
+                            "FilterID": "SECPART"
+                        },
+                        "Upsert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "SecParties/Upsert"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "SecParties/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "SecParties/Update"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "SecParties/Delete/"
+                        }
+                    }
+                },
                 "SecRole": {
                     "RowIndex": -1,
                     "API": {
@@ -1282,6 +697,11 @@
                             "IsAPI": "true",
                             "HttpType": "GET",
                             "Url": "AppSettings/StaredFindAll/DASHBOARD/"
+                        },
+                        "NewGuidId": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "AppSettings/NewGuidId"
                         }
                     }
                 },
@@ -1307,6 +727,37 @@
                         }
                     }
                 },
+                "TenantUserSettings": {
+                    "RowIndex": -1,
+                    "API": {
+                        "Upsert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "TenantUserSettings/Upsert",
+                        },
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "TenantUserSettings/FindAll",
+                            "FilterID": "TENUSST"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "TenantUserSettings/Insert",
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "TenantUserSettings/Update",
+                        },
+                        "UpdateDefault": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "TenantUserSettings/UpdateDefault",
+                        }
+                    }
+                },
                 "Country": {
                     "RowIndex": -1,
                     "API": {
@@ -1316,6 +767,16 @@
                             "Url": "DataEntry/Dynamic/FindLookup",
                             "FilterID": "MSTCOUN",
                             "DBObjectName": "MstCountry"
+                        }
+                    }
+                },
+                "MstCountry": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": true,
+                            "Url": "MstCountry/FindAll",
+                            "FilterID": "MSTCOUN"
                         }
                     }
                 },
@@ -1444,6 +905,12 @@
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "cfxtypes/Upsert/"
+                        },
+                        "FindAllWithParent": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "cfxtypes/FindAllWithParent/",
+                            "FilterID": "CFXTYPE"
                         }
                     }
                 },
@@ -1510,6 +977,10 @@
                             "HttpType": "POST",
                             "Url": "DocTypeMaster/FindAll",
                             "FilterID": "MSTDOCT"
+                        },
+                        "Upsert": {
+                            "IsAPI": "true",
+                            "Url": "DocTypeMaster/Upsert",
                         }
                     }
                 },
@@ -1536,6 +1007,12 @@
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "OrgHeader/FindAll",
+                            "FilterID": "ORGHEAD"
+                        },
+                        "MasterFindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "OrgHeader/MasterFindAll",
                             "FilterID": "ORGHEAD"
                         }
                     },
@@ -1700,93 +1177,75 @@
                             "HttpType": "POST",
                             "Url": "JobRoutes/UpdateList",
                             "FilterID": "JOBROUT"
-                        }
+                        },
+                        "UpdateRecords": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "JobRoutes/UpdateRecords",
+                            "FilterID": "JOBROUT"
+                        },
+                        "DeleteSailing": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "JobRoutes/DeleteSailing",
+                            "FilterID": "JOBROUT"
+                        },
+                        "Upsert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "JobRoutes/Upsert",
+                            "FilterID": "JOBROUT"
+                        },
                     },
                     "Grid": {
                         "ColumnDef": [{
-                                "field": "LegOrder",
-                                "displayName": "LegOrder",
-                            }, {
-                                "field": "TransportMode",
-                                "displayName": "Mode",
-                            }, {
-                                "field": "TransportType",
-                                "displayName": "Type",
-                            }, {
-                                "field": "Status",
-                                "displayName": "Status",
-                            }, {
-                                "field": "Vessel",
-                                "displayName": "Vessel",
-                            }, {
-                                "field": "VoyageFlight",
-                                "displayName": "Voyage/ Flight",
-                            }, {
-                                "field": "LoadPort",
-                                "displayName": "Load",
-                            }, {
-                                "field": "DischargePort",
-                                "displayName": "Discharge",
-                            }, {
-                                "field": "IsDomestic",
-                                "displayName": "Is Domestic",
-                            }, {
-                                "field": "ETD",
-                                "displayName": "ETD",
-                                "cellTemplate": "<div class='padding-5 text-single-line'>{{row.entity.ETD | date:'dd-MMM-yyyy  hh:mm a'}}</div>",
-                                "isDateField": true
-                            }, {
-                                "field": "ETA",
-                                "displayName": "ETA",
-                                "cellTemplate": "<div class='padding-5 text-single-line'>{{row.entity.ETA | date:'dd-MMM-yyyy  hh:mm a'}}</div>",
-                                "isDateField": true
-                            }, {
-                                "field": "ATD",
-                                "displayName": "ATD",
-                                "cellTemplate": "<div class='padding-5 text-single-line'>{{row.entity.ATD | date:'dd-MMM-yyyy  hh:mm a'}}</div>",
-                                "isDateField": true
-                            }, {
-                                "field": "ATA",
-                                "displayName": "ATA",
-                                "cellTemplate": "<div class='padding-5 text-single-line'>{{row.entity.ATA | date:'dd-MMM-yyyy  hh:mm a'}}</div>",
-                                "isDateField": true
-                            },
-                            /*{
-                                                       "field": "Edit",
-                                                       "displayName": "Edit",
-                                                       "width": 60,
-                                                       "cellTemplate": "<div  class='padding-5 text-single-line text-center'><span class='fa fa-pencil-square-o cursor-pointer' data-ng-click='grid.appScope.GridCtrl.ePage.Masters.OnEditSelectedRow(row)'></span></div>",
-                                                   }, {
-                                                       "field": "Delete",
-                                                       "displayName": "Delete",
-                                                       "width": 60,
-                                                       "cellTemplate": "<div  class='padding-5 text-single-line text-center'><span class='fa fa-trash-o cursor-pointer danger' data-ng-click='grid.appScope.GridCtrl.ePage.Masters.OnDeleteSelectedRow(row)'></span></div>",
-                                                   }*/
-                        ],
-                        /*"GridConfig": {
-                            "_gridHeight": 230,
-                            "_enableRowSelection": false,
-                            "_enableRowHeaderSelection": false,
-                            "_multiSelect": false,
-                            "_exporterCsvFilename": "data",
-                            '_exporterPdfFilename': "data",
-                            "_enablePaginationControls": false,
-                            "_enableGridMenu": false,
-                            "_enableColumnMenus": false,
-                            "_enableCellSelection": false,
-                            "_enableCellEdit": false,
-                            "_enableSorting": true,
-                            "_useExternalSorting": false,
-                            "_useExternalPagination": false,
-                            "_isAPI": false,
-                            "_rowTemplate": "<div ng-dblclick='grid.appScope.GridCtrl.ePage.Masters.OnRowDoubleClick(grid, row)' ng-repeat='(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name' class='ui-grid-cell' ng-class=\"{ 'ui-grid-row-header-cell': col.isRowHeader }\" ui-grid-cell></div>",
-                            "_columnPrefix": "RUT_",
-                            "_sortColumn": "ATA",
-                            "_sortType": "ASC",
-                            "_pageNumber": 1,
-                            "_paginationPageSize": 5000,
-                            "_paginationPageSizes": [25, 50, 100]
-                        }*/
+                            "field": "LegOrder",
+                            "displayName": "LegOrder",
+                        }, {
+                            "field": "TransportMode",
+                            "displayName": "Mode",
+                        }, {
+                            "field": "TransportType",
+                            "displayName": "Type",
+                        }, {
+                            "field": "Status",
+                            "displayName": "Status",
+                        }, {
+                            "field": "Vessel",
+                            "displayName": "Vessel",
+                        }, {
+                            "field": "VoyageFlight",
+                            "displayName": "Voyage/ Flight",
+                        }, {
+                            "field": "LoadPort",
+                            "displayName": "Load",
+                        }, {
+                            "field": "DischargePort",
+                            "displayName": "Discharge",
+                        }, {
+                            "field": "IsDomestic",
+                            "displayName": "Is Domestic",
+                        }, {
+                            "field": "ETD",
+                            "displayName": "ETD",
+                            "cellTemplate": "<div class='padding-5 text-single-line'>{{row.entity.ETD | date:'dd-MMM-yyyy  hh:mm a'}}</div>",
+                            "isDateField": true
+                        }, {
+                            "field": "ETA",
+                            "displayName": "ETA",
+                            "cellTemplate": "<div class='padding-5 text-single-line'>{{row.entity.ETA | date:'dd-MMM-yyyy  hh:mm a'}}</div>",
+                            "isDateField": true
+                        }, {
+                            "field": "ATD",
+                            "displayName": "ATD",
+                            "cellTemplate": "<div class='padding-5 text-single-line'>{{row.entity.ATD | date:'dd-MMM-yyyy  hh:mm a'}}</div>",
+                            "isDateField": true
+                        }, {
+                            "field": "ATA",
+                            "displayName": "ATA",
+                            "cellTemplate": "<div class='padding-5 text-single-line'>{{row.entity.ATA | date:'dd-MMM-yyyy  hh:mm a'}}</div>",
+                            "isDateField": true
+                        }],
                         "GridConfig": {
                             "isHeader": false,
                             "isSearch": false,
@@ -1811,21 +1270,68 @@
                             "Url": "JobComments/FindAll",
                             "FilterID": "JOBCMTS"
                         },
+                        "FindAllWithAccess": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "JobComments/FindAllWithAccess/",
+                            "FilterID": "JOBCMTS"
+                        },
+                        "FindAllWithAccessCount": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "JobComments/FindAllWithAccessCount/",
+                            "FilterID": "JOBCMTS"
+                        },
                         "Insert": {
                             "IsAPI": "true",
                             "HttpType": "POST",
-                            "Url": "JobComments/Insert",
-                            // "FilterID": "JOBCMTS"
+                            "Url": "JobComments/Insert"
                         },
                         "Update": {
                             "IsAPI": "true",
                             "HttpType": "POST",
-                            "Url": "JobComments/Update",
-                            // "FilterID": "JOBCMTS"
+                            "Url": "JobComments/Update"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "JobComments/Delete/"
                         }
                     }
                 },
-                "JobExceptions": {
+                "JobCommentsAccess": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": true,
+                            "HttpType": "POST",
+                            "Url": "JobCommentsAccess/FindAll",
+                            "FilterID": 'JOCOAC'
+                        },
+                        "FindAllWithAccess": {
+                            "IsAPI": true,
+                            "HttpType": "POST",
+                            "Url": "JobCommentsAccess/FindAllWithAccess",
+                            "FilterID": 'JOCOAC'
+                        },
+                        "Insert": {
+                            "IsAPI": true,
+                            "HttpType": "POST",
+                            "Url": "JobCommentsAccess/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": true,
+                            "HttpType": "POST",
+                            "Url": "JobCommentsAccess/Update"
+                        },
+                        "Delete": {
+                            "IsAPI": true,
+                            "HttpType": "GET",
+                            "Url": "JobCommentsAccess/Delete/"
+                        }
+                    }
+                },
+                "JobException": {
                     "RowIndex": -1,
                     "API": {
                         "FindAll": {
@@ -1834,22 +1340,84 @@
                             "Url": "JobException/FindAll",
                             "FilterID": "JOBEXCP"
                         },
+                        "FindAllWithAccess": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "JobException/FindAllWithAccess/",
+                            "FilterID": "JOBEXCP"
+                        },
+                        "FindAllWithAccessCount": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "JobException/FindAllWithAccessCount/",
+                            "FilterID": "JOBEXCP"
+                        },
                         "Insert": {
                             "IsAPI": "true",
                             "HttpType": "POST",
-                            "Url": "JobException/Insert",
-                            // "FilterID": "JOBEXCP"
+                            "Url": "JobException/Insert"
                         },
                         "Update": {
                             "IsAPI": "true",
                             "HttpType": "POST",
-                            "Url": "JobException/Update",
-                            // "FilterID": "JOBEXCP"
+                            "Url": "JobException/Update"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "JobException/Delete/"
                         },
                         "Upsert": {
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "JobException/Upsert"
+                        },
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "JobException/GetById/"
+                        }
+                    }
+                },
+                "JobExceptionAccess": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "JobExceptionAccess/FindAll",
+                            "FilterID": "JOEXAC"
+                        },
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "JobException/GetById/"
+                        },
+                        "FindAllWithAccess": {
+                            "HttpType": "POST",
+                            "Url": "JobExceptionAccess/FindAllWithAccess/",
+                            "FilterID": "JOEXAC"
+                        },
+                        "FindAllWithAccessCount": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "JobExceptionAccess/FindAllWithAccessCount/",
+                            "FilterID": " JOEXAC"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "JobExceptionAccess/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "JobExceptionAccess/Update"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "JobExceptionAccess/Delete/"
                         }
                     }
                 },
@@ -1861,6 +1429,39 @@
                             "HttpType": "POST",
                             "Url": "MstExceptionType/FindAll",
                             "FilterID": "MSTEXCE"
+                        },
+                        "Upsert": {
+                            "IsAPI": "true",
+                            "Url": "MstExceptionType/Upsert",
+                        }
+                    }
+                },
+                "MstCommentType": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "MstCommentType/FindAll",
+                            "FilterID": "MSTCMDT"
+                        },
+                        "Upsert": {
+                            "IsAPI": "true",
+                            "Url": "MstCommentType/Upsert",
+                        }
+                    }
+                },
+                "MstEmailType": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": true,
+                            "Url": "MstEmailType/FindAll",
+                            "FilterID": "MSTMAIL"
+                        },
+                        "Upsert": {
+                            "IsAPI": "true",
+                            "Url": "MstEmailType/Upsert"
                         }
                     }
                 },
@@ -1873,101 +1474,80 @@
                             "Url": "JobDocument/FindAll/",
                             "FilterID": "JOBDOC"
                         },
-                        "GetLogoFile": {
-                            "IsAPI": "true",
-                            "HttpType": "GET",
-                            "Url": "JobDocument/GetLogoFile/"
-                        },
-                        "JobDocumentDownload": {
-                            "IsAPI": "true",
-                            "HttpType": "GET",
-                            "Url": "JobDocument/DownloadFile/"
-                        },
-                        "Upsert": {
+                        "FindAllWithAccess": {
                             "IsAPI": "true",
                             "HttpType": "POST",
-                            "Url": "JobDocument/Upsert/"
+                            "Url": "JobDocument/FindAllWithAccess/",
+                            "FilterID": "JOBDOC"
+                        },
+                        "FindAllWithAccessCount": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "JobDocument/FindAllWithAccessCount/",
+                            "FilterID": "JOBDOC"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "JobDocument/Insert/"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "JobDocument/Update/"
                         },
                         "Delete": {
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "JobDocument/Delete/"
                         },
+                        "Upsert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "JobDocument/Upsert/"
+                        },
+                        "GetAppLogoFile": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "JobDocument/GetAppLogoFile/"
+                        },
+                        "GetTenantLogoFile": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "JobDocument/GetTenantLogoFile/"
+                        },
+                        "GetUserLogoFile": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "JobDocument/GetUserLogoFile/"
+                        },
+                        "TrustInsert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "JobDocument/TrustInsert"
+                        },
+                        "JobDocumentDownload": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "JobDocument/DownloadFile/"
+                        },
+                        "DocumentTypeAccess": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "JobDocument/DocumentTypeAccess"
+                        },
                         "AmendDocument": {
                             "IsAPI": "true",
                             "HttpType": "GET",
                             "Url": "JobDocument/AmendDocument/",
                             "FilterID": "JOBDOC"
+                        },
+                        "DownloadExcelFile": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "JobDocument/DownloadExcelFile/"
                         }
-                    },
-                    "Grid": {
-                        "ColumnDef": [{
-                            "field": "FileName",
-                            "displayName": "File Name"
-                        }, {
-                            "field": "Download",
-                            "displayName": "Download",
-                            "width": 80,
-                            "cellTemplate": "<div  class='p-5 text-single-line text-center'><span class='fa fa-download cursor-pointer' data-ng-click='DynamicTableCtrl.ePage.Masters.SelectedGridRow(x, $parent.$parent.$index, \"download\")'></span></div>"
-                        }],
-                        "GridConfig": {
-                            "isHeader": false,
-                            "isSearch": false,
-                            "title": "Document",
-                            "isSorting": false,
-                            "isColumnHeader": true,
-                            "isEdit": true,
-                            "isDelete": true,
-                            "isPagination": false,
-                            "itemsPerPage": 25,
-                            "isRowTemplate": false
-                        }
-                    },
-                    // "Grid": {
-                    //     "ColumnDef": [{
-                    //         "field": "FileName",
-                    //         "displayName": "File Name",
-                    //     }, {
-                    //         "field": "Edit",
-                    //         "displayName": "Edit",
-                    //         "width": 45,
-                    //         "cellTemplate": "<div  class='padding-5 text-single-line text-center'><span class='fa fa-pencil-square-o cursor-pointer danger' data-ng-click='grid.appScope.GridCtrl.ePage.Masters.OnEditSelectedRow(row)'></span></div>",
-                    //     }, {
-                    //         "field": "Delete",
-                    //         "displayName": "Delete",
-                    //         "width": 60,
-                    //         "cellTemplate": "<div  class='padding-5 text-single-line text-center'><span class='fa fa-trash-o cursor-pointer danger' data-ng-click='grid.appScope.GridCtrl.ePage.Masters.OnDeleteSelectedRow(row)'></span></div>",
-                    //     }, {
-                    //         "field": "Download",
-                    //         "displayName": "Download",
-                    //         "width": 80,
-                    //         "cellTemplate": "<div  class='padding-5 text-single-line text-center'><span class='fa fa-download cursor-pointer' data-ng-click='grid.appScope.GridCtrl.ePage.Masters.OnDownloadSelectedRowDoc(row)'></span></div>",
-                    //     }],
-                    //     "GridConfig": {
-                    //         "_gridHeight": 230,
-                    //         "_enableRowSelection": false,
-                    //         "_enableRowHeaderSelection": false,
-                    //         "_multiSelect": false,
-                    //         "_exporterCsvFilename": "data",
-                    //         "_exporterPdfFilename": "data",
-                    //         "_enablePaginationControls": false,
-                    //         "_enableGridMenu": false,
-                    //         "_enableColumnMenus": false,
-                    //         "_enableCellSelection": false,
-                    //         "_enableCellEdit": false,
-                    //         "_enableSorting": true,
-                    //         "_useExternalSorting": false,
-                    //         "_useExternalPagination": false,
-                    //         "_isAPI": false,
-                    //         "_rowTemplate": "<div ng-dblclick='grid.appScope.GridCtrl.ePage.Masters.OnRowDoubleClick(grid, row)' ng-repeat='(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name' class='ui-grid-cell' ng-class=\"{ 'ui-grid-row-header-cell': col.isRowHeader }\" ui-grid-cell></div>",
-                    //         "_columnPrefix": "DOC_",
-                    //         "_sortColumn": "DocCategory",
-                    //         "_sortType": "ASC",
-                    //         "_pageNumber": 1,
-                    //         "_paginationPageSize": 5000,
-                    //         "_paginationPageSizes": [25, 50, 100]
-                    //     }
-                    // }
+                    }
                 },
                 "DataConfig": {
                     "RowIndex": -1,
@@ -1998,6 +1578,11 @@
                             "IsAPI": true,
                             "HttpType": "POST",
                             "Url": "DataConfigFields/Upsert"
+                        },
+                        "Delete": {
+                            "IsAPI": true,
+                            "HttpType": "GET",
+                            "Url": "DataConfigFields/Delete/"
                         }
                     }
                 },
@@ -2013,6 +1598,34 @@
                             "IsAPI": true,
                             "Url": "DataAudit/FindAll",
                             "FilterID": "DATAAUD"
+                        }
+                    }
+                },
+                "DataFullTextSearch": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": true,
+                            "Url": "DataFullTextSearch/FindAll",
+                            "FilterID": "DATAFUT"
+                        },
+                        "Upsert": {
+                            "IsAPI": true,
+                            "Url": "DataFullTextSearch/Upsert"
+                        }
+                    }
+                },
+                "DataSharedEntity": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": true,
+                            "Url": "DataSharedEntity/FindAll",
+                            "FilterID": "JOBSHEN"
+                        },
+                        "Upsert": {
+                            "IsAPI": true,
+                            "Url": "DataSharedEntity/Upsert"
                         }
                     }
                 },
@@ -2044,6 +1657,21 @@
                             "IsAPI": "true",
                             "HttpType": "GET",
                             "Url": "DMS/DeleteFile/"
+                        },
+                        "UploadExcel": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "DMS/UploadExcel"
+                        },
+                        "DownloadTemplate": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "DMS/DownloadTemplate/"
+                        },
+                        "DownloadExeclAsPDFFile": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "DMS/DownloadExeclAsPDFFile/"
                         }
                     }
                 },
@@ -2059,12 +1687,12 @@
                         "Insert": {
                             "IsAPI": "true",
                             "HttpType": "POST",
-                            "Url": "ConShpMapping/Insert",
+                            "Url": "ConShpMapping/Insert"
                         },
                         "Delete": {
                             "IsAPI": "true",
                             "HttpType": "GET",
-                            "Url": "ConShpMapping/Delete/",
+                            "Url": "ConShpMapping/Delete/"
                         }
                     }
                 },
@@ -2079,12 +1707,35 @@
                         }
                     }
                 },
+                "ConsolList": {
+                    "RowIndex": -1,
+                    "API": {
+                        "GetByID": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "ConsolList/GetById/"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "ConsolList/Update"
+                        }
+                    }
+                },
                 "Communication": {
                     "RowIndex": -1,
                     "API": {
                         "CreateGroupEmail": {
                             "IsAPI": true,
                             "Url": "Communication/CreateGroupEmail/"
+                        },
+                        "GenerateReport": {
+                            "IsAPI": true,
+                            "Url": "Communication/GenerateReport/"
+                        },
+                        "JobDocument": {
+                            "IsAPI": true,
+                            "Url": "/JobDocument/DownloadFile/"
                         }
                     }
                 },
@@ -2101,6 +1752,11 @@
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "JobService/Upsert"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "Get",
+                            "Url": "JobService/Delete"
                         }
                     }
                 },
@@ -2157,70 +1813,6 @@
                             "Url": "JobHeader/Delete/",
                             "FilterID": "JOBHEAD"
                         }
-                    },
-                    "Grid": {
-                        "ColumnDef": [{
-                                "field": "CompanyName",
-                                "displayName": "Company Name",
-                            }, {
-                                "field": "BranchName",
-                                "displayName": "Branch Name",
-                            }, {
-                                "field": "DeptName",
-                                "displayName": "Department Name",
-                            }, {
-                                "field": "Status",
-                                "displayName": "Status",
-                            }
-                            /*{
-                                                       "field": "Edit",
-                                                       "displayName": "Edit",
-                                                       "width": 60,
-                                                       "cellTemplate": "<div  class='padding-5 text-single-line text-center'><span class='fa fa-pencil-square-o cursor-pointer' data-ng-click='grid.appScope.GridCtrl.ePage.Masters.OnEditSelectedRow(row)'></span></div>",
-                                                   }, {
-                                                       "field": "Delete",
-                                                       "displayName": "Delete",
-                                                       "width": 60,
-                                                       "cellTemplate": "<div  class='padding-5 text-single-line text-center'><span class='fa fa-trash-o cursor-pointer danger' data-ng-click='grid.appScope.GridCtrl.ePage.Masters.OnDeleteSelectedRow(row)'></span></div>",
-                                                   }*/
-                        ],
-                        /*"GridConfig": {
-                            "_gridHeight": 230,
-                            "_enableRowSelection": false,
-                            "_enableRowHeaderSelection": false,
-                            "_multiSelect": false,
-                            "_exporterCsvFilename": "data",
-                            '_exporterPdfFilename': "data",
-                            "_enablePaginationControls": false,
-                            "_enableGridMenu": false,
-                            "_enableColumnMenus": false,
-                            "_enableCellSelection": false,
-                            "_enableCellEdit": false,
-                            "_enableSorting": true,
-                            "_useExternalSorting": false,
-                            "_useExternalPagination": false,
-                            "_isAPI": false,
-                            "_rowTemplate": "<div ng-dblclick='grid.appScope.GridCtrl.ePage.Masters.OnRowDoubleClick(grid, row)' ng-repeat='(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name' class='ui-grid-cell' ng-class=\"{ 'ui-grid-row-header-cell': col.isRowHeader }\" ui-grid-cell></div>",
-                            "_columnPrefix": "RUT_",
-                            "_sortColumn": "ATA",
-                            "_sortType": "ASC",
-                            "_pageNumber": 1,
-                            "_paginationPageSize": 5000,
-                            "_paginationPageSizes": [25, 50, 100]
-                        }*/
-                        "GridConfig": {
-                            "isHeader": false,
-                            "isSearch": false,
-                            "title": "User Details",
-                            "isSorting": false,
-                            "isColumnHeader": true,
-                            "isEdit": true,
-                            "isDelete": true,
-                            "isPagination": false,
-                            "itemsPerPage": 10,
-                            "isRowTemplate": false,
-                            "rowTemplate": ""
-                        }
                     }
                 },
                 "PorOrderHeader": {
@@ -2270,6 +1862,23 @@
                             "HttpType": "POST",
                             "Url": "ShipmentHeader/FindCount",
                             "FilterID": "SHIPHEAD"
+                        },
+                        "UpdateRecords": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "FilterID": "SHIPHEAD",
+                            "Url": "ShipmentHeader/UpdateRecords"
+                        },
+                        "CloseVesselPlanningandCToB": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "ShipmentHeader/CloseVesselPlanningandCToB/"
+                        },
+                        "InitiateUploadSLI": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "ShipmentHeader/InitiateUploadSLI",
+                            "FilterID": "SHIPHEAD"
                         }
                     }
                 },
@@ -2295,7 +1904,13 @@
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "ShipmentList/Update"
-                        }
+                        },
+                        "OrderCopy": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "ShipmentList/OrderCopy/",
+                            "FilterID": "ORDHEAD"
+                        },
                     }
                 },
                 "JobPackLines": {
@@ -2379,7 +1994,7 @@
                 "InwardList": {
                     "RowIndex": -1,
                     "API": {
-                        "FindAll": {
+                        "GetById": {
                             "IsAPI": "true",
                             "HttpType": "GET",
                             "Url": "WmsInwardList/GetById/",
@@ -2389,20 +2004,187 @@
                             "HttpType": "POST",
                             "Url": "WmsInwardList/ProcessUpdate"
                         },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsInwardList/Update"
+                        },
                     }
                 },
-                "ManifestList": {
+                "WmsOutwardList": {
+                    "RowIndex": -1,
+                    "API": {
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "WmsOutwardList/GetById/",
+                        },
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsOutward/FindAll",
+                            "FilterID": "WMSOUT",
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsOutwardList/Update"
+                        },
+                    }
+                },
+                "WmsDeliveryList": {
+                    "RowIndex": -1,
+                    "API": {
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "WmsDeliveryList/GetById/",
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsDeliveryList/Update"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsDeliveryList/Insert"
+                        },
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsDelivery/FindAll",
+                            "FilterID": "WMSDEL"
+                        }
+                    }
+                },
+                "WmsClientParameterByWarehouse": {
                     "RowIndex": -1,
                     "API": {
                         "FindAll": {
                             "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsClientParameterByWarehouse/FindAll",
+                            "FilterID": "WMSWCP",
+                        },
+                    }
+                },
+                "WmsPickList": {
+                    "RowIndex": -1,
+                    "API": {
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "WmsPickList/GetById/",
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsPickList/Update"
+                        },
+                    }
+                },
+                "TmsManifestList": {
+                    "RowIndex": -1,
+                    "API": {
+                        "GetById": {
+                            "IsAPI": "true",
                             "HttpType": "GET",
                             "Url": "TmsManifestList/GetById/",
                         },
-                        "UpdateManifestProcess": {
+                        "Update": {
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "TmsManifestList/Update"
+                        },
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "TmsManifest/FindAll",
+                            "FilterID": "TMSMAN",
+                        }
+                    }
+                },
+                "TmsManifest": {
+                    "RowIndex": -1,
+                    "API": {
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "TmsManifest/GetById/",
+                        },
+                    }
+                },
+                "TmsConsignmentList": {
+                    "RowIndex": -1,
+                    "API": {
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "TmsConsignmentList/GetById/",
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "TmsConsignmentList/Update"
+                        }
+                    }
+                },
+                "WmsWorkOrder": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsWorkOrder/FindAll",
+                            "FilterID": "WMSWORK"
+                        },
+                    }
+                },
+                "WmsWorkOrderLine": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsWorkOrderLine/FindAll",
+                            "FilterID": "WMSINL"
+                        },
+                    }
+                },
+                "TMSPickupandDeliverypoint": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "TMSPickupandDeliverypoint/FindAll",
+                            "FilterID": "TMSPICDEVPOI"
+                        },
+                    }
+                },
+                "TMSGatepassList": {
+                    "RowIndex": -1,
+                    "API": {
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "TMSGatepassList/GetById/"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "TMSGatepassList/Update"
+                        }
+                    }
+                },
+                "TMSGatepass": {
+                    "RowIndex": -1,
+                    "API": {
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "TMSGatepass/GetById/"
                         },
                     }
                 },
@@ -2508,7 +2290,7 @@
                     "API": {
                         "FindAll": {
                             "IsAPI": true,
-                            "Url": "DataEvent/FindAll",
+                            "Url": "DataEvent/FindAll/",
                             "FilterID": "DATAEVT"
                         },
                         "Upsert": {
@@ -2521,6 +2303,45 @@
                             "HttpType": "POST",
                             "Url": "DataEvent/GetColumnValuesWithFilters",
                             "FilterID": "DATAEVT"
+                        },
+                        "EventTypeAccess": {
+                            "IsAPI": true,
+                            "Url": "DataEvent/EventTypeAccess",
+                            "FilterID": "DATAEVT"
+                        },
+                        "FindAllWithAccess": {
+                            "IsAPI": true,
+                            "Url": "DataEvent/FindAllWithAccess/",
+                            "FilterID": "DATAEVT"
+                        },
+                        "FindAllWithAccessCount": {
+                            "IsAPI": true,
+                            "Url": "DataEvent/FindAllWithAccessCount/",
+                            "FilterID": "DATAEVT"
+                        }
+                    }
+                },
+                "DataEventAccess": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": true,
+                            "Url": "DataEventAccess/FindAll",
+                            "FilterID": "DATAEVT"
+                        },
+                        "Insert": {
+                            "IsAPI": true,
+                            "Url": "DataEventAccess/Insert",
+                        },
+                        "Update": {
+                            "IsAPI": true,
+                            "HttpType": "POST",
+                            "Url": "DataEventAccess/Update",
+                        },
+                        "Delete": {
+                            "IsAPI": true,
+                            "HttpType": "GET",
+                            "Url": "DataEventAccess/Delete/"
                         }
                     }
                 },
@@ -2547,10 +2368,58 @@
                             "HttpType": "POST",
                             "Url": "JobEmail/Update"
                         },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "JobEmail/Delete/"
+                        },
                         "FindAll": {
                             "IsAPI": true,
                             "Url": "JobEmail/FindAll",
                             "FilterID": "JOBEML"
+                        },
+                        "FindAllWithAccess": {
+                            "IsAPI": true,
+                            "Url": "JobEmail/FindAllWithAccess/",
+                            "FilterID": "JOBEML"
+                        },
+                        "FindAllWithAccessCount": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "JobEmail/FindAllWithAccessCount/",
+                            "FilterID": "JOBEML"
+                        }
+                    }
+                },
+                "JobEmailAccess": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": true,
+                            "HttpType": "POST",
+                            "Url": "JobEmailAccess/FindAll",
+                            "FilterID": 'JOEMAC'
+                        },
+                        "FindAllWithAccess": {
+                            "IsAPI": true,
+                            "HttpType": "POST",
+                            "Url": "JobEmailAccess/FindAllWithAccess",
+                            "FilterID": 'JOEMAC'
+                        },
+                        "Insert": {
+                            "IsAPI": true,
+                            "HttpType": "POST",
+                            "Url": "JobEmailAccess/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": true,
+                            "HttpType": "POST",
+                            "Url": "JobEmailAccess/Update"
+                        },
+                        "Delete": {
+                            "IsAPI": true,
+                            "HttpType": "GET",
+                            "Url": "JobEmailAccess/Delete/"
                         }
                     }
                 },
@@ -2563,39 +2432,6 @@
 
                         },
 
-                    }
-                },
-                "JobException": {
-                    "Grid": {
-                        "ColumnDef": [{
-                            "field": "Title",
-                            "displayName": "Title"
-                        }, {
-                            "field": "Description",
-                            "displayName": "Description"
-                        }, {
-                            "field": "Reply",
-                            "displayName": "Reply",
-                            "width": 60,
-                            "cellTemplate": "<i class='fa fa-reply' ng-click= 'DynamicTableCtrl.ePage.Masters.SelectedGridRow(x, $parent.$parent.$index, \"link\")'></i>",
-                        }],
-                        "GridConfig": {
-                            "isHeader": false,
-                            "isSearch": false,
-                            "title": "JobException List",
-                            "isSorting": false,
-                            "isColumnHeader": true,
-                            "isEdit": false,
-                            "isDelete": true,
-                            "isPagination": false,
-                            "itemsPerPage": 10,
-                            "isRowTemplate": false,
-                            "rowTemplate": `<div data-ng-repeat='y in DynamicTableCtrl.ePage.Masters.GridConfig.columnDef' class='padding-5 clearfix'>
-                            <div class='col-sm-1'>{{x.Id}}</div>
-                            <div class='col-sm-2'>{{x.FName}}</div>
-                            <div class='col-sm-2'>{{x.LName}}</div>
-                            </div>`
-                        }
                     }
                 },
                 "TeamTargetRelease": {
@@ -2704,6 +2540,10 @@
                         "Upsert": {
                             "IsAPI": true,
                             "Url": "EBPMProcessMaster/Upsert"
+                        },
+                        "ProcessTypeAccess": {
+                            "IsAPI": true,
+                            "Url": "EBPMProcessMaster/ProcessTypeAccess"
                         }
                     }
                 },
@@ -2721,6 +2561,26 @@
                         }
                     }
                 },
+                "EBPMControlTower": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": true,
+                            "Url": "EBPMControlTower/FindAll",
+                            "FilterID": "BPMWKI"
+                        }
+                    }
+                },
+                "vwWorkItemControlTowerMoreInfo": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": true,
+                            "Url": "vwWorkItemControlTowerMoreInfo/FindAll",
+                            "FilterID": "WICTMI"
+                        }
+                    }
+                },
                 "TableColumn": {
                     "RowIndex": -1,
                     "API": {
@@ -2728,6 +2588,16 @@
                             "IsAPI": true,
                             "Url": "TableColumn/FindAll",
                             "FilterID": "TABLECOL"
+                        }
+                    }
+                },
+                "Table": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": true,
+                            "Url": "Table/FindAll",
+                            "FilterID": "TABLENAM"
                         }
                     }
                 },
@@ -2829,6 +2699,11 @@
                             "IsAPI": true,
                             "Url": "EBPMWorkItem/FindAllWithAccessWithEntity",
                             "FilterID": "BPMWKI"
+                        },
+                        "FindAllWithAccessCount": {
+                            "IsAPI": true,
+                            "Url": "EBPMWorkItem/FindAllWithAccessCount/",
+                            "FilterID": "BPMWKI"
                         }
                     }
                 },
@@ -2838,7 +2713,6 @@
                         "GetByInstanceNo": {
                             "IsAPI": true,
                             "Url": "EBPMWorkFlow/GetByInstanceNo/"
-
                         }
                     }
                 },
@@ -2848,11 +2722,18 @@
                         "InitiateProcess": {
                             "IsAPI": true,
                             "Url": "EBPMEngine/InitiateProcess",
-
                         },
-                        "AssignActivity": {
+                        "ReAssignActivity": {
                             "IsAPI": true,
-                            "Url": "EBPMEngine/AssignActivity",
+                            "Url": "EBPMEngine/ReAssignActivity",
+                        },
+                        "StartKPI": {
+                            "IsAPI": true,
+                            "Url": "EBPMEngine/StartKPI",
+                        },
+                        "CancelKPI": {
+                            "IsAPI": true,
+                            "Url": "EBPMEngine/CancelKPI",
                         },
                         "MovetoCommonQue": {
                             "IsAPI": true,
@@ -2861,8 +2742,19 @@
                         "CompleteProcess": {
                             "IsAPI": true,
                             "Url": "EBPMEngine/CompleteProcess",
+                        }
+                    }
+                },
+                "EBPMProcessInstance": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": true,
+                            "Url": "EBPMProcessInstance/FindAll",
+                            "FilterID": "BPMPSI"
 
                         }
+
                     }
                 },
                 "Multilingual": {
@@ -2900,16 +2792,75 @@
                         "Upsert": {
                             "IsAPI": true,
                             "Url": "Validation/Upsert"
+                        },
+                        "ValidationByGroup": {
+                            "IsAPI": true,
+                            "Url": "Validation/ValidationByGroup",
+                            "FilterID": "ENTIMAP"
+                        }
+                    }
+                },
+                "ValidationGroup": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": true,
+                            "Url": "ValidationGroup/FindAll",
+                            "FilterID": "VADATGRO"
+                        },
+                        "Upsert": {
+                            "IsAPI": true,
+                            "Url": "ValidationGroup/Upsert"
+                        }
+                    }
+                },
+                "LogErrorObject": {
+                    "RowIndex": -1,
+                    "API": {
+                        "Insert": {
+                            "IsAPI": true,
+                            "Url": "LogErrorObject/Insert"
+                        }
+                    }
+                },
+                "Export": {
+                    "RowIndex": -1,
+                    "API": {
+                        "Excel": {
+                            "IsAPI": true,
+                            "Url": "Export/Excel",
+                            "FilterID": "TEST"
+                        },
+                        "GridExcel": {
+                            "IsAPI": true,
+                            "Url": "Export/GridExcel",
+                            "FilterID": "TEST"
+                        },
+                        "AsHtml": {
+                            "IsAPI": true,
+                            "Url": "Export/AsHtml",
+                            "FilterID": "TEST"
                         }
                     }
                 },
                 // Sailing 
                 "SailingDetails": {
                     "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "SailingDetails/FindAll",
+                            "FilterID": "JOBSAIL"
+                        },
                         "Update": {
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "SailingDetails/Update"
+                        },
+                        "ListUpsert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "SailingDetails/ListUpsert"
                         },
                         "Insert": {
                             "IsAPI": "true",
@@ -2967,6 +2918,12 @@
                             "HttpType": "GET",
                             "Url": "OrderList/OrderCopy/",
                             "FilterID": "ORDHEAD"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "OrderList/Insert",
+                            "FilterID": "ORDHEAD"
                         }
                     }
                 },
@@ -3008,6 +2965,24 @@
                             "HttpType": "POST",
                             "Url": "CargoReadiness/CompleteFollowUpTask",
                             "FilterID": "SFULIST"
+                        },
+                        "UpdateRecords": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "CargoReadiness/FollowUpGroupDetail/UpdateRecords",
+                            "FilterID": "SFULIST"
+                        },
+                        "FollowUpGroup": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "CargoReadiness/FollowUpGroup/FindAll",
+                            "FilterID": "ORDSPAH"
+                        },
+                        "GetFollowUpHistoryByOrderPK": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "CargoReadiness/FollowUpGroup/GetFollowUpHistoryByOrderPK/",
+                            "FilterID": "ORDSPAH"
                         }
                     }
                 },
@@ -3089,15 +3064,16 @@
                             "HttpType": "POST",
                             "Url": "VesselPlanning/PPAGroupDetails/UpdateRecords"
                         },
-                    }
-                },
-                "ConShpMapping": {
-                    "API": {
-                        "FindAll": {
+                        "CreateVesselPlanningGroup": {
                             "IsAPI": "true",
                             "HttpType": "POST",
-                            "Url": "ConShpMapping/FindAll",
-                            "FilterID": "CONSHPMAP"
+                            "Url": "VesselPlanning/CreateVesselPlanningGroup"
+                        },
+                        "PreAdviceMailHistory": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "FilterID": "SPALIST",
+                            "Url": "VesselPlanning/PreAdviceMailHistory"
                         }
                     }
                 },
@@ -3166,6 +3142,12 @@
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "PorOrderLine/Delete",
+                            "FilterID": "ORDLINE"
+                        },
+                        "UpdateRecords": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "PorOrderLine/UpdateRecords",
                             "FilterID": "ORDLINE"
                         }
                     }
@@ -3256,11 +3238,808 @@
                 "CntContainer": {
                     "RowIndex": -1,
                     "API": {
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "CntContainer/GetById/"
+                        },
                         "FindAll": {
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "CntContainer/FindAll",
                             "FilterID": "CONTHEAD"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "CntContainer/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "CntContainer/Update"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "CntContainer/Delete/"
+                        }
+                    }
+                },
+                "ShipmentPreAdviceGroupHeader": {
+                    "RowIndex": -1,
+                    "API": {
+                        "GetOrdersByGroupPK": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "ShipmentPreAdviceGroupHeader/GetOrdersByGroupPK/"
+                        }
+                    }
+                },
+                "ConvertToBookingMapping": {
+                    "RowIndex": -1,
+                    "API": {
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "ConvertToBookingMapping/Insert",
+                            "FilterID": "SPACTB"
+                        }
+                    }
+                },
+                "ShipmentPreAdvice": {
+                    "RowIndex": -1,
+                    "API": {
+                        "GetOrdersByGroupPK": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "ShipmentPreAdvice/GetOrdersByGroupPK/"
+                        }
+                    }
+                },
+                "OrgBuyerSupplierMapping": {
+                    "RowIndex": -1,
+                    "API": {
+                        "GetMDMDfaultFields": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "FilterID": "ORGBSMAP",
+                            "Url": "OrgBuyerSupplierMapping/GetMDMDfaultFields/"
+                        },
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "FilterID": "ORGBSMAP",
+                            "Url": "OrgBuyerSupplierMapping/FindAll"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "FilterID": "ORGBSMAP",
+                            "Url": "OrgBuyerSupplierMapping/Delete/"
+                        }
+                    }
+                },
+                "OrgUserAcess": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "FilterID": "ORGUACC",
+                            "Url": "OrgUserAcess/FindAll"
+                        }
+                    }
+                },
+                "Booking": {
+                    "RowIndex": -1,
+                    "API": {
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "Booking/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "Booking/Update"
+                        }
+                    }
+                },
+                "CompleteVerifyBooking": {
+                    "RowIndex": -1,
+                    "API": {
+                        "CompleteVerifyBooking": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "mhplus/shipment/CompleteVerifyBooking",
+                        }
+                    }
+                },
+                "ApproveRejectBooking": {
+                    "RowIndex": -1,
+                    "API": {
+                        "ApproveRejectBooking": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "mhplus/shipment/ApproveRejectBooking",
+                        }
+                    }
+                },
+                // Miscellaneous Service
+                "OrgMiscServ": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "FilterID": "ORGMISC",
+                            "Url": "OrgMiscServ/FindAll"
+                        }
+                    }
+                },
+                // Product
+                "PrdProduct": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "FilterID": "ORGSUPP",
+                            "Url": "PrdProduct/FindAll"
+                        }
+                    }
+                },
+                "PrdProductUnit": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "FilterID": "ORGPARTU",
+                            "Url": "PrdProductUnit/FindAll"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "PrdProductUnit/Delete/"
+                        },
+                        "FetchQuantity": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "PrdProductUnit/FetchQuantity"
+                        }
+                    }
+                },
+                "PrdProductRelatedParty": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "FilterID": "ORGPRL",
+                            "Url": "PrdProductRelatedParty/FindAll"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "PrdProductRelatedParty/Delete/"
+                        },
+                    }
+                },
+                "PrdProductBOM": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "FilterID": "ORGPABOM",
+                            "Url": "PrdProductBOM/FindAll"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "Get",
+                            "Url": "PrdProductBOM/Delete/"
+                        }
+                    }
+                },
+                "PrdPrductBarcode": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "FilterID": "ORGSUPPB",
+                            "Url": "PrdPrductBarcode/FindAll"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "Get",
+                            "Url": "PrdPrductBarcode/Delete/"
+                        },
+                    }
+                },
+                "PorOrderBatchUpload": {
+                    "RowIndex": -1,
+                    "API": {
+                        "UpdateRecords": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "PorOrderBatchUpload/UpdateRecords",
+                            "FilterID": "ORDBATCH"
+                        },
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "PorOrderBatchUpload/FindAll",
+                            "FilterID": "ORDBATCH"
+                        }
+                    }
+                },
+                "ShpExtended": {
+                    "RowIndex": -1,
+                    "API": {
+                        "UpdateRecords": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "ShpExtended/UpdateRecords",
+                            "FilterId": ""
+                        }
+                    }
+                },
+                "EntitiesMapping": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "EntitiesMapping/FindAll",
+                            "FilterID": "ENTIMAP"
+                        },
+                        "Upsert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "EntitiesMapping/Upsert"
+                        }
+                    }
+                },
+                "EntitiesMappingDetail": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "EntitiesMappingDetail/FindAll",
+                            "FilterID": "ENMAPDE"
+                        },
+                        "Upsert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "EntitiesMappingDetail/Upsert"
+                        }
+                    }
+                },
+                "DYN_RelatedLookup": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "DYN_RelatedLookup/FindAll",
+                            "FilterID": "DYNREL"
+                        },
+                        "Upsert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "DYN_RelatedLookup/Upsert"
+                        },
+                        "GetColumnValuesWithFilters": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "DYN_RelatedLookup/GetColumnValuesWithFilters",
+                            "FilterID": "DYNREL"
+                        },
+                        "GroupFindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "DYN_RelatedLookup/GroupFindAll",
+                            "FilterID": "DYNREL"
+                        }
+                    }
+                },
+                "MasterDYNDataentrymaster": {
+                    "RowIndex": -1,
+                    "API": {
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "MasterDYNDataentrymaster/GetById/"
+                        },
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "MasterDYNDataentrymaster/FindAll",
+                            "FilterID": "MADYNDAT"
+                        }
+                    }
+                },
+                "EPRExpression": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "EPRExpression/FindAll",
+                            "FilterID": "EPREXPR"
+                        },
+                        "Upsert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "EPRExpression/Upsert"
+                        }
+                    }
+                },
+                "OrgConsigneeConsignorRelationship": {
+                    "RowIndex": -1,
+                    "API": {
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "OrgConsigneeConsignorRelationship/Insert",
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "OrgConsigneeConsignorRelationship/Update",
+                        }
+                    }
+                },
+                "SOPTypelist": {
+                    "RowIndex": -1,
+                    "API": {
+                        "Upsert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "SOPTypelist/Upsert",
+                        },
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "SOPTypelist/FindAll",
+                        }
+                    }
+                },
+                "ModuleSettings": {
+                    "RowIndex": -1,
+                    "API": {
+                        "Upsert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "ModuleSettings/Upsert",
+                        },
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "ModuleSettings/FindAll",
+                        }
+                    }
+                },
+                "EBPMEntitiesMapping": {
+                    "RowIndex": -1,
+                    "API": {
+                        "Upsert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "EBPMEntitiesMapping/Upsert",
+                        },
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "EBPMEntitiesMapping/FindAll",
+                            "FilterID": "BPMENM"
+                        }
+                    }
+                },
+                "EBPMCFXTypes": {
+                    "RowIndex": -1,
+                    "API": {
+                        "Upsert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "EBPMCFXTypes/Upsert",
+                        },
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "EBPMCFXTypes/FindAll",
+                            "FilterID": "BPMCFT"
+                        },
+                        "ActivityFindAll": {
+                            "IsAPI": true,
+                            "Url": "EBPMCFXTypes/ActivityFindAll",
+                            "FilterID": "BPMCFT"
+                        }
+                    }
+                },
+                "BuyerOrder": {
+                    "API": {
+                        "findall": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "order/buyer/findall",
+                            "FilterID": "ORDHEAD"
+                        },
+                        "1_1_listgetbyid": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "order/buyer/listgetbyid/"
+                        },
+                        "1_3_listgetbyid": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "order/buyerforwarder/listgetbyid/"
+                        },
+                        "3_1_listgetbyid": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "order/forwarderbuyer/listgetbyid/"
+                        },
+                        "1_2_listgetbyid": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "order/buyersupplier/listgetbyid/"
+                        },
+                        "activityclose": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "order/buyer/activityclose/"
+                        },
+                        "ordercopy": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "order/buyer/ordercopy/"
+                        },
+                        "split": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "order/buyer/split/"
+                        },
+                        "insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "order/buyer/insert"
+                        },
+                        "update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "order/buyer/update"
+                        },
+                        "updaterecords": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "order/buyer/updaterecords"
+                        },
+                        "closecrd": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "order/buyer/closecrd"
+                        },
+                        "activatecrd": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "order/buyer/activatecrd"
+                        },
+                        "activateconverttobooking": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "order/buyer/activateconverttobooking"
+                        }
+                    }
+                },
+                "BuyerOrderBatchUpload": {
+                    "API": {
+                        "findall": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "orderbatchupload/buyer/findall",
+                            "FilterID": "ORDBATCH"
+                        },
+                        "getbyid": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "orderbatchupload/buyer/getbyid/"
+                        },
+                        "activityclose": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "orderbatchupload/buyer/activityclose/"
+                        },
+                        "insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "orderbatchupload/buyer/insert"
+                        },
+                        "updaterecords": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "orderbatchupload/buyer/updaterecords"
+                        }
+                    }
+                },
+                "ForwarderOrder": {
+                    "API": {
+                        "findall": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "order/forwarder/findall",
+                            "FilterID": "ORDHEAD"
+                        },
+                        "3_3_listgetbyid": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "order/forwarder/listgetbyid/"
+                        },
+                        "1_3_listgetbyid": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "order/buyerforwarder/listgetbyid/"
+                        },
+                        "activityclose": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "order/forwarder/activityclose/"
+                        },
+                        "ordercopy": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "order/forwarder/ordercopy/"
+                        },
+                        "split": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "order/forwarder/split/"
+                        },
+                        "insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "order/forwarder/insert"
+                        },
+                        "update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "order/forwarder/update"
+                        }
+                    }
+                },
+                "SupplierOrder": {
+                    "API": {
+                        "findall": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "order/supplier/findall",
+                            "FilterID": "ORDHEAD"
+                        },
+                        "2_2_listgetbyid": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "order/supplier/listgetbyid/"
+                        },
+                        "1_2_listgetbyid": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "order/buyersupplier/listgetbyid/"
+                        },
+                        "activityclose": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "order/supplier/activityclose/"
+                        },
+                        "ordercopy": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "order/supplier/ordercopy/"
+                        },
+                        "split": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "order/supplier/split/"
+                        },
+                        "insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "order/supplier/insert"
+                        },
+                        "update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "order/supplier/update"
+                        }
+                    }
+                },
+                "JobDocumentAccess": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": true,
+                            "HttpType": "POST",
+                            "Url": "JobDocumentAccess/FindAll",
+                            "FilterID": 'JOBDOCU'
+                        },
+                        "FindAllWithAccess": {
+                            "IsAPI": true,
+                            "HttpType": "POST",
+                            "Url": "JobDocumentAccess/FindAllWithAccess",
+                            "FilterID": 'JOBDOCU'
+                        },
+                        "Insert": {
+                            "IsAPI": true,
+                            "HttpType": "POST",
+                            "Url": "JobDocumentAccess/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": true,
+                            "HttpType": "POST",
+                            "Url": "JobDocumentAccess/Update"
+                        },
+                        "Delete": {
+                            "IsAPI": true,
+                            "HttpType": "GET",
+                            "Url": "JobDocumentAccess/Delete/"
+                        }
+                    }
+                },
+                "EBPMCheckList": {
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "EBPMCheckList/FindAll",
+                            "FilterID": "BPMCHL"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "EBPMCheckList/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "EBPMCheckList/Update"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "EBPMCheckList/Delete/"
+                        },
+                        "Upsert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "EBPMCheckList/Upsert"
+                        }
+                    }
+                },
+                "EBPMStepsCheckList": {
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "EBPMStepsCheckList/FindAll",
+                            "FilterID": "BPMSCL"
+                        }
+                    }
+                },
+                "EBPMStepsDelayReason": {
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "EBPMStepsDelayReason/FindAll",
+                            "FilterID": "BPMSDR"
+                        }
+                    }
+                },
+                "MstUnloco": {
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "MstUnloco/FindAll",
+                            "FilterID": "UNLOCO"
+                        }
+                    }
+                },
+                "BuyerCntContainer": {
+                    "RowIndex": -1,
+                    "API": {
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "containerlist/buyer/getbyid/"
+                        },
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "containerlist/buyer/findall",
+                            "FilterID": "CONTHEAD"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "cntcontainer/buyer/insert"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "cntcontainer/buyer/update"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "cntcontainer/buyer/delete/"
+                        }
+                    }
+                },
+                "BuyerShipmentHeader": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "shipmentheader/buyer/findall",
+                            "FilterID": "SHIPHEAD"
+                        },
+                        "UpdateRecords": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "FilterID": "SHIPHEAD",
+                            "Url": "shipmentheader/buyer/updaterecords"
+                        },
+                        "FindCount": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "FilterID": "SHIPHEAD",
+                            "Url": "shipmentheader/buyer/findcount"
+                        }
+                    }
+                },
+                "BuyerConShpMapping": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "conshpmapping/buyer/findall",
+                            "FilterID": "CONSHPMAP"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "conshpmapping/buyer/insert"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "conshpmapping/buyer/delete/"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "conshpmapping/buyer/update"
+                        },                        
+                        "Upsert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "conshpmapping/buyer/upsert"
+                        },
+                        "UpdateRecords": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "conshpmapping/buyer/updateRecords"
+                        },
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "conshpmapping/buyer/getbyid/"
                         }
                     }
                 }

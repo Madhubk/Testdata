@@ -5,7 +5,7 @@
         .module("Application")
         .directive("orderCargoReadiness", OrderCargoReadiness);
 
-        OrderCargoReadiness.$inject = [];
+    OrderCargoReadiness.$inject = [];
 
     function OrderCargoReadiness() {
         var exports = {

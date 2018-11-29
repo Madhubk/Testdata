@@ -1,0 +1,152 @@
+
+<div class="col-lg-12 margin-top-5 mb-50">
+       
+        <div class="dmstable_scroll" id='GatePassCtrl.ePage.Masters.your_div' style="height:400px; padding-top: 2px;">
+            <div class="table" id="results">
+                <div class='theader'>
+                    <div class='table_header'>S.No</div>
+                    <div class='table_header'>Gate Pass No</div>
+                    <div class='table_header'>Status</div>
+                    <div class='table_header'>Facility</div>
+                    <div class='table_header'>Transporter</div>
+                    <div class='table_header'>Manifest No</div>
+                    <div class='table_header'>Purpose</div>
+                    <div class='table_header'>Vehicle No</div>
+                    <div class='table_header'>Vehicle Type</div>
+                    <div class='table_header'>Driver Name</div>
+                    <div class='table_header'>Driver Contact No</div>
+                    <div class='table_header'>Dock No</div>
+                    <div class='table_header pl-50 pr-50'>Gate In Time</div>
+                    <div class='table_header pl-50 pr-50'>Dock In Time</div>
+                    <div class='table_header pl-50 pr-50'>Gate Out Time</div>
+                    <div class='table_header pl-50 pr-50'>Dock Out Time</div>
+                </div>
+
+                <!-- List Empty Response -->
+                <div data-ng-if="GatePassCtrl.ePage.Entities.Header.Data.TmsGatepassList.length==0">
+                    <div class="text-no-record grid-width" style="bottom:38px">No Record Found</div>
+                </div>
+
+                <div class='table_row' ng-repeat="x in GatePassCtrl.ePage.Entities.Header.Data.TmsGatepassList | filter:{IsDeleted:'false'}  track by $index"
+                    ng-click="GatePassCtrl.ePage.Masters.setSelectedRow($index)" ng-class="{'row_active': GatePassCtrl.ePage.Masters.selectedRow==$index}"
+                    style="font-size: 11px;">
+                    <div class='table_small'>
+                        <div class='table_cell'>List No</div>
+                        <div class='table_cell'>
+                            {{$index+1}}
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Gate Pass No</div>
+                        <div class='table_cell'>{{x.GatepassNo || GatePassCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Status</div>
+                        <div class='table_cell'>{{x.Status || GatePassCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Facility</div>
+                        <div class='table_cell'>{{x.ORG_Code}} - {{x.ORG_FullName}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Transporter</div>
+                        <div class='table_cell'>{{x.TransporterCode}} - {{x.TransporterName}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Manifest No</div>
+                        <div class='table_cell'>{{ x.TMM_ManifestNumber || GatePassCtrl.ePage.Masters.emptyText}}
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Purpose</div>
+                        <div class='table_cell'>{{x.Purpose || GatePassCtrl.ePage.Masters.emptyText}} </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Vehicle No</div>
+                        <div class='table_cell'>{{x.VehicleNo || GatePassCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Vehicle Type</div>
+                        <div class='table_cell'>{{x.VehicleType || GatePassCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Driver Name</div>
+                        <div class='table_cell'>{{x.DriverName || GatePassCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Driver Contact No</div>
+                        <div class='table_cell'>{{x.DriverContactNo || GatePassCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Dock No</div>
+                        <div class='table_cell'>{{x.DockNo || GatePassCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Gate In Time</div>
+                        <div class="input-group input-group-sm p-5">
+                            <input type="text" class="form-control" placeholder="{{GatePassCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}" datetime-picker="{{GatePassCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                                ng-model="x.GateinTime" is-open="GatePassCtrl.ePage.Masters.DatePicker.isOpen['isGateinTime'+[$index]]"
+                                datepicker-options="GatePassCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                                close-on-selection="false" enable-time="true" enable-date="true" default-date="" default-time="" when-closed=""
+                                save-as="GatePassCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click=""
+                                data-ng-change="" custom-date-time-format/>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" data-ng-click="GatePassCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isGateinTime'+[$index])">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Dock In Time</div>
+                        <div class="input-group input-group-sm p-5">
+                            <input type="text" class="form-control" placeholder="{{GatePassCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}" datetime-picker="{{GatePassCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                                ng-model="x.DockinTime" is-open="GatePassCtrl.ePage.Masters.DatePicker.isOpen['isDockinTime'+[$index]]"
+                                datepicker-options="GatePassCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                                close-on-selection="false" enable-time="true" enable-date="true" default-date="" default-time="" when-closed=""
+                                save-as="GatePassCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click=""
+                                data-ng-change="" custom-date-time-format/>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" data-ng-click="GatePassCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isDockinTime'+[$index])">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Gate Out Time</div>
+                        <div class="input-group input-group-sm p-5">
+                            <input type="text" class="form-control" placeholder="{{GatePassCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}" datetime-picker="{{GatePassCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                                ng-model="x.GateoutTime" is-open="GatePassCtrl.ePage.Masters.DatePicker.isOpen['isGateoutTime'+[$index]]"
+                                datepicker-options="GatePassCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                                close-on-selection="false" enable-time="true" enable-date="true" default-date="" default-time="" when-closed=""
+                                save-as="GatePassCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click=""
+                                data-ng-change="" custom-date-time-format/>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" data-ng-click="GatePassCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isGateoutTime'+[$index])">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Dock Out Time</div>
+                        <div class="input-group input-group-sm p-5">
+                            <input type="text" class="form-control" placeholder="{{GatePassCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}" datetime-picker="{{GatePassCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                                ng-model="x.DockoutTime" is-open="GatePassCtrl.ePage.Masters.DatePicker.isOpen['isDockoutTime'+[$index]]"
+                                datepicker-options="GatePassCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                                close-on-selection="false" enable-time="true" enable-date="true" default-date="" default-time="" when-closed=""
+                                save-as="GatePassCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click=""
+                                data-ng-change="" custom-date-time-format/>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" data-ng-click="GatePassCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isDockoutTime'+[$index])">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+   
+</div>

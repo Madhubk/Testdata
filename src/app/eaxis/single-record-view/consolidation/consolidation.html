@@ -1,0 +1,21 @@
+<div class="clearfix">
+    <uib-tabset id="chromeTab" class="tab-container chrometab-box">
+        <uib-tab>
+            <uib-tab-heading title="{{SRVConCtrl.ePage.Masters.Entity.Code}}">
+                <span data-ng-bind="SRVConCtrl.ePage.Masters.Entity.Code"></span>
+            </uib-tab-heading>
+            <div class="padding-bottom-10 clearfix" data-ng-if="SRVConCtrl.ePage.Masters.CurrentObj">
+                <consol-menu activity-form="SRVConCtrl.ePage.Masters.Entity.QuickView" current-consol="SRVConCtrl.ePage.Masters.CurrentObj" active-tab="SRVConCtrl.ePage.Masters.ActiveMenuTab"></consol-menu>
+                <div class="eaxis-footer-strip">
+                    <div class="col-xs-110 col-sm-10 col-md-10 col-lg-10 col-xl-10">
+                        <!-- <standard-menu input="tab" dataentry-object="SRVConCtrl.ePage.Masters.DataEntryObject"></standard-menu> -->
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                        <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="SRVConCtrl.ePage.Masters.Save(SRVConCtrl.ePage.Masters.CurrentObj)"
+                            data-ng-bind="SRVConCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="SRVConCtrl.ePage.Masters.IsDisableSave"></button>
+                    </div>
+                </div>
+            </div>
+        </uib-tab>
+    </uib-tabset>
+</div>

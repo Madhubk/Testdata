@@ -28,6 +28,7 @@
                                 <barcodes current-product="ProductGeneralCtrl.currentProduct"></barcodes>
                             </div>
                             <div ng-switch-when="Warehouse">
+                                <pickface current-product="ProductGeneralCtrl.currentProduct"></pickface>
                                 <product-warehouse current-product="ProductGeneralCtrl.currentProduct"></product-warehouse>
                             </div>
                             <div ng-switch-when="BOM">

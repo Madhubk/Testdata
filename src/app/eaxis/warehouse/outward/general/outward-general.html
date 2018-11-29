@@ -1,37 +1,39 @@
 <!-- Non Editable -->
-<div class="noneditable ng-scope"  data-ng-if="!OutwardGeneralCtrl.ePage.Entities.Header.CheckPoints.NotFinaliseStage"></div>
+<div class="noneditable ng-scope" data-ng-if="OutwardGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"></div>
 <!--General-->
 <div class="clearfix padding-top-10">
     <div class="clearfix">
-    
-           <!--Client-->
-        <div class="col-lg-6">
+
+        <!--Client-->
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
             <div class="inner-dashboard-box">
                 <div class="rows border-bottom">
-                    <div class="col-lg-3 height-40 border-right pt-10 pb-10">
+                    <div class="col-xs-3 col-sm-3 col-md-4 col-lg-3 col-xl-3 height-40 border-right pt-10 pb-10">
                         <span class="dashboard-outward-icon-box">
                             <i class="fa fa-user-o"></i>
                         </span>
                         <label class="ml-5 control-label">Client</label>
                         <span class="error-warning-container">
                             <error-warning-directive data-ng-if="OutwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Client.IsWarning && !OutwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Client.IsError"
-                                list="OutwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Client.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                                list="OutwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Client.WARNING" type="'warning'"
+                                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                             <error-warning-directive data-ng-if="OutwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Client.IsError" list="OutwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Client.ERROR"
                                 type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                         </span>
                     </div>
-                    <div class="col-lg-9 height-40 p-5">
-                        <div class="input-group1 input-group-sm">
+                    <div class="col-xs-9 col-sm-9 col-md-8 col-lg-9 col-xl-9 height-40 p-5">
+                        <div class="input-group input-group-sm">
                             <!-- Dynamic look up Search in textbox -->
                             <div dynamic-lookup placeholder="Client Code And Name" my-ng-model="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Client"
                                 auto-complete-on-select="OutwardGeneralCtrl.ePage.Masters.SelectedLookupDataClient($item)" obj="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader"
-                                prefix-data="'OrganizationList'" config="'Client'">
+                                page-name="'OrganizationList'" control-id="'Client'" is-disabled="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length!=0"
+                                control-key="'Client_3015'">
                             </div>
                             <!-- Look Up page opens when button clicks -->
                             <span class="input-group-btn">
-                                <button dynamic-list-modal obj="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader" field-name="'Client'"
-                                    selected-data="OutwardGeneralCtrl.ePage.Masters.SelectedLookupDataClient($item.entity)" prefix-data="'OrganizationList'"
-                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny" type="button">
+                                <button dynamic-list-modal obj="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader" control-id="'Client'" selected-data="OutwardGeneralCtrl.ePage.Masters.SelectedLookupDataClient($item.data.entity)"
+                                    page-name="'OrganizationList'" control-key="'Client_3015'" mode="2" grid-refresh-fun-name=""
+                                    grid-refresh-fun="" class="btn btn-default shiny" type="button" is-disabled="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length!=0">
                                     <i class="fa fa-ellipsis-h"></i>
                                 </button>
                             </span>
@@ -43,7 +45,7 @@
                 </div>
                 <div class="rows p-5 height-70">
                     <div ng-show="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Client">
-                        <div class="col-lg-8 addressstyle">
+                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 addressstyle">
                             <div class="text-single-line font-12" title='{{OutwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address1}}'>{{OutwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address1}}</div>
                             <div class="text-single-line" title='{{OutwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address2}}'>{{OutwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address2}}</div>
                             <div class="text-single-line" title='{{OutwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_State}}'>{{OutwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_State}}</div>
@@ -52,9 +54,13 @@
                                 <span ng-show="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_PostCode" title="{{OutwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_PostCode}}">{{OutwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_PostCode}}</span>
                             </div>
                         </div>
-                        <div class="col-lg-4 p-0 mt-30">
-                            <div class="pull-right addressstyle1 font-12"  ng-show="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Mobile" title="{{OutwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Mobile}}">{{OutwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Mobile}}<i class="fa fa-phone ml-5 mr-5"></i></div>
-                            <div class="pull-right addressstyle1 font-12"  ng-show="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Email" title="{{OutwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Email}}">{{OutwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Email}}<i class="fa fa-envelope-o ml-5 mr-5"></i></div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0 mt-30">
+                            <div class="pull-right text-single-line font-12" ng-show="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Mobile"
+                                title="{{OutwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Mobile}}">
+                                <i class="fa fa-phone ml-5 mr-5"></i>{{OutwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Mobile}}</div>
+                            <div class="pull-right text-single-line font-12" ng-show="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Email"
+                                title="{{OutwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Email}}">
+                                <i class="fa fa-envelope-o ml-5 mr-5"></i>{{OutwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Email}}</div>
                         </div>
                     </div>
                 </div>
@@ -62,29 +68,37 @@
         </div>
 
         <!--Consignee-->
-        <div class="col-lg-6">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
             <div class="inner-dashboard-box">
                 <div class="rows border-bottom">
-                    <div class="col-lg-3 height-40  border-right pt-10 pb-10">
+                    <div class="col-xs-3 col-sm-3 col-md-4 col-lg-3 col-xl-3 height-40  border-right pt-10 pb-10">
                         <span class="dashboard-outward-icon-box">
                             <i class="fa fa-user-o"></i>
                         </span>
                         <label class=" control-label">Consignee</label>
                     </div>
-                    <div class="col-lg-9 height-40  p-5">
-                        <div class="input-group1 input-group-sm">
-                                <!-- Dynamic look up Search in textbox -->
-                            <div dynamic-lookup placeholder="Consignee Code And Name" my-ng-model="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Consignee" auto-complete-on-select="OutwardGeneralCtrl.ePage.Masters.SelectedLookupDataConsignee($item)"
-                                obj="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader" prefix-data="'OrganizationList'"
-                                config="'Consignee'">
+                    <div class="col-xs-9 col-sm-9 col-md-8 col-lg-9 col-xl-9 height-40  p-5">
+                        <div class="input-group input-group-sm">
+                            <!-- Dynamic look up Search in textbox -->
+                            <div dynamic-lookup placeholder="Consignee Code And Name" my-ng-model="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Consignee"
+                                auto-complete-on-select="OutwardGeneralCtrl.ePage.Masters.SelectedLookupDataConsignee($item)"
+                                obj="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader" page-name="'OrganizationList'"
+                                control-id="'Consignee'" control-key="'Consignee_3238'">
                             </div>
 
-                                    <!-- Look Up page opens when button clicks -->
+                            <!-- Look Up page opens when button clicks -->
                             <span class="input-group-btn">
-                                <button dynamic-list-modal obj="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader" field-name="'Consignee'" selected-data="OutwardGeneralCtrl.ePage.Masters.SelectedLookupDataConsignee($item.entity)"  prefix-data="'OrganizationList'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                <button dynamic-list-modal obj="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader" control-id="'Consignee'"
+                                    control-key="'Consignee_3238'" selected-data="OutwardGeneralCtrl.ePage.Masters.SelectedLookupDataConsignee($item.data.entity)"
+                                    page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny"
+                                    type="button">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
                             </span>
                             <span class="input-group-btn" ng-show="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Consignee">
-                                <button   class="btn btn-default shiny" type="button" ng-click="OutwardGeneralCtrl.ePage.Masters.OtherConsigneeAddresses(OutwardGeneralCtrl.ePage.Masters.OrgConsigneeAddress)"><i class="fa fa-address-card-o"></i></button>
+                                <button class="btn btn-default shiny" type="button" ng-click="OutwardGeneralCtrl.ePage.Masters.OtherConsigneeAddresses(OutwardGeneralCtrl.ePage.Masters.OrgConsigneeAddress)">
+                                    <i class="fa fa-address-card-o"></i>
+                                </button>
                             </span>
                             <span ng-if='!OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Consignee' ng-init="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeCode='';OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeName='';OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Consignee_FK=''"></span>
 
@@ -93,7 +107,7 @@
                 </div>
                 <div class="rows p-5 height-70">
                     <div ng-show="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Consignee" ng-repeat="x in OutwardGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress | filter: {AddressType:'CED'}">
-                        <div class="col-lg-8 addressstyle">
+                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 addressstyle">
                             <div class="text-single-line font-12" title='{{x.Address1}}'>{{x.Address1 }}</div>
                             <div class="text-single-line" title='{{x.Address2}}'>{{x.Address2 }}</div>
                             <div class="text-single-line" title='{{x.State}}'>{{x.State}}</div>
@@ -102,9 +116,11 @@
                                 <span ng-show="x.PostCode" title="{{x.PostCode}}">{{x.PostCode}}</span>
                             </div>
                         </div>
-                        <div class="col-lg-4 p-0 mt-30">
-                            <div class="pull-right addressstyle1 font-12"  ng-show="x.Mobile" title="{{x.Mobile}}">{{x.Mobile}}<i class="fa fa-phone ml-5 mr-5"></i></div>
-                            <div class="pull-right addressstyle1 font-12"  ng-show="x.Email" title="{{x.Email}}">{{x.Email}}<i class="fa fa-envelope-o ml-5 mr-5"></i></div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0 mt-30">
+                            <div class="pull-right text-single-line font-12" ng-show="x.Mobile" title="{{x.Mobile}}">
+                                <i class="fa fa-phone ml-5 mr-5"></i>{{x.Mobile}}</div>
+                            <div class="pull-right text-single-line font-12" ng-show="x.Email" title="{{x.Email}}">
+                                <i class="fa fa-envelope-o ml-5 mr-5"></i>{{x.Email}}</div>
                         </div>
                     </div>
                 </div>
@@ -112,32 +128,35 @@
         </div>
     </div>
 </div>
-
-
-
 <div class="clearfix margin-top-20">
-
     <div class="clearfix mt-5">
         <!--Warehouse Code And Name-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
                 <div class="error-warning-container">
                     <error-warning-directive data-ng-if="OutwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.IsWarning && !OutwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.IsError"
-                        list="OutwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        list="OutwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.WARNING" type="'warning'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     <error-warning-directive data-ng-if="OutwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.IsError" list="OutwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.ERROR"
                         type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                 </div>
                 <label class="control-label text-single-line">Warehouse</label>
-                <div class="input-group1 input-group-sm">
+                <div class="input-group input-group-sm">
 
                     <!-- Dynamic look up Search in textbox -->
-                    <div dynamic-lookup placeholder="Warehouse" my-ng-model="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Warehouse" auto-complete-on-select="OutwardGeneralCtrl.ePage.Masters.SelectedLookupWarehouse($item)"
-                        obj="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader" prefix-data="'Warehouse'" config="'Warehouse'">
+                    <div dynamic-lookup placeholder="Warehouse" my-ng-model="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Warehouse"
+                        auto-complete-on-select="OutwardGeneralCtrl.ePage.Masters.SelectedLookupWarehouse($item)" obj="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader"
+                        page-name="'Warehouse'" control-id="'Warehouse'" control-key="'Warehouse_3067'" is-disabled="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length!=0">
                     </div>
 
                     <!-- Look Up page opens when button clicks -->
                     <span class="input-group-btn">
-                          <button dynamic-list-modal obj="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader" field-name="'Warehouse'" selected-data="OutwardGeneralCtrl.ePage.Masters.SelectedLookupWarehouse($item.entity)"  prefix-data="'Warehouse'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                        <button dynamic-list-modal obj="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader" control-id="'Warehouse'"
+                            control-key="'Warehouse_3067'" selected-data="OutwardGeneralCtrl.ePage.Masters.SelectedLookupWarehouse($item.data.entity)"
+                            page-name="'Warehouse'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny"
+                            type="button" is-disabled="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length!=0">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
                     </span>
                     <span ng-if='!OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Warehouse&&!OutwardGeneralCtrl.currentOutward.isNew'>
                         <div ng-init="OutwardGeneralCtrl.ePage.Masters.OnChangeValues(OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Warehouse,'E3502')"></div>
@@ -146,49 +165,45 @@
                 </div>
             </div>
         </div>
-
         <!--Order Number-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line">Order Number</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Order Number"
-                        data-ng-model="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.CustomerReference">
+                    <div class="">
+                        <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Order Number"
+                            data-ng-model="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ExternalReference">
+                    </div>
                 </div>
             </div>
         </div>
-
         <!--Customer Reference-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line">Customer Reference</label>
-                <span ng-if='OutwardGeneralCtrl.currentOutward.isNew'ng-init="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ExternalReference = ''"></span>
-                <span ng-if='!OutwardGeneralCtrl.currentOutward.isNew && !OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ExternalReference'
-                    ng-init="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ExternalReference = OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID"></span>
-                <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Customer Reference"
-                        data-ng-model="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ExternalReference">
-                </div>
+                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Customer Reference"
+                    data-ng-model="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.CustomerReference" />
             </div>
         </div>
-
         <!--Required Date-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
                 <div class="error-warning-container">
                     <error-warning-directive data-ng-if="OutwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RequiredDate.IsWarning && !OutwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RequiredDate.IsError"
-                        list="OutwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        list="OutwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.WARNING" type="'warning'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     <error-warning-directive data-ng-if="OutwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RequiredDate.IsError" list="OutwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RequiredDate.ERROR"
                         type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                 </div>
                 <label class="control-label text-single-line">Required Date</label>
                 <div class="input-group input-group-sm">
-                    <input type="text" class="form-control" placeholder="{{OutwardGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datetime-picker="{{OutwardGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
-                        ng-model="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.RequiredDate" is-open="OutwardGeneralCtrl.ePage.Masters.DatePicker.isOpen['isRequiredDate']"
-                        datepicker-options="OutwardGeneralCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
-                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" when-closed=""
-                        save-as="OutwardGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click=""
-                        data-ng-change="OutwardGeneralCtrl.ePage.Masters.OnChangeValues(OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.RequiredDate,'E3503');OutwardGeneralCtrl.ePage.Masters.CheckFutureDate(OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.RequiredDate)" custom-date-time-format/>
+                    <input type="text" class="form-control" placeholder="{{OutwardGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datetime-picker="{{OutwardGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" ng-model="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.RequiredDate"
+                        is-open="OutwardGeneralCtrl.ePage.Masters.DatePicker.isOpen['isRequiredDate']" datepicker-options="OutwardGeneralCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true" default-date=""
+                        default-time="" when-closed="" save-as="OutwardGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        data-ng-click="" data-ng-change="OutwardGeneralCtrl.ePage.Masters.OnChangeValues(OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.RequiredDate,'E3503');"
+                        custom-date-time-format/>
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default" data-ng-click="OutwardGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isRequiredDate')">
                             <i class="fa fa-calendar"></i>
@@ -197,69 +212,23 @@
                 </div>
             </div>
         </div>
-
     </div>
-
     <div class="clearfix mt-5">
-
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">Service Level</label>
-                <div class="input-group1 input-group-sm">
-
-                    <!-- Dynamic look up Search in textbox -->
-                    <div dynamic-lookup placeholder="Service Level Code And Description" my-ng-model="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ServiceLevel" obj="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader"
-                        prefix-data="'MstServiceLevel'" config="'ServiceLevel'" auto-complete-on-select="OutwardGeneralCtrl.ePage.Masters.SelectedLookupCode_Desc($item)">
-                    </div>
-
-                    <!-- Look Up page opens when button clicks -->
-                    <span class="input-group-btn">
-                                <button dynamic-list-modal obj="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader" field-name="'ServiceLevel'" selected-data="OutwardGeneralCtrl.ePage.Masters.SelectedLookupCode_Desc($item.entity)"  prefix-data="'MstServiceLevel'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
-                        </span>
-
-                </div>
-            </div>
-        </div>
-
-
         <!--Pick Options-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line">Pick Options</label>
                 <div class="">
                     <select chosen class="form-control" ng-model="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickOption"
                         ng-options="x.Key as x.Key + ' - '  + x.Value for x in OutwardGeneralCtrl.ePage.Masters.DropDownMasterList.PickOption.ListSource"
                         search-contains="true">
-                    <option value="">--Select--</option>
+                        <option value="">--Select--</option>
                     </select>
                 </div>
             </div>
         </div>
-        
-
-
-        <!--Carrier Service Level-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">Carrier Service Level</label>
-                <div class="input-group1 input-group-sm">
-
-                    <!-- Dynamic look up Search in textbox -->
-                    <div dynamic-lookup="" placeholder="Carrier Service Level" my-ng-model="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.CarrierServiceLevel" obj="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader"
-                        prefix-data="'CarrierServiceLevel'" config="'CarrierServiceLevel'" auto-complete-on-select="OutwardGeneralCtrl.ePage.Masters.SelectedLookupCarrier($item)">
-                    </div>
-
-                    <!-- Look Up page opens when button clicks -->
-                    <span class="input-group-btn">
-                            <button dynamic-list-modal="" obj="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader" field-name="'CarrierServiceLevel'" selected-data="OutwardGeneralCtrl.ePage.Masters.SelectedLookupCarrier($item.entity)"  prefix-data="'CarrierServiceLevel'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
-                    </span>
-
-                </div>
-            </div>
-        </div>
-
         <!--Drop Mode-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line">Drop Mode</label>
                 <div class="">
@@ -271,14 +240,8 @@
                 </div>
             </div>
         </div>
-        
-    </div>
-
-    <div class="clearfix mt-5">
-
-
         <!--Goods Description-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line">Goods Description</label>
                 <div class="">
@@ -287,48 +250,97 @@
                 </div>
             </div>
         </div>
-
-         <!--Total Packages-->
-         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <!--Total Packages-->
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line">Total Packages</label>
                 <div class="">
                     <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Total Packages"
-                        data-ng-model="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PackagesSent" ng-blur="OutwardGeneralCtrl.ePage.Entities.Header.CheckPoints.PercentageValues = true">
+                        data-ng-model="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PackagesSent" ng-blur="OutwardGeneralCtrl.ePage.Entities.Header.GlobalVariables.PercentageValues">
                 </div>
             </div>
         </div>
-
-         <!--Total Units-->
-         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+    </div>
+    <div class="clearfix mt-5">
+        <!--Total Units-->
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line">Total Units</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Total Units"
-                        data-ng-model="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.TotalUnits" ng-blur="OutwardGeneralCtrl.ePage.Entities.Header.CheckPoints.PercentageValues = true">
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Total Units" data-ng-model="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.TotalUnits"
+                        ng-blur="OutwardGeneralCtrl.ePage.Entities.Header.GlobalVariables.PercentageValues">
                 </div>
             </div>
         </div>
+        
+        <!--Outward Type-->
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Outward Type</label>
+                <div class="">
+                    <select chosen class="form-control" ng-model="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderSubType"
+                        ng-options="x.Key as x.Key + ' - '  + x.Value for x in OutwardGeneralCtrl.ePage.Masters.DropDownMasterList.WorkOrder_SubType.ListSource"
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <!--To Warehouse Code And Name-->
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3" data-ng-if="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderSubType=='MTR'">
+            <div class="form-group">
+                <div class="error-warning-container">
+                    <error-warning-directive data-ng-if="OutwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TransferWarehouse.IsWarning && !OutwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TransferWarehouse.IsError"
+                        list="OutwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TransferWarehouse.WARNING" type="'warning'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="OutwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TransferWarehouse.IsError" list="OutwardGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TransferWarehouse.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
+                <label class="control-label text-single-line">Transfer To Warehouse</label>
+                <div class="input-group input-group-sm">
 
+                    <!-- Dynamic look up Search in textbox -->
+                    <div dynamic-lookup placeholder="Warehouse" my-ng-model="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.TransferWarehouse" auto-complete-on-select="OutwardGeneralCtrl.ePage.Masters.SelectedLookupToWarehouse($item)"
+                        obj="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader" page-name="'Warehouse'" control-id="'TransferToWarehouse'"
+                        control-key="'TransferToWarehouse_3324'">
+                    </div>
+
+                    <!-- Look Up page opens when button clicks -->
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader" control-id="'TransferToWarehouse'"
+                            control-key="'TransferToWarehouse_3324'" selected-data="OutwardGeneralCtrl.ePage.Masters.SelectedLookupToWarehouse($item.data.entity)"
+                            page-name="'Warehouse'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny"
+                            type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
     </div>
-
 </div>
 
-<div class = "mt-10">
+<div class="mt-10">
     <!-- Milestone -->
     <div class="clearfix padding-top-10 padding-bottom-10 ng-scope" style="background:#fbfbfb;border-top:1px solid gray;border-bottom:1px solid gray">
 
-        <div class="col-lg-12 col-sm-12 col-xs-12">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
             <div id="WiredWizard" class="wizard wizard-wired" data-target="#WiredWizardsteps">
                 <ul class="steps ml-90">
                     <li data-target="#wiredstep1" style="width: 16%" ng-class="{active: !OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.CreatedDateTime , complete: OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.CreatedDateTime}">
                         <span class="step">1</span>
                         <span class="title">
-                            <div ng-show="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.CreatedDateTime" style="cursor:default; font-size:11px" class="ng-binding ng-hide">
-                                <span><b>Outward Created</b></span><br> {{OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.CreatedDateTime | date:'MMM d, y h:mm:ss a'}}
+                            <div ng-show="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.CreatedDateTime" style="cursor:default; font-size:11px"
+                                class="ng-binding ng-hide">
+                                <span>
+                                    <b>Entered</b>
+                                </span>
+                                <br> {{OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.CreatedDateTime | date:'MMM
+                                d, y h:mm:ss a'}}
                             </div>
                             <div ng-show="!OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.CreatedDateTime" class="">
-                                    <span style="font-size: 12px;">Outward Created</span>                      
+                                <span style="font-size: 12px;">Entered</span>
                             </div>
                         </span>
                         <span class="chevron"></span>
@@ -337,9 +349,14 @@
                     <li data-target="#wiredstep2" style="width: 16%" ng-class="{active: !OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickStartDateTime , complete: OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickStartDateTime}">
                         <span class="step">2</span>
                         <span class="title">
-                            <div ng-show="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickStartDateTime" style="cursor:default; font-size:11px" class="ng-binding ng-hide">
-                                <span><b>Attached To Pick</b></span><br>
-                                <span>{{OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickStartDateTime | date:'MMM d, y h:mm:ss a'}}</span>
+                            <div ng-show="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickStartDateTime" style="cursor:default; font-size:11px"
+                                class="ng-binding ng-hide">
+                                <span>
+                                    <b>Attached To Pick</b>
+                                </span>
+                                <br>
+                                <span>{{OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickStartDateTime
+                                    | date:'MMM d, y h:mm:ss a'}}</span>
                             </div>
                             <div ng-show="!OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickStartDateTime" class="">
                                 <span style="font-size: 12px;">Attached To Pick</span>
@@ -351,9 +368,14 @@
                     <li data-target="#wiredstep3" style="width: 16%" ng-class="{active: !OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickSlipDateTime , complete: OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickSlipDateTime}">
                         <span class="step">3</span>
                         <span class="title">
-                            <div ng-show="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickSlipDateTime" style="cursor:default; font-size:11px" class="ng-binding ng-hide">
-                                <span><b>Stock Allocated</b></span><br>
-                                <span>{{OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickSlipDateTime | date:'MMM d, y h:mm:ss a'}}</span>
+                            <div ng-show="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickSlipDateTime" style="cursor:default; font-size:11px"
+                                class="ng-binding ng-hide">
+                                <span>
+                                    <b>Stock Allocated</b>
+                                </span>
+                                <br>
+                                <span>{{OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickSlipDateTime
+                                    | date:'MMM d, y h:mm:ss a'}}</span>
                             </div>
                             <div ng-show="!OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickSlipDateTime" class="">
                                 <span style="font-size: 12px;">Stock Allocated</span>
@@ -366,9 +388,14 @@
                     <li data-target="#wiredstep4" style="width: 16%" ng-class="{active: !OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickCompDateTime , complete: OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickCompDateTime}">
                         <span class="step">4</span>
                         <span class="title">
-                            <div ng-show="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickCompDateTime" style="cursor:default; font-size:11px" class="ng-binding ng-hide">
-                                <span><b>Pick Completed</b></span><br>
-                                <span>{{OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickCompDateTime | date:'MMM d, y h:mm:ss a'}}</span>
+                            <div ng-show="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickCompDateTime" style="cursor:default; font-size:11px"
+                                class="ng-binding ng-hide">
+                                <span>
+                                    <b>Pick Completed</b>
+                                </span>
+                                <br>
+                                <span>{{OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickCompDateTime
+                                    | date:'MMM d, y h:mm:ss a'}}</span>
                             </div>
                             <div ng-show="!OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickCompDateTime" class="">
                                 <span style="font-size: 12px;">Pick Completed</span>
@@ -381,19 +408,23 @@
                     <li data-target="#wiredstep5" style="width: 16%" ng-class="{active: !OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.FinalisedDate , complete: OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.FinalisedDate}">
                         <span class="step">5</span>
                         <span class="title">
-                            <div ng-show="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.FinalisedDate" style="cursor:default; font-size:11px" class="ng-binding ng-hide">
-                                <span><b>Finalised</b></span><br>
-                                <span>{{OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.FinalisedDate | date:'MMM d, y h:mm:ss a'}}</span>
+                            <div ng-show="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.FinalisedDate" style="cursor:default; font-size:11px"
+                                class="ng-binding ng-hide">
+                                <span>
+                                    <b>Finalized</b>
+                                </span>
+                                <br>
+                                <span>{{OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.FinalisedDate | date:'MMM
+                                    d, y h:mm:ss a'}}</span>
                             </div>
                             <div ng-show="!OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.FinalisedDate" class="">
-                                <span style="font-size: 12px;">Finalised</span>
+                                <span style="font-size: 12px;">Finalized</span>
                             </div>
                         </span>
                         <span class="chevron"></span>
                     </li>
 
                 </ul>
-
             </div>
         </div>
     </div>

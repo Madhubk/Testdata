@@ -1,0 +1,14 @@
+.user-setting-container {
+    margin: 0 auto;
+    width: 650px;
+}
+
+.user-setting-container .heading {
+    padding: 10px 0;
+    font-weight: 600;
+}
+
+.user-setting-container .content {
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}

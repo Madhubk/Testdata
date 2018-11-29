@@ -1,0 +1,53 @@
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 m-10">
+    <span class="text-single-line custom_label">Outward Details</span>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <div id="BatchUploadDetailsCtrl{{BatchUploadDetailsCtrl.currentBatchUploadDetail.label}}" class="fixedheader mb-0" key-events table-object='BatchUploadDetailsCtrl.ePage.Masters.ProductDetails' enable='BatchUploadDetailsCtrl.ePage.Masters.Enable' selected-row='BatchUploadDetailsCtrl.ePage.Masters.selectedRow' unique-id='BatchUploadDetailsCtrl{{BatchUploadDetailsCtrl.currentBatchUploadDetail.label}}'>
+        <table  style="height: 400px">
+            <thead>
+                <tr id="tableHeader">
+                    <th  ng-style="{ 'width': '40px' }" title="S.No">S.No</th>
+                    <th  ng-style="{ 'width':  '100px' }" title="Warehouse Code">Warehouse Code</th>
+                    <th  ng-style="{ 'width':  '100px' }" title="Client Code">Client Code</th>
+                    <th  ng-style="{ 'width':  '100px' }" title="Consignee Code">Consignee Code</th>
+                    <th  ng-style="{ 'width':  '100px' }" title="Required Date">Required Date</th>
+                    <th  ng-style="{ 'width':  '100px' }" title="Order Number">Order Number</th>
+                    <th  ng-style="{ 'width':  '100px' }" title="Customer Reference">Customer Reference</th>
+                    <th  ng-style="{ 'width':  '100px' }" title="Product Code">Product Code</th>
+                    <th  ng-style="{ 'width':  '100px' }" title="Packs">Packs</th>
+                    <th  ng-style="{ 'width':  '100px' }" title="Pack Type">Pack Type</th>
+                    <th  ng-style="{ 'width':  '100px' }" title="Quantity">Quantity</th>
+                    <th  ng-style="{ 'width':  '100px' }" title="Quantity UQ">Quantity UQ</th>
+                    <th  ng-style="{ 'width':  '100px' }" title="UDF1">UDF1</th>
+                    <th  ng-style="{ 'width':  '100px' }" title="UDF2">UDF2</th>
+                    <th  ng-style="{ 'width':  '100px' }" title="UDF3">UDF3</th>
+                    <th  ng-style="{ 'width':  '100px' }" title="Packing Date">Packing Date</th>
+                    <th  ng-style="{ 'width':  '100px' }" title="Expiry Date">Expiry Date</th>
+                </tr>
+            </thead>
+            <tbody id="InwardLineCustTable{{BatchUploadDetailsCtrl.currentBatchUploadDetail.label}}">
+                <tr id="tableBody" ng-repeat="x in BatchUploadDetailsCtrl.ePage.Masters.BatchUploadDetails"  ng-click="BatchUploadDetailsCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: (BatchUploadDetailsCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}" >
+                    
+                    <td  ng-style="{ 'width':  '40px' }"  class="overflow-text">{{$index +1}}</td>
+                    <td  ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.WAR_WarehouseCode}}</td>
+                    <td  ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.ORG_ClientCode}}</td>
+                    <td  ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.ConsigneeCode}}</td>
+                    <td  ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.RequiredDate | dateFormat}}</td>
+                    <td  ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.ExternalReference}}</td>
+                    <td  ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.CustomerReference}}</td>
+                    <td  ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.ProductCode}}</td>
+                    <td  ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.Packs}}</td>
+                    <td  ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PackType}}</td>
+                    <td  ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.Units}}</td>
+                    <td  ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.StockKeepingUnits}}</td>
+                    <td  ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.UDF1}}</td>
+                    <td  ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.UDF2}}</td>
+                    <td  ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.UDF3}}</td>
+                    <td  ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PackingDate | dateFormat}}</td>
+                    <td  ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.ExpryDate | dateFormat}}</td>
+                            
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

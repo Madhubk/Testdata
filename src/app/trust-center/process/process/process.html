@@ -1,27 +1,37 @@
 <div class="clearfix tc-filter-list">
     <!-- Breadcrumb -->
     <div class="clearfix tc-breadcrumb" data-ng-if="ProcessCtrl.ePage.Masters.ActiveApplication == 'TC'">
-        <i class="fa fa-home home-icon"></i>
-        <div class="breadcrumb-list-wrapper">
-            <ol class="breadcrumb">
-                <li data-ng-repeat="x in ProcessCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
-                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="ProcessCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
-                </li>
-                <li data-ng-repeat="x in ProcessCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
-                    class="active"></li>
-            </ol>
+        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-xs-12 p-0">
+            <i class="fa fa-home home-icon"></i>
+            <div class="breadcrumb-list-wrapper">
+                <ol class="breadcrumb">
+                    <li data-ng-repeat="x in ProcessCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                        <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="ProcessCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                    </li>
+                    <li data-ng-repeat="x in ProcessCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive"
+                        data-ng-bind="x.Description" class="active"></li>
+                </ol>
+            </div>
         </div>
-        <span class="tc-breadcrumb-app-name" data-ng-if="ProcessCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="ProcessCtrl.ePage.Masters.QueryString.AppName"></span>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12 p-4">
+            <tc-application-dropdown query-string="ProcessCtrl.ePage.Masters.QueryString" on-application-change="ProcessCtrl.ePage.Masters.Application.OnApplicationChange($item)"></tc-application-dropdown>
+        </div>
     </div>
     <!-- Header -->
     <div class="clearfix tc-header-container">
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
-            <div class="tc-header with-add-new">
-                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-5">
-                    <div class="text-single-line" data-ng-bind="'Filter'"></div>
+            <div class="tc-header with-drop-down">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 p-0">
+                    <select chosen class="form-control input-sm" data-ng-model="ProcessCtrl.ePage.Masters.Process.ActiveProcessType.Key"
+                        data-ng-options="x.Key as x.Value for x in ProcessCtrl.ePage.Masters.Process.TypeList"
+                        data-ng-change="ProcessCtrl.ePage.Masters.Process.OnProcessTypeChange((ProcessCtrl.ePage.Masters.Process.TypeList | filter: {'Key': ProcessCtrl.ePage.Masters.Process.ActiveProcessType.Key})[0])">
+                        <option value="">All</option>
+                    </select>
                 </div>
-                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-5 pt-4 text-right">
-                    <button class="btn btn-xs btn-info" data-ng-click="ProcessCtrl.ePage.Masters.Process.AddNew()">New</button>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0"></div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pt-4 text-right">
+                    <button class="btn btn-xs btn-info" data-ng-click="ProcessCtrl.ePage.Masters.Process.ActiveProcessType.PK && ProcessCtrl.ePage.Masters.Process.AddNew()"
+                        data-ng-disabled="!ProcessCtrl.ePage.Masters.Process.ActiveProcessType.PK">New</button>
                 </div>
             </div>
         </div>
@@ -57,14 +67,14 @@
                         <div class="clearfix tc-list">
                             <div class="tc-list-name">
                                 <i class="fa fa-circle-o mr-10"></i>
-                                <span class="text-single-line" data-ng-bind="x.ProcessName"></span>
+                                <span class="text-single-line" data-ng-bind="x.ProcessDescription"></span>
                             </div>
                         </div>
                     </li>
                 </ul>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed">
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed" data-ng-if="ProcessCtrl.ePage.Masters.Process.ActiveProcess">
             <div class="pt-10 pb-10 tc-details-view clearfix">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <div class="clearfix form-group">
@@ -154,28 +164,19 @@
                     <div class="form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Code</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <input type="text" class="form-control input-sm" placeholder="Process Name" data-ng-model="ProcessCtrl.ePage.Masters.Process.ActiveProcess.ProcessCode">
+                            <input type="text" class="form-control input-sm" placeholder="Process Code" data-ng-model="ProcessCtrl.ePage.Masters.Process.ActiveProcess.ProcessCode">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Name</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <input type="text" class="form-control input-sm" placeholder="Process Type" data-ng-model="ProcessCtrl.ePage.Masters.Process.ActiveProcess.ProcessName">
+                            <input type="text" class="form-control input-sm" placeholder="Process Name" data-ng-model="ProcessCtrl.ePage.Masters.Process.ActiveProcess.ProcessName">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4"> Description</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
                             <input type="text" class="form-control input-sm" placeholder="Description" data-ng-model="ProcessCtrl.ePage.Masters.Process.ActiveProcess.ProcessDescription">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4"> Group</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <select chosen disable-search="true" class="form-control input-sm" data-ng-model="ProcessCtrl.ePage.Masters.Process.ActiveProcess.ProcessType"
-                                data-ng-options="x.Key as x.Value for x in ProcessCtrl.ePage.Masters.Process.TypeList">
-                                <option value="">--Select--</option>
-                            </select>
                         </div>
                     </div>
                     <div class="form-group">

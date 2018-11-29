@@ -1,0 +1,87 @@
+<div class="clearfix order-menu-wraper">
+    <div id="orderMenuWrapper{{one_one_orderMenuCtrl.currentOrder.label}}" class="col-sm-12 no-padding-left no-padding-right">
+        <uib-tabset class="order-menu tabs-left tabbable" active="one_one_orderMenuCtrl.ePage.Masters.TabIndex">
+            <div class="tab-profile">
+                <div class="tab-profile-title text-single-line text-center" data-ng-bind="one_one_orderMenuCtrl.currentOrder.label"></div>
+            </div>
+            <uib-tab data-ng-repeat="x in one_one_orderMenuCtrl.ePage.Masters.OrderMenu.ListSource" deselect="one_one_orderMenuCtrl.ePage.Masters.TabSelected(x,$selectedIndex,$event, one_one_orderMenuCtrl.currentObj);"
+                index="$index" data-ng-click="one_one_orderMenuCtrl.ePage.Masters.OnMenuClick(x)" data-ng-if="!x.IsDisabled">
+                <uib-tab-heading title="{{x.DisplayName}}">
+                    <i class="fa {{x.Icon}} margin-right-5"></i>
+                    <span class="text-single-line" data-ng-bind="x.DisplayName"></span>
+                    <error-warning-directive data-ng-if="one_one_orderMenuCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Order',one_one_orderMenuCtrl.currentOrder.code,x.GParentRef, 'W', 'GParent').length > 0 && one_one_orderMenuCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Order', one_one_orderMenuCtrl.currentOrder.code,x.GParentRef, 'E', 'GParent').length == 0"
+                        list="one_one_orderMenuCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList" type="'warning'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
+                    <error-warning-directive data-ng-if="one_one_orderMenuCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Order', one_one_orderMenuCtrl.currentOrder.code,x.GParentRef, 'E', 'GParent').length > 0"
+                        list="one_one_orderMenuCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList" type="'error'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
+                </uib-tab-heading>
+                <div>
+                    <div data-ng-switch="x.Value">
+                        <!--Menu directives-->
+                        <div data-ng-switch-when="QuickView" quick-view obj="one_one_orderMenuCtrl.currentOrder"></div>
+                        <div data-ng-switch-when="MyTask" one-one-my-task current-order="one_one_orderMenuCtrl.currentOrder"
+                            list-source="one_one_orderMenuCtrl.ePage.Masters.MyTask.ListSource" data-ng-if="one_one_orderMenuCtrl.ePage.Masters.MyTask.ListSource && one_one_orderMenuCtrl.ePage.Masters.MyTask.ListSource.length > 0"></div>
+                        <div data-ng-switch-when="General" data-ng-if="one_one_orderMenuCtrl.currentOrder"
+                            one-one-order-general current-order="one_one_orderMenuCtrl.currentOrder"></div>
+                        <div data-ng-switch-when="OrderLines" one-one-order-lines current-order="one_one_orderMenuCtrl.currentOrder"></div>
+                        <div data-ng-switch-when="ProductQuantitySummary" one-one-prod-summary current-order="one_one_orderMenuCtrl.currentOrder"></div>
+                        <div data-ng-switch-when="CargoReadiness" one-one-order-cargo-readiness current-order="one_one_orderMenuCtrl.currentOrder"></div>
+                        <div data-ng-switch-when="ShpPreAdvice" one-one-order-shipment-pre-advice current-order="one_one_orderMenuCtrl.currentOrder"></div>
+                        <div data-ng-switch-when="Shipment" one-one-order-shipment current-order="one_one_orderMenuCtrl.currentOrder"></div>
+                        <div data-ng-switch-when="Split" one-one-order-split current-order="one_one_orderMenuCtrl.currentOrder"></div>
+                        <div data-ng-switch-when="Address" data-ng-if="one_one_orderMenuCtrl.currentOrder[one_one_orderMenuCtrl.currentOrder.label].ePage.Entities.Header.Data.UIAddressContactList.CfxTypeList"
+                            address-directives current-obj="one_one_orderMenuCtrl.currentOrder" entitysource="'POH'"></div>
+                    </div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+    <!--Standard Menu Directive-->
+    <div class="eaxis-footer-strip" data-ng-show="one_one_orderMenuCtrl.ePage.Masters.ActiveMenuTab.Value != 'MyTask'">
+        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
+            <standard-menu input="one_one_orderMenuCtrl.currentOrder" dataentry-object="one_one_orderMenuCtrl.dataentryObject"
+                data-ng-if="!one_one_orderMenuCtrl.currentOrder.isNew"></standard-menu>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <!-- buyer -->
+                <one-one-order-action input="one_one_orderMenuCtrl.currentOrder" data-ng-if="!one_one_orderMenuCtrl.currentOrder.isNew">
+                </one-one-order-action>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <!-- buyer Save -->
+                <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="one_one_orderMenuCtrl.ePage.Masters.Validation(one_one_orderMenuCtrl.currentOrder)"
+                    data-ng-bind="one_one_orderMenuCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="one_one_orderMenuCtrl.ePage.Masters.IsDisableSave"></button>
+            </div>
+        </div>
+    </div>
+    <div class="error-warning-container right" id="errorWarningContainer{{one_one_orderMenuCtrl.currentOrder.label}}">
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                <!-- <i class="fa fa-warning"></i>  -->
+                Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right" data-ng-click="one_one_orderMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(one_one_orderMenuCtrl.currentOrder)">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+        </div>
+        <div class="error-warning-body">
+            <div class="clearfix" data-ng-if="one_one_orderMenuCtrl.ePage.Masters.ErrorWarningConfig.Modules.Order.Entity[one_one_orderMenuCtrl.currentOrder.code].GlobalErrorWarningList.length>0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in one_one_orderMenuCtrl.ePage.Masters.ErrorWarningConfig.Modules.Order.Entity[one_one_orderMenuCtrl.currentOrder.code].GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+/*Email Group*/
+
+#forum_embed {
+    border: none;
+    width: 100%;
+    height: 600px;
+    overflow-y: auto;
+}

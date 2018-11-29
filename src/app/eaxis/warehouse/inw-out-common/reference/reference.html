@@ -1,42 +1,43 @@
-<!-- hide save -->
-<span ng-if="!ReferenceCtrl.ePage.Masters.Lineslist && ReferenceCtrl.ePage.Entities.Header.CheckPoints.NotFinaliseStage" ng-init="ReferenceCtrl.ePage.Entities.Header.CheckPoints.DisableSave=true"></span>
-<span ng-if="ReferenceCtrl.ePage.Masters.Lineslist && ReferenceCtrl.ePage.Entities.Header.CheckPoints.NotFinaliseStage" ng-init="ReferenceCtrl.ePage.Entities.Header.CheckPoints.DisableSave=false"></span>
-
-<!-- To hide and show two directives -->
-<span ng-if="ReferenceCtrl.ePage.Entities.Header.CheckPoints.HideindexReferences==false">
-    <span ng-init="ReferenceCtrl.ePage.Masters.selectedRow=-1"></span>
-</span>
-
-<!-- List Empty Response -->
-<div class="grid-loading-norecord-container ng-scope" style='z-index: 4;'data-ng-if="ReferenceCtrl.ePage.Masters.IsLoadingToSave">
-    <div class="grid-no-record" >Saving your Data...</div>
-</div>
-
-<div class="p-10" ng-show='ReferenceCtrl.ePage.Masters.Lineslist && ReferenceCtrl.ePage.Entities.Header.CheckPoints.Checkpointhidden'>
-    <div ng-show='ReferenceCtrl.ePage.Entities.Header.CheckPoints.NotFinaliseStage'>
-        <span><button type="button" class="btn btn-sm btn-outline-secondary" title="Add New"  data-ng-click="ReferenceCtrl.ePage.Masters.AddNewRow()"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button></span>
-        <span ng-hide='ReferenceCtrl.ePage.Masters.selectedRow==-1'><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Copy"  data-ng-click="ReferenceCtrl.ePage.Masters.CopyRow()"><span class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button></span>
-        <span ng-hide='ReferenceCtrl.ePage.Masters.selectedRow==-1'><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Edit"  data-ng-click="ReferenceCtrl.ePage.Masters.Edit(ReferenceCtrl.ePage.Masters.selectedRow,'Edit List')"><span class="fa fa-pencil"></span>&nbsp;&nbsp;Edit</button></span>
-        <span ng-hide='ReferenceCtrl.ePage.Masters.selectedRow==-1'><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Delete"  data-ng-click="ReferenceCtrl.ePage.Masters.RemoveRow()"><span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button></span>        
+<div class="clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding">
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 p-0">
+            <span><button type="button" class="btn btn-sm btn-outline-secondary font-10"  title="Add New"  data-ng-click="ReferenceCtrl.ePage.Masters.AddNewRow()" ng-disabled="ReferenceCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button></span>
+            <span><button type="button" class="btn btn-sm btn-outline-primary font-10"  title="Copy"  data-ng-click="ReferenceCtrl.ePage.Masters.CopyRow()" ng-disabled="!ReferenceCtrl.ePage.Masters.EnableDeleteButton || ReferenceCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"><span class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button></span>
+            <span><button type="button" class="btn btn-sm btn-outline-primary font-10"  title="Delete"  data-ng-click="ReferenceCtrl.ePage.Masters.RemoveRow()" ng-disabled="!ReferenceCtrl.ePage.Masters.EnableDeleteButton || ReferenceCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"><span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button></span>
+            <span><button type="button" class="btn btn-sm btn-outline-primary font-10"  title="Customize"  data-ng-click="ReferenceCtrl.ePage.Masters.EditTableColumns = true"><span class="fa fa-filter"></span>&nbsp;&nbsp;Customize</button></span>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="input-group">
+                <div class="input-group-addon font-10"><i class="fa fa-search font-10"></i></div>
+                <input type="text" class="form-control height-25 font-10" placeholder="Search" ng-model="ReferenceCtrl.ePage.Masters.SearchTable">
+            </div>      
+        </div>
     </div>
-    <div id='ReferenceCtrl.ePage.Masters.your_div' class="wmstable_scroll" style="height:210px; padding-top: 2px;">
-        <div class="table tab-position" id="results">
-            <div class='theader'>
-                <div class='table_header'>List No</div>
-                <div class='table_header'>Reference Type</div> 
-                <div class='table_header'>Reference</div>                               
-            </div>
-
-             <!-- List Empty Response -->
-             <div data-ng-if="ReferenceCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderReference.length==0">
-                <div class="grid-no-record" style="top:100px">No records found...</div>
-            </div>
-
-            <div class='table_row' ng-repeat="x in ReferenceCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderReference | orderBy:'CreatedDateTime'  | filter:{IsDeleted:'false'}  track by $index" 
-                ng-click="ReferenceCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: ReferenceCtrl.ePage.Masters.selectedRow==$index}" style="font-size: 11px;">
-                <div class='table_small'>
-                    <div class='table_cell'>List No</div>
-                    <div class='table_cell'>
+    <div id="RefTable{{ReferenceCtrl.ePage.Entities.Header.Data.PK}}" class="fixedheader mb-0" key-events table-object='ReferenceCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderReference' enable='ReferenceCtrl.ePage.Masters.Enable' selected-row='ReferenceCtrl.ePage.Masters.selectedRow' unique-id='RefTable{{ReferenceCtrl.ePage.Entities.Header.Data.PK}}'>
+        <table id="ReferenceCtrl.ePage.Masters.AddScroll" style="height: 170px">
+            <thead>
+                <tr id="tableHeader">
+                    <th id="referencecheckbox" data-ng-if="ReferenceCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderReference.referencecheckbox.isenabled" ng-style="{ 'width': ReferenceCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderReference.referencecheckbox.width + 'px' }">
+                        <label class="customcheckbox">
+                            <input type="checkbox" ng-change="ReferenceCtrl.ePage.Masters.SelectAllCheckBox()" ng-checked="ReferenceCtrl.ePage.Masters.SelectAll"
+                                ng-model="ReferenceCtrl.ePage.Masters.SelectAll" ng-disabled="ReferenceCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                            <span class="text"></span>
+                        </label>
+                    </th>
+                    <th id="referencesno" data-ng-if="ReferenceCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderReference.referencesno.isenabled" ng-style="{ 'width': ReferenceCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderReference.referencesno.width + 'px' }" title="S.No">S.No</th>
+                    <th id="referencetype" data-ng-if="ReferenceCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderReference.referencetype.isenabled" ng-style="{ 'width': ReferenceCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderReference.referencetype.width + 'px' }" title="Reference Type">Reference Type</th>
+                    <th id="reference"data-ng-if="ReferenceCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderReference.reference.isenabled" ng-style="{ 'width': ReferenceCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderReference.reference.width + 'px' }" title="Reference">Reference</th>
+                </tr>
+            </thead>
+            <tbody id="RefeCustTable{{ReferenceCtrl.ePage.Entities.Header.Data.PK}}">
+                <tr id="tableBody" ng-repeat="x in ReferenceCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderReference | filter:ReferenceCtrl.ePage.Masters.SearchTable"  ng-click="ReferenceCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: (ReferenceCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}" 
+                    watch-table table-properties="ReferenceCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderReference"  unique-id="RefeCustTable{{ReferenceCtrl.ePage.Entities.Header.Data.PK}}" row-position="$index">
+                    <td id="referencecheckbox" data-ng-show='ReferenceCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderReference.referencecheckbox.isenabled'  ng-style="{ 'width': ReferenceCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderReference.referencecheckbox.width + 'px' ,'padding-top':'0px' }" ng-click="ReferenceCtrl.ePage.Masters.Enable = true">
+                        <label class="mb-0 customcheckbox">
+                            <input type="checkbox" ng-checked="x.SingleSelect" ng-change="ReferenceCtrl.ePage.Masters.SingleSelectCheckBox()"
+                                ng-model="x.SingleSelect" ng-disabled="ReferenceCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"> </input>
+                            <span class="text"></span>
+                        </label>
                         <span class="list-error-warning" data-ng-if="ReferenceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderReference.ERROR | listCount: 'RowIndex': $index">
                             <error-warning-directive 
                                 list="ReferenceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderReference.ERROR"
@@ -44,76 +45,56 @@
                                 g-parent-ref="" row-index="$index"
                                 col-index="">
                             </error-warning-directive>
-                        </span>{{$index+1}}
-                    </div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Reference Type</div>
-                    <div class='table_cell'>{{x.RefType || ReferenceCtrl.ePage.Masters.emptyText}}</div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Reference</div>
-                    <div class='table_cell'>{{x.Reference || ReferenceCtrl.ePage.Masters.emptyText}}</div>
-                </div>
-            </div>
-        </div>
+                        </span>
+                    </td>
+                    <td id="referencesno"   data-ng-show='ReferenceCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderReference.referencesno.isenabled' ng-style="{ 'width': ReferenceCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderReference.referencesno.width + 'px' }" ng-click="ReferenceCtrl.ePage.Masters.Enable = true">
+                        {{$index+1}}
+                    </td>
+                    <td id="referencetype"  data-ng-show='ReferenceCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderReference.referencetype.isenabled'  ng-style="{ 'width': ReferenceCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderReference.referencetype.width + 'px' }">
+                        <div data-ng-if="$index!=ReferenceCtrl.ePage.Masters.selectedRow || ReferenceCtrl.ePage.Entities.Header.GlobalVariables.NonEditable" class="overflow-text">
+                            {{ x.RefType || ReferenceCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==ReferenceCtrl.ePage.Masters.selectedRow && !ReferenceCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                            <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0" ng-click="ReferenceCtrl.ePage.Masters.Enable = false">
+                                <select chosen class="form-control" ng-model="x.RefType" ng-options="x.Key as x.Key+'-'+x.Value for x in ReferenceCtrl.ePage.Masters.DropDownMasterList.WOR_REFERENCETYPE.ListSource" search-contains="true" ng-change="ReferenceCtrl.ePage.Masters.OnChangeValues(x.RefType,'E3015',true,$index)">
+                                    <option value="">--Select--</option>
+                                </select>              
+                            </div>
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ReferenceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderReference.ERROR | filter:{RowIndex:$index} | listCount: 'ColIndex':1">
+                                <error-warning-directive  list="ReferenceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderReference.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                    row-index="ReferenceCtrl.ePage.Masters.selectedRow" col-index="1">
+                                </error-warning-directive>
+                            </div>
+                        </div>
+                    </td>
+                    <td id="reference"   data-ng-show='ReferenceCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderReference.reference.isenabled' ng-style="{ 'width': ReferenceCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderReference.reference.width + 'px' }" ng-click="ReferenceCtrl.ePage.Masters.Enable = true">
+                        <div data-ng-if="$index!=ReferenceCtrl.ePage.Masters.selectedRow || ReferenceCtrl.ePage.Entities.Header.GlobalVariables.NonEditable" class="overflow-text">
+                            {{ x.Reference || ReferenceCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==ReferenceCtrl.ePage.Masters.selectedRow && !ReferenceCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                            <div class="height-22  col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
+                                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Reference"  data-ng-model="x.Reference" ng-change="ReferenceCtrl.ePage.Masters.OnChangeValues(x.Reference,'E3016',true,$index)">                                        
+                            </div>
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ReferenceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderReference.ERROR | filter:{RowIndex:$index} | listCount: 'ColIndex':2">
+                                <error-warning-directive  list="ReferenceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderReference.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                    row-index="ReferenceCtrl.ePage.Masters.selectedRow" col-index="2">
+                                </error-warning-directive>
+                            </div>
+                        </div>
+                    </td>         
+                </tr>
+            </tbody>
+        </table>
     </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound"  ng-if="ReferenceCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderReference.length==0">No Record Found...</div>
 </div>
-
-<div class="clearfix" ng-hide='ReferenceCtrl.ePage.Masters.Lineslist' style="padding:5px">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <span ng-show="ReferenceCtrl.ePage.Masters.HeaderName =='Copy Of List'">
-                    {{ReferenceCtrl.ePage.Masters.HeaderName}} - {{ReferenceCtrl.ePage.Masters.selectedRow}}                     
-            </span>
-            <span ng-show="ReferenceCtrl.ePage.Masters.HeaderName!='Copy Of List'">
-                    {{ReferenceCtrl.ePage.Masters.HeaderName}} - {{ReferenceCtrl.ePage.Masters.selectedRow+1}}                     
-            </span>
-            <span class="pull-right Linestatus">{{ReferenceCtrl.ePage.Masters.WorkOrderStatus}}</span>
-        </div>
-        <div class="panel-body">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ex-line-padding">
-                <div class="ex-line-box" style="height: 90px;padding-top:10px" >
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 ex-line-padding" style="padding-left:10px">
-                        <div class="form-group">
-                            <div class="error-warning-container" ng-repeat="x in ReferenceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderReference.ERROR">
-                                <error-warning-directive data-ng-if="x.ColIndex == 1 && x.RowIndex ==ReferenceCtrl.ePage.Masters.selectedRow"
-                                    list="ReferenceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderReference.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
-                                    g-parent-ref="" row-index="ReferenceCtrl.ePage.Masters.selectedRow"
-                                    col-index="1">
-                                </error-warning-directive>
-                            </div>
-                            <label class="control-label text-single-line">Reference Type</label>
-                            <select chosen class="form-control" ng-model="ReferenceCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderReference[ReferenceCtrl.ePage.Masters.selectedRow].RefType" ng-options="x.Key as x.Key+'-'+x.Value for x in ReferenceCtrl.ePage.Masters.DropDownMasterList.WOR_REFERENCETYPE.ListSource" 
-                                    search-contains="true" ng-change="ReferenceCtrl.ePage.Masters.OnChangeValues(ReferenceCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderReference[ReferenceCtrl.ePage.Masters.selectedRow].RefType,'E3015',true,ReferenceCtrl.ePage.Masters.selectedRow)">
-                                <option value="">--Select--</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 ex-line-padding" style="padding-left:10px;padding-right:10px">
-                        <div class="form-group">
-                            <div class="error-warning-container" ng-repeat="x in ReferenceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderReference.ERROR">
-                                <error-warning-directive data-ng-if="x.ColIndex == 2 && x.RowIndex ==ReferenceCtrl.ePage.Masters.selectedRow"
-                                    list="ReferenceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderReference.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
-                                    g-parent-ref="" row-index="ReferenceCtrl.ePage.Masters.selectedRow"
-                                    col-index="2">
-                                </error-warning-directive>
-                            </div>
-                            <label class="control-label text-single-line">Reference</label>
-                            <div class="">
-                                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Reference"  data-ng-model="ReferenceCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderReference[ReferenceCtrl.ePage.Masters.selectedRow].Reference" ng-change="ReferenceCtrl.ePage.Masters.OnChangeValues(ReferenceCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderReference[ReferenceCtrl.ePage.Masters.selectedRow].Reference,'E3016',true,ReferenceCtrl.ePage.Masters.selectedRow)">                                        
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-lg-offset-8 mt-5">
-                <button class="btn btn-blue btn-sm mr-5 pull-right" title="Save" data-ng-click="ReferenceCtrl.ePage.Masters.Done()"><i class="fa fa-save pr-5"></i>Save</button>
-                <button class="btn btn-primary btn-sm mr-5 pull-right" title="Delete" data-ng-click="ReferenceCtrl.ePage.Masters.RemoveRow()"><i class="fa fa-trash pr-5"></i>Delete</button>
-                <button class="btn btn-primary btn-sm mr-5 pull-right" title="Back" data-ng-click="ReferenceCtrl.ePage.Masters.Back()"><i class="fa fa-angle-double-left pr-5"></i>Back</button>
-            </div>
-        </div>
-    </div>
+<!-- To show Customize Modal -->
+<div ng-if='ReferenceCtrl.ePage.Masters.EditTableColumns'>
+    <customize-table table-properties="ReferenceCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderReference" enable="ReferenceCtrl.ePage.Masters.EditTableColumns" unique-id="RefeCustTable{{ReferenceCtrl.ePage.Entities.Header.Data.PK}}" user-value='ReferenceCtrl.ePage.Masters.UserValue' entity-source='WMS_REFERENCE'></customize-table>
+</div>
+<!-- Call Directive If user has value -->
+<div ng-if='ReferenceCtrl.ePage.Masters.UserHasValue' ng-init="ReferenceCtrl.ePage.Masters.UserHasValue=false">
+    <watch-table table-properties="ReferenceCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderReference"  unique-id="RefeCustTable{{ReferenceCtrl.ePage.Entities.Header.Data.PK}}"></watch-table>
 </div>

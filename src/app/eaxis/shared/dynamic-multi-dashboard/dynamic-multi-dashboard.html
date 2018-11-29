@@ -1,10 +1,13 @@
+<div class="clearfix text-center p-20 font-160 text-info" data-ng-if="DynMultiDashboardCtrl.ePage.Masters.Tab.ListSource && DynMultiDashboardCtrl.ePage.Masters.Tab.ListSource.length == 0">
+    <i>Dashboard not Configured...!</i>
+</div>
 <uib-tabset class="tab-container" data-ng-if="DynMultiDashboardCtrl.ePage.Masters.Tab.ListSource && DynMultiDashboardCtrl.ePage.Masters.Tab.ListSource.length > 0">
     <uib-tab ng-repeat="tab in DynMultiDashboardCtrl.ePage.Masters.Tab.ListSource">
         <uib-tab-heading title="{{tab.MenuName}}">
             <span data-ng-bind="tab.MenuName"></span>
         </uib-tab-heading>
         <div class="clearfix">
-            <div data-ng-if="tab.FilePath" data-ng-include="tab.FilePath"></div>
+            <div data-ng-if="tab.FilePath && tab.OtherConfig.Controller" data-ng-include="tab.FilePath" load-dynamic-ctrl="tab.OtherConfig.Controller"></div>
         </div>
     </uib-tab>
 </uib-tabset>

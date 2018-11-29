@@ -5,9 +5,9 @@
         .module("Application")
         .controller("CompanyListController", CompanyListController);
 
-    CompanyListController.$inject = ["$scope", "$location", "$timeout", "authService", "apiService", "helperService", "appConfig", "toastr", "trustCenterConfig"];
+    CompanyListController.$inject = ["$location", "$timeout", "authService", "apiService", "helperService", "trustCenterConfig"];
 
-    function CompanyListController($scope, $location, $timeout, authService, apiService, helperService, appConfig, toastr, trustCenterConfig) {
+    function CompanyListController($location, $timeout, authService, apiService, helperService, trustCenterConfig) {
         /* jshint validthis: true */
         var CompanyListCtrl = this;
         var _queryString = $location.path().split("/").pop();
@@ -22,7 +22,7 @@
             };
 
             CompanyListCtrl.ePage.Masters.ActiveApplication = authService.getUserInfo().AppCode;
-            
+
             CompanyListCtrl.ePage.Masters.emptyText = "-";
 
             try {
@@ -52,10 +52,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.OrgEmployeeAssignments.API.GetColumnValuesWithFilters.FilterID
+                "FilterID": trustCenterConfig.Entities.API.OrgEmployeeAssignments.API.GetColumnValuesWithFilters.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.OrgEmployeeAssignments.API.GetColumnValuesWithFilters.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.OrgEmployeeAssignments.API.GetColumnValuesWithFilters.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     CompanyListCtrl.ePage.Masters.CompanyListType.ListSource = response.data.Response;
 
@@ -107,10 +107,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.OrgEmployeeAssignments.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.OrgEmployeeAssignments.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.OrgEmployeeAssignments.API.FindAll.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.OrgEmployeeAssignments.API.FindAll.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     CompanyListCtrl.ePage.Masters.CompanyListTypeList.ListSource = response.data.Response;
                 } else {

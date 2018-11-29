@@ -1,0 +1,85 @@
+<div class="grid-loading-norecord-container ng-scope" style='z-index: 15;' data-ng-if="PickupMenuCtrl.ePage.Masters.Loading">
+    <div class="grid-no-record">
+        <i class="fa fa-spinner fa-pulse"></i> Saving your Data...</div>
+</div>
+
+<div class="clearfix wms-menu-wraper">
+    <div id="wmsMenuWrapper{{PickupMenuCtrl.currentPickup.label}}" class="col-sm-12 no-padding-left no-padding-right">
+        <uib-tabset class="wms-menu tabs-left tabbable" active="PickupMenuCtrl.ePage.Masters.active">
+            <div class="tab-profile">
+                <div class="tab-profile-title text-single-line text-center" style="color: rgb(66, 50, 50);font-weight: 600;" data-ng-bind="PickupMenuCtrl.currentPickup.label"></div>
+                <div class="wocstatusmenu text-single-line text-center" title="{{PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderStatus + ' - '+ PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderStatusDesc}}"
+                    data-ng-bind="PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderStatusDesc"></div>
+            </div>
+            <uib-tab ng-repeat="x in PickupMenuCtrl.ePage.Masters.PickupMenu.ListSource" index="$index" deselect="PickupMenuCtrl.ePage.Masters.tabSelected(x,$selectedIndex,$event);"
+                data-ng-if="!x.IsDisabled">
+                <uib-tab-heading title="{{x.DisplayName}}">
+                    <i class="{{x.Icon}} mr-5"></i>
+                    <span class="text-single-line" data-ng-bind="x.DisplayName"></span>
+                    <error-warning-directive data-ng-if="PickupMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, PickupMenuCtrl.currentPickup.label, 'W', 'GParent').length > 0 && PickupMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, PickupMenuCtrl.currentPickup.label, 'E', 'GParent').length == 0"
+                        list="PickupMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList" type="'warning'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
+                    <error-warning-directive data-ng-if="PickupMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, PickupMenuCtrl.currentPickup.label, 'E', 'GParent').length > 0"
+                        list="PickupMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList" type="'error'" icon="fa fa-warning"
+                        parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
+                </uib-tab-heading>
+
+                <!-- <div class="finalisedstate" ng-show="PickupMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                    <span class="finaliseddatedescription">Inward {{PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderStatusDesc}} and it cannot
+                        be edited</span>
+                </div> -->
+
+                <div>
+                    <div ng-switch="x.Value">
+                        <!--Menu directives-->
+                        <div ng-switch-when="MyTask" pickup-my-task current-pickup="PickupMenuCtrl.currentPickup"></div>
+                        <div ng-switch-when="General" pickup-general current-pickup="PickupMenuCtrl.currentPickup"></div>
+                        <div ng-switch-when="PickupLine" pickup-line current-pickup="PickupMenuCtrl.currentPickup"></div>
+                        <div ng-switch-when="PickupOrders" pickup-orders current-pickup="PickupMenuCtrl.currentPickup"></div>
+                        <div ng-switch-when="PickupDetails" pickup-details current-pickup="PickupMenuCtrl.currentPickup"></div>
+                    </div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+
+    </div>
+    <div class="error-warning-container right" id="errorWarningContainer{{PickupMenuCtrl.currentPickup.label}}">
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                <!-- <i class="fa fa-warning"></i>  -->
+                Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right" data-ng-click="PickupMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(PickupMenuCtrl.currentPickup)">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+        </div>
+        <div class="error-warning-body">
+            <div class="clearfix" data-ng-if="PickupMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length>0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in PickupMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="eaxis-footer-strip">
+        <div class="col-xs-6 col-sm-8 col-md-8 col-lg-9 col-xl-9">
+            <standard-menu dataentry-object="PickupMenuCtrl.dataentryObject" input="PickupMenuCtrl.currentPickup"></standard-menu>
+        </div>
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 col-xl-3">
+            <span class="">
+                <button class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6" data-ng-click="PickupMenuCtrl.ePage.Masters.Validation(PickupMenuCtrl.currentPickup)"
+                    ng-disabled="PickupMenuCtrl.ePage.Masters.DisableSave" data-ng-bind="PickupMenuCtrl.ePage.Masters.SaveButtonText">Save</button>
+            </span>
+        </div>
+    </div>
+</div>

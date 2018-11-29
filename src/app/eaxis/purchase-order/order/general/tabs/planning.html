@@ -1,172 +1,268 @@
 <div class="clearfix padding-top-10">
+    <!-- Goods Origin -->
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
         <div class="form-group ex-line-font">
-            <input type="hidden" ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ORG_SendingAgent_FK">
-            <label class="control-label text-single-line">Sending Agent</label>
+            <label class="control-label text-single-line">Goods Origin</label>
             <div class="input-group input-group-sm">
-                <div dynamic-lookup my-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.SendingAgentCode" obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader"
-                    prefix-data="'OrganizationList'" config="'OrderSendingAgent_Code'"></div>
+                <div dynamic-lookup my-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.GoodsAvailableAt"
+                    obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader" page-name="'MstUNLOCO'"
+                    control-key="'GoodsAvailableAt_3088'" control-id="'GoodsAvailableAt'"></div>
                 <span class="input-group-btn">
-                    <button dynamic-list-modal obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader" field-name="'OrderSendingAgent_Code'" prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                    <button dynamic-list-modal obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader"
+                        control-key="'GoodsAvailableAt_3088'" control-id="'GoodsAvailableAt'" page-name="'MstUNLOCO'"
+                        mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedLookupData($item)"
+                        class="btn btn-default shiny" type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
                 </span>
             </div>
         </div>
     </div>
-
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-        <div class="form-group ex-line-font">
-            <input type="hidden" ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ORG_ReceivingAgent_FK" />
-            <label class="control-label text-single-line">Receiving Agent</label>
-            <div class="input-group input-group-sm">
-                <div dynamic-lookup my-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ReceivingAgentCode" obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader"
-                    prefix-data="'OrganizationList'" config="'OrderReceivingAgent_Code'"></div>
-                <span class="input-group-btn">
-                    <button dynamic-list-modal obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader" field-name="'OrderReceivingAgent_Code'" prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
-                </span>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-        <div class="form-group ex-line-font">
-            <label class="ontrol-label">Origin Cut Off Date</label>
-            <div class="input-group input-group-sm">
-                <input type="text" class="form-control" placeholder="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.DepartureVesselCutoffDate"
-                    data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isOriginCutoff')" uib-datepicker-popup="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}"
-                    datepicker-options="OrdGeneralCtrl.ePage.Masters.DatePicker.Options" is-open="OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isOriginCutoff']"
-                />
-                <span class="input-group-btn">
-                    <button class="btn btn-default shiny" data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isOriginCutoff')"><i class="fa fa-calendar"></i></button>
-                </span>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-        <div class="form-group ex-line-font">
-            <label class="control-label text-single-line">Carrier</label>
-            <input type="hidden" ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ORG_Carrier_FK">
-            <div class="input-group input-group-sm">
-                <div dynamic-lookup my-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.CarrierCode" obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader"
-                    prefix-data="'MDM_CarrierList'" config="'OrdCarrierCode'"></div>
-                <span class="input-group-btn">
-                    <button dynamic-list-modal obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader" field-name="'OrdCarrierCode'" prefix-data="'MDM_CarrierList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
-                </span>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-        <div class="form-group ex-line-font">
-            <label class="control-label text-single-line">House Bill</label>
-            <div class="">
-                <input type="text" class="form-control input-sm" placeholder="House Bill" max-length="100" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.WayBill"
-                />
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-        <div class="form-group ex-line-font">
-            <label class="control-label text-single-line">Master Bill</label>
-            <div class="">
-                <input type="text" class="form-control input-sm" placeholder="Master Bill" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.MasterWaybill"
-                />
-            </div>
-        </div>
-    </div>
-    <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-        <div class="form-group ex-line-font">
-            <label class="control-label text-single-line">Origin</label>
-            <div class="input-group input-group-sm">
-                <div dynamic-lookup my-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.GoodsAvailableAt" obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader"
-                    prefix-data="'MstUNLOCO'" config="'GoodsAvailableAt'"></div>
-                <span class="input-group-btn">
-                    <button dynamic-list-modal obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader" field-name="'GoodsAvailableAt'" prefix-data="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
-                </span>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-        <div class="form-group ex-line-font">
-            <label class="control-label text-single-line">Destination</label>
-            <div class="input-group input-group-sm">
-
-                <div dynamic-lookup my-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.GoodsDeliveredTo" obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader"
-                    prefix-data="'MstUNLOCO'" config="'GoodsDeliveredTo'"></div>
-                <span class="input-group-btn">
-                    <button dynamic-list-modal obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader" field-name="'GoodsDeliveredTo'" prefix-data="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
-                </span>
-            </div>
-        </div>
-    </div>
+    <!-- Goods Available At -->
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
         <div class="form-group ex-line-font">
             <label class="control-label text-single-line">Goods Available At</label>
             <div class="">
-                <select chosen class="form-control" ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ORA_DeliveryAdress"
-                    ng-options="x.Code as x.Code for x in OrdGeneralCtrl.ePage.Entities.Header.Meta.GoodsAvailAt.ListSource"
+                <select chosen class="form-control" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ORA_DeliveryAdress"
+                    data-ng-options="x.Code as x.Code for x in OrdGeneralCtrl.ePage.Entities.Header.Meta.GoodsAvailAt.ListSource"
                     search-contains="true">
                     <option value="">--Select--</option>
                 </select>
             </div>
         </div>
     </div>
-
+    <!-- Goods Destination -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Goods Destination</label>
+            <div class="input-group input-group-sm">
+                <div dynamic-lookup my-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.GoodsDeliveredTo"
+                    obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader" page-name="'MstUNLOCO'"
+                    control-key="'GoodsDeliveredTo_3093'" control-id="'GoodsDeliveredTo'"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader"
+                        control-key="'GoodsDeliveredTo_3093'" control-id="'GoodsDeliveredTo'" page-name="'MstUNLOCO'"
+                        mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedLookupData($item)"
+                        class="btn btn-default shiny" type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- Goods Deliverd To -->
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
         <div class="form-group ex-line-font">
             <label class="control-label text-single-line">Goods Delivered To</label>
             <div class="">
-                <select chosen class="form-control" ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.JDA_DeliveryAdress"
-                    ng-options="x.Code as x.Code for x in OrdGeneralCtrl.ePage.Entities.Header.Meta.GoodsDeliveredTo.ListSource"
+                <select chosen class="form-control" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.JDA_DeliveryAdress"
+                    data-ng-options="x.Code as x.Code for x in OrdGeneralCtrl.ePage.Entities.Header.Meta.GoodsDeliveredTo.ListSource"
                     search-contains="true">
                     <option value="">--Select--</option>
                 </select>
             </div>
         </div>
     </div>
+    <!-- POL -->
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
         <div class="form-group ex-line-font">
             <label class="control-label text-single-line">POL</label>
             <div class="input-group input-group-sm">
-
-                <div dynamic-lookup my-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.PortOfLoading" obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader"
-                    prefix-data="'MstUNLOCO'" config="'PortOfLoading'"></div>
+                <div dynamic-lookup my-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.PortOfLoading"
+                    obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader" page-name="'MstUNLOCO'" control-id="'PortOfLoading'"
+                    control-key="'PortOfLoading_3086'"></div>
                 <span class="input-group-btn">
-                    <button dynamic-list-modal obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader" field-name="'PortOfLoading'" prefix-data="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                    <button dynamic-list-modal obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader"
+                        page-name="'MstUNLOCO'" control-id="'PortOfLoading'" control-key="'PortOfLoading_3086'" mode="2"
+                        grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedLookupData($item)"
+                        class="btn btn-default shiny" type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
                 </span>
             </div>
         </div>
     </div>
+    <!-- POD -->
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
         <div class="form-group ex-line-font">
             <label class="control-label text-single-line">POD</label>
             <div class="input-group input-group-sm">
-
-                <div dynamic-lookup my-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.PortOfDischarge" obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader"
-                    prefix-data="'MstUNLOCO'" config="'PortOfDischarge'"></div>
-
+                <div dynamic-lookup my-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.PortOfDischarge"
+                    obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader" page-name="'MstUNLOCO'"
+                    control-key="'POD_3308'" control-id="'POD'"></div>
                 <span class="input-group-btn">
-                    <button dynamic-list-modal obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader" field-name="'PortOfDischarge'" prefix-data="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                    <button dynamic-list-modal obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader"
+                        control-key="'POD_3308'" control-id="'POD'" page-name="'MstUNLOCO'"
+                        mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedLookupData($item)"
+                        class="btn btn-default shiny" type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
                 </span>
             </div>
         </div>
-    </div> -->
-    
+    </div>
+    <!-- Export Forwarder -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ex-line-font">
+            <div class="error-warning-container">
+                <error-warning-directive data-ng-if="OrdGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.SendingAgentCode.IsWarning && !OrdGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.SendingAgentCode.IsError"
+                    list="OrdGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.SendingAgentCode.WARNING" type="'warning'"
+                    icon="fa fa-warning" parent-type="'general'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="OrdGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.SendingAgentCode.IsError"
+                    list="OrdGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.SendingAgentCode.ERROR" type="'error'"
+                    icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </div>
+            <input type="hidden" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ORG_SendingAgent_FK">
+            <label class="control-label text-single-line">Export Forwarder</label>
+            <div class="input-group input-group-sm">
+                <div dynamic-lookup my-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.SendingAgentCode"
+                    obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader" page-name="'OrganizationList'"
+                    control-key="'OrderSendingAgent_Code_3012'" control-id="'OrderSendingAgent_Code'"
+                    auto-complete-on-select="OrdGeneralCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'org', 'Export')"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader"
+                        control-key="'OrderSendingAgent_Code_3012'" control-id="'OrderSendingAgent_Code'" page-name="'OrganizationList'"
+                        mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedLookupData($item, 'org', 'Export')"
+                        class="btn btn-default shiny" type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- Import Forwarder -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ex-line-font">
+            <div class="error-warning-container">
+                <error-warning-directive data-ng-if="OrdGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ReceivingAgentCode.IsWarning && !OrdGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ReceivingAgentCode.IsError"
+                    list="OrdGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ReceivingAgentCode.WARNING" type="'warning'"
+                    icon="fa fa-warning" parent-type="'general'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="OrdGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ReceivingAgentCode.IsError"
+                    list="OrdGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ReceivingAgentCode.ERROR" type="'error'"
+                    icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </div>
+            <input type="hidden" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ORG_ReceivingAgent_FK" />
+            <label class="control-label text-single-line">Import Forwarder</label>
+            <div class="input-group input-group-sm">
+                <div dynamic-lookup my-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ReceivingAgentCode"
+                    obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader" page-name="'OrganizationList'"
+                    control-key="'OrderReceivingAgent_Code_3007'" control-id="'OrderReceivingAgent_Code'"
+                    auto-complete-on-select="OrdGeneralCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'org', 'Import')"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader"
+                        control-key="'OrderReceivingAgent_Code_3007'" control-id="'OrderReceivingAgent_Code'" page-name="'OrganizationList'"
+                        mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedLookupData($item, 'org', 'Import')"
+                        class="btn btn-default shiny" type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- Controlling Customer -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ex-line-font">
+            <input type="hidden" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ORG_ControlCustom_FK" />
+            <label class="control-label text-single-line">Controlling Customer</label>
+            <div class="input-group input-group-sm">
+                <div dynamic-lookup my-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ControlCustomCode"
+                    obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader" page-name="'OrganizationList'"
+                    control-key="'ControllingCustomer_3265'" control-id="'ControllingCustomer'"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader"
+                        control-key="'ControllingCustomer_3265'" control-id="'ControllingCustomer'" page-name="'OrganizationList'"
+                        mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedLookupData($item)"
+                        class="btn btn-default shiny" type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- Origin Cut Off Date -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="ontrol-label">Origin Cut Off Date</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.DepartureVesselCutoffDate"
+                    datetime-picker="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datepicker-options="OrdGeneralCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                    default-date="" default-time="" save-as="OrdGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                    is-open="OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isOriginCutoff']" when-closed=""
+                    data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isOriginCutoff')"
+                    data-ng-change="" custom-date-time-format />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isOriginCutoff')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- Carrier -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Carrier</label>
+            <input type="hidden" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ORG_Carrier_FK">
+            <div class="input-group input-group-sm">
+                <div dynamic-lookup my-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.CarrierCode"
+                    obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader" page-name="'OrgCarrierList'"
+                    control-key="'OrdCarrierCode_2836'" control-id="'OrdCarrierCode'"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader"
+                        control-key="'OrdCarrierCode_2836'" control-id="'OrdCarrierCode'" page-name="'OrgCarrierList'"
+                        mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedLookupData($item)"
+                        class="btn btn-default shiny" type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- House Bill -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">House Bill</label>
+            <div class="">
+                <input type="text" class="form-control input-sm" placeholder="House Bill" maxlength="35" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.WayBill" />
+            </div>
+        </div>
+    </div>
+    <!-- Master Bill -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Master Bill</label>
+            <div class="">
+                <input type="text" class="form-control input-sm" placeholder="Master Bill" maxlength="35" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.MasterWaybill" />
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- row by details -->
 <div class="clearfix">
     <div class="padding-top-5 routing-box">
         <div class="padding-left-10 ex-line-font">
-            <label class="control-label text-single-line text-single-line-label1"><i class="fa fa-ship"></i> Departure Details</label>
+            <label class="control-label text-single-line text-single-line-label1">
+                <i class="fa fa-ship"></i> Departure Details</label>
         </div>
     </div>
-    <div class="clearfix padding-top-5 routing-box-line" >
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+    <div class="clearfix padding-top-5 routing-box-line">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3" data-ng-if="(OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'SEA' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'FCL') ||(OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'SEA' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'LCL') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'SEA' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'BLK') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'SEA' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'LQD') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'SEA' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'BBK') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'SEA' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'ROR') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'SEA' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'OTH') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'FSA' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'LCL') ||  (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'FSA' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'LSE') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'FSA' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'ULD') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'FSA' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'OTH') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'FAS' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'LSE') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'FAS' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'ULD') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'FAS' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'ULD') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'FAS' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'LCL') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'FAS' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'OTH')">
             <div class="form-group ex-line-font">
                 <label class="control-label text-single-line">Departure Vessel</label>
                 <div class="input-group input-group-sm">
-                    <div dynamic-lookup my-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.DepartureVessel" obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader"
-                        prefix-data="'MstVessel'" config="'OrdDepartureVessel'"></div>
+                    <div dynamic-lookup my-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.DepartureVessel"
+                        obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader" auto-complete-on-select="OrdGeneralCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'Departure Vessel', 'DepartureVessel')"
+                        page-name="'MstVessel'" control-key="'OrdDepartureVessel_3183'" control-id="'OrdDepartureVessel'"></div>
                     <span class="input-group-btn">
-                        <button dynamic-list-modal obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader" field-name="'OrdDepartureVessel'" prefix-data="'MstVessel'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                        <button dynamic-list-modal obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader"
+                            control-key="'OrdDepartureVessel_3183'" control-id="'OrdDepartureVessel'" page-name="'MstVessel'"
+                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedLookupData($item, 'Departure Vessel', 'DepartureVessel')"
+                            class="btn btn-default shiny" type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
                     </span>
                 </div>
             </div>
@@ -175,35 +271,65 @@
             <div class="form-group ex-line-font">
                 <label class="control-label text-single-line">Departure Voyage/Flight</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm" placeholder="Departure Voyage / Flight" max-length="20" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.DepartureVoyage"
-                    />
+                    <input type="text" class="form-control input-sm" placeholder="Departure Voyage / Flight" maxlength="35"
+                        data-ng-blur="OrdGeneralCtrl.ePage.Masters.FieldChanges('DepartureVoyage')" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.DepartureVoyage" />
                 </div>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
             <div class="form-group ex-line-font">
+                <div class="error-warning-container">
+                    <error-warning-directive data-ng-if="OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedDepartureDate.IsWarning && !OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedDepartureDate.IsError"
+                        list="OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedDepartureDate.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'general'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedDepartureDate.IsError"
+                        list="OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedDepartureDate.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
                 <label class="control-label">Departure ETD</label>
                 <div class="input-group input-group-sm">
-                    <input type="text" class="form-control" placeholder="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.EstimatedDepartureDate"
-                        data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedDepartureDate')"
-                        uib-datepicker-popup="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="OrdGeneralCtrl.ePage.Masters.DatePicker.Options"
-                        is-open="OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isEstimatedDepartureDate']" />
+                    <input type="text" class="form-control" placeholder="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.EstimatedDepartureDate"
+                        datetime-picker="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="OrdGeneralCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time=""
+                        save-as="OrdGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isEstimatedDepartureDate']"
+                        when-closed="" data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedDepartureDate')"
+                        data-ng-change="OrdGeneralCtrl.ePage.Masters.DatePicker.OnChangeDatePicker('EstimatedDepartureDate')"
+                        custom-date-time-format />
                     <span class="input-group-btn">
-                        <button class="btn btn-default shiny" data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedDepartureDate')"><i class="fa fa-calendar"></i></button>
+                        <button class="btn btn-default shiny" data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedDepartureDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
                     </span>
                 </div>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-            <div class="form-group ex-line-font">
+            <div class="form-group ex-line-font" data-ng-if="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.IsDateEnable">
+                <div class="error-warning-container">
+                    <error-warning-directive data-ng-if="OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedArrivalDate.IsWarning && !OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedArrivalDate.IsError"
+                        list="OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedArrivalDate.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'general'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedArrivalDate.IsError"
+                        list="OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedArrivalDate.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
                 <label class="control-label">Departure ETA</label>
                 <div class="input-group input-group-sm">
-                    <input type="text" class="form-control" placeholder="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.EstimatedArrivalDate"
-                        data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedArrivalDate')"
-                        uib-datepicker-popup="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="OrdGeneralCtrl.ePage.Masters.DatePicker.Options"
-                        is-open="OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isEstimatedArrivalDate']" />
+                    <input type="text" class="form-control" placeholder="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.EstimatedArrivalDate"
+                        datetime-picker="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="OrdGeneralCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time=""
+                        save-as="OrdGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isEstimatedArrivalDate']"
+                        when-closed="" data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedArrivalDate')"
+                        data-ng-change="OrdGeneralCtrl.ePage.Masters.DatePicker.OnChangeDatePicker('EstimatedArrivalDate')"
+                        custom-date-time-format />
                     <span class="input-group-btn">
-                        <button class="btn btn-default shiny" data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedArrivalDate')"><i class="fa fa-calendar"></i></button>
+                        <button class="btn btn-default shiny" data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedArrivalDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
                     </span>
                 </div>
             </div>
@@ -213,18 +339,26 @@
 <div class="clearfix padding-top-10">
     <div class="padding-top-5 routing-box">
         <div class="padding-left-10 ex-line-font">
-            <label class="control-label text-single-line text-single-line-label1"><i class="fa fa-ship"></i> Intermediate Details</label>
+            <label class="control-label text-single-line text-single-line-label1">
+                <i class="fa fa-ship"></i> Intermediate Details</label>
         </div>
     </div>
-    <div class="clearfix padding-top-5 routing-box-line" >
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+    <div class="clearfix padding-top-5 routing-box-line">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3" data-ng-if="(OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'SEA' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'FCL') ||(OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'SEA' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'LCL') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'SEA' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'BLK') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'SEA' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'LQD') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'SEA' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'BBK') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'SEA' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'ROR') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'SEA' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'OTH') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'FSA' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'LCL') ||  (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'FSA' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'LSE') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'FSA' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'ULD') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'FSA' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'OTH') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'FAS' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'LSE') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'FAS' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'ULD') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'FAS' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'ULD') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'FAS' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'LCL') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'FAS' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'OTH')">
             <div class="form-group ex-line-font">
                 <label class="control-label text-single-line">Intermediate Vessel</label>
                 <div class="input-group input-group-sm">
-                    <div dynamic-lookup my-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.IntermediateVessel" obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader"
-                        prefix-data="'MstVessel'" config="'OrdIntermediateVessel'"></div>
+                    <div dynamic-lookup my-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.IntermediateVessel"
+                        obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader" page-name="'MstVessel'"
+                        control-key="'OrdIntermediateVessel_3188'" control-id="'OrdIntermediateVessel'"
+                        auto-complete-on-select="OrdGeneralCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'Intermediate Vessel')"></div>
                     <span class="input-group-btn">
-                        <button dynamic-list-modal obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader" field-name="'OrdIntermediateVessel'" prefix-data="'MstVessel'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                        <button dynamic-list-modal obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader"
+                            control-key="'OrdIntermediateVessel_3188'" control-id="'OrdIntermediateVessel'" page-name="'MstVessel'"
+                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedLookupData($item, 'Intermediate Vessel')"
+                            class="btn btn-default shiny" type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
                     </span>
                 </div>
             </div>
@@ -233,35 +367,66 @@
             <div class="form-group ex-line-font">
                 <label class="control-label text-single-line">Intermediate Voyage/Flight</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm" placeholder="Intermediate Voyage / Flight" max-length="20" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.IntermediateVoyage"
-                    />
+                    <input type="text" class="form-control input-sm" placeholder="Intermediate Voyage / Flight"
+                        maxlength="35" data-ng-blur="OrdGeneralCtrl.ePage.Masters.FieldChanges('IntermediateVoyage')"
+                        data-ng-disabled="OrdGeneralCtrl.ePage.Masters.IsDisable" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.IntermediateVoyage" />
                 </div>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-            <div class="form-group ex-line-font">
+            <div class="form-group ex-line-font" data-ng-if="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.IsDateEnable">
+                <div class="error-warning-container">
+                    <error-warning-directive data-ng-if="OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ArrivalIntermediateDate1.IsWarning && !OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ArrivalIntermediateDate1.IsError"
+                        list="OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ArrivalIntermediateDate1.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'general'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ArrivalIntermediateDate1.IsError"
+                        list="OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ArrivalIntermediateDate1.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
                 <label class="control-label text-single-line">Intermediate ETD</label>
                 <div class="input-group input-group-sm">
-                    <input type="text" class="form-control" placeholder="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ArrivalIntermediateDate1"
-                        data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isArrivalIntermediateDate1')"
-                        uib-datepicker-popup="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="OrdGeneralCtrl.ePage.Masters.DatePicker.Options"
-                        is-open="OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isArrivalIntermediateDate1']" />
+                    <input type="text" class="form-control" placeholder="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ArrivalIntermediateDate1"
+                        datetime-picker="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="OrdGeneralCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time=""
+                        save-as="OrdGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isArrivalIntermediateDate1']"
+                        when-closed="" data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isArrivalIntermediateDate1')"
+                        data-ng-change="OrdGeneralCtrl.ePage.Masters.DatePicker.OnChangeDatePicker('ArrivalIntermediateDate1')"
+                        custom-date-time-format />
                     <span class="input-group-btn">
-                        <button class="btn btn-default shiny" data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isArrivalIntermediateDate1')"><i class="fa fa-calendar"></i></button>
+                        <button class="btn btn-default shiny" data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isArrivalIntermediateDate1')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
                     </span>
                 </div>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-            <div class="form-group ex-line-font">
+            <div class="form-group ex-line-font" data-ng-if="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.IsDateEnable">
+                <div class="error-warning-container">
+                    <error-warning-directive data-ng-if="OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ArrivalIntermediateDate2.IsWarning && !OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ArrivalIntermediateDate2.IsError"
+                        list="OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ArrivalIntermediateDate2.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'general'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ArrivalIntermediateDate2.IsError"
+                        list="OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ArrivalIntermediateDate2.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
                 <label class="control-label text-single-line">Intermediate ETA</label>
                 <div class="input-group input-group-sm">
-                    <input type="text" class="form-control" placeholder="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ArrivalIntermediateDate2"
-                        data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isArrivalIntermediateDate2')"
-                        uib-datepicker-popup="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="OrdGeneralCtrl.ePage.Masters.DatePicker.Options"
-                        is-open="OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isArrivalIntermediateDate2']" />
+                    <input type="text" class="form-control" placeholder="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ArrivalIntermediateDate2"
+                        datetime-picker="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="OrdGeneralCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time=""
+                        save-as="OrdGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isArrivalIntermediateDate2']"
+                        when-closed="" data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isArrivalIntermediateDate2')"
+                        data-ng-change="OrdGeneralCtrl.ePage.Masters.DatePicker.OnChangeDatePicker('ArrivalIntermediateDate2')"
+                        custom-date-time-format />
                     <span class="input-group-btn">
-                        <button class="btn btn-default shiny" data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isArrivalIntermediateDate2')"><i class="fa fa-calendar"></i></button>
+                        <button class="btn btn-default shiny" data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isArrivalIntermediateDate2')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
                     </span>
                 </div>
             </div>
@@ -271,18 +436,25 @@
 <div class="clearfix padding-top-10">
     <div class="clearfix padding-top-5 routing-box">
         <div class="padding-left-10 ex-line-font">
-            <label class="control-label text-single-line text-single-line-label1"><i class="fa fa-ship"></i> Arrival Details</label>
+            <label class="control-label text-single-line text-single-line-label1">
+                <i class="fa fa-ship"></i> Arrival Details</label>
         </div>
     </div>
-    <div class="clearfix padding-top-5 routing-box-line" >
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+    <div class="clearfix padding-top-5 routing-box-line">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3" data-ng-if="(OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'SEA' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'FCL') ||(OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'SEA' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'LCL') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'SEA' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'BLK') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'SEA' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'LQD') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'SEA' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'BBK') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'SEA' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'ROR') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'SEA' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'OTH') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'FSA' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'LCL') ||  (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'FSA' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'LSE') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'FSA' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'ULD') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'FSA' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'OTH') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'FAS' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'LSE') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'FAS' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'ULD') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'FAS' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'ULD') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'FAS' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'LCL') || (OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.TransportMode == 'FAS' && OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ContainerMode == 'OTH')">
             <div class="form-group ex-line-font">
                 <label class="control-label text-single-line">Arrival Vessel</label>
                 <div class="input-group input-group-sm">
-                    <div dynamic-lookup my-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ArrivalVessel" obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader"
-                        prefix-data="'MstVessel'" config="'OrdArrivalVessel'"></div>
+                    <div dynamic-lookup my-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ArrivalVessel"
+                        obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader" page-name="'MstVessel'"
+                        control-key="'OrdArrivalVessel_3189'" control-id="'OrdArrivalVessel'" auto-complete-on-select="OrdGeneralCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'Arrival Vessel', 'ArrivalVessel')"></div>
                     <span class="input-group-btn">
-                        <button dynamic-list-modal obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader" prefix-data="'MstVessel'" field-name="'OrdArrivalVessel'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                        <button dynamic-list-modal obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader"
+                            page-name="'MstVessel'" control-key="'OrdArrivalVessel_3189'" control-id="'OrdArrivalVessel'"
+                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedLookupData($item, 'Arrival Vessel', 'ArrivalVessel')"
+                            class="btn btn-default shiny" type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
                     </span>
                 </div>
             </div>
@@ -291,223 +463,69 @@
             <div class="form-group ex-line-font">
                 <label class="control-label text-single-line">Arrival Voyage/Flight</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm" placeholder="Arrival Voyage / Flight" max-length="20" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ArrivalVoyage"
-                    />
+                    <input type="text" class="form-control input-sm" placeholder="Arrival Voyage / Flight" maxlength="35"
+                        data-ng-blur="OrdGeneralCtrl.ePage.Masters.FieldChanges('ArrivalVoyage')" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ArrivalVoyage"
+                        data-ng-disabled="OrdGeneralCtrl.ePage.Masters.IsDisable" />
                 </div>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-            <div class="form-group ex-line-font">
+            <div class="form-group ex-line-font" data-ng-if="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.IsDateEnable">
+                <div class="error-warning-container">
+                    <error-warning-directive data-ng-if="OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedDepartureDate2.IsWarning && !OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedDepartureDate2.IsError"
+                        list="OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedDepartureDate2.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'general'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedDepartureDate2.IsError"
+                        list="OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedDepartureDate2.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
                 <label class="control-label text-single-line">Arrival ETD</label>
                 <div class="input-group input-group-sm">
-                    <input type="text" class="form-control" placeholder="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.EstimatedDepartureDate2"
-                        data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedDepartureDate2')" uib-datepicker-popup="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}"
-                        datepicker-options="OrdGeneralCtrl.ePage.Masters.DatePicker.Options" is-open="OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isEstimatedDepartureDate2']"
-                    />
+                    <input type="text" class="form-control" placeholder="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.EstimatedDepartureDate2"
+                        datetime-picker="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="OrdGeneralCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time=""
+                        save-as="OrdGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isEstimatedDepartureDate2']"
+                        when-closed="" data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedDepartureDate2')"
+                        data-ng-change="OrdGeneralCtrl.ePage.Masters.DatePicker.OnChangeDatePicker('EstimatedDepartureDate2')"
+                        custom-date-time-format />
                     <span class="input-group-btn">
-                        <button class="btn btn-default shiny" data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedDepartureDate2')"><i class="fa fa-calendar"></i></button>
+                        <button class="btn btn-default shiny" data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedDepartureDate2')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
                     </span>
                 </div>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
             <div class="form-group ex-line-font">
+                <div class="error-warning-container">
+                    <error-warning-directive data-ng-if="OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ActualArrivalDate.IsWarning && !OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ActualArrivalDate.IsError"
+                        list="OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ActualArrivalDate.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'general'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ActualArrivalDate.IsError"
+                        list="OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ActualArrivalDate.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
                 <label class="control-label text-single-line">Arrival ETA</label>
                 <div class="input-group input-group-sm">
-                    <input type="text" class="form-control" placeholder="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ActualArrivalDate"
-                        data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isActualArrivalDate')" uib-datepicker-popup="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}"
-                        datepicker-options="OrdGeneralCtrl.ePage.Masters.DatePicker.Options" is-open="OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isActualArrivalDate']"
-                    />
+                    <input type="text" class="form-control" placeholder="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ActualArrivalDate"
+                        datetime-picker="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="OrdGeneralCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time=""
+                        save-as="OrdGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isActualArrivalDate']"
+                        when-closed="" data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isActualArrivalDate')"
+                        data-ng-change="OrdGeneralCtrl.ePage.Masters.DatePicker.OnChangeDatePicker('ActualArrivalDate')"
+                        custom-date-time-format />
                     <span class="input-group-btn">
-                        <button class="btn btn-default shiny" data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isActualArrivalDate')"><i class="fa fa-calendar"></i></button>
+                        <button class="btn btn-default shiny" data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isActualArrivalDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
                     </span>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- <div class="horizontal-space"></div> -->
-<!-- <div class="clearfix padding-top-10 routing-box">
-    <div class="padding-left-10 ex-line-font1">
-        <label class="control-label text-single-line text-single-line-label1"><i class="fa fa-ship"></i> Routing Details</label>
-    </div>
-</div> -->
-
-<!-- <div class="clearfix padding-top-10 routing-box-line" >
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
-        <div class="form-group">
-
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-        <div class="form-group ex-line-font1">
-            <label class="control-label text-single-line">Vessel</label>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-        <div class="form-group ex-line-font1">
-            <label class="control-label text-single-line">Voyage / Flight</label>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
-        <div class="form-group ex-line-font1">
-            <label class="control-label">ETD</label>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
-        <div class="form-group ex-line-font1">
-            <label class="control-label">ETA</label>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
-        <div class="form-group center-alignment ex-line-font1">
-            <label class="control-label text-single-line">Departure</label>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-        <div class="form-group">
-            <div class="input-group input-group-sm">
-
-                <div dynamic-lookup my-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.DepartureVessel" obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader"
-                    prefix-data="'MstVessel'" config="'OrdDepartureVessel'"></div>
-                <span class="input-group-btn">
-                    <button dynamic-list-modal obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader" field-name="'OrdDepartureVessel'" prefix-data="'MstVessel'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
-                </span>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-        <div class="form-group">
-            <div class="">
-                <input type="text" class="form-control input-sm" placeholder="Departure Voyage / Flight" max-length="20" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.DepartureVoyage"
-                />
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
-        <div class="form-group">
-            <div class="input-group input-group-sm">
-                <input type="text" class="form-control" placeholder="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.EstimatedDepartureDate"
-                    data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedDepartureDate')"
-                    uib-datepicker-popup="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="OrdGeneralCtrl.ePage.Masters.DatePicker.Options"
-                    is-open="OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isEstimatedDepartureDate']" />
-                <span class="input-group-btn">
-                    <button class="btn btn-default shiny" data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedDepartureDate')"><i class="fa fa-calendar"></i></button>
-                </span>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
-        <div class="form-group">
-            <div class="input-group input-group-sm">
-                <input type="text" class="form-control" placeholder="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.EstimatedArrivalDate"
-                    data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedArrivalDate')"
-                    uib-datepicker-popup="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="OrdGeneralCtrl.ePage.Masters.DatePicker.Options"
-                    is-open="OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isEstimatedArrivalDate']" />
-                <span class="input-group-btn">
-                    <button class="btn btn-default shiny" data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedArrivalDate')"><i class="fa fa-calendar"></i></button>
-                </span>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
-        <div class="form-group center-alignment ex-line-font1">
-            <label class="control-label text-single-line">Intermediate</label>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-        <div class="form-group">
-            <div class="input-group input-group-sm">
-                <div dynamic-lookup my-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.IntermediateVessel" obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader"
-                    prefix-data="'MstVessel'" config="'OrdIntermediateVessel'"></div>
-                <span class="input-group-btn">
-                    <button dynamic-list-modal obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader" field-name="'OrdIntermediateVessel'" prefix-data="'MstVessel'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
-                </span>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-        <div class="form-group">
-            <div class="">
-                <input type="text" class="form-control input-sm" placeholder="Intermediate Voyage / Flight" max-length="20" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.IntermediateVoyage"
-                />
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
-        <div class="form-group">
-            <div class="input-group input-group-sm">
-                <input type="text" class="form-control" placeholder="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ArrivalIntermediateDate1"
-                    data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isArrivalIntermediateDate1')"
-                    uib-datepicker-popup="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="OrdGeneralCtrl.ePage.Masters.DatePicker.Options"
-                    is-open="OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isArrivalIntermediateDate1']" />
-                <span class="input-group-btn">
-                    <button class="btn btn-default shiny" data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isArrivalIntermediateDate1')"><i class="fa fa-calendar"></i></button>
-                </span>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
-        <div class="form-group">
-            <div class="input-group input-group-sm">
-                <input type="text" class="form-control" placeholder="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ArrivalIntermediateDate2"
-                    data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isArrivalIntermediateDate2')"
-                    uib-datepicker-popup="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="OrdGeneralCtrl.ePage.Masters.DatePicker.Options"
-                    is-open="OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isArrivalIntermediateDate2']" />
-                <span class="input-group-btn">
-                    <button class="btn btn-default shiny" data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isArrivalIntermediateDate2')"><i class="fa fa-calendar"></i></button>
-                </span>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
-        <div class="form-group center-alignment ex-line-font1">
-            <label class="control-label text-single-line">Arrival</label>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-        <div class="form-group">
-            <div class="input-group input-group-sm">
-                <div dynamic-lookup my-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ArrivalVessel" obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader"
-                    prefix-data="'MstVessel'" config="'OrdArrivalVessel'"></div>
-                <span class="input-group-btn">
-                    <button dynamic-list-modal obj="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader" prefix-data="'MstVessel'" field-name="'OrdArrivalVessel'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
-                </span>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-        <div class="form-group">
-            <div class="">
-                <input type="text" class="form-control input-sm" placeholder="Arrival Voyage / Flight" max-length="20" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ArrivalVoyage"
-                />
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
-        <div class="form-group">
-            <div class="input-group input-group-sm">
-                <input type="text" class="form-control" placeholder="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.EstimatedDepartureDate2"
-                    data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedDepartureDate2')" uib-datepicker-popup="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}"
-                    datepicker-options="OrdGeneralCtrl.ePage.Masters.DatePicker.Options" is-open="OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isEstimatedDepartureDate2']"
-                />
-                <span class="input-group-btn">
-                    <button class="btn btn-default shiny" data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedDepartureDate2')"><i class="fa fa-calendar"></i></button>
-                </span>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
-        <div class="form-group">
-            <div class="input-group input-group-sm">
-                <input type="text" class="form-control" placeholder="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="OrdGeneralCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.ActualArrivalDate"
-                    data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isActualArrivalDate')" uib-datepicker-popup="{{OrdGeneralCtrl.ePage.Masters.DatePicker.Options.format}}"
-                    datepicker-options="OrdGeneralCtrl.ePage.Masters.DatePicker.Options" is-open="OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isActualArrivalDate']"
-                />
-                <span class="input-group-btn">
-                    <button class="btn btn-default shiny" data-ng-click="OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isActualArrivalDate')"><i class="fa fa-calendar"></i></button>
-                </span>
-            </div>
-        </div>
-    </div>
-</div> -->

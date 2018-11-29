@@ -25,6 +25,7 @@
             ManifestReadOnlyCtrl.ePage.Masters.Empty = "-";
             ManifestReadOnlyCtrl.ePage.Masters.setSelectedRow = setSelectedRow;
             ManifestReadOnlyCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
+            ManifestReadOnlyCtrl.ePage.Masters.OnChangeArrivaldate = OnChangeArrivaldate;
 
             ManifestReadOnlyCtrl.ePage.Masters.Config = manifestConfig;
 
@@ -35,11 +36,20 @@
             // DatePicker
             ManifestReadOnlyCtrl.ePage.Masters.DatePicker = {};
             ManifestReadOnlyCtrl.ePage.Masters.DatePicker.Options = APP_CONSTANT.DatePicker;
+
+            ManifestReadOnlyCtrl.ePage.Masters.DatePicker.OptionsDel = angular.copy(APP_CONSTANT.DatePicker)
+            var a = new Date;
+            var b = ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ActualDispatchDate;
+            ManifestReadOnlyCtrl.ePage.Masters.DatePicker.OptionsDel['minDate'] = b;
+            ManifestReadOnlyCtrl.ePage.Masters.DatePicker.OptionsDel['maxDate'] = a;
+
             ManifestReadOnlyCtrl.ePage.Masters.DatePicker.isOpen = [];
             ManifestReadOnlyCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
 
             GetMastersList();
             generalOperation();
+            ManifestSummary()
+            ReceiverSummary()
         }
 
         function OpenDatePicker($event, opened) {
@@ -48,22 +58,27 @@
             ManifestReadOnlyCtrl.ePage.Masters.DatePicker.isOpen[opened] = true;
         }
 
+        function OnChangeArrivaldate(arrival){
+            
+            OnChangeValues(ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ShipmentArrivalDate,"E5513",false,undefined)
+        }
+
         function generalOperation() {
             // Sender
-            if (ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgSender.Code == null)
-                ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgSender.Code = "";
-            if (ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgSender.FullName == null)
-                ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgSender.FullName = "";
-            ManifestReadOnlyCtrl.ePage.Masters.Sender = ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgSender.Code + ' - ' + ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgSender.FullName;
+            if (ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderCode == null)
+                ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderCode = "";
+            if (ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderName == null)
+                ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderName = "";
+            ManifestReadOnlyCtrl.ePage.Masters.Sender = ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderCode + ' - ' + ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderName;
             if (ManifestReadOnlyCtrl.ePage.Masters.Sender == " - ")
                 ManifestReadOnlyCtrl.ePage.Masters.Sender = "";
 
             // Receiver
-            if (ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgReceiver.Code == null)
-                ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgReceiver.Code = "";
-            if (ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgReceiver.FullName == null)
-                ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgReceiver.FullName = "";
-            ManifestReadOnlyCtrl.ePage.Masters.Receiver = ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgReceiver.Code + ' - ' + ManifestReadOnlyCtrl.ePage.Entities.Header.Data.OrgReceiver.FullName;
+            if (ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ReceiverCode == null)
+                ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ReceiverCode = "";
+            if (ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ReceiverName == null)
+                ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ReceiverName = "";
+            ManifestReadOnlyCtrl.ePage.Masters.Receiver = ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ReceiverCode + ' - ' + ManifestReadOnlyCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ReceiverName;
             if (ManifestReadOnlyCtrl.ePage.Masters.Receiver == " - ")
                 ManifestReadOnlyCtrl.ePage.Masters.Receiver = "";
         }
@@ -115,6 +130,32 @@
             });
         }
 
+        function ManifestSummary(){
+            var tempvolume = 0;
+            var tempquantity = 0;
+            var tempweight = 0;
+            angular.forEach(ManifestReadOnlyCtrl.ePage.Entities.Header.Data.ItemSummary,function(value,key){
+                tempquantity = tempquantity + value.Quantity;
+                tempvolume = tempvolume + value.Volumne;
+                tempweight = tempweight + value.Weight;  
+            });
+            ManifestReadOnlyCtrl.ePage.Masters.TotalQuantity = tempquantity;
+            ManifestReadOnlyCtrl.ePage.Masters.TotalWeight = tempweight;
+            ManifestReadOnlyCtrl.ePage.Masters.TotalVolume = tempvolume;
+        }    
+        function ReceiverSummary(){
+            var tempvolume = 0;
+            var tempquantity = 0;
+            var tempweight = 0;
+            angular.forEach(ManifestReadOnlyCtrl.ePage.Entities.Header.Data.ReceiverSummary,function(value,key){
+                tempquantity = tempquantity + value.Quantity;
+                tempvolume = tempvolume + value.Volumne;
+                tempweight = tempweight + value.Weight;  
+            });
+            ManifestReadOnlyCtrl.ePage.Masters.ReceiverTotalQuantity = tempquantity;
+            ManifestReadOnlyCtrl.ePage.Masters.ReceiverTotalWeight = tempweight;
+            ManifestReadOnlyCtrl.ePage.Masters.ReceiverTotalVolume = tempvolume;
+        }
         Init();
     }
 

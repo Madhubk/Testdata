@@ -16,7 +16,8 @@
             controller: "StockTransferMenuController",
             controllerAs: "StockTransferMenuCtrl",
             scope: {
-                currentStockTransfer: "="
+                currentStockTransfer: "=",
+                dataentryObject:'='
             },
             bindToController: true
 

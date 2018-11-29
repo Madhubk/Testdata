@@ -1,0 +1,13 @@
+<div class="clearfix my-task-activity-page-warpper">
+    <div class="clearfix edit-activity-body pb-50">
+        <dynamic-tab-left data-ng-if="OrdBuyerViewTemplateCtrl.currentOrder" list-source="OrdBuyerViewTemplateCtrl.ePage.Masters.MenuListSource"
+            obj="OrdBuyerViewTemplateCtrl.ePage.Masters.MenuObj"></dynamic-tab-left>
+    </div>
+    <!--Standard Menu Directive-->
+    <div class="eaxis-footer-strip">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <standard-menu input="OrdBuyerViewTemplateCtrl.currentOrder" dataentry-object="OrdBuyerViewTemplateCtrl.dataentryObject"
+                data-ng-if="!OrdBuyerViewTemplateCtrl.currentOrder.isNew && OrdBuyerViewTemplateCtrl.dataentryObject"></standard-menu>
+        </div>
+    </div>
+</div>

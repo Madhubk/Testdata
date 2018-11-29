@@ -16,7 +16,8 @@
             controller: "TransportMenuController",
             controllerAs: "TransportMenuCtrl",
             scope: {
-                currentTransport: "="
+                currentTransport: "=",
+                dataentryObject:"="
             },
             bindToController: true
 

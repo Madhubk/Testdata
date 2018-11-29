@@ -1,0 +1,122 @@
+<div class="clearfix wms-menu-wraper">
+    <div ng-if="NwdaysGeneralCtrl.currentNWDays.isNew==true?NwdaysGeneralCtrl.ePage.Masters.LebelText=NwdaysGeneralCtrl.currentNWDays.label:NwdaysGeneralCtrl.ePage.Masters.LebelText=NwdaysGeneralCtrl.ePage.Masters.Config.Entities.Header.CheckPoints.LebelText"></div>
+    <div class="error-warning-container right" id="errorWarningContainer{{NwdaysGeneralCtrl.ePage.Masters.LebelText}}">
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                <!-- <i class="fa fa-warning"></i>  -->
+                Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right" data-ng-click="NwdaysGeneralCtrl.ePage.Masters.Config.ShowErrorWarningModal(NwdaysGeneralCtrl.currentNWDays)">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+        </div>
+        <div class="error-warning-body">
+            <div class="clearfix" data-ng-if="NwdaysGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length>0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in NwdaysGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix margin-top-10">
+        <div class="clearfix mt-5">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="NwdaysGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Title.IsWarning && !NwdaysGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Title.IsError"
+                        list="NwdaysGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Title.WARNING" type="'warning'" icon="fa fa-warning"
+                        parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="NwdaysGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Title.IsError" list="NwdaysGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Title.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <div class="form-group">
+                    <label class="control-label text-single-line">Title</label>
+                    <div class="">
+                        <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Title" data-ng-model="NwdaysGeneralCtrl.ePage.Entities.Header.Data.Title"
+                            ng-change='NwdaysGeneralCtrl.ePage.Masters.OnChangeValues(NwdaysGeneralCtrl.ePage.Entities.Header.Data.Title,"E5539",false,undefined)'>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="NwdaysGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.NonWorkingDate.IsWarning && !NwdaysGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.NonWorkingDate.IsError"
+                        list="NwdaysGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.NonWorkingDate.WARNING" type="'warning'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="NwdaysGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.NonWorkingDate.IsError" list="NwdaysGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.NonWorkingDate.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <div class="form-group">
+                    <label class="control-label text-single-line">Non Working Date</label>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" placeholder="{{NwdaysGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datetime-picker="{{NwdaysGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                            ng-model="NwdaysGeneralCtrl.ePage.Entities.Header.Data.NonWorkingDate" is-open="NwdaysGeneralCtrl.ePage.Masters.DatePicker.isOpen['isNonWorkingDate']"
+                            datepicker-options="NwdaysGeneralCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                            close-on-selection="false" enable-date="true" enable-time="false" default-date="" default-time=""
+                            when-closed="NwdaysGeneralCtrl.ePage.Masters.onchangeEDD(NwdaysGeneralCtrl.ePage.Entities.Header.Data.NonWorkingDate)"
+                            save-as="NwdaysGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" popup-placement="bottom-right"
+                            data-ng-click="NwdaysGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isNonWorkingDate')"
+                            ng-change='NwdaysGeneralCtrl.ePage.Masters.OnChangeValues(NwdaysGeneralCtrl.ePage.Entities.Header.Data.NonWorkingDate,"E5540",false,undefined)'
+                            custom-date-time-format/>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" data-ng-click="NwdaysGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isNonWorkingDate')">
+                                <i class="fa fa-calendar"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="NwdaysGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ForCode.IsWarning && !NwdaysGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ForCode.IsError"
+                        list="NwdaysGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ForCode.WARNING" type="'warning'" icon="fa fa-warning"
+                        parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="NwdaysGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ForCode.IsError" list="NwdaysGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ForCode.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <div class="form-group">
+                    <label class="control-label text-single-line">For Code</label>
+                    <div class="">
+                        <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="For Code" data-ng-model="NwdaysGeneralCtrl.ePage.Entities.Header.Data.ForCode"
+                            ng-change='NwdaysGeneralCtrl.ePage.Masters.OnChangeValues(NwdaysGeneralCtrl.ePage.Entities.Header.Data.ForCode,"E5541",false,undefined)'>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="NwdaysGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ForType.IsWarning && !NwdaysGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ForType.IsError"
+                        list="NwdaysGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ForType.WARNING" type="'warning'" icon="fa fa-warning"
+                        parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="NwdaysGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ForType.IsError" list="NwdaysGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ForType.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <div class="form-group">
+                    <label class="control-label text-single-line">For Type</label>
+                    <div class="">
+                        <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="For Type" data-ng-model="NwdaysGeneralCtrl.ePage.Entities.Header.Data.ForType"
+                            ng-change='NwdaysGeneralCtrl.ePage.Masters.OnChangeValues(NwdaysGeneralCtrl.ePage.Entities.Header.Data.ForType,"E5542",false,undefined)'>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="eaxis-footer-strip">
+    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+        <standard-menu input="NwdaysGeneralCtrl.currentNWDays" ng-if="!NwdaysGeneralCtrl.currentNWDays.isNew" dataentry-object="NwdaysGeneralCtrl.dataentryObject"></standard-menu>
+    </div>
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+        <div class="col-lg-12 pl-0">
+            <button class="btn btn-primary pull-right btn-sm mt-6" data-ng-click="NwdaysGeneralCtrl.ePage.Masters.Validation(NwdaysGeneralCtrl.currentNWDays)"
+                data-ng-bind="NwdaysGeneralCtrl.ePage.Masters.SaveButtonText"></button>
+        </div>
+    </div>
+</div>

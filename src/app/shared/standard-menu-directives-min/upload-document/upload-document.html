@@ -1,0 +1,50 @@
+<div class="form-group ship-font">
+    <label class="control-label">Upload Your Document</label>
+</div>
+<div class="clearfix mt-10">
+    <div class="" style="display: inline-block;">
+        <file-upload-custom class="file-upload-directive" data-ng-model="UploadDocumentCtrl.ePage.Masters.Document.fileDetails" size="{{UploadDocumentCtrl.ePage.Masters.Document.fileSize}}"
+            auth="{{UploadDocumentCtrl.ePage.Masters.Document.Autherization}}" additional-value="{{UploadDocumentCtrl.ePage.Masters.Document.AdditionalValue}}"
+            url="{{UploadDocumentCtrl.ePage.Masters.Document.UploadUrl}}" doc-type="*" multiple-file="true" fu-class="left" get-uploaded-files="UploadDocumentCtrl.ePage.Masters.Document.GetUploadedFiles($item, 'mode3')"
+            get-selected-files="UploadDocumentCtrl.ePage.Masters.Document.GetSelectedFiles($item, 'mode3')" modal-template=""
+            template="">
+            <button class="btn btn-default btn-sm btn-upload mr-10 mt-5" ng-repeat="x in UploadDocumentCtrl.ePage.Masters.ListSource"
+                ng-click="UploadDocumentCtrl.ePage.Masters.OnDocumentUploadChange(x)" data-ng-if="x.Desc!='All'">{{x.Desc}}</button>
+        </file-upload-custom>
+    </div>
+</div>
+<div class="clearfix col-lg-12 mt-10 no-padding">
+    <div class="clearfix" data-ng-if="UploadDocumentCtrl.ePage.Masters.IsLoading">
+        <div class="pl-100 pr-100">
+            <div class="clearfix p-5">
+                <div class="pull-left">
+                    <span>{{UploadDocumentCtrl.ePage.Masters.TempFileName}}</span>
+                </div>
+                <div class="meter">
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix" data-ng-if="UploadDocumentCtrl.ePage.Masters.IsShowRecords">
+        <div class="clearfix p-5">
+            <div class="col-lg-6 mt-8 no-padding">
+                <div class="brc" title="{{UploadDocumentCtrl.ePage.Masters.UploadResponse.FileName}}" role="listitem" jsaction="lkS8Jd">
+                    <img data-ng-if="UploadDocumentCtrl.ePage.Masters.UploadResponse.ContentType=='image/png' || UploadDocumentCtrl.ePage.Masters.UploadResponse.ContentType=='image/jpeg'"
+                        class="brf" aria-hidden="true" src="//ssl.gstatic.com/docs/doclist/images/mediatype/icon_1_image_x16.png">
+                    <img data-ng-if="UploadDocumentCtrl.ePage.Masters.UploadResponse.ContentType=='text/plain'" class="brf" aria-hidden="true"
+                        src="//ssl.gstatic.com/docs/doclist/images/mediatype/icon_1_text_x16.png">
+                    <img data-ng-if="UploadDocumentCtrl.ePage.Masters.UploadResponse.ContentType=='application/pdf'" class="brf" aria-hidden="true"
+                        src="//ssl.gstatic.com/docs/doclist/images/mediatype/icon_3_pdf_x16.png">
+                    <img data-ng-if="UploadDocumentCtrl.ePage.Masters.UploadResponse.ContentType=='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'"
+                        class="brf" aria-hidden="true" src="//ssl.gstatic.com/docs/doclist/images/mediatype/icon_1_excel_x16.png">
+                    <img data-ng-if="UploadDocumentCtrl.ePage.Masters.UploadResponse.ContentType=='application/vnd.openxmlformats-officedocument.wordprocessingml.document'"
+                        class="brf" aria-hidden="true" src="//ssl.gstatic.com/docs/doclist/images/mediatype/icon_1_word_x16.png">
+                    <img data-ng-if="UploadDocumentCtrl.ePage.Masters.UploadResponse.ContentType=='application/vnd.openxmlformats-officedocument.presentationml.presentation'"
+                        class="brf" aria-hidden="true" src="//ssl.gstatic.com/docs/doclist/images/mediatype/icon_1_powerpoint_x16.png">
+                    <span class="brg">{{UploadDocumentCtrl.ePage.Masters.UploadResponse.FileName}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

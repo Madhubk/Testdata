@@ -1,0 +1,32 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="WorkItemListViewCtrl.ePage.Masters.WorkItemListView.CloseModal()">&times;</button>
+    <h5 class="modal-title" id="modal-title">
+        <strong>Task List</strong>
+    </h5>
+</div>
+<div class="modal-body" id="modal-body">
+    <div class="clearfix">
+        <uib-tabset id="chromeTab" active="WorkItemListViewCtrl.ePage.Masters.WorkItemListView.activeTabIndex" class="tab-container chrometab-box">
+            <uib-tab>
+                <uib-tab-heading title="Instance">
+                    <span data-ng-bind="'Instance'"></span>
+                    <i class="fa fa-thumb-tack pinned-tab"></i>
+                </uib-tab-heading>
+                <div class="no-padding tab-list-view-wrapper">
+                    <dynamic-list dataentry-name="WorkItemListViewCtrl.ePage.Masters.WorkItemListView.dataentryName" selected-grid-row="WorkItemListViewCtrl.ePage.Masters.WorkItemListView.SelectedGridRow($item)" mode="1" default-filter="WorkItemListViewCtrl.ePage.Masters.WorkItemListView.DefaultFilter" dataentry-object="WorkItemListViewCtrl.ePage.Masters.WorkItemListView.DataEntryObject"></dynamic-list>
+                    <div class="tab-loading" data-ng-show="WorkItemListViewCtrl.ePage.Masters.WorkItemListView.IsTabClick"></div>
+                </div>
+            </uib-tab>
+            <uib-tab active="WorkItemListViewCtrl.ePage.Masters.WorkItemListView.activeTabIndex == $index" ng-repeat="tab in WorkItemListViewCtrl.ePage.Masters.WorkItemListView.TabList"
+                ng-click="WorkItemListViewCtrl.ePage.Masters.WorkItemListView.CurrentActiveTab(tab.label)">
+                <uib-tab-heading title="{{tab.label}}">
+                    <span data-ng-bind="tab.label"></span>
+                    <i class="glyphicon glyphicon-remove" ng-click="WorkItemListViewCtrl.ePage.Masters.WorkItemListView.RemoveTab($event, $index, tab)"></i>
+                </uib-tab-heading>
+                <div class="pb-150 clearfix">
+                    <process-instance-work-item-details current-process-instance="tab" mode="WorkItemListViewCtrl.ePage.Masters.WorkItemListView.ProcessInstanceMode"></process-instance-work-item-details>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>

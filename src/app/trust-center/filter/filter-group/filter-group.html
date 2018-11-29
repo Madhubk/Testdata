@@ -1,17 +1,21 @@
 <div class="clearfix tc-filtergroup">
     <!-- Breadcrumb -->
     <div class="clearfix tc-breadcrumb" data-ng-if="TCFilterGroupCtrl.ePage.Masters.ActiveApplication == 'TC'">
-        <i class="fa fa-home home-icon"></i>
-        <div class="breadcrumb-list-wrapper">
-            <ol class="breadcrumb">
-                <li data-ng-repeat="x in TCFilterGroupCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
-                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="TCFilterGroupCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
-                </li>
-                <li data-ng-repeat="x in TCFilterGroupCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
-                    class="active">
-            </ol>
+        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-xs-12 p-0">
+            <i class="fa fa-home home-icon"></i>
+            <div class="breadcrumb-list-wrapper">
+                <ol class="breadcrumb">
+                    <li data-ng-repeat="x in TCFilterGroupCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                        <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="TCFilterGroupCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                    </li>
+                    <li data-ng-repeat="x in TCFilterGroupCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive"
+                        data-ng-bind="x.Description" class="active">
+                </ol>
+            </div>
         </div>
-        <span class="tc-breadcrumb-app-name" data-ng-if="TCFilterGroupCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="TCFilterGroupCtrl.ePage.Masters.QueryString.AppName"></span>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12 p-4">
+            <tc-application-dropdown query-string="TCFilterGroupCtrl.ePage.Masters.QueryString" on-application-change="TCFilterGroupCtrl.ePage.Masters.Application.OnApplicationChange($item)"></tc-application-dropdown>
+        </div>
     </div>
     <!-- Alphabetic Sort -->
     <div class="clearfix tc-alphabetic-sort">
@@ -92,7 +96,8 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4"> Logical Operator</label>
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4"> Logical
+                            Operator</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
                             <label data-ng-bind="TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.LogicalOperator || TCFilterGroupCtrl.ePage.Masters.emptyText"></label>
 

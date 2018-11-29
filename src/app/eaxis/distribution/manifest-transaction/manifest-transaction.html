@@ -1,0 +1,33 @@
+
+<uib-tabset id="chromeTab" active="ManifestTransCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+
+    <uib-tab>
+        <uib-tab-heading title="Manifest">
+            <span data-ng-bind="'Manifest'" class="ng-binding">Manifest</span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+
+        <div class="no-padding tab-list-view-wrapper">
+            <!--Manifest Grid Page-->
+            <dynamic-list dataentry-name="ManifestTransCtrl.ePage.Masters.dataentryName" task-name="ManifestTransCtrl.ePage.Masters.taskName" grid-config-type="0"
+                selected-grid-row="ManifestTransCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" dataentry-object="ManifestTransCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+            <div class="tab-loading" data-ng-show="ManifestTransCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+
+    <uib-tab active="ManifestTransCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in ManifestTransCtrl.ePage.Masters.TabList" ng-click="ManifestTransCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+        <uib-tab-heading title="{{tab.label}}">
+            <span data-ng-bind="tab.label"></span>
+            <i class="glyphicon glyphicon-remove" ng-click="ManifestTransCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+        </uib-tab-heading>
+
+        <div class="padding-bottom-10 clearfix">
+            <!--Manifest Menu Directive-->
+            <manifest-trans-menu current-manifest-trans="tab" dataentry-object="ManifestTransCtrl.ePage.Masters.DataEntryObject"></manifest-trans-menu>
+            <div class="horizontal-space"></div>
+        </div>
+    </uib-tab>
+    <button class="btn btn-default" ng-click="ManifestTransCtrl.ePage.Masters.CreateNewManifestTrans()" data-ng-disabled="ManifestTransCtrl.ePage.Masters.isNewClicked">+</button>
+</uib-tabset>
+
+       

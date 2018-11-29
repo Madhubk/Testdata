@@ -1,0 +1,142 @@
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-15">
+    <div class="rows border-box border-radius-2 bg-fbfbfb">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 pt-20 pb-20 p-40">
+            <div class="tab-profile-title text-single-line fs-20 mt-40" title="{{StockTransferViewDetailCtrl.ePage.Entities.Header.Data. UIWmsStockTransferHeader.WorkOrderID}}"
+                data-ng-bind="StockTransferViewDetailCtrl.currentStockTransferViewDetail.label"></div>
+
+            <div class="tab-profile-sub-title text-single-line fs-14" title="{{StockTransferViewDetailCtrl.ePage.Entities.Header.Data. UIWmsStockTransferHeader.WorkOrderStatus}} - {{StockTransferViewDetailCtrl.ePage.Entities.Header.Data. UIWmsStockTransferHeader.WorkOrderStatusDesc}}"
+                data-ng-bind="StockTransferViewDetailCtrl.ePage.Entities.Header.Data. UIWmsStockTransferHeader.WorkOrderStatusDesc"></div>
+        </div>
+        <!--Client-->
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 border-left border-right pt-20 pb-20 pl-20">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <div class="fs-20 color-999">Client</div>
+
+                    <div class="fs-14">
+                        <b>{{StockTransferViewDetailCtrl.ePage.Entities.Header.Data. UIWmsStockTransferHeader.ClientCode}}</b>
+                        -
+                        <b ng-bind="StockTransferViewDetailCtrl.ePage.Entities.Header.Data. UIWmsStockTransferHeader.ClientName"></b>
+                    </div>
+
+                    <div class="color-999 mt-5" ng-show="StockTransferViewDetailCtrl.ePage.Entities.Header.Data. UIWmsStockTransferHeader.ClientCode">
+                        <div class="text-single-line" title='{{StockTransferViewDetailCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address1}}'>{{StockTransferViewDetailCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address1 || StockTransferViewDetailCtrl.ePage.Masters.Empty}}
+                        </div>
+
+                        <div class="text-single-line" title='{{StockTransferViewDetailCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address2}}'>{{StockTransferViewDetailCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address2 || StockTransferViewDetailCtrl.ePage.Masters.Empty}}
+                        </div>
+                        <div class="text-single-line">
+                            <span title="{{StockTransferViewDetailCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_City}}">{{StockTransferViewDetailCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_City || StockTransferViewDetailCtrl.ePage.Masters.Empty}}
+                            </span>
+                        </div>
+
+                        <div class="text-single-line mt-10">
+                            <span title='{{StockTransferViewDetailCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_State}}'>
+                                <b>{{StockTransferViewDetailCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_State || StockTransferViewDetailCtrl.ePage.Masters.Empty}}</b>
+                            </span>
+                            <span class="pl-100" title="{{StockTransferViewDetailCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_PostCode}}">{{StockTransferViewDetailCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_PostCode || StockTransferViewDetailCtrl.ePage.Masters.Empty}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!--General-->
+
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 pt-15">
+                    <div class="form-group">
+                        <div class="fs-15 color-999">Warehouse</div>
+                        <div class="text-single-line">
+                            <span>{{StockTransferViewDetailCtrl.ePage.Entities.Header.Data. UIWmsStockTransferHeader.WarehouseCode}}-{{StockTransferViewDetailCtrl.ePage.Entities.Header.Data.
+                                UIWmsStockTransferHeader.WarehouseName}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="fs-15 color-999">Reference</div>
+                        <div class="text-single-line">
+                            <span>{{StockTransferViewDetailCtrl.ePage.Entities.Header.Data. UIWmsStockTransferHeader.ExternalReference}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Stock Transfer Lines-->
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pb-20 pl-15">
+    <div class="rows border-box border-radius-2 mt-10">
+        <div class="wms-table-title fs-5 p-10">Stock Transfer Lines</div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pl-0 pr-0" style="overflow-x:auto;">
+
+            <table class="tableclass">
+                <tbody>
+                    <tr>
+                        <th>Product Code</th>
+                        <th>Product Description</th>
+                        <th>Commodity</th>
+                        <th>Pack</th>
+                        <th>Pack Type</th>
+                        <th>Quantity</th>
+                        <th>Quantity UQ</th>
+                        <th>Committed Qty</th>
+                        <th>Arrival Date</th>
+                        <th>Location Source</th>
+                        <th>Location Destination</th>
+                        <th>Pallet ID Source</th>
+                        <th>Pallet ID Destination</th>
+                        <th>
+                            <span ng-if="StockTransferViewDetailCtrl.ePage.Entities.Header.Data. UIWmsStockTransferHeader.IMPartAttrib1Name">{{StockTransferViewDetailCtrl.ePage.Entities.Header.Data. UIWmsStockTransferHeader.IMPartAttrib1Name}}</span>
+                            <span ng-if="!StockTransferViewDetailCtrl.ePage.Entities.Header.Data. UIWmsStockTransferHeader.IMPartAttrib1Name">UDF 1</span>
+                        </th>
+                        <th>
+                            <span ng-if="StockTransferViewDetailCtrl.ePage.Entities.Header.Data. UIWmsStockTransferHeader.IMPartAttrib2Name">{{StockTransferViewDetailCtrl.ePage.Entities.Header.Data. UIWmsStockTransferHeader.IMPartAttrib2Name}}</span>
+                            <span ng-if="!StockTransferViewDetailCtrl.ePage.Entities.Header.Data. UIWmsStockTransferHeader.IMPartAttrib2Name">UDF 2</span>
+                        </th>
+                        <th>
+                            <span ng-if="StockTransferViewDetailCtrl.ePage.Entities.Header.Data. UIWmsStockTransferHeader.IMPartAttrib3Name">{{StockTransferViewDetailCtrl.ePage.Entities.Header.Data. UIWmsStockTransferHeader.IMPartAttrib3Name}}</span>
+                            <span ng-if="!StockTransferViewDetailCtrl.ePage.Entities.Header.Data. UIWmsStockTransferHeader.IMPartAttrib3Name">UDF 3</span>
+                        </th>
+                        <th>packing Date</th>
+                        <th>Expiry Date</th>
+                        <th>Picked Time</th>
+                        <th>Putaway Time</th>
+                    </tr>
+
+                    <tr ng-repeat="x in StockTransferViewDetailCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine track by $index">
+                        <td>{{x.ProductCode}}</td>
+                        <td>{{x.ProductDescription}}</td>
+                        <td>{{x.MCC_NKCommodityCode}}-{{x.MCC_NKCommodityDesc}}
+                        </td>
+                        <td>{{x.Packs}}</td>
+                        <td>{{x.PAC_PackType}}</td>
+                        <td>{{x.Units}}</td>
+                        <td>{{ x.StockKeepingUnit}}</td>
+                        <td>{{x.CommitedUnit}}</td>
+                        <td>{{x.AdjustmentArrivalDate | dateFormat}}</td>
+                        <td>{{x.WLO_TransferFrom}}</td>
+                        <td>{{x.WLO_Location}}</td>
+                        <td>{{x.TransferFromPalletId}}</td>
+                        <td>{{x.PalletID}}</td>
+                        <td>{{x.PartAttrib1}}</td>
+                        <td>{{x.PartAttrib2}}</td>
+                        <td>{{x.PartAttrib3}}</td>
+                        <td>{{x.PackingDate | dateFormat}}</td>
+                        <td>{{x.ExpiryDate | dateFormat}}</td>
+                        <td>{{x.PickedTime | dateFormat}}</td>
+                        <td>{{x.PutawayTime | dateFormat}}</td>
+                    </tr>
+                    <tr>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="no-record fs-5 p-10" ng-if="StockTransferViewDetailCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.length==0">
+            <div>
+                No Record Found...
+            </div>
+        </div>
+
+    </div>
+</div>

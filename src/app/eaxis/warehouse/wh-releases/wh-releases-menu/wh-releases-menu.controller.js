@@ -5,9 +5,10 @@
         .module("Application")
         .controller("ReleaseMenuController", ReleaseMenuController);
 
-    ReleaseMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "releaseConfig", "helperService", "appConfig", "authService", "$state", "$filter", "toastr"];
 
-    function ReleaseMenuController($scope, $timeout, APP_CONSTANT, apiService, releaseConfig, helperService, appConfig, authService, $state, $filter, toastr) {
+    ReleaseMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "releaseConfig", "helperService", "appConfig", "authService", "$state", "$filter", "toastr","$window","confirmation"];
+
+    function ReleaseMenuController($scope, $timeout, APP_CONSTANT, apiService, releaseConfig, helperService, appConfig, authService, $state, $filter, toastr,$window,confirmation) {
 
         var ReleaseMenuCtrl = this;
 
@@ -25,52 +26,22 @@
 
             };
 
-            // Standard Menu Configuration and Data
-            ReleaseMenuCtrl.ePage.Masters.StandardMenuInput = appConfig.Entities.standardMenuConfigList.WarehouseRelease;
+            ReleaseMenuCtrl.ePage.Masters.RelaseMenu = {};
+            ReleaseMenuCtrl.ePage.Masters.RelaseMenu.ListSource = ReleaseMenuCtrl.ePage.Entities.Header.Meta.MenuList;
 
-            ReleaseMenuCtrl.ePage.Masters.StandardMenuInput.obj = ReleaseMenuCtrl.currentRelease;
+            ReleaseMenuCtrl.ePage.Masters.SaveButtonText = "Save";
+            ReleaseMenuCtrl.ePage.Masters.DisableSave = false;
+
             // function
+            ReleaseMenuCtrl.ePage.Masters.Config = releaseConfig;
             ReleaseMenuCtrl.ePage.Masters.FinalizePick = FinalizePick;
             ReleaseMenuCtrl.ePage.Masters.Validation = Validation;
-            ReleaseMenuCtrl.ePage.Masters.SaveClose = SaveClose;
 
-            ReleaseMenuCtrl.ePage.Masters.Config = releaseConfig;
-            ReleaseMenuCtrl.ePage.Masters.SaveButtonText = "Save";
-            ReleaseMenuCtrl.ePage.Masters.SaveAndCloseButtonText = "Save & Close";
-
-            ReleaseMenuCtrl.ePage.Masters.FinalisePickText = "Finalize Pick";
-            ReleaseMenuCtrl.ePage.Masters.IsDisableSave = false;
-
-            ReleaseMenuCtrl.ePage.Masters.ReleaseMenu = {};
-            ReleaseMenuCtrl.ePage.Masters.DropDownMasterList = {};
-
-            if (ReleaseMenuCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatusDesc == 'Finalized') {
-                ReleaseMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave = true;
-                ReleaseMenuCtrl.ePage.Masters.IsShowPickStatus = true;
-                ReleaseMenuCtrl.ePage.Masters.IsDisablePick = true;
-            } else {
-                ReleaseMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave = false;
-                ReleaseMenuCtrl.ePage.Masters.IsShowPickStatus = false;
-                ReleaseMenuCtrl.ePage.Masters.IsDisablePick = false;
+            if (ReleaseMenuCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatus == 'PIF' || ReleaseMenuCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatus == 'CAN') {
+                ReleaseMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
+                ReleaseMenuCtrl.ePage.Masters.DisableSave = true;
             }
-
-            // if (ReleaseMenuCtrl.ePage.Entities.Header.Data.UIWmsPickLineSummary != null) {
-            //     ReleaseMenuCtrl.ePage.Entities.Header.Data.UIWmsPickLineSummary.map(function (value, key) {
-            //         if (value.IsPicked == "True") {
-            //             value.IsPicked = "Yes";
-            //         }
-            //         else {
-            //             value.IsPicked = "No";
-            //         }
-            //     });
-            // }
-            // Menu list from configuration
-            ReleaseMenuCtrl.ePage.Masters.ReleaseMenu.ListSource = ReleaseMenuCtrl.ePage.Entities.Header.Meta.MenuList;
-        }
-
-        function SaveClose($item) {
-            ReleaseMenuCtrl.ePage.Masters.SaveAndClose = true;
-            Validation($item);
+           
         }
 
         function FinalizePick($item) {
@@ -78,19 +49,29 @@
                 _input = _Data.Header.Data;
 
             var filter = $filter("filter")(_input.UIWmsOutward, function (value, key) {
-                if (value.WorkOrderStatusDesc == 'Finalised') {
+                if (value.WorkOrderStatus == 'FIN') {
                     return value;
                 }
             });
 
             if (filter.length == _input.UIWmsOutward.length) {
-                ReleaseMenuCtrl.ePage.Masters.Finalisesave = true;
-                Validation($item);
+
+                var modalOptions = {
+                    closeButtonText: 'Cancel',
+                    actionButtonText: 'Ok',
+                    headerText: 'Do you want to Finalize?',
+                    bodyText: 'Once Finalized Pick & Release Cannot be Edited'
+                };
+                confirmation.showModal({}, modalOptions)
+                .then(function (result) {
+                    ReleaseMenuCtrl.ePage.Masters.Finalisesave = true;
+                    Validation($item);
+                }, function () {
+                    console.log("Cancelled");
+                });
             } else {
                 toastr.error("Before finalize the pick all the Orders in this pick should finalized")
             }
-
-
         }
 
         function Validation($item) {
@@ -107,20 +88,16 @@
             if (_errorcount.length == 0) {
                 Save($item);
             } else {
+                ReleaseMenuCtrl.ePage.Masters.Finalisesave = false;
                 ReleaseMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(ReleaseMenuCtrl.currentRelease);
             }
         }
 
         function Save($item) {
-            if (ReleaseMenuCtrl.ePage.Masters.Finalisesave == true) {
-                ReleaseMenuCtrl.ePage.Masters.FinalisePickText = "Please Wait...";
-            } else if (ReleaseMenuCtrl.ePage.Masters.SaveAndClose) {
-                ReleaseMenuCtrl.ePage.Masters.SaveAndCloseButtonText = "Please Wait...";
-            } else {
-                ReleaseMenuCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
-            }
-
-            ReleaseMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave = true;
+            
+            ReleaseMenuCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
+            ReleaseMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
+            ReleaseMenuCtrl.ePage.Masters.DisableSave = true;
 
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
@@ -128,78 +105,93 @@
             if ($item.isNew) {
                 _input.UIWmsPickHeader.PK = _input.PK;
             } else {
-                if (ReleaseMenuCtrl.ePage.Masters.Finalisesave == true) {
+                if(ReleaseMenuCtrl.ePage.Masters.Finalisesave){
                     _input.UIWmsPickHeader.PickStatus = 'PIF';
                     _input.UIWmsPickHeader.PickStatusDesc = 'Finalized';
                 }
                 $item = filterObjectUpdate($item, "IsModified");
             }
 
+            //Updating the status when manual allocation and deallocation happens
+            _input.UIWmsOutward.map(function(value,key){
+                _input.UIWmsPickLine.map(function(val,k){
+                    if(!val.Units){
+                        if(value.PK==val.WOD_FK){
+                            value.PutOrPickSlipDateTime  = null;
+                            value.PutOrPickCompDateTime  = null;
+                            value.WorkOrderStatus = "OSP";
+                            value.WorkOrderStatusDesc = "Pick Started";
+                        }
+                    }
+                })
+            });
+            
             helperService.SaveEntity($item, 'Pick').then(function (response) {
+
+                ReleaseMenuCtrl.ePage.Masters.SaveButtonText = "Save";
+                ReleaseMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
+                ReleaseMenuCtrl.ePage.Masters.DisableSave = false;
+
                 if (response.Status === "success") {
+
+                    releaseConfig.TabList.map(function (value, key) {
+                        if (value.New) {
+                            if (value.code == ReleaseMenuCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickNo) {
+                                value.label = ReleaseMenuCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickNo;
+                                value[ReleaseMenuCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickNo] = value.New;
+                                delete value.New;
+                            }
+                        }
+                    });
+
                     var _index = releaseConfig.TabList.map(function (value, key) {
                         return value[value.label].ePage.Entities.Header.Data.PK;
                     }).indexOf(ReleaseMenuCtrl.currentRelease[ReleaseMenuCtrl.currentRelease.label].ePage.Entities.Header.Data.PK);
 
                     if (_index !== -1) {
-                        if (response.Data.Response) {
-                            releaseConfig.TabList[_index][releaseConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data.Response;
-                        }
-                        else {
-                            releaseConfig.TabList[_index][releaseConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data;
-                        }
-
-                        if (ReleaseMenuCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatusDesc == "Finalized") {
-                            ReleaseMenuCtrl.ePage.Entities.Header.CheckPoints.DisableAllocate = true;
-                            ReleaseMenuCtrl.ePage.Masters.IsShowPickStatus = true;
-                            ReleaseMenuCtrl.ePage.Masters.IsDisablePick = true;
-                            ReleaseMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableFeild = true;
-                            ReleaseMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave = true;
-                        }
-                        else {
-                            ReleaseMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave = false;
-                        }
+                        releaseConfig.TabList[_index][releaseConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data;
                         releaseConfig.TabList[_index].isNew = false;
-                        if ($state.current.url == "/releases") {
+                        if ($state.current.url == "/pick") {
                             helperService.refreshGrid();
                         }
-                    }
-                    if (ReleaseMenuCtrl.ePage.Masters.Finalisesave == true) {
-                        ReleaseMenuCtrl.ePage.Masters.FinalisePickText = "Finalize Pick";
-                    } else if (ReleaseMenuCtrl.ePage.Masters.SaveAndClose) {
-                        ReleaseMenuCtrl.ePage.Masters.SaveAndCloseButtonText = "Save & Close";
-                    } else {
-                        ReleaseMenuCtrl.ePage.Masters.SaveButtonText = "Save";
+
+                        ReleaseMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardLines = $filter('orderBy')(ReleaseMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardLines, 'PK');
                     }
 
                     if (ReleaseMenuCtrl.ePage.Masters.SaveAndClose) {
+                        if ($state.current.url == "/releases") {
+                            ReleaseMenuCtrl.ePage.Masters.Config.SaveAndClose = true;
+                            ReleaseMenuCtrl.ePage.Masters.SaveAndClose = false;
+                        } else {
+                            $window.close();
+                        }
+                    }
+                    console.log("Success");
+                    toastr.success("Saved Successfully...!");
+
+                    ReleaseMenuCtrl.ePage.Entities.Header.GlobalVariables.FetchingInventoryDetails = true;
+
+                    if(ReleaseMenuCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatus == 'PIF'){
+                        ReleaseMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
+                        ReleaseMenuCtrl.ePage.Masters.DisableSave = true;
+                    }
+
+                    if(ReleaseMenuCtrl.ePage.Masters.SaveAndClose){
                         ReleaseMenuCtrl.ePage.Masters.Config.SaveAndClose = true;
                         ReleaseMenuCtrl.ePage.Masters.SaveAndClose = false;
                     }
-                } else if (response.Status === "failed") {
-                    ReleaseMenuCtrl.ePage.Masters.IsShowPickStatus = false;
 
+                } else if (response.Status === "failed") {
+                    console.log("Failed");
+                    toastr.error("Could not Save...!");
                     ReleaseMenuCtrl.ePage.Entities.Header.Validations = response.Validations;
                     angular.forEach(response.Validations, function (value, key) {
                         ReleaseMenuCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey.trim(), ReleaseMenuCtrl.currentRelease.label, false, undefined, undefined, undefined, undefined, undefined);
                     });
-
                     if (ReleaseMenuCtrl.ePage.Entities.Header.Validations != null) {
                         ReleaseMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(ReleaseMenuCtrl.currentRelease);
                     }
-
-                    ReleaseMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableFeild = false;
-                    ReleaseMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave = false;
-
-                    if (ReleaseMenuCtrl.ePage.Masters.Finalisesave == true) {
-                        ReleaseMenuCtrl.ePage.Masters.FinalisePickText = "Finalize Pick";
-                    } else if (ReleaseMenuCtrl.ePage.Masters.SaveAndClose) {
-                        ReleaseMenuCtrl.ePage.Masters.SaveAndCloseButtonText = "Save & Close";
-                    } else {
-                        ReleaseMenuCtrl.ePage.Masters.SaveButtonText = "Save";
-                    }
                 }
-                ReleaseMenuCtrl.ePage.Masters.Finalisesave = false;
             });
 
         }
@@ -215,7 +207,6 @@
             }
             return obj;
         }
-
 
         Init();
 

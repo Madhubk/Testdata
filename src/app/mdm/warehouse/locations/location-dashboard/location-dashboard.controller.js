@@ -26,13 +26,14 @@
             LocationDashboardCtrl.ePage.Masters.getHeight = getHeight;
             LocationDashboardCtrl.ePage.Masters.LoadMore = LoadMore;
             LocationDashboardCtrl.ePage.Masters.ViewLocationPage = ViewLocationPage;
+            LocationDashboardCtrl.ePage.Masters.GetWarehouseValues = GetWarehouseValues;
             LocationDashboardCtrl.ePage.Masters.Location = [];
 
             LocationDashboardCtrl.ePage.Masters.IsLoadMoreActive = false;
             LocationDashboardCtrl.ePage.Meta.NoRecord = false;
+            LocationDashboardCtrl.ePage.Masters.ShowLocation = false;
 
             GetWarehouseValues();
-            
         }
 
         function ViewLocationPage(item) {
@@ -93,6 +94,7 @@
         }
 
         function GetWarehouseValues() {
+            LocationDashboardCtrl.ePage.Meta.IsLoading = true;
             //Get Warehouse Details
             var _input = {
                 "FilterID": LocationDashboardCtrl.ePage.Entities.Header.API.Warehouse.FilterID,
@@ -102,13 +104,14 @@
                 if (response.data.Response) {
                     LocationDashboardCtrl.ePage.Masters.WarehouseDetails = response.data.Response;
                     LocationDashboardCtrl.ePage.Masters.userselected = LocationDashboardCtrl.ePage.Masters.WarehouseDetails[0];
-                    GetRowFindAlldetails(LocationDashboardCtrl.ePage.Masters.WarehouseDetails[0]);
+                    LocationDashboardCtrl.ePage.Meta.IsLoading = false;
                 }
             });
 
         }
 
         function GetRowFindAlldetails(item) {
+            LocationDashboardCtrl.ePage.Masters.ShowLocation = true;
             LocationDashboardCtrl.ePage.Meta.IsLoading = true;
             var _filter = {
                 "WarehouseCode": item.WarehouseCode,

@@ -5,9 +5,9 @@
         .module("Application")
         .directive("navbarDropdownMenu", NavbarDropdownMenu);
 
-    NavbarDropdownMenu.$inject = ["$rootScope"];
+    NavbarDropdownMenu.$inject = [];
 
-    function NavbarDropdownMenu($rootScope) {
+    function NavbarDropdownMenu() {
         var exports = {
             restrict: "EA",
             templateUrl: "app/shared/nav-bar/navbar-dropdown-menu/navbar-dropdown-menu.html",

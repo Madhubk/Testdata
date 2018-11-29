@@ -29,7 +29,7 @@
                         "GetByID": {
                             "IsAPI": "true",
                             "HttpType": "GET",
-                            "Url": "TmsZone/GetById/"
+                            "Url": "MstZone/GetById/"
                         },
                         "Validationapi": {
                             "IsAPI": "true",
@@ -37,11 +37,20 @@
                             "Url": "Validation/FindAll",
                             "FilterID": "VALIDAT"
                         },
+                        "CountryState": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "CountryState/FindAll",
+                            "FilterID": "MSTCSTE"
+                        },
                     },
                     "Meta": {
 
 
-                    }
+                    },
+                    "CheckPoints": {
+                        "LabelText": "",
+                    },
                 }
 
             },
@@ -74,12 +83,12 @@
                             "InsertZone": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
-                                "Url": "TmsZone/Insert"
+                                "Url": "MstZone/Insert"
                             },
                             "UpdateZone": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
-                                "Url": "TmsZone/Update"
+                                "Url": "MstZone/Update"
                             },
                             "CfxTypes": {
                                 "IsAPI": "true",
@@ -93,6 +102,17 @@
                                 "Url": "OrgAddress/FindAll",
                                 "FilterID": "ORGADDR"
                             },
+                            "GetByID": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "MstZone/GetById/"
+                            },
+                            "CountryState": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "CountryState/FindAll",
+                                "FilterID": "MSTCSTE"
+                            },
                         },
 
                         "Meta": {
@@ -104,7 +124,9 @@
                             }],
                             "ErrorWarning": {
                                 "GlobalErrorWarningList": [],
-                                // "SenderCode": helperService.metaBase(),
+                                "Name": helperService.metaBase(),
+                                "COU_Code": helperService.metaBase(),
+                                "STA_Code": helperService.metaBase(),
                             },
                         },
                         "CheckPoints": {
@@ -116,14 +138,15 @@
 
 
             if (isNew) {
-                _exports.Entities.Header.Data = currentZone.data;
-                _exports.Entities.Header.GetById = currentZone.data;
+                _exports.Entities.Header.Data = currentZone.data.Response;
+                _exports.Entities.Header.GetById = currentZone.data.Response;
                 _exports.Entities.Header.Validations = currentZone.Validations;
                 var obj = {
-                    [currentZone.entity.Title]: {
+                    New: {
                         ePage: _exports
                     },
-                    label: currentZone.entity.Title,
+                    label: 'New',
+                    Code: currentZone.entity.Name,
                     isNew: isNew
                 };
                 exports.TabList.push(obj);
@@ -135,12 +158,11 @@
 
                     _exports.Entities.Header.Data = response.data.Response;
                     _exports.Entities.Header.Validations = response.data.Validations;
-
                     var obj = {
-                        [currentZone.Title]: {
+                        [currentZone.Name]: {
                             ePage: _exports
                         },
-                        label: currentZone.Title,
+                        label: currentZone.Name,
                         isNew: isNew
                     };
                     exports.TabList.push(obj);
@@ -360,14 +382,20 @@
         }
 
         function ShowErrorWarningModal(EntityObject) {
-            $("#errorWarningContainer" + EntityObject.label).toggleClass("open");
+            if (EntityObject.label != "New") {
+                exports.Entities.Header.CheckPoints.LebelText = EntityObject.label;
+                exports.Entities.Header.CheckPoints.LebelText = exports.Entities.Header.CheckPoints.LebelText.replace(/ +/g, "");
+                $("#errorWarningContainer" + exports.Entities.Header.CheckPoints.LebelText).toggleClass("open");
+            } else {
+                $("#errorWarningContainer" + EntityObject.label).toggleClass("open");
+            }
         }
 
         // Validations
         function ValidationFindall() {
             var _filter = {
                 "ModuleCode": "TMS",
-                "SubModuleCode": "MAN"
+                "SubModuleCode": "ZNE"
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
@@ -384,9 +412,15 @@
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
 
-            // if (!_input.TmsZoneHeader.SenderCode || _input.TmsZoneHeader.SenderCode) {
-            //     OnChangeValues(_input.TmsZoneHeader.SenderCode, 'E5501', false, undefined, $item.label);
-            // }
+            if (!_input.Name || _input.Name) {
+                OnChangeValues(_input.Name, 'E5536', false, undefined, $item.label);
+            }
+            if (!_input.COU_Code || _input.COU_Code) {
+                OnChangeValues(_input.COU_Code, 'E5537', false, undefined, $item.label);
+            }
+            if (!_input.STA_Code || _input.STA_Code) {
+                OnChangeValues(_input.STA_Code, 'E5538', false, undefined, $item.label);
+            }
         }
 
         function OnChangeValues(fieldvalue, code, IsArray, RowIndex, label) {

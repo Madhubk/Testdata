@@ -1,0 +1,331 @@
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-15">
+    <div class="rows border-box border-radius-2 bg-fbfbfb">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 pt-20 pb-20 pl-40">
+            <div class="tab-profile-title text-single-line fs-20 mt-40" title="{{OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID}}"
+                data-ng-bind="OutwardViewDetailCtrl.currentOutwardViewDetail.label"></div>
+
+            <div class="tab-profile-sub-title text-single-line fs-14" title="{{OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus}} - {{OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatusDesc}}"
+                data-ng-bind="OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatusDesc"></div>
+        </div>
+
+        <!--Client-->
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 pt-20 pb-20">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 border-left border-right pt-20 pb-20">
+                    <div class="fs-20 color-999">Client</div>
+
+                    <div class="fs-14">
+                        <b>{{OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ClientCode}}</b> -
+                        <b ng-bind="OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ClientName"></b>
+                    </div>
+
+                    <div class="color-999 mt-5" ng-show="OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ClientCode">
+                        <div class="text-single-line" title='{{OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address1}}'>{{OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address1 || OutwardViewDetailCtrl.ePage.Masters.Empty}}
+                        </div>
+
+                        <div class="text-single-line" title='{{OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address2}}'>{{OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address2 || OutwardViewDetailCtrl.ePage.Masters.Empty}}
+                        </div>
+                        <div class="text-single-line">
+                            <span title="{{OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_City}} - {{OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_PostCode}}">{{OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_City}} - {{OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_PostCode}}
+                            </span>
+                        </div>
+
+                        <div class="text-single-line mt-10">
+                            <span title='{{OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Mobile}}'>
+                                <b>{{OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Mobile || OutwardViewDetailCtrl.ePage.Masters.Empty}}</b>
+                            </span>
+                            <span class="pl-100" title="{{OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Email}}">{{OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Email || OutwardViewDetailCtrl.ePage.Masters.Empty}}</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--Consignee-->
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 pt-20 pb-20">
+                    <div class="fs-20 color-999">Consignee</div>
+
+                    <div class="fs-14">
+                        <b ng-bind="OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeName"></b> -
+                        <b ng-bind="OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeCode"></b>
+                    </div>
+                    <div class="color-999 mt-5" ng-show="OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeCode" ng-repeat="x in OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIJobAddress  | filter: {AddressType:'CED'}">
+
+                        <div class="text-single-line" title='{{x.Address1}}'>{{x.Address1 || OutwardViewDetailCtrl.ePage.Masters.Empty}}
+                        </div>
+
+                        <div class="text-single-line" title='{{x.Address2}}'>{{x.Address2 || OutwardViewDetailCtrl.ePage.Masters.Empty}}
+                        </div>
+                        <div class="text-single-line">
+                            <span title="{{x.City}}">{{x.City }} - {{x.PostCode}}
+                            </span>
+                        </div>
+
+                        <div class="text-single-line mt-10">
+                            <span title='{{x.Mobile}}'>
+                                <b>{{x.Mobile || OutwardViewDetailCtrl.ePage.Masters.Empty}}</b>
+                            </span>
+                            <span class="pl-100" title="{{x.Email}}">{{x.Email || OutwardViewDetailCtrl.ePage.Masters.Empty}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--General Detail-->
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pl-15">
+    <div class="rows border-box border-radius-2 pt-15 mt-10 height-100">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11">Warehouse</div>
+                    <div class="text-single-line">
+                        <span>{{OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WarehouseCode}}-{{OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WarehouseName}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11">Order Number</div>
+                    <div class="text-single-line">
+                        <span>{{OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11">Customer Reference</div>
+                    <div class="text-single-line">
+                        <span>{{OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.CustomerReference}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11">Required Date</div>
+                    <div class="text-single-line">
+                        <span>{{OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.RequiredDate | dateFormat}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11">Pick Number</div>
+                    <div class="text-single-line">
+                        <span>{{OutwardViewDetailCtrl.ePage.Masters.PickListDetails.UIWmsPickHeader.PickNo}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11">Pick Option</div>
+                    <div class="text-single-line">
+                        <span>{{OutwardViewDetailCtrl.ePage.Masters.PickListDetails.UIWmsPickHeader.PickOption}}</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!--Line-->
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pb-10 pl-15">
+    <div class="rows border-box border-radius-2 mt-20">
+        <div class="wms-table-title fs-5 p-10">Outward Line</div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pl-0 pr-0" style="overflow-x:auto;">
+
+            <table class="tableclass">
+                <tbody>
+                    <tr>
+                        <th>Product Code</th>
+                        <th>Product Description</th>
+                        <th>Commodity</th>
+                        <th>Pack</th>
+                        <th>Pack Type</th>
+                        <th>Quantity</th>
+                        <th>Quantity UQ</th>
+                        <th>Quantity Met</th>
+                        <th>Shortfall Qty</th>
+                        <th>Reserved Qty</th>
+                        <th>Comment</th>
+                        <th>
+                            <span ng-if="OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IMPartAttrib1Name">{{OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IMPartAttrib1Name}}</span>
+                            <span ng-if="!OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IMPartAttrib1Name">UDF 1</span>
+                        </th>
+                        <th>
+                            <span ng-if="OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IMPartAttrib2Name">{{OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IMPartAttrib2Name}}</span>
+                            <span ng-if="!OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IMPartAttrib2Name">UDF 2</span>
+                        </th>
+                        <th>
+                            <span ng-if="OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IMPartAttrib3Name">{{OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IMPartAttrib3Name}}</span>
+                            <span ng-if="!OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IMPartAttrib3Name">UDF 3</span>
+                        </th>
+                        <th>Packing Date</th>
+                        <th>Expiry Date</th>
+                    </tr>
+
+                    <tr ng-repeat="x in OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine track by $index">
+                        <td>{{x.ProductCode}}</td>
+                        <td>{{x.ProductDescription}}</td>
+                        <td>{{x.MCC_NKCommodityCode}}-{{x.MCC_NKCommodityDesc}}</td>
+                        <td>{{x.Packs}}</td>
+                        <td>{{x.PAC_PackType}}</td>
+                        <td>{{x.Units}}</td>
+                        <td>{{x.StockKeepingUnit}}</td>
+                        <td>{{x.AllocatedQty}}</td>
+                        <td>{{x.ShortFallQty}}</td>
+                        <td>{{x.ReservedUnit}}</td>
+                        <td>{{x.LineComment}}</td>
+                        <td>{{x.PartAttrib1}}</td>
+                        <td>{{x.PartAttrib2}}</td>
+                        <td>{{x.PartAttrib3}}</td>
+                        <td>{{x.PackingDate | dateFormat}}</td>
+                        <td>{{x.ExpiryDate | dateFormat}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="no-record fs-5 p-10" ng-if="OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length==0">
+            <div>
+                No Record Found...
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<!--Pick-->
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pb-10 pl-15">
+    <div class="rows border-box border-radius-2 mt-20">
+        <div class="wms-table-title fs-5 p-10">Pick Allocation</div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pl-0 pr-0" style="overflow-x:auto;">
+
+            <table class="tableclass">
+                <tbody>
+                    <tr>
+                        <th>Client</th>
+                        <th>Product Code</th>
+                        <th>Product Description</th>
+                        <th>Units</th>
+                        <th>UQ</th>
+                        <th>Location</th>
+                        <th>UDF 1</th>
+                        <th>UDF 2</th>
+                        <th>UDF 3</th>
+                        <th>Packing Date</th>
+                        <th>Expiry Date</th>
+                        <th>Picked Date Time</th>
+
+                    </tr>
+
+                    <tr ng-repeat="x in OutwardViewDetailCtrl.ePage.Masters.PickListDetails.UIWmsPickLine track by $index">
+
+                        <td>{{x.ClientCode}} - {{x.ClientName}}</td>
+                        <td>{{x.ProductCode}}</td>
+                        <td>{{x.ProductDescription}}</td>
+                        <td>{{x.Units}}</td>
+                        <td>{{x.StockKeepingUnit}}</td>
+                        <td>{{x.Location}}</td>
+                        <td>{{x.PartAttrib1}}</td>
+                        <td>{{x.PartAttrib2}}</td>
+                        <td>{{x.PartAttrib3}}</td>
+                        <td>{{x.PackingDate | dateFormat}}</td>
+                        <td>{{x.ExpiryDate | dateFormat}}</td>
+                        <td>{{x.PickedDateTime | dateFormat}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="no-record fs-5 p-10" ng-if="OutwardViewDetailCtrl.ePage.Masters.PickListDetails.UIWmsPickLine.length==0">
+            <div>
+                No Record Found...
+            </div>
+        </div>
+        <div class="no-record fs-5 p-10" ng-show="OutwardViewDetailCtrl.ePage.Masters.isloading">
+            <div>
+                Loading...
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Containers-->
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pb-30 pl-15 mt-20">
+    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 p-0">
+        <div class="border-box border-radius-2 pl-0 pr-0">
+            <div class="wms-table-title fs-5 p-10">Containers</div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pl-0 pr-0" style="overflow-x:auto;">
+
+                <table class="tableclass">
+                    <tbody>
+                        <tr>
+                            <th>Container No</th>
+                            <th>Seal No</th>
+                            <th>Type</th>
+                            <th>Chargeable</th>
+                            <th>Palletized</th>
+                            <th>Items</th>
+                            <th>Pallets</th>
+                        </tr>
+
+                        <tr ng-repeat="x in OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer track by $index">
+                            <td>{{x.ContainerNumber}}</td>
+                            <td>{{x.SealNumber}}</td>
+                            <td>{{x.Type}}</td>
+                            <td>{{x.IsChargeable}}</td>
+                            <td>{{x.IsPalletised}}</td>
+                            <td>{{x.ItemCount}}</td>
+                            <td>{{x.PalletCount}}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="no-record fs-5 p-10" ng-if="OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer.length==0">
+                <div>
+                    No Record Found...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--References-->
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 pr-0">
+        <div class="rows border-box border-radius-2 pl-0 pr-0">
+            <div class="wms-table-title fs-5 p-10">References</div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pl-0 pr-0" style="overflow-x:auto;">
+
+                <table class="tableclass">
+                    <tbody>
+                        <tr>
+                            <th>Reference Type</th>
+                            <th>Reference</th>
+                        </tr>
+
+                        <tr ng-repeat="x in OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderReference track by $index">
+                            <td>{{x.RefType}}</td>
+                            <td>{{x.Reference}}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="no-record fs-5 p-10" ng-if="OutwardViewDetailCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderReference.length==0">
+                <div>
+                    No Record Found...
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -51,7 +51,7 @@
       BookingServiceAndReferenceCtrl.ePage.Masters.LocationAddress = helperService.metaBase();
       BookingServiceAndReferenceCtrl.ePage.Masters.Service.IsClicked = false;
       // Service Grid
-      BookingServiceAndReferenceCtrl.ePage.Masters.Service.gridConfig = BookingServiceAndReferenceCtrl.ePage.Entities.Service.gridConfig;
+      // BookingServiceAndReferenceCtrl.ePage.Masters.Service.gridConfig = BookingServiceAndReferenceCtrl.ePage.Entities.Service.gridConfig;
       BookingServiceAndReferenceCtrl.ePage.Masters.Service.EditService = EditService;
       BookingServiceAndReferenceCtrl.ePage.Masters.Service.DeleteService = DeleteService;
       BookingServiceAndReferenceCtrl.ePage.Masters.Service.DeleteConfirmation = DeleteConfirmationService;
@@ -75,7 +75,7 @@
       var _filter = {
         SortColumn: "JOS_ServiceCode",
         SortType: "asc",
-        ParentID: BookingServiceAndReferenceCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PK
+        EntityRefKey: BookingServiceAndReferenceCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PK
       };
       var _input = {
         "searchInput": helperService.createToArrayOfObject(_filter),
@@ -117,8 +117,8 @@
       BookingServiceAndReferenceCtrl.ePage.Masters.Service.AddNewAndUpdate = 'Add New';
     }
 
-    function SelectedGridRowService($item) {
-      if ($item.action == 'edit')
+    function SelectedGridRowService($item,type) {
+      if (type == 'edit')
         EditService($item)
       else
         DeleteConfirmationService($item)
@@ -128,7 +128,7 @@
     function EditService($item) {
       BookingServiceAndReferenceCtrl.ePage.Masters.Service.IsFormView = true;
       BookingServiceAndReferenceCtrl.ePage.Masters.Service.AddNewAndUpdate = 'Update';
-      BookingServiceAndReferenceCtrl.ePage.Masters.Service.FormView = $item.data;
+      BookingServiceAndReferenceCtrl.ePage.Masters.Service.FormView = $item;
 
       // BookingServiceAndReferenceCtrl.ePage.Masters.Service.FormView.Booked = new Date(BookingServiceAndReferenceCtrl.ePage.Masters.Service.FormView.Booked);
       // BookingServiceAndReferenceCtrl.ePage.Masters.Service.FormView.Completed = new Date(BookingServiceAndReferenceCtrl.ePage.Masters.Service.FormView.Completed);
@@ -179,7 +179,7 @@
         }).indexOf(BookingServiceAndReferenceCtrl.ePage.Masters.Service.FormView.PK);
 
         if (_index === -1) {
-          BookingServiceAndReferenceCtrl.ePage.Masters.Service.FormView.ParentID = BookingServiceAndReferenceCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PK;
+          BookingServiceAndReferenceCtrl.ePage.Masters.Service.FormView.EntityRefKey = BookingServiceAndReferenceCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PK;
           // BookingServiceAndReferenceCtrl.ePage.Masters.Service.FormView.ParentTableCode = "JP";
           if (_durationFormView != undefined) {
             var _durationFormView = BookingServiceAndReferenceCtrl.ePage.Masters.Service.FormView.Duration;
@@ -254,7 +254,7 @@
       // Reference Form View
       BookingServiceAndReferenceCtrl.ePage.Masters.Reference.FormView = {};
       // Reference Grid
-      BookingServiceAndReferenceCtrl.ePage.Masters.Reference.gridConfig = BookingServiceAndReferenceCtrl.ePage.Entities.Reference.gridConfig;
+      // BookingServiceAndReferenceCtrl.ePage.Masters.Reference.gridConfig = BookingServiceAndReferenceCtrl.ePage.Entities.Reference.gridConfig;
       BookingServiceAndReferenceCtrl.ePage.Masters.Reference.EditReference = EditReference;
       BookingServiceAndReferenceCtrl.ePage.Masters.Reference.DeleteReference = DeleteReference;
       BookingServiceAndReferenceCtrl.ePage.Masters.Reference.DeleteConfirmation = DeleteConfirmation;
@@ -324,8 +324,8 @@
       }, 1000);
     }
 
-    function SelectedGridRowReference($item) {
-      if ($item.action == 'edit')
+    function SelectedGridRowReference($item,type) {
+      if (type == 'edit')
         EditReference($item)
       else
         DeleteConfirmation($item)
@@ -334,7 +334,7 @@
     function EditReference($item) {
       BookingServiceAndReferenceCtrl.ePage.Masters.Reference.AddNewAndUpdate = 'Update'
       BookingServiceAndReferenceCtrl.ePage.Masters.Reference.IsFormView = true;
-      BookingServiceAndReferenceCtrl.ePage.Masters.Reference.FormView = $item.data
+      BookingServiceAndReferenceCtrl.ePage.Masters.Reference.FormView = $item
       // BookingServiceAndReferenceCtrl.ePage.Masters.Reference.FormView.IssueDate = new Date(BookingServiceAndReferenceCtrl.ePage.Masters.Reference.FormView.IssueDate);
     }
 

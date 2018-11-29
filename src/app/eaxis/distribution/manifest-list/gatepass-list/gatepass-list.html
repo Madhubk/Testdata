@@ -1,0 +1,136 @@
+<div class="clearfix mt-10" ng-if="GatepassListCtrl.ePage.Entities.Header.Data.jobfk.length>0">
+    <div class="" ng-repeat="x in  GatepassListCtrl.ePage.Entities.Header.Data.TmsGatepassList | filter:{JDAFK:GatepassListCtrl.jobfk}">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="card">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+                                <p class="fs-13 height-25">
+                                    <b>{{x.GatepassNo}}</b>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                                <span class="col-dgray pull-left"> {{x.ORG_Code || GatepassListCtrl.ePage.Masters.emptyText}}
+                                </span>
+                            </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                                <span title="{{x.ORG_FullName}}" class="contd ol-dgray pull-right">{{x.ORG_FullName || GatepassListCtrl.ePage.Masters.emptyText}}</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="padding-left: 30px;">
+                            <span class="col-dgray pull-left"> {{x.TransporterCode || AttachEditDirectiveCtrl.ePage.Masters.emptyText}} - {{x.TransporterName
+                                || AttachEditDirectiveCtrl.ePage.Masters.emptyText}}
+                            </span>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <span>Vehicle Type - </span>
+                                <span class="col-dgray"> {{x.VehicleType || AttachEditDirectiveCtrl.ePage.Masters.emptyText}}
+                                </span>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <span>
+                                    <i class="fa fa-truck"></i>
+                                </span>
+                                <span class="col-dgray"> {{x.VehicleNo || AttachEditDirectiveCtrl.ePage.Masters.emptyText}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <span>
+                                    <i class="fa fa-user"></i>
+                                </span>
+                                <span class="col-dgray"> {{x.DriverName || AttachEditDirectiveCtrl.ePage.Masters.emptyText}}
+                                </span>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <span>
+                                    <i class="fa fa-phone-square"></i>
+                                </span>
+                                <span class="col-dgray"> {{x.DriverContactNo || AttachEditDirectiveCtrl.ePage.Masters.emptyText}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix mt-10" ng-if="GatepassListCtrl.ePage.Entities.Header.Data.jobfk.length==0">
+    <div data-ng-if="GatepassListCtrl.ePage.Masters.GatepassDetails.length==0">
+        <div class="text-no-record grid-width" style="bottom:38px">No Record Found</div>
+    </div>
+    <div class="" ng-repeat="x in  GatepassListCtrl.ePage.Masters.GatepassDetails track by $index">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="card">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+                                <p class="fs-13 height-45">
+                                    <b>{{x.GatepassNo}}</b>
+                                </p>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 no-padding">
+                                <a href="" class="col-white" ng-click="GatepassListCtrl.ePage.Masters.AttachGatepass(this.x)">
+                                    <div class="attachlink">
+                                        attach
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                                <span class="col-dgray pull-left"> {{x.ORG_Code || GatepassListCtrl.ePage.Masters.emptyText}}
+                                </span>
+                            </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                                <span title="{{x.ORG_FullName}}" class="contd ol-dgray pull-right">{{x.ORG_FullName || GatepassListCtrl.ePage.Masters.emptyText}}</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="padding-left: 30px;">
+                            <span class="col-dgray pull-left"> {{x.TransporterCode || AttachEditDirectiveCtrl.ePage.Masters.emptyText}} - {{x.TransporterName
+                                || AttachEditDirectiveCtrl.ePage.Masters.emptyText}}
+                            </span>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <span>Vehicle Type - </span>
+                                <span class="col-dgray"> {{x.VehicleType || AttachEditDirectiveCtrl.ePage.Masters.emptyText}}
+                                </span>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <span>
+                                    <i class="fa fa-truck"></i>
+                                </span>
+                                <span class="col-dgray"> {{x.VehicleNo || AttachEditDirectiveCtrl.ePage.Masters.emptyText}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <span>
+                                    <i class="fa fa-user"></i>
+                                </span>
+                                <span class="col-dgray"> {{x.DriverName || AttachEditDirectiveCtrl.ePage.Masters.emptyText}}
+                                </span>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <span>
+                                    <i class="fa fa-phone-square"></i>
+                                </span>
+                                <span class="col-dgray"> {{x.DriverContactNo || AttachEditDirectiveCtrl.ePage.Masters.emptyText}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

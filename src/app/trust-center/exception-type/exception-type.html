@@ -1,0 +1,45 @@
+<div class="clearfix tc-filtergroup">
+    <!-- Breadcrumb -->
+    <div class="clearfix tc-breadcrumb" data-ng-if="TCExceptionTypeCtrl.ePage.Masters.ActiveApplication == 'TC'">
+        <i class="fa fa-home home-icon"></i>
+        <div class="breadcrumb-list-wrapper">
+            <ol class="breadcrumb">
+                <li data-ng-repeat="x in TCExceptionTypeCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="TCExceptionTypeCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                </li>
+                <li data-ng-repeat="x in TCExceptionTypeCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
+                    class="active">
+            </ol>
+        </div>
+        <span class="tc-breadcrumb-app-name" data-ng-if="TCExceptionTypeCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="TCExceptionTypeCtrl.ePage.Masters.QueryString.AppName"></span>
+    </div>
+    <!-- Body -->
+    <div class="clearfix">
+        <div class="clearfix tc-page-height-fixed without-header">
+            <uib-tabset id="chromeTab" active="TCExceptionTypeCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+                <uib-tab>
+                    <uib-tab-heading title="Exception">
+                        <span data-ng-bind="'Exception'"></span>
+                        <i class="fa fa-thumb-tack pinned-tab"></i>
+                    </uib-tab-heading>
+                    <div class="p-0 tab-list-view-wrapper">
+                        <dynamic-list dataentry-name="TCExceptionTypeCtrl.ePage.Masters.dataentryName" selected-grid-row="TCExceptionTypeCtrl.ePage.Masters.SelectedGridRow($item)"
+                            mode="1" default-filter="TCExceptionTypeCtrl.ePage.Masters.DefaultFilter" dataentry-object="TCExceptionTypeCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+                        <div class="tab-loading" data-ng-show="TCExceptionTypeCtrl.ePage.Masters.IsTabClick"></div>
+                    </div>
+                </uib-tab>
+                <uib-tab active="TCExceptionTypeCtrl.ePage.Masters.activeTabIndex == $index" data-ng-repeat="tab in TCExceptionTypeCtrl.ePage.Masters.TabList"
+                    ng-click="TCExceptionTypeCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+                    <uib-tab-heading title="{{tab.label}}">
+                        <span data-ng-bind="tab.label"></span>
+                        <i class="glyphicon glyphicon-remove" ng-click="TCExceptionTypeCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+                    </uib-tab-heading>
+                    <div class="pb-10 clearfix">
+                        <tc-exception-type-configure current-exception-type="tab"></tc-exception-type-configure>
+                    </div>
+                </uib-tab>
+                <button class="btn btn-default" data-ng-click="TCExceptionTypeCtrl.ePage.Masters.CreateNewTab()" data-ng-disabled="TCExceptionTypeCtrl.ePage.Masters.IsNewTabClicked">+</button>
+            </uib-tabset>
+        </div>
+    </div>
+</div>

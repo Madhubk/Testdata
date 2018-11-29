@@ -1,0 +1,89 @@
+<div class="row">
+    <div class="col-lg-4">Consignor :
+        <a class="my-task-content-shipper-link" href="javascript: void(0)">{{CrdUpdateBuyerOrcDirectiveCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.SupplierName}}</a>
+    </div>
+    <div class="col-lg-4">Consignee :
+        <a class="my-task-content-shipper-link" href="javascript: void(0)">{{CrdUpdateBuyerOrcDirectiveCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.BuyerName}}</a>
+    </div>
+    <div class="col-lg-4">Load Port :
+        {{CrdUpdateBuyerOrcDirectiveCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.PortOfLoading}}</div>
+</div>
+<div class="common_table_scroll mt-10">
+    <div class="table" id="results">
+        <div class="theader">
+            <div class="table_header">Order #</div>
+            <div class="table_header">Order Date</div>
+            <div class="table_header">T.Mode</div>
+            <div class="table_header">C.Mode</div>
+            <div class="table_header">Inco Term</div>
+        </div>
+        <div class="table_row" data-ng-repeat="x in CrdUpdateBuyerOrcDirectiveCtrl.ePage.Entities.Header.Data.UIOrderList">
+            <div class="table_small">
+                <div class="table_cell">Order #</div>
+                <div class="table_cell">{{x.OrderCumSplitNo}}</div>
+            </div>
+            <div class="table_small">
+                <div class="table_cell">Order Date</div>
+                <div class="table_cell"> {{x.OrderDate | date: 'dd-MMM-yyyy'}}</div>
+            </div>
+            <div class="table_small">
+                <div class="table_cell">T.Mode</div>
+                <div class="table_cell">{{x.TransportMode}}</div>
+            </div>
+            <div class="table_small">
+                <div class="table_cell">C.Mode</div>
+                <div class="table_cell">{{x.ContainerMode}}</div>
+            </div>
+            <div class="table_small">
+                <div class="table_cell">Inco Term</div>
+                <div class="table_cell">
+                    {{x.IncoTerm}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="grid-no-record-common_table" data-ng-if="CrdUpdateBuyerOrcDirectiveCtrl.ePage.Entities.Header.Data.UIOrderList.length==0">No
+        records found...</div>
+</div>
+<div class="row p-2 mt-10">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-3 pr-0 padding-top-10">
+        <div class="form-group ex-line-font">
+            <div class="error-warning-container">
+                <error-warning-directive data-ng-if="CrdUpdateBuyerOrcDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CargoReadyDate.IsError"
+                    list="CrdUpdateBuyerOrcDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CargoReadyDate.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </div>
+            <label class="control-label">Cargo Ready Date</label>
+            <div class="input-group input-group-sm col-lg-11">
+                <input type="text" class="form-control" placeholder="{{CrdUpdateBuyerOrcDirectiveCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    data-ng-model="CrdUpdateBuyerOrcDirectiveCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.CargoReadyDate"
+                    datetime-picker="{{CrdUpdateBuyerOrcDirectiveCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    datepicker-options="CrdUpdateBuyerOrcDirectiveCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                    default-date="" default-time="" save-as="CrdUpdateBuyerOrcDirectiveCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                    is-open="CrdUpdateBuyerOrcDirectiveCtrl.ePage.Masters.DatePicker.isOpen['isCargoReadyDate']"
+                    when-closed="" data-ng-click="CrdUpdateBuyerOrcDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoReadyDate')"
+                    data-ng-change="CrdUpdateBuyerOrcDirectiveCtrl.ePage.Masters.CommonErrorObjInput()"
+                    custom-date-time-format />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" data-ng-click="CrdUpdateBuyerOrcDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoReadyDate')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 mt-10">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Cargo Ready Comments</label>
+            <div class="input-group input-group-sm col-lg-12">
+                <textarea class="form-control no-resize" max-length="4000" data-ng-model="CrdUpdateBuyerOrcDirectiveCtrl.ePage.Masters.Comments"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 ml-10 mt-30">
+        <!-- buyer Save -->
+        <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="CrdUpdateBuyerOrcDirectiveCtrl.ePage.Masters.Save()"
+            data-ng-bind="CrdUpdateBuyerOrcDirectiveCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="CrdUpdateBuyerOrcDirectiveCtrl.ePage.Masters.IsDisableSave"></button>
+    </div>
+</div>

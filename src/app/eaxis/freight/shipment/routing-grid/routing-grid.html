@@ -1,0 +1,491 @@
+<div class="clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding" data-ng-if="!RoutingGridCtrl.readOnly">
+        <span>
+            <button type="button" data-ng-if="RoutingGridCtrl.btnVisible.AddNew" class="btn btn-sm btn-outline-secondary font-10"
+                title="Add New" data-ng-click="RoutingGridCtrl.ePage.Masters.Routing.AddNewRouting()">
+                <span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button>
+        </span>
+        <span>
+            <button data-ng-if="RoutingGridCtrl.btnVisible.Delete" data-ng-disabled="RoutingGridCtrl.ePage.Masters.selectedRow==-1"
+                type="button" class="btn btn-sm btn-outline-primary font-10" title="Delete" data-ng-click="RoutingGridCtrl.ePage.Masters.Routing.DeleteRouting(RoutingGridCtrl.ePage.Masters.selectedRow) && RoutingGridCtrl.ePage.Masters.selectedRow!=-1">
+                <span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button>
+        </span>
+        <span>
+            <button data-ng-if="RoutingGridCtrl.btnVisible.More" type="button" data-ng-disabled="RoutingGridCtrl.ePage.Masters.selectedRow==-1"
+                class="btn btn-sm btn-outline-primary font-10" title="More" data-ng-click="RoutingGridCtrl.ePage.Masters.Routing.More(RoutingGridCtrl.ePage.Masters.selectedRow) && RoutingGridCtrl.ePage.Masters.selectedRow!=-1">
+                <span class="fa fa-ellipsis-v"></span>&nbsp;&nbsp;More</button>
+        </span>
+        <span>
+            <button data-ng-if="RoutingGridCtrl.btnVisible.Refresh" type="button" class="btn btn-sm btn-outline-primary font-10"
+                title="More" data-ng-click="RoutingGridCtrl.ePage.Masters.Routing.RefreshRouting()">
+                <span class="fa fa-ellipsis-v"></span>&nbsp;&nbsp;Refresh</button>
+        </span>
+    </div>
+    <div id="ASNTable{{RoutingGridCtrl.currentObject.label}}" class="fixedheader mb-0">
+        <table id="RoutingGridCtrl.ePage.Masters.AddScroll" style="height:300px;">
+            <thead>
+                <tr id="tableHeader">
+                    <!-- <th id="acheckbox">
+                        <label class="customcheckbox">
+                            <input type="checkbox" data-ng-change="RoutingGridCtrl.ePage.Masters.SelectAllCheckBox()" data-ng-checked="RoutingGridCtrl.ePage.Masters.SelectAll"
+                                data-ng-model="RoutingGridCtrl.ePage.Masters.SelectAll" data-ng-disabled="RoutingGridDirective.ePage.Entities.Header.GlobalVariables.NonEditable">
+                            <span class="text"></span>
+                        </label>
+                    </th> -->
+                    <th id="definedby" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.definedby.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.definedby.width + 'px' }"
+                        title="definedby">Defined By</th>
+                    <th id="entitysource" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.entitysource.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.entitysource.width + 'px' }"
+                        title="EntitySource">EntitySource</th>
+                    <th id="legno" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.legno.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.legno.width + 'px' }"
+                        title="Leg Order">Leg #</th>
+                    <th id="islinked" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.islinked.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.islinked.width + 'px' }"
+                        title="isLinked">isLinked</th>
+                    <th id="mode" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.mode.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.mode.width + 'px' }"
+                        title="Mode">Mode</th>
+                    <th id="type" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.type.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.type.width + 'px' }"
+                        title="Type">Type</th>
+                    <th id="status" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.status.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.status.width + 'px' }"
+                        title="Status">Status</th>
+                    <th id="voyageflight" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.voyageflight.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.voyageflight.width + 'px' }"
+                        title="Voyage">Voyage/Flight</th>
+                    <th id="vessel" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.vessel.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.vessel.width + 'px' }"
+                        title="Vessel">Vessel</th>
+                    <th id="pol" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.pol.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.pol.width + 'px' }"
+                        title="POL">POL</th>
+                    <th id="pod" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.pod.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.pod.width + 'px' }"
+                        title="POD">POD</th>
+                    <th id="etd" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.etd.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.etd.width + 'px' }"
+                        title="ETD">ETD</th>
+                    <th id="atd" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.atd.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.atd.width + 'px' }"
+                        title="ATD">ATD</th>
+                    <th id="eta" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.eta.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.eta.width + 'px' }"
+                        title="ETA">ETA</th>
+                    <th id="ata" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.ata.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.ata.width + 'px' }"
+                        title="ATA">ATA</th>
+
+                </tr>
+            </thead>
+            <tbody id="ASNTable{{RoutingGridCtrl.currentObject.label}}">
+                <tr id="tableBody" data-ng-if="!RoutingGridCtrl.readOnly" data-ng-class="{row_active: (RoutingGridCtrl.ePage.Masters.selectedRow==$index)}"
+                    data-ng-repeat="x in RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes | orderBy : 'LegOrder' | filter:{IsDeleted:false}"
+                    data-ng-click="RoutingGridCtrl.ePage.Masters.selectedRow = $index;RoutingGridCtrl.ePage.Masters.selectedRowObj=x">
+                    <!-- <td id="acheckbox" data-ng-click="RoutingGridCtrl.ePage.Masters.Enable = true">
+                        <label class="mb-0 customcheckbox" data-ng-click="$event.stopPropagation()">
+                            <input type="checkbox" data-ng-checked="x.SingleSelect" data-ng-change="RoutingGridCtrl.ePage.Masters.SingleSelectCheckBox()" data-ng-model="x.SingleSelect"
+                                data-ng-disabled="RoutingGridCtrl.ePage.GlobalVariables.NonEditable"> </input>
+                            <span class="text"></span>
+                        </label>
+                    </td> -->
+                    <td id="definedby" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.definedby.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.definedby.width + 'px' }">
+                        <div>
+                            {{x.JobNo || RoutingGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <!-- <span class="list-error-warning" data-ng-if="InwardAsnLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsAsnLine.ERROR | listCount: 'RowIndex': (($index) + InwardAsnLinesCtrl.ePage.Masters.CurrentPageStartingIndex)">
+                    <error-warning-directive list="InwardAsnLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsAsnLine.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'arrayObjectRow'" parent-ref=""
+                        g-parent-ref="" row-index="(($index) + InwardAsnLinesCtrl.ePage.Masters.CurrentPageStartingIndex)"
+                        col-index="">
+                    </error-warning-directive>
+                </span> -->
+                    </td>
+                    <td id="entitysource" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.entitysource.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.entitysource.width + 'px' }">
+                        <div>
+                            {{x.EntitySource || RoutingGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                    </td>
+                    <!-- Leg Order -->
+                    <td id="legno" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.legno.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.legno.width + 'px' }">
+                        <div>
+                            {{x.LegOrder || RoutingGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <span class="list-error-warning" data-ng-if="InwardAsnLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsAsnLine.ERROR | listCount: 'RowIndex': (($index) + InwardAsnLinesCtrl.ePage.Masters.CurrentPageStartingIndex)">
+                            <error-warning-directive list="InwardAsnLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsAsnLine.ERROR"
+                                type="'error'" icon="fa fa-warning" parent-type="'arrayObjectRow'" parent-ref=""
+                                g-parent-ref="" row-index="(($index) + InwardAsnLinesCtrl.ePage.Masters.CurrentPageStartingIndex)"
+                                col-index="">
+                            </error-warning-directive>
+                        </span>
+                    </td>
+                    <!-- isLinked -->
+                    <td id="islinked" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.islinked.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.islinked.width + 'px' }">
+                        <div data-ng-if="$index!=RoutingGridCtrl.ePage.Masters.selectedRow || RoutingGridCtrl.ePage.GlobalVariables.NonEditable">
+                            <label class="mb-0 customcheckbox">
+                                <input type="checkbox" data-ng-model="x.IsLinked" data-ng-checked="x.IsLinked==true"
+                                    class="colored-blue">
+                                <span class="text"></span>
+                            </label>
+                        </div>
+                        <div data-ng-if="$index==RoutingGridCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                            <label class="mb-0 customcheckbox">
+                                <input type="checkbox" data-ng-model="x.IsLinked" data-ng-checked="x.IsLinked==true"
+                                    class="colored-blue">
+                                <span class="text"></span>
+                            </label>
+                        </div>
+                    </td>
+                    <!-- Transport Mode -->
+                    <td id="mode" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.mode.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.mode.width + 'px' }">
+                        <div data-ng-if="$index!=RoutingGridCtrl.ePage.Masters.selectedRow || RoutingGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.TransportMode || RoutingGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==RoutingGridCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                            <div class=" ship-font height-22" data-ng-click="RoutingGridCtrl.ePage.Masters.Enable = false">
+                                <select chosen class="form-control" data-ng-model="x.TransportMode" data-ng-options="x.Key as x.Description  + ' - '  + x.Value for x in RoutingGridCtrl.ePage.Masters.DropDownMasterList.ROUTEMODE.ListSource"
+                                    search-contains="true" data-ng-change="RoutingGridCtrl.ePage.Masters.FetchQuantity(x,(($index) + ((RoutingGridCtrl.ePage.Masters.Pagination.ItemsPerPage)*(RoutingGridCtrl.ePage.Masters.Pagination.CurrentPage-1))));RoutingGridCtrl.ePage.Masters.OnChangeValues(x.PAC_PackType,'E3007',true,(($index) + ((RoutingGridCtrl.ePage.Masters.Pagination.ItemsPerPage)*(RoutingGridCtrl.ePage.Masters.Pagination.CurrentPage-1))))">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" ng-repeat="x in InwardAsnLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsAsnLine.ERROR"
+                            data-ng-if="x.ColIndex == 3 && x.RowIndex ==(($parent.$index) + InwardAsnLinesCtrl.ePage.Masters.CurrentPageStartingIndex)">
+                            <error-warning-directive list="InwardAsnLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsAsnLine.ERROR"
+                                type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                g-parent-ref="" row-index="((InwardAsnLinesCtrl.ePage.Masters.selectedRow) + InwardAsnLinesCtrl.ePage.Masters.CurrentPageStartingIndex)"
+                                col-index="3">
+                            </error-warning-directive>
+                        </div>
+                    </td>
+                    <!-- Transport Type -->
+                    <td id="type" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.type.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.type.width + 'px' }">
+                        <div data-ng-if="$index!=RoutingGridCtrl.ePage.Masters.selectedRow || RoutingGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.TransportType || RoutingGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==RoutingGridCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                            <div class=" ship-font height-22">
+                                <select chosen name="category-group" id="categoryGroup" class="form-control"
+                                    data-ng-model="x.TransportType" data-ng-options="x.Key as x.Value for x in RoutingGridCtrl.ePage.Masters.DropDownMasterList.ROUTETYPES.ListSource | shpcntmode : x.TransportMode"
+                                    search-contains="true" data-ng-change="RoutingGridCtrl.ePage.Masters.Routing.TransportType()">
+                                    <!-- <option value="">--Select--</option> -->
+                                </select>
+                            </div>
+                        </div>
+                    </td>
+                    <!-- Status -->
+                    <td id="status" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.status.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.status.width + 'px' }">
+                        <div data-ng-if="$index!=RoutingGridCtrl.ePage.Masters.selectedRow || RoutingGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.Status || RoutingGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==RoutingGridCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                            <div class=" ship-font height-22">
+                                <select chosen name="category-group" id="categoryGroup" class="form-control"
+                                    data-ng-model="x.Status" data-ng-options="x.Key as x.Description for x in RoutingGridCtrl.ePage.Masters.DropDownMasterList.ROUTESTATUS.ListSource"
+                                    search-contains="true">
+                                    <!-- <option value="">--Select--</option> -->
+                                </select>
+                            </div>
+                        </div>
+                    </td>
+                    <!--Voyage-->
+                    <td id="voyageflight" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.voyageflight.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.voyageflight.width + 'px' }">
+                        <div data-ng-if="$index!=RoutingGridCtrl.ePage.Masters.selectedRow || RoutingGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.VoyageFlight|| RoutingGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div class=" ship-font height-22" data-ng-if="$index==RoutingGridCtrl.ePage.Masters.selectedRow"
+                            data-ng-click="$event.stopPropagation()">
+                            <input type="text" class="form-control input-sm" max-length="1" data-ng-model="x.VoyageFlight">
+                        </div>
+                    </td>
+                    <!--  Vessel Details-->
+                    <td id="vessel" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.vessel.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.vessel.width + 'px' }">
+                        <div data-ng-if="$index!=RoutingGridCtrl.ePage.Masters.selectedRow || RoutingGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.Vessel || RoutingGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==RoutingGridCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()"
+                            data-ng-disabled="x.TransportMode=='AIR-Air Freight'">
+
+                            <div class="input-group input-group-sm height-22">
+                                <div dynamic-lookup placeholder="Code" my-ng-model="x.Vessel" obj="x" page-name="'MstVessel'"
+                                    control-key="'RoutingVessel_3186'" control-id="'RoutingVessel'"
+                                    auto-complete-on-select="RoutingGridCtrl.ePage.Masters.veselSelected(x)"></div>
+                                <span class="input-group-btn">
+                                    <button dynamic-list-modal obj="x" control-key="'RoutingVessel_3186'" control-id="'RoutingVessel'"
+                                        page-name="'MstVessel'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                        selected-data="" class="btn btn-default shiny" type="button">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </td>
+                    <!-- Load Port -->
+                    <td id="pol" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.pol.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.pol.width + 'px' }">
+                        <div data-ng-if="$index!=RoutingGridCtrl.ePage.Masters.selectedRow || RoutingGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.LoadPort || RoutingGridCtrl.ePage.Masters.emptyText}}</div>
+                        <div class="input-group input-group-sm height-22" data-ng-if="$index==RoutingGridCtrl.ePage.Masters.selectedRow"
+                            data-ng-click="$event.stopPropagation()">
+                            <div dynamic-lookup placeholder="Load" my-ng-model="x.LoadPort" obj="x" page-name="'MstUNLOCO'"
+                                control-key="'ShpRoutingLoadPort_3103'" control-id="'ShpRoutingLoadPort'"></div>
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal obj="x" control-key="'ShpRoutingLoadPort_3103'" control-id="'ShpRoutingLoadPort'"
+                                    page-name="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                    selected-data="RoutingGridCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny"
+                                    type="button">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </td>
+                    <!-- Discharge Port-->
+                    <td id="pod" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.pod.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.pod.width + 'px' }">
+                        <div data-ng-if="$index!=RoutingGridCtrl.ePage.Masters.selectedRow || RoutingGridCtrl.ePage.GlobalVariables.NonEditable">{{x.DischargePort||
+                            RoutingGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div class=" ship-font" data-ng-if="$index==RoutingGridCtrl.ePage.Masters.selectedRow"
+                            data-ng-click="$event.stopPropagation()">
+                            <div class="input-group input-group-sm height-22">
+                                <div dynamic-lookup placeholder="Discharge" my-ng-model="x.DischargePort" obj="x"
+                                    page-name="'MstUNLOCO'" control-key="'ShpRoutingDischargePort_3102'" control-id="'ShpRoutingDischargePort'"></div>
+                                <span class="input-group-btn">
+                                    <button dynamic-list-modal obj="x" control-key="'ShpRoutingDischargePort_3102'"
+                                        control-id="'ShpRoutingDischargePort'" page-name="'MstUNLOCO'" mode="2"
+                                        grid-refresh-fun-name="" grid-refresh-fun="" selected-data="RoutingGridCtrl.ePage.Masters.SelectedData($item)"
+                                        class="btn btn-default shiny" type="button">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </td>
+                    <!--ETD-->
+                    <td id="etd" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.etd.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.etd.width + 'px' }">
+                        <div data-ng-if="$index!=RoutingGridCtrl.ePage.Masters.selectedRow || RoutingGridCtrl.ePage.GlobalVariables.NonEditable">{{x.ETD
+                            | date:'dd-MMM-yyyy' || RoutingGridCtrl.ePage.Masters.emptyText}}</div>
+                        <div data-ng-if="$index==RoutingGridCtrl.ePage.Masters.selectedRow" class="input-group input-group-sm height-22"
+                            data-ng-click="$event.stopPropagation()">
+                            <input type="text" class="form-control height-22" placeholder="{{RoutingGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                data-ng-model="x.ETD" datetime-picker="{{RoutingGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datepicker-options="RoutingGridCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                enable-date="true" default-date="" default-time="" save-as="RoutingGridCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="RoutingGridCtrl.ePage.Masters.DatePicker.isOpen['isETD'+$index]" when-closed=""
+                                data-ng-click="RoutingGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETD'+$index)"
+                                data-ng-change="RoutingGridCtrl.ePage.Masters.DateChange('ETD');"
+                                custom-date-time-format data-ng-change="" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default shiny" data-ng-click="RoutingGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETD'+$index);">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </td>
+                    <!-- ATD -->
+                    <td id="atd" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.atd.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.atd.width + 'px' }">
+                        <div data-ng-if="$index!=RoutingGridCtrl.ePage.Masters.selectedRow || RoutingGridCtrl.ePage.GlobalVariables.NonEditable">{{x.ATD
+                            | date:'dd-MMM-yyyy' || RoutingGridCtrl.ePage.Masters.emptyText}}</div>
+                        <div data-ng-if="$index==RoutingGridCtrl.ePage.Masters.selectedRow" class="input-group input-group-sm height-22"
+                            data-ng-click="$event.stopPropagation()">
+                            <input type="text" class="form-control height-22" placeholder="{{RoutingGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                data-ng-model="x.ATD" datetime-picker="{{RoutingGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datepicker-options="RoutingGridCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                enable-date="true" default-date="" default-time="" save-as="RoutingGridCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="RoutingGridCtrl.ePage.Masters.DatePicker.isOpen['isATD'+$index]" when-closed=""
+                                data-ng-click="RoutingGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isATD'+$index)"
+                                data-ng-change="RoutingGridCtrl.ePage.Masters.DateChange('ATD');"
+                                custom-date-time-format />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default shiny" data-ng-click="RoutingGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isATD'+$index)">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </td>
+                    <!-- ETA -->
+                    <td id="eta" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.eta.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.eta.width + 'px' }">
+                        <div data-ng-if="$index!=RoutingGridCtrl.ePage.Masters.selectedRow || RoutingGridCtrl.ePage.GlobalVariables.NonEditable">{{x.ETA
+                            | date:'dd-MMM-yyyy' || RoutingGridCtrl.ePage.Masters.emptyText}}</div>
+                        <div data-ng-disabled='RoutingGridCtrl.ePage.Masters.etadisable' data-ng-if="$index==RoutingGridCtrl.ePage.Masters.selectedRow"
+                            class="input-group input-group-sm height-22" data-ng-click="$event.stopPropagation()">
+                            <input type="text" class="form-control height-22" placeholder="{{RoutingGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                data-ng-model="x.ETA" datetime-picker="{{RoutingGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datepicker-options="RoutingGridCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                enable-date="true" default-date="" default-time="" save-as="RoutingGridCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="RoutingGridCtrl.ePage.Masters.DatePicker.isOpen['isETA'+$index]" when-closed=""
+                                data-ng-click="RoutingGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETA'+ $index)"
+                                data-ng-change="RoutingGridCtrl.ePage.Masters.DateChange('ETA');"
+                                custom-date-time-format />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default shiny" data-ng-click="RoutingGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETA'+ $index)">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </td>
+                    <!-- ATA -->
+                    <td id="ata" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.ata.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.ata.width + 'px' }">
+                        <div data-ng-if="$index!=RoutingGridCtrl.ePage.Masters.selectedRow || RoutingGridCtrl.ePage.GlobalVariables.NonEditable">{{x.ATA
+                            | date:'dd-MMM-yyyy' || RoutingGridCtrl.ePage.Masters.emptyText}}</div>
+                        <div data-ng-if="$index==RoutingGridCtrl.ePage.Masters.selectedRow" class="input-group input-group-sm height-22"
+                            data-ng-click="$event.stopPropagation()">
+                            <input type="text" class="form-control height-22" placeholder="{{RoutingGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                data-ng-model="x.ATA" datetime-picker="{{RoutingGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datepicker-options="RoutingGridCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                enable-date="true" default-date="" default-time="" save-as="RoutingGridCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="RoutingGridCtrl.ePage.Masters.DatePicker.isOpen['isATA'+$index]" when-closed=""
+                                data-ng-click="RoutingGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isATA'+ $index)"
+                                data-ng-change="RoutingGridCtrl.ePage.Masters.DateChange('ATA')"
+                                custom-date-time-format />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default shiny" data-ng-click="RoutingGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isATA'+ $index)">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </td>
+
+                </tr>
+                <tr id="tableBody" data-ng-if="RoutingGridCtrl.readOnly" data-ng-repeat="x in RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes | orderBy : 'LegOrder' | filter:{IsDeleted:false}"
+                    data-ng-click="RoutingGridCtrl.ePage.Masters.selectedRow = $index;RoutingGridCtrl.ePage.Masters.selectedRowObj=x">
+                    <!-- <td id="acheckbox" data-ng-click="RoutingGridCtrl.ePage.Masters.Enable = true">
+                        <label class="mb-0 customcheckbox" data-ng-click="$event.stopPropagation()">
+                            <input type="checkbox" data-ng-checked="x.SingleSelect" data-ng-change="RoutingGridCtrl.ePage.Masters.SingleSelectCheckBox()" data-ng-model="x.SingleSelect"
+                                data-ng-disabled="RoutingGridCtrl.ePage.GlobalVariables.NonEditable"> </input>
+                            <span class="text"></span>
+                        </label>
+                    </td> -->
+                    <!-- Defined By -->
+                    <td id="definedby" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.definedby.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.definedby.width + 'px' }">
+                        {{x.JobNo || RoutingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- Entity Source -->
+                    <td id="entitysource" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.entitysource.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.entitysource.width + 'px' }">
+                        {{x.EntitySource || RoutingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- Leg Order -->
+                    <td id="legno" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.legno.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.legno.width + 'px' }">
+                        {{x.LegOrder || RoutingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- isLinked -->
+                    <td id="islinked" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.islinked.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.islinked.width + 'px' }">
+                        <label class="mb-0 customcheckbox">
+                            <input type="checkbox" disabled="disabled" data-ng-model="x.IsLinked" data-ng-checked="x.IsLinked==true"
+                                class="colored-blue">
+                            <span class="text"></span>
+                        </label>
+                    </td>
+                    <!-- Transport Mode -->
+                    <td id="mode" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.mode.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.mode.width + 'px' }">
+                        {{x.TransportMode || RoutingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- Transport Type -->
+                    <td id="type" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.type.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.type.width + 'px' }">
+                        {{x.TransportType || RoutingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- Status -->
+                    <td id="status" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.status.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.status.width + 'px' }">
+                        {{x.Status || RoutingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!--Voyage-->
+                    <td id="voyageflight" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.voyageflight.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.voyageflight.width + 'px' }">
+                        {{x.VoyageFlight || RoutingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!--  Vessel Details-->
+                    <td id="vessel" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.vessel.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.vessel.width + 'px' }">
+                        {{x.Vessel || RoutingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- Load Port -->
+                    <td id="pol" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.pol.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.pol.width + 'px' }">
+                        {{x.LoadPort || RoutingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- Discharge Port-->
+                    <td id="pod" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.pod.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.pod.width + 'px' }">
+                        {{x.DischargePort || RoutingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!--ETD-->
+                    <td id="etd" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.etd.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.etd.width + 'px' }">
+                        {{x.ETD | date:'dd-MMM-yyyy' || RoutingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- ATD -->
+                    <td id="atd" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.atd.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.atd.width + 'px' }">
+                        {{x.ATD | date:'dd-MMM-yyyy' || RoutingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- ETA -->
+                    <td id="eta" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.eta.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.eta.width + 'px' }">
+                        {{x.ETA | date:'dd-MMM-yyyy' || RoutingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- ATA -->
+                    <td id="ata" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.ata.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.ata.width + 'px' }">
+                        {{x.ATA | date:'dd-MMM-yyyy' || RoutingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+        <div class="grid-no-record" data-ng-if="RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes.length == 0">No
+            records found...</div>
+    </div>
+    <!-- Pagination -->
+    <div class="mr-10 ml-10" data-ng-if="RoutingGridCtrl.btnVisible.Pagination">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pagination-border">
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3 col-xl-3 pt-10 p-0">
+                <ul uib-pagination boundary-links="true" total-items="RoutingGridCtrl.ePage.Masters.Routing.GridData.length"
+                    data-ng-model="RoutingGridCtrl.ePage.Masters.Pagination.CurrentPage" class="pagination-sm" max-size="RoutingGridCtrl.ePage.Masters.Pagination.MaxSize"
+                    items-per-page="RoutingGridCtrl.ePage.Masters.Pagination.ItemsPerPage" num-pages="RoutingGridCtrl.ePage.Masters.Pagination.TotalPage"
+                    previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3 col-xl-3 pt-10">
+                <select data-ng-model="RoutingGridCtrl.ePage.Masters.Pagination.ItemsPerPage" data-ng-change="">
+                    <option data-ng-selected="true">25</option>
+                    <option>50</option>
+                    <option>100</option>
+                    <option>500</option>
+                </select> Records Per Page.
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 pt-10 pull-right">
+                <div class="">Page : {{RoutingGridCtrl.ePage.Masters.Pagination.CurrentPage}} /
+                    {{RoutingGridCtrl.ePage.Masters.Pagination.TotalPage}}
+                </div>
+                <div class="">Total Records : {{(RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes |
+                    filter:{IsDeleted:false}).length}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

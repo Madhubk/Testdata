@@ -2,10 +2,6 @@
     width: 500px !important;
 }
 
-.org-edit-delete {
-    top: 5px;
-}
-
 .org-contact-header {
     font-size: 16px;
     position: relative;
@@ -133,3 +129,5 @@
 .referance-details-heading i:hover {
     text-decoration: none;
 }
+
+

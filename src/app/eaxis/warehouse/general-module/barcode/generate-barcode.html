@@ -1,0 +1,92 @@
+<style type="text/css">
+    @media print {
+        @page {
+            size: auto landscape !important;
+            margin: 0mm !important;
+        }
+        html {
+            margin: 0 0cm !important;
+        }
+        BODY {
+            margin: 20mm 0mm 0mm 8mm !important;
+        }
+        .padding-bottom-60 {
+            padding-bottom: 76px !important;
+        }
+        .padding-bottom-40 {
+            padding-bottom: 38px !important;
+        }
+    }
+</style>
+
+<div class="chrometab-box">
+    <div class="header-box">
+        <span data-ng-bind="'Barcode Generation'" class="header-text ng-binding"></span>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+        <div ng-show="GenerateBarcodeCtrl.ePage.Masters.IsShow" class="ge-line-box margin-top-10 margin-left-10">
+            <div id="printThisElement" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 no-padding">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 margin-top-10" ng-repeat="x in GenerateBarcodeCtrl.ePage.Masters.BarcodeDetails"
+                    ng-class="(({{$index+10}}%10)==8 || ({{$index+10}}%10==9)) && {{$index}}!=0?'padding-bottom-60':'padding-bottom-40'">
+                    <div >
+                        <angular-barcode data-ng-if="GenerateBarcodeCtrl.ePage.Masters.CodeType=='BAR'" ng-model="x.BarcodeNumber" bc-options="GenerateBarcodeCtrl.ePage.Masters.bc"
+                            bc-class="qrcode" bc-type="img"></angular-barcode>
+                    </div>
+                    <div class="" data-ng-if="GenerateBarcodeCtrl.ePage.Masters.CodeType=='QR'">
+                        <angular-qrcode data="{{x.BarcodeNumber}}" size="74" version="2" error-correction-level="Q" download='false'>
+                            </qrcode>
+                        </angular-qrcode><br>
+                        <label style="font-size: 10px; font-weight: 600;">{{x.BarcodeNumber}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="filterSideBar" style="margin-top: 33px; border: 1px solid #ccc;" class="dynamic-filter-sidebar-wrapper clearfix"
+    data-ng-class="GenerateBarcodeCtrl.ePage.Masters.ViewType == 1 ? 'one-column' : 'two-column'">
+    <form name="filterSidebar" novalidate>
+        <div class="header clearfix">
+            <div class="title pull-left">
+                <i class="fa fa-filter"></i>
+                <span>Filter</span>
+            </div>
+            <div class="btn-wrapper pull-right">
+                <ul class="clearfix">
+                    <li>
+                        <input type="submit" class="filter-title-btn" ng-click="GenerateBarcodeCtrl.ePage.Masters.GenerateBarCode()" data-ng-disabled=""
+                            value="Generate BAR/QR Code">
+                    </li>
+                    <li>
+                        <input type="submit" class="filter-title-btn" ng-click="GenerateBarcodeCtrl.ePage.Masters.Print()" data-ng-disabled="" value="Print">
+                        <!--<i class="fa fa-print"></i>-->
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="filter-list clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:10px;">
+                <div class="form-group">
+                    <label class="col-lg-4 control-label" style="text-align: center; margin-top: 6px;">No of Code</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="No of code" data-ng-model="GenerateBarcodeCtrl.ePage.Masters.Code">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:10px;">
+                <div class="form-group">
+                    <label class="col-lg-4 control-label" style="text-align: center; margin-top: 6px;">Code Type</label>
+                    <div class="col-lg-8">
+                        <select chosen class="form-control" ng-model="GenerateBarcodeCtrl.ePage.Masters.CodeType" ng-options="x.Key as x.Key + ' - '  + x.Value for x in GenerateBarcodeCtrl.ePage.Masters.DropDownMasterList.CodeType.ListSource"
+                            search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+

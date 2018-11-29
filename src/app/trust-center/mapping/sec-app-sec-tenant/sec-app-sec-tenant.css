@@ -1,0 +1,9 @@
+.tc-sec-app-sec-tenant .form-group .dropdown-menu {
+    display: block !important;
+    left: 15px;
+}
+
+.tc-sec-app-sec-tenant .dropdown-menu .auto-complete-no-result {
+    padding: 0 10px;
+    font-size: 12px;
+}

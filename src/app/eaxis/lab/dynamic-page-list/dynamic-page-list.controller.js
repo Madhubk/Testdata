@@ -26,15 +26,13 @@
         }
 
         function GetDynamicPageList() {
-            var _filter = {
-                "SAP_FK": authService.getUserInfo().AppPK
-            };
+            var _filter = {};
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.DataEntryMaster.API.FindAll.FilterID
+                "FilterID": appConfig.Entities.MasterDYNDataentrymaster.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.DataEntryMaster.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", appConfig.Entities.MasterDYNDataentrymaster.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     EAxisDynamicPageListCtrl.ePage.Masters.DynamicPageList = response.data.Response;
                 } else {

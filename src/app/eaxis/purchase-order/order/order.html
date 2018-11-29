@@ -1,8 +1,10 @@
 ﻿<div class="clearfix padding-bottom-5" data-ng-if="OrderCtrl.ePage.Masters.NotShowing">
-    <supplier-follow-up-directive entity="OrderCtrl.ePage.Masters.ButtonValue" filter="OrderCtrl.ePage.Masters.DefaultFilter" data-ng-if="OrderCtrl.ePage.Masters.NotShowing" reload="OrderCtrl.ePage.Masters.Reload()"></supplier-follow-up-directive>
+    <supplier-follow-up-directive entity="OrderCtrl.ePage.Masters.ButtonValue" filter="OrderCtrl.ePage.Masters.DefaultFilter"
+        data-ng-if="OrderCtrl.ePage.Masters.NotShowing" reload="OrderCtrl.ePage.Masters.Reload()"></supplier-follow-up-directive>
 </div>
-<div class="page-body p-5" data-ng-if="!OrderCtrl.ePage.Masters.NotShowing">
-    <uib-tabset id="chromeTab" active="OrderCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+<div data-ng-if="!OrderCtrl.ePage.Masters.NotShowing">
+    <uib-tabset id="chromeTab" active="OrderCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box"
+        data-ng-show="!OrderCtrl.ePage.Entities.GlobalVar.IsShowEditActivityPage">
         <uib-tab>
             <uib-tab-heading title="Order">
                 <span data-ng-bind="'Order'"></span>
@@ -10,26 +12,52 @@
             </uib-tab-heading>
             <div class="no-padding tab-list-view-wrapper">
                 <!--Order Grid Page-->
-                <dynamic-list dataentry-name="OrderCtrl.ePage.Masters.dataentryName" task-name="OrderCtrl.ePage.Masters.taskName" grid-config-type="0"
-                    selected-grid-row="OrderCtrl.ePage.Masters.SelectedGridRow($item)" default-filter="OrderCtrl.ePage.Masters.DefaultFilter" mode="1" data-ng-if="!OrderCtrl.ePage.Masters.NotShowing"></dynamic-list>
+                <!-- <dynamic-list dataentry-name="OrderCtrl.ePage.Masters.dataentryName" task-name="OrderCtrl.ePage.Masters.taskName" grid-config-type="0"
+                    selected-grid-row="OrderCtrl.ePage.Masters.SelectedGridRow($item)" default-filter="OrderCtrl.ePage.Masters.DefaultFilter" mode="1" data-ng-if="!OrderCtrl.ePage.Masters.NotShowing"></dynamic-list> -->
+                <dynamic-list dataentry-name="OrderCtrl.ePage.Masters.dataentryName" selected-grid-row="OrderCtrl.ePage.Masters.SelectedGridRow($item)"
+                    mode="1" default-filter="OrderCtrl.ePage.Masters.DefaultFilter" dataentry-object="OrderCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
                 <div class="tab-loading" data-ng-show="OrderCtrl.ePage.Masters.IsTabClick"></div>
             </div>
         </uib-tab>
-        <uib-tab active="OrderCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in OrderCtrl.ePage.Masters.TabList" ng-click="OrderCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+        <uib-tab active="OrderCtrl.ePage.Masters.activeTabIndex == $index" data-ng-repeat="tab in OrderCtrl.ePage.Masters.TabList"
+            data-ng-click="OrderCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
             <uib-tab-heading title="{{tab.label}}">
                 <span data-ng-bind="tab.label"></span>
-                <i class="glyphicon glyphicon-remove" ng-click="OrderCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+                <i class="glyphicon glyphicon-remove" data-ng-click="OrderCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+                <span class="error-warning-container-common" data-ng-if="OrderCtrl.ePage.Masters.ErrorWarningConfig.Modules.Order.Entity[tab.code].GlobalErrorWarningList.length > 0">
+                    <span class="custom-warning-container" data-ng-if="(OrderCtrl.ePage.Masters.ErrorWarningConfig.Modules.Order.Entity[tab.code].GlobalErrorWarningList | listCount: 'MessageType': 'W') > 0 && (OrderCtrl.ePage.Masters.ErrorWarningConfig.Modules.Order.Entity[tab.code].GlobalErrorWarningList | listCount: 'MessageType': 'E') == 0">
+                        <button class="btn-warning" data-ng-click="OrderCtrl.ePage.Masters.Configdetails.ShowErrorWarningModal(tab)">
+                            <i class="fa fa-warning"></i>
+                        </button>
+                        <span class="custom-warning-count">{{OrderCtrl.ePage.Masters.ErrorWarningConfig.Modules.Order.Entity[tab.code].GlobalErrorWarningList
+                            | listCount: 'MessageType': 'W'}}
+                        </span>
+                    </span>
+                    <span class="custom-error-container" data-ng-if="(OrderCtrl.ePage.Masters.ErrorWarningConfig.Modules.Order.Entity[tab.code].GlobalErrorWarningList | listCount: 'MessageType': 'E') > 0">
+                        <button class="btn-error" data-ng-click="OrderCtrl.ePage.Masters.Configdetails.ShowErrorWarningModal(tab)">
+                            <i class="fa fa-warning"></i>
+                        </button>
+                        <span class="custom-error-count">{{OrderCtrl.ePage.Masters.ErrorWarningConfig.Modules.Order.Entity[tab.code].GlobalErrorWarningList
+                            | listCount: 'MessageType': 'E'}}
+                        </span>
+                    </span>
+                </span>
             </uib-tab-heading>
             <div class="padding-bottom-10 clearfix">
                 <!--Order Menu Directive-->
-                <order-menu current-order="tab"></order-menu>
+                <order-menu current-order="tab" data-ng-if="OrderCtrl.ePage.Masters.currentOrder" current-obj="OrderCtrl.ePage.Masters.TabConfig"></order-menu>
                 <!--Standard Menu Directive-->
                 <div class="eaxis-footer-strip">
-                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
-                        <standard-menu input="tab" entity-name="'OrderHeader'" data-ng-if="!tab.isNew"></standard-menu>
+                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                        <!-- <standard-menu input="tab" entity-name="'OrderHeader'" data-ng-if="!tab.isNew"></standard-menu> -->
+                        <standard-menu input="tab" dataentry-object="OrderCtrl.ePage.Masters.DataEntryObject"
+                            data-ng-if="!tab.isNew"></standard-menu>
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                        <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="OrderCtrl.ePage.Masters.Save(tab)"
+                        <order-action input="tab" data-ng-if="!tab.isNew"> </order-action>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                        <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="OrderCtrl.ePage.Masters.Validation(tab)"
                             data-ng-bind="OrderCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="OrderCtrl.ePage.Masters.IsDisableSave"></button>
                     </div>
                 </div>
@@ -37,4 +65,24 @@
         </uib-tab>
         <button class="btn btn-default" data-ng-click="OrderCtrl.ePage.Masters.CreateNewOrder()" data-ng-disabled="OrderCtrl.ePage.Masters.IsNewOrderClicked">+</button>
     </uib-tabset>
+</div>
+<div class="clearfix order-activity-page-warpper" data-ng-if="OrderCtrl.ePage.Entities.GlobalVar.IsShowEditActivityPage">
+    <div class="clearfix order-activity-header-wrapper">
+        <div class="clearfix order-activity-header">
+            <div class="title">
+                <span>{{OrderCtrl.ePage.Entities.GlobalVar.ActivityName}}</span>
+            </div>
+            <div class="buttons">
+                <button class="btn btn-warning btn-xs pull-right ml-5" data-ng-click="OrderCtrl.ePage.Masters.ActionClose(OrderCtrl.ePage.Entities.GlobalVar.ActivityName)"
+                    title="Close">Close</i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix order-activity-body pb-50">
+        <order-confirmation data-ng-if="OrderCtrl.ePage.Entities.GlobalVar.IsConformationEnable" input="OrderCtrl.ePage.Entities.GlobalVar.Input"></order-confirmation>
+        <cargo-readiness data-ng-if="OrderCtrl.ePage.Entities.GlobalVar.IsCargoRedinessEnable" input="OrderCtrl.ePage.Entities.GlobalVar.Input"></cargo-readiness>
+        <pre-advice-custom-tool-bar data-ng-if="OrderCtrl.ePage.Entities.GlobalVar.IsPreAdviceEnable" input="OrderCtrl.ePage.Entities.GlobalVar.Input"></pre-advice-custom-tool-bar>
+        <order-activation data-ng-if="OrderCtrl.ePage.Entities.GlobalVar.IsActiveOrderEnable" input="OrderCtrl.ePage.Entities.GlobalVar.Input"></order-activation>
+    </div>
 </div>

@@ -1,0 +1,13 @@
+<div id="myDialog">
+    <div class="modal-header ">
+        <h3 class="modal-title " id="modal-title ">Delivery Request Successfully Initiated </h3>
+    </div>
+    <div class="modal-body " id="modal-body ">
+        <h3>Delivery Request No : {{RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID}}</h3>
+        <!-- <h3>Process InstanceID : {{RaiseCSRCtrl.ePage.Entities.Header.Data.ProcessInfo[0].PSI_InstanceNo}}</h3> -->
+    </div>
+    <div class="modal-footer ">
+        <button class="btn btn-primary " type="button " ng-click="RaiseCSRCtrl.ePage.Masters.Continue() ">Continue</button>
+        <button class="btn btn-primary " type="button " ng-click="RaiseCSRCtrl.ePage.Masters.CreateNewDeliveryRequest() ">New Delivery Request</button>
+    </div>
+</div>

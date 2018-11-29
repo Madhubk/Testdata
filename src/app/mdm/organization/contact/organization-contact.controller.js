@@ -1,12 +1,33 @@
 (function () {
     "use strict";
+
+    angular
+        .module("Application")
+        .directive("organizationContact", OrganizationContact);
+
+    OrganizationContact.$inject = [];
+
+    function OrganizationContact() {
+        var exports = {
+            restrict: "EA",
+            templateUrl: "app/mdm/organization/contact/organization-contact.html",
+            controller: "OrganizationContactController",
+            controllerAs: "OrganizationContactCtrl",
+            scope: {
+                currentOrganization: "="
+            },
+            bindToController: true
+        };
+        return exports;
+    }
+
     angular
         .module("Application")
         .controller("OrganizationContactController", OrganizationContactController);
 
-    OrganizationContactController.$inject = ["$rootScope", "$scope", "$location", "APP_CONSTANT", "authService", "$uibModal", "apiService", "appConfig", "organizationConfig", "helperService", "toastr", "confirmation"];
+    OrganizationContactController.$inject = ["$scope", "$uibModal", "apiService", "appConfig", "helperService", "toastr", "confirmation"];
 
-    function OrganizationContactController($rootScope, $scope, $location, APP_CONSTANT, authService, $uibModal, apiService, appConfig, organizationConfig, helperService, toastr, confirmation) {
+    function OrganizationContactController($scope, $uibModal, apiService, appConfig, helperService, toastr, confirmation) {
         var OrganizationContactCtrl = this;
         $scope.emptyText = "-";
 
@@ -21,44 +42,35 @@
                 "Entities": currentOrganization,
             };
 
-            OrganizationContactCtrl.ePage.Masters.OrgContact = {};
-            OrganizationContactCtrl.ePage.Masters.DropDownMasterList = organizationConfig.Entities.Header.Meta;
+            OrganizationContactCtrl.ePage.Masters.EmptyText = "-";
 
-            OrganizationContactCtrl.ePage.Masters.OpenEditForm = OpenEditForm;
-            OrganizationContactCtrl.ePage.Masters.DeleteConfirmation = DeleteConfirmation;
-            OrganizationContactCtrl.ePage.Masters.DeleteContact = DeleteContact;
-            
+            OrganizationContactCtrl.ePage.Masters.OrgContact = {};
+            OrganizationContactCtrl.ePage.Masters.EditContact = EditContact;
+            OrganizationContactCtrl.ePage.Masters.DeleteContact = DeleteConfirmation;
         }
 
-        function OpenEditForm($item, type, isNewMode) {
+        function EditContact($item) {
             var modalInstance = $uibModal.open({
                 animation: true,
                 backdrop: "static",
                 keyboard: true,
-                windowClass: "contact-edit right " + type,
+                windowClass: "contact-edit-modal right contact",
                 scope: $scope,
-                templateUrl: "app/mdm/organization/contact/organization-contact-modal/" + type + "-modal.html",
+                templateUrl: "app/mdm/organization/contact/organization-contact-modal/contact-modal.html",
                 controller: 'OrgContactModalController as OrgContactModalCtrl',
                 bindToController: true,
                 resolve: {
                     param: function () {
-                        console.log(OrganizationContactCtrl.currentOrganization)
                         var exports = {
                             "Entity": OrganizationContactCtrl.currentOrganization,
-                            "Type": type,
-                            "Item": $item,
-                            "isNewMode": isNewMode
+                            "Item": $item
                         };
                         return exports;
                     }
                 }
             }).result.then(
                 function (response) {
-                    console.log(response);
-                    var _obj = {
-                        "OrgContact": OrgContactResponse
-                    };
-                    _obj[response.type]();
+                    OrganizationContactCtrl.currentOrganization[OrganizationContactCtrl.currentOrganization.label].ePage.Entities.Header.Data = response.data;
                 },
                 function () {
                     console.log("Cancelled");
@@ -66,26 +78,7 @@
             );
         }
 
-        function OrgContactResponse() {
-            OrganizationContactCtrl.ePage.Entities.Header.Data.OrgContact = undefined;
-            var _filter = {
-                ORG_FK: OrganizationContactCtrl.ePage.Entities.Header.Data.OrgHeader.PK
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.OrgContact.API.FindAll.FilterID
-            };
-
-            apiService.post("eAxisAPI", appConfig.Entities.OrgContact.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    OrganizationContactCtrl.ePage.Entities.Header.Data.OrgContact = response.data.Response;
-                } else {
-                    OrganizationContactCtrl.ePage.Entities.Header.Data.OrgContact = [];
-                }
-            });
-        }
-
-        function DeleteConfirmation($item, type) {
+        function DeleteConfirmation($item) {
             var modalOptions = {
                 closeButtonText: 'Cancel',
                 actionButtonText: 'Ok',
@@ -93,30 +86,28 @@
                 bodyText: 'Are you sure?'
             };
 
-            confirmation.showModal({}, modalOptions)
-                .then(function (result) {
-                    DeleteContact($item, type);
-                }, function () {
-                    console.log("Cancelled");
-                });
+            confirmation.showModal({}, modalOptions).then(function (result) {
+                DeleteContact($item);
+            }, function () {
+                console.log("Cancelled");
+            });
         }
 
-        function DeleteContact($item, type) {
-            OrganizationContactCtrl.ePage.Masters[type].IsOverlay = true;
-            apiService.get("eAxisAPI", appConfig.Entities[type].API.Delete.Url + $item.PK).then(function (response) {
+        function DeleteContact($item) {
+            OrganizationContactCtrl.ePage.Masters.OrgContact.IsOverlay = true;
+            apiService.get("eAxisAPI", appConfig.Entities.OrgContact.API.Delete.Url + $item.PK).then(function (response) {
                 if (response.data.Response) {
                     if (response.data.Response.Status === "Success") {
-                        OrganizationContactCtrl.ePage.Entities.Header.Data[type].map(function (value, key) {
+                        OrganizationContactCtrl.ePage.Entities.Header.Data.OrgContact.map(function (value, key) {
                             if (value.PK === $item.PK) {
-                                OrganizationContactCtrl.ePage.Entities.Header.Data[type].splice(key, 1);
+                                OrganizationContactCtrl.ePage.Entities.Header.Data.OrgContact.splice(key, 1);
                             }
                         });
-                        toastr.success("Record Deleted Successfully...!");
                     } else {
                         toastr.error("Could not Delete...!");
                     }
 
-                    OrganizationContactCtrl.ePage.Masters[type].IsOverlay = false;
+                    OrganizationContactCtrl.ePage.Masters.OrgContact.IsOverlay = false;
                 }
             });
         }

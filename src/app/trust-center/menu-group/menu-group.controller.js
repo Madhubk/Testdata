@@ -4,9 +4,9 @@
         .module("Application")
         .controller("MenuGroupsController", MenuGroupsController);
 
-    MenuGroupsController.$inject = ["$scope", "$location", "$timeout", "$uibModal", "$http", "authService", "apiService", "helperService", "appConfig", "APP_CONSTANT", "toastr", "confirmation"]
+    MenuGroupsController.$inject = ["$scope", "$location", "$uibModal", "authService", "apiService", "helperService", "toastr", "confirmation", "trustCenterConfig"]
 
-    function MenuGroupsController($scope, $location, $timeout, $uibModal, $http, authService, apiService, helperService, appConfig, APP_CONSTANT, toastr, confirmation) {
+    function MenuGroupsController($scope, $location, $uibModal, authService, apiService, helperService, toastr, confirmation, trustCenterConfig) {
         var MenuGroupsCtrl = this;
         var _queryString = $location.path().split("/").pop();
 
@@ -27,7 +27,7 @@
 
                 if (MenuGroupsCtrl.ePage.Masters.QueryString.AppPk) {
                     InitBreadcrumb();
-                    InitMenuTypeList();
+                    InitApplication();
                     InitMenuGroupsConfig();
                 }
             } catch (error) {
@@ -52,14 +52,19 @@
                 IsRequireQueryString: false,
                 IsActive: false
             }, {
-                Code: "system",
-                Description: "System",
-                Link: "TC/dashboard/" + helperService.encryptData('{"Type":"System", "BreadcrumbTitle": "System"}'),
-                IsRequireQueryString: false,
+                Code: "dashboard",
+                Description: "Dashboard",
+                Link: "TC/dashboard",
+                IsRequireQueryString: true,
+                QueryStringObj: {
+                    "AppPk": MenuGroupsCtrl.ePage.Masters.QueryString.AppPk,
+                    "AppCode": MenuGroupsCtrl.ePage.Masters.QueryString.AppCode,
+                    "AppName": MenuGroupsCtrl.ePage.Masters.QueryString.AppName
+                },
                 IsActive: false
             }, {
                 Code: "menugroup",
-                Description: "Menu Group",
+                Description: "Menu Group (" + MenuGroupsCtrl.ePage.Masters.QueryString.AdditionalData.BreadcrumbTitle + ")",
                 Link: "#",
                 IsRequireQueryString: false,
                 IsActive: true
@@ -76,49 +81,31 @@
 
         // ========================Breadcrumb End========================
 
-        function InitMenuTypeList() {
-            MenuGroupsCtrl.ePage.Masters.MenuGroupType = {};
-            MenuGroupsCtrl.ePage.Masters.MenuGroupType.OnMenuGroupTypeChange = OnMenuGroupTypeChange;
-            GetMenuGroupTypeList();
+        //========================Application=================
+        function InitApplication() {
+            MenuGroupsCtrl.ePage.Masters.Application = {};
+            MenuGroupsCtrl.ePage.Masters.Application.OnApplicationChange = OnApplicationChange;
         }
 
-        function GetMenuGroupTypeList() {
-            MenuGroupsCtrl.ePage.Masters.MenuGroupType.Listsource = undefined;
-            var _filter = {
-                TypeCode: "GROUPTYPE_MASTER"
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.CfxTypes.API.FindAll.FilterID
-            };
+        function OnApplicationChange($item) {
+            MenuGroupsCtrl.ePage.Masters.Application.ActiveApplication = angular.copy($item);
 
-            apiService.post("eAxisAPI", appConfig.Entities.CfxTypes.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
-                if (response.data.Response) {
-                    MenuGroupsCtrl.ePage.Masters.MenuGroupType.Listsource = response.data.Response;
-                    if (MenuGroupsCtrl.ePage.Masters.MenuGroupType.Listsource.length > 0) {
-                        OnMenuGroupTypeChange(MenuGroupsCtrl.ePage.Masters.MenuGroupType.Listsource[0]);
-                    } else {
-                        OnMenuGroupTypeChange();
-                    }
-                } else {
-                    MenuGroupsCtrl.ePage.Masters.MenuGroupType.Listsource = [];
-                }
-            });
-        }
-
-        function OnMenuGroupTypeChange($item) {
-            OnMenuGroupsClick();
-            MenuGroupsCtrl.ePage.Masters.MenuGroupType.ActiveMenuGroupType = $item;
-            MenuGroupsCtrl.ePage.Masters.MenuGroups.MenuGroupsList = [];
-            if ($item) {
-                GetMenuGroupsList();
+            if (!MenuGroupsCtrl.ePage.Masters.Application.ActiveApplication) {
+                MenuGroupsCtrl.ePage.Masters.Application.ActiveApplication = {
+                    "PK": MenuGroupsCtrl.ePage.Masters.QueryString.AppPk,
+                    "AppCode": MenuGroupsCtrl.ePage.Masters.QueryString.AppCode,
+                    "AppName": MenuGroupsCtrl.ePage.Masters.QueryString.AppName
+                };
             }
+
+            GetRedirectLinkList();
+            OnMenuGroupsClick();
+            GetMenuGroupsList();
+            GetModuleList();
         }
 
         function InitMenuGroupsConfig() {
             MenuGroupsCtrl.ePage.Masters.MenuGroups = {};
-            MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups = {};
-
             MenuGroupsCtrl.ePage.Masters.MenuGroups.Cancel = Cancel;
             MenuGroupsCtrl.ePage.Masters.MenuGroups.Save = Save;
             MenuGroupsCtrl.ePage.Masters.MenuGroups.Edit = Edit;
@@ -133,25 +120,28 @@
 
             MenuGroupsCtrl.ePage.Masters.MenuGroups.DeleteBtnText = "Delete";
             MenuGroupsCtrl.ePage.Masters.MenuGroups.IsDisableDeleteBtn = false;
-
-            // GetMenuGroupsList();
-            GetRedirectLinkList();
         }
 
         function GetMenuGroupsList() {
-
+            MenuGroupsCtrl.ePage.Masters.MenuGroups.MenuGroupsList = undefined;
             var _filter = {
-
-                "SAP_FK": MenuGroupsCtrl.ePage.Masters.QueryString.AppPk,
-                "GroupType": MenuGroupsCtrl.ePage.Masters.MenuGroupType.ActiveMenuGroupType.Key
-                // "SAP_FK": MenuCtrl.ePage.Masters.QueryString.AppPk
+                "GroupType": MenuGroupsCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code
             };
+
+            _filter.ModuleCode = MenuGroupsCtrl.ePage.Masters.Application.ActiveApplication.AppCode;
+
+            if(MenuGroupsCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code == "BPMGroups"){
+                _filter.TenantCode = authService.getUserInfo().TenantCode;
+            } else {
+                _filter.TenantCode = "TBASE";
+            }
+
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.MenuGroups.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.MenuGroups.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.MenuGroups.API.FindAll.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.MenuGroups.API.FindAll.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     MenuGroupsCtrl.ePage.Masters.MenuGroups.MenuGroupsList = response.data.Response;
                     if (MenuGroupsCtrl.ePage.Masters.MenuGroups.MenuGroupsList.length > 0) {
@@ -160,20 +150,21 @@
                         OnMenuGroupsClick();
                     }
                 } else {
-                    MenuGroupsCtrl.ePage.Masters.MenuGroups.MenuGroupsListt = [];
+                    MenuGroupsCtrl.ePage.Masters.MenuGroups.MenuGroupsList = [];
                 }
             });
         }
 
         function AddNew() {
-            MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups = {};
+            MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups = {
+                GroupType: MenuGroupsCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code
+            };
             Edit();
         }
 
         function OnMenuGroupsClick($item) {
             MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups = angular.copy($item);
             MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroupsCopy = angular.copy($item);
-
         }
 
         function EditModalInstance() {
@@ -191,7 +182,7 @@
             MenuGroupsCtrl.ePage.Masters.MenuGroups.SaveBtnText = "OK";
             MenuGroupsCtrl.ePage.Masters.MenuGroups.IsDisableSaveBtn = false;
 
-            EditModalInstance().result.then(function (response) {}, function () {
+            EditModalInstance().result.then(function (response) { }, function () {
                 Cancel();
             });
         }
@@ -202,9 +193,16 @@
 
             var _input = angular.copy(MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups);
             _input.IsModified = true;
-            _input.IsDeleted = false;
 
-            apiService.post("eAxisAPI", appConfig.Entities.MenuGroups.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
+            if(MenuGroupsCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code == "BPMGroups"){
+                _input.TenantCode = authService.getUserInfo().TenantCode;
+            }  else {
+                _input.TenantCode = "TBASE";
+            }
+
+            _input.ModuleCode = MenuGroupsCtrl.ePage.Masters.Application.ActiveApplication.AppCode;
+
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.MenuGroups.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     var _response = response.data.Response[0];
                     MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups = angular.copy(_response);
@@ -217,6 +215,7 @@
                     } else {
                         MenuGroupsCtrl.ePage.Masters.MenuGroups.MenuGroupsList[_index] = _response;
                     }
+
                     OnMenuGroupsClick(_response);
                 } else {
                     toastr.error("Could not Save...!");
@@ -268,12 +267,11 @@
             MenuGroupsCtrl.ePage.Masters.MenuGroups.DeleteBtnText = "Please Wait...";
             MenuGroupsCtrl.ePage.Masters.MenuGroups.IsDisableDeleteBtn = true;
 
-            MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups.IsModified = true;
-            MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups.IsDeleted = true;
-
             var _input = [MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups];
+            _input.IsModified = true;
+            _input.IsDeleted = true;
 
-            apiService.post("eAxisAPI", appConfig.Entities.MenuGroups.API.Upsert.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.MenuGroups.API.Upsert.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     var _index = MenuGroupsCtrl.ePage.Masters.MenuGroups.MenuGroupsList.map(function (value, key) {
                         return value.PK;
@@ -306,153 +304,24 @@
                 AdditionalData: "GRUP_ROLE_APP_TNT",
                 ItemName: "MENUGROUP",
                 BreadcrumbTitle: "Menu Group Role - GRUP_ROLE_APP_TNT",
-                Type: 1,
-                GroupType: "Parties"
-            }, {
-                Code: "DocTypeVisibility",
-                Description: "Document Type Visibility",
-                Icon: "fa fa-sign-in",
-                Link: "TC/mapping-vertical",
-                Color: "#bd081c",
-                AdditionalData: "GRUP_DTYP_APP_TNT",
-                ItemName: "GRUP",
-                BreadcrumbTitle: "Group Document Type Visibility - GRUP_DTYP_APP_TNT",
-                Type: 2,
-                GroupType: "Parties"
-            }, {
-                Code: "DocTypeOrgVisibility",
-                Description: "Document Type Visibility Override by Organization",
-                Icon: "fa fa-sign-in",
-                Link: "TC/mapping-vertical",
-                Color: "#bd081c",
-                AdditionalData: "GRUP_DTYP_ORG_APP_TNT",
-                ItemName: "GRUP",
-                BreadcrumbTitle: "Group Docuent Type Organization Visibility - GRUP_DTYP_ORG_APP_TNT",
-                Type: 2,
-                GroupType: "Parties"
-            }, {
-                Code: "CommentTypeVisibility",
-                Description: "Comment Type Visibility",
-                Icon: "fa fa-sign-in",
-                Link: "TC/mapping-vertical",
-                Color: "#bd081c",
-                AdditionalData: "GRUP_CTYP_APP_TNT",
-                ItemName: "GRUP",
-                BreadcrumbTitle: "Group Comment Type Visibility - GRUP_CTYP_APP_TNT",
-                Type: 2,
-                GroupType: "Parties"
-            }, {
-                Code: "CommentTypeOrgVisibility",
-                Description: "Comment Type Visibility Override by Organization",
-                Icon: "fa fa-sign-in",
-                Link: "TC/mapping-vertical",
-                Color: "#bd081c",
-                AdditionalData: "GRUP_CTYP_ORG_APP_TNT",
-                ItemName: "GRUP",
-                BreadcrumbTitle: "Group Comment Type Organization Visibility - GRUP_CTYP_ORG_APP_TNT",
-                Type: 2,
-                GroupType: "Parties"
-            }, {
-                Code: "ExceptionTypeMasterOrg",
-                Description: "Exception Type Master Override by Organization",
-                Icon: "fa fa-sign-in",
-                Link: "TC/mapping-vertical",
-                Color: "#bd081c",
-                AdditionalData: "GRUP_ETYP_MAST_ORG_APP_TNT",
-                ItemName: "GRUP",
-                BreadcrumbTitle: "Group Exception Type Master Organization - GRUP_ETYP_MAST_ORG_APP_TNT",
-                Type: 2,
-                GroupType: "Parties"
-            }, {
-                Code: "ExceptionTypeVisibility",
-                Description: "Exception Type Visibility",
-                Icon: "fa fa-sign-in",
-                Link: "TC/mapping-vertical",
-                Color: "#bd081c",
-                AdditionalData: "GRUP_ETYP_APP_TNT",
-                ItemName: "GRUP",
-                BreadcrumbTitle: "Group Exception Type Visibility - GRUP_ETYP_APP_TNT",
-                Type: 2,
-                GroupType: "Parties"
-            }, {
-                Code: "ExceptionTypeOrgVisibility",
-                Description: "Exception Type Visibility Override by Organization",
-                Icon: "fa fa-sign-in",
-                Link: "TC/mapping-vertical",
-                Color: "#bd081c",
-                AdditionalData: "GRUP_ETYP_ORG_APP_TNT",
-                ItemName: "GRUP",
-                BreadcrumbTitle: "Group Exception Type Organization Visibility - GRUP_ETYP_ORG_APP_TNT",
-                Type: 2,
-                GroupType: "Parties"
-            }, {
-                Code: "EventTypeVisibility",
-                Description: "Event Type Visibility",
-                Icon: "fa fa-sign-in",
-                Link: "TC/mapping-vertical",
-                Color: "#bd081c",
-                AdditionalData: "GRUP_EVTYP_APP_TNT",
-                ItemName: "GRUP",
-                BreadcrumbTitle: "Group Event Type Visibility - GRUP_EVTYP_APP_TNT",
-                Type: 2,
-                GroupType: "Parties"
-            }, {
-                Code: "EventTypeOrgVisibility",
-                Description: "Event Type Visibility Override by Organization",
-                Icon: "fa fa-sign-in",
-                Link: "TC/mapping-vertical",
-                Color: "#bd081c",
-                AdditionalData: "GRUP_EVTYP_ORG_APP_TNT",
-                ItemName: "GRUP",
-                BreadcrumbTitle: "Group Event Type Organization Visibility - GRUP_EVTYP_ORG_APP_TNT",
-                Type: 2,
-                GroupType: "Parties"
-            }, {
-                Code: "EmailTypeVisibility",
-                Description: "Email Type Visibility",
-                Icon: "fa fa-sign-in",
-                Link: "TC/mapping-vertical",
-                Color: "#bd081c",
-                AdditionalData: "GRUP_ELTYP_APP_TNT",
-                ItemName: "GRUP",
-                BreadcrumbTitle: "Group Email Type Visibility - GRUP_ELTYP_APP_TNT",
-                Type: 2,
-                GroupType: "Parties"
-            }, {
-                Code: "EmailTypeOrgVisibility",
-                Description: "Email Type Visibility Override by Organization",
-                Icon: "fa fa-sign-in",
-                Link: "TC/mapping-vertical",
-                Color: "#bd081c",
-                AdditionalData: "GRUP_ELTYP_ORG_APP_TNT",
-                ItemName: "GRUP",
-                BreadcrumbTitle: "Group Email Type Organization Visibility - GRUP_ELTYP_ORG_APP_TNT",
-                Type: 2,
-                GroupType: "Parties"
-            }, {
-                Code: "RoleMapping",
-                Description: "Role Mapping",
-                Icon: "fa fa-sign-in",
-                Link: "TC/mapping-vertical",
-                Color: "#bd081c",
-                AdditionalData: "GRUP_ROLE_APP_TNT",
-                ItemName: "MENUGROUP",
-                BreadcrumbTitle: "Menu Group Role - GRUP_ROLE_APP_TNT",
-                Type: 1,
-                GroupType: "Task"
             }];
         }
 
         function OnRedirectListClick($item) {
-            var _queryString = {
-                "AppPk": MenuGroupsCtrl.ePage.Masters.QueryString.AppPk,
-                "AppCode": MenuGroupsCtrl.ePage.Masters.QueryString.AppCode,
-                "AppName": MenuGroupsCtrl.ePage.Masters.QueryString.AppName
-            };
+            if (MenuGroupsCtrl.ePage.Masters.Application.ActiveApplication) {
+                var _queryString = {
+                    "AppPk": MenuGroupsCtrl.ePage.Masters.Application.ActiveApplication.PK,
+                    "AppCode": MenuGroupsCtrl.ePage.Masters.Application.ActiveApplication.AppCode,
+                    "AppName": MenuGroupsCtrl.ePage.Masters.Application.ActiveApplication.AppName
+                };
+            } else {
+                var _queryString = MenuGroupsCtrl.ePage.Masters.QueryString;
+            }
+
             _queryString.DisplayName = MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups.Description;
             _queryString.ItemPk = MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups.PK;
             _queryString.ItemCode = MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups.Description;
-            _queryString.ItemName = $item.ItemName;
+            _queryString.ItemName = MenuGroupsCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code;
             _queryString.MappingCode = $item.AdditionalData;
             _queryString.BreadcrumbTitle = $item.BreadcrumbTitle;
 
@@ -460,6 +329,30 @@
                 $location.path($item.Link + "/" + helperService.encryptData(_queryString));
             }
         }
+
+        // === Module List ==== //
+
+        function GetModuleList() {
+            MenuGroupsCtrl.ePage.Masters.MenuGroups.ModuleListSource = undefined;
+            var _filter = {
+                "TypeCode": "MODULE_MASTER"
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": trustCenterConfig.Entities.API.CfxTypes.API.FindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxTypes.API.FindAll.Url + MenuGroupsCtrl.ePage.Masters.Application.ActiveApplication.PK, _input).then(function (response) {
+                if (response.data.Response) {
+                    if (response.data.Response.length > 0) {
+                        MenuGroupsCtrl.ePage.Masters.MenuGroups.ModuleListSource = response.data.Response;
+                    }
+                } else {
+                    MenuGroupsCtrl.ePage.Masters.MenuGroups.ModuleListSource = [];
+                }
+            });
+        }
+
 
         Init();
     }

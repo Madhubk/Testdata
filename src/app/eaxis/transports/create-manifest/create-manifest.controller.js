@@ -27,9 +27,6 @@
             CreateManifestCtrl.ePage.Masters.CreateManifest = CreateManifest;
             CreateManifestCtrl.ePage.Masters.GoToDashboard = GoToDashboard;
 
-
-            CreateManifestCtrl.ePage.Masters.StandardMenuInput = appConfig.Entities.standardMenuConfigList.TransportsManifest;
-            CreateManifestCtrl.ePage.Masters.StandardMenuInput.obj = CreateManifestCtrl.currentManifest;
             CreateManifestCtrl.ePage.Masters.Validation = Validation;
             CreateManifestCtrl.ePage.Masters.Config = createmanifestConfig;
 
@@ -130,6 +127,7 @@
                 CreateManifestCtrl.ePage.Masters.SaveButtonText = "Save";
                 CreateManifestCtrl.ePage.Masters.IsDisableSave = false;
                 if (response.Status === "success") {
+                    toastr.success("Manifest Process Initiated Successfully");
                     CreateManifestCtrl.ePage.Masters.ProcessInfo = response.Data;
                     $item.isNew = true;
                     openModel().result.then(function (response) { }, function () {

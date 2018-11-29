@@ -1,0 +1,198 @@
+(function () {
+    "use strict";
+
+    angular
+        .module("Application")
+        .controller("DeliveryMenuController", DeliveryMenuController);
+
+    DeliveryMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "deliveryConfig", "helperService", "appConfig", "authService", "$location", "$state", "toastr", "confirmation", "$uibModal"];
+
+    function DeliveryMenuController($scope, $timeout, APP_CONSTANT, apiService, deliveryConfig, helperService, appConfig, authService, $location, $state, toastr, confirmation, $uibModal) {
+
+        var DeliveryMenuCtrl = this
+
+        function Init() {
+
+            var currentDelivery = DeliveryMenuCtrl.currentDelivery[DeliveryMenuCtrl.currentDelivery.label].ePage.Entities;
+
+            DeliveryMenuCtrl.ePage = {
+                "Title": "",
+                "Prefix": "Delivery_Menu",
+                "Masters": {},
+                "Meta": helperService.metaBase(),
+                "Entities": currentDelivery
+            };
+
+            DeliveryMenuCtrl.ePage.Masters.DeliveryMenu = {};
+            DeliveryMenuCtrl.ePage.Masters.MyTask = {};
+            // Menu list from configuration
+
+            DeliveryMenuCtrl.ePage.Masters.SaveButtonText = "Save";
+            DeliveryMenuCtrl.ePage.Masters.Validation = Validation;
+            DeliveryMenuCtrl.ePage.Masters.Config = deliveryConfig;
+
+            //To show hide mytask
+            var _menuList = angular.copy(DeliveryMenuCtrl.ePage.Entities.Header.Meta.MenuList);
+            var _index = _menuList.map(function (value, key) {
+                return value.Value;
+            }).indexOf("MyTask");
+
+            if (DeliveryMenuCtrl.currentDelivery.isNew) {
+                _menuList[_index].IsDisabled = true;
+
+                DeliveryMenuCtrl.ePage.Masters.DeliveryMenu.ListSource = _menuList;
+                DeliveryMenuCtrl.ePage.Masters.ActiveMenu = DeliveryMenuCtrl.ePage.Masters.DeliveryMenu.ListSource[0];
+            } else {
+                GetMyTaskList(_menuList, _index);
+            }
+        }
+
+        function Validation($item) {
+            var _Data = $item[$item.label].ePage.Entities,
+                _input = _Data.Header.Data,
+                _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
+
+            //Validation Call
+            DeliveryMenuCtrl.ePage.Masters.Config.GeneralValidation($item);
+            if (DeliveryMenuCtrl.ePage.Entities.Header.Validations) {
+                DeliveryMenuCtrl.ePage.Masters.Config.RemoveApiErrors(DeliveryMenuCtrl.ePage.Entities.Header.Validations, $item.label);
+            }
+
+            if (_errorcount.length == 0) {
+                Saveonly($item);
+            } else {
+                DeliveryMenuCtrl.ePage.Masters.Finalisesave = false;
+                DeliveryMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(DeliveryMenuCtrl.currentDelivery);
+            }
+        }
+
+        function Saveonly($item) {
+            DeliveryMenuCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
+            DeliveryMenuCtrl.ePage.Masters.DisableSave = true;
+            DeliveryMenuCtrl.ePage.Masters.Loading = true;
+
+            var _Data = $item[$item.label].ePage.Entities,
+                _input = _Data.Header.Data;
+
+            if ($item.isNew) {
+                _input.UIWmsDelivery.PK = _input.PK;
+                _input.UIWmsDelivery.CreatedDateTime = new Date();
+                _input.UIWmsDelivery.WorkOrderType = 'DEL';
+                _input.UIWmsWorkorderReport.AcknowledgementDateTime = new Date();
+                _input.UIWmsWorkorderReport.WOD_FK = _input.PK;
+                if (!_input.UIWmsDelivery.ExternalReference) {
+                    _input.UIWmsDelivery.ExternalReference = _input.UIWmsDelivery.WorkOrderID;
+                }
+            } else {
+                $item = filterObjectUpdate($item, "IsModified");
+            }
+
+            helperService.SaveEntity($item, 'Delivery').then(function (response) {
+
+                DeliveryMenuCtrl.ePage.Masters.SaveButtonText = "Save";
+                DeliveryMenuCtrl.ePage.Masters.DisableSave = false;
+                DeliveryMenuCtrl.ePage.Masters.Loading = false;
+
+                if (response.Status === "success") {
+                    deliveryConfig.TabList.map(function (value, key) {
+                        if (value.New) {
+                            if (value.code == DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID) {
+                                value.label = DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID;
+                                value[DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID] = value.New;
+                                delete value.New;
+                            }
+                        }
+                    });
+                    var _index = deliveryConfig.TabList.map(function (value, key) {
+                        return value[value.label].ePage.Entities.Header.Data.PK
+                    }).indexOf(DeliveryMenuCtrl.currentDelivery[DeliveryMenuCtrl.currentDelivery.label].ePage.Entities.Header.Data.PK);
+
+                    if (_index !== -1) {
+                        if (response.Data.Response)
+                            deliveryConfig.TabList[_index][deliveryConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data.Response;
+                        else if (response.Data)
+                            deliveryConfig.TabList[_index][deliveryConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data;
+
+                        DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Consignee = DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeCode + ' - ' + DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeName;
+
+                        deliveryConfig.TabList[_index].isNew = false;
+                        if ($state.current.url == "/delivery-request") {
+                            helperService.refreshGrid();
+                        }
+                    }
+                    console.log("Success");
+                    DeliveryMenuCtrl.ePage.Entities.Header.GlobalVariables.PercentageValues = true;
+
+                    if (DeliveryMenuCtrl.ePage.Masters.SaveAndClose) {
+                        DeliveryMenuCtrl.ePage.Masters.Config.SaveAndClose = true;
+                        DeliveryMenuCtrl.ePage.Masters.SaveAndClose = false;
+                        DeliveryMenuCtrl.ePage.Masters.DisableSave = true;
+                    }
+                    toastr.success("Saved Successfully");
+
+                } else if (response.Status === "failed") {
+                    console.log("Failed");
+                    toastr.error("Could not Save...!");
+                    DeliveryMenuCtrl.ePage.Entities.Header.Validations = response.Validations;
+                    angular.forEach(response.Validations, function (value, key) {
+                        DeliveryMenuCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, DeliveryMenuCtrl.currentDelivery.label, false, undefined, undefined, undefined, undefined, value.GParentRef);
+                    });
+                    if (DeliveryMenuCtrl.ePage.Entities.Header.Validations != null) {
+                        DeliveryMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(DeliveryMenuCtrl.currentDelivery);
+                    }
+                }
+            });
+
+        }
+
+        function filterObjectUpdate(obj, key) {
+            for (var i in obj) {
+                if (!obj.hasOwnProperty(i)) continue;
+                if (typeof obj[i] == 'object') {
+                    filterObjectUpdate(obj[i], key);
+                } else if (i == key) {
+                    obj[key] = true;
+                }
+            }
+            return obj;
+        }
+
+        function GetMyTaskList(menuList, index) {
+            var _menuList = menuList,
+                _index = index;
+            var _filter = {
+                C_Performer: authService.getUserInfo().UserId,
+                Status: "AVAILABLE,ASSIGNED",
+                EntityRefKey: DeliveryMenuCtrl.ePage.Entities.Header.Data.PK,
+                KeyReference: DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.EBPMWorkItem.API.FindAllWithAccess.FilterID
+            };
+
+            apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkItem.API.FindAllWithAccess.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    if (response.data.Response.length > 0) {
+                        DeliveryMenuCtrl.ePage.Masters.MyTask.ListSource = response.data.Response;
+                    } else {
+                        if (_index != -1) {
+                            _menuList[_index].IsDisabled = true;
+                        }
+                    }
+                } else {
+                    DeliveryMenuCtrl.ePage.Masters.MyTask.ListSource = [];
+                    if (_index != -1) {
+                        _menuList[_index].IsDisabled = true;
+                    }
+                }
+
+                DeliveryMenuCtrl.ePage.Masters.DeliveryMenu.ListSource = _menuList;
+                DeliveryMenuCtrl.ePage.Masters.ActiveMenu = DeliveryMenuCtrl.ePage.Masters.DeliveryMenu.ListSource[0];
+            });
+        }
+
+        Init();
+    }
+
+})();

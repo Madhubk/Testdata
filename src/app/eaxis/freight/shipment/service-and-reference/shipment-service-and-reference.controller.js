@@ -117,28 +117,28 @@
       ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.AddNewAndUpdate = 'Add New';
     }
 
-    function SelectedGridRowService($item) {
-      if ($item.action == 'edit')
-        EditService($item)
+    function SelectedGridRowService(item, type) {
+      if (type == 'edit')
+        EditService(item)
       else
-        DeleteConfirmationService($item)
+        DeleteConfirmationService(item)
     }
 
     //Edit For Service
-    function EditService($item) {
+    function EditService(item) {
       ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.IsFormView = true;
       ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.AddNewAndUpdate = 'Update';
-      ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView = $item.data;
+      ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView = item;
 
       // ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.Booked = new Date(ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.Booked);
       // ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.Completed = new Date(ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.Completed);
 
       // ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.Duration = new Date(ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.Duration);
       ShipmentServiceAndReferenceCtrl.ePage.Masters.LocationAddress.ListSource = [];
-      ShipmentServiceAndReferenceCtrl.ePage.Masters.GetAddressBasedOnLocation(ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.ORG_Location_FK);
+      ShipmentServiceAndReferenceCtrl.ePage.Masters.GetAddressBasedOnLocation(item.ORG_Location_FK);
     }
 
-    function DeleteConfirmationService($item) {
+    function DeleteConfirmationService(item) {
       var modalOptions = {
         closeButtonText: 'Cancel',
         actionButtonText: 'Ok',
@@ -148,18 +148,17 @@
 
       confirmation.showModal({}, modalOptions)
         .then(function (result) {
-          DeleteService($item);
+          DeleteService(item);
         }, function () {
           console.log("Cancelled");
         });
     }
     //Delete For Service
-    function DeleteService($item) {
-      console.log($item)
-      var _index = ShipmentServiceAndReferenceCtrl.ePage.Entities.Header.Data.UIJobServices.indexOf($item.data);
+    function DeleteService(item) {
+      var _index = ShipmentServiceAndReferenceCtrl.ePage.Entities.Header.Data.UIJobServices.indexOf(item);
       if (_index !== -1) {
-        $item.data.IsDeleted = true
-        apiService.post("eAxisAPI", appConfig.Entities.JobService.API.Upsert.Url, [$item.data]).then(function (response) {
+        item.IsDeleted = true
+        apiService.post("eAxisAPI", appConfig.Entities.JobService.API.Upsert.Url, [item]).then(function (response) {
           if (response.data.Response) {
             ShipmentServiceAndReferenceCtrl.ePage.Entities.Header.Data.UIJobServices.splice(_index, 1);
             GetServiceDetails();
@@ -215,7 +214,7 @@
       // Selected Grid Data
       if (ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.IsClicked) {
         ShipmentServiceAndReferenceCtrl.ePage.Masters.LocationAddress.ListSource = undefined;
-        ShipmentServiceAndReferenceCtrl.ePage.Masters.GetAddressBasedOnLocation($item.entity.PK);
+        ShipmentServiceAndReferenceCtrl.ePage.Masters.GetAddressBasedOnLocation($item.PK);
       }
     }
 
@@ -269,6 +268,7 @@
         ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.GridData = [];
       }
     }
+
     function AddToReference() {
       // body...
       ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.FormView = {};
@@ -323,21 +323,21 @@
       }, 1000);
     }
 
-    function SelectedGridRowReference($item) {
-      if ($item.action == 'edit')
-        EditReference($item)
+    function SelectedGridRowReference(item, type) {
+      if (type == 'edit')
+        EditReference(item);
       else
-        DeleteConfirmation($item)
+        DeleteConfirmation(item);
     }
     //Edit For Reference
-    function EditReference($item) {
+    function EditReference(item) {
       ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.AddNewAndUpdate = 'Update'
       ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.IsFormView = true;
-      ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.FormView = $item.data
+      ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.FormView = item;
       // ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.FormView.IssueDate = new Date(ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.FormView.IssueDate);
     }
 
-    function DeleteConfirmation($item) {
+    function DeleteConfirmation(item) {
       var modalOptions = {
         closeButtonText: 'Cancel',
         actionButtonText: 'Ok',
@@ -347,16 +347,16 @@
 
       confirmation.showModal({}, modalOptions)
         .then(function (result) {
-          DeleteReference($item);
+          DeleteReference(item);
         }, function () {
           console.log("Cancelled");
         });
     }
     //Delete For Reference
-    function DeleteReference($item) {
-      var _index = ShipmentServiceAndReferenceCtrl.ePage.Entities.Header.Data.UIJobEntryNums.indexOf($item.data);
+    function DeleteReference(item) {
+      var _index = ShipmentServiceAndReferenceCtrl.ePage.Entities.Header.Data.UIJobEntryNums.indexOf(item);
       if (_index != -1) {
-        apiService.get("eAxisAPI", appConfig.Entities.JobEntryNum.API.Delete.Url + $item.data.PK).then(function (response) {
+        apiService.get("eAxisAPI", appConfig.Entities.JobEntryNum.API.Delete.Url + item.PK).then(function (response) {
           if (response.data.Response) {
             ShipmentServiceAndReferenceCtrl.ePage.Entities.Header.Data.UIJobEntryNums.splice(_index, 1);
             toastr.success("Record Deleted Successfully...!");

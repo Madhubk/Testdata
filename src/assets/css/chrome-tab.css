@@ -70,6 +70,7 @@
      -moz-border-radius: 50%;
      -webkit-border-radius: 50%;
      border-radius: 50%;
+     cursor: pointer;
  }
 
  .tab-container>ul.nav-tabs>li>a .glyphicon-remove:hover {

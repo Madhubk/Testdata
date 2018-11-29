@@ -1,0 +1,705 @@
+<div class="clearfix">
+    <div class="col-lg-3 ex-line-padding" style="padding:10px">
+        <div class="ex-line-box1" style="padding-top:10px">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-2 pr-0 padding-top-10">
+                <div class="form-group ex-line-font">
+                    <!-- Order # manotory -->
+                    <span class="error-warning-container">
+                        <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.OrderNo.IsWarning && !one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.OrderNo.IsError"
+                            list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.OrderNo.WARNING"
+                            type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.OrderNo.IsError"
+                            list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.OrderNo.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    </span>
+                    <span class="error-warning-container">
+                        <!-- valid order # -->
+                        <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ValidOrderNo.IsWarning && !one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ValidOrderNo.IsError"
+                            list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ValidOrderNo.WARNING"
+                            type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ValidOrderNo.IsError"
+                            list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ValidOrderNo.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    </span>
+                    <label class="control-label text-single-line">Order #</label>
+                    <div class="input-group input-group-sm col-lg-12">
+                        <input type="hidden" data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ValidOrderNo" />
+                        <input type="text" class="form-control input-sm" placeholder="Order No" maxlength="35"
+                            data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.OrderNo"
+                            data-ng-blur="one_three_OrdGeneralCtrl.ePage.Masters.CheckOrderNo(one_three_OrdGeneralCtrl.ePage.Entities.Header.Data)" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-1 pr-0 padding-top-10">
+                <div class="form-group">
+                    <!-- <label class="control-label text-single-line">&nbsp;</label> -->
+                    <div class="input-group input-group-sm" style="margin-top: 23px;">
+                        <input type="text" disabled="disabled" class="form-control input-sm" placeholder="" maxlength="4"
+                            data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.OrderNoSplit" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 pr-0 padding-top-10">
+                <div class="form-group ex-line-font">
+                    <div class="error-warning-container">
+                        <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.OrderDate.IsWarning && !one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.OrderDate.IsError"
+                            list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.OrderDate.WARNING"
+                            type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.OrderDate.IsError"
+                            list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.OrderDate.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    </div>
+                    <label class="control-label">Order Date</label>
+                    <div class="input-group input-group-sm col-lg-11">
+                        <input type="text" class="form-control" placeholder="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                            data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.OrderDate"
+                            datetime-picker="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                            datepicker-options="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options"
+                            datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                            enable-date="true" default-date="" default-time="" save-as="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                            is-open="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isOrderDate']"
+                            when-closed="" data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isOrderDate')"
+                            data-ng-change="one_three_OrdGeneralCtrl.ePage.Masters.CommonErrorObjInput('Order', one_three_OrdGeneralCtrl.currentOrder, 'ORD', 'ORD', ['ED006'])"
+                            custom-date-time-format />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default shiny" data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isOrderDate')">
+                                <i class="fa fa-calendar"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-9">
+        <div class="row margin-right-10 margin-left-10 margin-top-10 address-panel">
+            <!-- consignee -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-4 pr-0 padding-top-10 address-consignee">
+                <!--Pickup Drop Mode-->
+                <div class="padding-bottom-5">
+                    <div class="ex-line-font">
+                        <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignee.IsWarning && !one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignee.IsError"
+                            list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignee.WARNING"
+                            type="'warning'" icon="fa fa-warning" parent-type="'general'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignee.IsError"
+                            list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignee.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        <label class="control-label"> Consignee </label>
+                    </div>
+                </div>
+                <!--Estimated Pickup-->
+                <div class="padding-right-10">
+                    <div class="form-group">
+                        <div class="input-group input-group-sm">
+                            <input type="hidden" data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.Buyer">
+                            <input type="hidden" data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.ORG_FK">
+                            <div dynamic-lookup placeholder="Organization Code" my-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.ORG_Code"
+                                obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP"
+                                page-name="'OrganizationList'" control-key="'JobAddressOrgConsignee_3245'" control-id="'JobAddressOrgConsignee'"
+                                auto-complete-on-select="one_three_OrdGeneralCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'address', 'SCP')">
+                            </div>
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP"
+                                    control-key="'JobAddressOrgConsignee_3245'" control-id="'JobAddressOrgConsignee'"
+                                    page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                    selected-data="one_three_OrdGeneralCtrl.ePage.Masters.SelectedLookupData($item, 'address', 'SCP')"
+                                    class="btn btn-default shiny" type="button">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="padding-right-10">
+                    <div class="form-group">
+                        <div class="input-group input-group-sm">
+                            <input type="hidden" data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.OAD_Address_FK">
+                            <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignee address"
+                                data-ng-model="one_three_OrdGeneralCtrl.ePage.Masters.AddressContactBinding((one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.AddressList | filter: {PK: one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.OAD_Address_FK})[0],'Address')"
+                                data-ng-model-options="{ getterSetter: true }"></textarea>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.IsSCPAddressOpen=!one_three_OrdGeneralCtrl.ePage.Masters.IsSCPAddressOpen">
+                                    <i class="fa fa-address-book-o"></i>
+                                </button>
+                            </span>
+                            <div class="dropdownWrapMiddle animated fadeInDown" data-ng-show="one_three_OrdGeneralCtrl.ePage.Masters.IsSCPAddressOpen">
+                                <address-wrapper obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.AddressList"
+                                    type="'SCP'" list-source="'AddressList'" selected="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.OAD_Address_FK"
+                                    on-address-edit="one_three_OrdGeneralCtrl.ePage.Masters.OnAddressEdit($item, 'SCP', 'Address')"
+                                    on-address-change="one_three_OrdGeneralCtrl.ePage.Masters.OnAddressChange($item, 'SCP', 'Address')"></address-wrapper>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="padding-right-10">
+                    <div class="form-group">
+                        <div class="input-group input-group-sm">
+                            <input type="hidden" data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.OCT_FK">
+                            <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignee contact"
+                                data-ng-model="one_three_OrdGeneralCtrl.ePage.Masters.AddressContactBinding((one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.ContactList | filter: {PK: one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.OCT_FK})[0],'Contact')"
+                                data-ng-model-options="{ getterSetter: true }"></textarea>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.IsSCPContactOpen=!one_three_OrdGeneralCtrl.ePage.Masters.IsSCPContactOpen">
+                                    <i class="fa fa-phone"></i>
+                                </button>
+                            </span>
+                            <div class="dropdownWrapMiddle animated fadeInDown" data-ng-show="one_three_OrdGeneralCtrl.ePage.Masters.IsSCPContactOpen">
+                                <address-wrapper obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.ContactList"
+                                    type="'SCP'" list-source="'ContactList'" selected="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.OCT_FK"
+                                    on-address-change="one_three_OrdGeneralCtrl.ePage.Masters.OnContactChange($item, 'SCP', 'Contact')"></address-wrapper>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- consignor -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-4 pr-0 padding-top-10 address-design">
+                <!--Pickup Drop Mode-->
+                <div class="padding-bottom-5">
+                    <div class="ex-line-font">
+                        <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignor.IsWarning && !one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignor.IsError"
+                            list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignor.WARNING"
+                            type="'warning'" icon="fa fa-warning" parent-type="'general'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignor.IsError"
+                            list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignor.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        <label class="control-label"> Consignor </label>
+                    </div>
+                </div>
+                <!--Estimated Pickup-->
+                <div class="padding-right-10">
+                    <div class="form-group">
+                        <div class="input-group input-group-sm">
+                            <input type="hidden" data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.Supplier">
+                            <input type="hidden" data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.ORG_FK">
+                            <div dynamic-lookup placeholder="Organization Code" my-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.ORG_Code"
+                                obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA"
+                                page-name="'OrganizationList'" control-key="'JobAddressOrgConsignor_3241'" control-id="'JobAddressOrgConsignor'"
+                                auto-complete-on-select="one_three_OrdGeneralCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'address', 'CRA')">
+                            </div>
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA"
+                                    control-key="'JobAddressOrgConsignor_3241'" control-id="'JobAddressOrgConsignor'"
+                                    page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                    selected-data="one_three_OrdGeneralCtrl.ePage.Masters.SelectedLookupData($item, 'address', 'CRA')"
+                                    class="btn btn-default shiny" type="button">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                            </span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="padding-right-10">
+                    <div class="form-group">
+                        <div class="input-group input-group-sm">
+                            <input type="hidden" data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.OAD_Address_FK">
+                            <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignor address"
+                                data-ng-model="one_three_OrdGeneralCtrl.ePage.Masters.AddressContactBinding((one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.AddressList | filter: {PK: one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.OAD_Address_FK})[0],'Address')"
+                                data-ng-model-options="{ getterSetter: true }"></textarea>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.IsCRAAddressOpen=!one_three_OrdGeneralCtrl.ePage.Masters.IsCRAAddressOpen">
+                                    <i class="fa fa-address-book-o"></i>
+                                    <!--<i class="fa fa-caret-down"></i>-->
+                                </button>
+                            </span>
+                            <div class="dropdownWrapLeft animated fadeInDown" data-ng-show="one_three_OrdGeneralCtrl.ePage.Masters.IsCRAAddressOpen">
+                                <address-wrapper obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.AddressList"
+                                    type="'CRA'" list-source="'AddressList'" selected="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.OAD_Address_FK"
+                                    on-address-edit="one_three_OrdGeneralCtrl.ePage.Masters.OnAddressEdit($item, 'CRA', 'Address')"
+                                    on-address-change="one_three_OrdGeneralCtrl.ePage.Masters.OnAddressChange($item, 'CRA', 'Address')"></address-wrapper>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="padding-right-10">
+                    <div class="form-group">
+                        <div class="input-group input-group-sm">
+                            <input type="hidden" data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.OCT_FK">
+                            <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignor contact"
+                                data-ng-model="one_three_OrdGeneralCtrl.ePage.Masters.AddressContactBinding((one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.ContactList | filter: {PK: one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.OCT_FK})[0],'Contact')"
+                                data-ng-model-options="{ getterSetter: true }"></textarea>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.IsCRAContactOpen=!one_three_OrdGeneralCtrl.ePage.Masters.IsCRAContactOpen">
+                                    <i class="fa fa-phone"></i>
+                                </button>
+                            </span>
+                            <div class="dropdownWrapLeft animated fadeInDown" data-ng-show="one_three_OrdGeneralCtrl.ePage.Masters.IsCRAContactOpen">
+                                <address-wrapper obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.ContactList"
+                                    type="'CRA'" list-source="'ContactList'" selected="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.OCT_FK"
+                                    on-address-change="one_three_OrdGeneralCtrl.ePage.Masters.OnContactChange($item, 'CRA', 'Contact')"></address-wrapper>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix">
+    <!-- Mode -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <div class="error-warning-container">
+                <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransportMode.IsWarning && !one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransportMode.IsError"
+                    list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransportMode.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'general'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransportMode.IsError"
+                    list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransportMode.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ContainerMode.IsWarning && !one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ContainerMode.IsError"
+                    list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ContainerMode.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'general'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ContainerMode.IsError"
+                    list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ContainerMode.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </div>
+            <label class="control-label text-single-line">Mode</label>
+            <div class="">
+                <select chosen class="form-control" data-ng-model="one_three_OrdGeneralCtrl.ePage.Masters.SelectedMode"
+                    data-ng-options="term as (term.Key+'-'+term.PARENT_Value + '(' + term.Key+')') for term in one_three_OrdGeneralCtrl.ePage.Entities.Header.Meta.CntType"
+                    search-contains="true" data-ng-change="one_three_OrdGeneralCtrl.ePage.Masters.ModeChange(one_three_OrdGeneralCtrl.ePage.Masters.SelectedMode)">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <!-- Transport Mode -->
+    <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <div class="error-warning-container">
+                <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransportMode.IsWarning && !one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransportMode.IsError"
+                    list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransportMode.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'general'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransportMode.IsError"
+                    list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransportMode.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </div>
+            <label class="control-label text-single-line">Transport Mode</label>
+            <div class="">
+                <select chosen class="form-control" data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode"
+                    data-ng-options="x.Key as x.Key + '-' + x.Value for x in one_three_OrdGeneralCtrl.ePage.Entities.Header.Meta.TRANSTYPE.ListSource"
+                    search-contains="true" data-ng-change="one_three_OrdGeneralCtrl.ePage.Masters.CommonErrorObjInput('Order', one_three_OrdGeneralCtrl.currentOrder, 'ORD', 'ORD', ['ED007']);">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div> -->
+    <!-- Container Mode -->
+    <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <div class="error-warning-container">
+                <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ContainerMode.IsWarning && !one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ContainerMode.IsError"
+                    list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ContainerMode.WARNING" type="'warning'"
+                    icon="fa fa-warning" parent-type="'general'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ContainerMode.IsError"
+                    list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ContainerMode.ERROR" type="'error'"
+                    icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </div>
+            <label class="control-label text-single-line">Container Mode</label>
+            <div class="">
+                <select chosen class="form-control" data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode"
+                    data-ng-options="x.Key as x.Key + '-' + x.Value for x in one_three_OrdGeneralCtrl.ePage.Entities.Header.Meta.CNTTYPE.ListSource"
+                    search-contains="true" data-ng-change="one_three_OrdGeneralCtrl.ePage.Masters.CommonErrorObjInput('Order', one_three_OrdGeneralCtrl.currentOrder, 'ORD', 'ORD', ['ED008']);">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div> -->
+    <!-- INCO Term -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <div class="error-warning-container">
+                <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IncoTerm.IsWarning && !one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IncoTerm.IsError"
+                    list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IncoTerm.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'general'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IncoTerm.IsError"
+                    list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IncoTerm.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </div>
+            <label class="control-label text-single-line">Inco Term</label>
+            <div class="">
+                <div class="">
+                    <select chosen name="category-group" class="form-control" data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.IncoTerm"
+                        data-ng-options="x.Key as x.Key + '-' + x.Value for x in one_three_OrdGeneralCtrl.ePage.Entities.Header.Meta.INCOTERM.ListSource"
+                        search-contains="true" data-ng-change="one_three_OrdGeneralCtrl.ePage.Masters.CommonErrorObjInput('Order', one_three_OrdGeneralCtrl.currentOrder, 'ORD', 'ORD', ['ED009']);">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Service level -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Service Level</label>
+            <div class="">
+                <div class="">
+                    <select chosen name="category-group" class="form-control" data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ServiceLevel"
+                        data-ng-options="x.Code as x.Description for x in one_three_OrdGeneralCtrl.ePage.Entities.Header.Meta.ServiceLevel.ListSource"
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Country of Origin -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Country of Origin</label>
+            <div class="">
+                <select chosen class="form-control" data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.OriginCountry"
+                    data-ng-options="x.COU_Code as x.COU_Code + ' - ' + x.COU_Desc for x in one_three_OrdGeneralCtrl.ePage.Entities.Header.Meta.Country.ListSource"
+                    search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <!-- Confirm # -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Confirm #</label>
+            <div class="">
+                <input type="text" class="form-control input-sm" placeholder="Confirm No" maxlength="35" data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ConfirmNo" />
+            </div>
+        </div>
+    </div>
+    <!-- Confirm Date -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label">Confirm Date</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ConfirmDate"
+                    datetime-picker="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    datepicker-options="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                    default-date="" default-time="" save-as="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                    is-open="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isConfirmDate']" when-closed=""
+                    data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isConfirmDate')"
+                    data-ng-change="" custom-date-time-format />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isConfirmDate')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- Invoice # -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Invoice #</label>
+            <div class="">
+                <input type="text" class="form-control input-sm" placeholder="Invoice No" maxlength="35" data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.InvoiceNo" />
+            </div>
+        </div>
+    </div>
+    <!-- Invoice date -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label">Invoice Date </label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.InvoiceDate"
+                    datetime-picker="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    datepicker-options="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                    default-date="" default-time="" save-as="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                    is-open="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isInvoiceDate']" when-closed=""
+                    data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isInvoiceDate')"
+                    data-ng-change="" custom-date-time-format />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isInvoiceDate')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- Currency -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Currency</label>
+            <div class="">
+                <select chosen name="category-group" class="form-control" data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.OrderCurrency"
+                    data-ng-options="x.Code as x.Code + ' - ' + x.Desc for x in one_three_OrdGeneralCtrl.ePage.Entities.Header.Meta.Currency.ListSource"
+                    search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <!-- Req.Ex.Works -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <div class="error-warning-container">
+                <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.RequiredExWorksDate.IsWarning && !one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.RequiredExWorksDate.IsError"
+                    list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.RequiredExWorksDate.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'general'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.RequiredExWorksDate.IsError"
+                    list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.RequiredExWorksDate.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </div>
+            <label class="control-label">Req.Ex Works</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.RequiredExWorksDate"
+                    datetime-picker="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    datepicker-options="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                    default-date="" default-time="" save-as="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                    is-open="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isRequiredExWorksDate']"
+                    when-closed="" data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isRequiredExWorksDate')"
+                    data-ng-change="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OnChangeDatePicker('RequiredExWorksDate')"
+                    custom-date-time-format />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isRequiredExWorksDate')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- Req.In.Store -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <div class="error-warning-container">
+                <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedInStoreDate.IsWarning && !one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedInStoreDate.IsError"
+                    list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedInStoreDate.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'general'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedInStoreDate.IsError"
+                    list="one_three_OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedInStoreDate.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </div>
+            <label class="control-label">Req.In Store</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.EstimatedInStoreDate"
+                    datetime-picker="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    datepicker-options="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                    default-date="" default-time="" save-as="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                    is-open="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isEstimatedInStoreDate']"
+                    when-closed="" data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedInStoreDate')"
+                    data-ng-change="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OnChangeDatePicker('EstimatedInStoreDate')"
+                    custom-date-time-format />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedInStoreDate')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- FollowUp date -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label">Follow Up Date</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.FollowUpDate"
+                    datetime-picker="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    datepicker-options="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                    default-date="" default-time="" save-as="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                    is-open="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isFollowUpDate']" when-closed=""
+                    data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isFollowUpDate')"
+                    data-ng-change="" custom-date-time-format />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isFollowUpDate')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- Handover Date -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="ontrol-label">Handover Date</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.HandoverDate"
+                    datetime-picker="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    datepicker-options="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                    default-date="" default-time="" save-as="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                    is-open="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isHandoverDate']" when-closed=""
+                    data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isHandoverDate')"
+                    data-ng-change="" custom-date-time-format />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isHandoverDate')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- FOB Date -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="ontrol-label">FOB Date</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.FOBDate"
+                    datetime-picker="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    datepicker-options="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                    default-date="" default-time="" save-as="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                    is-open="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isFOBDate']" when-closed=""
+                    data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isFOBDate')"
+                    data-ng-change="" custom-date-time-format />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isFOBDate')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- Required Delivery Date -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="ontrol-label">Required Delivery Date</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.RequiredDeliveryDate"
+                    datetime-picker="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    datepicker-options="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                    default-date="" default-time="" save-as="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                    is-open="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isRequiredDeliveryDate']"
+                    when-closed="" data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isRequiredDeliveryDate')"
+                    data-ng-change="" custom-date-time-format />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isRequiredDeliveryDate')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- Origin Cut Off Date -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="ontrol-label">Origin Cut Off Date</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.DepartureVesselCutoffDate"
+                    datetime-picker="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    datepicker-options="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                    default-date="" default-time="" save-as="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                    is-open="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isOriginCutoff']" when-closed=""
+                    data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isOriginCutoff')"
+                    data-ng-change="" custom-date-time-format />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isOriginCutoff')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- Factory Invoice # -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Factory Invoice #</label>
+            <div class="">
+                <input type="text" class="form-control input-sm" placeholder="Factory Invoice #" maxlength="50"
+                    data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.FactoryInvoiceNo" />
+            </div>
+        </div>
+    </div>
+    <!-- Factory PKL # -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Factory PKL #</label>
+            <div class="">
+                <input type="text" class="form-control input-sm" placeholder="Factory PKL #" maxlength="50"
+                    data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.FactoryPKLNo" />
+            </div>
+        </div>
+    </div>
+    <!-- Expected Goods Available On -->
+    <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label">Est. Goods Ready On</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ExpectedCargoReadyDate"
+                    datetime-picker="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    datepicker-options="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                    default-date="" default-time="" save-as="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                    is-open="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isExpectedCargoReadyDate']"
+                    when-closed="" data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isExpectedCargoReadyDate')"
+                    data-ng-change="" custom-date-time-format />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isExpectedCargoReadyDate')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div> -->
+    <!-- Actual Goods Available On -->
+    <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label">Act.Goods Ready On</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.CargoReadyDate"
+                    datetime-picker="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    datepicker-options="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                    default-date="" default-time="" save-as="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                    is-open="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.isOpen['isCargoReadyDate']" when-closed=""
+                    data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoReadyDate')"
+                    data-ng-change="" custom-date-time-format />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" data-ng-click="one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoReadyDate')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div> -->
+    <!-- Order Status -->
+    <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Order Status</label>
+            <div class="">
+                <select chosen class="form-control" data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.OrderStatus"
+                    data-ng-options="x.Key as x.Key + '-' + x.Value for x in one_three_OrdGeneralCtrl.ePage.Entities.Header.Meta.ORDSTATUS.ListSource"
+                    search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div> -->
+    <!-- Goods Desc -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Goods Desc</label>
+            <div class="">
+                <textarea class="form-control input-sm no-resize" placeholder="Goods Desc" maxlength="1000"
+                    data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.GoodsDescription"
+                    rows="1"></textarea>
+            </div>
+        </div>
+    </div>
+    <!-- Additional Terms -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Additional Terms</label>
+            <div class="">
+                <textarea class="form-control input-sm no-resize" placeholder="Additional Terms" data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.AdditionalTerms"
+                    rows="1" maxlength="50"></textarea>
+            </div>
+        </div>
+    </div>
+</div>

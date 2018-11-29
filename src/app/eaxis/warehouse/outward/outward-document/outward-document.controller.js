@@ -52,7 +52,7 @@
 
                 _SearchInputConfig.DocumentSource = APP_CONSTANT.URL.eAxisAPI + _SearchInputConfig.DocumentSource;
                 _SearchInputConfig.DocumentInput = _output;
-                apiService.post("eAxisAPI", OutwardDocumentCtrl.ePage.Entities.Header.API.GenerateReport.Url, _SearchInputConfig).then(function SuccessCallback(response) {
+                apiService.post("eAxisAPI", appConfig.Entities.Communication.API.GenerateReport.Url, _SearchInputConfig).then(function SuccessCallback(response) {
 
                     function base64ToArrayBuffer(base64) {
                         var binaryString = window.atob(base64);
@@ -62,7 +62,7 @@
                             var ascii = binaryString.charCodeAt(i);
                             bytes[i] = ascii;
                         }
-                        saveByteArray([bytes], item.Description + '.pdf');
+                        saveByteArray([bytes], item.Description+'-'+OutwardDocumentCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID + '.pdf');
                     }
 
                     var saveByteArray = (function () {

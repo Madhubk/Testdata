@@ -10,7 +10,7 @@
         <div class="no-padding tab-list-view-wrapper">
             <!--Pick Grid Page-->
             <dynamic-list dataentry-name="ReleaseCtrl.ePage.Masters.dataentryName" task-name="ReleaseCtrl.ePage.Masters.taskName" grid-config-type="0"
-                selected-grid-row="ReleaseCtrl.ePage.Masters.SelectedGridRow($item)" mode="1"></dynamic-list>
+                selected-grid-row="ReleaseCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" dataentry-object="ReleaseCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
             <div class="tab-loading" data-ng-show="ReleaseCtrl.ePage.Masters.IsTabClick"></div>
         </div>
     </uib-tab>
@@ -39,7 +39,7 @@
         <div class="padding-5 padding-bottom-10 clearfix">
 
             <!--Releas Menu Directive-->
-            <release-menu current-release="tab"></release-menu>
+            <release-menu current-release="tab" dataentry-object="ReleaseCtrl.ePage.Masters.DataEntryObject"></release-menu>
 
             <div class="horizontal-space"></div>
         </div>

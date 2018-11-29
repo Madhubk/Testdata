@@ -39,6 +39,7 @@
             TrackContainerCtrl.ePage.Masters.RemoveTab = RemoveTab;
             TrackContainerCtrl.ePage.Masters.CurrentActiveTab = CurrentActiveTab;
             TrackContainerCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
+            trackContainerConfig.TabList = [];
 
             var _Entity = $location.search(),
                 _isEmpty = angular.equals({}, _Entity);
@@ -90,14 +91,13 @@
             var _currentContainer = currentContainer[currentContainer.label].ePage.Entities;
 
             // Close Current Shipment
-            apiService.get("eAxisAPI", TrackContainerCtrl.ePage.Entities.Header.API.ContainerActivityClose.Url + _currentContainer.Header.Data.UICntContainer.PK).then(function (response) {
+            apiService.get("eAxisAPI", TrackContainerCtrl.ePage.Entities.Header.API.ContainerActivityClose.Url + _currentContainer.Header.Data.PK).then(function (response) {
                 if (response.data.Response === "Success") {
-                    // TrackContainerCtrl.ePage.Masters.TabList.splice(index, 1);
+                    TrackContainerCtrl.ePage.Masters.TabList.splice(index, 1);
                 } else {
                     console.log("Tab close Error : " + response);
                 }
             });
-            TrackContainerCtrl.ePage.Masters.TabList.splice(index, 1);
         }
 
         function CurrentActiveTab(currentTab) {

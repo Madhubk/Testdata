@@ -188,3 +188,13 @@
     background: #f8f8f8;
     position: relative;
 }
+
+.tc-edit-page-serach-config .table.table-bordered tbody[dnd-list] .dndDraggingSource {
+    display: none;
+}
+
+.tc-edit-page-serach-config .table.table-bordered .dndPlaceholder {
+    background-color: #ddd;
+    display: table-row;
+    height: 40px;
+}

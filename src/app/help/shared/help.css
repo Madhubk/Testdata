@@ -1,0 +1,22 @@
+.help-page-container .header-bar {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    border: none;
+    height: 45px;
+    min-height: 45px;
+    z-index: 200;
+    color: black;
+    border-bottom: 1px solid #fbbc05;
+}
+
+.help-page-container .header-bar a.help-logo {
+    float: left;
+    height: 45px;
+    padding: 3px;
+    padding-bottom: 4px;
+}
+
+.help-page-container .header-bar a.help-logo img {
+    height: 100%;
+}

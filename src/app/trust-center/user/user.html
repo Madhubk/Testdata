@@ -7,8 +7,8 @@
                 <li data-ng-repeat="x in TCUserCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
                     <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="TCUserCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
                 </li>
-                <li data-ng-repeat="x in TCUserCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
-                    class="active"></li>
+                <li data-ng-repeat="x in TCUserCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive"
+                    data-ng-bind="x.Description" class="active"></li>
             </ol>
         </div>
     </div>
@@ -53,10 +53,12 @@
                     <div class="p-15 text-center tc-loading" data-ng-if="!TCUserCtrl.ePage.Masters.User.UserList">
                         <i class="fa fa-spin fa-spinner"></i>
                     </div>
-                    <div data-ng-if="TCUserCtrl.ePage.Masters.User.UserList && TCUserCtrl.ePage.Masters.User.UserList.length===0" class="p-15 text-center">
+                    <div data-ng-if="TCUserCtrl.ePage.Masters.User.UserList && (TCUserCtrl.ePage.Masters.User.UserList | filter: TCUserCtrl.ePage.Masters.Search).length===0"
+                        class="p-15 text-center">
                         <i>No Records...</i>
                     </div>
-                    <li data-ng-if="TCUserCtrl.ePage.Masters.User.UserList && TCUserCtrl.ePage.Masters.User.UserList.length > 0" data-ng-repeat="x in TCUserCtrl.ePage.Masters.User.UserList"
+                    <li data-ng-if="TCUserCtrl.ePage.Masters.User.UserList && (TCUserCtrl.ePage.Masters.User.UserList | filter: TCUserCtrl.ePage.Masters.Search).length > 0"
+                        data-ng-repeat="x in TCUserCtrl.ePage.Masters.User.UserList | filter: TCUserCtrl.ePage.Masters.Search"
                         data-ng-click="TCUserCtrl.ePage.Masters.User.ActiveUser.Id != x.Id && TCUserCtrl.ePage.Masters.User.OnUserClick(x)"
                         data-ng-class="{'active': TCUserCtrl.ePage.Masters.User.ActiveUser.Id == x.Id}">
                         <div class="clearfix tc-list">
@@ -71,13 +73,17 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed with-alphabetic-sort">
             <div class="tc-avatar-lg clearfix">
-                <div class="avatar-container">
-                    <file-upload-custom class="file-upload-directive" ng-model="TCUserCtrl.ePage.Masters.User.Logo.fileDetails" size="TCUserCtrl.ePage.Masters.User.Logo.fileSize" 
-                        auth="{{TCUserCtrl.ePage.Masters.User.Logo.autherization}}" additional-value="{{TCUserCtrl.ePage.Masters.User.Logo.additionalValue}}" doc-type="image/*" multiple-file="false" url="{{TCUserCtrl.ePage.Masters.User.Logo.UploadUrl}}"  is-disabled="!TCUserCtrl.ePage.Masters.User.ActiveUser.Id" get-uploaded-files="TCUserCtrl.ePage.Masters.User.Logo.GetUploadedFiles($item)" get-selected-files="TCUserCtrl.ePage.Masters.User.Logo.GetSelectedFiles($item)"  fu-class="tc-user left" modal-template="" template="" >
-                        <img data-ng-src="{{TCUserCtrl.ePage.Masters.User.ActiveUser.LogoStr}}" alt="" data-ng-if="TCUserCtrl.ePage.Masters.User.ActiveUser.LogoStr">
-                        <span data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.UserName | getCharacters: 1" data-ng-if="!TCUserCtrl.ePage.Masters.User.ActiveUser.LogoStr"></span>
-                        <div data-ng-if="TCUserCtrl.ePage.Masters.User.ActiveUser" class='change-logo'>Change</div>
-                    </file-upload-custom>
+                <div class="tc-custom-file-upload">
+                    <img data-ng-src="{{TCUserCtrl.ePage.Masters.User.ActiveUser.LogoStr}}" alt="" data-ng-if="TCUserCtrl.ePage.Masters.User.ActiveUser.LogoStr">
+                    <span data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.FirstName | getCharacters: 1"
+                        data-ng-if="!TCUserCtrl.ePage.Masters.User.ActiveUser.LogoStr"></span>
+                    <div data-ng-if="TCUserCtrl.ePage.Masters.User.ActiveUser" class='change-logo'>
+                        Change
+                        <label>
+                            <input type="file" accept="image/*" class="hide" onchange="angular.element(this).scope().OnLogoChange(event, this)"
+                                data-max-size="204800" />
+                        </label>
+                    </div>
                 </div>
             </div>
             <div class="tc-section-divider"></div>
@@ -135,14 +141,6 @@
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Mobile Number</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
                             <label data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.MobileNo || TCUserCtrl.ePage.Masters.emptyText"></label>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Country</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.CountryCode || TCUserCtrl.ePage.Masters.emptyText"></label>
                         </div>
                     </div>
                 </div>
@@ -229,12 +227,6 @@
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">User Type</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
                             <input type="text" class="form-control input-sm" placeholder="User Type" data-ng-model="TCUserCtrl.ePage.Masters.User.ActiveUser.UserType">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Country</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <input type="text" class="form-control input-sm" placeholder="Country Code" data-ng-model="TCUserCtrl.ePage.Masters.User.ActiveUser.CountryCode">
                         </div>
                     </div>
                 </form>

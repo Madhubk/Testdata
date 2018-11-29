@@ -1,80 +1,31 @@
 <div class="clearfix tc-dashboard">
     <!-- Breadcrumb -->
     <div class="clearfix tc-breadcrumb" data-ng-if="TCDashboardCtrl.ePage.Masters.ActiveApplication == 'TC'">
-        <i class="fa fa-home home-icon"></i>
-        <div class="breadcrumb-list-wrapper">
-            <ol class="breadcrumb">
-                <li data-ng-repeat="x in TCDashboardCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
-                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="TCDashboardCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
-                </li>
-                <li data-ng-repeat="x in TCDashboardCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
-                    class="active"></li>
-            </ol>
-        </div>
-    </div>
-    <!-- Header -->
-    <div class="clearfix tc-header-container">
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
-            <div class="tc-header">
-                <div class="text-single-line" data-ng-bind="'Tenant'"></div>
+        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-xs-12 p-0">
+            <i class="fa fa-home home-icon"></i>
+            <div class="breadcrumb-list-wrapper">
+                <ol class="breadcrumb">
+                    <li data-ng-repeat="x in TCDashboardCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                        <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="TCDashboardCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                    </li>
+                    <li data-ng-repeat="x in TCDashboardCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive"
+                        data-ng-bind="x.Description" class="active">
+                    </li>
+                </ol>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">
-            <div class="tc-header edit-view">
-                <span data-ng-bind="TCDashboardCtrl.ePage.Masters.Applications.ActiveApplication.AppName"></span>
-            </div>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12 pt-4">
+            <tc-application-dropdown query-string="TCDashboardCtrl.ePage.Masters.QueryString" on-application-change="TCDashboardCtrl.ePage.Masters.Application.OnApplicationChange($item)"></tc-application-dropdown>
         </div>
     </div>
     <!-- Body -->
     <div class="clearfix">
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 tc-page-height-fixed">
-            <!-- Company Details -->
-            <div class="tc-company-details clearfix">
-                <div class="tc-logo mb-50">
-                    <img data-ng-src="{{TCDashboardCtrl.ePage.Masters.ProductLogo || TCDashboardCtrl.ePage.Masters.DummyLogo}}"
-                        alt="">
-                </div>
-                <div class="tc-company-name" data-ng-bind="TCDashboardCtrl.ePage.Masters.Tenant.ActiveTenant.TenantName"></div>
-                <div class="tc-company-desc" data-ng-bind="TCDashboardCtrl.ePage.Masters.Tenant.ActiveTenant.Description"></div>
-            </div>
-            <div class="tc-section-divider"></div>
-            <!-- Applications -->
-            <div class="tc-list-container">
-                <div class="tc-list-header">APPLICATIONS</div>
-                <ul class="tc-list-ul">
-                    <div class="p-15 text-center tc-loading" data-ng-if="!TCDashboardCtrl.ePage.Masters.Applications.ApplicationList">
-                        <i class="fa fa-spin fa-spinner"></i>
-                    </div>
-                    <div data-ng-if="TCDashboardCtrl.ePage.Masters.Applications.ApplicationList.length == 0" class="p-15 text-center">
-                        <i>No Records...</i>
-                    </div>
-                    <li data-ng-if="TCDashboardCtrl.ePage.Masters.Applications.ApplicationList && TCDashboardCtrl.ePage.Masters.Applications.ApplicationList.length > 0"
-                        data-ng-repeat="x in TCDashboardCtrl.ePage.Masters.Applications.ApplicationList" data-ng-click="TCDashboardCtrl.ePage.Masters.Applications.ActiveApplication.PK != x.PK && TCDashboardCtrl.ePage.Masters.Applications.OnApplicationClick(x)"
-                        data-ng-class="{'active': TCDashboardCtrl.ePage.Masters.Applications.ActiveApplication.PK == x.PK}">
-                        <div class="clearfix tc-list">
-                            <div class="tc-list-name">
-                                <i class="fa fa-circle-o mr-10"></i>
-                                <span class="text-single-line" data-ng-bind="x.AppName"></span>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed">
-            <div class="tc-avatar-lg clearfix">
-                <div class="avatar-container">
-                    <img data-ng-src="{{TCDashboardCtrl.ePage.Masters.Applications.ActiveApplication.LogoStr}}" alt="" data-ng-if="TCDashboardCtrl.ePage.Masters.Applications.ActiveApplication.LogoStr">
-                    <span data-ng-bind="TCDashboardCtrl.ePage.Masters.Applications.ActiveApplication.AppCode | getCharacters: 2" data-ng-if="!TCDashboardCtrl.ePage.Masters.Applications.ActiveApplication.LogoStr"
-                        data-ng-style="{'background-color': TCDashboardCtrl.ePage.Masters.Applications.ActiveApplication.OtherConfig.CSS.BG, 'color': TCDashboardCtrl.ePage.Masters.Applications.ActiveApplication.OtherConfig.CSS.Color}"></span>
-                </div>
-            </div>
-            <div class="tc-section-divider"></div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0 tc-page-height-fixed without-header">
             <div class="tc-list-container clearfix">
-                <div class="clearfix" data-ng-if="TCDashboardCtrl.ePage.Masters.Applications.ActiveApplication" data-ng-repeat="x in TCDashboardCtrl.ePage.Masters.Applications.RedirectPageList">
+                <div class="clearfix" data-ng-repeat="x in TCDashboardCtrl.ePage.Masters.DashboardMenuList.Column1">
                     <div class="tc-list-header" data-ng-bind="x.Title"></div>
                     <ul class="tc-list-ul">
-                        <li data-ng-repeat="y in x.List" data-ng-click="TCDashboardCtrl.ePage.Masters.Applications.OnConfigurationAndDynamicPageClick(y)">
+                        <li data-ng-repeat="y in x.List" data-ng-click="TCDashboardCtrl.ePage.Masters.Dashboard.OnMenuClick(y)" data-ng-if="!y.IsDisable">
                             <div class="clearfix tc-list">
                                 <div class="tc-list-name">
                                     <i class="{{y.Icon}} mr-10" data-ng-style="{'color': y.Color}"></i>
@@ -83,7 +34,61 @@
                             </div>
                         </li>
                     </ul>
-                    <div class="tc-section-divider" data-ng-if="$index !== (TCDashboardCtrl.ePage.Masters.Applications.RedirectPageList.length-1)"></div>
+                    <div class="tc-section-divider" data-ng-if="$index !== (TCDashboardCtrl.ePage.Masters.Dashboard.SystemPageListSource.length-1)"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0 tc-page-height-fixed without-header">
+            <div class="tc-list-container clearfix">
+                <div class="clearfix" data-ng-repeat="x in TCDashboardCtrl.ePage.Masters.DashboardMenuList.Column2">
+                    <div class="tc-list-header" data-ng-bind="x.Title"></div>
+                    <ul class="tc-list-ul">
+                        <li data-ng-repeat="y in x.List" data-ng-click="TCDashboardCtrl.ePage.Masters.Dashboard.OnMenuClick(y)">
+                            <div class="clearfix tc-list">
+                                <div class="tc-list-name">
+                                    <i class="{{y.Icon}} mr-10" data-ng-style="{'color': y.Color}"></i>
+                                    <span class="text-single-line" data-ng-bind="y.Description"></span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="tc-section-divider" data-ng-if="$index !== (TCDashboardCtrl.ePage.Masters.Dashboard.ConfigurationPageListSource.length-1)"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0 tc-page-height-fixed without-header">
+            <div class="tc-list-container clearfix">
+                <div class="clearfix" data-ng-repeat="x in TCDashboardCtrl.ePage.Masters.DashboardMenuList.Column3">
+                    <div class="tc-list-header" data-ng-bind="x.Title"></div>
+                    <ul class="tc-list-ul">
+                        <li data-ng-repeat="y in x.List" data-ng-click="TCDashboardCtrl.ePage.Masters.Dashboard.OnMenuClick(y)">
+                            <div class="clearfix tc-list">
+                                <div class="tc-list-name">
+                                    <i class="{{y.Icon}} mr-10" data-ng-style="{'color': y.Color}"></i>
+                                    <span class="text-single-line" data-ng-bind="y.Description"></span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="tc-section-divider" data-ng-if="$index !== (TCDashboardCtrl.ePage.Masters.Dashboard.DynamicPageAndDataExtractionPageListSource.length-1)"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0 tc-page-height-fixed without-header">
+            <div class="tc-list-container clearfix">
+                <div class="clearfix" data-ng-repeat="x in TCDashboardCtrl.ePage.Masters.DashboardMenuList.Column4">
+                    <div class="tc-list-header" data-ng-bind="x.Title"></div>
+                    <ul class="tc-list-ul">
+                        <li data-ng-repeat="y in x.List" data-ng-click="TCDashboardCtrl.ePage.Masters.Dashboard.OnMenuClick(y)">
+                            <div class="clearfix tc-list">
+                                <div class="tc-list-name">
+                                    <i class="{{y.Icon}} mr-10" data-ng-style="{'color': y.Color}"></i>
+                                    <span class="text-single-line" data-ng-bind="y.Description"></span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="tc-section-divider" data-ng-if="$index !== (TCDashboardCtrl.ePage.Masters.Dashboard.DynamicPageAndDataExtractionPageListSource.length-1)"></div>
                 </div>
             </div>
         </div>

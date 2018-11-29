@@ -1,0 +1,66 @@
+<uib-tabset id="chromeTab" active="InitGateCtrl.ePage.Masters.activeTabIndex" class="tms-Gatepass-container tab-container">
+
+    <uib-tab>
+        <uib-tab-heading title="Gatepass Details">
+            <span data-ng-bind="'Gatepass Details'" class="ng-binding">Gatepass</span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+
+        <div class="no-padding tab-list-view-wrapper">
+            <!--Gatepass Grid Page-->
+            <dynamic-list dataentry-name="InitGateCtrl.ePage.Masters.dataentryName" dataentry-object="InitGateCtrl.ePage.Masters.DataEntryObject"
+                selected-grid-row="InitGateCtrl.ePage.Masters.SelectedGridRow($item)" mode="1"></dynamic-list>
+            <div class="tab-loading" data-ng-show="InitGateCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+    <uib-tab active="InitGateCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in InitGateCtrl.ePage.Masters.TabList"
+        ng-click="InitGateCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+        <uib-tab-heading title="{{tab.label}}">
+            <span data-ng-bind="tab.label"></span>
+            <i class="glyphicon glyphicon-remove" ng-click="InitGateCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+            <span class="error-warning-container-common" data-ng-if="InitGateCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[tab.code].GlobalErrorWarningList.length > 0">
+                <span class="custom-warning-container" data-ng-if="(InitGateCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[tab.code].GlobalErrorWarningList | listCount: 'MessageType': 'W') > 0 && (InitGateCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[tab.code].GlobalErrorWarningList | listCount: 'MessageType': 'E') == 0">
+                    <button class="btn-warning" data-ng-click="InitGateCtrl.ePage.Masters.Configdetails.ShowErrorWarningModal(tab)">
+                        <i class="fa fa-warning"></i>
+                    </button>
+                    <span class="custom-warning-count">{{InitGateCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[tab.code].GlobalErrorWarningList
+                        | listCount: 'MessageType': 'W'}}
+                    </span>
+                </span>
+                <span class="custom-error-container" data-ng-if="(InitGateCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[tab.code].GlobalErrorWarningList | listCount: 'MessageType': 'E') > 0">
+                    <button class="btn-error" data-ng-click="InitGateCtrl.ePage.Masters.Configdetails.ShowErrorWarningModal(tab)">
+                        <i class="fa fa-warning"></i>
+                    </button>
+                    <span class="custom-error-count">{{InitGateCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[tab.code].GlobalErrorWarningList
+                        | listCount: 'MessageType': 'E'}}
+                    </span>
+                </span>
+            </span>
+        </uib-tab-heading>
+        <div class="padding-bottom-10 clearfix">
+            <!--Gatepass Menu Directive-->
+            <gatepass-menu current-gatepass="tab" dataentry-object="InitGateCtrl.ePage.Masters.DataEntryObject"></gatepass-menu>
+            <!-- <uib-tabset id="Gatepass" data-ng-if="InitGateCtrl.ePage.Masters.currentGatepass">
+                <uib-tab>
+                    <uib-tab-heading title="Gatepass Details">
+                        <i class="fa fa-truck margin-right-5"></i>
+                        <span class="text-single-line" data-ng-bind="'Gatepass Details'"></span>
+                    </uib-tab-heading>
+                    <gatepass-general current-gatepass="tab" dataentry-object="InitGateCtrl.ePage.Masters.DataEntryObject"></gatepass-general>
+                </uib-tab>
+               <uib-tab>
+                    <uib-tab-heading title="Gatepass Details">
+                        <i class="fa fa-suitcase margin-right-5"></i>
+                        <span class="text-single-line" data-ng-bind="'Manifest Details'"></span>
+                    </uib-tab-heading>
+                    <manifest-details current-gatepass="tab" dataentry-object="InitGateCtrl.ePage.Masters.DataEntryObject"></manifest-details>
+                </uib-tab>
+            </uib-tabset> -->
+            <div class="horizontal-space"></div>
+        </div>
+        <span ng-if="InitGateCtrl.ePage.Masters.Config.SaveAndClose" ng-init="InitGateCtrl.ePage.Masters.SaveandClose(InitGateCtrl.ePage.Masters.activeTabIndex, tab)"></span>
+        <span ng-if="InitGateCtrl.ePage.Masters.Config.UnDispatchClose" ng-init="InitGateCtrl.ePage.Masters.UnDispatchClose(InitGateCtrl.ePage.Masters.activeTabIndex, tab)"></span>
+    </uib-tab>
+    <button class="btn btn-default" ng-if="!InitGateCtrl.ePage.Masters.SenderDetails.IsStore" ng-click="InitGateCtrl.ePage.Masters.CreateNewGatepass()"
+        data-ng-disabled="InitGateCtrl.ePage.Masters.isNewGatepassClicked">+</button>
+</uib-tabset>

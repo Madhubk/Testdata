@@ -7,7 +7,7 @@
         <div class="no-padding tab-list-view-wrapper">
             <!--Inward Grid Page-->
             <dynamic-list dataentry-name="InwardCtrl.ePage.Masters.dataentryName" task-name="InwardCtrl.ePage.Masters.taskName" grid-config-type="0"
-                selected-grid-row="InwardCtrl.ePage.Masters.SelectedGridRow($item)" mode="1"></dynamic-list>
+                selected-grid-row="InwardCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" dataentry-object="InwardCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
             <div class="tab-loading" data-ng-show="InwardCtrl.ePage.Masters.IsTabClick"></div>
         </div>
     </uib-tab>
@@ -35,10 +35,11 @@
         </uib-tab-heading>
         <div class="padding-bottom-10 clearfix">
             <!--Inward Menu Directive-->
-            <Inward-menu current-inward="tab"></Inward-menu>
+            <inward-menu current-inward="tab" dataentry-object="InwardCtrl.ePage.Masters.DataEntryObject"></inward-menu>
             <div class="horizontal-space"></div>
         </div>
         <span ng-if="InwardCtrl.ePage.Masters.Config.SaveAndClose" ng-init="InwardCtrl.ePage.Masters.SaveandClose(InwardCtrl.ePage.Masters.activeTabIndex, tab)"></span>
     </uib-tab>
+    
     <button class="btn btn-default" ng-click="InwardCtrl.ePage.Masters.CreateNewInward()" data-ng-disabled="InwardCtrl.ePage.Masters.isNewClicked">+</button>
 </uib-tabset>

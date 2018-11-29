@@ -13,15 +13,15 @@
                         <div class='table_header'>Consignment Number</div>
                         <div class='table_header'>Status</div>
                         <div class='table_header'>Client Id</div>
-                        <div class='table_header'>Receiver Ref</div>
-                        <div class='table_header'>Sender Ref</div>
+                        <div class='table_header'>Receiver Reference</div>
+                        <div class='table_header'>Sender Reference</div>
                         <div class='table_header'>Total Quantity</div>
                         <div class='table_header'>Total Volume</div>
                         <div class='table_header'>Total Weight</div>
                         <div class='table_header'>Actual Delivery</div>
                         <div class='table_header'>Actual Pickup</div>
-                        <div class='table_header'>Expected Delivery</div>
-                        <div class='table_header'>Expected Pickup</div>
+                        <div class='table_header'>Expected Delivery Date</div>
+                        <div class='table_header'>Expected Pickup Date</div>
                     </div>
 
                     <!-- List Empty Response -->
@@ -73,11 +73,11 @@
                             <div class='table_cell'>{{x.TMC_ActualPickupDateTime | dateFormat}}</div>
                         </div>
                         <div class='table_small'>
-                            <div class='table_cell'>Expected Delivery </div>
+                            <div class='table_cell'>Expected Delivery Date</div>
                             <div class='table_cell'>{{x.TMC_ExpectedDeliveryDateTime | dateFormat}}</div>
                         </div>
                         <div class='table_small'>
-                            <div class='table_cell'>Expected Pickup</div>
+                            <div class='table_cell'>Expected Pickup Date</div>
                             <div class='table_cell'>{{x.TMC_ExpectedPickupDateTime | dateFormat}}</div>
                         </div>
                     </div>

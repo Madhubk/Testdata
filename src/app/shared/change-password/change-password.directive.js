@@ -5,9 +5,9 @@
         .module("Application")
         .directive("changePassword", ChangePassword);
 
-    ChangePassword.$inject = ["$rootScope", "$uibModal"];
+    ChangePassword.$inject = ["$uibModal"];
 
-    function ChangePassword($rootScope, $uibModal) {
+    function ChangePassword($uibModal) {
         var exports = {
             restrict: "EA",
             link: Link

@@ -10,7 +10,7 @@
         <div class="no-padding tab-list-view-wrapper">
             <!--Adjustment Grid Page-->
             <dynamic-list dataentry-name="AdjustmentCtrl.ePage.Masters.dataentryName" task-name="AdjustmentCtrl.ePage.Masters.taskName" grid-config-type="0"
-                selected-grid-row="AdjustmentCtrl.ePage.Masters.SelectedGridRow($item)" mode="1"></dynamic-list>
+                selected-grid-row="AdjustmentCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" dataentry-object="AdjustmentCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
             <div class="tab-loading" data-ng-show="AdjustmentCtrl.ePage.Masters.IsTabClick"></div>
         </div>
     </uib-tab>
@@ -39,7 +39,7 @@
 
         <div class="padding-bottom-10 clearfix">
             <!--Adjustment Menu Directive-->
-            <adjustment-menu current-adjustment="tab"></adjustment-menu>
+            <adjustment-menu current-adjustment="tab" dataentry-object="AdjustmentCtrl.ePage.Masters.DataEntryObject"></adjustment-menu>
             <div class="horizontal-space"></div>
         </div>
         <span ng-if="AdjustmentCtrl.ePage.Masters.Config.SaveAndClose" ng-init="AdjustmentCtrl.ePage.Masters.SaveandClose(AdjustmentCtrl.ePage.Masters.activeTabIndex, tab)"></span>

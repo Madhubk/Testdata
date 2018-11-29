@@ -1,0 +1,68 @@
+<div class="clearfix padding-10">
+    <!--Grid directive-->
+    <div class="clearfix">
+        <button class="btn btn-primary pull-right" data-ng-click="ThreeOneContainerConCtrl.ePage.Masters.Container.AddNewContainer()">
+            <i class="fa fa-plus-circle"></i> Add Container</button>
+    </div>
+    <div id='' class="common_table_scroll common_table_hgt pt-2">
+        <div class="table tab-position" id="results">
+            <div class='theader'>
+                <div class='table_header'>Container No</div>
+                <div class='table_header'>Container Mode</div>
+                <div class='table_header'>Container Status</div>
+                <div class='table_header'>Delivery Mode</div>
+                <div class='table_header'>Is Empty Container</div>
+                <div class='table_header'>Action</div>
+            </div>
+            <div class='table_row' data-ng-repeat="x in ThreeOneContainerConCtrl.ePage.Masters.Container.GridData"
+                data-ng-if="ThreeOneContainerConCtrl.ePage.Masters.Container.GridData && ThreeOneContainerConCtrl.ePage.Masters.Container.GridData.length > 0"
+                style="font-size: 11px;">
+                <div class='table_small'>
+                    <div class='table_cell'>Container No</div>
+                    <div class='table_cell'>
+                        <b>{{x.ContainerNo}}</b>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Container Mode</div>
+                    <div class='table_cell'>{{x.ContainerMode}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Container Status</div>
+                    <div class='table_cell'>
+                        <b>{{x.ContainerStatus}}</b>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Delivery Mode</div>
+                    <div class='table_cell'>{{x.DeliveryMode}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Is Empty Container</div>
+                    <div class='table_cell'>{{x.IsEmptyContainer}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Action</div>
+                    <div class='table_cell'>
+                        <span>
+                            <a>
+                                <i class="fa fa-pencil order-icon" data-ng-click="ThreeOneContainerConCtrl.ePage.Masters.Container.SelectedGridRow(x, 'edit', $index)"></i>
+                            </a>
+                        </span>|
+                        <span>
+                            <a>
+                                <i class="fa fa-trash order-icon" data-ng-click="ThreeOneContainerConCtrl.ePage.Masters.Container.SelectedGridRow(x, 'delete', $index)"></i>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- List Empty Response -->
+            <div class="text-center grid-view-loader" data-ng-if="!ThreeOneContainerConCtrl.ePage.Masters.Container.GridData">
+                <i class="fa fa-spin fa-spinner fs-20"></i>
+            </div>
+        </div>
+        <div class="grid-no-record-common_table" data-ng-if="ThreeOneContainerConCtrl.ePage.Masters.Container.GridData.length==0">No
+            records found...</div>
+    </div>
+</div>

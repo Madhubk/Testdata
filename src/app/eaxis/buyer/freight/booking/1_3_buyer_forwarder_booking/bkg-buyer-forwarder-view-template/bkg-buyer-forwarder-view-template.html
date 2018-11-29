@@ -1,0 +1,55 @@
+<div class="clearfix my-task-activity-page-warpper">
+    <div class="clearfix edit-activity-body pb-50">
+        <dynamic-tab-left data-ng-if="bookingBuyerForwarderTemplateCtrl.currentBooking" list-source="bookingBuyerForwarderTemplateCtrl.ePage.Masters.MenuListSource"
+            obj="bookingBuyerForwarderTemplateCtrl.ePage.Masters.MenuObj"></dynamic-tab-left>
+    </div>
+    <!--Standard Menu Directive-->
+    <div class="eaxis-footer-strip">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <!-- <standard-menu input="tab" entity-name="'Booking'" data-ng-if="!tab.isNew"></standard-menu> -->
+            <standard-menu input="bookingBuyerForwarderTemplateCtrl.currentBooking" dataentry-object="bookingBuyerForwarderTemplateCtrl.dataentryObject"
+                data-ng-if="!bookingBuyerForwarderTemplateCtrl.currentBooking.isNew"></standard-menu>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <input type="button" data-ng-if="bookingBuyerForwarderTemplateCtrl.currentBooking.isNew" ng-disabled="bookingBuyerForwarderTemplateCtrl.ePage.Masters.SaveBookingVerifiedDisabled || bookingBuyerForwarderTemplateCtrl.ePage.Masters.SaveBothButtonDisabled"
+                value="{{bookingBuyerForwarderTemplateCtrl.ePage.Masters.SaveBookingVerified}}" class="btn btn-primary btn-sm pull-right margin-right-10 mt-6"
+                ng-click="bookingBuyerForwarderTemplateCtrl.ePage.Masters.Save(bookingBuyerForwarderTemplateCtrl.currentBooking,'Verified','VerificationRequired') ">
+            <input type="button" data-ng-if="bookingBuyerForwarderTemplateCtrl.currentBooking.isNew" ng-disabled="bookingBuyerForwarderTemplateCtrl.ePage.Masters.SaveBookingApprovalDisabled || bookingBuyerForwarderTemplateCtrl.ePage.Masters.SaveBothButtonDisabled"
+                value="{{bookingBuyerForwarderTemplateCtrl.ePage.Masters.SaveBookingApproval}}" class="btn btn-primary btn-sm pull-right margin-right-10 mt-6"
+                ng-click="bookingBuyerForwarderTemplateCtrl.ePage.Masters.Save(bookingBuyerForwarderTemplateCtrl.currentBooking,'Approval','ApprovalRequired') ">
+            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-if="!bookingBuyerForwarderTemplateCtrl.currentBooking.isNew"
+                data-ng-click="bookingBuyerForwarderTemplateCtrl.ePage.Masters.Save(bookingBuyerForwarderTemplateCtrl.currentBooking)"
+                data-ng-bind="bookingBuyerForwarderTemplateCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="bookingBuyerForwarderTemplateCtrl.ePage.Masters.IsDisableSave"></button>
+        </div>
+    </div>
+    <!--Standard Menu Directive-->
+    <div class="error-warning-container right" id="errorWarningContainer{{bookingBuyerForwarderTemplateCtrl.currentBooking.code}}">
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                <!-- <i class="fa fa-warning"></i>  -->
+                Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right" data-ng-click="bookingBuyerForwarderTemplateCtrl.ePage.Masters.config.ShowErrorWarningModal(bookingBuyerForwarderTemplateCtrl.currentBooking)">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+        </div>
+        <div class="error-warning-body">
+            <div class="clearfix" data-ng-if="bookingBuyerForwarderTemplateCtrl.ePage.Masters.ErrorWarningConfig.Modules.BookingForwarder.Entity[bookingBuyerForwarderTemplateCtrl.currentBooking.code].GlobalErrorWarningList.length>0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in bookingBuyerForwarderTemplateCtrl.ePage.Masters.ErrorWarningConfig.Modules.BookingForwarder.Entity[bookingBuyerForwarderTemplateCtrl.currentBooking.code].GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

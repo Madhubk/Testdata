@@ -1,0 +1,30 @@
+<div class="clearfix">
+    <div class="clearfix">
+        <uib-tabset>
+            <!--Exception Type-->
+            <uib-tab>
+                <uib-tab-heading title="Exception Type">
+                    <i class="fa fa-file-o mr-5"></i>
+                    <span class="text-single-line" data-ng-bind="('Exception Type' | translate)"></span>
+                </uib-tab-heading>
+                <div data-ng-include="'app/trust-center/exception-type/tc-exception-type-configure/tabs/exception-type.html'"></div>
+            </uib-tab>
+            <!--Parties-->
+            <uib-tab data-ng-if="TCExceptionTypeConfigureCtrl.ePage.Masters.ExceptionType.FormView.PK">
+                <uib-tab-heading title="Parties">
+                    <i class="fa fa-suitcase mr-5"></i>
+                    <span class="text-single-line" data-ng-bind="('Parties' | translate)"></span>
+                </uib-tab-heading>
+                <div data-ng-include="'app/trust-center/exception-type/tc-exception-type-configure/tabs/parties.html'"></div>
+            </uib-tab>
+            <!--Event-->
+            <uib-tab data-ng-if="TCExceptionTypeConfigureCtrl.ePage.Masters.ExceptionType.FormView.PK">
+                <uib-tab-heading title="Event">
+                    <i class="fa fa-suitcase mr-5"></i>
+                    <span class="text-single-line" data-ng-bind="('Event' | translate)"></span>
+                </uib-tab-heading>
+                <div data-ng-include="'app/trust-center/exception-type/tc-exception-type-configure/tabs/event.html'"></div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>

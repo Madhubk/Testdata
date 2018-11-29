@@ -1,0 +1,13 @@
+<div class="page-body no-padding" data-ng-if="SRVOrderCtrl.ePage.Masters.CurrentObj">
+    <order-menu activity-form="SRVOrderCtrl.ePage.Masters.Entity.QuickView" current-order="SRVOrderCtrl.ePage.Masters.CurrentObj"
+        current-obj="SRVOrderCtrl.ePage.Masters.TabConfig"></order-menu>
+    <div class="eaxis-footer-strip">
+        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
+            <!-- <standard-menu input="SRVOrderCtrl.ePage.Masters.CurrentObj" entity-name="'OrderHeader'" data-ng-if="!SRVOrderCtrl.ePage.Masters.CurrentObj.isNew"></standard-menu> -->
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="SRVOrderCtrl.ePage.Masters.Validation(SRVOrderCtrl.ePage.Masters.CurrentObj)"
+                data-ng-bind="SRVOrderCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="SRVOrderCtrl.ePage.Masters.IsDisableSave"></button>
+        </div>
+    </div>
+</div>

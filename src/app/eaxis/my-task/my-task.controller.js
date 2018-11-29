@@ -5,10 +5,36 @@
         .module("Application")
         .controller("MyTaskController", MyTaskController);
 
-    MyTaskController.$inject = ["$scope", "$uibModal", "$injector", "helperService", "apiService", "authService", "myTaskConfig", "appConfig", "toastr"];
+    MyTaskController.$inject = ["$scope", "$uibModal", "helperService", "apiService", "authService", "appConfig", "toastr", "$ocLazyLoad"];
 
-    function MyTaskController($scope, $uibModal, $injector, helperService, apiService, authService, myTaskConfig, appConfig, toastr) {
+    function MyTaskController($scope, $uibModal, helperService, apiService, authService, appConfig, toastr, $ocLazyLoad) {
         var MyTaskCtrl = this;
+
+        var _DocumentConfig = {
+            // IsDisableRefreshButton: true,
+            // IsDisableDeleteHistoryButton: true,
+            // IsDisableUpload: true,
+            IsDisableGenerate: true,
+            // IsDisableRelatedDocument: true,
+            // IsDisableCount: true,
+            // IsDisableDownloadCount: true,
+            // IsDisableAmendCount: true,
+            // IsDisableFileName: true,
+            // IsDisableEditFileName: true,
+            // IsDisableDocumentType: true,
+            // IsDisableOwner: true,
+            // IsDisableCreatedOn: true,
+            // IsDisableShare: true,
+            // IsDisableVerticalMenu: true,
+            // IsDisableVerticalMenuDownload: true,
+            // IsDisableVerticalMenuAmend: true,
+            // IsDisableVerticalMenuEmailAttachment: true,
+            // IsDisableVerticalMenuRemove: true
+        };
+        var _CommentConfig = {
+            // IsDisableRefreshButton: true,
+            // IsDisableCommentType: true
+        };
 
         function Init() {
             MyTaskCtrl.ePage = {
@@ -16,39 +42,50 @@
                 "Prefix": "My Task",
                 "Masters": {},
                 "Meta": helperService.metaBase(),
-                "Entities": myTaskConfig.Entities
+                "Entities": {}
             };
 
-            InitWorkItemWithEntity();
+            MyTaskCtrl.ePage.Masters.MenuVisibleType = authService.getUserInfo().MenuType;
+            MyTaskCtrl.ePage.Masters.IsMobile = helperService.IsMobile();
+
+            InitMyTask();
         }
 
-        function InitWorkItemWithEntity() {
+        function InitMyTask() {
             MyTaskCtrl.ePage.Masters.MyTask = {};
 
             MyTaskCtrl.ePage.Masters.OnToggleFilterClick = OnToggleFilterClick;
-            MyTaskCtrl.ePage.Masters.IsToggleFilter = true;
 
-            MyTaskCtrl.ePage.Masters.OnWorkItemClick = OnWorkItemClick;
-            MyTaskCtrl.ePage.Masters.OnProcessChange = OnProcessChange;
-            MyTaskCtrl.ePage.Masters.OnWorkItemChange = OnWorkItemChange;
+            (MyTaskCtrl.ePage.Masters.IsMobile) ? MyTaskCtrl.ePage.Masters.IsToggleFilter = false: MyTaskCtrl.ePage.Masters.IsToggleFilter = true;
+
+            MyTaskCtrl.ePage.Masters.SelectedWorkItem = SelectedWorkItem;
+
             MyTaskCtrl.ePage.Masters.MyTask.SearchTask = SearchTask;
             MyTaskCtrl.ePage.Masters.MyTask.EditActivity = EditActivity;
             MyTaskCtrl.ePage.Masters.MyTask.CloseEditActivityModal = CloseEditActivityModal;
             MyTaskCtrl.ePage.Masters.MyTask.OnTaskComplete = OnTaskComplete;
+            MyTaskCtrl.ePage.Masters.MyTask.LoadMore = LoadMore;
+            MyTaskCtrl.ePage.Masters.MyTask.OnRefreshTask = OnRefreshTask;
+            MyTaskCtrl.ePage.Masters.MyTask.OverrideKPI = OverrideKPI;
 
             MyTaskCtrl.ePage.Masters.MyTask.EBPMProcessMasterList = [];
             MyTaskCtrl.ePage.Masters.MyTask.EBPMWorkStepItemList = [];
             MyTaskCtrl.ePage.Masters.MyTask.WorkItemEntity = [];
 
-            MyTaskCtrl.ePage.Masters.MyTask.IsFirstLoad = true;
+            MyTaskCtrl.ePage.Masters.MyTask.PaginationFilter = {
+                SortColumn: "WKI_CreatedDateTime",
+                SortType: "DESC",
+                PageNumber: 1,
+                PageSize: 5
+            };
 
-            MyTaskCtrl.ePage.Masters.MyTask.AvailableStatusSave = AvailableStatusSave;
-            MyTaskCtrl.ePage.Masters.MyTask.AssignedStatusSave = AssignedStatusSave;
-            MyTaskCtrl.ePage.Masters.GetUserList = GetUserList;
+            MyTaskCtrl.ePage.Masters.MyTask.LoadMoreBtnTxt = "Load More";
+            MyTaskCtrl.ePage.Masters.MyTask.IsDisabledLoadMoreBtn = false;
 
             InitAdhoc();
-            GetEBPMProcessMaster();
-            GetWorkItemCount();
+            InitAssignTo();
+            InitStatusCount();
+            GetWorkItemList();
         }
 
         function OnToggleFilterClick() {
@@ -62,123 +99,35 @@
         }
 
         // =====================================
-        function GetEBPMProcessMaster() {
-            MyTaskCtrl.ePage.Masters.MyTask.EBPMProcessMasterList = undefined;
-            var _filter = {
-                "SAP_FK": authService.getUserInfo().AppPK,
-                "TenantCode": authService.getUserInfo().TenantCode,
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.EBPMProcessMaster.API.FindAll.FilterID
-            };
 
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMProcessMaster.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    MyTaskCtrl.ePage.Masters.MyTask.EBPMProcessMasterList = response.data.Response;
-                } else {
-                    MyTaskCtrl.ePage.Masters.MyTask.EBPMProcessMasterList = [];
-                }
-            });
-        }
-
-        function OnProcessChange($item) {
+        function SelectedWorkItem($item) {
             if ($item) {
-                MyTaskCtrl.ePage.Masters.MyTask.ActiveProcess = $item;
-                GetWorkItemStepInfo();
-            } else {
-                MyTaskCtrl.ePage.Masters.MyTask.EBPMWorkStepItemList = [];
-                MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItem = undefined;
-                MyTaskCtrl.ePage.Masters.MyTask.ActiveProcess = undefined;
-                GetWorkItemCount();
+                MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount = $item.Data;
             }
-        }
-
-        function GetWorkItemStepInfo() {
-            MyTaskCtrl.ePage.Masters.MyTask.EBPMWorkStepItemList = undefined;
-            var _filter = {
-                "StepType": "ACTIVITY",
-                "PSM_FK": MyTaskCtrl.ePage.Masters.MyTask.ActiveProcess.PK,
-                "SAP_FK": authService.getUserInfo().AppPK,
-                "TenantCode": authService.getUserInfo().TenantCode
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.EBPMWorkStepInfo.API.FindAll.FilterID
-            };
-
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkStepInfo.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    MyTaskCtrl.ePage.Masters.MyTask.EBPMWorkStepItemList = response.data.Response;
-                    OnWorkItemChange();
-                } else {
-                    MyTaskCtrl.ePage.Masters.MyTask.EBPMWorkStepItemList = [];
-                }
-            });
-        }
-
-        function OnWorkItemChange($item) {
-            if ($item) {
-                MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItem = $item;
-                GetWorkItemCount();
-            } else {
-                MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItem = undefined;
-                GetWorkItemCount();
-            }
-        }
-        // =====================================
-
-        // =====================================
-        function GetWorkItemCount() {
-            MyTaskCtrl.ePage.Masters.MyTask.WorkItemList = undefined;
-            var _filter = {
-                Performer: authService.getUserInfo().UserId,
-                PivotCount: "0"
-            };
-
-            if (MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItem) {
-                _filter.C_WSI_FK = MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItem.PK;
-            }
-            if (MyTaskCtrl.ePage.Masters.MyTask.ActiveProcess) {
-                _filter.C_PSM_FK = MyTaskCtrl.ePage.Masters.MyTask.ActiveProcess.PK;
-            }
-
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.EBPMWorkItem.API.FindAllStatusCount.FilterID
-            };
-
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkItem.API.FindAllStatusCount.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    MyTaskCtrl.ePage.Masters.MyTask.WorkItemList = response.data.Response;
-
-                } else {
-                    MyTaskCtrl.ePage.Masters.MyTask.WorkItemList = [];
-                }
-            });
-        }
-
-        function OnWorkItemClick($item, type) {
-            MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount = $item;
-
-            if ($item[type] != '0') {
-                GetWorkItemList(type);
-            } else {
-                MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails = [];
-            }
-        }
-
-        function GetWorkItemList(type) {
-            MyTaskCtrl.ePage.Masters.MyTask.IsFirstLoad = false;
+            MyTaskCtrl.ePage.Masters.MyTask.PaginationFilter.PageNumber = 1;
+            MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetailsCount = 0;
             MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails = undefined;
-            var _filter = {
-                C_Performer: authService.getUserInfo().UserId,
-            };
+            MyTaskCtrl.ePage.Masters.MyTask.IsVisibleLoadMoreBtn = false;
+            MyTaskCtrl.ePage.Masters.MyTask.Search = undefined;
 
-            if (MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount && type) {
-                _filter.PSM_FK = MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount.PSM_FK,
-                    _filter.WSI_FK = MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount.WSI_FK,
-                    _filter.UserStatus = type.toUpperCase()
+            GetWorkItemList();
+        }
+
+        function GetWorkItemList() {
+            MyTaskCtrl.ePage.Masters.MyTask.NoOfAccessList = 0;
+            var _filter = angular.copy(MyTaskCtrl.ePage.Masters.MyTask.PaginationFilter);
+
+            _filter.C_Performer = authService.getUserInfo().UserId;
+            _filter.Status = "AVAILABLE,ASSIGNED";
+
+            if (MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount) {
+                _filter.PSM_FK = MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount.PSM_FK;
+                _filter.WSI_FK = MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount.WSI_FK;
+                _filter.UserStatus = MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount.UserStatus.toUpperCase()
+            }
+
+            if (MyTaskCtrl.ePage.Masters.MyTask.Search) {
+                _filter.EntityInfo = MyTaskCtrl.ePage.Masters.MyTask.Search;
             }
 
             var _input = {
@@ -188,122 +137,225 @@
 
             apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkItem.API.FindAllWithAccess.Url, _input).then(function (response) {
                 if (response.data.Response) {
-                    MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails = angular.copy(response.data.Response);
-                    MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails.map(function (value, key) {
-                        value.AvailableObj = {
-                            RadioBtnOption: "Me",
-                            SaveBtnText: "Save",
-                            IsDisableSaveBtn: false
-                        };
-                        value.AssignedObj = {
-                            RadioBtnOption: "MoveToQueue",
-                            SaveBtnText: "Save",
-                            IsDisableSaveBtn: false
-                        };
+                    var _response = response.data.Response;
+                    var _arr = [];
+                    MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetailsCount = response.data.Count;
 
-                        if (value.OtherConfig) {
-                            value.OtherConfig = JSON.parse(value.OtherConfig);
-                        }
+                    if (_response.length > 0) {
+                        _response.map(function (value, key) {
+                            value.AvailableObj = {
+                                RadioBtnOption: "Me",
+                                SaveBtnText: "Submit",
+                                IsDisableSaveBtn: false
+                            };
+                            value.AssignedObj = {
+                                RadioBtnOption: "MoveToQueue",
+                                SaveBtnText: "Submit",
+                                IsDisableSaveBtn: false
+                            };
+                            value.AdhocObj = {
+                                AssignTo: ""
+                            };
 
-                        var _StandardMenuInput = {
-                            // Entity
-                            "Entity": value.ProcessName,
-                            "EntityRefKey": value.PK,
-                            "EntityRefCode": value.WSI_StepCode,
-                            "EntitySource": value.EntitySource,
-                            "Communication": null,
-                            "Config": undefined,
-                            // Parent Entity
-                            "ParentEntityRefKey": value.EntityRefKey,
-                            "ParentEntityRefCode": value.KeyReference,
-                            "ParentEntitySource": value.EntitySource,
-                            // Additional Entity
-                            "AdditionalEntityRefKey": undefined,
-                            "AdditionalEntityRefCode": undefined,
-                            "AdditionalEntitySource": undefined,
-                        };
+                            if (value.RelatedProcess) {
+                                if (typeof value.RelatedProcess == "string") {
+                                    value.RelatedProcess = JSON.parse(value.RelatedProcess);
+                                }
+                            }
 
-                        value.StandardMenuInput = _StandardMenuInput;
-                    });
+                            var _StandardMenuInput = {
+                                // Entity
+                                // "Entity": value.ProcessName,
+                                "Entity": value.WSI_StepCode,
+                                "Communication": null,
+                                "Config": undefined,
+                                "EntityRefKey": value.EntityRefKey,
+                                "EntityRefCode": value.KeyReference,
+                                "EntitySource": value.EntitySource,
+                                // Parent Entity
+                                "ParentEntityRefKey": value.WSI_FK,
+                                "ParentEntityRefCode": value.WSI_StepCode,
+                                "ParentEntitySource": value.EntitySource,
+                                // Additional Entity
+                                "AdditionalEntityRefKey": value.ParentEntityRefKey,
+                                "AdditionalEntityRefCode": value.ParentKeyReference,
+                                "AdditionalEntitySource": value.ParentEntitySource,
+                                "IsDisableParentEntity": true,
+                                "IsDisableAdditionalEntity": true,
+                                "IsReadOnly": false
+                            };
+
+                            value.StandardMenuInput = _StandardMenuInput;
+                            value.DocumentConfig = _DocumentConfig;
+                            value.CommentConfig = _CommentConfig;
+
+                            if (value.OtherConfig) {
+                                if (typeof value.OtherConfig == "string") {
+                                    value.OtherConfig = JSON.parse(value.OtherConfig);
+                                }
+
+                                if (value.OtherConfig) {
+                                    if (value.OtherConfig.Directives) {
+                                        var _index = value.OtherConfig.Directives.ListPage.indexOf(",");
+                                        if (_index != -1) {
+                                            var _split = value.OtherConfig.Directives.ListPage.split(",");
+
+                                            if (_split.length > 0) {
+                                                _split.map(function (value, key) {
+                                                    var _index = _arr.map(function (value1, key1) {
+                                                        return value1;
+                                                    }).indexOf(value);
+                                                    if (_index == -1) {
+                                                        _arr.push(value);
+                                                    }
+                                                });
+                                            }
+                                        } else {
+                                            var _index = _arr.indexOf(value.OtherConfig.Directives.ListPage);
+                                            if (_index == -1) {
+                                                _arr.push(value.OtherConfig.Directives.ListPage);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    }
+
+                    if (_arr.length > 0) {
+                        _arr = _arr.filter(function (e) {
+                            return e;
+                        });
+                        $ocLazyLoad.load(_arr).then(function () {
+                            PrepareWorkItemDetails(_response);
+                        }, function (response) {
+                            console.log(response);
+                            PrepareWorkItemDetails(_response);
+                        });
+                    } else {
+                        PrepareWorkItemDetails(_response);
+                    }
                 } else {
                     MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails = [];
                 }
+
+                MyTaskCtrl.ePage.Masters.MyTask.LoadMoreBtnTxt = "Load More";
+                MyTaskCtrl.ePage.Masters.MyTask.IsDisabledLoadMoreBtn = false;
             });
         }
 
-        function EditActivityModalInstance($item) {
-            var _templateName = "mytaskdefault-edit-modal",
-                _templateNameTemp;
-            if ($item.WSI_StepCode) {
-                _templateName = $item.WSI_StepCode.replace(/ +/g, "").toLowerCase();
-
-                if (_templateName.indexOf("_") != -1) {
-                    _templateNameTemp = angular.copy(_templateName.split("_").join("") + "edit");
-                    _templateName = _templateName.split("_").join("") + "-edit-modal";
+        function PrepareWorkItemDetails(_response) {
+            if (MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails) {
+                if (MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails.length > 0 && _response.length > 0) {
+                    MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails = MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails.concat(_response);
+                } else if (_response.length > 0) {
+                    MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails = _response;
                 }
+            } else {
+                MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails = _response;
             }
 
-            var _isExist = $injector.has(_templateNameTemp + "Directive");
-            if (!_isExist) {
-                _templateName = "mytaskdefault-edit-modal";
+            if (MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetailsCount > MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails.length) {
+                MyTaskCtrl.ePage.Masters.MyTask.IsVisibleLoadMoreBtn = true;
+            } else {
+                MyTaskCtrl.ePage.Masters.MyTask.IsVisibleLoadMoreBtn = false;
             }
-
-            MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem = $item;
-            return MyTaskCtrl.ePage.Masters.MyTask.EditActivityModal = $uibModal.open({
-                animation: true,
-                keyboard: true,
-                windowClass: _templateName + " right",
-                scope: $scope,
-                template: `<div class="modal-header">
-                                        <button type="button" class="close" ng-click="MyTaskCtrl.ePage.Masters.MyTask.CloseEditActivityModal()">&times;</button>
-                                        <h5 class="modal-title" id="modal-title">
-                                            <strong>{{MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.WSI_StepName}} - {{MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.KeyReference}}</strong>
-                                        </h5>
-                                    </div>
-                                    <div class="modal-body pt-10" id="modal-body">
-                                        <my-task-dynamic-edit-directive task-obj='MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem' entity-obj='' tab-obj='' on-complete="MyTaskCtrl.ePage.Masters.MyTask.OnTaskComplete($item)"></my-task-dynamic-edit-directive>
-                                    </div>`
-            });
         }
 
         function EditActivity($item) {
-            EditActivityModalInstance($item).result.then(function (response) {}, function () {
-                console.log("Cancelled");
-            });
+            var _arr = [];
+            if ($item.OtherConfig) {
+                if ($item.OtherConfig.Directives) {
+                    if ($item.OtherConfig.Directives.ActivityPage) {
+                        var _index = $item.OtherConfig.Directives.ActivityPage.indexOf(",");
+                        if (_index != -1) {
+                            _arr = $item.OtherConfig.Directives.ActivityPage.split(",");
+                        } else {
+                            _arr.push($item.OtherConfig.Directives.ActivityPage);
+                        }
+                    }
+
+                    if (!$item.OtherConfig.Directives.ListPage) {
+                        console.log("Not Form Not Yet Configured...!");
+                    }
+                } else {
+                    console.log("Not Form Not Yet Configured...!");
+                }
+            } else {
+                console.log("Not Form Not Yet Configured...!");
+            }
+
+            if (_arr.length > 0) {
+                _arr = _arr.filter(function (e) {
+                    return e;
+                });
+                $ocLazyLoad.load(_arr).then(function () {
+                    MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem = angular.copy($item);
+                    MyTaskCtrl.ePage.Masters.MyTask.IsShowEditActivityPage = true;
+                });
+            } else {
+                MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem = angular.copy($item);
+                MyTaskCtrl.ePage.Masters.MyTask.IsShowEditActivityPage = true;
+            }
         }
 
         function CloseEditActivityModal() {
-            MyTaskCtrl.ePage.Masters.MyTask.EditActivityModal.dismiss('cancel');
+            MyTaskCtrl.ePage.Masters.MyTask.IsShowEditActivityPage = false;
+            MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem = undefined;
         }
 
-        function OnTaskComplete($item) {
-            CloseEditActivityModal();
-
-            // Remove completed task from Task List
-            var _item = angular.copy($item.Item);
-            var _index = MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails.map(function (value, key) {
-                return value.PK;
-            }).indexOf(_item.PK);
-
-            if (_index !== -1) {
-                MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails.splice(_index, 1);
+        function OnTaskComplete($item, type) {
+            if (type == "edit") {
+                CloseEditActivityModal();
             }
 
-            // Remove count from selected List
-            var _clickedStatus;
-            for (var x in MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount) {
-                if (x.toLowerCase() == _item.UserStatus.toLowerCase()) {
-                    _clickedStatus = x;
+            if ($item.IsRefreshTask) {
+                OnRefreshTask();
+            }
+
+            if ($item.IsRefreshStatusCount) {
+                RefreshStatusCount();
+            } else {
+                // Remove completed task from Task List
+                var _item = angular.copy($item.Item);
+                var _index = MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails.map(function (value, key) {
+                    return value.PK;
+                }).indexOf(_item.PK);
+
+                if (_index !== -1) {
+                    MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails.splice(_index, 1);
+                }
+
+                // Remove count from selected List
+                var _clickedStatus;
+                for (var x in MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount) {
+                    if (x.toLowerCase() == _item.UserStatus.toLowerCase()) {
+                        _clickedStatus = x;
+                    }
+                }
+
+                if (_clickedStatus) {
+                    MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount[_clickedStatus] = MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount[_clickedStatus] - 1;
                 }
             }
+        }
 
-            if (_clickedStatus) {
-                MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount[_clickedStatus] = MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount[_clickedStatus] - 1;
+        function LoadMore() {
+            MyTaskCtrl.ePage.Masters.MyTask.LoadMoreBtnTxt = "Please Wait...";
+            MyTaskCtrl.ePage.Masters.MyTask.IsDisabledLoadMoreBtn = true;
+
+            if (MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetailsCount > MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails.length) {
+                MyTaskCtrl.ePage.Masters.MyTask.PaginationFilter.PageNumber = MyTaskCtrl.ePage.Masters.MyTask.PaginationFilter.PageNumber + 1;
+
+                GetWorkItemList();
             }
+        }
+
+        function OverrideKPI($item) {
+            MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.DueDate = $item.DueDate;
         }
         // =====================================
 
-        // =====================================
         function SearchTask() {
             MyTaskCtrl.ePage.Masters.MyTask.WorkItemEntity = [];
             MyTaskCtrl.ePage.Masters.MyTask.EBPMWorkStepItemList = [];
@@ -311,88 +363,36 @@
             MyTaskCtrl.ePage.Masters.MyTask.ActiveProcess = undefined;
             MyTaskCtrl.ePage.Masters.MyTask.EBPMProcessMasterList.ProcessName = null;
             MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails = [];
-            MyTaskCtrl.ePage.Masters.MyTask.OnAssignToClick = OnAssignToClick;
             MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount = undefined;
+            MyTaskCtrl.ePage.Masters.MyTask.IsVisibleLoadMoreBtn = false;
+            MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetailsCount = 0;
 
             MyTaskCtrl.ePage.Masters.IsToggleFilter = true;
 
-            MyTaskCtrl.ePage.Masters.MyTask.IsFirstLoad = true;
-
-            GetWorkItemCountOnSearch();
-        }
-
-        function GetWorkItemCountOnSearch() {
-            MyTaskCtrl.ePage.Masters.MyTask.WorkItemList = undefined;
-
-            var _filter = {
-                "Performer": authService.getUserInfo().UserId,
-                "EntityInfo": MyTaskCtrl.ePage.Masters.MyTask.Search
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.EBPMWorkItem.API.FindAllWithEntityCount.FilterID
-            };
-
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkItem.API.FindAllWithEntityCount.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    if (response.data.Response == "Invalid Search" || response.data.Status == "Failed") {
-                        MyTaskCtrl.ePage.Masters.MyTask.WorkItemList = [];
-                    } else {
-                        MyTaskCtrl.ePage.Masters.MyTask.WorkItemList = response.data.Response;
-                    }
-                } else {
-                    MyTaskCtrl.ePage.Masters.MyTask.WorkItemList = [];
-                }
-            });
-        }
-
-        function GetWorkItemListOnSearch() {
+            MyTaskCtrl.ePage.Masters.MyTask.PaginationFilter.PageNumber = 1;
+            MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetailsCount = 0;
             MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails = undefined;
-            var _filter = {
-                "Performer": authService.getUserInfo().UserId,
-                "EntityInfo": MyTaskCtrl.ePage.Masters.MyTask.Search
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.EBPMWorkItem.API.FindAllWithAccessWithEntity.FilterID
-            };
+            MyTaskCtrl.ePage.Masters.MyTask.IsVisibleLoadMoreBtn = false;
 
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkItem.API.FindAllWithAccessWithEntity.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails = angular.copy(response.data.Response);
+            GetWorkItemList();
+        }
 
-                    MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails.map(function (value, key) {
-                        if (value.OtherConfig) {
-                            value.OtherConfig = JSON.parse(value.OtherConfig);
-                        }
-
-                        var _StandardMenuInput = {
-                            // Entity
-                            "Entity": value.ProcessName,
-                            "EntityRefKey": value.PK,
-                            "EntityRefCode": value.WSI_StepCode,
-                            "EntitySource": value.EntitySource,
-                            "Communication": null,
-                            "Config": undefined,
-                            // Parent Entity
-                            "ParentEntityRefKey": value.EntityRefKey,
-                            "ParentEntityRefCode": value.KeyReference,
-                            "ParentEntitySource": value.EntitySource,
-                            // Additional Entity
-                            "AdditionalEntityRefKey": undefined,
-                            "AdditionalEntityRefCode": undefined,
-                            "AdditionalEntitySource": undefined,
-                        };
-
-                        value.StandardMenuInput = _StandardMenuInput;
-                    });
-                } else {
-                    MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails = [];
-                }
-            });
+        function OnRefreshTask($item) {
+            MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails = undefined;
+            MyTaskCtrl.ePage.Masters.MyTask.IsVisibleLoadMoreBtn = false;
+            GetWorkItemList();
         }
 
         // =====================================
+
+        function InitAssignTo() {
+            MyTaskCtrl.ePage.Masters.MyTask.AssignTo = {};
+
+            MyTaskCtrl.ePage.Masters.GetUserList = GetUserList;
+            MyTaskCtrl.ePage.Masters.MyTask.AssignTo.AssignStartCompleteResponse = AssignStartCompleteResponse;
+            MyTaskCtrl.ePage.Masters.MyTask.AssignTo.AbortWork = CancelKPI;
+        }
+
         function GetUserList(val) {
             var _filter = {
                 "Autocompletefield": val
@@ -407,83 +407,217 @@
             });
         }
 
-        function AvailableStatusSave($item) {
+        function CancelKPI($item) {
             var _input = {
                 "InstanceNo": $item.PSI_InstanceNo,
                 "StepNo": $item.WSI_StepNo,
-                "IsMovetoQue": false
             };
 
-            if ($item.AvailableObj.RadioBtnOption == "Me") {
-                _input.UserName = authService.getUserInfo().UserId;
-
-                AssignToSave($item, _input);
-            } else if ($item.AvailableObj.RadioBtnOption == "Others") {
-                if ($item.AvailableObj.AssignTo) {
-                    _input.UserName = $item.AvailableObj.AssignTo;
-
-                    AssignToSave($item, _input, "AvailableObj");
+            apiService.post("eAxisAPI", appConfig.Entities.EBPMEngine.API.CancelKPI.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    AssignStartCompleteResponse(response.data.Response, $item);
                 } else {
-                    toastr.warning("Name Should not be Empty...!");
+                    toastr.error("Failed...!");
                 }
-            }
-        }
-
-        function AssignedStatusSave($item) {
-            if ($item.AssignedObj.RadioBtnOption == "MoveToQueue") {
-                MoveToQueueSave($item);
-            } else if ($item.AssignedObj.RadioBtnOption == "Others") {
-                if ($item.AssignedObj.AssignTo) {
-                    var _input = {
-                        "InstanceNo": $item.PSI_InstanceNo,
-                        "StepNo": $item.WSI_StepNo,
-                        "IsMovetoQue": false
-                    };
-                    _input.UserName = $item.AssignedObj.AssignTo;
-
-                    AssignToSave($item, _input, "AssignedObj");
-                } else {
-                    toastr.warning("Name Should not be Empty...!");
-                }
-            }
-        }
-
-        function AssignToSave($item, input, obj) {
-            $item[obj].SaveBtnText = "Please Wait...";
-            $item[obj].IsDisableSaveBtn = true;
-
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMEngine.API.AssignActivity.Url, input).then(function (response) {
-                if (response.data.Response) {}
-
-                $item[obj].SaveBtnText = "Save";
-                $item[obj].IsDisableSaveBtn = false;
             });
         }
 
-        function MoveToQueueSave($item) {
-            $item.AssignedObj.SaveBtnText = "Please Wait...";
-            $item.AssignedObj.IsDisableSaveBtn = true;
+        function AssignStartCompleteResponse($item, y) {
+            for (var x in $item) {
+                if ($item[x] != null && $item[x] != undefined) {
+                    if (x == "OtherConfig" || x == "RelatedProcess") {
+                        if (typeof $item[x] == "string") {
+                            $item[x] = JSON.parse($item[x]);
+                        }
+                    }
+                    y[x] = $item[x];
+                }
+            }
 
-            var _input = {
-                "InstanceNo": $item.PSI_InstanceNo,
-                "StepNo": $item.WSI_StepNo,
-                "IsMovetoQue": true,
-                "UserName": authService.getUserInfo().UserId
-            };
+            // Remove From List.. When Task Assigned to Others
+            if (y.Status == "ASSIGNED" && y.Performer != authService.getUserInfo().UserId) {
+                var _index = MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails.map(function (value, key) {
+                    return value.PK;
+                }).indexOf(y.PK);
+                if (_index != -1) {
+                    MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails.splice(_index, 1);
+                    MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetailsCount = MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetailsCount - 1;
+                }
+            }
 
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMEngine.API.MovetoCommonQue.Url, _input).then(function (response) {
-                if (response.data.Response) {}
-
-                $item.AssignedObj.SaveBtnText = "Save";
-                $item.AssignedObj.IsDisableSaveBtn = false;
+            // Notification changed WorkItem
+            MyTaskCtrl.ePage.Masters.MyTask.StatusCount.ListSource.map(function (value, key) {
+                if (value.ProcessName == y.ProcessName && value.WSI_StepName == y.WSI_StepName && value.PSM_FK == y.PSM_FK && value.KPIDescription == y.KPIDescription) {
+                    value.IsChanged = true;
+                }
             });
+
+            y.IsChanged = true;
+
+            if (y.RadioBtnOption == "Me" || y.RadioBtnOption == "MoveToQueue" || y.RadioBtnOption == "Others") {
+                RefreshStatusCount();
+            }
         }
 
         // =====================================
+
         function InitAdhoc() {
             MyTaskCtrl.ePage.Masters.MyTask.Adhoc = {};
+
+            MyTaskCtrl.ePage.Masters.MyTask.Adhoc.OnProcessSelectClick = OnProcessSelectClick;
+            MyTaskCtrl.ePage.Masters.MyTask.Adhoc.OnAdhocProcessSubmit = OnAdhocProcessSubmit;
+            MyTaskCtrl.ePage.Masters.MyTask.Adhoc.OnAdhocProcessSave = OnAdhocProcessSave;
+
+            MyTaskCtrl.ePage.Masters.MyTask.Adhoc.SaveBtnText = "Submit";
+            MyTaskCtrl.ePage.Masters.MyTask.Adhoc.IsDisableSaveBtn = false;
         }
+
+        function OnProcessSelectClick($item, obj) {
+            MyTaskCtrl.ePage.Masters.MyTask.Adhoc.ActiveAdhocItem = angular.copy(obj);
+            MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItem = angular.copy($item);
+        }
+
+        function OnAdhocProcessSave($item, obj) {
+            if ($item.AdhocObj.AssignTo != undefined && $item.AdhocObj.AssignTo != null && $item.AdhocObj.AssignTo != "") {
+                OnAdhocProcessSubmit($item, obj);
+            } else {
+                toastr.warning("Assign To is Empty...!");
+            }
+        }
+
+        function OnAdhocProcessSubmit($item, obj) {
+            MyTaskCtrl.ePage.Masters.MyTask.Adhoc.SaveBtnText = "Please Wait...";
+            MyTaskCtrl.ePage.Masters.MyTask.Adhoc.IsDisableSaveBtn = true;
+
+            var _input = {
+                ProcessName: obj.ProcessName,
+                InitBy: "RELPROCESS",
+                AssignTo: $item.AdhocObj.AssignTo,
+                InitByInstanceNo: $item.PSI_InstanceNo,
+                InitByWorkItemNo: $item.WorkItemNo,
+                InitByStepNo: $item.WSI_StepNo,
+
+                EntitySource: $item.EntitySource,
+                EntityRefCode: $item.EntityRefCode,
+                EntityRefKey: $item.EntityRefKey,
+
+                ParentEntitySource: $item.EntitySource,
+                ParentEntityRefCode: $item.WSI_StepCode,
+                ParentEntityRefKey: $item.EntityRefKey,
+
+                AdditionalEntityRefKey: $item.ParentEntityRefKey,
+                AdditionalEntitySource: $item.ParentEntitySource,
+                AdditionalEntityRefCode: $item.ParentEntityRefCode
+            };
+
+            apiService.post("eAxisAPI", appConfig.Entities.EBPMEngine.API.InitiateProcess.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    if (_input.AssignTo == authService.getUserInfo().UserId) {
+                        // RefreshStatusCount();
+                    }
+
+                    MyTaskCtrl.ePage.Masters.MyTask.Adhoc.ActiveAdhocItem = undefined;
+                    toastr.success("Instance " + response.data.Response.InstanceNo + " Created Successfully...!");
+                }
+
+                MyTaskCtrl.ePage.Masters.MyTask.Adhoc.SaveBtnText = "Submit";
+                MyTaskCtrl.ePage.Masters.MyTask.Adhoc.IsDisableSaveBtn = false;
+            });
+        }
+
         // =====================================
+
+        function InitStatusCount() {
+            MyTaskCtrl.ePage.Masters.MyTask.StatusCount = {};
+
+            MyTaskCtrl.ePage.Masters.MyTask.StatusCount.RefreshStatusCount = RefreshStatusCount;
+            MyTaskCtrl.ePage.Masters.MyTask.StatusCount.ViewSentItems = ViewSentItems;
+            MyTaskCtrl.ePage.Masters.MyTask.StatusCount.OnStatusCountClick = OnStatusCountClick;
+            MyTaskCtrl.ePage.Masters.MyTask.StatusCount.OnRefreshStatusCount = OnRefreshStatusCount;
+
+            GetStatusCountList();
+        }
+
+        function GetStatusCountList() {
+            MyTaskCtrl.ePage.Masters.MyTask.StatusCount.ListSource = undefined;
+            var _filter = {
+                PivotCount: "0",
+                TenantCode: authService.getUserInfo().TenantCode,
+                UserName: authService.getUserInfo().UserId,
+                Status: "AVAILABLE,ASSIGNED"
+            };
+
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.EBPMWorkItem.API.FindAllStatusCount.FilterID
+            };
+
+            apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkItem.API.FindAllStatusCount.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    MyTaskCtrl.ePage.Masters.MyTask.StatusCount.ListSource = response.data.Response;
+                } else {
+                    MyTaskCtrl.ePage.Masters.MyTask.StatusCount.ListSource = [];
+                }
+            });
+        }
+
+        function RefreshStatusCount() {
+            GetStatusCountList();
+        }
+
+        function OnRefreshStatusCount() {
+            GetStatusCountList();
+        }
+
+        function OpenSentItemModal() {
+            return MyTaskCtrl.ePage.Masters.MyTask.StatusCount.SentItem.SentItemModal = $uibModal.open({
+                animation: true,
+                keyboard: true,
+                windowClass: "my-task-sent-items right",
+                scope: $scope,
+                templateUrl: "app/eaxis/my-task/work-item-list-view/work-item-list-view.html",
+                controller: 'WorkItemListViewController',
+                controllerAs: "WorkItemListViewCtrl",
+                bindToController: true,
+                resolve: {
+                    param: function () {
+                        var _input = {
+                            _filter: {
+                                C_Performer: authService.getUserInfo().UserId,
+                                Status: "COMPLETED",
+                                WSI_StepType: 'ACTIVITY'
+                            }
+                        };
+                        return _input;
+                    }
+                }
+            });
+        }
+
+        function ViewSentItems() {
+            MyTaskCtrl.ePage.Masters.MyTask.StatusCount.SentItem = {};
+
+            $ocLazyLoad.load(["chromeTab", "compareDate", "dynamicListModal", "dynamicList", "dynamicGrid", "WorkItemListView", "ProcessInstanceWorkItemDetails"]).then(function () {
+                OpenSentItemModal().result.then(function (response) {}, function () {
+                    console.log("Cancelled");
+                });
+            });
+        }
+
+        function OnStatusCountClick($item, count, userStatus) {
+            if (count) {
+                if (count > 0) {
+                    MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount = undefined;
+                    userStatus ? $item.UserStatus = userStatus : $item.UserStatus = undefined;
+
+                    var _item = {
+                        Data: $item,
+                        WorkItemList: MyTaskCtrl.ePage.Masters.MyTask.StatusCount.ListSource
+                    };
+                    SelectedWorkItem(_item);
+                }
+            }
+        }
 
         Init();
     }

@@ -1,3 +1,7 @@
+bower.json
+package.json
+gulpfile.js
+
 logs/*
 !.gitkeep
 node_modules/
@@ -45,3 +49,6 @@ obj/
 [Rr]elease*/
 _ReSharper*/
 [Tt]est[Rr]esult*
+*.dll
+
+*.dll

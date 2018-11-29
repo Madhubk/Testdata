@@ -5,9 +5,9 @@
         .module("Application")
         .controller("BookingDirectiveController", BookingDirectiveController);
 
-    BookingDirectiveController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "helperService", "appConfig", "$filter", "BookingConfig", "toastr", "dynamicLookupConfig", "$injector", "confirmation", "$uibModal"];
+    BookingDirectiveController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "helperService", "appConfig", "$filter", "BookingConfig", "toastr", "dynamicLookupConfig", "$injector", "confirmation", "$uibModal", "errorWarningService"];
 
-    function BookingDirectiveController($rootScope, $scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, helperService, appConfig, $filter, BookingConfig, toastr, dynamicLookupConfig, $injector, confirmation, $uibModal) {
+    function BookingDirectiveController($rootScope, $scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, helperService, appConfig, $filter, BookingConfig, toastr, dynamicLookupConfig, $injector, confirmation, $uibModal, errorWarningService) {
         /* jshint validthis: true */
         var BookingDirectiveCtrl = this;
 
@@ -20,13 +20,16 @@
                 "Meta": helperService.metaBase(),
                 "Entities": currentBooking,
             };
-console.log(BookingDirectiveCtrl.ePage.Entities)
+            console.log(BookingDirectiveCtrl.ePage.Entities)
             // DatePicker
             BookingDirectiveCtrl.ePage.Masters.DatePicker = {};
             BookingDirectiveCtrl.ePage.Masters.DatePicker.Options = APP_CONSTANT.DatePicker;
             BookingDirectiveCtrl.ePage.Masters.DatePicker.isOpen = [];
             BookingDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
 
+            BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService
+            BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.Booking.Entity[BookingDirectiveCtrl.currentBooking.code];
+            BookingDirectiveCtrl.ePage.Masters.OnFieldValueChange = OnFieldValueChange
             BookingDirectiveCtrl.ePage.Masters.DropDownMasterList = BookingConfig.Entities.Header.Meta;
 
             // Callback
@@ -49,7 +52,7 @@ console.log(BookingDirectiveCtrl.ePage.Entities)
 
         function GetMastersList() {
             // Get CFXType Dropdown list
-            var typeCodeList = ["TRANSTYPE", "CNTTYPE", "SHPTYPE", "INCOTERM", "WEIGHTUNIT", "VOLUMEUNIT", "ENTRYDETAILS", "RELEASETYPE", "AIRWAY", "HOUSEBILL", "ONBOARD", "CHARGEAPLY", "DROPMODE", "HEIGHTUNIT", "PERIODTYPE", "USAGES", "PROFITANDLOSSRESON", "BILLSTATUS", "COMT_DESC", "COMT_Visibility", "COMT_Module", "COMT_Direction", "COMT_Frieght", "SERVICETYPE", "REFNUMTYPE", "ROUTEMODE", "ROUTESTATUS", "JOBADDR"];
+            var typeCodeList = ["TRANSTYPE", "CNTTYPE", "SHPTYPE", "INCOTERM", "ENTRYDETAILS", "RELEASETYPE", "AIRWAY", "HOUSEBILL", "ONBOARD", "CHARGEAPLY", "DROPMODE", "HEIGHTUNIT", "PERIODTYPE", "USAGES", "PROFITANDLOSSRESON", "BILLSTATUS", "COMT_DESC", "COMT_Visibility", "COMT_Module", "COMT_Direction", "COMT_Frieght", "SERVICETYPE", "REFNUMTYPE", "ROUTEMODE", "ROUTESTATUS", "JOBADDR"];
             var dynamicFindAllInput = [];
 
             typeCodeList.map(function (value, key) {
@@ -115,18 +118,6 @@ console.log(BookingDirectiveCtrl.ePage.Entities)
                 }
             });
 
-            // Get Pack Type
-            var _inputPackType = {
-                "searchInput": [],
-                "FilterID": appConfig.Entities.MstPackType.API.FindAll.FilterID
-            };
-
-            apiService.post("eAxisAPI", appConfig.Entities.MstPackType.API.FindAll.Url, _inputPackType).then(function (response) {
-                if (response.data.Response) {
-                    BookingDirectiveCtrl.ePage.Masters.DropDownMasterList.PackType = helperService.metaBase();
-                    BookingDirectiveCtrl.ePage.Masters.DropDownMasterList.PackType.ListSource = response.data.Response;
-                }
-            });
 
             // Document Type
             var _filter = {
@@ -150,7 +141,7 @@ console.log(BookingDirectiveCtrl.ePage.Entities)
 
         function InitShipmentHeader() {
             BookingDirectiveCtrl.ePage.Masters.Address = {};
-            BookingDirectiveCtrl.ePage.Masters.Address.AutoCompleteOnSelect = AutoCompleteOnSelect;
+            BookingDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect = AutoCompleteOnSelect;
             BookingDirectiveCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
             BookingDirectiveCtrl.ePage.Masters.OnAddressChange = OnAddressChange;
             BookingDirectiveCtrl.ePage.Masters.OnContactChange = OnContactChange;
@@ -160,13 +151,20 @@ console.log(BookingDirectiveCtrl.ePage.Entities)
 
         }
 
-        function SelectedLookupData($item, type, addressType) {
+        function SelectedLookupData($item, model, code, IsArray, type, addressType) {
+            BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader[model] = $item.data.entity.Code
+            OnFieldValueChange(code)
+            // BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.OnFieldValueChange("Booking", BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentNo, model, code, IsArray);
             if (type === "address") {
-                AddressContactList($item.entity, addressType);
+                AddressContactList($item.data.entity, addressType);
             }
         }
 
-        function AutoCompleteOnSelect($item, type, addressType) {
+        function AutoCompleteOnSelect($item, model, code, IsArray, type, addressType) {
+            console.log($item)
+            BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader[model] = $item.Code
+            OnFieldValueChange(code)
+            // BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.OnFieldValueChange("Booking", BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentNo, model, code, IsArray);
             if (type === "address") {
                 AddressContactList($item, addressType);
             }
@@ -262,7 +260,7 @@ console.log(BookingDirectiveCtrl.ePage.Entities)
             // BookingDirectiveCtrl.ePage.Masters.Container.DeleteConfirmation = DeleteConfirmation;
             BookingDirectiveCtrl.ePage.Masters.Container.AddToGridContainer = AddToGridContainer;
             BookingDirectiveCtrl.ePage.Masters.Container.AddNewAndUpdate = 'Add New'
-            BookingDirectiveCtrl.ePage.Masters.Container.gridConfig = BookingDirectiveCtrl.ePage.Entities.Container.gridConfig;
+            // BookingDirectiveCtrl.ePage.Masters.Container.gridConfig = BookingDirectiveCtrl.ePage.Entities.Container.gridConfig;
             if (!BookingDirectiveCtrl.currentBooking.isNew) {
                 GetContainerList();
             } else {
@@ -279,10 +277,10 @@ console.log(BookingDirectiveCtrl.ePage.Entities)
 
             var _input = {
                 "searchInput": _filter,
-                "FilterID": BookingDirectiveCtrl.ePage.Entities.Container.API.FindAll.FilterID
+                "FilterID": appConfig.Entities.CntContainer.API.FindAll.FilterID
             };
             BookingDirectiveCtrl.ePage.Masters.Container.GridData = undefined;
-            apiService.post("eAxisAPI", BookingDirectiveCtrl.ePage.Entities.Container.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", appConfig.Entities.CntContainer.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     BookingDirectiveCtrl.ePage.Masters.Container.GridData = response.data.Response;
                 }
@@ -325,7 +323,7 @@ console.log(BookingDirectiveCtrl.ePage.Entities)
         //Delete For Container
         function DeleteContainer($item) {
 
-            apiService.post("eAxisAPI", BookingDirectiveCtrl.ePage.Entities.Container.API.Delete.Url + $item.data.PK).then(function (response) {
+            apiService.post("eAxisAPI", appConfig.Entities.Container.API.Delete.Url + $item.data.PK).then(function (response) {
                 if (response.data.Response) {
                     BookingDirectiveCtrl.ePage.Masters.Container.GridData.splice($item.index, 1);
                     toastr.success("Record Deleted Successfully...!");
@@ -344,7 +342,7 @@ console.log(BookingDirectiveCtrl.ePage.Entities)
 
                 if (_index === -1) {
                     BookingDirectiveCtrl.ePage.Masters.Container.FormView.SHP_BookingOnlyLink = BookingDirectiveCtrl.ePage.Entities.Header.Data.PK;
-                    apiService.post("eAxisAPI", BookingDirectiveCtrl.ePage.Entities.Container.API.Insert.Url, [BookingDirectiveCtrl.ePage.Masters.Container.FormView]).then(function (response) {
+                    apiService.post("eAxisAPI", appConfig.Entities.Container.API.Insert.Url, [BookingDirectiveCtrl.ePage.Masters.Container.FormView]).then(function (response) {
                         if (response.data.Response) {
                             BookingDirectiveCtrl.ePage.Masters.Container.GridData.push(response.data.Response[0]);
                             toastr.success("Record Added Successfully...!");
@@ -355,7 +353,7 @@ console.log(BookingDirectiveCtrl.ePage.Entities)
 
                 } else {
                     BookingDirectiveCtrl.ePage.Masters.Container.FormView.IsModified = true;
-                    apiService.post("eAxisAPI", BookingDirectiveCtrl.ePage.Entities.Container.API.Update.Url, BookingDirectiveCtrl.ePage.Masters.Container.FormView).then(function (response) {
+                    apiService.post("eAxisAPI", appConfig.Entities.Container.API.Update.Url, BookingDirectiveCtrl.ePage.Masters.Container.FormView).then(function (response) {
                         if (response.data.Response) {
                             BookingDirectiveCtrl.ePage.Masters.Container.GridData[_index] = response.data.Response;
                             BookingDirectiveCtrl.ePage.Masters.Container.AddNewAndUpdate = 'Add New'
@@ -379,7 +377,7 @@ console.log(BookingDirectiveCtrl.ePage.Entities)
             BookingDirectiveCtrl.ePage.Masters.JobSailing.SelectedGridRow = SelectedGridRowSailing
             BookingDirectiveCtrl.ePage.Masters.JobSailing.AddNewSailing = AddNewSailing
             BookingDirectiveCtrl.ePage.Masters.JobSailing.AddToGridSailing = AddToGridSailing;
-            BookingDirectiveCtrl.ePage.Masters.JobSailing.gridConfig = BookingDirectiveCtrl.ePage.Entities.JobSailing.gridConfig;
+            // BookingDirectiveCtrl.ePage.Masters.JobSailing.gridConfig = BookingDirectiveCtrl.ePage.Entities.JobSailing.gridConfig;
             if (!BookingDirectiveCtrl.currentBooking.isNew) {
                 getJobSailing();
             } else {
@@ -394,10 +392,10 @@ console.log(BookingDirectiveCtrl.ePage.Entities)
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": BookingDirectiveCtrl.ePage.Entities.JobSailing.API.FindAll.FilterID
+                "FilterID": appConfig.Entities.SailingDetails.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", BookingDirectiveCtrl.ePage.Entities.JobSailing.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", appConfig.Entities.SailingDetails.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     BookingDirectiveCtrl.ePage.Entities.Header.Data.UIJobSailing = response.data.Response;
 
@@ -421,6 +419,7 @@ console.log(BookingDirectiveCtrl.ePage.Entities)
                 BookingDirectiveCtrl.ePage.Masters.JobSailing.GridData = _gridData;
             });
         }
+
         function AddNewSailing() {
             BookingDirectiveCtrl.ePage.Masters.JobSailing.FormView = {};
             BookingDirectiveCtrl.ePage.Masters.JobSailing.FormView.UIJobVoyageOrigin = [{}];
@@ -429,20 +428,24 @@ console.log(BookingDirectiveCtrl.ePage.Entities)
             BookingDirectiveCtrl.ePage.Masters.JobSailing.IsFormView = true;
             BookingDirectiveCtrl.ePage.Masters.JobSailing.AddNewAndUpdate = 'Add New';
         }
+
         function SelectedGridRowSailing($item) {
             if ($item.action == 'edit')
                 EditSailing($item)
             else
                 DeleteConfirmationSailing($item)
         }
-        function EditSailing($item) {            
+
+        function EditSailing($item) {
             BookingDirectiveCtrl.ePage.Masters.JobSailing.FormView = $item.data;
             BookingDirectiveCtrl.ePage.Masters.JobSailing.IsFormView = true;
             BookingDirectiveCtrl.ePage.Masters.JobSailing.AddNewAndUpdate = 'Update';
         }
+
         function DeleteConfirmationSailing($item) {
             // body...
         }
+
         function AddToGridSailing(type) {
             // body...
             var _isEmpty = angular.equals({}, BookingDirectiveCtrl.ePage.Masters.JobSailing.FormView);
@@ -454,7 +457,7 @@ console.log(BookingDirectiveCtrl.ePage.Entities)
 
                 if (_index === -1) {
                     BookingDirectiveCtrl.ePage.Masters.JobSailing.FormView.SourceRefKey = BookingDirectiveCtrl.ePage.Entities.Header.Data.PK;
-                    apiService.post("eAxisAPI", BookingDirectiveCtrl.ePage.Entities.JobSailing.API.Insert.Url, BookingDirectiveCtrl.ePage.Masters.JobSailing.FormView).then(function (response) {
+                    apiService.post("eAxisAPI", appConfig.Entities.JobVoyage.API.Insert.Url, BookingDirectiveCtrl.ePage.Masters.JobSailing.FormView).then(function (response) {
                         if (response.data.Response) {
                             BookingDirectiveCtrl.ePage.Masters.JobSailing.GridData.push(response.data.Response[0]);
                             toastr.success("Record Added Successfully...!");
@@ -467,7 +470,7 @@ console.log(BookingDirectiveCtrl.ePage.Entities)
                     BookingDirectiveCtrl.ePage.Masters.JobSailing.FormView.IsModified = true;
                     BookingDirectiveCtrl.ePage.Masters.JobSailing.FormView.UIJobVoyageOrigin[0].IsModified = true;
                     BookingDirectiveCtrl.ePage.Masters.JobSailing.FormView.UIJobVoyageDestination[0] = true;
-                    apiService.post("eAxisAPI", BookingDirectiveCtrl.ePage.Entities.JobSailing.API.Update.Url, BookingDirectiveCtrl.ePage.Masters.JobSailing.FormView).then(function (response) {
+                    apiService.post("eAxisAPI", appConfig.Entities.JobVoyage.API.Update.Url, BookingDirectiveCtrl.ePage.Masters.JobSailing.FormView).then(function (response) {
                         if (response.data.Response) {
                             BookingDirectiveCtrl.ePage.Masters.JobSailing.JobSailing[_index] = response.data.Response;
                             BookingDirectiveCtrl.ePage.Masters.JobSailing.AddNewAndUpdate = 'Add New'
@@ -492,7 +495,7 @@ console.log(BookingDirectiveCtrl.ePage.Entities)
             BookingDirectiveCtrl.ePage.Masters.Package.FormView.JobDangerousGoods = [];
             BookingDirectiveCtrl.ePage.Masters.Package.FormView.JobLocation = [];
 
-            BookingDirectiveCtrl.ePage.Masters.Package.gridConfig = BookingDirectiveCtrl.ePage.Entities.Package.gridConfig;
+            // BookingDirectiveCtrl.ePage.Masters.Package.gridConfig = BookingDirectiveCtrl.ePage.Entities.Package.gridConfig;
 
             BookingDirectiveCtrl.ePage.Masters.Package.DeletePacking = DeletePacking;
             BookingDirectiveCtrl.ePage.Masters.Package.PackageDeleteConfirmation = PackageDeleteConfirmation;
@@ -628,6 +631,28 @@ console.log(BookingDirectiveCtrl.ePage.Entities)
                 }
             }
 
+        }
+
+        function OnFieldValueChange(code) {
+            var _obj = {
+                ModuleName: ["Booking"],
+                Code: [BookingDirectiveCtrl.currentBooking.code],
+                API: "Validation", // Validation/Group
+                FilterInput: {
+                    ModuleCode: "SHP",
+                    SubModuleCode: "SHP",
+                    // Code: "E0013"
+                },
+                GroupCode: "TC_Test",
+                RelatedBasicDetails: [{
+                    "UIField": "TEST",
+                    "DbField": "TEST",
+                    "Value": "TEST"
+                }],
+                EntityObject: BookingDirectiveCtrl.ePage.Entities.Header.Data,
+                ErrorCode: code ? [code] : []
+            };
+            errorWarningService.ValidateValue(_obj);
         }
 
         // =======================Packing End=======================

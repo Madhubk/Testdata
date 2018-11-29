@@ -6,15 +6,18 @@
         </uib-tab-heading>
         <div class="no-padding tab-list-view-wrapper">
             <!--Order Grid Page-->
-            <dynamic-list dataentry-name="OrderLinesCtrl.ePage.Masters.dataentryName" task-name="OrderLinesCtrl.ePage.Masters.taskName" grid-config-type="0"
-                selected-grid-row="OrderLinesCtrl.ePage.Masters.SelectedGridRow($item)" mode="1"></dynamic-list>
+            <!-- <dynamic-list dataentry-name="OrderLinesCtrl.ePage.Masters.dataentryName" task-name="OrderLinesCtrl.ePage.Masters.taskName" grid-config-type="0"
+                selected-grid-row="OrderLinesCtrl.ePage.Masters.SelectedGridRow($item)" mode="1"></dynamic-list> -->
+            <dynamic-list dataentry-name="OrderLinesCtrl.ePage.Masters.dataentryName" selected-grid-row="OrderLinesCtrl.ePage.Masters.SelectedGridRow($item)"
+                mode="1" dataentry-object="OrderLinesCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
             <div class="tab-loading" data-ng-show="OrderLinesCtrl.ePage.Masters.IsTabClick"></div>
         </div>
     </uib-tab>
-    <uib-tab active="OrderLinesCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in OrderLinesCtrl.ePage.Masters.TabList" ng-click="OrderLinesCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+    <uib-tab active="OrderLinesCtrl.ePage.Masters.activeTabIndex == $index" data-ng-repeat="tab in OrderLinesCtrl.ePage.Masters.TabList"
+        data-ng-click="OrderLinesCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
         <uib-tab-heading title="{{tab.label}}">
             <span data-ng-bind="tab.label"></span>
-            <i class="glyphicon glyphicon-remove" ng-click="OrderLinesCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+            <i class="glyphicon glyphicon-remove" data-ng-click="OrderLinesCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
         </uib-tab-heading>
         <div class="padding-bottom-10 clearfix">
             <!--OrderLines Menu Directive-->

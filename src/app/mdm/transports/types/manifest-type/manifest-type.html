@@ -1,0 +1,112 @@
+<div class="" ng-if="ManifestTypeCtrl.ePage.Entities.Header.CheckPoints.CfxMappingValues.length>0" ng-init="ManifestTypeCtrl.ePage.Masters.getCfxMappingDetails()"></div>
+<div class="p-10" ng-show='ManifestTypeCtrl.ePage.Masters.Lineslist'>
+    <div>
+        <span>
+            <button type="button" class="btn btn-sm btn-outline-secondary" title="Add New" data-ng-click="ManifestTypeCtrl.ePage.Masters.AddNewRow()">
+                <span class="fa fa-plus"></span>&nbsp;&nbsp;Add New
+            </button>
+        </span>
+        <span ng-hide='ManifestTypeCtrl.ePage.Masters.selectedRow==-1'>
+            <button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Copy" data-ng-click="ManifestTypeCtrl.ePage.Masters.CopyRow()">
+                <span class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button>
+        </span>
+        <span ng-hide='ManifestTypeCtrl.ePage.Masters.selectedRow==-1'>
+            <button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Edit" data-ng-click="ManifestTypeCtrl.ePage.Masters.Edit(ManifestTypeCtrl.ePage.Masters.selectedRow,'Edit List')">
+                <span class="fa fa-pencil"></span>&nbsp;&nbsp;Edit</button>
+        </span>
+        <span ng-hide='ManifestTypeCtrl.ePage.Masters.selectedRow==-1'>
+            <button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Delete" data-ng-click="ManifestTypeCtrl.ePage.Masters.RemoveRow()">
+                <span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button>
+        </span>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 pull-right">
+
+            <input type="text" class="form-control input-sm" placeholder="Local Search.." data-ng-model="ManifestTypeCtrl.ePage.Masters.find"
+            />
+
+        </div>
+    </div>
+    <div id='ManifestTypeCtrl.ePage.Masters.your_div' class="wmstable_scroll" style="height:450px; padding-top: 2px;">
+        <div class="table" id="results">
+            <div class='theader'>
+                <div class='table_header'>List No</div>
+                <div class='table_header'>Manifest Type</div>
+                <div class='table_header'>Manifest Type Description</div>
+            </div>
+
+            <!-- List Empty Response -->
+            <div data-ng-if="ManifestTypeCtrl.ePage.Entities.Header.Data.ManifestTypeDetails.length==0">
+                <div class="grid-no-record" style="bottom: 250px;">No records found...</div>
+            </div>
+
+            <div class="grid-loading-norecord-container" data-ng-show="ManifestTypeCtrl.ePage.Masters.IsLoading">
+                <div class="grid-no-record" style="bottom: 250px;">Loading...</div>
+            </div>
+
+            <div class='table_row' ng-repeat="x in ManifestTypeCtrl.ePage.Entities.Header.Data.ManifestTypeDetails| filter : ManifestTypeCtrl.ePage.Masters.find track by $index"
+                ng-click="ManifestTypeCtrl.ePage.Masters.setSelectedRow($index,x);" ng-class="{row_active: ManifestTypeCtrl.ePage.Masters.LinesselectedRow==$index}"
+                style="font-size: 11px;">
+                <div class='table_small'>
+                    <div class='table_cell'>List No</div>
+                    <div class='table_cell'>{{$index+1}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Service Type</div>
+                    <div class='table_cell'>{{x.Key || ManifestTypeCtrl.ePage.Masters.emptyText}} </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Service Type Description</div>
+                    <div class='table_cell'>{{x.Value || ManifestTypeCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix" ng-hide='ManifestTypeCtrl.ePage.Masters.Lineslist' style="padding:5px">
+    <div class="panel panel-default mt-5">
+        <div class="panel-heading">
+            <span ng-show="ManifestTypeCtrl.ePage.Masters.HeaderName =='Copy Of List'">
+                {{ManifestTypeCtrl.ePage.Masters.HeaderName}} - {{ManifestTypeCtrl.ePage.Masters.selectedRow}}
+            </span>
+            <span ng-show="ManifestTypeCtrl.ePage.Masters.HeaderName!='Copy Of List'">
+                {{ManifestTypeCtrl.ePage.Masters.HeaderName}} - {{ManifestTypeCtrl.ePage.Masters.selectedRow+1}}
+            </span>
+            <span class="WOL-Status pull-right" ng-bind="ManifestTypeCtrl.ePage.Masters.ServiceTypeDetails[ManifestTypeCtrl.ePage.Masters.selectedRow].WorkOrderLineStatusDesc"></span>
+        </div>
+        <div class="panel-body">
+            <div class="col-lg-12 ex-line-padding">
+                <div class="ex-line-box" style="height:85px; padding-top:10px">
+                    <!-- Carrier-->
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Manifest Type</label>
+                            <div class="">
+                                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Manifest Type"  no-special-char
+                                data-ng-model="ManifestTypeCtrl.ePage.Entities.Header.Data.ManifestTypeDetails[ManifestTypeCtrl.ePage.Masters.selectedRow].Key"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Service Type Desc -->
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Manifest Type Description</label>
+                            <div class="">
+                                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Manifest Type Description" no-special-char
+                                data-ng-model="ManifestTypeCtrl.ePage.Entities.Header.Data.ManifestTypeDetails[ManifestTypeCtrl.ePage.Masters.selectedRow].Value"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-lg-offset-8 mt-5">
+                    <button class="btn btn-blue btn-sm mr-5 pull-right" title="Save" data-ng-click="ManifestTypeCtrl.ePage.Masters.Done()">
+                        <i class="fa fa-save pr-5"></i>Save</button>
+                    <!-- <button class="btn btn-primary btn-sm mr-5 pull-right" title="Delete" data-ng-click="ManifestTypeCtrl.ePage.Masters.RemoveRow()"><i class="fa fa-trash pr-5"></i>Delete</button> -->
+                    <button class="btn btn-primary btn-sm mr-5 pull-right" title="Back" data-ng-click="ManifestTypeCtrl.ePage.Masters.Back()">
+                        <i class="fa fa-angle-double-left pr-5"></i>Back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

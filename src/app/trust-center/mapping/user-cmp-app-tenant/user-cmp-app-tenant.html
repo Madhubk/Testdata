@@ -1,0 +1,146 @@
+<div class="clearfix tc-user-cmp-app-tenant">
+    <!-- Breadcrumb -->
+    <!-- Breadcrumb -->
+    <div class="clearfix tc-breadcrumb" data-ng-if="TCUserCmpAppTenantCtrl.ePage.Masters.ActiveApplication == 'TC'">
+        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-xs-12 p-0">
+            <i class="fa fa-home home-icon"></i>
+            <div class="breadcrumb-list-wrapper">
+                <ol class="breadcrumb">
+                    <li data-ng-repeat="x in TCUserCmpAppTenantCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                        <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="TCUserCmpAppTenantCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                    </li>
+                    <li data-ng-repeat="x in TCUserCmpAppTenantCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive"
+                        data-ng-bind="x.Description" class="active"></li>
+                </ol>
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12 p-4">
+            <tc-application-dropdown query-string="TCUserCmpAppTenantCtrl.ePage.Masters.QueryString"
+                on-application-change="TCUserCmpAppTenantCtrl.ePage.Masters.Application.OnApplicationChange($item)"></tc-application-dropdown>
+        </div>
+    </div>
+    <!-- Body -->
+    <div class="clearfix p-5">
+        <table class="table table-bordered table-responsive">
+            <thead>
+                <tr>
+                    <th class="tc-th-autocomplete">Company</th>
+                    <th class="tc-th-autocomplete">Branch</th>
+                    <th class="tc-th-autocomplete">Department</th>
+                    <th class="tc-th-autocomplete">Organization</th>
+                    <th colspan="2" class="th-action">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Loading -->
+                <tr data-ng-if="!TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UserCmpAppTenantList">
+                    <td colspan="20" class="text-center p-10">
+                        <i class="fa fa-spin fa-spinner" style="font-size:18px;"></i>
+                    </td>
+                </tr>
+                <!-- No Records -->
+                <tr data-ng-if="TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UserCmpAppTenantList && TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UserCmpAppTenantList.length==0">
+                    <td colspan="20" class="text-center p-10">
+                        <i>No Records...!</i>
+                    </td>
+                </tr>
+                <!-- List -->
+                <tr data-ng-if="TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UserCmpAppTenantList && TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UserCmpAppTenantList.length > 0"
+                    data-ng-repeat="item in  TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UserCmpAppTenantList">
+                    <td>
+                        <input type="text" placeholder="Company" class="form-control input-sm" data-ng-model="item.AccessCode
+                            "
+                            uib-typeahead="x.Code as x.Code + ' - ' + x.Name  for x in TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.GetCompanyList($viewValue)"
+                            typeahead-loading="item.AccessCodeNoResults" typeahead-no-results="item.AccessCodeLoading"
+                            typeahead-editable="false" typeahead-append-to-body='true' typeahead-on-select="  TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.OnSelectAutoCompleteList($item, $model, $label, $event, item, row)"
+                            ng-blur="TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.OnBlurAutoCompleteList($event, item)"
+                            typeahead-min-length="item.AccessCode.MinLength">
+                        <div class="clearfix dropdown-menu" ng-if="item.AccessCodeNoResults">
+                            <div class="auto-complete-no-result">No Results Found!</div>
+                        </div>
+                        <div class="clearfix dropdown-menu" ng-if="item.AccessCodeLoading">
+                            <div class="auto-complete-no-result">
+                                <i class="fa fa-spin fa-spinner"></i>
+                            </div>
+                        </div>
+                    </td>
+
+                    <td>
+                        <input type="text" placeholder="Branch" class="form-control input-sm" data-ng-model="item.BasedOnCode
+                                "
+                            uib-typeahead="x.Code as x.Code + ' - ' + x.BranchName  for x in TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.GetCmpBranchList($viewValue, item)"
+                            typeahead-loading="TCUserCmpAppTenantCtrl.ePage.Masters.IsCmpBranchNoResults"
+                            typeahead-no-results="TCUserCmpAppTenantCtrl.ePage.Masters.IsCmpBranchLoading"
+                            typeahead-editable="false" typeahead-append-to-body='true' typeahead-on-select="  TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.OnSelectAutoCompleteListBranch($item, $model, $label, $event, item)"
+                            ng-blur="TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.OnBlurAutoCompleteListBranch($event, item)"
+                            typeahead-min-length="item.BasedOnCode.MinLength">
+                        <div class="clearfix dropdown-menu" ng-if="item.IsCmpBranchNoResults">
+                            <div class="auto-complete-no-result">No Results Found!</div>
+                        </div>
+                        <div class="clearfix dropdown-menu" ng-if="item.IsCmpBranchLoading">
+                            <div class="auto-complete-no-result">
+                                <i class="fa fa-spin fa-spinner"></i>
+                            </div>
+                        </div>
+                    </td>
+
+                    <td>
+                        <input type="text" placeholder="Department" class="form-control input-sm" data-ng-model="item.OtherEntityCode_2
+                                    "
+                            uib-typeahead="x.Code as x.Code + ' - ' + x.Desc  for x in TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.GetCmpDepartmentList($viewValue)"
+                            typeahead-loading="TCUserCmpAppTenantCtrl.ePage.Masters.IsCmpDepartmentNoResults"
+                            typeahead-no-results="TCUserCmpAppTenantCtrl.ePage.Masters.IsCmpDepartmentLoading"
+                            typeahead-editable="false" typeahead-append-to-body='true' typeahead-on-select="  TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.OnSelectAutoCompleteListDepartment($item, $model, $label, $event, item)"
+                            ng-blur="TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.OnBlurAutoCompleteListDepartment($event, item)"
+                            typeahead-min-length="item.OtherEntityCode_2.MinLength">
+                        <div class="clearfix dropdown-menu" ng-if="item.IsCmpDepartmentNoResults">
+                            <div class="auto-complete-no-result">No Results Found!</div>
+                        </div>
+                        <div class="clearfix dropdown-menu" ng-if="item.IsCmpDepartmentLoading">
+                            <div class="auto-complete-no-result">
+                                <i class="fa fa-spin fa-spinner"></i>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <input type="text" placeholder="Organization" class="form-control input-sm" data-ng-model="item.OtherEntityCode 
+                                        "
+                            uib-typeahead="x.Code as x.Code + ' - ' + x.FullName  for x in TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.GetOrganizationList($viewValue)"
+                            typeahead-loading="TCUserCmpAppTenantCtrl.ePage.Masters.IsOrganizationNoResults"
+                            typeahead-no-results="TCUserCmpAppTenantCtrl.ePage.Masters.IsOrganizationLoading"
+                            typeahead-editable="false" typeahead-append-to-body='true' typeahead-on-select="  TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.OnSelectAutoCompleteListOrganization($item, $model, $label, $event, item)"
+                            ng-blur="TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.OnBlurAutoCompleteListOrganization($event, item)"
+                            typeahead-min-length="item.OtherEntityCode.MinLength">
+                        <div class="clearfix dropdown-menu" data-ng-if="item.IsOrganizationNoResults">
+                            <div class="auto-complete-no-result">No Results Found!</div>
+                        </div>
+                        <div class="clearfix dropdown-menu" data-ng-if="item.IsOrganizationLoading">
+                            <div class="auto-complete-no-result">
+                                <i class="fa fa-spin fa-spinner"></i>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-center p-5">
+                        <i class="fa fa-floppy-o cursor-pointer text-success" style="font-size: 16px;" data-ng-click="TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.Save(item)"></i>
+                    </td>
+                    <td class="text-center p-5">
+                        <i class="glyphicon glyphicon-trash text-danger cursor-pointer" style="font-size: 16px;"
+                            data-ng-click="TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.Delete(item)"></i>
+                    </td>
+
+                </tr>
+
+                <!-- Add New -->
+                <tr>
+                    <td colspan="20" class="p-10">
+                        <a href="javascript:(0);" data-ng-click=" TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.AddNewRow()">Add
+                            new Record…</a>
+                    </td>
+                </tr>
+
+
+            </tbody>
+        </table>
+    </div>
+
+</div>

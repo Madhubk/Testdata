@@ -5,7 +5,7 @@
         .module("Application")
         .directive("orderLinesDirective", OrderLinesDirective);
 
-OrderLinesDirective.$inject = [];
+    OrderLinesDirective.$inject = [];
 
     function OrderLinesDirective() {
         var exports = {

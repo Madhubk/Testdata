@@ -1,0 +1,126 @@
+.quick-booking-approval-notify .panel {
+    border-radius: 0px !important;
+    border: 1px solid #92A2A8 !important;
+}
+
+.quick-booking-approval-notify .panel-default>.panel-heading {
+    border-radius: 0px !important;
+    border-bottom: 1px solid #92A2A8 !important;
+    height: 30px;
+    padding: 6px 10px 10px !important;
+    background: #CCDADF !important;
+    color: #2b363c !important;
+}
+
+.containerForm .alert {
+    margin-bottom: 20px;
+    margin-top: 0;
+    color: #675100;
+    border-width: 0;
+    border-left-width: 5px;
+    padding: 10px;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+}
+
+.containerForm .alert-info {
+    border-color: #9cb4c5;
+    color: #305d8c;
+    background: #d6dde7;
+}
+
+.grid-min-hgt {
+    min-height: 100px;
+    max-height: 500px;
+}
+
+.set-top {
+    bottom: 38px;
+    margin-top: 90px;
+}
+
+.set-top1 {
+    bottom: 38px;
+    margin-top: 80px;
+}
+
+.booking-spinner {
+    margin: 300px auto;
+    width: 50px;
+    height: 40px;
+    text-align: center;
+    font-size: 10px;
+}
+
+.booking-spinner>div {
+    background-color: #333;
+    height: 100%;
+    width: 6px;
+    display: inline-block;
+    -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
+    animation: sk-stretchdelay 1.2s infinite ease-in-out;
+}
+
+.booking-spinner .rect2 {
+    -webkit-animation-delay: -1.1s;
+    animation-delay: -1.1s;
+}
+
+.booking-spinner .rect3 {
+    -webkit-animation-delay: -1.0s;
+    animation-delay: -1.0s;
+}
+
+.booking-spinner .rect4 {
+    -webkit-animation-delay: -0.9s;
+    animation-delay: -0.9s;
+}
+
+.booking-spinner .rect5 {
+    -webkit-animation-delay: -0.8s;
+    animation-delay: -0.8s;
+}
+
+@-webkit-keyframes sk-stretchdelay {
+    0%,
+    40%,
+    100% {
+        -webkit-transform: scaleY(0.4)
+    }
+    20% {
+        -webkit-transform: scaleY(1.0)
+    }
+}
+
+@keyframes sk-stretchdelay {
+    0%,
+    40%,
+    100% {
+        transform: scaleY(0.4);
+        -webkit-transform: scaleY(0.4);
+    }
+    20% {
+        transform: scaleY(1.0);
+        -webkit-transform: scaleY(1.0);
+    }
+}
+
+/* .book-spin{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    z-index: 999;
+} */
+
+.book-spin {
+    top: 0;
+    overflow: hidden;
+    position: fixed;
+    z-index: 9999;
+    background-color: rgba(255, 255, 255, 0.7);
+}

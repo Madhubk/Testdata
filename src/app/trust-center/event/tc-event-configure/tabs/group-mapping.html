@@ -1,0 +1,15 @@
+<div class="clearfix" data-ng-if="!TCEventConfigureCtrl.ePage.Masters.EventGroup.ListSource">
+    <i class="fa fa-spin fa-spinner"></i>
+</div>
+<div class="clearfix" data-ng-if="TCEventConfigureCtrl.ePage.Masters.EventGroup.ListSource && TCEventConfigureCtrl.ePage.Masters.EventGroup.ListSource.length == 0">
+    <i>No Records...!</i>
+</div>
+
+<div class="clearfix pl-10 pr-10" style="border-bottom: 1px solid #eee;" data-ng-repeat="x in TCEventConfigureCtrl.ePage.Masters.EventGroup.ListSource" data-ng-if="TCEventConfigureCtrl.ePage.Masters.EventGroup.ListSource && TCEventConfigureCtrl.ePage.Masters.EventGroup.ListSource.length > 0">
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" class="colored-blue" data-ng-model="x.IsChecked" data-ng-click="TCEventConfigureCtrl.ePage.Masters.EventGroup.OnEventGroupClick($event, x)">
+            <span class="text text-single-line" data-ng-bind="x.GroupName"></span>
+        </label>
+    </div>
+</div>

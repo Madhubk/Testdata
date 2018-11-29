@@ -5,9 +5,9 @@
         .module("Application")
         .factory('BookingConfig', BookingConfig);
 
-    BookingConfig.$inject = ["$rootScope", "$location", "$q", "apiService", "helperService", "toastr"];
+    BookingConfig.$inject = ["$rootScope", "$location", "$q", "apiService", "helperService", "toastr", "errorWarningService"];
 
-    function BookingConfig($rootScope, $location, $q, apiService, helperService, toastr) {
+    function BookingConfig($rootScope, $location, $q, apiService, helperService, toastr, errorWarningService) {
         var exports = {
             "Entities": {
                 "Header": {
@@ -30,7 +30,9 @@
                 }
             },
             "TabList": [],
-            "GetTabDetails": GetTabDetails
+            "GetTabDetails": GetTabDetails,
+            "GeneralValidation": GeneralValidation,
+            "ShowErrorWarningModal": ShowErrorWarningModal,
         };
         return exports;
 
@@ -52,22 +54,22 @@
                                 "IsAPI": "true",
                                 "HttpType": "POST",
                                 "Url": "ShipmentList/Update"
-                            },
-                            "OrderAttach": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "PorOrderHeader/UpdateRecords"
                             }
                         },
                         "Meta": {
                             "MenuList": [{
                                 "DisplayName": "General",
                                 "Value": "General",
+                                "GParentRef": "General",
                                 "Icon": "fa-plane"
                             }, {
                                 "DisplayName": "Orders",
                                 "Value": "Order",
                                 "Icon": "fa-cart-plus"
+                            }, {
+                                "DisplayName": "Planning",
+                                "Value": "Planning",
+                                "Icon": "fa-tasks"
                             }, {
                                 "DisplayName": "Service & Reference",
                                 "Value": "ServiceAndReference",
@@ -83,274 +85,6 @@
                             }],
                             "AddressContactObject": {}
                         }
-                    },
-                    "BookingOrder": {
-                        "Data": {},
-                        "ListSource": [],
-                        "RowIndex": -1,
-                        "API": {
-                            "FindAll": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "PorOrderItem/FindAll",
-                                "FilterID": "ORDITEM"
-                            },
-                            "Upsert": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "PorOrderItem/Upsert",
-                            }
-                        }
-                    },
-                    "JobSailing": {
-                        "Data": {},
-                        "ListSource": [],
-                        "RowIndex": -1,
-                        "API": {
-                            "FindAll": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "SailingDetails/FindAll",
-                                "FilterID": "JOBSAIL"
-                            },
-                            "Upsert": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "JobSailing/Upsert",
-                            },
-                            "Update": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "JobVoyage/Update",
-                            },
-                            "Insert": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "JobVoyage/Insert",
-                            },
-                        },
-                        "gridConfig": {
-                            "isHeader": false,
-                            "isSearch": false,
-                            "title": "User Details",
-                            "isSorting": false,
-                            "isColumnHeader": true,
-                            "isEdit": true,
-                            "isDelete": true,
-                            "isPagination": false,
-                            "itemsPerPage": 10,
-                            "isRowTemplate": false,
-                            "columnDef": [{
-                                "field": "SailingNo",
-                                "displayName": "Reference #"
-                            }, {
-                                "field": "JVO_POL",
-                                "displayName": "Load"
-                            }, {
-                                "field": "JVD_POD",
-                                "displayName": "Discharge"
-                            }, {
-                                "field": "IsPublished",
-                                "displayName": "Pub."
-                            }, {
-                                "field": "SendersMsgRef",
-                                "displayName": "Booking Ref"
-                            }, {
-                                "field": "LCLReceivalCommences",
-                                "displayName": "LCL Rec.Start",
-                                "cellTemplate": "<div class='text-single-line' >{{x[y.field] | date: 'dd-MMM-yyyy'}}</div>"
-                            }, {
-                                "field": "LCLCutOff",
-                                "displayName": "LCL Cut Off",
-                                "cellTemplate": "<div class='text-single-line' >{{x[y.field] | date: 'dd-MMM-yyyy'}}</div>"
-                            }, {
-                                "field": "LCLAvailabilityDate",
-                                "displayName": "Depot Avail.",
-                                "cellTemplate": "<div class='text-single-line' >{{x[y.field] | date: 'dd-MMM-yyyy'}}</div>"
-                            }, {
-                                "field": "LCLStorageDate",
-                                "displayName": "Depot Store.",
-                                "cellTemplate": "<div class='text-single-line' >{{x[y.field] | date: 'dd-MMM-yyyy'}}</div>",
-                            }]
-                        }
-                    },
-                    "Service": {
-                        "Data": {},
-                        "ListSource": [],
-                        "RowIndex": -1,
-                        "Meta": {},
-                        "gridConfig": {
-                            "isHeader": false,
-                            "isSearch": false,
-                            "title": "User Details",
-                            "isSorting": false,
-                            "isColumnHeader": true,
-                            "isEdit": true,
-                            "isDelete": true,
-                            "isPagination": false,
-                            "itemsPerPage": 10,
-                            "isRowTemplate": false,
-                            "columnDef": [{
-                                "field": "ServiceCode",
-                                "displayName": "Service Code",
-                            }, {
-                                "field": "Booked",
-                                "displayName": "Booked",
-                                "cellTemplate": "<div class='text-single-line' >{{x[y.field] | date: 'dd-MMM-yyyy'}}</div>",
-                            }, {
-                                "field": "Duration",
-                                "displayName": "Duration",
-                                "cellTemplate": "<div class='text-single-line' >{{x[y.field] | duration}}</div>",
-                            }, {
-                                "field": "ServiceCount",
-                                "displayName": "Service Count",
-                            }, {
-                                "field": "Completed",
-                                "displayName": "Completed",
-                                "cellTemplate": "<div class='text-single-line' >{{x[y.field] | date: 'dd-MMM-yyyy'}}</div>",
-                            }]
-                        }
-                    },
-                    "Package": {
-                        "Data": {},
-                        "ListSource": [],
-                        "RowIndex": -1,
-                        "Meta": {},
-                        "gridConfig": {
-                            "isHeader": false,
-                            "isSearch": false,
-                            "title": "User Details",
-                            "isSorting": false,
-                            "isColumnHeader": true,
-                            "isEdit": true,
-                            "isDelete": true,
-                            "isPagination": false,
-                            "itemsPerPage": 10,
-                            "isRowTemplate": false,
-                            "columnDef": [{
-                                "field": "PackageCount",
-                                "displayName": "Pack Cnt",
-                            }, {
-                                "field": "F3_NKPackType",
-                                "displayName": "Pack Type",
-                            }, {
-                                "field": "Length",
-                                "displayName": "Length",
-                            }, {
-                                "field": "Width",
-                                "displayName": "Width",
-                            }, {
-                                "field": "Height",
-                                "displayName": "Height",
-                            }, {
-                                "field": "UnitOfDimension",
-                                "displayName": "UD",
-                            }, {
-                                "field": "ActualWeight",
-                                "displayName": "Weight",
-                            }, {
-                                "field": "ActualWeightUQ",
-                                "displayName": "UW",
-                            }, {
-                                "field": "ActualVolume",
-                                "displayName": "Volume",
-                            }, {
-                                "field": "ActualVolumeUQ",
-                                "displayName": "UV",
-                            }, {
-                                "field": "RH_NKCommodityCode",
-                                "displayName": "Commodity",
-                            }]
-                        }
-                    },
-                    "Container": {
-                        "Data": {},
-                        "ListSource": [],
-                        "RowIndex": -1,
-                        "Meta": {},
-                        "API": {
-                            "FindAll": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "CntContainer/FindAll",
-                                "FilterID": "CONTHEAD"
-                            },
-                            "Insert": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "CntContainer/Insert"
-                            },
-                            "Update": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "CntContainer/Update"
-                            },
-                            "Delete": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "CntContainer/Delete/"
-                            }
-                        },
-                        "gridConfig": {
-                            "isHeader": false,
-                            "isSearch": false,
-                            "title": "User Details",
-                            "isSorting": false,
-                            "isColumnHeader": true,
-                            "isEdit": true,
-                            "isDelete": true,
-                            "isPagination": false,
-                            "itemsPerPage": 10,
-                            "isRowTemplate": false,
-                            "columnDef": [{
-                                "field": "ContainerNo",
-                                "displayName": "Container #"
-                            }, {
-                                "field": "ContainerCount",
-                                "displayName": "Count"
-                            }, {
-                                "field": "RC_Type",
-                                "displayName": "Type"
-                            }, {
-                                "field": "RH_NKContainerCommodityCode",
-                                "displayName": "Commodity"
-                            }, {
-                                "field": "ReleaseNum",
-                                "displayName": "Release"
-                            }, {
-                                "field": "OAD_DepartureContainerYardCode",
-                                "displayName": "Dep.Container Yard"
-                            }, {
-                                "field": "OAD_ArrivalContainerYardCode",
-                                "displayName": "Arr.Container Yard"
-                            }]
-                        }
-
-                    },
-                    "Reference": {
-                        "Data": {},
-                        "ListSource": [],
-                        "RowIndex": -1,
-                        "Meta": {},
-                        "gridConfig": {
-                            "isHeader": false,
-                            "isSearch": false,
-                            "title": "User Details",
-                            "isSorting": false,
-                            "isColumnHeader": true,
-                            "isEdit": true,
-                            "isDelete": true,
-                            "isPagination": false,
-                            "itemsPerPage": 10,
-                            "isRowTemplate": false,
-                            "columnDef": [{
-                                "field": "EntryNum",
-                                "displayName": "Number"
-                            }, {
-                                "field": "EntryType",
-                                "displayName": "Number Type"
-                            }]
-                        }
                     }
                 }
             };
@@ -359,12 +93,20 @@
                 _exports.Entities.Header.Data = currentBooking.data;
 
                 var obj = {
-                    [currentBooking.entity.ShipmentNo]: {
+                    New: {
                         ePage: _exports
                     },
-                    label: currentBooking.entity.ShipmentNo,
+                    label: 'New',
+                    code: currentBooking.entity.ShipmentNo,
                     isNew: isNew
                 };
+                // var obj = {
+                //     [currentBooking.entity.ShipmentNo]: {
+                //         ePage: _exports
+                //     },
+                //     label: currentBooking.entity.ShipmentNo,
+                //     isNew: isNew
+                // };
                 exports.TabList.push(obj);
                 deferred.resolve(exports.TabList);
             } else {
@@ -385,6 +127,7 @@
                             ePage: _exports
                         },
                         label: currentBooking.ShipmentNo,
+                        code: currentBooking.ShipmentNo,
                         isNew: isNew
                     };
                     exports.TabList.push(obj);
@@ -392,6 +135,34 @@
                 });
             }
             return deferred.promise;
+        }
+
+        function ShowErrorWarningModal(EntityObject) {
+            $("#errorWarningContainer" + EntityObject.code).toggleClass("open");
+        }
+
+        function GeneralValidation($item) {
+            //General Page Validation
+            var _Data = $item[$item.label].ePage.Entities,
+                _input = _Data.Header.Data;
+            var _deferred = $q.defer();
+
+            errorWarningService.OnFieldValueChange("Booking", $item.code, _input.UIShipmentHeader.ORG_Shipper_Code, 'E0031', false, undefined);
+            errorWarningService.OnFieldValueChange("Booking", $item.code, _input.UIShipmentHeader.ORG_Consignee_Code, 'E0032', false, undefined);
+            errorWarningService.OnFieldValueChange("Booking", $item.code, _input.UIShipmentHeader.TransportMode, 'E0001', false, undefined);
+            errorWarningService.OnFieldValueChange("Booking", $item.code, _input.UIShipmentHeader.PackingMode, 'E0002', false, undefined);
+            errorWarningService.OnFieldValueChange("Booking", $item.code, _input.UIShipmentHeader.IncoTerm, 'E0003', false, undefined);
+            errorWarningService.OnFieldValueChange("Booking", $item.code, _input.UIShipmentHeader.Origin, 'E0004', false, undefined);
+            errorWarningService.OnFieldValueChange("Booking", $item.code, _input.UIShipmentHeader.PortOfLoading, 'E0006', false, undefined);
+            errorWarningService.OnFieldValueChange("Booking", $item.code, _input.UIShipmentHeader.PortOfDischarge, 'E0007', false, undefined);
+            errorWarningService.OnFieldValueChange("Booking", $item.code, _input.UIShipmentHeader.Destination, 'E0005', false, undefined);
+            errorWarningService.OnFieldValueChange("Booking", $item.code, _input.UIShipmentHeader.ExportForwarder_Code, 'E0047', false, undefined);
+            errorWarningService.OnFieldValueChange("Booking", $item.code, _input.UIShipmentHeader.ImportForwarder_Code, 'E0048', false, undefined);
+
+            _deferred.resolve(errorWarningService);
+
+            return _deferred.promise;
+
         }
     }
 })();

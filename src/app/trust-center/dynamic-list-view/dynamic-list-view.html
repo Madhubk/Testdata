@@ -1,0 +1,20 @@
+<div class="clearfix tc-dynamic-list-view">
+    <div class="clearfix tc-breadcrumb" data-ng-if="DynamicListViewCtrl.ePage.Masters.ActiveApplication == 'TC'">
+        <i class="fa fa-home home-icon"></i>
+        <div class="breadcrumb-list-wrapper">
+            <ol class="breadcrumb">
+                <li data-ng-repeat="x in DynamicListViewCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="DynamicListViewCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                </li>
+                <li data-ng-repeat="x in DynamicListViewCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description + ' (' + (DynamicListViewCtrl.ePage.Masters.DataEntry.Title || DynamicListViewCtrl.ePage.Masters.dataentryName || 'Title') + ')'"
+                    class="active"></li>
+            </ol>
+        </div>
+        <span class="tc-breadcrumb-app-name" data-ng-if="DynamicListViewCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="DynamicListViewCtrl.ePage.Masters.QueryString.AppName"></span>
+    </div>
+    <div class="clearfix">
+        <div class="tc-page-height-fixed without-header">
+            <dynamic-list dataentry-name="DynamicListViewCtrl.ePage.Masters.dataentryName" selected-grid-row="DynamicListViewCtrl.ePage.Masters.SelectedGridRow($item)" mode="2" dataentry-object="DynamicListViewCtrl.ePage.Masters.DataEntry" default-filter="DynamicListViewCtrl.ePage.Masters.defaultFilter" is-new-button="true"></dynamic-list>
+        </div>
+    </div>
+</div>

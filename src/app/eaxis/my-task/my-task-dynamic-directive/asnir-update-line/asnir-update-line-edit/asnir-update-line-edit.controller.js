@@ -250,26 +250,6 @@
             return deferred.promise;
         }
 
-        function GetDynamicLookupConfig() {
-            // Get DataEntryNameList 
-            var DataEntryNameList = "Warehouse,OrganizationList,OrgSupplierPart";
-            var dynamicFindAllInput = [{
-                "FieldName": "DataEntryNameList",
-                "value": DataEntryNameList
-            }];
-            var _input = {
-                "searchInput": dynamicFindAllInput,
-                "FilterID": "DYNDAT"
-            };
-
-            apiService.post("eAxisAPI", "DataEntryMaster/FindAll", _input).then(function (response) {
-                var res = response.data.Response;
-                res.map(function (value, key) {
-                    AsnirUpdateLineEditDirectiveCtrl.ePage.Masters.dynamicLookupConfig[value.DataEntryName] = value;
-                });
-            });
-        }
-
         Init();
     }
 })();

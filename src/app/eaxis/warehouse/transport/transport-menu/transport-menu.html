@@ -35,7 +35,7 @@
     <!--Footer-->
      <div class="eaxis-footer-strip">
         <div class="col-lg-8">
-            <standard-menu entity-name="'transport'" input="TransportMenuCtrl.currentTransport" data-ng-if="!TransportMenuCtrl.currentTransport.isNew"></standard-menu>
+            <standard-menu dataentry-object="TransportMenuCtrl.dataentryObject" input="TransportMenuCtrl.currentTransport" data-ng-if="!TransportMenuCtrl.currentTransport.isNew"></standard-menu>
         </div>
         <div class="col-lg-2">
             <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="TransportMenuCtrl.ePage.Masters.Save(TransportMenuCtrl.currentTransport);TransportMenuCtrl.ePage.Masters.SaveAndClose = true"

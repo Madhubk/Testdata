@@ -5,9 +5,9 @@
         .module("Application")
         .controller("OrgGeneralModalController", OrgGeneralModalController);
 
-    OrgGeneralModalController.$inject = ["$location", "$q", "$uibModalInstance", "apiService", "helperService", "toastr", "organizationConfig", "param","appConfig","authService"];
+    OrgGeneralModalController.$inject = ["$uibModalInstance", "apiService", "helperService", "toastr", "organizationConfig", "param", "appConfig", "authService"];
 
-    function OrgGeneralModalController($location, $q, $uibModalInstance, apiService, helperService, toastr, organizationConfig, param, appConfig, authService) {
+    function OrgGeneralModalController($uibModalInstance, apiService, helperService, toastr, organizationConfig, param, appConfig, authService) {
         var OrgGeneralModalCtrl = this;
 
         function Init() {
@@ -20,9 +20,8 @@
                 "Meta": helperService.metaBase(),
                 "Entities": currentOrganization
             };
-        //  OrgGeneralModalCtrl.currentOrganization = param.Entity[param.Entity.label].Meta;
+
             OrgGeneralModalCtrl.ePage.Masters.param = param;
-            console.log(OrgGeneralModalCtrl.ePage.Masters.param.Entity.isNew);
             OrgGeneralModalCtrl.ePage.Masters.DropDownMasterList = organizationConfig.Entities.Header.Meta;
 
             OrgGeneralModalCtrl.ePage.Masters.SaveButtonText = "Save";
@@ -37,13 +36,10 @@
             OrgGeneralModalCtrl.ePage.Masters.MailPattern = MailPattern;
             OrgGeneralModalCtrl.ePage.Masters.orgcodegen = orgcodegen;
             OrgGeneralModalCtrl.ePage.Masters.EnableCode = EnableCode;
-            //OrgGeneralModalCtrl.ePage.Masters.MailPattern = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/;
-            
 
             if (OrgGeneralModalCtrl.ePage.Masters.param.Type === "address") {
                 GetAddressCapabilityList();
             }
-
 
             InitOrgHeader();
             InitOrgAddress();
@@ -54,50 +50,48 @@
 
             OrgGeneralModalCtrl.ePage.Masters.MobilePattern = true;
             OrgGeneralModalCtrl.ePage.Masters.MailPatterns = true;
-            OrgGeneralModalCtrl.ePage.Masters.Enable = false; 
-            OrgGeneralModalCtrl.ePage.Masters.OrganizationCode=false;
-        }
-        // ========================OrgHeader Start========================
-
-         function InitRemoveError()
-         {
-            OnChangeValues('value','E9001');
-            OnChangeValues('value','E9002');
-            OnChangeValues('value','E9003');
-            OnChangeValues('value','E9004');
-            OnChangeValues('value','E9005');
-            OnChangeValues('value','E9006');
-            OnChangeValues('value','E9007');
-            OnChangeValues('value','E9022');
-            OnChangeValues('value','E9031');
+            OrgGeneralModalCtrl.ePage.Masters.Enable = false;
+            OrgGeneralModalCtrl.ePage.Masters.OrganizationCode = false;
         }
 
-         function OnChangeValues(fieldvalue,code) { 
-            angular.forEach(OrgGeneralModalCtrl.ePage.Masters.Config.ValidationValues,function(value,key){
-                if(value.Code.trim() === code){
-                    GetErrorMessage(fieldvalue,value);                   
+        function InitRemoveError() {
+            OnChangeValues('value', 'E9001');
+            OnChangeValues('value', 'E9002');
+            OnChangeValues('value', 'E9003');
+            OnChangeValues('value', 'E9004');
+            OnChangeValues('value', 'E9005');
+            OnChangeValues('value', 'E9006');
+            OnChangeValues('value', 'E9007');
+            OnChangeValues('value', 'E9022');
+            OnChangeValues('value', 'E9031');
+        }
+
+        function OnChangeValues(fieldvalue, code) {
+            angular.forEach(OrgGeneralModalCtrl.ePage.Masters.Config.ValidationValues, function (value, key) {
+                if (value.Code.trim() === code) {
+                    GetErrorMessage(fieldvalue, value);
                 }
             });
         }
 
-        function GetErrorMessage(fieldvalue,value){
+        function GetErrorMessage(fieldvalue, value) {
             if (!fieldvalue) {
-                OrgGeneralModalCtrl.ePage.Masters.Config.PushErrorWarning(value.Code,value.Message,"E",true,value.CtrlKey,OrgGeneralModalCtrl.ePage.Masters.param.Entity.label,false,undefined,undefined,undefined,undefined,value.GParentRef);
+                OrgGeneralModalCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", true, value.CtrlKey, OrgGeneralModalCtrl.ePage.Masters.param.Entity.label, false, undefined, undefined, undefined, undefined, value.GParentRef);
             } else {
-                OrgGeneralModalCtrl.ePage.Masters.Config.RemoveErrorWarning(value.Code,"E",value.CtrlKey,OrgGeneralModalCtrl.ePage.Masters.param.Entity.label);
+                OrgGeneralModalCtrl.ePage.Masters.Config.RemoveErrorWarning(value.Code, "E", value.CtrlKey, OrgGeneralModalCtrl.ePage.Masters.param.Entity.label);
             }
         }
 
-        function EnableCode(){
-            if(OrgGeneralModalCtrl.ePage.Masters.Enable == true){
+        function EnableCode() {
+            if (OrgGeneralModalCtrl.ePage.Masters.Enable == true) {
                 OrgGeneralModalCtrl.ePage.Masters.OrganizationCode = true;
-            }else{
+            } else {
                 OrgGeneralModalCtrl.ePage.Masters.OrganizationCode = false;
             }
         }
 
         function GetCfxTypeList() {
-            var typeCodeList = ["LANGUAGE","State"];
+            var typeCodeList = ["LANGUAGE", "State"];
             var dynamicFindAllInput = [];
 
             typeCodeList.map(function (value, key) {
@@ -112,14 +106,13 @@
             };
             apiService.post("eAxisAPI", appConfig.Entities.CfxTypes.API.DynamicFindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
                 if (response.data.Response) {
-                        typeCodeList.map(function (value, key) {
+                    typeCodeList.map(function (value, key) {
                         OrgGeneralModalCtrl.ePage.Masters.DropDownMasterList[value] = helperService.metaBase();
                         OrgGeneralModalCtrl.ePage.Masters.DropDownMasterList[value].ListSource = response.data.Response[value];
                     });
-                }    
+                }
             });
         }
-
 
         function InitOrgHeader() {
             OrgGeneralModalCtrl.ePage.Masters.OrgHeader = {};
@@ -128,8 +121,7 @@
             if (OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgHeader) {
                 OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView = angular.copy(OrgGeneralModalCtrl.ePage);
             }
-            if(OrgGeneralModalCtrl.ePage.Masters.param.Entity.isNew)
-            {
+            if (OrgGeneralModalCtrl.ePage.Masters.param.Entity.isNew) {
                 OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.IsActive = true;
                 // default lang is Eng
                 OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].Language = "en";
@@ -179,19 +171,18 @@
             }, {
                 "fieldName": "IsService",
                 "displayName": "Is Service"
-            },{
+            }, {
                 "fieldName": "IsDistributionCentre",
                 "displayName": "Is Distribution Center"
-            },{
+            }, {
                 "fieldName": "IsRoadFreightDepot",
                 "displayName": "Is Depot"
-            },{
+            }, {
                 "fieldName": "IsStore",
                 "displayName": "Is Store"
             }];
         }
 
-        
         function GetAddressCapabilityList() {
             if (!OrgGeneralModalCtrl.ePage.Masters.param.Item) {
                 OrgGeneralModalCtrl.ePage.Masters.param.Item = {};
@@ -212,268 +203,253 @@
                 }
             }
         }
+
         function OnCheckboxChange($index) {
             OrgGeneralModalCtrl.ePage.Masters.OrgAddress.FormView.AddressCapability[$index].IsModified = true;
             OrgGeneralModalCtrl.ePage.Masters.OrgAddress.FormView.AddressCapability[$index].IsValid = true;
             OrgGeneralModalCtrl.ePage.Masters.OrgAddress.FormView.AddressCapability[$index].OAD_FK = OrgGeneralModalCtrl.ePage.Masters.OrgAddress.FormView.PK;
         }
-        function Mpattern(item){
-            if(item == undefined){
+
+        function Mpattern(item) {
+            if (item == undefined) {
                 //toastr.warning("!Mobile No is Empty|+xxx xxx xxxx|Note:Not a Mandatory Field");
             }
-            if(item){
-                OrgGeneralModalCtrl.ePage.Masters.IsDisableSave = false; var len = item.length - 1;
-                if(item.charAt(0)=='+')
-                {
-                    console.log("valid code");   
-                    var count = 0;  
-                    for(i=1;i<=len;i++)
-                    {    
+            if (item) {
+                OrgGeneralModalCtrl.ePage.Masters.IsDisableSave = false;
+                var len = item.length - 1;
+                if (item.charAt(0) == '+') {
+                    console.log("valid code");
+                    var count = 0;
+                    for (var i = 1; i <= len; i++) {
                         // number 47 to 58
-                        if(item.charCodeAt(i)>47)
-                        {
-                            if(item.charCodeAt(i)<59)
-                            {
+                        if (item.charCodeAt(i) > 47) {
+                            if (item.charCodeAt(i) < 59) {
                                 console.log("valid");
                                 OrgGeneralModalCtrl.ePage.Masters.MobilePattern = true;
-                            }
-                            else
-                            {
+                            } else {
                                 toastr.warning("!check your Mobile No|Alphabets are NotAllowed ");
                                 OrgGeneralModalCtrl.ePage.Masters.MobilePattern = false;
                                 //OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].Mobile = "";
-                                return false;    
+                                return false;
                             }
-                        }
-                        else if(item.charCodeAt(i)== 32)
-                        {
-                            if(count <= 1)
-                            {
+                        } else if (item.charCodeAt(i) == 32) {
+                            if (count <= 1) {
                                 console.log("valid");
                                 OrgGeneralModalCtrl.ePage.Masters.MobilePattern = true;
-                            }
-                            else
-                            {
-                                toastr.warning("!check your Mobile No|Morethan 2 whitespace is NotAllowed|+xx xxxx..");               
+                            } else {
+                                toastr.warning("!check your Mobile No|Morethan 2 whitespace is NotAllowed|+xx xxxx..");
                                 OrgGeneralModalCtrl.ePage.Masters.MobilePattern = false;
                                 //OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].Mobile = "";
                                 return false;
                             }
                             count++;
-                        }
-                        else
-                        {
+                        } else {
                             toastr.warning("!check your Mobile No|Alphabets are NotAllowed");
                             OrgGeneralModalCtrl.ePage.Masters.MobilePattern = false;
                             //OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].Mobile="";
                             return false;
                         }
-                    }                
+                    }
                     OrgGeneralModalCtrl.ePage.Masters.MobilePattern = true;
-                }
-                else
-                {
+                } else {
                     toastr.warning("!check your Mobile No|First digit must be Plus(+)|+xx xxxx..");
                     OrgGeneralModalCtrl.ePage.Masters.MobilePattern = false;
                     //OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].Mobile = "";
                 }
             }
         }
-        function MailPattern(item){
-            if (item == undefined) 
-            {
+
+        function MailPattern(item) {
+            if (item == undefined) {
                 toastr.warning("!Not a Valid Email ID|test@domain.com");
-               // OrgGeneralModalCtrl.ePage.Masters.MailPatterns = false;
-            }    
+                // OrgGeneralModalCtrl.ePage.Masters.MailPatterns = false;
+            }
             // else{
             //     OrgGeneralModalCtrl.ePage.Masters.MailPattern = true;
             // }
         }
-        function SelectedLookupZone(item){
-            if(item.entity){
-                OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.TMZ_FK = item.entity.PK ;
-                OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.TMZ_Name = item.entity.Name;
-            }else{
+
+        function SelectedLookupZone(item) {
+            if (item.data) {
+                OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.TMZ_FK = item.data.entity.PK;
+                OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.TMZ_Name = item.data.entity.Name;
+            } else {
                 OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.TMZ_FK = item.PK;
                 OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.TMZ_Name = item.Name;
             }
         }
 
-        function SelectedLookupCountry(item){
-            if(OrgGeneralModalCtrl.ePage.Masters.CountryPK == undefined){
-                    toastr.warning("!Please Choose UNLOCO Again"); 
-                }
-            if(item.entity){
-                if(OrgGeneralModalCtrl.ePage.Masters.CountryPK == item.entity.COU_PK)
-                {
-                    OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].CountryCode = item.entity.COU_Code;
-                }
-                else{
-                    OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].CountryCode = "";
-                    toastr.warning("!CountryCode Not Match with UNLOCO");     
-                }
-                OnChangeValues(item.entity.Code,'E9031');
-            }    
-            else
-            {
-                if(OrgGeneralModalCtrl.ePage.Masters.CountryPK == item.COU_PK)
-                {
-                    OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].CountryCode = item.COU_Code;
-                }
-                else{
+        function SelectedLookupCountry(item) {
+            if (OrgGeneralModalCtrl.ePage.Masters.CountryPK == undefined) {
+                toastr.warning("!Please Choose UNLOCO Again");
+            }
+            if (item.data) {
+                if (OrgGeneralModalCtrl.ePage.Masters.CountryPK == item.data.entity.PK) {
+                    OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].CountryCode = item.data.entity.Code;
+                } else {
                     OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].CountryCode = "";
                     toastr.warning("!CountryCode Not Match with UNLOCO");
                 }
-                OnChangeValues(item.Code,'E9031');
-            }   
+                OnChangeValues(item.data.entity.Code, 'E9031');
+            } else {
+                if (OrgGeneralModalCtrl.ePage.Masters.CountryPK == item.PK) {
+                    OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].CountryCode = item.Code;
+                } else {
+                    OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].CountryCode = "";
+                    toastr.warning("!CountryCode Not Match with UNLOCO");
+                }
+                OnChangeValues(item.Code, 'E9031');
+            }
 
-                var _filter = {
-                    "CountryCode": OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].CountryCode,
-                };
+            var _filter = {
+                "CountryCode": OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].CountryCode,
+            };
 
-                var _input = {
-                    "searchInput": helperService.createToArrayOfObject(_filter),
-                    "FilterID": appConfig.Entities.OrgAddress.API.CountryState.FilterID,
-                };
-                apiService.post("eAxisAPI", appConfig.Entities.OrgAddress.API.CountryState.Url, _input).then(function (response) {
-                    OrgGeneralModalCtrl.ePage.Masters.DropDownMasterList.State.ListSource =  response.data.Response;     
-            });    
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.OrgAddress.API.CountryState.FilterID,
+            };
+            apiService.post("eAxisAPI", appConfig.Entities.OrgAddress.API.CountryState.Url, _input).then(function (response) {
+                OrgGeneralModalCtrl.ePage.Masters.DropDownMasterList.State.ListSource = response.data.Response;
+            });
         }
 
         function SelectedLookupData(item) {
-            if(item.entity)
-            {
-                OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].RelatedPortCode = item.entity.Code;
-                OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].CountryCode = item.entity.CountryCode;
-                OrgGeneralModalCtrl.ePage.Masters.CountryPK = item.entity.CountryPK;
-                OnChangeValues(item.entity.Code,'E9005');
-            }
-            else{
+            if (item.data) {
+                OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].RelatedPortCode = item.data.entity.Code;
+                OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].CountryCode = item.data.entity.CountryCode;
+                OrgGeneralModalCtrl.ePage.Masters.CountryPK = item.data.entity.CountryPK;
+                OnChangeValues(item.data.entity.Code, 'E9005');
+            } else {
                 OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].RelatedPortCode = item.Code;
                 OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].CountryCode = item.CountryCode;
                 OrgGeneralModalCtrl.ePage.Masters.CountryPK = item.CountryPK;
-                OnChangeValues(item.Code,'E9005');
+                OnChangeValues(item.Code, 'E9005');
             }
-                OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.OAD_RelatedPortCode = OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].RelatedPortCode;
-                
-                
+            OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.OAD_RelatedPortCode = OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].RelatedPortCode;
+
+
             // filter state list based on country
+            var _filter = {
+                "CountryCode": OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].CountryCode,
+            };
+
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.OrgAddress.API.CountryState.FilterID,
+            };
+            apiService.post("eAxisAPI", appConfig.Entities.OrgAddress.API.CountryState.Url, _input).then(function (response) {
+                OrgGeneralModalCtrl.ePage.Masters.DropDownMasterList.State.ListSource = response.data.Response;
+            });
+
+            // GET COUNTRY PK    
+            var _filters = {
+                "Code": OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].RelatedPortCode,
+            };
+
+            var _inputs = {
+                "searchInput": helperService.createToArrayOfObject(_filters),
+                "FilterID": appConfig.Entities.OrgAddress.API.UNLOCO.FilterID,
+            };
+            apiService.post("eAxisAPI", appConfig.Entities.OrgAddress.API.UNLOCO.Url, _inputs).then(function (response) {
+
+                // OrgGeneralModalCtrl.ePage.Masters.RW_PK = response.data.Response[0].RW;
+
+                angular.forEach(response.data.Response, function (value, key) {
+                    if (value.Code == OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].RelatedPortCode) {
+                        OrgGeneralModalCtrl.ePage.Masters.RW_PK = value.RW;
+                    }
+                });
+
+                // Get particular state through portcode
                 var _filter = {
-                    "CountryCode": OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].CountryCode,
+                    "PK": OrgGeneralModalCtrl.ePage.Masters.RW_PK,
                 };
 
                 var _input = {
                     "searchInput": helperService.createToArrayOfObject(_filter),
                     "FilterID": appConfig.Entities.OrgAddress.API.CountryState.FilterID,
                 };
-                apiService.post("eAxisAPI", appConfig.Entities.OrgAddress.API.CountryState.Url, _input).then(function (response) {
-                    OrgGeneralModalCtrl.ePage.Masters.DropDownMasterList.State.ListSource =  response.data.Response;     
+                if (OrgGeneralModalCtrl.ePage.Masters.RW_PK) {
+                    apiService.post("eAxisAPI", appConfig.Entities.OrgAddress.API.CountryState.Url, _input).then(function (response) {
+                        // OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].State =  response.data.Response[0].Code;     
+                    });
+                }
             });
-            
-            // GET COUNTRY PK    
-                var _filters = {
-                    "Code": OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].RelatedPortCode,
-                };
-
-                var _inputs = {
-                    "searchInput": helperService.createToArrayOfObject(_filters),
-                    "FilterID": appConfig.Entities.OrgAddress.API.UNLOCO.FilterID,
-                };
-                apiService.post("eAxisAPI", appConfig.Entities.OrgAddress.API.UNLOCO.Url, _inputs).then(function (response) {
-                
-                // OrgGeneralModalCtrl.ePage.Masters.RW_PK = response.data.Response[0].RW;
-                                
-                angular.forEach(response.data.Response,function(value,key){
-                    if(value.Code == OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].RelatedPortCode){
-                        OrgGeneralModalCtrl.ePage.Masters.RW_PK = value.RW;                                            
-                    }
-                });
-            
-            // Get particular state through portcode
-                var _filter = {
-                        "PK": OrgGeneralModalCtrl.ePage.Masters.RW_PK,
-                    };
-
-                    var _input = {
-                        "searchInput": helperService.createToArrayOfObject(_filter),
-                        "FilterID": appConfig.Entities.OrgAddress.API.CountryState.FilterID,
-                    };
-                apiService.post("eAxisAPI", appConfig.Entities.OrgAddress.API.CountryState.Url, _input).then(function (response) {
-                    OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].State =  response.data.Response[0].Code;     
-                });
-            });
-            orgcodegen();                    
+            orgcodegen();
         }
 
-        function orgcodegen(){
-            if(!OrgGeneralModalCtrl.ePage.Masters.Enable){
-                if(OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.FullName&&OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].RelatedPortCode){
-                // Bind & form ORG Code
-                var name1 = OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.FullName.split(" ")
-                if(/^[a-zA-Z0-9]*$/.test(name1) == false){
-                    var _SpecialCharacter = true;
-                }
-                if(_SpecialCharacter){
-                    name1[0] = name1[0].replace(/[^a-zA-Z 0-9]+/g,'');
-                    name1[1] = name1[1].replace(/[^a-zA-Z 0-9]+/g,'');
-                }
-                var name2 = name1[0].split("")
-                    if(name2.length < 3)
-                    {
-                        var name8 =  OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.FullName.split("")
+        function orgcodegen() {
+            if (!OrgGeneralModalCtrl.ePage.Masters.Enable) {
+                if (OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.FullName && OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].RelatedPortCode) {
+                    // Bind & form ORG Code
+                    var name1 = OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.FullName.split(" ")
+                    if (/^[a-zA-Z0-9]*$/.test(name1) == false) {
+                        var _SpecialCharacter = true;
+                    }
+                    if (_SpecialCharacter) {
+                        if (name1.length > 0) {
+                            if (name1.length > 1) {
+                                name1[0] = name1[0].replace(/[^a-zA-Z 0-9]+/g, '');
+                                name1[1] = name1[1].replace(/[^a-zA-Z 0-9]+/g, '');
+                            } else {
+                                name1[0] = name1[0].replace(/[^a-zA-Z 0-9]+/g, '');
+                            }
+                        }
+                    }
+                    var name2 = name1[0].split("")
+                    if (name2.length < 3) {
+                        var name8 = OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.FullName.split("")
                         var count = 0;
                         var namearr = [];
-                        angular.forEach(name8,function(value,key){
-                            if(value != " ")
-                            {
-                                if(count < 6)
-                                {
-                                    namearr.push(value)  
-                                    count++;    
+                        angular.forEach(name8, function (value, key) {
+                            if (value != " ") {
+                                if (count < 6) {
+                                    namearr.push(value)
+                                    count++;
                                 }
                             }
                         });
-                        for(i=0;i<=5;i++){
-                            if(namearr[i] == undefined){
-                               if(i==0||i==1){
-                                    namearr[i] = ""; 
-                               }else{
-                                    namearr[i] = ""; 
-                               }         
+                        for (i = 0; i <= 5; i++) {
+                            if (namearr[i] == undefined) {
+                                if (i == 0 || i == 1) {
+                                    namearr[i] = "";
+                                } else {
+                                    namearr[i] = "";
+                                }
                             }
                         }
-                        var name9 = namearr[0]+namearr[1]+namearr[2]+namearr[3]+namearr[4]+namearr[5];
+                        var name9 = namearr[0] + namearr[1] + namearr[2] + namearr[3] + namearr[4] + namearr[5];
                         //var name9 = name8[0]+name8[1]+name8[2]+name8[3]+name8[4]+name8[5];
 
                         var name6 = OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].RelatedPortCode.split("")
-                        var name7 = name6[2]+name6[3]+name6[4];
+                        var name7 = name6[2] + name6[3] + name6[4];
 
-                        OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.Code =  name9+name7;    
-                    }
-                    else{
-                        var name3 = name2[0]+name2[1]+name2[2];
-                        if(name1[1]){
+                        OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.Code = name9 + name7;
+                    } else {
+                        var name3 = name2[0] + name2[1] + name2[2];
+                        if (name1[1]) {
                             var name4 = name1[1].split("")
-                            if(3<=name4.length){
-                                var name5 = name4[0]+name4[1]+name4[2];
-                            }else if(name4.length==2){
-                                var name5 = name4[0]+name4[1];
-                            }else if(name4.length==1){
+                            if (3 <= name4.length) {
+                                var name5 = name4[0] + name4[1] + name4[2];
+                            } else if (name4.length == 2) {
+                                var name5 = name4[0] + name4[1];
+                            } else if (name4.length == 1) {
                                 var name5 = name4[0];
-                            }else{
+                            } else {
                                 var name5 = "";
                             }
-                        }else{
-                                var name5 = "";
+                        } else {
+                            var name5 = "";
                         }
 
                         var name6 = OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].RelatedPortCode.split("")
-                        var name7 = name6[2]+name6[3]+name6[4];
+                        var name7 = name6[2] + name6[3] + name6[4];
 
-                        OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.Code =  name3+name5+name7;        
+                        OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.Code = name3 + name5 + name7;
                     }
                 }
-            }        
+            }
         }
         // ========================Address End========================
 
@@ -488,7 +464,7 @@
             }
         }
         // ========================Address End========================
-        function Validation($item,type) {
+        function Validation($item, type) {
             var _index = organizationConfig.TabList.map(function (value, key) {
                 return value[value.label].ePage.Entities.Header.Data.OrgHeader.PK
             }).indexOf(OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgHeader.PK);
@@ -497,40 +473,38 @@
             var _Data = $item.Entities,
                 _input = _Data.Header.Data,
                 _errorcount = OrgGeneralModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList;
-                OrgGeneralModalCtrl.ePage.Masters.Config.GeneralValidation($item,type);
-                if(OrgGeneralModalCtrl.ePage.Entities.Header.Validations){
-                    OrgGeneralModalCtrl.ePage.Masters.Config.RemoveApiErrors(OrgGeneralModalCtrl.ePage.Entities.Header.Validations,$item.label); 
-                }
+            OrgGeneralModalCtrl.ePage.Masters.Config.GeneralValidation($item, type);
+            if (OrgGeneralModalCtrl.ePage.Entities.Header.Validations) {
+                OrgGeneralModalCtrl.ePage.Masters.Config.RemoveApiErrors(OrgGeneralModalCtrl.ePage.Entities.Header.Validations, $item.label);
+            }
 
-            if(_errorcount.length==0){
+            if (_errorcount.length == 0) {
                 $item.Entities.Header.Data.OrgHeader.OAD_PK = $item.Entities.Header.Data.OrgAddress[0].PK;
-                var items = $item.Entities.Header.Data; 
-                ValidSave(items,type);
-            }else{
-                if(OrgGeneralModalCtrl.ePage.Masters.param.Entity.isNew == false)
-                    OrgGeneralModalCtrl.ePage.Masters.Config.ShowErrorWarningModal(OrgGeneralModalCtrl.ePage.Entities);                    
+                var items = $item.Entities.Header.Data;
+                ValidSave(items, type);
+            } else {
+                if (OrgGeneralModalCtrl.ePage.Masters.param.Entity.isNew == false)
+                    OrgGeneralModalCtrl.ePage.Masters.Config.ShowErrorWarningModal(OrgGeneralModalCtrl.ePage.Entities);
             }
         }
-        function ValidSave(items,type){
-            if(OrgGeneralModalCtrl.ePage.Masters.MailPatterns)
-            {
-                if(OrgGeneralModalCtrl.ePage.Masters.MobilePattern){
-                    Save(items,type);   
-                }else{
-                    toastr.warning("!Not a Valid Mobile Number");        
-                }
-            }else{
+
+        function ValidSave(items, type) {
+            if (OrgGeneralModalCtrl.ePage.Masters.MailPatterns) {
+                // if (OrgGeneralModalCtrl.ePage.Masters.MobilePattern) {
+                    Save(items, type);
+                // } else {
+                    // toastr.warning("!Not a Valid Mobile Number");
+                // }
+            } else {
                 toastr.warning("!Not a Valid Email ID|test@domain.com");
             }
         }
+
         function Save(obj, type) {
-            
-            if(OrgGeneralModalCtrl.ePage.Masters.param.Entity.isNew == false)
-            {
+            if (OrgGeneralModalCtrl.ePage.Masters.param.Entity.isNew == false) {
                 obj.OrgHeader.IsModified = true;
-            }            
-            if(OrgGeneralModalCtrl.ePage.Masters.param.Entity.isNew == true)
-            {
+            }
+            if (OrgGeneralModalCtrl.ePage.Masters.param.Entity.isNew == true) {
                 //obj.OrgAddress[0].AddressCapability[0].IsModified = true;
                 obj.OrgAddress[0].AddressCapability[0].AddressType = "OFC";
                 obj.OrgAddress[0].AddressCapability[0].AddressTypeDes = "Office Address";
@@ -538,10 +512,10 @@
                 obj.OrgAddress[0].AddressCapability[0].IsMapped = true;
 
             }
-                OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgHeader = obj.OrgHeader;
-                OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgAddress[0] = obj.OrgAddress[0];
-                
-            
+            OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgHeader = obj.OrgHeader;
+            OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgAddress[0] = obj.OrgAddress[0];
+
+
             var _isEmpty = angular.equals(obj, {});
             if (_isEmpty) {
                 toastr.warning("Please fill fields...!");
@@ -565,36 +539,36 @@
                                 }
                             }
                         });
-                    OrgGeneralModalCtrl.ePage.Masters.param.Entity.isNew = false;    
+                        OrgGeneralModalCtrl.ePage.Masters.param.Entity.isNew = false;
                         $uibModalInstance.close(_exports);
-                    OrgGeneralModalCtrl.ePage.Masters.Config.refreshgrid();
+                        OrgGeneralModalCtrl.ePage.Masters.Config.refreshgrid();
                         Cancel();
-                    } 
-                    else if (response.Status === "failed") 
-                    {
+                    } else if (response.Status === "failed") {
 
-                    OrgGeneralModalCtrl.ePage.Entities.Header.Validations = response.Validations;
-                    angular.forEach(response.Validations, function (value, key) {
-                    OrgGeneralModalCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey.trim(), OrgGeneralModalCtrl.ePage.Masters.param.Entity.label, false, undefined, undefined, undefined, undefined, undefined);
-                        
-                    });
-                    $("#errorWarningContainer" + OrgGeneralModalCtrl.ePage.Masters.param.Entity.label).toggleClass("open");
-                    Cancel();           
+                        OrgGeneralModalCtrl.ePage.Entities.Header.Validations = response.Validations;
+                        angular.forEach(response.Validations, function (value, key) {
+                            OrgGeneralModalCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey.trim(), OrgGeneralModalCtrl.ePage.Masters.param.Entity.label, false, undefined, undefined, undefined, undefined, undefined);
+
+                        });
+                        $("#errorWarningContainer" + OrgGeneralModalCtrl.ePage.Masters.param.Entity.label).toggleClass("open");
+                        Cancel();
                     }
                     OrgGeneralModalCtrl.ePage.Masters.SaveButtonText = "Save";
-                    OrgGeneralModalCtrl.ePage.Masters.IsDisableSave = false;   
+                    OrgGeneralModalCtrl.ePage.Masters.IsDisableSave = false;
                 });
             }
         }
-        function DisableCode(){
-            if(OrgGeneralModalCtrl.ePage.Entities.Header.Validations){
+
+        function DisableCode() {
+            if (OrgGeneralModalCtrl.ePage.Entities.Header.Validations) {
                 OrgGeneralModalCtrl.ePage.Masters.OrganizationCode = OrgGeneralModalCtrl.ePage.Entities.Header.Validations.some(function (value, key) {
-                return value.Code =='E9012';
-            });
-            }else{
-                OrgGeneralModalCtrl.ePage.Masters.OrganizationCode=false;
-            } 
+                    return value.Code == 'E9012';
+                });
+            } else {
+                OrgGeneralModalCtrl.ePage.Masters.OrganizationCode = false;
+            }
         }
+
         function Cancel() {
             //OrgGeneralModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList = [];
             $uibModalInstance.dismiss("cancel");

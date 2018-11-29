@@ -1,0 +1,63 @@
+<div class="clearfix order-menu-wraper">
+    <div id="orderMenuWrapper{{three_three_OrderMenuCtrl.currentOrder.label}}" class="col-sm-12 no-padding-left no-padding-right">
+        <uib-tabset class="order-menu tabs-left tabbable">
+            <div class="tab-profile">
+                <div class="tab-profile-title text-single-line text-center" data-ng-bind="three_three_OrderMenuCtrl.currentOrder.label"></div>
+            </div>
+            <uib-tab data-ng-repeat="x in three_three_OrderMenuCtrl.ePage.Masters.OrderMenu.ListSource" deselect="three_three_OrderMenuCtrl.ePage.Masters.TabSelected(x,$selectedIndex,$event, three_three_OrderMenuCtrl.currentObj);">
+                <uib-tab-heading title="{{x.DisplayName}}">
+                    <i class="fa {{x.Icon}} margin-right-5"></i>
+                    <span class="text-single-line" data-ng-bind="x.DisplayName"></span>
+                    <error-warning-directive data-ng-if="three_three_OrderMenuCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Order',three_three_OrderMenuCtrl.currentOrder.code,x.GParentRef, 'W', 'GParent').length > 0 && three_three_OrderMenuCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Order', three_three_OrderMenuCtrl.currentOrder.code,x.GParentRef, 'E', 'GParent').length == 0"
+                        list="three_three_OrderMenuCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList" type="'warning'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
+                    <error-warning-directive data-ng-if="three_three_OrderMenuCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Order', three_three_OrderMenuCtrl.currentOrder.code,x.GParentRef, 'E', 'GParent').length > 0"
+                        list="three_three_OrderMenuCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList" type="'error'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
+                </uib-tab-heading>
+                <div>
+                    <div data-ng-switch="x.Value">
+                        <!--Menu directives-->
+                        <div data-ng-switch-when="General" three-three-order-general current-order="three_three_OrderMenuCtrl.currentOrder"></div>
+                        <div data-ng-switch-when="OrderLines" three-three-order-lines current-order="three_three_OrderMenuCtrl.currentOrder"></div>
+                        <div data-ng-switch-when="ProductQuantitySummary" three-three-prod-summary current-order="three_three_OrderMenuCtrl.currentOrder"></div>
+                        <div data-ng-switch-when="CargoReadiness" three-three-order-cargo-readiness current-order="three_three_OrderMenuCtrl.currentOrder"></div>
+                        <div data-ng-switch-when="ShpPreAdvice" three-three-order-shipment-pre-advice current-order="three_three_OrderMenuCtrl.currentOrder"></div>
+                        <div data-ng-switch-when="Shipment" three-three-order-shipment current-order="three_three_OrderMenuCtrl.currentOrder"></div>
+                        <div data-ng-switch-when="Split" three-three-order-split current-order="three_three_OrderMenuCtrl.currentOrder"></div>
+                        <div data-ng-switch-when="Address" data-ng-if="three_three_OrderMenuCtrl.currentOrder[three_three_OrderMenuCtrl.currentOrder.label].ePage.Entities.Header.Data.UIAddressContactList.CfxTypeList"
+                            address-directives current-obj="three_three_OrderMenuCtrl.currentOrder" entitysource="'POH'"></div>
+                    </div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+    <div class="error-warning-container right" id="errorWarningContainer{{three_three_OrderMenuCtrl.currentOrder.label}}">
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                <!-- <i class="fa fa-warning"></i>  -->
+                Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right" data-ng-click="three_three_OrderMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(three_three_OrderMenuCtrl.currentOrder)">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+        </div>
+        <div class="error-warning-body">
+            <div class="clearfix" data-ng-if="three_three_OrderMenuCtrl.ePage.Masters.ErrorWarningConfig.Modules.Order.Entity[three_three_OrderMenuCtrl.currentOrder.code].GlobalErrorWarningList.length>0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in three_three_OrderMenuCtrl.ePage.Masters.ErrorWarningConfig.Modules.Order.Entity[three_three_OrderMenuCtrl.currentOrder.code].GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

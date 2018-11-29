@@ -4,29 +4,26 @@
         .module("Application")
         .controller("OrganizationMenuController", OrganizationMenuController);
 
-    OrganizationMenuController.$inject = ["$rootScope", "$scope", "$timeout", "APP_CONSTANT", "apiService", "authService", "organizationConfig", "helperService", "appConfig"];
+    OrganizationMenuController.$inject = ["$rootScope", "apiService", "authService", "organizationConfig", "helperService", "appConfig", "toastr"];
 
-    function OrganizationMenuController($rootScope, $scope, $timeout, APP_CONSTANT, apiService, authService, organizationConfig, helperService, appConfig) {
+    function OrganizationMenuController($rootScope, apiService, authService, organizationConfig, helperService, appConfig, toastr) {
         var OrganizationMenuCtrl = this;
 
         function Init() {
-            var currentOrganization = OrganizationMenuCtrl.currentOrganization[OrganizationMenuCtrl.currentOrganization.label].ePage.Entities;
+            var currentTab = OrganizationMenuCtrl.currentTab[OrganizationMenuCtrl.currentTab.label].ePage.Entities;
             OrganizationMenuCtrl.ePage = {
                 "Title": "",
                 "Prefix": "OrganizationMenu",
                 "Masters": {},
                 "Meta": helperService.metaBase(),
-                "Entities": currentOrganization
+                "Entities": currentTab
             };
 
             OrganizationMenuCtrl.ePage.Masters.OrganizationMenu = {};
-            // Standard Menu Configuration and Data
-            // OrganizationMenuCtrl.ePage.Masters.StandardMenuInput = appConfig.Entities.standardMenuConfigList.organization;
-            // OrganizationMenuCtrl.ePage.Masters.StandardMenuInput.obj = OrganizationMenuCtrl.currentOrganization;
-
-            OrganizationMenuCtrl.ePage.Masters.OnMenuClick = OnMenuClick;
             OrganizationMenuCtrl.ePage.Masters.Config = organizationConfig;
 
+            OrganizationMenuCtrl.ePage.Masters.OnMenuClick = OnMenuClick;
+            OrganizationMenuCtrl.ePage.Masters.TabSelected = TabSelected;
 
             GetMenuList();
         }
@@ -41,23 +38,23 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.CfxMenus.API.FindAllMenuWise.FilterID
+                "FilterID": appConfig.Entities.CfxMenus.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.CfxMenus.API.FindAllMenuWise.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", appConfig.Entities.CfxMenus.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     OrganizationMenuCtrl.ePage.Masters.OrganizationMenu.ListSource = angular.copy(response.data.Response);
 
-                    OrganizationMenuCtrl.ePage.Masters.OrganizationMenu.ListSource.map(function (value, key) {
-                        if (value.Icon) {
-                            value.Icon = JSON.parse(value.Icon);
-                        }
-                        if (value.OtherConfig) {
-                            value.OtherConfig = JSON.parse(value.OtherConfig);
-                        }
-                    });
-
                     if (OrganizationMenuCtrl.ePage.Masters.OrganizationMenu.ListSource.length > 0) {
+                        OrganizationMenuCtrl.ePage.Masters.OrganizationMenu.ListSource.map(function (value, key) {
+                            if (value.Icon) {
+                                value.Icon = JSON.parse(value.Icon);
+                            }
+                            if (value.OtherConfig) {
+                                value.OtherConfig = JSON.parse(value.OtherConfig);
+                            }
+                        });
+
                         if (!OrganizationMenuCtrl.ePage.Entities.Header.Data.OrgHeader.IsConsignee) {
                             var _consigneeIndex = OrganizationMenuCtrl.ePage.Masters.OrganizationMenu.ListSource.map(function (value, key) {
                                 return value.MenuName;
@@ -67,6 +64,7 @@
                                 OrganizationMenuCtrl.ePage.Masters.OrganizationMenu.ListSource.splice(_consigneeIndex, 1);
                             }
                         }
+
                         if (!OrganizationMenuCtrl.ePage.Entities.Header.Data.OrgHeader.IsConsignor) {
                             var _consignorIndex = OrganizationMenuCtrl.ePage.Masters.OrganizationMenu.ListSource.map(function (value, key) {
                                 return value.MenuName;
@@ -83,50 +81,12 @@
             });
         }
 
-        function Validation($item) {
-            var _Data = $item[$item.label].ePage.Entities,
-                _input = _Data.Header.Data,
-                _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
-
-            if (!_input.FullName) {
-                OrganizationMenuCtrl.ePage.Masters.Config.PushErrorWarning("E9002", "FullName is Mandatory", "E", false, "FullName", OrganizationMenuCtrl.currentOrganization.label, false, undefined, undefined, undefined, undefined, undefined);
+        function TabSelected(tab, $index, $event) {
+            if (OrganizationMenuCtrl.currentTab.isNew) {
+                $event.preventDefault();
+                toastr.warning("Please Save General Details First");
             } else {
-                OrganizationMenuCtrl.ePage.Masters.Config.RemoveErrorWarning("E9002", "E", "FullName", OrganizationMenuCtrl.currentOrganization.label);
-            }
-            if (!_input.Code) {
-                OrganizationMenuCtrl.ePage.Masters.Config.PushErrorWarning("E9001", "Code is Mandatory", "E", false, "Code", OrganizationMenuCtrl.currentOrganization.label, false, undefined, undefined, undefined, undefined, undefined);
-            } else {
-                OrganizationMenuCtrl.ePage.Masters.Config.RemoveErrorWarning("E9001", "E", "Code", OrganizationMenuCtrl.currentOrganization.label);
-            }
-            if (!_input.Address1) {
-                OrganizationMenuCtrl.ePage.Masters.Config.PushErrorWarning("E9003", "Address1 is Mandatory", "E", false, "Address1", OrganizationMenuCtrl.currentOrganization.label, false, undefined, undefined, undefined, undefined, undefined);
-            } else {
-                OrganizationMenuCtrl.ePage.Masters.Config.RemoveErrorWarning("E9003", "E", "Address1", OrganizationMenuCtrl.currentOrganization.label);
-            }
-            if (!_input.City) {
-                OrganizationMenuCtrl.ePage.Masters.Config.PushErrorWarning("E9004", "City is Mandatory", "E", false, "City", OrganizationMenuCtrl.currentOrganization.label, false, undefined, undefined, undefined, undefined, undefined);
-            } else {
-                OrganizationMenuCtrl.ePage.Masters.Config.RemoveErrorWarning("E9004", "E", "City", OrganizationMenuCtrl.currentOrganization.label);
-            }
-            if (!_input.RelatedPortCode) {
-                OrganizationMenuCtrl.ePage.Masters.Config.PushErrorWarning("E9005", "RelatedPortCode is Mandatory", "E", false, "RelatedPortCode", OrganizationMenuCtrl.currentOrganization.label, false, undefined, undefined, undefined, undefined, undefined);
-            } else {
-                OrganizationMenuCtrl.ePage.Masters.Config.RemoveErrorWarning("E9005", "E", "RelatedPortCode", OrganizationMenuCtrl.currentOrganization.label);
-            }
-            if (!_input.PostCode) {
-                OrganizationMenuCtrl.ePage.Masters.Config.PushErrorWarning("E9006", "PostCode is Mandatory", "E", false, "PostCode", OrganizationMenuCtrl.currentOrganization.label, false, undefined, undefined, undefined, undefined, undefined);
-            } else {
-                OrganizationMenuCtrl.ePage.Masters.Config.RemoveErrorWarning("E9006", "E", "PostCode", OrganizationMenuCtrl.currentOrganization.label);
-            }
-            if (!_input.Language) {
-                OrganizationMenuCtrl.ePage.Masters.Config.PushErrorWarning("E9007", "Language is Mandatory", "E", false, "Language", OrganizationMenuCtrl.currentOrganization.label, false, undefined, undefined, undefined, undefined, undefined);
-            } else {
-                OrganizationMenuCtrl.ePage.Masters.Config.RemoveErrorWarning("E9007", "E", "Language", OrganizationMenuCtrl.currentOrganization.label);
-            }
-            if (_errorcount.length == 0) {
-                Save($item);
-            } else {
-                OrganizationMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(OrganizationMenuCtrl.currentOrganization);
+                //do nothing opens clicked tabs
             }
         }
 

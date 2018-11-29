@@ -5,7 +5,7 @@
         .module("Application")
         .controller("OrdLinesController", OrdLinesController);
 
-    OrdLinesController.$inject = [ "$scope", "apiService", "appConfig", "helperService", "toastr", "$uibModal", "confirmation"];
+    OrdLinesController.$inject = ["$scope", "apiService", "appConfig", "helperService", "toastr", "$uibModal", "confirmation"];
 
     function OrdLinesController($scope, apiService, appConfig, helperService, toastr, $uibModal, confirmation) {
 
@@ -28,13 +28,55 @@
 
         function InitOrderLine() {
             //=======PorOrderLine GridConfig=======
-            OrdLinesCtrl.ePage.Masters.PorOrderLine.addNew = AddNew
-            OrdLinesCtrl.ePage.Masters.PorOrderLine.RemoveLineItem = RemoveLineItem
-            OrdLinesCtrl.ePage.Masters.PorOrderLine.EditLineItem = EditLineItem
+            OrdLinesCtrl.ePage.Masters.PorOrderLine.addNew = AddNew;
+            OrdLinesCtrl.ePage.Masters.PorOrderLine.RemoveLineItem = RemoveLineItem;
+            OrdLinesCtrl.ePage.Masters.PorOrderLine.EditLineItem = EditLineItem;
+            (OrdLinesCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.SHP_FK) ? GetConsolListing(OrdLinesCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.SHP_FK): false;
+        }
+
+        function GetConsolListing(Shp_Pk) {
+            OrdLinesCtrl.ePage.Entities.Header.Meta.Container.ListSource = [];
+            var _filter = {
+                "SHP_FK": Shp_Pk
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.ConShpMapping.API.FindAll.FilterID
+            };
+            apiService.post("eAxisAPI", appConfig.Entities.ConShpMapping.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    GetContainerList(response.data.Response);
+                }
+            });
+        }
+
+        function GetContainerList(data) {
+            if (data.length > 0) {
+                data.map(function (value1, key1) {
+                    value1.UICntContainerList.map(function (value2, key2) {
+                        var _isExist = OrdLinesCtrl.ePage.Entities.Header.Meta.Container.ListSource.some(function (value3, index) {
+                            return value3.PK === value2.PK;
+                        });
+
+                        if (!_isExist) {
+                            var _obj = {
+                                "ContainerNo": value2.ContainerNo,
+                                "CNT": value2.PK,
+                                "ContainerCount": value2.ContainerCount,
+                                "RC_Type": value2.RC_Type,
+                                "SealNo": value2.SealNo
+                            };
+                            OrdLinesCtrl.ePage.Entities.Header.Meta.Container.ListSource.push(_obj);
+                        }
+                    });
+                });
+            } else {
+                OrdLinesCtrl.ePage.Entities.Header.Meta.Container.ListSource = [];
+            }
         }
 
         function EditLineItem(item) {
-            AddNew(item, 'edit')
+            AddNew(item, 'edit');
         }
 
         function AddNew(item, action) {
@@ -59,12 +101,11 @@
                     }
                 }
             }).result.then(
-                function (response) {
-                }
+                function (response) {}
             );
         };
 
-        function RemoveLineItem(item,index) {
+        function RemoveLineItem(item, index) {
             var modalOptions = {
                 closeButtonText: 'Cancel',
                 actionButtonText: 'Ok',
@@ -77,12 +118,12 @@
                     apiService.post("eAxisAPI", appConfig.Entities.PorOrderLine.API.Upsert.Url, [item]).then(function (response) {
                         if (response.data.Response) {
                             OrdLinesCtrl.ePage.Entities.Header.Data.UIPorOrderLines.splice(index, 1);
-                            toastr.success("Order line has been removed Successfully..")
+                            toastr.success("Order line has been removed Successfully..");
                         }
                     });
                 }, function () {
                     console.log("Cancelled");
-            });
+                });
         };
 
         $scope.$watch('OrdLinesCtrl.ePage.Entities.Header.Data.UIPorOrderLines', function () {
@@ -125,7 +166,5 @@
         }, true);
 
         Init();
-
     }
-
 })();

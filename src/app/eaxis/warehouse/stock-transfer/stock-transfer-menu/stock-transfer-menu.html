@@ -1,7 +1,8 @@
-<div class="finalisedstate" ng-show="!StockTransferMenuCtrl.ePage.Entities.Header.CheckPoints.NotFinaliseStage">
-    <span ng-if="!StockTransferMenuCtrl.ePage.Entities.Header.CheckPoints.NotFinaliseStage" ng-init="StockTransferMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave = 'true'"></span>
-    <span class="finaliseddatedescription">Stock-Transfer Finalized and it cannot be edited</span>
+<div class="finalisedstate" ng-show="StockTransferMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+    <span class="finaliseddatedescription">Stock-Transfer {{StockTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WorkOrderStatusDesc}} and it cannot be edited</span>
 </div>
+<div class="grid-loading-norecord-container ng-scope" style='z-index: 15;'data-ng-if="StockTransferMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading"></div>
+
 <div class="clearfix wms-menu-wraper">
     <div id="wmsMenuWrapper{{StockTransferMenuCtrl.currentStockTransfer.label}}" class="col-sm-12 no-padding-left no-padding-right">
         <stocktransfer-entry current-stock-transfer="StockTransferMenuCtrl.currentStockTransfer"></stocktransfer-entry>
@@ -38,16 +39,46 @@
     <!--Footer-->
 
     <div class="eaxis-footer-strip">
-        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-            <standard-menu entity-name="'WarehouseStockTransfer'" input="StockTransferMenuCtrl.currentStockTransfer"></standard-menu>
+        <div class="col-xs-6 col-sm-8 col-md-8 col-lg-9 col-xl-9">
+            <standard-menu dataentry-object="StockTransferMenuCtrl.dataentryObject" input="StockTransferMenuCtrl.currentStockTransfer"></standard-menu>
         </div>
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
-            <button class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6" data-ng-click="StockTransferMenuCtrl.ePage.Masters.Finalisesave = false;StockTransferMenuCtrl.ePage.Masters.Validation(StockTransferMenuCtrl.currentStockTransfer);" data-ng-bind="StockTransferMenuCtrl.ePage.Masters.SaveButtonText"
-            data-ng-disabled="StockTransferMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave"></button>
-            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="StockTransferMenuCtrl.ePage.Masters.Finalisesave = false;StockTransferMenuCtrl.ePage.Masters.Validation(StockTransferMenuCtrl.currentStockTransfer);StockTransferMenuCtrl.ePage.Masters.SaveAndClose = true;"
-                data-ng-disabled="StockTransferMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave">Save & Close</button>
-            <button ng-show="StockTransferMenuCtrl.ePage.Entities.Header.CheckPoints.NotFinaliseStage"class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6" data-ng-click="StockTransferMenuCtrl.ePage.Masters.FinaliseSave(StockTransferMenuCtrl.currentStockTransfer)" data-ng-bind="StockTransferMenuCtrl.ePage.Masters.FinaliseSaveText"
-                data-ng-disabled="StockTransferMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave"></button>
+        
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 col-xl-3">
+            <span class="">
+                <button class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6" data-ng-click="StockTransferMenuCtrl.ePage.Masters.Save(StockTransferMenuCtrl.currentStockTransfer)" ng-disabled="StockTransferMenuCtrl.ePage.Masters.DisableSave">Save</button> 
+            </span>
+            <span class="dropup pull-right">
+                <button class="btn btn-primary btn-sm margin-right-10 mt-6 dropdown-toggle" type="button" data-toggle="dropdown" ng-disabled="StockTransferMenuCtrl.ePage.Masters.DisableSave">More<span class="ml-5 caret"></span></button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li><a href="javascript:void(0);" data-ng-click="StockTransferMenuCtrl.ePage.Masters.Save(StockTransferMenuCtrl.currentStockTransfer);StockTransferMenuCtrl.ePage.Masters.SaveAndClose = true" >Save & Close</a></li>
+                    <li data-ng-if="!StockTransferMenuCtrl.currentStockTransfer.isNew"><a href="javascript:void(0);" data-ng-click="StockTransferMenuCtrl.ePage.Masters.Finalize(StockTransferMenuCtrl.currentStockTransfer)" >Finalize</a></li>
+                    <li data-ng-if="!StockTransferMenuCtrl.currentStockTransfer.isNew"><a href="javascript:void(0);" data-ng-click="StockTransferMenuCtrl.ePage.Masters.CancelTransfer(StockTransferMenuCtrl.currentStockTransfer)" >Cancel Transfer</a></li>
+                </ul>
+            </span>
+            <span class="dropup pull-right">
+                <button class="btn btn-primary btn-sm margin-right-10 mt-6 dropdown-toggle" type="button" data-toggle="dropdown" ng-disabled="StockTransferMenuCtrl.ePage.Masters.DisableReport ||StockTransferMenuCtrl.currentStockTransfer.isNew">Documents<span class="ml-5 caret"></span></button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li><a href="javascript:void(0);" data-ng-click="StockTransferMenuCtrl.ePage.Masters.GenerateReport()" >Transfer Document</a></li>
+                </ul>
+            </span> 
+
         </div>
     </div>
 </div>
+
+<!-- Stock Transfer  Popup -->
+<script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Stock Transfer Cancellation..</h3>
+    </div>
+    <div class="modal-body"  style="height:200px">
+        <div class="form-group">
+            <label for="comment">Leave Your Comment</label>
+            <textarea class="form-control" rows="2"  ng-model="comment"></textarea>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="!comment">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="close()">Close</button>
+    </div>
+</script>

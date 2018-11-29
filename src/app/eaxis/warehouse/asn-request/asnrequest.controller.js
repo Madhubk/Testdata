@@ -19,6 +19,7 @@
                 "Entities": asnrequestConfig.Entities
             };
             AsnrequestCtrl.ePage.Masters.TabList = [];
+            asnrequestConfig.TabList = [];
             AsnrequestCtrl.ePage.Masters.isNewClicked = false;
             AsnrequestCtrl.ePage.Masters.IsTabClick = false;
             AsnrequestCtrl.ePage.Masters.SaveButtonText = "Save";
@@ -31,8 +32,6 @@
             AsnrequestCtrl.ePage.Masters.CreateNewAsnrequest = CreateNewAsnrequest;
             AsnrequestCtrl.ePage.Masters.GoToMyTask = GoToMyTask;
 
-            AsnrequestCtrl.ePage.Masters.StandardMenuInput = appConfig.Entities.standardMenuConfigList.WarehouseInward;
-            AsnrequestCtrl.ePage.Masters.StandardMenuInput.obj = AsnrequestCtrl.currentAsnrequest;
             AsnrequestCtrl.ePage.Masters.Validation = Validation;
             AsnrequestCtrl.ePage.Masters.Config = asnrequestConfig;
 
@@ -65,7 +64,7 @@
         }
 
         function GoToMyTask() {
-            $window.open("#/EA/home/my-task", "_self");
+            $window.open("#/EA/my-tasks", "_self");
         }
 
         function AddTab(currentAsnrequest, isNew) {
@@ -108,13 +107,6 @@
             }
             AsnrequestCtrl.ePage.Masters.currentAsnrequest = currentTab;
 
-            //  Standard Menu Configuration and Data
-            AsnrequestCtrl.ePage.Masters.TabList.map(function (value, key) {
-                if (value.label === AsnrequestCtrl.ePage.Masters.currentAsnrequest) {
-                    AsnrequestCtrl.ePage.Masters.StandardMenuInput = appConfig.Entities.standardMenuConfigList.WarehouseInward;
-                    AsnrequestCtrl.ePage.Masters.StandardMenuInput.obj = value;
-                }
-            });
         }
 
 

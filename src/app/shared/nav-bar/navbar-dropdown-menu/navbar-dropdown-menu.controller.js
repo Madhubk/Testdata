@@ -4,9 +4,9 @@
     angular
         .module("Application")
         .controller("NavBarDropDownMenuController", NavBarDropDownMenuController);
-    NavBarDropDownMenuController.$inject = ["$rootScope", "$scope", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "helperService", "appConfig"];
+    NavBarDropDownMenuController.$inject = ["$location", "authService", "helperService"];
 
-    function NavBarDropDownMenuController($rootScope, $scope, $location, $timeout, APP_CONSTANT, authService, apiService, helperService, appConfig) {
+    function NavBarDropDownMenuController($location, authService, helperService) {
         var NavBarDropDownMenuCtrl = this;
 
         function Init() {

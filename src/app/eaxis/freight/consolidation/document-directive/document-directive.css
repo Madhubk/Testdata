@@ -1,0 +1,12 @@
+.doc-details {
+    font-size: 9px;
+    font-weight: 100 !important;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.doc-view {
+    width: 100%;
+    overflow: auto;
+    height: 200px;
+}

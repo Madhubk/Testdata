@@ -4,32 +4,43 @@
     <div class="grid-loading-norecord-container ng-scope" style='z-index: 4;' data-ng-if="ConsignmentItemCtrl.ePage.Masters.IsLoadingToSave">
         <div class="grid-no-record">Saving your Data...</div>
     </div>
+    <!-- hide save -->
+    <span ng-if="!ConsignmentItemCtrl.ePage.Masters.Lineslist" ng-init="ConsignmentItemCtrl.ePage.Entities.Header.CheckPoints.DisableSave=true"></span>
+    <span ng-if="ConsignmentItemCtrl.ePage.Masters.Lineslist" ng-init="ConsignmentItemCtrl.ePage.Entities.Header.CheckPoints.DisableSave=false"></span>
+
     <div class="col-lg-12 margin-top-5 mb-50">
         <!--Order Details-->
 
-        <div class="p-10" ng-show='ConsignmentItemCtrl.ePage.Masters.Lineslist'>
-            <div>
-                <span><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Add Item"  data-ng-click="ConsignmentItemCtrl.ePage.Masters.AddNew()"><span class="fa fa-external-link-square"></span>&nbsp;&nbsp;Add
-                Item
-                </button>
+        <div class="" ng-show='ConsignmentItemCtrl.ePage.Masters.Lineslist'>
+            <div ng-if="ConsignmentItemCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.IsSubmitted != true">
+                <span>
+                    <button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Add Item" data-ng-click="ConsignmentItemCtrl.ePage.Masters.AddNew()">
+                        <span class="fa fa-external-link-square"></span>&nbsp;&nbsp;Add Item
+                    </button>
                 </span>
-                <span><button dynamic-list-modal obj="ConsignmentItemCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader" field-name="'AttachConsignmentItem'" 
+                <!-- <span>
+                    <button dynamic-list-modal obj="ConsignmentItemCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader" field-name="'AttachConsignmentItem'"
                         selected-data="ConsignmentItemCtrl.ePage.Masters.Attach($item)" prefix-data="'TransportItem'" mode="3"
-                        grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-sm btn-outline-primary" 
-                        type="button">
-                    <i class="fa fa-plus-circle"></i> Attach</button>
+                        grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-sm btn-outline-primary" type="button">
+                        <i class="fa fa-plus-circle"></i> Attach</button>
+                </span> -->
+                <span ng-hide='ConsignmentItemCtrl.ePage.Masters.selectedRow==-1'>
+                    <button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Edit" data-ng-click="ConsignmentItemCtrl.ePage.Masters.Edit(ConsignmentItemCtrl.ePage.Masters.selectedRow,'Edit List')">
+                        <span class="fa fa-pencil"></span>&nbsp;&nbsp;Edit</button>
                 </span>
-                <span ng-hide='ConsignmentItemCtrl.ePage.Masters.selectedRow==-1'><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Edit"  data-ng-click="ConsignmentItemCtrl.ePage.Masters.Edit(ConsignmentItemCtrl.ePage.Masters.selectedRow,'Edit List')"><span class="fa fa-pencil"></span>&nbsp;&nbsp;Edit</button>
-                </span>
-                <span ng-hide='ConsignmentItemCtrl.ePage.Masters.selectedRow==-1'><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Delete"  data-ng-click="ConsignmentItemCtrl.ePage.Masters.RemoveRow()"><i class="fa fa-minus-circle"></i>&nbsp;&nbsp;Detach</button>
+                <span ng-hide='ConsignmentItemCtrl.ePage.Masters.selectedRow==-1'>
+                    <button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Delete" data-ng-click="ConsignmentItemCtrl.ePage.Masters.RemoveRow(ConsignmentItemCtrl.ePage.Entities.Header.Data.TmsConsignmentItem[ConsignmentItemCtrl.ePage.Masters.selectedRow])">
+                        <i class="fa fa-minus-circle"></i>&nbsp;&nbsp;Detach</button>
                 </span>
             </div>
             <div class="wmstable_scroll" id='ConsignmentItemCtrl.ePage.Masters.your_div' style="height:310px; padding-top: 2px;">
                 <div class="table" id="results">
                     <div class='theader'>
+                        <div class='table_header'>List No</div>
                         <div class='table_header'>MHU Type</div>
                         <div class='table_header'>Item Code</div>
                         <div class='table_header'>Item Desc</div>
+                        <div class='table_header'>Quantity</div>
                         <div class='table_header'>Sender</div>
                         <div class='table_header'>Receiver</div>
                         <div class='table_header'>Height</div>
@@ -45,8 +56,19 @@
                     </div>
 
                     <div class='table_row' ng-repeat="x in ConsignmentItemCtrl.ePage.Entities.Header.Data.TmsConsignmentItem | filter:{IsDeleted:'false'}  track by $index"
-                        ng-click="ConsignmentItemCtrl.ePage.Masters.setSelectedRow($index)" ng-class="{row_active: ConsignmentItemCtrl.ePage.Masters.selectedRow==$index}"
+                        ng-click="ConsignmentItemCtrl.ePage.Masters.setSelectedRow($index)" ng-class="{'row_active': ConsignmentItemCtrl.ePage.Masters.selectedRow==$index}"
                         style="font-size: 11px;">
+                        <div class='table_small'>
+                            <div class='table_cell'>List No</div>
+                            <div class='table_cell'>
+                                <span class="list-error-warning" data-ng-if="ConsignmentItemCtrl.ePage.Entities.Header.Meta.ErrorWarning.TmsConsignmentItem.ERROR | listCount: 'RowIndex': $index">
+                                    <error-warning-directive list="ConsignmentItemCtrl.ePage.Entities.Header.Meta.ErrorWarning.TmsConsignmentItem.ERROR" type="'error'"
+                                        icon="fa fa-warning" parent-type="'arrayObjectRow'" parent-ref="" g-parent-ref="" row-index="$index"
+                                        col-index="">
+                                    </error-warning-directive>
+                                </span>{{$index+1}}
+                            </div>
+                        </div>
                         <div class='table_small'>
                             <div class='table_cell'>MHU Type</div>
                             <div class='table_cell'>{{x.TIT_ItemRef_ID || ConsignmentItemCtrl.ePage.Masters.emptyText}}</div>
@@ -58,6 +80,10 @@
                         <div class='table_small'>
                             <div class='table_cell'>Item Desc</div>
                             <div class='table_cell'>{{x.TIT_ItemDesc || ConsignmentItemCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Quantity</div>
+                            <div class='table_cell'>{{x.Quantity || ConsignmentItemCtrl.ePage.Masters.emptyText}}</div>
                         </div>
                         <div class='table_small'>
                             <div class='table_cell'>Sender</div>
@@ -74,7 +100,7 @@
                         </div>
                         <div class='table_small'>
                             <div class='table_cell'>Width</div>
-                            <div class='table_cell'>{{x.TIT_Weight || ConsignmentItemCtrl.ePage.Masters.emptyText}}</div>
+                            <div class='table_cell'>{{x.TIT_Width || ConsignmentItemCtrl.ePage.Masters.emptyText}}</div>
                         </div>
                         <div class='table_small'>
                             <div class='table_cell'>Length</div>
@@ -97,85 +123,114 @@
             <div class="panel panel-default mt-5">
                 <div class="panel-heading">
                     <span ng-show="ConsignmentItemCtrl.ePage.Masters.HeaderName =='Copy Of List'">
-                    {{ConsignmentItemCtrl.ePage.Masters.HeaderName}} - {{ConsignmentItemCtrl.ePage.Masters.selectedRow}}                     
-            </span>
+                        {{ConsignmentItemCtrl.ePage.Masters.HeaderName}} - {{ConsignmentItemCtrl.ePage.Masters.selectedRow}}
+                    </span>
                     <span ng-show="ConsignmentItemCtrl.ePage.Masters.HeaderName!='Copy Of List'">
-                    {{ConsignmentItemCtrl.ePage.Masters.HeaderName}} - {{ConsignmentItemCtrl.ePage.Masters.selectedRow+1}}                     
-            </span>
+                        {{ConsignmentItemCtrl.ePage.Masters.HeaderName}} - {{ConsignmentItemCtrl.ePage.Masters.selectedRow+1}}
+                    </span>
                 </div>
                 <div class="panel-body">
                     <div class="col-lg-12 ex-line-padding">
                         <div class="ex-line-box" style="height:100px;padding-top:10px">
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
-                                <div class="form-group">
-                                    <label class="control-label text-single-line">Sender</label>
-                                    <div class="input-group input-group-sm">
-                                        <div dynamic-lookup placeholder="Sender" my-ng-model="ConsignmentItemCtrl.ePage.Entities.Header.Data.TmsConsignmentItem[ConsignmentItemCtrl.ePage.Masters.selectedRow].TIT_SenderCode"
-                                            obj="ConsignmentItemCtrl.ePage.Entities.Header.Data.TmsConsignmentItem[ConsignmentItemCtrl.ePage.Masters.selectedRow]"
-                                            prefix-data="'OrganizationList'" config="'Sender'" auto-complete-on-select="ConsignmentItemCtrl.ePage.Masters.SelectedLookupDataSender($item,ConsignmentItemCtrl.ePage.Masters.selectedRow)">
-                                        </div>
-
-                                        <span class="input-group-btn">
-                                            <button dynamic-list-modal obj="ConsignmentItemCtrl.ePage.Entities.Header.Data.TmsConsignmentItem[ConsignmentItemCtrl.ePage.Masters.selectedRow]" field-name="'Sender'" selected-data="ConsignmentItemCtrl.ePage.Masters.SelectedLookupDataSender($item,ConsignmentItemCtrl.ePage.Masters.selectedRow)"  prefix-data="'OrganizationList'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
-                                <div class="form-group">
-                                    <label class="control-label text-single-line">Receiver</label>
-                                    <select chosen class="form-control" style="height: 30px;" ng-model="ConsignmentItemCtrl.ePage.Entities.Header.Data.TmsConsignmentItem[ConsignmentItemCtrl.ePage.Masters.selectedRow].TIT_ReceiverCode"
-                                        ng-options="x.ORG_MappingToCode as x.ORG_MappingToCode+' - '+ x.ORG_MappingToName for x in ConsignmentItemCtrl.ePage.Masters.ReceiverList"
-                                        title="{{ConsignmentItemCtrl.ePage.Masters.Receiver}}" ng-change='ConsignmentItemCtrl.ePage.Masters.OnChangeReceiver(ConsignmentItemCtrl.ePage.Entities.Header.Data.TmsConsignmentItem[ConsignmentItemCtrl.ePage.Masters.selectedRow].TIT_ReceiverCode)'
-                                        search-contains="true">
-                                        <option value="">--Select--</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <!---MHU REF & status -->
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
-                                <div class="form-group">
-                                    <label class="control-label text-single-line">MHU Ref</label>
-                                    <div class="input-group input-group-sm">
-                                        <!-- Dynamic look up Search in textbox -->
-                                        <div dynamic-lookup placeholder="MHU Ref" my-ng-model="ConsignmentItemCtrl.ePage.Entities.Header.Data.TmsConsignmentItem[ConsignmentItemCtrl.ePage.Masters.selectedRow].TIT_ItemRef_ID"
-                                            auto-complete-on-select="ConsignmentItemCtrl.ePage.Masters.SelectedLookupItem($item)"
-                                            obj="ConsignmentItemCtrl.ePage.Entities.Header.Data.TmsConsignmentItem[ConsignmentItemCtrl.ePage.Masters.selectedRow]" prefix-data="'ProductRelatedParty'"
-                                            config="'ItemDetails'">
-                                        </div>
-                                        <!-- Look Up page opens when button clicks -->
-                                        <span class="input-group-btn">
-                                            <button dynamic-list-modal prefix-data="'ProductRelatedParty'" field-name="'ItemDetails'" obj="ConsignmentItemCtrl.ePage.Entities.Header.Data.TmsConsignmentItem[ConsignmentItemCtrl.ePage.Masters.selectedRow]"
-                                            selected-data="ConsignmentItemCtrl.ePage.Masters.SelectedLookupItem($item)" mode ="2" 
-                                            grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
                             <!--Item code-->
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
                                 <div class="form-group">
-                                    <label class="control-label text-single-line">Item code</label>
-                                    <div class="">
-                                        <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Item Code" data-ng-model="ConsignmentItemCtrl.ePage.Entities.Header.Data.TmsConsignmentItem[ConsignmentItemCtrl.ePage.Masters.selectedRow].TIT_ItemCode">
+                                    <div class="error-warning-container" ng-repeat="x in ConsignmentItemCtrl.ePage.Entities.Header.Meta.ErrorWarning.TmsConsignmentItem.ERROR">
+                                        <error-warning-directive data-ng-if="x.ColIndex == 1 && x.RowIndex ==ConsignmentItemCtrl.ePage.Masters.selectedRow" list="ConsignmentItemCtrl.ePage.Entities.Header.Meta.ErrorWarning.TmsConsignmentItem.ERROR"
+                                            type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                            g-parent-ref="" row-index="ConsignmentItemCtrl.ePage.Masters.selectedRow" col-index="1">
+                                        </error-warning-directive>
+                                    </div>
+                                    <label class="control-label">Item Code </label>
+                                    <label class="control-label ml-45">Qty</label>
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" no-special-char class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Item"
+                                            data-ng-model="ConsignmentItemCtrl.ePage.Entities.Header.Data.TmsConsignmentItem[ConsignmentItemCtrl.ePage.Masters.selectedRow].TIT_ItemCode"
+                                            ng-blur="ConsignmentItemCtrl.ePage.Masters.GetItemDetails(ConsignmentItemCtrl.ePage.Entities.Header.Data.TmsConsignmentItem[ConsignmentItemCtrl.ePage.Masters.selectedRow].TIT_ItemCode,ConsignmentItemCtrl.ePage.Masters.selectedRow)">
+                                        <span class="input-group-btn">
+                                            <input type="text" style="width:50px;" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Qty"
+                                                data-ng-model="ConsignmentItemCtrl.ePage.Entities.Header.Data.TmsConsignmentItem[ConsignmentItemCtrl.ePage.Masters.selectedRow].Quantity"
+                                                ng-blur="ConsignmentItemCtrl.ePage.Masters.GetQuantity(ConsignmentItemCtrl.ePage.Entities.Header.Data.TmsConsignmentItem[ConsignmentItemCtrl.ePage.Masters.selectedRow].Quantity)">
+                                        </span>
                                     </div>
                                 </div>
                             </div>
-                            <!--Item Desc-->
+                            <!---MHU Type & status -->
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
                                 <div class="form-group">
-                                    <label class="control-label text-single-line">Item Desc</label>
+                                    <div class="error-warning-container" ng-repeat="x in ConsignmentItemCtrl.ePage.Entities.Header.Meta.ErrorWarning.TmsConsignmentItem.ERROR">
+                                        <error-warning-directive data-ng-if="x.ColIndex == 2 && x.RowIndex ==ConsignmentItemCtrl.ePage.Masters.selectedRow" list="ConsignmentItemCtrl.ePage.Entities.Header.Meta.ErrorWarning.TmsConsignmentItem.ERROR"
+                                            type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                            g-parent-ref="" row-index="ConsignmentItemCtrl.ePage.Masters.selectedRow" col-index="2">
+                                        </error-warning-directive>
+                                    </div>
+                                    <label class="control-label text-single-line">MHU Type</label>
+                                    <div class="input-group input-group-sm">
+                                        <!-- Dynamic look up Search in textbox -->
+                                        <div dynamic-lookup placeholder="MHU Type" my-ng-model="ConsignmentItemCtrl.ePage.Entities.Header.Data.TmsConsignmentItem[ConsignmentItemCtrl.ePage.Masters.selectedRow].TIT_ItemRef_ID"
+                                            auto-complete-on-select="ConsignmentItemCtrl.ePage.Masters.SelectedLookupItem($item)"
+                                            obj="ConsignmentItemCtrl.ePage.Entities.Header.Data.TmsConsignmentItem[ConsignmentItemCtrl.ePage.Masters.selectedRow]"
+                                            prefix-data="'ProductRelatedParty'" config="'ConsignmentItemDetails'">
+                                        </div>
+                                        <!-- Look Up page opens when button clicks -->
+                                        <span class="input-group-btn">
+                                            <button dynamic-list-modal prefix-data="'ProductRelatedParty'" field-name="'ConsignmentItemDetails'" obj="ConsignmentItemCtrl.ePage.Entities.Header.Data.TmsConsignmentItem[ConsignmentItemCtrl.ePage.Masters.selectedRow]"
+                                                selected-data="ConsignmentItemCtrl.ePage.Masters.SelectedLookupItem($item)" mode="2"
+                                                grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny" type="button">
+                                                <i class="fa fa-ellipsis-h"></i>
+                                            </button>
+                                        </span>
+                                        <div ng-if="!ConsignmentItemCtrl.ePage.Entities.Header.Data.TmsConsignmentItem[ConsignmentItemCtrl.ePage.Masters.selectedRow].TIT_ItemRef_ID"
+                                            ng-init="ConsignmentItemCtrl.ePage.Entities.Header.Data.TmsConsignmentItem[ConsignmentItemCtrl.ePage.Masters.selectedRow].TIT_Volumn=''"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                <div class="form-group">
+                                    <label class="control-label text-single-line">Weight</label>
                                     <div class="">
-                                        <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Item Desc" data-ng-model="ConsignmentItemCtrl.ePage.Entities.Header.Data.TmsConsignmentItem[ConsignmentItemCtrl.ePage.Masters.selectedRow].TIT_ItemDesc">
+                                        <input type="text" numbers-only class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Weight"
+                                            data-ng-model="ConsignmentItemCtrl.ePage.Entities.Header.Data.TmsConsignmentItem[ConsignmentItemCtrl.ePage.Masters.selectedRow].TIT_Weight">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-1 col-xl-1">
+                                <div class="form-group">
+                                    <label class="control-label text-single-line">Length</label>
+                                    <div class="">
+                                        <input type="text" numbers-only class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Length"
+                                            data-ng-model="ConsignmentItemCtrl.ePage.Entities.Header.Data.TmsConsignmentItem[ConsignmentItemCtrl.ePage.Masters.selectedRow].TIT_Length"
+                                            ng-change="ConsignmentItemCtrl.ePage.Masters.OnChangesItemValues()">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-1 col-xl-1">
+                                <div class="form-group">
+                                    <label class="control-label text-single-line">Width</label>
+                                    <div class="">
+                                        <input type="text" numbers-only class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Width"
+                                            data-ng-model="ConsignmentItemCtrl.ePage.Entities.Header.Data.TmsConsignmentItem[ConsignmentItemCtrl.ePage.Masters.selectedRow].TIT_Width"
+                                            ng-change="ConsignmentItemCtrl.ePage.Masters.OnChangesItemValues()">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-1 col-xl-1">
+                                <div class="form-group">
+                                    <label class="control-label text-single-line">Height</label>
+                                    <div class="">
+                                        <input type="text" numbers-only class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Height"
+                                            data-ng-model="ConsignmentItemCtrl.ePage.Entities.Header.Data.TmsConsignmentItem[ConsignmentItemCtrl.ePage.Masters.selectedRow].TIT_Height"
+                                            ng-change="ConsignmentItemCtrl.ePage.Masters.OnChangesItemValues()">
                                     </div>
                                 </div>
                             </div>
                             <!--Volumn-->
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
                                 <div class="form-group">
-                                    <label class="control-label text-single-line">Volumn</label>
+                                    <label class="control-label text-single-line">Volume</label>
                                     <div class="">
-                                        <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Volumn" data-ng-model="ConsignmentItemCtrl.ePage.Entities.Header.Data.TmsConsignmentItem[ConsignmentItemCtrl.ePage.Masters.selectedRow].TIT_Volumn">
+                                        <input type="text" numbers-only class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Volume"
+                                            data-ng-model="ConsignmentItemCtrl.ePage.Entities.Header.Data.TmsConsignmentItem[ConsignmentItemCtrl.ePage.Masters.selectedRow].TIT_Volumn">
                                     </div>
                                 </div>
                             </div>
@@ -183,13 +238,14 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-lg-offset-8 mt-5">
-                    <button class="btn btn-blue btn-sm mr-5 pull-right" title="Save" data-ng-click="ConsignmentItemCtrl.ePage.Masters.Done(ConsignmentItemCtrl.ePage.Entities.Header.Data.TmsConsignmentItem[ConsignmentItemCtrl.ePage.Masters.selectedRow])"><i class="fa fa-save pr-5"></i>Save</button>
-                    <button class="btn btn-primary btn-sm mr-5 pull-right" title="Delete" data-ng-click="ConsignmentItemCtrl.ePage.Masters.RemoveRow()"><i class="fa fa-trash pr-5"></i>Delete</button>
-                    <button class="btn btn-primary btn-sm mr-5 pull-right" title="Back" data-ng-click="ConsignmentItemCtrl.ePage.Masters.Back()"><i class="fa fa-angle-double-left pr-5"></i>Back</button>
+                    <button class="btn btn-blue btn-sm mr-5 pull-right" title="Save" data-ng-click="ConsignmentItemCtrl.ePage.Masters.Done(ConsignmentItemCtrl.ePage.Entities.Header.Data.TmsConsignmentItem[ConsignmentItemCtrl.ePage.Masters.selectedRow])">
+                        <i class="fa fa-save pr-5"></i>Save</button>
+                    <!-- <button class="btn btn-primary btn-sm mr-5 pull-right" title="Delete" data-ng-click="ConsignmentItemCtrl.ePage.Masters.RemoveRow()">
+                        <i class="fa fa-trash pr-5"></i>Delete</button> -->
+                    <button class="btn btn-primary btn-sm mr-5 pull-right" title="Back" data-ng-click="ConsignmentItemCtrl.ePage.Masters.Back()">
+                        <i class="fa fa-angle-double-left pr-5"></i>Back</button>
                 </div>
             </div>
         </div>
     </div>
-</div>
-</div>
 </div>

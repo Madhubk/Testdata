@@ -20,14 +20,19 @@
                 "Meta": helperService.metaBase(),
                 "Entities": currentConsol
             };
-
             ConsolShipmentCtrl.ePage.Masters.ConsolShipment = {}
             ConsolShipmentCtrl.ePage.Masters.DeleteShipment = DeleteShipment;
             ConsolShipmentCtrl.ePage.Masters.ShipmentDeleteConfirmation = ShipmentDeleteConfirmation;
             ConsolShipmentCtrl.ePage.Masters.GetShipmentDetails = GetShipmentDetails;
             ConsolShipmentCtrl.ePage.Masters.GridRefreshFun = GridRefreshFun;
             ConsolShipmentCtrl.ePage.Masters.SelectedData = SelectedShipmentData;
-
+            ConsolShipmentCtrl.ePage.Masters.GetNewShipment = GetNewShipment;
+            ConsolShipmentCtrl.ePage.Masters.packlist = {
+                "PackCount": 0,
+                "Weight": 0,
+                "Volume": 0,
+                "Chargeable": 0
+            };
             if (!ConsolShipmentCtrl.currentConsol.isNew) {
                 GetShipmentListing();
             } else {
@@ -46,10 +51,21 @@
             };
             apiService.post("eAxisAPI", ConsolShipmentCtrl.ePage.Entities.ConsolShipment.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
-                    ConsolShipmentCtrl.ePage.Entities.Header.Data.UIConShpMappings = response.data.Response;
-                    $rootScope.GetRotingList();
-                    var shpFkList = response.data.Response;
-                    GetRelatedShipmentDetails(shpFkList);
+                    if (response.data.Response.length == 0) {
+                        ConsolShipmentCtrl.ePage.Masters.ConsolShipment.GridData = [];
+                        ConsolShipmentCtrl.ePage.Masters.packlist = {
+                            "PackCount": 0,
+                            "Weight": 0,
+                            "Volume": 0,
+                            "Chargeable": 0
+                        };
+                    }
+                    else {
+                        ConsolShipmentCtrl.ePage.Entities.Header.Data.UIConShpMappings = response.data.Response;
+                        $rootScope.GetRotingList();
+                        var shpFkList = response.data.Response;
+                        GetRelatedShipmentDetails(shpFkList);
+                    }
                 }
             });
         }
@@ -81,6 +97,12 @@
         }
 
         function GetShipmentDetails() {
+            ConsolShipmentCtrl.ePage.Masters.packlist = {
+                "PackCount": 0,
+                "Weight": 0,
+                "Volume": 0,
+                "Chargeable": 0
+            };
             var _gridData = [];
             ConsolShipmentCtrl.ePage.Masters.ConsolShipment.GridData = undefined;
             $timeout(function () {
@@ -89,12 +111,20 @@
                         _gridData.push(value);
                     });
                 } else {
+                    ConsolShipmentCtrl.ePage.Masters.ConsolShipment.GridData = [];
                     console.log("ConsolShipment List is Empty");
                 }
 
                 ConsolShipmentCtrl.ePage.Masters.ConsolShipment.GridData = _gridData;
                 ConsolShipmentCtrl.ePage.Masters.ConsolShipment.FormView = {};
-                // $rootScope.GetRotingList();
+                if (ConsolShipmentCtrl.ePage.Masters.ConsolShipment.GridData.length > 0) {
+                    ConsolShipmentCtrl.ePage.Masters.ConsolShipment.GridData.map(function (value, key) {
+                        ConsolShipmentCtrl.ePage.Masters.packlist.PackCount = (parseInt(ConsolShipmentCtrl.ePage.Masters.packlist.PackCount) + parseInt(value.InnerPackCount));
+                        ConsolShipmentCtrl.ePage.Masters.packlist.Weight = (parseFloat(ConsolShipmentCtrl.ePage.Masters.packlist.Weight) + parseFloat(value.Weight)).toFixed(3);
+                        ConsolShipmentCtrl.ePage.Masters.packlist.Volume = (parseFloat(ConsolShipmentCtrl.ePage.Masters.packlist.Volume) + parseFloat(value.Volume)).toFixed(3);
+                        ConsolShipmentCtrl.ePage.Masters.packlist.Chargeable = (parseFloat(ConsolShipmentCtrl.ePage.Masters.packlist.Chargeable) + parseFloat(value.Chargeable)).toFixed(3);
+                    });
+                }
             });
         }
 
@@ -104,7 +134,6 @@
                 var _isExist = ConsolShipmentCtrl.ePage.Entities.Header.Data.UIShipmentHeaders.some(function (value, index) {
                     return value.PK === val.PK;
                 });
-
 
                 if (!_isExist) {
                     var _tempObj = {
@@ -120,14 +149,18 @@
             if (_tempArray.length > 0) {
                 apiService.post("eAxisAPI", appConfig.Entities.ConShpMapping.API.Insert.Url, _tempArray).then(function (response) {
                     if (response.data.Response) {
-                        GetShipmentListing()
+                        GetShipmentListing();
                     }
                 });
             }
         }
 
         function SelectedShipmentData($item) {
-            GridRefreshFun($item)
+            if ($item[0].TransportMode == ConsolShipmentCtrl.ePage.Entities.Header.Data.UIConConsolHeader.TransportMode)
+                GridRefreshFun($item);
+            else
+                toastr.error("Consol & shipment Transport must be same!")
+
         }
 
         function ShipmentDeleteConfirmation($item) {
@@ -141,28 +174,58 @@
             confirmation.showModal({}, modalOptions)
                 .then(function (result) {
                     DeleteShipment($item);
+
                 }, function () {
                     console.log("Cancelled");
                 });
         }
 
         function DeleteShipment($item) {
-
             var _index = ConsolShipmentCtrl.ePage.Entities.Header.Data.UIConShpMappings.map(function (value, key) {
                 return value.SHP_FK;
             }).indexOf($item.PK);
             if (_index !== -1) {
                 apiService.get("eAxisAPI", appConfig.Entities.ConShpMapping.API.Delete.Url + ConsolShipmentCtrl.ePage.Entities.Header.Data.UIConShpMappings[_index].PK).then(function (response) {
                     if (response.data.Response) {
-                        GetShipmentListing()
+                        GetShipmentListing();
                         toastr.success($item.ShipmentNo + " Detached Successfully...!");
                     }
                 });
             }
         }
 
-
-
+        function GetNewShipment() {
+            helperService.getFullObjectUsingGetById(appConfig.Entities.ShipmentList.API.GetById.Url, 'null').then(function (response) {
+                if (response.data.Response) {
+                    var modalInstance = $uibModal.open({
+                        animation: true,
+                        backdrop: "static",
+                        keyboard: false,
+                        windowClass: "Concontainer right",
+                        scope: $scope,
+                        // size : "sm",
+                        templateUrl: "app/eaxis/freight/consolidation/consol-new-shipment/consol-new-shipment.html",
+                        controller: 'ConsolcreateshipmentModalController',
+                        controllerAs: "ConsolcreateshipmentModalCtrl",
+                        bindToController: true,
+                        resolve: {
+                            param: function () {
+                                var exports = {
+                                    "newshipment": response.data.Response,
+                                    "conpk": ConsolShipmentCtrl.ePage.Entities.Header.Data.UIConConsolHeader.PK
+                                };
+                                return exports;
+                            }
+                        }
+                    }).result.then(
+                        function (response) {
+                            if (response) {
+                                GetShipmentListing();
+                            }
+                        });
+                }
+            });
+        }
         Init();
     }
 })();

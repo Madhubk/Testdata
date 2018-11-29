@@ -34,7 +34,37 @@
             ShipmentPickupAndDeliveryCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
             ShipmentPickupAndDeliveryCtrl.ePage.Masters.OnAddressChange = OnAddressChange;
             ShipmentPickupAndDeliveryCtrl.ePage.Masters.OnContactChange = OnContactChange;
-
+            ShipmentPickupAndDeliveryCtrl.ePage.Masters.ExportBroker = {
+                "IsBroker": "true"
+            }
+            ShipmentPickupAndDeliveryCtrl.ePage.Masters.ExpTransportCompany = {
+                "IsTransportClient": "true"
+            }
+            ShipmentPickupAndDeliveryCtrl.ePage.Masters.PickupAgent = {
+                "IsForwarder": "true"
+            }
+            ShipmentPickupAndDeliveryCtrl.ePage.Masters.ExpCustomFiling = {
+                "IsMiscFreightServices": "true"
+            }
+            ShipmentPickupAndDeliveryCtrl.ePage.Masters.PickupFrom= {
+                "IsConsignor": "true"
+            }
+            ShipmentPickupAndDeliveryCtrl.ePage.Masters.ImportBroker={
+                "IsBroker" : "true"
+            }
+            ShipmentPickupAndDeliveryCtrl.ePage.Masters.ImpTransportCompany = {
+                "IsTransportClient": "true"
+            }
+            ShipmentPickupAndDeliveryCtrl.ePage.Masters.DeliveryFrom = {
+                "IsForwarder": "true"
+            }
+            ShipmentPickupAndDeliveryCtrl.ePage.Masters.DeliveryTo= {
+                "IsConsignee":"true"
+            }
+            ShipmentPickupAndDeliveryCtrl.ePage.Masters.ImpCustomFiling = {
+                "IsMiscFreightServices": "true"
+            }
+         
             ShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.Pickup = {
                 AddressList: [],
                 ContactList: []
@@ -59,10 +89,10 @@
             };
 
             loadAddressContactList()
-            
+
         }
 
-        function loadAddressContactList(){
+        function loadAddressContactList() {
 
 
             if (ShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PickupTransportFK) {
@@ -95,6 +125,7 @@
             }
 
         }
+
         function OpenDatePicker($event, opened) {
             $event.preventDefault();
             $event.stopPropagation();
@@ -105,18 +136,18 @@
         function SelectedLookupData($item, type, addressType) {
             console.log($item, type, addressType)
             if (type === "address") {
-                GetAddressContactList($item.entity, "OrgAddress", "AddressList", "PK", addressType, ShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList);
-                GetAddressContactList($item.entity, "OrgContact", "ContactList", "PK", addressType, ShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList);
+                GetAddressContactList($item.data.entity, "OrgAddress", "AddressList", "PK", addressType, ShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList);
+                GetAddressContactList($item.data.entity, "OrgContact", "ContactList", "PK", addressType, ShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIAddressContactList);
             } else if (type === "Pickup") {
-                GetAddressContactList($item.entity, "OrgAddress", "AddressList", "PK", type, ShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery);
-                GetAddressContactList($item.entity, "OrgContact", "ContactList", "PK", type, ShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery);
+                GetAddressContactList($item.data.entity, "OrgAddress", "AddressList", "PK", type, ShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery);
+                GetAddressContactList($item.data.entity, "OrgContact", "ContactList", "PK", type, ShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery);
             } else if (type === "Delivery") {
-                GetAddressContactList($item.entity, "OrgAddress", "AddressList", "PK", type, ShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery);
+                GetAddressContactList($item.data.entity, "OrgAddress", "AddressList", "PK", type, ShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery);
             } else if (type === "PCFS") {
-                GetAddressContactList($item.entity, "OrgAddress", "AddressList", "PK", type, ShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader);
-                GetAddressContactList($item.entity, "OrgContact", "ContactList", "PK", type, ShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader);
+                GetAddressContactList($item.data.entity, "OrgAddress", "AddressList", "PK", type, ShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader);
+                GetAddressContactList($item.data.entity, "OrgContact", "ContactList", "PK", type, ShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader);
             } else if (type === "DCFS") {
-                GetAddressContactList($item.entity, "OrgAddress", "AddressList", "PK", type, ShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader);
+                GetAddressContactList($item.data.entity, "OrgAddress", "AddressList", "PK", type, ShipmentPickupAndDeliveryCtrl.ePage.Entities.Header.Data.UIShipmentHeader);
             }
         }
 

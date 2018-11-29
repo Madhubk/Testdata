@@ -21,29 +21,25 @@
             };
 
             PackingModalCtrl.ePage.Masters.DropDownMasterList = PackingModalCtrl.ePage.Entities.Header.Meta;
-
+            PackingModalCtrl.currentShipment = param.currentShipment;
             // Package Details
             PackingModalCtrl.ePage.Masters.Package = {};
-            PackingModalCtrl.ePage.Masters.Package.gridConfig = PackingModalCtrl.ePage.Entities.Package.gridConfig;
-            // PackingModalCtrl.ePage.Masters.Package.gridConfig._columnDef = PackingModalCtrl.ePage.Entities.Package.Grid.ColumnDef;
+            // PackingModalCtrl.ePage.Masters.Package.gridConfig = PackingModalCtrl.ePage.Entities.Package.gridConfig;
             PackingModalCtrl.ePage.Masters.Package.IsSelected = false;
-            PackingModalCtrl.ePage.Masters.Package.FormView = {};
-            // PackingModalCtrl.ePage.Masters.Package.EditPackage = EditPackage;
-            // PackingModalCtrl.ePage.Masters.Package.DeletePackage = DeletePackage;
             PackingModalCtrl.ePage.Masters.Package.DeleteConfirmation = DeleteConfirmation;
             PackingModalCtrl.ePage.Masters.Package.AddToPackageGrid = AddToPackageGrid;
             PackingModalCtrl.ePage.Masters.Package.ok = ok;
-            PackingModalCtrl.ePage.Masters.Package.SelectedGridRow = SelectedGridRow
+            PackingModalCtrl.ePage.Masters.Package.SelectedGridRow = SelectedGridRow;
 
             PackingModalCtrl.ePage.Masters.Package.AddNewAndUpdate = 'Add New';
-
-            // Functions
-            // PackingModalCtrl.ePage.Masters.Package.PackageRowSelectionChanged = PackageRowSelectionChanged;
-
+            PackingModalCtrl.ePage.Masters.Consolidation = [{
+                "PackageCount": 0,
+                "ActualWeight": 0,
+                "ActualVolume": 0
+            }];
 
             GetMastersList();
             GetPackageDetails();
-
         }
 
         function GetMastersList() {
@@ -93,6 +89,10 @@
             var _gridData = [];
             PackingModalCtrl.ePage.Masters.Package.GridData = undefined;
             PackingModalCtrl.ePage.Masters.Package.FormView = {};
+            PackingModalCtrl.ePage.Masters.Package.FormView.F3_NKPackType = PackingModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.InnerPackType;
+            PackingModalCtrl.ePage.Masters.Package.FormView.UnitOfDimension = "M";
+            PackingModalCtrl.ePage.Masters.Package.FormView.ActualWeightUQ = PackingModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.UnitOfWeight;
+            PackingModalCtrl.ePage.Masters.Package.FormView.ActualVolumeUQ = PackingModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.UnitOfVolume;
             PackingModalCtrl.ePage.Masters.Package.IsSelected = false;
             $timeout(function () {
                 if (PackingModalCtrl.ePage.Entities.Header.Data.UIJobPackLines.length > 0) {
@@ -105,39 +105,25 @@
                 } else {
                     console.log("PackageList is Empty");
                 }
-
                 PackingModalCtrl.ePage.Masters.Package.GridData = _gridData;
                 sum();
             });
         }
 
-        function PackageRowSelectionChanged($item) {
-            if ($item.isSelected) {
-                PackingModalCtrl.ePage.Masters.Package.SelectedRow = $item;
-                PackingModalCtrl.ePage.Masters.Package.IsSelected = true;
-            } else {
-                PackingModalCtrl.ePage.Masters.Package.SelectedRow = undefined;
-                PackingModalCtrl.ePage.Masters.Package.IsSelected = false;
-                PackingModalCtrl.ePage.Masters.Package.AddNewAndUpdate = 'Add New';
-                PackingModalCtrl.ePage.Masters.Package.FormView = {};
-            }
-        }
-
-        function SelectedGridRow($item) {
-            console.log($item)
-            if ($item.action == 'edit')
-                EditPackage($item)
+        function SelectedGridRow(item, type) {
+            if (type == 'edit')
+                EditPackage(item)
             else
-                DeleteConfirmation($item)
+                DeleteConfirmation(item)
         }
 
-        function EditPackage($item) {
+        function EditPackage(item) {
             PackingModalCtrl.ePage.Masters.Package.AddNewAndUpdate = 'Update';
-            PackingModalCtrl.ePage.Masters.Package.FormView = $item.data;
+            PackingModalCtrl.ePage.Masters.Package.FormView = item;
         }
 
 
-        function DeleteConfirmation($item) {
+        function DeleteConfirmation(item) {
             var modalOptions = {
                 closeButtonText: 'Cancel',
                 actionButtonText: 'Ok',
@@ -147,18 +133,18 @@
 
             confirmation.showModal({}, modalOptions)
                 .then(function (result) {
-                    DeletePackage($item);
+                    DeletePackage(item);
                 }, function () {
                     console.log("Cancelled");
                 });
         }
 
-        function DeletePackage($item) {
+        function DeletePackage(item) {
             // PackingModalCtrl.ePage.Entities.Header.Data.UIJobPackLines.map(function (value, key) {
-            var _index = PackingModalCtrl.ePage.Entities.Header.Data.UIJobPackLines.indexOf(PackingModalCtrl.ePage.Masters.Package.SelectedRow.entity);
+            var _index = PackingModalCtrl.ePage.Entities.Header.Data.UIJobPackLines.indexOf(item);
             if (_index != -1) {
-                $item.data.IsDeleted = true;
-                apiService.post("eAxisAPI", appConfig.Entities.JobPackLines.API.Upsert.Url, [$item.data]).then(function (response) {
+                item.IsDeleted = true;
+                apiService.post("eAxisAPI", appConfig.Entities.JobPackLines.API.Upsert.Url, [item]).then(function (response) {
                     if (response.data.Response) {
                         PackingModalCtrl.ePage.Entities.Header.Data.UIJobPackLines.splice(_index, 1);
                         toastr.success("Record Deleted Successfully...!");
@@ -172,8 +158,22 @@
         }
 
         function ok() {
+            if (PackingModalCtrl.ePage.Masters.Package.GridData.length > 0) {
+                PackingModalCtrl.ePage.Masters.Package.GridData.map(function (Value, Key) {
+                    if (!Value.PackageCount) {
+                        Value.PackageCount = 0;
+                    }
+                    if (!Value.ActualWeight) {
+                        Value.ActualWeight = 0;
+                    }
+                    if (!Value.ActualVolume) {
+                        Value.ActualVolume = 0;
+                    }
+                });
+            }
+            sum();
 
-            if (PackingModalCtrl.ePage.Entities.Header.Data.UIJobPackLines.length > 0) {
+            if (PackingModalCtrl.ePage.Entities.Header.Data.UIJobPackLines.length > 0 && PackingModalCtrl.ePage.Masters.Package.GridData.length > 0) {
                 if (PackingModalCtrl.ePage.Masters.Consolidation[0].PackageCount != PackingModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.InnerPackCount || PackingModalCtrl.ePage.Masters.Consolidation[0].ActualWeight != PackingModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Weight || PackingModalCtrl.ePage.Masters.Consolidation[0].ActualVolume != PackingModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Volume || PackingModalCtrl.ePage.Masters.Package.GridData[0].F3_NKPackType != PackingModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.InnerPackType || PackingModalCtrl.ePage.Masters.Package.GridData[0].ActualWeightUQ != PackingModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.UnitOfWeight || PackingModalCtrl.ePage.Masters.Package.GridData[0].ActualVolumeUQ != PackingModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.UnitOfVolume) {
                     var modalOptions = {
                         closeButtonText: 'Cancel',
@@ -184,7 +184,6 @@
 
                     confirmation.showModal({}, modalOptions)
                         .then(function (result) {
-
                             PackingModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.InnerPackCount =
                                 PackingModalCtrl.ePage.Masters.Consolidation[0].PackageCount;
                             PackingModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Weight =
@@ -194,17 +193,15 @@
                             PackingModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.InnerPackType = PackingModalCtrl.ePage.Masters.Package.GridData[0].F3_NKPackType;
                             PackingModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.UnitOfWeight = PackingModalCtrl.ePage.Masters.Package.GridData[0].ActualWeightUQ;
                             PackingModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.UnitOfVolume = PackingModalCtrl.ePage.Masters.Package.GridData[0].ActualVolumeUQ;
-                            $uibModalInstance.dismiss('close')
-
+                            $uibModalInstance.dismiss('close');
                         }, function () {
-                            $uibModalInstance.dismiss('close')
+                            $uibModalInstance.dismiss('close');
                         });
-
                 } else {
-                    $uibModalInstance.dismiss('close')
+                    $uibModalInstance.dismiss('close');
                 }
             } else {
-                $uibModalInstance.dismiss('close')
+                $uibModalInstance.dismiss('close');
             }
         }
 
@@ -241,28 +238,27 @@
                             GetPackageDetails();
                         }
                     });
-
                 }
             }
-
         }
 
         function sum() {
+            var _PackageCount=0,_ActualWeight=0,_ActualVolume=0;
             if (PackingModalCtrl.ePage.Masters.Package.GridData.length > 0) {
-                PackingModalCtrl.ePage.Masters.Consolidation = [{
-                    PackageCount: _.sumBy(PackingModalCtrl.ePage.Masters.Package.GridData, function (o) {
-                        if (o.FreightMode == 'STD')
-                            return o.PackageCount;
-                    }),
-                    ActualWeight: _.sumBy(PackingModalCtrl.ePage.Masters.Package.GridData, function (o) {
-                        if (o.FreightMode == 'STD')
-                            return o.ActualWeight;
-                    }),
-                    ActualVolume: _.sumBy(PackingModalCtrl.ePage.Masters.Package.GridData, function (o) {
-                        if (o.FreightMode == 'STD')
-                            return o.ActualVolume;
-                    })
-                }];
+                PackingModalCtrl.ePage.Masters.Package.GridData.map(function(Value,Key){
+                    if(Value.FreightMode == 'STD'){
+                        _PackageCount = _PackageCount + parseInt(Value.PackageCount);
+                    }
+                    if(Value.FreightMode == 'STD'){
+                        _ActualWeight = (parseFloat(_ActualWeight) + parseFloat(Value.ActualWeight)).toFixed(3);
+                    }
+                    if(Value.FreightMode == 'STD'){
+                        _ActualVolume = (parseFloat(_ActualVolume) + parseFloat(Value.ActualVolume)).toFixed(3);
+                    }
+                    PackingModalCtrl.ePage.Masters.Consolidation[0].PackageCount = _PackageCount;
+                    PackingModalCtrl.ePage.Masters.Consolidation[0].ActualWeight = _ActualWeight;
+                    PackingModalCtrl.ePage.Masters.Consolidation[0].ActualVolume = _ActualVolume;
+                });
             } else {
                 PackingModalCtrl.ePage.Masters.Consolidation = [{
                     "PackageCount": 0,
@@ -270,10 +266,7 @@
                     "ActualVolume": 0
                 }];
             }
-
         }
-
-
 
         Init();
     }

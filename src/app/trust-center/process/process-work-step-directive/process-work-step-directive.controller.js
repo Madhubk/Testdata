@@ -5,9 +5,9 @@
         .module("Application")
         .controller("ProcessWorkStepDirectiveController", ProcessWorkStepDirectiveController);
 
-    ProcessWorkStepDirectiveController.$inject = ["$rootScope", "$scope", "$location", "authService", "APP_CONSTANT", "apiService", "helperService", "appConfig", "$timeout"];
+    ProcessWorkStepDirectiveController.$inject = ["helperService"];
 
-    function ProcessWorkStepDirectiveController($rootScope, $scope, $location, authService, APP_CONSTANT, apiService, helperService, appConfig, $timeout) {
+    function ProcessWorkStepDirectiveController( helperService) {
         /* jshint validthis: true */
         var ProcessWorkStepDirectiveCtrl = this;
 

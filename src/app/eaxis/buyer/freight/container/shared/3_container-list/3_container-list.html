@@ -1,0 +1,33 @@
+<uib-tabset id="chromeTab" active="ThreeContainerCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+    <uib-tab>
+        <uib-tab-heading title="Container">
+            <span data-ng-bind="'Container'"></span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+        <div class="no-padding tab-list-view-wrapper">
+            <!--Container Grid Page-->
+            <dynamic-list dataentry-name="ThreeContainerCtrl.ePage.Masters.dataentryName" selected-grid-row="ThreeContainerCtrl.ePage.Masters.SelectedGridRow($item)"
+                mode="1" dataentry-object="ThreeContainerCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+            <div class="tab-loading" data-ng-show="ThreeContainerCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+    <uib-tab active="ThreeContainerCtrl.ePage.Masters.activeTabIndex == $index" data-ng-repeat="tab in ThreeContainerCtrl.ePage.Masters.TabList"
+        data-ng-click="ThreeContainerCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+        <uib-tab-heading title="{{tab.label}}">
+            <span data-ng-bind="tab.label"></span>
+            <i class="glyphicon glyphicon-remove" data-ng-click="ThreeContainerCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+        </uib-tab-heading>
+        <div class="padding-bottom-10 clearfix">
+            <!--Container Menu Directive-->
+            <three-one-container-list-directive current-container="tab"></three-one-container-list-directive>
+            <div class="eaxis-footer-strip">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="ThreeContainerCtrl.ePage.Masters.Save(tab)"
+                        data-ng-bind="ThreeContainerCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="ThreeContainerCtrl.ePage.Masters.IsDisableSave"></button>
+                </div>
+            </div>
+        </div>
+    </uib-tab>
+</uib-tabset>

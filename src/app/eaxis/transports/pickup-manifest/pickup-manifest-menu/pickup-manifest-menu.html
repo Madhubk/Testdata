@@ -1,0 +1,19 @@
+<div class="clearfix wms-menu-wraper">
+    <div id="wmsMenuWrapper{{PickupMenuCtrl.currentManifest.label}}" class="col-sm-12 no-padding-left no-padding-right">
+        <div manifest-read-only current-manifest="PickupMenuCtrl.currentManifest"></div>
+    </div>
+
+    <!--Footer-->
+    <div class="eaxis-footer-strip">
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+            <standard-menu dataentry-object="PickupMenuCtrl.dataentryObject" data-ng-if="!PickupMenuCtrl.currentManifest.isNew" input="PickupMenuCtrl.currentManifest"></standard-menu>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+
+            <div class=" col-lg-4 pl-0">
+                <button class="btn btn-primary btn-sm manifest-btn-width-85 mt-6" data-ng-click="PickupMenuCtrl.ePage.Masters.Validation(PickupMenuCtrl.currentManifest)"
+                    data-ng-bind="PickupMenuCtrl.ePage.Masters.SaveButtonText"></button>
+            </div>
+        </div>
+    </div>
+</div>

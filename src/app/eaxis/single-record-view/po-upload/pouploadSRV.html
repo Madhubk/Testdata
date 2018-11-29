@@ -1,0 +1,31 @@
+<div class="clearfix">
+    <uib-tabset id="chromeTab" active="SRVPOUploadCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+        <uib-tab ng-repeat="tab in SRVPOUploadCtrl.ePage.Masters.TabList" ng-click="SRVPOUploadCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+            <uib-tab-heading title="{{tab.label}}">
+                <span data-ng-bind="tab.label"></span>
+                <i class="glyphicon glyphicon-remove" ng-click="SRVPOUploadCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+            </uib-tab-heading>
+            <div class="padding-bottom-10 clearfix">
+                <!--PO Batch Upload Directive-->
+                <po-batch-upload-directive data-ng-if="!tab.isNewOrder" current-batch="tab" add-tab="SRVPOUploadCtrl.ePage.Masters.AddTab1($item)"></po-batch-upload-directive>
+                <!--Order Menu Directive-->
+                <order-menu data-ng-if="tab.isNewOrder" current-order="tab" current-obj="SRVPOUploadCtrl.ePage.Masters.TabConfig"></order-menu>
+                <div class="eaxis-footer-strip" data-ng-if="tab.isNewOrder">
+                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                        <!-- <standard-menu input="tab" entity-name="'OrderHeader'" data-ng-if="!tab.isNew"></standard-menu> -->
+                        <standard-menu input="tab" dataentry-object="SRVPOUploadCtrl.ePage.Masters.DataEntryObject"
+                            data-ng-if="!tab.isNew"></standard-menu>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                        <order-action input="tab" data-ng-if="!tab.isNew"> </order-action>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                        <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="SRVPOUploadCtrl.ePage.Masters.Validation(tab)"
+                            data-ng-bind="SRVPOUploadCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="SRVPOUploadCtrl.ePage.Masters.IsDisableSave"></button>
+                    </div>
+                </div>
+            </div>
+            <span ng-if="SRVPOUploadCtrl.ePage.Masters.Config.GlobalVar.IsClosed" ng-init="SRVPOUploadCtrl.ePage.Masters.Close($index, tab)"></span>
+        </uib-tab>
+    </uib-tabset>
+</div>

@@ -1,0 +1,378 @@
+<div id="CargoReadinessGrid{{one_one_PreAdviceInlineCtrl.ePage.Entities.Header.Data.UIVesselDetails[0].OrderNo}}" class="fixedheader mb-0">
+    <table id="one_one_PreAdviceInlineCtrl.ePage.Masters.AddScroll" style="height:350px;">
+        <thead>
+            <tr id="tableHeader">
+                <th id="checkbox" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.checkbox.isenabled && !one_one_PreAdviceInlineCtrl.readOnly"
+                    ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.checkbox.width + 'px' }"
+                    title="Select">Select</th>
+                <th id="orderno" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.orderno.isenabled"
+                    data-ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.orderno.width + 'px' }"
+                    title="Order #">Order #</th>
+                <th id="consignee" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.consignee.isenabled"
+                    data-ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.consignee.width + 'px' }"
+                    title="Consignee">Consignee</th>
+                <th id="consignor" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.consignor.isenabled"
+                    data-ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.consignor.width + 'px' }"
+                    title="Consignor">Consignor</th>
+                <th id="cargoreadydate" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.cargoreadydate.isenabled"
+                    data-ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.cargoreadydate.width + 'px' }"
+                    title="Cargo Ready Date">Cargo Ready Date</th>
+                <th id="carrier" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.carrier.isenabled"
+                    data-ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.carrier.width + 'px' }"
+                    title="Carrier">Carrier</th>
+                <th id="vessel" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.vessel.isenabled"
+                    data-ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.vessel.width + 'px' }"
+                    title="Vessel">Vessel</th>
+                <th id="voyage" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.voyage.isenabled"
+                    data-ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.voyage.width + 'px' }"
+                    title="Voyage/Flight/Truck">Voyage/Flight/Truck</th>
+                <th id="pol" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.pol.isenabled"
+                    data-ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.pol.width + 'px' }"
+                    title="POL">POL</th>
+                <th id="pod" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.pod.isenabled"
+                    data-ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.pod.width + 'px' }"
+                    title="POD">POD</th>
+                <th id="etd" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.etd.isenabled"
+                    data-ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.etd.width + 'px' }"
+                    title="ETD">ETD</th>
+                <th id="eta" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.eta.isenabled"
+                    data-ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.eta.width + 'px' }"
+                    title="ETA">ETA</th>
+                <th id="ccod" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.ccod.isenabled"
+                    data-ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.ccod.width + 'px' }"
+                    title="Cargo Cut Off">Cargo Cut Off</th>
+                <th id="bcod" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.bcod.isenabled"
+                    data-ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.bcod.width + 'px' }"
+                    title="Booking Cut Off">Booking Cut Off</th>
+            </tr>
+        </thead>
+        <tbody id="">
+            <tr id="tableBody" data-ng-if="!one_one_PreAdviceInlineCtrl.readOnly" data-ng-class="{row_active: (one_one_PreAdviceInlineCtrl.ePage.Masters.selectedRow==$index)}"
+                data-ng-repeat="x in one_one_PreAdviceInlineCtrl.ePage.Entities.Header.Data.UIVesselDetails | filter:{IsDeleted:false}"
+                data-ng-click="one_one_PreAdviceInlineCtrl.ePage.Masters.selectedRow = $index;one_one_PreAdviceInlineCtrl.ePage.Masters.selectedRowObj=x">
+                <!-- checkbox -->
+                <td id="checkbox" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.checkbox.isenabled && !one_one_PreAdviceInlineCtrl.readOnly"
+                    ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.checkbox.width + 'px' ,'padding-top':'0px' }"
+                    ng-click="one_one_PreAdviceInlineCtrl.ePage.Masters.Enable = true">
+                    <label class="mb-0 customcheckbox">
+                        <input type="checkbox" data-ng-checked="x.status" data-ng-change="one_one_PreAdviceInlineCtrl.ePage.Masters.OnChange(x)"
+                            data-ng-model="x.status" />
+                        <span class="text"></span>
+                    </label>
+                </td>
+                <!-- Order # -->
+                <td id="orderno" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.orderno.isenabled"
+                    data-ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.orderno.width + 'px' }">
+                    <div data-ng-if="$index!=one_one_PreAdviceInlineCtrl.ePage.Masters.selectedRow || one_one_PreAdviceInlineCtrl.ePage.GlobalVariables.NonEditable">
+                        {{x.OrderNo || one_one_PreAdviceInlineCtrl.ePage.Masters.emptyText}}
+                    </div>
+                    <div data-ng-if="$index==one_one_PreAdviceInlineCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                        {{x.OrderNo || one_one_PreAdviceInlineCtrl.ePage.Masters.emptyText}}
+                        <!-- <div class="ship-font">
+                                <input type="text" class="form-control input-sm" placeholder="Order #" maxlength="35"
+                                    data-ng-model="x.OrderNo" />
+                            </div> -->
+                    </div>
+                </td>
+                <!-- Consignee -->
+                <td id="consignee" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.consignee.isenabled"
+                    data-ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.consignee.width + 'px' }">
+                    <div data-ng-if="$index!=one_one_PreAdviceInlineCtrl.ePage.Masters.selectedRow || one_one_PreAdviceInlineCtrl.ePage.GlobalVariables.NonEditable">
+                        {{x.Buyer || one_one_PreAdviceInlineCtrl.ePage.Masters.emptyText}}
+                    </div>
+                    <div data-ng-if="$index==one_one_PreAdviceInlineCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                        {{x.Buyer || one_one_PreAdviceInlineCtrl.ePage.Masters.emptyText}}
+                        <!-- <div class="ship-font">
+                                <input type="text" class="form-control input-sm" placeholder="Order #" maxlength="35"
+                                    data-ng-model="x.Buyer" />
+                            </div> -->
+                    </div>
+                </td>
+                <!-- Consignor -->
+                <td id="consignor" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.consignor.isenabled"
+                    data-ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.consignor.width + 'px' }">
+                    <div data-ng-if="$index!=one_one_PreAdviceInlineCtrl.ePage.Masters.selectedRow || one_one_PreAdviceInlineCtrl.ePage.GlobalVariables.NonEditable">
+                        {{x.Supplier || one_one_PreAdviceInlineCtrl.ePage.Masters.emptyText}}
+                    </div>
+                    <div data-ng-if="$index==one_one_PreAdviceInlineCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                        {{x.Supplier || one_one_PreAdviceInlineCtrl.ePage.Masters.emptyText}}
+                        <!-- <div class="ship-font">
+                                <input type="text" class="form-control input-sm" placeholder="Order #" maxlength="35"
+                                    data-ng-model="x.Supplier" />
+                            </div> -->
+                    </div>
+                </td>
+                <!-- Cargo Ready Date -->
+                <td id="cargoreadydate" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.cargoreadydate.isenabled"
+                    data-ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.cargoreadydate.width + 'px' }">
+                    <div data-ng-if="$index!=one_one_PreAdviceInlineCtrl.ePage.Masters.selectedRow || one_one_PreAdviceInlineCtrl.ePage.GlobalVariables.NonEditable">
+                        {{x.CargoReadyDate | date:'dd-MMM-yyyy' || one_one_PreAdviceInlineCtrl.ePage.Masters.emptyText}}
+                    </div>
+                    <div data-ng-if="$index==one_one_PreAdviceInlineCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                        {{x.CargoReadyDate | date:'dd-MMM-yyyy' || one_one_PreAdviceInlineCtrl.ePage.Masters.emptyText}}
+                        <!-- <div class="input-group input-group-sm col-lg-11">
+                                <input type="text" class="form-control" placeholder="{{one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                    data-ng-model="x.CargoReadyDate" datetime-picker="{{one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                    datepicker-options="one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.Options"
+                                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                    enable-date="true" default-date="" default-time="" save-as="one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                    is-open="one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.isOpen['isCargoReadyDate']"
+                                    when-closed="" data-ng-click="one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoReadyDate')"
+                                    custom-date-time-format />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default shiny" data-ng-click="one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoReadyDate')">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </span>
+                            </div> -->
+                    </div>
+                </td>
+                <!-- Carrier -->
+                <td id="carrier" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.carrier.isenabled"
+                    data-ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.carrier.width + 'px' }">
+                    <div data-ng-if="$index!=one_one_PreAdviceInlineCtrl.ePage.Masters.selectedRow || one_one_PreAdviceInlineCtrl.ePage.GlobalVariables.NonEditable">
+                        {{x.PlannedCarrier | date:'dd-MMM-yyyy' || one_one_PreAdviceInlineCtrl.ePage.Masters.emptyText}}
+                    </div>
+                    <div data-ng-if="$index==one_one_PreAdviceInlineCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                        <div class="input-group input-group-sm">
+                            <input type="hidden" data-ng-model="x.CarrierOrg_FK">
+                            <div dynamic-lookup placeholder="Carrier" my-ng-model="x.PlannedCarrier" obj="x" page-name="'OrgCarrierList'"
+                                control-key="'OrdCarrierPlanning_2834'" control-id="'OrdCarrierPlanning'"
+                                auto-complete-on-select="one_one_PreAdviceInlineCtrl.ePage.Masters.AutoCompleteOnSelect($item,'E2002')"></div>
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal obj="x" control-key="'OrdCarrierPlanning_2834'" control-id="'OrdCarrierPlanning'"
+                                    page-name="'OrgCarrierList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                    selected-data="one_one_PreAdviceInlineCtrl.ePage.Masters.SelectedLookupData($item,'E2002')"
+                                    class="btn btn-default shiny" type="button">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </td>
+                <!-- vessel -->
+                <td id="vessel" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.vessel.isenabled"
+                    data-ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.vessel.width + 'px' }">
+                    <div data-ng-if="$index!=one_one_PreAdviceInlineCtrl.ePage.Masters.selectedRow || one_one_PreAdviceInlineCtrl.ePage.GlobalVariables.NonEditable">
+                        {{x.PlannedVessel || one_one_PreAdviceInlineCtrl.ePage.Masters.emptyText}}
+                    </div>
+                    <div data-ng-if="$index==one_one_PreAdviceInlineCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                        <div class="input-group input-group-sm">
+                            <input type="hidden" data-ng-model="x.Vessel_FK">
+                            <div dynamic-lookup placeholder="Vessel" my-ng-model="x.PlannedVessel" obj="x" page-name="'MstVessel'"
+                                control-key="'OrdVesselPlanning_3187'" control-id="'OrdVesselPlanning'"
+                                auto-complete-on-select="one_one_PreAdviceInlineCtrl.ePage.Masters.AutoCompleteOnSelect($item,'E2001')"></div>
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal obj="x" control-key="'OrdVesselPlanning_3187'" control-id="'OrdVesselPlanning'"
+                                    page-name="'MstVessel'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                    selected-data="one_one_PreAdviceInlineCtrl.ePage.Masters.SelectedLookupData($item,'E2001', 'PlannedVessel');"
+                                    class="btn btn-default shiny" type="button">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </td>
+                <!-- voyage -->
+                <td id="voyage" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.voyage.isenabled"
+                    data-ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.voyage.width + 'px' }">
+                    <div data-ng-if="$index!=one_one_PreAdviceInlineCtrl.ePage.Masters.selectedRow || one_one_PreAdviceInlineCtrl.ePage.GlobalVariables.NonEditable">
+                        {{x.PlannedVoyage || one_one_PreAdviceInlineCtrl.ePage.Masters.emptyText}}
+                    </div>
+                    <div data-ng-if="$index==one_one_PreAdviceInlineCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                        <input type="text" class="form-control input-sm" placeholder="Voyage" maxlength="35"
+                            data-ng-model="x.PlannedVoyage" data-ng-blur="one_one_PreAdviceInlineCtrl.ePage.Masters.OnFieldValueChange('E2003')">
+                    </div>
+                </td>
+                <!-- POL -->
+                <td id="pol" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.pol.isenabled"
+                    data-ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.pol.width + 'px' }">
+                    <div data-ng-if="$index!=one_one_PreAdviceInlineCtrl.ePage.Masters.selectedRow || one_one_PreAdviceInlineCtrl.ePage.GlobalVariables.NonEditable">
+                        {{x.LoadPort ||
+                        one_one_PreAdviceInlineCtrl.ePage.Masters.emptyText}}
+                    </div>
+                    <div data-ng-if="$index==one_one_PreAdviceInlineCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                        <div class="input-group input-group-sm">
+                            <!-- <input type="hidden" data-ng-model="x.PortOfLoading_PK"> -->
+                            <div dynamic-lookup placeholder="Port Of Loading" my-ng-model="x.LoadPort" obj="x"
+                                page-name="'MstUNLOCO'" control-key="'VesselPOL_3309'" control-id="'VesselPOL'"
+                                auto-complete-on-select="one_one_PreAdviceInlineCtrl.ePage.Masters.AutoCompleteOnSelect($item,'E2006')"></div>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default fa fa-ellipsis-h" dynamic-list-modal obj="x" control-key="'VesselPOL_3309'"
+                                    control-id="'VesselPOL'" page-name="'MstUNLOCO'" mode="2"
+                                    grid-refresh-fun-name="" grid-refresh-fun="" selected-data="one_one_PreAdviceInlineCtrl.ePage.Masters.SelectedLookupData($item,'E2006')"
+                                    class="btn btn-default shiny" type="button"></button>
+                            </span>
+                        </div>
+                    </div>
+                </td>
+                <!-- POD -->
+                <td id="pod" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.pod.isenabled"
+                    data-ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.pod.width + 'px' }">
+                    <div data-ng-if="$index!=one_one_PreAdviceInlineCtrl.ePage.Masters.selectedRow || one_one_PreAdviceInlineCtrl.ePage.GlobalVariables.NonEditable">
+                        {{x.DischargePort ||
+                        one_one_PreAdviceInlineCtrl.ePage.Masters.emptyText}}
+                    </div>
+                    <div data-ng-if="$index==one_one_PreAdviceInlineCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                        <div class="input-group input-group-sm">
+                            <!-- <input type="hidden" data-ng-model="x.PortOfDischarge_PK"> -->
+                            <div dynamic-lookup placeholder="Port Of Discharge" my-ng-model="x.DischargePort" obj="x"
+                                page-name="'MstUNLOCO'" control-key="'VesselPOD_3310'" control-id="'VesselPOD'"
+                                auto-complete-on-select="one_one_PreAdviceInlineCtrl.ePage.Masters.AutoCompleteOnSelect($item,'E2009')"></div>
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal obj="x" control-key="'VesselPOD_3310'" control-id="'VesselPOD'"
+                                    page-name="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                    selected-data="one_one_PreAdviceInlineCtrl.ePage.Masters.SelectedLookupData($item,'E2009')"
+                                    class="btn btn-default shiny" type="button">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </td>
+                <!-- ETD -->
+                <td id="etd" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.etd.isenabled"
+                    data-ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.etd.width + 'px' }">
+                    <div data-ng-if="$index!=one_one_PreAdviceInlineCtrl.ePage.Masters.selectedRow || one_one_PreAdviceInlineCtrl.ePage.GlobalVariables.NonEditable">
+                        {{x.PlannedETD | date:'dd-MMM-yyyy' || one_one_PreAdviceInlineCtrl.ePage.Masters.emptyText}}
+                    </div>
+                    <div data-ng-if="$index==one_one_PreAdviceInlineCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" placeholder="{{one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                data-ng-model="x.PlannedETD" datetime-picker="{{one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datepicker-options="one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                enable-date="true" default-date="" default-time="" save-as="one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.isOpen['isPlannedETD']"
+                                when-closed="" data-ng-click="one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPlannedETD')"
+                                data-ng-change="one_one_PreAdviceInlineCtrl.ePage.Masters.OnFieldValueChange('E2005'); one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.OnChangeDatePicker('PlannedETD', 'PlannedETA',x)"
+                                custom-date-time-format />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default fa fa-calendar" type="button" data-ng-click="one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPlannedETD')"></button>
+                            </span>
+                        </div>
+                    </div>
+                </td>
+                <!-- ETA -->
+                <td id="eta" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.eta.isenabled"
+                    data-ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.eta.width + 'px' }">
+                    <div data-ng-if="$index!=one_one_PreAdviceInlineCtrl.ePage.Masters.selectedRow || one_one_PreAdviceInlineCtrl.ePage.GlobalVariables.NonEditable">
+                        {{x.PlannedETA | date:'dd-MMM-yyyy' || one_one_PreAdviceInlineCtrl.ePage.Masters.emptyText}}
+                    </div>
+                    <div data-ng-if="$index==one_one_PreAdviceInlineCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" placeholder="{{one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                data-ng-model="x.PlannedETA" datetime-picker="{{one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datepicker-options="one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                enable-date="true" default-date="" default-time="" save-as="one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.isOpen['isPlannedETA']"
+                                when-closed="" data-ng-click="one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPlannedETA')"
+                                data-ng-change="one_one_PreAdviceInlineCtrl.ePage.Masters.OnFieldValueChange('E2004'); one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.OnChangeDatePicker('PlannedETA', 'PlannedETD',x)"
+                                custom-date-time-format />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default fa fa-calendar" type="button" data-ng-click="one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPlannedETA')"></button>
+                            </span>
+                        </div>
+                    </div>
+                </td>
+                <!-- Cargo Cut Off -->
+                <td id="ccod" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.ccod.isenabled"
+                    data-ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.ccod.width + 'px' }">
+                    <div data-ng-if="$index!=one_one_PreAdviceInlineCtrl.ePage.Masters.selectedRow || one_one_PreAdviceInlineCtrl.ePage.GlobalVariables.NonEditable">
+                        {{x.CargoCutOffDate | date:'dd-MMM-yyyy' || one_one_PreAdviceInlineCtrl.ePage.Masters.emptyText}}
+                    </div>
+                    <div data-ng-if="$index==one_one_PreAdviceInlineCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" placeholder="{{one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                data-ng-model="x.CargoCutOffDate" datetime-picker="{{one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datepicker-options="one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                enable-date="true" default-date="" default-time="" save-as="one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.isOpen['isCargoCutOffDate']"
+                                when-closed="" data-ng-click="one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoCutOffDate')"
+                                data-ng-change="one_one_PreAdviceInlineCtrl.ePage.Masters.OnFieldValueChange('E2007'); one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.OnChangeDatePicker('CargoCutOffDate', 'BookingCutOffDate',x)"
+                                custom-date-time-format />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default fa fa-calendar date-sty" type="button" data-ng-click="one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoCutOffDate'+ $index)"></button>
+                            </span>
+                        </div>
+                    </div>
+                </td>
+                <!-- Booking Cut Off -->
+                <td id="bcod" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.bcod.isenabled"
+                    data-ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.bcod.width + 'px' }">
+                    <div data-ng-if="$index!=one_one_PreAdviceInlineCtrl.ePage.Masters.selectedRow || one_one_PreAdviceInlineCtrl.ePage.GlobalVariables.NonEditable">
+                        {{x.BookingCutOffDate | date:'dd-MMM-yyyy' || one_one_PreAdviceInlineCtrl.ePage.Masters.emptyText}}
+                    </div>
+                    <div data-ng-if="$index==one_one_PreAdviceInlineCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" placeholder="{{one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                data-ng-model="x.BookingCutOffDate" datetime-picker="{{one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datepicker-options="one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                enable-date="true" default-date="" default-time="" save-as="one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.isOpen['isBookingCutOffDate']"
+                                when-closed="" data-ng-click="one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isBookingCutOffDate')"
+                                data-ng-change="one_one_PreAdviceInlineCtrl.ePage.Masters.OnFieldValueChange('E2008'); one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.OnChangeDatePicker('BookingCutOffDate', 'CargoCutOffDate',x)"
+                                custom-date-time-format />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default fa fa-calendar date-sty" type="button" data-ng-click="one_one_PreAdviceInlineCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isBookingCutOffDate'+ $index)"></button>
+                            </span>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <!-- readonly start -->
+            <tr id="tableBody" data-ng-if="one_one_PreAdviceInlineCtrl.readOnly" data-ng-repeat="x in one_one_PreAdviceInlineCtrl.ePage.Entities.Header.Data.UIVesselDetails | filter:{IsDeleted:false}">
+                <!-- Order # -->
+                <td id="orderno" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.orderno.isenabled"
+                    data-ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.orderno.width + 'px' }">
+                    {{x.OrderNo || one_one_PreAdviceInlineCtrl.ePage.Masters.emptyText}}
+                </td>
+                <!-- Order Date -->
+                <td id="cargoreadydate" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.cargoreadydate.isenabled"
+                    data-ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.cargoreadydate.width + 'px' }">
+                    {{x.cargoreadydate || one_one_PreAdviceInlineCtrl.ePage.Masters.emptyText}}
+                </td>
+                <!-- Carrier -->
+                <td id="carrier" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.carrier.isenabled"
+                    data-ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.carrier.width + 'px' }">
+                    {{x.carrier || one_one_PreAdviceInlineCtrl.ePage.Masters.emptyText}}
+                </td>
+                <!-- consignee -->
+                <td id="consignee" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.consignee.isenabled"
+                    data-ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.consignee.width + 'px' }">
+                    {{x.Buyer || one_one_PreAdviceInlineCtrl.ePage.Masters.emptyText}}
+                </td>
+                <!-- consignor -->
+                <td id="consignor" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.consignor.isenabled"
+                    data-ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.consignor.width + 'px' }">
+                    {{x.Supplier || one_one_PreAdviceInlineCtrl.ePage.Masters.emptyText}}
+                </td>
+                <!-- Vessel -->
+                <td id="vessel" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.vessel.isenabled"
+                    data-ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.vessel.width + 'px' }">
+                    {{x.PlannedVessel || one_one_PreAdviceInlineCtrl.ePage.Masters.emptyText}}
+                </td>
+                <!-- Voyage -->
+                <td id="voyage" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.voyage.isenabled"
+                    data-ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.voyage.width + 'px' }">
+                    {{x.PlannedCarrier || one_one_PreAdviceInlineCtrl.ePage.Masters.emptyText}}
+                </td>
+                <!-- cargoreadydate -->
+                <td id="cargoreadydate" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.cargoreadydate.isenabled"
+                    data-ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.cargoreadydate.width + 'px' }">
+                    {{x.CargoReadyDate || one_one_PreAdviceInlineCtrl.ePage.Masters.emptyText}}
+                </td>
+                <!-- etd -->
+                <td id="etd" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.etd.isenabled"
+                    data-ng-style="{ 'width': one_one_PreAdviceInlineCtrl.ePage.Masters.TableProperties.UIPreAdviceViews.etd.width + 'px' }">
+                    {{x.etd || one_one_PreAdviceInlineCtrl.ePage.Masters.emptyText}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="grid-no-record" data-ng-if="one_one_PreAdviceInlineCtrl.ePage.Entities.Header.Data.UIVesselDetails.length == 0">No
+        records found...</div>
+</div>

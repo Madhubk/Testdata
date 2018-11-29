@@ -1,0 +1,52 @@
+<div class="clearfix mb-10 pb-10 exp-list" data-ng-repeat="y in expList">
+    <div class="clearfix mb-10">
+        <div class="col-lg-1">
+            <div class="dropdown mb-20" data-ng-if="isLogicalOperator">
+                <button class="btn btn-default btn-sm process-btn-dropdown" type="button" data-toggle="dropdown">{{y.LogicalOperator}}
+                    <span class="caret ml-10"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li data-ng-repeat="Operator in Expression.LogicalOperatorList">
+                        <a href="javascript:(0);" data-ng-click="y.LogicalOperator = Operator.Code">{{Operator.Code}}</a>
+                    </li>
+                </ul>
+            </div>
+            <button class="btn btn-danger btn-sm" data-ng-click="Expression.DeleteExpressions(y, $index)">Remove</button>
+        </div>
+        <div class="col-lg-11">
+            <div class="clearfix exp-sql-query">
+                <textarea class="form-control no-resize" rows="3" placeholder="Query" data-ng-model="y.SQL"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix mb-10">
+        <div class="clearfix mb-5">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-1">
+                <input type="text" class="form-control input-sm text-border-bottom text-center" data-ng-model="y.FieldNo" placeholder="Field No."
+                />
+            </div>
+            <div class="col-lg-3">
+                <input type="text" class="form-control input-sm text-border-bottom" data-ng-model="y.FieldName" placeholder="Field Name"
+                />
+            </div>
+            <div class="col-lg-2 pt-5">
+                <button class="btn btn-xs btn-default add-param" data-ng-click="Expression.AddParameters(y)">Add Parameter</button>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-11">
+            <span class="parameter-list" data-ng-repeat="z in y.Parameters">
+                <span class="field-no" data-ng-bind="z.fieldno"></span>
+                <span class="field-name" data-ng-bind="z.fieldname"></span>
+                <i class="fa fa-close close-icon" data-ng-click="Expression.DeleteParameters(y, z, $index)"></i>
+            </span>
+        </div>
+    </div>
+</div>
+<div class="clearfix text-right">
+    <button class="btn btn-default btn-xs" data-ng-click="Expression.AddExpressions(y)">Add Expression</button>
+</div>

@@ -1,51 +1,119 @@
+<div class="grid-loading-norecord-container ng-scope" style='z-index: 15;'data-ng-if="CycleCountMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading"></div>
+
 <div class="clearfix wms-menu-wraper">
-    <div id="wmsMenuWrapper{{CycleCountMenuCtrl.currentCycleCount.label}}" class="col-sm-12 no-padding-left no-padding-right">
-            <cycle-count-general current-cycle-count="CycleCountMenuCtrl.currentCycleCount"></cycle-count-general>
-            <cycle-count-line current-cycle-count="CycleCountMenuCtrl.currentCycleCount"></cycle-count-line>                
-    </div>
+    <div class="widget-main">
+        <uib-tabset id="wmsMenuWrapper{{CycleCountMenuCtrl.currentCycleCount.label}}" active="CycleCountMenuCtrl.ePage.Masters.active">
+            <uib-tab ng-repeat="x in CycleCountMenuCtrl.ePage.Masters.CycleCountMenu.ListSource">
+                <uib-tab-heading title="{{x.DisplayName}}">
+                    <i class="{{x.Icon}} mr-5"></i>
+                    <span class="text-single-line" data-ng-bind="x.DisplayName"></span>
+                    <error-warning-directive data-ng-if="CycleCountMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, CycleCountMenuCtrl.currentProduct.label, 'W', 'GParent').length > 0 && CycleCountMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, CycleCountMenuCtrl.currentProduct.label, 'E', 'GParent').length == 0"
+                        list="CycleCountMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList" type="'warning'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
+                    <error-warning-directive data-ng-if="CycleCountMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, CycleCountMenuCtrl.currentProduct.label, 'E', 'GParent').length > 0"
+                        list="CycleCountMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList" type="'error'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>  
+                </uib-tab-heading>
 
-    <span ng-if="CycleCountMenuCtrl.ePage.Entities.Header.CheckPoints.CloseLinesClicked" ng-init="CycleCountMenuCtrl.ePage.Masters.CloseLine()"></span>
+                <div class="finalisedstate" data-ng-if="CycleCountMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                    <span class="finaliseddatedescription">Cycle Count {{CycleCountMenuCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.CycleCountDesc}} and it cannot be edited</span>
+                </div>
 
-    <div class="error-warning-container right" id="errorWarningContainer{{CycleCountMenuCtrl.currentCycleCount.label}}">
-        <div class="error-warning-header clearfix">
-            <span class="title pull-left">
-                <!-- <i class="fa fa-warning"></i>  -->
-                Errors & Warnings
-            </span>
-            <span class="error-warning-toggle-icon pull-right" data-ng-click="CycleCountMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(CycleCountMenuCtrl.currentCycleCount)">
-                <i class="fa fa-arrow-right"></i>
-            </span>
-        </div>
-        <div class="error-warning-body">
-            <div class="clearfix" data-ng-if="CycleCountMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length>0">
-                <div class="clearfix">
-                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in CycleCountMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList">
-                        <div class="clearfix">
-                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
-                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                <div>
+                    <div ng-switch="x.Value">
+                        <div ng-switch-when="General">
+                            <cycle-count-general current-cycle-count="CycleCountMenuCtrl.currentCycleCount"></cycle-count-general>                                    
+                        </div>
+                        <div ng-switch-when="Lines">
+                            <cycle-count-line current-cycle-count="CycleCountMenuCtrl.currentCycleCount"></cycle-count-line>                                    
+                        </div>
+                    </div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+
+        <div class="error-warning-container right" id="errorWarningContainer{{CycleCountMenuCtrl.currentCycleCount.label}}">
+            <div class="error-warning-header clearfix">
+                <span class="title pull-left">
+                    Errors & Warnings
+                </span>
+                <span class="error-warning-toggle-icon pull-right" data-ng-click="CycleCountMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(CycleCountMenuCtrl.currentCycleCount)">
+                    <i class="fa fa-arrow-right"></i>
+                </span>
+            </div>
+            <div class="error-warning-body">
+                <div class="clearfix" data-ng-if="CycleCountMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length>0">
+                    <div class="clearfix">
+                        <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in CycleCountMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList">
+                            <div class="clearfix">
+                                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                    <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                                </div>
+                                <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                    <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                    <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                                </div>
                             </div>
-                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
-                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
-                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
-                            </div>    
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <span ng-if='CycleCountMenuCtrl.ePage.Entities.Header.CheckPoints.StockLoad' ng-init="CycleCountMenuCtrl.ePage.Masters.LoadNewStockTake()"></span>
-    <!--Footer-->
-    <div class="eaxis-footer-strip">
-        <div class="col-lg-9">
-            <standard-menu entity-name="'WarehouseCycleCount'" input="CycleCountMenuCtrl.currentCycleCount" data-ng-if="!CycleCountMenuCtrl.currentCycleCount.isNew"></standard-menu>
+        <span ng-if='CycleCountMenuCtrl.ePage.Entities.Header.GlobalVariables.StockLoad' ng-init="CycleCountMenuCtrl.ePage.Masters.LoadNewStockTake()"></span>
+        <span ng-if="CycleCountMenuCtrl.ePage.Entities.Header.GlobalVariables.CloseLinesClicked" ng-init="CycleCountMenuCtrl.ePage.Masters.CloseLine()"></span>
+
+        <!--Footer-->
+        <div class="eaxis-footer-strip">
+            <div class="col-xs-6 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+                <standard-menu dataentry-object="CycleCountMenuCtrl.dataentryObject" input="CycleCountMenuCtrl.currentCycleCount" ></standard-menu>
+            </div>
+    
+            <div class="col-xs-6 col-sm-5 col-md-5 col-lg-3 col-xl-3">
+                <span class="">
+                    <button class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6" data-ng-click="CycleCountMenuCtrl.ePage.Masters.Validation(CycleCountMenuCtrl.currentCycleCount)" ng-disabled="CycleCountMenuCtrl.ePage.Masters.DisableSave">Save</button> 
+                </span>
+                <span class="dropup pull-right">
+                    <button class="btn btn-primary btn-sm margin-right-10 mt-6 dropdown-toggle" type="button" data-toggle="dropdown" ng-disabled="CycleCountMenuCtrl.ePage.Masters.DisableSave">More<span class="ml-5 caret"></span></button>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a href="javascript:void(0);" data-ng-click="CycleCountMenuCtrl.ePage.Masters.Validation(CycleCountMenuCtrl.currentCycleCount);CycleCountMenuCtrl.ePage.Masters.SaveAndClose = true" >Save & Close</a></li>
+                        <li data-ng-if="!CycleCountMenuCtrl.currentCycleCount.isNew"><a href="javascript:void(0);" data-ng-click="CycleCountMenuCtrl.ePage.Masters.FinalizeCycleCount(CycleCountMenuCtrl.currentCycleCount)" >Finalize</a></li>
+                        <li data-ng-if="!CycleCountMenuCtrl.currentCycleCount.isNew"><a href="javascript:void(0);" data-ng-click="CycleCountMenuCtrl.ePage.Masters.CancelCycleCount(CycleCountMenuCtrl.currentCycleCount)" >Cancel CycleCount</a></li>
+                    </ul>
+                </span>
+                <span class="dropup pull-right">
+                    <button class="btn btn-primary btn-sm margin-right-10 mt-6 dropdown-toggle" type="button" data-toggle="dropdown" ng-disabled="CycleCountMenuCtrl.ePage.Masters.DisableReport ||CycleCountMenuCtrl.currentCycleCount.isNew">Documents<span class="ml-5 caret"></span></button>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li ng-repeat="x in CycleCountMenuCtrl.ePage.Masters.DocumentValues">
+                            <a href="javascript:void(0);" data-ng-click="CycleCountMenuCtrl.ePage.Masters.GenerateDocuments(x,'pdf')">{{x.Description}} - Pdf</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li ng-repeat="x in CycleCountMenuCtrl.ePage.Masters.DocumentValues">
+                            <a href="javascript:void(0);" data-ng-click="CycleCountMenuCtrl.ePage.Masters.GenerateDocuments(x,'excel')">{{x.Description}} - Excel</a>
+                        </li>
+                    </ul>
+                </span> 
+            </div>
+    
         </div>
-        <div class="col-lg-3">
-            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="CycleCountMenuCtrl.ePage.Masters.Validation(CycleCountMenuCtrl.currentCycleCount)"
-                data-ng-bind="CycleCountMenuCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="CycleCountMenuCtrl.ePage.Masters.IsDisableSave || CycleCountMenuCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.StocktakeStatus=='FIN'"></button>
-            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="CycleCountMenuCtrl.ePage.Masters.Validation(CycleCountMenuCtrl.currentCycleCount);CycleCountMenuCtrl.ePage.Masters.SaveAndClose = true"
-                data-ng-disabled="CycleCountMenuCtrl.ePage.Masters.IsDisableSave || CycleCountMenuCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.StocktakeStatus=='FIN'">Save & Close</button>
-        </div>
+
     </div>
 </div>
+
+
+<!-- Cancelling CycleCount Popup -->
+<script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title">CycleCount Cancellation..</h3>
+    </div>
+    <div class="modal-body"  style="height:200px">
+        <div class="form-group">
+            <label for="comment">Leave Your Comment</label>
+            <textarea class="form-control" rows="2"  ng-model="comment"></textarea>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="!comment">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="close()">Close</button>
+    </div>
+</script>

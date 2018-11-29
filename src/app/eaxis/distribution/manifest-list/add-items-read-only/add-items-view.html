@@ -1,0 +1,75 @@
+<div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-15">
+        <!--manifest number-->
+        <div class="rows border-box border-radius-2 bg-fbfbfb">
+            <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 col-xl-2 pt-10 pb-10">
+                <div class="tab-profile-title text-single-line fs-16" title="{{AddItemsViewCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestNumber}}"
+                    data-ng-bind="AddItemsViewCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestNumber"></div>
+            </div>
+            <!--sender-->
+            <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8 col-xl-8 border-left border-right pt-10 pb-10">
+                <div class="fs-14">
+                    <span>
+                        {{AddItemsViewCtrl.ePage.Entities.Header.Data.OrgSender.FullName}}
+                    </span>
+                    <span class="ml-15 mr-15">
+                        <i class="fa fa-arrow-circle-right"></i>
+                    </span>
+                    <span>
+                        {{AddItemsViewCtrl.ePage.Entities.Header.Data.OrgReceiver.FullName}}
+                    </span>
+                </div>
+            </div>
+            <!--status-->
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 mt-10">
+                <div class="tab-profile-sub-title text-single-line fs-14" title="{{AddItemsViewCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatus}} - {{AddItemsViewCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatusDesc}}"
+                    data-ng-bind="AddItemsViewCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatusDesc"></div>
+            </div>
+        </div>
+    </div>
+    <!--added items-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pb-10 pl-15">
+        <div class="rows border-box border-radius-2 mt-10">
+            <div class="dms-table-title fs-5 p-10">Item Details</div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pl-0 pr-0" style="overflow-x:auto;">
+                <table class="tableclass">
+                    <tbody>
+                        <tr>
+                            <th class="order-single-line">Item</th>
+                            <th class="order-single-line">MHU Type</th>
+                            <th class="order-single-line">Quantity</th>
+                            <th class="order-single-line">Sender</th>
+                            <th class="order-single-line">Receiver</th>
+                            <th class="order-single-line">Status</th>
+                            <th class="order-single-line">Consignment Number</th>
+                            <th class="order-single-line">UDF 1</th>
+                            <th class="order-single-line">UDF 2</th>
+                            <th class="order-single-line">UDF 3</th>
+                            <th class="order-single-line">Packing Date</th>
+                            <th class="order-single-line">Expiry Date</th>
+                        </tr>
+                        <tr ng-repeat="x in AddItemsViewCtrl.ePage.Entities.Header.Data.TmsManifestItem track by $index">
+                            <td class="order-single-line">{{x.TIT_ItemCode}}-{{x.TIT_ItemDesc}}</td>
+                            <td class="order-single-line">{{x.TIT_ItemRef_ID}}</td>
+                            <td class="order-single-line">{{x.Quantity}}</td>
+                            <td class="order-single-line">{{x.TIT_SenderCode}} - {{x.TIT_SenderName}}</td>
+                            <td class="order-single-line">{{x.TIT_ReceiverCode}} - {{x.TIT_ReceiverName}}</td>
+                            <td class="order-single-line">{{x.TIT_ItemStatusDesc}}</td>
+                            <td class="order-single-line">{{x.TMC_ConsignmentNumber}}</td>
+                            <td class="order-single-line">{{x.WOM_PartAttrib1}}</td>
+                            <td class="order-single-line">{{x.WOM_PartAttrib2}}</td>
+                            <td class="order-single-line">{{x.WOM_PartAttrib3}}</td>
+                            <td class="order-single-line">{{x.WOM_PackingDate}}</td>
+                            <td class="order-single-line">{{x.WOM_ExpiryDate}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="no-record fs-5 p-10" ng-if="AddItemsViewCtrl.ePage.Entities.Header.Data.TmsManifestItem.length==0">
+                <div>
+                    No Record Found...
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

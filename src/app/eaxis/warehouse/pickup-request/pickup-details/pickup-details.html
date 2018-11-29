@@ -1,0 +1,52 @@
+<div data-ng-if="PickupDetailsCtrl.ePage.Masters.Config.TempOutwardPK" ng-init="PickupDetailsCtrl.ePage.Masters.getOutwardLineList()"></div>
+<div class="clearfix mt-10 col-lg-12">
+    <div id="PickupOrdersTable{{PickupDetailsCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID}}" class="fixedheader mb-0"
+        key-events table-object='PickupDetailsCtrl.ePage.Entities.Header.Data.PickupOrdersLine' enable='PickupDetailsCtrl.ePage.Masters.Enable'
+        selected-row='PickupDetailsCtrl.ePage.Masters.selectedRow' unique-id='PickupOrdersTable{{PickupDetailsCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID}}'>
+        <table style="height: 400px">
+            <thead>
+                <tr id="tableHeader">
+                    <th ng-style="{ 'width':  '40px' }" title="S.No">S.No</th>
+                    <th ng-style="{ 'width':  '150px' }" title="Outward No">Outward No</th>
+                    <th ng-style="{ 'width':  '150px' }" title="Outward No">CSR No</th>
+                    <th ng-style="{ 'width':  '100px' }" title="Line Status">Line Status</th>
+                    <th ng-style="{ 'width':  '100px' }" title="Work Order Type">Work Order Type</th>
+                    <th ng-style="{ 'width':  '150px' }" title="Product Code">Product Code</th>
+                    <th ng-style="{ 'width':  '250px' }" title="Product Description">Product Description</th>
+                    <th ng-style="{ 'width':  '150px' }" title="Product Condition">Product Condition</th>
+                    <th ng-style="{ 'width':  '100px' }" title="Packs">Packs</th>
+                    <th ng-style="{ 'width':  '100px' }" title="Pack Type">Pack Type</th>
+                    <th ng-style="{ 'width':  '100px' }" title="Quantity">Quantity</th>
+                    <th ng-style="{ 'width':  '100px' }" title="Quantity UQ">Quantity UQ</th>
+                    <th ng-style="{ 'width':  '150px' }" title="UDF 1">UDF 1</th>
+                    <th ng-style="{ 'width':  '150px' }" title="UDF 2">UDF 2</th>
+                    <th ng-style="{ 'width':  '150px' }" title="UDF 3">UDF 3</th>
+                    <th ng-style="{ 'width':  '150px' }" title="Packing Date">Packing Date</th>
+                    <th ng-style="{ 'width':  '150px' }" title="Expiry Date">Expiry Date</th>
+                </tr>
+            </thead>
+            <tbody id="PickupOrdersCustTable{{PickupDetailsCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID}}">
+                <tr id="tableBody" ng-repeat="x in PickupDetailsCtrl.ePage.Entities.Header.Data.PickupOrdersLine" ng-click="PickupDetailsCtrl.ePage.Masters.setSelectedRow($index);"
+                    ng-class="{row_active: (PickupDetailsCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}">
+                    <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
+                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.WorkOrderID}}</td>
+                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.AdditionalRef1Code}}</td>
+                    <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.WorkOrderLineStatusDesc}}</td>
+                    <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.WorkOrderType}}</td>
+                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.ProductCode}}</td>
+                    <td ng-style="{ 'width':  '250px' }" class="overflow-text">{{x.ProductDescription}}</td>
+                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.ProductCondition}}</td>
+                    <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.Packs}}</td>
+                    <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PAC_PackType}}</td>
+                    <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.Units}}</td>
+                    <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.StockKeepingUnit}}</td>
+                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.PartAttrib1}}</td>
+                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.PartAttrib2}}</td>
+                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.PartAttrib3}}</td>
+                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.PackingDate}}</td>
+                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.ExpiryDate}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

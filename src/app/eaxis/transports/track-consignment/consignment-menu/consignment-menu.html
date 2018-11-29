@@ -1,49 +1,21 @@
 <div class="clearfix wms-menu-wraper">
     <div id="wmsMenuWrapper{{ConsignmentMenuCtrl.currentConsignment.label}}" class="col-sm-12 no-padding-left no-padding-right">
-        <!-- <uib-tabset class="wms-menu tabs-left tabbable" active="ConsignmentMenuCtrl.ePage.Masters.active" ng-if="ConsignmentMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Status=='DRF'">
-            <div class="tab-profile">
-                <div class="tab-profile-title text-single-line text-center" style="color: rgb(66, 50, 50);font-weight: 600;" ng-if="ConsignmentMenuCtrl.currentConsignment.isNew==true?ConsignmentMenuCtrl.ePage.Masters.title='Un Saved':ConsignmentMenuCtrl.ePage.Masters.title=ConsignmentMenuCtrl.currentConsignment.label"
-                    data-ng-bind="ConsignmentMenuCtrl.ePage.Masters.title"></div>
-                <div class="wocstatusmenu text-single-line text-center" title="{{ConsignmentMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Status + ' - '+ ConsignmentMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ConsignmentStatusDesc}}"
-                    data-ng-bind="ConsignmentMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ConsignmentStatusDesc"></div>
-            </div>
-            <uib-tab ng-repeat="x in ConsignmentMenuCtrl.ePage.Masters.ConsignmentMenu.ListSource" index="$index" deselect="ConsignmentMenuCtrl.ePage.Masters.tabSelected(x,$selectedIndex,$event);">
-                <uib-tab-heading title="{{x.DisplayName}}">
-                    <i class="fa {{x.Icon}} mr-5"></i>
-                    <span class="text-single-line" data-ng-bind="x.DisplayName"></span>
-                    <error-warning-directive data-ng-if="ConsignmentMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, ConsignmentMenuCtrl.currentConsignment.label, 'W', 'GParent').length > 0 && ConsignmentMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, ConsignmentMenuCtrl.currentConsignment.label, 'E', 'GParent').length == 0"
-                        list="ConsignmentMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList" type="'warning'"
-                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
-                    <error-warning-directive data-ng-if="ConsignmentMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, ConsignmentMenuCtrl.currentConsignment.label, 'E', 'GParent').length > 0"
-                        list="ConsignmentMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList" type="'error'"
-                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
-                </uib-tab-heading>
-                <div>
-                    <div ng-switch="x.Value">
-                        
-                        <div ng-switch-when="General" consignment-general current-consignment="ConsignmentMenuCtrl.currentConsignment"></div>
-                        <div ng-switch-when="Consignment Item" consignment-item current-consignment="ConsignmentMenuCtrl.currentConsignment" active-menu="x"></div>
-                        <div ng-switch-when="Manifest" consignment-manifest current-consignment="ConsignmentMenuCtrl.currentConsignment" active-menu="x"></div>
-                    </div>
-                </div>
-            </uib-tab>
-        </uib-tabset> -->
 
-        <div ng-if="ConsignmentMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Status=='DRF'">  
+        <div ng-if="ConsignmentMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Status=='DRF'">
             <div consignment-general current-consignment="ConsignmentMenuCtrl.currentConsignment">
             </div>
-            <div  consignment-item current-consignment="ConsignmentMenuCtrl.currentConsignment" ng-if="!ConsignmentMenuCtrl.currentConsignment.isNew">
+            <div consignment-item current-consignment="ConsignmentMenuCtrl.currentConsignment" ng-if="!ConsignmentMenuCtrl.currentConsignment.isNew">
             </div>
-            <div consignment-manifest current-consignment="ConsignmentMenuCtrl.currentConsignment" ng-if="!ConsignmentMenuCtrl.currentConsignment.isNew" ></div>
-        </div>    
+            <div consignment-order current-consignment="ConsignmentMenuCtrl.currentConsignment" ng-if="!ConsignmentMenuCtrl.currentConsignment.isNew"></div>
+        </div>
         <div ng-if="ConsignmentMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Status!='DRF'">
             <div consignment-read-only current-consignment="ConsignmentMenuCtrl.currentConsignment"></div>
-            
+
         </div>
     </div>
 
 
-    <div class="error-warning-container right" id="errorWarningContainer{{ConsignmentMenuCtrl.currentConsignment.label}}">
+    <div class="error-warning-container right" ng-show="!ConsignmentMenuCtrl.ePage.Masters.IsShowError" id="errorWarningContainer{{ConsignmentMenuCtrl.currentConsignment.label}}">
         <div class="error-warning-header clearfix">
             <span class="title pull-left">
                 <!-- <i class="fa fa-warning"></i>  -->
@@ -74,54 +46,51 @@
 
     <!-- To move to Receive line tab -->
     <span ng-if="ConsignmentMenuCtrl.ePage.Entities.Header.CheckPoints.Receiveline" ng-init="ConsignmentMenuCtrl.ePage.Masters.active = 3"></span>
-    
+
     <!--Footer-->
-    <div class="eaxis-footer-strip">
+    <div class="eaxis-footer-strip" ng-if="ConsignmentMenuCtrl.ePage.Masters.IsActiveMenu!=true">
         <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-            <standard-menu entity-name="'TransportsConsignment'" input="ConsignmentMenuCtrl.currentConsignment"></standard-menu>
+            <standard-menu input="ConsignmentMenuCtrl.currentConsignment" dataentry-object="ConsignmentMenuCtrl.dataentryObject" ng-if="!ConsignmentMenuCtrl.currentConsignment.isNew"></standard-menu>
         </div>
-        <!-- <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
-            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="ConsignmentMenuCtrl.ePage.Masters.Validation(ConsignmentMenuCtrl.currentConsignment)"
-                data-ng-bind="ConsignmentMenuCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="ConsignmentMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave"></button>
-            <button class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6" data-ng-click="ConsignmentMenuCtrl.ePage.Masters.SaveClose(ConsignmentMenuCtrl.currentConsignment)"
-                data-ng-bind="ConsignmentMenuCtrl.ePage.Masters.SaveAndCloseButtonText" data-ng-disabled="ConsignmentMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave"></button>
-        </div> -->
-            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-1 col-xl-3 pull-left">
-                <ul class="shortcut-action-list" style="margin-left: -30px;">
-                    <li class="dropup">
-                        <div class="btn-group mt-6 ml-40">
-                            <a class="btn btn-secondary btn-sm dropdown-toggle" ng-show="ConsignmentMenuCtrl.ePage.Masters.ShowMoreText"  data-toggle="dropdown" href="javascript:void(0);" aria-expanded="false">
-                                More
-                                <span class="fa fa-caret-up" title="Toggle dropdown menu"></span>
-                            </a>
-                            <a class="btn btn-secondary btn-sm dropdown-toggle" ng-hide="ConsignmentMenuCtrl.ePage.Masters.ShowMoreText" data-toggle="dropdown" href="javascript:void(0);" aria-expanded="false">
-                                Please Wait...
-                                <!--<span class="fa fa-caret-up" title="Toggle dropdown menu"></span>-->
-                            </a>
-                            <ul class="dropdown-menu shortcut-action" style="min-width: 120px;">
-                                <!-- <li>
-                                    <a href="javascript:void(0);" data-ng-click="ConsignmentMenuCtrl.ePage.Masters.Validation(ConsignmentMenuCtrl.currentConsignment)">Save</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);" data-ng-click="ConsignmentMenuCtrl.ePage.Masters.SaveClose(ConsignmentMenuCtrl.currentConsignment)"> Save & Close  </a>
-                                </li> -->
-                                <li>
-                                    <a href="javascript:void(0);" data-ng-click="ConsignmentMenuCtrl.ePage.Masters.Print()">Print</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);" data-ng-click="ConsignmentMenuCtrl.ePage.Masters.Cancel(ConsignmentMenuCtrl.currentConsignment)">Cancel</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </div>    
-            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2 col-xl-3 pull-left">
-                <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="ConsignmentMenuCtrl.ePage.Masters.Validation(ConsignmentMenuCtrl.currentConsignment)"
+        <div class=" col-lg-3">
+            <div class=" col-lg-4 mt-6 pl-0">
+                <div class="dropup">
+                    <a class="btn btn-secondary btn-sm dropdown-toggle consignment-btn-width-85" ng-if="!ConsignmentMenuCtrl.currentConsignment.isNew"
+                        ng-show="ConsignmentMenuCtrl.ePage.Masters.ShowMoreText" data-toggle="dropdown" href="javascript:void(0);"
+                        aria-expanded="false">
+                        More
+                        <span class="fa fa-caret-up" title="Toggle dropdown menu"></span>
+                    </a>
+                    <a class="btn btn-secondary btn-sm dropdown-toggle consignment-btn-width-85" ng-hide="ConsignmentMenuCtrl.ePage.Masters.ShowMoreText"
+                        data-toggle="" href="javascript:void(0);" aria-expanded="false">
+                        Please Wait...
+                    </a>
+                    <ul class="dropdown-menu shortcut-action" style="min-width: 120px;">
+                        <li>
+                            <a href="javascript:void(0);" data-ng-click="ConsignmentMenuCtrl.ePage.Masters.Print(ConsignmentMenuCtrl.ePage.Masters.DocumentValues[0])">Print</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" ng-if="ConsignmentMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Status=='DRF'" data-ng-click="ConsignmentMenuCtrl.ePage.Masters.Cancel(ConsignmentMenuCtrl.currentConsignment)">Cancel</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" ng-if="ConsignmentMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType=='ADH'"
+                                data-ng-click="ConsignmentMenuCtrl.ePage.Masters.Submit(ConsignmentMenuCtrl.currentConsignment)">Submit</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class=" col-lg-4 pl-0">
+                <button class="btn btn-primary btn-sm consignment-btn-width-85 mt-6" data-ng-click="ConsignmentMenuCtrl.ePage.Masters.Validation(ConsignmentMenuCtrl.currentConsignment)"
                     data-ng-bind="ConsignmentMenuCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="ConsignmentMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave"></button>
+            </div>
+            <div class=" col-lg-4 pl-0" ng-if="ConsignmentMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType=='ADH' || ConsignmentMenuCtrl.ePage.Entities.Header.CheckPoints.IsStore==false">
                 <button class="btn btn-primary btn-sm mt-6" data-ng-click="ConsignmentMenuCtrl.ePage.Masters.SaveClose(ConsignmentMenuCtrl.currentConsignment)"
                     data-ng-bind="ConsignmentMenuCtrl.ePage.Masters.SaveAndCloseButtonText" data-ng-disabled="ConsignmentMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave"></button>
-            </div>        
+            </div>
+            <div class=" col-lg-4 pl-0" ng-if="ConsignmentMenuCtrl.ePage.Entities.Header.CheckPoints.IsStore || ConsignmentMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType=='STS' || ConsignmentMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType=='PFR'">
+                <button class="btn btn-primary btn-sm mt-6" data-ng-click="ConsignmentMenuCtrl.ePage.Masters.Submit(ConsignmentMenuCtrl.currentConsignment)"
+                    data-ng-bind="ConsignmentMenuCtrl.ePage.Masters.SubmitButtonText" data-ng-disabled="ConsignmentMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave || ConsignmentMenuCtrl.currentConsignment.isNew"></button>
+            </div>
         </div>
     </div>
 </div>

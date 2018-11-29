@@ -1,0 +1,45 @@
+﻿<div class="clearfix tc-filtergroup">
+    <!-- Breadcrumb -->
+    <div class="clearfix tc-breadcrumb" data-ng-if="EventCtrl.ePage.Masters.ActiveApplication == 'TC'">
+        <i class="fa fa-home home-icon"></i>
+        <div class="breadcrumb-list-wrapper">
+            <ol class="breadcrumb">
+                <li data-ng-repeat="x in EventCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="EventCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                </li>
+                <li data-ng-repeat="x in EventCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
+                    class="active">
+            </ol>
+        </div>
+        <span class="tc-breadcrumb-app-name" data-ng-if="EventCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="EventCtrl.ePage.Masters.QueryString.AppName"></span>
+    </div>
+    <!-- Body -->
+    <div class="clearfix">
+        <div class="clearfix tc-page-height-fixed without-header">
+            <uib-tabset id="chromeTab" active="EventCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+                <uib-tab>
+                    <uib-tab-heading title="Event">
+                        <span data-ng-bind="'Event'"></span>
+                        <i class="fa fa-thumb-tack pinned-tab"></i>
+                    </uib-tab-heading>
+                    <div class="p-0 tab-list-view-wrapper">
+                        <dynamic-list dataentry-name="EventCtrl.ePage.Masters.dataentryName" selected-grid-row="EventCtrl.ePage.Masters.SelectedGridRow($item)"
+                            mode="1" default-filter="EventCtrl.ePage.Masters.DefaultFilter" dataentry-object="EventCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+                        <div class="tab-loading" data-ng-show="EventCtrl.ePage.Masters.IsTabClick"></div>
+                    </div>
+                </uib-tab>
+                <uib-tab active="EventCtrl.ePage.Masters.activeTabIndex == $index" data-ng-repeat="tab in EventCtrl.ePage.Masters.TabList"
+                    ng-click="EventCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+                    <uib-tab-heading title="{{tab.label}}">
+                        <span data-ng-bind="tab.label"></span>
+                        <i class="glyphicon glyphicon-remove" ng-click="EventCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+                    </uib-tab-heading>
+                    <div class="pb-10 clearfix">
+                        <tc-event-configure current-event="tab"></tc-event-configure>
+                    </div>
+                </uib-tab>
+                <button class="btn btn-default" data-ng-click="EventCtrl.ePage.Masters.CreateNewTab()" data-ng-disabled="EventCtrl.ePage.Masters.IsNewTabClicked">+</button>
+            </uib-tabset>
+        </div>
+    </div>
+</div>

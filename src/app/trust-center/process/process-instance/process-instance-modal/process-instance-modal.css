@@ -1,21 +1,10 @@
-.font-size {
-    font-size: 14px;
-}
-
-.mr-left {
-    margin-left: 20px;
-}
-
-.mr-top {
-    margin-top: -27px;
-}
-
 .tc-process-instance .table thead tr {
     background: #ccdadf;
 }
 
 .tc-process-instance .table>tbody>tr>td {
     padding: 0;
+    vertical-align: middle;
 }
 
 .tc-process-instance .modal-dialog {
@@ -91,4 +80,21 @@
     border: 1px solid #ddd;
     padding-top: 5px;
     margin-bottom: 10px;
+}
+
+.delay-reason-wrapper {
+    border: 1px solid #eee;
+}
+
+.delay-reason-wrapper .header {
+    font-weight: bold;
+    background-color: #eee;
+}
+
+.delay-reason-wrapper .reason-list {
+    border-bottom: 1px solid #eee;
+}
+
+.delay-reason-wrapper .reason-list:last-child {
+    border-bottom: none;
 }

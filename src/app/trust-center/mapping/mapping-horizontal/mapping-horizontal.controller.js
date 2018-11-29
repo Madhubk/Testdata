@@ -58,10 +58,15 @@
                 IsRequireQueryString: false,
                 IsActive: false
             }, {
-                Code: "system",
-                Description: "System",
-                Link: "TC/dashboard/" + helperService.encryptData('{"Type":"System", "BreadcrumbTitle": "System"}'),
-                IsRequireQueryString: false,
+                Code: "dashboard",
+                Description: "Dashboard",
+                Link: "TC/dashboard",
+                IsRequireQueryString: true,
+                QueryStringObj: {
+                    "AppPk": MappingHorizontalCtrl.ePage.Masters.QueryString.AppPk,
+                    "AppCode": MappingHorizontalCtrl.ePage.Masters.QueryString.AppCode,
+                    "AppName": MappingHorizontalCtrl.ePage.Masters.QueryString.AppName
+                },
                 IsActive: false
             }, {
                 Code: "mapping",
@@ -186,14 +191,18 @@
         function GetMappingList() {
             var _filter = {
                 "SAP_FK": MappingHorizontalCtrl.ePage.Masters.QueryString.AppPk,
-                "MappingCode": MappingHorizontalCtrl.ePage.Masters.QueryString.MappingCode,
-                "Item_FK": MappingHorizontalCtrl.ePage.Masters.QueryString.ItemPk
+                "MappingCode": MappingHorizontalCtrl.ePage.Masters.QueryString.MappingCode
             };
 
-            if (MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.Tenant.Visible) {
+            if(MappingHorizontalCtrl.ePage.Masters.QueryString.MappingCode !== 'SECAPP_SECTENANT'){
+                _filter.Item_FK = MappingHorizontalCtrl.ePage.Masters.QueryString.ItemPk;
+            }
+
+            if (MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.Config.Tenant.Visible && MappingHorizontalCtrl.ePage.Masters.QueryString.MappingCode !== 'SECAPP_SECTENANT') {
                 _filter.TenantCode = authService.getUserInfo().TenantCode;
             }
-            if (MappingHorizontalCtrl.ePage.Masters.QueryString.MappingCode === 'APP_TRUST_APP_TNT') {
+
+            if (MappingHorizontalCtrl.ePage.Masters.QueryString.MappingCode === 'APP_TRUST_APP_TNT' || MappingHorizontalCtrl.ePage.Masters.QueryString.MappingCode === 'SECAPP_SECTENANT') {
                 _filter.PropertyName = "false";
             }
 
@@ -216,14 +225,21 @@
         }
 
         function AddNew() {
-            var newObj = {
-                TenantCode: authService.getUserInfo().TenantCode,
-                TNT_FK: authService.getUserInfo().TenantPK,
-                SAP_FK: MappingHorizontalCtrl.ePage.Masters.QueryString.AppPk,
-                SAP_Code: MappingHorizontalCtrl.ePage.Masters.QueryString.AppCode
-            };
+            if(MappingHorizontalCtrl.ePage.Masters.QueryString.MappingCode === 'SECAPP_SECTENANT'){
+                var _obj = {
+                    SAP_FK: MappingHorizontalCtrl.ePage.Masters.QueryString.AppPk,
+                    SAP_Code: MappingHorizontalCtrl.ePage.Masters.QueryString.AppCode
+                };
+            }else{
+                var _obj = {
+                    TenantCode: authService.getUserInfo().TenantCode,
+                    TNT_FK: authService.getUserInfo().TenantPK,
+                    SAP_FK: MappingHorizontalCtrl.ePage.Masters.QueryString.AppPk,
+                    SAP_Code: MappingHorizontalCtrl.ePage.Masters.QueryString.AppCode
+                };
+            }
 
-            MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.MappingList.push(newObj);
+            MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.MappingList.push(_obj);
         }
 
         function Save(row) {
@@ -238,6 +254,10 @@
                 _input.SAP_Code = MappingHorizontalCtrl.ePage.Masters.QueryString.AppCode;
             }
 
+            if(_input.Value){
+                _input.IsJson = true;
+            }
+            
             _input.MappingCode = MappingHorizontalCtrl.ePage.Masters.QueryString.MappingCode;
             _input.Item_FK = MappingHorizontalCtrl.ePage.Masters.QueryString.ItemPk;
             _input.ItemName = MappingHorizontalCtrl.ePage.Masters.QueryString.ItemName;

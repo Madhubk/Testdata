@@ -23,31 +23,66 @@
                 "Entities": currentProduct,
             };
 
-            ProductWarehouseCtrl.ePage.Masters.DropDownMasterList = {};
-            ProductWarehouseCtrl.ePage.Masters.selectedRow = -1;
-            ProductWarehouseCtrl.ePage.Masters.Lineslist = true;
-            ProductWarehouseCtrl.ePage.Masters.HeaderName = '';
-            ProductWarehouseCtrl.ePage.Masters.emptyText = '-';
             ProductWarehouseCtrl.ePage.Masters.Config = productConfig;
 
+            //For table
+            ProductWarehouseCtrl.ePage.Masters.SelectAll = false;
+            ProductWarehouseCtrl.ePage.Masters.EnableDeleteButton = false;
+            ProductWarehouseCtrl.ePage.Masters.EnableCopyButton = false;
+            ProductWarehouseCtrl.ePage.Masters.Enable = true;
+            ProductWarehouseCtrl.ePage.Masters.selectedRow = -1;
+            ProductWarehouseCtrl.ePage.Masters.emptyText = '-';
+            ProductWarehouseCtrl.ePage.Masters.SearchTable = '';
 
-            ProductWarehouseCtrl.ePage.Masters.Edit = Edit;
-            ProductWarehouseCtrl.ePage.Masters.CopyRow = CopyRow;
-            ProductWarehouseCtrl.ePage.Masters.AddNewRow = AddNewRow;
-            ProductWarehouseCtrl.ePage.Masters.RemoveRow = RemoveRow;
+            ProductWarehouseCtrl.ePage.Masters.SelectAllCheckBox = SelectAllCheckBox;
+            ProductWarehouseCtrl.ePage.Masters.SingleSelectCheckBox = SingleSelectCheckBox;
             ProductWarehouseCtrl.ePage.Masters.setSelectedRow = setSelectedRow;
-            ProductWarehouseCtrl.ePage.Masters.Back = Back;
-            ProductWarehouseCtrl.ePage.Masters.Done = Done;
+            ProductWarehouseCtrl.ePage.Masters.AddNewRow = AddNewRow;
+            ProductWarehouseCtrl.ePage.Masters.CopyRow = CopyRow;
+            ProductWarehouseCtrl.ePage.Masters.RemoveRow = RemoveRow;
+
+            ProductWarehouseCtrl.ePage.Masters.DropDownMasterList = {};
+
             ProductWarehouseCtrl.ePage.Masters.SelectedLookupDataClient = SelectedLookupDataClient;
             ProductWarehouseCtrl.ePage.Masters.SelectedLookupDataWarehouse = SelectedLookupDataWarehouse;
             ProductWarehouseCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
 
-            
+            GetUserBasedGridColumList();
             GetProductWarehouseDetails();
             GetDropDownList();
         }
 
+         //#region User Based Table Column
+         function GetUserBasedGridColumList(){
+            var _filter = {
+                "SAP_FK": authService.getUserInfo().AppPK,
+                "TenantCode": authService.getUserInfo().TenantCode,
+                "SourceEntityRefKey": authService.getUserInfo().UserId,
+                "EntitySource": "WMS_PRODUCTWAREHOUSE",
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.UserSettings.API.FindAll.FilterID
+            };
+    
+            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function(response){
+                if(response.data.Response[0]){
+                    ProductWarehouseCtrl.ePage.Masters.UserValue= response.data.Response[0];
+                    if(response.data.Response[0].Value!=''){
+                        var obj = JSON.parse(response.data.Response[0].Value)
+                        ProductWarehouseCtrl.ePage.Entities.Header.TableProperties.UIWarehouse = obj;
+                        ProductWarehouseCtrl.ePage.Masters.UserHasValue =true;
+                    }
+                }else{
+                    ProductWarehouseCtrl.ePage.Masters.UserValue = undefined;
+                }
+            })
+        }
+        //#endregion
+            
+        //#region General
         function GetProductWarehouseDetails() {
+            ProductWarehouseCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
             var _filter = {
                 "OSP_FK": ProductWarehouseCtrl.ePage.Entities.Header.Data.PK,
                 "SortColumn": "PWC_StockTakeCycle",
@@ -57,10 +92,12 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": ProductWarehouseCtrl.ePage.Entities.Header.API.Warehouse.FilterID
+                "FilterID": ProductWarehouseCtrl.ePage.Entities.Header.API.WMSProductParamsByWmsAndClient.FindAll.FilterID
             };
-            apiService.post("eAxisAPI", ProductWarehouseCtrl.ePage.Entities.Header.API.Warehouse.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", ProductWarehouseCtrl.ePage.Entities.Header.API.WMSProductParamsByWmsAndClient.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
+                    ProductWarehouseCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
+                    
                     ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse = response.data.Response;
                     //Order By
                     ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse = $filter('orderBy')(ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse, 'CreatedDateTime');
@@ -112,7 +149,9 @@
                 }
             });
         }
+        //#endregion
 
+        //#region  SelectedLookup
         function SelectedLookupDataClient(item, index) {
             ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[index].Client = item.Code + ' - ' + item.FullName;
             OnChangeValues(ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[index].Client, 'E7025', true, index);
@@ -122,142 +161,56 @@
             ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[index].Warehouse = item.WarehouseCode + ' - ' + item.WarehouseName;
             OnChangeValues(ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[index].Warehouse, 'E7026', true, index);
         }
-
-        // ------- Error Validation While onchanges-----//
-        function OnChangeValues(fieldvalue, code, IsArray, RowIndex) {
-            angular.forEach(ProductWarehouseCtrl.ePage.Masters.Config.ValidationValues, function (value, key) {
-                if (value.Code.trim() === code) {
-                    GetErrorMessage(fieldvalue, value, IsArray, RowIndex)
-                }
+        //#endregion
+        
+        //#region checkbox selection
+        function SelectAllCheckBox(){
+            angular.forEach(ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse, function (value, key) {
+            if (ProductWarehouseCtrl.ePage.Masters.SelectAll){
+                value.SingleSelect = true;
+                ProductWarehouseCtrl.ePage.Masters.EnableDeleteButton = true;
+                ProductWarehouseCtrl.ePage.Masters.EnableCopyButton = true;
+            }
+            else{
+                value.SingleSelect = false;
+                ProductWarehouseCtrl.ePage.Masters.EnableDeleteButton = false;
+                ProductWarehouseCtrl.ePage.Masters.EnableCopyButton = false;
+            }
             });
         }
 
-        function GetErrorMessage(fieldvalue, value, IsArray, RowIndex) {
-            if (!fieldvalue) {
-                ProductWarehouseCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, ProductWarehouseCtrl.currentProduct.label, IsArray, RowIndex, value.ColIndex, value.DisplayName, undefined, value.GParentRef);
+        function SingleSelectCheckBox() {
+            var Checked = ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse.some(function (value, key) {
+                if(!value.SingleSelect)
+                return true;
+            });
+            if (Checked) {
+                ProductWarehouseCtrl.ePage.Masters.SelectAll = false;
             } else {
-                ProductWarehouseCtrl.ePage.Masters.Config.RemoveErrorWarning(value.Code, "E", value.CtrlKey, ProductWarehouseCtrl.currentProduct.label, IsArray, RowIndex, value.ColIndex);
+                ProductWarehouseCtrl.ePage.Masters.SelectAll = true;
+            }
+
+            var Checked1 = ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse.some(function (value, key) {
+                return value.SingleSelect == true;
+            });
+            if (Checked1) {
+                ProductWarehouseCtrl.ePage.Masters.EnableDeleteButton = true;
+                ProductWarehouseCtrl.ePage.Masters.EnableCopyButton = true;
+            } else {
+                ProductWarehouseCtrl.ePage.Masters.EnableDeleteButton = false;
+                ProductWarehouseCtrl.ePage.Masters.EnableCopyButton = false;
             }
         }
+    //#endregion checkbox selection
 
-        // ------- Error Validation While onchanges-----//
+        //#region Add,copy,delete row
 
-        //------ Add New, copy, remove Row---------//
-
-        function setSelectedRow(index) {
-            ProductWarehouseCtrl.ePage.Entities.Header.CheckPoints.HideindexUIWarehouse = false;
-            ProductWarehouseCtrl.ePage.Entities.Header.CheckPoints.HideindexWarehouse = true;
+        function setSelectedRow(index){
             ProductWarehouseCtrl.ePage.Masters.selectedRow = index;
-        }
-
-        function RemoveAllLineErrors() {
-            for (var i = 0; i < ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse.length; i++) {
-                OnChangeValues('value', "E7030", true, i);
-                OnChangeValues('value', "E7025", true, i);
-                OnChangeValues('value', "E7026", true, i);
-            }
-            return true;
-        }
-
-        function Back() {
-            var ReturnValue = RemoveAllLineErrors();
-            if (ReturnValue) {
-                ProductWarehouseCtrl.ePage.Masters.Config.GeneralValidation(ProductWarehouseCtrl.currentProduct);
-            }
-
-            ProductWarehouseCtrl.ePage.Masters.Lineslist = true;
-            ProductWarehouseCtrl.ePage.Entities.Header.CheckPoints.Checkpointhidden = true;
-        }
-
-        function Done() {
-            // To scroll down
-            var ReturnValue = RemoveAllLineErrors();
-            if (ReturnValue) {
-                if (ProductWarehouseCtrl.ePage.Masters.HeaderName == 'New List') {
-                    $timeout(function () {
-                        var objDiv = document.getElementById("ProductWarehouseCtrl.ePage.Masters.your_div");
-                        objDiv.scrollTop = objDiv.scrollHeight;
-                    }, 500);
-                }
-                Validation(ProductWarehouseCtrl.currentProduct);
-                ProductWarehouseCtrl.ePage.Masters.Lineslist = true;
-                ProductWarehouseCtrl.ePage.Entities.Header.CheckPoints.Checkpointhidden = true;
-            }
-        }
-
-        function Edit(index, name) {
-
-            ProductWarehouseCtrl.ePage.Entities.Header.CheckPoints.HideindexUIWarehouse = false;
-            ProductWarehouseCtrl.ePage.Entities.Header.CheckPoints.HideindexWarehouse = true;
-            ProductWarehouseCtrl.ePage.Masters.selectedRow = index;
-            ProductWarehouseCtrl.ePage.Masters.Lineslist = false;
-            ProductWarehouseCtrl.ePage.Masters.HeaderName = name;
-            $timeout(function () { $scope.$apply(); }, 500);
-        }
-
-        $document.bind('keydown', function (e) {
-            if (ProductWarehouseCtrl.ePage.Masters.selectedRow != -1) {
-                if (ProductWarehouseCtrl.ePage.Masters.Lineslist == true) {
-                    if (e.keyCode == 38) {
-                        if (ProductWarehouseCtrl.ePage.Masters.selectedRow == 0) {
-                            return;
-                        }
-                        ProductWarehouseCtrl.ePage.Masters.selectedRow--;
-                        $scope.$apply();
-                        e.preventDefault();
-                    }
-                    if (e.keyCode == 40) {
-                        if (ProductWarehouseCtrl.ePage.Masters.selectedRow == ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse.length - 1) {
-                            return;
-                        }
-                        ProductWarehouseCtrl.ePage.Masters.selectedRow++;
-                        $scope.$apply();
-                        e.preventDefault();
-                    }
-
-                }
-            }
-        });
-
-
-        function CopyRow(item, index) {
-            var obj = angular.copy(ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[ProductWarehouseCtrl.ePage.Masters.selectedRow]);
-            obj.PK = '';
-            obj.CreatedDateTime = '';
-            obj.ModifiedDateTime = '';
-            ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse.splice(ProductWarehouseCtrl.ePage.Masters.selectedRow + 1, 0, obj);
-            ProductWarehouseCtrl.ePage.Masters.Edit(ProductWarehouseCtrl.ePage.Masters.selectedRow + 1, 'Copy Of List');
-        }
-
-        function RemoveRow(item, index) {
-            var item = ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[ProductWarehouseCtrl.ePage.Masters.selectedRow]
-            var modalOptions = {
-                closeButtonText: 'Cancel',
-                actionButtonText: 'Ok',
-                headerText: 'Delete?',
-                bodyText: 'Are you sure?'
-            };
-            confirmation.showModal({}, modalOptions)
-                .then(function (result) {
-                    if (item.PK) {
-                        apiService.get("eAxisAPI", ProductWarehouseCtrl.ePage.Entities.Header.API.WarehouseDelete.Url + item.PK).then(function (response) {
-                        });
-                    }
-                    var ReturnValue = RemoveAllLineErrors();
-                    if (ReturnValue) {
-                        ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse.splice(ProductWarehouseCtrl.ePage.Masters.selectedRow, 1);
-                        ProductWarehouseCtrl.ePage.Masters.Config.GeneralValidation(ProductWarehouseCtrl.currentProduct);
-                    }
-                    toastr.success('Record Removed Successfully');
-                    ProductWarehouseCtrl.ePage.Masters.Lineslist = true;
-                    ProductWarehouseCtrl.ePage.Entities.Header.CheckPoints.Checkpointhidden = true;
-                    ProductWarehouseCtrl.ePage.Masters.selectedRow = ProductWarehouseCtrl.ePage.Masters.selectedRow - 1;
-                }, function () {
-                    console.log("Cancelled");
-                });
         }
 
         function AddNewRow() {
+            ProductWarehouseCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
             var obj = {
                 "PK": "",
                 "ORG_Code": "",
@@ -286,77 +239,97 @@
                 "IsDeleted": false
             };
             ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse.push(obj);
-            ProductWarehouseCtrl.ePage.Masters.Edit(ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse.length - 1, 'New List');
+            ProductWarehouseCtrl.ePage.Masters.selectedRow = ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse.length-1;
+        
+            $timeout(function () {
+                var objDiv = document.getElementById("ProductWarehouseCtrl.ePage.Masters.AddScroll");
+                objDiv.scrollTop = objDiv.scrollHeight;
+            }, 50);
+            ProductWarehouseCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
         };
 
-        function Validation($item) {
-            var _Data = $item[$item.label].ePage.Entities,
-                _input = _Data.Header.Data,
-                _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
-
-            //Validation Call
-            ProductWarehouseCtrl.ePage.Masters.Config.GeneralValidation($item);
-            if (ProductWarehouseCtrl.ePage.Entities.Header.Validations) {
-                ProductWarehouseCtrl.ePage.Masters.Config.RemoveApiErrors(ProductWarehouseCtrl.ePage.Entities.Header.Validations, $item.label);
+        function CopyRow() {
+            ProductWarehouseCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
+            for(var i = ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse.length -1; i >= 0; i--){
+                if(ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[i].SingleSelect){
+                    var obj = angular.copy(ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[i]);
+                    obj.PK = '';
+                    obj.CreatedDateTime = '';
+                    obj.ModifiedDateTime = '';
+                    obj.SingleSelect=false;
+                    obj.IsCopied = true;
+                    ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse.splice(i + 1, 0, obj);
+                }
             }
-
-            if (_errorcount.length == 0) {
-                SaveList($item);
-            } else {
-                ProductWarehouseCtrl.ePage.Masters.Config.ShowErrorWarningModal(ProductWarehouseCtrl.currentProduct);
-            }
-
+            ProductWarehouseCtrl.ePage.Masters.selectedRow = -1;
+            ProductWarehouseCtrl.ePage.Masters.SelectAll = false;
+            ProductWarehouseCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
         }
 
-        function SaveList($item) {
-            ProductWarehouseCtrl.ePage.Masters.IsLoadingToSave = true;
-            var _Data = $item[$item.label].ePage.Entities,
-                _input = _Data.Header.Data;
+        function RemoveRow() {
+            var modalOptions = {
+                closeButtonText: 'Cancel',
+                actionButtonText: 'Ok',
+                headerText: 'Delete?',
+                bodyText: 'Are you sure?'
+            };
+            confirmation.showModal({}, modalOptions)
+                .then(function (result) {
+                    ProductWarehouseCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
 
-            $item = filterObjectUpdate($item, "IsModified");
-
-            helperService.SaveEntity($item, 'Product').then(function (response) {
-                if (response.Status === "success") {
-                    var _index = productConfig.TabList.map(function (value, key) {
-                        return value[value.label].ePage.Entities.Header.Data.PK
-                    }).indexOf(ProductWarehouseCtrl.currentProduct[ProductWarehouseCtrl.currentProduct.label].ePage.Entities.Header.Data.PK);
-
-                    if (_index !== -1) {
-                        productConfig.TabList[_index][productConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data;
-                        productConfig.TabList[_index].isNew = false;
-                        if ($state.current.url == "/products") {
-                            helperService.refreshGrid();
+                    angular.forEach(ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse,function(value,key){
+                        if(value.SingleSelect==true && value.PK){
+                            apiService.get("eAxisAPI", ProductWarehouseCtrl.ePage.Entities.Header.API.WMSProductParamsByWmsAndClient.Delete.Url + value.PK).then(function (response) {
+                            });
                         }
-                        $timeout(function () {
-                            ProductWarehouseCtrl.ePage.Masters.IsLoadingToSave = false;
-                        }, 1000);
-                    }
-                    console.log("Success");
-                } else if (response.Status === "failed") {
-                    ProductWarehouseCtrl.ePage.Masters.IsLoadingToSave = false;
-                    console.log("Failed");
-                    ProductWarehouseCtrl.ePage.Entities.Header.Validations = response.Validations;
-                    angular.forEach(response.Validations, function (value, key) {
-                        ProductWarehouseCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, ProductWarehouseCtrl.currentProduct.label, false, undefined, undefined, undefined, undefined, value.GParentRef);
                     });
-                    if (ProductWarehouseCtrl.ePage.Entities.Header.Validations != null) {
-                        ProductWarehouseCtrl.ePage.Masters.Config.ShowErrorWarningModal(ProductWarehouseCtrl.currentProduct);
+            
+                    var ReturnValue = RemoveAllLineErrors();
+                    if(ReturnValue){
+                        for (var i = ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse.length -1; i >= 0; i--){
+                            if(ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[i].SingleSelect==true)
+                            ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse.splice(i,1);
+                        }
+                        ProductWarehouseCtrl.ePage.Masters.Config.GeneralValidation(ProductWarehouseCtrl.currentProduct);
                     }
+                    toastr.success('Record Removed Successfully');
+                    ProductWarehouseCtrl.ePage.Masters.selectedRow = -1;
+                    ProductWarehouseCtrl.ePage.Masters.SelectAll = false;
+                    ProductWarehouseCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
+                    ProductWarehouseCtrl.ePage.Masters.EnableDeleteButton = false;
+                }, function () {
+                    console.log("Cancelled");
+            });
+        }
+    //#endregion Add,copy,delete row
+
+        //#region Validation
+        function RemoveAllLineErrors() {
+            for (var i = 0; i < ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse.length; i++) {
+                OnChangeValues('value', "E7030", true, i);
+                OnChangeValues('value', "E7025", true, i);
+                OnChangeValues('value', "E7026", true, i);
+            }
+            return true;
+        }
+
+        function OnChangeValues(fieldvalue, code, IsArray, RowIndex) {
+            angular.forEach(ProductWarehouseCtrl.ePage.Masters.Config.ValidationValues, function (value, key) {
+                if (value.Code.trim() === code) {
+                    GetErrorMessage(fieldvalue, value, IsArray, RowIndex)
                 }
             });
         }
 
-        function filterObjectUpdate(obj, key) {
-            for (var i in obj) {
-                if (!obj.hasOwnProperty(i)) continue;
-                if (typeof obj[i] == 'object') {
-                    filterObjectUpdate(obj[i], key);
-                } else if (i == key) {
-                    obj[key] = true;
-                }
+        function GetErrorMessage(fieldvalue, value, IsArray, RowIndex) {
+            if (!fieldvalue) {
+                ProductWarehouseCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, ProductWarehouseCtrl.currentProduct.label, IsArray, RowIndex, value.ColIndex, value.DisplayName, undefined, value.GParentRef);
+            } else {
+                ProductWarehouseCtrl.ePage.Masters.Config.RemoveErrorWarning(value.Code, "E", value.CtrlKey, ProductWarehouseCtrl.currentProduct.label, IsArray, RowIndex, value.ColIndex);
             }
-            return obj;
         }
+        //#endregion
+        
         Init();
     }
 

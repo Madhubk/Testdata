@@ -1,0 +1,65 @@
+<div class="col-lg-12 mt-15">
+    <div class="rows border-box border-radius-2 bg-fbfbfb">
+        <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 col-xl-2 pt-10 pb-10">
+            <div class="tab-profile-title text-single-line fs-16" data-ng-bind="CompleteManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestNumber"></div>
+        </div>
+
+        <!--Sender-->
+        <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8 col-xl-8 border-left border-right pt-10 pb-10 ">
+            <div class="fs-14">
+                <span>
+                    {{CompleteManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderName}}
+                </span>
+                <span class="ml-15 mr-15">
+                    <i class="fa fa-arrow-circle-right"></i>
+                </span>
+                <span>
+                    {{CompleteManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ReceiverName}}
+                </span>
+            </div>
+        </div>
+        <div class="col-lg-2 mt-10">
+            <div class="tab-profile-sub-title text-single-line fs-14" title="{{CompleteManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatus}} - {{CompleteManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatusDesc}}"
+                data-ng-bind="CompleteManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatusDesc"></div>
+        </div>
+    </div>
+</div>
+<div class="clearfix col-lg-12 mt-20">
+    <div class="widget">
+        <!--Widget Header-->
+        <div class="widget-body  no-padding">
+            <div class="tickets-container" style="padding: 1px 18px 11px 13px;">
+                <ul class="tickets-list" ng-repeat="x in CompleteManifestCtrl.ePage.Entities.Header.Data.TmsManifestConsignment">
+                    <li class="ticket-item mt-10">
+                        <div class="row">
+                            <div class="ticket-user col-lg-2 col-sm-12">
+                                <span class="user-name">{{x.TMC_ConsignmentNumber}}</span>
+                            </div>
+                            <div class="col-lg-6 col-sm-6 col-xs-12" style="padding:10px;">
+                                <div class="divider hidden-md hidden-sm hidden-xs"></div>
+                                <span class="user-company">{{x.TMC_SenderName}}</span>
+                                <span class="user-company">
+                                    <i class="fa fa-arrow-circle-right"></i>
+                                </span>
+                                <span class="user-company"> {{x.TMC_ReceiverName}} </span>
+                            </div>
+                            <div class="ticket-time  col-lg-2 col-sm-6 col-xs-12">
+                                <div class="divider hidden-md hidden-sm hidden-xs"></div>
+                                <i class="fa fa-clock-o" ng-if="x.TMC_ActualDeliveryDateTime"></i>
+                                <span class="time">{{x.TMC_ActualDeliveryDateTime | date:"dd-MMM-yyyy h:mm a" }}</span>
+                            </div>
+                            <div class="ticket-type  col-lg-2 col-sm-6 col-xs-12">
+                                <span class="divider hidden-xs"></span>
+                                <span class="type">{{x.TMC_ConsignmentStatusDesc}}</span>
+                            </div>
+                            <div class="ticket-state" ng-class="x.TMC_ActualDeliveryDateTime ? 'bg-palegreen' : 'bg-darkorange'">
+                                <i ng-show="!x.TMC_ActualDeliveryDateTime" class="fa fa-times" title="Not Delivered"></i>
+                                <i ng-show="x.TMC_ActualDeliveryDateTime" class="fa fa-check" title="Delivered"></i>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

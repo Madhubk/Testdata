@@ -5,9 +5,9 @@
         .module("Application")
         .controller("EALabController", EALabController);
 
-    EALabController.$inject = ["authService", "helperService"];
+    EALabController.$inject = ["helperService"];
 
-    function EALabController(authService, helperService) {
+    function EALabController(helperService) {
         /* jshint validthis: true */
         var EALabCtrl = this;
 
@@ -19,8 +19,6 @@
                 "Meta": helperService.metaBase(),
                 "Entities": {}
             };
-
-            EALabCtrl.ePage.Masters.MenuVisibleType = authService.getUserInfo().Menu.VisibleType;
         }
 
         Init();

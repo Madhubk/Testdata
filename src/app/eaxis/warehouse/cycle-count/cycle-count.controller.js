@@ -25,6 +25,7 @@
             CycleCountCtrl.ePage.Masters.taskName = "WarehouseCycleCount";
             CycleCountCtrl.ePage.Masters.dataentryName = "WarehouseCycleCount";
             CycleCountCtrl.ePage.Masters.TabList = [];
+            cycleCountConfig.TabList = [];
             CycleCountCtrl.ePage.Masters.activeTabIndex = 0;
             CycleCountCtrl.ePage.Masters.isNewCycleCountClicked = false;
             CycleCountCtrl.ePage.Masters.IsTabClick = false;
@@ -86,7 +87,7 @@
                     });
                 });
             } else {
-                toastr.info('Cycle Count already opened ');
+                toastr.info('Cycle Count already opened');
             }
         }
 

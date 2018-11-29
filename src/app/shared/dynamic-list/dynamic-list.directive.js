@@ -3,26 +3,6 @@
 
     angular
         .module("Application")
-        .directive("pageWidthHeight", PageWidthHeight);
-
-    PageWidthHeight.$inject = [];
-
-    function PageWidthHeight() {
-        var exports = {
-            restrict: "A",
-            link: Link
-        };
-        return exports;
-
-        function Link(scope, ele, attr) {
-            angular.element(ele).css({
-                'height': window.innerHeight - 150
-            });
-        }
-    }
-
-    angular
-        .module("Application")
         .directive("dynamicList", DynamicList);
 
     DynamicList.$inject = [];
@@ -38,9 +18,10 @@
                 dataentryName: "=",
                 dataentryObject: "=",
                 defaultFilter: "=",
+                baseFilter: "=",
                 selectedGridRow: "&",
-                lookupConfigFieldName: "=",
-                gridConfigType: "="
+                lookupConfigControlKey: "=",
+                isNewButton: "="
             },
             bindToController: true
         };

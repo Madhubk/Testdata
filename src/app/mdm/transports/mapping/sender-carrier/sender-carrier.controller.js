@@ -1,4 +1,4 @@
-(function() {
+(function () {
     "use strict";
 
     angular
@@ -50,7 +50,7 @@
         }
 
         function OnChangeManifestType(ManifestType) {
-            angular.forEach(SenderCarrierCtrl.ePage.Masters.DropDownMasterList.ManifestType.ListSource, function(value, key) {
+            angular.forEach(SenderCarrierCtrl.ePage.Masters.DropDownMasterList.ManifestType.ListSource, function (value, key) {
                 if (value.Key == ManifestType) {
                     SenderCarrierCtrl.ePage.Entities.Header.Data.SenderCarrierDetails[SenderCarrierCtrl.ePage.Masters.selectedRow].AddRef1_FK = value.PK;
                     SenderCarrierCtrl.ePage.Entities.Header.Data.SenderCarrierDetails[SenderCarrierCtrl.ePage.Masters.selectedRow].AddRef1Code = value.Key;
@@ -60,7 +60,7 @@
 
         // Get DataEntryNameList 
         function GetDynamicLookupConfig() {
-            var DataEntryNameList = "OrganizationList";
+            var DataEntryNameList = "OrganizationList,ProductRelatedParty";
             var dynamicFindAllInput = [{
                 "FieldName": "DataEntryNameList",
                 "value": DataEntryNameList
@@ -70,18 +70,21 @@
                 "FilterID": "DYNDAT"
             };
 
-            apiService.post("eAxisAPI", "DataEntryMaster/FindAll", _input).then(function(response) {
+            apiService.post("eAxisAPI", "DataEntryMaster/FindAll", _input).then(function (response) {
                 var res = response.data.Response;
-                res.map(function(value, key) {
+                res.map(function (value, key) {
                     SenderCarrierCtrl.ePage.Masters.dynamicLookupConfig[value.DataEntryName] = value;
                 });
             });
         }
 
         function getCfxMappingDetails() {
+            SenderCarrierCtrl.ePage.Masters.IsLoading = true;
             var _filter = {
                 "SortColumn": "CFM_CreatedDateTime",
-                "SortType": "DESC",
+                "SortType": "ASC",
+                "PageNumber": 1,
+                "PageSize": 1000
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
@@ -90,11 +93,13 @@
             apiService.post("eAxisAPI", SenderCarrierCtrl.ePage.Entities.Header.API.CfxMappingFindall.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Status == "Success") {
                     SenderCarrierCtrl.ePage.Entities.Header.CheckPoints.CfxMappingValues = response.data.Response;
-                    angular.forEach(SenderCarrierCtrl.ePage.Entities.Header.CheckPoints.CfxMappingValues, function(value, key) {
+                    SenderCarrierCtrl.ePage.Entities.Header.Data.SenderCarrierDetails = [];
+                    angular.forEach(SenderCarrierCtrl.ePage.Entities.Header.CheckPoints.CfxMappingValues, function (value, key) {
                         if (value.MappingCode == "SENDER_CARRIER") {
                             SenderCarrierCtrl.ePage.Entities.Header.Data.SenderCarrierDetails.push(value);
                         }
                     });
+                    SenderCarrierCtrl.ePage.Masters.IsLoading = false;
                 }
             });
         }
@@ -103,7 +108,7 @@
             var typeCodeList = ["ManifestType"];
             var dynamicFindAllInput = [];
 
-            typeCodeList.map(function(value, key) {
+            typeCodeList.map(function (value, key) {
                 dynamicFindAllInput[key] = {
                     "FieldName": "TypeCode",
                     "value": value
@@ -114,9 +119,9 @@
                 "FilterID": appConfig.Entities.CfxTypes.API.DynamicFindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.CfxTypes.API.DynamicFindAll.Url + authService.getUserInfo().AppPK, _input).then(function(response) {
+            apiService.post("eAxisAPI", appConfig.Entities.CfxTypes.API.DynamicFindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
                 if (response.data.Response) {
-                    typeCodeList.map(function(value, key) {
+                    typeCodeList.map(function (value, key) {
                         SenderCarrierCtrl.ePage.Masters.DropDownMasterList[value] = helperService.metaBase();
                         SenderCarrierCtrl.ePage.Masters.DropDownMasterList[value].ListSource = response.data.Response[value];
                     });
@@ -124,12 +129,35 @@
             });
         }
 
-        function setSelectedRow(index) {
-            SenderCarrierCtrl.ePage.Masters.selectedRow = index;
+        function setSelectedRow(index,x) {
+            angular.forEach(SenderCarrierCtrl.ePage.Entities.Header.Data.SenderCarrierDetails,function(value,key){
+                if(value.PK == x.PK){
+                    SenderCarrierCtrl.ePage.Masters.selectedRow = key;
+                }
+            })
+            SenderCarrierCtrl.ePage.Masters.LineselectedRow = index;
         }
 
         function Back() {
-            SenderCarrierCtrl.ePage.Masters.Lineslist = true;
+            var item = SenderCarrierCtrl.ePage.Entities.Header.Data.SenderCarrierDetails[SenderCarrierCtrl.ePage.Masters.selectedRow];
+            if (item.PK == "") {
+                var modalOptions = {
+                    closeButtonText: 'Cancel',
+                    actionButtonText: 'Ok',
+                    headerText: 'Are you sure?',
+                    bodyText: 'Please save your changes. Otherwise given details will be discarded.'
+                };
+                confirmation.showModal({}, modalOptions)
+                    .then(function (result) {
+                        SenderCarrierCtrl.ePage.Entities.Header.Data.SenderCarrierDetails.splice(SenderCarrierCtrl.ePage.Masters.selectedRow, 1);
+                        SenderCarrierCtrl.ePage.Masters.Lineslist = true;
+                        SenderCarrierCtrl.ePage.Masters.selectedRow = SenderCarrierCtrl.ePage.Masters.selectedRow - 1;
+                    }, function () {
+                        console.log("Cancelled");
+                    });
+            } else {
+                SenderCarrierCtrl.ePage.Masters.Lineslist = true;
+            }
         }
 
         function Done() {
@@ -141,10 +169,10 @@
             SenderCarrierCtrl.ePage.Masters.selectedRow = index;
             SenderCarrierCtrl.ePage.Masters.Lineslist = false;
             SenderCarrierCtrl.ePage.Masters.HeaderName = name;
-            $timeout(function() { $scope.$apply(); }, 500);
+            $timeout(function () { $scope.$apply(); }, 500);
         }
 
-        $document.bind('keydown', function(e) {
+        $document.bind('keydown', function (e) {
             if (SenderCarrierCtrl.ePage.Masters.selectedRow != -1) {
                 if (SenderCarrierCtrl.ePage.Masters.Lineslist == true) {
                     if (e.keyCode == 38) {
@@ -197,12 +225,16 @@
                 bodyText: 'Are you sure?'
             };
             confirmation.showModal({}, modalOptions)
-                .then(function(result) {
-                    SenderCarrierCtrl.ePage.Entities.Header.Data.SenderCarrierDetails.splice(SenderCarrierCtrl.ePage.Masters.selectedRow, 1);
-                    toastr.success('Record Removed Successfully');
-                    SenderCarrierCtrl.ePage.Masters.Lineslist = true;
+                .then(function (result) {
+                    apiService.get("eAxisAPI", 'CfxMapping/Delete/' + item.PK).then(function SuccessCallback(response) {
+                        toastr.success('Record Removed Successfully');
+                        if (response.data.Response == "Success") {
+                            SenderCarrierCtrl.ePage.Entities.Header.Data.SenderCarrierDetails = [];
+                            getCfxMappingDetails();
+                        }
+                    });
                     SenderCarrierCtrl.ePage.Masters.selectedRow = SenderCarrierCtrl.ePage.Masters.selectedRow - 1;
-                }, function() {
+                }, function () {
                     console.log("Cancelled");
                 });
         }
@@ -226,22 +258,26 @@
         };
 
         function SaveList($item) {
-            
-            if ($item.PK) {
-                $item.IsModified = true;
-                SenderCarrierCtrl.ePage.Masters.IsLoadingToSave = true;
-                apiService.post("eAxisAPI", SenderCarrierCtrl.ePage.Entities.Header.API.UpdateCfxMapping.Url, $item).then(function SuccessCallback(response) {
-                    if (response.data.Status == "Success") {
-                        SenderCarrierCtrl.ePage.Entities.Header.Data.SenderCarrierDetails[SenderCarrierCtrl.ePage.Masters.selectedRow] = response.data.Response;
-                    }
-                });
+            if ($item.AddRef1Code && $item.MappingForCode && $item.MappingToCode) {
+                if ($item.PK) {
+                    $item.IsModified = true;
+                    SenderCarrierCtrl.ePage.Masters.IsLoadingToSave = true;
+                    apiService.post("eAxisAPI", SenderCarrierCtrl.ePage.Entities.Header.API.UpdateCfxMapping.Url, $item).then(function SuccessCallback(response) {
+                        if (response.data.Status == "Success") {
+                            SenderCarrierCtrl.ePage.Entities.Header.Data.SenderCarrierDetails[SenderCarrierCtrl.ePage.Masters.selectedRow] = response.data.Response;
+                        }
+                    });
+                } else {
+                    SenderCarrierCtrl.ePage.Masters.IsLoadingToSave = true;
+                    apiService.post("eAxisAPI", SenderCarrierCtrl.ePage.Entities.Header.API.InsertCfxMapping.Url, [$item]).then(function SuccessCallback(response) {
+                        if (response.data.Status == "Success") {
+                            SenderCarrierCtrl.ePage.Entities.Header.Data.SenderCarrierDetails[SenderCarrierCtrl.ePage.Masters.selectedRow] = response.data.Response[0];
+                        }
+                    });
+                }
+                getCfxMappingDetails();
             } else {
-                SenderCarrierCtrl.ePage.Masters.IsLoadingToSave = true;
-                apiService.post("eAxisAPI", SenderCarrierCtrl.ePage.Entities.Header.API.InsertCfxMapping.Url, [$item]).then(function SuccessCallback(response) {
-                    if (response.data.Status == "Success") {
-                        SenderCarrierCtrl.ePage.Entities.Header.Data.SenderCarrierDetails[SenderCarrierCtrl.ePage.Masters.selectedRow] = response.data.Response[0];
-                    }
-                });
+                toastr.warning("All Mapping details are mandatory")
             }
         }
 

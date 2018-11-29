@@ -31,13 +31,10 @@
             InitConsole();
             InitPacking();
         }
-
         // ==========================Console Details Begin ====================================
-
         function InitConsole() {
             ShipmentConsolePackingCtrl.ePage.Masters.ShipmentConsol.DeleteConsole = DeleteConsole;
             ShipmentConsolePackingCtrl.ePage.Masters.ShipmentConsol.ConsoleDeleteConfirmation = ConsoleDeleteConfirmation;
-            // ShipmentConsolePackingCtrl.ePage.Masters.GridRefreshFun = GridRefreshFun;
             ShipmentConsolePackingCtrl.ePage.Masters.SelectedGridRowConsol = SelectedGridRowConsol;
             ShipmentConsolePackingCtrl.ePage.Masters.SelectedConsoleData = SelectedConsoleData;
 
@@ -92,21 +89,19 @@
         }
 
         function SelectedConsoleData($item) {
-            console.log($item)
-            var item = [];
-            item.push($item.entity);
             var _tempArray = [];
-            item.map(function (val, key) {
+
+            $item.map(function (val, key) {
                 var _isExist = ShipmentConsolePackingCtrl.ePage.Entities.Header.Data.UIConShpMappings.some(function (value, index) {
                     return value.CON_FK === val.PK;
                 });
-
 
                 if (!_isExist) {
                     var _tempObj = {
                         "SHP_FK": ShipmentConsolePackingCtrl.ePage.Entities.Header.Data.PK,
                         "CON_FK": val.PK,
-                        "PK": ""
+                        "PK": "",
+                        "TenantCode": authService.getUserInfo().TenantCode,
                     };
                     _tempArray.push(_tempObj)
                 } else {
@@ -115,15 +110,14 @@
             });
             if (_tempArray.length > 0) {
                 apiService.post("eAxisAPI", appConfig.Entities.ConShpMapping.API.Insert.Url, _tempArray).then(function (response) {
-                    if (response.data.Response) {
-                        GetConsolListing()
-                    }
+                    if (response.data.Response) { }
+                    GetConsolListing();
                 });
             }
         }
 
-        function SelectedGridRowConsol($item) {
-            ConsoleDeleteConfirmation($item.data)
+        function SelectedGridRowConsol(item) {
+            ConsoleDeleteConfirmation(item);
         }
 
         function ConsoleDeleteConfirmation($item) {
@@ -150,29 +144,24 @@
             if (_index !== -1) {
                 apiService.get("eAxisAPI", appConfig.Entities.ConShpMapping.API.Delete.Url + $item.PK).then(function (response) {
                     if (response.data.Response) {
-                        GetConsolListing()
+                        GetConsolListing();
                         // $rootScope.GetContainerList();
                         // $rootScope.GetRotingList();
                     }
                 });
             }
         }
-
         // ==========================Console Details End ====================================
 
         // =======================Packing Begin=======================
-
         function InitPacking() {
             ShipmentConsolePackingCtrl.ePage.Masters.Package.FormView = {};
             ShipmentConsolePackingCtrl.ePage.Masters.Package.FormView.JobDangerousGoods = [];
             ShipmentConsolePackingCtrl.ePage.Masters.Package.FormView.JobLocation = [];
-
-            ShipmentConsolePackingCtrl.ePage.Masters.Package.gridConfig = ShipmentConsolePackingCtrl.ePage.Entities.Package.gridConfig;
-
             ShipmentConsolePackingCtrl.ePage.Masters.Package.AddNewPacking = AddNewPacking;
             ShipmentConsolePackingCtrl.ePage.Masters.Package.DeletePacking = DeletePacking;
             ShipmentConsolePackingCtrl.ePage.Masters.Package.PackageDeleteConfirmation = PackageDeleteConfirmation;
-            ShipmentConsolePackingCtrl.ePage.Masters.Package.SelectedGridRow = SelectedGridRow
+            ShipmentConsolePackingCtrl.ePage.Masters.Package.SelectedGridRow = SelectedGridRow;
 
             $rootScope.GetPackingDetails = GetPackingDetails;
 
@@ -182,7 +171,8 @@
             } else {
                 ShipmentConsolePackingCtrl.ePage.Masters.Package.GridData = [];
             }
-            sum()
+
+            sum();
         }
 
         function GetPackingList() {
@@ -205,11 +195,11 @@
                             ShipmentConsolePackingCtrl.ePage.Entities.Header.Data.UIJobPackLines.push(value);
                         }
                     });
+
                     GetPackingDetails();
                 }
             });
         }
-
         // Package Details     
         function GetPackingDetails() {
             var _gridData = [];
@@ -227,21 +217,19 @@
                 }
                 ShipmentConsolePackingCtrl.ePage.Masters.Package.GridData = _gridData;
                 ShipmentConsolePackingCtrl.ePage.Masters.Package.FormView = {};
+
                 sum();
             });
         }
 
-
-
-        function SelectedGridRow($item) {
-            if ($item.action == 'edit')
-                AddNewPacking('edit', $item.data, $item.index)
+        function SelectedGridRow(item, type, index) {
+            if (type == 'edit')
+                AddNewPacking('edit', item, index);
             else
-                PackageDeleteConfirmation($item)
+                PackageDeleteConfirmation(item, index);
         }
         // Add New For paackage
-        function AddNewPacking(action, $item, index) {
-
+        function AddNewPacking(action, item, index) {
             var modalInstance = $uibModal.open({
                 animation: true,
                 backdrop: "static",
@@ -257,7 +245,7 @@
                     param: function () {
                         var exports = {
                             "currentShipment": ShipmentConsolePackingCtrl.currentShipment,
-                            "currentFormView": $item,
+                            "currentFormView": item,
                             "action": action,
                             "index": index
                         };
@@ -275,31 +263,30 @@
                     }
                 }
             );
-
         }
 
         function sum() {
+            var _PackageCount = 0, _ActualWeight = 0, _ActualVolume = 0;
             ShipmentConsolePackingCtrl.ePage.Entities.Header.Data.OutPackageSum = [];
             if (ShipmentConsolePackingCtrl.ePage.Masters.Package.GridData.length > 0) {
-                ShipmentConsolePackingCtrl.ePage.Entities.Header.Data.OutPackageSum = [{
-                    PackageCount: _.sumBy(ShipmentConsolePackingCtrl.ePage.Masters.Package.GridData, function (o) {
-                        if (o.FreightMode == 'OUT')
-                            return o.PackageCount;
-                    }),
-                    ActualWeight: _.sumBy(ShipmentConsolePackingCtrl.ePage.Masters.Package.GridData, function (o) {
-                        if (o.FreightMode == 'OUT')
-                            return o.ActualWeight;
-                    }),
-                    ActualVolume: _.sumBy(ShipmentConsolePackingCtrl.ePage.Masters.Package.GridData, function (o) {
-                        if (o.FreightMode == 'OUT')
-                            return o.ActualVolume;
-                    }),
-                    InnerPackType: ShipmentConsolePackingCtrl.ePage.Masters.Package.GridData[0].F3_NKPackType,
-                    UnitOfWeight: ShipmentConsolePackingCtrl.ePage.Masters.Package.GridData[0].ActualWeightUQ,
-                    UnitOfVolume: ShipmentConsolePackingCtrl.ePage.Masters.Package.GridData[0].ActualVolumeUQ,
-                    IsLength: ShipmentConsolePackingCtrl.ePage.Masters.Package.GridData.length
-
-                }];
+                ShipmentConsolePackingCtrl.ePage.Masters.Package.GridData.map(function (Value, Key) {
+                    if (Value.FreightMode == 'OUT') {
+                        _PackageCount = _PackageCount + parseInt(Value.PackageCount)
+                    }
+                    if (Value.FreightMode == 'OUT') {
+                        _ActualWeight = (parseFloat(_ActualWeight) + parseFloat(Value.ActualWeight)).toFixed(3);
+                    }
+                    if (Value.FreightMode == 'OUT') {
+                        _ActualVolume = (parseFloat(_ActualVolume) + parseFloat(Value.ActualVolume)).toFixed(3);
+                    }
+                    ShipmentConsolePackingCtrl.ePage.Entities.Header.Data.OutPackageSum[0].PackageCount = _PackageCount;
+                    ShipmentConsolePackingCtrl.ePage.Entities.Header.Data.OutPackageSum[0].ActualWeight = _ActualWeight;
+                    ShipmentConsolePackingCtrl.ePage.Entities.Header.Data.OutPackageSum[0].ActualVolume = _ActualVolume;
+                    ShipmentConsolePackingCtrl.ePage.Entities.Header.Data.OutPackageSum[0].InnerPackType = ShipmentConsolePackingCtrl.ePage.Masters.Package.GridData[0].F3_NKPackType;
+                    ShipmentConsolePackingCtrl.ePage.Entities.Header.Data.OutPackageSum[0].UnitOfWeight = ShipmentConsolePackingCtrl.ePage.Masters.Package.GridData[0].ActualWeightUQ;
+                    ShipmentConsolePackingCtrl.ePage.Entities.Header.Data.OutPackageSum[0].UnitOfVolume = ShipmentConsolePackingCtrl.ePage.Masters.Package.GridData[0].ActualVolumeUQ;
+                    ShipmentConsolePackingCtrl.ePage.Entities.Header.Data.OutPackageSum[0].IsLength = ShipmentConsolePackingCtrl.ePage.Masters.Package.GridData.length;
+                });
             } else {
                 ShipmentConsolePackingCtrl.ePage.Entities.Header.Data.OutPackageSum = [{
                     "PackageCount": 0,
@@ -308,10 +295,9 @@
                     "IsLength": 0
                 }];
             }
-
         }
 
-        function PackageDeleteConfirmation($item) {
+        function PackageDeleteConfirmation($item, index) {
             var modalOptions = {
                 closeButtonText: 'Cancel',
                 actionButtonText: 'Ok',
@@ -321,29 +307,23 @@
 
             confirmation.showModal({}, modalOptions)
                 .then(function (result) {
-                    DeletePacking($item);
+                    DeletePacking($item, index);
                 }, function () {
                     console.log("Cancelled");
                 });
         }
         //Delete For Package
-        function DeletePacking($item) {
-            if ($item.index !== -1) {
-                apiService.get("eAxisAPI", appConfig.Entities.JobPackLines.API.Delete.Url + $item.data.PK).then(function (response) {
+        function DeletePacking($item, index) {
+            if (index !== -1) {
+                apiService.get("eAxisAPI", appConfig.Entities.JobPackLines.API.Delete.Url + $item.PK).then(function (response) {
                     if (response.data.Response) {
-                        ShipmentConsolePackingCtrl.ePage.Entities.Header.Data.UIJobPackLines.splice($item.data.Index, 1);
+                        ShipmentConsolePackingCtrl.ePage.Entities.Header.Data.UIJobPackLines.splice(index, 1);
                         GetPackingDetails();
                     }
                 });
             }
         }
-
-
         // =======================Packing End=======================
-
-
-
-
         Init();
     }
 })();

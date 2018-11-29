@@ -1,0 +1,174 @@
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-15">
+    <div class="rows border-box border-radius-2 bg-fbfbfb">
+        <!--Cycle count Number-->
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 pt-20 pb-20 pl-40">
+            <div class="tab-profile-title text-single-line fs-20 mt-20" title="{{CycleCountViewDetailCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.StocktakeNumber}}"
+                data-ng-bind="CycleCountViewDetailCtrl.currentCycleCountViewDetail.label"></div>
+
+            <div class="tab-profile-sub-title text-single-line fs-14" title="{{CycleCountViewDetailCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.StocktakeStatus}} - {{CycleCountViewDetailCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.StocktakeType}}"
+                data-ng-bind="CycleCountViewDetailCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.CycleCountDesc"></div>
+        </div>
+        <!--Client-->
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 border-left border-right pt-30 pb-20 pl-20">
+            <div class="fs-20 color-999">Client</div>
+            <div class="fs-14">
+                <b>{{CycleCountViewDetailCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.ClientCode}}</b> -
+                <b ng-bind="CycleCountViewDetailCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.ClientName"></b>
+            </div>
+        </div>
+        <!--stock details-->
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 border-left border-right pt-20 pb-20 p-20">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <div class="fs-15 color-999">Warehouse</div>
+                    <div class="text-single-line">
+                        <span>{{CycleCountViewDetailCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.WarehouseCode}}</span>
+                        -
+                        <span ng-bind="CycleCountViewDetailCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.WarehouseName"></span>
+                    </div>
+                </div>
+                <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <div class="fs-15 color-999">Count Empty Locations</div>
+                    <div class="text-single-line">
+                        <span>{{CycleCountViewDetailCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.CountEmptyLocationsCategory}}</span>
+                    </div>
+                </div>
+                <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <div class="fs-15 color-999">Stock Take Number</div>
+                    <div class="text-single-line">
+                        <span>{{CycleCountViewDetailCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.StocktakeNumber}}</span>
+                    </div>
+                </div>
+
+                <div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <div class="fs-15 color-999">Stock Take Date</div>
+                    <div class="text-single-line">
+                        <span>{{CycleCountViewDetailCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.StocktakeDate | dateFormat}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--General detail-->
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pl-15">
+    <div class="rows border-box border-radius-2 pt-20 pb-20 mt-10 height-100">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-13">Row</div>
+                    <div class="text-single-line">
+                        <span>{{CycleCountViewDetailCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.RowName}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-13">Area</div>
+                    <div class="text-single-line">
+                        <span>{{CycleCountViewDetailCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.AreaName}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-13">Location</div>
+                    <div class="text-single-line">
+                        <span>{{CycleCountViewDetailCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.Location}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-13">Type</div>
+                    <div class="text-single-line">
+                        <span>{{CycleCountViewDetailCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.StocktakeType}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--Cycle Count Lines-->
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pb-20 pl-15">
+    <div class="rows border-box border-radius-2 mt-10">
+        <div class="wms-table-title fs-5 p-10">Cycle Count Lines</div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pl-0 pr-0" style="overflow-x:auto;">
+
+            <table class="tableclass">
+                <tbody>
+                    <tr>
+                        <th>Client</th>
+                        <th>Product Code</th>
+                        <th>Product Description</th>
+                        <th>Commodity</th>
+                        <th>Pallet ID</th>
+                        <th>Location</th>
+                        <th>Area</th>
+                        <th>Row</th>
+                        <th>System Units</th>
+                        <th>Last Count</th>
+                        <th>Count 1</th>
+                        <th>Date Verified</th>
+                        <th>Comment</th>
+                        <th>Status</th>
+                        <th>Date Closed</th>
+                        <th>Inventory Status</th>
+                        <th>
+                            <span ng-if="CycleCountViewDetailCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.IMPartAttrib1Name">{{CycleCountViewDetailCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.IMPartAttrib1Name}}</span>
+                            <span ng-if="!CycleCountViewDetailCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.IMPartAttrib1Name">UDF 1</span>
+                        </th>
+                        <th>
+                            <span ng-if="CycleCountViewDetailCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.IMPartAttrib2Name">{{CycleCountViewDetailCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.IMPartAttrib2Name}}</span>
+                            <span ng-if="!CycleCountViewDetailCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.IMPartAttrib2Name">UDF 2</span>
+                        </th>
+                        <th>
+                            <span ng-if="CycleCountViewDetailCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.IMPartAttrib3Name">{{CycleCountViewDetailCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.IMPartAttrib3Name}}</span>
+                            <span ng-if="!CycleCountViewDetailCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.IMPartAttrib3Name">UDF 3</span>
+                        </th>
+                        <th>packing Date</th>
+                        <th>Expiry Date</th>
+                    </tr>
+
+                    <tr ng-repeat="x in CycleCountViewDetailCtrl.ePage.Entities.Header.Data.UIWmsCycleCountLine track by $index">
+                        <td>{{x.ClientCode}}-{{x.ClientName}}</td>
+                        <td>{{x.ProductCode}}</td>
+                        <td>{{x.ProductDesc}}</td>
+                        <td>{{x.Commodity}}
+                        </td>
+                        <td>{{x.PalletID}}</td>
+                        <td>{{x.Location}}</td>
+                        <td>{{x.AreaName}}</td>
+                        <td>{{x.RowName}}</td>
+                        <td>{{x.SystemUnits}}</td>
+                        <td>{{x.CurrentCount}}</td>
+                        <td>{{x.LastCount}}</td>
+                        <td>{{x.DateVerified | dateFormat}}</td>
+                        <td>{{x.LineComment}}</td>
+                        <td>{{x.Status}}</td>
+                        <td>{{x.DateClosed | dateFormat}}</td>
+                        <td>{{x.InventoryStatus}}</td>
+                        <td>{{x.PartAttrib1}}</td>
+                        <td>{{x.PartAttrib2}}</td>
+                        <td>{{x.PartAttrib3}}</td>
+                        <td>{{x.PackingDate | dateFormat}}</td>
+                        <td>{{x.ExpiryDate | dateFormat}}</td>
+                    </tr>
+                    <tr>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="no-record fs-5 p-10" ng-if="CycleCountViewDetailCtrl.ePage.Entities.Header.Data.UIWmsCycleCountLine.length==0">
+            <div>
+                No Record Found...
+            </div>
+        </div>
+
+    </div>
+</div>

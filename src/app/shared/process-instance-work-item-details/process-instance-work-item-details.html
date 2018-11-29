@@ -1,0 +1,181 @@
+<div class="clearfix process-instance-work-item-details-wrapper">
+    <div class="clearfix">
+        <div class="clearfix p-20 text-center font-160" data-ng-if="!ProcessInstanceWorkItemDetailsCtrl.ePage.Masters.StepList">
+            <i class="fa fa-spin fa-spinner"></i>
+        </div>
+        <div class="clearfix p-20 text-center" data-ng-if="ProcessInstanceWorkItemDetailsCtrl.ePage.Masters.StepList && ProcessInstanceWorkItemDetailsCtrl.ePage.Masters.StepList.length == 0">
+            <i>No Records...!</i>
+        </div>
+        <div class="clearfix pl-10" data-ng-repeat="member in ProcessInstanceWorkItemDetailsCtrl.ePage.Masters.StepList"
+            data-ng-include src="'work-instance'" data-ng-if="ProcessInstanceWorkItemDetailsCtrl.ePage.Masters.StepList && ProcessInstanceWorkItemDetailsCtrl.ePage.Masters.StepList.length > 0">
+        </div>
+    </div>
+    <!-- Entity Fields -->
+    <div class="clearfix entity-info" data-ng-if="ProcessInstanceWorkItemDetailsCtrl.ePage.Masters.ActiveProcess.EntityInfo && ProcessInstanceWorkItemDetailsCtrl.ePage.Masters.ActiveProcess.EntityInfo.Fields && ProcessInstanceWorkItemDetailsCtrl.ePage.Masters.ActiveProcess.EntityInfo.Fields.length > 0">
+        <div class="clearfix header p-10 pl-15 pr-30 position-relative">
+            <span class="text-single-line">Entity Information</span>
+            <i class="fa fa-close cursor-pointer" data-ng-click="ProcessInstanceWorkItemDetailsCtrl.ePage.Masters.CloseEntityInfo()"></i>
+        </div>
+        <div class="tc-section-divider-small"></div>
+        <div class="clearfix entity-list">
+            <div class="clearfix pt-5 pb-5" data-ng-repeat="x in ProcessInstanceWorkItemDetailsCtrl.ePage.Masters.ActiveProcess.EntityInfo.Fields">
+                <div class="col-lg-6">
+                    <div class="text-single-line txt-bold" title="{{x.DTF_UIField}}">{{x.DTF_UIField}}</div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="text-single-line" title="{{x.DTF_NewValue}}">{{x.DTF_NewValue}}</div>
+                </div>
+            </div>
+            <div class="tc-section-divider-small"></div>
+            <div class="clearfix parent-additional-entity-link">
+                <!-- Parent Entity -->
+                <a href="javascript:void(0)" class="pull-left" data-ng-click="" data-ng-if="ProcessInstanceWorkItemDetailsCtrl.ePage.Masters.ActiveProcess.EntityInfo.Fields[0].DTF_ParentEntityRefKey && ProcessInstanceWorkItemDetailsCtrl.ePage.Masters.ActiveProcess.EntityInfo.Fields[0].DTF_ParentEntityRefKey != '00000000-0000-0000-0000-000000000000' && ProcessInstanceWorkItemDetailsCtrl.ePage.Masters.ActiveProcess.EntityInfo.Fields[0].DTF_ParentEntityRefCode"
+                    data-ng-bind="ProcessInstanceWorkItemDetailsCtrl.ePage.Masters.ActiveProcess.EntityInfo.Fields[0].DTF_ParentEntityRefCode"></a>
+                <a href="javascript:void(0)" class="pull-left" data-ng-click="" data-ng-if="ProcessInstanceWorkItemDetailsCtrl.ePage.Masters.ActiveProcess.EntityInfo.Fields[0].DTF_ParentEntityRefKey && ProcessInstanceWorkItemDetailsCtrl.ePage.Masters.ActiveProcess.EntityInfo.Fields[0].DTF_ParentEntityRefKey != '00000000-0000-0000-0000-000000000000' && !ProcessInstanceWorkItemDetailsCtrl.ePage.Masters.ActiveProcess.EntityInfo.Fields[0].DTF_ParentEntityRefCode"
+                    data-ng-bind="ProcessInstanceWorkItemDetailsCtrl.ePage.Masters.ActiveProcess.EntityInfo.Fields[0].DTF_EntitySource"></a>
+                <!-- Additional Entity -->
+                <a href="javascript:void(0)" class="pull-right" data-ng-click="" data-ng-if="ProcessInstanceWorkItemDetailsCtrl.ePage.Masters.ActiveProcess.EntityInfo.Fields[0].DTF_AdditionalEntityRefKey && ProcessInstanceWorkItemDetailsCtrl.ePage.Masters.ActiveProcess.EntityInfo.Fields[0].DTF_AdditionalEntityRefKey != '00000000-0000-0000-0000-000000000000' && ProcessInstanceWorkItemDetailsCtrl.ePage.Masters.ActiveProcess.EntityInfo.Fields[0].DTF_AdditionalEntityRefCode"
+                    data-ng-bind="ProcessInstanceWorkItemDetailsCtrl.ePage.Masters.ActiveProcess.EntityInfo.Fields[0].DTF_AdditionalEntityRefCode"></a>
+                <a href="javascript:void(0)" class="pull-right" data-ng-click="" data-ng-if="ProcessInstanceWorkItemDetailsCtrl.ePage.Masters.ActiveProcess.EntityInfo.Fields[0].DTF_AdditionalEntityRefKey && ProcessInstanceWorkItemDetailsCtrl.ePage.Masters.ActiveProcess.EntityInfo.Fields[0].DTF_AdditionalEntityRefKey != '00000000-0000-0000-0000-000000000000' && !ProcessInstanceWorkItemDetailsCtrl.ePage.Masters.ActiveProcess.EntityInfo.Fields[0].DTF_AdditionalEntityRefCode"
+                    data-ng-bind="ProcessInstanceWorkItemDetailsCtrl.ePage.Masters.ActiveProcess.EntityInfo.Fields[0].DTF_EntitySource"></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="work-instance" type="text/ng-template">
+    <div class="clearfix">
+        <div class="clearfix cursor-pointer" data-ng-if="$parent.$index==0" data-ng-click="ProcessInstanceWorkItemDetailsCtrl.ePage.Masters.ToggleProcessGroup(member)"
+            style="border-left: 1px solid #e8e3e3; background-color: #ddd; font-weight: bold;">
+            <div class="pull-left p-5 position-relative">
+                <span class="fa mr-5" style="font-size: 30px; position:absolute; top: -2px; font-weight: bold;" data-ng-class="(member.IsCollapsed) ? 'fa-angle-down' : 'fa-angle-right'"></span>
+                <span data-ng-bind="member.ProcessName" class="ml-30"></span>
+            </div>
+        </div>
+        <div class="clearfix {{member.RootPath}}">
+            <div class="clearfix">
+                <div class="col-lg-12 p-0">
+                    <table class="table table-bordered table-responsive process-instance-work-item-table">
+                        <thead data-ng-if="member.WSI_StepNo == 1.00 && $parent.$index == 0">
+                            <tr>
+                                <th>
+                                    <div class="text-single-line" title="Task Name">Task Name</div>
+                                </th>
+                                <th>
+                                    <div class="text-single-line" title="Performer Type">Performer Type</div>
+                                </th>
+                                <th>
+                                    <div class="text-single-line" title="Performer">Performer</div>
+                                </th>
+                                <th>
+                                    <div class="text-single-line" title="Status">Status</div>
+                                </th>
+                                <th>
+                                    <div class="text-single-line" title="Available On">Available On</div>
+                                </th>
+                                <th>
+                                    <div class="text-single-line" title="Assigned On">Assigned On</div>
+                                </th>
+                                <th>
+                                    <div class="text-single-line" title="Completed On">Completed On</div>
+                                </th>
+                                <th>
+                                    <div class="text-single-line" title="Due Date">Due Date</div>
+                                </th>
+                                <th>
+                                    <div class="text-single-line" title="KPI">KPI</div>
+                                </th>
+                                <th>
+                                    <div class="text-single-line" title="Ahead/Delay">Ahead/Delay</div>
+                                </th>
+                                <th style="width: 150px; text-align: center;" data-ng-if="ProcessInstanceWorkItemDetailsCtrl.mode == '1'">
+                                    <div class="text-single-line" title="Action">Action</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-if="member.WSI_StepNo==1.00">
+                                <td colspan="{{ProcessInstanceWorkItemDetailsCtrl.mode == '1' ? 11 : 10}}" class="instance-no">
+                                    <div class="text-single-line p-5 highlight-bg">
+                                        <span data-ng-bind="member.PSI_InstanceNo" title="{{member.PSI_InstanceNo}}"></span>
+                                        <a href="javascript:void(0)" class="pull-right" data-ng-click="ProcessInstanceWorkItemDetailsCtrl.ePage.Masters.ViewEntityInfo(member)">Entity Info</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr data-ng-if="member.StepType != 'END'">
+                                <td>
+                                    <div class="text-single-line">
+                                        <a href="javascript:(0);" data-ng-click="ProcessInstanceWorkItemDetailsCtrl.ePage.Masters.GetProcessInfo(member)" title="{{member.StepName}}"
+                                            data-ng-bind="member.StepName" data-ng-if="ProcessInstanceWorkItemDetailsCtrl.mode == '1'"></a>
+                                        <div title="{{member.StepName}}" data-ng-bind="member.StepName" data-ng-if="ProcessInstanceWorkItemDetailsCtrl.mode != '1'"></div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="text-single-line" title="{{member.AccessMode}}" data-ng-bind="member.AccessMode"></div>
+                                </td>
+                                <td>
+                                    <div class="text-single-line">
+                                        <a href="javascript:(0);" data-ng-click="ProcessInstanceWorkItemDetailsCtrl.ePage.Masters.Performer.OnPerformerListClick(member)"
+                                            title="{{member.PerformerCode}}" data-ng-bind="member.PerformerCode" data-ng-if="member.AccessMode!= 'USER'"></a>
+                                        <div class="text-single-line" title="{{member.PerformerCode}}" data-ng-bind="member.PerformerCode" data-ng-if="member.AccessMode!= 'ROLE' && member.AccessMode!= 'GROUP'"></div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="text-single-line {{member.Status}}" title="{{member.Status}}" data-ng-bind="member.Status"></div>
+                                </td>
+                                <td>
+                                    <div class="text-single-line" title="{{member.AvailableDate | date:'dd-MMM-yyyy hh:mm a'}}" data-ng-bind="member.AvailableDate | date:'dd-MMM-yyyy hh:mm a'"></div>
+                                </td>
+                                <td>
+                                    <div class="text-single-line" title="{{member.AssignedDate | date:'dd-MMM-yyyy hh:mm a'}}" data-ng-bind="member.AssignedDate | date:'dd-MMM-yyyy hh:mm a'"></div>
+                                </td>
+                                <td>
+                                    <div class="text-single-line" title="{{member.EndDate | date:'dd-MMM-yyyy hh:mm a'}}" data-ng-bind="member.EndDate | date:'dd-MMM-yyyy hh:mm a'"></div>
+                                </td>
+                                <td>
+                                    <div class="text-single-line" title="{{member.DueDate | date:'dd-MMM-yyyy hh:mm a'}}" data-ng-bind="member.DueDate | date:'dd-MMM-yyyy hh:mm a'"></div>
+                                </td>
+                                <td>
+                                    <div class="text-single-line" title="{{member.KPIDescription}}" data-ng-bind="member.KPIDescription"></div>
+                                </td>
+                                <td>
+                                    <div class="text-single-line delay-date" data-ng-class="((member.DueDate | dateTimeDifference: true: 'IsDeley')) ? 'lesser-value' : 'greater-value'"
+                                        title="{{member.DueDate | dateTimeDifference: true: 'Desc'}}" data-ng-bind="member.DueDate | dateTimeDifference: true: 'Desc'"></div>
+                                </td>
+                                <td data-ng-if="ProcessInstanceWorkItemDetailsCtrl.mode == '1'">
+                                    <div class="clearfix text-center">
+                                        <a href="javascript:void(0);" class="dropdown my-task-assign-to process-instance-action-link" data-ng-if="member.IsWorkStartedStr == '0' && member.Status == 'AVAILABLE'"
+                                            title="Assign Task">
+                                            <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+                                                <span> Assign Task</span>
+                                            </span>
+                                            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                                <task-assign-start-complete input="member" mode="2" on-submit-response="ProcessInstanceWorkItemDetailsCtrl.ePage.Masters.AssignStartCompleteResponse($item, member)"></task-assign-start-complete>
+                                            </div>
+                                        </a>
+                                        <a class="process-instance-action-link" href="javascript:(0);" data-ng-click="ProcessInstanceWorkItemDetailsCtrl.ePage.Masters.CompleteWork(member)"
+                                            title="Complete" data-ng-if="((member.IsWorkStartEnabledStr == '1' && member.IsWorkStartedStr == '1' && member.Status == 'ASSIGNED') || (member.IsWorkStartEnabledStr == '0' && member.IsWorkStartedStr == '0' && member.Status == 'ASSIGNED'))">Complete</a>
+                                        <!-- <a class="process-instance-action-link" href="javascript:(0);" data-ng-click="ProcessInstanceWorkItemDetailsCtrl.ePage.Masters.AbortWork(member)"
+                                            title="Abort Work" data-ng-if="member.IsWorkStartedStr == '1' && member.Status != 'ASSIGNED'">Abort Work</a> -->
+                                        <a href="javascript:void(0);" class="dropdown my-task-assign-to process-instance-action-link" data-ng-if="member.IsWorkStartedStr == '0' && member.Status == 'ASSIGNED'"
+                                            title="Manage Task">
+                                            <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+                                                <span>Manage Task</span>
+                                            </span>
+                                            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                                <task-assign-start-complete input="member" mode="2" on-submit-response="ProcessInstanceWorkItemDetailsCtrl.ePage.Masters.AssignStartCompleteResponse($item, member)"></task-assign-start-complete>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pl-20 clearfix {{member.RootPath}}" style="border-left: 1px solid #e8e3e3; border-right: 1px solid #e8e3e3; ">
+        <div data-ng-repeat="member in member.Processes.Process" ng-include src="'work-instance'" data-ng-if="member.PK"></div>
+    </div>
+</script>

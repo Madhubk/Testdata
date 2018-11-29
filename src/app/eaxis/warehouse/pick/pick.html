@@ -9,7 +9,7 @@
 
         <div class="no-padding tab-list-view-wrapper">
             <!--Pick Grid Page-->
-            <dynamic-list dataentry-name="PickCtrl.ePage.Masters.dataentryName" task-name="PickCtrl.ePage.Masters.taskName" grid-config-type="0" selected-grid-row="PickCtrl.ePage.Masters.SelectedGridRow($item)" mode="1"></dynamic-list>
+            <dynamic-list dataentry-name="PickCtrl.ePage.Masters.dataentryName" task-name="PickCtrl.ePage.Masters.taskName" grid-config-type="0" selected-grid-row="PickCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" dataentry-object="PickCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
             <div class="tab-loading" data-ng-show="PickCtrl.ePage.Masters.IsTabClick"></div>
         </div>
     </uib-tab>
@@ -38,7 +38,7 @@
         <div class="padding-5 padding-bottom-10 clearfix">
 
             <!--Pick Menu Directive-->
-            <pick-menu current-pick="tab"></pick-menu>
+            <pick-menu current-pick="tab" dataentry-object="PickCtrl.ePage.Masters.DataEntryObject"></pick-menu>
 
             <div class="horizontal-space"></div>
         </div>

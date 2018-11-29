@@ -15,10 +15,10 @@
                         <label for="">RelatedParty</label>
                         <div class="input-group input-group-sm">
                             <div dynamic-lookup placeholder="RelatedParty" my-ng-model="OrgRelatedPartyModalCtrl.ePage.Masters.RelatedParty.FormView.RelatedParty_Code"
-                                obj="OrgRelatedPartyModalCtrl.ePage.Masters.RelatedParty.FormView" prefix-data="'OrganizationList'"
-                                config="'OrgRelParty'" auto-complete-on-select="OrgRelatedPartyModalCtrl.ePage.Masters.RelatedParty.AutoCompleteOnSelect($item)"></div>
+                                obj="OrgRelatedPartyModalCtrl.ePage.Masters.RelatedParty.FormView" page-name="'OrganizationList'"   
+                                control-id="'OrgRelParty'" control-key="'OrgRelParty_3283'" auto-complete-on-select="OrgRelatedPartyModalCtrl.ePage.Masters.RelatedParty.AutoCompleteOnSelect($item)"></div>
                             <span class="input-group-btn">
-                                <button dynamic-list-modal  obj="OrgRelatedPartyModalCtrl.ePage.Masters.RelatedParty.FormView" field-name="'OrgRelParty'"  prefix-data="'OrganizationList'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrgRelatedPartyModalCtrl.ePage.Masters.RelatedParty.SelectedLookupData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                <button dynamic-list-modal  obj="OrgRelatedPartyModalCtrl.ePage.Masters.RelatedParty.FormView" page-name="'OrganizationList'" control-id="'OrgRelParty'" control-key="'OrgRelParty_3283'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrgRelatedPartyModalCtrl.ePage.Masters.RelatedParty.SelectedLookupData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
                             </span>
                         </div>
                     </div>

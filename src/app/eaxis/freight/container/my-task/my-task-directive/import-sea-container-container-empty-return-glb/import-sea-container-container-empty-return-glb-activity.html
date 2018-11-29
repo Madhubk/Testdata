@@ -1,0 +1,112 @@
+<div class="clearfix padding-top-10">
+    <div class="clearfix" data-ng-if="ImpSeaContainerContainerEmptyReturnRequestGlbDirCtrl.currentContainer">
+        <fieldset>
+            <!-- Empty Bond Validatity Date -->
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Empty Bond Validatity Date</label>
+                    <div class="form-group">
+                        <div class="input-group input-group-sm con-dt-value">
+                            <input type="text" class="form-control" placeholder="{{ImpSeaContainerContainerEmptyReturnRequestGlbDirCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datetime-picker="{{ImpSeaContainerContainerEmptyReturnRequestGlbDirCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                ng-model="ImpSeaContainerContainerEmptyReturnRequestGlbDirCtrl.currentContainer.EmptyBondValidityDate" datepicker-options="ImpSeaContainerContainerEmptyReturnRequestGlbDirCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                                default-date="" default-time="" save-as="ImpSeaContainerContainerEmptyReturnRequestGlbDirCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="ImpSeaContainerContainerEmptyReturnRequestGlbDirCtrl.ePage.Masters.DatePicker.isOpen['isValidity']" when-closed=""
+                                data-ng-click="" custom-date-time-format />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default shiny" data-ng-click="ImpSeaContainerContainerEmptyReturnRequestGlbDirCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isValidity')">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Bond Extended Till -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Bond Extended Till</label>
+                    <div class="form-group">
+                        <div class="input-group input-group-sm con-dt-value">
+                            <input type="text" class="form-control" placeholder="{{ImpSeaContainerContainerEmptyReturnRequestGlbDirCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datetime-picker="{{ImpSeaContainerContainerEmptyReturnRequestGlbDirCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                ng-model="ImpSeaContainerContainerEmptyReturnRequestGlbDirCtrl.currentContainer.BondExtendedTill" datepicker-options="ImpSeaContainerContainerEmptyReturnRequestGlbDirCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                                default-date="" default-time="" save-as="ImpSeaContainerContainerEmptyReturnRequestGlbDirCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="ImpSeaContainerContainerEmptyReturnRequestGlbDirCtrl.ePage.Masters.DatePicker.isOpen['isExtend']" when-closed=""
+                                data-ng-click="" custom-date-time-format />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default shiny" data-ng-click="ImpSeaContainerContainerEmptyReturnRequestGlbDirCtrl.ePage.Masters.DatePicker.OpenDatePicker($event,'isExtend')">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Bond Extended Required -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Bond Extended Required </label>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="ImpSeaContainerContainerEmptyReturnRequestGlbDirCtrl.currentContainer.IsBondEtendedRequired" data-ng-checked="ImpSeaContainerContainerEmptyReturnRequestGlbDirCtrl.currentContainer.IsBondEtendedRequired"
+                                class="colored-blue">
+                            <span class="text"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Email Notification to be sent -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Email Notification to be sent</label>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" class="colored-blue">
+                            <!-- data-ng-model="ImpSeaContainerContainerEmptyReturnRequestGlbDirCtrl.ePage.Entities.Header.Data.UICntContainers[0].IsBondEtendedRequired" -->
+                            <!-- data-ng-checked="ImpSeaContainerContainerEmptyReturnRequestGlbDirCtrl.ePage.Entities.Header.Data.UICntContainers[0].IsBondEtendedRequired" -->
+                            <span class="text"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+        <fieldset>
+            <!-- Container Return Date -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Container Return Date</label>
+                    <div class="form-group">
+                        <div class="input-group input-group-sm con-dt-value">
+                            <input type="text" class="form-control" placeholder="{{ImpSeaContainerContainerEmptyReturnRequestGlbDirCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datetime-picker="{{ImpSeaContainerContainerEmptyReturnRequestGlbDirCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                ng-model="ImpSeaContainerContainerEmptyReturnRequestGlbDirCtrl.currentContainer.ContainerReturnedDate" datepicker-options="ImpSeaContainerContainerEmptyReturnRequestGlbDirCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                                default-date="" default-time="" save-as="ImpSeaContainerContainerEmptyReturnRequestGlbDirCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="ImpSeaContainerContainerEmptyReturnRequestGlbDirCtrl.ePage.Masters.DatePicker.isOpen['isContainer']" when-closed=""
+                                data-ng-click="" custom-date-time-format />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default shiny" data-ng-click="ImpSeaContainerContainerEmptyReturnRequestGlbDirCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isContainer')">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Empty Yard Name Where Returned  -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Empty Yard Name Where Returned </label>
+                    <input type="text" maxlength="30" ng-model="ImpSeaContainerContainerEmptyReturnRequestGlbDirCtrl.currentContainer.EmptyYardNameWhereReturned" class="form-control input-sm ng-pristine ng-untouched ng-valid ng-not-empty ng-valid-maxlength"
+                        placeholder="Empty yard Name">
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>

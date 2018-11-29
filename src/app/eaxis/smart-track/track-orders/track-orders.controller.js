@@ -38,6 +38,7 @@
             TrackOrderCtrl.ePage.Entities.AddTab = AddTab;
             TrackOrderCtrl.ePage.Masters.CurrentActiveTab = CurrentActiveTab;
             TrackOrderCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
+            orderConfig.TabList = [];
 
             var _Entity = $location.search(),
                 _isEmpty = angular.equals({}, _Entity);

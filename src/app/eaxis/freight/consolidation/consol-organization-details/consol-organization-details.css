@@ -1,0 +1,7 @@
+.address-panel {
+    background-color: #f9f9f9; 
+    border: 1px solid #eee;
+}
+.address-design, .address-consignee {
+    border-right: 1px solid #eee;
+}

@@ -37,6 +37,7 @@
             TrackShipmentCtrl.ePage.Masters.RemoveTab = RemoveTab;
             TrackShipmentCtrl.ePage.Masters.CurrentActiveTab = CurrentActiveTab;
             TrackShipmentCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
+            shipmentConfig.TabList = [];
 
             var _Entity = $location.search(),
                 _isEmpty = angular.equals({}, _Entity);
@@ -44,7 +45,7 @@
             if (_Entity) {
                 if (!_isEmpty) {
                     TrackShipmentCtrl.ePage.Masters.Entity = JSON.parse(helperService.decryptData(_Entity.item));
-                    AddTab(TrackShipmentCtrl.ePage.Masters.Entity, false);
+                    (TrackShipmentCtrl.ePage.Masters.Entity.IsCreated != "Track Shipments")?AddTab(TrackShipmentCtrl.ePage.Masters.Entity, false) : false;
                 }
             }
         }

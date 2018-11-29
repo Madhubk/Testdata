@@ -5,9 +5,10 @@
         .module("Application")
         .controller("UserSettingsController", UserSettingsController);
 
-    UserSettingsController.$inject = ["$scope", "$location", "$timeout", "$uibModal", "authService", "apiService", "helperService", "appConfig", "toastr", "confirmation", "jsonEditModal"];
+    UserSettingsController.$inject = ["$scope", "$location", "$uibModal", "authService", "apiService", "helperService", "toastr", "confirmation", "jsonEditModal", "trustCenterConfig"];
 
-    function UserSettingsController($scope, $location, $timeout, $uibModal, authService, apiService, helperService, appConfig, toastr, confirmation, jsonEditModal) {
+    function UserSettingsController($scope, $location, $uibModal, authService, apiService, helperService, toastr, confirmation, jsonEditModal, trustCenterConfig) {
+        
         var UserSettingsCtrl = this;
         var _queryString = $location.path().split("/").pop();
 
@@ -27,6 +28,7 @@
                 UserSettingsCtrl.ePage.Masters.QueryString = JSON.parse(helperService.decryptData(_queryString));
                 if (UserSettingsCtrl.ePage.Masters.QueryString.AppPk) {
                     InitBreadcrumb();
+                    InitApplication();
                     InitDataEntry();
                     InitUserSettings();
                 }
@@ -57,10 +59,15 @@
                 IsRequireQueryString: false,
                 IsActive: false
             }, {
-                Code: "system",
-                Description: "System",
-                Link: "TC/dashboard/" + helperService.encryptData('{"Type":"System", "BreadcrumbTitle": "System"}'),
-                IsRequireQueryString: false,
+                Code: "dashboard",
+                Description: "Dashboard",
+                Link: "TC/dashboard",
+                IsRequireQueryString: true,
+                QueryStringObj: {
+                    "AppPk": UserSettingsCtrl.ePage.Masters.QueryString.AppPk,
+                    "AppCode": UserSettingsCtrl.ePage.Masters.QueryString.AppCode,
+                    "AppName": UserSettingsCtrl.ePage.Masters.QueryString.AppName
+                },
                 IsActive: false
             }, {
                 Code: "user",
@@ -92,26 +99,44 @@
 
         // ============ Breadcrumb End ============
 
+        // ============ Application Start============
+        function InitApplication() {
+            UserSettingsCtrl.ePage.Masters.Application = {};
+            UserSettingsCtrl.ePage.Masters.Application.OnApplicationChange = OnApplicationChange;
+        }
+
+        function OnApplicationChange($item) {
+            UserSettingsCtrl.ePage.Masters.Application.ActiveApplication = angular.copy($item);
+
+            if (!UserSettingsCtrl.ePage.Masters.Application.ActiveApplication) {
+                UserSettingsCtrl.ePage.Masters.Application.ActiveApplication = {
+                    "PK": UserSettingsCtrl.ePage.Masters.QueryString.AppPk,
+                    "AppCode": UserSettingsCtrl.ePage.Masters.QueryString.AppCode,
+                    "AppName": UserSettingsCtrl.ePage.Masters.QueryString.AppName
+                };
+            }
+           
+            GetDataEntryList();
+        }
         // ============ Data Entry Begin ============
 
         function InitDataEntry() {
             UserSettingsCtrl.ePage.Masters.DataEntry = {};
             UserSettingsCtrl.ePage.Masters.DataEntry.OnDataEntryListClick = OnDataEntryListClick;
-
-            GetDataEntryList();
         }
 
         function GetDataEntryList() {
+            UserSettingsCtrl.ePage.Masters.DataEntry.Listsource = undefined;
             var _filter = {
-                "SAP_FK": UserSettingsCtrl.ePage.Masters.QueryString.AppPk,
+                "SAP_FK": UserSettingsCtrl.ePage.Masters.Application.ActiveApplication.PK,
                 "TenantCode": authService.getUserInfo().TenantCode,
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.DataEntryMaster.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.DataEntryMaster.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.DataEntryMaster.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataEntryMaster.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     UserSettingsCtrl.ePage.Masters.DataEntry.Listsource = response.data.Response;
                     if (UserSettingsCtrl.ePage.Masters.DataEntry.Listsource.length > 0) {
@@ -159,7 +184,7 @@
         function GetUserSettingsList() {
             UserSettingsCtrl.ePage.Masters.UserSetting.Listsource = undefined;
             var _filter = {
-                "SAP_FK": UserSettingsCtrl.ePage.Masters.QueryString.AppPk,
+                "SAP_FK": UserSettingsCtrl.ePage.Masters.Application.ActiveApplication.PK,
                 "TenantCode": authService.getUserInfo().TenantCode,
                 "EntitySource": UserSettingsCtrl.ePage.Masters.DataEntry.ActiveDataEntry.DataEntryName.toUpperCase() + "_" + UserSettingsCtrl.ePage.Masters.QueryString.ItemName,
                 "SourceEntityRefKey": UserSettingsCtrl.ePage.Masters.QueryString.UserName,
@@ -167,10 +192,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.UserSettings.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.UserSettings.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.FindAll.Url + UserSettingsCtrl.ePage.Masters.QueryString.AppPk, _input).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.UserSettings.API.FindAll.Url + UserSettingsCtrl.ePage.Masters.Application.ActiveApplication.PK, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     UserSettingsCtrl.ePage.Masters.UserSetting.Listsource = response.data.Response;
 
@@ -210,7 +235,7 @@
             UserSettingsCtrl.ePage.Masters.UserSetting.SaveBtnText = "OK";
             UserSettingsCtrl.ePage.Masters.UserSetting.IsDisableSaveBtn = false;
 
-            EditModalInstance().result.then(function (response) {}, function () {
+            EditModalInstance().result.then(function (response) { }, function () {
                 Cancel();
             });
         }
@@ -245,11 +270,11 @@
             _input.IsDelete = false;
             _input.TenantCode = authService.getUserInfo().TenantCode;
             _input.EntitySource = UserSettingsCtrl.ePage.Masters.DataEntry.ActiveDataEntry.DataEntryName.toUpperCase() + "_" + UserSettingsCtrl.ePage.Masters.QueryString.ItemName;
-            _input.SAP_FK = UserSettingsCtrl.ePage.Masters.QueryString.AppPk;
+            _input.SAP_FK = UserSettingsCtrl.ePage.Masters.Application.ActiveApplication.PK;
             _input.SourceEntityRefKey = UserSettingsCtrl.ePage.Masters.QueryString.UserName;
             _input.TypeCode = UserSettingsCtrl.ePage.Masters.DataEntry.ActiveDataEntry.DataEntry_PK;
 
-            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Upsert.Url + UserSettingsCtrl.ePage.Masters.QueryString.AppPk, [_input]).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.UserSettings.API.Upsert.Url + UserSettingsCtrl.ePage.Masters.Application.ActiveApplication.PK, [_input]).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     var _response = response.data.Response[0];
                     UserSettingsCtrl.ePage.Masters.UserSetting.ActiveUserSetting = angular.copy(_response);
@@ -300,7 +325,7 @@
             UserSettingsCtrl.ePage.Masters.UserSetting.ActiveUserSetting.IsDeleted = true;
             var _input = [UserSettingsCtrl.ePage.Masters.UserSetting.ActiveUserSetting];
 
-            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Upsert.Url + UserSettingsCtrl.ePage.Masters.QueryString.AppPk, _input).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.UserSettings.API.Upsert.Url + UserSettingsCtrl.ePage.Masters.Application.ActiveApplication.PK, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     var _index = UserSettingsCtrl.ePage.Masters.UserSetting.Listsource.map(function (value, key) {
                         return value.PK;

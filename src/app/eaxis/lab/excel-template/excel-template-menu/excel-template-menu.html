@@ -1,0 +1,23 @@
+<div class="clearfix">
+        <div class="clearfix">
+            <uib-tabset>
+                <!--Excel Template-->
+                <uib-tab>
+                    <uib-tab-heading title="Excel Template">
+                        <i class="fa fa-file-o mr-5"></i>
+                        <span class="text-single-line" data-ng-bind="('ExcelTemplate' | translate)"></span>
+                    </uib-tab-heading>
+                    <div data-ng-include="'app/eaxis/lab/excel-template/excel-template-menu/tabs/excel-template.html'"></div>
+                </uib-tab>
+                <!--Template-->
+                <uib-tab data-ng-if="ExcelTemplateMenuCtrl.ePage.Masters.ExcelTemplate.FormView.PK">
+                        <uib-tab-heading title="Template">
+                            <i class="fa fa-file-o mr-5"></i>
+                            <span class="text-single-line" data-ng-bind="('Template' | translate)"></span>
+                        </uib-tab-heading>
+                        <div data-ng-include="'app/eaxis/lab/excel-template/excel-template-menu/tabs/template.html'"></div>
+                    </uib-tab>
+              </uib-tabset>
+        </div>
+    </div>
+    

@@ -79,6 +79,7 @@
         function Save($item) {
             ProductGeneralCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
             ProductGeneralCtrl.ePage.Masters.IsDisableSave = true;
+            ProductGeneralCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
 
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
@@ -93,6 +94,8 @@
             helperService.SaveEntity($item, 'Product').then(function (response) {
                 ProductGeneralCtrl.ePage.Masters.SaveButtonText = "Save";
                 ProductGeneralCtrl.ePage.Masters.IsDisableSave = false;
+                ProductGeneralCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
+
                 if (response.Status === "success") {
 
                     productConfig.TabList.map(function (value, key) {
@@ -117,8 +120,10 @@
                         }
                     }
                     console.log("Success");
+                    toastr.success("Saved Successfully...!");
                 } else if (response.Status === "failed") {
                     console.log("Failed");
+                    toastr.error("Could not Save...!");
                     ProductGeneralCtrl.ePage.Entities.Header.Validations = response.Validations;
                     angular.forEach(response.Validations, function (value, key) {
                         ProductGeneralCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, ProductGeneralCtrl.currentProduct.label, false, undefined, undefined, undefined, undefined, value.GParentRef);

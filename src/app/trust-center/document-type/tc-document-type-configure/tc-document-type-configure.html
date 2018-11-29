@@ -1,0 +1,22 @@
+<div class="clearfix">
+    <div class="clearfix">
+        <uib-tabset>
+            <!--Document Type-->
+            <uib-tab>
+                <uib-tab-heading title="Document Type">
+                    <i class="fa fa-file-o mr-5"></i>
+                    <span class="text-single-line" data-ng-bind="('Document Type' | translate)"></span>
+                </uib-tab-heading>
+                <div data-ng-include="'app/trust-center/document-type/tc-document-type-configure/tabs/document-type.html'"></div>
+            </uib-tab>
+            <!--Parties-->
+            <uib-tab data-ng-if="TCDocumentTypeConfigureCtrl.ePage.Masters.DocumentType.FormView.PK">
+                <uib-tab-heading title="Parties">
+                    <i class="fa fa-suitcase mr-5"></i>
+                    <span class="text-single-line" data-ng-bind="('Parties' | translate)"></span>
+                </uib-tab-heading>
+                <div data-ng-include="'app/trust-center/document-type/tc-document-type-configure/tabs/parties.html'"></div>
+            </uib-tab>
+           </uib-tabset>
+    </div>
+</div>

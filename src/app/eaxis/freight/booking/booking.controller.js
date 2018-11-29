@@ -5,9 +5,9 @@
         .module("Application")
         .controller("BookingController", BookingController);
 
-    BookingController.$inject = ["$rootScope", "$scope", "$state", "$timeout", "$location", "$q", "$http", "APP_CONSTANT", "authService", "apiService", "helperService", "appConfig", "BookingConfig", "toastr"];
+    BookingController.$inject = ["$rootScope", "$scope", "$state", "$timeout", "$location", "$q", "$http", "APP_CONSTANT", "authService", "apiService", "helperService", "appConfig", "BookingConfig", "toastr", "errorWarningService"];
 
-    function BookingController($rootScope, $scope, $state, $timeout, $location, $q, $http, APP_CONSTANT, authService, apiService, helperService, appConfig, BookingConfig, toastr) {
+    function BookingController($rootScope, $scope, $state, $timeout, $location, $q, $http, APP_CONSTANT, authService, apiService, helperService, appConfig, BookingConfig, toastr, errorWarningService) {
         /* jshint validthis: true */
         var BookingCtrl = this;
 
@@ -19,15 +19,18 @@
                 "Meta": helperService.metaBase(),
                 "Entities": BookingConfig.Entities
             };
-
+            BookingCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
             // For list directive
             BookingCtrl.ePage.Masters.taskName = "Booking";
             BookingCtrl.ePage.Masters.dataentryName = "Booking";
             BookingCtrl.ePage.Masters.defaultFilter = {
-                "IsBooking": true
+                "IsBooking": "true"
             }
             BookingCtrl.ePage.Masters.taskHeader = "";
-            BookingCtrl.ePage.Masters.config = BookingCtrl.ePage.Entities;
+            BookingCtrl.ePage.Masters.config = BookingConfig
+
+            // Remove all Tabs while load booking
+            BookingConfig.TabList = [];
 
             BookingCtrl.ePage.Masters.BookingData = [];
             BookingCtrl.ePage.Masters.TabList = [];
@@ -51,21 +54,34 @@
         }
 
         function CreateNewBooking() {
-            BookingCtrl.ePage.Masters.IsNewBookingClicked = true;
 
-            helperService.getFullObjectUsingGetById(BookingCtrl.ePage.Entities.Header.API.GetByID.Url, 'null').then(function (response) {
-                if (response.data.Response) {
-                    var _obj = {
-                        entity: response.data.Response.Response.UIShipmentHeader,
-                        data: response.data.Response.Response
-                    };
-
-                    BookingCtrl.ePage.Masters.AddTab(_obj, true);
-                    BookingCtrl.ePage.Masters.IsNewBookingClicked = false;
-                } else {
-                    console.log("Empty New Booking response");
-                }
+            var _isExist = BookingCtrl.ePage.Masters.TabList.some(function (value) {
+                if (value.label === "New")
+                    return true;
+                else
+                    return false;
             });
+
+            if (!_isExist) {
+                BookingCtrl.ePage.Masters.IsNewBookingClicked = true;
+
+                helperService.getFullObjectUsingGetById(BookingCtrl.ePage.Entities.Header.API.GetByID.Url, 'null').then(function (response) {
+                    if (response.data.Response) {
+                        var _obj = {
+                            entity: response.data.Response.Response.UIShipmentHeader,
+                            data: response.data.Response.Response
+                        };
+
+                        BookingCtrl.ePage.Masters.AddTab(_obj, true);
+                        BookingCtrl.ePage.Masters.IsNewBookingClicked = false;
+                    } else {
+                        console.log("Empty New Booking response");
+                    }
+                });
+            } else {
+                toastr.info("Record Already Opened...!");
+            }
+
         }
 
         function AddTab(currentBooking, isNew) {
@@ -73,9 +89,15 @@
 
             var _isExist = BookingCtrl.ePage.Masters.TabList.some(function (value) {
                 if (!isNew) {
-                    return value.label === currentBooking.entity.ShipmentNo;
+                    if (value.label === BookingCtrl.entity.ShipmentNo)
+                        return true;
+                    else
+                        return false;
                 } else {
-                    return false;
+                    if (value.label === "New")
+                        return true;
+                    else
+                        return false;
                 }
             });
 
@@ -89,15 +111,24 @@
                 }
 
                 BookingConfig.GetTabDetails(_currentBooking, isNew).then(function (response) {
+                    var _entity = {};
                     BookingCtrl.ePage.Masters.TabList = response;
+
+                    if (BookingCtrl.ePage.Masters.TabList.length > 0) {
+                        BookingCtrl.ePage.Masters.TabList.map(function (value, key) {
+                            if (value.code == currentBooking.entity.ShipmentNo) {
+                                _entity = value[value.label].ePage.Entities.Header.Data;
+                            }
+                        });
+                    }
                     $timeout(function () {
                         BookingCtrl.ePage.Masters.activeTabIndex = BookingCtrl.ePage.Masters.TabList.length;
-                        BookingCtrl.ePage.Masters.CurrentActiveTab(currentBooking.entity.ShipmentNo);
+                        BookingCtrl.ePage.Masters.CurrentActiveTab(currentBooking.entity.ShipmentNo, _entity);
                         BookingCtrl.ePage.Masters.IsTabClick = false;
                     });
                 });
             } else {
-                toastr.info("Booking Already Opened...!");
+                toastr.info("Record Already Opened...!");
             }
         }
 
@@ -118,20 +149,34 @@
             BookingCtrl.ePage.Masters.TabList.splice(index, 1);
         }
 
-        function CurrentActiveTab(currentTab) {
+        function CurrentActiveTab(currentTab, entity) {
             if (currentTab.label !== undefined) {
                 currentTab = currentTab.label
             } else {
                 currentTab = currentTab;
             }
             BookingCtrl.ePage.Masters.currentBooking = currentTab;
-            // Standard Menu Configuration and Data
-            BookingCtrl.ePage.Masters.TabList.map(function (value, key) {
-                if (value.label === BookingCtrl.ePage.Masters.currentBooking) {
-                    BookingCtrl.ePage.Masters.StandardMenuInput = appConfig.Entities.standardMenuConfigList.Booking;
-                    BookingCtrl.ePage.Masters.StandardMenuInput.obj = value;
-                }
-            });
+            var _obj = {
+                ModuleName: ["Booking"],
+                Code: [currentTab],
+                API: "Validation", // Validation/Group
+                FilterInput: {
+                    ModuleCode: "SHP",
+                    SubModuleCode: "SHP",
+                    // Code: "E0013"
+                },
+                GroupCode: "TC_Test",
+                RelatedBasicDetails: [{
+                    "UIField": "TEST",
+                    "DbField": "TEST",
+                    "Value": "TEST"
+                }],
+                EntityObject: entity,
+                // ErrorCode: ["E0013"]
+            };
+
+            errorWarningService.GetErrorCodeList(_obj);
+
         }
 
         function SelectedGridRow($item) {
@@ -163,8 +208,7 @@
         }
 
         function Save($item) {
-            BookingCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
-            BookingCtrl.ePage.Masters.IsDisableSave = true;
+
 
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
@@ -205,25 +249,67 @@
             } else {
                 $item = filterObjectUpdate($item, "IsModified");
             }
+            // BookingConfig.GeneralValidation($item).then(function (response) {
+            //     var _errorcount = errorWarningService.Modules.Booking.Entity[$item.code].GlobalErrorWarningList;
+            //     BookingCtrl.ePage.Masters.GlobalErrorWarningList = errorWarningService.Modules.Booking.Entity[$item.code].GlobalErrorWarningList;
+            //     if (_errorcount.length == 0) {
+            var _obj = {
+                ModuleName: ["Booking"],
+                Code: [$item.code],
+                API: "Validation", // Validation/Group
+                FilterInput: {
+                    ModuleCode: "SHP",
+                    SubModuleCode: "SHP",
+                    // Code: "E0013"
+                },
+                GroupCode: "TC_Test",
+                RelatedBasicDetails: [{
+                    "UIField": "TEST",
+                    "DbField": "TEST",
+                    "Value": "TEST"
+                }],
+                EntityObject: $item[$item.label].ePage.Entities.Header.Data,
+                // ErrorCode: []
+            };
+            errorWarningService.ValidateValue(_obj);
+            $timeout(function () {
+                var _errorcount = errorWarningService.Modules.Booking.Entity[$item.code].GlobalErrorWarningList;
+                if (_errorcount.length > 0) {
+                    BookingCtrl.ePage.Masters.config.ShowErrorWarningModal($item);
+                } else {
+                    BookingCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
+                    BookingCtrl.ePage.Masters.IsDisableSave = true;
 
-            helperService.SaveEntity($item, 'Shipment').then(function (response) {
-                if (response.Status === "success") {
-                    var _index = BookingConfig.TabList.map(function (value, key) {
-                        return value.label;
-                    }).indexOf(BookingCtrl.ePage.Masters.currentShipment);
+                    helperService.SaveEntity($item, 'Shipment').then(function (response) {
+                        if (response.Status === "success") {
+                            BookingConfig.TabList.map(function (value, key) {
+                                if (value.New) {
+                                    if (value.code == BookingCtrl.ePage.Masters.currentShipment) {
+                                        value.label = BookingCtrl.ePage.Masters.currentShipment;
+                                        value[BookingCtrl.ePage.Masters.currentShipment] = value.New;
 
-                    if (_index !== -1) {
-                        BookingConfig.TabList[_index][BookingConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data;
-                        BookingConfig.TabList[_index].isNew = false;
-                        // appConfig.Entities.refreshGrid();
-                    }
-                    console.log("Success");
-                } else if (response.Status === "failed") {
-                    console.log("Failed");
+                                        delete value.New;
+                                    }
+                                }
+                            });
+                            var _index = BookingConfig.TabList.map(function (value, key) {
+                                return value.label;
+                            }).indexOf(BookingCtrl.ePage.Masters.currentShipment);
+
+                            if (_index !== -1) {
+                                BookingConfig.TabList[_index][BookingConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data;
+                                BookingConfig.TabList[_index].isNew = false;
+                                helperService.refreshGrid();
+                            }
+                            toastr.success("Saved successfully...");
+                        } else if (response.Status === "failed") {
+                            toastr.error("Saved failed...");
+                        }
+
+                        BookingCtrl.ePage.Masters.SaveButtonText = "Save";
+                        BookingCtrl.ePage.Masters.IsDisableSave = false;
+                    });
                 }
-
-                BookingCtrl.ePage.Masters.SaveButtonText = "Save";
-                BookingCtrl.ePage.Masters.IsDisableSave = false;
             });
         }
 

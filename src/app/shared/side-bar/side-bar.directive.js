@@ -5,16 +5,16 @@
         .module("Application")
         .directive("sideBar", SideBar);
 
-    SideBar.$inject = ["$rootScope"];
+    SideBar.$inject = [];
 
-    function SideBar($rootScope) {
+    function SideBar() {
         var exports = {
             restrict: "EA",
             templateUrl: "app/shared/side-bar/side-bar.html",
             controller: "SideBarController",
             controllerAs: "SideBarCtrl",
             bindToController: true,
-            scope: { },
+            scope: {},
             link: Link
         };
         return exports;

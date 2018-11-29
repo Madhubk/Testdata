@@ -1,17 +1,22 @@
 <div class="clearfix tc-user-list">
     <!-- Breadcrumb -->
     <div class="clearfix tc-breadcrumb" data-ng-if="TCUserListCtrl.ePage.Masters.ActiveApplication == 'TC'">
-        <i class="fa fa-home home-icon"></i>
-        <div class="breadcrumb-list-wrapper">
-            <ol class="breadcrumb">
-                <li data-ng-repeat="x in TCUserListCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
-                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="TCUserListCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
-                </li>
-                <li data-ng-repeat="x in TCUserListCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
-                    class="active"></li>
-            </ol>
+        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-xs-12 p-0">
+            <i class="fa fa-home home-icon"></i>
+            <div class="breadcrumb-list-wrapper">
+                <ol class="breadcrumb">
+                    <li data-ng-repeat="x in TCUserListCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                        <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="TCUserListCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                    </li>
+                    <li data-ng-repeat="x in TCUserListCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive"
+                        data-ng-bind="x.Description" class="active"></li>
+                </ol>
+            </div>
         </div>
-        <span class="tc-breadcrumb-app-name" data-ng-if="TCUserListCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="TCUserListCtrl.ePage.Masters.QueryString.AppName"></span>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12 p-4">
+            <tc-application-dropdown query-string="TCUserListCtrl.ePage.Masters.QueryString"
+                on-application-change="TCUserListCtrl.ePage.Masters.Application.OnApplicationChange($item)"></tc-application-dropdown>
+        </div>
     </div>
     <!-- Alphabetic Sort -->
     <div class="clearfix tc-alphabetic-sort">
@@ -47,12 +52,13 @@
                     <div class="p-15 text-center tc-loading" data-ng-if="!TCUserListCtrl.ePage.Masters.UserList.ListSource">
                         <i class="fa fa-spin fa-spinner"></i>
                     </div>
-                    <div data-ng-if="TCUserListCtrl.ePage.Masters.UserList.ListSource && TCUserListCtrl.ePage.Masters.UserList.ListSource.length===0"
+                    <div data-ng-if="TCUserListCtrl.ePage.Masters.UserList.ListSource && (TCUserListCtrl.ePage.Masters.UserList.ListSource | filter: TCUserListCtrl.ePage.Masters.Search).length===0"
                         class="p-15 text-center">
                         <i>No Records...</i>
                     </div>
-                    <li data-ng-if="TCUserListCtrl.ePage.Masters.UserList.ListSource && TCUserListCtrl.ePage.Masters.UserList.ListSource.length > 0"
-                        data-ng-repeat="x in TCUserListCtrl.ePage.Masters.UserList.ListSource" data-ng-click="TCUserListCtrl.ePage.Masters.UserList.ActiveUserList.Id != x.Id && TCUserListCtrl.ePage.Masters.UserList.OnUserListClick(x)"
+                    <li data-ng-if="TCUserListCtrl.ePage.Masters.UserList.ListSource && (TCUserListCtrl.ePage.Masters.UserList.ListSource | filter: TCUserListCtrl.ePage.Masters.Search).length > 0"
+                        data-ng-repeat="x in TCUserListCtrl.ePage.Masters.UserList.ListSource | filter: TCUserListCtrl.ePage.Masters.Search"
+                        data-ng-click="TCUserListCtrl.ePage.Masters.UserList.ActiveUserList.Id != x.Id && TCUserListCtrl.ePage.Masters.UserList.OnUserListClick(x)"
                         data-ng-class="{'active': TCUserListCtrl.ePage.Masters.UserList.ActiveUserList.Id == x.Id}">
                         <div class="clearfix tc-list">
                             <div class="tc-list-name">
@@ -65,25 +71,49 @@
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed with-alphabetic-sort">
-            <div class="tc-avatar-lg clearfix">
-                <div class="avatar-container">
-                    <img data-ng-src="{{TCUserListCtrl.ePage.Masters.UserList.ActiveUserList.LogoStr}}" alt="" data-ng-if="TCUserListCtrl.ePage.Masters.UserList.ActiveUserList.LogoStr">
-                    <span data-ng-bind="TCUserListCtrl.ePage.Masters.UserList.ActiveUserList.UserName | getCharacters: 1" data-ng-if="!TCUserListCtrl.ePage.Masters.UserList.ActiveUserList.LogoStr"></span>
-                </div>
-            </div>
-            <div class="tc-section-divider"></div>
             <div class="tc-list-container tc-list-container-inner-redirect clearfix" data-ng-if="TCUserListCtrl.ePage.Masters.UserList.ActiveUserList.Id">
                 <ul class="tc-list-ul">
                     <li data-ng-click="TCUserListCtrl.ePage.Masters.UserList.OnRedirectListClick(x)" data-ng-repeat="x in TCUserListCtrl.ePage.Masters.UserList.RedirecPagetList">
                         <div class="clearfix tc-list">
                             <div class="tc-list-name">
-                                <i class="fa {{x.Icon}} mr-10" data-ng-style="{'color': x.Color}"></i>
+                                <i class="{{x.Icon}} mr-10" data-ng-style="{'color': x.Color}"></i>
                                 <span class="text-single-line" data-ng-bind="x.Description"></span>
                             </div>
                         </div>
                     </li>
                 </ul>
             </div>
+            <div class="tc-section-divider" data-ng-if="TCUserListCtrl.ePage.Masters.UserList.ActiveUserList.Id"></div>
+            <div class="tc-list-container tc-list-container-inner-redirect clearfix" data-ng-if="TCUserListCtrl.ePage.Masters.UserList.ActiveUserList.Id">
+                <ul class="tc-list-ul">
+                    <li>
+                        <a href="javascript:void(0);" data-ng-click="TCUserListCtrl.ePage.Masters.UserList.RePublishUser(TCUserListCtrl.ePage.Masters.UserList.ActiveUserList)">Publish User Changes</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tc-section-divider" data-ng-if="TCUserListCtrl.ePage.Masters.UserList.IsAdminUser"></div>
+            <div class="tc-list-container tc-list-container-inner-redirect clearfix" data-ng-if="TCUserListCtrl.ePage.Masters.UserList.IsAdminUser">
+                <ul class="tc-list-ul">
+                    <li>
+                        <a href="javascript:void(0);" data-ng-click="TCUserListCtrl.ePage.Masters.UserList.RePublishUser()">Publish All User Changes</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
+
+<!--Republish-->
+<script type="text/ng-template" id="RepublishUserEdit">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="TCUserListCtrl.ePage.Masters.UserList.RepublishUserModalCancel()">&times;</button>
+    </div>
+    <div class="modal-body pt-10" id="modal-body">
+        <div class="clearfix p-20 text-center" data-ng-if="!TCUserListCtrl.ePage.Masters.UserList.RePublishAccess">
+            <i class="fa fa-spin fa-spinner font-120"></i>
+        </div>
+        <div class="clearfix" data-ng-if="TCUserListCtrl.ePage.Masters.UserList.RePublishAccess">
+                <pre class="json-disabled">{{TCUserListCtrl.ePage.Masters.UserList.RePublishAccess}}</pre>
+        </div>
+    </div>
+</script>

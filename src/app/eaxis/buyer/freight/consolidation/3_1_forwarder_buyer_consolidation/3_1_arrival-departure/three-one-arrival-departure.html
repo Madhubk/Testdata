@@ -1,0 +1,29 @@
+<div class="clearfix">
+    <div class="widget-main ">
+        <uib-tabset id="consolGeneral">
+            <!--Depature & Arrival Details-->
+            <uib-tab>
+                <uib-tab-heading title="Departure">
+                    <i class="fa fa-plane margin-right-5"></i>
+                    <span class="text-single-line" data-ng-bind="'Depature'"></span>
+                </uib-tab-heading>
+                <div data-ng-include="'app/eaxis/buyer/freight/consolidation/3_1_forwarder_buyer_consolidation/3_1_arrival-departure/three-one-tabs/three-one-depature.html'"></div>
+            </uib-tab>
+            <uib-tab>
+                <uib-tab-heading title="Arrival">
+                    <i class="fa fa-ship margin-right-5"></i>
+                    <span class="text-single-line" data-ng-bind="'Arrival'"></span>
+                </uib-tab-heading>
+                <div data-ng-include="'app/eaxis/buyer/freight/consolidation/3_1_forwarder_buyer_consolidation/3_1_arrival-departure/three-one-tabs/three-one-arrival.html'"></div>
+            </uib-tab>
+            <!-- Port Transport -->
+            <uib-tab>
+                <uib-tab-heading title="Port Transport">
+                    <i class="fa fa-map-marker margin-right-5"></i>
+                    <span class="text-single-line" data-ng-bind="'Port Transport'"></span>
+                </uib-tab-heading>
+                <div data-ng-include="'app/eaxis/buyer/freight/consolidation/3_1_forwarder_buyer_consolidation/3_1_arrival-departure/three-one-tabs/three-one-port-transport.html'"></div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>

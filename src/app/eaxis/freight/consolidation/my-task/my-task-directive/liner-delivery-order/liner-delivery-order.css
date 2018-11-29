@@ -1,0 +1,25 @@
+.si-filing{
+    /* height:100%; */
+    position: relative;
+    overflow-y: auto;
+    /* min-height: 550px; */
+}
+.decision{
+    background-color:#f0f0f0;
+    padding:5px;
+}
+.commentbody{
+    height: 300px;
+    overflow-y: auto;    
+}
+.commentheader{
+    border-bottom: 1px solid #ddd;
+    font-weight:bold;
+}
+.si-filing-Document{
+    height: 300px;
+    overflow-y: auto;
+}
+.si-filingshp .tab-content{
+    border: 1px solid #ddd;
+}

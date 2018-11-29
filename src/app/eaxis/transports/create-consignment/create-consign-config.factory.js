@@ -39,7 +39,7 @@
                     },
                     "Meta": {
 
-                    }
+                    },
                 }
             },
             "TabList": [],
@@ -82,13 +82,62 @@
                                 "HttpType": "POST",
                                 "Url": "TmsConsignmentList/Update"
                             },
+                            "OrgHeader": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "OrgHeader/FindAll",
+                                "FilterID": "ORGHEAD"
+                            },
+                            "TmsJourney": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "TmsJourney/FindAll",
+                                "FilterID": "TMSJNY"
+                            },
+                            "TmsJourneyLeg": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "TmsJourneyLeg/FindAll",
+                                "FilterID": "TMSJNL"
+                            },
+                            "CfxMapping": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "CfxMapping/FindAll",
+                                "FilterID": "CFXMAPP"
+                            },
+                            "ItemDetails": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "TmsItem/FindAll",
+                                "FilterID": "TMSITE"
+                            },
+                            "CfxOrgMapping": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "CfxOrgMapping/FindAll",
+                                "FilterID": "CFXORMAP"
+                            },
 
                         },
                         "Meta": {
                             "ErrorWarning": {
                                 "GlobalErrorWarningList": [],
-                                // "SenderCode": helperService.metaBase(),
+                                "SenderCode": helperService.metaBase(),
+                                "ReceiverCode": helperService.metaBase(),
+                                "ServiceType": helperService.metaBase(),
+                                "SenderCarrierCode": helperService.metaBase(),
+                                "Item Duplicate": helperService.metaBase(),
+                                "ExpectedPickupDateTime": helperService.metaBase(),
+                                "TmsConsignmentItem": helperService.metaBase(),
                             },
+                        },
+                        "CheckPoints": {
+                            "DisableSave": false,
+                            "DisableAllocate": false,
+                            "SaveAndClose": false,
+                            "CurrentLocationCode": "",
+                            "IsStore":false
                         },
 
                     },
@@ -283,7 +332,7 @@
         }
 
         function ShowErrorWarningModal(EntityObject) {
-            $("#errorWarningContainer" + EntityObject.label).toggleClass("open");
+            $("#errorWarningContainernew").toggleClass("open");
         }
 
         function ValidationFindall() {
@@ -306,9 +355,30 @@
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
 
-            // if (!_input.TmsConsignmentHeader.SenderCode || _input.TmsConsignmentHeader.SenderCode) {
-            //     OnChangeValues(_input.TmsConsignmentHeader.SenderCode, 'E5501', false, undefined, $item.label);
+                OnChangeValues(_input.TmsConsignmentHeader.SenderCode, 'E5516', false, undefined, $item.label);
+
+                OnChangeValues(_input.TmsConsignmentHeader.ReceiverCode, 'E5517', false, undefined, $item.label);
+            
+                OnChangeValues(_input.TmsConsignmentHeader.ServiceType, 'E5518', false, undefined, $item.label);
+            
+                OnChangeValues(_input.TmsConsignmentHeader.SenderCarrierCode, 'E5519', false, undefined, $item.label);
+            
+            // if (!_input.TmsConsignmentHeader.JourneyTitle || _input.TmsConsignmentHeader.JourneyTitle) {
+            //     OnChangeValues(_input.TmsConsignmentHeader.JourneyTitle, 'E5520', false, undefined, $item.label);
             // }
+            if (_input.TmsConsignmentHeader.ServiceType == "STS" || _input.TmsConsignmentHeader.ServiceType == "PRF") {
+                OnChangeValues(_input.TmsConsignmentHeader.ExpectedPickupDateTime, 'E5521', false, undefined, $item.label);
+            }
+            //TmsConsignmentItem Validation
+            if (_input.TmsConsignmentItem.length > 0) {
+                angular.forEach(_input.TmsConsignmentItem, function (value, key) {
+                    if (!value.TIT_ItemCode || value.TIT_ItemCode)
+                        OnChangeValues(value.TIT_ItemCode, 'E5547', true, key, $item.label);
+
+                    if (!value.TIT_ItemRef_ID || value.TIT_ItemRef_ID)
+                        OnChangeValues(value.TIT_ItemRef_ID, 'E5548', true, key, $item.label);
+                });
+            }
         }
 
         function OnChangeValues(fieldvalue, code, IsArray, RowIndex, label) {

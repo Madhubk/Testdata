@@ -5,7 +5,7 @@
         .module("Application")
         .controller("OrderLinesDirectiveController", OrderLinesDirectiveController);
 
-        OrderLinesDirectiveController.$inject = ["helperService"];
+    OrderLinesDirectiveController.$inject = ["helperService"];
 
     function OrderLinesDirectiveController(helperService) {
         var OrderLinesDirectiveCtrl = this;

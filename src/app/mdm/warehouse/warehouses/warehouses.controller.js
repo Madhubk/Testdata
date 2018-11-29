@@ -30,6 +30,7 @@
             WarehousesCtrl.ePage.Masters.IsNewWarehouseClicked = false;
             WarehousesCtrl.ePage.Masters.OrderData = [];
             WarehousesCtrl.ePage.Masters.TabList = [];
+            warehousesConfig.TabList = [];
             WarehousesCtrl.ePage.Masters.activeTabIndex = 0;
             WarehousesCtrl.ePage.Masters.RemoveTab = RemoveTab;
             WarehousesCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;

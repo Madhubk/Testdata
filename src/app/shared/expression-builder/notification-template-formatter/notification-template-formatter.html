@@ -1,0 +1,534 @@
+<div class="exp-before-border">
+	<!-- General -->
+	<div class="clearfix tc-notification-template-header">
+		<div>General</div>
+	</div>
+	<div class="clearfix general-section">
+		<!-- File Type -->
+		<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+			<div class="form-group">
+				<label class="control-label">Export File Type</label>
+				<div class="clearfix">
+					<select chosen class="form-control" data-ng-model="input.FileType" data-ng-options="x for x in ['PDF', 'EXCEL', 'HTML']"
+					    disable-search="true" data-ng-change="(input.FileType == 'HTML') ? input.IsLocal = true: input.IsLocal = false">
+						<option value="">--Select--</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<!-- Excel Template -->
+		<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+			<div class="form-group">
+				<label class="control-label">Excel Template</label>
+				<div class="clearfix">
+					<input type="text" class="form-control input-sm" placeholder="Template Name" data-ng-model="input.TemplateName">
+				</div>
+			</div>
+		</div>
+		<!-- Sheet Name -->
+		<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+			<div class="form-group">
+				<label class="control-label">Sheet Name</label>
+				<div class="clearfix">
+					<input type="text" class="form-control input-sm" placeholder="Sheet Name" data-ng-model="input.SheetName">
+				</div>
+			</div>
+		</div>
+		<!-- File Name -->
+		<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+			<div class="form-group">
+				<label class="control-label">File Name</label>
+				<div class="clearfix">
+					<input type="text" class="form-control input-sm" placeholder="File Name" data-ng-model="input.FileName">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Section -->
+	<div class="clearfix tc-notification-template-header">
+		<div>Section List</div>
+	</div>
+	<div class="clearfix section-list-section mb-10">
+		<table class="notification-template-formatter-table table table-bordered">
+			<thead>
+				<tr>
+					<th>Section Name</th>
+					<th>Data Source</th>
+					<th>Is List</th>
+					<th>Parent Section</th>
+					<th>Member</th>
+					<th>Api Name</th>
+					<th>Http Method</th>
+					<th>Local Data</th>
+					<th>Is Filter Enabled</th>
+					<th>Is Auto Header</th>
+					<th>Auto Column Width</th>
+					<th>Grid Config / Search Input</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-repeat="x in input.DataObjs">
+					<td>
+						<input class="form-control input-sm" type="text" placeholder="Section Name" data-ng-model="x.SectionName">
+					</td>
+					<td>
+						<select chosen class="form-control" data-ng-model="x.DataSource" data-ng-options="y for y in NotificationTemplate.SectionDataSourceList"
+						    disable-search="true" data-ng-change="NotificationTemplate.OnChangeSectionDataSource((NotificationTemplate.SectionDataSourceList | filter: x.DataSource)[0], x)">
+							<option value="">--Select--</option>
+						</select>
+					</td>
+					<td class="text-center">
+						<div class="checkbox m-0">
+							<label>
+								<input type="checkbox" data-ng-model="x.IsList" class="colored-blue">
+								<span class="text"></span>
+							</label>
+						</div>
+					</td>
+					<td>
+						<input class="form-control input-sm" type="text" placeholder="Parent Section" data-ng-model="x.ParentSection" data-ng-disabled="x.DataSource != 'Parent'">
+					</td>
+					<td>
+						<input class="form-control input-sm" type="text" placeholder="Member" data-ng-model="x.Member">
+					</td>
+					<td>
+						<input class="form-control input-sm" type="text" placeholder="API Name" data-ng-model="x.ApiName" data-ng-disabled="x.DataSource != 'API'">
+					</td>
+					<td>
+						<select chosen class="form-control" data-ng-model="x.HttpMethod" data-ng-options="x for x in ['GET', 'POST']" disable-search="true"
+						    data-ng-disabled="x.DataSource != 'API'">
+							<option value="">--Select--</option>
+						</select>
+					</td>
+					<td>
+						<input class="form-control input-sm" type="text" placeholder="Local Data" data-ng-model="x.DataObject" data-ng-disabled="x.DataSource != 'Local'">
+					</td>
+					<td class="text-center">
+						<div class="checkbox m-0">
+							<label>
+								<input type="checkbox" data-ng-model="x.IsFilterEnabled" class="colored-blue">
+								<span class="text"></span>
+							</label>
+						</div>
+					</td>
+					<td class="text-center">
+						<div class="checkbox m-0">
+							<label>
+								<input type="checkbox" data-ng-model="x.IsAutoHeader" class="colored-blue">
+								<span class="text"></span>
+							</label>
+						</div>
+					</td>
+					<td>
+						<input class="form-control input-sm" type="text" placeholder="Auto Coumn Width" data-ng-model="x.AutoColumnWidth">
+					</td>
+					<td class="text-center">
+						<a href="javascript:void(0);" data-ng-click="NotificationTemplate.OpenGridConfig(x)">
+							<i class="fa fa-edit mr-5"></i>
+						</a>
+					</td>
+					<td class="text-center">
+						<a href="javascript:void(0);" data-ng-click="NotificationTemplate.DeleteSection(x, $index)">
+							<i class="fa fa-trash text-danger"></i>
+						</a>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="13">
+						<div class="p-10">
+							<a href="javascript:void(0);" data-ng-click="NotificationTemplate.AddNewSection()">Add New</a>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<uib-accordion close-others="false">
+		<!-- Document Reference -->
+		<div uib-accordion-group class="panel-default" is-open="status.open1">
+			<uib-accordion-heading>
+				Entity Reference
+				<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+			</uib-accordion-heading>
+			<div class="row document-reference-section">
+				<!-- Entity Name -->
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+					<div class="form-group">
+						<label class="control-label">Entity Name</label>
+						<div class="clearfix">
+							<input type="text" class="form-control input-sm" placeholder="Entity Name" data-ng-model="input.JobDocs.EntitySource">
+						</div>
+					</div>
+				</div>
+				<!-- Entity Ref Key -->
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+					<div class="form-group">
+						<label class="control-label">Key</label>
+						<div class="clearfix">
+							<input type="text" class="form-control input-sm" placeholder="Entity Key" data-ng-model="input.JobDocs.EntityRefKey">
+						</div>
+					</div>
+				</div>
+				<!-- Entity Ref Code -->
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+					<div class="form-group">
+						<label class="control-label">Code</label>
+						<div class="clearfix">
+							<input type="text" class="form-control input-sm" placeholder="Code" data-ng-model="input.JobDocs.EntityRefCode">
+						</div>
+					</div>
+				</div>
+				<!-- Document Type -->
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+					<div class="form-group">
+						<label class="control-label">Type</label>
+						<div class="clearfix">
+							<input type="text" class="form-control input-sm" placeholder="Type" data-ng-model="input.JobDocs.DocumentType">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<!-- Is Async Generation -->
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+					<div class="form-group">
+						<!-- <label class="control-label"></label> -->
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" data-ng-model="input.IsAsync" class="colored-blue">
+								<span class="text">Is Async Generation</span>
+							</label>
+						</div>
+					</div>
+				</div>
+				<!-- Enable Local File Generation -->
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+					<div class="form-group">
+						<!-- <label class="control-label"></label> -->
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" data-ng-model="input.IsLocal" class="colored-blue" data-ng-disabled="input.FileType == 'HTML'">
+								<span class="text">Enable Local File Generation</span>
+							</label>
+						</div>
+					</div>
+				</div>
+				<!-- Is Store to GDrive -->
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+					<div class="form-group">
+						<!-- <label class="control-label"></label> -->
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" data-ng-model="input.IsSaveToDrive" class="colored-blue">
+								<span class="text">Is Store to GDrive</span>
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Total Formula -->
+		<div uib-accordion-group class="panel-default" is-open="status.open2">
+			<uib-accordion-heading>
+				Total Pages
+				<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+			</uib-accordion-heading>
+			<div class="row page-total-section">
+				<!-- Enable Page Footer Template -->
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+					<div class="form-group">
+						<label class="control-label"></label>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" data-ng-model="input.IsPageTotal" class="colored-blue">
+								<span class="text">Is Page Total</span>
+							</label>
+						</div>
+					</div>
+				</div>
+				<!-- No of Rows for Footer Template -->
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+					<div class="form-group">
+						<label class="control-label">No of Rows for Footer Template</label>
+						<div class="clearfix">
+							<input type="text" class="form-control input-sm" placeholder="No of Rows" data-ng-model="input.BlankRows">
+						</div>
+					</div>
+				</div>
+				<!-- No of Rows for First Page -->
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+					<div class="form-group">
+						<label class="control-label">No of Rows for First Page</label>
+						<div class="clearfix">
+							<input type="text" class="form-control input-sm" placeholder="No of Rows" data-ng-model="input.NoOfRowsOnFirstPage">
+						</div>
+					</div>
+				</div>
+				<!-- No of Rows for Other Page -->
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+					<div class="form-group">
+						<label class="control-label">No of Rows for Other Page</label>
+						<div class="clearfix">
+							<input type="text" class="form-control input-sm" placeholder="No of Rows" data-ng-model="input.NoOfRowsforEachPage">
+						</div>
+					</div>
+				</div>
+				<!-- Name Of Page Total Section -->
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+					<div class="form-group">
+						<label class="control-label">Name Of Page Total Section</label>
+						<div class="clearfix">
+							<input type="text" class="form-control input-sm" placeholder="Section" data-ng-model="input.PageTotalSection">
+						</div>
+					</div>
+				</div>
+				<!-- No Of Page Total Size -->
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+					<div class="form-group">
+						<label class="control-label">No Of Page Total Size</label>
+						<div class="clearfix">
+							<input type="text" class="form-control input-sm" placeholder="Size" data-ng-model="input.PageTotalSize">
+						</div>
+					</div>
+				</div>
+				<!-- Enable Repeat Header -->
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+					<div class="form-group">
+						<label class="control-label"></label>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" data-ng-model="input.RowHeaderRepeatEachPage" class="colored-blue">
+								<span class="text">Enable Repeat Header</span>
+							</label>
+						</div>
+					</div>
+				</div>
+				<!-- Name Of Page Header Section -->
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+					<div class="form-group">
+						<label class="control-label">Name Of Page Header Section</label>
+						<div class="clearfix">
+							<input type="text" class="form-control input-sm" placeholder="Name" data-ng-model="input.PageHeaderSection">
+						</div>
+					</div>
+				</div>
+				<!-- Formula Start Row -->
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+					<div class="form-group">
+						<label class="control-label">Formula Start Row</label>
+						<div class="clearfix">
+							<input type="text" class="form-control input-sm" placeholder="Name" data-ng-model="input.StartRow">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Total Formula -->
+		<div uib-accordion-group class="panel-default" is-open="status.open3">
+			<uib-accordion-heading>
+				Total Formula
+				<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+			</uib-accordion-heading>
+			<div class="clearfix total-formula-section">
+				<table class="notification-template-formatter-table table table-bordered">
+					<thead>
+						<tr>
+							<th>Column Number</th>
+							<th>Formula</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr data-ng-repeat="x in input.TotalFormula">
+							<td>
+								<input class="form-control input-sm" type="text" placeholder="Column Number" data-ng-model="x.ColumnNumber">
+							</td>
+							<td>
+								<input class="form-control input-sm" type="text" placeholder="Formula" data-ng-model="x.Formula">
+							</td>
+							<td class="text-center">
+								<i class="fa fa-trash text-danger cursor-pointer" data-ng-click="NotificationTemplate.DeleteTotalFormula(x, $index)"></i>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="3">
+								<div class="p-10">
+									<a href="javascript:void(0);" data-ng-click="NotificationTemplate.AddNewTotalFormula()">Add New</a>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<!-- UI Reference -->
+		<div uib-accordion-group class="panel-default" is-open="status.open4">
+			<uib-accordion-heading>
+				UI Reference
+				<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+			</uib-accordion-heading>
+			<div class="clearfix ui-data-reference-section">
+				<!-- Filter Id -->
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+						<div class="form-group">
+							<label class="control-label">Filter Id</label>
+							<div class="clearfix">
+								<input type="text" class="form-control input-sm" placeholder="Filter Id" data-ng-model="input.UIDataReference.FilterId">
+							</div>
+						</div>
+					</div>
+				</div>
+				<table class="notification-template-formatter-table table table-bordered">
+					<thead>
+						<tr>
+							<th>Search Field</th>
+							<th>Main Entity</th>
+							<th>Sub Entity</th>
+							<th>Mid Entity</th>
+							<th>Field Name</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr data-ng-repeat="x in input.UIDataReference.SearchInputConfig">
+							<td>
+								<input class="form-control input-sm" type="text" placeholder="Search Field" data-ng-model="x.SField">
+							</td>
+							<td>
+								<input class="form-control input-sm" type="text" placeholder="Main Entity" data-ng-model="x.MainEntity">
+							</td>
+							<td>
+								<input class="form-control input-sm" type="text" placeholder="Sub Entity" data-ng-model="x.SubEntity">
+							</td>
+							<td>
+								<input class="form-control input-sm" type="text" placeholder="Mid Entity" data-ng-model="x.MidEntity">
+							</td>
+							<td>
+								<input class="form-control input-sm" type="text" placeholder="Field Name" data-ng-model="x.FieldName">
+							</td>
+							<td class="text-center">
+								<i class="fa fa-trash text-danger cursor-pointer" data-ng-click="NotificationTemplate.DeleteUIDataReference(x, $index)"></i>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="6">
+								<div class="p-10">
+									<a href="javascript:void(0);" data-ng-click="NotificationTemplate.AddNewUIDataReference()">Add New</a>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</uib-accordion>
+</div>
+
+<!-- Notification Template -->
+<script type="text/ng-template" id="TCEditNotificationGridConfigTemplate">
+	<div class="modal-header">
+		<h5 class="modal-title" id="modal-title">
+			<strong>Grid Config and Search Input</strong>
+			<button class="btn btn-xs btn-primary pull-right ml-10" data-ng-click="NotificationTemplate.SaveSectionGridConfig()">OK</button>
+			<button class="btn btn-xs btn-default pull-right ml-10" data-ng-click="NotificationTemplate.CloseGridConfigModal()">Close</button>
+		</h5>
+	</div>
+	<div class="modal-body p-10" id="modal-body">
+		<div class="clearfix tc-notification-template-header">
+			<div>Grid Config</div>
+		</div>
+		<div class="clearfix mb-10">
+			<table class="notification-template-formatter-table table table-bordered">
+				<thead>
+					<tr>
+						<!-- <th>Table Name</th> -->
+						<th>Formula</th>
+						<th>Type</th>
+						<th>Format</th>
+						<th>Display Name</th>
+						<th>Sequence</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr data-ng-repeat="x in NotificationTemplate.SelectedSectionCopy.GridConfig">
+						<!-- <td>
+							<input class="form-control input-sm" type="text" placeholder="Table Name" data-ng-model="x.TableName">
+						</td> -->
+						<td>
+							<input class="form-control input-sm" type="text" placeholder="Field Name" data-ng-model="x.FieldName">
+						</td>
+						<td>
+							<input class="form-control input-sm" type="text" placeholder="Data Type" data-ng-model="x.DataType">
+						</td>
+						<td>
+							<input class="form-control input-sm" type="text" placeholder="Type Format" data-ng-model="x.TypeFormat">
+						</td>
+						<td>
+							<input class="form-control input-sm" type="text" placeholder="Display Name" data-ng-model="x.DisplayName">
+						</td>
+						<td>
+							<input class="form-control input-sm" type="text" placeholder="Sequence" data-ng-model="x.OrdinalPosition">
+						</td>
+						<td class="text-center">
+							<i class="fa fa-trash text-danger cursor-pointer" data-ng-click="NotificationTemplate.DeleteSectionGridConfig(x, $index)"></i>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="6">
+							<div class="p-10">
+								<a href="javascript:void(0);" data-ng-click="NotificationTemplate.AddNewGridConfig()">Add New</a>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="clearfix tc-notification-template-header">
+			<div>Search Input</div>
+		</div>
+		<div class="clearfix mt-10">
+			<!-- Filter Id -->
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+				<div class="form-group">
+					<label class="control-label">Filter Id</label>
+					<div class="clearfix">
+						<input type="text" class="form-control input-sm" placeholder="Filter Id" data-ng-model="NotificationTemplate.SelectedSectionCopy.SearchInput.FilterID">
+					</div>
+				</div>
+			</div>
+			<table class="notification-template-formatter-table table table-bordered">
+				<thead>
+					<tr>
+						<th>Field Name</th>
+						<th>Value</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr data-ng-repeat="x in NotificationTemplate.SelectedSectionCopy.SearchInput.SearchInput">
+						<td>
+							<input class="form-control input-sm" type="text" placeholder="Field Name" data-ng-model="x.FieldName">
+						</td>
+						<td>
+							<input class="form-control input-sm" type="text" placeholder="Value" data-ng-model="x.value">
+						</td>
+						<td class="text-center">
+							<i class="fa fa-trash text-danger cursor-pointer" data-ng-click="NotificationTemplate.DeleteSectionSearchInput(x, $index)"></i>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="3">
+							<div class="p-10">
+								<a href="javascript:void(0);" data-ng-click="NotificationTemplate.AddNewSearchInput()">Add New</a>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</script>

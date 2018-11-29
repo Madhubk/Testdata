@@ -5,36 +5,18 @@
          .module("Application")
          .factory("adjustmentConfig",AdjustmentConfig);
 
-    AdjustmentConfig.$inject = ["$location", "$q", "helperService", "apiService"];
+    AdjustmentConfig.$inject = ["$location", "$q", "helperService", "apiService","appConfig"];
 
-    function AdjustmentConfig($location, $q, helperService, apiService){
+    function AdjustmentConfig($location, $q, helperService, apiService,appConfig){
         var exports = {
             "Entities":{
                 "Header":{
                     "RowIndex": -1,
                     "API": {
-                        "FindConfig": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "DataEntry/Dynamic/FindConfig",
-                            "FilterID": "DYNDAT"
-                        },
-                        "DataEntry": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "DataEntryMaster/FindAll",
-                            "FilterID": "DYNDAT"
-                        },
                         "GetByID": {
                             "IsAPI": "true",
                             "HttpType": "GET",
                             "Url": "WmsAdjustmentList/GetById/"
-                        },
-                        "Validationapi":{
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "Validation/FindAll",
-                            "FilterID":"VALIDAT"
                         },
                         "Inventory":{
                             "IsAPI": "true",
@@ -60,7 +42,6 @@
             "GetErrorWarningCountParent": GetErrorWarningCountParent,
             "ShowErrorWarningModal": ShowErrorWarningModal,
             "ValidationFindall":ValidationFindall,
-            "refreshgrid":refreshgrid,
         };
         return exports;
 
@@ -73,12 +54,6 @@
                         "Validations":"",
                         "RowIndex": -1,
                         "API":{
-                            "CfxTypes": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "CfxTypes/FindAll/",
-                                "FilterID": "CFXTYPE"
-                            },
                             "InsertAdjustment": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
@@ -94,34 +69,16 @@
                                 "HttpType": "Get",
                                 "Url": "WmsWorkOrderLine/Delete/"
                             },
-                            "FetchQuantity":{
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "PrdProductUnit/FetchQuantity",
-                            },
                             "Inventory":{
                                 "IsAPI": "true",
                                 "HttpType": "POST",
                                 "Url": "WmsInventory/FindAll",
                                 "FilterID": "WMSINV"
                             },
-                            "UnitConversation": {
+                            "InsertLine": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
-                                "Url": "PrdProductUnit/FindAll",
-                                "FilterID": "ORGPARTU"
-                            },
-                            "OrgMiscServ": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "OrgMiscServ/FindAll",
-                                "FilterID": "ORGMISC"
-                            },   
-                            "OrgPartRelation":{
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "PrdProductRelatedParty/FindAll",
-                                "FilterID": "ORGPRL"
+                                "Url": "WmsUploadLineItems/Insert"
                             },
 
                         },
@@ -134,10 +91,572 @@
                                 "UIWmsWorkOrderLine":helperService.metaBase(),
                             },
                         },
-                        "CheckPoints":{
-                            "DisableSave":false,
-                            "NotFinaliseStage":true,
+                        "GlobalVariables":{
+                            "Loading":false,
+                            "NonEditable":false,
                         },
+                        "TableProperties":{
+                            "UIWmsWorkOrderLine":{
+                                "HeaderProperties":[{
+                                    "columnname":"Checkbox",
+                                    "isenabled":true,
+                                    "property":"rcheckbox",
+                                    "position":'1',
+                                    "width":"45",
+                                    "display":false
+                                },{
+                                    "columnname":"S.No",
+                                    "isenabled":true,
+                                    "property":"rsno",
+                                    "position":"2",
+                                    "width":"40",
+                                    "display":false
+                                },
+                                {
+                                    "columnname":"Product Code",
+                                    "isenabled":true,
+                                    "property":"rproductcode",
+                                    "position":"3",
+                                    "width":"150",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Product Description",
+                                    "isenabled":true,
+                                    "property":"rproductdescription",
+                                    "position":"4",
+                                    "width":"100",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Commodity",
+                                    "isenabled":true,
+                                    "property":"rcommodity",
+                                    "position":"5",
+                                    "width":"100",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Pack",
+                                    "isenabled":true,
+                                    "property":"rpack",
+                                    "position":"6",
+                                    "width":"100",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Pack UQ",
+                                    "isenabled":true,
+                                    "property":"rpackuq",
+                                    "position":"7",
+                                    "width":"150",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Quantity",
+                                    "isenabled":true,
+                                    "property":"rquantity",
+                                    "position":"8",
+                                    "width":"100",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Quantity UQ",
+                                    "isenabled":true,
+                                    "property":"rquantityuq",
+                                    "position":"9",
+                                    "width":"100",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Product Condition",
+                                    "isenabled":true,
+                                    "property":"rproductcondition",
+                                    "position":"10",
+                                    "width":"150",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Arrival Date",
+                                    "isenabled":true,
+                                    "property":"rarrivaldate",
+                                    "position":"11",
+                                    "width":"150",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Adjustment Reason",
+                                    "isenabled":true,
+                                    "property":"radjustmentreason",
+                                    "position":"12",
+                                    "width":"150",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Location",
+                                    "isenabled":true,
+                                    "property":"rlocation",
+                                    "position":"13",
+                                    "width":"120",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Location Status",
+                                    "isenabled":true,
+                                    "property":"rlocationstatus",
+                                    "position":"14",
+                                    "width":"100",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Pallet ID",
+                                    "isenabled":true,
+                                    "property":"rpalletid",
+                                    "position":"15",
+                                    "width":"100",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"UDF 1",
+                                    "isenabled":true,
+                                    "property":"rudf1",
+                                    "position":"16",
+                                    "width":"150",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"UDF 2",
+                                    "isenabled":true,
+                                    "property":"rudf2",
+                                    "position":"17",
+                                    "width":"150",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"UDF 3",
+                                    "isenabled":true,
+                                    "property":"rudf3",
+                                    "position":"18",
+                                    "width":"150",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Packing Date",
+                                    "isenabled":true,
+                                    "property":"rpackingdate",
+                                    "position":"19",
+                                    "width":"150",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Expiry Date",
+                                    "isenabled":true,
+                                    "property":"rexpirydate",
+                                    "position":"20",
+                                    "width":"150",
+                                    "display":true
+                                }],
+                                "rcheckbox":{
+                                    "isenabled":true,
+                                    "position":"1",
+                                    "width":"45"
+                                },
+                                "rsno":{
+                                    "isenabled":true,
+                                    "position":"2",
+                                    "width":"40"
+                                },
+                                "rproductcode":{
+                                    "isenabled":true,
+                                    "position":"3",
+                                    "width":"150"
+                                },
+                                "rproductdescription":{
+                                    "isenabled":true,
+                                    "position":"4",
+                                    "width":"100"
+                                },
+                                "rcommodity":{
+                                    "isenabled":true,
+                                    "position":"5",
+                                    "width":"100"
+                                },
+                                "rpack":{
+                                    "isenabled":true,
+                                    "position":"6",
+                                    "width":"100"
+                                },
+                                "rpackuq":{
+                                    "isenabled":true,
+                                    "position":"7",
+                                    "width":"150"
+                                },
+                                "rquantity":{
+                                    "isenabled":true,
+                                    "position":"8",
+                                    "width":"100"
+                                },
+                                "rquantityuq":{
+                                    "isenabled":true,
+                                    "position":"9",
+                                    "width":"100"
+                                },
+                                "rproductcondition":{
+                                    "isenabled":true,
+                                    "position":"10",
+                                    "width":"150"
+                                },
+                                "rarrivaldate":{
+                                    "isenabled":true,
+                                    "position":"11",
+                                    "width":"150"
+                                },
+                                "radjustmentreason":{
+                                    "isenabled":true,
+                                    "position":"12",
+                                    "width":"150"
+                                },
+                                "rlocation":{
+                                    "isenabled":true,
+                                    "position":"13",
+                                    "width":"120"
+                                },
+                                "rlocationstatus":{
+                                    "isenabled":true,
+                                    "position":"14",
+                                    "width":"100"
+                                },
+                                "rpalletid":{
+                                    "isenabled":true,
+                                    "position":"15",
+                                    "width":"120"
+                                },
+                                "rudf1":{
+                                    "isenabled":true,
+                                    "position":"16",
+                                    "width":"150"
+                                },
+                                "rudf2":{
+                                    "isenabled":true,
+                                    "position":"17",
+                                    "width":"150"
+                                },
+                                "rudf3":{
+                                    "isenabled":true,
+                                    "position":"18",
+                                    "width":"150"
+                                },
+                                "rpackingdate":{
+                                    "isenabled":true,
+                                    "position":"19",
+                                    "width":"150"
+                                },
+                                "rexpirydate":{
+                                    "isenabled":true,
+                                    "position":"20",
+                                    "width":"150"
+                                },
+                            },
+                            "Inventory":{
+                                "HeaderProperties":[{
+                                    "columnname":"Checkbox",
+                                    "isenabled":true,
+                                    "property":"icheckbox",
+                                    "position":'1',
+                                    "width":"30",
+                                    "display":false
+                                },{
+                                    "columnname":"S.No",
+                                    "isenabled":true,
+                                    "property":"isno",
+                                    "position":"2",
+                                    "width":"40",
+                                    "display":false
+                                },
+                                {
+                                    "columnname":"Product Code",
+                                    "isenabled":true,
+                                    "property":"iproductcode",
+                                    "position":"3",
+                                    "width":"100",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Product Description",
+                                    "isenabled":true,
+                                    "property":"iproductdescription",
+                                    "position":"4",
+                                    "width":"100",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Receipt Reference",
+                                    "isenabled":true,
+                                    "property":"ireceiptreference",
+                                    "position":"5",
+                                    "width":"100",
+                                    "display":true    
+                                },
+                                {
+                                    "columnname":"Inventory Status",
+                                    "isenabled":true,
+                                    "property":"istatus",
+                                    "position":"6",
+                                    "width":"100",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Available To Pick",
+                                    "isenabled":true,
+                                    "property":"iavailabletopick",
+                                    "position":"7",
+                                    "width":"80",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"In Location Qty",
+                                    "isenabled":true,
+                                    "property":"iinlocationqty",
+                                    "position":"8",
+                                    "width":"80",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Committed Qty",
+                                    "isenabled":true,
+                                    "property":"icommittedqty",
+                                    "position":"9",
+                                    "width":"100",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"In Transit Qty",
+                                    "isenabled":true,
+                                    "property":"iintransitqty",
+                                    "position":"10",
+                                    "width":"100",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Reserved Qty",
+                                    "isenabled":true,
+                                    "property":"ireservedqty",
+                                    "position":"11",
+                                    "width":"100",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Total Qty",
+                                    "isenabled":true,
+                                    "property":"itotalqty",
+                                    "position":"12",
+                                    "width":"80",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Arrival Date",
+                                    "isenabled":true,
+                                    "property":"iarrivaldate",
+                                    "position":"13",
+                                    "width":"100",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Location",
+                                    "isenabled":true,
+                                    "property":"ilocation",
+                                    "position":"14",
+                                    "width":"120",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Location Status",
+                                    "isenabled":true,
+                                    "property":"ilocationstatus",
+                                    "position":"15",
+                                    "width":"100",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Pallet ID",
+                                    "isenabled":true,
+                                    "property":"ipalletid",
+                                    "position":"16",
+                                    "width":"100",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"UDF 1",
+                                    "isenabled":true,
+                                    "property":"iudf1",
+                                    "position":"17",
+                                    "width":"150"
+                                },
+                                {
+                                    "columnname":"UDF 2",
+                                    "isenabled":true,
+                                    "property":"iudf2",
+                                    "position":"18",
+                                    "width":"150",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"UDF 3",
+                                    "isenabled":true,
+                                    "property":"iudf3",
+                                    "position":"19",
+                                    "width":"150",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Packing Date",
+                                    "isenabled":true,
+                                    "property":"ipackingdate",
+                                    "position":"20",
+                                    "width":"150",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Expiry Date",
+                                    "isenabled":true,
+                                    "property":"iexpirydate",
+                                    "position":"21",
+                                    "width":"150",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Client",
+                                    "isenabled":true,
+                                    "property":"iclient",
+                                    "position":"22",
+                                    "width":"150",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Warehouse",
+                                    "isenabled":true,
+                                    "property":"iwarehouse",
+                                    "position":"23",
+                                    "width":"150",
+                                    "display":true
+                                }],
+                                "icheckbox":{
+                                    "isenabled":true,
+                                    "position":"1",
+                                    "width":"30"
+                                },
+                                "isno":{
+                                    "isenabled":true,
+                                    "position":"2",
+                                    "width":"40"
+                                },
+                                "iproductcode":{
+                                    "isenabled":true,
+                                    "position":"3",
+                                    "width":"100"
+                                },
+                                "iproductdescription":{
+                                    "isenabled":true,
+                                    "position":"4",
+                                    "width":"100"
+                                },
+                                "ireceiptreference":{
+                                    "isenabled":true,
+                                    "position":"5",
+                                    "width":"100"
+                                },
+                                "istatus":{
+                                    "isenabled":true,
+                                    "position":"6",
+                                    "width":"100"
+                                },
+                                "iavailabletopick":{
+                                    "isenabled":true,
+                                    "position":"7",
+                                    "width":"80"
+                                },
+                                "iinlocationqty":{
+                                    "isenabled":true,
+                                    "position":"8",
+                                    "width":"80"
+                                },
+                                "icommittedqty":{
+                                    "isenabled":true,
+                                    "position":"9",
+                                    "width":"100"
+                                },
+                                "iintransitqty":{
+                                    "isenabled":true,
+                                    "position":"10",
+                                    "width":"100"
+                                },
+                                "ireservedqty":{
+                                    "isenabled":true,
+                                    "position":"11",
+                                    "width":"100"
+                                },
+                                "itotalqty":{
+                                    "isenabled":true,
+                                    "position":"12",
+                                    "width":"80"
+                                },
+                                "iarrivaldate":{
+                                    "isenabled":true,
+                                    "position":"13",
+                                    "width":"100"
+                                },
+                                "ilocation":{
+                                    "isenabled":true,
+                                    "position":"14",
+                                    "width":"120"
+                                },
+                                "ilocationstatus":{
+                                    "isenabled":true,
+                                    "position":"15",
+                                    "width":"100"
+                                },
+                                "ipalletid":{
+                                    "isenabled":true,
+                                    "position":"16",
+                                    "width":"150"
+                                },
+                                "iudf1":{
+                                    "isenabled":true,
+                                    "position":"17",
+                                    "width":"150"
+                                },
+                                "iudf2":{
+                                    "isenabled":true,
+                                    "position":"18",
+                                    "width":"150"
+                                },
+                                "iudf3":{
+                                    "isenabled":true,
+                                    "position":"19",
+                                    "width":"150"
+                                },
+                                "ipackingdate":{
+                                    "isenabled":true,
+                                    "position":"20",
+                                    "width":"150"
+                                },
+                                "iexpirydate":{
+                                    "isenabled":true,
+                                    "position":"21",
+                                    "width":"150"
+                                },
+                                "iclient":{
+                                    "isenabled":true,
+                                    "position":"22",
+                                    "width":"150"
+                                },
+                                "iwarehouse":{
+                                    "isenabled":true,
+                                    "position":"23",
+                                    "width":"150"
+                                },
+                            },
+                        }
                     },
                 }
             }
@@ -193,6 +712,7 @@
                     _obj.RowIndex = RowIndex;
                     _obj.ColIndex = ColIndex;
                     _obj.DisplayName = DisplayName;
+                    _obj.Message = Message+' In Line No '+ (RowIndex+1);
                 }
 
                 var _index = exports.TabList.map(function (value, key) {
@@ -401,9 +921,9 @@
             };     
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": exports.Entities.Header.API.Validationapi.FilterID
+                "FilterID": appConfig.Entities.Validation.API.FindAll.FilterID
             };
-            apiService.post("eAxisAPI", exports.Entities.Header.API.Validationapi.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", appConfig.Entities.Validation.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     exports.ValidationValues=(response.data.Response);
                 }
@@ -415,39 +935,35 @@
             var _Data = $item[$item.label].ePage.Entities,
             _input = _Data.Header.Data;
            
-            if(!_input.UIAdjustmentHeader.Client || _input.UIAdjustmentHeader.Client){
-                OnChangeValues(_input.UIAdjustmentHeader.Client,'E10001',false,undefined,$item.label);
-            }
-            if(!_input.UIAdjustmentHeader.Warehouse || _input.UIAdjustmentHeader.Warehouse){
-                OnChangeValues(_input.UIAdjustmentHeader.Warehouse,'E10002',false,undefined,$item.label);
-            }
+            OnChangeValues(_input.UIAdjustmentHeader.Client,'E10001',false,undefined,$item.label);
+            OnChangeValues(_input.UIAdjustmentHeader.Warehouse,'E10002',false,undefined,$item.label);
 
              //Receive Lines Validation
              if(_input.UIWmsWorkOrderLine.length>0){
                 angular.forEach(_input.UIWmsWorkOrderLine,function(value,key){
-                    if(!value.Product || value.Product)
-                    OnChangeValues(value.Product,'E10003',true,key,$item.label);
+                    OnChangeValues(value.ProductCode,'E10003',true,key,$item.label);
 
-                    if(!parseFloat(value.Packs) || parseFloat(value.Packs))
                     OnChangeValues(parseFloat(value.Packs),'E10004',true,key,$item.label);
 
-                    if(!value.PAC_PackType || value.PAC_PackType)
                     OnChangeValues(value.PAC_PackType,'E10005',true,key,$item.label);
 
-                    if(!parseFloat(value.Units) || parseFloat(value.Units))
                     OnChangeValues(parseFloat(value.Units),'E10006',true,key,$item.label);
 
-                    if(!value.StockKeepingUnit || value.StockKeepingUnit)
                     OnChangeValues(value.StockKeepingUnit,'E10007',true,key,$item.label);
                     
-                    if(!value.ReasonCode || value.ReasonCode)
                     OnChangeValues(value.ReasonCode,'E10010',true,key,$item.label);
 
-                    if(!value.AdjustmentArrivalDate || value.AdjustmentArrivalDate)
                     OnChangeValues(value.AdjustmentArrivalDate,'E10009',true,key,$item.label);
 
-                    if(!value.WLO_Location || value.WLO_Location)
                     OnChangeValues(value.WLO_Location,'E10011',true,key,$item.label);
+
+                    OnChangeValues(value.ProductCondition,'E10028',true,key,$item.label);
+
+                    if (!value.PRO_FK && value.ProductCode|| value.PRO_FK && value.ProductCode)
+                        OnChangeValues(value.PRO_FK, 'E10026', true, key, $item.label);
+
+                    if (!value.WLO_FK && value.WLO_Location|| value.WLO_FK && value.WLO_Location)
+                        OnChangeValues(value.WLO_FK, 'E10027', true, key, $item.label);
 
                     if(!value.IsPartAttrib1ReleaseCaptured){
                         if (_input.UIAdjustmentHeader.IMPartAttrib1Type == 'SER' && value.UsePartAttrib1 || _input.UIAdjustmentHeader.IMPartAttrib1Type == 'MAN' && value.UsePartAttrib1 || _input.UIAdjustmentHeader.IMPartAttrib1Type == 'BAT' && value.UsePartAttrib1) {
@@ -475,18 +991,22 @@
                             OnChangeValues(value.PackingDate, 'E10019', true, key, $item.label);
                     }
 
-                    if (value.UsePackingDate) {
+                    if (value.UseExpiryDate) {
                         if (!value.ExpiryDate || value.ExpiryDate)
                             OnChangeValues(value.ExpiryDate, 'E10020', true, key, $item.label);
                     }
 
                     if ((_input.UIAdjustmentHeader.IMPartAttrib1Type == "SER" && value.UsePartAttrib1 && !value.IsPartAttrib1ReleaseCaptured) || (_input.UIAdjustmentHeader.IMPartAttrib2Type == "SER" && value.UsePartAttrib2 && !value.IsPartAttrib2ReleaseCaptured) || (_input.UIAdjustmentHeader.IMPartAttrib3Type == "SER" && value.UsePartAttrib3 && !value.IsPartAttrib3ReleaseCaptured)){
-                        if (parseFloat(value.Units) > 1) {
-                            OnChangeValues(null, 'E10021', true, key, $item.label);
-                        } else {
+                        if (parseFloat(value.Units) == 1 || parseFloat(value.Units) == -1) {
                             OnChangeValues('value', 'E10021', true, key, $item.label);
+                        } else {
+                            OnChangeValues(null, 'E10021', true, key, $item.label);
                         }
                     }
+
+                    OnChangeValues('value','E10022',true,key, $item.label);
+                    OnChangeValues('value','E10023',true,key, $item.label);
+                    OnChangeValues('value','E10024',true,key, $item.label);
                 });
             }
 
@@ -499,28 +1019,34 @@
                         if(!finishloop){
                             if(!_input.UIWmsWorkOrderLine[j].IsPartAttrib1ReleaseCaptured && _input.UIWmsWorkOrderLine[j].UsePartAttrib1 && _input.UIAdjustmentHeader.IMPartAttrib1Type =='SER'){
                                 if(_input.UIWmsWorkOrderLine[j].PartAttrib1){
-                                    if(_input.UIWmsWorkOrderLine[i].PartAttrib1 == _input.UIWmsWorkOrderLine[j].PartAttrib1){
-                                        OnChangeValues(null,'E10022',true,i,$item.label);
-                                        OnChangeValues(null,'E10022',true,j,$item.label);
-                                        finishloop = true;
+                                    if((_input.UIWmsWorkOrderLine[i].PartAttrib1 == _input.UIWmsWorkOrderLine[j].PartAttrib1)&&(_input.UIWmsWorkOrderLine[i].PRO_FK == _input.UIWmsWorkOrderLine[j].PRO_FK)){
+                                        if((_input.UIWmsWorkOrderLine[i].Units >=0 && _input.UIWmsWorkOrderLine[j].Units >=0) || (_input.UIWmsWorkOrderLine[i].Units <0 && _input.UIWmsWorkOrderLine[j].Units<0)){
+                                            OnChangeValues(null,'E10022',true,i,$item.label);
+                                            OnChangeValues(null,'E10022',true,j,$item.label);
+                                            finishloop = true;
+                                        }
                                     }
                                 }
                             }
                             if(!_input.UIWmsWorkOrderLine[j].IsPartAttrib2ReleaseCaptured && _input.UIWmsWorkOrderLine[j].UsePartAttrib2 && _input.UIAdjustmentHeader.IMPartAttrib2Type =='SER'){
                                 if(_input.UIWmsWorkOrderLine[j].PartAttrib2){
-                                    if(_input.UIWmsWorkOrderLine[i].PartAttrib2 == _input.UIWmsWorkOrderLine[j].PartAttrib2){
-                                        OnChangeValues(null,'E10023',true,i,$item.label);
-                                        OnChangeValues(null,'E10023',true,j,$item.label);
-                                        finishloop = true;
+                                    if((_input.UIWmsWorkOrderLine[i].PartAttrib2 == _input.UIWmsWorkOrderLine[j].PartAttrib2)&&(_input.UIWmsWorkOrderLine[i].PRO_FK == _input.UIWmsWorkOrderLine[j].PRO_FK)){
+                                        if((_input.UIWmsWorkOrderLine[i].Units >=0 && _input.UIWmsWorkOrderLine[j].Units >=0) || (_input.UIWmsWorkOrderLine[i].Units <0 && _input.UIWmsWorkOrderLine[j].Units<0)){
+                                            OnChangeValues(null,'E10023',true,i,$item.label);
+                                            OnChangeValues(null,'E10023',true,j,$item.label);
+                                            finishloop = true;
+                                        }
                                     }
                                 }
                             }
                             if(!_input.UIWmsWorkOrderLine[j].IsPartAttrib3ReleaseCaptured && _input.UIWmsWorkOrderLine[j].UsePartAttrib3 && _input.UIAdjustmentHeader.IMPartAttrib3Type =='SER'){
                                 if(_input.UIWmsWorkOrderLine[j].PartAttrib3){
-                                    if(_input.UIWmsWorkOrderLine[i].PartAttrib3 == _input.UIWmsWorkOrderLine[j].PartAttrib3){
-                                        OnChangeValues(null,'E10024',true,i,$item.label);
-                                        OnChangeValues(null,'E10024',true,j,$item.label);
-                                        finishloop = true;
+                                    if((_input.UIWmsWorkOrderLine[i].PartAttrib3 == _input.UIWmsWorkOrderLine[j].PartAttrib3)&&(_input.UIWmsWorkOrderLine[i].PRO_FK == _input.UIWmsWorkOrderLine[j].PRO_FK)){
+                                        if((_input.UIWmsWorkOrderLine[i].Units >=0 && _input.UIWmsWorkOrderLine[j].Units >=0) || (_input.UIWmsWorkOrderLine[i].Units <0 && _input.UIWmsWorkOrderLine[j].Units<0)){
+                                            OnChangeValues(null,'E10024',true,i,$item.label);
+                                            OnChangeValues(null,'E10024',true,j,$item.label);
+                                            finishloop = true;
+                                        }
                                     }
                                 }
                             }
@@ -558,9 +1084,6 @@
             angular.forEach(item,function(value,key){
                 RemoveErrorWarning(value.Code,"E",value.CtrlKey,label);
             });
-        }
-        function refreshgrid(){
-            helperService.refreshGrid();
         }
     }
 })();

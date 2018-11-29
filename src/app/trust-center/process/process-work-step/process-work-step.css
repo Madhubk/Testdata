@@ -116,7 +116,6 @@
     border-left: 10px solid transparent;
 }
 
-
 /** Default Colors **/
 
 .process-cubes {
@@ -134,7 +133,6 @@
 .process-cubes-4 {
     border-bottom-color: #ddd;
 }
-
 
 /** Active Colors **/
 
@@ -154,10 +152,8 @@
     border-bottom-color: #d71921;
 }
 
-
 /* .process-cubes-3.active{ border-bottom-color:#fbbc05; }
 .process-cubes-4.active{ border-bottom-color:#d71921; } */
-
 
 /** Hover Colors **/
 
@@ -177,7 +173,6 @@
     border-bottom-color: #4385f5;
 }
 
-
 /** Hover Before Colors **/
 
 .process-cubes:hover:before,
@@ -187,7 +182,6 @@
     border-color: #b9d3fe !important;
     border-width: 5px;
 }
-
 
 /** Active Before Colors **/
 
@@ -206,7 +200,6 @@
 .process-cubes-4.active:before {
     border-color: #fdd0d2;
 }
-
 
 /* .process-cubes.active:before{ border-color:#d2fce7; }
 .process-cubes-2.active:before{ border-color:#cde0ff; }
@@ -371,9 +364,9 @@
 }
 
 .process-work-step-rules .modal-dialog {
-    width: 750px !important;
-    height: 555px;
+    width: 650px;
     margin: 45px auto;
+    height: auto;
 }
 
 .process-work-step .modal-dialog {
@@ -383,8 +376,8 @@
 }
 
 .process-workstep-directive-wrapper {
-    overflow-y: auto;
-    height: 345px;
+    /* overflow-y: auto; */
+    /* height: 345px; */
 }
 
 .step-create-btn-round {
@@ -405,7 +398,6 @@
 .process-popup-tabcontent .nav-tabs.nav-justified {
     box-shadow: none !important;
 }
-
 
 /* 
 .process-popup-tabcontent .nav-tabs.nav-justified li a {
@@ -428,13 +420,12 @@
     color: #444 !important;
 }
 
-
 /* ============================= */
 
 .rules-list-container {
     position: fixed;
     top: 100px;
-    left: 375px;
+    left: 25%;
     width: 300px;
     height: 500px;
     overflow-y: auto;
@@ -556,3 +547,39 @@
     margin-top: 5px;
     float: right;
 }
+
+.step-type-icon {
+    position: absolute;
+    top: 35px;
+    left: 7px;
+    color: gray;
+}
+
+
+ /* Process Typelist  */
+
+.process-typelist-container .modal-dialog {
+    width: 650px !important;
+}
+
+.process-typelist-container .typecode {
+    margin-bottom: 10px;
+    margin-right: 10px;
+    display: inline-block;
+    background-color: #eee;
+    padding: 5px 10px;
+    border-radius: 20px;
+    position: relative;
+}
+
+.process-typelist-container .typecode i.fa-close {
+    top: -5px;
+    right: -2px;
+    position: relative;
+    opacity: 0.4;
+}
+
+.process-typelist-container .typecode i.fa-close:hover {
+    opacity: 1;
+}
+

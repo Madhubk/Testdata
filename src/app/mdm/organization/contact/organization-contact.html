@@ -1,40 +1,44 @@
-<div class="clearfix p-10">
-    <div class="clearfix">
-        <div class="org-contact-header">
-            <span>Contact</span>
-            <a class="eaxis-edit-2 pull-right" href="javascript:void(0);" ng-click="OrganizationContactCtrl.ePage.Masters.OpenEditForm(undefined, 'contact', true)"><i class="fa fa-plus-circle fs-28"></i></a>
-        </div>
-        <div class="eaxis-record">
-            <div class="rows">
-                <div data-ng-if="!OrganizationContactCtrl.ePage.Entities.Header.Data.OrgContact" class="text-center"><i class="fa fa-spin fa-spinner font-160"></i></div>
-                <div data-ng-if="OrganizationContactCtrl.ePage.Entities.Header.Data.OrgContact.length === 0" class="text-center"><i>No Records...!</i></div>
-                <div data-ng-if="OrganizationContactCtrl.ePage.Entities.Header.Data.OrgContact && OrganizationContactCtrl.ePage.Entities.Header.Data.OrgContact.length > 0"
-                    class="col-lg-4 padding-left-5 padding-right-5 margin-bottom-10" data-ng-repeat="x in OrganizationContactCtrl.ePage.Entities.Header.Data.OrgContact">
-                    <div class="eaxis-org-box">
-                        <div class="eaxis-rows">
-                            <div class="eaxis-org-nd">
-                                <div class="eaxis-org-name">{{x.ContactName || emptyText}}</div>
-                                <div class="eaxis-org-com text-single-line">{{x.Title || emptyText}}</div>
-                                <div class="eaxis-org-com text-single-line">{{x.JobCategory || emptyText}}</div>
-                            </div>
-                        </div>
-                        <div class="org-edit-delete">
-                            <a class="org-delete-icon" href="javascript:void(0);" data-ng-click="OrganizationContactCtrl.ePage.Masters.DeleteConfirmation(x, 'OrgContact')"><i class="fa fa-trash"></i></a>
-                            <a class="org-edit-icon marign-right-5" href="javascript:void(0);" data-ng-click="OrganizationContactCtrl.ePage.Masters.OpenEditForm(x, 'contact', false)"><i class="fa fa-pencil"></i></a>
-                        </div>
-                        <div class="eaxis-rows margin-top-5">
-                            <div class="eaxis-org-p-m-g-f">
-                                <div class="eaxis-org-pmgf-com">{{x.Email || emptyText}} <i class="fa fa-envelope"></i></div>
-                                <div class="eaxis-org-pmgf-com">{{x.Phone || emptyText}} <i class="fa fa-phone"></i></div>
-                                <div class="eaxis-org-pmgf-com">{{x.Mobile || emptyText}} <i class="fa fa-mobile"></i></div>
-                                <div class="eaxis-org-pmgf-com">{{x.Fax || emptyText}} <i class="fa fa-fax"></i></div>
-                            </div>
-                        </div>
+<div class="clearfix p-10 pb-50">
+    <div class="org-header">
+        <span>Contact</span>
+        <button class="btn btn-xs btn-primary pull-right" data-ng-click="OrganizationContactCtrl.ePage.Masters.EditContact()">Add New</button>
+    </div>
+    <div class="clearfix org-contact-container position-relative pb-20">
+        <div data-ng-if="!OrganizationContactCtrl.ePage.Entities.Header.Data.OrgContact" class="text-center p-20"><i
+                class="fa fa-spin fa-spinner font-160"></i></div>
+        <div data-ng-if="OrganizationContactCtrl.ePage.Entities.Header.Data.OrgContact.length === 0" class="text-center p-20"><i>No Records...!</i></div>
+        <div data-ng-if="OrganizationContactCtrl.ePage.Entities.Header.Data.OrgContact && OrganizationContactCtrl.ePage.Entities.Header.Data.OrgContact.length > 0"
+            class="col-lg-4 p-0" data-ng-repeat="x in OrganizationContactCtrl.ePage.Entities.Header.Data.OrgContact">
+            <div class="p-10 m-10 org-address-contact-box position-relative">
+                <div class="org-address-contact-edit-delete">
+                    <i class="fa fa-trash ml-5" data-ng-click="OrganizationContactCtrl.ePage.Masters.DeleteContact(x)"></i>
+                    <i class="fa fa-pencil ml-5" data-ng-click="OrganizationContactCtrl.ePage.Masters.EditContact(x)"></i>
+                </div>
+                <div class="clearfix pr-35">
+                    <div class="text-single-line">{{x.ContactName || OrganizationContactCtrl.ePage.Masters.EmptyText}}</div>
+                    <div class="text-single-line">{{x.Title || OrganizationContactCtrl.ePage.Masters.EmptyText}}</div>
+                    <div class="text-single-line">{{x.JobCategory || OrganizationContactCtrl.ePage.Masters.EmptyText}}</div>
+                </div>
+                <div class="clearfix text-right rtl">
+                    <div class="text-single-line">
+                        <i class="fa fa-phone org-address-icon"></i>
+                        <span>{{x.Phone || OrganizationContactCtrl.ePage.Masters.EmptyText}}</span>
+                    </div>
+                    <div class="text-single-line">
+                        <i class="fa fa-mobile org-address-icon"></i>
+                        <span>{{x.Mobile || OrganizationContactCtrl.ePage.Masters.EmptyText}}</span>
+                    </div>
+                    <div class="text-single-line">
+                        <i class="fa fa-envelope org-address-icon"></i>
+                        <span>{{x.Email || OrganizationContactCtrl.ePage.Masters.EmptyText}}</span>
+                    </div>
+                    <div class="text-single-line">
+                        <i class="fa fa-fax org-address-icon"></i>
+                        <span>{{x.Fax || OrganizationContactCtrl.ePage.Masters.EmptyText}} </span>
                     </div>
                 </div>
-
-                <div class="overlay" data-ng-if="OrganizationContactCtrl.ePage.Masters.OrgContact.IsOverlay"></div>
             </div>
         </div>
+        <div class="overlay" data-ng-if="OrganizationContactCtrl.ePage.Masters.OrgContact.IsOverlay"></div>
     </div>
 </div>

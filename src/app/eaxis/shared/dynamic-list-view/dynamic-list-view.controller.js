@@ -5,9 +5,9 @@
         .module("Application")
         .controller("DynamicListViewController", DynamicListViewController);
 
-    DynamicListViewController.$inject = ["$rootScope", "$scope", "$state", "$timeout", "$location", "$window", "APP_CONSTANT", "authService", "apiService", "helperService"];
+    DynamicListViewController.$inject = ["$location", "helperService"];
 
-    function DynamicListViewController($rootScope, $scope, $state, $timeout, $location, $window, APP_CONSTANT, authService, apiService, helperService) {
+    function DynamicListViewController($location, helperService) {
         /* jshint validthis: true */
         var DynamicListViewCtrl = this;
 
@@ -19,8 +19,6 @@
                 "Meta": helperService.metaBase(),
                 "Entities": {}
             };
-
-            DynamicListViewCtrl.ePage.Masters.MenuVisibleType = authService.getUserInfo().Menu.VisibleType;
 
             DynamicListViewCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
 
@@ -43,7 +41,7 @@
 
         function SelectedGridRow($item) {
             if ($item.action === "link" || $item.action === "dblClick") {
-                var _detailKey = $item.data.entity[$item.data.DataEntryMaster.GridConfig.DetailKey];
+                var _detailKey = $item.data.entity[$item.dataEntryMaster.GridConfig.DetailKey];
                 $location.path("/EA/dynamic-details-view/" + DynamicListViewCtrl.ePage.Masters.dataentryName).search({
                     item: helperService.encryptData(_detailKey)
                 });

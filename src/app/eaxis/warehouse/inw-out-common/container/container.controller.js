@@ -31,32 +31,59 @@
                 "config": configuration,
             };
 
+            //For table
+            ContainerCtrl.ePage.Masters.SelectAll = false;
+            ContainerCtrl.ePage.Masters.EnableDeleteButton = false;
+            ContainerCtrl.ePage.Masters.EnableCopyButton = false;
+            ContainerCtrl.ePage.Masters.Enable = true;
             ContainerCtrl.ePage.Masters.selectedRow = -1;
-            ContainerCtrl.ePage.Masters.DropDownMasterList = {};
-            ContainerCtrl.ePage.Masters.Lineslist = true;
-            ContainerCtrl.ePage.Masters.HeaderName = '';
             ContainerCtrl.ePage.Masters.emptyText = '-';
+            ContainerCtrl.ePage.Masters.SearchTable = '';
 
-            //Function
-            ContainerCtrl.ePage.Masters.CopyRow = CopyRow;
-            ContainerCtrl.ePage.Masters.AddNewRow = AddNewRow;
-            ContainerCtrl.ePage.Masters.RemoveRow = RemoveRow;
-            ContainerCtrl.ePage.Masters.Edit = Edit;
+            ContainerCtrl.ePage.Masters.SelectAllCheckBox = SelectAllCheckBox;
+            ContainerCtrl.ePage.Masters.SingleSelectCheckBox = SingleSelectCheckBox;
             ContainerCtrl.ePage.Masters.setSelectedRow = setSelectedRow;
-            ContainerCtrl.ePage.Masters.Back = Back;
-            ContainerCtrl.ePage.Masters.Done = Done;
+            ContainerCtrl.ePage.Masters.AddNewRow = AddNewRow;
+            ContainerCtrl.ePage.Masters.CopyRow = CopyRow;
+            ContainerCtrl.ePage.Masters.RemoveRow = RemoveRow;
+
             ContainerCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
             ContainerCtrl.ePage.Masters.SelectedLookupType = SelectedLookupType;
 
-             //Order By
-            ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer = $filter('orderBy')(ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer, 'CreatedDateTime');
-
-
+            GetUserBasedGridColumList();
             GetContainerlist();
-            GetMastersList();
             NonEditable();
-
         }
+
+         //#region User Based Table Column
+         function GetUserBasedGridColumList(){
+            var _filter = {
+                "SAP_FK": authService.getUserInfo().AppPK,
+                "TenantCode": authService.getUserInfo().TenantCode,
+                "SourceEntityRefKey": authService.getUserInfo().UserId,
+                "EntitySource": "WMS_CONTAINER",
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.UserSettings.API.FindAll.FilterID
+            };
+    
+            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function(response){
+                if(response.data.Response[0]){
+                    ContainerCtrl.ePage.Masters.UserValue= response.data.Response[0];
+                    if(response.data.Response[0].Value!=''){
+                        var obj = JSON.parse(response.data.Response[0].Value)
+                        ContainerCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderContainer = obj;
+                        ContainerCtrl.ePage.Masters.UserHasValue =true;
+                    }
+                }else{
+                    ContainerCtrl.ePage.Masters.UserValue = undefined;
+                }
+            })
+        }
+        //#endregion
+            
+        //#region General
         function NonEditable() {
             if (ContainerCtrl.ePage.config == 'inward') {
                 ContainerCtrl.ePage.Masters.WorkOrderStatus = ContainerCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatusDesc;
@@ -70,41 +97,6 @@
             }
         }
 
-        function GetMastersList() {
-            // Get CFXType Dropdown list
-
-            var typeCodeList = ["WMSTRUEFALSE"];
-            var dynamicFindAllInput = [];
-
-            typeCodeList.map(function (value, key) {
-                dynamicFindAllInput[key] = {
-                    "FieldName": "TypeCode",
-                    "value": value
-                }
-            });
-            var _input = {
-                "searchInput": dynamicFindAllInput,
-                "FilterID": appConfig.Entities.CfxTypes.API.DynamicFindAll.FilterID
-            };
-
-            apiService.post("eAxisAPI", appConfig.Entities.CfxTypes.API.DynamicFindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
-                if (response.data.Response) {
-                    typeCodeList.map(function (value, key) {
-                        ContainerCtrl.ePage.Masters.DropDownMasterList[value] = helperService.metaBase();
-                        ContainerCtrl.ePage.Masters.DropDownMasterList[value].ListSource = response.data.Response[value];
-                    });
-                }
-                angular.forEach(ContainerCtrl.ePage.Masters.DropDownMasterList.WMSTRUEFALSE.ListSource, function (value, key) {
-                    if (value.Key == 'true') {
-                        value.Key = true;
-                    }
-                    if (value.Key == 'false') {
-                        value.Key = false;
-                    }
-                });
-            });
-        }
-
         function GetContainerlist() {
             var _filter = {
                 "WOD_FK": ContainerCtrl.ePage.Entities.Header.Data.PK
@@ -116,6 +108,8 @@
             apiService.post("eAxisAPI", ContainerCtrl.ePage.Entities.Header.API.Containers.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer = response.data.Response;
+
+                    ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer = $filter('orderBy')(ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer, 'CreatedDateTime');
                 }
             });
         }
@@ -124,16 +118,56 @@
             OnChangeValues(ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer[index].Type, 'E3014', true, index);
         }
 
-        function CopyRow() {
-            var obj = angular.copy(ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer[ContainerCtrl.ePage.Masters.selectedRow]);
-            obj.PK = '';
-            obj.CreatedDateTime = '';
-            obj.ModifiedDateTime = '';
-            ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer.splice(ContainerCtrl.ePage.Masters.selectedRow + 1, 0, obj);
-            ContainerCtrl.ePage.Masters.Edit(ContainerCtrl.ePage.Masters.selectedRow + 1, 'Copy Of List');
+        //#endregion
+
+        //#region checkbox selection
+        function SelectAllCheckBox(){
+            angular.forEach(ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer, function (value, key) {
+            if (ContainerCtrl.ePage.Masters.SelectAll){
+                value.SingleSelect = true;
+                ContainerCtrl.ePage.Masters.EnableDeleteButton = true;
+                ContainerCtrl.ePage.Masters.EnableCopyButton = true;
+            }
+            else{
+                value.SingleSelect = false;
+                ContainerCtrl.ePage.Masters.EnableDeleteButton = false;
+                ContainerCtrl.ePage.Masters.EnableCopyButton = false;
+            }
+            });
+        }
+
+        function SingleSelectCheckBox() {
+            var Checked = ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer.some(function (value, key) {
+                if(!value.SingleSelect)
+                return true;
+            });
+            if (Checked) {
+                ContainerCtrl.ePage.Masters.SelectAll = false;
+            } else {
+                ContainerCtrl.ePage.Masters.SelectAll = true;
+            }
+
+            var Checked1 = ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer.some(function (value, key) {
+                return value.SingleSelect == true;
+            });
+            if (Checked1) {
+                ContainerCtrl.ePage.Masters.EnableDeleteButton = true;
+                ContainerCtrl.ePage.Masters.EnableCopyButton = true;
+            } else {
+                ContainerCtrl.ePage.Masters.EnableDeleteButton = false;
+                ContainerCtrl.ePage.Masters.EnableCopyButton = false;
+            }
+        }
+        //#endregion checkbox selection
+
+        //#region Add,copy,delete row
+
+        function setSelectedRow(index){
+            ContainerCtrl.ePage.Masters.selectedRow = index;
         }
 
         function AddNewRow() {
+            ContainerCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
             var obj = {
                 "PK": "",
                 "ContainerNumber": "",
@@ -143,14 +177,37 @@
                 "IsChargeable": "",
                 "ItemCount": "",
                 "PalletCount": "",
-                "IsDeleted": "false"
+                "IsDeleted": false,
             };
             ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer.push(obj);
-            ContainerCtrl.ePage.Masters.Edit(ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer.length - 1, 'New List');
+            ContainerCtrl.ePage.Masters.selectedRow = ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer.length-1;
+        
+            $timeout(function () {
+                var objDiv = document.getElementById("ContainerCtrl.ePage.Masters.AddScroll");
+                objDiv.scrollTop = objDiv.scrollHeight;
+            }, 50);
+            ContainerCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
+        };
+
+        function CopyRow() {
+            ContainerCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
+            for(var i = ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer.length -1; i >= 0; i--){
+                if(ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer[i].SingleSelect){
+                    var obj = angular.copy(ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer[i]);
+                    obj.PK = '';
+                    obj.CreatedDateTime = '';
+                    obj.ModifiedDateTime = '';
+                    obj.SingleSelect=false;
+                    obj.IsCopied = true;
+                    ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer.splice(i + 1, 0, obj);
+                }
+            }
+            ContainerCtrl.ePage.Masters.selectedRow = -1;
+            ContainerCtrl.ePage.Masters.SelectAll = false;
+            ContainerCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
         }
 
         function RemoveRow() {
-            var item = ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer[ContainerCtrl.ePage.Masters.selectedRow]
             var modalOptions = {
                 closeButtonText: 'Cancel',
                 actionButtonText: 'Ok',
@@ -159,28 +216,40 @@
             };
             confirmation.showModal({}, modalOptions)
                 .then(function (result) {
-                    if (item.PK) {
-                        apiService.get("eAxisAPI", ContainerCtrl.ePage.Entities.Header.API.ContainerDelete.Url + item.PK).then(function (response) {
-                        });
-                    }
+                    ContainerCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
+
+                    angular.forEach(ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer,function(value,key){
+                        if(value.SingleSelect==true && value.PK){
+                            apiService.get("eAxisAPI", ContainerCtrl.ePage.Entities.Header.API.ContainerDelete.Url + value.PK).then(function (response) {
+                            });
+                        }
+                    });
+            
                     var ReturnValue = RemoveAllLineErrors();
                     if(ReturnValue){
-                        ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer.splice(ContainerCtrl.ePage.Masters.selectedRow, 1);                   
+                        for (var i = ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer.length -1; i >= 0; i--){
+                            if(ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer[i].SingleSelect==true)
+                            ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer.splice(i,1);
+                        }
                         if(ContainerCtrl.ePage.config == 'inward'){
                             ContainerCtrl.ePage.Masters.Config.GeneralValidation(ContainerCtrl.currentInward);
                         }
                         else{
                             ContainerCtrl.ePage.Masters.Config.GeneralValidation(ContainerCtrl.currentOutward);
-                        }                    }
+                        }
+                    }
                     toastr.success('Record Removed Successfully');
-                    ContainerCtrl.ePage.Masters.Lineslist = true;
-                    ContainerCtrl.ePage.Masters.selectedRow = ContainerCtrl.ePage.Masters.selectedRow - 1;
+                    ContainerCtrl.ePage.Masters.selectedRow = -1;
+                    ContainerCtrl.ePage.Masters.SelectAll = false;
+                    ContainerCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
+                    ContainerCtrl.ePage.Masters.EnableDeleteButton = false;
                 }, function () {
                     console.log("Cancelled");
-                });
+            });
         }
+        //#endregion Add,copy,delete row
 
-        // ------- Error Validation While onchanges-----//
+        //#region Validation
         function OnChangeValues(fieldvalue, code, IsArray, RowIndex) {
             angular.forEach(ContainerCtrl.ePage.Masters.Config.ValidationValues, function (value, key) {
                 if (value.Code.trim() === code) {
@@ -205,11 +274,6 @@
             }
         }
 
-        // ------- Error Validation While onchanges-----//
-        function setSelectedRow(index) {
-            ContainerCtrl.ePage.Masters.selectedRow = index;
-        }
-
         function RemoveAllLineErrors(){
             for(var i=0;i<ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer.length;i++){
                 OnChangeValues('value', "E3013", true, i);
@@ -217,176 +281,7 @@
             }
             return true;
         }
-
-        function Back() {
-            var ReturnValue = RemoveAllLineErrors();
-            if(ReturnValue){
-                if(ContainerCtrl.ePage.config == 'inward'){
-                    ContainerCtrl.ePage.Masters.Config.GeneralValidation(ContainerCtrl.currentInward);
-                }
-                else{
-                    ContainerCtrl.ePage.Masters.Config.GeneralValidation(ContainerCtrl.currentOutward);
-                }           
-            }
-            ContainerCtrl.ePage.Masters.Lineslist = true;
-        }
-
-        function Done() {
-            // To scroll down
-            var ReturnValue = RemoveAllLineErrors();
-            if(ReturnValue){
-                if (name == 'New List') {
-                    $timeout(function () {
-                        var objDiv = document.getElementById("ContainerCtrl.ePage.Masters.your_div");
-                        objDiv.scrollTop = objDiv.scrollHeight;
-                    }, 500);
-                }  
-                if (ContainerCtrl.ePage.config == 'inward') {
-                    Validation(ContainerCtrl.currentInward);
-                } else {
-                    Validation(ContainerCtrl.currentOutward);
-                }
-                ContainerCtrl.ePage.Masters.Lineslist = true;
-            }
-        }
-
-        function Edit(index, name) {
-            ContainerCtrl.ePage.Masters.selectedRow = index;
-            ContainerCtrl.ePage.Masters.Lineslist = false;
-            ContainerCtrl.ePage.Masters.HeaderName = name;
-            $timeout(function () { $scope.$apply(); }, 500);
-        }
-
-
-        $document.bind('keydown', function (e) {
-            if (ContainerCtrl.ePage.Masters.selectedRow != -1) {
-                if (ContainerCtrl.ePage.Masters.Lineslist == true) {
-                    if (e.keyCode == 38) {
-                        if (ContainerCtrl.ePage.Masters.selectedRow == 0) {
-                            return;
-                        }
-                        ContainerCtrl.ePage.Masters.selectedRow--;
-                        $scope.$apply();
-                        e.preventDefault();
-                    }
-                    if (e.keyCode == 40) {
-                        if (ContainerCtrl.ePage.Masters.selectedRow == ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer.length - 1) {
-                            return;
-                        }
-                        ContainerCtrl.ePage.Masters.selectedRow++;
-                        $scope.$apply();
-                        e.preventDefault();
-                    }
-                }
-            }
-        });
-
-        function Validation($item) {
-            var _Data = $item[$item.label].ePage.Entities,
-                _input = _Data.Header.Data,
-                _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
-
-
-            //Validation Call
-            ContainerCtrl.ePage.Masters.Config.GeneralValidation($item);
-            if (ContainerCtrl.ePage.Entities.Header.Validations) {
-                ContainerCtrl.ePage.Masters.Config.RemoveApiErrors(ContainerCtrl.ePage.Entities.Header.Validations, $item.label);
-            }
-
-            if (_errorcount.length == 0) {
-                SaveList($item);
-            } else {
-                ContainerCtrl.ePage.Masters.Config.ShowErrorWarningModal($item);
-            }
-        }
-
-        function SaveList($item) {
-            ContainerCtrl.ePage.Masters.IsLoadingToSave = true;
-            var _Data = $item[$item.label].ePage.Entities,
-                _input = _Data.Header.Data;
-
-            $item = filterObjectUpdate($item, "IsModified");
-            if (ContainerCtrl.ePage.config == 'inward') {
-
-                helperService.SaveEntity($item, 'Inward').then(function (response) {
-                    if (response.Status === "success") {
-                        var _index = inwardConfig.TabList.map(function (value, key) {
-                            return value[value.label].ePage.Entities.Header.Data.PK
-                        }).indexOf(ContainerCtrl.currentInward[ContainerCtrl.currentInward.label].ePage.Entities.Header.Data.PK);
-
-                        if (_index !== -1) {
-                            inwardConfig.TabList[_index][inwardConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data;
-                            inwardConfig.TabList[_index].isNew = false;
-                            if ($state.current.url == "/inward") {
-                                helperService.refreshGrid();
-                            }
-                            $timeout(function () {
-                                ContainerCtrl.ePage.Masters.IsLoadingToSave = false;
-                            }, 1000);
-                        }
-                        console.log("Success");
-                    } else if (response.Status === "failed") {
-                        ContainerCtrl.ePage.Masters.IsLoadingToSave = false;
-                        console.log("Failed");
-                        ContainerCtrl.ePage.Entities.Header.Validations = response.Validations;
-                        angular.forEach(response.Validations, function (value, key) {
-                            ContainerCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", true, value.CtrlKey, ContainerCtrl.currentInward.label, false, undefined, undefined, undefined, undefined, value.GParentRef);
-                        });
-                        if (ContainerCtrl.ePage.Entities.Header.Validations != null) {
-                            ContainerCtrl.ePage.Masters.Config.ShowErrorWarningModal(ContainerCtrl.currentInward);
-                        }
-                    }
-
-                });
-            }
-            if (ContainerCtrl.ePage.config == 'outward') {
-
-                helperService.SaveEntity($item, 'Outward').then(function (response) {
-                    if (response.Status === "success") {
-                        var _index = outwardConfig.TabList.map(function (value, key) {
-                            return value[value.label].ePage.Entities.Header.Data.PK
-                        }).indexOf(ContainerCtrl.currentOutward[ContainerCtrl.currentOutward.label].ePage.Entities.Header.Data.PK);
-
-                        if (_index !== -1) {
-                            outwardConfig.TabList[_index][outwardConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data;
-                            outwardConfig.TabList[_index].isNew = false;
-                            if ($state.current.url == "/outward") {
-                                helperService.refreshGrid();
-                            }
-                            $timeout(function () {
-                                ContainerCtrl.ePage.Masters.IsLoadingToSave = false;
-                            }, 1000);
-                        }
-                        console.log("Success");
-                    } else if (response.Status === "failed") {
-                        ContainerCtrl.ePage.Masters.IsLoadingToSave = false;
-                        console.log("Failed");
-                        ContainerCtrl.ePage.Entities.Header.Validations = response.Validations;
-                        angular.forEach(response.Validations, function (value, key) {
-                            ContainerCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, ContainerCtrl.currentOutward.label, false, undefined, undefined, undefined, undefined, value.GParentRef);
-                        });
-                        if (ContainerCtrl.ePage.Entities.Header.Validations != null) {
-                            ContainerCtrl.ePage.Masters.Config.ShowErrorWarningModal(ContainerCtrl.currentOutward);
-                        }
-                    }
-                });
-            }
-
-        }
-
-        function filterObjectUpdate(obj, key) {
-            for (var i in obj) {
-                if (!obj.hasOwnProperty(i)) continue;
-                if (typeof obj[i] == 'object') {
-                    filterObjectUpdate(obj[i], key);
-                } else if (i == key) {
-                    obj[key] = true;
-                }
-            }
-            return obj;
-        }
-
-
+        //#endregion
 
         Init();
     }

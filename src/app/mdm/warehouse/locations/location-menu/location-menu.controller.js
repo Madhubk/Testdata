@@ -20,9 +20,7 @@
                 "Meta": helperService.metaBase(),
                 "Entities": currentLocation
             };
-            // Standard Menu Configuration and Data
-            LocationMenuCtrl.ePage.Masters.StandardMenuInput = appConfig.Entities.standardMenuConfigList.WarehouseRow;
-            LocationMenuCtrl.ePage.Masters.StandardMenuInput.obj = LocationMenuCtrl.currentLocation;
+           
 
             // function
             LocationMenuCtrl.ePage.Masters.SaveButtonText = "Save";
@@ -61,16 +59,20 @@
             
             
             LocationMenuCtrl.ePage.Masters.IsDisableSave = true;
+            LocationMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
 
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
             if ($item.isNew) {
                 _input.WmsRow.PK = _input.PK;
+                _input.WmsRow.CreatedDateTime = new Date();
             } else {
                 $item = filterObjectUpdate($item, "IsModified");
             }
 
             helperService.SaveEntity($item, 'Location').then(function (response) {
+                LocationMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
+                
                 if (response.Status === "success") {
 
                     locationConfig.TabList.map(function (value, key) {
@@ -79,6 +81,7 @@
                                 value.label = LocationMenuCtrl.ePage.Entities.Header.Data.WmsRow.Name;
                                 value[LocationMenuCtrl.ePage.Entities.Header.Data.WmsRow.Name] = value.New;
                                 delete value.New;
+                                value.code = LocationMenuCtrl.ePage.Entities.Header.Data.WmsRow.Name;
                             }
                         }
                     });
@@ -94,18 +97,29 @@
                         else {
                             locationConfig.TabList[_index][locationConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data;
                         }
+
+                        //Changing Label name when row name changes
+                        if(LocationMenuCtrl.ePage.Entities.Header.Data.WmsRow.Name != locationConfig.TabList[_index].label){
+                            locationConfig.TabList[_index].label = LocationMenuCtrl.ePage.Entities.Header.Data.WmsRow.Name;
+                            locationConfig.TabList[_index][locationConfig.TabList[_index].label] = locationConfig.TabList[_index][locationConfig.TabList[_index].code];
+                            delete locationConfig.TabList[_index][locationConfig.TabList[_index].code];
+                            locationConfig.TabList[_index].code = LocationMenuCtrl.ePage.Entities.Header.Data.WmsRow.Name
+                        }
+
                         locationConfig.TabList[_index].isNew = false;
                         if ($state.current.url == "/location") {
                             helperService.refreshGrid();
                         }
                     }
                     console.log("Success");
+                    toastr.success("Saved Successfully...!");
                     if(LocationMenuCtrl.ePage.Masters.SaveAndClose){
                         LocationMenuCtrl.ePage.Masters.Config.SaveAndClose = true;
                         LocationMenuCtrl.ePage.Masters.SaveAndClose = false;
                     }
                 } else if (response.Status === "failed") {
                     console.log("Failed");
+                    toastr.error("Could not Save...!");
                     LocationMenuCtrl.ePage.Entities.Header.Validations = response.Validations;
                     angular.forEach(response.Validations, function (value, key) {
                         LocationMenuCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, LocationMenuCtrl.currentLocation.label, false, undefined, undefined, undefined, undefined, undefined);

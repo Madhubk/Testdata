@@ -1,3 +1,9 @@
-.chrometab-box {
-    border: 1px solid #bcbbd0;
+.btn-batch-upload-outward{
+    margin-top: 3px;
+    font-size: 12px;
+    height: 28px;
+}
+
+.general-edit.bulkuploadoutward>.modal-dialog {
+    width: 575px !important;
 }

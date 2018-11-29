@@ -23,45 +23,41 @@
                 "Meta": helperService.metaBase(),
                 "Entities": currentShipment
             };
+
             ConsolPackingModalCtrl.ePage.Masters.DropDownMasterList = shipmentConfig.Entities.Header.Meta;
-            ConsolPackingModalCtrl.ePage.Masters.Package.save = save
-            ConsolPackingModalCtrl.ePage.Masters.Package.close = close
+            ConsolPackingModalCtrl.ePage.Masters.Package.save = save;
+            ConsolPackingModalCtrl.ePage.Masters.Package.close = close;
 
             if (param.action == 'edit') {
-                ConsolPackingModalCtrl.ePage.Masters.Package.FormView = param.currentFormView
-                ConsolPackingModalCtrl.ePage.Masters.Package.FormViewCopy = angular.copy(param.currentFormView)
-                ConsolPackingModalCtrl.ePage.Masters.Package.FormView.IsModified = true
+                ConsolPackingModalCtrl.ePage.Masters.Package.FormView = param.currentFormView;
+                ConsolPackingModalCtrl.ePage.Masters.Package.FormViewCopy = angular.copy(param.currentFormView);
+                ConsolPackingModalCtrl.ePage.Masters.Package.FormView.IsModified = true;
             } else {
                 ConsolPackingModalCtrl.ePage.Masters.Package.FormView = {};
                 ConsolPackingModalCtrl.ePage.Masters.Package.FormView.PK = "";
-                ConsolPackingModalCtrl.ePage.Masters.Package.FormView.SHP_FK = ConsolPackingModalCtrl.ePage.Entities.Header.Data.PK
-                ConsolPackingModalCtrl.ePage.Masters.Package.FormView.FreightMode = "OUT"
+                ConsolPackingModalCtrl.ePage.Masters.Package.FormView.SHP_FK = ConsolPackingModalCtrl.ePage.Entities.Header.Data.PK;
+                ConsolPackingModalCtrl.ePage.Masters.Package.FormView.FreightMode = "OUT";
                 ConsolPackingModalCtrl.ePage.Masters.Package.FormView.JobDangerousGoods = [];
                 ConsolPackingModalCtrl.ePage.Masters.Package.FormView.JobLocation = [];
                 ConsolPackingModalCtrl.ePage.Masters.Package.FormView.PkgCntMapping = [];
             }
+
             InitDangerousGoods();
             InitLocation();
-
         }
-
         // =======================Dangerous Goods Begin=======================
-
         function InitDangerousGoods() {
             ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.FormView = {};
-            ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.IsFormView = false
-            ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.buttonText = 'Add New'
-
-            ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.gridConfig = ConsolPackingModalCtrl.ePage.Entities.ShipmentDangerousGoods.gridConfig;
+            ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.IsFormView = false;
+            ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.buttonText = 'Add New';
             ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.EditDangerousGoods = EditDangerousGoods;
-            ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.AddNew = AddNew
-            ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.DeleteDangerousGoods = DeleteDangerousGoods;
+            ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.AddNew = AddNew;
+            ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.DeleteDangerousGoods = DeleteDangerousGoods;;
             ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.AddToGridDangerousGoods = AddToGridDangerousGoods;
-            ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.SelectedGridRow = SelectedGridRowDangerousGoods
+            ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.SelectedGridRow = SelectedGridRowDangerousGoods;
 
             GetDangerousGoodsDetails();
         }
-
         // DangerousGoods Details
         function GetDangerousGoodsDetails() {
             var _gridData = [];
@@ -80,35 +76,32 @@
             });
         }
 
-        function SelectedGridRowDangerousGoods($item) {
-            if ($item.action == 'edit')
-                EditDangerousGoods($item)
+        function SelectedGridRowDangerousGoods(item, type, index) {
+            if (type == 'edit')
+                EditDangerousGoods(item, index);
             else
-                DeleteDangerousGoods($item)
+                DeleteDangerousGoods(item, index);
         }
 
         function AddNew() {
-            ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.FormView = {}
+            ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.FormView = {};
             ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.IsFormView = true;
         }
         //Edit for DangerousGoods
-        function EditDangerousGoods($item) {
+        function EditDangerousGoods(item, index) {
             ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.IsFormView = true;
-            ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.buttonText = 'Update'
-            ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.FormView = $item.data;
-            ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.FormView.index = $item.index;
+            ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.buttonText = 'Update';
+            ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.FormView = item;
+            ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.FormView.index = index;
         }
-
         //Delete For DangerousGoods
-        function DeleteDangerousGoods($item) {
-
-            if ($item.index !== -1) {
-                ConsolPackingModalCtrl.ePage.Masters.Package.FormView.JobDangerousGoods.splice($item.index, 1);
+        function DeleteDangerousGoods(item, index) {
+            if (index !== -1) {
+                ConsolPackingModalCtrl.ePage.Masters.Package.FormView.JobDangerousGoods.splice(index, 1);
             }
 
             GetDangerousGoodsDetails();
         }
-
         //Add To Grid DangerousGoods 
         function AddToGridDangerousGoods() {
             var _isEmpty = angular.equals(ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.FormView, {});
@@ -123,11 +116,11 @@
                     ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.IsFormView = false;
                     GetDangerousGoodsDetails();
                 } else {
-                    ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.buttonText = 'Add New'
+                    ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.buttonText = 'Add New';
                     ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.IsFormView = false;
-                    ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.FormView.IsModified = true
+                    ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.FormView.IsModified = true;
                     ConsolPackingModalCtrl.ePage.Masters.Package.FormView.JobDangerousGoods[_index] = ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.FormView;
-                    ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.FormView = {}
+                    ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.FormView = {};
                 }
             }
         }
@@ -141,22 +134,18 @@
             ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.FormView.IMOClass = $item.Class;
             ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.FormView.DGFlashPoint = $item.FP;
         }
-
         // =======================Dangerous Goods End =======================
 
         // =======================Location Begin =============================
-
         function InitLocation() {
             ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.FormView = {};
-            ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.IsFormView = false
-            ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.buttonText = 'Add New'
-
-            ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.gridConfig = ConsolPackingModalCtrl.ePage.Entities.ShipmentJobLocation.gridConfig;
+            ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.IsFormView = false;
+            ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.buttonText = 'Add New';
             ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.EditLocation = EditLocation;
             ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.AddNewLocation = AddNewLocation;
             ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.DeleteLocation = DeleteLocation;
             ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.AddToGridLocation = AddToGridLocation;
-            ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.SelectedGridRow = SelectedGridRow
+            ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.SelectedGridRow = SelectedGridRow;
 
             GetLocationDetails();
         }
@@ -178,28 +167,28 @@
             });
         }
 
-        function SelectedGridRow($item) {
-            if ($item.action == 'edit')
-                EditLocation($item)
+        function SelectedGridRow(item, type, index) {
+            if (type == 'edit')
+                EditLocation(item, index);
             else
-                DeleteLocation($item)
+                DeleteLocation(item, index);
         }
 
         function AddNewLocation() {
             ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.FormView = {};
-            ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.IsFormView = true
+            ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.IsFormView = true;
         }
 
-        function EditLocation($item) {
-            ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.IsFormView = true
-            ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.buttonText = 'Update'
-            ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.FormView = $item.data
-            ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.FormView.index = $item.index
+        function EditLocation(item, index) {
+            ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.IsFormView = true;
+            ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.buttonText = 'Update';
+            ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.FormView = item;
+            ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.FormView.index = index;
         }
 
-        function DeleteLocation($item) {
+        function DeleteLocation(item, index) {
             if ($item.index !== -1) {
-                ConsolPackingModalCtrl.ePage.Masters.Package.FormView.JobLocation.splice($item.index, 1);
+                ConsolPackingModalCtrl.ePage.Masters.Package.FormView.JobLocation.splice(index, 1);
             }
 
             GetLocationDetails();
@@ -215,18 +204,17 @@
                 if (_index == undefined) {
                     ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.FormView.PK = "";
                     ConsolPackingModalCtrl.ePage.Masters.Package.FormView.JobLocation.push(ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.FormView);
-                    ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.IsFormView = false
+                    ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.IsFormView = false;
                     GetLocationDetails();
                 } else {
-                    ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.IsFormView = false
-                    ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.buttonText = 'Add New'
+                    ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.IsFormView = false;
+                    ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.buttonText = 'Add New';
                     ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.FormView.IsModified = true;
                     ConsolPackingModalCtrl.ePage.Masters.Package.FormView.JobLocation[_index] = ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.FormView;
-                    ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.FormView = {}
+                    ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.FormView = {};
                 }
             }
         }
-
         // ==========================Location Details End ===================================
 
         function save() {
@@ -241,27 +229,23 @@
                         "data": response.data.Response[0],
                         "index": param.index
                     };
-                    $uibModalInstance.close(_export)
+                    $uibModalInstance.close(_export);
                 }
             });
         }
 
         function close() {
-
             if (param.action == 'edit') {
                 var _export1 = {
                     "data": ConsolPackingModalCtrl.ePage.Masters.Package.FormViewCopy,
                     "index": param.index
                 };
-                $uibModalInstance.close(_export1)
+                $uibModalInstance.close(_export1);
 
             } else {
-                $uibModalInstance.dismiss('close')
+                $uibModalInstance.dismiss('close');
             }
-
         }
-
-
 
         Init();
     }

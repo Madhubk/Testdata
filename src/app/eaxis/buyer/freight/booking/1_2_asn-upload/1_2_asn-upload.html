@@ -1,0 +1,14 @@
+﻿<div class="modal-header">
+    <button type="button" class="close" ng-click="oneTwoAsnUploadCtrl.ePage.Masters.modalClose()">×</button>
+    <h5 class="modal-title" id="modal-title">
+        <strong>ASN Upload</strong>
+    </h5>
+</div>
+<div class="modal-body" id="modal-body">
+    <one-two-asn-upload-directive data-ng-if="oneTwoAsnUploadCtrl.ePage.Masters.currentAsn" current-asn="oneTwoAsnUploadCtrl.ePage.Masters.currentAsn">
+    </one-two-asn-upload-directive>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary btn-sm pull-right margin-right-10 mb-20" data-ng-click="oneTwoAsnUploadCtrl.ePage.Masters.Save(oneTwoAsnUploadCtrl.ePage.Masters.currentAsn)"
+        data-ng-bind="oneTwoAsnUploadCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="oneTwoAsnUploadCtrl.ePage.Masters.IsDisableSave"></button>
+</div>

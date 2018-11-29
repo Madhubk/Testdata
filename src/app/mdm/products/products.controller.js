@@ -5,9 +5,9 @@
         .module("Application")
         .controller("ProductsController", ProductsController);
 
-    ProductsController.$inject = ["$location", "APP_CONSTANT", "authService", "apiService", "helperService", "productConfig", "$timeout", "toastr", "appConfig"];
+    ProductsController.$inject = ["$scope","$location", "APP_CONSTANT", "authService", "apiService", "helperService", "productConfig", "$timeout", "toastr", "appConfig","confirmation","$uibModal","$injector"];
 
-    function ProductsController($location, APP_CONSTANT, authService, apiService, helperService, productConfig, $timeout, toastr, appConfig) {
+    function ProductsController($scope,$location, APP_CONSTANT, authService, apiService, helperService, productConfig, $timeout, toastr, appConfig,confirmation,$uibModal,$injector) {
 
         var ProductsCtrl = this;
 
@@ -24,6 +24,7 @@
             ProductsCtrl.ePage.Masters.taskName = "products";
             ProductsCtrl.ePage.Masters.dataentryName = "OrgSupplierPart";
             ProductsCtrl.ePage.Masters.TabList = [];
+            productConfig.TabList = [];
             ProductsCtrl.ePage.Masters.activeTabIndex = 0;
             ProductsCtrl.ePage.Masters.isNewProductClicked = false;
             ProductsCtrl.ePage.Masters.IsTabClick = false;
@@ -36,9 +37,11 @@
             ProductsCtrl.ePage.Masters.CreateNewProduct = CreateNewProduct;
             ProductsCtrl.ePage.Masters.Config = productConfig;
             ProductsCtrl.ePage.Masters.SaveandClose = SaveandClose;
+            ProductsCtrl.ePage.Masters.BulkUploadOption = BulkUploadOption;
 
-            ProductsCtrl.ePage.Masters.MenuVisibleType = authService.getUserInfo().Menu.VisibleType;
+            ProductsCtrl.ePage.Masters.MenuVisibleType = authService.getUserInfo().MenuType;
             productConfig.ValidationFindall();
+
         }
 
         function SelectedGridRow($item) {
@@ -141,7 +144,6 @@
             
         }
 
-
         function SaveandClose( index, currentProduct){
 
             var currentProduct = currentProduct[currentProduct.label].ePage.Entities;
@@ -154,10 +156,25 @@
                     console.log("Tab close Error : " + response);
                 }
             });
-
             ProductsCtrl.ePage.Masters.activeTabIndex = 0;
-
         }
+
+         
+        function BulkUploadOption(){
+            $uibModal.open({
+                animation: true,
+                backdrop: "static",
+                keyboard: true,
+                windowClass: "general-edit right bulkuploadproduct",
+                scope: $scope,
+
+                templateUrl: 'app/mdm/products/product-bulk-upload/product-bulk-upload.html',
+                controller: 'ProductBulkUploadController as ProductBulkUploadCtrl',
+                bindToController: true,
+            });
+        }
+
+      
 
         Init();
 

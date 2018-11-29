@@ -1,0 +1,36 @@
+<uib-tabset id="chromeTab" active="InwardViewCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+    <uib-tab>
+        <uib-tab-heading title="Inward">
+            <span data-ng-bind="'Inward'" class="ng-binding">Inward</span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+        <div class="no-padding tab-list-view-wrapper">
+            <!--Inward view Grid Page-->
+            <dynamic-list dataentry-name="InwardViewCtrl.ePage.Masters.dataentryName" task-name="InwardViewCtrl.ePage.Masters.taskName" grid-config-type="0"
+                selected-grid-row="InwardViewCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" dataentry-object="InwardViewCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+            <div class="tab-loading" data-ng-show="InwardViewCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+
+    <uib-tab active="InwardViewCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in InwardViewCtrl.ePage.Masters.TabList" ng-click="InwardViewCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+        <uib-tab-heading title="{{tab.label}}">
+            <span data-ng-bind="tab.label" class="mr-5"></span>
+            <i class="glyphicon glyphicon-remove" ng-click="InwardViewCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+            <span class="error-warning-container-common" data-ng-if="tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length > 0">
+
+            </span>
+        </uib-tab-heading>
+        <div class="padding-bottom-10 clearfix">
+            <!--Inward view Menu Directive-->
+            <inward-view-detail current-inward-view-detail="tab" ></inward-view-detail>
+            <div class="horizontal-space"></div>
+        </div>
+        <div class="eaxis-footer-strip">
+            <div class="col-xs-6 col-sm-8 col-md-8 col-lg-9 col-xl-9">
+                <standard-menu dataentry-object="InwardViewCtrl.ePage.Masters.DataEntryObject" input="tab"></standard-menu>
+            </div>
+        </div>
+       
+    </uib-tab>
+    
+</uib-tabset>

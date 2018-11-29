@@ -5,26 +5,14 @@
         .module("Application")
         .factory('locationConfig', LocationConfig);
 
-    LocationConfig.$inject = ["$location", "$q", "apiService", "helperService", "$rootScope","toastr"];
+    LocationConfig.$inject = ["$location", "$q", "apiService", "helperService", "$rootScope","toastr","appConfig"];
 
-    function LocationConfig($location, $q, apiService, helperService, $rootScope,toastr) {
+    function LocationConfig($location, $q, apiService, helperService, $rootScope,toastr,appConfig) {
         var exports = {
             "Entities": {
                 "Header": {
                     "RowIndex": -1,
                     "API": {
-                        "FindConfig": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "DataEntry/Dynamic/FindConfig",
-                            "FilterID": "DYNDAT"
-                        },
-                        "DataEntry": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "DataEntryMaster/FindAll",
-                            "FilterID": "DYNDAT"
-                        },
                         "GetByID": {
                             "IsAPI": "true",
                             "HttpType": "GET",
@@ -47,12 +35,6 @@
                             "HttpType": "POST",
                             "Url": "WmsLocationWithAllocation/FindAll",
                             "FilterID": "WMSLOWAL"
-                        },
-                        "Validationapi":{
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "Validation/FindAll",
-                            "FilterID":"VALIDAT"
                         },
                         "SessionClose": {
                             "IsAPI": "true",
@@ -111,22 +93,19 @@
                                 "Url": "WmsLocation/UpdateV2",
                             },
                             "RowFindAll": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "WmsRow/FindAll",
-                            "FilterID": "WMSROW"
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "WmsRow/FindAll",
+                                "FilterID": "WMSROW"
+                            },
+                            "LocationBarcode": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "WmsLocation/LocationBarcode",
                             },
                         },
                         "Meta": {
-                            "MenuList": [{
-                                "DisplayName": "General",
-                                "Value": "General",
-                                "Icon": "fa-plane"
-                            }, {
-                                "DisplayName": "Location",
-                                "Value": "Location",
-                                "Icon": "fa-th-list"
-                            }],
+                            
                             "Language": helperService.metaBase(),
                             "ErrorWarning": {
                                 "GlobalErrorWarningList": [],
@@ -139,6 +118,168 @@
                                 "PickPathSequence": helperService.metaBase(),
                                 "MaxWeightUnit":helperService.metaBase(),
                                 "MaxCubicUnit":helperService.metaBase(),
+                            }
+                        },
+                        "GlobalVariables":{
+                            "Loading":false
+                        },
+                        "TableProperties":{
+                            "WmsLocation":{
+                                "HeaderProperties":[{
+                                    "columnname":"Checkbox",
+                                    "isenabled":true,
+                                    "property":"checkbox",
+                                    "position":'1',
+                                    "width":"30",
+                                    "display":false
+                                },{
+                                    "columnname":"Column",
+                                    "isenabled":true,
+                                    "property":"column",
+                                    "position":'2',
+                                    "width":"60",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Level",
+                                    "isenabled":true,
+                                    "property":"level",
+                                    "position":'3',
+                                    "width":"60",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Tray",
+                                    "isenabled":true,
+                                    "property":"tray",
+                                    "position":"4",
+                                    "width":"60",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Area",
+                                    "isenabled":true,
+                                    "property":"area",
+                                    "position":"5",
+                                    "width":"130",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Status",
+                                    "isenabled":true,
+                                    "property":"status",
+                                    "position":"6",
+                                    "width":"130",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Type",
+                                    "isenabled":true,
+                                    "property":"type",
+                                    "position":"7",
+                                    "width":"130",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Pick Method",
+                                    "isenabled":true,
+                                    "property":"pickmethod",
+                                    "position":"8",
+                                    "width":"130",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Max. Weight",
+                                    "isenabled":true,
+                                    "property":"maxweight",
+                                    "position":"9",
+                                    "width":"130",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Max. Cubic",
+                                    "isenabled":true,
+                                    "property":"maxcubic",
+                                    "position":"10",
+                                    "width":"130",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Max. Qty",
+                                    "isenabled":true,
+                                    "property":"maxqty",
+                                    "position":"11",
+                                    "width":"130",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Pick Path Seq",
+                                    "isenabled":true,
+                                    "property":"pickpathseq",
+                                    "position":"12",
+                                    "width":"130",
+                                    "display":true
+                                }],
+                                "checkbox":{
+                                    "isenabled":true,
+                                    "width":"30",
+                                    "position":'1',
+                                },
+                                "column":{
+                                    "isenabled":true,
+                                    "width":"60",
+                                    "position":'2',
+                                },
+                                "level":{
+                                    "isenabled":true,
+                                    "width":"60",
+                                    "position":'3',
+                                },
+                                "tray":{
+                                    "isenabled":true,
+                                    "width":"60",
+                                    "position":'4',
+                                },
+                                "area":{
+                                    "isenabled":true,
+                                    "width":"130",
+                                    "position":'5',
+                                },
+                                "status":{
+                                    "isenabled":true,
+                                    "width":"130",
+                                    "position":'6',
+                                },
+                                "type":{
+                                    "isenabled":true,
+                                    "width":"130",
+                                    "position":'7',
+                                },
+                                "pickmethod":{
+                                    "isenabled":true,
+                                    "width":"130",
+                                    "position":'8',
+                                },
+                                "maxweight":{
+                                    "isenabled":true,
+                                    "width":"130",
+                                    "position":'9',
+                                },
+                                "maxcubic":{
+                                    "isenabled":true,
+                                    "width":"130",
+                                    "position":'10',
+                                },
+                                "maxqty":{
+                                    "isenabled":true,
+                                    "width":"130",
+                                    "position":'11',
+                                },
+                                "pickpathseq":{
+                                    "isenabled":true,
+                                    "width":"130",
+                                    "position":'12',
+                                },
                             }
                         }
                     },
@@ -338,9 +479,9 @@
             };     
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": exports.Entities.Header.API.Validationapi.FilterID
+                "FilterID": appConfig.Entities.Validation.API.FindAll.FilterID
             };
-            apiService.post("eAxisAPI", exports.Entities.Header.API.Validationapi.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", appConfig.Entities.Validation.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     exports.ValidationValues=(response.data.Response);
                 }

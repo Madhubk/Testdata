@@ -1,0 +1,35 @@
+.ik-st-no,
+.ik-st-main-icon {
+    width: 100%;
+    float: left;
+    text-align: center;
+    margin-top: 18px;
+    line-height: 0;
+}
+
+.ik-st-no {
+    font-weight: bold;
+    font-size: 18px;
+    color: #4385f5;
+}
+
+.ik-st-main-icon {
+    font-size: 50px;
+}
+
+.task-list-des-sub-title-l,
+.task-list-des-sub-title-r {
+    color: #666;
+    font-size: 11px;
+    position: absolute;
+    top: -20px;
+}
+
+.task-list-des-sub-title-l {
+    left: 50px;
+}
+
+.task-list-des-sub-title-r {
+    right: 50px;
+}
+

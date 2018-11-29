@@ -1,0 +1,68 @@
+<div class="modal-header">
+    <span class="modal-title modalheader">{{LoadPlanningEditCtrl.ePage.Entities.Detail.Depot}}</span>
+    <span class="modal-title  pull-right" style="font-size: 18px;" ng-click="LoadPlanningEditCtrl.ePage.Masters.Cancel()"><a href="javascript:void(0);"><i class="fa fa-times"></i></a></span>
+</div>
+<div class="modal-body pb-50">
+    <!--dnd drag-->
+    <div class="clearfix mt-20">
+	    <div class="col-lg-6">
+	        <div class="widget-header bordered-bottom bordered-blue">
+	            <span class="widget-caption txt-center">Available MHU Items</span>
+	        </div>    
+	        <div class="widget-body"  dnd-list="LoadPlanningEditCtrl.ePage.Masters.AvailItem">
+	        	<div class="clearfix">
+		            <div class="plan-subpanel" ng-repeat="item in LoadPlanningEditCtrl.ePage.Masters.AvailItem"
+		                dnd-draggable="item"
+		                dnd-moved="LoadPlanningEditCtrl.ePage.Masters.AvailItem.splice($index, 1)"
+		                dnd-effect-allowed="move"
+		                >
+		                <div class="col-lg-6">
+			                <div class="plan">
+			                    <div class="header txt-center bordered-azure">{{item.TIT_ItemCode}}</div>
+			                    <ul>
+			                        <li class="row"><span class="col-lg-6">MHU Type</span> <span class="col-lg-6">: {{item.TIT_ItemRef_ID}}</span></li>
+			                        <li class="row"><span class="col-lg-6">Event</span> <span class="col-lg-6">: {{item.EventCode}}</span></li>
+			                        <li class="row"><span class="col-lg-6">Consol</span> <span class="col-lg-6">: {{item.ConsolCode}}</span></li>
+			                        <li class="row"><span class="col-lg-6">Depot</span> <span class="col-lg-6">: {{item.DispatchHub}}</span></li>
+			                    </ul>
+			                </div>
+		                </div>    
+		            </div>
+	        	</div>
+	        </div>
+	    </div>
+
+		<div class="col-lg-6">
+		    <div class="widget-header bordered-bottom bordered-blue">
+		        <span class="widget-caption txt-center">Planned MHU Items</span>
+		    </div>    
+	    	<div class="widget-body" dnd-list="LoadPlanningEditCtrl.ePage.Masters.PlannedItem">
+		    	<div class="clearfix">
+			        <div class="plan-subpanel" ng-repeat="item in LoadPlanningEditCtrl.ePage.Masters.PlannedItem"
+			            dnd-draggable="item"
+			            dnd-moved="LoadPlanningEditCtrl.ePage.Masters.PlannedItem.splice($index, 1)"
+			            dnd-effect-allowed="move"
+			            dnd-selected="LoadPlanningEditCtrl.ePage.Masters.SelectedItem = item"
+			            ng-class="{'selected': LoadPlanningEditCtrl.ePage.Masters.SelectedItem === item}">
+
+			            <div class="col-lg-6">
+				            <div class="plan">
+				                <div class="header txt-center bordered-azure">{{item.TIT_ItemCode}}</div>
+			                    <ul>
+			                        <li class="row"><span class="col-lg-6">MHU Type</span> <span class="col-lg-6">: {{item.TIT_ItemRef_ID}}</span></li>
+			                        <li class="row"><span class="col-lg-6">Event</span> <span class="col-lg-6">: {{item.TIT_AddRef2Code}}</span></li>
+			                        <li class="row"><span class="col-lg-6">Consol</span> <span class="col-lg-6">:{{item.TIT_AddRef1Code}}</span></li>
+			                        <li class="row"><span class="col-lg-6">Depot</span> <span class="col-lg-6">:{{item.TIT_ReceiverCode}}</span></li>
+			                    </ul>
+				            </div>  
+			            </div>  
+			        </div>
+		    	</div>
+			</div>
+		</div>    
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-warning btn-sm mb-15" ng-click="LoadPlanningEditCtrl.ePage.Masters.Cancel()">Cancel</button>
+    <button class="btn btn-primary btn-sm mb-15" ng-click="LoadPlanningEditCtrl.ePage.Masters.Save()">Save</button>
+</div>

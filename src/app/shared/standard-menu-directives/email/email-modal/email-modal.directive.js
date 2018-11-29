@@ -5,13 +5,28 @@
         .module("Application")
         .directive("emailModal", EmailModal);
 
-    EmailModal.$inject = ["$uibModal"];
+    EmailModal.$inject = ["$uibModal", "$templateCache"];
 
-    function EmailModal($uibModal) {
+    function EmailModal($uibModal, $templateCache) {
+        var _template = `<div class="modal-header">
+            <button type="button" class="close" data-ng-click="EmailModalCtrl.ePage.Masters.Close()">&times;</button>
+            <h5 class="modal-title" id="modal-title">
+                <strong>Email</strong>
+            </h5>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <email input="input" mode="mode" type="type" close-modal="EmailModalCtrl.ePage.Masters.Close()" on-complete="EmailModalCtrl.ePage.Masters.OnComplete($item)"></email>
+        </div>`;
+        $templateCache.put("EmailModal.html", _template);
+
         var exports = {
             restrict: "EA",
             scope: {
-                input: "="
+                input: "=",
+                mode: "=",
+                type: "=",
+                onComplete: "&",
+                onCloseModal: "&"
             },
             link: Link
         };
@@ -23,11 +38,11 @@
             function OpenModal() {
                 var modalInstance = $uibModal.open({
                     animation: true,
-                    // backdrop: "static",
+                    backdrop: "static",
                     keyboard: true,
                     windowClass: "right email",
                     scope: scope,
-                    templateUrl: "app/shared/standard-menu-directives/email/email-modal/email-modal.html",
+                    templateUrl: "EmailModal.html",
                     controller: 'EmailModalController as EmailModalCtrl',
                     bindToController: true,
                     resolve: {
@@ -40,8 +55,14 @@
                     }
                 }).result.then(function (response) {
                     console.log(response);
+                    scope.onCloseModal({
+                        $item: "email"
+                    });
                 }, function () {
                     console.log("Cancelled");
+                    scope.onCloseModal({
+                        $item: "email"
+                    });
                 });
             }
         }

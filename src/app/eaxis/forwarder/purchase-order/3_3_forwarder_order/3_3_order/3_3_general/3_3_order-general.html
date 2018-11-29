@@ -1,0 +1,50 @@
+<div class="clearfix">
+    <div class="widget-main ">
+        <uib-tabset id="OrderBasic">
+            <!--Order Details-->
+            <uib-tab>
+                <uib-tab-heading title="General">
+                    <i class="fa fa-file-o margin-right-5"></i>
+                    <span class="text-single-line" data-ng-bind="'General'"></span>
+                    <error-warning-directive data-ng-if="OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Order',OrdGeneralCtrl.currentOrder.code,'General', 'W', 'Parent').length > 0 && GeneralCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Order', OrdGeneralCtrl.currentOrder.code,'General', 'E', 'Parent').length == 0"
+                        list="OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList" type="'warning'"
+                        icon="fa fa-warning" parent-type="'Parent'" parent-ref="'General'" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Order', OrdGeneralCtrl.currentOrder.code,'General', 'E', 'Parent').length > 0"
+                        list="OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList" type="'error'"
+                        icon="fa fa-warning" parent-type="'Parent'" parent-ref="'General'" g-parent-ref=""></error-warning-directive>
+                </uib-tab-heading>
+                <div data-ng-include="'app/eaxis/forwarder/purchase-order/3_3_forwarder_order/3_3_order/3_3_general/3_3_tabs/3_3_basic.html'"></div>
+            </uib-tab>
+            <!--Planning-->
+            <uib-tab>
+                <uib-tab-heading title="Planning">
+                    <i class="fa fa-calendar  margin-right-5"></i>
+                    <span class="text-single-line" data-ng-bind="'Planning'"></span>
+                    <error-warning-directive data-ng-if="OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Order',OrdGeneralCtrl.currentOrder.code,'Planning', 'W', 'Parent').length > 0 && GeneralCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Order', OrdGeneralCtrl.currentOrder.code,'Planning', 'E', 'Parent').length == 0"
+                        list="OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList" type="'warning'"
+                        icon="fa fa-warning" parent-type="'Parent'" parent-ref="'Planning'" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Order', OrdGeneralCtrl.currentOrder.code,'Planning', 'E', 'Parent').length > 0"
+                        list="OrdGeneralCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList" type="'error'"
+                        icon="fa fa-warning" parent-type="'Parent'" parent-ref="'Planning'" g-parent-ref=""></error-warning-directive>
+                </uib-tab-heading>
+                <div data-ng-include="'app/eaxis/forwarder/purchase-order/3_3_forwarder_order/3_3_order/3_3_general/3_3_tabs/3_3_planning.html'"></div>
+            </uib-tab>
+            <!--Packing-->
+            <uib-tab>
+                <uib-tab-heading title="Packing">
+                    <i class="fa fa-suitcase margin-right-5"></i>
+                    <span class="text-single-line" data-ng-bind="'Packing'"></span>
+                </uib-tab-heading>
+                <div data-ng-include="'app/eaxis/forwarder/purchase-order/3_3_forwarder_order/3_3_order/3_3_general/3_3_tabs/3_3_container-package.html'"></div>
+            </uib-tab>
+            <!--Additional Info-->
+            <uib-tab>
+                <uib-tab-heading title="Additional Info">
+                    <i class="fa fa-external-link margin-right-5"></i>
+                    <span class="text-single-line" data-ng-bind="'Additional Info'"></span>
+                </uib-tab-heading>
+                <div data-ng-include="'app/eaxis/forwarder/purchase-order/3_3_forwarder_order/3_3_order/3_3_general/3_3_tabs/3_3_custom.html'"></div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>

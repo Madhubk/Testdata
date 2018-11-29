@@ -1,3 +1,4 @@
+<div class="grid-loading-norecord-container ng-scope" style='z-index: 15;'data-ng-if="ProductMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading"></div>
 <div class="clearfix wms-menu-wraper">
     <div id="wmsMenuWrapper{{ProductMenuCtrl.currentProduct.label}}" class="col-sm-12 no-padding-left no-padding-right">
         <product-general current-product="ProductMenuCtrl.currentProduct"></product-general>
@@ -33,14 +34,14 @@
     </div>
     <!--Footer-->
     <div class="eaxis-footer-strip">
-        <div class="col-lg-9">
-            <standard-menu entity-name="'OrgSupplierPart'" input="ProductMenuCtrl.currentProduct"></standard-menu>
+        <div class="col-xs-6 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+            <standard-menu dataentry-object="ProductMenuCtrl.dataentryObject" input="ProductMenuCtrl.currentProduct"></standard-menu>
         </div>
-        <div class="col-lg-3">
+        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 col-xl-3">
             <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="ProductMenuCtrl.ePage.Masters.Validation(ProductMenuCtrl.currentProduct)"
-                data-ng-bind="ProductMenuCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="ProductMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave"></button>
+                data-ng-bind="ProductMenuCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="ProductMenuCtrl.ePage.Masters.DisableSave"></button>
             <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="ProductMenuCtrl.ePage.Masters.Validation(ProductMenuCtrl.currentProduct);ProductMenuCtrl.ePage.Masters.SaveAndClose = true"
-                data-ng-disabled="ProductMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave">Save & Close</button>
+                data-ng-disabled="ProductMenuCtrl.ePage.Masters.DisableSave">Save & Close</button>
         </div>
     </div>
 </div>

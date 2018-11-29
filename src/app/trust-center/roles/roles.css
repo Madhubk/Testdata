@@ -1,0 +1,8 @@
+.json-disabled{
+    width: 100%;
+    /* height: 200px; */
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    padding: 7px;
+    white-space: pre-wrap;
+}

@@ -1,0 +1,6 @@
+<div class="clearfix elink-container">
+    <div class="elink-loading p-100 text-center">
+        <div class="loader" data-ng-if="!ELinkCtrl.ePage.Masters.ErrorMessage && ELinkCtrl.ePage.Masters.IsLoading">Loading...</div>
+        <i class="danger font-200" data-ng-if="ELinkCtrl.ePage.Masters.ErrorMessage && !ELinkCtrl.ePage.Masters.IsLoading">{{ELinkCtrl.ePage.Masters.ErrorMessage}}</i>
+    </div>
+</div>

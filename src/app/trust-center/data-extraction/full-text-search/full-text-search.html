@@ -1,0 +1,387 @@
+<div class="clearfix tc-data-extraction-FullTextSearch-container">
+    <!-- Breadcrumb -->
+    <div class="clearfix tc-breadcrumb" data-ng-if="DataExtFullTextSearchCtrl.ePage.Masters.ActiveApplication == 'TC'">
+        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-xs-12 p-0">
+            <i class="fa fa-home home-icon"></i>
+            <div class="breadcrumb-list-wrapper">
+                <ol class="breadcrumb">
+                    <li data-ng-repeat="x in DataExtFullTextSearchCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                        <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="DataExtFullTextSearchCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                    </li>
+                    <li data-ng-repeat="x in DataExtFullTextSearchCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive"
+                        data-ng-bind="x.Description" class="active"></li>
+                </ol>
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12 p-4">
+            <tc-application-dropdown query-string="DataExtFullTextSearchCtrl.ePage.Masters.QueryString"
+                on-application-change="DataExtFullTextSearchCtrl.ePage.Masters.Application.OnApplicationChange($item)"></tc-application-dropdown>
+        </div>
+    </div>
+    <!-- Header -->
+    <div class="clearfix tc-header-container">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="tc-header with-add-new">
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-5">
+                    <div class="text-single-line" data-ng-bind="'Full text Search'"></div>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-5 pt-4 text-right">
+                    <button class="btn btn-xs btn-info" data-ng-click="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.AddNew()">New</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">
+            <div class="tc-header edit-view">
+                <span data-ng-bind="'Details'"></span>
+                <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10" data-ng-click="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.Edit()"
+                    data-ng-disabled="!DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.PK">Edit</button>
+                <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.Delete()"
+                    data-ng-bind="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DeleteBtnText"
+                    data-ng-disabled="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.IsDisableDeleteBtn || !DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.PK"></button>
+            </div>
+        </div>
+    </div>
+    <!-- Body -->
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 tc-page-height-fixed">
+            <div class="tc-list-container">
+                <div class="tc-list-search">
+                    <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="DataExtFullTextSearchCtrl.ePage.Masters.Search">
+                </div>
+                <ul class="tc-list-ul">
+                    <div class="p-15 text-center tc-loading" data-ng-if="!DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchList">
+                        <i class="fa fa-spin fa-spinner"></i>
+                    </div>
+                    <div data-ng-if="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchList && (DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchList | filter: DataExtFullTextSearchCtrl.ePage.Masters.Search).length===0"
+                        class="p-15 text-center">
+                        <i>No Records...</i>
+                    </div>
+                    <li data-ng-if="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchList && (DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchList | filter: DataExtFullTextSearchCtrl.ePage.Masters.Search).length > 0"
+                        data-ng-repeat="x in DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchList | filter: DataExtFullTextSearchCtrl.ePage.Masters.Search"
+                        data-ng-click="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.PK != x.PK && DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.OnDataExtFullTextSearchClick(x)"
+                        data-ng-class="{'active': DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.PK == x.PK}">
+                        <div class="clearfix tc-list">
+                            <div class="tc-list-name">
+                                <i class="fa fa-circle-o mr-10"></i>
+                                <span class="text-single-line" data-ng-bind="x.UIEntityName"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed">
+            <div class="pt-10 pb-10 tc-details-view clearfix">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Entity Name</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.UIEntityName || DataExtFullTextSearchCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Class Source</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.ClassSource || DataExtFullTextSearchCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">DB Source</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.DBSource || DataExtFullTextSearchCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Entity Source</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.EntitySource || DataExtFullTextSearchCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Entity RefKey</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.EntityRefKey || DataExtFullTextSearchCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Entity RefCode</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.EntityRefCode || DataExtFullTextSearchCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tc-section-divider"></div>
+            <div class="clearfix mb-30 tc-data-config-field-container tc-list-container" data-ng-if="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.PK">
+                <div class="tc-list-header ng-binding">DATA CONFIG FIELDS</div>
+                <div class="clearfix header">
+                    <div class="col-lg-3 pr-0">
+                        <div class="text-single-line" data-ng-bind="'Type'"></div>
+                    </div>
+                    <div class="col-lg-3 pr-0">
+                        <div class="text-single-line" data-ng-bind="'Field Name'"></div>
+                    </div>
+                    <div class="col-lg-3 pr-0">
+                        <div class="text-single-line" data-ng-bind="'Display Name'"></div>
+                    </div>
+                    <div class="col-lg-3 pr-0 text-right">
+                        <!-- <span class="fa fa-plus-circle cursor-pointer" data-ng-click="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.AddNewField(undefined, 'Main')"></span> -->
+                        <a href="javascript:void(0)" data-ng-click="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.AddNewField(undefined, 'Main')">Add</a>
+                    </div>
+                </div>
+                <div class="clearfix p-5">
+                    <div class="clearfix text-center p-20" data-ng-if="!DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.DataExtFullTextSearchFieldsListSource">
+                        <i class="fa fa-spin fa-spinner font-160"></i>
+                    </div>
+                    <div class="clearfix text-center p-20" data-ng-if="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.DataExtFullTextSearchFieldsListSource && DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.DataExtFullTextSearchFieldsListSource.length == 0">
+                        <i>No Records...!</i>
+                    </div>
+                    <div class="clearfix pt-5 pb-5" data-ng-class="{'highlight-bg' : x.ItemType == 'Main'}" data-ng-if="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.DataExtFullTextSearchFieldsListSource && DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.DataExtFullTextSearchFieldsListSource.length > 0"
+                        data-ng-repeat="x in DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.DataExtFullTextSearchFieldsListSource | orderBy:['SortField','SortNo']">
+                        <!-- <div class="col-lg-3 pr-0" data-ng-if="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.ActiveDataExtFullTextSearchFields.IsExternalCode">
+                            <div class="text-single-line" data-ng-bind="x.External_Code" title="{{x.External_Code}}"></div>
+                        </div> -->
+                        <div class="col-lg-3 pr-0">
+                            <div class="text-single-line" data-ng-bind="x.ItemType" title="{{x.ItemType}}"></div>
+                        </div>
+                        <div class="col-lg-3 pr-0">
+                            <div class="text-single-line" data-ng-bind="x.DbField" title="{{x.DbField}}"></div>
+                        </div>
+                        <div class="col-lg-3 pr-0">
+                            <div class="text-single-line" data-ng-bind="x.UIField" title="{{x.UIField}}"></div>
+                        </div>
+                        <div class="col-lg-3 pr-0 text-right">
+                            <a href="javascript:void(0)" data-ng-click="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.AddNewField(x, 'Link')"
+                                data-ng-if="x.ItemType == 'Main'" title="Add">Add</a>
+                            <span class="ml-5 mr-5" data-ng-if="x.ItemType == 'Main'">|</span>
+                            <a href="javascript:void(0)" data-ng-click="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.Edit(x)"
+                                title="Edit">Edit</a>
+                            <span class="ml-5 mr-5">|</span>
+                            <a href="javascript:void(0)" data-ng-click="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.Delete(x)"
+                                title="Delete">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Full Text Search Edit -->
+<script type="text/ng-template" id="dataExtFullTextSearchEdit">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.CloseDataExtFullTextSearchModal()">&times;</button>
+        <h5 class="modal-title" id="modal-title">
+            <strong>Edit</strong>
+        </h5>
+    </div>
+    <div class="modal-body pt-10" id="modal-body">
+        <div class="clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group tc-autocomplete-container">
+                    <label class="control-label">Entity Name</label>
+                    <input type="text" class="form-control input-sm" placeholder="Entity Name" data-ng-model="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.UIEntityName"
+                        uib-typeahead="x.Name as x.Name for x in DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.GetTargetTableList($viewValue)"
+                        typeahead-on-select="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.OnTargetTableSelect($item, $model, $label, $event)"
+                        typeahead-loading="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.IsLoading" typeahead-editable="false"
+                        typeahead-append-to-body='false' typeahead-min-length="" />
+                    <div class="clearfix dropdown-menu auto-complete" data-ng-if="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.IsAutocompleteNoResults">
+                        <div class="auto-complete-no-result">No Results Found!</div>
+                    </div>
+                    <div class="clearfix dropdown-menu auto-complete" data-ng-if="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.IsAutocompleteLoading">
+                        <div class="auto-complete-no-result">
+                            <i class="fa fa-spin fa-spinner"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Class Source</label>
+                    <div class="clearfix">
+                        <input type="text" class="form-control input-sm" placeholder="Class Source" data-ng-model="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.ClassSource">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">DB Source</label>
+                    <div class="clearfix">
+                        <input type="text" class="form-control input-sm" placeholder="DB Source" data-ng-model="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.DBSource">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Entity Source</label>
+                    <div class="clearfix">
+                        <input type="text" class="form-control input-sm" placeholder="Entity Source" data-ng-model="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.EntitySource">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Entity RefKey</label>
+                    <select chosen class="form-control" ng-model="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.EntityRefKey"
+                        data-ng-options="x.ColumnName as x.ColumnName for x in DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.TargetFieldList"
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Entity RefCode</label>
+                    <select chosen class="form-control" ng-model="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.EntityRefCode"
+                    data-ng-options="x.ColumnName as x.ColumnName for x in DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.TargetFieldList"
+                    search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Parent Entity RefKey</label>
+                    <select chosen class="form-control" ng-model="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.ParentEntityRefKey"
+                        data-ng-options="x.ColumnName as x.ColumnName for x in DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.TargetFieldList"
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Parent Entity Source</label>
+                    <div class="clearfix">
+                        <input type="text" class="form-control input-sm" placeholder="Parent Entity Source" data-ng-model="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.ParentEntitySource">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Parent Entity RefCode</label>
+                    <select chosen class="form-control" ng-model="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.ParentEntityRefCode"
+                    data-ng-options="x.ColumnName as x.ColumnName for x in DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.TargetFieldList"
+                    search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Additional Entity RefKey</label>
+                    <select chosen class="form-control" ng-model="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.AdditionalEntityRefKey"
+                        data-ng-options="x.ColumnName as x.ColumnName for x in DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.TargetFieldList"
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Additional Entity Source</label>
+                    <div class="clearfix">
+                        <input type="text" class="form-control input-sm" placeholder="Additional Entity Source" data-ng-model="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.AdditionalEntitySource">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Additional Entity RefCode</label>
+                    <select chosen class="form-control" ng-model="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.AdditionalEntityRefCode"
+                    data-ng-options="x.ColumnName as x.ColumnName for x in DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.TargetFieldList"
+                    search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+                </div>
+            </div>
+            <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="form-group">
+                    <label class="control-label">
+                        Fields
+                        <span data-ng-click="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.OpenJsonModal()" class="glyphicon glyphicon-pencil cursor-pointer ml-5"></span>
+                    </label>
+                    <div class="clearfix">
+                        <textarea rows="15" class="form-control input-sm no-resize" placeholder="Fields" data-ng-model="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.Fields"></textarea>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+        <div class="tc-section-divider-small"></div>
+        <div class="clearfix p-10">
+            <button class="btn btn-default tc-btn-save btn-xs pull-right ml-10" data-ng-click="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.Save()"
+                data-ng-bind="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.SaveBtnText" data-ng-disabled="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.IsDisableSaveBtn"></button>
+            <button class="btn btn-default tc-btn-cancel btn-xs pull-right ml-10" data-ng-click="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.CloseDataExtFullTextSearchModal()">Cancel</button>
+        </div>
+        <div class="tc-section-divider-small mb-20"></div>
+    </div>
+</script>
+
+<!-- Full Text Search Fields-->
+<script type="text/ng-template" id="dataExtFullTextSearchFields">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.CloseFullTextSearchConfigFields()">&times;</button>
+        <h5 class="modal-title" id="modal-title">
+            <strong>Edit</strong>
+        </h5>
+    </div>
+    <div class="modal-body pt-10" id="modal-body">
+        <form class="clearfix form-horizontal pl-15 pr-15" novalidate>
+            <!-- <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">Source</label>
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                    <select chosen class="form-control" ng-model="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.ActiveDataExtFullTextSearchFields.DAC_FK" data-ng-options="x.PK as (x.ClassSource + ' - ' + x.UIEntityName) for x in DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.DataExtFullTextSearchFieldsListSource"
+                        search-contains="true" data-ng-change=" DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.OnConfigChange((DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.DataExtFullTextSearchFieldsListSource | filter: {'PK': TCFullTextSearchConfigureCtrl.ePage.Masters.Rule.ActiveConfigField.DAC_FK})[0])">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div> -->
+            <div class="form-group" data-ng-if="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.ActiveDataExtFullTextSearchFields.ItemType!= 'Main' && DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.ActiveDataExtFullTextSearchFields.ItemType">
+                <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">Item Type</label>
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                    <select chosen class="form-control" ng-model="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.ActiveDataExtFullTextSearchFields.ItemType"
+                        data-ng-options="x as x for x in DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.ItemTypeList"
+                        search-contains="true" data-ng-disabled="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.ActiveDataExtFullTextSearchFields.ItemType">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">Field Name</label>
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                    <select chosen class="form-control" ng-model="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.ActiveDataExtFullTextSearchFields.DbField"
+                        data-ng-options="x.ColumnName as x.ColumnName for x in  DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.FieldNameList"
+                        search-contains="true" data-ng-change="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.ActiveDataExtFullTextSearchFields.UIField = DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.ActiveDataExtFullTextSearchFields.DbField">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">Display Name</label>
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                    <input type="text" class="form-control input-sm" placeholder="Display Name" data-ng-model="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.ActiveDataExtFullTextSearchFields.UIField"
+                    />
+                </div>
+            </div>
+            
+            <div class="tc-section-divider-small"></div>
+            <div class="clearfix p-10">
+                <input type="submit" class="btn btn-default tc-btn-save btn-xs pull-right ml-10" data-ng-click="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.Save()"
+                    value="{{DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.SaveBtnText}}" data-ng-disabled="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.IsDisableSaveBtn"
+                />
+                <button class="btn btn-default tc-btn-cancel btn-xs pull-right ml-10" data-ng-click="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.CloseFullTextSearchConfigFields()">Cancel</button>
+            </div>
+            <div class="tc-section-divider-small mb-20"></div>
+        </form>
+    </div>
+</script>

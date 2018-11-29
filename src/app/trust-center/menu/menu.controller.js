@@ -5,9 +5,9 @@
         .module("Application")
         .controller("MenuController", MenuController);
 
-    MenuController.$inject = ["$scope", "$location", "$timeout", "$http", "$uibModal", "authService", "apiService", "helperService", "appConfig", "APP_CONSTANT", "toastr", "confirmation", "jsonEditModal"]
+    MenuController.$inject = ["$scope", "$location", "$uibModal", "authService", "apiService", "helperService", "toastr", "confirmation", "jsonEditModal", "trustCenterConfig"]
 
-    function MenuController($scope, $location, $timeout, $http, $uibModal, authService, apiService, helperService, appConfig, APP_CONSTANT, toastr, confirmation, jsonEditModal) {
+    function MenuController($scope, $location, $uibModal, authService, apiService, helperService, toastr, confirmation, jsonEditModal, trustCenterConfig) {
         var MenuCtrl = this;
         var _queryString = $location.path().split("/").pop();
 
@@ -28,7 +28,7 @@
 
                 if (MenuCtrl.ePage.Masters.QueryString.AppPk) {
                     InitBreadcrumb();
-                    InitMenuType();
+                    InitApplication();
                     InitMenu();
                 }
             } catch (error) {
@@ -47,8 +47,8 @@
 
         function GetBreadcrumbList() {
             var _breadcrumbTitle = "";
-            if (MenuCtrl.ePage.Masters.QueryString.BreadcrumbTitle) {
-                _breadcrumbTitle = " (" + MenuCtrl.ePage.Masters.QueryString.BreadcrumbTitle + ")";
+            if (MenuCtrl.ePage.Masters.QueryString.AdditionalData.BreadcrumbTitle) {
+                _breadcrumbTitle = " (" + MenuCtrl.ePage.Masters.QueryString.AdditionalData.BreadcrumbTitle + ")";
             }
 
             MenuCtrl.ePage.Masters.Breadcrumb.ListSource = [{
@@ -58,10 +58,15 @@
                 IsRequireQueryString: false,
                 IsActive: false
             }, {
-                Code: "system",
-                Description: "System",
-                Link: "TC/dashboard/" + helperService.encryptData('{"Type":"System", "BreadcrumbTitle": "System"}'),
-                IsRequireQueryString: false,
+                Code: "dashboard",
+                Description: "Dashboard",
+                Link: "TC/dashboard",
+                IsRequireQueryString: true,
+                QueryStringObj: {
+                    "AppPk": MenuCtrl.ePage.Masters.QueryString.AppPk,
+                    "AppCode": MenuCtrl.ePage.Masters.QueryString.AppCode,
+                    "AppName": MenuCtrl.ePage.Masters.QueryString.AppName
+                },
                 IsActive: false
             }, {
                 Code: "menugroup",
@@ -81,50 +86,26 @@
         }
 
         // ========================Breadcrumb End========================
-
-        function InitMenuType() {
-            MenuCtrl.ePage.Masters.MenuType = {};
-            MenuCtrl.ePage.Masters.MenuType.ActiveMenuType = {};
-            MenuCtrl.ePage.Masters.MenuType.OnMenuTypeChange = OnMenuTypeChange;
-
-            GetMenuTypeList();
+        function InitApplication() {
+            MenuCtrl.ePage.Masters.Application = {};
+            MenuCtrl.ePage.Masters.Application.OnApplicationChange = OnApplicationChange;
         }
 
-        function GetMenuTypeList() {
-            MenuCtrl.ePage.Masters.MenuType.Listsource = undefined;
-            var _filter = {
-                TypeCode: "TRUSTCENTER_MENU"
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.CfxTypes.API.FindAll.FilterID
-            };
+        function OnApplicationChange($item) {
+            MenuCtrl.ePage.Masters.Application.ActiveApplication = angular.copy($item);
 
-            apiService.post("eAxisAPI", appConfig.Entities.CfxTypes.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
-                if (response.data.Response) {
-                    MenuCtrl.ePage.Masters.MenuType.Listsource = response.data.Response;
-
-                    if (MenuCtrl.ePage.Masters.MenuType.Listsource.length > 0) {
-                        OnMenuTypeChange(MenuCtrl.ePage.Masters.MenuType.Listsource[0]);
-                    } else {
-                        OnMenuTypeChange();
-                    }
-                } else {
-                    MenuCtrl.ePage.Masters.MenuType.Listsource = [];
-                }
-            });
-        }
-
-        function OnMenuTypeChange($item) {
-            OnMenuClick();
-            MenuCtrl.ePage.Masters.MenuType.ActiveMenuType = $item;
-            MenuCtrl.ePage.Masters.Menu.MenuList = [];
-            if ($item) {
-                GetMenuList();
+            if (!MenuCtrl.ePage.Masters.Application.ActiveApplication) {
+                MenuCtrl.ePage.Masters.Application.ActiveApplication = {
+                    "PK": MenuCtrl.ePage.Masters.QueryString.AppPk,
+                    "AppCode": MenuCtrl.ePage.Masters.QueryString.AppCode,
+                    "AppName": MenuCtrl.ePage.Masters.QueryString.AppName
+                };
             }
-        }
 
-        // ========================
+            GetRedirectLinkList();
+            GetModuleList();
+            GetMenuList();
+        }
 
         function InitMenu() {
             MenuCtrl.ePage.Masters.Menu = {};
@@ -147,23 +128,39 @@
 
             MenuCtrl.ePage.Masters.Menu.DeleteBtnText = "Delete";
             MenuCtrl.ePage.Masters.Menu.IsDisableDeleteBtn = false;
+        }
 
-            GetRedirectLinkList();
-            // GetMenuList();
+        function GetModuleList() {
+            MenuCtrl.ePage.Masters.Menu.ModuleList = undefined;
+            var _filter = {
+                "TypeCode": "MODULE_MASTER"
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": trustCenterConfig.Entities.API.CfxTypes.API.FindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxTypes.API.FindAll.Url + MenuCtrl.ePage.Masters.Application.ActiveApplication.PK, _input).then(function SuccessCallback(response) {
+                if (response.data.Response) {
+                    MenuCtrl.ePage.Masters.Menu.ModuleList = response.data.Response;
+                } else {
+                    MenuCtrl.ePage.Masters.Menu.ModuleList = [];
+                }
+            });
         }
 
         function GetMenuList() {
             MenuCtrl.ePage.Masters.Menu.MenuList = undefined;
             var _filter = {
-                "SAP_FK": MenuCtrl.ePage.Masters.QueryString.AppPk,
-                "PageType": MenuCtrl.ePage.Masters.MenuType.ActiveMenuType.Key
+                "SAP_FK": MenuCtrl.ePage.Masters.Application.ActiveApplication.PK,
+                "PageType": MenuCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.CfxMenus.API.MasterFindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.CfxMenus.API.MasterFindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.CfxMenus.API.MasterFindAll.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxMenus.API.MasterFindAll.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     MenuCtrl.ePage.Masters.Menu.MenuList = response.data.Response;
 
@@ -179,9 +176,9 @@
         }
 
         function AddNew() {
-            if (MenuCtrl.ePage.Masters.MenuType.ActiveMenuType.Key) {
+            if (MenuCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code) {
                 MenuCtrl.ePage.Masters.Menu.ActiveMenu = {
-                    PageType: MenuCtrl.ePage.Masters.MenuType.ActiveMenuType.Key
+                    PageType: MenuCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code
                 };
 
                 Edit();
@@ -193,13 +190,15 @@
             MenuCtrl.ePage.Masters.Menu.ActiveMenuCopy = angular.copy($item);
             if ($item) {
                 MenuCtrl.ePage.Masters.Menu.ActiveMenu.Icon = JSON.parse(MenuCtrl.ePage.Masters.Menu.ActiveMenu.Icon);
-                MenuCtrl.ePage.Masters.Menu.ActiveMenu.PageType = MenuCtrl.ePage.Masters.MenuType.ActiveMenuType.Key;
+                MenuCtrl.ePage.Masters.Menu.ActiveMenu.PageType = MenuCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code;
             }
         }
 
         function OnParentChange($item) {
             if ($item) {
                 MenuCtrl.ePage.Masters.Menu.ActiveMenu.ParentMenu = $item.MenuName;
+            } else {
+                MenuCtrl.ePage.Masters.Menu.ActiveMenu.ParentMenu = undefined;
             }
         }
 
@@ -218,7 +217,7 @@
             MenuCtrl.ePage.Masters.Menu.SaveBtnText = "OK";
             MenuCtrl.ePage.Masters.Menu.IsDisableSaveBtn = false;
 
-            EditModalInstance().result.then(function (response) {}, function () {
+            EditModalInstance().result.then(function (response) { }, function () {
                 Cancel();
             });
         }
@@ -230,7 +229,7 @@
             var _input = angular.copy(MenuCtrl.ePage.Masters.Menu.ActiveMenu);
 
             _input.LoginUserID = authService.getUserInfo().UserId;
-            _input.SAP_FK = MenuCtrl.ePage.Masters.QueryString.AppPk;
+            _input.SAP_FK = MenuCtrl.ePage.Masters.Application.ActiveApplication.PK;
             _input.IsModified = true;
             _input.IsDeleted = false;
 
@@ -241,7 +240,7 @@
                 _input.OtherConfig = JSON.stringify(_input.OtherConfig);
             }
 
-            apiService.post("eAxisAPI", appConfig.Entities.CfxMenus.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxMenus.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     var _response = response.data.Response[0];
                     MenuCtrl.ePage.Masters.Menu.ActiveMenu = angular.copy(_response);
@@ -282,6 +281,8 @@
                 if (_index !== -1) {
                     MenuCtrl.ePage.Masters.Menu.ActiveMenu = angular.copy(MenuCtrl.ePage.Masters.Menu.MenuList[_index]);
                 }
+            } else if (!MenuCtrl.ePage.Masters.Menu.ActiveMenuCopy) {
+                MenuCtrl.ePage.Masters.Menu.ActiveMenu = undefined;
             }
 
             MenuCtrl.ePage.Masters.Menu.EditModal.dismiss('cancel');
@@ -314,7 +315,7 @@
                 _input.Icon = JSON.stringify(_input.Icon);
             }
 
-            apiService.post("eAxisAPI", appConfig.Entities.CfxMenus.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxMenus.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     var _index = MenuCtrl.ePage.Masters.Menu.MenuList.map(function (value, key) {
                         return value.Id;
@@ -392,24 +393,27 @@
 
         function GetRedirectLinkList() {
             MenuCtrl.ePage.Masters.Menu.RedirectPagetList = [{
-                    Code: "RoleAccess",
-                    Description: "Role Access",
-                    Icon: "fa fa-sign-in",
-                    Link: "TC/mapping-vertical",
-                    Color: "#bd081c",
-                    AdditionalData: "MENU_ROLE_APP_TNT",
-                    BreadcrumbTitle: "Menu Role - MENU_ROLE_APP_TNT",
-                    Type: 1
-                }
-            ];
+                Code: "RoleAccess",
+                Description: "Role Access",
+                Icon: "fa fa-sign-in",
+                Link: "TC/mapping-vertical",
+                Color: "#bd081c",
+                AdditionalData: "MENU_ROLE_APP_TNT",
+                BreadcrumbTitle: "Menu Role - MENU_ROLE_APP_TNT",
+                Type: 1
+            }];
         }
 
         function OnRedirectListClick($item) {
-            var _queryString = {
-                "AppPk": MenuCtrl.ePage.Masters.QueryString.AppPk,
-                "AppCode": MenuCtrl.ePage.Masters.QueryString.AppCode,
-                "AppName": MenuCtrl.ePage.Masters.QueryString.AppName
-            };
+            if (MenuCtrl.ePage.Masters.Application.ActiveApplication) {
+                var _queryString = {
+                    "AppPk": MenuCtrl.ePage.Masters.Application.ActiveApplication.PK,
+                    "AppCode": MenuCtrl.ePage.Masters.Application.ActiveApplication.AppCode,
+                    "AppName": MenuCtrl.ePage.Masters.Application.ActiveApplication.AppName
+                };
+            } else {
+                var _queryString = MenuCtrl.ePage.Masters.QueryString;
+            }
 
             if ($item.Type === 1) {
                 _queryString.DisplayName = MenuCtrl.ePage.Masters.Menu.ActiveMenu.Description;

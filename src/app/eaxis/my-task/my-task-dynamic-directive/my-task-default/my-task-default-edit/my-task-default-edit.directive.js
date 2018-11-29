@@ -18,13 +18,16 @@
             scope: {
                 taskObj: "=",
                 entityObj: "=",
-                tabObj: "="
+                tabObj: "=",
+                onComplete: "&",
+                onRefreshStatusCount: "&",
+                onRefreshTask: "&"
             },
             link: Link
         };
 
         return exports;
 
-        function Link(scope, ele, attr) { }
+        function Link(scope, ele, attr) {}
     }
 })();

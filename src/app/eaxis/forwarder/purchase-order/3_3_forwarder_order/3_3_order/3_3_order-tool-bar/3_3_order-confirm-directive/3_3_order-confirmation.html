@@ -1,0 +1,11 @@
+<div class="clearfix pull-right fs-25 mb-10 pr-10">
+    <email-modal input="three_three_OrderConfirmationCtrl.ePage.Masters.Input" mode="2" type="three_three_OrderConfirmationCtrl.ePage.Masters.MailObj"
+        on-complete="three_three_OrderConfirmationCtrl.ePage.Masters.OnComplete($item)">
+        <button class="btn btn-default set-br-blue set-bg-blue-light fs-12" data-ng-disabled="three_three_OrderConfirmationCtrl.ePage.Masters.SelectedOrder.length == 0">
+            Order Confirmation Request
+        </button>
+    </email-modal>
+</div>
+<div class="clearfix" data-ng-if="three_three_OrderConfirmationCtrl.ePage.Masters.ConfirmList">
+    <three-three-order-confirm-directive mode="2" list="three_three_OrderConfirmationCtrl.ePage.Masters.ConfirmList" grid-change="three_three_OrderConfirmationCtrl.ePage.Masters.DataChanges({ item: item })"></three-three-order-confirm-directive>
+</div>

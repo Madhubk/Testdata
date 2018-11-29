@@ -2,6 +2,14 @@
 <div class="clearfix margin-top-10">
     <div class="row margin-right-10 margin-left-10 margin-top-10 address-panel">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 pr-0 padding-top-10 address-design">
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Shipper_Code.IsWarning && !BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Shipper_Code.IsError"
+                    list="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Shipper_Code.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Shipper_Code.IsError"
+                    list="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Shipper_Code.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </span>
             <!--Pickup Drop Mode-->
             <div class="padding-bottom-5">
                 <div class="">
@@ -16,12 +24,14 @@
 
                         <input type="hidden" ng-model="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ORG_FK">
                         <div dynamic-lookup placeholder="Organization Code" my-ng-model="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ORG_Code"
-                            obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD" prefix-data="'OrganizationList'"
-                            config="'JobAddressOrg'" auto-complete-on-select="BookingDirectiveCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item, 'address', 'CRD')">
+                            obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD" page-name="'OrganizationList'"
+                            control-id="'JobAddressOrgConsignor'" control-key="'JobAddressOrgConsignor_3241'"
+                            auto-complete-on-select="BookingDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,'ORG_Shipper_Code','E0031',false, 'address', 'CRD')">
                         </div>
                         <span class="input-group-btn">
-                            <button dynamic-list-modal obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD" field-name="'JobAddressOrg'"
-                                prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingDirectiveCtrl.ePage.Masters.SelectedLookupData($item, 'address', 'CRD')"
+                            <button dynamic-list-modal obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD"
+                                page-name="'OrganizationList'" control-id="'JobAddressOrgConsignor'" control-key="'JobAddressOrgConsignor_3241'"
+                                mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingDirectiveCtrl.ePage.Masters.SelectedLookupData($item,'ORG_Shipper_Code','E0031',false,'address', 'CRD')"
                                 class="btn btn-default shiny" type="button">
                                 <i class="fa fa-ellipsis-h"></i>
                             </button>
@@ -45,8 +55,9 @@
                             </button>
                         </span>
                         <div class="dropdownWrapLeft dropdownWrapBig animated fadeInDown" data-ng-show="BookingDirectiveCtrl.ePage.Masters.IsCRDAddressOpen">
-                            <address-wrapper obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.AddressList" type="'CRD'" list-source="'AddressList'"
-                                selected="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OAD_Address_FK" on-address-edit="BookingDirectiveCtrl.ePage.Masters.OnAddressEdit($item, 'CRD', 'Address')"
+                            <address-wrapper obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.AddressList"
+                                type="'CRD'" list-source="'AddressList'" selected="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OAD_Address_FK"
+                                on-address-edit="BookingDirectiveCtrl.ePage.Masters.OnAddressEdit($item, 'CRD', 'Address')"
                                 on-address-change="BookingDirectiveCtrl.ePage.Masters.OnAddressChange($item, 'CRD', 'Address')"></address-wrapper>
                         </div>
                     </div>
@@ -67,8 +78,9 @@
                             </button>
                         </span>
                         <div class="dropdownWrapLeft dropdownWrapBig animated fadeInDown" data-ng-show="BookingDirectiveCtrl.ePage.Masters.IsCRDContactOpen">
-                            <address-wrapper obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ContactList" type="'CRD'" list-source="'ContactList'"
-                                selected="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OCT_FK" on-address-change="BookingDirectiveCtrl.ePage.Masters.OnContactChange($item, 'CRD', 'Contact')"></address-wrapper>
+                            <address-wrapper obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ContactList"
+                                type="'CRD'" list-source="'ContactList'" selected="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OCT_FK"
+                                on-address-change="BookingDirectiveCtrl.ePage.Masters.OnContactChange($item, 'CRD', 'Contact')"></address-wrapper>
                         </div>
                     </div>
                 </div>
@@ -77,6 +89,14 @@
 
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 pr-0 padding-top-10 address-consignee">
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Consignee_Code.IsWarning && !BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Consignee_Code.IsError"
+                    list="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Consignee_Code.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Consignee_Code.IsError"
+                    list="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Consignee_Code.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </span>
             <!--Pickup Drop Mode-->
             <div class="padding-bottom-5">
                 <div class="">
@@ -92,12 +112,14 @@
 
                         <input type="hidden" ng-model="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ORG_FK">
                         <div dynamic-lookup placeholder="Organization Code" my-ng-model="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ORG_Code"
-                            obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED" prefix-data="'OrganizationList'"
-                            config="'JobAddressOrg'" auto-complete-on-select="BookingDirectiveCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item, 'address', 'CED')">
+                            obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED" page-name="'OrganizationList'"
+                            control-id="'JobAddressOrgConsignee'" control-key="'JobAddressOrgConsignee_3245'"
+                            auto-complete-on-select="BookingDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,'ORG_Consignee_Code','E0032',false,  'address', 'CED')">
                         </div>
                         <span class="input-group-btn">
-                            <button dynamic-list-modal obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED" field-name="'JobAddressOrg'"
-                                prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingDirectiveCtrl.ePage.Masters.SelectedLookupData($item, 'address', 'CED')"
+                            <button dynamic-list-modal obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED"
+                                page-name="'OrganizationList'" control-id="'JobAddressOrgConsignee'" control-key="'JobAddressOrgConsignee_3245'"
+                                mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingDirectiveCtrl.ePage.Masters.SelectedLookupData($item,'ORG_Consignee_Code','E0032',false,  'address', 'CED')"
                                 class="btn btn-default shiny" type="button">
                                 <i class="fa fa-ellipsis-h"></i>
                             </button>
@@ -121,8 +143,9 @@
                             </button>
                         </span>
                         <div class="dropdownWrapLast dropdownWrapBig animated fadeInDown" data-ng-show="BookingDirectiveCtrl.ePage.Masters.IsCEDAddressOpen">
-                            <address-wrapper obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.AddressList" type="'CED'" list-source="'AddressList'"
-                                selected="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OAD_Address_FK" on-address-edit="BookingDirectiveCtrl.ePage.Masters.OnAddressEdit($item, 'CED', 'Address')"
+                            <address-wrapper obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.AddressList"
+                                type="'CED'" list-source="'AddressList'" selected="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OAD_Address_FK"
+                                on-address-edit="BookingDirectiveCtrl.ePage.Masters.OnAddressEdit($item, 'CED', 'Address')"
                                 on-address-change="BookingDirectiveCtrl.ePage.Masters.OnAddressChange($item, 'CED', 'Address')"></address-wrapper>
                         </div>
                     </div>
@@ -143,8 +166,9 @@
                             </button>
                         </span>
                         <div class="dropdownWrapLast dropdownWrapBig animated fadeInDown" data-ng-show="BookingDirectiveCtrl.ePage.Masters.IsCEDContactOpen">
-                            <address-wrapper obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ContactList" type="'CED'" list-source="'ContactList'"
-                                selected="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OCT_FK" on-address-change="BookingDirectiveCtrl.ePage.Masters.OnContactChange($item, 'CED', 'Contact')"></address-wrapper>
+                            <address-wrapper obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ContactList"
+                                type="'CED'" list-source="'ContactList'" selected="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OCT_FK"
+                                on-address-change="BookingDirectiveCtrl.ePage.Masters.OnContactChange($item, 'CED', 'Contact')"></address-wrapper>
                         </div>
 
                     </div>
@@ -164,10 +188,11 @@
             <div class="form-group">
                 <label class="control-label text-single-line">Booked Date </label>
                 <div class="input-group input-group-sm">
-                    <input type="text" class="form-control" placeholder="{{BookingDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.BookedDate"
-                        uib-datepicker-popup="{{BookingDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-click="BookingDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isBookedDate')"
-                        datepicker-options="BookingDirectiveCtrl.ePage.Masters.DatePicker.Options" is-open="BookingDirectiveCtrl.ePage.Masters.DatePicker.isOpen['isBookedDate']"
-                    />
+                    <input type="text" class="form-control" placeholder="{{BookingDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}"
+                        data-ng-model="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.BookedDate"
+                        uib-datepicker-popup="{{BookingDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}"
+                        data-ng-click="BookingDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isBookedDate')"
+                        datepicker-options="BookingDirectiveCtrl.ePage.Masters.DatePicker.Options" is-open="BookingDirectiveCtrl.ePage.Masters.DatePicker.isOpen['isBookedDate']" />
                     <span class="input-group-btn">
                         <button class="btn btn-default shiny" data-ng-click="BookingDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isBookedDate')">
                             <i class="fa fa-calendar"></i>
@@ -178,12 +203,20 @@
         </div>
         <!--Transport-->
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransportMode.IsWarning && !BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransportMode.IsError"
+                    list="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransportMode.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransportMode.IsError"
+                    list="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransportMode.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </span>
             <div class="form-group">
                 <label class="control-label text-single-line">Transport Mode</label>
                 <div class="">
                     <select chosen class="form-control" ng-model="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode"
                         ng-options="x.Key as x.Description for x in BookingDirectiveCtrl.ePage.Masters.DropDownMasterList.TRANSTYPE.ListSource"
-                        search-contains="true">
+                        search-contains="true" ng-change="BookingDirectiveCtrl.ePage.Masters.OnFieldValueChange('E0001')">
                         <option value="">--Select--</option>
                     </select>
                 </div>
@@ -191,12 +224,20 @@
         </div>
         <!--Container-->
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PackingMode.IsWarning && !BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PackingMode.IsError"
+                    list="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PackingMode.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PackingMode.IsError"
+                    list="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PackingMode.ERROR" type="'error'"
+                    icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </span>
             <div class="form-group">
                 <label class="control-label text-single-line">Container Mode</label>
                 <div class="">
                     <select chosen class="form-control" ng-model="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode"
                         ng-options="x.Key as x.Description for x in BookingDirectiveCtrl.ePage.Masters.DropDownMasterList.CNTTYPE.ListSource"
-                        search-contains="true">
+                        search-contains="true" ng-change="BookingDirectiveCtrl.ePage.Masters.OnFieldValueChange('E0002')">
                         <option value="">--Select--</option>
                     </select>
                 </div>
@@ -204,14 +245,24 @@
         </div>
         <!--Origin-->
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Origin.IsWarning && !BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Origin.IsError"
+                    list="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Origin.WARNING" type="'warning'"
+                    icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Origin.IsError"
+                    list="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Origin.ERROR" type="'error'"
+                    icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </span>
             <div class="form-group">
                 <label class="control-label text-single-line">Origin </label>
                 <div class="input-group input-group-sm">
                     <div dynamic-lookup placeholder="Origin" my-ng-model="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin"
-                        obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader" prefix-data="'MstUNLOCO'" config="'ShpGeneralOrigin'"></div>
+                        obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'MstUNLOCO'"
+                        control-id="'ShpGeneralOrigin'" control-key="'ShpGeneralOrigin_3107'" auto-complete-on-select="BookingDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,'Origin','E0004',false)"></div>
                     <span class="input-group-btn">
-                        <button dynamic-list-modal obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader" field-name="'ShpGeneralOrigin'"
-                            prefix-data="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingDirectiveCtrl.ePage.Masters.SelectedLookupData($item)"
+                        <button dynamic-list-modal obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                            page-name="'MstUNLOCO'" control-id="'ShpGeneralOrigin'" control-key="'ShpGeneralOrigin_3107'"
+                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingDirectiveCtrl.ePage.Masters.SelectedLookupData($item,'Origin','E0004',false)"
                             class="btn btn-default shiny" type="button">
                             <i class="fa fa-ellipsis-h"></i>
                         </button>
@@ -222,14 +273,24 @@
 
         <!--POL-->
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PortOfLoading.IsWarning && !BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PortOfLoading.IsError"
+                    list="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PortOfLoading.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PortOfLoading.IsError"
+                    list="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PortOfLoading.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </span>
             <div class="form-group">
                 <label class="control-label text-single-line">POL </label>
                 <div class="input-group input-group-sm">
-                    <div dynamic-lookup placeholder="Origin" my-ng-model="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin"
-                        obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader" prefix-data="'MstUNLOCO'" config="'ShpGeneralOrigin'"></div>
+                    <div dynamic-lookup placeholder="Origin" my-ng-model="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PortOfLoading"
+                        obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'MstUNLOCO'"
+                        control-id="'PortOfLoading'" control-key="'PortOfLoading_2626'" auto-complete-on-select="BookingDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,'PortOfLoading','E0006',false)"></div>
                     <span class="input-group-btn">
-                        <button dynamic-list-modal obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader" field-name="'ShpGeneralOrigin'"
-                            prefix-data="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingDirectiveCtrl.ePage.Masters.SelectedLookupData($item)"
+                        <button dynamic-list-modal obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                            page-name="'MstUNLOCO'" control-id="'PortOfLoading'" control-key="'PortOfLoading_2626'"
+                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingDirectiveCtrl.ePage.Masters.SelectedLookupData($item,'PortOfLoading','E0006',false)"
                             class="btn btn-default shiny" type="button">
                             <i class="fa fa-ellipsis-h"></i>
                         </button>
@@ -244,10 +305,11 @@
             <div class="form-group">
                 <label class="ontrol-label">ETD</label>
                 <div class="input-group input-group-sm">
-                    <input type="text" class="form-control" placeholder="{{BookingDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETD"
-                        uib-datepicker-popup="{{BookingDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-click="BookingDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETD')"
-                        datepicker-options="BookingDirectiveCtrl.ePage.Masters.DatePicker.Options" is-open="BookingDirectiveCtrl.ePage.Masters.DatePicker.isOpen['isETD']"
-                    />
+                    <input type="text" class="form-control" placeholder="{{BookingDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}"
+                        data-ng-model="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETD"
+                        uib-datepicker-popup="{{BookingDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}"
+                        data-ng-click="BookingDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETD')"
+                        datepicker-options="BookingDirectiveCtrl.ePage.Masters.DatePicker.Options" is-open="BookingDirectiveCtrl.ePage.Masters.DatePicker.isOpen['isETD']" />
                     <span class="input-group-btn">
                         <button class="btn btn-default shiny" data-ng-click="BookingDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETD')">
                             <i class="fa fa-calendar"></i>
@@ -259,15 +321,26 @@
 
         <!--Destination-->
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Destination.IsWarning && !BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Destination.IsError"
+                    list="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Destination.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Destination.IsError"
+                    list="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Destination.ERROR" type="'error'"
+                    icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </span>
             <div class="form-group">
                 <label class="control-label text-single-line">Destination </label>
                 <div class="input-group input-group-sm">
 
                     <div dynamic-lookup placeholder="Destination" my-ng-model="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination"
-                        obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader" prefix-data="'MstUNLOCO'" config="'ShpGeneralDestination'"></div>
+                        obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'MstUNLOCO'"
+                        control-id="'ShpGeneralDestination'" control-key="'ShpGeneralDestination_3104'"
+                        auto-complete-on-select="BookingDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,'Destination','E0005',false)"></div>
                     <span class="input-group-btn">
-                        <button dynamic-list-modal obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader" field-name="'ShpGeneralDestination'"
-                            prefix-data="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingDirectiveCtrl.ePage.Masters.SelectedLookupData($item)"
+                        <button dynamic-list-modal obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                            page-name="'MstUNLOCO'" control-id="'ShpGeneralDestination'" control-key="'ShpGeneralDestination_3104'"
+                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingDirectiveCtrl.ePage.Masters.SelectedLookupData($item,'Destination','E0005',false)"
                             class="btn btn-default shiny" type="button">
                             <i class="fa fa-ellipsis-h"></i>
                         </button>
@@ -277,15 +350,26 @@
         </div>
         <!--POD-->
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PortOfDischarge.IsWarning && !BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PortOfDischarge.IsError"
+                    list="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PortOfDischarge.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PortOfDischarge.IsError"
+                    list="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PortOfDischarge.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </span>
             <div class="form-group">
                 <label class="control-label text-single-line">POD </label>
                 <div class="input-group input-group-sm">
 
-                    <div dynamic-lookup placeholder="Destination" my-ng-model="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination"
-                        obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader" prefix-data="'MstUNLOCO'" config="'ShpGeneralDestination'"></div>
+                    <div dynamic-lookup placeholder="Destination" my-ng-model="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PortOfDischarge"
+                        obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'MstUNLOCO'"
+                        control-id="'PortOfDischarge'" control-key="'PortOfDischarge_3077  '"
+                        auto-complete-on-select="BookingDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,'PortOfDischarge','E0007',false)"></div>
                     <span class="input-group-btn">
-                        <button dynamic-list-modal obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader" field-name="'ShpGeneralDestination'"
-                            prefix-data="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingDirectiveCtrl.ePage.Masters.SelectedLookupData($item)"
+                        <button dynamic-list-modal obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                            page-name="'MstUNLOCO'" control-id="'PortOfDischarge'" control-key="'PortOfDischarge_3077'"
+                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingDirectiveCtrl.ePage.Masters.SelectedLookupData($item,'PortOfDischarge','E0007',false)"
                             class="btn btn-default shiny" type="button">
                             <i class="fa fa-ellipsis-h"></i>
                         </button>
@@ -299,10 +383,11 @@
             <div class="form-group">
                 <label class="control-label text-single-line">ETA </label>
                 <div class="input-group input-group-sm">
-                    <input type="text" class="form-control" placeholder="{{BookingDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETA"
-                        uib-datepicker-popup="{{BookingDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-click="BookingDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETA')"
-                        datepicker-options="BookingDirectiveCtrl.ePage.Masters.DatePicker.Options" is-open="BookingDirectiveCtrl.ePage.Masters.DatePicker.isOpen['isETA']"
-                    />
+                    <input type="text" class="form-control" placeholder="{{BookingDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}"
+                        data-ng-model="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETA"
+                        uib-datepicker-popup="{{BookingDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}"
+                        data-ng-click="BookingDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETA')"
+                        datepicker-options="BookingDirectiveCtrl.ePage.Masters.DatePicker.Options" is-open="BookingDirectiveCtrl.ePage.Masters.DatePicker.isOpen['isETA']" />
                     <span class="input-group-btn">
                         <button class="btn btn-default shiny" data-ng-click="BookingDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETA')">
                             <i class="fa fa-calendar"></i>
@@ -311,6 +396,7 @@
                 </div>
             </div>
         </div>
+
         <!--Service Level-->
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
             <div class="form-group">
@@ -324,38 +410,125 @@
                 </div>
             </div>
         </div>
-        <!--Inco Term-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
-            <div class="form-group">
-                <label class="control-label text-single-line">Inco Term</label>
-                <div class="">
-                    <select chosen name="category-group" class="form-control" ng-model="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.IncoTerm"
-                        ng-options="x.Key as x.Description for x in BookingDirectiveCtrl.ePage.Masters.DropDownMasterList.INCOTERM.ListSource"
-                        search-contains="true">
-                        <option value="">--Select--</option>
-                    </select>
-                </div>
-            </div>
-        </div>
+
         <!--Additional Terms-->
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
             <div class="form-group">
                 <label class="control-label text-single-line">Additional Terms</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm" placeholder="Additional Terms" max-length="100" data-ng-model="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.AdditionalTerms"
-                    />
+                    <input type="text" class="form-control input-sm" placeholder="Additional Terms" max-length="100"
+                        data-ng-model="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.AdditionalTerms" />
+                </div>
+            </div>
+        </div>
+        <!--Goods Value-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+            <div class="form-group">
+                <label class="control-label text-single-line">Goods Value</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm" placeholder="Goods Value" max-length="100"
+                        data-ng-model="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.GoodsValue" />
+                </div>
+            </div>
+        </div>
+        <!--Detailed Goods Description-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+            <div class="form-group">
+                <label class="control-label text-single-line">Goods Description </label>
+                <div class="">
+                    <textarea class="form-control no-resize" style="height:30px;" data-ng-model="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.GoodsDesc"
+                        placeholder="Goods Description"></textarea>
+                </div>
+            </div>
+        </div>
+        <!--Marks & Numbers-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+            <div class="form-group">
+                <label class="control-label text-single-line">Marks and Numbers </label>
+                <div class="">
+                    <textarea class="form-control no-resize" data-ng-model="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.MarksAndNums"
+                        placeholder="Marks and Numbers"></textarea>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 pr-0 pl-0">
-        <!--Goods Value-->
+        <!--Inco Term-->
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IncoTerm.IsWarning && !BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IncoTerm.IsError"
+                    list="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IncoTerm.WARNING" type="'warning'"
+                    icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IncoTerm.IsError"
+                    list="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IncoTerm.ERROR" type="'error'"
+                    icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </span>
             <div class="form-group">
-                <label class="control-label text-single-line">Goods Value</label>
+                <label class="control-label text-single-line">Inco Term</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm" placeholder="Goods Value" max-length="100" data-ng-model="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.GoodsValue"
-                    />
+                    <select chosen name="category-group" class="form-control" ng-model="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.IncoTerm"
+                        ng-options="x.Key as x.Description for x in BookingDirectiveCtrl.ePage.Masters.DropDownMasterList.INCOTERM.ListSource"
+                        search-contains="true" ng-change="BookingDirectiveCtrl.ePage.Masters.OnFieldValueChange('E0003')">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <!-- Sending Agent -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExportForwarder_Code.IsWarning && !BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExportForwarder_Code.IsError"
+                    list="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExportForwarder_Code.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExportForwarder_Code.IsError"
+                    list="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExportForwarder_Code.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </span>
+            <div class="form-group">
+                <label class="control-label text-single-line">Sending Agent</label>
+                <div class="input-group input-group-sm">
+                    <input type="hidden" my-ng-model="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportForwarder_FK">
+                    <div dynamic-lookup placeholder="Sending Agent" my-ng-model="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportForwarder_Code"
+                        obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'OrganizationList'"
+                        control-id="'JobAddressOrgSendingForwarder'" control-key="'JobAddressOrgSendingForwarder_3246'"
+                        auto-complete-on-select="BookingDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,'ExportForwarder_Code','E0047',false)"></div>
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                            page-name="'OrganizationList'" control-id="'JobAddressOrgSendingForwarder'" control-key="'JobAddressOrgSendingForwarder_3246'"
+                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingDirectiveCtrl.ePage.Masters.SelectedLookupData($item,'ExportForwarder_Code','E0047',false)"
+                            class="btn btn-default shiny" type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- Receiving Agent -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ImportForwarder_Code.IsWarning && !BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ImportForwarder_Code.IsError"
+                    list="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ImportForwarder_Code.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ImportForwarder_Code.IsError"
+                    list="BookingDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ImportForwarder_Code.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </span>
+            <div class="form-group">
+                <label class="control-label text-single-line">Receiving Agent</label>
+                <div class="input-group input-group-sm">
+                    <input type="hidden" my-ng-model="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ImportForwarder_FK">
+                    <div dynamic-lookup placeholder="Receiving Agent" my-ng-model="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ImportForwarder_Code"
+                        obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'OrganizationList'"
+                        control-id="'JobAddressOrgReceivingForwarder'" control-key="'JobAddressOrgReceivingForwarder_3250'"
+                        auto-complete-on-select="BookingDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,'ImportForwarder_Code','E0048',false)"></div>
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                            page-name="'OrganizationList'" control-id="'JobAddressOrgReceivingForwarder'" control-key="'JobAddressOrgReceivingForwarder_3250'"
+                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingDirectiveCtrl.ePage.Masters.SelectedLookupData($item,'ImportForwarder_Code','E0048',false)"
+                            class="btn btn-default shiny" type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
                 </div>
             </div>
         </div>
@@ -364,28 +537,8 @@
             <div class="form-group">
                 <label class="control-label text-single-line">Insurance Value</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm" placeholder="Insurance Value" max-length="100" data-ng-model="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.InsuranceValue"
-                    />
-                </div>
-            </div>
-        </div>
-        <!--Detailed Goods Description-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <div class="form-group">
-                <label class="control-label text-single-line">Goods Description </label>
-                <div class="">
-                    <textarea class="form-control no-resize" style="height:30px;" data-ng-model="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Description"
-                        placeholder="Goods Description"></textarea>
-                </div>
-            </div>
-        </div>
-        <!--Marks & Numbers-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <div class="form-group">
-                <label class="control-label text-single-line">Marks and Numbers </label>
-                <div class="">
-                    <textarea class="form-control no-resize" data-ng-model="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.MarksAndNums"
-                        placeholder="Marks and Numbers"></textarea>
+                    <input type="text" class="form-control input-sm" placeholder="Insurance Value" max-length="100"
+                        data-ng-model="BookingDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.InsuranceValue" />
                 </div>
             </div>
         </div>

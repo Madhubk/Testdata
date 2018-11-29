@@ -1,28 +1,36 @@
 <div class="clearfix tc-manage-static-listing">
     <!-- Breadcrumb -->
     <div class="clearfix tc-breadcrumb" data-ng-if="TCManageStaticListingCtrl.ePage.Masters.ActiveApplication == 'TC'">
-        <i class="fa fa-home home-icon"></i>
-        <div class="breadcrumb-list-wrapper">
-            <ol class="breadcrumb">
-                <li data-ng-repeat="x in TCManageStaticListingCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
-                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="TCManageStaticListingCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
-                </li>
-                <li data-ng-repeat="x in TCManageStaticListingCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
-                    class="active"></li>
-            </ol>
+        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-xs-12 p-0">
+            <i class="fa fa-home home-icon"></i>
+            <div class="breadcrumb-list-wrapper">
+                <ol class="breadcrumb">
+                    <li data-ng-repeat="x in TCManageStaticListingCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                        <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="TCManageStaticListingCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                    </li>
+                    <li data-ng-repeat="x in TCManageStaticListingCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive"
+                        data-ng-bind="x.Description" class="active"></li>
+                </ol>
+            </div>
         </div>
-        <span class="tc-breadcrumb-app-name" data-ng-if="TCManageStaticListingCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="TCManageStaticListingCtrl.ePage.Masters.QueryString.AppName"></span>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12 p-4">
+            <tc-application-dropdown query-string="TCManageStaticListingCtrl.ePage.Masters.QueryString" on-application-change="TCManageStaticListingCtrl.ePage.Masters.Application.OnApplicationChange($item)"></tc-application-dropdown>
+        </div>
     </div>
     <!-- Header -->
     <div class="clearfix">
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0">
             <div class="tc-header with-drop-down">
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 p-0 pr-5">
-                    <select chosen class="form-control" data-ng-model="TCManageStaticListingCtrl.ePage.Masters.Module.ActiveModule.Key" data-ng-options="x.Key as x.Value for x  in TCManageStaticListingCtrl.ePage.Masters.Module.ListSource"
-                        data-ng-change="TCManageStaticListingCtrl.ePage.Masters.Module.OnModuleChange((TCManageStaticListingCtrl.ePage.Masters.Module.ListSource | filter: {'Key': TCManageStaticListingCtrl.ePage.Masters.Module.ActiveModule.Key})[0])"></select>
+                    <select chosen class="form-control" data-ng-model="TCManageStaticListingCtrl.ePage.Masters.Module.ActiveModule.Key"
+                        data-ng-options="x.Key as x.Value for x  in TCManageStaticListingCtrl.ePage.Masters.Module.ListSource"
+                        data-ng-change="TCManageStaticListingCtrl.ePage.Masters.Module.OnModuleChange((TCManageStaticListingCtrl.ePage.Masters.Module.ListSource | filter: {'Key': TCManageStaticListingCtrl.ePage.Masters.Module.ActiveModule.Key})[0])"
+                        data-ng-disabled="!TCManageStaticListingCtrl.ePage.Masters.Module.ListSource || TCManageStaticListingCtrl.ePage.Masters.Module.ListSource.length == 0"></select>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 p-0 pl-5">
-                    <select chosen class="form-control" data-ng-model="TCManageStaticListingCtrl.ePage.Masters.SubModule.ActiveSubModule" data-ng-options="x for x in TCManageStaticListingCtrl.ePage.Masters.SubModule.ListSource"></select>
+                    <select chosen class="form-control" data-ng-model="TCManageStaticListingCtrl.ePage.Masters.SubModule.ActiveSubModule"
+                        data-ng-options="x for x in TCManageStaticListingCtrl.ePage.Masters.SubModule.ListSource"
+                        data-ng-disabled="!TCManageStaticListingCtrl.ePage.Masters.SubModule.ListSource || TCManageStaticListingCtrl.ePage.Masters.SubModule.ListSource.length == 0"></select>
                 </div>
             </div>
         </div>
@@ -43,7 +51,8 @@
                 <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10" data-ng-click="TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.Edit()"
                     data-ng-disabled="!TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.ActiveStaticListTypeList">Edit</button>
                 <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.DeleteConfirmation()"
-                    data-ng-bind="TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.DeleteBtnText" data-ng-disabled="TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.IsDisableDeleteBtn || !TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.ActiveStaticListTypeList"></button>
+                    data-ng-bind="TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.DeleteBtnText"
+                    data-ng-disabled="TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.IsDisableDeleteBtn || !TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.ActiveStaticListTypeList"></button>
             </div>
         </div>
     </div>
@@ -217,9 +226,16 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Module</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Module" data-ng-model="TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.ActiveStaticListTypeList.Module">
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Other Config</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <textarea rows="15" placeholder="Other Config" data-ng-model="TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.ActiveStaticListTypeList.OtherConfig" class="form-control no-resize"></textarea>
+                            <textarea rows="15" placeholder="Other Config" data-ng-model="TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.ActiveStaticListTypeList.OtherConfig"
+                                class="form-control no-resize"></textarea>
                         </div>
                     </div>
                     <div class="form-group">

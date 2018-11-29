@@ -9,9 +9,9 @@
 
     function DynamicListModalConfig() {
         var exports = {
-            Entities: {
-            }
-        }
+            Entities: {}
+        };
+
         return exports;
     }
 })();

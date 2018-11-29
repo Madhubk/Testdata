@@ -1,0 +1,26 @@
+<uib-tabset id="chromeTab" active="EAxisQueueLogCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+    <uib-tab>
+        <uib-tab-heading title="QueueLog">
+            <span data-ng-bind="'Queue Log'"></span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+        <div class="p-0 tab-list-view-wrapper">
+            <!--Queue Grid Page-->
+            <dynamic-list dataentry-name="EAxisQueueLogCtrl.ePage.Masters.dataentryName" selected-grid-row="EAxisQueueLogCtrl.ePage.Masters.SelectedGridRow($item)"
+                mode="1" default-filter="EAxisQueueLogCtrl.ePage.Masters.DefaultFilter" dataentry-object="EAxisQueueLogCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+            <div class="tab-loading" data-ng-show="EAxisQueueLogCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+    <uib-tab active="EAxisQueueLogCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in EAxisQueueLogCtrl.ePage.Masters.TabList"
+        ng-click="EAxisQueueLogCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+        <uib-tab-heading title="{{tab.label}}">
+            <span data-ng-bind="tab.label"></span>
+            <i class="glyphicon glyphicon-remove" ng-click="EAxisQueueLogCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+        </uib-tab-heading>
+        <!-- Queue Log Menu Template-->
+        <div class="padding-bottom-10 clearfix">
+            <queue-log-menu current-queue-log="tab" active-tab="EAxisQueueLogCtrl.ePage.Masters.ActiveMenuTab"></queue-log-menu>
+        </div>
+    </uib-tab>
+    <button class="btn btn-default" ng-click="EAxisQueueLogCtrl.ePage.Masters.CreateNewTab()" data-ng-disabled="EAxisQueueLogCtrl.ePage.Masters.IsNewTabClicked">+</button>
+</uib-tabset>

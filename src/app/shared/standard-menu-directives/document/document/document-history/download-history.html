@@ -1,71 +1,46 @@
 <div class="modal-header">
-    <button type="button" class="close" ng-click="DocumentCtrl.ePage.Masters.Documents.CloseHistoryModal()">&times;</button>
+    <button type="button" class="close" data-ng-click="SMDocumentCtrl.ePage.Masters.CloseHistoryModal()">&times;</button>
     <h5 class="modal-title" id="modal-title">
         <strong>Download History</strong>
     </h5>
 </div>
 
 <div class="modal-body" id="modal-body">
-    <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 col-xl-12">
-        <div class="document-list-view-container clearfix">
-            <ul class="clearfix">
-                <li class="clearfix heading">
-                    <div class="clearfix">
-                        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                            <div class="p-5 text-single-line">File Name</div>
-                        </div>
-                        <!-- <div class="col-xs-12 col-sm-12 col-md-1 col-lg-1 col-xl-1">
-                                            <div class="p-5 text-single-line">Type</div>
-                                        </div> -->
-                        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                            <div class="p-5 text-single-line">Downloaded By</div>
-                        </div>
-                        <!-- <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
-                                            <div class="p-5 text-single-line">Owner</div>
-                                        </div> -->
-                        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                            <div class="p-5 text-single-line">Downloaded On</div>
-                        </div>
-                        <!-- <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 pr-0">
-                                            <div class="p-5 text-single-line">Actions</div>
-                                        </div> -->
+    <div class="document-list-view-container clearfix">
+        <ul class="clearfix">
+            <li class="clearfix pt-5 pb-5" style="font-weight: bold; background-color: #ccc;">
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                    <div class="text-single-line">File Name</div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                    <div class="text-single-line">Downloaded By</div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                    <div class="text-single-line">Downloaded On</div>
+                </div>
+            </li>
+            <!--Loading-->
+            <li class="clearfix p-20 text-center" data-ng-if="!SMDocumentCtrl.ePage.Masters.Document.DownloadHistoryList">
+                <i class="fa fa-spin fa-spinner"></i>
+            </li>
+            <!-- No Records -->
+            <li class="clearfix p-20 text-center" data-ng-if="SMDocumentCtrl.ePage.Masters.Document.DownloadHistoryList && SMDocumentCtrl.ePage.Masters.Document.DownloadHistoryList.length == 0">
+                <i>No Records...!</i>
+            </li>
+            <li class="clearfix list pt-5 pb-5" data-ng-if="SMDocumentCtrl.ePage.Masters.Document.DownloadHistoryList && SMDocumentCtrl.ePage.Masters.Document.DownloadHistoryList.length > 0"
+                data-ng-repeat="x in SMDocumentCtrl.ePage.Masters.Document.DownloadHistoryList">
+                <div class="clearfix">
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                        <div class="text-single-line" data-ng-bind="x.UIField" title="{{x.UIField}}"></div>
                     </div>
-                </li>
-
-                <!--Loading-->
-                <li class="p-20 text-center loading" data-ng-if="!DocumentCtrl.ePage.Masters.Documents.DownloadHistoryList">
-                    <i class="fa fa-spin fa-spinner"></i>
-                </li>
-                <!-- No Records -->
-                <li class="p-20 text-center" data-ng-if="DocumentCtrl.ePage.Masters.Documents.DownloadHistoryList && DocumentCtrl.ePage.Masters.Documents.DownloadHistoryList.length == 0">
-                    <i>No Records...!</i>
-                </li>
-                <li class="clearfix list" data-ng-if="DocumentCtrl.ePage.Masters.Documents.DownloadHistoryList && DocumentCtrl.ePage.Masters.Documents.DownloadHistoryList.length > 0"
-                    data-ng-repeat="x in DocumentCtrl.ePage.Masters.Documents.DownloadHistoryList">
-                    <div class="clearfix p-10" data-ng-if="!x.PK">
-                        <div class="loading-file-name">
-                            <span>{{x.name}}</span>
-                        </div>
-                        <div class="meter">
-                            <span></span>
-                        </div>
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                        <div class="text-single-line" data-ng-bind="(x.CreatedBy == SMDocumentCtrl.ePage.Masters.UserId) ? 'Me' : x.CreatedBy" title="{{x.CreatedBy}}"></div>
                     </div>
-                    <div class="clearfix" data-ng-if="x.PK">
-                        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 document-name-padding">
-                            <div class="p-1 text-single-line" data-ng-bind="x.UIField" title="{{x.UIField}}"></div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                            <div class="p-1 text-single-line pb-0" data-ng-bind="(x.CreatedBy == DocumentCtrl.ePage.Masters.Documents.UserId) ? 'Me' : x.CreatedBy"
-                                title="{{x.CreatedBy}}"></div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                            <div class="pl-5 pr-5 text-single-line document-created-date-time p-1" data-ng-bind="x.CreatedDateTime | date: 'dd-MMM-yy h:mm a'"
-                                title="{{x.CreatedDateTime | date: 'dd-MMM-yy h:mm a'}}"></div>
-                        </div>
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                        <div class="text-single-line " data-ng-bind="x.CreatedDateTime | date: 'dd-MMM-yyyy h:mm a'" title="{{x.CreatedDateTime | date: 'dd-MMM-yyyy h:mm a'}}"></div>
                     </div>
-                </li>
-            </ul>
-        </div>
+                </div>
+            </li>
+        </ul>
     </div>
-
 </div>

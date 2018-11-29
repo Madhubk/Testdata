@@ -1,0 +1,70 @@
+<div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-15">
+        <!--manifest number-->
+        <div class="rows border-box border-radius-2 bg-fbfbfb">
+            <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 col-xl-2 pt-10 pb-10">
+                <div class="tab-profile-title text-single-line fs-16" title="{{AttachOrdersViewCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestNumber}}"
+                    data-ng-bind="AttachOrdersViewCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestNumber"></div>
+            </div>
+            <!--sender-->
+            <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8 col-xl-8 border-left border-right pt-10 pb-10">
+                <div class="fs-14">
+                    <span>
+                        {{AttachOrdersViewCtrl.ePage.Entities.Header.Data.OrgSender.FullName}}
+                    </span>
+                    <span class="ml-15 mr-15">
+                        <i class="fa fa-arrow-circle-right"></i>
+                    </span>
+                    <span>
+                        {{AttachOrdersViewCtrl.ePage.Entities.Header.Data.OrgReceiver.FullName}}
+                    </span>
+                </div>
+            </div>
+            <!--status-->
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 mt-10">
+                <div class="tab-profile-sub-title text-single-line fs-14" title="{{AttachOrdersViewCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatus}} - {{AttachOrdersViewCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatusDesc}}"
+                    data-ng-bind="AttachOrdersViewCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatusDesc"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pb-10 pl-15">
+        <div class="rows border-box border-radius-2 mt-10">
+            <div class="dms-table-title fs-5 p-10">Order Details</div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pl-0 pr-0" style="overflow-x:auto;">
+                <table class="tableclass">
+                    <tbody>
+                        <tr>
+                            <th class="order-single-line">Consignment Number</th>
+                            <th class="order-single-line">Status</th>
+                            <th class="order-single-line">Sender</th>
+                            <th class="order-single-line">Receiver</th>
+                            <th class="order-single-line">Client</th>
+                            <th class="order-single-line">Service Type</th>
+                            <th class="order-single-line">Sender Reference</th>
+                            <th class="order-single-line">Receiver Reference</th>
+                            <th class="order-single-line">Expected Pickup Date Time</th>
+                            <th class="order-single-line">Expected Delivery Date Time</th>
+                        </tr>
+                        <tr ng-repeat="x in AttachOrdersViewCtrl.ePage.Entities.Header.Data.TmsManifestConsignment track by $index">
+                            <td class="order-single-line">{{x.TMC_ConsignmentNumber}}</td>
+                            <td class="order-single-line">{{x.TMC_ConsignmentStatusDesc}}</td>
+                            <td class="order-single-line">{{x.TMC_SenderCode}} - {{x.TMC_SenderName}}</td>
+                            <td class="order-single-line">{{x.TMC_ReceiverCode}} - {{x.TMC_ReceiverName}}</td>
+                            <td class="order-single-line">{{x.TMC_ClientId}}</td>
+                            <td class="order-single-line">{{x.TMC_ServiceType}}</td>
+                            <td class="order-single-line">{{x.TMC_SenderRef}}</td>
+                            <td class="order-single-line">{{x.TMC_ReceiverRef}}</td>
+                            <td class="order-single-line">{{x.TMC_ExpectedPickupDateTime | date:"dd-MMM-yyyy h:mm a"}}</td>
+                            <td class="order-single-line">{{x.TMC_ExpectedDeliveryDateTime | date:"dd-MMM-yyyy h:mm a"}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="no-record fs-5 p-10" ng-if="AttachOrdersViewCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.length==0">
+                <div>
+                    No Record Found...
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

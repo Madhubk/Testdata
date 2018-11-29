@@ -21,13 +21,15 @@
                 "Entities": manifestConfig.Entities
             };
 
-            ManifestCtrl.ePage.Masters.taskName = "TransportsManifest";
             ManifestCtrl.ePage.Masters.dataentryName = "TransportsManifest";
             ManifestCtrl.ePage.Masters.TabList = [];
             ManifestCtrl.ePage.Masters.activeTabIndex = 0;
             ManifestCtrl.ePage.Masters.isNewManifestClicked = false;
             ManifestCtrl.ePage.Masters.IsTabClick = false;
             ManifestCtrl.ePage.Masters.Config = manifestConfig;
+
+            // Remove all Tabs while load shipment
+            manifestConfig.TabList = [];
 
             //functions
             ManifestCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
@@ -39,6 +41,41 @@
             ManifestCtrl.ePage.Masters.UnDispatchClose = UnDispatchClose;
 
             manifestConfig.ValidationFindall();
+
+            getOrgSender();
+        }
+        function getOrgSender() {
+            // get Sender ORG(location) based on USER
+            var _filter = {
+                "Code": authService.getUserInfo().UserId
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": "ORGUACC"
+            };
+            apiService.post("eAxisAPI", "OrgUserAcess/FindAll", _input).then(function SuccessCallback(response) {
+                if (response.data.Status == "Success") {
+                    if (response.data.Response.length > 0) {
+                        ManifestCtrl.ePage.Masters.UserAccessCode = response.data.Response[0].ORG_Code;
+                        getOrgHeader(ManifestCtrl.ePage.Masters.UserAccessCode);
+                    }
+                }
+            });
+        }
+
+        function getOrgHeader(item) {
+            var _filter = {
+                "OrgCode": item
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": ManifestCtrl.ePage.Entities.Header.API.OrgHeader.FilterID
+            };
+            apiService.post("eAxisAPI", ManifestCtrl.ePage.Entities.Header.API.OrgHeader.Url, _input).then(function SuccessCallback(response) {
+                if (response.data.Status == "Success") {
+                    ManifestCtrl.ePage.Masters.SenderDetails = response.data.Response[0];
+                }
+            });
         }
 
         function SaveandClose(index, currentManifest) {

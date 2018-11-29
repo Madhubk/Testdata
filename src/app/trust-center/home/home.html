@@ -1,21 +1,59 @@
 <div class="clearfix tc-home">
-    <div class="clearfix text-center p-20" data-ng-if="!TCHomeCtrl.ePage.Masters.Home.MenuList">
-        <i class="fa fa-spinner fa-spin" style="font-size:18px;"></i>
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-30 tc-home-fixed-height menu-list">
+        <div class="tc-list-container">
+            <div class="tc-list-header">SYSTEM SETTINGS</div>
+        </div>
+        <div class="clearfix text-center p-20" data-ng-if="!TCHomeCtrl.ePage.Masters.Home.MenuList">
+            <i class="fa fa-spinner fa-spin font-160"></i>
+        </div>
+        <div class="clearfix text-center p-20" data-ng-if="TCHomeCtrl.ePage.Masters.Home.MenuList && TCHomeCtrl.ePage.Masters.Home.MenuList.length === 0">
+            <i>You don't have access to these Pages...!</i>
+        </div>
+        <div class="menu-container" data-ng-repeat="x in TCHomeCtrl.ePage.Masters.Home.MenuList" data-ng-click="TCHomeCtrl.ePage.Masters.Home.OnMenuClick(x)"
+            data-ng-if="TCHomeCtrl.ePage.Masters.Home.MenuList && TCHomeCtrl.ePage.Masters.Home.MenuList.length > 0">
+            <div class="image">
+                <i class="{{x.Icon | getIconColorForMenu: 'icon'}}" data-ng-style="{'color': (x.Icon | getIconColorForMenu: 'color')}"></i>
+            </div>
+            <div class="name">
+                <span data-ng-bind="x.Description"></span>
+            </div>
+            <div class="description">
+                <span data-ng-bind="x.OtherConfig.Description"></span>
+            </div>
+        </div>
     </div>
-    <div class="menu-container" data-ng-repeat="x in TCHomeCtrl.ePage.Masters.Home.MenuList"        data-ng-click="TCHomeCtrl.ePage.Masters.Home.OnMenuClick(x)"
-        data-ng-if="TCHomeCtrl.ePage.Masters.Home.MenuList">
-        <div class="image">
-            <i class="fa {{x.Icon | getIconColorForMenu: 'icon'}}" data-ng-style="{'color': (x.Icon | getIconColorForMenu: 'color')}"></i>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 tc-home-fixed-height">
+        <!-- Company Details -->
+        <div class="tc-company-details clearfix">
+            <div class="tc-logo mb-50">
+                <img data-ng-src="{{TCHomeCtrl.ePage.Masters.Tenant.Logo}}" alt="">
+            </div>
+            <div class="tc-company-name" data-ng-bind="TCHomeCtrl.ePage.Masters.Tenant.TenantName"></div>
+            <!-- <div class="tc-company-desc" data-ng-bind="TCHomeCtrl.ePage.Masters.Tenant.Description"></div> -->
         </div>
-        <div class="name">
-            <span data-ng-bind="x.MenuName"></span>
-        </div>
-        <div class="description">
-            <span data-ng-bind="x.OtherConfig.Description"></span>
+        <div class="tc-section-divider"></div>
+        <!-- Applications -->
+        <div class="tc-list-container">
+            <div class="tc-list-header">APPLICATION SETTINGS</div>
+            <ul class="tc-list-ul">
+                <div class="p-15 text-center tc-loading" data-ng-if="!TCHomeCtrl.ePage.Masters.Applications.ApplicationList">
+                    <i class="fa fa-spin fa-spinner"></i>
+                </div>
+                <div data-ng-if="TCHomeCtrl.ePage.Masters.Applications.ApplicationList.length == 0" class="p-15 text-center">
+                    <i>No Records...</i>
+                </div>
+                <li data-ng-if="TCHomeCtrl.ePage.Masters.Applications.ApplicationList && TCHomeCtrl.ePage.Masters.Applications.ApplicationList.length > 0"
+                    data-ng-repeat="x in TCHomeCtrl.ePage.Masters.Applications.ApplicationList | orderBy: 'AppName'"
+                    data-ng-click="TCHomeCtrl.ePage.Masters.Applications.ActiveApplication.PK != x.PK && TCHomeCtrl.ePage.Masters.Applications.OnApplicationClick(x)"
+                    data-ng-class="{'active': TCHomeCtrl.ePage.Masters.Applications.ActiveApplication.PK == x.PK}">
+                    <div class="clearfix tc-list">
+                        <div class="tc-list-name">
+                            <i class="fa fa-circle-o mr-10"></i>
+                            <span class="text-single-line" data-ng-bind="x.AppName"></span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
-
-<!-- <div class ="clearfix session">
-        <a href="javascript:void(0);" data-ng-click="TCHomeCtrl.ePage.Masters.Home.OnSessionClick()"> Session</a>
-</div> -->

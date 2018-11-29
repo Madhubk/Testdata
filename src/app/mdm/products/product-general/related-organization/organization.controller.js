@@ -23,32 +23,76 @@
             };
 
             OrganizationCtrl.ePage.Masters.Config = productConfig;
-            OrganizationCtrl.ePage.Masters.DropDownMasterList = {};
+
+                //For table
+            OrganizationCtrl.ePage.Masters.SelectAll = false;
+            OrganizationCtrl.ePage.Masters.EnableDeleteButton = false;
+            OrganizationCtrl.ePage.Masters.EnableCopyButton = false;
+            OrganizationCtrl.ePage.Masters.Enable = true;
             OrganizationCtrl.ePage.Masters.selectedRow = -1;
-            OrganizationCtrl.ePage.Masters.Lineslist = true;
-            OrganizationCtrl.ePage.Masters.HeaderName = '';
-            OrganizationCtrl.ePage.Masters.emptyText = '-'
+            OrganizationCtrl.ePage.Masters.emptyText = '-';
+            OrganizationCtrl.ePage.Masters.SearchTable = '';
 
-
-            OrganizationCtrl.ePage.Masters.Edit = Edit;
-            OrganizationCtrl.ePage.Masters.CopyRow = CopyRow;
-            OrganizationCtrl.ePage.Masters.AddNewRow = AddNewRow;
-            OrganizationCtrl.ePage.Masters.RemoveRow = RemoveRow;
+            OrganizationCtrl.ePage.Masters.SelectAllCheckBox = SelectAllCheckBox;
+            OrganizationCtrl.ePage.Masters.SingleSelectCheckBox = SingleSelectCheckBox;
             OrganizationCtrl.ePage.Masters.setSelectedRow = setSelectedRow;
-            OrganizationCtrl.ePage.Masters.Back = Back;
-            OrganizationCtrl.ePage.Masters.Done = Done;
+            OrganizationCtrl.ePage.Masters.AddNewRow = AddNewRow;
+            OrganizationCtrl.ePage.Masters.CopyRow = CopyRow;
+            OrganizationCtrl.ePage.Masters.RemoveRow = RemoveRow;
+
+            OrganizationCtrl.ePage.Masters.DropDownMasterList = {};
+
             OrganizationCtrl.ePage.Masters.SelectedLookupDataClient = SelectedLookupDataClient;
             OrganizationCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
-
-            //Order By
-            OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation = $filter('orderBy')(OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation, 'CreatedDateTime');
-
-            GetBindingValues();
+           
+            GetUserBasedGridColumList();
+            GetGeneralOperations();
             GetDropDownList();
-
         }
 
-        // Get CFXType Dropdown list
+         //#region User Based Table Column
+         function GetUserBasedGridColumList(){
+            var _filter = {
+                "SAP_FK": authService.getUserInfo().AppPK,
+                "TenantCode": authService.getUserInfo().TenantCode,
+                "SourceEntityRefKey": authService.getUserInfo().UserId,
+                "EntitySource": "WMS_PRODUCTORGANIZATION",
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.UserSettings.API.FindAll.FilterID
+            };
+    
+            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function(response){
+                if(response.data.Response[0]){
+                    OrganizationCtrl.ePage.Masters.UserValue= response.data.Response[0];
+                    if(response.data.Response[0].Value!=''){
+                        var obj = JSON.parse(response.data.Response[0].Value)
+                        OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation = obj;
+                        OrganizationCtrl.ePage.Masters.UserHasValue =true;
+                    }
+                }else{
+                    OrganizationCtrl.ePage.Masters.UserValue = undefined;
+                }
+            })
+        }
+        //#endregion
+            
+        //#region  General
+        function GetGeneralOperations(){
+            angular.forEach(OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation, function (value, key) {
+                if (value.ClientCode == null)
+                    value.ClientCode = '';
+
+                if (value.ClientName == null)
+                    value.ClientName = '';
+
+                OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[key].Client = value.ClientCode + ' - ' + value.ClientName;
+                AllocatePartAttribute(key);
+            });
+            OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation = $filter('orderBy')(OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation, 'CreatedDateTime');
+        }
+
         function GetDropDownList() {
             var typeCodeList = ["WMSYESNO", "WMSRelationShip", "INW_LINE_UQ", "PickMode"];
             var dynamicFindAllInput = [];
@@ -74,19 +118,6 @@
             });
         }
 
-        //Binding Two Values
-        function GetBindingValues() {
-            angular.forEach(OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation, function (value, key) {
-                if (value.ClientCode == null)
-                    value.ClientCode = '';
-
-                if (value.ClientName == null)
-                    value.ClientName = '';
-
-                OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[key].Client = value.ClientCode + ' - ' + value.ClientName;
-            });
-        }
-
         function SelectedLookupDataClient(item, index) {
             OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[index].Client = item.Code + ' - ' + item.FullName;
             OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[index].ORG_FK = item.PK;
@@ -106,156 +137,83 @@
 
         function AllocatePartAttribute(index) {
             if (OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[index].ORG_FK) {
+                OrganizationCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
+                
                 var _filter = {
                     "ORG_FK": OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[index].ORG_FK
                 };
 
                 var _input = {
                     "searchInput": helperService.createToArrayOfObject(_filter),
-                    "FilterID": OrganizationCtrl.ePage.Entities.Header.API.OrgMiscServ.FilterID
+                    "FilterID": appConfig.Entities.OrgMiscServ.API.FindAll.FilterID
                 };
 
-                apiService.post("eAxisAPI", OrganizationCtrl.ePage.Entities.Header.API.OrgMiscServ.Url, _input).then(function (response) {
+                apiService.post("eAxisAPI", appConfig.Entities.OrgMiscServ.API.FindAll.Url, _input).then(function (response) {
                     if (response.data.Response) {
-                        OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[index].IMPartAttrib1Name = response.data.Response[0].IMPartAttrib1Name;
-                        OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[index].IMPartAttrib2Name = response.data.Response[0].IMPartAttrib2Name;
-                        OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[index].IMPartAttrib3Name = response.data.Response[0].IMPartAttrib3Name;
-                        OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[index].IMUseExpiryDate = response.data.Response[0].IMUseExpiryDate;
-                        OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[index].IMUsePackingDate = response.data.Response[0].IMUsePackingDate;
+                        angular.forEach(OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation,function(value,key){
+                            if(value.ORG_FK == response.data.Response[0].ORG_FK){
+                                OrganizationCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
+                                value.IMPartAttrib1Name = response.data.Response[0].IMPartAttrib1Name;
+                                value.IMPartAttrib2Name = response.data.Response[0].IMPartAttrib2Name;
+                                value.IMPartAttrib3Name = response.data.Response[0].IMPartAttrib3Name;
+                                value.IMUseExpiryDate = response.data.Response[0].IMUseExpiryDate;
+                                value.IMUsePackingDate = response.data.Response[0].IMUsePackingDate;
+                            }
+                        });
                     }
                 });
             }
         }
-        // ------- Error Validation While onchanges-----//
-        function OnChangeValues(fieldvalue, code, IsArray, RowIndex) {
-            angular.forEach(OrganizationCtrl.ePage.Masters.Config.ValidationValues, function (value, key) {
-                if (value.Code.trim() === code) {
-                    GetErrorMessage(fieldvalue, value, IsArray, RowIndex)
-                }
+        //#endregion
+        
+        //#region checkbox selection
+        function SelectAllCheckBox(){
+            angular.forEach(OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation, function (value, key) {
+            if (OrganizationCtrl.ePage.Masters.SelectAll){
+                value.SingleSelect = true;
+                OrganizationCtrl.ePage.Masters.EnableDeleteButton = true;
+                OrganizationCtrl.ePage.Masters.EnableCopyButton = true;
+            }
+            else{
+                value.SingleSelect = false;
+                OrganizationCtrl.ePage.Masters.EnableDeleteButton = false;
+                OrganizationCtrl.ePage.Masters.EnableCopyButton = false;
+            }
             });
         }
 
-        function GetErrorMessage(fieldvalue, value, IsArray, RowIndex) {
-            if (!fieldvalue) {
-                OrganizationCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, OrganizationCtrl.currentProduct.label, IsArray, RowIndex, value.ColIndex, value.DisplayName, undefined, value.GParentRef);
+        function SingleSelectCheckBox() {
+            var Checked = OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation.some(function (value, key) {
+                if(!value.SingleSelect)
+                return true;
+            });
+            if (Checked) {
+                OrganizationCtrl.ePage.Masters.SelectAll = false;
             } else {
-                OrganizationCtrl.ePage.Masters.Config.RemoveErrorWarning(value.Code, "E", value.CtrlKey, OrganizationCtrl.currentProduct.label, IsArray, RowIndex, value.ColIndex);
+                OrganizationCtrl.ePage.Masters.SelectAll = true;
+            }
+
+            var Checked1 = OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation.some(function (value, key) {
+                return value.SingleSelect == true;
+            });
+            if (Checked1) {
+                OrganizationCtrl.ePage.Masters.EnableDeleteButton = true;
+                OrganizationCtrl.ePage.Masters.EnableCopyButton = true;
+            } else {
+                OrganizationCtrl.ePage.Masters.EnableDeleteButton = false;
+                OrganizationCtrl.ePage.Masters.EnableCopyButton = false;
             }
         }
+        //#endregion checkbox selection
 
-        // ------- Error Validation While onchanges-----//
+        //#region Add,copy,delete row
 
-        //------ Add New, copy, remove Row---------//
-
-        function setSelectedRow(index) {
+        function setSelectedRow(index){
             OrganizationCtrl.ePage.Masters.selectedRow = index;
-        }
-
-        function RemoveAllLineErrors(){
-            for(var i=0;i<OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation.length;i++){
-                OnChangeValues('value', "E7002", true, i);
-                OnChangeValues('value', "E7014", true, i);
-                OnChangeValues('value', "E7015", true, i);
-            }
-            return true;
-        }
-
-        function Back() {
-
-            var ReturnValue = RemoveAllLineErrors();
-            if(ReturnValue){
-                OrganizationCtrl.ePage.Masters.Config.GeneralValidation(OrganizationCtrl.currentProduct);
-            }
-
-            OrganizationCtrl.ePage.Masters.Lineslist = true;
-        }
-
-        function Done() {
-            
-            // To scroll down
-            var ReturnValue = RemoveAllLineErrors();
-            if(ReturnValue){
-                if (OrganizationCtrl.ePage.Masters.HeaderName == 'New List') {
-                    $timeout(function () {
-                        var objDiv = document.getElementById("OrganizationCtrl.ePage.Masters.your_div");
-                        objDiv.scrollTop = objDiv.scrollHeight;
-                    }, 500);
-                }
-                Validation(OrganizationCtrl.currentProduct);
-                OrganizationCtrl.ePage.Masters.Lineslist = true;
-            }
-        }
-
-        function Edit(index, name) {
-            OrganizationCtrl.ePage.Masters.selectedRow = index;
-            OrganizationCtrl.ePage.Masters.Lineslist = false;
-            OrganizationCtrl.ePage.Masters.HeaderName = name;
-            AllocatePartAttribute(index);
-            $timeout(function () { $scope.$apply(); }, 500);
-        }
-
-
-        $document.bind('keydown', function (e) {
-            if (OrganizationCtrl.ePage.Masters.selectedRow != -1) {
-                if (OrganizationCtrl.ePage.Masters.Lineslist == true) {
-                    if (e.keyCode == 38) {
-                        if (OrganizationCtrl.ePage.Masters.selectedRow == 0) {
-                            return;
-                        }
-                        OrganizationCtrl.ePage.Masters.selectedRow--;
-                        $scope.$apply();
-                        e.preventDefault();
-                    }
-                    if (e.keyCode == 40) {
-                        if (OrganizationCtrl.ePage.Masters.selectedRow == OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation.length - 1) {
-                            return;
-                        }
-                        OrganizationCtrl.ePage.Masters.selectedRow++;
-                        $scope.$apply();
-                        e.preventDefault();
-                    }
-                }
-            }
-        });
-
-
-        function CopyRow() {
-            var obj = angular.copy(OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow]);
-            obj.PK = '';
-            obj.ModifiedDateTime = '';
-            obj.CreatedDateTime = '';
-            OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation.splice(OrganizationCtrl.ePage.Masters.selectedRow + 1, 0, obj);
-            OrganizationCtrl.ePage.Masters.Edit(OrganizationCtrl.ePage.Masters.selectedRow + 1, 'Copy Of List');
-        }
-
-        function RemoveRow() {
-            var item = OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[OrganizationCtrl.ePage.Masters.selectedRow]
-            var modalOptions = {
-                closeButtonText: 'Cancel',
-                actionButtonText: 'Ok',
-                headerText: 'Delete?',
-                bodyText: 'Are you sure?'
-            };
-            confirmation.showModal({}, modalOptions)
-                .then(function (result) {
-                    if (item.PK) {
-                        apiService.get("eAxisAPI", OrganizationCtrl.ePage.Entities.Header.API.RelatedOrganizationDelete.Url + item.PK).then(function (response) {
-                        });
-                    }
-                    var ReturnValue = RemoveAllLineErrors();
-                    if(ReturnValue){
-                        OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation.splice(OrganizationCtrl.ePage.Masters.selectedRow, 1);                   
-                        OrganizationCtrl.ePage.Masters.Config.GeneralValidation(OrganizationCtrl.currentProduct);
-                    }
-                    toastr.success('Record Removed Successfully');
-                    OrganizationCtrl.ePage.Masters.Lineslist = true;
-                    OrganizationCtrl.ePage.Masters.selectedRow = OrganizationCtrl.ePage.Masters.selectedRow - 1;
-                }, function () {
-                    console.log("Cancelled");
-                });
         }
 
         function AddNewRow() {
+            OrganizationCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
             var obj = {
                 "PK": "",
                 "ORG_FK": "",
@@ -275,99 +233,99 @@
                 "IsPartAttrib2ReleaseCaptured":"",
                 "IsPartAttrib3ReleaseCaptured":"",
                 "PickMode": "",
-                "IsDeleted": "false"
+                "IsDeleted": false
             };
             OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation.push(obj);
-            OrganizationCtrl.ePage.Masters.Edit(OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation.length - 1, 'New List');
+            OrganizationCtrl.ePage.Masters.selectedRow = OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation.length-1;
+        
+            $timeout(function () {
+                var objDiv = document.getElementById("OrganizationCtrl.ePage.Masters.AddScroll");
+                objDiv.scrollTop = objDiv.scrollHeight;
+            }, 50);
+            OrganizationCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
         };
 
-        //------ Add New, copy, remove Row---------//
-
-        //------- Entire Page Validation----------//
-        function Validation($item) {
-            var _Data = $item[$item.label].ePage.Entities,
-                _input = _Data.Header.Data,
-                _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
-
-
-            //Validation Call
-            OrganizationCtrl.ePage.Masters.Config.GeneralValidation($item);
-            if (OrganizationCtrl.ePage.Entities.Header.Validations) {
-                OrganizationCtrl.ePage.Masters.Config.RemoveApiErrors(OrganizationCtrl.ePage.Entities.Header.Validations, $item.label);
+        function CopyRow() {
+            OrganizationCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
+            for(var i = OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation.length -1; i >= 0; i--){
+                if(OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[i].SingleSelect){
+                    var obj = angular.copy(OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[i]);
+                    obj.PK = '';
+                    obj.CreatedDateTime = '';
+                    obj.ModifiedDateTime = '';
+                    obj.SingleSelect=false;
+                    obj.IsCopied = true;
+                    OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation.splice(i + 1, 0, obj);
+                }
             }
-
-            if (_errorcount.length == 0) {
-                SaveList($item);
-            } else {
-                OrganizationCtrl.ePage.Masters.Config.ShowErrorWarningModal(OrganizationCtrl.currentProduct);
-            }
+            OrganizationCtrl.ePage.Masters.selectedRow = -1;
+            OrganizationCtrl.ePage.Masters.SelectAll = false;
+            OrganizationCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
         }
 
-        function SaveList($item) {
-            OrganizationCtrl.ePage.Masters.IsLoadingToSave = true;
-            var _Data = $item[$item.label].ePage.Entities,
-                _input = _Data.Header.Data;
+        function RemoveRow() {
+            var modalOptions = {
+                closeButtonText: 'Cancel',
+                actionButtonText: 'Ok',
+                headerText: 'Delete?',
+                bodyText: 'Are you sure?'
+            };
+            confirmation.showModal({}, modalOptions)
+                .then(function (result) {
+                    OrganizationCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
 
-            if ($item.isNew) {
-                _input.UIProductGeneral.PK = _input.PK;
-                _input.UIProductGeneral.CreatedDateTime = new Date();
-            } else {
-                $item = filterObjectUpdate($item, "IsModified");
-            }
-
-            helperService.SaveEntity($item, 'Product').then(function (response) {
-                if (response.Status === "success") {
-                    
-                    productConfig.TabList.map(function (value, key) {
-                        if (value.New) {
-                            if (value.code == '') {
-                                value.label = OrganizationCtrl.ePage.Entities.Header.Data.UIProductGeneral.PartNum;
-                                value[OrganizationCtrl.ePage.Entities.Header.Data.UIProductGeneral.PartNum] = value.New;
-                                delete value.New;
-                            }
+                    angular.forEach(OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation,function(value,key){
+                        if(value.SingleSelect==true && value.PK){
+                            apiService.get("eAxisAPI", appConfig.Entities.PrdProductRelatedParty.API.Delete.Url + value.PK).then(function (response) {
+                            });
                         }
                     });
-
-                    var _index = productConfig.TabList.map(function (value, key) {
-                        return value[value.label].ePage.Entities.Header.Data.PK
-                    }).indexOf(OrganizationCtrl.currentProduct[OrganizationCtrl.currentProduct.label].ePage.Entities.Header.Data.PK);
-
-                    if (_index !== -1) {
-                        productConfig.TabList[_index][productConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data;
-                        productConfig.TabList[_index].isNew = false;
-                        if ($state.current.url == "/products") {
-                            helperService.refreshGrid();
+            
+                    var ReturnValue = RemoveAllLineErrors();
+                    if(ReturnValue){
+                        for (var i = OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation.length -1; i >= 0; i--){
+                            if(OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[i].SingleSelect==true)
+                            OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation.splice(i,1);
                         }
-                        $timeout(function () {
-                            OrganizationCtrl.ePage.Masters.IsLoadingToSave = false;
-                        }, 1000);
+                        OrganizationCtrl.ePage.Masters.Config.GeneralValidation(OrganizationCtrl.currentProduct);
                     }
-                    console.log("Success");
-                } else if (response.Status === "failed") {
-                    OrganizationCtrl.ePage.Masters.IsLoadingToSave = false;
-                    console.log("Failed");
-                    OrganizationCtrl.ePage.Entities.Header.Validations = response.Validations;
-                    angular.forEach(response.Validations, function (value, key) {
-                        OrganizationCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, OrganizationCtrl.currentProduct.label, false, undefined, undefined, undefined, undefined, value.GParentRef);
-                    });
-                    if (OrganizationCtrl.ePage.Entities.Header.Validations != null) {
-                        OrganizationCtrl.ePage.Masters.Config.ShowErrorWarningModal(OrganizationCtrl.currentProduct);
-                    }
+                    toastr.success('Record Removed Successfully');
+                    OrganizationCtrl.ePage.Masters.selectedRow = -1;
+                    OrganizationCtrl.ePage.Masters.SelectAll = false;
+                    OrganizationCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
+                    OrganizationCtrl.ePage.Masters.EnableDeleteButton = false;
+                }, function () {
+                    console.log("Cancelled");
+            });
+        }
+        //#endregion Add,copy,delete row
+
+        //#region Validation
+        function OnChangeValues(fieldvalue, code, IsArray, RowIndex) {
+            angular.forEach(OrganizationCtrl.ePage.Masters.Config.ValidationValues, function (value, key) {
+                if (value.Code.trim() === code) {
+                    GetErrorMessage(fieldvalue, value, IsArray, RowIndex)
                 }
             });
         }
 
-        function filterObjectUpdate(obj, key) {
-            for (var i in obj) {
-                if (!obj.hasOwnProperty(i)) continue;
-                if (typeof obj[i] == 'object') {
-                    filterObjectUpdate(obj[i], key);
-                } else if (i == key) {
-                    obj[key] = true;
-                }
+        function GetErrorMessage(fieldvalue, value, IsArray, RowIndex) {
+            if (!fieldvalue) {
+                OrganizationCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, OrganizationCtrl.currentProduct.label, IsArray, RowIndex, value.ColIndex, value.DisplayName, undefined, value.GParentRef);
+            } else {
+                OrganizationCtrl.ePage.Masters.Config.RemoveErrorWarning(value.Code, "E", value.CtrlKey, OrganizationCtrl.currentProduct.label, IsArray, RowIndex, value.ColIndex);
             }
-            return obj;
         }
+
+        function RemoveAllLineErrors(){
+            for(var i=0;i<OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation.length;i++){
+                OnChangeValues('value', "E7002", true, i);
+                OnChangeValues('value', "E7014", true, i);
+                OnChangeValues('value', "E7015", true, i);
+            }
+            return true;
+        }
+        //#endregion
 
         Init();
     }

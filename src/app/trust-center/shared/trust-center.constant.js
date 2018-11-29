@@ -65,22 +65,58 @@
                 'app/trust-center/data-config/data-config-modal/data-config-modal.controller.js'
             ]
         }, {
+            name: 'TCDataExtraction',
+            files: [
+                'app/trust-center/data-extraction/data-extraction.css',
+                'app/trust-center/data-extraction/data-extraction.controller.js'
+            ]
+        }, {
+            name: 'TCDataExtAudit',
+            files: [
+                'app/trust-center/data-extraction/audit/audit.css',
+                'app/trust-center/data-extraction/audit/audit.controller.js'
+            ]
+        }, {
+            name: 'TCDataExtEvent',
+            files: [
+                'app/trust-center/data-extraction/event/event.css',
+                'app/trust-center/data-extraction/event/event.controller.js'
+            ]
+        }, {
+            name: 'TCDataExtIntegration',
+            files: [
+                'app/trust-center/data-extraction/integration/integration.css',
+                'app/trust-center/data-extraction/integration/integration.controller.js'
+            ]
+        }, {
+            name: 'TCDataExtFullTextSearch',
+            files: [
+                'app/trust-center/data-extraction/full-text-search/full-text-search.css',
+                'app/trust-center/data-extraction/full-text-search/full-text-search.controller.js'
+            ]
+        }, {
+            name: 'TCDataExtSharedEntities',
+            files: [
+                'app/trust-center/data-extraction/shared-entities/shared-entities.css',
+                'app/trust-center/data-extraction/shared-entities/shared-entities.controller.js'
+            ]
+        }, {
+            name: 'TCDataExtReportFields',
+            files: [
+                'app/trust-center/data-extraction/report-fields/report-fields.css',
+                'app/trust-center/data-extraction/report-fields/report-fields.controller.js'
+            ]
+        }, {
+            name: 'TCDataExtEntityScore',
+            files: [
+                'app/trust-center/data-extraction/entity-score/entity-score.css',
+                'app/trust-center/data-extraction/entity-score/entity-score.controller.js'
+            ]
+        }, {
             name: 'TCComponent',
             files: [
                 'app/trust-center/component/component.css',
                 'app/trust-center/component/component.controller.js'
-            ]
-        }, {
-            name: 'TCProcessOld',
-            files: [
-                'app/trust-center/process-old/process/process.css',
-                'app/trust-center/process-old/process/process.controller.js'
-            ]
-        }, {
-            name: 'TCProcessTask',
-            files: [
-                'app/trust-center/process-old/process-task/process-task.css',
-                'app/trust-center/process-old/process-task/process-task.controller.js'
             ]
         }, {
             name: 'TCProcess',
@@ -127,13 +163,6 @@
                 'app/trust-center/process/process-instance/process-instance-config.factory.js'
             ]
         }, {
-            name: 'TCProcessInstanceWorkItemDetails',
-            files: [
-                'app/trust-center/process/process-instance/process-instance-work-item-details/process-instance-work-item-details.css',
-                'app/trust-center/process/process-instance/process-instance-work-item-details/process-instance-work-item-details.controller.js',
-                'app/trust-center/process/process-instance/process-instance-work-item-details/process-instance-work-item-details.directive.js'
-            ]
-        }, {
             name: 'TCProcessInstanceMenu',
             files: [
                 'app/trust-center/process/process-instance/process-instance-menu/process-instance-menu.css',
@@ -145,6 +174,13 @@
             files: [
                 'app/trust-center/process/process-instance/process-instance-modal/process-instance-modal.css',
                 'app/trust-center/process/process-instance/process-instance-modal/process-instance-modal.controller.js'
+            ]
+        }, {
+            name: 'TCActivityFormConfiguration',
+            files: [
+                'app/trust-center/process/tc-activity-form-configuration/tc-activity-form-configuration.directive.js',
+                'app/trust-center/process/tc-activity-form-configuration/tc-activity-form-configuration.controller.js',
+                'app/trust-center/process/tc-activity-form-configuration/tc-activity-form-configuration.css'
             ]
         }, {
             name: 'TCManageParameters',
@@ -163,6 +199,12 @@
             files: [
                 'app/trust-center/page/edit/edit-page.css',
                 'app/trust-center/page/edit/edit-page.controller.js'
+            ]
+        }, {
+            name: 'TCRelatedLookup',
+            files: [
+                'app/trust-center/page/related-lookup/related-lookup.css',
+                'app/trust-center/page/related-lookup/related-lookup.controller.js'
             ]
         }, {
             name: 'TCShareTable',
@@ -189,6 +231,12 @@
                 'app/trust-center/menu-group/menu-group.controller.js'
             ]
         }, {
+            name: 'TCParties',
+            files: [
+                'app/trust-center/parties/parties.css',
+                'app/trust-center/parties/parties.controller.js'
+            ]
+        }, {
             name: 'TCRoles',
             files: [
                 'app/trust-center/roles/roles.css',
@@ -205,6 +253,12 @@
             files: [
                 'app/trust-center/settings/user-settings/user-settings.css',
                 'app/trust-center/settings/user-settings/user-settings.controller.js'
+            ]
+        }, {
+            name: 'TCTenantUserSettings',
+            files: [
+                'app/trust-center/settings/tenant-user-settings/tenant-user-settings.css',
+                'app/trust-center/settings/tenant-user-settings/tenant-user-settings.controller.js'
             ]
         }, {
             name: 'TCLoginHistory',
@@ -255,6 +309,163 @@
             files: [
                 'app/trust-center/validation/validation.css',
                 'app/trust-center/validation/validation.controller.js'
+            ]
+        }, {
+            name: 'TCValidationGroup',
+            files: [
+                'app/trust-center/validation/validation-group/validation-group.css',
+                'app/trust-center/validation/validation-group/validation-group.controller.js'
+            ]
+        }, {
+            name: 'TCValidationGroupMapping',
+            files: [
+                'app/trust-center/validation/validation-group-mapping/validation-group-mapping.css',
+                'app/trust-center/validation/validation-group-mapping/validation-group-mapping.controller.js'
+            ]
+        }, {
+            name: 'TCDynamicListView',
+            files: [
+                'app/trust-center/dynamic-list-view/dynamic-list-view.css',
+                'app/trust-center/dynamic-list-view/dynamic-list-view.controller.js'
+            ]
+        }, {
+            name: 'TCDynamicDetailsView',
+            files: [
+                'app/trust-center/dynamic-details-view/dynamic-details-view.css',
+                'app/trust-center/dynamic-details-view/dynamic-details-view.controller.js',
+            ]
+        }, {
+            name: 'TCEvent',
+            files: [
+                'app/trust-center/event/event.css',
+                'app/trust-center/event/event-config.factory.js',
+                'app/trust-center/event/event.controller.js'
+            ]
+        }, {
+            name: 'TCEventConfigure',
+            files: [
+                'app/trust-center/event/tc-event-configure/tc-event-configure.css',
+                'app/trust-center/event/tc-event-configure/tc-event-configure.directive.js',
+                'app/trust-center/event/tc-event-configure/tc-event-configure.controller.js'
+            ]
+        }, {
+            name: 'TCDocumentType',
+            files: [
+                'app/trust-center/document-type/document-type.css',
+                'app/trust-center/document-type/document-type-config.factory.js',
+                'app/trust-center/document-type/document-type.controller.js'
+            ]
+        }, {
+            name: 'TCDocumentTypeConfigure',
+            files: [
+                'app/trust-center/document-type/tc-document-type-configure/tc-document-type-configure.css',
+                'app/trust-center/document-type/tc-document-type-configure/tc-document-type-configure.directive.js',
+                'app/trust-center/document-type/tc-document-type-configure/tc-document-type-configure.controller.js'
+            ]
+        }, {
+            name: 'TCExceptionType',
+            files: [
+                'app/trust-center/exception-type/exception-type.css',
+                'app/trust-center/exception-type/exception-type-config.factory.js',
+                'app/trust-center/exception-type/exception-type.controller.js'
+            ]
+        }, {
+            name: 'TCExceptionTypeConfigure',
+            files: [
+                'app/trust-center/exception-type/tc-exception-type-configure/tc-exception-type-configure.css',
+                'app/trust-center/exception-type/tc-exception-type-configure/tc-exception-type-configure.directive.js',
+                'app/trust-center/exception-type/tc-exception-type-configure/tc-exception-type-configure.controller.js'
+            ]
+        }, {
+            name: 'TCComments',
+            files: [
+                'app/trust-center/comments/comments.css',
+                'app/trust-center/comments/comments-config.factory.js',
+                'app/trust-center/comments/comments.controller.js'
+            ]
+        }, {
+            name: 'TCCommentsConfigure',
+            files: [
+                'app/trust-center/comments/tc-comments-configure/tc-comments-configure.css',
+                'app/trust-center/comments/tc-comments-configure/tc-comments-configure.directive.js',
+                'app/trust-center/comments/tc-comments-configure/tc-comments-configure.controller.js'
+            ]
+        }, {
+            name: 'TCEmail',
+            files: [
+                'app/trust-center/email/email.css',
+                'app/trust-center/email/email-config.factory.js',
+                'app/trust-center/email/email.controller.js'
+            ]
+        }, {
+            name: 'TCEmailConfigure',
+            files: [
+                'app/trust-center/email/tc-email-configure/tc-email-configure.css',
+                'app/trust-center/email/tc-email-configure/tc-email-configure.directive.js',
+                'app/trust-center/email/tc-email-configure/tc-email-configure.controller.js'
+            ]
+        }, {
+            name: 'TCSOPTypelist',
+            files: [
+                'app/trust-center/sop-typelist/sop-typelist.css',
+                'app/trust-center/sop-typelist/sop-typelist-config.factory.js',
+                'app/trust-center/sop-typelist/sop-typelist.controller.js'
+            ]
+        }, {
+            name: 'SOPTypelistConfigure',
+            files: [
+                'app/trust-center/sop-typelist/tc-sop-typelist-configure/tc-sop-typelist-configure.directive.js',
+                'app/trust-center/sop-typelist/tc-sop-typelist-configure/tc-sop-typelist-configure.controller.js',
+                'app/trust-center/sop-typelist/tc-sop-typelist-configure/tc-sop-typelist-configure.css'
+            ]
+        }, {
+            name: 'TCEBPMTypesList',
+            files: [
+                'app/trust-center/ebpm-types/ebpm-types.css',
+                'app/trust-center/ebpm-types/ebpm-types-config.factory.js',
+                'app/trust-center/ebpm-types/ebpm-types.controller.js'
+            ]
+        }, {
+            name: 'EBPMTypesConfigure',
+            files: [
+                'app/trust-center/ebpm-types/tc-ebpm-types-configure/tc-ebpm-types-configure.directive.js',
+                'app/trust-center/ebpm-types/tc-ebpm-types-configure/tc-ebpm-types-configure.controller.js',
+                'app/trust-center/ebpm-types/tc-ebpm-types-configure/tc-ebpm-types-configure.css'
+            ]
+        }, {
+            name: 'TCApplicationDropdown',
+            files: [
+                'app/trust-center/shared/tc-application-dropdown/tc-application-dropdown.directive.js',
+            ]
+        }, {
+            name: 'TCUserRoleAppTenant',
+            files: [
+                'app/trust-center/mapping/user-role-app-tenant/user-role-app-tenant.css',
+                'app/trust-center/mapping/user-role-app-tenant/user-role-app-tenant.controller.js'
+            ]
+        }, {
+            name: 'TCAppTrustAppTenant',
+            files: [
+                'app/trust-center/mapping/app-trust-app-tenant/app-trust-app-tenant.css',
+                'app/trust-center/mapping/app-trust-app-tenant/app-trust-app-tenant.controller.js'
+            ]
+        }, {
+            name: 'TCSecAppSecTenant',
+            files: [
+                'app/trust-center/mapping/sec-app-sec-tenant/sec-app-sec-tenant.css',
+                'app/trust-center/mapping/sec-app-sec-tenant/sec-app-sec-tenant.controller.js'
+            ]
+        }, {
+            name: 'TCUserCmpAppTenant',
+            files: [
+                'app/trust-center/mapping/user-cmp-app-tenant/user-cmp-app-tenant.css',
+                'app/trust-center/mapping/user-cmp-app-tenant/user-cmp-app-tenant.controller.js'
+            ]
+        }, {
+            name: 'TCUserWarehouseAppTenant',
+            files: [
+                'app/trust-center/mapping/user-warehouse-app-tenant/user-warehouse-app-tenant.css',
+                'app/trust-center/mapping/user-warehouse-app-tenant/user-warehouse-app-tenant.controller.js'
             ]
         }]
     };

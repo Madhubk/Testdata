@@ -16,7 +16,8 @@
             controller: "CycleCountMenuController",
             controllerAs: "CycleCountMenuCtrl",
             scope: {
-                currentCycleCount: "="
+                currentCycleCount: "=",
+                dataentryObject:'='
             },
             bindToController: true
 

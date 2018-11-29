@@ -1,0 +1,113 @@
+<div id="quick-bookin-approval" class="clearfix">
+    <div class="ik-st-box">
+        <div class="col-lg-8 pt-10 pb-10">
+            <div class="ik-st-inner-box clearfix">
+                <div class="ik-st-top-title">
+                    <div class="ik-st-cnsha-l">
+                        <div class="ik-cnsha-title">{{QuickBookingApprovalDirectiveCtrl.ePage.Masters.HeaderDetails.UIShipmentHeader.Origin}}</div>
+                    </div>
+                    <div class="ik-st-cnsha-r">
+                        <div class="ik-cnsha-title">{{QuickBookingApprovalDirectiveCtrl.ePage.Masters.HeaderDetails.UIShipmentHeader.Destination}}</div>
+                    </div>
+                </div>
+                <div class="ik-st-marker-box">
+                    <span class="ik-st-icon-marker ik-st-icon-marker-left">
+                        <i class="fa fa-circle-o"></i>
+                    </span>
+                    <div class="ik-st-line">
+                        <div class="ik-st-content">
+                            <span class="task-list-des-sub-title">
+                                <i class="icon-ocean32 fa-2x"></i> {{QuickBookingApprovalDirectiveCtrl.ePage.Masters.HeaderDetails.UIShipmentHeader.TransportMode}}</span>
+                            <span class="task-arrow">
+                                <i class="fa fa-caret-right"></i>
+                            </span>
+                            <span class="task-list-des-sub-title">{{QuickBookingApprovalDirectiveCtrl.ePage.Masters.HeaderDetails.UIShipmentHeader.PackingMode}}</span>
+                            <span class="task-slash">|</span>
+                            <span class="task-list-des-sub-title">{{QuickBookingApprovalDirectiveCtrl.ePage.Masters.HeaderDetails.UIShipmentHeader.IncoTerm}}</span>
+                        </div>
+                    </div>
+                    <span class="ik-st-icon-marker ik-st-icon-marker-right">
+                        <i class="fa fa-map-marker"></i>
+                    </span>
+                </div>
+                <div class="ik-st-bottom-title">
+                    <div class="ik-st-cnsha-l">
+                        <div class="ik-cnsha-title">
+                            {{QuickBookingApprovalDirectiveCtrl.ePage.Masters.HeaderDetails.UIShipmentHeader.ShipperName}}
+                        </div>
+                    </div>
+                    <div class="ik-st-cnsha-r">
+                        <div class="ik-cnsha-title">{{QuickBookingApprovalDirectiveCtrl.ePage.Masters.HeaderDetails.UIShipmentHeader.ConsigneeName}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix mt-10 position-relative">
+                <i class="except-comment-icon fa fa-comment-o"></i>
+                <div class="except-comments color-aaa pr-15 fs-12 pl-20">want to load the cargo above said
+                    <a href="#">Readmore...</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 border-left pt-10 pb-10 bg-white">
+            <textarea class="form-control no-resize" placeholder="Enter your Comments" data-ng-model="QuickBookingApprovalDirectiveCtrl.ePage.Masters.Comments"></textarea>
+            <div class="row">
+                <div class="col-lg-6">
+                    <button class="my-task-btn my-task-directive-btn mt-5" data-ng-disabled="QuickBookingApprovalDirectiveCtrl.ePage.Masters.IsDisabled"
+                        data-ng-click="QuickBookingApprovalDirectiveCtrl.ePage.Masters.ApproveOrReject('Approve')">{{QuickBookingApprovalDirectiveCtrl.ePage.Masters.CompleteApprove}}</button>
+                </div>
+                <div class="col-lg-6">
+                    <button class="my-task-btn my-task-directive-btn mt-5" data-ng-disabled="QuickBookingApprovalDirectiveCtrl.ePage.Masters.IsDisabled"
+                        data-ng-click="QuickBookingApprovalDirectiveCtrl.ePage.Masters.ApproveOrReject('Reject')">{{QuickBookingApprovalDirectiveCtrl.ePage.Masters.CompleteReject}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix mt-10">
+    <div class="table" id="results">
+        <div class="theader">
+            <div class="table_header">Order #</div>
+            <div class="table_header" title="Cargo Ready Date">CR Date</div>
+            <div class="table_header">Carrier</div>
+            <div class="table_header">Vessel</div>
+            <div class="table_header">Voyage</div>
+            <div class="table_header">ETD</div>
+            <div class="table_header">ETA</div>
+
+        </div>
+        <div class="table_row" data-ng-repeat="x in QuickBookingApprovalDirectiveCtrl.ePage.Masters.OrderDetails">
+            <div class="table_small">
+                <div class="table_cell">Order #</div>
+                <div class="table_cell">{{x.OrderCumSplitNo}}</div>
+            </div>
+            <div class="table_small">
+                <div class="table_cell">Cargo Ready Date</div>
+                <div class="table_cell">
+                    {{x.CargoReadyDate | date: 'dd-MMM-yyyy'}}
+                </div>
+            </div>
+            <div class="table_small">
+                <div class="table_cell">Carrier</div>
+                <div class="table_cell text-single-line-80" title="{{x.PlannedCarrier}}">{{x.PlannedCarrier}}</div>
+            </div>
+            <div class="table_small">
+                <div class="table_cell">Vessel</div>
+                <div class="table_cell text-single-line-80" title="{{x.PlannedVessel}}">{{x.PlannedVessel}}</div>
+            </div>
+            <div class="table_small">
+                <div class="table_cell">Voyage</div>
+                <div class="table_cell text-single-line-80" title="{{x.PlannedVoyage}}">{{x.PlannedVoyage}}</div>
+            </div>
+            <div class="table_small">
+                <div class="table_cell">ETD</div>
+                <div class="table_cell">{{x.PlannedETD | date: 'dd-MMM-yyyy'}}</div>
+            </div>
+            <div class="table_small">
+                <div class="table_cell">ETA</div>
+                <div class="table_cell">{{x.PlannedETA | date: 'dd-MMM-yyyy'}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="grid-no-record-common_table sw-grid" data-ng-if="QuickBookingApprovalDirectiveCtrl.ePage.Masters.OrderDetails.length==0">No records found...</div>

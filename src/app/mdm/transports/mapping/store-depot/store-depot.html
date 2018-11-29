@@ -4,7 +4,7 @@
         <span>
             <button type="button" class="btn btn-sm btn-outline-secondary" title="Add New" data-ng-click="StoreDepotCtrl.ePage.Masters.AddNewRow()">
                 <span class="fa fa-plus"></span>&nbsp;&nbsp;Add New
-        </button>
+            </button>
         </span>
         <span ng-hide='StoreDepotCtrl.ePage.Masters.selectedRow==-1'>
             <button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Copy" data-ng-click="StoreDepotCtrl.ePage.Masters.CopyRow()">
@@ -18,6 +18,12 @@
             <button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Delete" data-ng-click="StoreDepotCtrl.ePage.Masters.RemoveRow()">
                 <span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button>
         </span>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 pull-right">
+
+            <input type="text" class="form-control input-sm" placeholder="Local Search.." data-ng-model="StoreDepotCtrl.ePage.Masters.find"
+            />
+
+        </div>
     </div>
     <div id='StoreDepotCtrl.ePage.Masters.your_div' class="wmstable_scroll" style="height:450px; padding-top: 2px;">
         <div class="table" id="results">
@@ -33,8 +39,12 @@
                 <div class="grid-no-record" style="bottom: 250px;">No records found...</div>
             </div>
 
-            <div class='table_row' ng-repeat="x in StoreDepotCtrl.ePage.Entities.Header.Data.StoreDepotDetails track by $index"
-                ng-click="StoreDepotCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: StoreDepotCtrl.ePage.Masters.selectedRow==$index}"
+            <div class="grid-loading-norecord-container" data-ng-show="StoreDepotCtrl.ePage.Masters.IsLoading">
+                <div class="grid-no-record" style="bottom: 250px;">Loading...</div>
+            </div>
+
+            <div class='table_row' ng-repeat="x in StoreDepotCtrl.ePage.Entities.Header.Data.StoreDepotDetails | filter:StoreDepotCtrl.ePage.Masters.find track by $index"
+                ng-click="StoreDepotCtrl.ePage.Masters.setSelectedRow($index,x);" ng-class="{row_active: StoreDepotCtrl.ePage.Masters.StoreDepotCtrl.ePage.Masters.LineselectedRow==$index}"
                 style="font-size: 11px;">
                 <div class='table_small'>
                     <div class='table_cell'>List No</div>
@@ -78,14 +88,17 @@
                             <div class="input-group input-group-sm">
                                 <!-- Dynamic look up Search in textbox -->
                                 <div dynamic-lookup placeholder="Store" my-ng-model="StoreDepotCtrl.ePage.Entities.Header.Data.StoreDepotDetails[StoreDepotCtrl.ePage.Masters.selectedRow].MappingForCode"
-                                    auto-complete-on-select="StoreDepotCtrl.ePage.Masters.SelectedLookupDataStore($item)"
-                                    obj="StoreDepotCtrl.ePage.Entities.Header.Data.StoreDepotDetails[StoreDepotCtrl.ePage.Masters.selectedRow]"
+                                    auto-complete-on-select="StoreDepotCtrl.ePage.Masters.SelectedLookupDataStore($item)" obj="StoreDepotCtrl.ePage.Entities.Header.Data.StoreDepotDetails[StoreDepotCtrl.ePage.Masters.selectedRow]"
                                     prefix-data="'OrganizationList'" config="'MappingStore'">
                                 </div>
                                 <!-- Look Up page opens when button clicks -->
                                 <span class="input-group-btn">
-                                    <button dynamic-list-modal obj="StoreDepotCtrl.ePage.Entities.Header.Data.StoreDepotDetails[StoreDepotCtrl.ePage.Masters.selectedRow]" field-name="'MappingStore'" selected-data="StoreDepotCtrl.ePage.Masters.SelectedLookupDataStore($item)"  
-                                    prefix-data="'OrganizationList'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                    <button dynamic-list-modal obj="StoreDepotCtrl.ePage.Entities.Header.Data.StoreDepotDetails[StoreDepotCtrl.ePage.Masters.selectedRow]"
+                                        field-name="'MappingStore'" selected-data="StoreDepotCtrl.ePage.Masters.SelectedLookupDataStore($item)"
+                                        prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                        class="btn btn-default shiny" type="button">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
                                 </span>
                             </div>
                         </div>
@@ -97,14 +110,17 @@
                             <div class="input-group input-group-sm">
                                 <!-- Dynamic look up Search in textbox -->
                                 <div dynamic-lookup placeholder="Depot" my-ng-model="StoreDepotCtrl.ePage.Entities.Header.Data.StoreDepotDetails[StoreDepotCtrl.ePage.Masters.selectedRow].MappingToCode"
-                                    auto-complete-on-select="StoreDepotCtrl.ePage.Masters.SelectedLookupDataDepot($item)"
-                                    obj="StoreDepotCtrl.ePage.Entities.Header.Data.StoreDepotDetails[StoreDepotCtrl.ePage.Masters.selectedRow]"
+                                    auto-complete-on-select="StoreDepotCtrl.ePage.Masters.SelectedLookupDataDepot($item)" obj="StoreDepotCtrl.ePage.Entities.Header.Data.StoreDepotDetails[StoreDepotCtrl.ePage.Masters.selectedRow]"
                                     prefix-data="'OrganizationList'" config="'MappingDepot'">
                                 </div>
                                 <!-- Look Up page opens when button clicks -->
                                 <span class="input-group-btn">
-                                    <button dynamic-list-modal obj="StoreDepotCtrl.ePage.Entities.Header.Data.StoreDepotDetails[StoreDepotCtrl.ePage.Masters.selectedRow]" field-name="'MappingDepot'" selected-data="StoreDepotCtrl.ePage.Masters.SelectedLookupDataDepot($item)"  
-                                    prefix-data="'OrganizationList'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                    <button dynamic-list-modal obj="StoreDepotCtrl.ePage.Entities.Header.Data.StoreDepotDetails[StoreDepotCtrl.ePage.Masters.selectedRow]"
+                                        field-name="'MappingDepot'" selected-data="StoreDepotCtrl.ePage.Masters.SelectedLookupDataDepot($item)"
+                                        prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                        class="btn btn-default shiny" type="button">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
                                 </span>
                             </div>
                         </div>
@@ -113,26 +129,31 @@
                     <div class="col-lg-3">
                         <div class="form-group">
                             <label class="control-label text-single-line">Carrier</label>
-                           <div class="input-group input-group-sm">
+                            <div class="input-group input-group-sm">
                                 <!-- Dynamic look up Search in textbox -->
                                 <div dynamic-lookup placeholder="Carrier" my-ng-model="StoreDepotCtrl.ePage.Entities.Header.Data.StoreDepotDetails[StoreDepotCtrl.ePage.Masters.selectedRow].MappingBasedOnCode"
-                                    auto-complete-on-select="StoreDepotCtrl.ePage.Masters.SelectedLookupDataDepot($item)"
-                                    obj="StoreDepotCtrl.ePage.Entities.Header.Data.StoreDepotDetails[StoreDepotCtrl.ePage.Masters.selectedRow]"
+                                    auto-complete-on-select="StoreDepotCtrl.ePage.Masters.SelectedLookupDataDepot($item)" obj="StoreDepotCtrl.ePage.Entities.Header.Data.StoreDepotDetails[StoreDepotCtrl.ePage.Masters.selectedRow]"
                                     prefix-data="'OrganizationList'" config="'MappingCarrier'">
                                 </div>
                                 <!-- Look Up page opens when button clicks -->
                                 <span class="input-group-btn">
-                                    <button dynamic-list-modal obj="StoreDepotCtrl.ePage.Entities.Header.Data.StoreDepotDetails[StoreDepotCtrl.ePage.Masters.selectedRow]" field-name="'MappingCarrier'" selected-data="StoreDepotCtrl.ePage.Masters.SelectedLookupDataDepot($item)"  
-                                    prefix-data="'OrganizationList'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                    <button dynamic-list-modal obj="StoreDepotCtrl.ePage.Entities.Header.Data.StoreDepotDetails[StoreDepotCtrl.ePage.Masters.selectedRow]"
+                                        field-name="'MappingCarrier'" selected-data="StoreDepotCtrl.ePage.Masters.SelectedLookupDataDepot($item)"
+                                        prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                        class="btn btn-default shiny" type="button">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
                                 </span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-lg-offset-8 mt-5">
-                    <button class="btn btn-blue btn-sm mr-5 pull-right" title="Save" data-ng-click="StoreDepotCtrl.ePage.Masters.Done()"><i class="fa fa-save pr-5"></i>Save</button>
-                    <button class="btn btn-primary btn-sm mr-5 pull-right" title="Delete" data-ng-click="StoreDepotCtrl.ePage.Masters.RemoveRow()"><i class="fa fa-trash pr-5"></i>Delete</button>
-                    <button class="btn btn-primary btn-sm mr-5 pull-right" title="Back" data-ng-click="StoreDepotCtrl.ePage.Masters.Back()"><i class="fa fa-angle-double-left pr-5"></i>Back</button>
+                    <button class="btn btn-blue btn-sm mr-5 pull-right" title="Save" data-ng-click="StoreDepotCtrl.ePage.Masters.Done()">
+                        <i class="fa fa-save pr-5"></i>Save</button>
+                    <!-- <button class="btn btn-primary btn-sm mr-5 pull-right" title="Delete" data-ng-click="StoreDepotCtrl.ePage.Masters.RemoveRow()"><i class="fa fa-trash pr-5"></i>Delete</button> -->
+                    <button class="btn btn-primary btn-sm mr-5 pull-right" title="Back" data-ng-click="StoreDepotCtrl.ePage.Masters.Back()">
+                        <i class="fa fa-angle-double-left pr-5"></i>Back</button>
                 </div>
             </div>
         </div>

@@ -21,7 +21,6 @@
                 "Entities": adminItemConfig.Entities
             };
 
-            AdminItemCtrl.ePage.Masters.taskName = "TransportItem";
             AdminItemCtrl.ePage.Masters.dataentryName = "Item";
             AdminItemCtrl.ePage.Masters.TabList = [];
             AdminItemCtrl.ePage.Masters.activeTabIndex = 0;
@@ -37,6 +36,9 @@
             AdminItemCtrl.ePage.Masters.SaveandClose = SaveandClose;
 
             AdminItemCtrl.ePage.Masters.Config = adminItemConfig;
+
+            // Remove all Tabs while load shipment
+            adminItemConfig.TabList = [];
 
             adminItemConfig.ValidationFindall();
         }
@@ -68,7 +70,7 @@
             AdminItemCtrl.ePage.Masters.currentItem = undefined;
             var _isExist = AdminItemCtrl.ePage.Masters.TabList.some(function (value) {
                 if (!isNew) {
-                    if(value.label === currentItem.entity.ItemCode)
+                    if (value.label === currentItem.entity.ItemCode)
                         return true
                     else
                         return false
@@ -148,10 +150,10 @@
                         console.log("Empty New Item response");
                     }
                 });
-            }else{
+            } else {
                 toastr.info("New Record Already Opened...!");
             }
-        }    
+        }
         Init();
     }
 })();

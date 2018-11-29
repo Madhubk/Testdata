@@ -1,4 +1,3 @@
-
 <uib-tabset id="chromeTab" active="AdminItemCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
 
     <uib-tab>
@@ -9,7 +8,7 @@
 
         <div class="no-padding tab-list-view-wrapper">
             <!--Item Grid Page-->
-            <dynamic-list dataentry-name="AdminItemCtrl.ePage.Masters.dataentryName" task-name="AdminItemCtrl.ePage.Masters.taskName" grid-config-type="0" selected-grid-row="AdminItemCtrl.ePage.Masters.SelectedGridRow($item)" mode="1"></dynamic-list>
+            <dynamic-list dataentry-name="AdminItemCtrl.ePage.Masters.dataentryName" dataentry-object="AdminItemCtrl.ePage.Masters.DataEntryObject" selected-grid-row="AdminItemCtrl.ePage.Masters.SelectedGridRow($item)" mode="1"></dynamic-list>
             <div class="tab-loading" data-ng-show="AdminItemCtrl.ePage.Masters.IsTabClick"></div>
         </div>
     </uib-tab>
@@ -23,26 +22,26 @@
                     <button class="btn-warning" data-ng-click="AdminItemCtrl.ePage.Masters.Config.ShowErrorWarningModal(tab)">
                         <i class="fa fa-warning"></i>
                     </button>
-                    <span class="custom-warning-count">{{tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount:
-                        'MessageType': 'W'}}</span>
+                    <span class="custom-warning-count">{{tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType':
+                        'W'}}</span>
                 </span>
                 <span class="custom-error-container" data-ng-if="(tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'E') > 0">
                     <button class="btn-error" data-ng-click="AdminItemCtrl.ePage.Masters.Config.ShowErrorWarningModal(tab)">
                         <i class="fa fa-warning"></i>
                     </button>
-                    <span class="custom-error-count">{{tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount:
-                        'MessageType': 'E'}}</span>
+                    <span class="custom-error-count">{{tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType':
+                        'E'}}</span>
                 </span>
             </span>
         </uib-tab-heading>
         <div class="padding-5 padding-bottom-10 clearfix">
 
             <!--Item Menu Directive-->
-            <adminitem-menu current-item="tab"></adminitem-menu>
+            <adminitem-menu current-item="tab" dataentry-object="AdminItemCtrl.ePage.Masters.DataEntryObject"></adminitem-menu>
 
             <div class="horizontal-space"></div>
         </div>
         <span ng-if="AdminItemCtrl.ePage.Masters.Config.SaveAndClose" ng-init="AdminItemCtrl.ePage.Masters.SaveandClose(AdminItemCtrl.ePage.Masters.activeTabIndex, tab)"></span>
     </uib-tab>
-    <button class="btn btn-default" ng-click="AdminItemCtrl.ePage.Masters.CreateNewItem()" data-ng-disabled="AdminItemCtrl.ePage.Masters.IsNewItemClicked">+</button>
+    <!-- <button class="btn btn-default" ng-click="AdminItemCtrl.ePage.Masters.CreateNewItem()" data-ng-disabled="AdminItemCtrl.ePage.Masters.IsNewItemClicked">+</button> -->
 </uib-tabset>

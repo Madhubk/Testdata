@@ -4,213 +4,274 @@
             <!--Service Tab-->
             <uib-tab>
                 <uib-tab-heading title="Services">
-                    <i class="fa fa-gavel margin-right-5"></i> <span class="text-single-line" data-ng-bind="'Services'"></span>
+                    <i class="fa fa-gavel margin-right-5"></i>
+                    <span class="text-single-line" data-ng-bind="'Services'"></span>
                 </uib-tab-heading>
-                <div>
-                    <div class="horizontal-space"></div>
-                    <div class="clearfix">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                            <div class="input-group-sm">
-                                <button class="btn btn-primary pull-right" data-ng-click="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.AddToService()" data-ng-show="!ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.IsFormView"> <i class="fa fa-plus-circle"></i> Add Service</button>
-
-                            </div>
+                <div class="clearfix" data-ng-if="!ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.IsFormView">
+                    <div class="input-group-sm">
+                        <button class="btn btn-sm btn-outline-secondary pull-right mb-5" data-ng-click="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.AddToService()">
+                            <i class="fa fa-plus-circle"></i> Add Service
+                        </button>
+                    </div>
+                </div>
+                <div data-ng-if="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.IsFormView">
+                    <div class="clearfix margin-bottom-10 service-details-heading">
+                        <div class="text-center clearfix">
+                            <i class="fa fa-angle-double-left pull-left btn btn-link" data-ng-click="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.IsFormView = false"></i>
+                            <span class="heading">Service Details</span>
                         </div>
                     </div>
-                    <div data-ng-show="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.IsFormView">
-                        <div class="clearfix margin-bottom-10 service-details-heading">
-                            <div class="text-center clearfix">
-                                <i class="fa fa-angle-double-left pull-left btn btn-link" data-ng-click="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.IsFormView = false"></i>
-                                <span class="heading">Service Details</span>
+                    <div class="clearfix">
+                        <!--Service Code-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group ship-font">
+                                <label class="control-label">Service Code</label>
+                                <div class="">
+                                    <select chosen name="category-group" class="form-control" ng-model="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.ServiceCode"
+                                        ng-options="x.Key as x.Description for x in ShipmentServiceAndReferenceCtrl.ePage.Masters.DropDownMasterList.SERVICETYPE.ListSource"
+                                        search-contains="true">
+                                        <option value="">--Select--</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                        <div class="clearfix">
-                            <!--Service Code-->
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                <div class="form-group">
-                                    <label class="control-label">Service Code</label>
-                                    <div class="">
-                                        <select chosen name="category-group" class="form-control" ng-model="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.ServiceCode"
-                                                ng-options="x.Key as x.Description for x in ShipmentServiceAndReferenceCtrl.ePage.Masters.DropDownMasterList.SERVICETYPE.ListSource"
-                                                search-contains="true">
-                                            <option value="">--Select--</option>
-                                        </select>
-                                    </div>
+                        <!--Booked Date -->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group ship-font">
+                                <label class="control-label">Booked </label>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" placeholder="{{ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                        ng-model="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.Booked" datetime-picker="{{ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                        datepicker-options="ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options"
+                                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                                        default-date="" default-time="" save-as="ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                        is-open="ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.isOpen['isBooked']"
+                                        when-closed="" data-ng-click="" data-ng-change="" custom-date-time-format />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default shiny" data-ng-click="ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isBooked')">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
                                 </div>
                             </div>
-                            <!--Booked Date -->
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                <div class="form-group">
-                                    <label class="control-label">Booked </label>
+                        </div>
+                        <!--Service Count-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group ship-font">
+                                <label class="control-label">Service Count</label>
+                                <div class="">
+                                    <input type="text" class="form-control input-sm" placeholder="Service Count" max-length="5" data-ng-model="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.ServiceCount"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <!--Service Note-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group ship-font">
+                                <label class="control-label">Service Note</label>
+                                <div class="">
+                                    <input type="text" class="form-control input-sm" placeholder="Service Note" max-length="-1" data-ng-model="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.ServiceNote"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <!--References-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group ship-font">
+                                <label class="control-label">References</label>
+                                <div class="">
+                                    <input type="text" class="form-control input-sm" placeholder="References" max-length="70" data-ng-model="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.References"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <!--Duration-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group ship-font">
+                                <label class="control-label">Duration</label>
+                                <div class="">
                                     <div class="input-group input-group-sm">
-                                        <input type="text" class="form-control" placeholder="{{ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.format}}"
-                                               data-ng-model="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.Booked"
-                                               uib-datepicker-popup="{{ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.format}}"
-                                               datepicker-options="ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options"
-                                               is-open="ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.isOpen['isBooked']" />
+                                        <input type="text" class="form-control" placeholder="{{ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.timeFormat}}"
+                                            ng-model="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.Duration"
+                                            datetime-picker="{{ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.timeFormat}}"
+                                            datepicker-options="ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options"
+                                            datepicker-append-to-body="false" close-on-selection="false" enable-time="true" enable-date="false"
+                                            default-date="" default-time="" save-as="ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                            is-open="ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.isOpen['isDuration']"
+                                            when-closed="" data-ng-click="ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isDuration')"
+                                            custom-date-time-format/>
                                         <span class="input-group-btn">
-                                            <button class="btn btn-default shiny" data-ng-click="ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isBooked')"><i class="fa fa-calendar"></i></button>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Service Count-->
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                <div class="form-group">
-                                    <label class="control-label">Service Count</label>
-                                    <div class="">
-                                        <input type="text" class="form-control input-sm" placeholder="Service Count" max-length="5" data-ng-model="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.ServiceCount" />
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Service Note-->
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                <div class="form-group">
-                                    <label class="control-label">Service Note</label>
-                                    <div class="">
-                                        <input type="text" class="form-control input-sm" placeholder="Service Note" max-length="-1" data-ng-model="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.ServiceNote" />
-                                    </div>
-                                </div>
-                            </div>
-                            <!--References-->
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                <div class="form-group">
-                                    <label class="control-label">References</label>
-                                    <div class="">
-                                        <input type="text" class="form-control input-sm" placeholder="References" max-length="70" data-ng-model="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.References" />
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Duration-->
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                <div class="form-group">
-                                    <label class="control-label">Duration</label>
-                                    <div class="">
-                                        <div class="input-group input-group-sm">
-                                            <input type="text" class="form-control" placeholder="HH:mm" datetime-picker="HH:mm" ng-model="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.Duration"
-                                                   is-open="ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.isOpen['isDuration']"
-                                                   enable-date="false" timepicker-options="ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.TimeOptions"
-                                                   close-on-selection="true" />
-                                            <span class="input-group-btn">
-                                                <button type="button" class="btn btn-default shiny" data-ng-click="ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isDuration')"><i class="fa fa-clock-o"></i></button>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Contractor -->
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                <div class="form-group">
-                                    <label class="control-label">Contractor </label>
-                                    <div class="input-group input-group-sm">
-                                        <input type="hidden" ng-model="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.ORG_Contractor_FK">
-                                        <div dynamic-lookup placeholder="Contractor" my-ng-model="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.ORG_Contractor_Code"
-                                             obj="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView" prefix-data="'OrganizationList'"
-                                             config="'ShpServiceContractor'"></div>
-                                        <span class="input-group-btn">
-                                            <button dynamic-list-modal obj="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView" field-name="'ShpServiceContractor'" prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ShipmentServiceAndReferenceCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Location-->
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                <div class="form-group">
-                                    <label class="control-label">Location </label>
-                                    <div class="input-group input-group-sm">
-
-                                        <input type="hidden" ng-model="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.ORG_Contractor_FK">
-                                        <div dynamic-lookup placeholder="Location" my-ng-model="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.ORG_Location_Code"
-                                             obj="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView" prefix-data="'OrganizationList'"
-                                             config="'ShpServiceLocation'" auto-complete-on-select="ShipmentServiceAndReferenceCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'Location')"></div>
-                                        <span class="input-group-btn">
-                                            <button dynamic-list-modal obj="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView" field-name="'ShpServiceLocation'" prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ShipmentServiceAndReferenceCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button" data-ng-click="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.IsClicked = 'true'"><i class="fa fa-ellipsis-h"></i></button>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Location Address-->
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                <div class="form-group">
-                                    <label class="control-label">Address</label>
-                                    <div class="">
-                                        <select chosen name="category-group" class="form-control" ng-model="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.OAD_Location_FK"
-                                                ng-options="x.PK as x.Code for x in ShipmentServiceAndReferenceCtrl.ePage.Masters.LocationAddress.ListSource"
-                                                search-contains="true">
-                                            <option value="">--Select--</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Completed Date-->
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                <div class="form-group">
-                                    <label class="control-label">Completed</label>
-                                    <div class="input-group input-group-sm">
-                                        <input type="text" class="form-control" placeholder="{{ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.format}}"
-                                               data-ng-model="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.Completed"
-                                               uib-datepicker-popup="{{ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.format}}"
-                                               datepicker-options="ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options"
-                                               is-open="ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.isOpen['isCompleted']" />
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-default shiny" data-ng-click="ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCompleted')">
-                                                <i class="fa fa-calendar"></i>
+                                            <button type="button" class="btn btn-default shiny" data-ng-click="ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isDuration')">
+                                                <i class="fa fa-clock-o"></i>
                                             </button>
                                         </span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 margin-top-30">
-                                <input type="button" class="btn btn-primary btn-sm pull-right margin-left-5" data-ng-click="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.AddToGridService(ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.AddNewAndUpdate)"
-                                       value="{{ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.AddNewAndUpdate}}">
+                        </div>
+                        <!-- Contractor -->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group ship-font">
+                                <label class="control-label">Contractor </label>
+                                <div class="input-group input-group-sm">
+                                    <input type="hidden" ng-model="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.ORG_Contractor_FK">
+                                    <div dynamic-lookup placeholder="Contractor" my-ng-model="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.ORG_Contractor_Code"
+                                        obj="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView" page-name="'OrganizationList'"
+                                        control-id="'ShpServiceContractor'" control-key="ShpServiceContractor_2993"></div>
+                                    <span class="input-group-btn">
+                                        <button dynamic-list-modal obj="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView" control-id="'ShpServiceContractor'"
+                                            page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                            control-key="ShpServiceContractor_2993" selected-data="ShipmentServiceAndReferenceCtrl.ePage.Masters.SelectedData($item)"
+                                            class="btn btn-default shiny" type="button">
+                                            <i class="fa fa-ellipsis-h"></i>
+                                        </button>
+                                    </span>
+                                </div>
                             </div>
                         </div>
-                        <div class="clearfix">
+                        <!--Location-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group ship-font">
+                                <label class="control-label">Location </label>
+                                <div class="input-group input-group-sm">
+                                    <input type="hidden" ng-model="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.ORG_Location_FK">
+                                    <div dynamic-lookup placeholder="Location" my-ng-model="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.ORG_Location_Code"
+                                        obj="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView" page-name="'OrganizationList'"
+                                        control-id="'ShpServiceLocation'" control-key="ShpServiceLocation_2990" auto-complete-on-select="ShipmentServiceAndReferenceCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'Location')"></div>
+                                    <span class="input-group-btn">
+                                        <button dynamic-list-modal obj="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView" control-id="'ShpServiceLocation'"
+                                            page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                            control-key="ShpServiceLocation_2990" selected-data="ShipmentServiceAndReferenceCtrl.ePage.Masters.SelectedData($item)"
+                                            class="btn btn-default shiny" type="button" data-ng-click="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.IsClicked = 'true'">
+                                            <i class="fa fa-ellipsis-h"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Location Address-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group ship-font">
+                                <label class="control-label">Address</label>
+                                <div class="">
+                                    <select chosen name="category-group" class="form-control" ng-model="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.OAD_Location_FK"
+                                        ng-options="x.PK as x.Code for x in ShipmentServiceAndReferenceCtrl.ePage.Masters.LocationAddress.ListSource"
+                                        search-contains="true">
+                                        <option value="">--Select--</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Completed Date-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group ship-font">
+                                <label class="control-label">Completed</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" placeholder="{{ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                        ng-model="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.Completed" datetime-picker="{{ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                        datepicker-options="ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options"
+                                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                                        default-date="" default-time="" save-as="ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                        is-open="ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.isOpen['isCompleted']"
+                                        when-closed="" data-ng-click="" data-ng-change="" custom-date-time-format />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default shiny" data-ng-click="ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCompleted')">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 margin-top-30">
+                            <input type="button" class="btn btn-default set-br-blue set-bg-blue-light fs-12 pull-right" data-ng-click="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.AddToGridService(ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.AddNewAndUpdate)"
+                                value="{{ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.AddNewAndUpdate}}">
                         </div>
                     </div>
-                    <!-- <div class="horizontal-space"></div>
                     <div class="clearfix">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                            <input type="button" class="btn btn-primary btn-sm pull-right margin-left-5" data-ng-click="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.AddToGridService(ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.AddNewAndUpdate)"
-                                value="{{ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.AddNewAndUpdate}}">
-                             <button class="btn btn-primary btn-sm pull-right margin-left-5" data-ng-click="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.EditService()"
-                                data-ng-disabled="!ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.IsSelected">Edit</button>
-                            <button class="btn btn-primary btn-sm pull-right margin-left-5" data-ng-click="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.DeleteConfirmation()"
-                                data-ng-disabled="!ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.IsSelected">Delete</button>
-                        </div>
-                    </div> -->
+                    </div>
                 </div>
+                <!-- Service Grid -->
+                <div class="mt-5">
+                    <div id='' data-ng-if="!ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.IsFormView" class="Shipmentstable_scroll service-hgt">
+                        <div class="table tab-position" id="results">
+                            <div class='theader'>
+                                <div class='table_header'>Service Code</div>
+                                <div class='table_header'>Booked</div>
+                                <div class='table_header'>Duration</div>
+                                <div class='table_header'>ServiceCount</div>
+                                <div class='table_header'>Completed</div>
+                                <div class='table_header'>Action</div>
+                            </div>
+                            <!-- List Empty Response -->
 
-                <div class="clearfix" data-ng-show="!ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.IsFormView">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                        <div class="height-230 clearfix">
-                            <div class="text-center grid-view-loader" data-ng-if="!ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.GridData"><i class="fa fa-spin fa-spinner font-160"></i></div>
-                            <dynamic-table data-ng-if="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.GridData" grid-data="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.GridData"
-                                           grid-config="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.gridConfig" selected-grid-row="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.SelectedGridRow($item)"></dynamic-table>
-                            <!-- <dynamic-grid data-ng-if="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.GridData" input-data="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.GridData"
-                                grid-config="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.gridConfig" row-selection-changed="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.ServiceRowSelectionChanged($item)"></dynamic-grid> -->
+                            <div class='table_row' data-ng-repeat="x in ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.GridData" data-ng-if="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.GridData && ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.GridData.length > 0"
+                                style="font-size: 11px;">
+                                <div class='table_small'>
+                                    <div class='table_cell'>Service Code</div>
+                                    <div class='table_cell'>
+                                        <b>{{x.ServiceCode}}</b>
+                                    </div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>Booked</div>
+                                    <div class='table_cell'>{{x.Booked | date:'dd-MMM-yyyy'}}</div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>Duration</div>
+                                    <div class='table_cell'>
+                                        {{x.Duration | date: 'dd-MMM-yyyy h:mm a'}}
+                                    </div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>ServiceCount</div>
+                                    <div class='table_cell'>{{x.ServiceCount}}</div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>Completed</div>
+                                    <div class='table_cell'>
+                                        {{x.Completed | date:'dd-MMM-yyyy'}}
+                                    </div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>Action</div>
+                                    <div class='table_cell'>
+                                        <span>
+                                            <a>
+                                                <i class="fa fa-pencil order-icon" data-ng-click="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.SelectedGridRow(x, 'edit')"></i>
+                                            </a>
+                                        </span>|
+                                        <span>
+                                            <a>
+                                                <i class="fa fa-trash order-icon" data-ng-click="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.SelectedGridRow(x, 'delete')"></i>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center grid-view-loader mt-50" data-ng-if="!ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.GridData">
+                            <i class="fa fa-spin fa-spinner font-160"></i>
+                        </div>
+                        <div>
+                            <div class="grid-no-record-border-box text-center p-30" data-ng-if="ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.GridData.length==0">No records found...</div>
                         </div>
                     </div>
                 </div>
             </uib-tab>
-
             <!--Reference Tab-->
             <uib-tab>
                 <uib-tab-heading title="References">
-                    <i class="fa fa-info margin-right-5"></i> <span class="text-single-line" data-ng-bind="'References'"></span>
+                    <i class="fa fa-info margin-right-5"></i>
+                    <span class="text-single-line" data-ng-bind="'References'"></span>
                 </uib-tab-heading>
-                <div class="horizontal-space"></div>
                 <div class="clearfix">
-                    <div class="clearfix">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                            <div class="input-group-sm">
-                                <button class="btn btn-primary pull-right" data-ng-click="ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.AddToReference()" data-ng-show="!ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.IsFormView"><i class="fa fa-plus-circle"></i> Add Reference</button>
-                            </div>
-                        </div>
+                    <div class="input-group-sm">
+                        <button class="btn btn-sm btn-outline-secondary pull-right mb-5" data-ng-click="ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.AddToReference()"
+                            data-ng-if="!ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.IsFormView">
+                            <i class="fa fa-plus-circle"></i> Add Reference</button>
                     </div>
-
-
                 </div>
-                <div data-ng-show="ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.IsFormView">
+                <div data-ng-if="ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.IsFormView">
                     <div class="clearfix margin-bottom-10 referance-details-heading">
                         <div class="text-center clearfix">
                             <i class="fa fa-angle-double-left pull-left btn btn-link" data-ng-click="ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.IsFormView = false"></i>
@@ -220,12 +281,12 @@
                     <div class="clearfix">
                         <!--Number Type-->
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                            <div class="form-group">
+                            <div class="form-group ship-font">
                                 <label class="control-label">Type</label>
                                 <div class="">
                                     <select chosen name="category-group" class="form-control" ng-model="ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.FormView.EntryType"
-                                            ng-options="x.Key as x.Description for x in  ShipmentServiceAndReferenceCtrl.ePage.Masters.DropDownMasterList.REFNUMTYPE.ListSource"
-                                            search-contains="true">
+                                        ng-options="x.Key as x.Description for x in  ShipmentServiceAndReferenceCtrl.ePage.Masters.DropDownMasterList.REFNUMTYPE.ListSource"
+                                        search-contains="true">
                                         <option value="">--Select--</option>
                                     </select>
                                 </div>
@@ -233,28 +294,28 @@
                         </div>
                         <!-- EntryNum -->
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                            <div class="form-group">
+                            <div class="form-group ship-font">
                                 <label class="control-label">Reference Number </label>
                                 <div class="">
                                     <input type="text" class="form-control input-sm" max-length="70" data-ng-model="ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.FormView.EntryNum"
-                                           placeholder="Number" />
+                                        placeholder="Number" />
                                 </div>
                             </div>
                         </div>
                         <!-- Information -->
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                            <div class="form-group">
+                            <div class="form-group ship-font">
                                 <label class="control-label">Information </label>
                                 <div class="">
                                     <input type="text" class="form-control input-sm" max-length="30" data-ng-model="ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.FormView.EntryLineReference"
-                                           placeholder="Information" />
+                                        placeholder="Information" />
                                 </div>
                             </div>
                         </div>
 
                         <!--EntitySource-->
                         <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                            <div class="form-group">
+                            <div class="form-group ship-font">
                                 <label class="control-label">Entity Source</label>
                                 <div class="">
                                     <input type="text" class="form-control input-sm" data-ng-model="ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.FormView.EntitySource"
@@ -263,14 +324,17 @@
                             </div>
                         </div>-->
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                            <div class="form-group">
+                            <div class="form-group ship-font">
                                 <label class="control-label">Issue Date </label>
                                 <div class="input-group input-group-sm">
-                                    <input type="text" class="form-control" placeholder="{{ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.format}}"
-                                           data-ng-model="ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.FormView.IssueDate"
-                                           uib-datepicker-popup="{{ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.format}}"
-                                           datepicker-options="ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options"
-                                           is-open="ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.isOpen['isIssueDate']" />
+                                    <input type="text" class="form-control" placeholder="{{ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                        ng-model="ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.FormView.IssueDate"
+                                        datetime-picker="{{ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                        datepicker-options="ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options"
+                                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                                        default-date="" default-time="" save-as="ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                        is-open="ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.isOpen['isIssueDate']"
+                                        when-closed="" data-ng-click="" data-ng-change="" custom-date-time-format />
                                     <span class="input-group-btn">
                                         <button class="btn btn-default shiny" data-ng-click="ShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isIssueDate')">
                                             <i class="fa fa-calendar"></i>
@@ -279,36 +343,59 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <div class="clearfix">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                            <input type="button" class="btn btn-primary btn-sm pull-right" data-ng-click="ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.AddToGridReference()"
-                                   value="{{ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.AddNewAndUpdate}}">
+                            <input type="button" class="btn btn-default set-br-blue set-bg-blue-light fs-12 pull-right" data-ng-click="ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.AddToGridReference()"
+                                value="{{ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.AddNewAndUpdate}}">
                         </div>
                     </div>
                 </div>
-                <!-- <div class="horizontal-space"></div> -->
-                <!-- <div class="clearfix">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                        <input type="button" class="btn btn-primary btn-sm pull-right margin-left-5" data-ng-click="ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.AddToGridReference()"
-                            value="{{ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.AddNewAndUpdate}}">
-                        <button class="btn btn-primary btn-sm pull-right margin-left-5" data-ng-click="ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.EditReference()"
-                            data-ng-disabled="!ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.IsSelected">Edit</button>
-                        <button class="btn btn-primary btn-sm pull-right margin-left-5" data-ng-click="ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.DeleteConfirmation()"
-                            data-ng-disabled="!ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.IsSelected">Delete</button>
-                    </div>
-                </div> -->
-                <div>
-                    <div class="clearfix" data-ng-show="!ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.IsFormView">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                            <div class="height-230 clearfix">
-                                <div class="text-center grid-view-loader" data-ng-if="!ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.GridData"><i class="fa fa-spin fa-spinner font-160"></i></div>
-                                <dynamic-table data-ng-if="ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.GridData" grid-data="ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.GridData"
-                                               grid-config="ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.gridConfig" selected-grid-row="ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.SelectedGridRow($item)"></dynamic-table>
-                                <!-- <dynamic-grid data-ng-if="ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.GridData" input-data="ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.GridData"
-                                    grid-config="ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.gridConfig" row-selection-changed="ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.ReferenceRowSelectionChanged($item)"></dynamic-grid> -->
+                <!-- Reference Grid -->
+                <div class="mt-5">
+                    <div id='' data-ng-if="!ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.IsFormView" class="Shipmentstable_scroll reference-hgt">
+                        <div class="table tab-position" id="results">
+                            <div class='theader'>
+                                <div class='table_header'>Number</div>
+                                <div class='table_header'>Number Type</div>
+                                <div class='table_header'>Action</div>
                             </div>
+                            <!-- List Empty Response -->
+
+                            <div class='table_row' data-ng-repeat="x in ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.GridData" data-ng-if="ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.GridData && ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.GridData.length > 0"
+                                style="font-size: 11px;">
+                                <div class='table_small'>
+                                    <div class='table_cell'>Number</div>
+                                    <div class='table_cell'>
+                                        <b>{{x.EntryNum}}</b>
+                                    </div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>Number Type</div>
+                                    <div class='table_cell'>{{x.EntryType}}</div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>Action</div>
+                                    <div class='table_cell'>
+                                        <span>
+                                            <a>
+                                                <i class="fa fa-pencil order-icon" data-ng-click="ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.SelectedGridRow(x, 'edit')"></i>
+                                            </a>
+                                        </span>|
+                                        <span>
+                                            <a>
+                                                <i class="fa fa-trash order-icon" data-ng-click="ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.SelectedGridRow(x, 'delete')"></i>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center grid-view-loader mt-50" data-ng-if="!ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.GridData">
+                            <i class="fa fa-spin fa-spinner font-160"></i>
+                        </div>
+                        <div>
+                            <div class="grid-no-record-border-box text-center p-30" data-ng-if="ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.GridData.length==0">No records found...</div>
                         </div>
                     </div>
                 </div>

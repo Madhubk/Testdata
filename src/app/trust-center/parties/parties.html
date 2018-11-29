@@ -1,0 +1,141 @@
+<div class="clearfix tc-parties">
+    <!-- Breadcrumb -->
+    <div class="clearfix tc-breadcrumb" data-ng-if="PartiesCtrl.ePage.Masters.ActiveApplication == 'TC'">
+        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-xs-12 p-0">
+            <i class="fa fa-home home-icon"></i>
+            <div class="breadcrumb-list-wrapper">
+                <ol class="breadcrumb">
+                    <li data-ng-repeat="x in PartiesCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                        <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="PartiesCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                    </li>
+                    <li data-ng-repeat="x in PartiesCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive"
+                        data-ng-bind="x.Description" class="active"></li>
+                </ol>
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12 p-4">
+            <tc-application-dropdown query-string="PartiesCtrl.ePage.Masters.QueryString" on-application-change="PartiesCtrl.ePage.Masters.Application.OnApplicationChange($item)"></tc-application-dropdown>
+        </div>
+    </div>
+    <!-- Header -->
+    <div class="clearfix tc-header-container">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="tc-header with-add-new">
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-5">
+                    <div class="text-single-line" data-ng-bind="'Party'"></div>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-5 pt-4 text-right">
+                    <button class="btn btn-xs btn-info" data-ng-click="PartiesCtrl.ePage.Masters.Parties.AddNew()">New</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">
+            <div class="tc-header edit-view">
+                <span data-ng-bind="'Details'"></span>
+                <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10" data-ng-click="PartiesCtrl.ePage.Masters.Parties.Edit()"
+                    data-ng-disabled="!PartiesCtrl.ePage.Masters.Parties.ActiveParty.PK">Edit</button>
+                <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="PartiesCtrl.ePage.Masters.Parties.Delete()"
+                    data-ng-bind="PartiesCtrl.ePage.Masters.Parties.DeleteBtnText" data-ng-disabled="PartiesCtrl.ePage.Masters.Parties.IsDisableDeleteBtn || !PartiesCtrl.ePage.Masters.Parties.ActiveParty.PK"></button>
+            </div>
+        </div>
+    </div>
+    <!-- Body -->
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 tc-page-height-fixed">
+            <div class="tc-list-container">
+                <div class="tc-list-search">
+                    <input type="text" class="form-control input-sm" placeholder="Search..." data-ng-model="PartiesCtrl.ePage.Masters.Search">
+                </div>
+                <ul class="tc-list-ul">
+                    <div class="p-15 text-center tc-loading" data-ng-if="!PartiesCtrl.ePage.Masters.Parties.ListSource">
+                        <i class="fa fa-spin fa-spinner"></i>
+                    </div>
+                    <div data-ng-if="PartiesCtrl.ePage.Masters.Parties.ListSource && (PartiesCtrl.ePage.Masters.Parties.ListSource | filter: PartiesCtrl.ePage.Masters.Search).length===0"
+                        class="p-15 text-center">
+                        <i>No Records...</i>
+                    </div>
+                    <li data-ng-if="PartiesCtrl.ePage.Masters.Parties.ListSource && (PartiesCtrl.ePage.Masters.Parties.ListSource | filter: PartiesCtrl.ePage.Masters.Search).length > 0"
+                        data-ng-repeat="x in PartiesCtrl.ePage.Masters.Parties.ListSource | filter: PartiesCtrl.ePage.Masters.Search"
+                        data-ng-click="PartiesCtrl.ePage.Masters.Parties.ActiveParty.PK != x.PK && PartiesCtrl.ePage.Masters.Parties.OnPartyClick(x)"
+                        data-ng-class="{'active': PartiesCtrl.ePage.Masters.Parties.ActiveParty.PK == x.PK}">
+                        <div class="clearfix tc-list">
+                            <div class="tc-list-name">
+                                <i class="fa fa-circle-o mr-10"></i>
+                                <span class="text-single-line" data-ng-bind="x.PartyName"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed">
+            <div class="pt-10 pb-10 tc-details-view clearfix">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Code</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="PartiesCtrl.ePage.Masters.Parties.ActiveParty.Code || PartiesCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Name</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="PartiesCtrl.ePage.Masters.Parties.ActiveParty.PartyName || PartiesCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tc-section-divider" data-ng-if="PartiesCtrl.ePage.Masters.Parties.ActiveParty.PK"></div>
+            <div class="tc-list-container tc-list-container-inner-redirect clearfix" data-ng-if="PartiesCtrl.ePage.Masters.Parties.ActiveParty.PK">
+                <ul class="tc-list-ul">
+                    <li data-ng-click="PartiesCtrl.ePage.Masters.Parties.OnRedirectLinkClick(x)" data-ng-repeat="x in PartiesCtrl.ePage.Masters.Parties.RedirectPagetList">
+                        <div class="clearfix tc-list">
+                            <div class="tc-list-name">
+                                <i class="fa {{x.Icon}} mr-10" data-ng-style="{'color': x.Color}"></i>
+                                <span class="text-single-line" data-ng-bind="x.Description"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Template -->
+<script type="text/ng-template" id="partiesEdit">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="PartiesCtrl.ePage.Masters.Parties.Cancel()">&times;</button>
+        <h5 class="modal-title" id="modal-title">
+            <strong>Edit</strong>
+        </h5>
+    </div>
+    <div class="modal-body pt-10" id="modal-body">
+        <div class="clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-5 pb-5">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Code</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Code" data-ng-model="PartiesCtrl.ePage.Masters.Parties.ActiveParty.Code">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Name</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Name" data-ng-model="PartiesCtrl.ePage.Masters.Parties.ActiveParty.PartyName">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="tc-section-divider-small"></div>
+        <div class="clearfix p-10">
+            <button class="btn btn-default tc-btn-save btn-xs pull-right ml-10" data-ng-click="PartiesCtrl.ePage.Masters.Parties.Save()" data-ng-bind="PartiesCtrl.ePage.Masters.Parties.SaveBtnText"
+                data-ng-disabled="PartiesCtrl.ePage.Masters.Parties.IsDisableSaveBtn"></button>
+            <button class="btn btn-default tc-btn-cancel btn-xs pull-right ml-10" data-ng-click="PartiesCtrl.ePage.Masters.Parties.Cancel()">Cancel</button>
+        </div>
+    </div>
+</script>

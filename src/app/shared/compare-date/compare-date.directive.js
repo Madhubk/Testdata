@@ -17,7 +17,8 @@
                 modalValue: '=',
                 label: "=",
                 fieldName: "=",
-                isDisabled: "="
+                isDisabled: "=",
+                selectedOperator: "="
             },
             bindToController: true,
             link: Link

@@ -1,0 +1,57 @@
+<div class="modal-header">
+    <h5 class="modal-title pull-left">
+        <strong>Order Line</strong>
+    </h5>
+    <input type="button" class="btn btn-secondary btn-xs pull-right margin-left-5" data-ng-click="one_three_OrderLinesFormModalCtrl.ePage.Masters.Cancel()"
+        value="Close" />
+    <input type="button" class="btn btn-secondary btn-xs pull-right margin-left-5" data-ng-click="one_three_OrderLinesFormModalCtrl.ePage.Masters.SaveClose()"
+        value="{{one_three_OrderLinesFormModalCtrl.ePage.Masters.SaveCloseButtonText}}" />
+    <input type="button" class="btn btn-primary btn-xs pull-right margin-left-5" data-ng-click="one_three_OrderLinesFormModalCtrl.ePage.Masters.Save()"
+        value="{{one_three_OrderLinesFormModalCtrl.ePage.Masters.SaveButtonText}}" />
+</div>
+<div class="modal-body ordline-modal-hide">
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <one-three-order-lines-form data-ng-if="one_three_OrderLinesFormModalCtrl.ePage.Entities.Header.Data.UIOrderLine_Buyer_Forwarder && one_three_OrderLinesFormModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj"
+                line-order='one_three_OrderLinesFormModalCtrl.ePage.Entities.Header.Data.UIOrderLine_Buyer_Forwarder' current-order="one_three_OrderLinesFormModalCtrl.ePage.Masters.param.CurrentOrder"
+                action="one_three_OrderLinesFormModalCtrl.ePage.Masters.param.Action" error="one_three_OrderLinesFormModalCtrl.ePage.Masters.ErrorWarningConfig"
+                save="one_three_OrderLinesFormModalCtrl.ePage.Masters.Save()"></one-three-order-lines-form>
+        </div>
+    </div>
+    <div class="error-warning-container right" id="errorWarningContainer{{one_three_OrderLinesFormModalCtrl.ePage.Masters.Text}}">
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                <!-- <i class="fa fa-warning"></i>  -->
+                Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right" data-ng-click="one_three_OrderLinesFormModalCtrl.ePage.Masters.ShowErrorWarningModal('Remove')">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+        </div>
+        <div class="error-warning-body">
+            <div class="clearfix" data-ng-if="one_three_OrderLinesFormModalCtrl.ePage.Masters.ErrorWarningConfig.Modules.OrderLine.Entity[one_three_OrderLinesFormModalCtrl.ePage.Masters.param.CurrentOrder.Header.Data.UIOrder_Buyer_Forwarder.OrderCumSplitNo].GlobalErrorWarningList.length>0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in one_three_OrderLinesFormModalCtrl.ePage.Masters.ErrorWarningConfig.Modules.OrderLine.Entity[one_three_OrderLinesFormModalCtrl.ePage.Masters.param.CurrentOrder.Header.Data.UIOrder_Buyer_Forwarder.OrderCumSplitNo].GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <input type="button" class="btn btn-secondary btn-xs pull-right margin-left-5" data-ng-click="one_three_OrderLinesFormModalCtrl.ePage.Masters.Cancel();"
+        value="Close" />
+    <input type="button" class="btn btn-secondary btn-xs pull-right margin-left-5" data-ng-click="one_three_OrderLinesFormModalCtrl.ePage.Masters.SaveClose()"
+        value="{{one_three_OrderLinesFormModalCtrl.ePage.Masters.SaveCloseButtonText}}" />
+    <input type="button" class="btn btn-primary btn-xs pull-right margin-left-5" data-ng-click="one_three_OrderLinesFormModalCtrl.ePage.Masters.Save()"
+        value="{{one_three_OrderLinesFormModalCtrl.ePage.Masters.SaveButtonText}}" />
+</div>

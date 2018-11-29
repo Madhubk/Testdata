@@ -5,9 +5,9 @@
         .module("Application")
         .controller("SessionController", SessionController);
 
-    SessionController.$inject = ["$location", "authService", "apiService", "helperService", "appConfig", "trustCenterConfig"];
+    SessionController.$inject = ["$location", "authService", "apiService", "helperService", "trustCenterConfig"];
 
-    function SessionController($location, authService, apiService, helperService, appConfig, trustCenterConfig) {
+    function SessionController($location, authService, apiService, helperService, trustCenterConfig) {
         var SessionCtrl = this;
         var _queryString = $location.path().split("/").pop();
 
@@ -28,6 +28,7 @@
 
                 if (SessionCtrl.ePage.Masters.QueryString.AppPk) {
                     InitBreadcrumb();
+                    initApplication();
                     InitSession();
                 }
             } catch (error) {
@@ -52,10 +53,15 @@
                 IsRequireQueryString: false,
                 IsActive: false
             }, {
-                Code: "system",
-                Description: "System",
-                Link: "TC/dashboard/" + helperService.encryptData('{"Type":"System", "BreadcrumbTitle": "System"}'),
-                IsRequireQueryString: false,
+                Code: "dashboard",
+                Description: "Dashboard",
+                Link: "TC/dashboard",
+                IsRequireQueryString: true,
+                QueryStringObj: {
+                    "AppPk": SessionCtrl.ePage.Masters.QueryString.AppPk,
+                    "AppCode": SessionCtrl.ePage.Masters.QueryString.AppCode,
+                    "AppName": SessionCtrl.ePage.Masters.QueryString.AppName
+                },
                 IsActive: false
             }, {
                 Code: "session",
@@ -76,25 +82,42 @@
 
         // ========================Breadcrumb End========================
 
-        function InitSession() {
-            SessionCtrl.ePage.Masters.Session = {};
+        function initApplication() {
+            SessionCtrl.ePage.Masters.Application = {};
+            SessionCtrl.ePage.Masters.Application.OnApplicationChange = OnApplicationChange;
+        }
+
+        function OnApplicationChange($item) {
+            SessionCtrl.ePage.Masters.Application.ActiveApplication = angular.copy($item);
+
+            if (!SessionCtrl.ePage.Masters.Application.ActiveApplication) {
+                SessionCtrl.ePage.Masters.Application.ActiveApplication = {
+                    "PK": SessionCtrl.ePage.Masters.QueryString.AppPk,
+                    "AppCode": SessionCtrl.ePage.Masters.QueryString.AppCode,
+                    "AppName": SessionCtrl.ePage.Masters.QueryString.AppName
+                };
+            }
 
             GetSessionList();
+        }
+
+        function InitSession() {
+            SessionCtrl.ePage.Masters.Session = {};
         }
 
         function GetSessionList() {
             SessionCtrl.ePage.Masters.Session.SessionList = undefined;
 
             var _filter = {
-                "SAP_FK": SessionCtrl.ePage.Masters.QueryString.AppPk,
+                "SAP_FK": SessionCtrl.ePage.Masters.Application.ActiveApplication.PK,
                 "TenantCode": authService.getUserInfo().TenantCode
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.SecUserSession.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.SecUserSession.API.FindAll.FilterID
             };
 
-            apiService.post("authAPI", appConfig.Entities.SecUserSession.API.FindAll.Url, _input).then(function ApiCallback(response) {
+            apiService.post("authAPI", trustCenterConfig.Entities.API.SecUserSession.API.FindAll.Url, _input).then(function ApiCallback(response) {
                 if (response.data.Response) {
                     SessionCtrl.ePage.Masters.Session.SessionList = response.data.Response;
                 } else {

@@ -1,0 +1,58 @@
+.tc-event-configure-parties-container .party-list {
+    border-bottom: 1px solid #eee;
+}
+
+.tc-event-configure-rule-container .header {
+    background-color: #f7f7f7;
+    padding: 10px 5px;
+    font-weight: bold;
+}
+
+.dropdown-menu.auto-complete {
+    display: block !important;
+    left: 15px;
+}
+
+.dropdown-menu.auto-complete .auto-complete-no-result {
+    padding: 0 10px;
+    font-size: 12px;
+}
+
+.process-expression-group-wrapper .danger.fa-trash {
+    font-size: 16px;
+}
+
+.process-expression-group-wrapper .danger.fa-trash.delete-param {
+    position: absolute;
+    top: 5px;
+    right: 15px;
+}
+
+.width-65 {
+    width: 65px;
+}
+
+.event-group-list-container .keyword {
+    margin-bottom: 10px;
+    margin-right: 10px;
+    display: inline-block;
+    background-color: #eee;
+    padding: 5px 10px;
+    border-radius: 20px;
+    position: relative;
+}
+
+.event-group-list-container .keyword i.fa-pencil {
+    top: -5px;
+    right: -2px;
+    position: relative;
+    opacity: 0.4;
+}
+
+.event-group-list-container .keyword i.fa-pencil:hover {
+    opacity: 1;
+}
+
+.tc-edit-event-group-modal .modal-dialog {
+    width: 650px !important;
+}

@@ -1,0 +1,27 @@
+  .work-item-status-count .control-tower .work-item-status-count-header .top {
+     font-weight: bold;
+     font-size: 13px;
+     padding: 5px;
+ }
+
+ .work-item-status-count .control-tower .work-item-status-count-header .bottom {
+     font-size: 12px;
+ }
+
+ .work-item-status-count .control-tower .work-item-count {
+     font-weight: 600;
+     font-size: 12px;
+     line-height: 3;
+ }
+
+ .work-item-status-count .control-tower .section-split-space {
+     margin-right: 5px !important;
+     border: 1px solid #ddd;
+     border-bottom: 0;
+     padding: 7px 5px;
+     height: 50px;
+ }
+
+ .work-item-status-count .control-tower .work-item-list:last-child .section-split-space {
+     border-bottom: 1px solid #ddd;
+ }

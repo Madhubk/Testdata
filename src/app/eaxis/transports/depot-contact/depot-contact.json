@@ -1,0 +1,90 @@
+[
+    {
+        "Code": "SWDE",
+        "Depot": "SPOTLIGHT WA",
+        "NoOfStore": 20,
+        "Zone": "VIC Depot",
+        "LevelLoadDetails": {
+            "EnableAutoPlan": "Yes",
+            "PlanLastProcessed": "2018-05-24T09:23:34.372729Z",
+            "EnableAutoCommit": "No",
+            "CommitLastProcessed": "2018-05-25T09:23:34.372729Z",
+            "PlanWorkingDays": 1,
+            "CommitWorkingDays": 2
+        },
+        "NationalLoadDetails": {
+            "EnableAutoPlan": "Yes",
+            "PlanLastProcessed": "2018-05-23T10:23:34.372729Z",
+            "EnableAutoCommit": "No",
+            "CommitLastProcessed": "2018-05-26T09:23:34.372729Z",
+            "PlanWorkingDays": 2,
+            "CommitWorkingDays": 1
+        }
+    },
+    {
+        "Code": "SQLD",
+        "Depot": "SPOTLIGHT QLD",
+        "NoOfStore": 10,
+        "Zone": "VIC Depot",
+        "LevelLoadDetails": {
+            "EnableAutoPlan": "No",
+            "PlanLastProcessed": "2018-05-27T09:23:34.372729Z",
+            "EnableAutoCommit": "Yes",
+            "CommitLastProcessed": "2018-05-28T09:23:34.372729Z",
+            "PlanWorkingDays": 1,
+            "CommitWorkingDays": 1
+        },
+        "NationalLoadDetails": {
+            "EnableAutoPlan": "Yes",
+            "PlanLastProcessed": "2018-05-23T09:23:34.372729Z",
+            "EnableAutoCommit": "No",
+            "CommitLastProcessed": "2018-05-29T09:23:34.372729Z",
+            "PlanWorkingDays": 3,
+            "CommitWorkingDays": 2
+        }
+    },
+    {
+        "Code": "NTDE",
+        "Depot": "SPOTLIGHT NT",
+        "NoOfStore": 8,
+        "Zone": "VIC Depot",
+        "LevelLoadDetails": {
+            "EnableAutoPlan": "Yes",
+            "PlanLastProcessed": "2018-05-26T09:23:34.372729Z",
+            "EnableAutoCommit": "No",
+            "CommitLastProcessed": "2018-05-28T09:23:34.372729Z",
+            "PlanWorkingDays": 1,
+            "CommitWorkingDays": 2
+        },
+        "NationalLoadDetails": {
+            "EnableAutoPlan": "No",
+            "PlanLastProcessed": "2018-05-28T09:23:34.372729Z",
+            "EnableAutoCommit": "Yes",
+            "CommitLastProcessed": "2018-05-29T09:23:34.372729Z",
+            "PlanWorkingDays": 2,
+            "CommitWorkingDays": 1
+        }
+    },
+    {
+        "Code": "DESA",
+        "Depot": "SPOTLIGHT SA",
+        "NoOfStore": 15,
+        "Zone": "VIC Depot",
+        "LevelLoadDetails": {
+            "EnableAutoPlan": "Yes",
+            "PlanLastProcessed": "2018-05-25T07:23:34.372729Z",
+            "EnableAutoCommit": "No",
+            "CommitLastProcessed": "2018-05-28T07:23:34.372729Z",
+            "PlanWorkingDays": 1,
+            "CommitWorkingDays": 1
+        },
+        "NationalLoadDetails": {
+            "EnableAutoPlan": "Yes",
+            "PlanLastProcessed": "2018-05-24T11:23:34.372729Z",
+            "EnableAutoCommit": "Yes",
+            "CommitLastProcessed": "2018-05-28T09:20:34.372729Z",
+            "PlanWorkingDays": 3,
+            "CommitWorkingDays": 2
+        }
+    }
+]

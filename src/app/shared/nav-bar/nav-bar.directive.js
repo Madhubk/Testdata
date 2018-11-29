@@ -5,9 +5,9 @@
         .module("Application")
         .directive("navBar", NavBar);
 
-    NavBar.$inject = ["$rootScope"];
+    NavBar.$inject = [];
 
-    function NavBar($rootScope) {
+    function NavBar() {
         var exports = {
             restrict: "EA",
             templateUrl: "app/shared/nav-bar/nav-bar.html",

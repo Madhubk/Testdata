@@ -5,15 +5,29 @@
         .module("Application")
         .directive("documentModal", DocumentModal);
 
-    DocumentModal.$inject = ["$uibModal"];
+    DocumentModal.$inject = ["$uibModal", "$templateCache"];
 
-    function DocumentModal($uibModal) {
+    function DocumentModal($uibModal, $templateCache) {
+        var _template = `<div class="modal-header">
+            <button type="button" class="close" ng-click="DocumentModalCtrl.ePage.Masters.Close()">&times;</button>
+            <h5 class="modal-title" id="modal-title">
+                <strong>Document</strong>
+            </h5>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <document input="input" mode="mode" type="type" config="config" list-source="listSource"></document>
+        </div>`;
+        $templateCache.put("DocumentModal.html", _template);
+
         var exports = {
             restrict: "EA",
             scope: {
                 input: "=",
                 mode: "=",
-                type: "="
+                config: "=",
+                type: "=",
+                listSource: "=",
+                onCloseModal: "&"
             },
             link: Link
         };
@@ -29,7 +43,7 @@
                     keyboard: true,
                     windowClass: "right document",
                     scope: scope,
-                    templateUrl: "app/shared/standard-menu-directives/document/document-modal/document-modal.html",
+                    templateUrl: "DocumentModal.html",
                     controller: 'DocumentModalController as DocumentModalCtrl',
                     bindToController: true,
                     resolve: {
@@ -42,8 +56,14 @@
                     }
                 }).result.then(function (response) {
                     console.log(response);
+                    scope.onCloseModal({
+                        $item: "document"
+                    });
                 }, function () {
                     console.log("Cancelled");
+                    scope.onCloseModal({
+                        $item: "document"
+                    });
                 });
             }
         }

@@ -1,75 +1,149 @@
 <div class="clearfix padding-5 padding-top-10">
     <div class="widget-main">
         <div class="clearfix">
-            <button dynamic-list-modal obj="ConsolShipmentCtrl.ePage.Entities.Header.Data.UIShipmentHeaderList" prefix-data="'ShipmentSearch'"
-                field-name="'ConsolAttachShipment'" mode="3" is-full-obj="true" grid-refresh-fun-name="GetRelatedShipmentDetails"
+
+            <button dynamic-list-modal obj="ConsolShipmentCtrl.ePage.Masters.ConsolShipment.GridData" page-name="'ShipmentSearch'" control-id="'ConsolAttachShipment'"
+                control-key="ConsolAttachShipment_3232" mode="3" is-full-obj="true" grid-refresh-fun-name="GetRelatedShipmentDetails"
                 grid-refresh-fun="ConsolShipmentCtrl.ePage.Masters.GridRefreshFun($item)" selected-data="ConsolShipmentCtrl.ePage.Masters.SelectedData($item)"
                 class="btn btn-primary pull-right margin-right-5" type="button">
                 <i class="fa fa-paperclip"></i> Attach Shipment
             </button>
+            <button class="btn btn-primary pull-right margin-right-5" type="button">
+                <i class="fa fa-chain"></i> Merge Shipment
+            </button>
+            <button class="btn btn-primary pull-right margin-right-5" type="button" data-ng-click="ConsolShipmentCtrl.ePage.Masters.GetNewShipment()">
+                <i class="fa fa-chain"></i>New Shipment
+            </button>
         </div>
-        <div class="clearfix">
-            <!--Grid directive-->
-            <div class="">
-                <div class="height-230 clearfix padding-5 pt-0">
-                    <ul class="ship-action">
-                        <div class="text-center grid-view-loader" data-ng-if="!ConsolShipmentCtrl.ePage.Masters.ConsolShipment.GridData">
-                            <i class="fa fa-spin fa-spinner font-160"></i>
-                        </div>
-                        <li data-ng-if="ConsolShipmentCtrl.ePage.Masters.ConsolShipment.GridData.length==0">
-                            <div class="row">
-                                <div class="text-center">
-                                    No shipments found...
-                                </div>
-                            </div>
-                        </li>
-
-                        <li data-ng-repeat="x in ConsolShipmentCtrl.ePage.Masters.ConsolShipment.GridData">
-                            <div class="col-lg-3">
-                                <div class=""> <a class="fontSizeColor" data-ng-click="RoutingCtrl.ePage.Masters.SingleRecordView(x)"> {{x.ShipmentNo}} </a> </div>
-                                <div class="ship-label margin-top-5">
-                                    {{x.ORG_Shipper_Code}}
-                                    <i class="fa fa-caret-right" aria-hidden="true"></i>
-                                    {{x.ORG_Consignee_Code}}
-                                </div>
-
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="ship-label margin-top-5 text-single-line">
-                                    {{x.Origin}}
-                                    <i class="fa fa-caret-right" aria-hidden="true"></i>
-                                    {{x.Destination}}
-                                </div>
-                                <div class="ship-label margin-top-5 text-single-line">HBL : {{x.HouseBill}}</div>
-
-                            </div>
-                            <div class="col-lg-2">
-
-                                <div class="ship-label margin-top-5 text-single-line">Out Pk : {{x.OuterPackCount}} {{x.OuterPackType}}</div>
-                                <div class="ship-label margin-top-5 text-single-line">In Pk  : {{x.InnerPackCount}} {{x.InnerPackType}}</div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="ship-label margin-top-5 text-single-line">Wt  : {{x.Weight}} {{x.UnitOfWeight}}</div>
-                                <div class="ship-label margin-top-5 text-single-line">Vol : {{x.Volumn}} {{x.UnitOfVolumn}}</div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="ship-label margin-top-5 text-single-line">ETD : {{x.ETD |date:'dd-MMM-yyyy'}}</div>
-                                <div class="ship-label margin-top-5 text-single-line">ETA : {{x.ETA |date:'dd-MMM-yyyy'}}</div>
-                            </div>
-                            <div class="col-lg-1 text-center padding-top-10">
-                                <div class="delete margin-top-5" data-ng-click="ConsolShipmentCtrl.ePage.Masters.ShipmentDeleteConfirmation(x)">
-                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                        </li>
-                        <!-- <dynamic-table data-ng-if="ConsolShipmentCtrl.ePage.Masters.ConsolShipment.GridData" grid-data="ConsolShipmentCtrl.ePage.Masters.ConsolShipment.GridData"
-                            grid-config="ConsolShipmentCtrl.ePage.Masters.RelatedShipment.gridConfig" selected-grid-row="ConsolShipmentCtrl.ePage.Masters.RelatedShipment.SelectedGridRow($item)"></dynamic-table> -->
-                    </ul>
-                    <!-- <dynamic-table data-ng-if="RoutingCtrl.ePage.Masters.Routing.GridData" grid-data="RoutingCtrl.ePage.Masters.Routing.GridData" grid-config="RoutingCtrl.ePage.Masters.Routing.gridConfig" selected-grid-row="RoutingCtrl.ePage.Masters.Routing.SelectedGridRow($item)"></dynamic-table> -->
+        <!-- attachment order grid -->
+        <div id='' class="Consolstable_scroll mt-10" style="height: 450px; overflow-y: auto">
+            <div class="table tab-position" id="results">
+                <div class=' theader'>
+                    <div class='table_header'>Total :
+                        <strong>
+                            {{ConsolShipmentCtrl.ePage.Masters.ConsolShipment.GridData.length}} </strong> Shipment Attached
+                        with this consol.</div>
                 </div>
+                <div class='theader'>
+                    <div class='table_header'>Shipment #</div>
+                    <div class='table_header'>Consignor</div>
+                    <div class='table_header'>Consignee</div>
+                    <div class='table_header'>Origin</div>
+                    <div class='table_header'>Destination</div>
+                    <div class='table_header'>HBL</div>
+                    <div class='table_header'>Outer Pack</div>
+                    <div class='table_header'>Inner Pack</div>
+                    <div class='table_header'>Weight</div>
+                    <div class='table_header'>Volume</div>
+                    <div class='table_header'>ETA</div>
+                    <div class='table_header'>ETD</div>
+                    <div class='table_header'>Action</div>
+                </div>
+                <div class='table_row' data-ng-repeat="x in ConsolShipmentCtrl.ePage.Masters.ConsolShipment.GridData" data-ng-if="ConsolShipmentCtrl.ePage.Masters.ConsolShipment.GridData.length > 0"
+                    style="font-size: 11px;">
+                    <div class='table_small'>
+                        <div class='table_cell'>Order #</div>
+                        <div class='table_cell'>
+                            <b>
+                                <a class="fontSizeColor" data-ng-click="RoutingCtrl.ePage.Masters.SingleRecordView(x)">
+                                    {{x.ShipmentNo}} </a>
+                            </b>
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Consignor</div>
+                        <div class='table_cell'>
+                            <span data-ng-bind="x.ORG_Shipper_Code"></span>
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Consignee</div>
+                        <div class='table_cell'>
+                            <span data-ng-bind="x.ORG_Consignee_Code"></span>
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Origin</div>
+                        <div class='table_cell'>
+                            <span data-ng-bind="x.Origin"></span>
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Destination</div>
+                        <div class='table_cell'>
+                            <span data-ng-bind="x.Destination"></span>
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>HBL</div>
+                        <div class='table_cell'>
+                            <span data-ng-bind="x.HouseBill"></span>
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Outer Pack</div>
+                        <div class='table_cell'>
+                            <span data-ng-bind="x.OuterPackCount"></span>
+                            <span data-ng-bind="x.OuterPackCount"></span>
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Inner Pack</div>
+                        <div class='table_cell'>
+                            <span data-ng-bind="x.InnerPackCount"></span>
+                            <span data-ng-bind="x.InnerPackType"></span>
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Weight</div>
+                        <div class='table_cell'>
+                            <span data-ng-bind="x.Weight"></span>
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Volume</div>
+                        <div class='table_cell'>
+                            <span data-ng-bind="x.Volume"></span>
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>ETD</div>
+                        <div class='table_cell'>
+                            <span data-ng-bind="x.ETD | date:'dd-MMM-yyyy'"></span>
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>ETA</div>
+                        <div class='table_cell'>
+                            <span data-ng-bind="x.ETA | date:'dd-MMM-yyyy'"></span>
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Action</div>
+                        <div class='table_cell'>
+                            <span>
+                                <a>
+                                    <i class="fa fa-trash order-icon" data-ng-click="ConsolShipmentCtrl.ePage.Masters.ShipmentDeleteConfirmation(x)"></i>
+                                </a>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" ng-model="x.checked" class="colored-blue">
+                                        <span class="text"></span>
+                                    </label>
+                                </div>
+                            </span>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- List Empty Response -->
+                <div class="grid-no-record text-center" data-ng-if="!ConsolShipmentCtrl.ePage.Masters.ConsolShipment.GridData">
+                    <i class="fa fa-spin fa-spinner fs-20"></i>
+                </div>
+                <div class="grid-no-record text-center" data-ng-if="ConsolShipmentCtrl.ePage.Masters.ConsolShipment.GridData.length==0">No records found...</div>
             </div>
-        </div>
-        <div class="clearfix">
+            <!-- <div class="clearfix mt-10">
             <div class="clearfix padding-top-10 padding-bottom-10 ng-scope calculation-activity">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-1 col-xl-1 padding-left-10">
@@ -77,41 +151,71 @@
                             <i class="fa fa-calculator fa-3x"></i>
                         </div>
                     </div>
-                    <!-- Inner Packs-->
+                   
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
                         <div class="">
-                            Total Inner Packs :
+                            Packs :
                             <b>{{ShipmentConsolePackingCtrl.ePage.Entities.Header.Data.OutPackageSum[0].PackageCount}} | {{ShipmentConsolePackingCtrl.ePage.Masters.Package.GridData[0].F3_NKPackType}}</b>
                         </div>
                         <div class="padding-top-5">
-                            Shipment Inner Packs :
+                            Weight :
                             <b>{{ShipmentConsolePackingCtrl.ePage.Entities.Header.Data.UIShipmentHeader.InnerPackCount}} | {{ShipmentConsolePackingCtrl.ePage.Entities.Header.Data.UIShipmentHeader.InnerPackType}}</b>
                         </div>
                     </div>
-                    <!-- Weight-->
+                
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
                         <div class="">
-                            Total Weight :
+                            Volume :
                             <b>{{ShipmentConsolePackingCtrl.ePage.Entities.Header.Data.OutPackageSum[0].ActualWeight}} | {{ShipmentConsolePackingCtrl.ePage.Masters.Package.GridData[0].ActualWeightUQ}}</b>
                         </div>
                         <div class="padding-top-5">
-                            Shipment Weight :
+                            Chargeable :
                             <b>{{ShipmentConsolePackingCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Weight}} | {{ShipmentConsolePackingCtrl.ePage.Entities.Header.Data.UIShipmentHeader.UnitOfWeight}}</b>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
                         <div class="">
-                            Total Volume :
+                            Prepaid :
                             <b>{{ShipmentConsolePackingCtrl.ePage.Entities.Header.Data.OutPackageSum[0].ActualVolume}} | {{ShipmentConsolePackingCtrl.ePage.Masters.Package.GridData[0].ActualVolumeUQ}}</b>
                         </div>
                         <div class="padding-top-5">
-                            Shipment Volume :
+                            Collect :
                             <b> {{ShipmentConsolePackingCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Volume}} | {{ShipmentConsolePackingCtrl.ePage.Entities.Header.Data.UIShipmentHeader.UnitOfVolume}}</b>
                         </div>
                     </div>
                 </div>
             </div>
 
+        </div> -->
+        </div>
+        <div class="col-xs-12 col-lg-12 col-sm-12 col-md-12 col-xl-12 pt-10 pb-10 calculation-total">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-1 col-xl-1 text-center">
+                <i class="fa fa-calculator fa-3x"></i>
+            </div>
+            <!-- Shipment Count-->
+            <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                <div class="">
+                    Packs :
+                    <b>{{ConsolShipmentCtrl.ePage.Masters.packlist.PackCount}}</b>
+                </div>
+            </div>
+            <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                <div class="">
+                    Weight :
+                    <b>{{ConsolShipmentCtrl.ePage.Masters.packlist.Weight}}</b>
+                </div>
+            </div>
+            <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                <div class="">
+                    Volume :
+                    <b>{{ConsolShipmentCtrl.ePage.Masters.packlist.Volume}}</b>
+                </div>
+            </div>
+            <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                <div class="">
+                    Chargeable :
+                    <b>{{ConsolShipmentCtrl.ePage.Masters.packlist.Chargeable}}</b>
+                </div>
+            </div>
         </div>
     </div>
-</div>

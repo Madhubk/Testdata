@@ -18,7 +18,7 @@
                 <div class="clearfix padding-top-10">
                     <!--Container-->
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                        <div class="form-group">
+                        <div class="form-group ship-font">
                             <label class="control-label">Container</label>
                             <div class="">
                                 <select chosen multiple search-contains="true" name="category-group" class="form-control" ng-model="ConsolPackingModalCtrl.ePage.Masters.Package.FormView.PkgCntMapping"
@@ -32,7 +32,7 @@
                     </div>
                     <!--Origin-->
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                        <div class="form-group">
+                        <div class="form-group ship-font">
                             <label class="control-label">Origin </label>
                             <div class="input-group input-group-sm">
                                 <div dynamic-lookup placeholder="Origin" my-ng-model="ConsolPackingModalCtrl.ePage.Masters.Package.FormView.RN_NKOrigin"
@@ -49,7 +49,7 @@
                     </div>
                     <!--Commodity-->
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                        <div class="form-group">
+                        <div class="form-group ship-font">
                             <label class="control-label">Commodity </label>
                             <div class="input-group input-group-sm">
                                 <div dynamic-lookup placeholder="Commodity" my-ng-model="ConsolPackingModalCtrl.ePage.Masters.Package.FormView.RH_NKCommodityCode"
@@ -67,7 +67,7 @@
                     </div>
                     <!--Packing Order-->
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                        <div class="form-group">
+                        <div class="form-group ship-font">
                             <label class="control-label">Packing Order </label>
                             <div class="">
                                 <input type="text" class="form-control input-sm" placeholder="Packing Order" max-length="4" data-ng-model="ConsolPackingModalCtrl.ePage.Masters.Package.FormView.ContainerPackingOrder"
@@ -77,7 +77,7 @@
                     </div>
                     <!--Harmoised Code-->
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                        <div class="form-group">
+                        <div class="form-group ship-font">
                             <label class="control-label">Harmonised Code</label>
                             <div class="">
                                 <input type="text" class="form-control input-sm" placeholder="Harmonised Code" max-length="15" data-ng-model="ConsolPackingModalCtrl.ePage.Masters.Package.FormView.HarmonisedCode"
@@ -87,7 +87,7 @@
                     </div>
                     <!--Reference Number-->
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                        <div class="form-group">
+                        <div class="form-group ship-font">
                             <label class="control-label">Reference Number</label>
                             <div class="">
                                 <input type="text" class="form-control input-sm" placeholder="Reference Number" max-length="20" data-ng-model="ConsolPackingModalCtrl.ePage.Masters.Package.FormView.RefNumber"
@@ -97,7 +97,7 @@
                     </div>
                     <!--Description-->
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-                        <div class="form-group">
+                        <div class="form-group ship-font">
                             <div class="">
                                 <label class="control-label">Description</label>
                                 <input type="text" class="form-control input-sm" placeholder="Description" data-ng-model="ConsolPackingModalCtrl.ePage.Masters.Package.FormView.Description"
@@ -109,7 +109,7 @@
                 <div class="clearfix padding-top-10">
                     <!--Packs-->
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                        <div class="form-group">
+                        <div class="form-group ship-font">
                             <label class="control-label text-single-line">Packs </label>
                             <div class="clearfix">
                                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
@@ -128,11 +128,11 @@
                     </div>
                     <!--Weight-->
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                        <div class="form-group">
+                        <div class="form-group ship-font">
                             <label class="control-label text-single-line">Weight </label>
                             <div class="clearfix">
                                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
-                                    <input type="text" numbers-only class="form-control input-sm no-border-right" max-length="5" data-ng-model="ConsolPackingModalCtrl.ePage.Masters.Package.FormView.ActualWeight"
+                                    <input type="text" numbers-only-dot sb-precision="3" class="form-control input-sm no-border-right" max-length="5" data-ng-model="ConsolPackingModalCtrl.ePage.Masters.Package.FormView.ActualWeight"
                                         placeholder="Weight" />
                                 </div>
                                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 no-padding">
@@ -147,11 +147,11 @@
                     </div>
                     <!--Volume-->
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                        <div class="form-group">
+                        <div class="form-group ship-font">
                             <label class="control-label text-single-line">Volume </label>
                             <div class="clearfix">
                                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
-                                    <input type="text" numbers-only class="form-control input-sm no-border-right" max-length="5" data-ng-model="ConsolPackingModalCtrl.ePage.Masters.Package.FormView.ActualVolume"
+                                    <input type="text" numbers-only-dot sb-precision="3" class="form-control input-sm no-border-right" max-length="5" data-ng-model="ConsolPackingModalCtrl.ePage.Masters.Package.FormView.ActualVolume"
                                         placeholder="Volume" />
                                 </div>
                                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 no-padding">
@@ -167,36 +167,38 @@
                     <!--Length, Width, Height-->
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
-                            <div class="form-group">
+                            <div class="form-group ship-font">
                                 <label class="control-label text-single-line">Length </label>
                                 <div class="clearfix">
-                                    <input type="text" numbers-only class="form-control input-sm no-border-right" placeholder="Length" max-length="5" data-ng-model="ConsolPackingModalCtrl.ePage.Masters.Package.FormView.Length"
-                                    />
+                                    <input type="text" numbers-only-dot sb-precision="3" class="form-control input-sm no-border-right" placeholder="Length" max-length="5"
+                                        data-ng-model="ConsolPackingModalCtrl.ePage.Masters.Package.FormView.Length" />
                                 </div>
                             </div>
                         </div>
                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
-                            <div class="form-group">
+                            <div class="form-group ship-font">
                                 <label class="control-label text-single-line">Width </label>
                                 <div class="clearfix">
-                                    <input type="text" numbers-only class="form-control input-sm no-border-right" placeholder="Width" max-length="5" data-ng-model="ConsolPackingModalCtrl.ePage.Masters.Package.FormView.Width"
-                                    />
+                                    <input type="text" numbers-only-dot sb-precision="3" class="form-control input-sm no-border-right" placeholder="Width" max-length="5"
+                                        data-ng-model="ConsolPackingModalCtrl.ePage.Masters.Package.FormView.Width" />
                                 </div>
                             </div>
                         </div>
                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
-                            <div class="form-group">
+                            <div class="form-group ship-font">
                                 <label class="control-label text-single-line">Height </label>
                                 <div class="clearfix">
-                                    <input type="text" numbers-only class="form-control input-sm" placeholder="Height" max-length="5" data-ng-model="ConsolPackingModalCtrl.ePage.Masters.Package.FormView.Height"
+                                    <input type="text" numbers-only-dot sb-precision="3" class="form-control input-sm" placeholder="Height" max-length="5" data-ng-model="ConsolPackingModalCtrl.ePage.Masters.Package.FormView.Height"
                                     />
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="clearfix padding-top-10">
                     <!--Unit Of Dimension-->
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                        <div class="form-group">
+                        <div class="form-group ship-font">
                             <label class="control-label">Unit Of Dimension</label>
                             <div class="">
                                 <select chosen name="category-group" class="form-control" ng-model="ConsolPackingModalCtrl.ePage.Masters.Package.FormView.UnitOfDimension"
@@ -207,12 +209,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="clearfix padding-top-10">
                     <!--Outturn-->
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                        <div class="form-group">
+                        <div class="form-group ship-font">
                             <label class="control-label">Outturn</label>
                             <div class="">
                                 <input type="text" class="form-control input-sm" placeholder="Outturn" max-length="4" data-ng-model="ConsolPackingModalCtrl.ePage.Masters.Package.FormView.Outturn"
@@ -222,7 +221,7 @@
                     </div>
                     <!--Damaged-->
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                        <div class="form-group">
+                        <div class="form-group ship-font">
                             <label class="control-label">Damaged</label>
                             <div class="">
                                 <input type="text" numbers-only class="form-control input-sm" placeholder="Damaged" max-length="4" data-ng-model="ConsolPackingModalCtrl.ePage.Masters.Package.FormView.Damaged"
@@ -232,7 +231,7 @@
                     </div>
                     <!--Pillaged-->
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                        <div class="form-group">
+                        <div class="form-group ship-font">
                             <label class="control-label">Pillaged</label>
                             <div class="">
                                 <input type="text" numbers-only class="form-control input-sm" placeholder="Pillaged" max-length="4" data-ng-model="ConsolPackingModalCtrl.ePage.Masters.Package.FormView.Pillaged"
@@ -240,14 +239,13 @@
                             </div>
                         </div>
                     </div>
-
                     <!--Weight-->
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                        <div class="form-group">
+                        <div class="form-group ship-font">
                             <label class="control-label text-single-line">Weight </label>
                             <div class="clearfix">
                                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
-                                    <input type="text" numbers-only class="form-control input-sm no-border-right" max-length="5" data-ng-model="ConsolPackingModalCtrl.ePage.Masters.Package.FormView.OutturnedWeight"
+                                    <input type="text" numbers-only-dot sb-precision="3" class="form-control input-sm no-border-right" max-length="5" data-ng-model="ConsolPackingModalCtrl.ePage.Masters.Package.FormView.OutturnedWeight"
                                         placeholder="Weight" />
                                 </div>
                                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 no-padding">
@@ -259,11 +257,11 @@
                     </div>
                     <!--Volume-->
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                        <div class="form-group">
+                        <div class="form-group ship-font">
                             <label class="control-label text-single-line">Volume </label>
                             <div class="clearfix">
                                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
-                                    <input type="text" numbers-only class="form-control input-sm no-border-right" max-length="5" data-ng-model="ConsolPackingModalCtrl.ePage.Masters.Package.FormView.OutturnedVolume"
+                                    <input type="text" numbers-only-dot sb-precision="3" class="form-control input-sm no-border-right" max-length="5" data-ng-model="ConsolPackingModalCtrl.ePage.Masters.Package.FormView.OutturnedVolume"
                                         placeholder="Volume" />
                                 </div>
                                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 no-padding">
@@ -276,28 +274,30 @@
                     <!--Length, Width, Height-->
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
-                            <div class="form-group">
+                            <div class="form-group ship-font">
                                 <label class="control-label text-single-line">Length </label>
                                 <div class="clearfix">
-                                    <input type="text" numbers-only class="form-control input-sm no-border-right" placeholder="Length" max-length="5" data-ng-model="ConsolPackingModalCtrl.ePage.Masters.Package.FormView.OutturnedLength"
+                                    <input type="text" numbers-only-dot sb-precision="3" class="form-control input-sm no-border-right" placeholder="Length" max-length="5"
+                                        data-ng-model="ConsolPackingModalCtrl.ePage.Masters.Package.FormView.OutturnedLength"
                                     />
                                 </div>
                             </div>
                         </div>
                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
-                            <div class="form-group">
+                            <div class="form-group ship-font">
                                 <label class="control-label text-single-line">Width </label>
                                 <div class="clearfix">
-                                    <input type="text" numbers-only class="form-control input-sm no-border-right" placeholder="Width" max-length="5" data-ng-model="ConsolPackingModalCtrl.ePage.Masters.Package.FormView.OutturnedWidth"
+                                    <input type="text" numbers-only-dot sb-precision="3" class="form-control input-sm no-border-right" placeholder="Width" max-length="5"
+                                        data-ng-model="ConsolPackingModalCtrl.ePage.Masters.Package.FormView.OutturnedWidth"
                                     />
                                 </div>
                             </div>
                         </div>
                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
-                            <div class="form-group">
+                            <div class="form-group ship-font">
                                 <label class="control-label text-single-line">Height </label>
                                 <div class="clearfix">
-                                    <input type="text" numbers-only class="form-control input-sm" placeholder="Height" max-length="5" data-ng-model="ConsolPackingModalCtrl.ePage.Masters.Package.FormView.OutturnedHeight"
+                                    <input type="text" numbers-only-dot sb-precision="3" class="form-control input-sm" placeholder="Height" max-length="5" data-ng-model="ConsolPackingModalCtrl.ePage.Masters.Package.FormView.OutturnedHeight"
                                     />
                                 </div>
                             </div>
@@ -305,7 +305,7 @@
                     </div>
                     <!--Unit Of Dimension-->
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                        <div class="form-group">
+                        <div class="form-group ship-font">
                             <label class="control-label">Unit Of Dimension</label>
                             <div class="">
                                 <input type="text" class="form-control input-sm" max-length="2" data-ng-model="ConsolPackingModalCtrl.ePage.Masters.Package.FormView.UnitOfDimension"
@@ -315,7 +315,7 @@
                     </div>
                     <!--Outtrun Comment-->
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
-                        <div class="form-group">
+                        <div class="form-group ship-font">
                             <div class="">
                                 <label class="control-label">Outtrun Comment</label>
                                 <textarea class="form-control no-resize" placeholder="Outtrun Comment" max-length="250" ng-model="ConsolPackingModalCtrl.ePage.Masters.Package.FormView.OutturnComment"
@@ -325,7 +325,7 @@
                     </div>
                     <!--Marks and Remarks-->
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
-                        <div class="form-group">
+                        <div class="form-group ship-font">
                             <div class="">
                                 <label class="control-label">Marks and Remarks</label>
                                 <textarea class="form-control no-resize" placeholder="Marks and Remarks" ng-model="ConsolPackingModalCtrl.ePage.Masters.Package.FormView.MarksAndNumbers"
@@ -334,9 +334,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="clearfix">
-                    <button class="btn btn-primary btn-sm pull-right" data-ng-click="ConsolPackingModalCtrl.ePage.Masters.Package.AddToGridPacking()">AddToGrid </button>
-                </div> -->
             </uib-tab>
             <uib-tab>
                 <uib-tab-heading title="Dangerous Goods">
@@ -344,7 +341,6 @@
                     <span class="text-single-line" data-ng-bind="'Dangerous Goods'"></span>
                 </uib-tab-heading>
                 <div class="clearfix margin-top-10">
-
                     <div class="clearfix" data-ng-show="ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.IsFormView">
                         <div class="clearfix margin-bottom-10 service-details-heading">
                             <div class="text-center clearfix">
@@ -354,7 +350,7 @@
                         </div>
                         <!--DG Substance-->
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                            <div class="form-group">
+                            <div class="form-group ship-font">
                                 <label class="control-label">DG Substance </label>
                                 <div class="input-group input-group-sm">
                                     <div dynamic-lookup placeholder="DG Substance" my-ng-model="ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.FormView.DG_NKSubs"
@@ -373,7 +369,7 @@
                         </div>
                         <!--DG Class-->
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                            <div class="form-group">
+                            <div class="form-group ship-font">
                                 <label class="control-label">DG Class</label>
                                 <div class="">
                                     <input type="text" class="form-control input-sm" placeholder="DG Class" max-length="8" data-ng-model="ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.FormView.IMOClass"
@@ -383,7 +379,7 @@
                         </div>
                         <!--Flash Point-->
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                            <div class="form-group">
+                            <div class="form-group ship-font">
                                 <label class="control-label">Flash Point</label>
                                 <div class="">
                                     <input type="text" class="form-control input-sm" placeholder="Flash Point" max-length="5" sdata-ng-model="ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.FormView.DGFlashPoint"
@@ -393,7 +389,7 @@
                         </div>
                         <!--UNDG Contact-->
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                            <div class="form-group">
+                            <div class="form-group ship-font">
                                 <label class="control-label">UNDG Contact</label>
                                 <input type="hidden" data-ng-model="ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.FormView.OCT_FK">
                                 <div class="input-group input-group-sm">
@@ -414,7 +410,7 @@
 
                         <!--Weight-->
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                            <div class="form-group">
+                            <div class="form-group ship-font">
                                 <label class="control-label text-single-line">Weight </label>
                                 <div class="clearfix">
                                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
@@ -433,7 +429,7 @@
                         </div>
                         <!--Volume-->
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                            <div class="form-group">
+                            <div class="form-group ship-font">
                                 <label class="control-label text-single-line">Volume </label>
                                 <div class="clearfix">
                                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
@@ -452,7 +448,7 @@
                         </div>
                         <!--Technical Name-->
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                            <div class="form-group">
+                            <div class="form-group ship-font">
                                 <label class="control-label">Technical Name </label>
                                 <div class="">
                                     <input type="text" class="form-control input-sm" max-length="200" data-ng-model="ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.FormView.TechnicalName"
@@ -462,7 +458,7 @@
                         </div>
                         <!--Marine Poll-->
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                            <div class="form-group">
+                            <div class="form-group ship-font">
                                 <label class="control-label">Marine Poll </label>
                                 <div class="">
                                     <input type="text" class="form-control input-sm" max-length="6" data-ng-model="ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.FormView.MPMarinePollutant"
@@ -472,7 +468,7 @@
                         </div>
                         <!--Packs-->
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                            <div class="form-group">
+                            <div class="form-group ship-font">
                                 <label class="control-label text-single-line">Packs </label>
                                 <div class="clearfix">
                                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
@@ -491,7 +487,7 @@
                         </div>
                         <!--Ltd. Qty.-->
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                            <div class="form-group">
+                            <div class="form-group ship-font">
                                 <label class="control-label text-single-line"></label>
                                 <div class="checkbox">
                                     <label>
@@ -503,26 +499,85 @@
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 margin-top-30">
-                            <!--<input type="button" class="btn btn-primary pull-right" data-ng-click="ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.AddToGridDangerousGoods()"
-                                   value="{{ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.buttonText}}">-->
-                            <button class="btn btn-primary pull-right" data-ng-click="ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.AddToGridDangerousGoods()">
-                                <i class="fa fa-plus-circle"></i> Add To Grid</button>
+                            <button class="btn btn-default set-br-blue set-bg-blue-light fs-12 pull-right" data-ng-click="ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.AddToGridDangerousGoods()">
+                                <i class="fa fa-plus-circle"></i> {{ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.buttonText}}</button>
                         </div>
                     </div>
                     <div class="clearfix" data-ng-show="!ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.IsFormView">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                            <button class="btn btn-primary pull-right" data-ng-click="ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.AddNew()">
+                        <div class="">
+                            <button class="btn btn-sm btn-outline-secondary pull-right mb-5" data-ng-click="ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.AddNew()">
                                 <i class="fa fa-plus-circle"></i> Add DG Details</button>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                            <div class="height-230 clearfix">
-                                <div class="text-center grid-view-loader" data-ng-if="!ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.GridData">
-                                    <i class="fa fa-spin fa-spinner font-160"></i>
+                        <!-- DG grid deatils -->
+                        <div class="Shipmentstable_scroll dg-hgt">
+                            <div class="table tab-position" id="results">
+                                <div class='theader'>
+                                    <div class='table_header'>DG_NKSubs</div>
+                                    <div class='table_header'>IMO Class</div>
+                                    <div class='table_header'>DGFlashPoint</div>
+                                    <div class='table_header'>DGVolume</div>
+                                    <div class='table_header'>UnitOfVolume</div>
+                                    <div class='table_header'>DGWeights</div>
+                                    <div class='table_header'>Action</div>
                                 </div>
-                                <dynamic-table data-ng-if="ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.GridData" grid-data="ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.GridData"
-                                    grid-config="ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.gridConfig" selected-grid-row="ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.SelectedGridRow($item)"></dynamic-table>
-                                <!-- <dynamic-grid data-ng-if="ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.GridData" input-data="ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.GridData"
-                                    grid-config="ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.gridConfig" row-selection-changed="ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.DangerousGoodsRowSelectionChanged($item)"></dynamic-grid> -->
+
+                                <div class='table_row' data-ng-repeat="x in ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.GridData" data-ng-if="ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.GridData && ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.GridData.length > 0"
+                                    style="font-size: 11px;">
+                                    <div class='table_small'>
+                                        <div class='table_cell'>DG_NKSubs</div>
+                                        <div class='table_cell'>
+                                            <b>{{x.DG_NKSubs}}</b>
+                                        </div>
+                                    </div>
+                                    <div class='table_small'>
+                                        <div class='table_cell'>IMO Class</div>
+                                        <div class='table_cell'>{{x.IMOClass}}</div>
+                                    </div>
+                                    <div class='table_small'>
+                                        <div class='table_cell'>DGFlashPoint</div>
+                                        <div class='table_cell'>
+                                            {{x.DGFlashPoint}}
+                                        </div>
+                                    </div>
+                                    <div class='table_small'>
+                                        <div class='table_cell'>DGVolume</div>
+                                        <div class='table_cell'>
+                                            {{x.DGVolume}}
+                                        </div>
+                                    </div>
+                                    <div class='table_small'>
+                                        <div class='table_cell'>UnitOfVolume</div>
+                                        <div class='table_cell'>
+                                            <b>{{x.UnitOfVolume}}</b>
+                                        </div>
+                                    </div>
+                                    <div class='table_small'>
+                                        <div class='table_cell'>DGWeights</div>
+                                        <div class='table_cell'>{{x.DGWeight}}</div>
+                                    </div>
+                                    <div class='table_small'>
+                                        <div class='table_cell'>Action</div>
+                                        <div class='table_cell'>
+                                            <span>
+                                                <a>
+                                                    <i class="fa fa-pencil order-icon" data-ng-click="ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.SelectedGridRow(x, 'edit', $index)"></i>
+                                                </a>
+                                            </span>|
+                                            <span>
+                                                <a>
+                                                    <i class="fa fa-trash order-icon" data-ng-click="ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.SelectedGridRow(x, 'delete', $index)"></i>
+                                                </a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- List Empty Response -->
+                            <div class="text-center grid-view-loader" data-ng-if="!ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.GridData">
+                                <i class="fa fa-spin fa-spinner font-160"></i>
+                            </div>
+                            <div class="grid-no-record-border-box text-center p-30" data-ng-if="ConsolPackingModalCtrl.ePage.Masters.ShipmentDangerousGoods.GridData.length==0">
+                                <span class="grid-no-record-shipment dg-empty-top">No records found...</span>
                             </div>
                         </div>
                     </div>
@@ -543,7 +598,7 @@
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                            <div class="form-group">
+                            <div class="form-group ship-font">
                                 <label class="control-label">Location</label>
                                 <div class="">
                                     <input type="text" class="form-control input-sm" placeholder="WarehouseLocation" max-length="4" data-ng-model="ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.FormView.WarehouseLocation"
@@ -553,7 +608,7 @@
                         </div>
                         <!--No Packages-->
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                            <div class="form-group">
+                            <div class="form-group ship-font">
                                 <label class="control-label">Packs</label>
                                 <div class="">
                                     <input type="text" numbers-only class="form-control input-sm" max-length="4" placeholder="NoPackages" data-ng-model="ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.FormView.NoPackages"
@@ -564,47 +619,74 @@
                     </div>
                     <div class="clearfix" data-ng-show="ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.IsFormView">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                            <!--<input type="button" class="btn btn-primary btn-sm pull-right" data-ng-click="ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.AddToGridLocation()"
-                                   value="{{ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.buttonText}}">-->
-                            <button class="btn btn-primary pull-right" data-ng-click="ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.AddToGridLocation()">
-                                <i class="fa fa-plus-circle"></i> Add To Grid</button>
+                            <button class="btn btn-default set-br-blue set-bg-blue-light fs-12 pull-right" data-ng-click="ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.AddToGridLocation()">
+                                <i class="fa fa-plus-circle"></i> {{ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.buttonText}}</button>
                         </div>
                     </div>
                 </div>
                 <div class="clearfix margin-top-10" data-ng-show="!ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.IsFormView">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                        <button class="btn btn-primary pull-right" data-ng-click="ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.AddNewLocation()">
+                    <div class="">
+                        <button class="btn btn-sm btn-outline-secondary pull-right mb-5" data-ng-click="ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.AddNewLocation()">
                             <i class="fa fa-plus-circle"></i> Add Location</button>
                     </div>
+                    <!-- Location Grid -->
 
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                        <div class="height-230 clearfix">
-                            <div class="text-center grid-view-loader" data-ng-if="!ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.GridData">
-                                <i class="fa fa-spin fa-spinner font-160"></i>
+                    <div class="Shipmentstable_scroll location-hgt">
+                        <div class="table tab-position" id="results">
+                            <div class='theader'>
+                                <div class='table_header'>Location</div>
+                                <div class='table_header'>Packs</div>
+                                <div class='table_header'>Action</div>
                             </div>
-                            <dynamic-table data-ng-if="ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.GridData" grid-data="ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.GridData"
-                                grid-config="ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.gridConfig" selected-grid-row="ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.SelectedGridRow($item)"></dynamic-table>
-                            <!-- <dynamic-grid data-ng-if="ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.GridData" input-data="ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.GridData"
-                                grid-config="ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.gridConfig" row-selection-changed="ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.LocationRowSelectionChanged($item)"></dynamic-grid> -->
+
+                            <div class='table_row' data-ng-repeat="x in ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.GridData" data-ng-if="ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.GridData && ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.GridData.length > 0"
+                                style="font-size: 11px;">
+                                <div class='table_small'>
+                                    <div class='table_cell'>Location</div>
+                                    <div class='table_cell'>
+                                        <b>{{x.WarehouseLocation}}</b>
+                                    </div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>Packs</div>
+                                    <div class='table_cell'>{{x.NoPackages}}</div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>Action</div>
+                                    <div class='table_cell'>
+                                        <span>
+                                            <a>
+                                                <i class="fa fa-pencil order-icon" data-ng-click="ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.SelectedGridRow(x, 'edit', $index)"></i>
+                                            </a>
+                                        </span>|
+                                        <span>
+                                            <a>
+                                                <i class="fa fa-trash order-icon" data-ng-click="ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.SelectedGridRow(x, 'delete', $index)"></i>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                        <!-- List Empty Response -->
+                        <div class="text-center grid-view-loader" data-ng-if="!ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.GridData">
+                            <i class="fa fa-spin fa-spinner font-160"></i>
+                        </div>
+                        <div class="grid-no-record-border-box text-center p-30" data-ng-if="ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.GridData.length==0">
+                            <span class="grid-no-record-shipment location-empty-top">No records found...</span>
+                        </div>
                 </div>
-                <!-- <div class="clearfix">
-                    <div class="clearfix">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                            <button class="btn btn-primary btn-sm pull-right margin-left-5" data-ng-click="ConsolPackingModalCtrl.ePage.Masters.ShipmentJobLocation.AddNewLocation()">Add New</button>
-                        </div>
-                    </div>
-                </div> -->
-            </uib-tab>
-            <uib-tab>
-                <uib-tab-heading title="Custom">
-                    <i class="fa fa-external-link margin-right-5"></i>
-                    <span class="text-single-line" data-ng-bind="'Additonal Info'"></span>
-                </uib-tab-heading>
-            </uib-tab>
-        </uib-tabset>
+
     </div>
+    </uib-tab>
+    <uib-tab>
+        <uib-tab-heading title="Custom">
+            <i class="fa fa-external-link margin-right-5"></i>
+            <span class="text-single-line" data-ng-bind="'Additonal Info'"></span>
+        </uib-tab-heading>
+    </uib-tab>
+    </uib-tabset>
+</div>
 </div>
 <div class="modal-footer">
     <input type="button" class="btn btn-secondary btn-sm pull-right margin-left-5" ng-click="ConsolPackingModalCtrl.ePage.Masters.Package.close()"

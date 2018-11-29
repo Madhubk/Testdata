@@ -1,0 +1,11 @@
+<div class="clearfix col-lg-12 margin-top-5">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <input type="button" class="btn btn-primary btn-sm ml-5" data-ng-click="ShipmentCustomToolBarCtrl.ePage.Masters.Activation('IsActiveShipmentEnable','Shipment Activation')"
+            value="Active">
+        <input type="button" class="btn btn-primary btn-sm ml-5" data-ng-click="ShipmentCustomToolBarCtrl.ePage.Masters.Deactivation('IsActiveShipmentEnable','Shipment Activation')"
+            value="InActive">
+        <input type="button" data-ng-if="ShipmentCustomToolBarCtrl.ePage.Masters.Input.length>1" class="btn btn-primary btn-sm ml-5"
+            data-ng-click="ShipmentCustomToolBarCtrl.ePage.Masters.Merge('IsActiveShipmentEnable','Shipment Activation')"
+            value="Merge Shipment">
+    </div>
+</div>

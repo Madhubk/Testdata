@@ -1,24 +1,17 @@
 (function () {
     "use strict";
-	
+
     angular
         .module("Application")
-        .factory("myTaskConfig", MyTaskConfig);
+        .factory('myTaskActivityConfig', MyTaskActivityConfig);
 
-    MyTaskConfig.$Inject = ["$location", "helperService"];
+    MyTaskActivityConfig.$inject = [];
 
-    function MyTaskConfig($location, helperService) {
-        var app = $location.path().split("/")[1];
-
+    function MyTaskActivityConfig() {
         var exports = {
-            "Entities": {
-                "Header": {
-                    "Data": {},
-                    "API": {}
-                }
-            }
+            Entities: {},
+            "IsReload": false
         }
-		
         return exports;
     }
 })();

@@ -1,0 +1,43 @@
+<!-- <div class="modal-header">
+    <div class="row">
+        <div class="text-center clearfix">
+            <button class="btn btn-default set-br-blue set-bg-blue-light fs-12 pr-5 pull-right mr-10" data-ng-click="ContainerGridPopUpCtrl.ePage.Masters.Close()">
+                <i class="fa fa-plus-circle"></i> Save Container
+            </button>
+            <button class="btn btn-default  fs-12 pr-5 pull-right mr-10" data-ng-click="ContainerGridPopUpCtrl.ePage.Masters.Close()">
+                <i class="fa fa-times"></i> Close
+            </button>
+        </div>
+    </div>
+</div> -->
+<div class="modal-body">
+    <div class="modal-header">
+        <h5 class="modal-title pull-left">
+            <strong>Container Details</strong>
+        </h5>
+        <button type="button" class="btn btn-secondary btn-sm pull-right margin-left-5" ng-click="ContainerGridPopUpCtrl.ePage.Masters.Close()">Close</button>
+        <input type="submit" class="btn btn-success btn-save btn-sm pull-right ml-5" data-ng-click="ContainerGridPopUpCtrl.ePage.Masters.Save()"
+            data-ng-disabled="ContainerGridPopUpCtrl.ePage.Masters.IsDisableSaveBtn" value="{{ContainerGridPopUpCtrl.ePage.Masters.SaveBtnText}}">
+    </div>
+    <div class="modal-body">
+        <container-form-directive data-ng-if="ContainerGridPopUpCtrl.ePage.Masters.Container.FormView" ref-code="{{ContainerGridPopUpCtrl.ePage.Masters.refCode}}"
+            current-container="ContainerGridPopUpCtrl.ePage.Masters.Container.FormView"></container-form-directive>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm pull-right margin-left-5" ng-click="ContainerGridPopUpCtrl.ePage.Masters.Close()">Close</button>
+        <input type="submit" class="btn btn-success btn-save btn-sm pull-right ml-5" data-ng-click="ContainerGridPopUpCtrl.ePage.Masters.Save()"
+            data-ng-disabled="ContainerGridPopUpCtrl.ePage.Masters.IsDisableSaveBtn" value="{{ContainerGridPopUpCtrl.ePage.Masters.SaveBtnText}}">
+    </div>
+</div>
+<!-- <div class="modal-footer">
+    <div class="row">
+        <div class="text-center clearfix">
+            <button class="btn btn-default set-br-blue set-bg-blue-light fs-12 pr-5 pull-right mr-10" data-ng-click="ContainerGridPopUpCtrl.ePage.Masters.Close()">
+                <i class="fa fa-plus-circle"></i> Save Container
+            </button>
+            <button class="btn btn-default  fs-12 pr-5 pull-right mr-10" data-ng-click="ContainerGridPopUpCtrl.ePage.Masters.Close()">
+                <i class="fa fa-times"></i> Close
+            </button>
+        </div>
+    </div>
+</div> -->

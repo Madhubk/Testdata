@@ -5,9 +5,9 @@
         .module("Application")
         .controller("GeneralConController", GeneralConController);
 
-    GeneralConController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "consolidationConfig", "appConfig", "helperService", "$filter", "toastr", "dynamicLookupConfig", "confirmation"];
+    GeneralConController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "consolidationConfig", "appConfig", "helperService", "$filter", "toastr", "dynamicLookupConfig", "confirmation", "errorWarningService"];
 
-    function GeneralConController($rootScope, $scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, consolidationConfig, appConfig, helperService, $filter, toastr, dynamicLookupConfig, confirmation) {
+    function GeneralConController($rootScope, $scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, consolidationConfig, appConfig, helperService, $filter, toastr, dynamicLookupConfig, confirmation, errorWarningService) {
         /* jshint validthis: true */
         var GeneralConCtrl = this;
 
@@ -24,11 +24,34 @@
                 "Entities": currentConsol,
             };
 
+            GeneralConCtrl.ePage.Masters.UnAllocatedList = undefined;
+            var _filter = {
+                "CON_FK": GeneralConCtrl.ePage.Entities.Header.Data.PK
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": GeneralConCtrl.ePage.Entities.PkgCntMapping.API.FindAllUnAllocatedPacks.FilterID
+            };
+
+            apiService.post("eAxisAPI", GeneralConCtrl.ePage.Entities.PkgCntMapping.API.FindAllUnAllocatedPacks.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    GeneralConCtrl.ePage.Entities.Header.Data.UnAllocatedList = [];
+                    GeneralConCtrl.ePage.Entities.Header.Data.UnAllocatedList = response.data.Response.Response;
+                }
+            });
+
             // DatePicker
             GeneralConCtrl.ePage.Masters.DatePicker = {};
             GeneralConCtrl.ePage.Masters.DatePicker.Options = APP_CONSTANT.DatePicker;
             GeneralConCtrl.ePage.Masters.DatePicker.isOpen = [];
             GeneralConCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
+
+            GeneralConCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
+            GeneralConCtrl.ePage.Masters.OnFieldValueChange = OnFieldValueChange;
+            GeneralConCtrl.ePage.Masters.ValueChange = ValueChange;
+
+            GeneralConCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList = errorWarningService.Modules.Consolidation.Entity[GeneralConCtrl.currentConsol.code].GlobalErrorWarningList;
+            GeneralConCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.Consolidation.Entity[GeneralConCtrl.currentConsol.code];
 
             GeneralConCtrl.ePage.Masters.DropDownMasterList = consolidationConfig.Entities.Header.Meta;
 
@@ -38,10 +61,18 @@
                 "OAD_CarrierAddressFK": helperService.metaBase(),
                 "OAD_CreditorAddressFK": helperService.metaBase()
             };
-
+            GeneralConCtrl.ePage.Masters.AgentFilter = {
+                "IsForwarder": true
+            }
+            GeneralConCtrl.ePage.Masters.CarrierFilter = {
+                "IsShippingProvider": true,
+                "IsConsignee" : true
+            }
 
             GeneralConCtrl.ePage.Masters.SelectedData = SelectedData;
-
+            GeneralConCtrl.ePage.Masters.SelectedDataPorts = SelectedDataPorts
+            GeneralConCtrl.ePage.Masters.modeChange = ModeChange;
+            GeneralConCtrl.ePage.Entities.Header.Data.JobRoutesObj = {}
             var _isEmpty = angular.equals({}, GeneralConCtrl.ePage.Masters.DropDownMasterList);
             if (_isEmpty) {
                 GetMastersDropDownList();
@@ -52,10 +83,51 @@
                 ReferenceInit();
             } else {
                 GeneralConCtrl.ePage.Entities.Header.Data.UIShipmentHeaderList = [];
+                GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.AgentType = 'AGT'
+                GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.Phase = 'ALL'
+                GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.AWBServiceLevel = 'STD'
             }
-
-
+            var ValidationKeys = { "IsDomesticCheck": null };
+            GeneralConCtrl.ePage.Entities.Header.Data["ValidationKeys"] = ValidationKeys;
+            GetContainerType();
         }
+
+        $scope.$watchCollection('GeneralConCtrl.ePage.Entities.Header.Data.UIJobRoutes', function (oldVal, newVal) {
+            if (GeneralConCtrl.ePage.Entities.Header.Data.UIJobRoutes.length > 0) {
+                GeneralConCtrl.ePage.Entities.Header.Data.UIJobRoutes.map(function (value, key) {
+                    if (value.LegOrder == '1') {
+                        GeneralConCtrl.ePage.Entities.Header.Data.JobRoutesObj = value;
+                    }
+                })
+
+                // if (GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.FirstLoadPort == (authService.getUserInfo().CountryCode + authService.getUserInfo().BranchCode).trim()) {
+                //     GeneralConCtrl.ePage.Entities.Header.Data.JobRoutesObj = _.filter(GeneralConCtrl.ePage.Entities.Header.Data.UIJobRoutes, {
+                //         'LegOrder': 1
+                //     })[0];
+                //     if (GeneralConCtrl.ePage.Entities.Header.Data.JobRoutesObj) {
+                //         if (GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.TransportMode == GeneralConCtrl.ePage.Entities.Header.Data.JobRoutesObj.TransportMode) {
+                //             GeneralConCtrl.ePage.Masters.LegLabel = 'First "' + GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.TransportMode + '" Leg'
+                //         } else {
+                //             GeneralConCtrl.ePage.Masters.LegLabel = '(Departure Leg)'
+                //         }
+                //     }
+                // } else if (GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.LastDischargePort == (authService.getUserInfo().CountryCode + authService.getUserInfo().BranchCode).trim()) {
+                //     GeneralConCtrl.ePage.Entities.Header.Data.JobRoutesObj = _.filter(GeneralConCtrl.ePage.Entities.Header.Data.UIJobRoutes, {
+                //         'LegOrder': GeneralConCtrl.ePage.Entities.Header.Data.UIJobRoutes.length
+                //     })[0];
+                //     if (GeneralConCtrl.ePage.Entities.Header.Data.JobRoutesObj) {
+                //         if (GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.TransportMode == GeneralConCtrl.ePage.Entities.Header.Data.JobRoutesObj.TransportMode) {
+                //             GeneralConCtrl.ePage.Masters.LegLabel = 'Last "' + GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.TransportMode + '" Leg'
+                //         } else {
+                //             GeneralConCtrl.ePage.Masters.LegLabel = '(Departure Leg)'
+                //         }
+                //     }
+                // }
+            } else {
+                GeneralConCtrl.ePage.Masters.LegLabel = ""
+                GeneralConCtrl.ePage.Entities.Header.Data.JobRoutesObj = {}
+            }
+        }, true);
 
 
         function OpenDatePicker($event, opened) {
@@ -65,11 +137,9 @@
             GeneralConCtrl.ePage.Masters.DatePicker.isOpen[opened] = true;
         }
 
-
-
         function GetMastersDropDownList() {
             // Get CFXType Dropdown list
-            var typeCodeList = ["WEIGHTUNIT", "VOLUMEUNIT", "RELEASETYPE", "AIRWAY", "HEIGHTUNIT", "CON_TYPE", "CON_SERVICELEVEL", "CON_PAYMENT", "CON_SCRN", "CON_TRANSPORT", "CON_CNTMODE", "PHASE", "CON_MANIFEST", "REFNUMTYPE"];
+            var typeCodeList = ["WEIGHTUNIT", "VOLUMEUNIT", "RELEASETYPE", "AIRWAY", "HEIGHTUNIT", "CON_TYPE", "CON_SERVICELEVEL", "CON_PAYMENT", "CON_SCRN", "PHASE", "CON_MANIFEST", "REFNUMTYPE", "SHP_TRANSTYPE", "SHP_CNTMODE"];
             var dynamicFindAllInput = [];
 
             typeCodeList.map(function (value, key) {
@@ -95,12 +165,113 @@
             });
         }
 
-        function SelectedData(item, ListSource) {
+        function GetContainerType() {
+            GeneralConCtrl.ePage.Masters.CfxTypesList = {}
+            //ContainerType
+            var _inputObj = {
+                "TypeCode": "CNTTYPE",
+            };
+            var _input = {
+                "FilterID": appConfig.Entities.CfxTypes.API.FindAllWithParent.FilterID,
+                "SearchInput": helperService.createToArrayOfObject(_inputObj)
+            }
+            apiService.post("eAxisAPI", appConfig.Entities.CfxTypes.API.FindAllWithParent.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
+                if (response.data.Response) {
+                    GeneralConCtrl.ePage.Masters.CfxTypesList.CntType = response.data.Response
+                    var obj = _.filter(GeneralConCtrl.ePage.Masters.CfxTypesList.CntType, {
+                        'Key': GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ContainerMode
+                    })[0];
+                    GeneralConCtrl.ePage.Masters.selectedMode = obj;
+                }
+            });
 
+        }
+
+        function ModeChange(obj) {
+            if (obj) {
+                GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ContainerMode = obj.Key
+                GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.TransportMode = obj.PARENT_Key
+                OnFieldValueChange('E9005')
+
+            } else {
+                GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ContainerMode = null
+                GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.TransportMode = null
+                OnFieldValueChange('E9005')
+
+            }
+        }
+
+        function SelectedData(item, ListSource) {
             if (ListSource) {
                 getSetNearByField(item, "OrgAddress", ListSource);
             }
 
+        }
+
+        function SelectedDataPorts(Str1, Str2) {
+            if (Str1 && Str2) {
+                var ValidationKeys = { "IsDomesticCheck": null };
+                GeneralConCtrl.ePage.Entities.Header.Data["ValidationKeys"] = ValidationKeys;
+                if (consolidationConfig.PortsComparison(Str1, Str2)) {
+                    GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.IsDomestic = true
+                } else {
+                    GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.IsDomestic = false;
+                }
+                if ((GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.IsDomestic == true) && (GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.FirstLoadPort.slice(0, 2)) == (GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.LastDischargePort.slice(0, 2)) ||
+                    ((GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.IsDomestic == false) && (GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.FirstLoadPort.slice(0, 2)) != (GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.LastDischargePort.slice(0, 2)))) {
+                    GeneralConCtrl.ePage.Entities.Header.Data.ValidationKeys.IsDomesticCheck = true;
+                }
+                else {
+                    GeneralConCtrl.ePage.Entities.Header.Data.ValidationKeys.IsDomesticCheck = false;
+                }
+                OnFieldValueChange('E9002');
+            }
+        }
+
+        function ValueChange(field) {
+            switch (field) {
+                case "AgentType":
+                    if (GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.AgentType == 'CLD')
+                        GeneralConCtrl.ePage.Masters.AgentView = true;
+                    else GeneralConCtrl.ePage.Masters.AgentView = false;
+                    OnFieldValueChange('E9001');
+                    break;
+                case "Is Domestic":
+                    var ValidationKeys = { "IsDomesticCheck": false };
+                    GeneralConCtrl.ePage.Entities.Header.Data["ValidationKeys"] = ValidationKeys;
+                    if (GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.FirstLoadPort, GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.LastDischargePort) {
+                        if ((GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.IsDomestic == true) && (GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.FirstLoadPort.slice(0, 2)) == (GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.LastDischargePort.slice(0, 2)) ||
+                            ((GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.IsDomestic == false) && (GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.FirstLoadPort.slice(0, 2)) != (GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.LastDischargePort.slice(0, 2)))) {
+                            GeneralConCtrl.ePage.Entities.Header.Data.ValidationKeys.IsDomesticCheck = true;
+                        }
+                        else {
+                            GeneralConCtrl.ePage.Entities.Header.Data.ValidationKeys.IsDomesticCheck = false;
+                        }
+                    }
+                    OnFieldValueChange('E9002');
+                    break;
+            }
+        }
+
+        function OnFieldValueChange(code) {
+            var _obj = {
+                ModuleName: ["Consolidation"],
+                Code: [GeneralConCtrl.currentConsol.code],
+                API: "Group",
+                FilterInput: {
+                    ModuleCode: "CON",
+                    SubModuleCode: "CON"
+                },
+                GroupCode: "CON_GENERAL",
+                RelatedBasicDetails: [{
+                    // "UIField": "TEST",
+                    // "DbField": "TEST",
+                    // "Value": "TEST"
+                }],
+                EntityObject: GeneralConCtrl.ePage.Entities.Header.Data,
+                ErrorCode: code ? [code] : []
+            };
+            errorWarningService.ValidateValue(_obj);
         }
 
         function getSetNearByField(item, api, listSource) {
@@ -154,19 +325,14 @@
                 });
             }
         }
-
         // ===================== Reference Begin =====================
         function ReferenceInit() {
             // Reference Form View
             GeneralConCtrl.ePage.Masters.Reference.IsSelected = false;
             GeneralConCtrl.ePage.Masters.Reference.IsFormView = false;
             GeneralConCtrl.ePage.Masters.Reference.FormView = {};
-            // Reference Grid
-            GeneralConCtrl.ePage.Masters.Reference.gridConfig = GeneralConCtrl.ePage.Entities.Reference.Grid.GridConfig;
-            GeneralConCtrl.ePage.Masters.Reference.gridConfig.columnDef = GeneralConCtrl.ePage.Entities.Reference.Grid.ColumnDef;
-
             GeneralConCtrl.ePage.Masters.Reference.AddNewReference = AddNewReference;
-            GeneralConCtrl.ePage.Masters.Reference.SelectedGridRowReference = SelectedGridRowReference
+            GeneralConCtrl.ePage.Masters.Reference.SelectedGridRowReference = SelectedGridRowReference;
             GeneralConCtrl.ePage.Masters.Reference.EditReference = EditReference;
             GeneralConCtrl.ePage.Masters.Reference.DeleteReference = DeleteReference;
             GeneralConCtrl.ePage.Masters.Reference.DeleteConfirmation = DeleteConfirmation;
@@ -178,7 +344,6 @@
                 GeneralConCtrl.ePage.Masters.Reference.GridData = [];
             }
         }
-
         // APICall For Service and Reference
         function GetReferenceList() {
             // Reference grid list
@@ -199,7 +364,6 @@
                 }
             });
         }
-
         //GridDetails For Reference
         function GetReferenceDetails() {
             var _gridData = [];
@@ -219,9 +383,6 @@
                 GeneralConCtrl.ePage.Masters.Reference.FormView = {};
             }, 1000);
         }
-
-
-
         //Add New For Reference
         function AddNewReference() {
             if (!GeneralConCtrl.currentConsol.isNew) {
@@ -232,16 +393,16 @@
             }
         }
 
-        function SelectedGridRowReference($item) {
-            if ($item.action == 'edit')
-                EditReference($item)
+        function SelectedGridRowReference(item, type) {
+            if (type == 'edit')
+                EditReference(item);
             else
-                DeleteConfirmation($item)
+                DeleteConfirmation(item);
         }
         //Edit For Reference
         function EditReference($item) {
             GeneralConCtrl.ePage.Masters.Reference.IsFormView = true;
-            GeneralConCtrl.ePage.Masters.Reference.FormView = $item.data;
+            GeneralConCtrl.ePage.Masters.Reference.FormView = $item;
         }
 
         function DeleteConfirmation($item) {
@@ -259,12 +420,11 @@
                     console.log("Cancelled");
                 });
         }
-
         //Delete For Reference
         function DeleteReference($item) {
-            var _index = GeneralConCtrl.ePage.Entities.Header.Data.UIJobEntryNums.indexOf($item.data);
+            var _index = GeneralConCtrl.ePage.Entities.Header.Data.UIJobEntryNums.indexOf($item);
             if (_index != -1) {
-                apiService.get("eAxisAPI", appConfig.Entities.JobEntryNum.API.Delete.Url + $item.data.PK).then(function (response) {
+                apiService.get("eAxisAPI", appConfig.Entities.JobEntryNum.API.Delete.Url + $item.PK).then(function (response) {
                     if (response.data.Response) {
                         GeneralConCtrl.ePage.Entities.Header.Data.UIJobEntryNums.splice(_index, 1);
                         toastr.success("Record Deleted Successfully...!");
@@ -273,8 +433,6 @@
                 });
             }
         }
-
-
 
         // AddToGrid For Reference
         function AddToGridReference() {
@@ -314,8 +472,6 @@
             }
         }
         // ===================== Reference End =====================
-
-
         Init();
     }
 })();

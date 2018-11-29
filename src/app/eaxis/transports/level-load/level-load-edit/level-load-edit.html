@@ -1,0 +1,231 @@
+<div class="modal-header">
+    <span class="modal-title modalheader" ng-if="!LevelLoadEditCtrl.ePage.Entities.isNewMode">{{LevelLoadEditCtrl.ePage.Entities.Item}}</span>
+    <span class="modal-title modalheader" ng-if="LevelLoadEditCtrl.ePage.Entities.isNewMode">NEW</span>
+    <span class="modal-title  pull-right" style="font-size: 18px;" ng-click="LevelLoadEditCtrl.ePage.Masters.Cancel()"><a href="javascript:void(0);"><i class="fa fa-times"></i></a></span>
+</div>
+<div class="modal-body pb-50">
+    <div class="p-10" ng-show='LevelLoadEditCtrl.ePage.Masters.Lineslist'>
+        <div>
+            <span>
+                <button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Add Item" data-ng-click="LevelLoadEditCtrl.ePage.Masters.AddNew()">
+                    <span class="fa fa-external-link-square"></span>&nbsp;&nbsp;Add Item
+                </button>
+            </span>
+            <span ng-hide='LevelLoadEditCtrl.ePage.Masters.selectedRow==-1'>
+                <button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Edit" data-ng-click="LevelLoadEditCtrl.ePage.Masters.Edit(LevelLoadEditCtrl.ePage.Masters.selectedRow,'Edit List')">
+                    <span class="fa fa-pencil"></span>&nbsp;&nbsp;Edit</button>
+            </span>
+            <span ng-hide='LevelLoadEditCtrl.ePage.Masters.selectedRow==-1'>
+                <button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Delete" data-ng-click="LevelLoadEditCtrl.ePage.Masters.RemoveRow(LevelLoadEditCtrl.ePage.Masters.LevelLoad[LevelLoadEditCtrl.ePage.Masters.selectedRow])">
+                    <i class="fa fa-minus-circle"></i>&nbsp;&nbsp;Detach</button>
+            </span>
+        </div>
+        <div class="wmstable_scroll" id='LevelLoadEditCtrl.ePage.Masters.your_div' style="height:310px; padding-top: 2px;">
+            <div class="table" id="results">
+                <div class='theader'>
+                	<div class='table_header'>List No</div>
+                    <div class='table_header'>Level Load Type</div>
+                    <div class='table_header'>Monday Limit</div>
+                    <div class='table_header'>Tuesday Limit</div>
+                    <div class='table_header'>Wednesday Limit</div>
+                    <div class='table_header'>Thursday Limit</div>
+                    <div class='table_header'>Friday Limit</div>
+                    <div class='table_header'>Saturday Limit</div>
+                    <div class='table_header'>Sunday Limit</div>
+                </div>
+
+                <!-- List Empty Response -->
+                <div data-ng-if="LevelLoadEditCtrl.ePage.Masters.LevelLoad.length==0">
+                    <div class="grid-no-record grid-width" style="bottom:38px">No Record Found</div>
+                </div>
+
+                <div class='table_row' ng-repeat="x in LevelLoadEditCtrl.ePage.Masters.LevelLoad | filter:{IsDeleted:'false'}  track by $index"
+                    ng-click="LevelLoadEditCtrl.ePage.Masters.setSelectedRow($index)" ng-class="{'row_active': LevelLoadEditCtrl.ePage.Masters.selectedRow==$index}"
+                    style="font-size: 11px;">
+                    <div class='table_small'>
+                        <div class='table_cell'>List No</div>
+                        <div class='table_cell'>
+                            {{$index+1}}
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Level Load Type</div>
+                        <div class='table_cell'>{{x.LevelLoadType}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Monday Limit</div>
+                        <div class='table_cell'>{{x.MondayLimit || LevelLoadEditCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Tuesday Limit</div>
+                        <div class='table_cell'>{{x.TuesdayLimit || LevelLoadEditCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Wednesday Limit</div>
+                        <div class='table_cell'>{{x.WednesdayLimit || LevelLoadEditCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Thursday Limit</div>
+                        <div class='table_cell'>{{x.ThursdayLimit || LevelLoadEditCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Friday Limit</div>
+                        <div class='table_cell'>{{x.FridayLimit || LevelLoadEditCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Saturday Limit</div>
+                        <div class='table_cell'>{{x.SaturdayLimit || LevelLoadEditCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Sunday Limit</div>
+                        <div class='table_cell'>{{x.SundayLimit || LevelLoadEditCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	    <!-- Editable Mode -->
+	    <div class="clearfix" ng-hide='LevelLoadEditCtrl.ePage.Masters.Lineslist' style="padding:5px">
+	        <div class="panel panel-default mt-5">
+	            <div class="panel-heading">
+	                <span ng-show="LevelLoadEditCtrl.ePage.Masters.HeaderName =='Copy Of List'">
+	                    {{LevelLoadEditCtrl.ePage.Masters.HeaderName}} - {{LevelLoadEditCtrl.ePage.Masters.selectedRow}}
+	                </span>
+	                <span ng-show="LevelLoadEditCtrl.ePage.Masters.HeaderName!='Copy Of List'">
+	                    {{LevelLoadEditCtrl.ePage.Masters.HeaderName}} - {{LevelLoadEditCtrl.ePage.Masters.selectedRow+1}}
+	                </span>
+	            </div>
+	            <div class="panel-body">
+	                <div class="col-lg-12 ex-line-padding">
+
+		                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3" ng-if="LevelLoadEditCtrl.ePage.Entities.isNewMode">
+		                    	<label class="control-label text-single-line">Store</label>
+			                    <div class="input-group input-group-sm">
+		                            <!-- Dynamic look up Search in textbox -->
+		                            <div dynamic-lookup placeholder="Store" title="{{LevelLoadEditCtrl.ePage.Masters.LevelLoad[LevelLoadEditCtrl.ePage.Masters.selectedRow].StoreCode}}"
+		                                my-ng-model="LevelLoadEditCtrl.ePage.Masters.LevelLoad[LevelLoadEditCtrl.ePage.Masters.selectedRow].StoreCode" auto-complete-on-select="LevelLoadEditCtrl.ePage.Masters.SelectedLookupSender($item)"
+		                                obj="LevelLoadEditCtrl.ePage.Masters.LevelLoad[LevelLoadEditCtrl.ePage.Masters.selectedRow]" prefix-data="'OrganizationList'"
+		                                config="'LevelLoadStore'">
+		                            </div>
+
+		                            <!-- Look Up page opens when button clicks -->
+		                            <span class="input-group-btn">
+		                                <button dynamic-list-modal obj="LevelLoadEditCtrl.ePage.Masters.LevelLoad[LevelLoadEditCtrl.ePage.Masters.selectedRow]"
+		                                    field-name="'LevelLoadStore'" selected-data="LevelLoadEditCtrl.ePage.Masters.SelectedLookupSender($item)"
+		                                    prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny"
+		                                    type="button">
+		                                    <i class="fa fa-ellipsis-h"></i>
+		                                </button>
+		                            </span>
+	                        	</div>    
+	                        </div>	
+	                        <!--Level Load Type-->
+	                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+	                            <div class="form-group">
+	                                <!-- <div class="error-warning-container" ng-repeat="x in LevelLoadEditCtrl.ePage.Entities.Header.Meta.ErrorWarning.Consignmentorders.ERROR">
+	                                    <error-warning-directive data-ng-if="x.ColIndex == 1 && x.RowIndex ==LevelLoadEditCtrl.ePage.Masters.selectedRow" list="LevelLoadEditCtrl.ePage.Entities.Header.Meta.ErrorWarning.Consignmentorders.ERROR"
+	                                        type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+	                                        g-parent-ref="" row-index="LevelLoadEditCtrl.ePage.Masters.selectedRow" col-index="1">
+	                                    </error-warning-directive>
+	                                </div> -->
+	                                <label class="control-label text-single-line">Level Load Type</label>
+	                                <select chosen class="form-control" style="height: 30px;" ng-model="LevelLoadEditCtrl.ePage.Masters.LevelLoad[LevelLoadEditCtrl.ePage.Masters.selectedRow].LevelLoadType"
+                            		ng-options="x.Value as x.Key+' - '+ x.Value for x in LevelLoadEditCtrl.ePage.Masters.DropDownMasterList.LevelLoadType.ListSource"
+                            		title="{{LevelLoadEditCtrl.ePage.Masters.LevelLoad.LevelLoadType}}" ng-change='LevelLoadEditCtrl.ePage.Masters.OnChangeLevelLoadType(LevelLoadEditCtrl.ePage.Masters.LevelLoad.LevelLoadType)' search-contains="true">
+                            		<option value="">--Select--</option>
+                        			</select>
+	                            </div>
+	                        </div>
+	                        <!---Monday Limit -->
+	                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+	                            <div class="form-group">
+	                                <!-- <div class="error-warning-container" ng-repeat="x in LevelLoadEditCtrl.ePage.Entities.Header.Meta.ErrorWarning.Consignmentorders.ERROR">
+	                                    <error-warning-directive data-ng-if="x.ColIndex == 2 && x.RowIndex ==LevelLoadEditCtrl.ePage.Masters.selectedRow" list="LevelLoadEditCtrl.ePage.Entities.Header.Meta.ErrorWarning.Consignmentorders.ERROR"
+	                                        type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+	                                        g-parent-ref="" row-index="LevelLoadEditCtrl.ePage.Masters.selectedRow" col-index="2">
+	                                    </error-warning-directive>
+	                                </div> -->
+	                                <label class="control-label text-single-line">Monday Limit</label>
+	                                <div class="">
+	                                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="MondayLimit" numbers-only
+	                                        data-ng-model="LevelLoadEditCtrl.ePage.Masters.LevelLoad[LevelLoadEditCtrl.ePage.Masters.selectedRow].MondayLimit">
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <!---Tuesday Limit -->
+	                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+	                            <div class="form-group">
+	                                <label class="control-label text-single-line">Tuesday Limit</label>
+	                                <div class="">
+	                                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="TuesdayLimit" numbers-only
+	                                        data-ng-model="LevelLoadEditCtrl.ePage.Masters.LevelLoad[LevelLoadEditCtrl.ePage.Masters.selectedRow].TuesdayLimit">
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <!---Wednesday Limit-->
+	                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+	                            <div class="form-group">
+	                                <label class="control-label text-single-line">Wednesday Limit</label>
+	                                <div class="">
+	                                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="WednesdayLimit" numbers-only
+	                                        data-ng-model="LevelLoadEditCtrl.ePage.Masters.LevelLoad[LevelLoadEditCtrl.ePage.Masters.selectedRow].WednesdayLimit">
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <!---Thursday Limit-->
+	                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+	                            <div class="form-group">
+	                                <label class="control-label text-single-line">Thursday Limit</label>
+	                                <div class="">
+	                                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="ThursdayLimit" numbers-only
+	                                        data-ng-model="LevelLoadEditCtrl.ePage.Masters.LevelLoad[LevelLoadEditCtrl.ePage.Masters.selectedRow].ThursdayLimit">
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <!---Friday Limit-->
+	                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+	                            <div class="form-group">
+	                                <label class="control-label text-single-line">Friday Limit</label>
+	                                <div class="">
+	                                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="FridayLimit" numbers-only
+	                                        data-ng-model="LevelLoadEditCtrl.ePage.Masters.LevelLoad[LevelLoadEditCtrl.ePage.Masters.selectedRow].FridayLimit">
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <!---Saturday Limit-->
+	                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+	                            <div class="form-group">
+	                                <label class="control-label text-single-line">Saturday Limit</label>
+	                                <div class="">
+	                                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Saturday Limit" numbers-only
+	                                        data-ng-model="LevelLoadEditCtrl.ePage.Masters.LevelLoad[LevelLoadEditCtrl.ePage.Masters.selectedRow].SaturdayLimit">
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <!---Sunday Limit-->
+	                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+	                            <div class="form-group">
+	                                <label class="control-label text-single-line">Sunday Limit</label>
+	                                <div class="">
+	                                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Sunday Limit" numbers-only
+	                                        data-ng-model=" LevelLoadEditCtrl.ePage.Masters.LevelLoad[LevelLoadEditCtrl.ePage.Masters.selectedRow].SundayLimit">
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="col-lg-4 col-lg-offset-8 mt-5">
+	                <button class="btn btn-blue btn-sm mr-5 pull-right" title="Save" data-ng-click="LevelLoadEditCtrl.ePage.Masters.Done(LevelLoadEditCtrl.ePage.Masters.LevelLoad[LevelLoadEditCtrl.ePage.Masters.selectedRow])">
+	                    <i class="fa fa-save pr-5"></i>Save</button>
+	                <!-- <button class="btn btn-primary btn-sm mr-5 pull-right" title="Delete" data-ng-click="LevelLoadEditCtrl.ePage.Masters.RemoveRow()">
+	                    <i class="fa fa-trash pr-5"></i>Delete</button> -->
+	                <button class="btn btn-primary btn-sm mr-5 pull-right" title="Back" data-ng-click="LevelLoadEditCtrl.ePage.Masters.Back()">
+	                    <i class="fa fa-angle-double-left pr-5"></i>Back</button>
+	            </div>
+	        </div>
+	    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-sm mb-15" ng-click="LevelLoadEditCtrl.ePage.Masters.Cancel()">Cancel</button>
+</div>

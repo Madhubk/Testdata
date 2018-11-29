@@ -1,5 +1,50 @@
-<form class="clearfix" name="myTaskForm" novalidate>
+<div class="clearfix">
     <div class="clearfix my-task-edit-container">
-        <div class="warning-message">Task Form Not Yet Configured.</div>
+        <div class="warning-message p-20 font-140 text-center warning">Task Form Not Yet Configured.</div>
+        <!-- <dynamic-tab-left list-source="MyTaskDefaultEditDirectiveCtrl.ePage.Masters.DynamicTab.ListSource" obj="MyTaskDefaultEditDirectiveCtrl.ePage.Masters.DynamicTab.Obj"></dynamic-tab-left> -->
     </div>
-</form>
+    <div class="eaxis-footer-strip">
+        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
+            <div class="clearfix standard-menu-wrapper">
+                <div class="eaxis-footer-left">
+                    <ul>
+                        <li>
+                            <a href="javascript:void(0);" comment-modal mode="1" input="MyTaskDefaultEditDirectiveCtrl.ePage.Masters.StandardMenuInput">
+                                <i class="eaxis-footer-icon fa fa-comments"></i>
+                                <span class="eaxis-footer-text">Comment</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" document-modal mode="1" input="MyTaskDefaultEditDirectiveCtrl.ePage.Masters.StandardMenuInput">
+                                <i class="eaxis-footer-icon fa fa-file"></i>
+                                <span class="eaxis-footer-text">Document</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" email-modal mode="1" input="MyTaskDefaultEditDirectiveCtrl.ePage.Masters.StandardMenuInput">
+                                <i class="eaxis-footer-icon fa fa-envelope"></i>
+                                <span class="eaxis-footer-text">Email</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" delay-reason-modal mode="1" input="MyTaskDefaultEditDirectiveCtrl.ePage.Masters.StandardMenuInput">
+                                <i class="eaxis-footer-icon fa fa-envelope"></i>
+                                <span class="eaxis-footer-text">Delay Reason</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" checklist-modal mode="1" input="MyTaskDefaultEditDirectiveCtrl.ePage.Masters.StandardMenuInput">
+                                <i class="eaxis-footer-icon fa fa-check-square-o"></i>
+                                <span class="eaxis-footer-text">Checklist</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-bind="'Complete'"
+                data-ng-click="MyTaskDefaultEditDirectiveCtrl.ePage.Masters.Complete()"></button>
+        </div>
+    </div>
+</div>

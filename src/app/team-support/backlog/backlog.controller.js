@@ -61,7 +61,7 @@
             BacklogCtrl.ePage.Masters.UserProfile = {
                 "DisplayName": authService.getUserInfo().DisplayName,
                 "UserId": authService.getUserInfo().UserId,
-                "Photo": authService.getUserInfo().ProfilePhoto
+                "Photo": "assets/img/logo/user-logo-dummy.png"
             };
 
             BacklogCtrl.ePage.Masters.TSPageList = BacklogCtrl.ePage.Entities.PageList;
@@ -93,6 +93,44 @@
 
             InitListPage();
             GetModule();
+            GetLogos();
+        }
+
+        function GetLogos() {
+            var _filter = {
+                "USR_EntitySource": "USR_LOGO",
+                "USR_EntityRefKey": authService.getUserInfo().UserPK,
+                "USR_EntityRefCode": authService.getUserInfo().UserId,
+
+                "TNT_EntitySource": "TNT_LOGO",
+                "TNT_EntityRefKey": authService.getUserInfo().TenantPK,
+                "TNT_EntityRefCode": authService.getUserInfo().TenantCode,
+
+                "SAP_EntitySource": "SAP_LOGO",
+                "SAP_EntityRefKey": authService.getUserInfo().AppPK,
+                "SAP_EntityRefCode": authService.getUserInfo().AppCode
+            };
+
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.SecLogo.API.FindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", appConfig.Entities.SecLogo.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    if (response.data.Response.length > 0) {
+                        response.data.Response.map(function (value, key) {
+                            if (value.EntitySource == "USR_LOGO") {
+                                BacklogCtrl.ePage.Masters.UserProfile.Photo = value.Logo;
+                            } else if (value.EntitySource == "TNT_LOGO") {
+                                BacklogCtrl.ePage.Masters.TenantLogo = value.Logo;
+                            } else if (value.EntitySource == "SAP_LOGO") {
+                                BacklogCtrl.ePage.Masters.AppLogo = value.Logo;
+                            }
+                        });
+                    }
+                }
+            });
         }
 
         function RedirectToHomeLogo() {

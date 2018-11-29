@@ -17,7 +17,7 @@
                 "Masters": {},
                 "Meta": helperService.metaBase(),
                 "Entities": orderConfig.Entities
-            };        
+            };
 
             InitFollowUpGrid();
         }
@@ -28,9 +28,9 @@
 
             SupplierFollowUpGridDirectiveCtrl.ePage.Masters.DatePicker.isOpen[opened] = true;
         }
-        
+
         function InitFollowUpGrid() {
-            SupplierFollowUpGridDirectiveCtrl.ePage.Masters.ViewType = 1;  
+            SupplierFollowUpGridDirectiveCtrl.ePage.Masters.ViewType = 1;
             // DatePicker
             SupplierFollowUpGridDirectiveCtrl.ePage.Masters.DatePicker = {};
             SupplierFollowUpGridDirectiveCtrl.ePage.Masters.DatePicker.Options = APP_CONSTANT.DatePicker;
@@ -44,7 +44,7 @@
                 SupplierFollowUpGridDirectiveCtrl.ePage.Masters.SfuOrderList = newValue;
             }, true);
         }
-        
+
         function FolowUpGridDetails(_filterInput) {
             SupplierFollowUpGridDirectiveCtrl.ePage.Masters.spinner = true;
             var _input = {
@@ -56,19 +56,19 @@
                     SupplierFollowUpGridDirectiveCtrl.ePage.Masters.SfuOrderList = response.data.Response;
                     SupplierFollowUpGridDirectiveCtrl.ePage.Masters.spinner = false;
                     SupplierFollowUpGridDirectiveCtrl.ePage.Masters.Grid = true;
-                    if (SupplierFollowUpGridDirectiveCtrl.ePage.Masters.SfuOrderList.length > 0 ) {
-                        SupplierFollowUpGridDirectiveCtrl.ePage.Masters.SfuOrderList.map(function (value ,key) {
+                    if (SupplierFollowUpGridDirectiveCtrl.ePage.Masters.SfuOrderList.length > 0) {
+                        SupplierFollowUpGridDirectiveCtrl.ePage.Masters.SfuOrderList.map(function (value, key) {
                             value.status = false;
                         });
                     }
                 }
             });
         }
-        
+
         function SingleRecordView(obj) {
             var _queryString = {
-                PK : obj.PK,
-                OrderNo : obj.OrderCumSplitNo
+                PK: obj.PK,
+                OrderNo: obj.OrderCumSplitNo
             };
             _queryString = helperService.encryptData(_queryString);
             $window.open("#/EA/single-record-view/order/" + _queryString, "_blank");
@@ -78,11 +78,11 @@
             if (item.status) {
                 SupplierFollowUpGridDirectiveCtrl.selectedlist.push(item);
                 if (SupplierFollowUpGridDirectiveCtrl.selectedlist.length > 0) {
-                    for(i=0; i < SupplierFollowUpGridDirectiveCtrl.selectedlist.length; i++){
+                    for (i = 0; i < SupplierFollowUpGridDirectiveCtrl.selectedlist.length; i++) {
                         if (i != 0) {
-                            if ((SupplierFollowUpGridDirectiveCtrl.selectedlist[i].Buyer != SupplierFollowUpGridDirectiveCtrl.selectedlist[i-1].Buyer) || (SupplierFollowUpGridDirectiveCtrl.selectedlist[i].Supplier != SupplierFollowUpGridDirectiveCtrl.selectedlist[i-1].Supplier) || (SupplierFollowUpGridDirectiveCtrl.selectedlist[i].PortOfLoading != SupplierFollowUpGridDirectiveCtrl.selectedlist[i-1].PortOfLoading)) {
+                            if ((SupplierFollowUpGridDirectiveCtrl.selectedlist[i].Buyer != SupplierFollowUpGridDirectiveCtrl.selectedlist[i - 1].Buyer) || (SupplierFollowUpGridDirectiveCtrl.selectedlist[i].Supplier != SupplierFollowUpGridDirectiveCtrl.selectedlist[i - 1].Supplier) || (SupplierFollowUpGridDirectiveCtrl.selectedlist[i].PortOfLoading != SupplierFollowUpGridDirectiveCtrl.selectedlist[i - 1].PortOfLoading)) {
                                 toastr.warning("Selected Order(s) having same Buyer, Supplier and same Load Port...!")
-                                SupplierFollowUpGridDirectiveCtrl.selectedlist.splice(i,1);
+                                SupplierFollowUpGridDirectiveCtrl.selectedlist.splice(i, 1);
                                 item.status = false;
                                 return false;
                             }
@@ -93,7 +93,7 @@
             } else {
                 SupplierFollowUpGridDirectiveCtrl.selectedlist.map(function (value, key) {
                     if (value.PK === item.PK) {
-                        SupplierFollowUpGridDirectiveCtrl.selectedlist.splice(key,1);
+                        SupplierFollowUpGridDirectiveCtrl.selectedlist.splice(key, 1);
                     }
                 })
                 SupplierFollowUpGridDirectiveCtrl.gridChange(item);

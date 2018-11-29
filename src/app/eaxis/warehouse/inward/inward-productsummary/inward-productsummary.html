@@ -1,46 +1,51 @@
-<div class="p-10">
-    <div id='InwardProductsummaryCtrl.ePage.Masters.your_div' class="wmstable_scroll" style="height:400px;">
-        <div class="table tab-position" id="results">
-            <div class='theader'>
-                <div class='table_header'>Product</div>
-                <div class='table_header'>Expected Packs</div>
-                <div class='table_header'>Recevied Packs</div>
-                <div class='table_header'>Expected Quantity</div>
-                <div class='table_header'>Received Quantity</div>
-                <div class='table_header'>Damaged Quantity</div>
-            </div>
-            <!-- List Empty Response -->
-            <div data-ng-if="InwardProductsummaryCtrl.ePage.Masters.Config.ProductSummaryList[InwardProductsummaryCtrl.ePage.Entities.Header.Data.PK].length==0">
-                <div class="grid-no-record" style="top:110px">No records found...</div>
-            </div>
-            <div class='table_row' ng-repeat="x in InwardProductsummaryCtrl.ePage.Masters.Config.ProductSummaryList[InwardProductsummaryCtrl.ePage.Entities.Header.Data.PK] | orderBy:'CreatedDateTime' "  style="font-size: 11px;">
-                <div class='table_small'>
-                    <div class='table_cell'>Product</div>
-                    <div class='table_cell'>{{x.ProductCode}} - {{x.ProductDescription ||InwardProductsummaryCtrl.ePage.Masters.emptyText}}</div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Expected Packs</div>
-                    <div class='table_cell'>{{x.ExpectedPacks}} {{x.ExpectedPackType ||InwardProductsummaryCtrl.ePage.Masters.emptyText}}</div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Recevied Packs</div>
-                    <div class='table_cell'>{{x.ReceivedPacks}} {{x.ReceivedPackType ||InwardProductsummaryCtrl.ePage.Masters.emptyText}}</div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Expected Quantity</div>
-                    <div class='table_cell'>{{x.ExpectedQty}} {{ x.UnitOfQuantity||InwardProductsummaryCtrl.ePage.Masters.emptyText}}</div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Received Quantity</div>
-                    <div class='table_cell'>{{x.ReceivedQty}} {{ x.UnitOfQuantity||InwardProductsummaryCtrl.ePage.Masters.emptyText}}</div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Damaged Quantity</div>
-                    <div class='table_cell'>-</div>
-                </div>
-            </div>
+<div class="clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding">
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 p-0">
+            <span><button type="button" class="btn btn-sm btn-outline-primary font-10"  title="Customize"  data-ng-click="InwardProductsummaryCtrl.ePage.Masters.EditTableColumns = true"><span class="fa fa-filter"></span>&nbsp;&nbsp;Customize</button></span>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="input-group">
+                <div class="input-group-addon font-10"><i class="fa fa-search font-10"></i></div>
+                <input type="text" class="form-control height-25 font-10" placeholder="Search" ng-model="InwardProductsummaryCtrl.ePage.Masters.SearchTable">
+            </div>      
         </div>
     </div>
-</div> 
-
-        
+    <div id="ProdSumTable{{InwardProductsummaryCtrl.currentInward.label}}" class="fixedheader mb-0" key-events table-object='InwardProductsummaryCtrl.ePage.Masters.Config.ProductSummaryList[InwardProductsummaryCtrl.ePage.Entities.Header.Data.PK]' enable='InwardProductsummaryCtrl.ePage.Masters.Enable' selected-row='InwardProductsummaryCtrl.ePage.Masters.selectedRow' unique-id='ProdSumTable{{InwardProductsummaryCtrl.currentInward.label}}'>
+        <table style="height: 350px">
+            <thead>
+                <tr id="tableHeader">
+                    <th id="ssno" data-ng-if="InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList.ssno.isenabled" ng-style="{ 'width': InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList.ssno.width + 'px' }" title="S.No">S.No</th>
+                    <th id="sproductcode" data-ng-if="InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList.sproductcode.isenabled" ng-style="{ 'width': InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList.sproductcode.width + 'px' }" title="Product Code">Product Code</th>
+                    <th id="sproductdescription" data-ng-if="InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList.sproductdescription.isenabled" ng-style="{ 'width': InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList.sproductdescription.width + 'px' }" title="Product Description">Product Description</th>
+                    <th id="expectedpacks"data-ng-if="InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList.expectedpacks.isenabled" ng-style="{ 'width': InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList.expectedpacks.width + 'px' }" title="Expected Packs">Expected Packs</th>
+                    <th id="receivedpacks" data-ng-if="InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList.receivedpacks.isenabled" ng-style="{ 'width': InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList.receivedpacks.width + 'px' }" title="Received Packs">Received Packs</th>
+                    <th id="expectedqty" data-ng-if="InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList.expectedqty.isenabled" ng-style="{ 'width': InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList.expectedqty.width + 'px' }" title="Expected Quantity">Expected Quantity</th>
+                    <th id="receivedqty"data-ng-if="InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList.receivedqty.isenabled" ng-style="{ 'width': InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList.receivedqty.width + 'px' }" title="Received Quantity">Received Quantity</th>
+                    <th id="damagedqty" data-ng-if="InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList.damagedqty.isenabled" ng-style="{ 'width': InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList.damagedqty.width + 'px' }" title="Damaged Quantity">Damaged Quantity</th>
+                </tr>
+            </thead>
+            <tbody id="ProdSumCusTable{{InwardProductsummaryCtrl.currentInward.label}}">
+                <tr id="tableBody" ng-repeat="x in InwardProductsummaryCtrl.ePage.Masters.Config.ProductSummaryList[InwardProductsummaryCtrl.ePage.Entities.Header.Data.PK] | orderBy:'CreatedDateTime'  | filter:InwardProductsummaryCtrl.ePage.Masters.SearchTable"  ng-click="InwardProductsummaryCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: (InwardProductsummaryCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}" 
+                    watch-table table-properties="InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList"  unique-id="ProdSumCusTable{{InwardProductsummaryCtrl.currentInward.label}}" row-position="$index">
+                    <td id="ssno"   data-ng-show='InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList.ssno.isenabled' ng-style="{ 'width': InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList.ssno.width + 'px' }" >{{$index+1}}</td>
+                    <td id="sproductcode"   data-ng-show='InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList.sproductcode.isenabled' ng-style="{ 'width': InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList.sproductcode.width + 'px' }" class="overflow-text">{{x.ProductCode ||InwardProductsummaryCtrl.ePage.Masters.emptyText}}</td>
+                    <td id="sproductdescription"   data-ng-show='InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList.sproductdescription.isenabled' ng-style="{ 'width': InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList.sproductdescription.width + 'px' }" class="overflow-text">{{x.ProductDescription ||InwardProductsummaryCtrl.ePage.Masters.emptyText}}</td>
+                    <td id="expectedpacks"   data-ng-show='InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList.expectedpacks.isenabled' ng-style="{ 'width': InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList.expectedpacks.width + 'px' }" class="overflow-text">{{x.ExpectedPacks}} {{x.ExpectedPackType ||InwardProductsummaryCtrl.ePage.Masters.emptyText}}</td>
+                    <td id="receivedpacks"   data-ng-show='InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList.receivedpacks.isenabled' ng-style="{ 'width': InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList.receivedpacks.width + 'px' }" class="overflow-text">{{x.ReceivedPacks}} {{x.ReceivedPackType ||InwardProductsummaryCtrl.ePage.Masters.emptyText}}</td>
+                    <td id="expectedqty"   data-ng-show='InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList.expectedqty.isenabled' ng-style="{ 'width': InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList.expectedqty.width + 'px' }" class="overflow-text">{{x.ExpectedQty}} {{ x.UnitOfQuantity||InwardProductsummaryCtrl.ePage.Masters.emptyText}}</td>
+                    <td id="receivedqty"   data-ng-show='InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList.receivedqty.isenabled' ng-style="{ 'width': InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList.receivedqty.width + 'px' }" class="overflow-text">{{x.ReceivedQty}} {{ x.UnitOfQuantity||InwardProductsummaryCtrl.ePage.Masters.emptyText}}</td>
+                    <td id="damagedqty"   data-ng-show='InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList.damagedqty.isenabled' ng-style="{ 'width': InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList.damagedqty.width + 'px' }" class="overflow-text">{{x.DamagedQty || 0}} {{ x.UnitOfQuantity||InwardProductsummaryCtrl.ePage.Masters.emptyText}}</td>       
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound"  ng-if="InwardProductsummaryCtrl.ePage.Entities.Header.Data.ProductSummaryList.length==0">No Record Found...</div>
+</div>
+<!-- To show Customize Modal -->
+<div ng-if='InwardProductsummaryCtrl.ePage.Masters.EditTableColumns'>
+    <customize-table table-properties="InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList" enable="InwardProductsummaryCtrl.ePage.Masters.EditTableColumns" unique-id="ProdSumCusTable{{InwardProductsummaryCtrl.currentInward.label}}" user-value='InwardProductsummaryCtrl.ePage.Masters.UserValue' entity-source='WMS_INWARDPRODUCTSUMMARY'></customize-table>
+</div>
+<!-- Call Directive If user has value -->
+<div ng-if='InwardProductsummaryCtrl.ePage.Masters.UserHasValue' ng-init="InwardProductsummaryCtrl.ePage.Masters.UserHasValue=false">
+    <watch-table table-properties="InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList"  unique-id="ProdSumCusTable{{InwardProductsummaryCtrl.currentInward.label}}"></watch-table>
+</div>

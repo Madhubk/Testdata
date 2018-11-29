@@ -1,0 +1,41 @@
+<div class="clearfix p-10 pb-0">
+    <label><b>Follow Up Mail History</b></label>
+</div>
+<div class="clearfix p-10 pt-0">
+    <div id='' class="common_table_scroll common_table_hgt">
+        <div class="table tab-position" id="results">
+            <div class='theader'>
+                <div class='table_header'>Subject</div>
+                <div class='table_header'>Date Sent</div>
+                <div class='table_header'>Sent By</div>
+                <div class='table_header'>To</div>
+            </div>
+            <div class='table_row' data-ng-repeat="x in SfuMailBuyerOrcEditDirectiveCtrl.ePage.Entities.Header.Data.MailHistory"
+                style="font-size: 11px;">
+                <div class='table_small'>
+                    <div class='table_cell'>Subject</div>
+                    <div class='table_cell'>{{x.Subject}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Date Sent</div>
+                    <div class='table_cell'>
+                        <b>{{x.CreatedDateTime | date :'dd-MMM-yyyy'}}</b>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Send By</div>
+                    <div class='table_cell'>
+                        <b>{{x.CreatedBy}}</b>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>To</div>
+                    <div class='table_cell'>{{x.TO}}</div>
+                </div>
+            </div>
+        </div>
+        <!-- List Empty Response -->
+        <div class="grid-no-record-common_table" data-ng-if="SfuMailBuyerOrcEditDirectiveCtrl.ePage.Entities.Header.Data.MailHistory.length==0">No
+            records found...</div>
+    </div>
+</div>

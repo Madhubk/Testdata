@@ -1,0 +1,65 @@
+<div class="clearfix pull-right fs-25 mb-10 pr-10">
+    <email-modal input="SpaMailEditDirectiveCtrl.ePage.Masters.Input" mode="2" type="SpaMailEditDirectiveCtrl.ePage.Masters.MailObj"
+        on-complete="SpaMailEditDirectiveCtrl.ePage.Masters.OnComplete($item)">
+        <button class="btn btn-default set-br-yellow set-bg-yellow-light fs-12" data-ng-disabled="!SpaMailEditDirectiveCtrl.ePage.Masters.IsDisabledSend"
+            tooltip-placement="left" uib-tooltip="Send Mail">
+            <!-- <i class="fa fa-envelope"></i> -->
+            Shipment Pre-Advice Mail
+        </button>
+    </email-modal>
+    <button class="btn btn-default set-br-blue set-bg-blue-light fs-12" data-ng-click="SpaMailEditDirectiveCtrl.ePage.Masters.VesselPlan('New', SpaMailEditDirectiveCtrl.ePage.Masters.SelectedOrder)"
+        data-ng-disabled="SpaMailEditDirectiveCtrl.ePage.Masters.SelectedOrder.length == 0">
+        Add Schedule
+    </button>
+</div>
+<div class="clearfix common_table_scroll mt-20 mt-20 pl-10 pr-10 common_table_hgt" data-ng-if="SpaMailEditDirectiveCtrl.ePage.Masters.GridLoad">
+    <spa-mail-grid-directive input="SpaMailEditDirectiveCtrl.ePage.Masters.SpaOrderList" grid-change="SpaMailEditDirectiveCtrl.ePage.Masters.DataChanges({ item: item })"></spa-mail-grid-directive>
+</div>
+
+<div class="clearfix p-10 pb-0">
+    <label>
+        <b>Pre_Advice Mail History</b>
+    </label>
+</div>
+<div class="col-lg-12 col-sm-12 col-xs-12 col-xl-12 col-md-12 p-10 pt-0">
+    <div id='' class="common_table_scroll common_table_hgt">
+        <div class="table tab-position" id="results">
+            <div class='theader'>
+                <div class='table_header'>Subject</div>
+                <div class='table_header'>Date Sent</div>
+                <div class='table_header'>Sent By</div>
+                <div class='table_header'>To</div>
+            </div>
+            <div class='table_row' data-ng-repeat="x in SpaMailEditDirectiveCtrl.ePage.Masters.MailHistory" style="font-size: 11px;">
+                <div class='table_small'>
+                    <div class='table_cell'>Subject</div>
+                    <div class='table_cell'>{{x.Subject}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Date Sent</div>
+                    <div class='table_cell'>
+                        <b>{{x.CreatedDateTime | date :'dd-MMM-yyyy'}}</b>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Send By</div>
+                    <div class='table_cell'>
+                        <b>{{x.CreatedBy}}</b>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>To</div>
+                    <div class='table_cell'>{{x.TO}}</div>
+                </div>
+            </div>
+        </div>
+        <!-- List Empty Response -->
+        <div class="grid-no-record-common_table" data-ng-if="SpaMailEditDirectiveCtrl.ePage.Masters.MailHistory.length==0">No
+            records found...</div>
+    </div>
+</div>
+<!-- <div class="clearfix mt-10 pull-right fs-25 mr-10">
+    <button class="btn btn-default set-br-yellow set-bg-yellow-light fs-12" data-ng-click="SpaMailEditDirectiveCtrl.ePage.Masters.Complete()">
+        Complete
+    </button>
+</div> -->

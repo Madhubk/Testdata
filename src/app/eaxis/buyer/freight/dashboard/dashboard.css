@@ -1,0 +1,154 @@
+/*order dashboard css*/
+
+.tile-heading {
+    padding: 5px 8px;
+    color: #02476a;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.tile {
+    margin-bottom: 0px;
+    border-radius: 3px;
+    transition: all 1s;
+    background: #fff;
+    margin-bottom: 10px;
+}
+
+.tile .tile-primary {
+    background-color: #fff !important;
+    border: 1px solid #81ccf2;
+}
+
+.tile-body {
+    padding: 15px;
+    color: #33436e;
+    line-height: 48px;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .4)
+}
+
+.tile-success {
+    background-color: #53b953;
+}
+
+.tile-warning {
+    background-color: #f3aa41;
+}
+
+.tile-danger {
+    background-color: #e45847;
+}
+
+.tile:hover {
+    opacity: 0.95;
+    cursor: pointer;
+}
+
+.tile a {
+    color: #FFFFFF;
+}
+
+.tile .tile-heading .pull-right {
+    transition: all 1s;
+    opacity: 0.7;
+}
+
+.tile:hover .tile-heading .pull-right {
+    opacity: 1;
+}
+
+.tile .tile-body i {
+    font-size: 50px;
+    opacity: 0.3;
+    transition: all 1s;
+}
+
+.tile:hover .tile-body i {
+    color: #069;
+    opacity: 1;
+}
+
+.tile .tile-body h2 {
+    font-size: 42px;
+}
+
+.count-size {
+    font-size: 45px;
+}
+
+.set-bg-dashboard-blue {
+    /*background: #f5f5f5;*/
+    background-color: rgba(133, 164, 217, 0.09) !important;
+}
+
+.set-br-dashboard-blue {
+    border: 1px solid #f6f3f3;
+}
+
+.set-br-top-dashboard-blue {
+    border-top: 1px solid #f6f3f3;
+}
+
+.panel-default>.panel-heading-dashboard {
+    color: #333;
+    /* background-color: #f5f5f5;*/
+    /* border-color: #ddd;*/
+}
+
+.panel-heading-dashboard {
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+/*pie charrt*/
+
+/*--charts--*/
+
+.charts-grids {
+    background-color: #fff;
+    padding: 1em;
+}
+
+.charts-grids canvas#bar {
+    width: 100% !important;
+}
+
+.charts canvas#line {
+    width: 100% !important;
+}
+
+h4.title {
+    font-size: 1.1em;
+    color: #C1C1C1;
+    margin: 0.5em 0 1em;
+    text-transform: uppercase;
+}
+
+/*--//charts--*/
+
+.dashboard-loading {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    z-index: 999;
+}
+
+.popover-ord-date {
+    width: 310px !important;
+    max-width: 100% !important;
+    /* Max Width of the popover (depending on the container!) */
+}
+
+.list-group-height{
+    height: 290px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.height-300{
+    height: 350px;
+}

@@ -20,25 +20,21 @@
                 "Entities": currentOrganization,
             };
 
-            OrganizationConsignorCtrl.ePage.Masters.OrgContact = {};
-            OrganizationConsignorCtrl.ePage.Masters.DropDownMasterList = organizationConfig.Entities.Header.Meta;
+            ConsignorInit();
+        }
 
+        function ConsignorInit() {
             OrganizationConsignorCtrl.ePage.Masters.Supplier = {};
             OrganizationConsignorCtrl.ePage.Masters.Supplier.IsFormView = false;
             OrganizationConsignorCtrl.ePage.Masters.Supplier.IsNew = AddNew;
             OrganizationConsignorCtrl.ePage.Masters.Supplier.Save = Save;
             OrganizationConsignorCtrl.ePage.Masters.Supplier.IsDisabled = false;
             OrganizationConsignorCtrl.ePage.Masters.Supplier.SaveButtonText = "Save";
-            // Consignee function
-            OrganizationConsignorCtrl.ePage.Masters.Consignee = {};
-            OrganizationConsignorCtrl.ePage.Masters.Consignee.ConsigneeGridCall = ConsigneeGridCall;
-
             // DatePicker
             OrganizationConsignorCtrl.ePage.Masters.DatePicker = {};
             OrganizationConsignorCtrl.ePage.Masters.DatePicker.Options = APP_CONSTANT.DatePicker;
             OrganizationConsignorCtrl.ePage.Masters.DatePicker.isOpen = [];
             OrganizationConsignorCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
-
             // Document Tracking Grid Config
             OrganizationConsignorCtrl.ePage.Masters.DocumentTracking = {};
             OrganizationConsignorCtrl.ePage.Masters.DocumentTracking.GridData = [];
@@ -47,6 +43,13 @@
 
             ConsigneeGridCall();
             FollowUpConfig();
+            GetCfxTypeList();
+            GetCountryList();
+            GetCurrencyList();
+            GetDocsList();
+            GetAuthorityList();
+            GetTransferRelatedList();
+            GetValuationBasis();
         }
         // -------------Date time picker-------------
         function OpenDatePicker($event, opened) {
@@ -75,6 +78,8 @@
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
                         OrganizationConsignorCtrl.ePage.Masters.SupplierGridDetails.GridData = response.data.Response;
+                    } else {
+                        OrganizationConsignorCtrl.ePage.Masters.SupplierGridDetails.GridData = [];
                     }
                 } else {
                     OrganizationConsignorCtrl.ePage.Masters.SupplierGridDetails.GridData = [];
@@ -124,6 +129,8 @@
                     } else {
                         OrganizationConsignorCtrl.ePage.Masters.CountryList.ListSource = [];
                     }
+                } else {
+                    OrganizationConsignorCtrl.ePage.Masters.CountryList.ListSource = [];
                 }
             });
         }
@@ -140,8 +147,11 @@
 
             apiService.post("eAxisAPI", appConfig.Entities.Currency.API.FindAll.Url, _inputCurrency).then(function (response) {
                 if (response.data.Response) {
-                    if (response.data.Response.length > 0)
+                    if (response.data.Response.length > 0){
                         OrganizationConsignorCtrl.ePage.Masters.CurrencyList.ListSource = response.data.Response;
+                    } else {
+                        OrganizationConsignorCtrl.ePage.Masters.CurrencyList.ListSource = [];
+                    }
                 } else {
                     OrganizationConsignorCtrl.ePage.Masters.CurrencyList.ListSource = [];
                 }
@@ -235,14 +245,6 @@
             OrganizationConsignorCtrl.ePage.Masters.SupplierDetails.UIJobRequiredDocument = [];
             OrganizationConsignorCtrl.ePage.Masters.SupplierDetails.UIOrgBuySupMappingTrnMode = [];
             OrganizationConsignorCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping = {};
-
-            GetCfxTypeList();
-            GetCountryList();
-            GetCurrencyList();
-            GetDocsList();
-            GetAuthorityList();
-            GetTransferRelatedList();
-            GetValuationBasis();
         }
 
         function Save($item) {
@@ -253,6 +255,7 @@
             if (_index === -1) {
                 OrganizationConsignorCtrl.ePage.Masters.SupplierDetails.PK = "";
                 OrganizationConsignorCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping.PK = "";
+                OrganizationConsignorCtrl.ePage.Masters.SupplierDetails.UIOrgBuySupMappingTrnMode[0].PK = "";
                 OrganizationConsignorCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping.ORG_SupplierCode = OrganizationConsignorCtrl.ePage.Entities.Header.Data.OrgHeader.Code;
                 OrganizationConsignorCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping.ORG_Supplier = OrganizationConsignorCtrl.ePage.Entities.Header.Data.OrgHeader.PK;
                 OrganizationConsignorCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping.IsModified = false;
@@ -261,13 +264,14 @@
                 OrganizationConsignorCtrl.ePage.Masters.Supplier.IsDisabled = true;
                 apiService.post("eAxisAPI", OrganizationConsignorCtrl.ePage.Entities.Header.OrgSupplierBuyerMappingDeatils.API.Insert.Url, OrganizationConsignorCtrl.ePage.Masters.SupplierDetails).then(function (response) {
                     if (response.data.Response) {
-                        toastr.success("Success saved...")
+                        toastr.success("Success saved...");
                         OrganizationConsignorCtrl.ePage.Masters.Supplier.SaveButtonText = "Save";
                         OrganizationConsignorCtrl.ePage.Masters.Supplier.IsDisabled = false;
                         OrganizationConsignorCtrl.ePage.Masters.Supplier.IsFormView = false;
-                        OrganizationConsignorCtrl.ePage.Masters.SupplierGridDetails.GridData.push(response.data.Response.UIOrgBuyerSupplierMapping)
+                        ConsigneeGridCall();
+                        // OrganizationConsignorCtrl.ePage.Masters.SupplierGridDetails.GridData.push(response.data.Response.UIOrgBuyerSupplierMapping)
                     } else {
-                        toastr.error("Save failed...")
+                        toastr.error("Save failed...");
                         OrganizationConsignorCtrl.ePage.Masters.Supplier.SaveButtonText = "Save";
                         OrganizationConsignorCtrl.ePage.Masters.Supplier.IsDisabled = false;
                         OrganizationConsignorCtrl.ePage.Masters.Supplier.IsFormView = false;
@@ -284,10 +288,11 @@
                         OrganizationConsignorCtrl.ePage.Masters.Supplier.SaveButtonText = "Save";
                         OrganizationConsignorCtrl.ePage.Masters.Supplier.IsDisabled = false;
                         OrganizationConsignorCtrl.ePage.Masters.Supplier.IsFormView = false;
-                        toastr.success("Success updated...")
-                        OrganizationConsignorCtrl.ePage.Masters.SupplierGridDetails.GridData[_index] = response.data.Response.UIOrgBuyerSupplierMapping;
+                        toastr.success("Success updated...");
+                        ConsigneeGridCall();
+                        // OrganizationConsignorCtrl.ePage.Masters.SupplierGridDetails.GridData[_index] = response.data.Response.UIOrgBuyerSupplierMapping;
                     } else {
-                        toastr.error("Save failed...")
+                        toastr.error("Save failed...");
                         OrganizationConsignorCtrl.ePage.Masters.Supplier.SaveButtonText = "Save";
                         OrganizationConsignorCtrl.ePage.Masters.Supplier.IsDisabled = false;
                         OrganizationConsignorCtrl.ePage.Masters.Supplier.IsFormView = false;
@@ -298,26 +303,14 @@
         }
 
         function SelectedConsignorRow(item) {
-
-            GetCfxTypeList();
-            GetCountryList();
-            GetCurrencyList();
-            GetDocsList();
-            GetAuthorityList();
-            GetTransferRelatedList();
-            GetValuationBasis();
-
             OrganizationConsignorCtrl.ePage.Masters.Supplier.IsFormView = true;
             apiService.get('eAxisAPI', OrganizationConsignorCtrl.ePage.Entities.Header.OrgSupplierBuyerMappingDeatils.API.GetByID.Url + item.data.PK).then(function (response) {
                 if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        OrganizationConsignorCtrl.ePage.Masters.SupplierDetails = response.data.Response;
-                    }
+                    OrganizationConsignorCtrl.ePage.Masters.SupplierDetails = response.data.Response;
                 } else {
-                    OrganizationConsignorCtrl.ePage.Masters.SupplierDetails = [];
+                    OrganizationConsignorCtrl.ePage.Masters.SupplierDetails = {};
                 }
-            })
-
+            });
         }
         // ---------------- Consignor end --------------------
         // -----------------Mode Function Satrt-----------------

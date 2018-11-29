@@ -5,9 +5,9 @@
         .module("Application")
         .controller("ProcessWorkStepAccessModalController", ProcessWorkStepAccessModalController);
 
-    ProcessWorkStepAccessModalController.$inject = ["$scope", "$location", "authService", "apiService", "helperService", "appConfig", "APP_CONSTANT", "toastr", "confirmation", "param", "$uibModalInstance"];
+    ProcessWorkStepAccessModalController.$inject = ["$location", "authService", "apiService", "helperService", "toastr", "confirmation", "param", "$uibModalInstance", "trustCenterConfig"];
 
-    function ProcessWorkStepAccessModalController($scope, $location, authService, apiService, helperService, appConfig, APP_CONSTANT, toastr, confirmation, param, $uibModalInstance) {
+    function ProcessWorkStepAccessModalController($location, authService, apiService, helperService, toastr, confirmation, param, $uibModalInstance, trustCenterConfig) {
         /* jshint validthis: true */
         var ProcessWorkStepAccessModalCtrl = this;
         var _queryString = $location.path().split("/").pop();
@@ -43,7 +43,7 @@
             ProcessWorkStepAccessModalCtrl.ePage.Masters.ProcessWorkStepAccess.Save = Save;
             ProcessWorkStepAccessModalCtrl.ePage.Masters.ProcessWorkStepAccess.OnAccessChange = OnAccessChange;
             ProcessWorkStepAccessModalCtrl.ePage.Masters.ProcessWorkStepAccess.OnEntitySourceCodeChange = OnEntitySourceCodeChange;
-            
+
             GetProcessWorkStepAccessList();
             GetSecRoleList();
             GetSecUserList();
@@ -61,14 +61,14 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.EBPMWorkStepAccess.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.EBPMWorkStepAccess.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkStepAccess.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EBPMWorkStepAccess.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
-                  
+
                     ProcessWorkStepAccessModalCtrl.ePage.Masters.ProcessWorkStepAccess.ProcessWorkStepAccessList = response.data.Response;
-                  
+
                 } else {
                     ProcessWorkStepAccessModalCtrl.ePage.Masters.ProcessWorkStepAccess.ProcessWorkStepAccessList = [];
                 }
@@ -79,12 +79,12 @@
             var _filter = {};
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.SecRole.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.SecRole.API.FindAll.FilterID
             };
 
-            apiService.post("authAPI", appConfig.Entities.SecRole.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("authAPI", trustCenterConfig.Entities.API.SecRole.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
-                  
+
                     ProcessWorkStepAccessModalCtrl.ePage.Masters.ProcessWorkStepAccess.SecRoleList = response.data.Response;
                 } else {
                     ProcessWorkStepAccessModalCtrl.ePage.Masters.ProcessWorkStepAccess.SecRoleList = [];
@@ -96,10 +96,10 @@
             var _filter = {};
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.UserExtended.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.UserExtended.API.FindAll.FilterID
             };
 
-            apiService.post("authAPI", appConfig.Entities.UserExtended.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("authAPI", trustCenterConfig.Entities.API.UserExtended.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     ProcessWorkStepAccessModalCtrl.ePage.Masters.ProcessWorkStepAccess.SecUserList = response.data.Response;
                 } else {
@@ -110,16 +110,16 @@
 
         function GetMenuGroupList() {
             var _filter = {
-                "GroupType": "Task"
+                "GroupType": "BPMGroups"
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.MenuGroups.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.MenuGroups.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.MenuGroups.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.MenuGroups.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
-                   
+
                     ProcessWorkStepAccessModalCtrl.ePage.Masters.ProcessWorkStepAccess.MenuGroupsList = response.data.Response;
                 } else {
                     ProcessWorkStepAccessModalCtrl.ePage.Masters.ProcessWorkStepAccess.MenuGroupsList = [];
@@ -131,10 +131,10 @@
             var _filter = {};
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.CmpDepartment.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.CmpDepartment.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.CmpDepartment.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CmpDepartment.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     ProcessWorkStepAccessModalCtrl.ePage.Masters.ProcessWorkStepAccess.CmpDepartmentList = response.data.Response;
                 } else {
@@ -173,7 +173,35 @@
                 row.EntityRefKey = $item.Id;
             } else if (row.EntitySource === 'GROUP') {
                 row.EntityRefKey = $item.PK;
+                GetRoleByParty($item, row);
             }
+        }
+
+        function GetRoleByParty($item, row) {
+            var _filter = {
+                "SAP_Code": ProcessWorkStepAccessModalCtrl.ePage.Masters.QueryString.AppCode,
+                "PartyCode": $item.GroupName,
+                "GroupType": "BPMGroups"
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": trustCenterConfig.Entities.API.SecMappings.API.GetPartiesByUserApp.FilterID
+            };
+
+            apiService.post("authAPI", trustCenterConfig.Entities.API.SecMappings.API.GetRoleByUserApp.Url, _input).then(function SuccessCallback(response) {
+                if (response.data.Response) {
+                    if (response.data.Response.length > 0) {
+                        var _filterType = "";
+                        response.data.Response.map(function (value, key) {
+                            if (value.RoleRef) {
+                                _filterType += value.RoleRef + ",";
+                            }
+                        });
+
+                        row.FilterType = _filterType.slice(0, -1);
+                    }
+                }
+            });
         }
 
         function DeleteConfirmation($item, $index) {
@@ -199,7 +227,7 @@
 
                 var _input = [$item];
 
-                apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkStepAccess.API.Upsert.Url, _input).then(function (response) {
+                apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EBPMWorkStepAccess.API.Upsert.Url, _input).then(function (response) {
                     if (response.data.Response) {
                         ProcessWorkStepAccessModalCtrl.ePage.Masters.ProcessWorkStepAccess.ProcessWorkStepAccessList.splice($index, 1);
                     }
@@ -223,7 +251,7 @@
             _input.IsModified = true;
             _input.WSI_FK = ProcessWorkStepAccessModalCtrl.ePage.Masters.param.Item.PK;
 
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkStepAccess.API.Upsert.Url, [_input]).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EBPMWorkStepAccess.API.Upsert.Url, [_input]).then(function (response) {
                 if (response.data.Response) {
                     ProcessWorkStepAccessModalCtrl.ePage.Masters.ProcessWorkStepAccess.ProcessWorkStepAccessList[$index] = response.data.Response[0];
                     toastr.success("Saved Successfully...!");

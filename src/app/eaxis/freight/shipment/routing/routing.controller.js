@@ -32,8 +32,8 @@
             RoutingCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
 
             // Grid Configuration Input
-            RoutingCtrl.ePage.Masters.Routing.gridConfig = appConfig.Entities.JobRoutes.Grid.GridConfig;
-            RoutingCtrl.ePage.Masters.Routing.gridConfig.columnDef = appConfig.Entities.JobRoutes.Grid.ColumnDef;
+            // RoutingCtrl.ePage.Masters.Routing.gridConfig = appConfig.Entities.JobRoutes.Grid.GridConfig;
+            // RoutingCtrl.ePage.Masters.Routing.gridConfig.columnDef = appConfig.Entities.JobRoutes.Grid.ColumnDef;
 
             RoutingCtrl.ePage.Masters.Routing.SelectedGridRow = SelectedGridRow;
             RoutingCtrl.ePage.Masters.Routing.AddNewRouting = AddNewRouting;
@@ -64,7 +64,7 @@
 
         function GetMastersDropDownList() {
             // Get CFXType Dropdown list
-            var typeCodeList = ["TRANSTYPE", "ROUTEMODE", "ROUTESTATUS", "ROUTETYPES"];
+            var typeCodeList = ["ROUTEMODE", "ROUTESTATUS", "ROUTETYPES"];
             var dynamicFindAllInput = [];
 
             typeCodeList.map(function (value, key) {
@@ -174,7 +174,14 @@
 
         function AddNewRouting() {
             RoutingCtrl.ePage.Masters.Routing.FormView = {};
-
+            RoutingCtrl.ePage.Masters.Routing.FormView.LegOrder = RoutingCtrl.ePage.Entities.Header.Data.UIJobRoutes.length + 1;
+            RoutingCtrl.ePage.Masters.Routing.FormView.TransportMode = RoutingCtrl.ePage.Entities.Header.Data[RoutingCtrl.apiHeaderName].TransportMode;
+            RoutingCtrl.ePage.Masters.Routing.FormView.Status = "CNF"
+            if (RoutingCtrl.ePage.Masters.Routing.FormView.TransportMode == 'AIR') {
+                RoutingCtrl.ePage.Masters.Routing.FormView.TransportType = 'FL1'
+            } else {
+                RoutingCtrl.ePage.Masters.Routing.FormView.TransportType = 'MAI'
+            }
             RoutingCtrl.ePage.Masters.Routing.FormView.Creditor = {
                 AddressList: []
             };
@@ -187,7 +194,6 @@
             RoutingCtrl.ePage.Masters.Routing.FormView.ArrivalAt = {
                 AddressList: []
             };
-            RoutingCtrl.ePage.Masters.Routing.FormView.TransportMode = 'SEA'
             LoadAddressContactListAutomatic();
 
             RoutingCtrl.ePage.Masters.Routing.IsFormView = true;
@@ -195,6 +201,7 @@
 
         function EditRouting($item, index) {
             if ($item.EntitySource == RoutingCtrl.keyObjectName) {
+
                 RoutingCtrl.ePage.Masters.Routing.IsFormView = true;
                 RoutingCtrl.ePage.Masters.Routing.FormView = $item;
                 RoutingCtrl.ePage.Masters.Routing.FormView.Index = index;
@@ -211,6 +218,7 @@
                 RoutingCtrl.ePage.Masters.Routing.FormView.ArrivalAt = {
                     AddressList: []
                 };
+                LoadAddressContactListAutomatic()
             } else {
                 toastr.warning("Record Not  Editable...!");
             }
@@ -269,6 +277,7 @@
                     RoutingCtrl.ePage.Masters.Routing.FormView.EntityRefKey = RoutingCtrl.ePage.Entities.Header.Data.PK
                     apiService.post("eAxisAPI", appConfig.Entities.JobRoutes.API.Insert.Url, [RoutingCtrl.ePage.Masters.Routing.FormView]).then(function (response) {
                         if (response.data.Response) {
+                            response.data.Response[0].JobNo = RoutingCtrl.currentObject.label
                             RoutingCtrl.ePage.Entities.Header.Data.UIJobRoutes.push(response.data.Response[0]);
                             GetRoutingDetails();
                             toastr.success("Record Added Successfully...!");
@@ -281,6 +290,7 @@
                     RoutingCtrl.ePage.Masters.Routing.FormView.IsModified = true
                     apiService.post("eAxisAPI", appConfig.Entities.JobRoutes.API.Update.Url, RoutingCtrl.ePage.Masters.Routing.FormView).then(function (response) {
                         if (response.data.Response) {
+                            response.data.Response.JobNo = RoutingCtrl.currentObject.label
                             RoutingCtrl.ePage.Entities.Header.Data.UIJobRoutes[RoutingCtrl.ePage.Masters.Routing.FormView.Index] = response.data.Response;
                             GetRoutingDetails();
                             toastr.success("Record Added Successfully...!");
@@ -301,9 +311,17 @@
                 GetAddressContactList(RoutingCtrl.ePage.Masters.Routing.FormView, "OrgAddress", "AddressList", "CreditorOrg_FK", "Creditor", RoutingCtrl.ePage.Masters.Routing.FormView);
             }
             // Carrier
-            // if (RoutingCtrl.ePage.Masters.Routing.FormView.CarrierOrg_FK) {
-            //     GetAddressContactList(RoutingCtrl.ePage.Masters.Routing.FormView, "OrgAddress", "AddressList", "CarrierOrg_FK", "PCFS", RoutingCtrl.ePage.Masters.Routing.FormView);
-            // }
+            if (RoutingCtrl.ePage.Masters.Routing.FormView.CarrierOrg_FK) {
+                GetAddressContactList(RoutingCtrl.ePage.Masters.Routing.FormView, "OrgAddress", "AddressList", "CarrierOrg_FK", "Carrier", RoutingCtrl.ePage.Masters.Routing.FormView);
+            }
+            // Dept From
+            if (RoutingCtrl.ePage.Masters.Routing.FormView.DepartureLocationOrg_FK) {
+                GetAddressContactList(RoutingCtrl.ePage.Masters.Routing.FormView, "OrgAddress", "AddressList", "DepartureLocationOrg_FK", "DeptFrom", RoutingCtrl.ePage.Masters.Routing.FormView);
+            }
+            // Arrival At
+            if (RoutingCtrl.ePage.Masters.Routing.FormView.ArrivalLocationOrg_FK) {
+                GetAddressContactList(RoutingCtrl.ePage.Masters.Routing.FormView, "OrgAddress", "AddressList", "ArrivalLocationOrg_FK", "ArrivalAt", RoutingCtrl.ePage.Masters.Routing.FormView);
+            }
         }
 
         function GetAddressContactList(GetSelectedRow, api, listSource, keyName, addressType, obj) {
@@ -332,7 +350,7 @@
         }
 
         function SelectedLookupData($item, type, addressType) {
-            GetAddressContactList($item.entity, "OrgAddress", "AddressList", "PK", type, RoutingCtrl.ePage.Masters.Routing.FormView);
+            GetAddressContactList($item.data, "OrgAddress", "AddressList", "PK", type, RoutingCtrl.ePage.Masters.Routing.FormView);
         }
 
         Init();

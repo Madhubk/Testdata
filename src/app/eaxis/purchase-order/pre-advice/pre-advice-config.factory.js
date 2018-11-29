@@ -5,10 +5,10 @@
         .module("Application")
         .factory('preAdviceConfig', PreAdviceConfig);
 
-        PreAdviceConfig.$inject = ["$q", "helperService", "toastr"];
+    PreAdviceConfig.$inject = ["$q", "helperService", "toastr"];
 
     function PreAdviceConfig($q, helperService, toastr) {
-     
+
         var exports = {
             "Entities": {
                 "Header": {
@@ -62,7 +62,7 @@
                 exports.TabList.push(obj);
                 deferred.resolve(exports.TabList);
             } else {
-                
+
                 helperService.getFullObjectUsingGetById(exports.Entities.Header.API.GetByID.Url, currentpreadvice.PK).then(function (response) {
                     if (response.data.Messages) {
                         response.data.Messages.map(function (value, key) {

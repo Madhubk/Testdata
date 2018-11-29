@@ -1,8 +1,11 @@
-<div class="p-10" >
+<div class="p-10">
     <div>
-        <span><button type="button" class="btn btn-sm btn-outline-secondary" title="Add New"  data-ng-click="OrdShipmentPreAdviceCtrl.ePage.Masters.AddVessel(OrdShipmentPreAdviceCtrl.ePage.Entities.Header.Data.UIPreAdviceShipment,'New')"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add Vessel</button></span>
+        <span>
+            <button type="button" class="btn btn-sm btn-outline-secondary" title="Add Schedule" data-ng-click="OrdShipmentPreAdviceCtrl.ePage.Masters.AddVessel(OrdShipmentPreAdviceCtrl.ePage.Entities.Header.Data.UIPreAdviceShipment,'New')">
+                <i class="fa fa-plus-circle"></i> Add Vessel Schedule</button>
+        </span>
     </div>
-    <div id='' class="wmstable_scroll" style="height:200px; padding-top: 2px;">
+    <div id='' class="common_table_scroll common_table_hgt pt-2">
         <div class="table tab-position" id="results">
             <div class='theader'>
                 <div class='table_header'>Action</div>
@@ -17,15 +20,15 @@
                 <div class='table_header'>Cargo Cut Off Date</div>
             </div>
 
-            <!-- List Empty Response -->
-            <div >
-                <div class="grid-no-record4" data-ng-if="OrdShipmentPreAdviceCtrl.ePage.Masters.VesselPlanningGrid.length==0">No records found...</div>
-            </div>
-
-            <div class='table_row' data-ng-repeat="x in OrdShipmentPreAdviceCtrl.ePage.Masters.VesselPlanningGrid" style="font-size: 11px;">
+            <div class='table_row' data-ng-repeat="x in OrdShipmentPreAdviceCtrl.ePage.Masters.VesselPlanningGrid"
+                style="font-size: 11px;">
                 <div class='table_small'>
                     <div class='table_cell'>Action</div>
-                    <div class='table_cell'><i class="fa fa-edit order-icon" data-ng-click="OrdShipmentPreAdviceCtrl.ePage.Masters.AddVessel(x, 'Edit')"></i> | <i class="fa fa-trash order-icon" data-ng-click="OrdShipmentPreAdviceCtrl.ePage.Masters.RemoveVessel(x,$index)"></i></div>
+                    <div class='table_cell'>
+                        <i class="fa fa-edit order-icon" data-ng-click="OrdShipmentPreAdviceCtrl.ePage.Masters.AddVessel(x, 'Edit')"></i>
+                        |
+                        <i class="fa fa-trash order-icon" data-ng-click="OrdShipmentPreAdviceCtrl.ePage.Masters.RemoveVessel(x,$index)"></i>
+                    </div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Carrier</div>
@@ -66,23 +69,31 @@
                 <div class='table_small'>
                     <div class='table_cell'>Booking Cut Off Date</div>
                     <div class='table_cell'>
-                        {{x.ATD | date:'dd-MMM-yyyy'}}
+                        {{x.BookingCutOffDate | date:'dd-MMM-yyyy'}}
                     </div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Cargo Cut Off Date</div>
-                    <div class='table_cell'>{{x.ATA | date:'dd-MMM-yyyy'}}</div>
+                    <div class='table_cell'>{{x.CargoCutOffDate | date:'dd-MMM-yyyy'}}</div>
                 </div>
             </div>
+        </div>
+        <!-- List Empty Response -->
+        <div>
+            <div class="grid-no-record-common_table" data-ng-if="OrdShipmentPreAdviceCtrl.ePage.Masters.VesselPlanningGrid.length==0">No
+                records found...</div>
         </div>
     </div>
 </div>
 
-<div class="p-10" >
+<div class="p-10">
     <label class="">Shipment Pre-Advice History</label>
-    <div id='' class="wmstable_scroll" style="height:300px; padding-top: 2px;">
+    <div id='' class="common_table_scroll common_table_hgt pt-2">
         <div class="table tab-position" id="results">
             <div class='theader'>
+                <div class='table_header'>Date Sent</div>
+                <div class='table_header'>Sent By</div>
+                <div class='table_header'>To</div>
                 <div class='table_header'>Carrier</div>
                 <div class='table_header'>Vessel</div>
                 <div class='table_header'>Voyage</div>
@@ -92,17 +103,25 @@
                 <div class='table_header'>ETA</div>
                 <div class='table_header'>Booking Cut off Date</div>
                 <div class='table_header'>Cargo Cut off Date</div>
-                <div class='table_header'>Date Send</div>
-                <div class='table_header'>Sent By</div>
-                <div class='table_header'>To</div>
-            </div>
-
-            <!-- List Empty Response -->
-            <div >
-                <div class="grid-no-record3" data-ng-if="OrdShipmentPreAdviceCtrl.ePage.Masters.PreAdviceHistory.length==0">No records found...</div>
             </div>
 
             <div class='table_row' data-ng-repeat="x in OrdShipmentPreAdviceCtrl.ePage.Masters.PreAdviceHistory" style="font-size: 11px;">
+                <div class='table_small'>
+                    <div class='table_cell'>Date Sent</div>
+                    <div class='table_cell'>
+                        <b>{{x.CreatedDateTime | date:'dd-MMM-yyyy'}}</b>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Send By</div>
+                    <div class='table_cell'>
+                        <b>{{x.CreatedBy}}</b>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>To</div>
+                    <div class='table_cell'>{{x.TO}}</div>
+                </div>
                 <div class='table_small'>
                     <div class='table_cell'>Carrier</div>
                     <div class='table_cell'>
@@ -147,56 +166,12 @@
                     <div class='table_cell'>Cargo Cut Off Date</div>
                     <div class='table_cell'>{{x.CargoCutOffDate | date:'dd-MMM-yyyy'}}</div>
                 </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Date Send</div>
-                    <div class='table_cell'>
-                        <b>{{x.CreatedDateTime | date:'dd-MMM-yyyy'}}</b>
-                    </div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Send By</div>
-                    <div class='table_cell'>
-                        <b>{{x.CreatedBy}}</b>
-                    </div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>To</div>
-                    <div class='table_cell'>{{x.EmailRecipient}}</div>
-                </div>
-                
             </div>
+        </div>
+        <!-- List Empty Response -->
+        <div>
+            <div class="grid-no-record-common_table" data-ng-if="OrdShipmentPreAdviceCtrl.ePage.Masters.PreAdviceHistory.length==0">No
+                records found...</div>
         </div>
     </div>
 </div>
-<!-- <div class="clearfix mt-20 orderline-alignment">
-    <ul class="orderline-action">
-        <li class="border-bottom">
-            <div class="col-lg-2">
-                <div class="orderline-top-title">Date Send</div>
-            </div>
-            <div class="col-lg-2">
-                <div class="orderline-top-title">Sent By</div>
-            </div>
-            <div class="col-lg-2">
-                <div class="orderline-top-title">To</div>
-            </div>
-            <div class="col-lg-6">
-                <div class="orderline-top-title">Subject</div>
-            </div>
-        </li>
-        <li data-ng-repeat="to in OrdShipmentPreAdviceCtrl.ePage.Masters.PreAdviceHistory">
-            <div class="col-lg-2">
-                <div class="line-top-title">{{to.DateSend}}</div>
-            </div>
-            <div class="col-lg-2">
-                <div class="line-top-title">{{to.SendBy}}</div>
-            </div>
-            <div class="col-lg-2">
-                <div class="line-top-title"><b>{{to.SendTo}}</b></div>
-            </div>
-            <div class="col-lg-6">
-                <div class="line-top-title">{{to.Subject}}</div>
-            </div>
-        </li>
-    </ul>
-</div> -->

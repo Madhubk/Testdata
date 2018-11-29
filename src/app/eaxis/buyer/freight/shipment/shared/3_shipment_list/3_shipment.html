@@ -1,0 +1,61 @@
+﻿<!-- Shipment Grid -->
+<uib-tabset id="chromeTab" active="three_ShipmentCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+    <uib-tab>
+        <uib-tab-heading title="Shipment">
+            <span data-ng-bind="'Shipment'"></span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+        <div class="p-0 tab-list-view-wrapper">
+            <!--Shipment Grid Page-->
+            <dynamic-list dataentry-name="three_ShipmentCtrl.ePage.Masters.dataentryName" selected-grid-row="three_ShipmentCtrl.ePage.Masters.SelectedGridRow($item)"
+                mode="1" default-filter="three_ShipmentCtrl.ePage.Masters.DefaultFilter" dataentry-object="three_ShipmentCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+            <div class="tab-loading" data-ng-show="three_ShipmentCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+    <uib-tab id='top' active="three_ShipmentCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in three_ShipmentCtrl.ePage.Masters.TabList">
+        <uib-tab-heading title="{{tab.label}}">
+            <span data-ng-bind="tab.label"></span>
+            <i class="glyphicon glyphicon-remove" ng-click="three_ShipmentCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+            <span class="error-warning-container-common" data-ng-if="three_ShipmentCtrl.ePage.Masters.ErrorWarningConfig.Modules.Shipment.Entity[tab.code].GlobalErrorWarningList.length > 0">
+                <span class="custom-warning-container" data-ng-if="(three_ShipmentCtrl.ePage.Masters.ErrorWarningConfig.Modules.Shipment.Entity[tab.code].GlobalErrorWarningList | listCount: 'MessageType': 'W') > 0 && (three_ShipmentCtrl.ePage.Masters.ErrorWarningConfig.Modules.Shipment.Entity[tab.code].GlobalErrorWarningList | listCount: 'MessageType': 'E') == 0">
+                    <button class="btn-warning" data-ng-click="three_ShipmentCtrl.ePage.Masters.Configdetails.ShowErrorWarningModal(three_ShipmentCtrl.ePage.Masters.ErrorWarningConfig.Modules.Shipment.Entity[tab.code].GlobalErrorWarningList)">
+                        <i class="fa fa-warning"></i>
+                    </button>
+                    <span class="custom-warning-count">{{three_ShipmentCtrl.ePage.Masters.ErrorWarningConfig.Modules.Shipment.Entity[tab.code].GlobalErrorWarningList
+                        | listCount: 'MessageType': 'W'}}
+                    </span>
+                </span>
+                <span class="custom-error-container" data-ng-if="(three_ShipmentCtrl.ePage.Masters.ErrorWarningConfig.Modules.Shipment.Entity[tab.code].GlobalErrorWarningList | listCount: 'MessageType': 'E') > 0">
+                    <button class="btn-error" data-ng-click="three_ShipmentCtrl.ePage.Masters.Configdetails.ShowErrorWarningModal(tab)">
+                        <i class="fa fa-warning"></i>
+                    </button>
+                    <span class="custom-error-count">{{three_ShipmentCtrl.ePage.Masters.ErrorWarningConfig.Modules.Shipment.Entity[tab.code].GlobalErrorWarningList
+                        | listCount: 'MessageType': 'E'}}
+                    </span>
+                </span>
+            </span>
+        </uib-tab-heading>
+        <div class="padding-bottom-10 clearfix">
+            <!--Shipment Menu Directive-->
+            <one-three-shipment-menu current-shipment="tab" data-ng-if="three_ShipmentCtrl.ePage.Masters.currentShipment"
+                active-tab="three_ShipmentCtrl.ePage.Masters.ActiveMenuTab" booking-type="three_ShipmentCtrl.ePage.Masters.ShipmentType"></one-three-shipment-menu>
+            <!--Standard Menu Directive-->
+            <div class="eaxis-footer-strip" data-ng-show="three_ShipmentCtrl.ePage.Masters.ActiveMenuTab.Value != 'MyTask' || tab.isNew">
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                    <standard-menu input="tab" dataentry-object="three_ShipmentCtrl.ePage.Masters.DataEntryObject"
+                        data-ng-if="!tab.isNew"></standard-menu>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                    <shipment-action input="tab" data-ng-if="!tab.isNew"> </shipment-action>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                    <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="three_ShipmentCtrl.ePage.Masters.Validation(tab)"
+                        data-ng-bind="three_ShipmentCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="three_ShipmentCtrl.ePage.Masters.IsDisableSave"></button>
+                </div>
+            </div>
+            <!--Standard Menu Directive-->
+
+        </div>
+    </uib-tab>
+    <button class="btn btn-default" ng-click="three_ShipmentCtrl.ePage.Masters.CreateNewShipment()" data-ng-disabled="three_ShipmentCtrl.ePage.Masters.IsNewShipmentClicked">+</button>
+</uib-tabset>

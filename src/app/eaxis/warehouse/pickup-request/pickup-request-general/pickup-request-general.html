@@ -1,0 +1,291 @@
+<div class="inner-dashboard-stats-list clearfix mt-10">
+    <div class="clearfix mt-10 col-lg-12">
+        <!--Client-->
+        <div class="col-lg-4">
+            <div class="inner-dashboard-box">
+                <div class="rows border-bottom">
+                    <div class="col-lg-5 height-40 border-right pt-10 pb-10">
+                        <!-- <span class="dashboard-inward-icon-box">
+                            <i class="icomoon icon-organization-client"></i>
+                        </span> -->
+                        <label class="ml-5 control-label">Service Provider</label>
+                        <span class="error-warning-container">
+                            <error-warning-directive data-ng-if="PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ClientCode.IsWarning && !PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ClientCode.IsError"
+                                list="PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ClientCode.WARNING" type="'warning'"
+                                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            <error-warning-directive data-ng-if="PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ClientCode.IsError" list="PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ClientCode.ERROR"
+                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        </span>
+                    </div>
+                    <div class="col-lg-7 height-40 p-5">
+                        <div class="input-group input-group-sm">
+                            <!-- Dynamic look up Search in textbox -->
+                            <div dynamic-lookup placeholder="Service Provider Code And Name" my-ng-model="PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.Client"
+                                auto-complete-on-select="PickupGeneralCtrl.ePage.Masters.SelectedLookupClient($item)" obj="PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup"
+                                page-name="'OrganizationList'" control-id="'Customer'" control-key="'Customer_3321'">
+                            </div>
+                            <!-- Look Up page opens when button clicks -->
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal obj="PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup" page-name="'OrganizationList'"
+                                    control-id="'Customer'" control-key="'Customer_3321'" selected-data="PickupGeneralCtrl.ePage.Masters.SelectedLookupClient($item.data.entity)"
+                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny" type="button">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                            </span>
+                            <span ng-if="!PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.Client" ng-init="PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.ORG_Client_FK = '';PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.ClientCode='';PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.ClientName=''; "></span>
+                            <span ng-if='!PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.Client&&!PickupGeneralCtrl.currentPickup.isNew'>
+                                <div ng-init="PickupGeneralCtrl.ePage.Masters.OnChangeValues(PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.ClientCode,'E3050')"></div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="rows p-5 height-80">
+                    <div ng-show="PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.ClientName">
+                        <div class="col-lg-8 addressstyle">
+                            <div class="text-single-line font-12" title='{{PickupGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address1}}'>{{PickupGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address1}}</div>
+                            <div class="text-single-line" title='{{PickupGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address2}}'>{{PickupGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address2}}</div>
+                            <div class="text-single-line" title='{{PickupGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_State}}'>{{PickupGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_State}}</div>
+                            <div class="text-single-line">
+                                <span title="{{PickupGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_City}}">{{PickupGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_City}} -</span>
+                                <span title="{{PickupGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_PostCode}}">{{PickupGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_PostCode}}</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 p-0 mt-30">
+                            <div class="pull-right addressstyle1 font-12" ng-show="PickupGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Mobile"
+                                title="{{PickupGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Mobile}}">{{PickupGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Mobile}}
+                                <i class="fa fa-phone ml-5 mr-5"></i>
+                            </div>
+                            <div class="pull-right addressstyle1 font-12" ng-show="PickupGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Email"
+                                title="{{PickupGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Email}}">{{PickupGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Email}}
+                                <i class="fa fa-envelope-o ml-5 mr-5"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Warehuse-->
+        <div class="col-lg-4">
+            <div class="inner-dashboard-box">
+                <div class="rows border-bottom">
+                    <div class="col-lg-5 height-40 pt-10 pb-10">
+                        <span class="dashboard-inward-icon-box">
+                            <i class="icomoon icon-organization-client"></i>
+                        </span>
+                        <label class="ml-5 control-label">Warehouse</label>
+                        <span class="error-warning-container">
+                            <error-warning-directive data-ng-if="PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.WarehouseCode.IsWarning && !PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.WarehouseCode.IsError"
+                                list="PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.WarehouseCode.WARNING" type="'warning'"
+                                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            <error-warning-directive data-ng-if="PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.WarehouseCode.IsError" list="PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.WarehouseCode.ERROR"
+                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        </span>
+                    </div>
+                    <!-- <label class="control-label text-single-line">Warehouse</label> -->
+                    <div class="col-lg-7 height-40  p-5">
+                        <div class="input-group input-group-sm">
+                            <!-- Dynamic look up Search in textbox -->
+                            <div dynamic-lookup placeholder="Warehouse Code And Name" my-ng-model="PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.Warehouse"
+                                obj="PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup" page-name="'OrgHeaderWithWarehouse'"
+                                control-id="'Warehouse'" control-key="'Warehouse_3323'" auto-complete-on-select="PickupGeneralCtrl.ePage.Masters.SelectedLookupWarehouse($item)">
+                            </div>
+
+                            <!-- Look Up page opens when button clicks -->
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal obj="PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup" control-id="'Warehouse'" selected-data="PickupGeneralCtrl.ePage.Masters.SelectedLookupWarehouse($item.data.entity)"
+                                    page-name="'OrgHeaderWithWarehouse'" control-key="'Warehouse_3323'" mode="2" grid-refresh-fun-name=""
+                                    grid-refresh-fun="" class="btn btn-default shiny" type="button">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                            </span>
+                            <span ng-if="!PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.Warehouse" ng-init="PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.WAR_FK = '';PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseCode='';PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseName=''; "></span>
+                            <span ng-if='!PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.Warehouse&&!PickupGeneralCtrl.currentPickup.isNew'>
+                                <div ng-init="PickupGeneralCtrl.ePage.Masters.OnChangeValues(PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseCode,'E3051')"></div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="rows p-5 height-80">
+                    <div class="col-lg-8 addressstyle">
+                        <div ng-show="PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.Warehouse" ng-repeat="x in PickupGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress | filter: {AddressType:'SND'}">
+                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 addressstyle">
+                                <div class="text-single-line font-12" title='{{x.Address1}}'>{{x.Address1}}</div>
+                                <div class="text-single-line" title='{{x.Address2}}'>{{x.Address2}}</div>
+                                <div class="text-single-line" title='{{x.State}}'>{{x.State}}</div>
+                                <div class="text-single-line">
+                                    <span ng-show="x.City" title="{{x.City}}">{{x.City}} -</span>
+                                    <span ng-show="x.PostCode" title="{{x.PostCode}}">{{x.PostCode}}</span>
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0 mt-30">
+                                <div class="pull-right text-single-line font-12" ng-show="x.Mobile" title="{{x.Mobile}}">
+                                    <i class="fa fa-phone ml-5 mr-5"></i>{{x.Mobile}}</div>
+                                <div class="pull-right text-single-line font-12" ng-show="x.Email" title="{{x.Email}}">
+                                    <i class="fa fa-envelope-o ml-5 mr-5"></i>{{x.Email}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Site-->
+        <div class="col-lg-4">
+            <div class="inner-dashboard-box">
+                <div class="rows border-bottom">
+                    <div class="col-lg-4 height-40  border-right pt-10 pb-10">
+                        <span class="dashboard-inward-icon-box">
+                            <i class="icomoon icon-supplier"></i>
+                        </span>
+                        <label class="ml-5 control-label">Site</label>
+                        <span class="error-warning-container">
+                            <error-warning-directive data-ng-if="PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ConsigneeCode.IsWarning && !PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ConsigneeCode.IsError"
+                                list="PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ConsigneeCode.WARNING" type="'warning'"
+                                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            <error-warning-directive data-ng-if="PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ConsigneeCode.IsError" list="PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ConsigneeCode.ERROR"
+                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        </span>
+                    </div>
+                    <div class="col-lg-8 height-40  p-5">
+                        <div class="input-group input-group-sm">
+                            <!-- Dynamic look up Search in textbox -->
+                            <div dynamic-lookup placeholder="Site Code And Name" my-ng-model="PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.Consignee"
+                                auto-complete-on-select="PickupGeneralCtrl.ePage.Masters.SelectedLookupSite($item)" obj="PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup"
+                                page-name="'OrganizationList'" control-id="'Site'" control-key="'Site_3322'">
+                            </div>
+
+                            <!-- Look Up page opens when button clicks -->
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal obj="PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup" selected-data="PickupGeneralCtrl.ePage.Masters.SelectedLookupSite($item.data.entity)"
+                                    page-name="'OrganizationList'" control-id="'Site'" control-key="'Site_3322'" mode="2" grid-refresh-fun-name=""
+                                    grid-refresh-fun="" class="btn btn-default shiny" type="button">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                            </span>
+                            <span class="input-group-btn" ng-show="PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.Consignee">
+                                <button class="btn btn-default shiny" type="button" ng-click="PickupGeneralCtrl.ePage.Masters.OtherSiteContact(PickupGeneralCtrl.ePage.Masters.OrgSupplierAddress)">
+                                    <i class="fa fa-address-card-o"></i>
+                                </button>
+                            </span>
+                            <span ng-if="!PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.Consignee" ng-init="PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.ORG_Consignee_FK = '';PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeCode='';PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeName=''; "></span>
+                            <span ng-if='!PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.Consignee&&!PickupGeneralCtrl.currentPickup.isNew'>
+                                <div ng-init="PickupGeneralCtrl.ePage.Masters.OnChangeValues(PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeCode,'E3052')"></div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="rows p-5 height-80">
+                    <div class="col-lg-8 addressstyle">
+                        <div ng-show="PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.Consignee" ng-repeat="x in PickupGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress | filter: {AddressType:'SUD'}">
+                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 addressstyle">
+                                <div class="text-single-line font-12" title='{{x.Address1}}'>{{x.Address1 }}</div>
+                                <div class="text-single-line" title='{{x.Address2}}'>{{x.Address2 }}</div>
+                                <div class="text-single-line" title='{{x.State}}'>{{x.State}}</div>
+                                <div class="text-single-line">
+                                    <span ng-show="x.City" title="{{x.City}}">{{x.City}} -</span>
+                                    <span ng-show="x.PostCode" title="{{x.PostCode}}">{{x.PostCode}}</span>
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0 mt-30">
+                                <div class="pull-right text-single-line font-12" ng-show="x.Mobile" title="{{x.Mobile}}">
+                                    <i class="fa fa-phone ml-5 mr-5"></i>{{x.Mobile}}</div>
+                                <div class="pull-right text-single-line font-12" ng-show="x.Email" title="{{x.Email}}">
+                                    <i class="fa fa-envelope-o ml-5 mr-5"></i>{{x.Email}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix mt-10 col-lg-12">
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+            <div class="form-group">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RequestMode.IsWarning && !PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RequestMode.IsError"
+                        list="PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RequestMode.WARNING" type="'warning'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RequestMode.IsError" list="PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RequestMode.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <label class="control-label text-single-line">Request Mode</label>
+                <div class="">
+                    <select chosen class="form-control" ng-model="PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.RequestMode"
+                        ng-options="x.Key as x.Key + ' - '  + x.Value for x in PickupGeneralCtrl.ePage.Masters.DropDownMasterList.CSR_Mode.ListSource"
+                        search-contains="true" ng-change="PickupGeneralCtrl.ePage.Masters.OnChangeValues(PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.RequestMode,'E3053')">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+            <div class="form-group">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ResponseType.IsWarning && !PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ResponseType.IsError"
+                        list="PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ResponseType.WARNING" type="'warning'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ResponseType.IsError" list="PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ResponseType.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <label class="control-label text-single-line">Response Type</label>
+                <div class="">
+                    <select chosen class="form-control" ng-model="PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.ResponseType"
+                        ng-options="x.Key as x.Key + ' - '  + x.Value for x in PickupGeneralCtrl.ePage.Masters.DropDownMasterList.Response_Type.ListSource"
+                        search-contains="true" ng-change="PickupGeneralCtrl.ePage.Masters.OnChangeValues(PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.ResponseType,'E3054')">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+            <div class="form-group">
+                <label class="control-label text-single-line">Drop Point</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Drop Point" data-ng-model="PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.AdditionalRef1Code">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+            <div class="form-group">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Requester.IsWarning && !PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Requester.IsError"
+                        list="PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Requester.WARNING" type="'warning'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Requester.IsError" list="PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Requester.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <label class="control-label text-single-line">Site Engineer</label>
+                <div class="">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Site Engineer"
+                        data-ng-model="PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.Requester" ng-change="PickupGeneralCtrl.ePage.Masters.OnChangeValues(PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.Requester,'E3055')">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+            <div class="form-group">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RequesterContactNo.IsWarning && !PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RequesterContactNo.IsError"
+                        list="PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RequesterContactNo.WARNING" type="'warning'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RequesterContactNo.IsError"
+                        list="PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RequesterContactNo.ERROR" type="'error'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <label class="control-label text-single-line">Contact Number</label>
+                <div class="">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Contact Number"
+                        data-ng-model="PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.RequesterContactNo"
+                        ng-change="PickupGeneralCtrl.ePage.Masters.OnChangeValues(PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.RequesterContactNo,'E3056')">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+            <div class="form-group">
+                <label class="control-label text-single-line">Pickup Request No</label>
+                <div class="">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Pickup Request No"
+                        data-ng-model="PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

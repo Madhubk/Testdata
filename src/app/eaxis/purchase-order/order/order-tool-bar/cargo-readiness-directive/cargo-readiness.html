@@ -1,0 +1,9 @@
+<div class="clearfix">
+    <button class="btn btn-default set-br-blue set-bg-blue-light fs-12 pull-right mt-10" data-ng-click="CargoReadinessGridCtrl.ePage.Masters.SaveCargoReadyDate()"
+        data-ng-disabled="CargoReadinessGridCtrl.ePage.Masters.IsDisableSaveCargoReadyDate">{{CargoReadinessGridCtrl.ePage.Masters.SaveCargoReadyDateBtn}}</button>
+</div>
+<div class="clearfix">
+    <cargo-readiness-inline data-ng-if="CargoReadinessGridCtrl.ePage.Entities.Header.Data.UIPorOrderheader.length > 0"
+        current-object="CargoReadinessGridCtrl.ePage.Entities.Header.Data.UIPorOrderheader" btn-visible="{'AddNew':false,'Delete':false,'More':false}"
+        read-only="false" table-properties="" grid-change="CargoReadinessGridCtrl.ePage.Masters.DataChanges({ item : item })"></cargo-readiness-inline>
+</div>

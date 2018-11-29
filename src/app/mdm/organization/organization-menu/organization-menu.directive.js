@@ -14,7 +14,7 @@
             controller: "OrganizationMenuController",
             controllerAs: "OrganizationMenuCtrl",
             scope: {
-                currentOrganization: "="
+                currentTab: "="
             },
             bindToController: true
         };

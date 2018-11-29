@@ -1,0 +1,72 @@
+<div class="clearfix margin-top-20">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">Amount Deposited</label>
+            <input type="text" class="form-control input-sm" max-length="40" data-ng-model="EmptyBondEditDirCtrl.ePage.Entities.Header.Data.UICntExtendedInfo.CDT_AmountDeposited"
+                placeholder="Amount Deposited" />
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">Amount Refunded</label>
+            <input type="text" class="form-control input-sm" max-length="40" data-ng-model="EmptyBondEditDirCtrl.ePage.Entities.Header.Data.UICntExtendedInfo.CDT_AmountRefunded"
+                placeholder="Amount Refunded" />
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label"> Security Paid By</label>
+            <div class="">
+                <select chosen name="category-group" class="form-control" ng-model="VerifyPreAlertEditDirCtrl.ePage.Entities.Header.Data.UICntExtendedInfo.CDT_SecurityPaidBy"
+                    ng-options="x.Key as x.Description for x in VerifyPreAlertEditDirCtrl.ePage.Masters.DropDownMasterList.HOUSEBILL.ListSource"
+                    search-contains="true">
+                    <!-- <option value="">--Select--</option> -->
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">Collect Cheque No</label>
+            <input type="text" class="form-control input-sm" max-length="40" data-ng-model="EmptyBondEditDirCtrl.ePage.Entities.Header.Data.UICntExtendedInfo.CDT_CollectChequeNo"
+                placeholder="Collect Cheque No" />
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">Cheque Collection Date</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{EmptyBondEditDirCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    ng-model="EmptyBondEditDirCtrl.ePage.Entities.Header.Data.UICntExtendedInfo.CDT_ChequeCollectionDate" datetime-picker="{{EmptyBondEditDirCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    datepicker-options="EmptyBondEditDirCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                    close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" save-as="EmptyBondEditDirCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                    is-open="EmptyBondEditDirCtrl.ePage.Masters.DatePicker.isOpen['isCDT_ChequeCollectionDate']" when-closed=""
+                    data-ng-click="" data-ng-change="" custom-date-time-format />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" type="button" data-ng-click="EmptyBondEditDirCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCDT_ChequeCollectionDate')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">Amount Amount</label>
+            <input type="text" class="form-control input-sm" max-length="40" data-ng-model="EmptyBondEditDirCtrl.ePage.Entities.Header.Data.UICntExtendedInfo.CDT_ChequeAmount"
+                placeholder="Amount Amoubt" />
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label"> Forwarder Bank Name From the cheque was Issued</label>
+            <div class="">
+                <select chosen name="category-group" class="form-control" ng-model="EmptyBondEditDirCtrl.ePage.Entities.Header.Data.UICntExtendedInfo.CDT_ForwaredChequeWasIssued"
+                    ng-options="x.Key as x.Description for x in EmptyBondEditDirCtrl.ePage.Masters.DropDownMasterList.HOUSEBILL.ListSource"
+                    search-contains="true">
+                    <!-- <option value="">--Select--</option> -->
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

@@ -5,9 +5,9 @@
         .module("Application")
         .controller("EditPageController", EditPageController);
 
-    EditPageController.$inject = ["$scope", "$location", "authService", "apiService", "helperService", "appConfig", "trustCenterConfig", "toastr", "confirmation", "$window", "$filter", "$timeout", "jsonEditModal"];
+    EditPageController.$inject = ["$scope", "$location", "authService", "apiService", "helperService", "toastr", "jsonEditModal", "trustCenterConfig"];
 
-    function EditPageController($scope, $location, authService, apiService, helperService, appConfig, trustCenterConfig, toastr, confirmation, $window, $filter, $timeout, jsonEditModal) {
+    function EditPageController($scope, $location, authService, apiService, helperService, toastr, jsonEditModal, trustCenterConfig) {
         var EditPageCtrl = this;
         var _queryString = $location.path().split("/").pop();
 
@@ -31,7 +31,6 @@
             };
 
             EditPageCtrl.ePage.Masters.ActiveApplication = authService.getUserInfo().AppCode;
-            EditPageCtrl.ePage.Masters.emptyText = "-";
 
             try {
                 EditPageCtrl.ePage.Masters.QueryString = JSON.parse(helperService.decryptData(_queryString));
@@ -68,10 +67,15 @@
                 IsRequireQueryString: false,
                 IsActive: false
             }, {
-                Code: "configuration",
-                Description: "Configuration",
-                Link: "TC/dashboard/" + helperService.encryptData('{"Type":"Configuration", "BreadcrumbTitle": "Configuration"}'),
-                IsRequireQueryString: false,
+                Code: "dashboard",
+                Description: "Dashboard",
+                Link: "TC/dashboard",
+                IsRequireQueryString: true,
+                QueryStringObj: {
+                    "AppPk": EditPageCtrl.ePage.Masters.QueryString.AppPk,
+                    "AppCode": EditPageCtrl.ePage.Masters.QueryString.AppCode,
+                    "AppName": EditPageCtrl.ePage.Masters.QueryString.AppName
+                },
                 IsActive: false
             }, {
                 Code: "page",
@@ -122,10 +126,10 @@
 
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.DataEntryMaster.API.GetColumnValuesWithFilters.FilterID
+                "FilterID": trustCenterConfig.Entities.API.DataEntryMaster.API.GetColumnValuesWithFilters.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.DataEntryMaster.API.GetColumnValuesWithFilters.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataEntryMaster.API.GetColumnValuesWithFilters.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     EditPageCtrl.ePage.Masters.SubModule.ListSource = response.data.Response;
                 } else {
@@ -156,8 +160,15 @@
                 },
                 "OtherConfig": {
                     "Pagination": {},
+                    "FilterConfig": {},
                     "CSS": {},
-                    "SortColumn": {}
+                    "SortColumn": {},
+                    "GridOptions": {},
+                    "ListingPageConfig": {
+                        "StandardToolbar": {
+                            "ToolList": {}
+                        }
+                    }
                 },
                 "LookupConfig": {}
             };
@@ -168,20 +179,22 @@
             EditPageCtrl.ePage.Masters.EditPage.SaveBtnText = "Save";
             EditPageCtrl.ePage.Masters.EditPage.IsDisableSaveBtn = false;
 
-            if (EditPageCtrl.ePage.Masters.QueryString.Mode == "New") {
-                EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails = _NewDataEntryObj;
-            } else {
-                GetDataEntryDetails();
-            }
-
             InitFormDesign();
             InitSearchPage();
             InitLookupPage();
             GetSourceList();
+
+            if (EditPageCtrl.ePage.Masters.QueryString.Mode == "New") {
+                EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails = _NewDataEntryObj;
+                EditPageCtrl.ePage.Masters.EditPage.SearchPage.DefaultFilterList = [];
+                SetDefaultValues();
+            } else {
+                GetDataEntryDetails();
+            }
         }
 
         function GetDataEntryDetails() {
-            apiService.get("eAxisAPI", trustCenterConfig.Entities.DataEntryDetails.API.GetById.Url + EditPageCtrl.ePage.Masters.QueryString.PagePk).then(function (response) {
+            apiService.get("eAxisAPI", trustCenterConfig.Entities.API.DataEntryDetails.API.GetById.Url + EditPageCtrl.ePage.Masters.QueryString.PagePk).then(function (response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
                         var _response = response.data.Response[0];
@@ -212,14 +225,26 @@
 
                         EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails = _response;
 
-                        GetDefaultFilterList();
+                        if (!EditPageCtrl.ePage.Masters.EditPage.SearchPage.DefaultFilterList) {
+                            GetDefaultFilterList();
+                        }
                     }
                 }
             });
         }
 
+        function SetDefaultValues() {
+            EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.EntitySource = "GENERAL";
+
+            EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.GridOptions.paginationPageSize = "25";
+            EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.GridOptions.paginationPageSizes = '[25, 50, 100]';
+            EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.GridOptions.headerRowHeight = "30";
+            EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.GridOptions.rowHeight = "30";
+            EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.CSS.IsAutoListing = true;
+        }
+
         function GetSourceList() {
-            EditPageCtrl.ePage.Masters.EditPage.SourceList = ["GENERAL", "ROLE", "TENANT"];
+            EditPageCtrl.ePage.Masters.EditPage.SourceList = ["GENERAL", "ROLE", "TENANT", "ORGANIZATION", "EXPRESSION"];
 
             OnSourceListChange(EditPageCtrl.ePage.Masters.EditPage.SourceList[0]);
         }
@@ -258,11 +283,26 @@
             _input.TenantCode = authService.getUserInfo().TenantCode;
             _input.SAP_FK = EditPageCtrl.ePage.Masters.QueryString.AppPk;
             _input.GridConfig.SortObjects = helperService.CreateToArrayToObject(_input.GridConfig.SortObjects);
+
+            if(_input.GridConfig.Header){
+                _input.GridConfig.Header.map(function(value, key){
+                    if(!value.width || value.width == '' || value.width == ' '){
+                        value.width = undefined;
+                    }
+                });
+            }
+
+            EditPageCtrl.ePage.Masters.EditPage.SearchPage.GridOptions.map(function (value, key) {
+                if (!_input.OtherConfig.GridOptions[value.Field] && value.Type == "boolean") {
+                    _input.OtherConfig.GridOptions[value.Field] = false;
+                }
+            });
+
             _input.strGridConfig = JSON.stringify(_input.GridConfig);
             _input.strOtherConfig = JSON.stringify(_input.OtherConfig);
             _input.strLookupConfig = JSON.stringify(_input.LookupConfig);
 
-            apiService.post("eAxisAPI", trustCenterConfig.Entities.DataEntryDetails.API.Upsert.Url, [_input]).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataEntryDetails.API.Upsert.Url, [_input]).then(function (response) {
                 if (response.data.Response) {
                     EditPageCtrl.ePage.Masters.QueryString.PagePk = response.data.Response[0].DataEntry_PK;
                     GetDataEntryDetails();
@@ -293,16 +333,34 @@
             GetTypeMasterUIControl();
             GetEntityMaster();
             GetFieldMaster();
+
+            $scope.$watch('EditPageCtrl.ePage.Masters.EditPage.FormDesign.DataEntryFieldMapping', function (model) {
+                if (EditPageCtrl.ePage.Masters.EditPage.FormDesign.DataEntryFieldMapping.List.length > 0) {
+                    EditPageCtrl.ePage.Masters.EditPage.FormDesign.DataEntryFieldMapping.List.map(function (val, key) {
+                        val.Sequence = key;
+                        val.IsModified = true;
+                        val.AttrIndex = GetAttrIndex(val.AttributeDetails);
+                        val.AttributeDetails.map(function (v, k) {
+                            v.IsModified = true;
+                        });
+                    });
+                }
+
+                EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.DataEntryFieldMapping = EditPageCtrl.ePage.Masters.EditPage.FormDesign.DataEntryFieldMapping.List;
+            }, true);
         }
 
         function GetTypeMasterUIControl() {
             EditPageCtrl.ePage.Masters.EditPage.FormDesign.ToolsList = [];
+            var _filter ={
+                "TypeCode": "UICTRL"
+            };
             var _input = {
-                "searchInput": helperService.createToArrayOfObject(trustCenterConfig.Entities.TypeMaster.Filter),
-                "FilterID": trustCenterConfig.Entities.TypeMaster.API.FindAll.FilterID
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": trustCenterConfig.Entities.API.TypeMaster.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", trustCenterConfig.Entities.TypeMaster.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.TypeMaster.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
                         response.data.Response.map(function (val, key) {
@@ -350,10 +408,10 @@
             EditPageCtrl.ePage.Masters.EditPage.FormDesign.EntityList = undefined;
             var _input = {
                 "searchInput": [],
-                "FilterID": trustCenterConfig.Entities.EntityMaster.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.EntityMaster.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", trustCenterConfig.Entities.EntityMaster.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EntityMaster.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     EditPageCtrl.ePage.Masters.EditPage.FormDesign.EntityList = response.data.Response;
                 } else {
@@ -366,10 +424,10 @@
             EditPageCtrl.ePage.Masters.EditPage.FormDesign.FieldList = undefined;
             var _input = {
                 "searchInput": [],
-                "FilterID": trustCenterConfig.Entities.FieldMaster.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.FieldMaster.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", trustCenterConfig.Entities.FieldMaster.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.FieldMaster.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     EditPageCtrl.ePage.Masters.EditPage.FormDesign.FieldList = response.data.Response;
                 } else {
@@ -378,23 +436,24 @@
             });
         }
 
-        function OnEntityNameChange($item){
+        function OnEntityNameChange($item) {
             EditPageCtrl.ePage.Masters.EditPage.FormDesign.ActiveEntity = $item;
             MergeLabel($item, "Entity");
         }
 
-        function OnFieldNameChange($item){
+        function OnFieldNameChange($item) {
             EditPageCtrl.ePage.Masters.EditPage.FormDesign.ActiveField = $item;
             MergeLabel($item, "Field");
         }
 
-        function MergeLabel($item, type){
-            var _entity = "", _field = "";
+        function MergeLabel($item, type) {
+            var _entity = "",
+                _field = "";
 
-            if(EditPageCtrl.ePage.Masters.EditPage.FormDesign.ActiveEntity){
+            if (EditPageCtrl.ePage.Masters.EditPage.FormDesign.ActiveEntity) {
                 _entity = EditPageCtrl.ePage.Masters.EditPage.FormDesign.ActiveEntity.EntityName;
             }
-            if(EditPageCtrl.ePage.Masters.EditPage.FormDesign.ActiveField){
+            if (EditPageCtrl.ePage.Masters.EditPage.FormDesign.ActiveField) {
                 _field = EditPageCtrl.ePage.Masters.EditPage.FormDesign.ActiveField.FieldName;
             }
 
@@ -405,9 +464,9 @@
         function OnDropperItemClick($item) {
             EditPageCtrl.ePage.Masters.EditPage.FormDesign.SelectedDroppedItem = $item;
 
-            if(EditPageCtrl.ePage.Masters.EditPage.FormDesign.SelectedDroppedItem.Entity_FK){
-                if(EditPageCtrl.ePage.Masters.EditPage.FormDesign.EntityList.length > 0){
-                    var _indexEntity = EditPageCtrl.ePage.Masters.EditPage.FormDesign.EntityList.map(function(value, key){
+            if (EditPageCtrl.ePage.Masters.EditPage.FormDesign.SelectedDroppedItem.Entity_FK) {
+                if (EditPageCtrl.ePage.Masters.EditPage.FormDesign.EntityList.length > 0) {
+                    var _indexEntity = EditPageCtrl.ePage.Masters.EditPage.FormDesign.EntityList.map(function (value, key) {
                         return value.Entity_PK;
                     }).indexOf(EditPageCtrl.ePage.Masters.EditPage.FormDesign.SelectedDroppedItem.Entity_FK);
 
@@ -415,9 +474,9 @@
                 }
             }
 
-            if(EditPageCtrl.ePage.Masters.EditPage.FormDesign.SelectedDroppedItem.Field_FK){
-                if(EditPageCtrl.ePage.Masters.EditPage.FormDesign.FieldList.length > 0){
-                    var _indexField = EditPageCtrl.ePage.Masters.EditPage.FormDesign.FieldList.map(function(value, key){
+            if (EditPageCtrl.ePage.Masters.EditPage.FormDesign.SelectedDroppedItem.Field_FK) {
+                if (EditPageCtrl.ePage.Masters.EditPage.FormDesign.FieldList.length > 0) {
+                    var _indexField = EditPageCtrl.ePage.Masters.EditPage.FormDesign.FieldList.map(function (value, key) {
                         return value.Field_PK;
                     }).indexOf(EditPageCtrl.ePage.Masters.EditPage.FormDesign.SelectedDroppedItem.Field_FK);
 
@@ -483,21 +542,6 @@
             return _index;
         }
 
-        $scope.$watch('EditPageCtrl.ePage.Masters.EditPage.FormDesign.DataEntryFieldMapping', function (model) {
-            if (EditPageCtrl.ePage.Masters.EditPage.FormDesign.DataEntryFieldMapping.List.length > 0) {
-                EditPageCtrl.ePage.Masters.EditPage.FormDesign.DataEntryFieldMapping.List.map(function (val, key) {
-                    val.Sequence = key;
-                    val.IsModified = true;
-                    val.AttrIndex = GetAttrIndex(val.AttributeDetails);
-                    val.AttributeDetails.map(function (v, k) {
-                        v.IsModified = true;
-                    });
-                });
-            }
-
-            EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.DataEntryFieldMapping = EditPageCtrl.ePage.Masters.EditPage.FormDesign.DataEntryFieldMapping.List;
-        }, true);
-
         // ================Search Page Configuration================
         function InitSearchPage() {
             EditPageCtrl.ePage.Masters.EditPage.SearchPage = {};
@@ -507,6 +551,173 @@
             EditPageCtrl.ePage.Masters.EditPage.SearchPage.RemoveSortColumn = RemoveSortColumn;
             EditPageCtrl.ePage.Masters.EditPage.SearchPage.AddNewGridConfig = AddNewGridConfig;
             EditPageCtrl.ePage.Masters.EditPage.SearchPage.RemoveGridConfig = RemoveGridConfig;
+            EditPageCtrl.ePage.Masters.EditPage.SearchPage.OnStandaredToolbarChange = OnStandaredToolbarChange;
+
+            GetStandardMenuList();
+            GetGridOptions();
+        }
+
+        function GetStandardMenuList() {
+            EditPageCtrl.ePage.Masters.EditPage.SearchPage.StandardMenuList = [{
+                Code: "comment",
+                Desc: "Comment",
+            }, {
+                Code: "document",
+                Desc: "Document",
+            }, {
+                Code: "email",
+                Desc: "Email",
+            }, {
+                Code: "exception",
+                Desc: "Exception",
+            }, {
+                Code: "event",
+                Desc: "Event",
+            }, {
+                Code: "audit-log",
+                Desc: "Audit Log",
+            }, {
+                Code: "keyword",
+                Desc: "Keyword",
+            }, {
+                Code: "parties",
+                Desc: "Parties",
+            }, {
+                Code: "email-group",
+                Desc: "Email Group",
+            }, {
+                Code: "email-template-creation",
+                Desc: "Email Template Creation",
+            }, {
+                Code: "task",
+                Desc: "Task",
+            }, {
+                Code: "event-data",
+                Desc: "Event Data",
+            }, {
+                Code: "integration",
+                Desc: "Integration",
+            }];
+        }
+
+        function GetGridOptions() {
+            EditPageCtrl.ePage.Masters.EditPage.SearchPage.GridOptions = [{
+                "Field": "enableColumnResizing",
+                "Label": "Enable Column Resizing",
+                "Type": "boolean"
+            }, {
+                "Field": "enableRowSelection",
+                "Label": "Enable Row Selection",
+                "Type": "boolean"
+            }, {
+                "Field": "enableRowHeaderSelection",
+                "Label": "Enable Row Header Selection",
+                "Type": "boolean"
+            }, {
+                "Field": "multiSelect",
+                "Label": "MultiSelect",
+                "Type": "boolean"
+            }, {
+                "Field": "enableGridMenu",
+                "Label": "Enable Grid Menu",
+                "Type": "boolean"
+            }, {
+                "Field": "enableColumnMenus",
+                "Label": "Enable Column Menus",
+                "Type": "boolean"
+            }, {
+                "Field": "cellTooltip",
+                "Label": "Cell Tooltip",
+                "Type": "boolean"
+            }, {
+                "Field": "enableCellSelection",
+                "Label": "Enable Cell Selection",
+                "Type": "boolean"
+            }, {
+                "Field": "enableCellEdit",
+                "Label": "Enable Cell Edit",
+                "Type": "boolean"
+            }, {
+                "Field": "enableCellEditOnFocus",
+                "Label": "Enable Cell Edit On Focus",
+                "Type": "boolean"
+            }, {
+                "Field": "enablePinning",
+                "Label": "Enable Pinning",
+                "Type": "boolean"
+            }, {
+                "Field": "enableSorting",
+                "Label": "Enable Sorting",
+                "Type": "boolean"
+            }, {
+                "Field": "enableFiltering",
+                "Label": "Enable Filtering",
+                "Type": "boolean"
+            }, {
+                "Field": "useExternalSorting",
+                "Label": "Use External Sorting",
+                "Type": "boolean"
+            }, {
+                "Field": "useExternalPagination",
+                "Label": "Use External Pagination",
+                "Type": "boolean"
+            }, {
+                "Field": "enablePaginationControls",
+                "Label": "Enable Pagination Controls",
+                "Type": "boolean"
+            }, {
+                "Field": "headerRowHeight",
+                "Label": "Header Row Height",
+                "Type": "text"
+            }, {
+                "Field": "rowHeight",
+                "Label": "Row Height",
+                "Type": "text"
+            }, {
+                "Field": "exporterMenuCsv",
+                "Label": "Exporter Menu Csv",
+                "Type": "boolean"
+            }, {
+                "Field": "exporterCsvFilename",
+                "Label": "Exporter Csv Filename",
+                "Type": "text"
+            }, {
+                "Field": "exporterMenuPdf",
+                "Label": "Exporter Menu Pdf",
+                "Type": "boolean"
+            }, {
+                "Field": "exporterPdfFilename",
+                "Label": "Exporter Pdf Filename",
+                "Type": "text"
+            }, {
+                "Field": "exporterMenuExcel",
+                "Label": "Exporter Menu Excel",
+                "Type": "boolean"
+            }, {
+                "Field": "exporterExcelFilename",
+                "Label": "Exporter Excel Filename",
+                "Type": "text"
+            }, {
+                "Field": "paginationPageSizes",
+                "Label": "Pagination Page Sizes",
+                "Type": "textArea"
+            }, {
+                "Field": "paginationPageSize",
+                "Label": "Pagination Page Size",
+                "Type": "text"
+            }, {
+                "Field": "rowTemplate",
+                "Label": "Row Template",
+                "Type": "textArea"
+            }, {
+                "Field": "gridMenuShowHideColumns",
+                "Label": "Grid Menu Show Hide Columns",
+                "Type": "boolean"
+            }, {
+                "Field": "gridMenuCustomItems",
+                "Label": "Grid Menu Custom Items",
+                "Type": "textArea"
+            }];
         }
 
         function OpenJsonModal(name, $item) {
@@ -523,10 +734,15 @@
 
             jsonEditModal.showModal(modalDefaults, {})
                 .then(function (result) {
-                    if (name == 'GridConfig')
+                    if (name == 'GridConfigHeader'){
                         EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.GridConfig.Header = JSON.parse(result);
-                    else
+                    } else if(name == 'otherConfig'){
                         EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig = JSON.parse(result);
+                    } else if(name=='gridOptions'){
+                        EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.GridOptions = JSON.parse(result);
+                    } else if(name=='listingPageConfig'){
+                        EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig = JSON.parse(result);
+                    }
                 }, function () {
                     console.log("Cancelled");
                 });
@@ -550,27 +766,37 @@
             EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.GridConfig.Header.splice($index, 1);
         }
 
-        function GetDefaultFilterList(){
+        function GetDefaultFilterList() {
             EditPageCtrl.ePage.Masters.EditPage.SearchPage.DefaultFilterList = undefined;
             var _filter = {
                 "SourceEntityRefKey": EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.DataEntryName,
                 "TenantCode": authService.getUserInfo().TenantCode,
                 "SAP_FK": EditPageCtrl.ePage.Masters.QueryString.AppPk,
                 "EntitySource": "QUERY",
-                "TypeCode":EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.DataEntry_PK
+                "TypeCode": EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.DataEntry_PK
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.AppSettings.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.AppSettings.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.AppSettings.API.FindAll.Url + EditPageCtrl.ePage.Masters.QueryString.AppPk, _input).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.AppSettings.API.FindAll.Url + EditPageCtrl.ePage.Masters.QueryString.AppPk, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     EditPageCtrl.ePage.Masters.EditPage.SearchPage.DefaultFilterList = response.data.Response;
-                }else{
+                } else {
                     EditPageCtrl.ePage.Masters.EditPage.SearchPage.DefaultFilterList = [];
                 }
             });
+        }
+
+        function OnStandaredToolbarChange($event){
+            var _target = $event.target;
+            var _isChecked = _target.checked;
+            if(!_isChecked){
+                for(var x in EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig.StandardToolbar.ToolList){
+                    EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig.StandardToolbar.ToolList[x] = false;
+                }
+            }
         }
 
         // ================Lookup Page Configuration================

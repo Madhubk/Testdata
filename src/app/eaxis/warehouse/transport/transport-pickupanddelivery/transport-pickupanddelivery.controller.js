@@ -412,9 +412,9 @@
             {    
             if(TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].Type =="PIC") 
                 {
-                    if($item.entity)
+                    if($item.data.entity)
                     {
-                        // if($item.entity.ORG_Client_FK == ""||null)
+                        // if($item.data.entity.ORG_Client_FK == ""||null)
                         // {           
                             var obj = {
                                 "DeliveryTo_TPD_FK":"",
@@ -432,45 +432,45 @@
                                 {
                                     TransportPickupanddeliveryCtrl.ePage.Masters.picklist= [];
                                     obj.PickupFrom_TPD_FK = TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].ORG_FK;            
-                                    obj.ExternalReference = $item.entity.ExternalReference;
-                                    $item.entity.ORG_Client_FK=TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].ORG_FK;
-                                    obj.TPT_FK = $item.entity.TPT_FK;
-                                    obj.IsDeleted = $item.entity.IsDeleted;
-                                    obj.WOD_FK=$item.entity.PK;
-                                    obj.WorkOrderID = $item.entity.WorkOrderID;
-                                    obj.WorkOrderType = $item.entity.WorkOrderType;
-                                    obj.IsModified = $item.entity.IsModified;
+                                    obj.ExternalReference = $item.data.entity.ExternalReference;
+                                    $item.data.entity.ORG_Client_FK=TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].ORG_FK;
+                                    obj.TPT_FK = $item.data.entity.TPT_FK;
+                                    obj.IsDeleted = $item.data.entity.IsDeleted;
+                                    obj.WOD_FK=$item.data.entity.PK;
+                                    obj.WorkOrderID = $item.data.entity.WorkOrderID;
+                                    obj.WorkOrderType = $item.data.entity.WorkOrderType;
+                                    obj.IsModified = $item.data.entity.IsModified;
                                     TransportPickupanddeliveryCtrl.ePage.Masters.picklist.push(obj);       
                                 }
                             else if(TransportPickupanddeliveryCtrl.ePage.Masters.picklist.length == 0)
                                 {
                                     obj.PickupFrom_TPD_FK = TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].ORG_FK;
                                     
-                                    obj.ExternalReference = $item.entity.ExternalReference;
-                                    obj.TPT_FK = $item.entity.TPT_FK;
-                                    obj.IsDeleted = $item.entity.IsDeleted;
-                                    obj.WOD_FK=$item.entity.PK;
-                                    obj.WorkOrderID = $item.entity.WorkOrderID;
-                                    obj.WorkOrderType = $item.entity.WorkOrderType;
-                                    obj.IsModified = $item.entity.IsModified;
+                                    obj.ExternalReference = $item.data.entity.ExternalReference;
+                                    obj.TPT_FK = $item.data.entity.TPT_FK;
+                                    obj.IsDeleted = $item.data.entity.IsDeleted;
+                                    obj.WOD_FK=$item.data.entity.PK;
+                                    obj.WorkOrderID = $item.data.entity.WorkOrderID;
+                                    obj.WorkOrderType = $item.data.entity.WorkOrderType;
+                                    obj.IsModified = $item.data.entity.IsModified;
                                     TransportPickupanddeliveryCtrl.ePage.Masters.picklist.push(obj);
                                 }                
                             else if(TransportPickupanddeliveryCtrl.ePage.Masters.picklist.length > 0)
                                 {   
                                     var _isExist = TransportPickupanddeliveryCtrl.ePage.Masters.picklist.some(function (value, item) {
-                                        return value.PK === $item.entity.PK;
+                                        return value.PK === $item.data.entity.PK;
                                     });
                                     if (!_isExist) 
                                         {
-                                            if ($item.entity.PK !== TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.PK) {
+                                            if ($item.data.entity.PK !== TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.PK) {
                                             obj.PickupFrom_TPD_FK = TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].ORG_FK;
-                                            obj.ExternalReference = $item.entity.ExternalReference;
-                                            obj.TPT_FK = $item.entity.TPT_FK;
-                                            obj.IsDeleted = $item.entity.IsDeleted;
-                                            obj.WOD_FK=$item.entity.PK;
-                                            obj.WorkOrderID = $item.entity.WorkOrderID;
-                                            obj.WorkOrderType = $item.entity.WorkOrderType;
-                                            obj.IsModified = $item.entity.IsModified;
+                                            obj.ExternalReference = $item.data.entity.ExternalReference;
+                                            obj.TPT_FK = $item.data.entity.TPT_FK;
+                                            obj.IsDeleted = $item.data.entity.IsDeleted;
+                                            obj.WOD_FK=$item.data.entity.PK;
+                                            obj.WorkOrderID = $item.data.entity.WorkOrderID;
+                                            obj.WorkOrderType = $item.data.entity.WorkOrderType;
+                                            obj.IsModified = $item.data.entity.IsModified;
                                             TransportPickupanddeliveryCtrl.ePage.Masters.picklist.push(obj);
                                                 //$item = filterObjectUpdate(TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data, "IsModified");
                                                 // apiService.post("eAxisAPI", 'WmsTransportList/Update', TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data).then(function (response) {
@@ -494,7 +494,7 @@
                         // }
                         // else
                         // {
-                        //     toastr.warning("Record is Already Mapped into  "+$item.entity.ClientCode+"-"+$item.entity.ClientName);
+                        //     toastr.warning("Record is Already Mapped into  "+$item.data.entity.ClientCode+"-"+$item.data.entity.ClientName);
                         // }
                     }
                     else
@@ -539,9 +539,9 @@
 
             else if(TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].Type == "DEL") 
                 {
-                    if($item.entity)
+                    if($item.data.entity)
                     {
-                        // if($item.entity.ORG_Client_FK == ""||null)   
+                        // if($item.data.entity.ORG_Client_FK == ""||null)   
                         // {
                             var obj = {
                                 "DeliveryTo_TPD_FK":"",
@@ -559,44 +559,44 @@
                             {
                                 TransportPickupanddeliveryCtrl.ePage.Masters.dellist=[];
                                 obj.DeliveryTo_TPD_FK = TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].ORG_FK;
-                                obj.ExternalReference = $item.entity.ExternalReference;
-                                obj.TPT_FK = $item.entity.TPT_FK;
-                                obj.IsDeleted = $item.entity.IsDeleted;
-                                obj.WOD_FK=$item.entity.PK;
-                                obj.WorkOrderID = $item.entity.WorkOrderID;
-                                obj.WorkOrderType = $item.entity.WorkOrderType;
-                                obj.IsModified = $item.entity.IsModified;
+                                obj.ExternalReference = $item.data.entity.ExternalReference;
+                                obj.TPT_FK = $item.data.entity.TPT_FK;
+                                obj.IsDeleted = $item.data.entity.IsDeleted;
+                                obj.WOD_FK=$item.data.entity.PK;
+                                obj.WorkOrderID = $item.data.entity.WorkOrderID;
+                                obj.WorkOrderType = $item.data.entity.WorkOrderType;
+                                obj.IsModified = $item.data.entity.IsModified;
                                 TransportPickupanddeliveryCtrl.ePage.Masters.dellist.push(obj);    
                             }
                             else if(TransportPickupanddeliveryCtrl.ePage.Masters.dellist.length == 0)
                             {
                                 obj.DeliveryTo_TPD_FK = TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].ORG_FK;
-                                obj.ExternalReference = $item.entity.ExternalReference;
-                                obj.TPT_FK = $item.entity.TPT_FK;
-                                obj.IsDeleted = $item.entity.IsDeleted;
-                                obj.WOD_FK=$item.entity.PK;
-                                obj.WorkOrderID = $item.entity.WorkOrderID;
-                                obj.WorkOrderType = $item.entity.WorkOrderType;
-                                obj.IsModified = $item.entity.IsModified;
+                                obj.ExternalReference = $item.data.entity.ExternalReference;
+                                obj.TPT_FK = $item.data.entity.TPT_FK;
+                                obj.IsDeleted = $item.data.entity.IsDeleted;
+                                obj.WOD_FK=$item.data.entity.PK;
+                                obj.WorkOrderID = $item.data.entity.WorkOrderID;
+                                obj.WorkOrderType = $item.data.entity.WorkOrderType;
+                                obj.IsModified = $item.data.entity.IsModified;
                                 TransportPickupanddeliveryCtrl.ePage.Masters.dellist.push(obj);
                             }
                             else if(TransportPickupanddeliveryCtrl.ePage.Masters.dellist.length > 0)
                             { 
                                 var _isExist = TransportPickupanddeliveryCtrl.ePage.Masters.dellist.some(function (value, item) {
-                                    return value.PK === $item.entity.PK;
+                                    return value.PK === $item.data.entity.PK;
                                 });
                                 if (!_isExist) 
                                     {
-                                        if ($item.entity.PK !== TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.PK) 
+                                        if ($item.data.entity.PK !== TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.PK) 
                                         {
                                             obj.DeliveryTo_TPD_FK = TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints[TransportPickupanddeliveryCtrl.ePage.Masters.item].ORG_FK;
-                                            obj.ExternalReference = $item.entity.ExternalReference;
-                                            obj.TPT_FK = $item.entity.TPT_FK;
-                                            obj.IsDeleted = $item.entity.IsDeleted;
-                                            obj.WOD_FK=$item.entity.PK;
-                                            obj.WorkOrderID = $item.entity.WorkOrderID;
-                                            obj.WorkOrderType = $item.entity.WorkOrderType;
-                                            obj.IsModified = $item.entity.IsModified;
+                                            obj.ExternalReference = $item.data.entity.ExternalReference;
+                                            obj.TPT_FK = $item.data.entity.TPT_FK;
+                                            obj.IsDeleted = $item.data.entity.IsDeleted;
+                                            obj.WOD_FK=$item.data.entity.PK;
+                                            obj.WorkOrderID = $item.data.entity.WorkOrderID;
+                                            obj.WorkOrderType = $item.data.entity.WorkOrderType;
+                                            obj.IsModified = $item.data.entity.IsModified;
                                             TransportPickupanddeliveryCtrl.ePage.Masters.dellist.push(obj);
                                         } 
                                         else 
@@ -612,7 +612,7 @@
                         // }
                         // else
                         // {
-                        //     toastr.warning("Record is Already Mapped into  "+$item.entity.ClientCode+"-"+$item.entity.ClientName);           
+                        //     toastr.warning("Record is Already Mapped into  "+$item.data.entity.ClientCode+"-"+$item.data.entity.ClientName);           
                         // }    
                     }
                     else
@@ -691,14 +691,14 @@
 
     // function attachinwardOrders($item)
     //     {
-    //         if($item.entity)
+    //         if($item.data.entity)
     //         {
     //             var _isExist = TransportPickupanddeliveryCtrl.ePage.Masters.dellist.some(function (value, item) {
-    //                 return value.PK === $item.entity.PK;
+    //                 return value.PK === $item.data.entity.PK;
     //             });
     //             if (!_isExist) {
-    //                 if ($item.entity.PK !== TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.PK) {
-    //                     TransportPickupanddeliveryCtrl.ePage.Masters.dellist.push($item.entity);
+    //                 if ($item.data.entity.PK !== TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data.PK) {
+    //                     TransportPickupanddeliveryCtrl.ePage.Masters.dellist.push($item.data.entity);
     //                     // $item = filterObjectUpdate(TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data, "IsModified");
     //                     // apiService.post("eAxisAPI", 'WmsTransportList/Update', TransportPickupanddeliveryCtrl.ePage.Entities.Header.Data).then(function (response) {
     //                     //     if (response.data.Status == 'Success') {
@@ -750,7 +750,7 @@
                     if (response.data.Response) {
                         response.data.Response.Response.UIWmsOutwardHeader.PK = response.data.Response.Response.PK;                    
 
-                        apiService.post("eAxisAPI", 'WmsOutwardList/Insert', response.data.Response.Response).then(function (response) {
+                        apiService.post("eAxisAPI", transportConfig.Entities.Header.API.WmsOutwardInsert.Url, response.data.Response.Response).then(function (response) {
                         });
 
                         var _queryString = {
@@ -768,7 +768,7 @@
                 if (response.data.Response) {
                     response.data.Response.Response.UIWmsInwardHeader.PK = response.data.Response.Response.PK;
 
-                    apiService.post("eAxisAPI", 'WmsInwardList/Insert', response.data.Response.Response).then(function (response) {
+                    apiService.post("eAxisAPI",transportConfig.Entities.Header.API.WmsInwardInsert.Url, response.data.Response.Response).then(function (response) {
                     });
 
                     var _queryString = {

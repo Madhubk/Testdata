@@ -24,7 +24,7 @@
                             <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
                                 <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
                                 <div class="meta-object" data-ng-bind="x.MetaObject"></div>
-                            </div>    
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -34,13 +34,13 @@
     <!--Footer-->
     <div class="eaxis-footer-strip">
         <div class="col-lg-9">
-            <standard-menu entity-name="'OrgSupplierPart'" input="MhuMenuCtrl.currentMhu"></standard-menu>
+            <standard-menu input="MhuMenuCtrl.currentMhu" ng-if="!MhuMenuCtrl.currentMhu.isNew" dataentry-object="MhuMenuCtrl.dataentryObject"></standard-menu>
         </div>
         <div class="col-lg-3">
-            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="MhuMenuCtrl.ePage.Masters.Validation(MhuMenuCtrl.currentMhu)"
+            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="MhuMenuCtrl.ePage.Masters.Validation(MhuMenuCtrl.currentMhu,'save')"
                 data-ng-bind="MhuMenuCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="MhuMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave"></button>
-            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="MhuMenuCtrl.ePage.Masters.Validation(MhuMenuCtrl.currentMhu)"
-                data-ng-disabled="MhuMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave">Save & Close</button>
+            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="MhuMenuCtrl.ePage.Masters.Validation(MhuMenuCtrl.currentMhu,'saveclose')"
+                data-ng-disabled="MhuMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave" data-ng-bind="MhuMenuCtrl.ePage.Masters.SaveCloseButtonText"></button>
         </div>
     </div>
 </div>

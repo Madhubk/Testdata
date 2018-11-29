@@ -1,0 +1,104 @@
+<div class="tenant-list-container">
+    <div class="tenant-list-inner-container" data-ng-if="!TenantListCtrl.ePage.Masters.IsShowAnotherTenant">
+        <div class="product-logo">
+            <img data-ng-src="{{TenantListCtrl.ePage.Masters.ProductLogo}}" alt="">
+            <a href="javascript:void(0);" class="pull-right font-120 pt-10" data-ng-click="TenantListCtrl.ePage.Masters.GoBack()">Back</a>
+        </div>
+        <div class="tenant-heading">
+            <span>Choose a Tenant</span>
+        </div>
+        <ul class="clearfix tenant-list-wrapper">
+            <li class="clearfix p-20" data-ng-if="!TenantListCtrl.ePage.Masters.RecentTenantList">
+                <i class="fa fa-spin fa-spinner font-160"></i>
+            </li>
+            <li class="clearfix p-20" data-ng-if="TenantListCtrl.ePage.Masters.RecentTenantList && TenantListCtrl.ePage.Masters.RecentTenantList.length == 0">
+                <i>No Recent Items...!</i>
+            </li>
+            <li class="clearfix tenant-list" data-ng-class="{'active': TenantListCtrl.ePage.Masters.DefaultTenant.TNT_PK == x.TNT_PK && !TenantListCtrl.ePage.Masters.QueryString.IsLogin}"
+                data-ng-repeat="x in TenantListCtrl.ePage.Masters.RecentTenantList | limitTo: 5" data-ng-if="TenantListCtrl.ePage.Masters.RecentTenantList && TenantListCtrl.ePage.Masters.RecentTenantList.length > 0"
+                data-ng-mouseover="(TenantListCtrl.ePage.Masters.DefaultTenant.TNT_PK != x.TNT_PK) ? x.IsShowDefault = true : ''"
+                data-ng-mouseleave="(TenantListCtrl.ePage.Masters.DefaultTenant.TNT_PK != x.TNT_PK) ? x.IsShowDefault = false : ''">
+                <div class="avatar" data-ng-click="TenantListCtrl.ePage.Masters.OnRecentTenantClick(x)">
+                    <span data-ng-bind="(x.TNT_TenantCode || x.TNT_TenantName) | getCharacters: 1"></span>
+                </div>
+                <div class="tenant-code-container" data-ng-click="TenantListCtrl.ePage.Masters.OnRecentTenantClick(x)">
+                    <p class="tenant-code text-single-line" data-ng-bind="x.TNT_TenantName" title="{{x.TNT_TenantName}}"></p>
+                    <p class="tenant-desc text-single-line" data-ng-bind="x.TNT_TenantCode" title="{{x.TNT_TenantCode}}"></p>
+                </div>
+                <div class="set-as-default-icon" data-ng-if="!TenantListCtrl.ePage.Masters.QueryString.IsLogin && TenantListCtrl.ePage.Masters.DefaultTenant.TNT_PK != x.TNT_PK && x.IsShowDefault">
+                    <button class="btn btn-link btn-sm" data-ng-click="TenantListCtrl.ePage.Masters.DefaultTenant.TNT_PK != x.TNT_PK && TenantListCtrl.ePage.Masters.SetAsDefaultTenant(x, $event)"
+                        data-ng-disabled="TenantListCtrl.ePage.Masters.DefaultTenant.TNT_PK == x.TNT_PK">Set As Default</button>
+                </div>
+            </li>
+            <li class="clearfix tenant-list another-tenant" data-ng-click="TenantListCtrl.ePage.Masters.IsShowAnotherTenant = true"
+                data-ng-if="TenantListCtrl.ePage.Masters.QueryString">
+                <div class="avatar">
+                    <span class="fa fa-user"></span>
+                </div>
+                <div class="tenant-code-container">
+                    <p class="tenant-code" data-ng-bind="'Use another Tenant'" style="line-height: 2;"></p>
+                </div>
+            </li>
+        </ul>
+        <div class="tenant-list-conatiner-overlay" data-ng-if="TenantListCtrl.ePage.Masters.IsShowTenantListOverlay">
+            <div class="load-bar">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tenant-list-inner-container" data-ng-if="TenantListCtrl.ePage.Masters.IsShowAnotherTenant">
+        <div class="product-logo">
+            <img data-ng-src="{{TenantListCtrl.ePage.Masters.ProductLogo}}" alt="">
+        </div>
+        <div class="tenant-heading">
+            <span>Search Tenant</span>
+        </div>
+        <div class="clearfix login-tenant-auto-complete">
+            <input type="text" class="form-control" autocomplete="off" placeholder="Tenant Name" data-ng-model="TenantListCtrl.ePage.Masters.SelectedAutocompleteTenant.TNT_TenantName"
+                uib-typeahead="x as x.TNT_TenantName for x in TenantListCtrl.ePage.Masters.GetTenantList($viewValue)"
+                typeahead-on-select="TenantListCtrl.ePage.Masters.OnAutocompleteListSelect($item, $model, $label, $event)"
+                typeahead-loading="TenantListCtrl.ePage.Masters.IsTenantLoading" typeahead-no-results="TenantListCtrl.ePage.Masters.IsTenantNoResults"
+                typeahead-editable="false" typeahead-append-to-body='false' typeahead-min-length="" data-ng-blur="TenantListCtrl.ePage.Masters.OnBlurAutoCompleteList($event)"
+                typeahead-template-url="UIBTenantListTemplate">
+            <div class="clearfix dropdown-menu typeahead" data-ng-if="TenantListCtrl.ePage.Masters.IsTenantNoResults">
+                <div class="auto-complete-no-result">No Results Found!</div>
+            </div>
+            <div class="clearfix dropdown-menu typeahead" data-ng-if="TenantListCtrl.ePage.Masters.IsTenantLoading">
+                <div class="auto-complete-no-result">
+                    <i class="fa fa-spin fa-spinner"></i>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix">
+            <button class="btn btn-link pull-left" data-ng-click="TenantListCtrl.ePage.Masters.SetAsDefaultTenant(TenantListCtrl.ePage.Masters.SelectedAutocompleteTenant, $event)"
+                data-ng-disabled="!TenantListCtrl.ePage.Masters.SelectedAutocompleteTenant" data-ng-if="!TenantListCtrl.ePage.Masters.QueryString.IsLogin">Set
+                As Default</button>
+            <button class="btn btn-primary pull-right" data-ng-click="TenantListCtrl.ePage.Masters.OnNextClick()"
+                data-ng-bind="TenantListCtrl.ePage.Masters.NextBtnText" data-ng-disabled="TenantListCtrl.ePage.Masters.IsDisabledNextBtn || !TenantListCtrl.ePage.Masters.SelectedAutocompleteTenant"></button>
+        </div>
+        <a href="javascript: void(0);" class="back-to-tenant-list" data-ng-click="TenantListCtrl.ePage.Masters.IsShowAnotherTenant = false; TenantListCtrl.ePage.Masters.SelectedAutocompleteTenant = undefined;"
+            data-ng-if="TenantListCtrl.ePage.Masters.RecentTenantList.length > 0">Back</a>
+        <div class="tenant-list-conatiner-overlay" data-ng-if="TenantListCtrl.ePage.Masters.IsShowTenantListOverlay">
+            <div class="load-bar">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="UIBTenantListTemplate">
+    <a href="javascript: void(0);" class="clearfix">
+        <div class="col-sm-3 p-0">
+            <div class="clearfix" ng-bind-html="match.model.TNT_TenantCode | uibTypeaheadHighlight:query"></div>
+        </div>
+        <div class="col-sm-1 p-0 text-center" ng-bind-html="' - '"></div>
+        <div class="col-sm-8 p-0">
+            <div class="text-single-line" ng-bind-html="match.model.TNT_TenantName  | uibTypeaheadHighlight:query"></div>
+        </div>
+    </a>
+</script>

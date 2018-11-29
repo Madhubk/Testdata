@@ -36,6 +36,16 @@
                             "HttpType": "GET",
                             "Url": "WmsPickupanddeliveryPointsList/GetById/",
                             "FilterID": "WMSTRANP"
+                        },
+                        "WmsInwardInsert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsInwardList/Insert",
+                        },
+                        "WmsOutwardInsert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsOutwardList/Insert",
                         }
                     },
                     "Meta": {

@@ -16,7 +16,8 @@
             controller: "PickMenuController",
             controllerAs: "PickMenuCtrl",
             scope: {
-                currentPick: "="
+                currentPick: "=",
+                dataentryObject:'='
             },
             bindToController: true
 

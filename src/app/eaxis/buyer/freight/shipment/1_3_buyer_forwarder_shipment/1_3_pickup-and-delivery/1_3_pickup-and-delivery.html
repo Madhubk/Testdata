@@ -1,0 +1,18 @@
+<div class="clearfix">
+	<uib-tabset id="shipmentPickupAndDelivery">
+		<!--Pickup Tab-->
+		<uib-tab>
+			<uib-tab-heading title="Pickup">
+				<i class="fa fa-ship margin-right-5"></i> <span class="text-single-line" data-ng-bind="'Pickup'"></span>
+			</uib-tab-heading>
+			<div data-ng-include="'app/eaxis/buyer/freight/shipment/1_3_buyer_forwarder_shipment/1_3_pickup-and-delivery/tabs/pickup.html'"></div>
+		</uib-tab>
+		<!--Delivery Tab-->
+		<uib-tab>
+			<uib-tab-heading title="Delivery">
+				<i class="fa fa-truck margin-right-5"></i> <span class="text-single-line" data-ng-bind="'Delivery'"></span>
+			</uib-tab-heading>
+			<div data-ng-include="'app/eaxis/buyer/freight/shipment/1_3_buyer_forwarder_shipment/1_3_pickup-and-delivery/tabs/delivery.html'"></div>
+		</uib-tab>
+	</uib-tabset>
+</div>

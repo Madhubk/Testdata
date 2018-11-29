@@ -1,0 +1,15 @@
+<uib-tabset id="chromeTab" active="InwardLineCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+    <uib-tab>
+        <uib-tab-heading title="Inward">
+            <span data-ng-bind="'Inward Lines'" class="ng-binding">Inward Lines</span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+        <div class="no-padding tab-list-view-wrapper">
+            <!--Inward view Grid Page-->
+            <dynamic-list dataentry-name="InwardLineCtrl.ePage.Masters.dataentryName" task-name="InwardLineCtrl.ePage.Masters.taskName" grid-config-type="0"
+                selected-grid-row="InwardLineCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" dataentry-object="InwardLineCtrl.ePage.Masters.DataEntryObject" default-filter="InwardLineCtrl.ePage.Masters.DefaultFilter" base-filter="InwardLineCtrl.ePage.Masters.DefaultFilter"></dynamic-list>
+            <div class="tab-loading" data-ng-show="InwardLineCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+    
+</uib-tabset>

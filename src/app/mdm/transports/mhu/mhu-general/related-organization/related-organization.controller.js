@@ -86,8 +86,8 @@
         }
 
         function SelectedLookupDataClient(item, index) {
-            if (item.entity) {
-                RelatedOrgCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[index].Client = item.entity.Code + ' - ' + item.entity.FullName;
+            if (item.data) {
+                RelatedOrgCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[index].Client = item.data.entity.Code + ' - ' + item.data.entity.FullName;
             }
             else {
                 RelatedOrgCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[index].Client = item.Code + ' - ' + item.FullName;
@@ -321,8 +321,10 @@
                             RelatedOrgCtrl.ePage.Masters.Lineslist = true;
                         }, 1000);
                     }
+                    toastr.success("Saved Successfully");
                     console.log("Success");
                 } else if (response.Status === "failed") {
+                    toastr.error("Saved Failed");
                     RelatedOrgCtrl.ePage.Masters.IsLoadingToSave = false;
                     console.log("Failed");
                     RelatedOrgCtrl.ePage.Entities.Header.Validations = response.Validations;

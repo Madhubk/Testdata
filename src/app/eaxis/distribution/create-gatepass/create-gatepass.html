@@ -1,0 +1,50 @@
+<!-- List Empty Response -->
+<div class="page-body p-5">
+    <div class="chrometab-box1">
+        <div class="ik-box1">
+            <span data-ng-bind="'Gatepass Creation'" class="ik-title1">Gatepass Creation</span>
+        </div>
+        <div class="inner-dashboard-stats-list clearfix mt-15">
+            <div class="clearfix mt-15">
+                <gatepass-menu ng-if="CreateGatepassCtrl.ePage.Masters.Tab" current-gatepass="CreateGatepassCtrl.ePage.Masters.Tab"></gatepass-menu>
+            </div>
+            <div class="error-warning-container right" id="errorWarningContainernew">
+                <div class="error-warning-header clearfix">
+                    <span class="title pull-left">
+                        <!-- <i class="fa fa-warning"></i>  -->
+                        Errors & Warnings
+                    </span>
+                    <span class="error-warning-toggle-icon pull-right" data-ng-click="CreateGatepassCtrl.ePage.Masters.Config.ShowErrorWarningModal(CreateGatepassCtrl.ePage.Masters.Tab)">
+                        <i class="fa fa-arrow-right"></i>
+                    </span>
+                </div>
+                <div class="error-warning-body">
+                    <div class="clearfix" data-ng-if="CreateGatepassCtrl.ePage.Masters.Tab[CreateGatepassCtrl.ePage.Masters.Tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length>0">
+                        <div class="clearfix">
+                            <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in CreateGatepassCtrl.ePage.Masters.Tab[CreateGatepassCtrl.ePage.Masters.Tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList">
+                                <div class="clearfix">
+                                    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                        <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                                    </div>
+                                    <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                        <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                        <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="eaxis-footer-strip">
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
+                    <!-- <standard-menu entity-name="'TransportsManifest'" ng-if="CreateGatepassCtrl.ePage.Masters.Tab" input="CreateGatepassCtrl.ePage.Masters.Tab"></standard-menu> -->
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                    <button class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6" data-ng-click="CreateGatepassCtrl.ePage.Masters.Validation(CreateGatepassCtrl.ePage.Masters.Tab)"
+                        data-ng-bind="CreateGatepassCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="CreateGatepassCtrl.ePage.Masters.IsDisableSave"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

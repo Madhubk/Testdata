@@ -27,9 +27,6 @@
             CreateConsignCtrl.ePage.Masters.CreateConsignment = CreateConsignment;
             CreateConsignCtrl.ePage.Masters.GoToDashboard = GoToDashboard;
 
-
-            CreateConsignCtrl.ePage.Masters.StandardMenuInput = appConfig.Entities.standardMenuConfigList.TransportsConsignment;
-            CreateConsignCtrl.ePage.Masters.StandardMenuInput.obj = CreateConsignCtrl.currentConsignment;
             CreateConsignCtrl.ePage.Masters.Validation = Validation;
             CreateConsignCtrl.ePage.Masters.Config = createConsignConfig;
 
@@ -95,7 +92,7 @@
         }
 
         function Validation($item) {
-        
+
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data,
                 _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
@@ -131,6 +128,7 @@
                 CreateConsignCtrl.ePage.Masters.SaveButtonText = "Save";
                 CreateConsignCtrl.ePage.Masters.IsDisableSave = false;
                 if (response.Status === "success") {
+                    toastr.success("Consignment Process Initiated Successfully");
                     CreateConsignCtrl.ePage.Masters.ProcessInfo = response.Data;
                     $item.isNew = true;
                     openModel().result.then(function (response) { }, function () {

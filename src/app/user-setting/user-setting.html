@@ -2,7 +2,7 @@
 
 <div class="main-container container-fluid">
     <div class="page-container">
-        <side-bar id="sidebar" class="page-sidebar menu-compact" data-ng-if="UserSettingCtrl.ePage.Masters.MenuVisibleType == 'List'"></side-bar>
+        <side-bar id="sidebar" class="page-sidebar menu-compact" data-ng-if="UserSettingCtrl.ePage.Masters.MenuType == 'List'"></side-bar>
 
         <div class="clearfix">
             <div class="page-body no-padding-left no-padding-right">
@@ -14,8 +14,27 @@
                             <a href="javascript:void(0);" class="change-password cursor-pointer" change-password>Change Password</a>
                         </div>
                     </div>
+                    <!-- Default Party -->
+                    <!-- <div class="clearfix set-default-party">
+                        <div class="heading">View Application As</div>
+                        <div class="content clearfix">
+                            <div class="col-sm-6 p-0">
+                                <select chosen class="form-control" data-ng-model="UserSettingCtrl.ePage.Masters.Party.ActiveParty.PK" data-ng-options="x.PK as x.Name for x in UserSettingCtrl.ePage.Masters.Party.ListSource"
+                                    data-ng-disabled="!UserSettingCtrl.ePage.Masters.Party.ListSource || UserSettingCtrl.ePage.Masters.Party.ListSource.length == 0"
+                                    data-ng-change="UserSettingCtrl.ePage.Masters.Party.OnPartyChange((UserSettingCtrl.ePage.Masters.Party.ListSource | filter: {'PK': UserSettingCtrl.ePage.Masters.Party.ActiveParty.PK})[0])">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6 pr-0 mt-2">
+                                <button class="btn btn-default btn-sm" data-ng-click="UserSettingCtrl.ePage.Masters.Party.ActiveParty.PK && UserSettingCtrl.ePage.Masters.Party.SoftLoginWithParty()"
+                                    data-ng-disabled="!UserSettingCtrl.ePage.Masters.Party.ListSource || UserSettingCtrl.ePage.Masters.Party.ListSource.length == 0 || !UserSettingCtrl.ePage.Masters.Party.ActiveParty.PK">Save</button>
+                                <button class="btn btn-link pull-right" data-ng-click="(UserSettingCtrl.ePage.Masters.Party.ListSource && UserSettingCtrl.ePage.Masters.Party.ListSource.length > 0 && UserSettingCtrl.ePage.Masters.Party.ActiveParty.PK) && UserSettingCtrl.ePage.Masters.Party.SetAsDefault()"
+                                    data-ng-disabled="!UserSettingCtrl.ePage.Masters.Party.ListSource || UserSettingCtrl.ePage.Masters.Party.ListSource.length == 0 || !UserSettingCtrl.ePage.Masters.Party.ActiveParty.PK">Set As Default</button>
+                            </div>
+                        </div>
+                    </div> -->
                     <!-- User Menu Configuration -->
-                    <div class="clearfix user-menu-configuration-container" data-ng-if="UserSettingCtrl.ePage.Masters.AppCode != 'TC'">
+                    <!-- <div class="clearfix user-menu-configuration-container" data-ng-if="UserSettingCtrl.ePage.Masters.AppCode != 'TC'">
                         <div class="heading">Menu Type</div>
                         <div class="content clearfix">
                             <div class="control-group col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2" data-ng-repeat="x in UserSettingCtrl.ePage.Masters.UserMenu.MenuTypeList">
@@ -28,100 +47,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- User Applicarion Filter Configuration -->
-                    <div class="clearfix user-menu-configuration-container" data-ng-if="UserSettingCtrl.ePage.Masters.AppCode != 'TC'">
-                        <div class="heading">System Filters</div>
-                        <div class="content clearfix">
-                            <div class="clearfix mb-10">
-                                <div style="font-weight:bold; border-bottom: 1px solid #f4f4f4; margin-bottom: 10px; padding: 5px 0;">Order</div>
-                                <div class="text-center" data-ng-if="!UserSettingCtrl.ePage.Masters.SystemFilter.ListSource">
-                                    <i class="fa fa-spin fa-spinner font-160"></i>
-                                </div>
-                                <div class="text-center" data-ng-if="UserSettingCtrl.ePage.Masters.SystemFilter.ListSource.length === 0">No Records...!</div>
-                                <div class="control-group col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" data-ng-if="x.SourceEntityRefKey == 'OrderHeader'"
-                                    data-ng-repeat="x in UserSettingCtrl.ePage.Masters.SystemFilter.ListSource">
-                                    <div class="col-sm-6 col-md-6 mt-10"> {{x.Key}}</div>
-                                    <div class="col-sm-6 col-md-6">
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" class="colored-blue ng-pristine ng-untouched ng-valid ng-empty" data-ng-model="x.IsStarred" data-ng-click="UserSettingCtrl.ePage.Masters.SystemFilter.SaveSystemFilter(x)">
-                                                <span class="text text-single-line"></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="clearfix mb-10">
-                                <div style="font-weight:bold; border-bottom: 1px solid #f4f4f4; margin-bottom: 10px; padding: 5px 0;">Shipment</div>
-                                <div class="text-center mt-10" data-ng-if="!UserSettingCtrl.ePage.Masters.SystemFilter.ListSource">
-                                    <i class="fa fa-spin fa-spinner font-160"></i>
-                                </div>
-                                <div class="text-center" data-ng-if="UserSettingCtrl.ePage.Masters.SystemFilter.ListSource.length === 0">No Records...!</div>
-                                <div class="control-group col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" data-ng-if="x.SourceEntityRefKey == 'ShipmentSearch'"
-                                    data-ng-repeat="x in UserSettingCtrl.ePage.Masters.SystemFilter.ListSource">
-                                    <div class="col-sm-6 col-md-6 mt-10"> {{x.Key}}</div>
-                                    <div class="col-sm-6 col-md-6">
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" class="colored-blue ng-pristine ng-untouched ng-valid ng-empty" data-ng-model="x.IsStarred" data-ng-click="UserSettingCtrl.ePage.Masters.SystemFilter.SaveSystemFilter(x)">
-                                                <span class="text text-single-line"></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- User Favorite Filter Configuration -->
-                    <div class="clearfix user-menu-configuration-container" data-ng-if="UserSettingCtrl.ePage.Masters.AppCode != 'TC'">
-                        <div class="heading">Favorite Filters</div>
-                        <div class="content clearfix">
-                            <div class="clearfix" style="font-weight:bold; border-bottom: 1px solid #f4f4f4; margin-bottom: 10px; padding: 5px 0;">
-                                <div class="col-sm-4 col-md-4">
-                                    Favorites
-                                </div>
-                                <div class="col-sm-3 col-md-3">
-                                    ShowIn Dashboard
-                                </div>
-                                <div class="col-sm-3 col-md-3">
-                                    Show Count
-                                </div>
-                                <div class="col-sm-2 col-md-2">
-                                    &nbsp;
-                                </div>
-                            </div>
-                            <div class="clearfix">
-                                <div class="text-center margin-top-50" ng-if="!UserSettingCtrl.ePage.Masters.FavoriteFilter.ListSource">
-                                    <i class="fa fa-spin fa-spinner font-160"></i>
-                                </div>
-                                <div class="text-center" ng-if="UserSettingCtrl.ePage.Masters.FavoriteFilter.ListSource.length === 0">No Records...!</div>
-                                <div data-ng-if="UserSettingCtrl.ePage.Masters.FavoriteFilter.ListSource" class="control-group col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
-                                    data-ng-repeat="x in UserSettingCtrl.ePage.Masters.FavoriteFilter.ListSource">
-                                    <div class="col-sm-4 col-md-4 mt-10"> {{x.Key}}</div>
-                                    <div class="col-sm-3 col-md-3">
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" class="colored-blue" data-ng-model="x.Value.ShowInDashboard">
-                                                <span class="text text-single-line"></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3 col-md-3">
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" class="colored-blue" data-ng-model="x.Value.ShowCount">
-                                                <span class="text text-single-line"></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2 col-md-2">
-                                        <button class="btn btn-primary pull-right btn-xs m-10" ng-click="UserSettingCtrl.ePage.Masters.FavoriteFilter.SaveFavoriteFilter(x, $index)" data-ng-disabled="x.IsDisableBtn">Save</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

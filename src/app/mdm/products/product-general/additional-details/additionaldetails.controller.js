@@ -29,7 +29,7 @@
         function GetDropDownList() {
             
             // Get CFXType Dropdown list
-            var typeCodeList = ["INW_LINE_UQ"];
+            var typeCodeList = ["TRADEZONE"];
             var dynamicFindAllInput = [];
 
             typeCodeList.map(function (value, key) {

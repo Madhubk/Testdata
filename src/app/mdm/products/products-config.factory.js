@@ -5,41 +5,29 @@
         .module("Application")
         .factory('productConfig', ProductConfig);
 
-    ProductConfig.$inject = ["$location", "$q", "helperService", "apiService","toastr"];
+    ProductConfig.$inject = ["$location", "$q", "helperService", "apiService","toastr","appConfig"];
 
-    function ProductConfig($location, $q, helperService, apiService,toastr) {
+    function ProductConfig($location, $q, helperService, apiService,toastr,appConfig) {
         var exports = {
             "Entities": {
                 "Header": {
                     "RowIndex": -1,
                     "API": {
-                        "FindConfig": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "DataEntry/Dynamic/FindConfig",
-                            "FilterID": "DYNDAT"
-                        },
-                        "DataEntry": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "DataEntryMaster/FindAll",
-                            "FilterID": "DYNDAT"
-                        },
                         "GetByID": {
                             "IsAPI": "true",
                             "HttpType": "GET",
                             "Url": "WmsProductList/GetById/"
                         },
-                        "Validationapi":{
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "Validation/FindAll",
-                            "FilterID":"VALIDAT"
-                        },
                         "SessionClose": {
                             "IsAPI": "true",
                             "HttpType": "GET",
                             "Url": "WmsProductList/ProductHeaderActivityClose/",
+                        },
+                        "ProductBulkUpload": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "ProductBulkUpload/InsertOrUpdate",
+                            "FilterID":"PRDBULK",
                         },
                     },
                     "Meta": {
@@ -52,6 +40,8 @@
             "TabList": [],
             "ValidationValues":"",
             "SaveAndClose":false,
+            "ProductUploading":false,
+            "ProductUploadingText":"Product Bulk Upload",
             "GetTabDetails": GetTabDetails,
             "GeneralValidation":GeneralValidation,
             "RemoveApiErrors":RemoveApiErrors,
@@ -85,79 +75,32 @@
                                 "HttpType": "POST",
                                 "Url": "WmsProductList/Update"
                             },
-                            "CfxTypes": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "CfxTypes/FindAll/",
-                                "FilterID": "CFXTYPE"
+                            "WMSProductParamsByWmsAndClient": {
+                                "FindAll": {
+                                    "IsAPI": "true",
+                                    "HttpType": "POST",
+                                    "FilterID":"WMSPPWNC",
+                                    "Url": "WMSProductParamsByWmsAndClient/FindAll"
+                                },
+                                "Delete": {
+                                    "IsAPI": "true",
+                                    "HttpType": "Get",
+                                    "Url": "WMSProductParamsByWmsAndClient/Delete"
+                                }
                             },
-                            "Barcode": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "PrdPrductBarcode/FindAll",
-                                "FilterID": "ORGSUPPB"
+                            "WMSPickFace": {
+                                "FindAll": {
+                                    "IsAPI": "true",
+                                    "HttpType": "POST",
+                                    "FilterID":"WMSPICF",
+                                    "Url": "WMSPickFace/FindAll"
+                                },
+                                "Delete": {
+                                    "IsAPI": "true",
+                                    "HttpType": "Get",
+                                    "Url": "WMSPickFace/Delete"
+                                }
                             },
-                            "UnitConversation": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "PrdProductUnit/FindAll",
-                                "FilterID": "ORGPARTU"
-                            },
-                            "BOM": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "PrdProductBOM/FindAll",
-                                "FilterID": "ORGPABOM"
-                            },
-                            "Warehouse": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "WMSProductParamsByWmsAndClient/FindAll",
-                                "FilterID": "WMSPPWNC"
-                            },
-                            "PickFace": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "WMSPickFace/FindAll",
-                                "FilterID": "WMSPICF"
-                            },
-                            "RelatedOrganizationDelete":{
-                                "IsAPI": "true",
-                                "HttpType": "Get",
-                                "Url": "PrdProductRelatedParty/Delete/"
-                            },
-                            "UnitConversionDelete":{
-                                "IsAPI": "true",
-                                "HttpType": "Get",
-                                "Url": "PrdProductUnit/Delete/"
-                            },
-                            "BarcodeDelete":{
-                                "IsAPI": "true",
-                                "HttpType": "Get",
-                                "Url": "PrdPrductBarcode/Delete/"
-                            },
-                            "WarehouseDelete":{
-                                "IsAPI": "true",
-                                "HttpType": "Get",
-                                "Url": "WMSProductParamsByWmsAndClient/Delete/"
-                            },
-                            "PickfaceDelete":{
-                                "IsAPI": "true",
-                                "HttpType": "Get",
-                                "Url": "WMSPickFace/Delete/"
-                            },
-                            "BOMDelete":{
-                                "IsAPI": "true",
-                                "HttpType": "Get",
-                                "Url": "PrdProductBOM/Delete/"
-                            },
-                            "OrgMiscServ":{
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "OrgMiscServ/FindAll",
-                                "FilterID":"ORGMISC"
-                            },
-                            
                         },
 
                         "Meta": {
@@ -205,12 +148,692 @@
                                 "UIWMSPickFace":helperService.metaBase(),
                             },
                         },
-                        "CheckPoints":{
-                            "Checkpointhidden":true,
-                            "HideindexWarehouse":false,
-                            "HideindexPickface":false,
-                            "DisableSave":false,
+                        "GlobalVariables":{
+                            "Loading":false,
                         },
+                        "TableProperties":{
+                            "UIOrgSupplierPartBarcode":{
+                                "HeaderProperties":[{
+                                    "columnname":"Checkbox",
+                                    "isenabled":true,
+                                    "property":"barcodecheckbox",
+                                    "position":'1',
+                                    "width":"45",
+                                    "display":false
+                                },{
+                                    "columnname":"S.No",
+                                    "isenabled":true,
+                                    "property":"barcodesno",
+                                    "position":"2",
+                                    "width":"40",
+                                    "display":false
+                                },
+                                {
+                                    "columnname":"Package",
+                                    "isenabled":true,
+                                    "property":"package",
+                                    "position":"3",
+                                    "width":"350",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Barcode",
+                                    "isenabled":true,
+                                    "property":"barcode",
+                                    "position":"4",
+                                    "width":"350",
+                                    "display":true
+                                }],
+                                "barcodecheckbox":{
+                                    "isenabled":true,
+                                    "position":"1",
+                                    "width":"45"
+                                },
+                                "barcodesno":{
+                                    "isenabled":true,
+                                    "position":"2",
+                                    "width":"40"
+                                },
+                                "package":{
+                                    "isenabled":true,
+                                    "position":"3",
+                                    "width":"350"
+                                },
+                                "barcode":{
+                                    "isenabled":true,
+                                    "position":"4",
+                                    "width":"350"
+                                },
+                            },
+                            "UIOrgPartBOM":{
+                                "HeaderProperties":[{
+                                    "columnname":"Checkbox",
+                                    "isenabled":true,
+                                    "property":"bomcheckbox",
+                                    "position":'1',
+                                    "width":"45",
+                                    "display":false
+                                },{
+                                    "columnname":"S.No",
+                                    "isenabled":true,
+                                    "property":"bomsno",
+                                    "position":"2",
+                                    "width":"40",
+                                    "display":false
+                                },
+                                {
+                                    "columnname":"Component",
+                                    "isenabled":true,
+                                    "property":"component",
+                                    "position":"3",
+                                    "width":"200",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Has Children",
+                                    "isenabled":true,
+                                    "property":"haschildren",
+                                    "position":"4",
+                                    "width":"130",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Stock Unit",
+                                    "isenabled":true,
+                                    "property":"stockunit",
+                                    "position":"5",
+                                    "width":"130",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Component Qty",
+                                    "isenabled":true,
+                                    "property":"componentqty",
+                                    "position":"6",
+                                    "width":"130",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Reusable",
+                                    "isenabled":true,
+                                    "property":"reusable",
+                                    "position":"7",
+                                    "width":"130",
+                                    "display":true
+                                }],
+                                "bomcheckbox":{
+                                    "isenabled":true,
+                                    "property":"1",
+                                    "width":"45"
+                                },
+                                "bomsno":{
+                                    "isenabled":true,
+                                    "property":"2",
+                                    "width":"40"
+                                },
+                                "component":{
+                                    "isenabled":true,
+                                    "property":"3",
+                                    "width":"200"
+                                },
+                                "haschildren":{
+                                    "isenabled":true,
+                                    "property":"4",
+                                    "width":"130"
+                                },
+                                "stockunit":{
+                                    "isenabled":true,
+                                    "property":"5",
+                                    "width":"130"
+                                },
+                                "componentqty":{
+                                    "isenabled":true,
+                                    "property":"6",
+                                    "width":"130"
+                                },
+                                "reusable":{
+                                    "isenabled":true,
+                                    "property":"7",
+                                    "width":"130"
+                                },
+                            },
+                            "UIWMSPickFace":{
+                                "HeaderProperties":[{
+                                    "columnname":"Checkbox",
+                                    "isenabled":true,
+                                    "property":"pickfacecheckbox",
+                                    "position":'1',
+                                    "width":"45",
+                                    "display":false
+                                },{
+                                    "columnname":"S.No",
+                                    "isenabled":true,
+                                    "property":"pickfacesno",
+                                    "position":"2",
+                                    "width":"40",
+                                    "display":false
+                                },
+                                {
+                                    "columnname":"Client",
+                                    "isenabled":true,
+                                    "property":"pickfaceclient",
+                                    "position":"3",
+                                    "width":"160",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Warehouse",
+                                    "isenabled":true,
+                                    "property":"pickfacewarehouse",
+                                    "position":"4",
+                                    "width":"160",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Location",
+                                    "isenabled":true,
+                                    "property":"location",
+                                    "position":"5",
+                                    "width":"160",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Replenishment Minimum",
+                                    "isenabled":true,
+                                    "property":"pickfacereplenishmentminimum",
+                                    "position":"6",
+                                    "width":"160",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Replenishment Maximum",
+                                    "isenabled":true,
+                                    "property":"replenishmentmaximum",
+                                    "position":"7",
+                                    "width":"160",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Replenishment Multiple",
+                                    "isenabled":true,
+                                    "property":"pickfacereplenishmentmultiple",
+                                    "position":"8",
+                                    "width":"160",
+                                    "display":true
+                                }],
+                                "pickfacecheckbox":{
+                                    "isenabled":true,
+                                    "position":"1",
+                                    "width":"45"
+                                },
+                                "pickfacesno":{
+                                    "isenabled":true,
+                                    "position":"2",
+                                    "width":"40"
+                                },
+                                "pickfaceclient":{
+                                    "isenabled":true,
+                                    "position":"3",
+                                    "width":"160"
+                                },
+                                "pickfacewarehouse":{
+                                    "isenabled":true,
+                                    "position":"4",
+                                    "width":"160"
+                                },
+                                "location":{
+                                    "isenabled":true,
+                                    "position":"5",
+                                    "width":"160"
+                                },
+                                "pickfacereplenishmentminimum":{
+                                    "isenabled":true,
+                                    "position":"6",
+                                    "width":"160"
+                                },
+                                "replenishmentmaximum":{
+                                    "isenabled":true,
+                                    "position":"7",
+                                    "width":"160"
+                                },
+                                "pickfacereplenishmentmultiple":{
+                                    "isenabled":true,
+                                    "position":"8",
+                                    "width":"160"
+                                },
+                            },
+                            "UIWarehouse":{
+                                "HeaderProperties":[{
+                                    "columnname":"Checkbox",
+                                    "isenabled":true,
+                                    "property":"warehousecheckbox",
+                                    "position":'1',
+                                    "width":"45",
+                                    "display":false
+                                },{
+                                    "columnname":"S.No",
+                                    "isenabled":true,
+                                    "property":"warehousesno",
+                                    "position":"2",
+                                    "width":"40",
+                                    "display":false
+                                },
+                                {
+                                    "columnname":"Client",
+                                    "isenabled":true,
+                                    "property":"warehouseclient",
+                                    "position":"3",
+                                    "width":"120",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Warehouse",
+                                    "isenabled":true,
+                                    "property":"warehouse",
+                                    "position":"4",
+                                    "width":"120",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Putaway Area",
+                                    "isenabled":true,
+                                    "property":"putawayarea",
+                                    "position":"5",
+                                    "width":"120",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Bom Area",
+                                    "isenabled":true,
+                                    "property":"bomarea",
+                                    "position":"6",
+                                    "width":"120",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Receive UQ",
+                                    "isenabled":true,
+                                    "property":"receiveuq",
+                                    "position":"7",
+                                    "width":"120",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Release UQ",
+                                    "isenabled":true,
+                                    "property":"releaseuq",
+                                    "position":"8",
+                                    "width":"120",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Stocktake Cycle",
+                                    "isenabled":true,
+                                    "property":"stocktakecycle",
+                                    "position":"9",
+                                    "width":"120",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Expiry Period (In Days)",
+                                    "isenabled":true,
+                                    "property":"expiryperiod",
+                                    "position":"10",
+                                    "width":"160",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Replenishment Minimum",
+                                    "isenabled":true,
+                                    "property":"warehousereplenishmentminimum",
+                                    "position":"11",
+                                    "width":"160",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Replenishment Multiple",
+                                    "isenabled":true,
+                                    "property":"warehousereplenishmentmultiple",
+                                    "position":"12",
+                                    "width":"160"
+                                }],
+                                "warehousecheckbox":{
+                                    "isenabled":true,
+                                    "position":"1",
+                                    "width":"40"
+                                },
+                                "warehousesno":{
+                                    "isenabled":true,
+                                    "position":"2",
+                                    "width":"40"
+                                },
+                                "warehouseclient":{
+                                    "isenabled":true,
+                                    "position":"3",
+                                    "width":"120"
+                                },
+                                "warehouse":{
+                                    "isenabled":true,
+                                    "position":"4",
+                                    "width":"120"
+                                },
+                                "putawayarea":{
+                                    "isenabled":true,
+                                    "position":"5",
+                                    "width":"120"
+                                },
+                                "bomarea":{
+                                    "isenabled":true,
+                                    "position":"6",
+                                    "width":"120"
+                                },
+                                "receiveuq":{
+                                    "isenabled":true,
+                                    "position":"7",
+                                    "width":"120"
+                                },
+                                "releaseuq":{
+                                    "isenabled":true,
+                                    "position":"8",
+                                    "width":"120"
+                                },
+                                "stocktakecycle":{
+                                    "isenabled":true,
+                                    "position":"9",
+                                    "width":"120"
+                                },
+                                "expiryperiod":{
+                                    "isenabled":true,
+                                    "position":"10",
+                                    "width":"160"
+                                },
+                                "warehousereplenishmentminimum":{
+                                    "isenabled":true,
+                                    "position":"11",
+                                    "width":"160"
+                                },
+                                "warehousereplenishmentmultiple":{
+                                    "isenabled":true,
+                                    "position":"12",
+                                    "width":"160"
+                                },
+                            },
+                            "UIOrgPartRelation":{
+                                "HeaderProperties":[{
+                                    "columnname":"Checkbox",
+                                    "isenabled":true,
+                                    "property":"partcheckbox",
+                                    "position":'1',
+                                    "width":"45",
+                                    "display":false
+                                },{
+                                    "columnname":"S.No",
+                                    "isenabled":true,
+                                    "property":"partsno",
+                                    "position":"2",
+                                    "width":"40",
+                                    "display":false
+                                },
+                                {
+                                    "columnname":"Client",
+                                    "isenabled":true,
+                                    "property":"partclient",
+                                    "position":"3",
+                                    "width":"200",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Relationship Type",
+                                    "isenabled":true,
+                                    "property":"relationshiptype",
+                                    "position":"4",
+                                    "width":"120",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Client UQ",
+                                    "isenabled":true,
+                                    "property":"clientuq",
+                                    "position":"5",
+                                    "width":"80",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Use UDF 1",
+                                    "isenabled":true,
+                                    "property":"useudf1",
+                                    "position":"6",
+                                    "width":"60",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Use UDF 2",
+                                    "isenabled":true,
+                                    "property":"useudf2",
+                                    "position":"7",
+                                    "width":"60",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Use UDF 3",
+                                    "isenabled":true,
+                                    "property":"useudf3",
+                                    "position":"8",
+                                    "width":"60",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Use Packing Date",
+                                    "isenabled":true,
+                                    "property":"usepackingdate",
+                                    "position":"9",
+                                    "width":"60",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Use Expiry Date",
+                                    "isenabled":true,
+                                    "property":"useexpirydate",
+                                    "position":"10",
+                                    "width":"60",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Is UDF1 ReleaseCaptured",
+                                    "isenabled":true,
+                                    "property":"releasecaptured1",
+                                    "position":"11",
+                                    "width":"60",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Is UDF2 ReleaseCaptured",
+                                    "isenabled":true,
+                                    "property":"releasecaptured2",
+                                    "position":"12",
+                                    "width":"60",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Is UDF3 ReleaseCaptured",
+                                    "isenabled":true,
+                                    "property":"releasecaptured3",
+                                    "position":"13",
+                                    "width":"60",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Pick Mode",
+                                    "isenabled":true,
+                                    "property":"pickmode",
+                                    "position":"14",
+                                    "width":"100",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Local Part Number",
+                                    "isenabled":true,
+                                    "property":"localpartnumber",
+                                    "position":"15",
+                                    "width":"100",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Local Part Description",
+                                    "isenabled":true,
+                                    "property":"localpartdescription",
+                                    "position":"16",
+                                    "width":"100",
+                                    "display":true
+                                }],
+                                "partcheckbox":{
+                                    "isenabled":true,
+                                    "position":"1",
+                                    "width":"45"
+                                },
+                                "partsno":{
+                                    "isenabled":true,
+                                    "position":"2",
+                                    "width":"40"
+                                },
+                                "partclient":{
+                                    "isenabled":true,
+                                    "position":"3",
+                                    "width":"200"
+                                },
+                                "relationshiptype":{
+                                    "isenabled":true,
+                                    "position":"4",
+                                    "width":"120"
+                                },
+                                "clientuq":{
+                                    "isenabled":true,
+                                    "position":"5",
+                                    "width":"80"
+                                },
+                                "useudf1":{
+                                    "isenabled":true,
+                                    "position":"6",
+                                    "width":"60"
+                                },
+                                "useudf2":{
+                                    "isenabled":true,
+                                    "position":"7",
+                                    "width":"60"
+                                },
+                                "useudf3":{
+                                    "isenabled":true,
+                                    "position":"8",
+                                    "width":"60"
+                                },
+                                "usepackingdate":{
+                                    "isenabled":true,
+                                    "position":"9",
+                                    "width":"60"
+                                },
+                                "useexpirydate":{
+                                    "isenabled":true,
+                                    "position":"10",
+                                    "width":"60"
+                                },
+                                "releasecaptured1":{
+                                    "isenabled":true,
+                                    "position":"11",
+                                    "width":"60"
+                                },
+                                "releasecaptured2":{
+                                    "isenabled":true,
+                                    "position":"12",
+                                    "width":"60"
+                                },
+                                "releasecaptured3":{
+                                    "isenabled":true,
+                                    "position":"13",
+                                    "width":"60"
+                                },
+                                "pickmode":{
+                                    "isenabled":true,
+                                    "position":"14",
+                                    "width":"100"
+                                },
+                                "localpartnumber":{
+                                    "isenabled":true,
+                                    "position":"15",
+                                    "width":"100"
+                                },
+                                "localpartdescription":{
+                                    "isenabled":true,
+                                    "position":"16",
+                                    "width":"100"
+                                },
+                            },
+                            "UIOrgPartUnit":{
+                                "HeaderProperties":[{
+                                    "columnname":"Checkbox",
+                                    "isenabled":true,
+                                    "property":"unitcheckbox",
+                                    "position":'1',
+                                    "width":"45",
+                                    "display":false
+                                },{
+                                    "columnname":"S.No",
+                                    "isenabled":true,
+                                    "property":"unitsno",
+                                    "position":"2",
+                                    "width":"40",
+                                    "display":false
+                                },
+                                {
+                                    "columnname":"Quanity In Parent",
+                                    "isenabled":true,
+                                    "property":"qtyinparent",
+                                    "position":"3",
+                                    "width":"250",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Package",
+                                    "isenabled":true,
+                                    "property":"unitpackage",
+                                    "position":"4",
+                                    "width":"250",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Parent Package",
+                                    "isenabled":true,
+                                    "property":"parentpackage",
+                                    "position":"4",
+                                    "width":"250",
+                                    "display":true
+                                }],
+                                "unitcheckbox":{
+                                    "isenabled":true,
+                                    "position":"1",
+                                    "width":"45"
+                                },
+                                "unitsno":{
+                                    "isenabled":true,
+                                    "position":"2",
+                                    "width":"40"
+                                },
+                                "qtyinparent":{
+                                    "isenabled":true,
+                                    "position":"3",
+                                    "width":"250"
+                                },
+                                "unitpackage":{
+                                    "isenabled":true,
+                                    "position":"4",
+                                    "width":"250"
+                                },
+                                "parentpackage":{
+                                    "isenabled":true,
+                                    "position":"5",
+                                    "width":"250"
+                                },
+                            },
+                        }
                     },
                 }
             }
@@ -475,9 +1098,9 @@
             };     
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": exports.Entities.Header.API.Validationapi.FilterID
+                "FilterID": appConfig.Entities.Validation.API.FindAll.FilterID
             };
-            apiService.post("eAxisAPI", exports.Entities.Header.API.Validationapi.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", appConfig.Entities.Validation.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     exports.ValidationValues=(response.data.Response);
                 }
@@ -489,15 +1112,9 @@
             var _Data = $item[$item.label].ePage.Entities,
             _input = _Data.Header.Data;
            
-            if(!_input.UIProductGeneral.PartNum || _input.UIProductGeneral.PartNum){
                 OnChangeValues(_input.UIProductGeneral.PartNum,'E7010',false,undefined,$item.label);
-            }
-            if(!_input.UIProductGeneral.Desc || _input.UIProductGeneral.Desc){
                 OnChangeValues(_input.UIProductGeneral.Desc,'E7011',false,undefined,$item.label);
-            }
-            if(!_input.UIProductGeneral.StockKeepingUnit || _input.UIProductGeneral.StockKeepingUnit){
                 OnChangeValues(_input.UIProductGeneral.StockKeepingUnit,'E7012',false,undefined,$item.label);
-            }
 
             // Related Organization Validation
 
@@ -509,12 +1126,11 @@
 
             if(_input.UIOrgPartRelation.length>0){
                 angular.forEach(_input.UIOrgPartRelation,function(value,key){
-                    if(!value.Client || value.Client)
                     OnChangeValues(value.Client,'E7014',true,key,$item.label);
 
-                    if(!value.Relationship || value.Relationship)
                     OnChangeValues(value.Relationship,'E7015',true,key,$item.label);
 
+                    OnChangeValues('value','E7002',true,key,$item.label);
                 });
 
             }
@@ -539,13 +1155,10 @@
             //Unit conversions
             if(_input.UIOrgPartUnit.length>0){
                 angular.forEach(_input.UIOrgPartUnit,function(value,key){
-                    if(!value.QuantityInParent || value.QuantityInParent)
                     OnChangeValues(value.QuantityInParent,'E7017',true,key,$item.label);
 
-                    if(!value.ParentPackType || value.ParentPackType)
                     OnChangeValues(value.ParentPackType,'E7019',true,key,$item.label);
 
-                    if(!value.PackType || value.PackType)
                     OnChangeValues(value.PackType,'E7020',true,key,$item.label);
 
                     if(value.QuantityInParent == '0')
@@ -560,6 +1173,8 @@
                         OnChangeValues('value','E7021',true,key,$item.label);
                         OnChangeValues('value','E7022',true,key,$item.label);
                     }
+
+                    OnChangeValues('value','E7004',true,key,$item.label);
                 });
             }
 
@@ -581,14 +1196,13 @@
             }
 
             //Barcode validation
-
             if(_input.UIOrgSupplierPartBarcode.length>0){
                 angular.forEach(_input.UIOrgSupplierPartBarcode,function(value,key){
-                    if(!value.PAC_NKPackType || value.PAC_NKPackType)
                     OnChangeValues(value.PAC_NKPackType,'E7023',true,key,$item.label);
 
-                    if(!value.Barcode || value.Barcode)
                     OnChangeValues(value.Barcode,'E7024',true,key,$item.label);
+
+                    OnChangeValues('value','E7009',true,key,$item.label);
                 });
             }
 
@@ -612,11 +1226,11 @@
             //Product Warehouse Validation
             if(_input.UIWarehouse.length>0){
                 angular.forEach(_input.UIWarehouse,function(value,key){
-                    if(!value.Client || value.Client)
                     OnChangeValues(value.Client,'E7025',true,key,$item.label);
 
-                    if(!value.Warehouse || value.Warehouse)
                     OnChangeValues(value.Warehouse,'E7026',true,key,$item.label);
+
+                    OnChangeValues('value','E7030',true,key,$item.label);
                 });
             }
             //Check Duplicate
@@ -639,20 +1253,17 @@
             //PickFace Validation
             if(_input.UIWMSPickFace.length>0){
                 angular.forEach(_input.UIWMSPickFace,function(value,key){
-                    if(!value.Client || value.Client)
                     OnChangeValues(value.Client,'E7027',true,key,$item.label);
 
-                    if(!value.Warehouse || value.Warehouse)
                     OnChangeValues(value.Warehouse,'E7028',true,key,$item.label);
 
-                    if(!value.Location || value.Location)
-                    OnChangeValues(value.Warehouse,'E7029',true,key,$item.label);
+                    OnChangeValues(value.Location,'E7029',true,key,$item.label);
 
-                    if(!value.ReplenishMinimum || value.ReplenishMinimum)
                     OnChangeValues(value.ReplenishMinimum,'E7033',true,key,$item.label);
 
-                    if(!value.ReplenishMaximum || value.ReplenishMaximum)
                     OnChangeValues(value.ReplenishMaximum,'E7034',true,key,$item.label);
+
+                    OnChangeValues(null,'E7031',true,key,$item.label);
                 });
             }
 
@@ -672,7 +1283,6 @@
                     }
                 }
             }
-
         }
 
         function OnChangeValues(fieldvalue,code,IsArray,RowIndex,label) { 

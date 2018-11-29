@@ -1,182 +1,177 @@
 ﻿<!DOCTYPE html>
 
-<html ng-app="Application" ng-controller="AppController as AppCtrl">
+<html data-ng-app="Application" data-ng-controller="AppController as AppCtrl">
 
-    <head>
-        <meta charset="utf-8" />
-        <title page-title></title>
+<head>
+    <meta charset="utf-8" />
+    <title page-title></title>
 
-        <meta http-equiv='cache-control' content='no-cache'>
-        <meta http-equiv='expires' content='0'>
-        <meta http-equiv='pragma' content='no-cache'>
-        <meta name="description" content="blank page" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
+    <meta http-equiv='cache-control' content='no-cache'>
+    <meta http-equiv='expires' content='0'>
+    <meta http-equiv='pragma' content='no-cache'>
+    <meta name="description" content="blank page" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
 
-        <!--Basic Styles-->
-        <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-        <link ng-if="settings.rtl" ng-href="assets/css/bootstrap-rtl.min.css" rel="stylesheet" />
-        <link href="assets/css/font-awesome.min.css" rel="stylesheet" />
-        <link href="assets/css/glyphicons.css" rel="stylesheet" />
-        <link href="assets/css/icomoon.css" rel="stylesheet" />
-        <!-- <link href="assets/css/weather-icons.min.css" rel="stylesheet" /> -->
+    <!-- #region Stylesheet -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="assets/css/glyphicons.css" rel="stylesheet" />
+    <link href="assets/css/icomoon.css" rel="stylesheet" />
+    <!--Beyond Admin-->
+    <link href="assets/css/beyond.min.css" rel="stylesheet" />
+    <!-- Select2 dropdown-->
+    <link href="lib/select2/select2.min.css" rel="stylesheet" />
+    <!--Alert message Toastr-->
+    <link href="lib/angular/angular-toastr/angular-toastr.css" rel="stylesheet" type="text/css">
 
-        <!--Fonts-->
-        <!-- <link href="http://fonts.googleapis.com/earlyaccess/droidarabickufi.css" rel="stylesheet" type="text/css" /> -->
-        <!-- <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300" rel="stylesheet" type="text/css"> -->
+    <!--Custom Styles-->
+    <link href="assets/css/custom/custom-beyond.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/custom/bootstrap-margin-padding.css" rel="stylesheet" type="text/css" />
+    <link href="app/shared/app.css" rel="stylesheet" type="text/css" />
+    <!-- #endregion -->
+</head>
 
-        <!--Beyond styles-->
-        <link ng-if="!settings.rtl" href="assets/css/beyond.min.css" rel="stylesheet" />
-        <!-- <link ng-if="settings.rtl" href="assets/css/beyond-rtl.min.css" rel="stylesheet" /> -->
-        <!-- <link href="assets/css/demo.min.css" rel="stylesheet" /> -->
-        <!-- <link href="assets/css/typicons.min.css" rel="stylesheet" /> -->
-        <!-- <link href="assets/css/animate.min.css" rel="stylesheet" /> -->
-
-        <link ng-href="{{settings.skin}}" rel="stylesheet" type="text/css" />
-        <!--UI-Grid-->
-        <!-- <link href="lib/angular/angular-ui-grid/ui-grid.min.css" rel="stylesheet" type="text/css" /> -->
-        <!-- <link href="lib/angular/angular-ui-grid/ui-grid-custom.css" rel="stylesheet" type="text/css" /> -->
-        <!--Chosen-->
-        <link href="lib/angular/angular-chosen/chosen.css" rel="stylesheet" type="text/css" />
-        <link href="lib/angular/angular-chosen/chosen-spinner.css" rel="stylesheet" type="text/css" />
-        <!--Alert message Toastr-->
-        <link href="lib/angular/angular-toastr/dist/angular-toastr.css" rel="stylesheet" type="text/css">
-        <!--Custom Styles-->
-        <link href="app/shared/new-custom-ui.css" rel="stylesheet" />
-        <link href="app/shared/custom-beyond.css" rel="stylesheet" type="text/css" />
-        <link href="app/shared/bootstrap-margin-padding.css" rel="stylesheet" type="text/css" />
-        <link href="app/shared/app.css" rel="stylesheet" type="text/css" />
-        <link href="lib/angular/text-angular/textAngular.css" rel="stylesheet" type="text/css" />
-    </head>
-
-    <body>
-        <!--Main Content-->
-        <div ui-view autoscroll="false" ng-class="{onlinebackgroundHide: online==false}"></div>
-        <!--Internet connect Check-->
-        <div class="internet-connection-check-wrapper fade in" data-ng-style="online && {'display': 'none'} || {'display': 'block'}">
-            <div class="internet-connection-check-container">
-                <div>
-                    <div>Internet connection lost, Cross check your internet connectivity...</div>
-                    <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
-                </div>
-            </div>
+<body>
+    <!-- Loading Container -->
+    <div class="loading-container">
+        <div class="loading-bar"></div>
+    </div>
+    <!--Main Content-->
+    <div ui-view autoscroll="false"></div>
+    <!--Internet connect Check-->
+    <div class="internet-connection-check-wrapper fade in" data-ng-style="IsInternetOnline && {'display': 'none'} || {'display': 'block'}">
+        <div class="internet-connection-check-container clearfix">
+            <div>Internet connection lost, Cross check your internet connectivity...</div>
+            <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
         </div>
-        <footer class="footer-copyright">Copyright &copy;
-            <script>
-                document.write(new Date().getFullYear())
-            </script>
-            <span> Myhub Plus. All Rights Reserved.</span>
-        </footer>
+    </div>
 
-        <!-- Scripts -->
-        <script src="lib/jquery/jquery.min.js"></script>
-        <script src="lib/jquery/bootstrap.min.js"></script>
-        <script src="lib/angular/angular/angular.js"></script>
+    <!-- #region Scripts -->
+    <!-- #region Lib Scripts -->
+    <script src="lib/jquery/jquery.min.js"></script>
+    <script src="lib/jquery/bootstrap.min.js"></script>
+    <script src="lib/angular/angular/angular.min.js"></script>
+    <script src="lib/angular/angular-ui-router/angular-ui-router.min.js"></script>
+    <script src="lib/angular/angular-ocLazyLoad/ocLazyLoad.min.js"></script>
+    <script src="lib/angular/angular-ngStorage/ngStorage.min.js"></script>
+    <!-- <script src="lib/angular/angular-cookies/angular-cookies.min.js"></script> -->
+    <script src="lib/angular/angular-sanitize/angular-sanitize.min.js"></script>
+    <!-- UI Bootstrap -->
+    <script src="lib/angular/angular-ui-bootstrap/ui-bootstrap.min.js"></script>
+    <script src="lib/angular/angular-ui-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="lib/angular/angular-ui-datetime-picker/datetime-picker.min.js"></script>
+    <!-- lodash -->
+    <script src="lib/lodash/lodash.min.js"></script>
+    <!-- angular-simple-logger -->
+    <script src="lib/angular-simple-logger-master/angular-simple-logger.min.js"></script>
+    <!--Transport Maps-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmP5LSUVoBcph-0M3tpLZZZoTWcTR3A2w&libraries=places"
+        type="text/javascript"></script>
+    <!--angular-google-maps.js -->
+    <script src="lib/angular-google-maps/angular-google-maps.js"></script>
+    <!-- Select2 Dropdown-->
+    <script src="lib/select2/select2.min.js"></script>
+    <!-- Alert message Toastr -->
+    <script src="lib/angular/angular-toastr/angular-toastr.tpls.js"></script>
+    <!-- Crypto JS -->
+    <script src="lib/crypto/crypto-js.js"></script>
+    <!-- ng-text-truncate More/Less -->
+    <script src="lib/ng-text-truncate/ng-text-truncate.js"></script>
+    <!-- Angular Translate -->
+    <script src="lib/angular/angular-translate/dist/angular-translate.min.js"></script>
+    <script src="lib/angular/angular-translate/dist/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
+    <script src="lib/angular/angular-translate/dist/angular-translate-interpolation-messageformat/angular-translate-interpolation-messageformat.min.js"></script>
+    <script src="lib/angular/angular-translate/dist/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js"></script>
+    <script src="lib/angular/angular-translate/dist/angular-translate-storage-local/angular-translate-storage-local.min.js"></script>
+    <script src="lib/angular/angular-translate/dist/angular-translate-loader-url/angular-translate-loader-url.min.js"></script>
+    <script src="lib/angular/angular-translate/dist/angular-translate-handler-log/angular-translate-handler-log.min.js"></script>
+    <script src="lib/angular/angular-dynamic-locale/tmhDynamicLocale.min.js"></script>
+    <!-- #endregion -->
 
-        <script src="lib/utilities.js"></script>
+    <!-- #region App Common-->
+    <script src="app/shared/app.module.js"></script>
+    <script src="app/shared/app.constant.js"></script>
+    <script src="app/shared/app.config.js"></script>
+    <script src="app/shared/app-config.factory.js"></script>
+    <script src="app/shared/app.filter.js"></script>
+    <script src="app/shared/auth-service.factory.js"></script>
+    <script src="app/shared/api-service.factory.js"></script>
+    <script src="app/shared/helper-service.factory.js"></script>
+    <script src="app/shared/language-service.factory.js"></script>
+    <script src="app/shared/api-interceptors.factroy.js"></script>
+    <script src="app/shared/page-access.factory.js"></script>
+    <script src="app/shared/app.router.js"></script>
+    <script src="app/shared/app.controller.js"></script>
+    <script src="app/shared/app.directive.js"></script>
+    <!-- #endregion -->
 
-        <script src="lib/angular/angular-ui-router/angular-ui-router.min.js"></script>
-        <script src="lib/angular/angular-ocLazyLoad/ocLazyLoad.min.js"></script>
-        <script src="lib/angular/angular-ngStorage/ngStorage.min.js"></script>
+    <!-- #region Team Support-->
+    <script src="app/team-support/shared/team-support.constant.js"></script>
+    <script src="app/team-support/shared/team-support.router.js"></script>
+    <!-- #endregion -->
 
-        <!-- <script src="lib/angular/angular-animate/angular-animate.min.js"></script> -->
-        <script src="lib/angular/angular-cookies/angular-cookies.min.js"></script>
-        <!-- <script src="lib/angular/angular-resource/angular-resource.min.js"></script> -->
-        <script src="lib/angular/angular-sanitize/angular-sanitize.min.js"></script>
-        <!-- <script src="lib/angular/angular-touch/angular-touch.min.js"></script> -->
-        <!-- <script src="lib/angular/angular-ui-utils/angular-ui-utils.js"></script> -->
-        <script src="lib/angular/angular-breadcrumb/angular-breadcrumb.min.js"></script>
-        <script src="lib/angular/angular-ui-datetime-picker/datetime-picker.min.js"></script>
+    <!--#region Trust Center-->
+    <script src="app/trust-center/shared/trust-center.constant.js"></script>
+    <script src="app/trust-center/shared/trust-center.router.js"></script>
+    <!-- #endregion -->
 
-        <script src="lib/angular/angular-ui-bootstrap/ui-bootstrap.min.js"></script>
-        <script src="lib/angular/angular-ui-bootstrap/ui-bootstrap-tpls.min.js"></script>
-        <!-- <script src="lib/jquery/slimscroll/jquery.slimscroll.min.js"></script> -->
+    <!-- #region MDM-->
+    <script src="app/mdm/shared/mdm.constant.js"></script>
+    <script src="app/mdm/shared/mdm.router.js"></script>
+    <!-- #endregion -->
 
-        <!-- lodash -->
-        <script src="lib/lodash/lodash.min.js"></script>
-        <!-- angular-simple-logger -->
-        <script src="lib/angular-simple-logger-master/angular-simple-logger.min.js"></script>
-        <!--Transport Maps-->
-        <!-- <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script> -->
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDllu3h54OTa2sydnKY5-0uECRn8aBXkhM" type="text/javascript"></script>
-        <!--angular-google-maps.js -->
-        <script src="lib/angular-google-maps/angular-google-maps.js"></script>
-        <!--UI-Grid-->
-        <!-- <script src="lib/angular/angular-ui-grid/csv.js"></script> -->
-        <!-- <script src="lib/angular/angular-ui-grid/pdfmake.js"></script> -->
-        <!-- <script src="lib/angular/angular-ui-grid/vfs_fonts.js"></script> -->
-        <!-- <script src="lib/angular/angular-ui-grid/ui-grid.js"></script> -->
-        <!--Chosen Dropdown Script-->
-        <script src="lib/angular/angular-chosen/chosen.jquery.js"></script>
-        <script src="lib/angular/angular-chosen/angular-chosen.min.js"></script>
-        <!-- Alert message Toastr -->
-        <script src="lib/angular/angular-toastr/dist/angular-toastr.tpls.js"></script>
-        <!-- FIle Upload -->
-        <script src="lib/angular/ng-custom-file-upload/ng-custom-file-upload.js"></script>
-        <!-- DND -->
-        <script src="lib/angular/drog-drop/angular-drag-and-drop-lists.js"></script>
+    <!-- #region eAxis -->
+    <script src="app/eaxis/shared/eaxis.constant.js"></script>
+    <script src="app/eaxis/shared/eaxis.router.js"></script>
+    <!--Freight Module-->
+    <script src="app/eaxis/freight/freight.constant.js"></script>
+    <script src="app/eaxis/freight/freight.router.js"></script>
+    <!--Purchase Order Module-->
+    <script src="app/eaxis/purchase-order/purchase-order.constant.js"></script>
+    <script src="app/eaxis/purchase-order/purchase-order.router.js"></script>
+    <!--Smart Track Module-->
+    <script src="app/eaxis/smart-track/smart-track.constant.js"></script>
+    <script src="app/eaxis/smart-track/smart-track.router.js"></script>
+    <!--Single Record View-->
+    <script src="app/eaxis/single-record-view/single-record-view.constant.js"></script>
+    <script src="app/eaxis/single-record-view/single-record-view.router.js"></script>
+    <!--Warehouse-->
+    <script src="app/eaxis/warehouse/warehouse.constant.js"></script>
+    <script src="app/eaxis/warehouse/warehouse.router.js"></script>
+    <!--Transport-->
+    <script src="app/eaxis/transports/transports.constant.js"></script>
+    <script src="app/eaxis/transports/transports.router.js"></script>
+    <!--Distribution-->
+    <script src="app/eaxis/distribution/distribution.constant.js"></script>
+    <script src="app/eaxis/distribution/distribution.router.js"></script>
+    <!--EAxis Admin-->
+    <script src="app/eaxis/admin/admin.constant.js"></script>
+    <script src="app/eaxis/admin/admin.router.js"></script>
+    <!--EAxis Lab-->
+    <script src="app/eaxis/lab/lab.constant.js"></script>
+    <script src="app/eaxis/lab/lab.router.js"></script>
+    <!--Help-->
+    <script src="app/help/shared/help.constant.js"></script>
+    <script src="app/help/shared/help.router.js"></script>
+    <!--Purchase-order-->
+    <script src="app/eaxis/shared/purchase-order/order.constant.js"></script>
+    <script src="app/eaxis/shared/purchase-order/order.router.js"></script>
+    <script src="app/eaxis/buyer/purchase-order/shared/order-config.factory.js"></script>
+    <!--Freights-->
+    <script src="app/eaxis/shared/freights/freights.constant.js"></script>
+    <script src="app/eaxis/shared/freights/freights.router.js"></script>
+    <script src="app/eaxis/buyer/freight/shared/shipment-config.factory.js"></script>
+    <!-- #endregion -->
 
-        <!-- Crypto JS -->
-        <script src="lib/crypto/crypto-js.js"></script>
+    <!-- #Container Validator -->
+    <script src="lib/container-validator/container-validator.js"></script>
+    <!-- <div load-script src="app/eaxis/freight/freight.constant.js" app="EA" module="freight"></div>
+        <div load-script src="app/eaxis/freight/freight.router.js" app="EA" module="freight"></div> -->
 
-        <!-- Angular Translate -->
-        <script src="lib/angular/angular-translate/dist/angular-translate.min.js"></script>
-        <script src="lib/angular/angular-translate/dist/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
-        <script src="lib/angular/angular-translate/dist/angular-translate-interpolation-messageformat/angular-translate-interpolation-messageformat.min.js"></script>
-        <script src="lib/angular/angular-translate/dist/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js"></script>
-        <script src="lib/angular/angular-translate/dist/angular-translate-storage-local/angular-translate-storage-local.min.js"></script>
-        <script src="lib/angular/angular-translate/dist/angular-translate-loader-url/angular-translate-loader-url.min.js"></script>
-        <script src="lib/angular/angular-translate/dist/angular-translate-handler-log/angular-translate-handler-log.min.js"></script>
-        <script src="lib/angular/angular-dynamic-locale/tmhDynamicLocale.min.js"></script>
-
-        <!--Main App Scripts-->
-        <script src="app/shared/app.module.js"></script>
-        <script src="app/shared/app.constant.js"></script>
-        <script src="app/shared/app.config.js"></script>
-        <script src="app/shared/app-config.factory.js"></script>
-        <script src="app/shared/app.filter.js"></script>
-        <script src="app/shared/auth-service.factory.js"></script>
-        <script src="app/shared/api-service.factory.js"></script>
-        <script src="app/shared/helper-service.factory.js"></script>
-        <script src="app/shared/language-service.factory.js"></script>
-        <script src="app/shared/internet-checking.factroy.js"></script>
-        <script src="app/shared/app.router.js"></script>
-        <script src="app/shared/app.controller.js"></script>
-        <script src="app/shared/app.directive.js"></script>
-        <script src="app/shared/page-access.factory.js"></script>
-        <!--Team Support App Scripts-->
-        <script src="app/team-support/shared/team-support.constant.js"></script>
-        <script src="app/team-support/shared/team-support.router.js"></script>
-        <!--Trust Center App Scripts-->
-        <script src="app/trust-center/shared/trust-center.constant.js"></script>
-        <script src="app/trust-center/shared/trust-center.router.js"></script>
-        <!--eAxis App Scripts-->
-        <script src="app/eaxis/shared/eaxis.constant.js"></script>
-        <script src="app/eaxis/shared/eaxis.router.js"></script>
-        <!--MDM App Scripts-->
-        <script src="app/mdm/shared/mdm.constant.js"></script>
-        <script src="app/mdm/shared/mdm.router.js"></script>
-
-        <!-- Text Angular -->
-        <script src="lib/angular/text-angular/textAngular-sanitize.min.js"></script>
-        <script src="lib/angular/text-angular/textAngular-rangy.min.js"></script>
-        <script src="lib/angular/text-angular/textAngular.min.js"></script>
-
-        <!-- Angular barcode / QR code -->
-        <script src="lib/angular-barcode/angular-qrbarcode.js"></script>
-        <script src="lib/angular-barcode/qrcode.js"></script>
-        <script src="lib/angular-print/angular-print.js"></script>
-
-        <!-- Beyond Admin Layout Related Directives -->
-        <script src="app/shared/beyond-admin-directives/loading.directive.js"></script>
-        <script src="app/shared/beyond-admin-directives/skin.directive.js"></script>
-        <script src="app/shared/beyond-admin-directives/sidebar.directive.js"></script>
-        <script src="app/shared/beyond-admin-directives/header.directive.js"></script>
-        <script src="app/shared/beyond-admin-directives/navbar.directive.js"></script>
-        <!-- <script src="app/shared/beyond-admin-directives/chatbar.directive.js"></script> -->
-        <!-- <script src="app/shared/beyond-admin-directives/widget.directive.js"></script> -->
-    </body>
+    <!-- #endregion -->
+</body>
 
 </html>

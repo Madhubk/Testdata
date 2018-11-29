@@ -1,0 +1,194 @@
+<div class="clearfix tc-event-configure-event-container pb-100 pt-10">
+    <form class="clearfix" novalidate>
+        <div class="clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Code </label>
+                    <input type="text" class="form-control input-sm" data-ng-model="TCEventConfigureCtrl.ePage.Masters.Event.FormView.Code" placeholder="Code"
+                    />
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Description </label>
+                    <input type="text" class="form-control input-sm" data-ng-model="TCEventConfigureCtrl.ePage.Masters.Event.FormView.Description"
+                        placeholder="Description" />
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Module </label>
+                    <select chosen class="form-control" data-ng-options="x.Key as x.Value for x in TCEventConfigureCtrl.ePage.Masters.Event.ModuleListSource"
+                        data-ng-model="TCEventConfigureCtrl.ePage.Masters.Event.FormView.Module" search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Type </label>
+                    <input type="text" class="form-control input-sm" data-ng-model="TCEventConfigureCtrl.ePage.Masters.Event.FormView.Type" placeholder="Type"
+                    />
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Sequence </label>
+                    <input type="text" class="form-control input-sm" data-ng-model="TCEventConfigureCtrl.ePage.Masters.Event.FormView.Sequence"
+                        placeholder="Sequence" />
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Entity Source</label>
+                    <input type="text" class="form-control input-sm" data-ng-model="TCEventConfigureCtrl.ePage.Masters.Event.FormView.EntitySource"
+                        placeholder="Entity Source" disabled />
+                </div>
+            </div>
+            <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Priority</label>
+                    <input type="text" class="form-control input-sm" data-ng-model="TCEventConfigureCtrl.ePage.Masters.Event.FormView.Priority"
+                        placeholder="Priority" />
+                </div>
+            </div> -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Party Type</label>
+                    <select chosen class="form-control" data-ng-options="x.PK as x.PartyName for x in TCEventConfigureCtrl.ePage.Masters.Parties.PartiesListSource"
+                        data-ng-model="TCEventConfigureCtrl.ePage.Masters.Event.FormView.PartyType_FK" search-contains="true"
+                        data-ng-change="TCEventConfigureCtrl.ePage.Masters.Event.OnPartyTypeChange((TCEventConfigureCtrl.ePage.Masters.Parties.PartiesListSource | filter: {'PK': TCEventConfigureCtrl.ePage.Masters.Event.FormView.PartyType_FK})[0])">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">CSS</label>
+                    <input type="text" class="form-control input-sm" data-ng-model="TCEventConfigureCtrl.ePage.Masters.Event.FormView.CSS" placeholder="CSS"
+                    />
+                </div>
+            </div>
+        </div>
+        <div class="clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Details </label>
+                    <textarea class="form-control input-sm no-resize" rows="3" data-ng-model="TCEventConfigureCtrl.ePage.Masters.Event.FormView.Details"
+                        placeholder="Details"></textarea>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Other Config </label>
+                    <textarea class="form-control input-sm no-resize" rows="3" data-ng-model="TCEventConfigureCtrl.ePage.Masters.Event.FormView.OtherConfig"
+                        placeholder="Other Config"></textarea>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">
+                        Notification Config
+                        <i class="fa fa-pencil cursor-pointer ml-5" data-ng-click="TCEventConfigureCtrl.ePage.Masters.Event.Notification.OnEditNotification()"></i>
+                    </label>
+                    <textarea class="form-control input-sm no-resize" rows="3" data-ng-model="TCEventConfigureCtrl.ePage.Masters.Event.FormView.NotificationConfig"
+                        placeholder="Notification Config"></textarea>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Task Config
+                        <i class="fa fa-pencil cursor-pointer ml-5" data-ng-click="TCEventConfigureCtrl.ePage.Masters.Event.TaskConfig.OnEditTaskConfig()"></i>
+                    </label>
+                    <textarea class="form-control input-sm no-resize" rows="3" data-ng-model="TCEventConfigureCtrl.ePage.Masters.Event.FormView.TaskConfig"
+                        placeholder="Task Config"></textarea>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Exception Config
+                        <i class="fa fa-pencil cursor-pointer ml-5" data-ng-click="TCEventConfigureCtrl.ePage.Masters.Event.OpenJsonModal('ExceptionConfig')"></i>
+                    </label>
+                    <textarea class="form-control input-sm no-resize" rows="3" data-ng-model="TCEventConfigureCtrl.ePage.Masters.Event.FormView.ExceptionConfig"
+                        placeholder="Exception Config"></textarea>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Comment Config
+                        <i class="fa fa-pencil cursor-pointer ml-5" data-ng-click="TCEventConfigureCtrl.ePage.Masters.Event.OpenJsonModal('CommentConfig')"></i>
+                    </label>
+                    <textarea class="form-control input-sm no-resize" rows="3" data-ng-model="TCEventConfigureCtrl.ePage.Masters.Event.FormView.CommentConfig"
+                        placeholder="Comment Config"></textarea>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Report Field Config
+                        <i class="fa fa-pencil cursor-pointer ml-5" data-ng-click="TCEventConfigureCtrl.ePage.Masters.Event.OpenJsonModal('ReportFieldConfig')"></i>
+                    </label>
+                    <textarea class="form-control input-sm no-resize" rows="3" data-ng-model="TCEventConfigureCtrl.ePage.Masters.Event.FormView.ReportFieldConfig"
+                        placeholder="Report Config"></textarea>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Shared Entity Config
+                        <i class="fa fa-pencil cursor-pointer ml-5" data-ng-click="TCEventConfigureCtrl.ePage.Masters.Event.OpenJsonModal('SharedEntityConfig')"></i>
+                    </label>
+                    <textarea class="form-control input-sm no-resize" rows="3" data-ng-model="TCEventConfigureCtrl.ePage.Masters.Event.FormView.SharedEntityConfig"
+                        placeholder="Shared Entity Config"></textarea>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <div class="checkbox">
+                       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label>
+                                <input type="checkbox" data-ng-model="TCEventConfigureCtrl.ePage.Masters.Event.FormView.IsSystemEvent" class="colored-blue">
+                                <span class="text">Is SystemEvent</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="eaxis-footer-strip">
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10"></div>
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+        <button class="btn btn-primary btn-sm pull-right mr-10 mt-6" data-ng-click="TCEventConfigureCtrl.ePage.Masters.SaveEvent()"
+            data-ng-bind="TCEventConfigureCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="TCEventConfigureCtrl.ePage.Masters.IsDisableSave"></button>
+    </div>
+</div>
+
+<!-- Notification Template -->
+<script type="text/ng-template" id="TCEventEditNotification">
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-title">
+            <strong>Notification</strong>
+            <button class="btn btn-xs btn-primary pull-right ml-10" data-ng-click="TCEventConfigureCtrl.ePage.Masters.Event.Notification.PrepareNotification()">OK</button>
+            <button class="btn btn-xs btn-default pull-right ml-10" data-ng-click="TCEventConfigureCtrl.ePage.Masters.Event.Notification.CloseNotificationModal()">Close</button>
+        </h5>
+    </div>
+    <div class="modal-body p-20 pl-0" id="modal-body">
+        <event-notification-formatter module-code="TCEventConfigureCtrl.ePage.Masters.Event.FormView.Module" key="'Event'+TCEventConfigureCtrl.ePage.Masters.Event.FormView.Code"
+            type-code="TCEventConfigureCtrl.ePage.Masters.Event.FormView.PK" notification-list="TCEventConfigureCtrl.ePage.Masters.Event.FormView.NotificationGroup"></event-notification-formatter>
+    </div>
+</script>
+
+<!-- Task Config Template -->
+<script type="text/ng-template" id="TCEventEditTaskConfig">
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-title">
+            <strong>Task Config</strong>
+            <button class="btn btn-xs btn-primary pull-right ml-10" data-ng-click="TCEventConfigureCtrl.ePage.Masters.Event.TaskConfig.PrepareTaskConfig()">OK</button>
+            <button class="btn btn-xs btn-default pull-right ml-10" data-ng-click="TCEventConfigureCtrl.ePage.Masters.Event.TaskConfig.CloseTaskConfigModal()">Close</button>
+        </h5>
+    </div>
+    <div class="modal-body p-20 pl-0" id="modal-body">
+        <event-task-config-formatter task-config-list="TCEventConfigureCtrl.ePage.Masters.Event.FormView.TaskConfigGroup"></event-task-config-formatter>
+    </div>
+</script>

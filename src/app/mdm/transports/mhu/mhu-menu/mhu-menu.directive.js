@@ -1,29 +1,30 @@
-(function(){
+(function () {
     "use strict";
 
     angular
-         .module("Application")
-         .directive("mhuMenu",MhuMenu);
+        .module("Application")
+        .directive("mhuMenu", MhuMenu);
 
-    MhuMenu.$inject=[];
+    MhuMenu.$inject = [];
 
-    function MhuMenu(){
+    function MhuMenu() {
 
         var exports = {
-            restrict : "EA",
+            restrict: "EA",
             templateUrl: "app/mdm/transports/mhu/mhu-menu/mhu-menu.html",
             link: Link,
             controller: "MhuMenuController",
             controllerAs: "MhuMenuCtrl",
             scope: {
-                currentMhu: "="
+                currentMhu: "=",
+                dataentryObject: "="
             },
             bindToController: true
 
         };
         return exports;
-        
-        function Link(scope, elem, attr) {}
+
+        function Link(scope, elem, attr) { }
     }
 
 })();

@@ -1,0 +1,176 @@
+<div id="track-shipment-details" class="widget-main track-shipment-details p-0">
+    <div class="pb-15 mb-50">
+        <div class="clearfix">
+            <div class="col-lg-8 pt-10 pb-10">
+                <div class="color-999">Shipping From</div>
+                <div class="mt-5">
+                    <b class="fs-16 ">{{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ORG_Code}}
+                    </b>
+                    -
+                    <u class="set-color-blue">{{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.Address1}}</u>
+                </div>
+                <div class="color-999 mt-10">Shipping To</div>
+                <div class="mt-5">
+                    <b class="fs-16 ">{{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ORG_Code}}
+                    </b>
+                    -
+                    <u class="set-color-blue">{{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.Address1}}</u>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="text-right fs-40">{{TrackShipmentDetailsDirectiveCtrl.currentShipment.label}}</div>
+                <div class="text-right fs-20">{{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode}} - {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode}}
+                    - {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.IncoTerm}}</div>
+                <div class="clearfix mt-10 text-right">
+                    Measurement - 54.30 M3, Gross Weight - 8630.0 KG
+                </div>
+            </div>
+        </div>
+        <div class="clearfix">
+            <div class="col-lg-12">
+                <div class="clearfix set-border-bottom-eee set-border-top-eee">
+                    <div class="col-lg-6 set-border-right-blue pt-5 pb-5">
+                        <div class="">Vessel</div>
+                        <div class="">
+                            {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Vessel}}
+                        </div>
+                    </div>
+                    <div class="col-lg-3 set-border-right-eee pt-5 pb-5">
+                        <div class="">Orgin</div>
+                        <div class="">
+                            {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin}}
+                        </div>
+                    </div>
+                    <div class="col-lg-3 pt-5 pb-5">
+                        <div class="">Destination</div>
+                        <div class="">
+                            {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination}}
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix set-border-bottom-eee">
+                    <div class="col-lg-3 set-border-right-eee pt-5 pb-5">
+                        <div class="">Port of Loading</div>
+                        <div class="">
+                            {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PortOfLoading}}
+                        </div>
+                    </div>
+                    <div class="col-lg-3 set-border-right-eee pt-5 pb-5">
+                        <div class="">Port of Destination</div>
+                        <div class="">
+                            {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PortOfDischarge}}
+                        </div>
+                    </div>
+                    <div class="col-lg-3 set-border-right-eee pt-5 pb-5">
+                        <div class="">ETD / ATD</div>
+                        <div class="">
+                            {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETD | date:'dd-MMM-yyyy'}} -- {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ATD
+                            | date:'dd-MMM-yyyy'}}
+                        </div>
+                    </div>
+                    <div class="col-lg-3 pt-5 pb-5">
+                        <div class="">ETA / ATA</div>
+                        <div class="">
+                            {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETA | date:'dd-MMM-yyyy'}} -- {{TrackShipmentDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ATA
+                            | date:'dd-MMM-yyyy'}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix mt-10">
+            <div class="col-lg-8 pr-5">
+                <div class="set-border-ccc">
+                    <div class="set-bg-f5f5f5 p-10 pl-15 pr-15">
+                        <b>Open Activities</b>
+                    </div>
+                    <div class="my-task-list-view pl-5 pr-5" style="height: 99px; overflow-y: auto">
+                        <ul>
+                            <!-- Loading -->
+                            <div class="clearfix p-30 text-center" data-ng-if="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.MyTasks.Loading">
+                                <i class="fa fa-spin fa-spinner" style="font-size: 18px;"></i>
+                            </div>
+                            <!-- No Records -->
+                            <div class="clearfix p-30 text-center" data-ng-if="!TrackShipmentDetailsDirectiveCtrl.ePage.Masters.MyTasks.WorkItemDetails.length">
+                                <i>No Records...!</i>
+                            </div>
+                            <li class="pt-5 pb-5 mt-5 set-bg-light-gray" data-ng-repeat="y in TrackShipmentDetailsDirectiveCtrl.ePage.Masters.MyTasks.WorkItemDetails"
+                                data-ng-if="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.MyTasks.WorkItemDetails.length > 0">
+                                <div class="clearfix" data-ng-class="y.IsChanged ? 'task-changed': ''">
+                                    <div class="col-lg-4 set-color-blue">
+                                        <div class="text-single-line" data-ng-click="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.MyTasks.EditActivity(y)" data-ng-bind="y.WSI_StepName"></div>
+                                    </div>
+                                    <div class="col-lg-3 color-999">
+                                        <div class="text-single-line" title="{{y.UserName}}">
+                                            <i class="fa fa-user"></i> {{y.PerformerCode}}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 color-999">
+                                        <div class="text-single-line" title="Due - {{y.DueDate | date:'dd MMM h:mm a'}}">{{y.DueDate | date:'dd MMM h:mm a'}}</div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <span class="text-single-line delay-date" data-ng-class="((y.DueDate | dateTimeDifference: true: 'IsDeley')) ? 'lesser-value' : 'greater-value'"
+                                            title="{{y.DueDate | dateTimeDifference: true: 'Desc'}}">{{y.DueDate | dateTimeDifference: true: 'Desc'}}</span>
+
+                                        <input class="btn btn-info btn-xs pt-0 pb-2 line-height-1 pull-right" type="button" value="Open" data-ng-click="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.MyTasks.EditActivity(y)"
+                                            data-ng-if="!y.OtherConfig.HideForm">
+                                    </div>
+                                </div>
+                                <div class="clearfix">
+                                    <div class="col-lg-12 set-color-999 fs-11">
+                                        <span>Created On {{y.AvailableDate | date:'dd MMM h:mm a'}} </span>
+                                        <span>/</span>
+                                        <span>{{y.KPIDescription}}</span>
+                                        <span class="pull-right set-border-ccc pl-5 pr-5 ml-10 btn btn-xs line-height-1">{{y.PSI_InstanceNo}}</span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="set-border-ccc mt-10">
+                    <div class="set-bg-f5f5f5 p-10 pl-15 pr-15">
+                        <b>All Activities</b>
+                    </div>
+                    <div class="clearfix pb-15">
+                        <div class="col-lg-3 mt-15">
+                            <input class="btn set-bg-f5f5f5 btn-rounded rows" type="submit" value="Amend Shipment">
+                        </div>
+                        <div class="col-lg-3 mt-15">
+                            <input class="btn set-bg-f5f5f5 btn-rounded rows" type="submit" value="Manage Parties">
+                        </div>
+                        <div class="col-lg-3 mt-15">
+                            <input class="btn set-bg-f5f5f5 btn-rounded rows" type="submit" value="Manage Orders">
+                        </div>
+                        <div class="col-lg-3 mt-15">
+                            <input class="btn set-bg-f5f5f5 btn-rounded rows" type="submit" value="Prepare / Amend HBL">
+                        </div>
+                        <div class="col-lg-3 mt-15">
+                            <input class="btn set-bg-f5f5f5 btn-rounded rows" type="submit" value="Shipping Bill Filing">
+                        </div>
+                        <div class="col-lg-3 mt-15">
+                            <input class="btn set-bg-f5f5f5 btn-rounded rows" type="submit" value="Manage Transport">
+                        </div>
+                        <div class="col-lg-3 mt-15">
+                            <input class="btn set-bg-f5f5f5 btn-rounded rows" type="submit" value="Amend Shipment">
+                        </div>
+                        <div class="col-lg-3 mt-15">
+                            <input class="btn set-bg-f5f5f5 btn-rounded rows" type="submit" value="Amend Shipment">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 pl-5">
+                <div class="set-border-ccc">
+                    <div class="set-bg-f5f5f5 p-10 pl-15 pr-15">
+                        <b>Recent Activities</b>
+                    </div>
+                    <div style="max-height:258px;overflow-y: auto">
+                        <event input="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.Events" ng-if="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.Events"
+                            mode="1"></event>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

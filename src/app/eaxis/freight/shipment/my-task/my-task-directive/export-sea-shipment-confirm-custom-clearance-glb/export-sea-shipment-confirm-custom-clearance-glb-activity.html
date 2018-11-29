@@ -1,0 +1,108 @@
+<div class="panel-body no-padding">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-10">
+        <span class="error-warning-container">
+            <error-warning-directive data-ng-if="ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Meta.ErrorWarning.CustomsIntegrationRefNo.IsWarning && !ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Meta.ErrorWarning.CustomsIntegrationRefNo.IsError"
+                list="ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Meta.ErrorWarning.CustomsIntegrationRefNo.WARNING" type="'warning'" icon="fa fa-warning"
+                parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            <error-warning-directive data-ng-if="ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Meta.ErrorWarning.CustomsIntegrationRefNo.IsError" list="ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Meta.ErrorWarning.CustomsIntegrationRefNo.ERROR"
+                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+        </span>
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+            <div class="form-group">
+                <label class="control-label"> Shipping Bill No</label>
+                <div>
+                    <input type="text" class="form-control input-sm" placeholder="Shipping Bill No" disabled="disabled" data-ng-model="ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.ShippingBillNo"
+                    />
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+            <div class="form-group">
+                <label class="control-label"> Shipping Bill Date</label>
+                <div>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" placeholder="{{ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                            data-ng-model="ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.ShippingBillDate"
+                            datetime-picker="{{ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Masters.DatePicaker.Options.dateFormat}}" datepicker-options="ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Masters.DatePicker.Options"
+                            datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true" disabled="disabled"
+                            default-date="" default-time="" save-as="ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                            is-open="ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Masters.DatePicker.isOpen['isShippingBillDate']" when-closed=""
+                            data-ng-click="" data-ng-change="ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Masters.OnChangeValues(ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.ShippingBillDate,'E11059',false);"
+                            custom-date-time-format />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default shiny" data-ng-click="ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isShippingBillDate')">
+                                <i class="fa fa-calendar" disabled="disabled"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+            <div class="form-group">
+                <label class="control-label"> Customs Integration RefNo</label>
+                <div>
+                    <input type="text" class="form-control input-sm" placeholder="Customs Integration RefNo" data-ng-model="ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.CustomsIntegrationRefNo"
+                        data-ng-change="ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Masters.OnChangeValues(ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.CustomsIntegrationRefNo,'E11057',false);"
+                        disabled="disabled"
+                    />
+                </div>
+            </div>
+        </div>
+      
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-10"> 
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+        <span class="error-warning-container">
+            <error-warning-directive data-ng-if="ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Meta.ErrorWarning.NoOfCommodity.IsWarning && !ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Meta.ErrorWarning.NoOfCommodity.IsError"
+                list="ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Meta.ErrorWarning.NoOfCommodity.WARNING" type="'warning'" icon="fa fa-warning"
+                parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            <error-warning-directive data-ng-if="ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Meta.ErrorWarning.NoOfCommodity.IsError" list="ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Meta.ErrorWarning.NoOfCommodity.ERROR"
+                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+        </span>
+        <div class="form-group">
+            <label class="control-label">No Of Commodity</label>
+            <div>
+                <input type="text" class="form-control input-sm" placeholder="No Of Commodity" disabled="disabled" data-ng-model="ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.NoOfCommodity"
+                    data-ng-change="ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Masters.OnChangeValues(ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.NoOfCommodity,'E11060',false);"
+                />
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+        <span class="error-warning-container">
+            <error-warning-directive data-ng-if="ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Meta.ErrorWarning.SupplierInvoiceNo.IsWarning && !ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Meta.ErrorWarning.SupplierInvoiceNo.IsError"
+                list="ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Meta.ErrorWarning.SupplierInvoiceNo.WARNING" type="'warning'" icon="fa fa-warning"
+                parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            <error-warning-directive data-ng-if="ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Meta.ErrorWarning.SupplierInvoiceNo.IsError" list="ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Meta.ErrorWarning.SupplierInvoiceNo.ERROR"
+                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+        </span>
+        <div class="form-group">
+            <label class="control-label"> Invoice No</label>
+            <div>
+                <input type="text" class="form-control input-sm" placeholder="Invoice No" data-ng-model="ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.SupplierInvoiceNo"
+                    data-ng-change="ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Masters.OnChangeValues(ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.SupplierInvoiceNo,'E11061',false);"
+                    disabled="disabled"
+                />
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+        <label class="mt-5 ml-10">
+            <input type="checkbox" ng-checked="ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.IsCheckListConfirmed"
+                ng-model="ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.IsCheckListConfirmed">
+            <span class="text"></span>Is CheckList Confirmed
+            </label>
+        </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+        <span class="error-warning-container">
+            <error-warning-directive data-ng-if="ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Meta.ErrorWarning.Comments.IsWarning && !ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Meta.ErrorWarning.Comments.IsError"
+                list="ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Meta.ErrorWarning.Comments.WARNING" type="'warning'" icon="fa fa-warning"
+                parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            <error-warning-directive data-ng-if="ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Meta.ErrorWarning.Comments.IsError" list="ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Meta.ErrorWarning.Comments.ERROR"
+                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+        </span>
+    </div>
+    </div>
+</div>

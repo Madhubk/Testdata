@@ -317,13 +317,6 @@ content .category {
   text-align: right;
   padding-top: 10px;
 }
-.page-content {
-  background-color: #f5f7fa !important;
-  color: #3C4858 !important;
-  /*position: absolute;*/
-  min-height: 600px;
-  padding-bottom: 50px;
-}
 
 .mystyle{
   height: 280px;

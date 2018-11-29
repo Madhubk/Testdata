@@ -58,6 +58,7 @@
                   <i class="process-icon glyphicon glyphicon-pencil" title="Edit" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.EditStep(item)"></i>
                 </div>
               </div>
+              <i class="step-type-icon" data-ng-class="{'ACTIVITY': 'fa fa-history', 'DECISION': 'fa fa-retweet', 'END': 'fa fa-stop', }[item.StepType]" title="{{item.StepType}}"></i>
               <a class="process-cubes" data-ng-class="{'active': item.Rules.BEFORE_INIT.length > 0}" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.OnProcessWorkStepClick(item, 'BEFORE_INIT')"
                 title="Before Init">
               </a>

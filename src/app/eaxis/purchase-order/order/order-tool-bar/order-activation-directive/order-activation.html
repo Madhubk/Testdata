@@ -1,0 +1,13 @@
+<div class="clearfix pull-right fs-25 mb-10 pr-10">
+    <button class="btn btn-default set-br-yellow set-bg-yellow-light fs-12" data-ng-disabled="OrderActivationCtrl.ePage.Masters.SelectedOrder.length == 0 || OrderActivationCtrl.ePage.Masters.IsDisabledInActiveBtn"
+        data-ng-click="OrderActivationCtrl.ePage.Masters.Active('inactive', 'InActiveBtn');">
+        {{OrderActivationCtrl.ePage.Masters.InActiveBtn}}
+    </button>
+    <button class="btn btn-default set-br-blue set-bg-blue-light fs-12" data-ng-disabled="OrderActivationCtrl.ePage.Masters.SelectedOrder.length == 0 || OrderActivationCtrl.ePage.Masters.IsDisabledActiveBtn"
+        data-ng-click="OrderActivationCtrl.ePage.Masters.Active('active', 'ActiveBtn');">
+        {{OrderActivationCtrl.ePage.Masters.ActiveBtn}}
+    </button>
+</div>
+<div class="clearfix common_table_scroll mt-20 pl-10 pr-10 common_table_hgt" data-ng-if="OrderActivationCtrl.ePage.Masters.ActivationList">
+    <order-confirm-directive mode="2" list="OrderActivationCtrl.ePage.Masters.ActivationList" grid-change="OrderActivationCtrl.ePage.Masters.DataChanges({ item: item })"></order-confirm-directive>
+</div>

@@ -1,8 +1,8 @@
-/*Email*/
+.dropdown.email-access-dropdown-menu {
+    font-size: 20px;
+    margin-left: 15px;
+}
 
-#forum_embed {
-    border: none;
-    width: 100%;
-    height: 600px;
-    overflow-y: auto;
+.email .edit-view-container .note-editor.note-frame .note-editing-area .note-editable {
+    height: 400px;
 }

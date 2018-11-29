@@ -1,0 +1,214 @@
+<div class="clearfix control-tower-container pb-100">
+    <div class="clearfix control-tower-header">
+        <span class="pull-left font-120" style="font-weight: 600;">Control Tower</span>
+        <button class="btn btn-primary btn-xs pull-right" data-ng-bind="'Filter'" data-ng-click="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.OnFilterBtnClick()">
+        </button>
+        <div class="control-tower-filter-wrapper">
+            <form class="clearfix" role="form" novalidate>
+                <div class="clearfix text-right header">
+                    <span class="pull-left">
+                        <i class="fa fa-filter"></i> Filter
+                    </span>
+                    <span class="btn btn-default btn-xs ml-5" data-ng-click="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.CloseFilter()">Close</span>
+                    <input type="submit" class="btn btn-primary btn-xs ml-5" value="Apply" data-ng-click="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.Apply()" />
+                </div>
+                <div class="clearfix control-list">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Process Topic</label>
+                            <div class="clearfix">
+                                <select chosen class="form-control" data-ng-model="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.ModelValue.ProcessInfo"
+                                    data-ng-options="x.Code as x.Code for x in ControlTowerCtrl.ePage.Masters.ControlTower.Filter.ProcessTopicList"
+                                    search-contains="true">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Process Name</label>
+                            <div class="clearfix">
+                                <select chosen multiple class="form-control" data-ng-model="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.ModelValue.WIP_ProcessName"
+                                    data-ng-options="x.ProcessName as x.ProcessDescription for x in ControlTowerCtrl.ePage.Masters.ControlTower.Filter.ProcessMasterList"
+                                    search-contains="true" data-ng-disabled="!ControlTowerCtrl.ePage.Masters.ControlTower.Filter.ModelValue.ProcessGroup"></select>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Role</label>
+                            <div class="clearfix">
+                                <select chosen class="form-control" data-ng-model="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.ModelValue.Performer"
+                                    data-ng-options="x.PK as x.RoleDescription for x in ControlTowerCtrl.ePage.Masters.ControlTower.Filter.RoleList"
+                                    search-contains="true">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">User</label>
+                            <div class="clearfix">
+                                <select chosen class="form-control" data-ng-model="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.ModelValue.UserName"
+                                    data-ng-options="x for x in ControlTowerCtrl.ePage.Masters.ControlTower.Filter.UserList"
+                                    search-contains="true">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Organization</label>
+                            <div class="input-group input-group-sm">
+                                <div dynamic-lookup placeholder="Organization Code" my-ng-model="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.ModelValue.ORG_Code"
+                                    obj="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.ModelValue" page-name="'OrganizationList'"
+                                    control-id="'ControlTowerOrgList'" control-key="'ControlTowerOrgList_3236'"
+                                    auto-complete-on-select="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.OnOrganizationChangeAutoComplete($item)">
+                                </div>
+                                <span class="input-group-btn">
+                                    <button dynamic-list-modal obj="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.ModelValue"
+                                        page-name="'OrganizationList'" control-id="'ControlTowerOrgList'" control-key="'ControlTowerOrgList_3236'"
+                                        mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.OnOrganizationChangeLookup($item)"
+                                        class="btn btn-default shiny" type="button">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Warehouse</label>
+                            <div class="input-group input-group-sm">
+                                <div dynamic-lookup placeholder="Warehouse Code" my-ng-model="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.ModelValue.WAR_Code"
+                                    obj="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.ModelValue" page-name="'Warehouse'"
+                                    control-id="'ControlTowerWarehouse'" control-key="'ControlTowerWarehouse_3076'"
+                                    auto-complete-on-select="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.OnWarehouseChangeAutoComplete($item)">
+                                </div>
+                                <span class="input-group-btn">
+                                    <button dynamic-list-modal obj="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.ModelValue"
+                                        page-name="'Warehouse'" control-id="'ControlTowerWarehouse'" control-key="'ControlTowerWarehouse_3076'"
+                                        mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.OnWarehouseChangeLookup($item)"
+                                        class="btn btn-default shiny" type="button">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Company</label>
+                            <div class="input-group input-group-sm">
+                                <div dynamic-lookup placeholder="Company Code" my-ng-model="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.ModelValue.CMP_Code"
+                                    obj="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.ModelValue" page-name="'CmpCompany'"
+                                    control-id="'ControlTowerCompany'" control-key="'ControlTowerCompany_3194'"
+                                    auto-complete-on-select="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.OnCompanyChangeAutoComplete($item)">
+                                </div>
+                                <span class="input-group-btn">
+                                    <button dynamic-list-modal obj="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.ModelValue"
+                                        page-name="'CmpCompany'" control-id="'ControlTowerCompany'" control-key="'ControlTowerCompany_3194'"
+                                        mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.OnCompanyChangeLookup($item)"
+                                        class="btn btn-default shiny" type="button">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Branch</label>
+                            <div class="input-group input-group-sm">
+                                <div dynamic-lookup placeholder="Branch Code" my-ng-model="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.ModelValue.BRN_Code"
+                                    obj="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.ModelValue" page-name="'CmpBranch'"
+                                    control-id="'ControlTowerBranch'" control-key="'ControlTowerBranch_3132'"
+                                    auto-complete-on-select="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.OnBranchChangeAutoComplete($item)">
+                                </div>
+                                <span class="input-group-btn">
+                                    <button dynamic-list-modal obj="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.ModelValue"
+                                        page-name="'CmpBranch'" control-id="'ControlTowerBranch'" control-key="'ControlTowerBranch_3132'"
+                                        mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.OnBranchChangeLookup($item)"
+                                        filter="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.BranchFilter" class="btn btn-default shiny"
+                                        type="button">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Department</label>
+                            <div class="input-group input-group-sm">
+                                <div dynamic-lookup placeholder="Department Code" my-ng-model="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.ModelValue.DEP_Code"
+                                    obj="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.ModelValue" page-name="'CmpDepartment'"
+                                    control-id="'ControlTowerDepartment'" control-key="'ControlTowerDepartment_3066'"
+                                    auto-complete-on-select="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.OnDepartmentChangeAutoComplete($item)">
+                                </div>
+                                <span class="input-group-btn">
+                                    <button dynamic-list-modal obj="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.ModelValue"
+                                        page-name="'CmpDepartment'" control-id="'ControlTowerDepartment'" control-key="'ControlTowerDepartment_3066'"
+                                        mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.OnDepartmentChangeLookup($item)"
+                                        class="btn btn-default shiny" type="button">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="form-group">
+                            <label class="control-label text-single-line">Period</label>
+                            <div class="clearfix mb-5">
+                                <select chosen class="form-control" data-ng-model="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.ModelValue.Period"
+                                    data-ng-options="x.Code as x.Description for x in ControlTowerCtrl.ePage.Masters.ControlTower.Filter.PeriodList"
+                                    search-contains="true">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" placeholder="{{ControlTowerCtrl.ePage.Masters.ControlTower.DatePicker.Options.dateFormat}}"
+                                    ng-model="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.ModelValue.PeriodDate"
+                                    datetime-picker="{{ControlTowerCtrl.ePage.Masters.ControlTower.DatePicker.Options.dateFormat}}"
+                                    datepicker-options="ControlTowerCtrl.ePage.Masters.ControlTower.DatePicker.Options"
+                                    datepicker-append-to-body="true" close-on-selection="false" enable-time="false"
+                                    enable-date="true" default-date="" default-time="" save-as="ControlTowerCtrl.ePage.Masters.ControlTower.DatePicker.Options.saveFormat"
+                                    is-open="ControlTowerCtrl.ePage.Masters.ControlTower.DatePicker.isOpen" when-closed=""
+                                    data-ng-click="" data-ng-change="" custom-date-time-format />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default shiny" data-ng-click="ControlTowerCtrl.ePage.Masters.ControlTower.DatePicker.OpenDatePicker($event)">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="clearfix control-tower-body">
+        <uib-tabset active="ControlTowerCtrl.ePage.Masters.ControlTower.Tab.ActiveTabIndex">
+            <uib-tab data-ng-repeat="tab in ControlTowerCtrl.ePage.Masters.ControlTower.Tab.ListSource" data-ng-click="ControlTowerCtrl.ePage.Masters.ControlTower.Tab.OnClick(tab)">
+                <uib-tab-heading title="{{tab.Description}}">
+                    <span data-ng-bind="tab.Description"></span>
+                </uib-tab-heading>
+                <div class="clearfix">
+                    <!-- Loading -->
+                    <div class="text-center p-20 font-160" data-ng-if="!ControlTowerCtrl.ePage.Masters.ControlTower.IsEnableWorkItemCountDir">
+                        <i class="fa fa-spinner fa-spin"></i>
+                    </div>
+                    <!-- Content -->
+                    <work-item-status-count work-item-list="ControlTowerCtrl.ePage.Masters.ControlTower.WorkItemList"
+                        selected-item="ControlTowerCtrl.ePage.Masters.ControlTower.GetSelectedWorkItem($item, tab)"
+                        code="tab.Code" filter-input="ControlTowerCtrl.ePage.Masters.ControlTower.Filter.FilterInput"
+                        data-ng-if="ControlTowerCtrl.ePage.Masters.ControlTower.IsEnableWorkItemCountDir && tab.IsClicked"></work-item-status-count>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>

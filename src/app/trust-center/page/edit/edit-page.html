@@ -53,10 +53,10 @@
 <script type="text/ng-template" id="list.html">
   <div dnd-list="list" class="edit-page-drop-element-list-wrapper">
     <div class="clearfix edit-page-drop-element-list" ng-class="{'active-item': EditPageCtrl.ePage.Masters.EditPage.FormDesign.SelectedDroppedItem.Field_FK === item.Field_FK}"
-      ng-repeat="item in list | filter:{'IsDelete':false}:true" dnd-draggable="item" dnd-effect-allowed="move" dnd-moved="list.splice($index, 1)" dnd-selected="EditPageCtrl.ePage.Masters.EditPage.FormDesign.SelectedDroppedItem = item">
+      ng-repeat="item in list | filter:{'IsDelete':false}:true" dnd-draggable="item" dnd-effect-allowed="move" dnd-moved="list.splice($index, 1)"
+      dnd-selected="EditPageCtrl.ePage.Masters.EditPage.FormDesign.SelectedDroppedItem = item">
       <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
-        <div class="edit-page-drop-element" ng-include="item.UIControl + '.html'">
-        </div>
+        <div class="edit-page-drop-element" data-ng-include src="item.UIControl + '.html'"></div>
         <div class="overlay-drop-element" data-ng-click="EditPageCtrl.ePage.Masters.EditPage.FormDesign.OnDropperItemClick(item)"></div>
       </div>
       <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 text-right">
@@ -116,7 +116,7 @@
 <script type="text/ng-template" id="datedrop.html">
   <div class="form-group m-0">
     <label for="inputSelect4">{{item.AttributeDetails[item.AttrIndex].AttributeValue}}</label>
-    <select chosen class="form-control input-sm">
+    <select chosen class="form-control input-sm" data-ng-model="item.DateDropdown">
       <option value="">Date Drop Down</option>
     </select>
   </div>
@@ -124,7 +124,7 @@
 <script type="text/ng-template" id="staticdropdown.html">
   <div class="form-group m-0">
     <label for="inputSelect4">{{item.AttributeDetails[item.AttrIndex].AttributeValue}}</label>
-    <select class="form-control input-sm">
+    <select class="form-control input-sm" data-ng-model="item.Dropdown">
       <option value="">Drop Down</option>
     </select>
   </div>
@@ -158,6 +158,14 @@
     <label for="inputSelect4" class="control-label">{{item.AttributeDetails[item.AttrIndex].AttributeValue}}</label>
     <div class="clearfix">
       <label for="inputText0">Tenant</label>
+    </div>
+  </div>
+</script>
+<script type="text/ng-template" id="application.html">
+  <div class="form-group m-0">
+    <label for="inputSelect4" class="control-label">{{item.AttributeDetails[item.AttrIndex].AttributeValue}}</label>
+    <div class="clearfix">
+      <label for="inputText0">Application</label>
     </div>
   </div>
 </script>

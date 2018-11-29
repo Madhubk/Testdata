@@ -5,15 +5,27 @@
         .module("Application")
         .directive("exceptionModal", ExceptionModal);
 
-    ExceptionModal.$inject = ["$uibModal"];
+    ExceptionModal.$inject = ["$uibModal", "$templateCache"];
 
-    function ExceptionModal($uibModal) {
+    function ExceptionModal($uibModal, $templateCache) {
+        var _template = `<div class="modal-header">
+            <button type="button" class="close" ng-click="ExceptionModalCtrl.ePage.Masters.Close()">&times;</button>
+            <h5 class="modal-title" id="modal-title">
+                <strong>Exception</strong>
+            </h5>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <exception input="input" mode="mode" type="type"></exception>
+        </div>`;
+        $templateCache.put("ExceptionModal.html", _template);
+
         var exports = {
             restrict: "EA",
             scope: {
                 input: "=",
                 mode: "=",
-                type: "="
+                type: "=",
+                onCloseModal: "&"
             },
             link: Link
         };
@@ -29,7 +41,7 @@
                     keyboard: true,
                     windowClass: "right exception",
                     scope: scope,
-                    templateUrl: "app/shared/standard-menu-directives/exception/exception-modal/exception-modal.html",
+                    templateUrl: "ExceptionModal.html",
                     controller: 'ExceptionModalController as ExceptionModalCtrl',
                     bindToController: true,
                     resolve: {
@@ -41,9 +53,15 @@
                         }
                     }
                 }).result.then(function (response) {
-                    // console.log(response);
+                    console.log(response);
+                    scope.onCloseModal({
+                        $item: "exception"
+                    });
                 }, function () {
                     console.log("Cancelled");
+                    scope.onCloseModal({
+                        $item: "exception"
+                    });
                 });
             }
         }

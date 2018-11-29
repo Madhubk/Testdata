@@ -1,0 +1,115 @@
+<div class="panel-body no-padding">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-10">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ShippingBillNo.IsWarning && !ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.IsError"
+                        list="ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ShippingBillNo.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ShippingBillNo.IsError"
+                        list="ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ShippingBillNo.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <div class="form-group">
+                    <label class="control-label"> Shipping Bill No</label>
+                    <div>
+                        <div>
+                            <input type="text" class="form-control input-sm" placeholder="Shipping Bill No" data-ng-model="ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.ShippingBillNo"
+                                data-ng-change="ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.OnFieldValueChange('E1110002')" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ShippingBillDate.IsWarning && !ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.IsError"
+                        list="ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ShippingBillDate.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ShippingBillDate.IsError"
+                        list="ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ShippingBillDate.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <div class="form-group">
+                    <label class="control-label"> Shipping Bill Date</label>
+                    <div>
+                        <div>
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" placeholder="{{ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                    data-ng-model="ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.ShippingBillDate"
+                                    datetime-picker="{{ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.DatePicaker.Options.dateFormat}}"
+                                    datepicker-options="ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.DatePicker.Options"
+                                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                    enable-date="true" default-date="" default-time="" save-as="ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                    is-open="ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.DatePicker.isOpen['isShippingBillDate']"
+                                    when-closed="" data-ng-click="" data-ng-change="ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.OnFieldValueChange('E1110001')"
+                                    custom-date-time-format />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default shiny" data-ng-click="ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isShippingBillDate')">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CustomsIntegrationRefNo.IsWarning && !ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.IsError"
+                        list="ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CustomsIntegrationRefNo.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CustomsIntegrationRefNo.IsError"
+                        list="ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CustomsIntegrationRefNo.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <div class="form-group">
+                    <label class="control-label"> Customs Integration RefNo</label>
+                    <div>
+                        <input type="text" class="form-control input-sm" placeholder="Customs Integration RefNo"
+                            data-ng-model="ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.CustomsIntegrationRefNo"
+                            data-ng-change="ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.OnFieldValueChange('E1110003')" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-10">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.NoOfCommodity.IsWarning && !ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.IsError"
+                        list="ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.NoOfCommodity.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.NoOfCommodity.IsError"
+                        list="ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.NoOfCommodity.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <div class="form-group">
+                    <label class="control-label">No Of Commodity</label>
+                    <div>
+                        <div>
+                            <input type="text" class="form-control input-sm" placeholder="No Of Commodity" data-ng-model="ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.NoOfCommodity"
+                                data-ng-change="ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.OnFieldValueChange('E1110004')" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SupplierInvoiceNo.IsWarning && !ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.IsError"
+                        list="ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SupplierInvoiceNo.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SupplierInvoiceNo.IsError"
+                        list="ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SupplierInvoiceNo.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <div class="form-group">
+                    <label class="control-label"> Invoice No</label>
+                    <div>
+                        <div>
+                            <input type="text" class="form-control input-sm" placeholder="Invoice No" data-ng-model="ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.SupplierInvoiceNo"
+                                data-ng-change="ExportSeaShipmentClarifyChecklistGlbCtrl.ePage.Masters.OnFieldValueChange('E1110005')" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    </div>

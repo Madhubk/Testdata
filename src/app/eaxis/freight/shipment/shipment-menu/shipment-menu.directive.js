@@ -17,7 +17,8 @@
             scope: {
                 currentShipment: "=",
                 activityForm: "=",
-                activeTab: "="
+                activeTab: "=",
+                bookingType:"="
             },
             bindToController: true
         };

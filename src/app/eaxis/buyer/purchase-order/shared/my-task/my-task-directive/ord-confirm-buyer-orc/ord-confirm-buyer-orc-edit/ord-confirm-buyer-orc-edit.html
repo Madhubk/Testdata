@@ -1,0 +1,45 @@
+<div class="p-10 mt-10" style="min-height:500px;">
+    <!-- Confirm # -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-3">
+        <div class="form-group ex-line-font">
+            <div class="error-warning-container">
+                <error-warning-directive data-ng-if="OrdConfirmBuyerOrcEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ConfirmNo.IsError"
+                    list="OrdConfirmBuyerOrcEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ConfirmNo.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </div>
+            <label class="control-label text-single-line">Confirm #</label>
+            <div class="">
+                <input type="text" class="form-control input-sm" placeholder="Confirm No" maxlength="35" data-ng-model="OrdConfirmBuyerOrcEditDirectiveCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.ConfirmNo"
+                    data-ng-blur="OrdConfirmBuyerOrcEditDirectiveCtrl.ePage.Masters.CommonErrorObjInput(['EC020'])" />
+            </div>
+        </div>
+    </div>
+    <!-- Confirm Date -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-3">
+        <div class="form-group ex-line-font">
+            <div class="error-warning-container">
+                <error-warning-directive data-ng-if="OrdConfirmBuyerOrcEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ConfirmDate.IsError"
+                    list="OrdConfirmBuyerOrcEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ConfirmDate.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </div>
+            <label class="control-label">Confirm Date</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{OrdConfirmBuyerOrcEditDirectiveCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    data-ng-model="OrdConfirmBuyerOrcEditDirectiveCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.ConfirmDate"
+                    datetime-picker="{{OrdConfirmBuyerOrcEditDirectiveCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    datepicker-options="OrdConfirmBuyerOrcEditDirectiveCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                    default-date="" default-time="" save-as="OrdConfirmBuyerOrcEditDirectiveCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                    is-open="OrdConfirmBuyerOrcEditDirectiveCtrl.ePage.Masters.DatePicker.isOpen['isConfirmDate']"
+                    when-closed="" data-ng-click="OrdConfirmBuyerOrcEditDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isConfirmDate')"
+                    data-ng-change="OrdConfirmBuyerOrcEditDirectiveCtrl.ePage.Masters.CommonErrorObjInput(['EC021'])"
+                    custom-date-time-format />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" data-ng-click="OrdConfirmBuyerOrcEditDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isConfirmDate')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

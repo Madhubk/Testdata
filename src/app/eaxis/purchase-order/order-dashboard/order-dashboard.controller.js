@@ -9,7 +9,7 @@
 
     function OrderDashController($injector, $location, APP_CONSTANT, authService, apiService, appConfig, helperService, toastr, orderDashboardConfig) {
         var OrderDashCtrl = this,
-        dynamicLookupConfig = $injector.get("dynamicLookupConfig");
+            dynamicLookupConfig = $injector.get("dynamicLookupConfig");
 
         function Init() {
             OrderDashCtrl.ePage = {
@@ -22,10 +22,9 @@
 
             OrderDashCtrl.ePage.Masters.UserProfile = {
                 "userName": authService.getUserInfo().UserName,
-                "userId": authService.getUserInfo().UserId
+                "userId": authService.getUserInfo().UserId,
+                "partyList": authService.getUserInfo().PartyList
             };
-
-            OrderDashCtrl.ePage.Masters.dynamicLookupConfig = dynamicLookupConfig.Entities;
             // DatePicker
             OrderDashCtrl.ePage.Masters.DatePicker = {};
             OrderDashCtrl.ePage.Masters.DatePicker.Options = APP_CONSTANT.DatePicker;
@@ -40,25 +39,25 @@
             OrderDashCtrl.ePage.Masters.CreateNewOrder = CreateNewOrder;
             OrderDashCtrl.ePage.Masters.TrackOrders = TrackOrders;
             OrderDashCtrl.ePage.Masters.GetVolumeByDate = GetVolumeByDate;
-            OrderDashCtrl.ePage.Masters.GetContainerByDate = GetContainerByDate;            
+            OrderDashCtrl.ePage.Masters.GetContainerByDate = GetContainerByDate;
             OrderDashCtrl.ePage.Masters.IsLoading = false;
             OrderDashCtrl.ePage.Masters.GetSupplierContainerValues = GetSupplierContainerValues;
-            OrderDashCtrl.ePage.Masters.GetSupplierVolumeValues = GetSupplierVolumeValues;            
+            OrderDashCtrl.ePage.Masters.GetSupplierVolumeValues = GetSupplierVolumeValues;
 
-            InitDashboardChart();            
+            InitDashboardChart();
             DashboardCount();
             RecentActivies();
-            GetDynamicLookupConfig();
+            GetRelatedLookupList();
         }
 
         function InitDashboardChart() {
-            OrderDashCtrl.ePage.Masters.SupplierVolume = ["01-12","01-13","01-14","01-15","01-16"];
-            OrderDashCtrl.ePage.Masters.SupplierVolumeCount = [1000,3500,2781,1493,700];
-            OrderDashCtrl.ePage.Masters.SupplierContainer = ["20cube","Marubeni","Sun Direct","SpotLight","City Beach"];
+            OrderDashCtrl.ePage.Masters.SupplierVolume = ["01-12", "01-13", "01-14", "01-15", "01-16"];
+            OrderDashCtrl.ePage.Masters.SupplierVolumeCount = [1000, 3500, 2781, 1493, 700];
+            OrderDashCtrl.ePage.Masters.SupplierContainer = ["20cube", "Marubeni", "Sun Direct", "SpotLight", "City Beach"];
             OrderDashCtrl.ePage.Masters.SupplierContainerCount = [100, 700, 140, 200, 123];
-            OrderDashCtrl.ePage.Masters.LastWeekStart = helperService.DateFilter('@@@LastWeek_From');
-            OrderDashCtrl.ePage.Masters.LastWeekEnd = helperService.DateFilter('@@@LastWeek_To');
-            
+            OrderDashCtrl.ePage.Masters.Last7DaysFrom = helperService.DateFilter('@@@Last7Days_From');
+            OrderDashCtrl.ePage.Masters.Last7DaysEnd = helperService.DateFilter('@@@Last7Days_To');
+
             // chart edit pop-over 
             OrderDashCtrl.ePage.Masters.dynamicPopover = {
                 templateUrl: 'app/eaxis/purchase-order/order-dashboard/pop-over-template-date.html',
@@ -77,39 +76,39 @@
 
         function GetPieChartDetails() {
             var ctx = "pie";
-            var maximumcount = Math.max(OrderDashCtrl.ePage.Masters.SupplierContainer) ;
+            var maximumcount = Math.max(OrderDashCtrl.ePage.Masters.SupplierContainer);
             var myChart = new Chart(ctx, {
-                type: "pie",                
+                type: "pie",
                 data: {
-                    labels: OrderDashCtrl.ePage.Masters.SupplierContainer,                    
+                    labels: OrderDashCtrl.ePage.Masters.SupplierContainer,
                     datasets: [{
-                            label: "Container",
-                            data: OrderDashCtrl.ePage.Masters.SupplierContainerCount,
-                            backgroundColor : [
-                                'rgba(244, 123, 123, 1)',
-                                'rgba(151, 187, 205, 1)',
-                                'rgba(116, 109, 109, 1)',
-                                'rgba(248, 217, 129, 1)',
-                                'rgba(220, 220, 220, 1)'
-                            ],
-                            borderColor : [
-                                'rgba(244, 123, 123, 1)',
-                                'rgba(151, 187, 205, 1)',
-                                'rgba(116, 109, 109, 1)',
-                                'rgba(248, 217, 129, 1)',
-                                'rgba(220, 220, 220, 1)'
-                            ],
+                        label: "Container",
+                        data: OrderDashCtrl.ePage.Masters.SupplierContainerCount,
+                        backgroundColor: [
+                            'rgba(244, 123, 123, 1)',
+                            'rgba(151, 187, 205, 1)',
+                            'rgba(116, 109, 109, 1)',
+                            'rgba(248, 217, 129, 1)',
+                            'rgba(220, 220, 220, 1)'
+                        ],
+                        borderColor: [
+                            'rgba(244, 123, 123, 1)',
+                            'rgba(151, 187, 205, 1)',
+                            'rgba(116, 109, 109, 1)',
+                            'rgba(248, 217, 129, 1)',
+                            'rgba(220, 220, 220, 1)'
+                        ],
                         // borderColor: 'rgba(67, 133, 245, 1)',
-                                borderWidth: 1
-                         }],
-                    },
+                        borderWidth: 1
+                    }],
+                },
                 options: {
                     title: {
                         display: false
                     },
                     tooltips: {
                         enabled: true,
-                        titleFontSize:14,
+                        titleFontSize: 14,
                         mode: 'index'
                     },
                     legend: {
@@ -122,16 +121,16 @@
                     }
                 }
             });
-            
+
             myChart.update({
                 duration: 800,
                 easing: 'easeOutBounce'
             })
         }
 
-        function GetBarChartDetails() {      
+        function GetBarChartDetails() {
             var ctx = "barChart";
-            var maximumcount = Math.max(OrderDashCtrl.ePage.Masters.SupplierVolume) ;
+            var maximumcount = Math.max(OrderDashCtrl.ePage.Masters.SupplierVolume);
             var myChart = new Chart(ctx, {
                 type: "bar",
                 data: {
@@ -155,7 +154,7 @@
                     scales: {
                         yAxes: [{
                             ticks: {
-                                stepSize: maximumcount/5,
+                                stepSize: maximumcount / 5,
                                 beginAtZero: true,
                                 fontColor: "#9ca0a8"
 
@@ -168,7 +167,10 @@
                             ticks: {
 
                                 fontColor: "#9ca0a8"
-                            }, gridLines: { color: "transparent" }
+                            },
+                            gridLines: {
+                                color: "transparent"
+                            }
                         }]
                     },
                     tooltips: {
@@ -233,26 +235,32 @@
 
         function CreateNewOrder() {
             var _queryString = {
-                "IsCreated" : "New"
+                "IsCreated": "New"
             };
             _queryString = helperService.encryptData(_queryString);
-            $location.path('/EA/PO/order').search({ item: _queryString });
+            $location.path('/EA/PO/order').search({
+                item: _queryString
+            });
         }
-        
+
         function UploadPurchaseOrder() {
             var _queryString = {
-                "IsCreated" : "POBatch Upload"
+                "IsCreated": "POBatch Upload"
             };
             _queryString = helperService.encryptData(_queryString);
-            $location.path('/EA/PO/po-batch-upload').search({ item: _queryString });
+            $location.path('/EA/PO/po-batch-upload').search({
+                item: _queryString
+            });
         }
 
         function TrackOrders() {
             var _queryString = {
-                "IsCreated" : "Track Orders"
+                "IsCreated": "Track Orders"
             };
             _queryString = helperService.encryptData(_queryString);
-            $location.path('/EA/PO/order').search({ item: _queryString });
+            $location.path('/EA/PO/order').search({
+                item: _queryString
+            });
         }
 
         function DashboardCount() {
@@ -270,22 +278,23 @@
             // date & week calculation
             OrderDashCtrl.ePage.Masters.ThisWeekStart = helperService.DateFilter('@@@ThisWeek_From');
             OrderDashCtrl.ePage.Masters.ThisWeekEnd = helperService.DateFilter('@@@ThisWeek_To');
-            
+
             OpenOrdersCount();
             CargoReadyDateCount();
             VesselPlanningCount();
             ConvertToBookingCount();
         }
-        
+
         function OpenOrdersCount() {
             var _filter = {
-                "SortColumn" : "POH_CreatedDateTime",
-                "SortType" : "DESC",
-                "PageNumber" : "1",
-                "PageSize" : 25,
-                "IsShpCreated" : 'false',
-                "IsValid" : 'true'
-            }            
+                "SortColumn": "POH_CreatedDateTime",
+                "SortType": "DESC",
+                "PageNumber": "1",
+                "PageSize": 25,
+                "IsShpCreated": 'false',
+                // "PartyType_FK" : OrderDashCtrl.ePage.Masters.UserProfile.partyList[0].Party_Pk,
+                "IsValid": 'true'
+            }
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": appConfig.Entities.PO.API.GetOpenOrdersCount.FilterID
@@ -299,11 +308,11 @@
 
         function CargoReadyDateCount() {
             var _filter = {
-                // "IsFollowUpIdCreated" : 'true',
-                "CargoReadyDate" : "NULL",
-                "IsShpCreated" : 'false',
-                "IsValid" : 'true'
-            }            
+                // "PartyType_FK" : OrderDashCtrl.ePage.Masters.UserProfile.partyList[0].Party_Pk,
+                "CargoReadyDate": "NULL",
+                "IsShpCreated": 'false',
+                "IsValid": 'true'
+            }
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": appConfig.Entities.PO.API.GetPendingCargoReadinessCount.FilterID
@@ -314,15 +323,16 @@
                 }
             });
         }
-        
+
         function VesselPlanningCount() {
             var _filter = {
-                "IsValid" : 'true',
-                "IsShpCreated" : 'false',
-                "CargoReadyDate" : "NOTNULL",
-                "JBS_FK" : "NOTNULL"
+                "IsValid": 'true',
+                // "PartyType_FK" : OrderDashCtrl.ePage.Masters.UserProfile.partyList[0].Party_Pk,
+                "IsShpCreated": 'false',
+                "CargoReadyDate": "NOTNULL",
+                "JBS_FK": "NOTNULL"
             }
-            
+
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": appConfig.Entities.PO.API.GetPendingVesselPlanningCount.FilterID
@@ -336,12 +346,12 @@
 
         function ConvertToBookingCount() {
             var _filter = {
-                // "IsFollowUpIdCreated" : 'true',
-                "IsPreAdviceIdCreated" : 'true',
-                "IsValid" : 'true',
-                "IsShpCreated" : 'false'
+                // "PartyType_FK" : OrderDashCtrl.ePage.Masters.UserProfile.partyList[0].Party_Pk,
+                "IsPreAdviceIdCreated": 'true',
+                "IsValid": 'true',
+                "IsShpCreated": 'false'
             }
-            
+
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": appConfig.Entities.PO.API.GetPendingConvertToBookingCount.FilterID
@@ -364,7 +374,7 @@
                 "FilterID": appConfig.Entities.SecSessionActivity.API.FindAll.FilterID
             };
             apiService.post("authAPI", appConfig.Entities.SecSessionActivity.API.FindAll.Url, _input).then(function (response) {
-                if(response.data.Response){
+                if (response.data.Response) {
                     if (response.data.Response.length > 0) {
                         OrderDashCtrl.ePage.Masters.RecentList = response.data.Response;
                     }
@@ -374,85 +384,96 @@
 
         function OpenOrders() {
             var _queryString = {
-                "SortColumn" : "POH_CreatedDateTime",
-                "SortType" : "DESC",
-                "PageNumber" : "1",
-                "PageSize" : 25,
-                "IsShpCreated" : 'false',
-                "IsValid" : 'true',
-                "IsCreated" : "Open Orders"
+                "SortColumn": "POH_CreatedDateTime",
+                "SortType": "DESC",
+                "PageNumber": "1",
+                "PageSize": 25,
+                "IsShpCreated": 'false',
+                // "PartyType_FK" : OrderDashCtrl.ePage.Masters.UserProfile.partyList[0].Party_Pk,
+                "IsValid": 'true',
+                "IsCreated": "Open Orders"
             }
             _queryString = helperService.encryptData(_queryString);
-            $location.path('/EA/PO/order').search({ item: _queryString });
+            $location.path('/EA/PO/order').search({
+                item: _queryString
+            });
         }
 
         function CargoReadyDate() {
             var _queryString = {
-                "SortColumn" : "POH_CreatedDateTime",
-                "SortType" : "DESC",
-                "PageNumber" : "1",
-                "PageSize" : 25,
-                "CargoReadyDate" : "NULL",
-                "IsShpCreated" : 'false',
-                "IsValid" : 'true',
-                "IsCreated" : "Cargo Ready Date"
+                "SortColumn": "POH_CreatedDateTime",
+                "SortType": "DESC",
+                "PageNumber": "1",
+                "PageSize": 25,
+                "CargoReadyDate": "NULL",
+                "IsShpCreated": 'false',
+                "IsValid": 'true',
+                // "PartyType_FK" : OrderDashCtrl.ePage.Masters.UserProfile.partyList[0].Party_Pk,
+                "IsCreated": "Cargo Ready Date"
             }
             _queryString = helperService.encryptData(_queryString);
-            $location.path('/EA/PO/order').search({ item: _queryString });
+            $location.path('/EA/PO/order').search({
+                item: _queryString
+            });
         }
 
         function VesselPlanning() {
             var _queryString = {
-                "SortColumn" : "POH_CreatedDateTime",
-                "SortType" : "DESC",
-                "PageNumber" : "1",
-                "PageSize" : 25,
-                "IsValid" : 'true',
-                "IsShpCreated" : 'false',
-                "CargoReadyDate" : "NOTNULL",
-                "JBS_FK" : "NOTNULL",
-                "IsCreated" : "Vessel Planning"
+                "SortColumn": "POH_CreatedDateTime",
+                "SortType": "DESC",
+                "PageNumber": "1",
+                "PageSize": 25,
+                "IsValid": 'true',
+                "IsShpCreated": 'false',
+                "CargoReadyDate": "NOTNULL",
+                "JBS_FK": "NOTNULL",
+                "IsCreated": "Vessel Planning"
             };
             _queryString = helperService.encryptData(_queryString);
-            $location.path('/EA/PO/pre-advice').search({ item: _queryString });
+            $location.path('/EA/PO/pre-advice').search({
+                item: _queryString
+            });
         }
 
         function ConvertToBooking() {
             var _queryString = {
-                "SortColumn" : "POH_CreatedDateTime",
-                "SortType" : "DESC",
-                "PageNumber" : "1",
-                "PageSize" : 25,
+                "SortColumn": "POH_CreatedDateTime",
+                "SortType": "DESC",
+                "PageNumber": "1",
+                "PageSize": 25,
                 // "IsFollowUpIdCreated" : 'true',
-                "IsPreAdviceIdCreated" : 'true',
-                "IsValid" : 'true',
-                "IsShpCreated" : 'false',
-                "IsCreated" : "Convert To Booking"
+                "IsPreAdviceIdCreated": 'true',
+                "IsValid": 'true',
+                "IsShpCreated": 'false',
+                "IsCreated": "Convert To Booking"
             };
             _queryString = helperService.encryptData(_queryString);
-            $location.path('/EA/PO/pre-advice').search({ item: _queryString });
-        }
-        
-        function GetDynamicLookupConfig() {
-            // Get DataEntryNameList 
-            var DataEntryNameList = "OrganizationList,MstUNLOCO,CmpDepartment,CmpEmployee,CmpBranch,DGSubstance,OrgContact,MstCommodity,MstContainer,OrgSupplierPart,MstVessel,ShipmentSearch,ConsolHeader,OrderHeader,MDM_CarrierList,SailingDetails";
-            var dynamicFindAllInput = [{
-                "FieldName": "DataEntryNameList",
-                "value": DataEntryNameList
-            }];
-            var _input = {
-                "searchInput": dynamicFindAllInput,
-                "FilterID": appConfig.Entities.DataEntryMaster.API.FindAll.FilterID
-            };
-            
-            apiService.post("eAxisAPI", appConfig.Entities.DataEntryMaster.API.FindAll.Url, _input).then(function (response) {
-                var res = response.data.Response;
-                res.map(function (value, key) {
-                    OrderDashCtrl.ePage.Masters.dynamicLookupConfig[value.DataEntryName] = value;
-                });
+            $location.path('/EA/PO/pre-advice').search({
+                item: _queryString
             });
         }
-        
+
+        function GetRelatedLookupList() {
+            var _filter = {
+                Key: "OrdCarrierPlanning_2834,OrdVesselPlanning_3187,VesselPOL_3309,VesselPOD_3310",
+                SAP_FK: authService.getUserInfo().AppPK
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.DYN_RelatedLookup.API.GroupFindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", appConfig.Entities.DYN_RelatedLookup.API.GroupFindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    var _isEmpty = angular.equals({}, response.data.Response);
+
+                    if (!_isEmpty) {
+                        dynamicLookupConfig.Entities = Object.assign({}, dynamicLookupConfig.Entities, response.data.Response);
+                    }
+                }
+            });
+        }
+
         Init();
     }
 })();

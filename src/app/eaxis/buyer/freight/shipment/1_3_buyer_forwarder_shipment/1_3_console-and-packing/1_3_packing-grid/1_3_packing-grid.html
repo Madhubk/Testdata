@@ -1,0 +1,310 @@
+<div class="clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding" data-ng-if="!oneThreePackingGridCtrl.readOnly">
+        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0">
+            <span>
+                <button type="button" data-ng-if="oneThreePackingGridCtrl.btnVisible.AddNew" class="btn btn-sm btn-outline-secondary font-10"
+                    title="Add New" data-ng-click="oneThreePackingGridCtrl.ePage.Masters.Package.AddNewPacking()">
+                    <span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button>
+            </span>
+            <span>
+                <button data-ng-if="oneThreePackingGridCtrl.btnVisible.Delete" data-ng-disabled="oneThreePackingGridCtrl.ePage.Masters.selectedRow==-1"
+                    type="button" class="btn btn-sm btn-outline-primary font-10" title="Delete" data-ng-click="oneThreePackingGridCtrl.ePage.Masters.Package.PackageDeleteConfirmation(oneThreePackingGridCtrl.ePage.Masters.selectedRow, oneThreePackingGridCtrl.ePage.Masters.selectedRowObj) && oneThreePackingGridCtrl.ePage.Masters.selectedRow!=-1">
+                    <span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button>
+            </span>
+            <span>
+                <button data-ng-if="oneThreePackingGridCtrl.btnVisible.More" type="button" data-ng-disabled="oneThreePackingGridCtrl.ePage.Masters.selectedRow==-1"
+                    class="btn btn-sm btn-outline-primary font-10" title="More" data-ng-click="oneThreePackingGridCtrl.ePage.Masters.Package.More(oneThreePackingGridCtrl.ePage.Masters.selectedRow,oneThreePackingGridCtrl.ePage.Masters.selectedRowObj) && oneThreePackingGridCtrl.ePage.Masters.selectedRow!=-1">
+                    <span class="fa fa-ellipsis-v"></span>&nbsp;&nbsp;More</button>
+            </span>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 p-0">
+            &nbsp;
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0">
+            &nbsp;
+        </div>
+    </div>
+    <div id="PackingGrid{{oneThreePackingGridCtrl.currentObject.label}}" class="fixedheader mb-0">
+        <table id="oneThreePackingGridCtrl.ePage.Masters.AddScroll" style="height:250px;">
+            <thead>
+                <tr id="tableHeader">
+                    <th id="packcnt" data-ng-if="oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.packcnt.isenabled"
+                        data-ng-style="{ 'width': oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.packcnt.width + 'px' }"
+                        title="Pack Cnt">Pack Cnt</th>
+                    <th id="packtype" data-ng-if="oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.packtype.isenabled"
+                        data-ng-style="{ 'width': oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.packtype.width + 'px' }"
+                        title="Pack Type">Pack Type</th>
+                    <th id="length" data-ng-if="oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.length.isenabled"
+                        data-ng-style="{ 'width': oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.length.width + 'px' }"
+                        title="Length">Length</th>
+                    <th id="width" data-ng-if="oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.width.isenabled"
+                        data-ng-style="{ 'width': oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.width.width + 'px' }"
+                        title="Width">Width</th>
+                    <th id="height" data-ng-if="oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.height.isenabled"
+                        data-ng-style="{ 'width': oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.height.width + 'px' }"
+                        title="Height">Height</th>
+                    <th id="ud" data-ng-if="oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.ud.isenabled"
+                        data-ng-style="{ 'width': oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.ud.width + 'px' }"
+                        title="Unit of Dimension">Unit of Dimension</th>
+                    <th id="weight" data-ng-if="oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.weight.isenabled"
+                        data-ng-style="{ 'width': oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.weight.width + 'px' }"
+                        title="Weight">Weight</th>
+                    <th id="uw" data-ng-if="oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.uw.isenabled"
+                        data-ng-style="{ 'width': oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.uw.width + 'px' }"
+                        title="Unit of Weight">Unit of Weight</th>
+                    <th id="volume" data-ng-if="oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.volume.isenabled"
+                        data-ng-style="{ 'width': oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.volume.width + 'px' }"
+                        title="Volume">Volume</th>
+                    <th id="uv" data-ng-if="oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.uv.isenabled"
+                        data-ng-style="{ 'width': oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.uv.width + 'px' }"
+                        title="Unit of Volume">Unit of Volume</th>
+                    <th id="description" data-ng-if="oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.description.isenabled"
+                        data-ng-style="{ 'width': oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.description.width + 'px' }"
+                        title="Description">Description</th>
+                </tr>
+            </thead>
+            <tbody id="">
+                <tr id="tableBody" data-ng-if="oneThreePackingGridCtrl.ePage.Masters.FreightMode && !oneThreePackingGridCtrl.readOnly"
+                    data-ng-class="{row_active: (oneThreePackingGridCtrl.ePage.Masters.selectedRow==$index)}" data-ng-repeat="x in oneThreePackingGridCtrl.ePage.Entities.Header.Data.UIJobPackLines | filter:{IsDeleted:false, FreightMode: oneThreePackingGridCtrl.ePage.Masters.FreightMode}"
+                    data-ng-click="oneThreePackingGridCtrl.ePage.Masters.selectedRow = $index;oneThreePackingGridCtrl.ePage.Masters.selectedRowObj=x">
+                    <!-- Pack Cnt -->
+                    <td id="packcnt" data-ng-if="oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.packcnt.isenabled"
+                        data-ng-style="{ 'width': oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.packcnt.width + 'px' }">
+                        <div data-ng-if="$index!=oneThreePackingGridCtrl.ePage.Masters.selectedRow || oneThreePackingGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.PackageCount || oneThreePackingGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==oneThreePackingGridCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                            <div class="ship-font" style="width:40px;">
+                                <input type="text" numbers-only class="form-control input-sm" placeholder="Packs"
+                                 data-ng-model="x.PackageCount" data-ng-change="oneThreePackingGridCtrl.ePage.Masters.PackageCount()"/>
+                            </div>
+                        </div>
+                    </td>
+                    <!-- Pack Type -->
+                    <td id="packtype" data-ng-if="oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.packtype.isenabled"
+                        data-ng-style="{ 'width': oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.packtype.width + 'px' }">
+                        <div data-ng-if="$index!=oneThreePackingGridCtrl.ePage.Masters.selectedRow || oneThreePackingGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.F3_NKPackType || oneThreePackingGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==oneThreePackingGridCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                            <div class="ship-font">
+                                <select chosen name="category-group" class="form-control" data-ng-model="x.F3_NKPackType"
+                                    data-ng-options="x.Code as x.Value for x in oneThreePackingGridCtrl.ePage.Masters.DropDownMasterList.PackType.ListSource"
+                                    search-contains="true">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                        </div>
+                    </td>
+                    <!-- Length -->
+                    <td id="length" data-ng-if="oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.length.isenabled"
+                        data-ng-style="{ 'width': oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.length.width + 'px' }">
+                        <div data-ng-if="$index!=oneThreePackingGridCtrl.ePage.Masters.selectedRow || oneThreePackingGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.Length || oneThreePackingGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==oneThreePackingGridCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                            <div class="ship-font">
+                                <input type="text" numbers-only-dot sb-precision="3" class="form-control input-sm"
+                                    placeholder="Length" data-ng-model="x.Length" />
+                            </div>
+                        </div>
+                    </td>
+                    <!-- Width -->
+                    <td id="width" data-ng-if="oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.width.isenabled"
+                        data-ng-style="{ 'width': oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.width.width + 'px' }">
+                        <div data-ng-if="$index!=oneThreePackingGridCtrl.ePage.Masters.selectedRow || oneThreePackingGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.Width || oneThreePackingGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==oneThreePackingGridCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                            <div class="ship-font">
+                                <input type="text" numbers-only-dot sb-precision="3" class="form-control input-sm"
+                                    placeholder="Width" data-ng-model="x.Width" />
+                            </div>
+                        </div>
+                    </td>
+                    <!-- Height -->
+                    <td id="height" data-ng-if="oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.height.isenabled"
+                        data-ng-style="{ 'width': oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.height.width + 'px' }">
+                        <div data-ng-if="$index!=oneThreePackingGridCtrl.ePage.Masters.selectedRow || oneThreePackingGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.Height || oneThreePackingGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==oneThreePackingGridCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                            <div class="ship-font">
+                                <input type="text" numbers-only-dot sb-precision="3" class="form-control input-sm"
+                                    placeholder="Height" data-ng-model="x.Height" />
+                            </div>
+                        </div>
+                    </td>
+                    <!--UD-->
+                    <td id="ud" data-ng-if="oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.ud.isenabled"
+                        data-ng-style="{ 'width': oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.ud.width + 'px' }">
+                        <div data-ng-if="$index!=oneThreePackingGridCtrl.ePage.Masters.selectedRow || oneThreePackingGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.UnitOfDimension|| oneThreePackingGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==oneThreePackingGridCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                            <div class="ship-font">
+                                <select chosen name="category-group" class="form-control" data-ng-model="x.UnitOfDimension"
+                                    data-ng-options="x.Key as x.Description for x in oneThreePackingGridCtrl.ePage.Masters.DropDownMasterList.HEIGHTUNIT.ListSource"
+                                    search-contains="true">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                        </div>
+                    </td>
+                    <!-- Weight -->
+                    <td id="weight" data-ng-if="oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.weight.isenabled"
+                        data-ng-style="{ 'width': oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.weight.width + 'px' }">
+                        <div data-ng-if="$index!=oneThreePackingGridCtrl.ePage.Masters.selectedRow || oneThreePackingGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.ActualWeight || oneThreePackingGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==oneThreePackingGridCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                            <div class="input-group input-group-sm">
+                                <input type="text" numbers-only-dot sb-precision="3" class="form-control input-sm" data-ng-model="x.ActualWeight" placeholder="Weight" data-ng-change="oneThreePackingGridCtrl.ePage.Masters.Weight()"/>
+                            </div>
+                        </div>
+                    </td>
+                    <!-- UW -->
+                    <td id="uw" data-ng-if="oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.uw.isenabled"
+                        data-ng-style="{ 'width': oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.uw.width + 'px' }">
+                        <div data-ng-if="$index!=oneThreePackingGridCtrl.ePage.Masters.selectedRow || oneThreePackingGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.ActualWeightUQ || oneThreePackingGridCtrl.ePage.Masters.emptyText}}</div>
+                        <div data-ng-if="$index==oneThreePackingGridCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+
+                            <select chosen name="category-group" class="form-control" data-ng-model="x.ActualWeightUQ"
+                                data-ng-options="x.Key as x.Description for x in oneThreePackingGridCtrl.ePage.Masters.DropDownMasterList.WEIGHTUNIT.ListSource"
+                                search-contains="true">
+                                <option value="">--Select--</option>
+                            </select>
+
+                        </div>
+                    </td>
+                    <!-- Volume -->
+                    <td id="volume" data-ng-if="oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.volume.isenabled"
+                        data-ng-style="{ 'width': oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.volume.width + 'px' }">
+                        <div data-ng-if="$index!=oneThreePackingGridCtrl.ePage.Masters.selectedRow || oneThreePackingGridCtrl.ePage.GlobalVariables.NonEditable">{{x.ActualVolume
+                            || oneThreePackingGridCtrl.ePage.Masters.emptyText}}</div>
+                        <div class="ship-font" data-ng-if="$index==oneThreePackingGridCtrl.ePage.Masters.selectedRow"
+                            data-ng-click="$event.stopPropagation()">
+                            <div class="input-group input-group-sm">
+                                <input type="text" numbers-only-dot sb-precision="3" class="form-control input-sm"
+                                    data-ng-model="x.ActualVolume" placeholder="Volume" data-ng-change="oneThreePackingGridCtrl.ePage.Masters.Volume()"/>
+                            </div>
+                        </div>
+                    </td>
+                    <!--UV-->
+                    <td id="uv" data-ng-if="oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.uv.isenabled"
+                        data-ng-style="{ 'width': oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.uv.width + 'px' }">
+                        <div data-ng-if="$index!=oneThreePackingGridCtrl.ePage.Masters.selectedRow || oneThreePackingGridCtrl.ePage.GlobalVariables.NonEditable">{{x.ActualVolumeUQ
+                            || oneThreePackingGridCtrl.ePage.Masters.emptyText}}</div>
+                        <div data-ng-if="$index==oneThreePackingGridCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+
+                            <select chosen name="category-group" class="form-control" data-ng-model="x.ActualVolumeUQ"
+                                ng-options="x.Key as x.Description for x in oneThreePackingGridCtrl.ePage.Masters.DropDownMasterList.VOLUMEUNIT.ListSource"
+                                search-contains="true">
+                                <option value="">--Select--</option>
+                            </select>
+
+                        </div>
+                    </td>
+                    <!-- Description -->
+                    <td id="description" data-ng-if="oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.description.isenabled"
+                        data-ng-style="{ 'width': oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.description.width + 'px' }">
+                        <div data-ng-if="$index!=oneThreePackingGridCtrl.ePage.Masters.selectedRow || oneThreePackingGridCtrl.ePage.GlobalVariables.NonEditable">{{x.Description
+                            || oneThreePackingGridCtrl.ePage.Masters.emptyText}}</div>
+                        <div data-ng-if="$index==oneThreePackingGridCtrl.ePage.Masters.selectedRow" class="" data-ng-click="$event.stopPropagation()">
+                            <textarea class="form-control input-sm no-resize" rows="1" placeholder="Description"
+                                data-ng-model="x.Description"></textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr id="tableBody" data-ng-if="oneThreePackingGridCtrl.ePage.Masters.FreightMode && oneThreePackingGridCtrl.readOnly"
+                    data-ng-repeat="x in oneThreePackingGridCtrl.ePage.Entities.Header.Data.UIJobPackLines | filter:{IsDeleted:false, FreightMode: oneThreePackingGridCtrl.ePage.Masters.FreightMode}">
+                    <!-- Pack Cnt -->
+                    <td id="packcnt" data-ng-if="oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.packcnt.isenabled"
+                        data-ng-style="{ 'width': oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.packcnt.width + 'px' }">
+                        {{x.PackageCount || oneThreePackingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- Pack Type -->
+                    <td id="packtype" data-ng-if="oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.packtype.isenabled"
+                        data-ng-style="{ 'width': oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.packtype.width + 'px' }">
+                        {{x.F3_NKPackType || oneThreePackingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- Length -->
+                    <td id="length" data-ng-if="oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.length.isenabled"
+                        data-ng-style="{ 'width': oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.length.width + 'px' }">
+                        {{x.Length || oneThreePackingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- Width -->
+                    <td id="width" data-ng-if="oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.width.isenabled"
+                        data-ng-style="{ 'width': oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.width.width + 'px' }">
+                        {{x.Width || oneThreePackingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- Height -->
+                    <td id="height" data-ng-if="oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.height.isenabled"
+                        data-ng-style="{ 'width': oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.height.width + 'px' }">
+                        {{x.Height || oneThreePackingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!--UD-->
+                    <td id="ud" data-ng-if="oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.ud.isenabled"
+                        data-ng-style="{ 'width': oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.ud.width + 'px' }">
+                        {{x.UnitOfDimension|| oneThreePackingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- Weight -->
+                    <td id="weight" data-ng-if="oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.weight.isenabled"
+                        data-ng-style="{ 'width': oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.weight.width + 'px' }">
+                        {{x.ActualWeight || oneThreePackingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- UW -->
+                    <td id="uw" data-ng-if="oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.uw.isenabled"
+                        data-ng-style="{ 'width': oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.uw.width + 'px' }">
+                        {{x.ActualWeightUQ || oneThreePackingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- Volume -->
+                    <td id="volume" data-ng-if="oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.volume.isenabled"
+                        data-ng-style="{ 'width': oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.volume.width + 'px' }">
+                        {{x.ActualVolume || oneThreePackingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!--UV-->
+                    <td id="uv" data-ng-if="oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.uv.isenabled"
+                        data-ng-style="{ 'width': oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.uv.width + 'px' }">
+                        {{x.ActualVolumeUQ || oneThreePackingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- Description -->
+                    <td id="description" data-ng-if="oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.description.isenabled"
+                        data-ng-style="{ 'width': oneThreePackingGridCtrl.ePage.Masters.TableProperties.UIPackingLines.description.width + 'px' }">
+                        {{x.Description || oneThreePackingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="grid-no-record" data-ng-if="oneThreePackingGridCtrl.ePage.Entities.Header.Data.UIJobPackLines.length == 0">No
+            records found...</div>
+    </div>
+    <!-- Pagination -->
+    <div class="mr-10 ml-10">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pagination-border">
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3 col-xl-3 pt-10 p-0">
+                <ul uib-pagination boundary-links="true" total-items="oneThreePackingGridCtrl.ePage.Masters.Package.GridData.length"
+                    data-ng-model="oneThreePackingGridCtrl.ePage.Masters.Pagination.CurrentPage" class="pagination-sm" max-size="oneThreePackingGridCtrl.ePage.Masters.Pagination.MaxSize"
+                    items-per-page="oneThreePackingGridCtrl.ePage.Masters.Pagination.ItemsPerPage" num-pages="oneThreePackingGridCtrl.ePage.Masters.Pagination.TotalPage"
+                    previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3 col-xl-3 pt-10">
+                <select data-ng-model="oneThreePackingGridCtrl.ePage.Masters.Pagination.ItemsPerPage" data-ng-change="">
+                    <option data-ng-selected="true">25</option>
+                    <option>50</option>
+                    <option>100</option>
+                    <option>500</option>
+                </select> Records Per Page.
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 pt-10 pull-right">
+                <div class="">Page : {{oneThreePackingGridCtrl.ePage.Masters.Pagination.CurrentPage}} /
+                    {{oneThreePackingGridCtrl.ePage.Masters.Pagination.TotalPage}}</div>
+                <div class="">Total Records : {{(oneThreePackingGridCtrl.ePage.Entities.Header.Data.UIJobPackLines |
+                    filter:{IsDeleted:false, FreightMode:
+                    oneThreePackingGridCtrl.ePage.Masters.FreightMode}).length}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

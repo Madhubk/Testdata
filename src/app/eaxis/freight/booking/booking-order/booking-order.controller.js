@@ -10,7 +10,6 @@
     function BookingOrderController($rootScope, $scope, $state, $q, $location, $timeout, $uibModal, APP_CONSTANT, authService, apiService, appConfig, BookingConfig, helperService, toastr, confirmation) {
         /* jshint validthis: true */
         var BookingOrderCtrl = this;
-
         function Init() {
             var currentBooking = BookingOrderCtrl.currentBooking[BookingOrderCtrl.currentBooking.label].ePage.Entities;
             BookingOrderCtrl.ePage = {
@@ -29,7 +28,7 @@
             BookingOrderCtrl.ePage.Masters.DeleteBookingOrder = DeleteBookingOrder;
             BookingOrderCtrl.ePage.Masters.DeleteConfirmation = DeleteConfirmation;
             BookingOrderCtrl.ePage.Masters.SelectedData = SelectedData;
-            BookingOrderCtrl.ePage.Masters.More = More;
+            BookingOrderCtrl.ePage.Masters.OrderItemCall = OrderItemCall
 
             if (BookingOrderCtrl.currentBooking.isNew) {
                 BookingOrderCtrl.ePage.Entities.Header.Data.UIOrderHeaders = [];
@@ -62,22 +61,59 @@
 
         function GetOrderReference() {
             BookingOrderCtrl.ePage.Masters.orderReferenceText = "";
-            var _filter = {
-                "OrderRefKey": BookingOrderCtrl.ePage.Entities.Header.Data.PK,
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": BookingOrderCtrl.ePage.Entities.BookingOrder.API.FindAll.FilterID
-            };
 
-            apiService.post("eAxisAPI", BookingOrderCtrl.ePage.Entities.BookingOrder.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    BookingOrderCtrl.ePage.Masters.OrderReference = response.data.Response;
-                    BookingOrderCtrl.ePage.Masters.OrderReference.map(function (val, key) {
-                        BookingOrderCtrl.ePage.Masters.orderReferenceText += val.OrderReference + ','
-                    });
-                }
+            BookingOrderCtrl.ePage.Entities.Header.Data.UIPorOrderItem.map(function (val, key) {
+                BookingOrderCtrl.ePage.Masters.orderReferenceText += val.OrderReference + ','
             });
+            BookingOrderCtrl.ePage.Masters.orderReferenceText = BookingOrderCtrl.ePage.Masters.orderReferenceText.substring(0, BookingOrderCtrl.ePage.Masters.orderReferenceText.length - 1)
+
+        }
+
+        function OrderItemCall(text) {
+            var _split = text.split(',');
+            if (text != '') {
+                if (_split.length >= BookingOrderCtrl.ePage.Entities.Header.Data.UIPorOrderItem.length) {
+                    _split.map(function (val, key) {
+                        if (key >= BookingOrderCtrl.ePage.Entities.Header.Data.UIPorOrderItem.length) {
+                            var _orderRefObj = {
+                                "IsValid": true,
+                                "OrderReference": val,
+                                "Sequence": key + 1,
+                                "JDC_FK": "",
+                                "Source": "POH",
+                                "SourceRefKey": BookingOrderCtrl.ePage.Entities.Header.Data.PK,
+                                "IsModified": false,
+                                "IsDeleted": false
+                            };
+                            BookingOrderCtrl.ePage.Entities.Header.Data.UIPorOrderItem.push(_orderRefObj)
+                        } else {
+                            BookingOrderCtrl.ePage.Entities.Header.Data.UIPorOrderItem[key].IsDeleted = false;
+                            BookingOrderCtrl.ePage.Entities.Header.Data.UIPorOrderItem[key].OrderReference = val;
+                        }
+
+                    });
+                } else {
+
+                    BookingOrderCtrl.ePage.Entities.Header.Data.UIPorOrderItem.map(function (val, key) {
+                        if (_split.length > key) {
+                            val.IsDeleted = false;
+                            val.OrderReference = _split[key]
+                        } else {
+                            if (BookingOrderCtrl.ePage.Entities.Header.Data.UIPorOrderItem[key].PK == undefined) {
+                                val.IsDeleted = true;
+                                BookingOrderCtrl.ePage.Entities.Header.Data.UIPorOrderItem.splice(key, 1)
+                            } else {
+                                val.IsDeleted = true;
+                            }
+                        }
+                    })
+
+                }
+            } else {
+                BookingOrderCtrl.ePage.Entities.Header.Data.UIPorOrderItem.map(function (val, key) {
+                    val.IsDeleted = true;
+                });
+            }
         }
 
         function BookingOrderGridRefreshFun($item) {
@@ -97,16 +133,16 @@
                             "PropertyNewValue": BookingOrderCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentNo
                         }]
                     };
-                    if (val.SHP_FK == null || val.SHP_FK=='') {
+                    if (val.SHP_FK == null || val.SHP_FK == '') {
                         _tempArray.push(_tempObj)
                     } else {
-                        toastr.warning(val.OrderNo + " Already attached another Booking...!");
+                        toastr.warning(val.OrderNo + " Already attached another shipment...!");
                     }
                 } else {
                     toastr.warning(val.OrderNo + " Already Available...!");
                 }
             });
-            apiService.post("eAxisAPI", BookingOrderCtrl.ePage.Entities.Header.API.OrderAttach.Url, _tempArray).then(function (response) {
+            apiService.post("eAxisAPI", appConfig.Entities.PorOrderHeader.API.UpdateRecords.Url, _tempArray).then(function (response) {
                 if (response.data.Response) {
                     GetOrderListing();
                 }
@@ -143,7 +179,7 @@
                     "PropertyNewValue": ''
                 }]
             }]
-            apiService.post("eAxisAPI", BookingOrderCtrl.ePage.Entities.Header.API.OrderAttach.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", appConfig.Entities.PorOrderHeader.API.UpdateRecords.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     // GetOrderListing();
                     BookingOrderCtrl.ePage.Entities.Header.Data.UIOrderHeaders.splice(_index, 1);
@@ -151,38 +187,6 @@
             });
         }
 
-        function More() {
-
-            var modalInstance = $uibModal.open({
-                animation: true,
-                backdrop: "static",
-                keyboard: false,
-                windowClass: "orderItem-modal",
-                scope: $scope,
-                // size : "sm",
-                templateUrl: "app/eaxis/freight/booking/Booking-order/orderItem-modal.html",
-                controller: 'orderItemModalController',
-                controllerAs: "orderItemModalCtrl",
-                bindToController: true,
-                resolve: {
-                    param: function () {
-                        var exports = {
-                            "OrderReference": BookingOrderCtrl.ePage.Masters.OrderReference,
-                            "CurrentBooking": BookingOrderCtrl.ePage.Entities
-                        };
-                        return exports;
-                    }
-                }
-            }).result.then(
-                function (response) {
-                    BookingOrderCtrl.ePage.Masters.orderReferenceText = ""
-                    response.map(function (val, key) {
-                        BookingOrderCtrl.ePage.Masters.orderReferenceText += val.OrderReference + ','
-                    });
-                }
-            );
-
-        }
 
         function SelectedData($item) {
             BookingOrderGridRefreshFun($item)

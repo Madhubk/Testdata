@@ -9,7 +9,7 @@
 
         <div class="no-padding tab-list-view-wrapper">
             <!--Mhu Grid Page-->
-            <dynamic-list dataentry-name="MhuCtrl.ePage.Masters.dataentryName" task-name="MhuCtrl.ePage.Masters.taskName" grid-config-type="0" selected-grid-row="MhuCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" ></dynamic-list>
+            <dynamic-list dataentry-name="MhuCtrl.ePage.Masters.dataentryName" dataentry-object="MhuCtrl.ePage.Masters.DataEntryObject" selected-grid-row="MhuCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" ></dynamic-list>
             <div class="tab-loading" data-ng-show="MhuCtrl.ePage.Masters.IsTabClick"></div>
         </div>
     </uib-tab>
@@ -39,7 +39,7 @@
         <div class="padding-bottom-10 clearfix">
 
             <!--Mhu Menu Directive-->
-            <mhu-menu current-mhu="tab"></mhu-menu>
+            <mhu-menu current-mhu="tab" dataentry-object="MhuCtrl.ePage.Masters.DataEntryObject"></mhu-menu>
             <div class="horizontal-space"></div>
         </div>
         <span ng-if="MhuCtrl.ePage.Masters.Config.SaveAndClose" ng-init="MhuCtrl.ePage.Masters.SaveandClose(MhuCtrl.ePage.Masters.activeTabIndex, tab)"></span>

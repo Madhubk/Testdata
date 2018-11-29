@@ -1,0 +1,25 @@
+<div class="clearfix">
+	<div class="col-lg-4">
+		<div>Consingor :</div>
+		<a class="my-task-content-shipper-link" href="javascript: void(0)">{{UploadInboundReportVnmDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Shipper_Code}}</a>
+	</div>
+	<div class="col-lg-4">
+		<div>Consingee :</div>
+		<a class="my-task-content-shipper-link" href="javascript: void(0)">{{UploadInboundReportVnmDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Consignee_Code}}</a>
+	</div>
+</div>
+<div class="row mt-10" id="style-4">
+	<div class="col-lg-12" data-ng-if="UploadInboundReportVnmDirectiveCtrl.ePage.Masters.StandardMenuInput"
+	 upload-document-ord input="UploadInboundReportVnmDirectiveCtrl.ePage.Masters.StandardMenuInput" doc-type-dsc="UploadInboundReportVnmDirectiveCtrl.ePage.Masters.MyTask.WSI_StepName"
+	 is-uploaded="UploadInboundReportVnmDirectiveCtrl.ePage.Masters.IsUploaded({ $item: $item })" config="UploadInboundReportVnmDirectiveCtrl.ePage.Masters.StandardConfigInput"
+	 class="my-task-icon fa fa-file-text-o mr-5">
+	</div>
+	<div class="col-lg-6" data-ng-if="UploadInboundReportVnmDirectiveCtrl.ePage.Masters.StandardMenuInput"
+	 is-document-uploaded="UploadInboundReportVnmDirectiveCtrl.ePage.Masters.IsDocumentUploaded" view-document-ord input="UploadInboundReportVnmDirectiveCtrl.ePage.Masters.StandardMenuInput"
+	 mode="3" config="UploadInboundReportVnmDirectiveCtrl.ePage.Masters.StandardConfigInput" class="my-task-icon fa fa-file-text-o mr-5">
+	</div>
+	<div class="col-lg-6 text-right pr-0 pl-28">
+		<button class="my-task-btn my-task-directive-btn" data-ng-click="UploadInboundReportVnmDirectiveCtrl.ePage.Masters.Complete()"
+		 data-ng-disabled="UploadInboundReportVnmDirectiveCtrl.ePage.Masters.CompleteBtnDisabled">{{UploadInboundReportVnmDirectiveCtrl.ePage.Masters.CompleteBtnTxt}}</button>
+	</div>
+</div>

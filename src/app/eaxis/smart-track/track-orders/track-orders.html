@@ -6,7 +6,8 @@
         </uib-tab-heading>
         <div class="no-padding tab-list-view-wrapper">
             <!--Order Grid Page-->
-            <dynamic-list task-name="TrackOrderCtrl.ePage.Masters.taskName" grid-config-type="0" dataentry-name="TrackOrderCtrl.ePage.Masters.dataentryName" selected-grid-row="TrackOrderCtrl.ePage.Masters.SelectedGridRow($item)" mode="1"></dynamic-list>
+            <!-- <dynamic-list task-name="TrackOrderCtrl.ePage.Masters.taskName" grid-config-type="0" dataentry-name="TrackOrderCtrl.ePage.Masters.dataentryName" selected-grid-row="TrackOrderCtrl.ePage.Masters.SelectedGridRow($item)" mode="1"></dynamic-list> -->
+            <dynamic-list dataentry-name="TrackOrderCtrl.ePage.Masters.dataentryName" selected-grid-row="TrackOrderCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" dataentry-object="TrackOrderCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
             <div class="tab-loading" data-ng-show="TrackOrderCtrl.ePage.Masters.IsTabClick"></div>
         </div>
     </uib-tab>
@@ -21,7 +22,8 @@
             <!--Standard Menu Directive-->
             <div class="eaxis-footer-strip">
                 <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
-                    <standard-menu entity-name="'OrderHeader'" input="tab" data-ng-if="!tab.isNew"></standard-menu>
+                    <!-- <standard-menu entity-name="'OrderHeader'" input="tab" data-ng-if="!tab.isNew"></standard-menu> -->
+                    <standard-menu input="tab" dataentry-object="TrackOrderCtrl.ePage.Masters.DataEntryObject" data-ng-if="!tab.isNew"></standard-menu>
                 </div>
             </div>
         </div>

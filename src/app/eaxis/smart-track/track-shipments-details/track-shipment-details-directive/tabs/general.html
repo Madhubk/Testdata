@@ -1,0 +1,593 @@
+<div class="p-10">
+    <div class="panel panel-default set-bg-f5f5f5 mb-15">
+
+        <div class="clearfix">
+            <div class="row margin-right-10 margin-left-10 margin-top-10 address-panel">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 pr-0 padding-top-10 address-design">
+                    <!--Pickup Drop Mode-->
+                    <div class="padding-bottom-5">
+                        <div class="ship-font">
+                            <label class="control-label"> Consignor</label>
+                            <span class="error-warning-container">
+                                <error-warning-directive data-ng-if="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Shipper_Code.IsWarning && !TrackShipmentDetailsDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Shipper_Code.IsError"
+                                    list="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Shipper_Code.WARNING"
+                                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                                <error-warning-directive data-ng-if="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Shipper_Code.IsError"
+                                    list="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Shipper_Code.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            </span>
+                        </div>
+                    </div> 
+                    <!--Estimated Pickup-->
+                    <div class="padding-right-10">
+                        <div class="form-group">
+                            <div class="input-group input-group-sm">
+                                    <input type="hidden" ng-model="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ORG_FK" >
+                                <!-- 
+                        <div dynamic-lookup placeholder="Organization Code" my-ng-model="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ORG_Code"
+                            obj="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD" prefix-data="'OrganizationList'" data-ng-disabled="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.Disable"
+                            config="'JobAddressOrgConsignor'" auto-complete-on-select="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item, 'address', 'CRD','CRG')">
+                        </div> -->
+                                <input class="form-control    no-resize"  placeholder="Organization Code" ng-model="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ORG_Code"
+                                    disabled="disabled" />
+                                <span class="input-group-btn">
+                                    <button dynamic-list-modal obj="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED" field-name="'JobAddressOrgConsignee'"
+                                        disabled="true" prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                        selected-data="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.SelectedLookupData($item, 'address', 'CED','CEG')"
+                                        class="btn btn-default shiny" type="button">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="padding-right-10">
+                        <div class="form-group">
+                            <div class="input-group input-group-sm">
+                                <input type="hidden" ng-model="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OAD_Address_FK">
+                                <textarea class="form-control    no-resize" disabled="disabled" placeholder="Please select consignor address" data-ng-model="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.AddressContactBinding((TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.AddressList | filter: {PK: TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OAD_Address_FK})[0],'Address')"
+                                    ng-model-options="{ getterSetter: true }"></textarea>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-ng-click="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.IsCRDAddressOpen=!TrackShipmentDetailsDirectiveCtrl.ePage.Masters.IsCRDAddressOpen"
+                                        disabled="disabled">
+                                        <i class="fa fa-address-book-o"></i>
+                                        <!--<i class="fa fa-caret-down"></i>-->
+                                    </button>
+                                </span>
+                                <div class="dropdownWrapLeft animated fadeInDown" data-ng-show="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.IsCRDAddressOpen">
+                                    <address-wrapper obj="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.AddressList"
+                                        type="'CRD'" list-source="'AddressList'" selected="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OAD_Address_FK"
+                                        on-address-edit="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.OnAddressEdit($item, 'CRD', 'Address')"
+                                        on-address-change="TrackShipmentDetailsDirectiveCtrl.ePage.Maste($item, 'CRD', 'Address','CRG')"></address-wrapper>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="padding-right-10">
+                        <div class="form-group">
+                            <div class="input-group input-group-sm">
+                                <input type="hidden" ng-model="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OCT_FK">
+                                <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignor contact" data-ng-model="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.AddressContactBinding((TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ContactList | filter: {PK: TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OCT_FK})[0],'Contact')"
+                                    ng-model-options="{ getterSetter: true }"></textarea>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-ng-click="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.IsCRDContactOpen=!TrackShipmentDetailsDirectiveCtrl.ePage.Masters.IsCRDContactOpen"
+                                        disabled="disabled">
+                                        <i class="fa fa-phone"></i>
+                                    </button>
+                                </span>
+                                <div class="dropdownWrapLeft animated fadeInDown" data-ng-show="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.IsCRDContactOpen">
+                                    <address-wrapper obj="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ContactList"
+                                        type="'CRD'" list-source="'ContactList'" selected="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OCT_FK"
+                                        on-address-change="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.OnContactChange($item, 'CRD', 'Contact','CRG')"></address-wrapper>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 pr-0 padding-top-10 address-consignee">
+                    <!--Pickup Drop Mode-->
+                    <div class="padding-bottom-5">
+                        <div class="ship-font">
+                            <!--<i class="fa fa-globe"></i>-->
+                            <label class="control-label"> Consignee</label>
+                            <span class="error-warning-container">
+                                <error-warning-directive data-ng-if="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Consignee_Code.IsWarning && !TrackShipmentDetailsDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Consignee_Code.IsError"
+                                    list="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Consignee_Code.WARNING"
+                                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                                <error-warning-directive data-ng-if="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Consignee_Code.IsError"
+                                    list="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Consignee_Code.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            </span>
+                        </div>
+                    </div>
+                    <!--Estimated Pickup-->
+                    <!--Estimated Pickup-->
+                    <div class="padding-right-10">
+                        <div class="form-group">
+                            <div class="input-group input-group-sm">
+                                <input class="form-control    no-resize" placeholder="Organization Code" ng-model="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ORG_Code"
+                                    disabled="disabled" />
+                                <!-- <div dynamic-lookup placeholder="Organization Code" my-ng-model="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ORG_Code"
+                            obj="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED" prefix-data="'OrganizationList'"  data-ng-disabled="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.Disable "
+                            config="'JobAddressOrgConsignee'" auto-complete-on-select="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item, 'address', 'CED','CEG')">
+                        </div> -->
+                                <span class="input-group-btn">
+                                    <button dynamic-list-modal obj="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED" field-name="'JobAddressOrgConsignee'"
+                                        disabled="true" prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                        selected-data="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.SelectedLookupData($item, 'address', 'CED','CEG')"
+                                        class="btn btn-default shiny" type="button">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="padding-right-10">
+                        <div class="form-group">
+                            <div class="input-group input-group-sm">
+                                <input type="hidden" ng-model="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OAD_Address_FK">
+                                <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignee address" data-ng-model="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.AddressContactBinding((TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.AddressList | filter: {PK: TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OAD_Address_FK})[0],'Address')"
+                                    ng-model-options="{ getterSetter: true }"></textarea>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-ng-click="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.IsCEDAddressOpen=!TrackShipmentDetailsDirectiveCtrl.ePage.Masters.IsCEDAddressOpen"
+                                        disabled="disabled">
+                                        <i class="fa fa-address-book-o"></i>
+                                    </button>
+                                </span>
+                                <div class="dropdownWrapMiddle animated fadeInDown" data-ng-show="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.IsCEDAddressOpen">
+                                    <address-wrapper obj="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.AddressList"
+                                        type="'CED'" list-source="'AddressList'" selected="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OAD_Address_FK"
+                                        on-address-edit="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.OnAddressEdit($item, 'CED', 'Address')"
+                                        on-address-change="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.OnAddressChange($item, 'CED', 'Address','CEG')"></address-wrapper>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="padding-right-10">
+                        <div class="form-group">
+                            <div class="input-group input-group-sm">
+                                <input type="hidden" ng-model="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OCT_FK">
+                                <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select consignee contact" data-ng-model="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.AddressContactBinding((TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ContactList | filter: {PK: TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OCT_FK})[0],'Contact')"
+                                    ng-model-options="{ getterSetter: true }"></textarea>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-ng-click="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.IsCEDContactOpen=!TrackShipmentDetailsDirectiveCtrl.ePage.Masters.IsCEDContactOpen"
+                                        disabled="disabled">
+                                        <i class="fa fa-phone"></i>
+                                    </button>
+                                </span>
+                                <div class="dropdownWrapMiddle animated fadeInDown" data-ng-show="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.IsCEDContactOpen">
+                                    <address-wrapper obj="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ContactList"
+                                        type="'CED'" list-source="'ContactList'" selected="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OCT_FK"
+                                        on-address-change="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.OnContactChange($item, 'CED', 'Contact','CEG')"></address-wrapper>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 pr-0 padding-top-10">
+                    <!--Pickup Drop Mode-->
+                    <div class="padding-bottom-5">
+                        <div class="ship-font">
+                            <!--<i class="fa fa-location-arrow"></i>-->
+                            <label class="control-label"> Notify Party</label>
+                        </div>
+                    </div>
+                    <!--Estimated Pickup-->
+                    <div class="padding-right-10">
+                        <div class="form-group ship-font">
+                            <div class="input-group input-group-sm">
+                                <input class="form-control    no-resize" placeholder="Organization Code" ng-model="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.ORG_Code"
+                                    disabled="disabled" />
+                                <!-- <div dynamic-lookup placeholder="Organization Code" my-ng-model="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.ORG_Code"
+                            obj="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP" prefix-data="'OrganizationList'" data-ng-disabled="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.Disable "
+                            config="'JobAddressOrgConsignee'" auto-complete-on-select="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item, 'address', 'NPP')">
+                        </div> -->
+                                <span class="input-group-btn">
+                                    <button dynamic-list-modal obj="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP" field-name="'JobAddressOrgConsignee'"
+                                        prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                        selected-data="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.SelectedLookupData($item, 'address', 'NPP')"
+                                        class="btn btn-default shiny" type="button" disabled="true">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="padding-right-10">
+                        <div class="form-group ship-font">
+                            <div class="input-group input-group-sm">
+                                <input type="hidden" ng-model="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.OAD_Address_FK">
+                                <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select Notify Party address" data-ng-model="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.AddressContactBinding((TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.AddressList | filter: {PK: TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.OAD_Address_FK})[0],'Address')"
+                                    ng-model-options="{ getterSetter: true }"></textarea>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-ng-click="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.IsNPPAddressOpen=!TrackShipmentDetailsDirectiveCtrl.ePage.Masters.IsNPPAddressOpen"
+                                        disabled="disabled">
+                                        <i class="fa fa-address-book-o"></i>
+                                    </button>
+                                </span>
+                                <div class="dropdownWrapLast animated fadeInDown" data-ng-show="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.IsNPPAddressOpen">
+                                    <address-wrapper obj="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.AddressList"
+                                        type="'NPP'" list-source="'AddressList'" selected="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.OAD_Address_FK"
+                                        on-address-edit="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.OnAddressEdit($item, 'NPP', 'Address')"
+                                        on-address-change="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.OnAddressChange($item, 'NPP', 'Address')"></address-wrapper>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="padding-right-10">
+                        <div class="form-group ship-font">
+                            <div class="input-group input-group-sm">
+                                <input type="hidden" ng-model="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.OCT_FK">
+                                <textarea class="form-control no-resize" disabled="disabled" placeholder="Please select Notify Party Contact" data-ng-model="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.AddressContactBinding((TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.ContactList | filter: {PK: TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.OCT_FK})[0],'Contact')"
+                                    ng-model-options="{ getterSetter: true }"></textarea>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-ng-click="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.IsNPPContactOpen=!TrackShipmentDetailsDirectiveCtrl.ePage.Masters.IsNPPContactOpen"
+                                        disabled="disabled">
+                                        <i class="fa fa-phone"></i>
+                                    </button>
+                                </span>
+                                <div class="dropdownWrapLast animated fadeInDown" data-ng-show="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.IsNPPContactOpen">
+                                    <address-wrapper obj="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.ContactList"
+                                        type="'NPP'" list-source="'ContactList'" selected="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.OCT_FK"
+                                        on-address-change="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.OnContactChange($item, 'NPP', 'Contact')"></address-wrapper>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix">
+        <div class="clearfix mb-10">
+            <uib-tabset id="ShippingBillDeatils" style="border: 1px solid #ddd;">
+                <!--Shipping Details Tab-->
+                <uib-tab>
+                    <uib-tab-heading title="Shipment Details">
+                        <i class="fa fa-list-alt margin-right-5"></i>
+                        <span class="text-single-line" data-ng-bind="'Shipping Bill Deatils'"></span>
+                    </uib-tab-heading>
+                    <div data-ng-include="'app/eaxis/smart-track/track-shipments/track-shipment-directive/shipment-details.html'"></div>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+    </div>
+    <div class="clearfix">
+            <div class="clearfix mb-10">
+                <uib-tabset id="package" style="border: 1px solid #ddd;">
+                    <!--package Details Tab-->
+                    <uib-tab>
+                        <uib-tab-heading title="Package">
+                            <i class="fa fa-suitcase margin-right-5"></i>
+                            <span class="text-single-line" data-ng-bind="'Package Details'"></span>
+                        </uib-tab-heading>
+                        <packing-grid current-object="TrackShipmentDetailsDirectiveCtrl.currentShipment"  data-ng-if="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIJobPackLines.length>0" freight-mode="'OUT'" btn-visible="{'AddNew':false,'Delete':false,'More':false}" read-only="true"></packing-grid>
+                        <div data-ng-if="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIJobPackLines.length == 0" class="text-center">
+                                No Packlines Available
+                            </div>
+                    </uib-tab>
+                </uib-tabset>
+            </div>
+        </div>
+
+    <div class="clearfix">
+        <!-- <div class="clearfix mb-10">
+            <shipment-entity-details current-obj="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIRelatedShipments"></shipment-entity-details>
+        </div> -->
+        <!-- <div class="panel panel-default pt-15 pb-5 mb-15">  
+        <div class="clearfix">
+            <div class="col-lg-2 mb-10">
+                <div class="track-shipments-label">HBL</div>
+                <div class="track-shipments-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBill || TrackShipmentDetailsDirectiveCtrl.ePage.Masters.EmptyText}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="track-shipments-label">MBL</div>
+                <div class="track-shipments-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.MasterBillno || TrackShipmentDetailsDirectiveCtrl.ePage.Masters.EmptyText}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="track-shipments-label">Volume</div>
+                <div class="track-shipments-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Volume || TrackShipmentDetailsDirectiveCtrl.ePage.Masters.EmptyText}}
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.UnitOfVolume || TrackShipmentDetailsDirectiveCtrl.ePage.Masters.EmptyText}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="track-shipments-label">Weight</div>
+                <div class="track-shipments-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Weight || TrackShipmentDetailsDirectiveCtrl.ePage.Masters.EmptyText}}
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.UnitOfWeight || TrackShipmentDetailsDirectiveCtrl.ePage.Masters.EmptyText}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="track-shipments-label">PackType</div>
+                <div class="track-shipments-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.OuterPackCount || TrackShipmentDetailsDirectiveCtrl.ePage.Masters.EmptyText}}
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.OuterPackType || TrackShipmentDetailsDirectiveCtrl.ePage.Masters.EmptyText}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="track-shipments-label">Shipper Reference</div>
+                <div class="track-shipments-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipperReference || TrackShipmentDetailsDirectiveCtrl.ePage.Masters.EmptyText}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="track-shipments-label">POL</div>
+                <div class="track-shipments-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin || TrackShipmentDetailsDirectiveCtrl.ePage.Masters.EmptyText}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="track-shipments-label">POD</div>
+                <div class="track-shipments-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination || TrackShipmentDetailsDirectiveCtrl.ePage.Masters.EmptyText}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="track-shipments-label">Carrier</div>
+                <div class="track-shipments-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Carrier || TrackShipmentDetailsDirectiveCtrl.ePage.Masters.EmptyText}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="track-shipments-label">Vessel</div>
+                <div class="track-shipments-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Vessel || TrackShipmentDetailsDirectiveCtrl.ePage.Masters.EmptyText}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="track-shipments-label">Voyage</div>
+                <div class="track-shipments-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Voyage || TrackShipmentDetailsDirectiveCtrl.ePage.Masters.EmptyText}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="track-shipments-label">Consignee Reference</div>
+                <div class="track-shipments-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ConsigneeRef || TrackShipmentDetailsDirectiveCtrl.ePage.Masters.EmptyText}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="track-shipments-label">ETD</div>
+                <div class="track-shipments-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETD | date:'dd-MMM-yyyy' || TrackShipmentDetailsDirectiveCtrl.ePage.Masters.EmptyText}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="track-shipments-label">ATD</div>
+                <div class="track-shipments-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ATD | date:'dd-MMM-yyyy' || TrackShipmentDetailsDirectiveCtrl.ePage.Masters.EmptyText}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="track-shipments-label">ETA</div>
+                <div class="track-shipments-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETA | date:'dd-MMM-yyyy' || TrackShipmentDetailsDirectiveCtrl.ePage.Masters.EmptyText}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="track-shipments-label">ATA</div>
+                <div class="track-shipments-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ATA | date:'dd-MMM-yyyy' || TrackShipmentDetailsDirectiveCtrl.ePage.Masters.EmptyText}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="track-shipments-label">Goods Desc.</div>
+                <div class="track-shipments-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.GoodsDesc || TrackShipmentDetailsDirectiveCtrl.ePage.Masters.EmptyText}}</span>
+                </div>
+            </div>
+        </div>
+    </div> -->
+        <!-- <div class="panel panel-default mb-15">
+        <div class="panel-heading height-30 position-relative">
+            <div class="track-shipments-details-title">Routing</div>
+        </div>
+        <div class="my-task-list-view clearfix pt-15 pb-15">
+            <ul>
+                <div class="text-center grid-view-loader" data-ng-if="!TrackShipmentDetailsDirectiveCtrl.ePage.Masters.ShipmentRouting">
+                    <i class="fa fa-spin fa-spinner font-160"></i>
+                </div>
+                <li data-ng-if="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.ShipmentRouting.length==0">
+                    <div class="row">
+                        <div class="text-center">
+                            No Records Found...
+                        </div>
+                    </div>
+                </li>
+                <li data-ng-repeat="x in TrackShipmentDetailsDirectiveCtrl.ePage.Masters.ShipmentRouting track by $index">
+                    <div class="col-lg-3">
+                        <div class="">
+                            <a class="fontSizeColor">
+                                {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentNo}} </a>
+                        </div>
+                        <div class="rout-label margin-top-5">Leg Order: {{x.LegOrder}} |
+                            <span class="btn-border">{{x.TransportMode}}</span>
+                            <i class="fa fa-caret-right"></i>
+                            <span class="btn-border">{{x.TransportType}}</span> |
+                            <span class="">{{x.Status}}</span>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="rout-label margin-top-5 text-single-line">Ves: {{x.Vessel}}</div>
+                        <div class="rout-label margin-top-5 text-single-line">Voy: {{x.VoyageFlight}}</div>
+                    </div>
+                    <div class="col-lg-2">
+
+                        <div class="rout-label margin-top-5 text-single-line">POL : {{x.LoadPort}}</div>
+                        <div class="rout-label margin-top-5 text-single-line">POD : {{x.DischargePort}}</div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="rout-label margin-top-5 text-single-line">ETD: {{x.ETD |date:'dd-MMM-yyyy'}}</div>
+                        <div class="rout-label margin-top-5 text-single-line">ETA: {{x.ETA |date:'dd-MMM-yyyy'}}</div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="rout-label margin-top-5 text-single-line">ATD: {{x.ATD |date:'dd-MMM-yyyy'}}</div>
+                        <div class="rout-label margin-top-5 text-single-line">ATA: {{x.ATA |date:'dd-MMM-yyyy'}}</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div> -->
+        <!-- <div class="panel panel-default mb-15">
+            <div class="panel-heading height-30 position-relative">
+                <div class="track-shipments-details-title">Package</div>
+            </div>
+            <div class="clearfix my-task-list-view p-10 pl-15 pr-15">
+
+                <div class="text-center grid-view-loader" data-ng-if="!TrackShipmentDetailsDirectiveCtrl.ePage.Masters.PackLines">
+                    <i class="fa fa-spin fa-spinner font-160"></i>
+                </div>
+                <ul>
+                    <li data-ng-if="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.PackLines.length==0">
+                        <div class="row">
+                            <div class="text-center">
+                                No Packlines Available
+                            </div>
+                        </div>
+                    </li>
+                    <li class="pt-10 pb-10" data-ng-repeat="x in TrackShipmentDetailsDirectiveCtrl.ePage.Masters.PackLines track by $index">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="fontSizeColor">{{x.ShipmentNo}}</div>
+                            <div class="org1 text-single-line">
+                                <span>
+                                    {{x.ConsignorCode}}
+                                </span>
+                                <i class="fa fa-caret-right" aria-hidden="true"></i>
+                                <span>{{x.ConsigneeCode}}</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-2">
+                            <div class="related-action-label-value">
+                                <span class="related-action-label">HBL</span>
+                                <span class="related-action-value">: {{x.HouseBill}}</span>
+                            </div>
+                            <div class="related-action-label-value">
+                                <span class="related-action-label">Packs</span>
+                                <span class="related-action-value">: {{x.PackageCount}} {{x.F3_NKPackType}}</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="related-action-label-value">
+                                <span class="related-action-label">Weight</span>
+                                <span class="related-action-value">: {{x.ActualWeight}} {{x.ActualWeightUQ}}</span>
+                            </div>
+                            <div class="related-action-label-value">
+                                <span class="related-action-label">Volume</span>
+                                <span class="related-action-value">: {{x.ActualVolume}} {{x.ActualVolumeUQ}}</span>
+                            </div>
+
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="related-action-label-value">
+                                <div class="action-label">Length X Width X Height</div>
+                            </div>
+                            <div class="related-action-label-value">
+                                <div class="">{{x.Length}} X {{x.Width}} X {{x.Height}}</div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div> -->
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="panel panel-default mb-50">
+                    <div class="panel-heading height-30 position-relative">
+                        <div class="track-shipments-details-title">Service</div>
+                    </div>
+                    <div class="clearfix padding-10 pt-10 pb-10">
+                        <div class="Shipmentstable_scroll" data-ng-if="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.JobServices.length > 0">
+                            <div class="table tab-position" id="results">
+                                <div class='theader'>
+                                    <div class='table_header'>Service Code</div>
+                                    <div class='table_header'>Booked</div>
+                                    <div class='table_header'>Duration</div>
+                                    <div class='table_header'>ServiceCount</div>
+                                    <div class='table_header'>Completed</div>
+                                </div>
+                                <!-- List Empty Response -->
+                                <div class="text-center grid-view-loader" data-ng-if="!TrackShipmentDetailsDirectiveCtrl.ePage.Masters.JobServices">
+                                    <i class="fa fa-spin fa-spinner font-160"></i>
+                                </div>
+                                <div class='table_row' data-ng-repeat="x in TrackShipmentDetailsDirectiveCtrl.ePage.Masters.JobServices track by $index"
+                                    style="font-size: 11px;">
+                                    <div class='table_small'>
+                                        <div class='table_cell'>Service Code</div>
+                                        <div class='table_cell'>
+                                            <b>{{x.ServiceCode}}</b>
+                                        </div>
+                                    </div>
+                                    <div class='table_small'>
+                                        <div class='table_cell'>Booked</div>
+                                        <div class='table_cell'>{{x.Booked | date:'dd-MMM-yyyy'}}</div>
+                                    </div>
+                                    <div class='table_small'>
+                                        <div class='table_cell'>Duration</div>
+                                        <div class='table_cell'>
+                                            {{x.Duration | date: 'dd-MMM-yyyy h:mm a'}}
+                                        </div>
+                                    </div>
+                                    <div class='table_small'>
+                                        <div class='table_cell'>ServiceCount</div>
+                                        <div class='table_cell'>{{x.ServiceCount}}</div>
+                                    </div>
+                                    <div class='table_small'>
+                                        <div class='table_cell'>Completed</div>
+                                        <div class='table_cell'>
+                                            {{x.Completed | date:'dd-MMM-yyyy'}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center" data-ng-if="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.JobServices.length==0">
+                            No Services Available...
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="panel panel-default mb-50">
+                    <div class="panel-heading height-30 position-relative">
+                        <div class="track-shipments-details-title">Reference</div>
+                    </div>
+                    <div class="clearfix padding-10 pt-10 pb-10">
+                        <div data-ng-if="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.JobEntryNum.length >0 " class="Shipmentstable_scroll">
+                            <div class="table tab-position" id="results">
+                                <div class='theader'>
+                                    <div class='table_header'>Number</div>
+                                    <div class='table_header'>Number Type</div>
+                                </div>
+                                <!-- List Empty Response -->
+                                <div class="text-center grid-view-loader" data-ng-if="!TrackShipmentDetailsDirectiveCtrl.ePage.Masters.JobEntryNum">
+                                    <i class="fa fa-spin fa-spinner font-160"></i>
+                                </div>
+                                <div class='table_row' data-ng-repeat="x in TrackShipmentDetailsDirectiveCtrl.ePage.Masters.JobEntryNum track by $index"
+                                    style="font-size: 11px;">
+                                    <div class='table_small'>
+                                        <div class='table_cell'>Number</div>
+                                        <div class='table_cell'>
+                                            <b>{{x.EntryNum}}</b>
+                                        </div>
+                                    </div>
+                                    <div class='table_small'>
+                                        <div class='table_cell'>Number Type</div>
+                                        <div class='table_cell'>{{x.EntryType}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center" data-ng-if="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.JobEntryNum.length==0">
+                            No Reference Available...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

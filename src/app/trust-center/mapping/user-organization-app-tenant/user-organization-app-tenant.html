@@ -1,0 +1,106 @@
+<div class="clearfix tc-user-organization-app-tenant">
+     <!-- Breadcrumb -->
+     <div class="clearfix tc-breadcrumb" data-ng-if="TCUserOrganizationAppTenantCtrl.ePage.Masters.ActiveApplication == 'TC'">
+            <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-xs-12 p-0">
+                <i class="fa fa-home home-icon"></i>
+                <div class="breadcrumb-list-wrapper">
+                    <ol class="breadcrumb">
+                        <li data-ng-repeat="x in TCUserOrganizationAppTenantCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                            <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="TCUserOrganizationAppTenantCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                        </li>
+                        <li data-ng-repeat="x in TCUserOrganizationAppTenantCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive"
+                            data-ng-bind="x.Description" class="active"></li>
+                    </ol>
+                </div>
+            </div>
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12 p-4">
+                <tc-application-dropdown query-string="TCUserOrganizationAppTenantCtrl.ePage.Masters.QueryString"
+                    on-application-change="TCUserOrganizationAppTenantCtrl.ePage.Masters.Application.OnApplicationChange($item)"></tc-application-dropdown>
+            </div>
+        </div>
+         <!-- Body -->
+        <div class="clearfix p-5">
+                <table class="table table-bordered table-responsive">
+                    <thead>
+                        <tr>
+                            <th class="tc-th-autocomplete">Organization</th>
+                            <th class="tc-th-autocomplete">Role</th>
+                            <th colspan="2" class="th-action">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Loading -->
+                        <tr data-ng-if="!TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.UserOrganizationAppTenantList">
+                            <td colspan="20" class="text-center p-10">
+                                <i class="fa fa-spin fa-spinner" style="font-size:18px;"></i>
+                            </td>
+                        </tr>
+                        <!-- No Records -->
+                        <tr data-ng-if="TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.UserOrganizationAppTenantList && TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.UserOrganizationAppTenantList.length==0">
+                            <td colspan="20" class="text-center p-10">
+                                <i>No Records...!</i>
+                            </td>
+                        </tr>
+                        <!-- List -->
+                        <tr data-ng-if="TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.UserOrganizationAppTenantList && TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.UserOrganizationAppTenantList.length > 0"
+                            data-ng-repeat="item in  TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.UserOrganizationAppTenantList">
+                            <td>
+                                <input type="text" placeholder="Organization" class="form-control input-sm" data-ng-model="item.AccessCode
+                                    "
+                                    uib-typeahead="x.Code as x.Code + ' - ' + x.FullName  for x in TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.GetOrganizationList($viewValue)"
+                                    typeahead-loading="item.IsAccessCodeNoResults" typeahead-no-results="item.IsAccessCodeNoResults"
+                                    typeahead-editable="false" typeahead-append-to-body='true' typeahead-on-select="TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.OnSelectAutoCompleteOrganizationList($item, $model, $label, $event, item, row)"
+                                    ng-blur="TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.OnBlurAutoCompleteOrganizationList($event, item)"
+                                    typeahead-min-length="item.AccessCode.MinLength">
+                                <div class="clearfix dropdown-menu" ng-if="item.IsAccessCodeNoResults">
+                                    <div class="auto-complete-no-result">No Results Found!</div>
+                                </div>
+                                <div class="clearfix dropdown-menu" ng-if="item.IsAccessCodeNoResults">
+                                    <div class="auto-complete-no-result">
+                                        <i class="fa fa-spin fa-spinner"></i>
+                                    </div>
+                                </div>
+                            </td>
+        
+                            <td>
+                                <input type="text" placeholder="Role" class="form-control input-sm" data-ng-model="item.BasedOnCode
+                                        "
+                                    uib-typeahead="x.RoleName as x.RoleName + ' - ' + x.RoleDescription  for x in TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.GetSecRoleList($viewValue, item)"
+                                    typeahead-loading="TCUserWarehouseAppTenantCtrl.ePage.Masters.IsCmpBranchNoResults"
+                                    typeahead-no-results="TCUserOrganizationAppTenantCtrl.ePage.Masters.IsSecRoleLoading"
+                                    typeahead-editable="false" typeahead-append-to-body='true' typeahead-on-select="  TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.OnSelectAutoCompleteRoleList($item, $model, $label, $event, item)"
+                                    ng-blur="TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.OnBlurAutoCompleteRoleList($event, item)"
+                                    typeahead-min-length="item.BasedOnCode.MinLength">
+                                <div class="clearfix dropdown-menu" ng-if="item.IsSecRoleNoResults">
+                                    <div class="auto-complete-no-result">No Results Found!</div>
+                                </div>
+                                <div class="clearfix dropdown-menu" ng-if="item.IsSecRoleLoading">
+                                    <div class="auto-complete-no-result">
+                                        <i class="fa fa-spin fa-spinner"></i>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-center p-5">
+                                <i class="fa fa-floppy-o cursor-pointer text-success" style="font-size: 16px;" data-ng-click="TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.Save(item)"></i>
+                            </td>
+                            <td class="text-center p-5">
+                                <i class="glyphicon glyphicon-trash text-danger cursor-pointer" style="font-size: 16px;"
+                                    data-ng-click="TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.Delete(item)"></i>
+                            </td>
+        
+                        </tr>
+        
+                        <!-- Add New -->
+                        <tr>
+                            <td colspan="20" class="p-10">
+                                <a href="javascript:(0);" data-ng-click=" TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.AddNewRow()">Add
+                                    new Record…</a>
+                            </td>
+                        </tr>
+        
+        
+                    </tbody>
+                </table>
+            </div>
+
+</div>

@@ -15,7 +15,8 @@
             controller: "LocationMenuController",
             controllerAs: "LocationMenuCtrl",
             scope: {
-                currentLocation: "="
+                currentLocation: "=",
+                dataentryObject:"="
             },
             bindToController: true
         };

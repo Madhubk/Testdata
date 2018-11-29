@@ -55,10 +55,15 @@
                 IsRequireQueryString: false,
                 IsActive: false
             }, {
-                Code: "configuration",
-                Description: "Configuration",
-                Link: "TC/dashboard/" + helperService.encryptData('{"Type":"Configuration", "BreadcrumbTitle": "Configuration"}'),
-                IsRequireQueryString: false,
+                Code: "dashboard",
+                Description: "Dashboard",
+                Link: "TC/dashboard",
+                IsRequireQueryString: true,
+                QueryStringObj: {
+                    "AppPk": ProcessInstanceCtrl.ePage.Masters.QueryString.AppPk,
+                    "AppCode": ProcessInstanceCtrl.ePage.Masters.QueryString.AppCode,
+                    "AppName": ProcessInstanceCtrl.ePage.Masters.QueryString.AppName
+                },
                 IsActive: false
             }, {
                 Code: "process",
@@ -101,6 +106,7 @@
             };
 
             ProcessInstanceCtrl.ePage.Masters.ProcessInstance = [];
+            processinstanceConfig.TabList = [];
             ProcessInstanceCtrl.ePage.Masters.TabList = [];
             ProcessInstanceCtrl.ePage.Masters.activeTabIndex = 0;
             ProcessInstanceCtrl.ePage.Masters.IsTabClick = false;
@@ -114,7 +120,6 @@
             ProcessInstanceCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
             ProcessInstanceCtrl.ePage.Masters.IsInstanceNo = true;
             ProcessInstanceCtrl.ePage.Masters.ProcessInstance.NewDataSlot = ProcessInstanceCtrl.ePage.Entities.Header.Meta.DataSlot;
-            console.log(ProcessInstanceCtrl.ePage.Entities.Header.Meta.DataSlot)
             ProcessInstanceCtrl.ePage.Masters.ProcessInstance.Mode = 1;
             // GetProcessInstanceDataSlots();
         }
@@ -138,8 +143,8 @@
                     "Val8": "True",
                     "Val9": "True",
                     "Val10": "True",
-                    "IsOrganisationBased":"True",
-                    "IsCompanyBased":"True",
+                    "IsOrganisationBased": "True",
+                    "IsCompanyBased": "True",
                     "Labels": {
                         "Val1": "",
                         "Val2": "",
@@ -152,7 +157,6 @@
                         "Val9": "",
                         "Val10": ""
                     },
-
                     "ChildItem": [{
                         "EntitySource": "ORD1",
                         "EntityRefKey": "3872BEA7-47A7-4FBA-9C1F-00007C9E3578",
@@ -168,11 +172,13 @@
         }
 
         function CreateNewProcessInstance($item, mode) {
+            var _winClass = "process-instance-mode-1";
+            (mode == 1) ? _winClass = "process-instance-mode-1" : _winClass = "process-instance-mode-2";
             var modalInstance = $uibModal.open({
                 animation: true,
                 backdrop: false,
                 keyboard: false,
-                windowClass: "process-instance",
+                windowClass: "right " + _winClass,
                 scope: $scope,
                 templateUrl: "app/trust-center/process/process-instance/process-instance-modal/process-instance-modal.html",
                 controller: 'ProcessInstanceModalController as ProcessInstanceModalCtrl',
@@ -189,10 +195,11 @@
             }).result.then(function (response) {
                 if (response.mode == 1) {
                     response.data;
+                    helperService.refreshGrid();
                 }
             }, function () {
                 console.log("Cancelled");
-            })
+            });
         }
 
         function AddTab(currentProcessInstance, isNew) {
@@ -247,6 +254,7 @@
                 ProcessInstanceCtrl.ePage.Masters.AddTab($item.data, false);
             }
         }
+        
         Init();
     }
 })();

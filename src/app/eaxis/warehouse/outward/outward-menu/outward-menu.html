@@ -1,7 +1,5 @@
-<!-- Saving Your Data -->
-<div class="grid-loading-norecord-container ng-scope" style='z-index: 4;'data-ng-if="OutwardMenuCtrl.ePage.Masters.IsLoadingToSave">
-    <div class="grid-no-record">Loading...</div>
-</div>
+<div class="grid-loading-norecord-container ng-scope" style='z-index: 15;' data-ng-if="OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading"></div>
+
 <div class="clearfix wms-menu-wraper">
     <div id="wmsMenuWrapper{{OutwardMenuCtrl.currentOutward.label}}" class="col-sm-12 no-padding-left 
     no-padding-right">
@@ -20,19 +18,20 @@
                         icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
                     <error-warning-directive data-ng-if="OutwardMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, OutwardMenuCtrl.currentOutward.label, 'E', 'GParent').length > 0"
                         list="OutwardMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList" type="'error'"
-                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>  
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
                 </uib-tab-heading>
-                <div class="finalisedstate" ng-show="!OutwardMenuCtrl.ePage.Entities.Header.CheckPoints.NotFinaliseStage">
-                    <span ng-if="!OutwardMenuCtrl.ePage.Entities.Header.CheckPoints.NotFinaliseStage" ng-init="OutwardMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave = 'true'"></span>
-                    <span class="finaliseddatedescription">Outward Finalized and it cannot be edited</span>
+                <div class="finalisedstate" ng-show="OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                    <span class="finaliseddatedescription">Outward {{OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatusDesc}} and it
+                        cannot be edited</span>
                 </div>
                 <div>
                     <div ng-switch="x.Value">
 
                         <!--Menu directives-->
                         <div ng-switch-when="General" outward-general current-outward="OutwardMenuCtrl.currentOutward"></div>
-                        <div ng-switch-when="Line"outward-line current-outward="OutwardMenuCtrl.currentOutward"></div>
-                        <div ng-switch-when="Pick" ng-if="OutwardMenuCtrl.ePage.Masters.PickDetails" outward-pick pick-details="OutwardMenuCtrl.ePage.Masters.PickDetails"></div>      
+                        <div ng-switch-when="Line" outward-line current-outward="OutwardMenuCtrl.currentOutward"></div>
+                        <div ng-switch-when="Pick" ng-if="OutwardMenuCtrl.ePage.Masters.PickDetails" outward-pick pick-details="OutwardMenuCtrl.ePage.Masters.PickDetails"
+                            current-outward="OutwardMenuCtrl.currentOutward"></div>
                         <div ng-switch-when="References & Services">
                             <div class="col-lg-12 p-0">
                                 <references current-outward="OutwardMenuCtrl.currentOutward"></references>
@@ -40,7 +39,7 @@
                             <div class="col-lg-12 p-0">
                                 <services current-outward="OutwardMenuCtrl.currentOutward"></services>
                             </div>
-                        </div>                        
+                        </div>
                         <div ng-switch-when="Containers" container current-outward="OutwardMenuCtrl.currentOutward"></div>
                         <div ng-switch-when="Crossdock" outward-crossdock current-outward="OutwardMenuCtrl.currentOutward"></div>
                         <div ng-switch-when="Documents" outward-document current-outward="OutwardMenuCtrl.currentOutward"></div>
@@ -70,25 +69,67 @@
                             <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
                                 <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
                                 <div class="meta-object" data-ng-bind="x.MetaObject"></div>
-                            </div>    
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-   <!--Footer-->
-   <div class="eaxis-footer-strip">
-        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-            <standard-menu entity-name="'WarehouseOutward'" input="OutwardMenuCtrl.currentOutward"></standard-menu>
+    <!--Footer-->
+    <div class="eaxis-footer-strip" data-ng-if="!OutwardMenuCtrl.hideFooter">
+        <div class="col-xs-6 col-sm-8 col-md-8 col-lg-9 col-xl-9">
+            <standard-menu dataentry-object="OutwardMenuCtrl.dataentryObject" input="OutwardMenuCtrl.currentOutward"></standard-menu>
         </div>
-        <div  class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
-                <button class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6" data-ng-click="OutwardMenuCtrl.ePage.Masters.Validation(OutwardMenuCtrl.currentOutward)" data-ng-bind="OutwardMenuCtrl.ePage.Masters.SaveButtonText"
-                data-ng-disabled="OutwardMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave"></button>
-                <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="OutwardMenuCtrl.ePage.Masters.Validation(OutwardMenuCtrl.currentOutward);OutwardMenuCtrl.ePage.Masters.SaveAndClose = true"
-                data-ng-disabled="OutwardMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave">Save & Close</button>
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 col-xl-3">
+            <button class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6" data-ng-click="OutwardMenuCtrl.ePage.Masters.Validation(OutwardMenuCtrl.currentOutward)"
+                data-ng-bind="OutwardMenuCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="OutwardMenuCtrl.ePage.Masters.DisableSave"></button>
+            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="OutwardMenuCtrl.ePage.Masters.Validation(OutwardMenuCtrl.currentOutward);OutwardMenuCtrl.ePage.Masters.SaveAndClose = true"
+                data-ng-disabled="OutwardMenuCtrl.ePage.Masters.DisableSave">Save & Close</button>
         </div>
 
     </div>
 
+    <div class="eaxis-footer-strip" data-ng-if="!OutwardMenuCtrl.hideFooter">
+        <div class="col-xs-6 col-sm-8 col-md-8 col-lg-9 col-xl-9">
+            <standard-menu dataentry-object="OutwardMenuCtrl.dataentryObject" input="OutwardMenuCtrl.currentOutward"></standard-menu>
+        </div>
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 col-xl-3">
+            <span class="dropup pull-right">
+                <button class="btn btn-primary btn-sm margin-right-10 mt-6 dropdown-toggle" type="button" data-toggle="dropdown" ng-disabled="OutwardMenuCtrl.ePage.Masters.DisableSave">More
+                    <span class="ml-5 caret"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li>
+                        <a href="javascript:void(0);" data-ng-click="OutwardMenuCtrl.ePage.Masters.Validation(OutwardMenuCtrl.currentOutward);OutwardMenuCtrl.ePage.Masters.SaveAndClose = true">Save & Close</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" data-ng-click="OutwardMenuCtrl.ePage.Masters.CancelOutward(OutwardMenuCtrl.currentOutward)">Cancel Outward</a>
+                    </li>
+                </ul>
+            </span>
+            <span class="">
+                <button class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6" data-ng-click="OutwardMenuCtrl.ePage.Masters.Validation(OutwardMenuCtrl.currentOutward)"
+                    ng-disabled="OutwardMenuCtrl.ePage.Masters.DisableSave" data-ng-bind="OutwardMenuCtrl.ePage.Masters.SaveButtonText">Save</button>
+            </span>
+        </div>
+    </div>
+
 </div>
+
+<!-- Cancelling Outward Popup -->
+<script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Outward Cancellation..</h3>
+    </div>
+    <div class="modal-body"  style="height:200px">
+        <div class="form-group">
+            <label for="comment">Leave Your Comment</label>
+            <textarea class="form-control" rows="2"  ng-model="comment"></textarea>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="!comment">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="close()">Close</button>
+    </div>
+</script>

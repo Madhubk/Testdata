@@ -189,43 +189,45 @@
                         <div class="eaxis-div-box height-auto-600">
                             <div class="rows mt-10">
                                 <!-- <div class="text-center" data-ng-if="!TransVehiclemoveCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints.OrgName"><i class="fa fa-spin fa-spinner font-160"></i></div> -->
-                                <div class="text-center" data-ng-if="TransVehiclemoveCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints.OrgName.length === 0"><i>No Records...!</i></div>
-                                <div class="companies-box cursor-pointer"  
-                                ng-repeat="x in TransVehiclemoveCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints" ng-class="{selectedBg : $index === TransVehiclemoveCtrl.ePage.Masters.item}">
-                                <div class="companies-left">
-                                    <span class="circle">
-                                     <p ng-if="x.Type =='PIC'">P</p>
-                                     <p ng-if="x.Type =='DEL'">D</p>
-                                 </span>
-                             </div>
-                             <div class="companies-right">
-                                <div class="eaxis-company-title-4">{{x.OrgName || emptyText}}</div>
-                                <div class="company-sub-title">{{x.Address1 || emptyText}} {{x.Address2 || emptyText}}</br>
-                                    {{x.City || emptyText}}</div> 
+                                <div class="text-center" data-ng-if="TransVehiclemoveCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints.OrgName.length === 0">
+                                    <i>No Records...!</i>
+                                </div>
+                                <div class="companies-box cursor-pointer" ng-repeat="x in TransVehiclemoveCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryPoints"
+                                    ng-class="{selectedBg : $index === TransVehiclemoveCtrl.ePage.Masters.item}">
+                                    <div class="companies-left">
+                                        <span class="circle">
+                                            <p ng-if="x.Type =='PIC'">P</p>
+                                            <p ng-if="x.Type =='DEL'">D</p>
+                                        </span>
+                                    </div>
+                                    <div class="companies-right">
+                                        <div class="eaxis-company-title-4">{{x.OrgName || emptyText}}</div>
+                                        <div class="company-sub-title">{{x.Address1 || emptyText}} {{x.Address2 || emptyText}}</br>
+                                            {{x.City || emptyText}}</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <a href="#" ng-click="TransVehiclemoveCtrl.ePage.Masters.refreshMap()" ng-if="TransVehiclemoveCtrl.ePage.Masters.hidelink"
+                                        style="float:right
+                                ;font-family: fantasy;"> click here to see the map</a>
                                 </div>
                             </div>
-                            <div>
-                                <a href="#" ng-click="TransVehiclemoveCtrl.ePage.Masters.refreshMap()" ng-if="TransVehiclemoveCtrl.ePage.Masters.hidelink" style="float:right
-                                ;font-family: fantasy;"> click here to see the map</a>
-                            </div>    
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-lg-8 col-md-4 col-sm-6">
-            
-            <ui-gmap-google-map ng-if='TransVehiclemoveCtrl.ePage.Masters.show' id = 'TransVehiclemoveCtrl.ePage.Masters.map' center='TransVehiclemoveCtrl.ePage.Masters.map.center' control='TransVehiclemoveCtrl.ePage.Masters.map.control' zoom='TransVehiclemoveCtrl.ePage.Masters.map.zoom'>
-                   <ui-gmap-marker coords="TransVehiclemoveCtrl.ePage.Masters.coords" idkey="'0'">
+            <div class="col-lg-8 col-md-4 col-sm-6">
+
+                <ui-gmap-google-map ng-if='TransVehiclemoveCtrl.ePage.Masters.show' id='TransVehiclemoveCtrl.ePage.Masters.map' center='TransVehiclemoveCtrl.ePage.Masters.map.center'
+                    control='TransVehiclemoveCtrl.ePage.Masters.map.control' zoom='TransVehiclemoveCtrl.ePage.Masters.map.zoom'>
+                    <ui-gmap-marker coords="TransVehiclemoveCtrl.ePage.Masters.coords" idkey="'0'">
                     </ui-gmap-marker>
                     <ui-gmap-polyline ng-repeat="p in TransVehiclemoveCtrl.ePage.Masters.polylines" path="p.path" stroke="p.stroke" visible='p.visible'
-                  geodesic='p.geodesic' fit="false" editable="p.editable" draggable="p.draggable" ></ui-gmap-polyline>
-            </ui-gmap-google-map>
-             <div id="TransVehiclemoveCtrl.ePage.Masters.showdirection" ></div>
+                        geodesic='p.geodesic' fit="false" editable="p.editable" draggable="p.draggable"></ui-gmap-polyline>
+                </ui-gmap-google-map>
+                <div id="TransVehiclemoveCtrl.ePage.Masters.showdirection"></div>
+            </div>
         </div>
     </div>
 </div>
-
-
-

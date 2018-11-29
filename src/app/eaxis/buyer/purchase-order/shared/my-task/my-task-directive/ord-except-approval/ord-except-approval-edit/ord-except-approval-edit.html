@@ -1,0 +1,155 @@
+<div id="except-approval" class="widget-main except-approval-details p-5">
+    <div class="clearfix mt-5">
+        <div class="col-lg-12 col-md-12 col-xl-12">
+            <div class="panel panel-default">
+                <div class="panel-heading p-5">
+                    <b class="panel-title" data-ng-if="OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.ExceptionData.EntitySource == 'POH'">PO
+                        Details :</b>
+                    <b class="panel-title" data-ng-if="OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.ExceptionData.EntitySource == 'SHP'">Shipment
+                        Details :</b>
+                    <b class="panel-title" data-ng-if="OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.ExceptionData.EntitySource == 'BKG'">Booking
+                        Details :</b>
+                    <b class="panel-title" data-ng-if="OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.ExceptionData.EntitySource == 'CNT'">Container
+                        Details :</b>
+                    <span> {{OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.TaskObj.SourceNo}} </span>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 mb-20">
+                            <div class="except-approvals-label">Buyer</div>
+                            <div class="except-approvals-value">
+                                <span data-ng-if="OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.TaskObj.Buyer != 'null' || undefined">
+                                    {{OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.TaskObj.Buyer}}
+                                </span>
+                                <span data-ng-if="OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.TaskObj.Buyer == 'null' || undefined"></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 mb-20">
+                            <div class="except-approvals-label">Shipper</div>
+                            <div class="except-approvals-value">
+                                <span data-ng-if="OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.TaskObj.Shipper != 'null' || undefined">
+                                    {{OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.TaskObj.Shipper}}
+                                </span>
+                                <span data-ng-if="OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.TaskObj.Shipper == 'null' || undefined"></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 mb-20">
+                            <div class="except-approvals-label">Container Type</div>
+                            <div class="except-approvals-value">
+                                <span data-ng-if="OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.TaskObj.ContainerMode != 'null' || undefined">
+                                    {{OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.TaskObj.ContainerMode}}
+                                </span>
+                                <span data-ng-if="OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.TaskObj.ContainerMode == 'null' || undefined"></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 mb-20">
+                            <div class="except-approvals-label">Mode</div>
+                            <div class="except-approvals-value">
+                                <span data-ng-if="OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.TaskObj.TransportMode != 'null' || undefined">
+                                    {{OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.TaskObj.TransportMode}}
+                                </span>
+                                <span data-ng-if="OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.TaskObj.TransportMode == 'null' || undefined"></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 mb-20">
+                            <div class="except-approvals-label">InoTerm</div>
+                            <div class="except-approvals-value">
+                                <span data-ng-if="OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.TaskObj.IncoTerm != 'null' || undefined">
+                                    {{OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.TaskObj.IncoTerm}}
+                                </span>
+                                <span data-ng-if="OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.TaskObj.IncoTerm == 'null' || undefined"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-2">
+        <div class="panel panel-default p-20 pb-0">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 mb-20">
+                    <div class="except-approvals-label">Exception Type</div>
+                    <div class="except-approvals-value">
+                        <span>
+                            {{OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.ExceptionData.Type}}
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 mb-20">
+                    <div class="except-approvals-label">Exception Name</div>
+                    <div class="except-approvals-value">
+                        <span>
+                            {{OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.ExceptionData.Title}}
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 mb-20">
+                    <div class="except-approvals-label">Raised On</div>
+                    <div class="except-approvals-value">
+                        <span>
+                            {{OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.ExceptionData.CreatedDateTime |
+                            date:'dd-MMM-yyyy'}}
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 mb-20">
+                    <div class="except-approvals-label">Is Urgent</div>
+                    <div class="except-approvals-value">
+                        <span data-ng-if="!OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.ExceptionData.IsUrgent">
+                            <i class="glyphicon glyphicon-remove"></i>
+                        </span>
+                        <span data-ng-if="OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.ExceptionData.IsUrgent">
+                            <i class="glyphicon glyphicon-ok"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 mb-20">
+                    <div class="except-approvals-label">Is Schedule Revised</div>
+                    <div class="except-approvals-value">
+                        <span data-ng-if="!OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.ExceptionData.IsScheduleRevised">
+                            <i class="glyphicon glyphicon-remove"></i>
+                        </span>
+                        <span data-ng-if="OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.ExceptionData.IsScheduleRevised">
+                            <i class="glyphicon glyphicon-ok"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 mb-20 pr-0">
+                    <div class="except-approvals-label"></div>
+                    <div class="except-approvals-value mt-5">
+                        <textarea class="form-control no-resize" placeholder="Enter your comments" data-ng-model="OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.ExceptionComments"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <fieldset disabled='true'>
+                    <dynamic-control data-ng-if="OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.Exception.DataConfigResponse"
+                        input="OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.Exception.DataConfigResponse" mode="D"
+                        control-style="" view-type="'2'"></dynamic-control>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-2">
+        <exception-comments data-ng-if="OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.CommentsList" comments-list="OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.CommentsList"></exception-comments>
+    </div>
+    <div class="eaxis-footer-strip">
+        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
+            <div class="clearfix standard-menu-wrapper">
+                <div class="eaxis-footer-left">
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <button class="btn btn-primary btn-sm pull-right fs-12 mt-5 mb-5 ml-10" data-ng-click="OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.Approval('Approved')"
+                data-ng-disabled="OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.IsApprove">
+                {{OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.IsApproveBtn}}</button>
+            <button class="btn btn-secondary btn-sm pull-right fs-12 mt-5 mb-5" data-ng-click="OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.Approval('Reject')"
+                data-ng-disabled="OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.IsReject">
+                {{OrdExceptApprovalEditDirectiveCtrl.ePage.Masters.IsRejectBtn}}</button>
+        </div>
+    </div>
+</div>

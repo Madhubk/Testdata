@@ -4,9 +4,9 @@
     angular
         .module("Application")
         .controller("WorkStepRulesActionsModalController", WorkStepRulesActionsModalController);
-    WorkStepRulesActionsModalController.$inject = ["$scope", "$location", "authService", "apiService", "helperService", "appConfig", "APP_CONSTANT", "toastr", "confirmation", "param", "$uibModalInstance"];
+    WorkStepRulesActionsModalController.$inject = ["$location", "authService", "apiService", "helperService",  "toastr", "param", "$uibModalInstance", trustCenterConfig];
 
-    function WorkStepRulesActionsModalController($scope, $location, authService, apiService, helperService, appConfig, APP_CONSTANT, toastr, confirmation, param, $uibModalInstance) {
+    function WorkStepRulesActionsModalController($location, authService, apiService, helperService,  toastr, param, $uibModalInstance, trustCenterConfig) {
 
         var WorkStepRulesActionsModalCtrl = this;
         var _queryString = $location.path().split("/").pop();
@@ -63,7 +63,7 @@
         }
 
         function Save($item, type) {
-           if (param.Type == 'rules') {
+            if (param.Type == 'rules') {
                 SaveRules($item);
             } else if (param.Type == 'action') {
                 SaveActions($item);
@@ -86,21 +86,21 @@
 
 
 
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkStepRules.API.Upsert.Url, [_input]).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EBPMWorkStepRules.API.Upsert.Url, [_input]).then(function (response) {
                 if (response.data.Response) {
-                   
+
                     var _response = response.data.Response[0];
-                   
+
                     _response.MandatorySteps = JSON.parse(_response.MandatorySteps);
                     _response.Rules = JSON.parse(_response.Rules);
-                   
+
                     var _obj = {
                         data: _response,
                         type: WorkStepRulesActionsModalCtrl.ePage.Masters.param.Type,
                         isNewMode: WorkStepRulesActionsModalCtrl.ePage.Masters.param.isNewMode
-                        
+
                     }
-                    
+
                     $uibModalInstance.close(_obj);
                     toastr.success("Saved Successfully ...!");
                 }
@@ -159,13 +159,13 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.EBPMProcessMaster.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.EBPMProcessMaster.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMProcessMaster.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EBPMProcessMaster.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     WorkStepRulesActionsModalCtrl.ePage.Masters.Actions.EBPMProcessMasterList = response.data.Response;
-                   
+
                 }
 
             });
@@ -174,13 +174,13 @@
         function SaveActions($item) {
             var _input = angular.copy($item)
             _input.SAP_FK = WorkStepRulesActionsModalCtrl.ePage.Masters.QueryString.AppPk,
-            _input.TenantCode = authService.getUserInfo().TenantCode,
-            _input.IsModified = true;
+                _input.TenantCode = authService.getUserInfo().TenantCode,
+                _input.IsModified = true;
             _input.IsDeleted = false;
             _input.WSI_FK = WorkStepRulesActionsModalCtrl.ePage.Masters.param.ParentItem.PK;
             _input.WSR_FK = WorkStepRulesActionsModalCtrl.ePage.Masters.param.RuleName.PK;
 
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkStepActions.API.Upsert.Url, [_input]).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EBPMWorkStepActions.API.Upsert.Url, [_input]).then(function (response) {
                 if (response.data.Response) {
                     var _response = response.data.Response[0];
 
@@ -194,6 +194,8 @@
                 }
             });
         }
+
+
 
 
 

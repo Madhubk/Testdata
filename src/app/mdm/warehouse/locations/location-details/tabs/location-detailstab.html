@@ -1,264 +1,183 @@
-  <!-- Loading Your Data -->
-  <div class="grid-loading-norecord-container"style="z-index:10"  data-ng-if="LocationDetailsCtrl.ePage.Masters.IsLoadingToSave">
-      <div class="grid-no-record" style="top:100px;">Loading...</div>
-  </div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 backGroundStyle aligntext mt-0 mb-10">{{LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.Name}}</div>
 
-<div class="col-lg-12 pl-0 pr-0" style="padding-bottom: 100px;">
-  <div class="class=col-lg-12" ng-show="LocationDetailsCtrl.ePage.Masters.LocationDetails">
-    <!-- <div class="panel panel-default"> -->
-    <div class="panel border-0">
-      <div>
-        <div id='LocationDetailsCtrl.ePage.Masters.your_div' class="wmstable_scroll border-0">
-
-          <!-- Update Values -->
-          <div class="table pt-10" id="results">
-            <div class='tfield' ng-if="LocationDetailsCtrl.ePage.Masters.enable">
-              <div class='table_field'>
-                <input type="text" class="form-control input-sm caption rowName" disabled placeholder="Row Name" ng-model="LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.Name"/>
-              </div>
-              <div class='table_field'></div>
-              <div class='table_field'></div>
-              <div class='table_field'></div>
-              <div class='table_field'>
-                <div class="input-group input-group-sm fwidth">
-                  <div dynamic-lookup placeholder="Area" my-ng-model="LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.WAA_Name"
-                    obj="LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation[LocationDetailsCtrl.ePage.Masters.selectedrow]"
-                    auto-complete-on-select="LocationDetailsCtrl.ePage.Masters.SelectedLookupDataAreaCode($item)" prefix-data="'WarehouseArea'"
-                    config="'Area'"></div>
-                  <span class="input-group-btn">
-                    <button dynamic-list-modal obj="LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation[LocationDetailsCtrl.ePage.Masters.selectedrow]"
-                    field-name="'Area'" selected-data="LocationDetailsCtrl.ePage.Masters.SelectedLookupDataAreaCode($item)" 
-                    prefix-data="'WarehouseArea'" mode = "2" grid-refresh-fun-name="" 
-                    grid-refresh-fun=""  class="btn btn-default shiny" type="button">
-                    <i class="fa fa-ellipsis-h"></i></button>
-                  </span>
-                </div>
-              </div>
-              <div class='table_field wi425'>
-                <div class="input-group input-group-sm">
-                  <span class="input-group-btn">
-                  <select chosen class="form-control" ng-model="LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.LocationStatus"  
-                  ng-change ="LocationDetailsCtrl.ePage.Masters.StatusDesc(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.LocationStatus)"
-                  ng-options="x.Key as x.Key + ' - '  + x.Value for x in LocationDetailsCtrl.ePage.Masters.DropDownMasterList.LocStatus.ListSource"
-                  search-contains="true">
-                    <option value="" style="font-size: 11px;">-Status-</option> 
-                  </select>  
-                  </span>
-                </div>
-              </div>
-              <div class='table_field'>
-                <div class="input-group input-group-sm fwidth">
-                  <div dynamic-lookup placeholder="Type" my-ng-model="LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.LocationType"
-                    obj="LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation[LocationDetailsCtrl.ePage.Masters.selectedrow]"
-                    auto-complete-on-select="LocationDetailsCtrl.ePage.Masters.SelectedLookupDataType($item)" prefix-data="'WarehouseLocationType'"
-                    config="'LocationType'"></div>
-                  <span class="input-group-btn">
-                  <button dynamic-list-modal obj="LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation[LocationDetailsCtrl.ePage.Masters.selectedrow]"
-                  field-name="'LocationType'" selected-data="LocationDetailsCtrl.ePage.Masters.SelectedLookupDataType($item)" 
-                  prefix-data="'WarehouseLocationType'" mode = "2" grid-refresh-fun-name="" 
-                  grid-refresh-fun=""  class="btn btn-default shiny" type="button">
-                  <i class="fa fa-ellipsis-h"></i></button>
-                  </span>
-                </div>
-              </div>
-              <div class='table_field'>
-                <div class="input-group input-group-sm">
-                  <span class="input-group-btn">
-                  <select chosen class="form-control" ng-model="LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.PickMethod"  ng-options="x.Key as x.Key + ' - '  + x.Value for x in LocationDetailsCtrl.ePage.Masters.DropDownMasterList.PickMethod.ListSource"
-                  search-contains="true">
-                 <option value="">-PickMethod-</option> 
-                  </select>  
-                  </span>
-                </div>
-              </div>
-              <div class='table_field wid999'>
-                <div class="custom-error-directive">
-                  <error-warning-directive data-ng-if="LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.MaxWeightUnit.IsError" list="LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.MaxWeightUnit.ERROR"
-                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                </div>
-                <div class="form-group">
-                  <div class="input-group input-group-sm">
-                    <div>
-                      <input type="text" maxlength="9" class="form-control input-sm"  data-ng-model="LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.MaxWeight"></div>
-                    <span class="input-group-btn" style="width: 70%;">
-                    <select chosen class="form-control" ng-model="LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.MaxWeightUnit" ng-options="x.Key as x.Key + ' - '  + x.Value for x in LocationDetailsCtrl.ePage.Masters.DropDownMasterList.WEIGHTUNIT.ListSource"
-                    search-contains="true">
-                    <option value="" style="font-size: 11px;">-UQ-</option>
-                    </select>
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div class='table_field wid999'>
-                <div class="custom-error-directive">
-                  <error-warning-directive data-ng-if="LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.MaxCubicUnit.IsError" list="LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.MaxCubicUnit.ERROR"
-                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                </div>
-                <div class="form-group">
-                  <div class="input-group input-group-sm">
-                    <div>
-                      <input type="text" class="form-control input-sm" maxlength="9"  ng-model="LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.MaxCubic"></div>
-                    <span class="input-group-btn" style="width: 70%">
-                    <select chosen class="form-control" ng-model="LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.MaxCubicUnit" ng-options="x.Key as x.Key + ' - '  + x.Value for x in LocationDetailsCtrl.ePage.Masters.DropDownMasterList.CubicUnit.ListSource"
-                    search-contains="true">
-                    <option value="" style="font-size: 11px;">-UQ-</option>
-                    </select>
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div class='table_field'>
-                  <div class="input-group input-group-sm">
-                      <input type="text" class="form-control input-sm" min="0" max="10" placeholder="MaxQuantity" ng-model="LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.MaxQuantity"/>
-                  </div>
-              </div>
-              <div class='table_field'>
-                <button type="button" class="btn btn-md btn-blue" style="font-size:11px;width: 135px;margin-top: -25px;" title="Update" data-ng-click="LocationDetailsCtrl.ePage.Masters.update(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation)">
-                  &nbsp;&nbsp;Update
-                </button>
-              </div>
-            </div>
-            <div class='tfield' ng-if="!LocationDetailsCtrl.ePage.Masters.enable">
-              <div class='table_field'>
-                <input type="text" class="form-control input-sm caption rowName" disabled placeholder="Row Name" ng-model="LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.Name"
-                />
-              </div>
-              <div class='table_field'></div>
-              <div class='table_field'></div>
-              <div class='table_field'></div>
-              <div class='table_field'>
-                <input type="text" class="form-control input-sm" disabled placeholder="Area" ng-model="LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.WAA_Name"
-                />
-              </div>
-              <div class='table_field wi425'>
-                <input type="text" class="form-control input-sm" disabled placeholder="LocationStatus" ng-model="LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.LocationStatus"
-                />
-              </div>
-              <div class='table_field'>
-                <input type="text" class="form-control input-sm" disabled placeholder="LocationType" ng-model="LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.LocationType"
-                />
-              </div>
-              <div class='table_field'>
-                <input type="text" class="form-control input-sm" disabled placeholder="PickMethod" ng-model="LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.PickMethod"
-                />
-              </div>
-              <div class='table_field wid999'>
-                <input type="text" class="form-control input-sm" disabled placeholder="MaxWeight" ng-model="LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.MaxWeight"
-                />
-              </div>
-              <div class='table_field wid999'>
-                <input type="text" class="form-control input-sm" disabled placeholder="MaxCubicUnit" ng-model="LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.MaxCubicUnit"
-                />
-              </div>
-              <div class='table_field'>
-                <input type="text" class="form-control input-sm" min="0" max="10" disabled placeholder="MaxQuantity" ng-model="LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.MaxQuantity"
-                />
-              </div>
-              <div class='table_field'>
-                <button type="button" class="btn btn-md btn-blue" style="font-size:11px;width: 135px;margin-top: -5px;" title="Update" disabled
-                  data-ng-click="LocationDetailsCtrl.ePage.Masters.update(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation)">
-                  &nbsp;&nbsp;Update
-                </button>
-              </div>
-            </div>
-
-            
-        <!-- Loading Your Data -->
-        <div class="grid-loading-norecord-container"  data-ng-if="LocationDetailsCtrl.ePage.Masters.IsLoadingToSave"></div>
-
-<!-- Location Details -->
-
-            <div class='theader'>
-              <div class='table_header'>
-                <label>
-                  <input type="checkbox" ng-change ="LocationDetailsCtrl.ePage.Masters.SelectedAll(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation)"
-                  ng-checked="LocationDetailsCtrl.ePage.Masters.SelectAll"  ng-model="LocationDetailsCtrl.ePage.Masters.SelectAll">
-                  <span class="text"></span>
-                </label>
-              </div>
-              <div class='table_header'>Column</div>
-              <div class='table_header'>Level</div>
-              <div class='table_header'>Tray</div>
-              <div class='table_header'>Area</div>
-              <div class='table_header'>Status</div>
-              <div class='table_header'>Type</div>
-              <div class='table_header'>Pick Method</div>
-              <div class='table_header'>Max Weight&nbsp;&nbsp;UQ</div>
-              <div class='table_header'>Max Cubic&nbsp;&nbsp;UQ</div>
-              <div class='table_header'>Max Quantity</div>
-              <div class='table_header'>Pick PathSequence</div>
-            </div>
-            <!-- List Empty Response -->
-            <div data-ng-if="LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation
-            .length==0">
-              <div class="grid-no-record" style="top:100px">No records found...</div>x
-            </div>
-
-            <div class='table_row' ng-repeat="x in LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation| filter:{IsDeleted:'false'}  track by $index"
-              ng-click="LocationDetailsCtrl.ePage.Masters.selectedrow = $index" ng-class="{row_active: LocationDetailsCtrl.ePage.Masters.selectedRow==$index}"
-              style="font-size: 11px;">
-              <div class='table_small'>
-                <div class='table_cell'></div>
-                <div class='table_cell pt-0 pb-0'>
-                  <label class="mb-0">
-                    <input type="checkbox"  ng-checked="x.singleselect" ng-change="LocationDetailsCtrl.ePage.Masters.select(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation,$index)" ng-model="x.singleselect" > 
-                    </input>
-                    <span class="text"></span>
-                  </label>
-                </div>
-              </div>
-              <div class='table_small'>
-                <div class='table_cell'>Column</div>
-                <div class='table_cell'>{{x.Column || LocationDetailsCtrl.ePage.Masters.emptyText}}</div>
-              </div>
-              <div class='table_small'>
-                <div class='table_cell'>Level</div>
-                <div class='table_cell'>{{x.Level || LocationDetailsCtrl.ePage.Masters.emptyText}}</div>
-              </div>
-              <div class='table_small'>
-                <div class='table_cell'>Tray</div>
-                <div class='table_cell'>{{x.Tray || LocationDetailsCtrl.ePage.Masters.emptyText}}</div>
-              </div>
-              <div class='table_small'>
-                <div class='table_cell'>Area</div>
-                <div class='table_cell'>{{x.WAA_Name || LocationDetailsCtrl.ePage.Masters.emptyText}}</div>
-              </div>
-              <div class='table_small'>
-                <div class='table_cell'>Status</div>
-                <div class='table_cell'>{{x.LocationStatusDescription || LocationDetailsCtrl.ePage.Masters.emptyText}}</div>
-              </div>
-              <div class='table_small'>
-                <div class='table_cell'>Type</div>
-                <div class='table_cell'>{{x.LocationType || LocationDetailsCtrl.ePage.Masters.emptyText}}</div>
-              </div>
-              <div class='table_small'>
-                <div class='table_cell'>PickMethod</div>
-                <div class='table_cell'>{{x.PickMethod || LocationDetailsCtrl.ePage.Masters.emptyText}}</div>
-              </div>
-              <div class='table_small'>
-                <div class='table_cell'>MaxWeight</div>
-                <div class='table_cell'>
-                  {{x.MaxWeight || LocationDetailsCtrl.ePage.Masters.emptyText}} {{x.MaxWeightUnit || LocationDetailsCtrl.ePage.Masters.emptyText}}
-                </div>
-              </div>
-              <div class='table_small'>
-                <div class='table_cell'>MaxCubic</div>
-                <div class='table_cell'>
-                  {{x.MaxCubic || LocationDetailsCtrl.ePage.Masters.emptyText}} {{x.MaxCubicUnit || LocationDetailsCtrl.ePage.Masters.emptyText}}
-                </div>
-              </div>
-              <div class='table_small'>
-                <div class='table_cell'>MaxQuantity</div>
-                <div class='table_cell'>{{x.MaxQuantity || LocationDetailsCtrl.ePage.Masters.emptyText}}</div>
-              </div>
-              <div class='table_small'>
-                <div class='table_cell'>PickPathSequence</div>
-                <div class='table_cell'>{{x.PickPathSequence || LocationDetailsCtrl.ePage.Masters.emptyText}}</div>
-              </div>
-            </div>
-          </div>
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">Area</label>
+            <div class="input-group input-group-sm">
+                <div dynamic-lookup placeholder="Area" my-ng-model="LocationDetailsCtrl.ePage.Masters.LocalVariables.WAA_Name" obj="LocationDetailsCtrl.ePage.Masters.LocalVariables"
+                    auto-complete-on-select="" page-name="'WarehouseArea'" control-id="'Area'" control-key="'Area_3217'"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="LocationDetailsCtrl.ePage.Masters.LocalVariables" control-id="'Area'" control-key="'Area_3217'" selected-data="" page-name="'WarehouseArea'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                </span>
+            </div>  
         </div>
-      </div>
     </div>
-  </div>
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">Status</label>
+            <div class="">
+                <select chosen class="form-control" ng-model="LocationDetailsCtrl.ePage.Masters.LocalVariables.LocationStatus" ng-options="x.Key as x.Key + ' - '  + x.Value for x in LocationDetailsCtrl.ePage.Masters.DropDownMasterList.LocStatus.ListSource"search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+        <label class="control-label text-single-line">Type</label>
+        <div class="input-group input-group-sm">
+            <div dynamic-lookup placeholder="Type" my-ng-model="LocationDetailsCtrl.ePage.Masters.LocalVariables.LocationType" obj="LocationDetailsCtrl.ePage.Masters.LocalVariables"auto-complete-on-select="LocationDetailsCtrl.ePage.Masters.SelectedLookupDataType($item)" page-name="'WarehouseLocationType'" control-id="'LocationType'" control-key="'LocationType_3227'"></div>
+            <span class="input-group-btn">
+                <button dynamic-list-modal obj="LocationDetailsCtrl.ePage.Masters.LocalVariables" control-id="'LocationType'" control-key="'LocationType_3227'" selected-data="LocationDetailsCtrl.ePage.Masters.SelectedLookupDataType($item)" page-name="'WarehouseLocationType'" mode = "2" grid-refresh-fun-name=""   grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+            </span>
+        </div>
+    </div>
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">Pick Method</label>
+            <div class="">
+                <select chosen class="form-control" ng-model="LocationDetailsCtrl.ePage.Masters.LocalVariables.PickMethod" ng-options="x.Key as x.Key + ' - '  + x.Value for x in LocationDetailsCtrl.ePage.Masters.DropDownMasterList.PickMethod.ListSource"search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 pr-0">
+        <label class="control-label text-single-line">Max. Weight</label>
+        <div class="input-group input-group-sm">
+            <input type="text" maxlength="9" class="form-control input-sm"  data-ng-model="LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxWeight" ng-change="LocationDetailsCtrl.ePage.Masters.CheckMaximumValues()">
+        </div>
+    </div>
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 pl-0">
+        <div class="form-group">
+            <div class="error-warning-container">
+                <error-warning-directive data-ng-if="LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.MaxWeightUnit.IsError"
+                    list="LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.MaxWeightUnit.ERROR" type="'error'"
+                    icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                </error-warning-directive>
+            </div>
+            <label class="control-label text-single-line">UQ</label>
+            <div class="">
+                <select chosen class="form-control" ng-model="LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxWeightUnit" ng-options="x.Key as x.Key + ' - '  + x.Value for x in LocationDetailsCtrl.ePage.Masters.DropDownMasterList.WEIGHTUNIT.ListSource"search-contains="true"  ng-change="LocationDetailsCtrl.ePage.Masters.CheckMaximumValues()">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 pr-0">
+        <label class="control-label text-single-line">Max. Cubic</label>
+        <div class="input-group input-group-sm">
+            <input type="text" maxlength="9" class="form-control input-sm"  data-ng-model="LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxCubic" ng-change="LocationDetailsCtrl.ePage.Masters.CheckMaximumValues()">
+        </div>
+    </div>
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 pl-0">
+        <div class="form-group">
+            <div class="error-warning-container">
+                <error-warning-directive data-ng-if="LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.MaxCubicUnit.IsError"
+                    list="LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.MaxCubicUnit.ERROR" type="'error'"
+                    icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                </error-warning-directive>
+            </div>
+            <label class="control-label text-single-line">UQ</label>
+            <div class="">
+                <select chosen class="form-control" ng-model="LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxCubicUnit" ng-options="x.Key as x.Key + ' - '  + x.Value for x in LocationDetailsCtrl.ePage.Masters.DropDownMasterList.CubicUnit.ListSource"search-contains="true"  ng-change="LocationDetailsCtrl.ePage.Masters.CheckMaximumValues()">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 pl-0">
+        <div class="form-group">
+            <label class="control-label text-single-line">Max. Qty</label>
+            <div class="">
+                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Max Qty"
+                    data-ng-model="LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxQuantity">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <button type="button" class="btn btn-md btn-blue pull-right mr-10"  title="Update" ng-disabled="!LocationDetailsCtrl.ePage.Masters.EnableUpdateButton || LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.MaxWeightUnit.IsError || LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.MaxCubicUnit.IsError" data-ng-click="LocationDetailsCtrl.ePage.Masters.UpdateV2()">Update</button>
+    <button type="button" class="btn btn-md btn-blue pull-right mr-10"  title="Generate Barcode" ng-disabled="!LocationDetailsCtrl.ePage.Masters.EnableUpdateButton || LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.MaxWeightUnit.IsError || LocationDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.MaxCubicUnit.IsError" data-ng-click="LocationDetailsCtrl.ePage.Masters.GenerateBarcode()">Generate Barcode</button>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="margin-top: 10px;border: 0.6px solid #ccc;"></div>
+
+
+<div class="clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding">
+        <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+            <span><button type="button" class="btn btn-sm btn-outline-primary font-10"  title="Customize"  data-ng-click="LocationDetailsCtrl.ePage.Masters.EditTableColumns = true"><span class="fa fa-filter"></span>&nbsp;&nbsp;Customize</button></span>
+        </div>
+        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0">
+            <div class="input-group">
+                <div class="input-group-addon font-10"><i class="fa fa-search font-10"></i></div>
+                <input type="text" class="form-control height-25 font-10" placeholder="Search" ng-model="LocationDetailsCtrl.ePage.Masters.SearchTable">
+            </div>
+        </div>      
+    </div>
+    <div id="LocationTable{{LocationDetailsCtrl.ePage.Entities.Header.Data.PK}}" class="fixedheader" key-events table-object='LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation' enable='LocationDetailsCtrl.ePage.Masters.Enable' selected-row='LocationDetailsCtrl.ePage.Masters.selectedRow' unique-id='LocationTable{{LocationDetailsCtrl.ePage.Entities.Header.Data.PK}}'>
+        <table style="height: 260px">
+            <thead>
+                <tr id="tableHeader">
+                    <th id="checkbox" data-ng-if="LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.checkbox.isenabled" ng-style="{ 'width': LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.checkbox.width + 'px'}">
+                        <label class="customcheckbox">
+                            <input type="checkbox" ng-change="LocationDetailsCtrl.ePage.Masters.SelectAllCheckBox()" ng-checked="LocationDetailsCtrl.ePage.Masters.SelectAll"
+                                ng-model="LocationDetailsCtrl.ePage.Masters.SelectAll">
+                            <span class="text"></span>
+                        </label>
+                    </th>
+                    <th id="column" data-ng-if="LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.column.isenabled" ng-style="{ 'width': LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.column.width + 'px' }" title="Columns">Column</th>
+                    <th id="level" data-ng-if="LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.level.isenabled" ng-style="{ 'width': LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.level.width + 'px' }" title="Level">Level</th>
+                    <th id="tray"data-ng-if="LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.tray.isenabled" ng-style="{ 'width': LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.tray.width + 'px' }" title="Tray">Tray</th>
+                    <th id="area" data-ng-if="LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.area.isenabled" ng-style="{ 'width': LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.area.width + 'px' }" title="Area">Area</th>
+                    <th id="status" data-ng-if="LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.status.isenabled" ng-style="{ 'width': LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.status.width + 'px' }" title="Status">Status</th>
+                    <th id="type"data-ng-if="LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.type.isenabled" ng-style="{ 'width': LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.type.width + 'px' }" title="Type">Type</th>
+                    <th id="pickmethod" data-ng-if="LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.pickmethod.isenabled" ng-style="{ 'width': LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.pickmethod.width + 'px' }" title="Pick Method">Pick Method</th>
+                    <th id="maxweight" data-ng-if="LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.maxweight.isenabled" ng-style="{ 'width': LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.maxweight.width + 'px' }" title="Maximum Weight">Max. Weight</th>
+                    <th id="maxcubic"data-ng-if="LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.maxcubic.isenabled" ng-style="{ 'width': LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.maxcubic.width + 'px' }" title="Maximum Cubic">Max. Cubic</th>
+                    <th id="maxqty" data-ng-if="LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.maxqty.isenabled" ng-style="{ 'width': LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.maxqty.width + 'px' }" title="Maximum Quantity">Max. Qty</th>
+                    <th id="pickpathseq" data-ng-if="LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.pickpathseq.isenabled" ng-style="{ 'width': LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.pickpathseq.width + 'px' }" title="Pick Path Sequence">Pick Path Seq</th>
+                </tr>
+            </thead>
+            <tbody id="WarehouseCustomTable{{LocationDetailsCtrl.ePage.Entities.Header.Data.PK}}" >
+                <tr id="tableBody" ng-repeat="x in LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation | filter:LocationDetailsCtrl.ePage.Masters.SearchTable"  ng-click="LocationDetailsCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: (LocationDetailsCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}"
+                    watch-table table-properties="LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation"   unique-id="WarehouseCustomTable{{LocationDetailsCtrl.ePage.Entities.Header.Data.PK}}" row-position="$index">
+                    <td id="checkbox" data-ng-show='LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.checkbox.isenabled' ng-style="{ 'width': LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.checkbox.width + 'px','padding-top':'0px' }" ng-click="LocationDetailsCtrl.ePage.Masters.Enable = true">
+                        <label class="mb-0 customcheckbox">
+                            <input type="checkbox" ng-checked="x.SingleSelect" ng-change="LocationDetailsCtrl.ePage.Masters.SingleSelectCheckBox()"
+                                ng-model="x.SingleSelect"> </input>
+                            <span class="text"></span>  
+                        </label>
+                    </td>
+                    <td id="column"   data-ng-show='LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.column.isenabled' ng-style="{ 'width': LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.column.width + 'px' }" class="overflow-text">{{ x.Column || LocationDetailsCtrl.ePage.Masters.emptyText}}</td>
+                    <td id="level"   data-ng-show='LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.level.isenabled' ng-style="{ 'width': LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.level.width + 'px' }" class="overflow-text">{{ x.Level || LocationDetailsCtrl.ePage.Masters.emptyText}}</td>
+                    <td id="tray"  data-ng-show='LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.tray.isenabled'  ng-style="{ 'width': LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.tray.width + 'px' }" class="overflow-text">{{ x.Tray || LocationDetailsCtrl.ePage.Masters.emptyText}}</td> 
+                    <td id="area"   data-ng-show='LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.area.isenabled' ng-style="{ 'width': LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.area.width + 'px' }" class="overflow-text">{{ x.WAA_Name || LocationDetailsCtrl.ePage.Masters.emptyText}}</td>
+                    <td id="status"   data-ng-show='LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.status.isenabled' ng-style="{ 'width': LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.status.width + 'px' }" class="overflow-text">{{ x.LocationStatus}} - {{x.LocationStatusDescription}}</td>
+                    <td id="type"  data-ng-show='LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.type.isenabled'  ng-style="{ 'width': LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.type.width + 'px' }" class="overflow-text">{{ x.LocationType || LocationDetailsCtrl.ePage.Masters.emptyText}}</td> 
+                    <td id="pickmethod"   data-ng-show='LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.pickmethod.isenabled' ng-style="{ 'width': LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.pickmethod.width + 'px' }" class="overflow-text">{{ x.PickMethod}} - {{x.PickMethodsDescription}}</td>
+                    <td id="maxweight"   data-ng-show='LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.maxweight.isenabled' ng-style="{ 'width': LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.maxweight.width + 'px' }" class="overflow-text" >{{ x.MaxWeight}}  {{x.MaxWeightUnit || LocationDetailsCtrl.ePage.Masters.emptyText}}</td>
+                    <td id="maxcubic"  data-ng-show='LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.maxcubic.isenabled'  ng-style="{ 'width': LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.maxcubic.width + 'px' }" class="overflow-text">{{ x.MaxCubic}}  {{x.MaxCubicUnit || LocationDetailsCtrl.ePage.Masters.emptyText}}</td> 
+                    <td id="maxqty"   data-ng-show='LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.maxqty.isenabled' ng-style="{ 'width': LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.maxqty.width + 'px' }" class="overflow-text"> {{x.MaxQuantity || LocationDetailsCtrl.ePage.Masters.emptyText}}</td>
+                    <td id="pickpathseq"   data-ng-show='LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.pickpathseq.isenabled' ng-style="{ 'width': LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.pickpathseq.width + 'px' }" class="overflow-text">{{ x.PickPathSequence || LocationDetailsCtrl.ePage.Masters.emptyText}}</td>        
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:230px" ng-if="LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation.length==0">No Record Found...</div>
+    <div ng-if='LocationDetailsCtrl.ePage.Masters.EditTableColumns'>
+        <customize-table table-properties="LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation" enable="LocationDetailsCtrl.ePage.Masters.EditTableColumns" unique-id="WarehouseCustomTable{{LocationDetailsCtrl.ePage.Entities.Header.Data.PK}}" user-value='LocationDetailsCtrl.ePage.Masters.UserValue' entity-source='WMS_LOCATIONMASTER'></customize-table>
+    </div>
+
+        <!-- Call Directive If user has value -->
+        <div ng-if='LocationDetailsCtrl.ePage.Masters.UserHasValue' ng-init="LocationDetailsCtrl.ePage.Masters.UserHasValue=false">
+        <watch-table table-properties="LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation"  unique-id="WarehouseCustomTable{{LocationDetailsCtrl.ePage.Entities.Header.Data.PK}}"></watch-table>
+    </div>
+
 </div>

@@ -5,9 +5,9 @@
         .module("Application")
         .controller("LoginController", LoginController);
 
-    LoginController.$inject = ["$location", "$timeout", "authService", "apiService", "helperService", "appConfig", "toastr"];
+    LoginController.$inject = ["$location", "authService", "apiService", "helperService", "appConfig", "toastr", "APP_CONSTANT"];
 
-    function LoginController($location, $timeout, authService, apiService, helperService, appConfig, toastr) {
+    function LoginController($location, authService, apiService, helperService, appConfig, toastr, APP_CONSTANT) {
         /* jshint validthis: true */
         var LoginCtrl = this;
 
@@ -21,50 +21,20 @@
             };
 
             LoginCtrl.ePage.Masters.UserCredentials = {};
-            LoginCtrl.ePage.Masters.Menu = {};
+            LoginCtrl.ePage.Masters.ProductLogo = "assets/img/logo/product-logo.png";
+            LoginCtrl.ePage.Masters.Version = "v" + APP_CONSTANT.Version;
 
-            LoginCtrl.ePage.Masters.UserInfo = {
-                ProfilePhoto: "assets/img/avatars/profile-photo-dummy.png",
-                ProductLogo: "assets/img/logo/product-logo-dummy.png",
-                Menu: {
-                    VisibleType: "List",
-                    ListSource: []
-                },
-                AccessMenuList: []
-            };
-
-            LoginCtrl.ePage.Masters.Login = Login;
-            LoginCtrl.ePage.Masters.OnTenantClick = OnTenantClick;
-
-            LoginCtrl.ePage.Masters.IsShowTenantList = false;
-            LoginCtrl.ePage.Masters.IsShowTenantListOverlay = false;
+            LoginCtrl.ePage.Masters.Login = ValidateLogin;
 
             LoginCtrl.ePage.Masters.loginBtnText = "Login";
             LoginCtrl.ePage.Masters.isDisabledLoginBtn = false;
-
-            GetUserTypeList();
         }
 
-        function GetUserTypeList() {
-            LoginCtrl.ePage.Masters.UserTypeList = [{
-                "FieldName": "Admin",
-                "Displayname": "Admin"
-            }, {
-                "FieldName": "RegularUser",
-                "Displayname": "Regular User"
-            }, {
-                "FieldName": "Customer",
-                "Displayname": "Customer",
-            }];
-
-            // Set Default UserType
-            LoginCtrl.ePage.Masters.UserType = LoginCtrl.ePage.Masters.UserTypeList[1].FieldName;
-        }
-
-        function Login() {
+        function ValidateLogin() {
             if (LoginCtrl.ePage.Masters.loginForm.$valid) {
                 LoginCtrl.ePage.Masters.loginBtnText = "Please Wait...";
                 LoginCtrl.ePage.Masters.isDisabledLoginBtn = true;
+
                 HardLogin();
             } else {
                 LoginCtrl.ePage.Masters.loginForm.submitted = true;
@@ -85,274 +55,85 @@
             var _input = "grant_type=password&username=" + LoginCtrl.ePage.Masters.UserCredentials.username + "&password=" + LoginCtrl.ePage.Masters.UserCredentials.password + "&ExternalURL=" + _host;
 
             apiService.post("authAPI", appConfig.Entities.Token.API.token.Url, _input).then(function SuccessCallback(response) {
-                if (!angular.isUndefined(response.data.access_token)) {
-                    LoginCtrl.ePage.Masters.HardLoginToken = response.data.token_type + ' ' + response.data.access_token;
-                    LoginCtrl.ePage.Masters.TenantList = JSON.parse(response.data.tenantinfo);
+                var _response = response.data;
+                if (_response) {
+                    if (_response.access_token) {
+                        var _hardLoginToken = _response.token_type + ' ' + _response.access_token;
 
-                    if (LoginCtrl.ePage.Masters.TenantList.length > 0) {
-                        if (LoginCtrl.ePage.Masters.TenantList.length > 1) {
-                            LoginCtrl.ePage.Masters.IsShowTenantList = true;
+                        if (_response.tenantinfo) {
+                            var _queryString = {
+                                Username: _response.username,
+                                Token: _hardLoginToken,
+                                TenantList: JSON.parse(_response.tenantinfo),
+                                IsLogin: true,
+                                Continue: $location.path(),
+                            };
+                            $location.path("/tenant-list").search("q", helperService.encryptData(_queryString));
                         } else {
-                            OnTenantClick(LoginCtrl.ePage.Masters.TenantList[0]);
+                            LoginCtrl.ePage.Masters.UserInfo = _response;
+                            LoginCtrl.ePage.Masters.UserInfo.AuthToken = _hardLoginToken;
+
+                            PrepareLocalStroageInfo();
                         }
                     } else {
-                        toastr.error("You dont have access to this Application...!");
+                        toastr.error("Login Failed...!");
                         LoginCtrl.ePage.Masters.loginBtnText = "Login";
                         LoginCtrl.ePage.Masters.isDisabledLoginBtn = false;
                     }
                 }
             }, function ErrorCallback(response) {
-                // Invalid Login                    
-                if (response.data == null) {
-                    LoginCtrl.ePage.Masters.loginBtnText = "Login";
-                    LoginCtrl.ePage.Masters.isDisabledLoginBtn = false;
-                    toastr.error("Please Check Username and Password", "Invalid Credentials");
-                }
+                toastr.error("Please Check Username and Password", "Invalid Credentials");
+
+                LoginCtrl.ePage.Masters.loginBtnText = "Login";
+                LoginCtrl.ePage.Masters.isDisabledLoginBtn = false;
             });
         }
 
-        function OnTenantClick($item) {
-            LoginCtrl.ePage.Masters.IsShowTenantListOverlay = true;
-            LoginCtrl.ePage.Masters.SelectedTenant = $item;
+        function PrepareLocalStroageInfo() {
+            var _userInfo = angular.copy(LoginCtrl.ePage.Masters.UserInfo),
+                _keys = ["Menus", "AccessMenus", "HomeMenu", "Logo", "Parties"];
 
-            SoftLogin();
-        }
-
-        function SoftLogin() {
-            var _appCode = LoginCtrl.ePage.Masters.SelectedTenant.SAP_Code;
-            var _input = {
-                "grant_type": "password",
-                "username": LoginCtrl.ePage.Masters.UserCredentials.username,
-                "AppCode": LoginCtrl.ePage.Masters.SelectedTenant.SAP_Code,
-                "TNTCode": LoginCtrl.ePage.Masters.SelectedTenant.TNT_TenantCode
-            };
-
-            apiService.post("authAPI", appConfig.Entities.Token.API.SoftLoginToken.Url, _input, LoginCtrl.ePage.Masters.HardLoginToken).then(function SuccessCallback(response) {
-                if (response.data.Response) {
-                    var _isEmpty = angular.equals({}, response.data.Response);
-                    if (!_isEmpty) {
-                        for (var x in response.data.Response) {
-                            LoginCtrl.ePage.Masters.UserInfo[x] = response.data.Response[x];
-                        }
-                    }
-
-                    CheckUserBasedMenuVisibleType();
-                } else {
-                    LoginCtrl.ePage.Masters.IsShowTenantListOverlay = false;
-                }
-            }, function ErrorCallback(response) {
-                LoginCtrl.ePage.Masters.IsShowTenantListOverlay = false;
-            });
-        }
-
-        function CheckUserBasedMenuVisibleType() {
-            var _filter = {
-                "SourceEntityRefKey": LoginCtrl.ePage.Masters.UserInfo.UserId,
-                "AppCode": LoginCtrl.ePage.Masters.UserInfo.AppCode,
-                "EntitySource": "APP_DEFAULT"
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.UserSettings.API.FindAll.FilterID
-            };
-
-            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.FindAll.Url + LoginCtrl.ePage.Masters.UserInfo.AppPK, _input, LoginCtrl.ePage.Masters.UserInfo.AuthToken).then(function SuccessCallback(response) {
-                if (response.data.Response) {
-                    var _response = response.data.Response;
-                    if (_response.length > 0) {
-                        var _value = JSON.parse(_response[0].Value);
-                        LoginCtrl.ePage.Masters.UserInfo.Menu.VisibleType = _value.Dashboard.MenuType;
-                    }
-                }
-                GetCfxMenusList();
-            });
-        }
-
-        function GetCfxMenusList() {
-            var _filter = {
-                "USR_TenantCode": LoginCtrl.ePage.Masters.UserInfo.TenantCode,
-                "USR_UserName": LoginCtrl.ePage.Masters.UserInfo.UserId,
-                "USR_SAP_FK": LoginCtrl.ePage.Masters.UserInfo.AppPK,
-                "PageType": "Menu"
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.CfxMenus.API.MasterCascadeFindAll.FilterID
-            };
-
-            apiService.post("eAxisAPI", appConfig.Entities.CfxMenus.API.MasterCascadeFindAll.Url, _input, LoginCtrl.ePage.Masters.UserInfo.AuthToken).then(function (response) {
-                if (response.data.Response) {
-                    LoginCtrl.ePage.Masters.UserInfo.Menu.ListSource = response.data.Response;
-                }
-                GetUserAccessMenuList();
-            });
-        }
-
-        function GetUserAccessMenuList() {
-            var _filter = {
-                "USR_TenantCode": LoginCtrl.ePage.Masters.UserInfo.TenantCode,
-                "USR_UserName": LoginCtrl.ePage.Masters.UserInfo.UserId,
-                "USR_SAP_FK": LoginCtrl.ePage.Masters.UserInfo.AppPK,
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.CfxMenus.API.MasterCascadeFindAll.FilterID
-            };
-
-            apiService.post("eAxisAPI", appConfig.Entities.CfxMenus.API.MasterCascadeFindAll.Url, _input, LoginCtrl.ePage.Masters.UserInfo.AuthToken).then(function (response) {
-                if (response.data.Response) {
-                    LoginCtrl.ePage.Masters.UserInfo.AccessMenuList = response.data.Response;
-                }
-                GetDefaultPage();
-            });
-        }
-
-        function GetDefaultPage() {
-            var _filter = {
-                USR_Code: LoginCtrl.ePage.Masters.UserInfo.UserId,
-                USR_SAP_FK: LoginCtrl.ePage.Masters.UserInfo.AppPK
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.HomeMenuUserRoleAccess.API.FindAll.FilterID
-            };
-
-            apiService.post("authAPI", appConfig.Entities.HomeMenuUserRoleAccess.API.FindAll.Url, _input, LoginCtrl.ePage.Masters.UserInfo.AuthToken).then(function SuccessCallback(response) {
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        LoginCtrl.ePage.Masters.DefaultMenu = response.data.Response[0];
-
-                        if (LoginCtrl.ePage.Masters.UserInfo.Menu.ListSource.length > 0) {
-                            LoginCtrl.ePage.Masters.UserInfo.Menu.ListSource.map(function (value, key) {
-                                if (value.Code == LoginCtrl.ePage.Masters.DefaultMenu.HOM_Code) {
-                                    var _link = angular.copy(value.Link);
-                                    var _index = _link.indexOf("#");
-                                    if (_index != -1) {
-                                        _link = value.Link.substring(2, value.Link.length);
-                                    }
-
-                                    LoginCtrl.ePage.Masters.UserInfo.InternalUrl = _link;
-                                }
-                            });
-                        }
-                    }
-                }
-
-                GetUserProfilePicture();
-            });
-        }
-
-        function GetUserProfilePicture() {
-            var _filter = {
-                "EntityRefKey": LoginCtrl.ePage.Masters.UserInfo.UserPK,
-                "EntitySource": "USR"
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.JobDocument.API.FindAll.FilterID
-            };
-
-            apiService.post("eAxisAPI", appConfig.Entities.JobDocument.API.FindAll.Url + LoginCtrl.ePage.Masters.UserInfo.AppPK, _input, LoginCtrl.ePage.Masters.UserInfo.AuthToken).then(function SuccessCallback(response) {
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        DownloadImage(response.data.Response[0], 'ProfilePhoto');
-                    } else {
-                        GetProductLogo();
-                    }
-                } else {
-                    GetProductLogo();
+            _keys.map(function (value, key) {
+                if (_userInfo[value]) {
+                    _userInfo[value] = JSON.parse(_userInfo[value]);
                 }
             });
-        }
 
-        function GetProductLogo_Old() {
-            var _filter = {
-                // "EntityRefKey": LoginCtrl.ePage.Masters.UserInfo.TenantPK,
-                // "EntitySource": "TNT"
-                "EntityRefKey": LoginCtrl.ePage.Masters.UserInfo.AppPK,
-                "EntitySource": "SAP"
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.JobDocument.API.FindAll.FilterID
-            };
-
-            apiService.post("eAxisAPI", appConfig.Entities.JobDocument.API.FindAll.Url + LoginCtrl.ePage.Masters.UserInfo.AppPK, _input, LoginCtrl.ePage.Masters.UserInfo.AuthToken).then(function SuccessCallback(response) {
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        DownloadImage(response.data.Response[0], 'ProductLogo');
-                    } else {
-                        RedirectPage();
-                    }
-                } else {
-                    RedirectPage();
-                }
-            });
-        }
-        // Test
-        function GetProductLogo() {
-           apiService.get("eAxisAPI", appConfig.Entities.JobDocument.API.GetLogoFile.Url + LoginCtrl.ePage.Masters.UserInfo.AppPK, LoginCtrl.ePage.Masters.UserInfo.AuthToken).then(function SuccessCallback(response) {
-                if (response.data.Response) {
-                    DownloadImage(response.data.Response, 'ProductLogo');
-                } else {
-                    RedirectPage();
-                }
-            });
-        }
-
-        function DownloadImage(curDoc, objName) {
-            apiService.get("eAxisAPI", appConfig.Entities.JobDocument.API.JobDocumentDownload.Url + curDoc.PK + "/" + LoginCtrl.ePage.Masters.UserInfo.AppPK, LoginCtrl.ePage.Masters.UserInfo.AuthToken).then(function (response) {
-                if (response.data.Response) {
-                    if (response.data.Response !== "No Records Found!") {
-                        LoginCtrl.ePage.Masters.UserInfo[objName] = "data:image/jpeg;base64," + response.data.Response.Base64str;
-
-                        if (objName == "ProfilePhoto") {
-                            GetProductLogo();
-                        } else {
-                            RedirectPage();
-                        }
-                    } else {
-                        if (objName == "ProfilePhoto") {
-                            GetProductLogo();
-                        } else {
-                            RedirectPage();
-                        }
-                    }
-                } else {
-                    if (objName == "ProfilePhoto") {
-                        GetProductLogo();
-                    } else {
-                        RedirectPage();
-                    }
-                }
-            });
-        }
-
-        function RedirectPage() {
-            if (LoginCtrl.ePage.Masters.UserInfo.AppCode == "TC") {
-                LoginCtrl.ePage.Masters.UserInfo.Menu.VisibleType = "Grid";
+            if (!_userInfo.MenuType) {
+                _userInfo.MenuType = "List";
             }
 
-            var _userInfo = angular.copy(LoginCtrl.ePage.Masters.UserInfo),
-                queryString = $location.search(),
-                _redirectionPath = LoginCtrl.ePage.Masters.UserInfo.InternalUrl;
+            if (_userInfo.AppCode == "TC") {
+                _userInfo.MenuType = "Grid";
+            }
+
+            if (_userInfo.HomeMenu && (_userInfo.AccessMenus && _userInfo.AccessMenus.length > 0)) {
+                if (_userInfo.HomeMenu.PK) {
+                    var _index = _userInfo.AccessMenus.map(function (value, key) {
+                        return value.Id;
+                    }).indexOf(_userInfo.HomeMenu.PK);
+
+                    if (_index != -1) {
+                        _userInfo.InternalUrl = _userInfo.AccessMenus[_index].Link;
+                    }
+                }
+            }
+
+            if (_userInfo.RolePK && _userInfo.PartyPK) {
+                if (_userInfo.Parties && _userInfo.Parties.length > 0) {
+                    _userInfo.Parties.map(function (value, key) {
+                        if (value.PK === _userInfo.PartyPK) {
+                            _userInfo.Roles = value.Roles;
+                        }
+                    });
+                }
+            }
+
+            _userInfo.Expires = _userInfo[".expires"];
+            _userInfo.Issued = _userInfo[".issued"];
 
             authService.setUserInfo(helperService.encryptData(_userInfo));
-
-            if (queryString.continue != undefined) {
-                if (queryString.continue.length > 0) {
-                    if (queryString.continue != "/home") {
-                        var menuList = JSON.stringify(_userInfo.Menu.ListSource).toLowerCase();
-                        var _index = menuList.indexOf(queryString.continue.toLowerCase());
-
-                        if (_index != -1) {
-                            _redirectionPath = queryString.continue;
-                        }
-                    }
-                }
-            }
-
-            $location.path(_redirectionPath).search({});
+            $location.path(_userInfo.InternalUrl).search({});
         }
 
         Init();

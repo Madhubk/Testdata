@@ -39,20 +39,20 @@
             var _filter = {
                 "PropertyName": "DTE_ClassSource",
                 "EntityRefKey": DataEventCtrl.ePage.Entities.EntityRefKey,
-                "EntitySource": DataEventCtrl.ePage.Entities.EntitySource,
-                "EntityRefCode": DataEventCtrl.ePage.Entities.EntityRefCode
+                // "EntitySource": DataEventCtrl.ePage.Entities.EntitySource,
+                // "EntityRefCode": DataEventCtrl.ePage.Entities.EntityRefCode
             };
 
             if (DataEventCtrl.ePage.Entities.ParentEntityRefKey) {
                 _filter.ParentEntityRefKey = DataEventCtrl.ePage.Entities.ParentEntityRefKey;
-                _filter.ParentEntitySource = DataEventCtrl.ePage.Entities.ParentEntitySource;
-                _filter.ParentEntityRefCode = DataEventCtrl.ePage.Entities.ParentEntityRefCode;
+                // _filter.ParentEntitySource = DataEventCtrl.ePage.Entities.ParentEntitySource;
+                // _filter.ParentEntityRefCode = DataEventCtrl.ePage.Entities.ParentEntityRefCode;
             }
 
             if (DataEventCtrl.ePage.Entities.AdditionalEntityRefKey) {
                 _filter.AdditionalEntityRefKey = DataEventCtrl.ePage.Entities.AdditionalEntityRefKey;
-                _filter.AdditionalEntitySource = DataEventCtrl.ePage.Entities.AdditionalEntitySource;
-                _filter.AdditionalEntityRefCode = DataEventCtrl.ePage.Entities.AdditionalEntityRefCode;
+                // _filter.AdditionalEntitySource = DataEventCtrl.ePage.Entities.AdditionalEntitySource;
+                // _filter.AdditionalEntityRefCode = DataEventCtrl.ePage.Entities.AdditionalEntityRefCode;
             }
 
             var _input = {

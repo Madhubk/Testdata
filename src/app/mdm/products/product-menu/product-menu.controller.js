@@ -5,9 +5,9 @@
         .module("Application")
         .controller("ProductMenuController", ProductMenuController);
 
-    ProductMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "productConfig", "helperService", "appConfig", "authService", "$state"];
+    ProductMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "productConfig", "helperService", "appConfig", "authService", "$state","toastr"];
 
-    function ProductMenuController($scope, $timeout, APP_CONSTANT, apiService, productConfig, helperService, appConfig, authService, $state) {
+    function ProductMenuController($scope, $timeout, APP_CONSTANT, apiService, productConfig, helperService, appConfig, authService, $state,toastr) {
 
         var ProductMenuCtrl = this;
 
@@ -24,9 +24,6 @@
 
             };
 
-            // Standard Menu Configuration and Data
-            ProductMenuCtrl.ePage.Masters.StandardMenuInput = appConfig.Entities.standardMenuConfigList.OrgSupplierPart;
-            ProductMenuCtrl.ePage.Masters.StandardMenuInput.obj = ProductMenuCtrl.currentProduct;
             // function
             ProductMenuCtrl.ePage.Masters.Save = Save;
             ProductMenuCtrl.ePage.Masters.SaveButtonText = "Save";
@@ -62,7 +59,8 @@
 
         function Save($item) {
             ProductMenuCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
-            ProductMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave = true;
+            ProductMenuCtrl.ePage.Masters.DisableSave = true;
+            ProductMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
 
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
@@ -76,7 +74,8 @@
 
             helperService.SaveEntity($item, 'Product').then(function (response) {
                 ProductMenuCtrl.ePage.Masters.SaveButtonText = "Save";
-                ProductMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave = false;
+                ProductMenuCtrl.ePage.Masters.DisableSave = false;
+                ProductMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
                 if (response.Status === "success") {
                     productConfig.TabList.map(function (value, key) {
                         if (value.New) {
@@ -84,6 +83,7 @@
                                 value.label = ProductMenuCtrl.ePage.Entities.Header.Data.UIProductGeneral.PartNum;
                                 value[ProductMenuCtrl.ePage.Entities.Header.Data.UIProductGeneral.PartNum] = value.New;
                                 delete value.New;
+                                value.code = ProductMenuCtrl.ePage.Entities.Header.Data.UIProductGeneral.PartNum;
                             }
                         }
                     });
@@ -94,18 +94,29 @@
 
                     if (_index !== -1) {
                         productConfig.TabList[_index][productConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data;
+
+                        //Changing Label name when product code changes
+                        if(ProductMenuCtrl.ePage.Entities.Header.Data.UIProductGeneral.PartNum != productConfig.TabList[_index].label){
+                            productConfig.TabList[_index].label = ProductMenuCtrl.ePage.Entities.Header.Data.UIProductGeneral.PartNum;
+                            productConfig.TabList[_index][productConfig.TabList[_index].label] = productConfig.TabList[_index][productConfig.TabList[_index].code];
+                            delete productConfig.TabList[_index][productConfig.TabList[_index].code];
+                            productConfig.TabList[_index].code = ProductMenuCtrl.ePage.Entities.Header.Data.UIProductGeneral.PartNum
+                        }
+
                         productConfig.TabList[_index].isNew = false;
                         if ($state.current.url == "/products") {
                             helperService.refreshGrid();
                         }
                     }
                     console.log("Success");
+                    toastr.success("Saved Successfully...!");
                     if(ProductMenuCtrl.ePage.Masters.SaveAndClose){
                         ProductMenuCtrl.ePage.Masters.Config.SaveAndClose = true;
                         ProductMenuCtrl.ePage.Masters.SaveAndClose = false;
                     }
                 } else if (response.Status === "failed") {
                     console.log("Failed");
+                    toastr.error("Could not Save...!");
                     ProductMenuCtrl.ePage.Entities.Header.Validations = response.Validations;
                     angular.forEach(response.Validations, function (value, key) {
                         ProductMenuCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, ProductMenuCtrl.currentProduct.label, false, undefined, undefined, undefined, undefined, value.GParentRef);

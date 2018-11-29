@@ -5,17 +5,30 @@
         .module("Application")
         .factory("confirmation", Confirmation);
 
-    Confirmation.$inject = ["$uibModal"];
+    Confirmation.$inject = ["$uibModal", "$templateCache"];
 
-    function Confirmation($uibModal) {
+    function Confirmation($uibModal, $templateCache) {
+        var _template = `<div class="modal-header">
+        <h5>{{modalOptions.headerText}}</h5>
+        </div>
+        <div class="modal-body">
+            <p>{{modalOptions.bodyText}}</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-sm" ng-if="modalOptions.closeButtonVisible" data-ng-click="modalOptions.close()">{{modalOptions.closeButtonText}}</button>
+            <button class="btn btn-primary btn-sm" data-ng-click="modalOptions.ok();">{{modalOptions.actionButtonText}}</button>
+        </div>`;
+        $templateCache.put("Confirmation.html", _template);
+
         var modalDefaults = {
-            backdrop: true,
-            keyboard: true,
+            backdrop: false,
+            keyboard: false,
             modalFade: true,
-            templateUrl: 'app/shared/confirmation/confirmation.html'
+            templateUrl: 'Confirmation.html'
         };
         var modalOptions = {
             closeButtonText: 'Close',
+            closeButtonVisible: true,
             actionButtonText: 'OK',
             headerText: 'Proceed?',
             bodyText: 'Perform this action?'

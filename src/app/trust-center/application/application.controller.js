@@ -5,9 +5,9 @@
         .module("Application")
         .controller("TCApplicationController", TCApplicationController);
 
-    TCApplicationController.$inject = ["$scope", "$location", "$uibModal", "authService", "apiService", "helperService", "appConfig", "APP_CONSTANT", "toastr", "jsonEditModal"];
+    TCApplicationController.$inject = ["$scope", "$location", "$uibModal", "authService", "apiService", "helperService", "toastr", "jsonEditModal", "trustCenterConfig"];
 
-    function TCApplicationController($scope, $location, $uibModal, authService, apiService, helperService, appConfig, APP_CONSTANT, toastr, jsonEditModal) {
+    function TCApplicationController($scope, $location, $uibModal, authService, apiService, helperService, toastr, jsonEditModal, trustCenterConfig) {
         /* jshint validthis: true */
         var TCApplicationCtrl = this;
 
@@ -80,6 +80,8 @@
             TCApplicationCtrl.ePage.Masters.Application.SaveBtnText = "OK";
             TCApplicationCtrl.ePage.Masters.Application.IsDisableSaveBtn = false;
 
+            $scope.OnLogoChange = OnLogoChange;
+
             GetRedirectPagetList();
             GetApplicationList();
         }
@@ -95,10 +97,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.SecApp.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.SecApp.API.FindAll.FilterID
             };
 
-            apiService.post("authAPI", appConfig.Entities.SecApp.API.FindAll.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("authAPI", trustCenterConfig.Entities.API.SecApp.API.FindAll.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     TCApplicationCtrl.ePage.Masters.Application.ApplicationList = response.data.Response;
 
@@ -126,7 +128,7 @@
 
             if ($item) {
                 if (!TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.LogoStr) {
-                    InitLogoUpload(TCApplicationCtrl.ePage.Masters.Application.ActiveApplication);
+                    GetLogo();
                 }
 
                 GetExtenalUrlList();
@@ -146,10 +148,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.SecAppUrl.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.SecAppUrl.API.FindAll.FilterID
             };
 
-            apiService.post("authAPI", appConfig.Entities.SecAppUrl.API.FindAll.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("authAPI", trustCenterConfig.Entities.API.SecAppUrl.API.FindAll.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     TCApplicationCtrl.ePage.Masters.Application.ExternalUrlList = response.data.Response;
                 } else {
@@ -172,9 +174,6 @@
         function Edit() {
             TCApplicationCtrl.ePage.Masters.Application.SaveBtnText = "OK";
             TCApplicationCtrl.ePage.Masters.Application.IsDisableSaveBtn = false;
-
-            TCApplicationCtrl.ePage.Masters.Application.Logo.fileDetails = [];
-            TCApplicationCtrl.ePage.Masters.Application.Logo.fileCount = 0;
 
             EditModalInstance().result.then(function (response) {}, function () {
                 Cancel();
@@ -219,7 +218,7 @@
             _input.TenantCode = authService.getUserInfo().TenantCode;
 
             if (TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.IsModified) {
-                apiService.post("authAPI", appConfig.Entities.SecApp.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
+                apiService.post("authAPI", trustCenterConfig.Entities.API.SecApp.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
                     if (response.data.Response) {
                         var _response = response.data.Response[0];
                         TCApplicationCtrl.ePage.Masters.Application.ActiveApplication = angular.copy(_response);
@@ -249,7 +248,7 @@
         function SaveExternalUrl($item) {
             var _input = angular.copy($item);
 
-            apiService.post("authAPI", appConfig.Entities.SecAppUrl.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
+            apiService.post("authAPI", trustCenterConfig.Entities.API.SecAppUrl.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
                 if (response.data.Response) {} else {
                     toastr.error("Could not Save...!");
                 }
@@ -270,128 +269,11 @@
                     TCApplicationCtrl.ePage.Masters.Application.ActiveApplication = undefined;
                 }
             } else if (TCApplicationCtrl.ePage.Masters.Application.ActiveApplicationCopy) {
-                var _index = TCApplicationCtrl.ePage.Masters.Application.ApplicationList.map(function (value, key) {
-                    return value.PK;
-                }).indexOf(TCApplicationCtrl.ePage.Masters.Application.ActiveApplicationCopy.PK);
-
-                if (_index !== -1) {
-                    TCApplicationCtrl.ePage.Masters.Application.ActiveApplication = angular.copy(TCApplicationCtrl.ePage.Masters.Application.ApplicationList[_index]);
-                }
+                TCApplicationCtrl.ePage.Masters.Application.ActiveApplication = angular.copy(TCApplicationCtrl.ePage.Masters.Application.ActiveApplicationCopy);
             }
 
             StringifyOtherConfig();
             TCApplicationCtrl.ePage.Masters.Application.EditModal.dismiss('cancel');
-        }
-
-        function InitLogoUpload() {
-            TCApplicationCtrl.ePage.Masters.Application.Logo = {};
-            TCApplicationCtrl.ePage.Masters.Application.Logo.autherization = authService.getUserInfo().AuthToken;
-            TCApplicationCtrl.ePage.Masters.Application.Logo.fileDetails = [];
-            TCApplicationCtrl.ePage.Masters.Application.Logo.fileCount = 0;
-            TCApplicationCtrl.ePage.Masters.Application.Logo.fileSize = 1;
-            TCApplicationCtrl.ePage.Masters.Application.Logo.documentTypeList = [{
-                Value: "Logo",
-                DisplayName: "Logo"
-            }];
-            var _additionalValue = {
-                "Entity": "TrustCenter",
-                "Path": "TrustCenter,Application"
-            };
-            TCApplicationCtrl.ePage.Masters.Application.Logo.additionalValue = JSON.stringify(_additionalValue);
-            TCApplicationCtrl.ePage.Masters.Application.Logo.UploadUrl = APP_CONSTANT.URL.eAxisAPI + appConfig.Entities.DMS.API.DMSUpload.Url;
-
-            TCApplicationCtrl.ePage.Masters.Application.Logo.GetUploadedFiles = GetUploadedFiles;
-            TCApplicationCtrl.ePage.Masters.Application.Logo.GetSelectedFiles = GetSelectedFiles;
-
-            GetLogo();
-        }
-
-        function GetLogo() {
-            var _filter = {
-                "EntityRefKey": TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.PK,
-                "EntitySource": "SAP"
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.JobDocument.API.FindAll.FilterID
-            };
-
-            apiService.post("eAxisAPI", appConfig.Entities.JobDocument.API.FindAll.Url + TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.PK, _input).then(function SuccessCallback(response) {
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        if (TCApplicationCtrl.ePage.Masters.Application.ActiveApplication) {
-                            TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.JobDocument = response.data.Response;
-                            DownloadDocument(response.data.Response[0]);
-                        }
-                    }
-                } else {
-                    console.log("Empty response");
-                }
-            });
-        }
-
-        function DownloadDocument(curDoc) {
-            apiService.get("eAxisAPI", appConfig.Entities.JobDocument.API.JobDocumentDownload.Url + curDoc.PK + "/" + TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.PK).then(function (response) {
-                if (response.data.Response) {
-                    if (response.data.Response !== "No Records Found!") {
-                        if (TCApplicationCtrl.ePage.Masters.Application.ActiveApplication) {
-                            TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.LogoStr = "data:image/jpeg;base64," + response.data.Response.Base64str;
-                        }
-                    }
-                } else {
-                    console.log("Invalid response");
-                }
-            });
-        }
-
-        function GetUploadedFiles(Files) {
-            if (TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.JobDocument && TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.JobDocument.length > 0) {
-                DeleteDocument(Files[0]);
-            } else {
-                InsertLogo(Files[0]);
-            }
-        }
-
-        function GetSelectedFiles(Files) {}
-
-        function DeleteDocument($item) {
-            if (TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.JobDocument) {
-                var _DocFK = TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.JobDocument[0].PK;
-                apiService.get("eAxisAPI", appConfig.Entities.JobDocument.API.Delete.Url + _DocFK + "/" + TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.PK).then(function (response) {
-                    if (response.data.Response) {
-                        InsertLogo($item);
-                    } else {
-                        console.log("Empty Documents Response");
-                    }
-                });
-            } else {
-                InsertLogo($item);
-            }
-        }
-
-        function InsertLogo($item) {
-            var _input = {
-                "FileName": $item.FileName,
-                "FileExtension": $item.FileExtension,
-                "ContentType": $item.DocType,
-                "IsActive": true,
-                "IsModified": true,
-                "IsDeleted": false,
-                "DocFK": $item.Doc_PK,
-                "EntitySource": "SAP",
-                "EntityRefKey": TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.PK
-            };
-
-            apiService.post("eAxisAPI", appConfig.Entities.JobDocument.API.Upsert.Url + TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.PK, [_input]).then(function (response) {
-                if (response.data.Response) {
-                    TCApplicationCtrl.ePage.Masters.Application.Logo.fileDetails = [];
-                    TCApplicationCtrl.ePage.Masters.Application.Logo.fileCount = 0;
-
-                    DownloadDocument(response.data.Response[0]);
-                } else {
-                    console.log("Empty Documents Response");
-                }
-            });
         }
 
         function OpenJsonModal() {
@@ -435,10 +317,10 @@
 
         function GetRedirectPagetList() {
             TCApplicationCtrl.ePage.Masters.Application.RedirectPagetList = [{
-                Code: "Roles",
-                Description: "Roles",
+                Code: "Parties",
+                Description: "Parties",
                 Icon: "fa fa-connectdevelop",
-                Link: "TC/roles",
+                Link: "TC/parties",
                 Color: "#36ad97",
                 AppCode: "",
                 Type: 2
@@ -446,12 +328,21 @@
                 Code: "ProvideTrustCenterAccess",
                 Description: "Provide Trust center Access",
                 Icon: "fa fa fa-sign-in",
-                Link: "TC/mapping-vertical",
+                Link: "TC/app-trust-app-tenant",
                 Color: "#bd081c",
                 AppCode: "TC",
                 AdditionalData: "APP_TRUST_APP_TNT",
                 BreadcrumbTitle: "App Trust Center - APP_TRUST_APP_TNT",
                 Type: 1
+            }, {
+                Code: "TenantAccess",
+                Description: "Tenant Access",
+                Icon: "fa fa fa-sign-in",
+                Link: "TC/sec-app-sec-tenant",
+                Color: "#bd081c",
+                AdditionalData: "SECAPP_SECTENANT",
+                BreadcrumbTitle: "App Tenant - SECAPP_SECTENANT",
+                Type: 3
             }];
         }
 
@@ -473,6 +364,13 @@
                 _queryString.BreadcrumbTitle = $item.BreadcrumbTitle;
             } else if ($item.Type === 2) {
                 _queryString.BreadcrumbTitle = TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.AppName;
+            } else if ($item.Type === 3) {
+                _queryString.DisplayName = TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.AppName;
+                _queryString.ItemPk = TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.PK;
+                _queryString.ItemCode = TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.AppCode;
+                _queryString.ItemName = "APP";
+                _queryString.MappingCode = $item.AdditionalData;
+                _queryString.BreadcrumbTitle = $item.BreadcrumbTitle;
             }
 
             if ($item.Link !== "#") {
@@ -480,6 +378,111 @@
             }
         }
 
+        function OnLogoChange(event, input) {
+            var maxSize = input.dataset.maxSize / 1024; // in bytes to KB
+            TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.LogoStr = undefined;
+            TCApplicationCtrl.ePage.Masters.Application.ActiveApplicationCopy.LogoStr = undefined;
+
+            if (input.files.length > 0) {
+                var fileSize = input.files[0].size / 1024;
+
+                if (fileSize > maxSize) {
+                    toastr.warning('File size should not be more then ' + maxSize + ' KB');
+                    TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.LogoStr = TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.Logo.Logo;
+                    TCApplicationCtrl.ePage.Masters.Application.ActiveApplicationCopy.LogoStr = TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.Logo.Logo;
+                    return false;
+                } else {
+                    var ext = input.files[0]['name'].substring(input.files[0]['name'].lastIndexOf('.') + 1).toLowerCase();
+                    if (input.files && input.files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+                        helperService.getImageBase64Str(input.files[0]).then(function (response) {
+                            TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.LogoStr = angular.copy(response);
+                            TCApplicationCtrl.ePage.Masters.Application.ActiveApplicationCopy.LogoStr = angular.copy(response);
+                            SaveLogo();
+                        }, function (error) {
+                            console.log(error);
+                        });
+                    }
+                }
+            }
+        }
+
+        function GetLogo() {
+            TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.LogoStr = undefined;
+            TCApplicationCtrl.ePage.Masters.Application.ActiveApplicationCopy.LogoStr = undefined;
+            var _filter = {
+                "EntitySource": "SAP_LOGO",
+                "EntityRefKey": TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.PK,
+                "EntityRefCode": TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.AppCode
+            };
+
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": trustCenterConfig.Entities.API.SecLogo.API.FindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.SecLogo.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    if (response.data.Response.length > 0) {
+                        TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.LogoStr = response.data.Response[0].Logo;
+                        TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.Logo = response.data.Response[0];
+                        TCApplicationCtrl.ePage.Masters.Application.ActiveApplicationCopy.LogoStr = response.data.Response[0].Logo;
+                        TCApplicationCtrl.ePage.Masters.Application.ActiveApplicationCopy.Logo = response.data.Response[0];
+                    }
+                }
+            });
+        }
+
+        function SaveLogo() {
+            if (TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.Logo) {
+                UpdateLogo();
+            } else {
+                InsertLogo();
+            }
+        }
+
+        function InsertLogo() {
+            var _input = {
+                "EntitySource": "SAP_LOGO",
+                "EntityRefKey": TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.PK,
+                "EntityRefCode": TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.AppCode,
+                "Logo": TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.LogoStr,
+                "IsModified": true
+            };
+
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.SecLogo.API.Insert.Url, [_input]).then(function (response) {
+                TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.LogoStr = undefined;
+                TCApplicationCtrl.ePage.Masters.Application.ActiveApplicationCopy.LogoStr = undefined;
+                if (response.data.Response) {
+                    if (response.data.Response.length > 0) {
+                        TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.Logo = response.data.Response[0];
+                        TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.LogoStr = response.data.Response[0].Logo;
+                        TCApplicationCtrl.ePage.Masters.Application.ActiveApplicationCopy.Logo = response.data.Response[0];
+                        TCApplicationCtrl.ePage.Masters.Application.ActiveApplicationCopy.LogoStr = response.data.Response[0].Logo;
+                    }
+                } else {
+                    toastr.error("Couldn't Upload Logo...!");
+                }
+            });
+        }
+
+        function UpdateLogo() {
+            var _input = TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.Logo;
+            _input.Logo = TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.LogoStr;
+            _input.IsModified = true;
+
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.SecLogo.API.Update.Url, _input).then(function (response) {
+                TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.LogoStr = undefined;
+                TCApplicationCtrl.ePage.Masters.Application.ActiveApplicationCopy.LogoStr = undefined;
+                if (response.data.Response) {
+                    TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.Logo = response.data.Response;
+                    TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.LogoStr = response.data.Response.Logo;
+                    TCApplicationCtrl.ePage.Masters.Application.ActiveApplicationCopy.Logo = response.data.Response;
+                    TCApplicationCtrl.ePage.Masters.Application.ActiveApplicationCopy.LogoStr = response.data.Response.Logo;
+                } else {
+                    toastr.error("Couldn't Upload Logo...!");
+                }
+            });
+        }
         // ========================Application End========================
 
         Init();

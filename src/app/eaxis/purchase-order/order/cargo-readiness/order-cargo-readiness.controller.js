@@ -9,7 +9,7 @@
 
     function OrdCargoReadinessController(APP_CONSTANT, apiService, helperService, appConfig, authService) {
         var OrdCargoReadinessCtrl = this;
-        
+
         function Init() {
             var currentOrder = OrdCargoReadinessCtrl.currentOrder[OrdCargoReadinessCtrl.currentOrder.label].ePage.Entities;
             OrdCargoReadinessCtrl.ePage = {
@@ -30,11 +30,11 @@
             OrdCargoReadinessCtrl.ePage.Masters.DatePicker.Options = APP_CONSTANT.DatePicker;
             OrdCargoReadinessCtrl.ePage.Masters.DatePicker.isOpen = [];
             OrdCargoReadinessCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
-            
+
             if (OrdCargoReadinessCtrl.currentOrder.isNew) {
-                OrdCargoReadinessCtrl.ePage.Masters.FollowUpHistory = [];
+                OrdCargoReadinessCtrl.ePage.Masters.FollowUpHistoryGroup = [];
             } else {
-                GetFollowUphistory();
+                GetFollowUpGroupHistory();
             }
         }
 
@@ -46,7 +46,7 @@
         }
 
         function GetCfxTypeList() {
-            var typeCodeList = ["TRANSTYPE", "CNTTYPE", "INCOTERM", "WEIGHTUNIT", "VOLUMEUNIT", "ORDSTATUS","JOBADDR"];
+            var typeCodeList = ["TRANSTYPE", "CNTTYPE", "INCOTERM", "WEIGHTUNIT", "VOLUMEUNIT", "ORDSTATUS", "JOBADDR"];
             var dynamicFindAllInput = [];
 
             typeCodeList.map(function (value, key) {
@@ -68,24 +68,29 @@
             });
         }
 
-        function GetFollowUphistory() {
+        function GetFollowUpGroupHistory() {
             var _filter = {
-                "EntitySource": "SFU",
-                "EntityRefKey" : OrdCargoReadinessCtrl.ePage.Entities.Header.Data.PK
+                "EntityRefKey": OrdCargoReadinessCtrl.ePage.Entities.Header.Data.PK,
+                "Source": "SFU,GFU"
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": appConfig.Entities.JobEmail.API.FindAll.FilterID
-            }
+            };
+
             apiService.post('eAxisAPI', appConfig.Entities.JobEmail.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
-                    OrdCargoReadinessCtrl.ePage.Masters.FollowUpHistory = response.data.Response;
+                    if (response.data.Response.length > 0) {
+                        OrdCargoReadinessCtrl.ePage.Masters.FollowUpHistoryGroup = response.data.Response;
+                    } else {
+                        OrdCargoReadinessCtrl.ePage.Masters.FollowUpHistoryGroup = [];
+                    }
                 } else {
-                    OrdCargoReadinessCtrl.ePage.Masters.FollowUpHistory = [];
+                    OrdCargoReadinessCtrl.ePage.Masters.FollowUpHistoryGroup = [];
                 }
             });
         }
-                
+
         Init();
     }
 })();

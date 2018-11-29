@@ -1,0 +1,47 @@
+<div class="grid-loading-norecord-container ng-scope" style='z-index: 15;' data-ng-if="VehicleMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading"></div>
+<div class="clearfix wms-menu-wraper">
+    <div class="col-sm-12 no-padding-left no-padding-right">
+        <div vehicle-general current-vehicle="VehicleMenuCtrl.currentVehicle">
+        </div>
+    </div>
+    <div class="error-warning-container right" id="errorWarningContainer{{VehicleMenuCtrl.currentVehicle.label}}">
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                <!-- <i class="fa fa-warning"></i>  -->
+                Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right" data-ng-click="VehicleMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(VehicleMenuCtrl.currentVehicle)">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+        </div>
+        <div class="error-warning-body">
+            <div class="clearfix" data-ng-if="VehicleMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length>0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in VehicleMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Footer-->
+    <div class="eaxis-footer-strip">
+        <div class="col-xs-6 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+            <standard-menu dataentry-object="VehicleMenuCtrl.dataentryObject" input="VehicleMenuCtrl.currentVehicle"></standard-menu>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="VehicleMenuCtrl.ePage.Masters.Validation(VehicleMenuCtrl.currentVehicle)"
+                data-ng-bind="VehicleMenuCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="VehicleMenuCtrl.ePage.Masters.DisableSave"></button>
+            <!-- <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="VehicleMenuCtrl.ePage.Masters.Validation(VehicleMenuCtrl.currentVehicle);VehicleMenuCtrl.ePage.Masters.SaveAndClose = true"
+                data-ng-disabled="VehicleMenuCtrl.ePage.Masters.DisableSave">Save & Close</button> -->
+        </div>
+    </div>
+</div>

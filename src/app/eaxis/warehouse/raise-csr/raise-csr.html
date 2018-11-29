@@ -1,0 +1,61 @@
+<div class="page-body p-5">
+    <div class="chrometab-box1">
+        <div class="ik-box1">
+            <span data-ng-bind="'Raise CSR'" class="ik-title1">Raise CSR</span>
+        </div>
+
+        <div class="padding-bottom-10 clearfix">
+            <div class="grid-loading-norecord-container ng-scope" style='z-index: 15;' data-ng-if="RaiseCSRCtrl.ePage.Masters.Loading">
+                <div class="grid-no-record">
+                    <i class="fa fa-spinner fa-pulse"></i> Saving your Data...</div>
+            </div>
+            <delivery-general data-ng-if="RaiseCSRCtrl.ePage.Masters.Tab" current-delivery="RaiseCSRCtrl.ePage.Masters.Tab"></delivery-general>
+            <delivery-line data-ng-if="RaiseCSRCtrl.ePage.Masters.Tab" current-delivery="RaiseCSRCtrl.ePage.Masters.Tab"></delivery-line>
+
+            <!-- Error and warning -->
+            <div class="error-warning-container right" id="errorWarningContainer{{RaiseCSRCtrl.ePage.Masters.Tab.label}}">
+                <div class="error-warning-header clearfix">
+                    <span class="title pull-left">
+                        <!-- <i class="fa fa-warning"></i>  -->
+                        Errors & Warnings
+                    </span>
+                    <span class="error-warning-toggle-icon pull-right" data-ng-click="RaiseCSRCtrl.ePage.Masters.Config.ShowErrorWarningModal(RaiseCSRCtrl.ePage.Masters.Tab)">
+                        <i class="fa fa-arrow-right"></i>
+                    </span>
+                </div>
+                <div class="error-warning-body">
+                    <div class="clearfix" data-ng-if="RaiseCSRCtrl.ePage.Masters.Tab[RaiseCSRCtrl.ePage.Masters.Tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length>0">
+                        <div class="clearfix">
+                            <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in RaiseCSRCtrl.ePage.Masters.Tab[RaiseCSRCtrl.ePage.Masters.Tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList">
+                                <div class="clearfix">
+                                    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                        <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                                    </div>
+                                    <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                        <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                        <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Footer-->
+            <div class="eaxis-footer-strip">
+                <div class="col-xs-6 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+                    <!-- <standard-menu entity-name="'DeliveryRequest'" input="RaiseCSRCtrl.ePage.Masters.Tab"></standard-menu> -->
+                    {{RaiseCSRCtrl.ePage.Masters.IsShowButton}}
+                </div>
+                <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                    <button data-ng-show="RaiseCSRCtrl.ePage.Masters.IsShowButton" class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6"
+                        data-ng-click="RaiseCSRCtrl.ePage.Masters.Validation(RaiseCSRCtrl.ePage.Masters.Tab)" data-ng-disabled="RaiseCSRCtrl.ePage.Masters.IsDisableSave">Save</button>
+                    <button data-ng-hide="RaiseCSRCtrl.ePage.Masters.IsShowButton" class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6"
+                        data-ng-click="RaiseCSRCtrl.ePage.Masters.Validation(RaiseCSRCtrl.ePage.Masters.Tab)" data-ng-disabled="RaiseCSRCtrl.ePage.Masters.IsDisableSave">Please Wait..</button>
+                    <button class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6 " type="button " ng-click="RaiseCSRCtrl.ePage.Masters.CreateNewDeliveryRequest()"
+                        data-ng-disabled="RaiseCSRCtrl.ePage.Masters.IsDisableSave">New Delivery Request</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

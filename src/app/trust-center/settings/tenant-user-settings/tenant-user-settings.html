@@ -1,0 +1,104 @@
+<div class="clearfix tc-breadcrumb" data-ng-if="TenantUserSettingCtrl.ePage.Masters.ActiveApplication == 'TC'">
+    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-xs-12 p-0">
+        <i class="fa fa-home home-icon"></i>
+        <div class="breadcrumb-list-wrapper">
+            <ol class="breadcrumb">
+                <li data-ng-repeat="x in TenantUserSettingCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="TenantUserSettingCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                </li>
+                <li data-ng-repeat="x in TenantUserSettingCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive"
+                    data-ng-bind="x.Description" class="active"></li>
+            </ol>
+        </div>
+    </div>
+    <!-- <span class="tc-breadcrumb-app-name" data-ng-if="TenantUserSettingCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="TenantUserSettingCtrl.ePage.Masters.QueryString.AppName"></span> -->
+
+    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12 pt-4">
+        <tc-application-dropdown query-string="TenantUserSettingCtrl.ePage.Masters.QueryString" on-application-change="TenantUserSettingCtrl.ePage.Masters.Application.OnApplicationChange($item)"></tc-application-dropdown>
+    </div>
+</div>
+<div class="clearfix tc-event-configure-tenant-settings-container pb-100 pt-10">
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">Company </label>
+                <select chosen class="form-control" data-ng-options="x.PK as x.Code + '-'+ x.Name for x in TenantUserSettingCtrl.ePage.Masters.CompanyList"
+                    data-ng-model="TenantUserSettingCtrl.ePage.Masters.TenantUserSetting.Company_FK" search-contains="true"
+                    data-ng-change="TenantUserSettingCtrl.ePage.Masters.OnCompanyChange((TenantUserSettingCtrl.ePage.Masters.CompanyList | filter: {PK: TenantUserSettingCtrl.ePage.Masters.TenantUserSetting.Company_FK})[0])">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">Branch </label>
+                <select chosen class="form-control" data-ng-options="x.PK as x.Code + '-'+ x.BranchName for x in TenantUserSettingCtrl.ePage.Masters.BranchList"
+                    data-ng-model="TenantUserSettingCtrl.ePage.Masters.TenantUserSetting.Branch_FK" search-contains="true"
+                    data-ng-change="TenantUserSettingCtrl.ePage.Masters.OnBranchChange((TenantUserSettingCtrl.ePage.Masters.BranchList | filter: {PK: TenantUserSettingCtrl.ePage.Masters.TenantUserSetting.Branch_FK})[0])">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">Department </label>
+                <select chosen class="form-control" data-ng-options="x.PK as x.Code + '-'+ x.Desc for x in TenantUserSettingCtrl.ePage.Masters.DepartmentList"
+                    data-ng-model="TenantUserSettingCtrl.ePage.Masters.TenantUserSetting.Department_FK" search-contains="true"
+                    data-ng-change="TenantUserSettingCtrl.ePage.Masters.OnDepartmentChange((TenantUserSettingCtrl.ePage.Masters.DepartmentList | filter: {PK: TenantUserSettingCtrl.ePage.Masters.TenantUserSetting.Department_FK})[0])">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">Country </label>
+                <select chosen class="form-control" data-ng-options="x.Code as x.Code + '-'+ x.Desc for x in TenantUserSettingCtrl.ePage.Masters.CountryList"
+                    data-ng-model="TenantUserSettingCtrl.ePage.Masters.TenantUserSetting.CountryCode" search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">Party Code </label>
+                <select chosen class="form-control" data-ng-options="x.PK as x.Name for x in TenantUserSettingCtrl.ePage.Masters.PartiesList"
+                    data-ng-model="TenantUserSettingCtrl.ePage.Masters.TenantUserSetting.Party_FK" search-contains="true"
+                    data-ng-change="TenantUserSettingCtrl.ePage.Masters.OnPartyChange((TenantUserSettingCtrl.ePage.Masters.PartiesList | filter: {PK: TenantUserSettingCtrl.ePage.Masters.TenantUserSetting.Party_FK})[0])">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">Role </label>
+                <select chosen class="form-control" data-ng-options="x.PK as x.Name for x in TenantUserSettingCtrl.ePage.Masters.RolesList"
+                    data-ng-model="TenantUserSettingCtrl.ePage.Masters.TenantUserSetting.Role_Fk" search-contains="true"
+                    data-ng-change="TenantUserSettingCtrl.ePage.Masters.OnRoleChange((TenantUserSettingCtrl.ePage.Masters.RolesList  | filter: {PK: TenantUserSettingCtrl.ePage.Masters.TenantUserSetting.Role_FK})[0])">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">Default Menu </label>
+                <select chosen class="form-control" data-ng-options="x.Code as x.Name for x in  TenantUserSettingCtrl.ePage.Masters.MenuTypeList"
+                    data-ng-model="TenantUserSettingCtrl.ePage.Masters.TenantUserSetting.DefaultMenu" disable-search="true">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group mt-30">
+                <label>
+                    <input type="checkbox" data-ng-model="TenantUserSettingCtrl.ePage.Masters.TenantUserSetting.IsDefault"
+                        class="colored-blue">
+                    <span class="text">IsDefault</span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix p-10">
+        <input type="submit" class="btn btn-success btn-xs pull-right ml-10" data-ng-click="TenantUserSettingCtrl.ePage.Masters.SaveTenantUserSettings()"
+            value="{{TenantUserSettingCtrl.ePage.Masters.SaveBtnTxt}}" data-ng-disabled=" TenantUserSettingCtrl.ePage.Masters.IsDisabledSaveBtn" />
+    </div>
+</div>

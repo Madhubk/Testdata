@@ -10,7 +10,7 @@
         <div class="no-padding tab-list-view-wrapper">
             <!--Location Grid Page-->
             <dynamic-list dataentry-name="LocationCtrl.ePage.Masters.dataentryName" task-name="LocationCtrl.ePage.Masters.taskName" grid-config-type="0" default-filter="LocationCtrl.ePage.Masters.defaultFilter"
-                selected-grid-row="LocationCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" ></dynamic-list>
+                selected-grid-row="LocationCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" dataentry-object="LocationCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
 
             <div class="tab-loading" data-ng-show="LocationCtrl.ePage.Masters.IsTabClick"></div>
         </div>
@@ -38,7 +38,7 @@
             </span>
         </uib-tab-heading>
         <div class="padding-5 padding-bottom-10 clearfix">
-            <Location-menu current-Location="tab"></Location-menu>
+            <Location-menu current-Location="tab" dataentry-object="LocationCtrl.ePage.Masters.DataEntryObject"></Location-menu>
             <div class="horizontal-space"></div>
         </div>
         <span ng-if="LocationCtrl.ePage.Masters.Config.SaveAndClose" ng-init="LocationCtrl.ePage.Masters.SaveandClose($index, tab)"></span>

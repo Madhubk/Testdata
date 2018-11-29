@@ -1,132 +1,377 @@
-<div class="document-list-container clearfix">
-    <!-- Header -->
-    <div class="sm-header">
-        <file-upload-custom data-ng-if="DocumentCtrl.mode == '2'" class="file-upload-directive" ng-model="DocumentCtrl.ePage.Masters.Documents.fileDetails"
-            size="{{DocumentCtrl.ePage.Masters.Documents.fileSize}}" auth="{{DocumentCtrl.ePage.Masters.Documents.Autherization}}"
-            additional-value="{{DocumentCtrl.ePage.Masters.Documents.AdditionalValue}}" url="{{DocumentCtrl.ePage.Masters.Documents.UploadUrl}}"
-            doc-type="*" multiple-file="true" is-disabled="!DocumentCtrl.type || !DocumentCtrl.type.DocType" fu-class="left"
-            get-uploaded-files="DocumentCtrl.ePage.Masters.Documents.GetUploadedFiles($item, x, 'attach')" get-selected-files="DocumentCtrl.ePage.Masters.Documents.GetSelectedFiles($item, x, 'attach')"
-            modal-template="" template="">
-            <button class="btn btn-danger btn-sm mr-10" data-ng-disabled="!DocumentCtrl.type || !DocumentCtrl.type.DocType">Attach</button>
-        </file-upload-custom>
-        <button class="btn btn-default btn-sm mr-10" data-ng-click="DocumentCtrl.ePage.Masters.Documents.Refresh()">Refresh</button>
-        <button class="btn btn-default btn-sm mr-10" data-ng-click="DocumentCtrl.ePage.Masters.Documents.DeleteHistory(DocumentCtrl.ePage.Masters.Documents.ListSource, 'delete')">Delete History</button>
+<div class="document-list-container clearfix sm-document-wrapper">
+    <div class="clearfix text-center text-danger p-20" data-ng-if="SMDocumentCtrl.mode == '2' && !SMDocumentCtrl.type">
+        <i class="font-160">Document Type Not Found...!</i>
     </div>
-    <!-- Sidebar -->
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-xl-3 sm-sidebar-container list-mode" data-ng-if="DocumentCtrl.mode == '1'">
-        <div class="main">
-            <div class="clearfix text-center p-20" data-ng-if="!DocumentCtrl.ePage.Masters.Documents.DocumentTypeList">
-                <i class="fa fa-spin fa-spinner font-160"></i>
+    <!-- Header -->
+    <div class="sm-header clearfix" data-ng-if="(SMDocumentCtrl.mode == '2' && SMDocumentCtrl.type) || SMDocumentCtrl.mode != '2'"
+        style="display: table; width: 100%;">
+        <div class="" style="display: table-cell; vertical-align: middle;">
+            <div class="mr-10" style="display: inline-block;" data-ng-if="SMDocumentCtrl.mode == '3' && !SMDocumentCtrl.Config.IsDisableUpload && !SMDocumentCtrl.Config.IsDisableGenerate">
+                <div class="radio m-0 mt-5">
+                    <label>
+                        <input name="form-field-radio" type="radio" class="colored-blue" data-ng-model="SMDocumentCtrl.ePage.Masters.Header.RadioButtonValue"
+                            data-ng-checked="SMDocumentCtrl.ePage.Masters.Header.RadioButtonValue" value="Upload"
+                            data-ng-change="SMDocumentCtrl.ePage.Masters.Header.OnHeaderRadioButtonChange()">
+                        <span class="text" data-ng-bind="'Upload'"> </span>
+                    </label>
+                </div>
             </div>
-            <div class="clearfix text-center p-20" data-ng-if="DocumentCtrl.ePage.Masters.Documents.DocumentTypeList && DocumentCtrl.ePage.Masters.Documents.DocumentTypeList.length == 0">
-                <i class="">No Records...!</i>
+            <div class="mr-20" style="display: inline-block;" data-ng-if="SMDocumentCtrl.mode == '3' && !SMDocumentCtrl.Config.IsDisableUpload && !SMDocumentCtrl.Config.IsDisableGenerate">
+                <div class="radio m-0 mt-5">
+                    <label>
+                        <input name="form-field-radio" type="radio" class="colored-blue" data-ng-model="SMDocumentCtrl.ePage.Masters.Header.RadioButtonValue"
+                            data-ng-checked="SMDocumentCtrl.ePage.Masters.Header.RadioButtonValue" value="Generate"
+                            data-ng-change="SMDocumentCtrl.ePage.Masters.Header.OnHeaderRadioButtonChange()">
+                        <span class="text" data-ng-bind="'Generate'"> </span>
+                    </label>
+                </div>
             </div>
-            <ul class="p-0" data-ng-if="DocumentCtrl.ePage.Masters.Documents.DocumentTypeList && DocumentCtrl.ePage.Masters.Documents.DocumentTypeList.length > 0">
-                <li class="text-single-line" data-ng-class="{'active': x.DocType == DocumentCtrl.ePage.Masters.Documents.SideBar.ActiveDocumentType.DocType}"
-                    data-ng-repeat="x in DocumentCtrl.ePage.Masters.Documents.DocumentTypeList" data-ng-click="(x.DocType != DocumentCtrl.ePage.Masters.Documents.SideBar.ActiveDocumentType.DocType) && DocumentCtrl.ePage.Masters.Documents.SideBar.OnListClick(x)"
-                    title="{{x.Desc}}">{{x.Desc}}
-                    <file-upload-custom class="file-upload-directive" ng-model="DocumentCtrl.ePage.Masters.Documents.fileDetails" size="{{DocumentCtrl.ePage.Masters.Documents.fileSize}}"
-                        auth="{{DocumentCtrl.ePage.Masters.Documents.Autherization}}" additional-value="{{DocumentCtrl.ePage.Masters.Documents.AdditionalValue}}"
-                        url="{{DocumentCtrl.ePage.Masters.Documents.UploadUrl}}" doc-type="*" multiple-file="true" is-disabled="false"
-                        fu-class="left" get-uploaded-files="DocumentCtrl.ePage.Masters.Documents.GetUploadedFiles($item, x, 'new')"
-                        get-selected-files="DocumentCtrl.ePage.Masters.Documents.GetSelectedFiles($item, x, 'new')" modal-template=""
-                        template="">
-                        <i class="fa fa-plus-circle attach-icon" data-ng-if="x.Desc != 'All'"></i>
+            <div class="mr-20" style="display: inline-block;" data-ng-if="SMDocumentCtrl.mode == '3' && SMDocumentCtrl.Config.IsDisableUpload != true && SMDocumentCtrl.ePage.Masters.Header.RadioButtonValue == 'Upload'">
+                <div class="mr-10" style="display: inline-block; width: 250px;">
+                    <div class="form-group form-horizontal clearfix m-0">
+                        <div class="clearfix">
+                            <select chosen class="form-control" data-ng-model="SMDocumentCtrl.ePage.Masters.DocumentUpload.ActiveDocumentUpload.DocType"
+                                data-ng-options="x.DocType as x.Desc for x in SMDocumentCtrl.ePage.Masters.DocumentUpload.ListSource"
+                                data-ng-change="SMDocumentCtrl.ePage.Masters.DocumentUpload.OnDocumentUploadChange((SMDocumentCtrl.ePage.Masters.DocumentUpload.ListSource | filter: {'DocType': SMDocumentCtrl.ePage.Masters.DocumentUpload.ActiveDocumentUpload.DocType})[0])"
+                                search-contains="true">
+                                <!-- <option value="">--Select--</option> -->
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="" style="display: inline-block;" data-ng-if="!SMDocumentCtrl.ePage.Entities.IsReadOnly">
+                    <file-upload-custom class="file-upload-directive" data-ng-model="SMDocumentCtrl.ePage.Masters.Document.fileDetails"
+                        size="{{SMDocumentCtrl.ePage.Masters.Document.fileSize}}" auth="{{SMDocumentCtrl.ePage.Masters.Document.Autherization}}"
+                        additional-value="{{SMDocumentCtrl.ePage.Masters.Document.AdditionalValue}}" url="{{SMDocumentCtrl.ePage.Masters.Document.UploadUrl}}"
+                        doc-type="*" multiple-file="true" is-disabled="(!SMDocumentCtrl.ePage.Masters.DocumentUpload.ActiveDocumentUpload.DocType || SMDocumentCtrl.ePage.Masters.DocumentUpload.ActiveDocumentUpload.DocType == 'ALL')"
+                        fu-class="left" get-uploaded-files="SMDocumentCtrl.ePage.Masters.Document.GetUploadedFiles($item, 'mode3')"
+                        get-selected-files="SMDocumentCtrl.ePage.Masters.Document.GetSelectedFiles($item, 'mode3')"
+                        modal-template="" template="">
+                        <button class="btn btn-default btn-sm mr-10" data-ng-disabled="!SMDocumentCtrl.ePage.Masters.DocumentUpload.ActiveDocumentUpload.DocType || SMDocumentCtrl.ePage.Masters.DocumentUpload.ActiveDocumentUpload.DocType == 'ALL'">Upload</button>
                     </file-upload-custom>
-                </li>
-            </ul>
+                </div>
+            </div>
+            <div class="mr-20" style="display: inline-block;" data-ng-if="SMDocumentCtrl.mode == '3' && SMDocumentCtrl.Config.IsDisableGenerate != true && SMDocumentCtrl.ePage.Masters.Header.RadioButtonValue == 'Generate'">
+                <div class="mr-10" style="display: inline-block; width: 250px;">
+                    <div class="form-group form-horizontal clearfix m-0">
+                        <div class="clearfix">
+                            <select chosen class="form-control" data-ng-model="SMDocumentCtrl.ePage.Masters.DocumentGenerate.ActiveDocumentGenerate.Code"
+                                data-ng-options="x.Code as x.Description for x in SMDocumentCtrl.ePage.Masters.DocumentGenerate.ListSource"
+                                data-ng-change="SMDocumentCtrl.ePage.Masters.DocumentGenerate.DocumentGenerateChange((SMDocumentCtrl.ePage.Masters.DocumentGenerate.ListSource | filter: {'Code': SMDocumentCtrl.ePage.Masters.DocumentGenerate.ActiveDocumentGenerate.Code})[0])"
+                                search-contains="true">
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="" style="display: inline-block;">
+                    <button class="btn btn-default btn-sm" data-ng-click="SMDocumentCtrl.ePage.Masters.DocumentGenerate.ActiveDocumentGenerate.Code && SMDocumentCtrl.ePage.Masters.DocumentGenerate.OnDocumentGenerate()"
+                        data-ng-disabled="!SMDocumentCtrl.ePage.Masters.DocumentGenerate.ActiveDocumentGenerate.Code || SMDocumentCtrl.ePage.Masters.DocumentGenerate.IsDisabledGenerateBtn"
+                        data-ng-bind="SMDocumentCtrl.ePage.Masters.DocumentGenerate.GenerateBtnTxt"></button>
+                </div>
+            </div>
+            <file-upload-custom class="file-upload-directive" data-ng-if="SMDocumentCtrl.mode == '2' && !SMDocumentCtrl.ePage.Entities.IsReadOnly" data-ng-model="SMDocumentCtrl.ePage.Masters.Document.fileDetails"
+                size="{{SMDocumentCtrl.ePage.Masters.Document.fileSize}}" auth="{{SMDocumentCtrl.ePage.Masters.Document.Autherization}}"
+                additional-value="{{SMDocumentCtrl.ePage.Masters.Document.AdditionalValue}}" url="{{SMDocumentCtrl.ePage.Masters.Document.UploadUrl}}"
+                doc-type="*" multiple-file="true" is-disabled="!SMDocumentCtrl.type || !SMDocumentCtrl.type.DocType"
+                fu-class="left" get-uploaded-files="SMDocumentCtrl.ePage.Masters.Document.GetUploadedFiles($item, 'mode2')"
+                get-selected-files="SMDocumentCtrl.ePage.Masters.Document.GetSelectedFiles($item, 'mode2')"
+                modal-template="" template="">
+                <button class="btn btn-danger btn-sm mr-20" data-ng-disabled="!SMDocumentCtrl.type || !SMDocumentCtrl.type.DocType">Upload</button>
+            </file-upload-custom>
+            <button class="btn btn-default btn-sm mr-20" data-ng-click="SMDocumentCtrl.ePage.Masters.Header.RefreshAll()"
+                data-ng-if="!SMDocumentCtrl.Config.IsDisableRefreshButton">Refresh</button>
+            <button class="btn btn-default btn-sm mr-20" data-ng-click="SMDocumentCtrl.ePage.Masters.Header.ViewAllDeleteHistroy()"
+                data-ng-if="!SMDocumentCtrl.Config.IsDisableDeleteHistoryButton">Delete History</button>
         </div>
     </div>
     <!-- Body -->
-    <div class="sm-content-wrapper" data-ng-class="DocumentCtrl.mode == '1' ? 'col-xs-12 col-sm-12 col-md-8 col-lg-9 col-xl-9' : 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0' ">
-        <div class="template-body">
-            <!-- List View -->
-            <div class="document-list-view-container clearfix">
-                <div class="clearfix">
-                    <!-- Header -->
-                    <div class="clearfix heading">
-                        <!-- <div class="clearfix">
-                            <div class="col-xs-12 col-sm-12 col-md-1 col-lg-1 col-xl-1"></div>
-                            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0">
-                                <div class="p-5 text-single-line">File/Type</div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                                <div class="p-5 text-single-line">Description</div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
-                                <div class="p-5 text-single-line">Uploaded By/On</div>
-                            </div>
-                        </div> -->
-                    </div>
+    <div class="sm-body clearfix" data-ng-if="(SMDocumentCtrl.mode == '2' && SMDocumentCtrl.type) || SMDocumentCtrl.mode != '2'">
+        <!-- Sidebar -->
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-xl-3 sm-sidebar-container list-mode" data-ng-if="SMDocumentCtrl.mode == '1'">
+            <div class="clearfix text-center p-20" data-ng-if="!SMDocumentCtrl.ePage.Masters.DocumentUpload.ListSource && !SMDocumentCtrl.ePage.Masters.DocumentGenerate.ListSource">
+                <i class="fa fa-spin fa-spinner font-160"></i>
+            </div>
+            <div class="clearfix text-center p-20" data-ng-if="SMDocumentCtrl.ePage.Masters.DocumentUpload.ListSource && SMDocumentCtrl.ePage.Masters.DocumentUpload.ListSource.length == 0 && SMDocumentCtrl.ePage.Masters.DocumentGenerate.ListSource && SMDocumentCtrl.ePage.Masters.DocumentGenerate.ListSource.length == 0">
+                <i>No Records...!</i>
+            </div>
+            <!-- Doc Upload List -->
+            <div class="clearfix text-single-line doc-upload-list position-relative pl-10 pr-90 pt-7 pb-7" data-ng-if="(SMDocumentCtrl.ePage.Masters.DocumentUpload.ListSource && SMDocumentCtrl.ePage.Masters.DocumentUpload.ListSource.length > 0) && SMDocumentCtrl.Config.IsDisableUpload != true"
+                data-ng-repeat="x in SMDocumentCtrl.ePage.Masters.DocumentUpload.ListSource" title="{{x.Desc}}"
+                data-ng-click="(x.DocType != SMDocumentCtrl.ePage.Masters.DocumentUpload.ActiveDocumentUpload.DocType) && SMDocumentCtrl.ePage.Masters.DocumentUpload.OnDocumentUploadChange(x)">
+                <span class="cursor-pointer" data-ng-class="{'active': x.DocType == SMDocumentCtrl.ePage.Masters.DocumentUpload.ActiveDocumentUpload.DocType}"
+                    data-ng-bind="x.Desc"></span>
+                <file-upload-custom class="file-upload-directive doc-upload-btn" data-ng-model="SMDocumentCtrl.ePage.Masters.Document.fileDetails"
+                    size="{{SMDocumentCtrl.ePage.Masters.Document.fileSize}}" auth="{{SMDocumentCtrl.ePage.Masters.Document.Autherization}}"
+                    additional-value="{{SMDocumentCtrl.ePage.Masters.Document.AdditionalValue}}" url="{{SMDocumentCtrl.ePage.Masters.Document.UploadUrl}}"
+                    doc-type="*" multiple-file="true" is-disabled="false" fu-class="left" get-uploaded-files="SMDocumentCtrl.ePage.Masters.Document.GetUploadedFiles($item, 'mode1', x)"
+                    get-selected-files="SMDocumentCtrl.ePage.Masters.Document.GetSelectedFiles($item, 'mode1', x)"
+                    modal-template="" template="" data-ng-if="x.Desc != 'All' && !SMDocumentCtrl.ePage.Entities.IsReadOnly">
+                    <button class="btn btn-xs btn-default pull-right">Upload</button>
+                </file-upload-custom>
+            </div>
+            <!-- Doc Generate List -->
+            <div class="clearfix text-single-line doc-generate-list position-relative pl-10 pr-90 pt-7 pb-7" data-ng-if="(SMDocumentCtrl.ePage.Masters.DocumentGenerate.ListSource && SMDocumentCtrl.ePage.Masters.DocumentGenerate.ListSource.length > 0) && SMDocumentCtrl.Config.IsDisableGenerate != true"
+                data-ng-repeat="x in SMDocumentCtrl.ePage.Masters.DocumentGenerate.ListSource" title="{{x.Desc}}"
+                data-ng-click="SMDocumentCtrl.ePage.Masters.DocumentGenerate.ActiveDocumentGenerate = x">
+                <span data-ng-bind="x.Description"></span>
+                <button class="btn btn-xs btn-default pull-right doc-generate-btn" data-ng-click="SMDocumentCtrl.ePage.Masters.DocumentGenerate.OnDocumentGenerate(x)"
+                    data-ng-bind="x.GenerateBtnTxt" data-ng-disabled="x.IsDisabledGenerateBtn"></button>
+            </div>
+        </div>
+        <!-- Content -->
+        <div class="p-0" data-ng-class="SMDocumentCtrl.mode == '1' ? 'col-xs-12 col-sm-12 col-md-8 col-lg-9 col-xl-9' : 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12' ">
+            <uib-tabset class="tab-container" active="SMDocumentCtrl.ePage.Masters.ActiveTabIndex" data-ng-if="SMDocumentCtrl.Config.IsDisableRelatedDocument != true">
+                <!-- Entity Document -->
+                <uib-tab>
+                    <uib-tab-heading title="Entity Document">
+                        <span data-ng-bind="'Entity Document'"></span>
+                    </uib-tab-heading>
+                </uib-tab>
+                <uib-tab>
+                    <uib-tab-heading title="Related Document">
+                        <span data-ng-bind="'Related Document'"></span>
+                    </uib-tab-heading>
+                </uib-tab>
+            </uib-tabset>
+            <div class="clearfix">
+                <!-- Entity Document -->
+                <div class="pt-5 doc-list-wrapper clearfix" data-ng-show="SMDocumentCtrl.ePage.Masters.ActiveTabIndex == 0">
+                    <table class="table-responsive sm-document-table">
+                        <!-- Header -->
+                        <thead>
+                            <tr class="clearfix">
+                                <th data-ng-if="SMDocumentCtrl.Config.IsDisableCount != true" style="width: 100px;"></th>
+                                <th data-ng-if="SMDocumentCtrl.Config.IsDisableFileName != true">File Name</th>
+                                <th data-ng-if="SMDocumentCtrl.Config.IsDisableDocumentType != true">Document Type</th>
+                                <th data-ng-if="SMDocumentCtrl.Config.IsDisableOwner != true">Owner</th>
+                                <th data-ng-if="SMDocumentCtrl.Config.IsDisableCreatedOn != true">Created On</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Loading -->
+                            <tr class="clearfix text-center" data-ng-if="!SMDocumentCtrl.ePage.Masters.Document.ListSource">
+                                <td colspan="5" class="p-20">
+                                    <i class="fa fa-spin fa-spinner font-160"></i>
+                                </td>
+                            </tr>
+                            <!-- No Records -->
+                            <tr class="clearfix text-center" data-ng-if="SMDocumentCtrl.ePage.Masters.Document.ListSource && SMDocumentCtrl.ePage.Masters.Document.ListSource.length == 0">
+                                <td colspan="5" class="p-20">
+                                    <i>No Records...!</i>
+                                </td>
+                            </tr>
+                            <tr class="clearfix doc-list position-relative border-bottom" data-ng-if="SMDocumentCtrl.ePage.Masters.Document.ListSource && SMDocumentCtrl.ePage.Masters.Document.ListSource.length > 0"
+                                data-ng-repeat="x in SMDocumentCtrl.ePage.Masters.Document.ListSource">
+                                <td class="text-center" data-ng-if="SMDocumentCtrl.Config.IsDisableCount != true && !x.IsNew">
+                                    <span class="doc-download-count" data-ng-bind="x.DownloadCount" title="Download History"
+                                        data-ng-click="x.DownloadCount > 0 && SMDocumentCtrl.ePage.Masters.Document.ViewDownloadHistroy(x)"
+                                        data-ng-style="(x.DownloadCount > 0) ? {'cursor': 'pointer'} : {'cursor': 'text'}"
+                                        data-ng-if="SMDocumentCtrl.Config.IsDisableDownloadCount != true"></span>
+                                    <span class="doc-amend-count" data-ng-bind="x.AmendCount" title="Amend History"
+                                        data-ng-click="x.AmendCount > 0 && SMDocumentCtrl.ePage.Masters.Document.ViewAmendHistroy(x)"
+                                        data-ng-style="(x.AmendCount > 0) ? {'cursor': 'pointer'} : {'cursor': 'text'}"
+                                        data-ng-if="SMDocumentCtrl.Config.IsDisableAmendCount != true"></span>
+                                </td>
+                                <td class="position-relative" data-ng-if="SMDocumentCtrl.Config.IsDisableFileName != true && !x.IsNew">
+                                    <div class="text-single-line text-type pr-25 pt-6 pb-6">
+                                        <img data-ng-src="assets/img/file-types/{{x.FileName | getFileExtension}}.png"
+                                            alt="" title="{{x.FileName}}">
+                                        <a href="javascript: void(0);" data-ng-bind="x.DocumentName" title="{{x.DocumentName}}"
+                                            data-ng-click="x.PK && SMDocumentCtrl.ePage.Masters.Document.DownloadRecord(x, $index)"></a>
+                                        <span class="edit-document-name" uib-dropdown data-ng-if="(x.CreatedBy == SMDocumentCtrl.ePage.Masters.UserId || (x.CreatedBy != SMDocumentCtrl.ePage.Masters.UserId && x.IsResticted)) && SMDocumentCtrl.Config.IsDisableEditFileName != true && !SMDocumentCtrl.ePage.Entities.IsReadOnly">
+                                            <i class="fa fa-pencil cursor-pointer" uib-dropdown-toggle></i>
+                                            <div class="dropdown-menu dropdown-menu-right p-5" uib-dropdown-menu>
+                                                <form class="form-group clearfix m-0 mb-10">
+                                                    <input type="text" class="form-control input-sm" placeholder="Document Name"
+                                                        data-ng-model="x.DocumentNameTemp">
+                                                </form>
+                                                <input type="submit" class="btn btn-primary btn-xs pull-right" value="Save"
+                                                    data-ng-click="SMDocumentCtrl.ePage.Masters.Document.OnDocDescChanges(x)">
+                                            </div>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td class="" data-ng-if="SMDocumentCtrl.Config.IsDisableDocumentType != true && !x.IsNew">
+                                    <div data-ng-bind="x.DocumentType" class="text-single-line pt-6 pb-6" title="{{x.DocumentType}}"></div>
+                                </td>
+                                <td class="" data-ng-if="SMDocumentCtrl.Config.IsDisableOwner != true && !x.IsNew">
+                                    <div class="text-single-line pt-6 pb-6" data-ng-bind="(x.CreatedBy == SMDocumentCtrl.ePage.Masters.UserId) ? 'Me' : x.CreatedBy"
+                                        title="{{x.CreatedBy}}"></div>
+                                </td>
+                                <td class="position-relative" data-ng-if="SMDocumentCtrl.Config.IsDisableCreatedOn != true && !x.IsNew">
+                                    <div class="text-single-line text-type pr-40 pt-6 pb-6" data-ng-bind="x.CreatedDateTime | date: 'dd-MMM-yy hh:mm a'"
+                                        title="{{x.CreatedDateTime | date: 'dd-MMM-yy hh:mm a'}}"></div>
+
+                                    <!-- Access -->
+                                    <span class="access-icon dropdown" data-ng-if="x.GroupMapping && (x.CreatedBy == SMDocumentCtrl.ePage.Masters.UserId || (x.CreatedBy != SMDocumentCtrl.ePage.Masters.UserId && !x.IsResticted && x.IsShared)) && SMDocumentCtrl.mode == '1' && SMDocumentCtrl.Config.IsDisableShare != true"
+                                        one-level-mapping input="x.GroupMapping" object="x" icon="'fa fa-user-plus'"></span>
+                                    <!-- Menu -->
+                                    <span class="vertical-menu" uib-dropdown data-ng-if="SMDocumentCtrl.Config.IsDisableVerticalMenu != true">
+                                        <i class="fa fa-ellipsis-v" uib-dropdown-toggle></i>
+                                        <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
+                                            <!-- Download -->
+                                            <li class="clearfix cursor-pointer text-single-line dropdown-list"
+                                                data-ng-click="x.PK && SMDocumentCtrl.ePage.Masters.Document.DownloadRecord(x, $index)"
+                                                data-ng-if="SMDocumentCtrl.Config.IsDisableVerticalMenuDownload != true">
+                                                <span class="glyphicons glyphicons-download-alt mr-5 doc-menu-icon"></span>
+                                                <span data-ng-bind="'Download'"></span>
+                                            </li>
+                                            <!-- Amend -->
+                                            <li class="clearfix cursor-pointer text-single-line dropdown-list"
+                                                data-ng-if="((x.CreatedBy == SMDocumentCtrl.ePage.Masters.UserId) || (x.CreatedBy != SMDocumentCtrl.ePage.Masters.UserId && !x.IsResticted)) && !x.IsAuto && SMDocumentCtrl.Config.IsDisableVerticalMenuAmend != true && !SMDocumentCtrl.ePage.Entities.IsReadOnly">
+                                                <span class="glyphicons glyphicons-file-import mr-5 doc-menu-icon"></span>
+                                                <file-upload-custom class="file-upload-directive" data-ng-model="SMDocumentCtrl.ePage.Masters.Document.fileDetails"
+                                                    size="{{SMDocumentCtrl.ePage.Masters.Document.fileSize}}" auth="{{SMDocumentCtrl.ePage.Masters.Document.Autherization}}"
+                                                    additional-value="{{SMDocumentCtrl.ePage.Masters.Document.AdditionalValue}}"
+                                                    url="{{SMDocumentCtrl.ePage.Masters.Document.UploadUrl}}" doc-type="*"
+                                                    multiple-file="false" is-disabled="x.CreatedBy != SMDocumentCtrl.ePage.Masters.UserId && x.IsResticted && !x.IsAuto"
+                                                    fu-class="left" get-uploaded-files="SMDocumentCtrl.ePage.Masters.Document.GetUploadedFiles($item, 'amend', undefined, x)"
+                                                    get-selected-files="SMDocumentCtrl.ePage.Masters.Document.GetSelectedFiles($item, 'amend', undefined, x)"
+                                                    modal-template="" template="" data-ng-style="x.IsAuto && {'visibility': 'hidden'}">
+                                                    <span data-ng-bind="'Amend'"></span>
+                                                </file-upload-custom>
+                                            </li>
+                                            <!-- Email As Attachment -->
+                                            <li class="clearfix cursor-pointer text-single-line dropdown-list"
+                                                data-ng-click="" data-ng-if="SMDocumentCtrl.Config.IsDisableVerticalMenuEmailAttachment != true && !SMDocumentCtrl.ePage.Entities.IsReadOnly">
+                                                <span class="glyphicons glyphicons-paperclip mr-5 doc-menu-icon"></span>
+                                                <span data-ng-bind="'Email As Attachment'"></span>
+                                            </li>
+                                            <!-- Remove -->
+                                            <li class="clearfix cursor-pointer text-single-line dropdown-list"
+                                                data-ng-click="SMDocumentCtrl.ePage.Masters.Document.DeleteDocument(x, $index)"
+                                                data-ng-if="x.CreatedBy == SMDocumentCtrl.ePage.Masters.UserId && SMDocumentCtrl.Config.IsDisableVerticalMenuRemove != true && !SMDocumentCtrl.ePage.Entities.IsReadOnly">
+                                                <span class="glyphicons glyphicons-bin mr-5 doc-menu-icon"></span>
+                                                <span data-ng-bind="'Remove'"></span>
+                                            </li>
+                                        </ul>
+                                    </span>
+                                </td>
+                                <td colspan="5" class="clearfix" data-ng-if="x.IsNew">
+                                    <div class="pl-100 pr-100">
+                                        <div class="clearfix p-5">
+                                            <div class="pull-left">
+                                                <span>{{x.name}}</span>
+                                            </div>
+                                            <div class="meter-wrapper">
+                                                <!-- <div class="" data-ng-class="x.IsTypeAmend ? 'meter' : 'meter-with-value'">
+                                                    <span data-ng-bind="x.progress + '%'" data-ng-style="{'width': x.progress+'%'}"></span>
+                                                </div> -->
+                                                <div class="meter">
+                                                    <span></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Related Document -->
+                <div class="pt-5 clearfix" data-ng-if="SMDocumentCtrl.Config.IsDisableRelatedDocument != true"
+                    data-ng-show="SMDocumentCtrl.ePage.Masters.ActiveTabIndex == 1">
                     <!-- Loading -->
-                    <div class="p-20 text-center loading" data-ng-if="!DocumentCtrl.ePage.Masters.Documents.ListSource">
+                    <div class="clearfix p-20 text-center" data-ng-if="!SMDocumentCtrl.ePage.Masters.RelatedDocument.EntitySource">
                         <i class="fa fa-spin fa-spinner font-160"></i>
                     </div>
                     <!-- No Records -->
-                    <div class="p-20 text-center" data-ng-if="DocumentCtrl.ePage.Masters.Documents.ListSource && DocumentCtrl.ePage.Masters.Documents.ListSource.length == 0">
+                    <div class="clearfix p-20 text-center" data-ng-if="(SMDocumentCtrl.ePage.Masters.RelatedDocument.EntitySource | json) == '{}'">
                         <i>No Records...!</i>
                     </div>
-                    <div class="clearfix list" data-ng-if="DocumentCtrl.ePage.Masters.Documents.ListSource && DocumentCtrl.ePage.Masters.Documents.ListSource.length > 0"
-                        data-ng-repeat="x in DocumentCtrl.ePage.Masters.Documents.ListSource">
-                        <div class="clearfix p-10" data-ng-if="x.IsNew">
-                            <div class="col-xs-12 col-sm-12 col-md-1 col-lg-1 col-xl-1"></div>
-                            <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11 col-xl-11 pl-0">
-                                <div class="loading-file-name">
-                                    <span>{{x.name}}</span>
+                    <div class="doc-list-wrapper clearfix" data-ng-if="(SMDocumentCtrl.ePage.Masters.RelatedDocument.EntitySource | json) != '{}'">
+                        <div class="clearfix" data-ng-repeat="(key, value) in SMDocumentCtrl.ePage.Masters.RelatedDocument.EntitySource">
+                            <uib-accordion close-others="false">
+                                <div uib-accordion-group class="panel-default" is-open="status.open" data-ng-repeat="x in value.ListSource">
+                                    <uib-accordion-heading>
+                                        <span data-ng-click="!x.IsClicked && SMDocumentCtrl.ePage.Masters.RelatedDocument.OnRelatedDocumentClick(x); x.IsClicked = true;"
+                                            data-ng-bind="x.EntitySource + ' - ' + x.EntityRefCode"></span>
+                                        <i class="pull-right glyphicon" data-ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"
+                                            data-ng-if="x.IsClicked"></i>
+                                    </uib-accordion-heading>
+                                    <div class="doc-list-wrapper clearfix">
+                                        <table class="table-responsive sm-document-table">
+                                            <!-- Header -->
+                                            <thead data-ng-if="x.ListSource  && x.ListSource.length > 0">
+                                                <tr class="clearfix">
+                                                    <th data-ng-if="SMDocumentCtrl.Config.IsDisableCount != true" style="width: 100px;"></th>
+                                                    <th data-ng-if="SMDocumentCtrl.Config.IsDisableFileName != true">File
+                                                        Name</th>
+                                                    <th data-ng-if="SMDocumentCtrl.Config.IsDisableDocumentType != true">Document
+                                                        Type</th>
+                                                    <th data-ng-if="SMDocumentCtrl.Config.IsDisableOwner != true">Owner</th>
+                                                    <th data-ng-if="SMDocumentCtrl.Config.IsDisableCreatedOn != true">Created
+                                                        On</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Loading -->
+                                                <tr class="clearfix text-center" data-ng-if="!x.ListSource && x.IsClicked">
+                                                    <td class="p-20">
+                                                        <i class="fa fa-spin fa-spinner font-160"></i>
+                                                    </td>
+                                                </tr>
+                                                <!-- No Records -->
+                                                <tr class="clearfix text-center" data-ng-if="x.ListSource && x.ListSource.length == 0">
+                                                    <td class="p-20">
+                                                        <i>No Records...!</i>
+                                                    </td>
+                                                </tr>
+                                                <tr class="clearfix doc-list position-relative border-bottom"
+                                                    data-ng-if="x.ListSource && x.ListSource.length > 0" data-ng-repeat="y in x.ListSource">
+                                                    <td class="text-center" data-ng-if="SMDocumentCtrl.Config.IsDisableCount != true">
+                                                        <span class="doc-download-count" data-ng-bind="y.DownloadCount"
+                                                            title="Download History" data-ng-click="y.DownloadCount > 0 && SMDocumentCtrl.ePage.Masters.Document.ViewDownloadHistroy(x)"
+                                                            data-ng-style="(y.DownloadCount > 0) ? {'cursor': 'pointer'} : {'cursor': 'text'}"
+                                                            data-ng-if="SMDocumentCtrl.Config.IsDisableDownloadCount != true"></span>
+                                                        <span class="doc-amend-count" data-ng-bind="y.AmendCount" title="Amend History"
+                                                            data-ng-click="y.AmendCount > 0 && SMDocumentCtrl.ePage.Masters.Document.ViewAmendHistroy(y)"
+                                                            data-ng-style="(y.AmendCount > 0) ? {'cursor': 'pointer'} : {'cursor': 'text'}"
+                                                            data-ng-if="SMDocumentCtrl.Config.IsDisableAmendCount != true && !SMDocumentCtrl.ePage.Entities.IsReadOnly"></span>
+                                                    </td>
+                                                    <td class="" data-ng-if="SMDocumentCtrl.Config.IsDisableFileName != true">
+                                                        <div class="text-single-line text-type pr-25 pt-6 pb-6">
+                                                            <img data-ng-src="assets/img/file-types/{{y.FileName | getFileExtension}}.png"
+                                                                alt="" title="{{y.FileName}}">
+                                                            <a href="javascript: void(0);" data-ng-bind="y.DocumentName"
+                                                                title="{{y.DocumentName}}" data-ng-click="y.PK && SMDocumentCtrl.ePage.Masters.Document.DownloadRecord(y, $index)"></a>
+                                                        </div>
+                                                    </td>
+                                                    <td class="" data-ng-if="SMDocumentCtrl.Config.IsDisableDocumentType != true">
+                                                        <div data-ng-bind="y.DocumentType" class="text-single-line pt-6 pb-6"
+                                                            title="{{y.DocumentType}}"></div>
+                                                    </td>
+                                                    <td class="" data-ng-if="SMDocumentCtrl.Config.IsDisableOwner != true">
+                                                        <div class="text-single-line pt-6 pb-6" data-ng-bind="(y.CreatedBy == SMDocumentCtrl.ePage.Masters.UserId) ? 'Me' : y.CreatedBy"
+                                                            title="{{y.CreatedBy}}"></div>
+                                                    </td>
+                                                    <td class="position-relative" data-ng-if="SMDocumentCtrl.Config.IsDisableCreatedOn != true">
+                                                        <div class="text-single-line text-type pr-40 pt-6 pb-6"
+                                                            data-ng-bind="y.CreatedDateTime | date: 'dd-MMM-yy hh:mm a'"
+                                                            title="{{y.CreatedDateTime | date: 'dd-MMM-yy hh:mm a'}}"></div>
+
+                                                        <!-- Menu -->
+                                                        <span class="vertical-menu" uib-dropdown data-ng-if="SMDocumentCtrl.Config.IsDisableVerticalMenu != true">
+                                                            <i class="fa fa-ellipsis-v" uib-dropdown-toggle></i>
+                                                            <ul class="dropdown-menu dropdown-menu-right"
+                                                                uib-dropdown-menu>
+                                                                <!-- Download -->
+                                                                <li class="clearfix cursor-pointer text-single-line dropdown-list"
+                                                                    data-ng-click="y.PK && SMDocumentCtrl.ePage.Masters.Document.DownloadRecord(y, $index)"
+                                                                    data-ng-if="SMDocumentCtrl.Config.IsDisableVerticalMenuDownload != true">
+                                                                    <span class="glyphicons glyphicons-download-alt mr-5 doc-menu-icon"></span>
+                                                                    <span data-ng-bind="'Download'"></span>
+                                                                </li>
+                                                            </ul>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                                <div class="meter">
-                                    <span></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="clearfix" data-ng-if="!x.IsNew">
-                            <div class="col-xs-12 col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">
-                                <!--Delete -->
-                                <span class="action-icon remove" data-ng-click="x.CreatedBy == DocumentCtrl.ePage.Masters.Documents.UserId && DocumentCtrl.ePage.Masters.Documents.RemoveRecord(x, $index)" title="Remove" data-ng-class="(x.CreatedBy == DocumentCtrl.ePage.Masters.Documents.UserId) ? 'enabled' : 'disabled'">
-                                    <i class="glyphicon glyphicon-trash"></i>
-                                </span>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0">
-                                <div class="p-5 pb-0 pr-25 text-single-line">
-                                    <img ng-src="assets/img/file-types/{{x.FileName | getFileExtension}}.png" alt="">
-                                    <a href="javascript:void(0);" data-ng-bind="x.FileName" title="{{x.FileName}}" data-ng-click="x.PK && DocumentCtrl.ePage.Masters.Documents.DownloadRecord(x, $index)"></a>
-                                </div>
-                                <span class="doc-download-count" data-ng-bind="x.DownloadCount" title="Download History" data-ng-click="x.DownloadCount > 0 && DocumentCtrl.ePage.Masters.Documents.DownloadHistory(x,'download')"
-                                    data-ng-style="(x.DownloadCount > 0) ? {'cursor': 'pointer'} : {'cursor': 'text'}"></span>
-                                <div class="text-single-line document-type">
-                                    <span data-ng-bind="x.DocumentType" title="{{x.DocumentType}}"></span>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 document-name-padding">
-                                <input type="text" class="form-control input-sm" placeholder="Name" data-ng-model="x.DocumentName" data-ng-if="x.CreatedBy == DocumentCtrl.ePage.Masters.Documents.UserId || (x.CreatedBy != DocumentCtrl.ePage.Masters.Documents.UserId && x.IsResticted)">
-                                <div data-ng-if="x.CreatedBy != DocumentCtrl.ePage.Masters.Documents.UserId && !x.IsResticted" data-ng-bind="x.DocumentName"
-                                    class="p-5 text-single-line pl-10" title="{{x.DocumentName}}"></div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                                <div class="p-5 text-single-line pb-0" data-ng-bind="(x.CreatedBy == DocumentCtrl.ePage.Masters.Documents.UserId) ? 'Me' : x.CreatedBy"
-                                    title="{{x.CreatedBy}}"></div>
-                                <div href="javascript:void(0);" class="pl-5 pr-5 text-single-line document-created-date-time" data-ng-bind="x.CreatedDateTime | date: 'dd-MMM-yy h:mm a'"
-                                    title="{{x.CreatedDateTime | date: 'dd-MMM-yy h:mm a'}}"></div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
-                                <file-upload-custom class="file-upload-directive" ng-model="DocumentCtrl.ePage.Masters.Documents.fileDetails" size="{{DocumentCtrl.ePage.Masters.Documents.fileSize}}"
-                                    auth="{{DocumentCtrl.ePage.Masters.Documents.Autherization}}" additional-value="{{DocumentCtrl.ePage.Masters.Documents.AdditionalValue}}"
-                                    url="{{DocumentCtrl.ePage.Masters.Documents.UploadUrl}}" doc-type="*" multiple-file="false"
-                                    is-disabled="x.CreatedBy != DocumentCtrl.ePage.Masters.Documents.UserId && !x.IsResticted"
-                                    fu-class="left" get-uploaded-files="DocumentCtrl.ePage.Masters.Documents.GetUploadedFiles($item, x, 'amend', x)"
-                                    get-selected-files="DocumentCtrl.ePage.Masters.Documents.GetSelectedFiles($item, x, 'amend', x)"
-                                    modal-template="" template="">
-                                    <a href="javascript:void(0);" class="doc-amend-link" title="Amend" data-ng-class="(x.CreatedBy != DocumentCtrl.ePage.Masters.Documents.UserId && !x.IsResticted) ? 'disabled' : 'enabled'">Amend</a>
-                                </file-upload-custom>
-                                <span href="javascript:void(0);" data-ng-bind="x.AmendCount" title="Amend History" data-ng-click="x.AmendCount > 0 && DocumentCtrl.ePage.Masters.Documents.AmendHistory(x, 'amend')"
-                                    class="doc-amend-count" data-ng-style="(x.AmendCount > 0) ? {'cursor': 'pointer'} : {'cursor': 'text'}"></span>
-                                <!-- Save -->
-                                <span class="action-icon fa fa-save save ml-10" title="Save" data-ng-click="(x.CreatedBy == DocumentCtrl.ePage.Masters.Documents.UserId || (x.CreatedBy != DocumentCtrl.ePage.Masters.Documents.UserId && x.IsResticted)) && DocumentCtrl.ePage.Masters.Documents.OnDocDescChanges(x, $index)"
-                                    data-ng-class="(x.CreatedBy == DocumentCtrl.ePage.Masters.Documents.UserId || (x.CreatedBy != DocumentCtrl.ePage.Masters.Documents.UserId && x.IsResticted)) ? 'enabled' : 'disabled'"></span>
-                                <!-- Access -->
-                                <span class="action-icon dropdown document-access-dropdown-menu" data-ng-if="x.GroupMapping && (x.CreatedBy == DocumentCtrl.ePage.Masters.Documents.UserId || (x.CreatedBy != DocumentCtrl.ePage.Masters.Documents.UserId && x.IsResticted)) && DocumentCtrl.mode == '1'"
-                                    one-level-mapping input="x.GroupMapping" object="x"></span>
-                            </div>
+                            </uib-accordion>
                         </div>
                     </div>
                 </div>

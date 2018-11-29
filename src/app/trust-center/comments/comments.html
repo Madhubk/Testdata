@@ -1,0 +1,45 @@
+<div class="clearfix tc-filtergroup">
+    <!-- Breadcrumb -->
+    <div class="clearfix tc-breadcrumb" data-ng-if="TCCommentsCtrl.ePage.Masters.ActiveApplication == 'TC'">
+        <i class="fa fa-home home-icon"></i>
+        <div class="breadcrumb-list-wrapper">
+            <ol class="breadcrumb">
+                <li data-ng-repeat="x in TCCommentsCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="TCCommentsCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                </li>
+                <li data-ng-repeat="x in TCCommentsCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
+                    class="active">
+            </ol>
+        </div>
+        <span class="tc-breadcrumb-app-name" data-ng-if="TCCommentsCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="TCCommentsCtrl.ePage.Masters.QueryString.AppName"></span>
+    </div>
+    <!-- Body -->
+    <div class="clearfix">
+        <div class="clearfix tc-page-height-fixed without-header">
+            <uib-tabset id="chromeTab" active="TCCommentsCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+                <uib-tab>
+                    <uib-tab-heading title="Comments">
+                        <span data-ng-bind="'Comments'"></span>
+                        <i class="fa fa-thumb-tack pinned-tab"></i>
+                    </uib-tab-heading>
+                    <div class="p-0 tab-list-view-wrapper">
+                        <dynamic-list dataentry-name="TCCommentsCtrl.ePage.Masters.dataentryName" selected-grid-row="TCCommentsCtrl.ePage.Masters.SelectedGridRow($item)"
+                            mode="1" default-filter="TCCommentsCtrl.ePage.Masters.DefaultFilter" dataentry-object="TCCommentsCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+                        <div class="tab-loading" data-ng-show="TCCommentsCtrl.ePage.Masters.IsTabClick"></div>
+                    </div>
+                </uib-tab>
+                <uib-tab active="TCCommentsCtrl.ePage.Masters.activeTabIndex == $index" data-ng-repeat="tab in TCCommentsCtrl.ePage.Masters.TabList"
+                    ng-click="TCCommentsCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+                    <uib-tab-heading title="{{tab.label}}">
+                        <span data-ng-bind="tab.label"></span>
+                        <i class="glyphicon glyphicon-remove" ng-click="TCCommentsCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+                    </uib-tab-heading>
+                    <div class="pb-10 clearfix">
+                        <tc-comments-configure current-comments="tab"></tc-comments-configure>
+                    </div>
+                </uib-tab>
+                <button class="btn btn-default" data-ng-click="TCCommentsCtrl.ePage.Masters.CreateNewTab()" data-ng-disabled="TCCommentsCtrl.ePage.Masters.IsNewTabClicked">+</button>
+            </uib-tabset>
+        </div>
+    </div>
+</div>

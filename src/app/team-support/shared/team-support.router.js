@@ -27,11 +27,13 @@
                 resolve: {
                     CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
                         var deferred = $q.defer();
-                        pageAccessService.CheckAccess("/TS").then(function (response) {
-                            if (response == true) {
-                                deferred.resolve();
-                            }
-                        });
+                        // pageAccessService.CheckAccess("/TS").then(function (response) {
+                        //     if (response == true) {
+                        //         deferred.resolve();
+                        //     }
+                        // });
+
+                        deferred.resolve();
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {

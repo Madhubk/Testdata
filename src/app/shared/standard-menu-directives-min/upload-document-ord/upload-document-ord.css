@@ -1,0 +1,30 @@
+.btn-upload {
+    padding: 6px 10px;
+    background-color: #eeeeee70;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.dropbox1 {
+    background-color: #FEFFEC;
+    text-align: center;
+    color: #BBB;
+    font-size: 15px;
+    font-family: Arial, sans-serif;
+    cursor: default;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.file-upload1 {
+    padding: 10px;
+    text-align: center;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    -moz-box-shadow: 0 1px 1px 0px #ddd;
+    -webkit-box-shadow: 0 1px 1px 0px #ddd;
+    box-shadow: 0 1px 1px 0px #ddd;
+    border-radius: 4px;
+}

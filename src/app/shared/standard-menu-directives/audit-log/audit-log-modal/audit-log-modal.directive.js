@@ -5,9 +5,20 @@
         .module("Application")
         .directive("auditLogModal", AuditLogModal);
 
-    AuditLogModal.$inject = ["$uibModal"];
+    AuditLogModal.$inject = ["$uibModal", "$templateCache"];
 
-    function AuditLogModal($uibModal) {
+    function AuditLogModal($uibModal, $templateCache) {
+        var _template = `<div class="modal-header">
+            <button type="button" class="close" ng-click="AuditLogModalCtrl.ePage.Masters.Close()">&times;</button>
+            <h5 class="modal-title" id="modal-title">
+                <strong>Audit Log</strong>
+            </h5>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <audit-log input="input" mode="1" entity="AuditLogModalCtrl.ePage.Masters.AuditEntity"></audit-log>
+        </div>`;
+        $templateCache.put("AuditLogModal.html", _template);
+
         var exports = {
             restrict: "EA",
             scope: {
@@ -27,7 +38,7 @@
                     keyboard: true,
                     windowClass: "right audit-log",
                     scope: scope,
-                    templateUrl: "app/shared/standard-menu-directives/audit-log/audit-log-modal/audit-log-modal.html",
+                    templateUrl: "AuditLogModal.html",
                     controller: 'AuditLogModalController as AuditLogModalCtrl',
                     bindToController: true,
                     resolve: {

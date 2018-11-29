@@ -1,0 +1,145 @@
+    <div class="clearfix pb-30">
+    <div class="grid-loading-norecord-container ng-scope mt-200" style='z-index: 4;' data-ng-if="LevelLoadCtrl.ePage.Masters.IsNoRecords">
+        <div class="grid-no-record">No Record Found.</div>
+    </div>
+    <div class="pb-40" ng-if="!LevelLoadCtrl.ePage.Masters.IsNoRecords">
+        <div class="rows pt-5 pb-5">
+            <div class="col-lg-7 set-color-blue fs-17"><b>Level Load Limits</b></div>            
+            <!--Local Search-->
+
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3 col-xl-4">
+                <!-- <input type="text" class="form-control level-load-txt" placeholder="Search" ng-model="LevelLoadCtrl.ePage.Masters.search" ng-blur="LevelLoadCtrl.ePage.Masters.Search(LevelLoadCtrl.ePage.Masters.search)"> -->
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" ng-model="LevelLoadCtrl.ePage.Masters.search">
+                        <span class="input-group-btn" >
+                            <button class="btn btn-default shiny" type="button" placeholder="Search"  ng-click="LevelLoadCtrl.ePage.Masters.Search(LevelLoadCtrl.ePage.Masters.search)" ng-blur="LevelLoadCtrl.ePage.Masters.Search(LevelLoadCtrl.ePage.Masters.search)">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                </div>
+            </div>
+            <!--Add new Store-->
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-2 col-xl-4 text-right">
+                <button class="btn btn-primary level-load-btn" data-ng-click="LevelLoadCtrl.ePage.Masters.OpenEditForm(key,true)" >Add New Store</button>
+            </div>
+        </div>
+        <table id="customers">
+            <tr>
+                <th class="Width-18">Level Load Type</th>
+                <th class="Width-18">Monday Limit</th>
+                <th class="Width-18">Tuesday Limit</th>
+                <th class="Width-18">Wednesday Limit</th>
+                <th class="Width-18">Thursday Limit</th>
+                <th class="Width-18">Friday Limit</th>
+                <th class="Width-18">Saturday Limit</th>
+                <th class="Width-18">Sunday Limit</th>
+            </tr>
+            <tr>
+                <td colspan="8" class="no-padding">
+                    <table ng-repeat="(key, value) in LevelLoadCtrl.ePage.Masters.LevelLoad" class="table1">    
+                        <tr>
+                            <td colspan="8" class="padding1" ng-class="{'aliceblue':value.isSelected}">
+                                <span ng-click = "LevelLoadCtrl.ePage.Masters.storeClick($index,key)">
+                                <i ng-class="{'fa fa-angle-down': value.isSelected, 'fa fa-angle-right': !value.isSelected}"></i>
+                                    <b>{{key}}</b>
+                                </span>
+                                <a ng-if="value.isSelected" class="eaxis-edit-2" href="javascript:void(0);" data-ng-click="LevelLoadCtrl.ePage.Masters.OpenEditForm(key,false)">
+                                <i class="fa fa-pencil fs-14 pull-right"></i></a>
+                            </td>
+                        </tr>     
+                        <tr ng-repeat ="item in value" ng-if="value.isSelected">
+                            <td class="Width-18 pading8">{{item.LevelLoadType}}</td>
+                            <td class="Width-18 pading8">{{item.MondayLimit}}</td>
+                            <td class="Width-18 pading8">{{item.TuesdayLimit}}</td>
+                            <td class="Width-18 pading8">{{item.WednesdayLimit}}</td>
+                            <td class="Width-18 pading8">{{item.ThursdayLimit}}</td>
+                            <td class="Width-18 pading8">{{item.FridayLimit}}</td>
+                            <td class="Width-18 pading8">{{item.SaturdayLimit}}</td>
+                            <td class="Width-18 pading8">{{item.SundayLimit}}</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <!-- <div class="col-lg-3 col-xs-12 col-md-6 col-sm-6 mb-5" ng-show="LevelLoadCtrl.ePage.Masters.ismanifestshows" ng-repeat="x in  LevelLoadCtrl.ePage.Masters.ManifestNolist | filter:{ManifestStatus:'DRF'}">
+            <div class="card">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-xs-12 col-lg-12">
+                            <div class="col-xs-9 col-lg-9">
+                                <p class="fs-13 height-45">
+                                    <b>{{x.ManifestNumber}}</b>
+                                </p>
+                            </div>
+                            <div class="col-xs-3 col-lg-3 no-padding">
+                                <a href="" class="col-white" ng-click="LevelLoadCtrl.ePage.Masters.OpenManifest(this.x)">
+                                    <div class="attachlink">
+                                        attach
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-lg-12">
+                            <div class="col-xs-4 col-lg-4">
+                                <span class="col-dgray pull-left" style="margin-top: 13px;"> {{x.ManifestType || LevelLoadCtrl.ePage.Masters.emptyText}}
+                                </span>
+                            </div>
+                            <div class="col-xs-8 col-lg-8">
+                                <span title="{{x.ReceiverName}}" class="contd ol-dgray pull-right" style="margin-top: 13px;">{{x.ReceiverName || LevelLoadCtrl.ePage.Masters.emptyText}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="mt-10 mb-5">
+                <div class="clearfix">
+                    <div class="col-xs-9 col-lg-9 fs-10">
+                        <span class="col-dgray pull-left">{{x.EstimatedDeliveryDate | date : 'dd-MMM-yyyy' }}</span>
+                    </div>
+
+                    <div class="col-xs-3 col-lg-3">
+                        <a href="" ng-click="LevelLoadCtrl.ePage.Masters.MoreManifest(this.x)" class="pull-right fs-10">More...</a>
+                    </div>
+                </div>
+                <div class="plan" ng-if="x.IsManifestVisible">
+                    <div class="header bordered-aqua">
+                        <span class="text-single-line" title="{{x.ManifestNumber}}">{{x.ManifestNumber}} - </span>
+                        <span>{{x.ManifestStatusDesc}} -</span>
+                        <span>{{x.ManifestType}}</span>
+                    </div>
+                    <div class="price aqua">
+                        <div>
+                            <span>ActualDeliveryDate</span>
+                            <span class="date">{{x.ActualDeliveryDate|| LevelLoadCtrl.ePage.Masters.emptyText}}</span>
+                        </div>
+                        <div>
+                            <span>ActualDispatchDate</span>
+                            <span class="date">{{x.ActualDispatchDate || LevelLoadCtrl.ePage.Masters.emptyText}}</span>
+                        </div>
+                        <div>
+                            <span>EstimatedDeliveryDate</span>
+                            <span class="date">{{x.EstimatedDeliveryDate|| LevelLoadCtrl.ePage.Masters.emptyText}}</span>
+                        </div>
+                        <div>
+                            <span>EstimatedDispatchDate</span>
+                            <span class="date">{{x.EstimatedDispatchDate ||LevelLoadCtrl.ePage.Masters.emptyText }}</span>
+                        </div>
+                    </div>
+                    <div class="monthly mt-10">
+                        <div class="pull-left">Transporter Details :
+                        </div>
+                        <div class="pull-left ml-5 text-single-line" title="{{x.TransporterCode}} - {{x.TransporterName}}">{{x.TransporterCode}} - {{x.TransporterName}}
+                        </div>
+                        </br>
+                        <div class="pull-left ml-5">{{x.VehicleNo}}
+                        </div>
+                        </br>
+                        <div class="pull-left ml-5">{{x.VehicleTypeCode}}-{{x.VehicleTypeDescription}}
+                        </div>
+                    </div>
+                    <a class="signup bg-aqua" ng-click="LevelLoadCtrl.ePage.Masters.CloseManifest(this.x)" href="">Close</a>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</div>

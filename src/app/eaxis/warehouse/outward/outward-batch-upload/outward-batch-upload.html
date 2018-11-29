@@ -1,0 +1,33 @@
+<!-- Bulk Upload Option Popup -->
+<div class="clearfix">
+    <div class="modal-header">
+        <h4 class="modal-title">Outward Batch Upload</h3>
+    </div>
+
+    <div class="modal-body  pb-50">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-10">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                <span>
+                    <file-upload-custom class="file-upload-directive" ng-model="OutwardBatchUploadCtrl.ePage.Masters.Documents.fileDetails" size="{{OutwardBatchUploadCtrl.ePage.Masters.Documents.fileSize}}"
+                        auth="{{OutwardBatchUploadCtrl.ePage.Masters.Documents.Autherization}}" additional-value="{{OutwardBatchUploadCtrl.ePage.Masters.Documents.AdditionalValue}}"
+                        url="{{OutwardBatchUploadCtrl.ePage.Masters.Documents.UploadUrl}}" doc-type="*" multiple-file="true" is-disabled="false"
+                        fu-class="left" get-uploaded-files="OutwardBatchUploadCtrl.ePage.Masters.Documents.GetUploadedFiles($item, x, 'new')"
+                        get-selected-files="OutwardBatchUploadCtrl.ePage.Masters.Documents.GetSelectedFiles($item, x, 'new')" modal-template=""
+                        template="">
+                        <button class="btn btn-default btn-blue" ng-disabled='OutwardBatchUploadCtrl.ePage.Masters.UploadFileTestDisable' data-ng-bind="OutwardBatchUploadCtrl.ePage.Masters.UploadFileTest"></button>
+                    </file-upload-custom>
+                </span>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                <button class="btn btn-default btn-blue"   data-ng-click="OutwardBatchUploadCtrl.ePage.Masters.DownloadTemplate()">Download Template</button>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                <button class="btn btn-default btn-blue"   data-ng-click="OutwardBatchUploadCtrl.ePage.Masters.ViewUploadedFiles()">View Uploaded Files</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-sm mb-15" type="button" ng-click="OutwardBatchUploadCtrl.ePage.Masters.Close()">Close</button>
+    </div>
+</div>

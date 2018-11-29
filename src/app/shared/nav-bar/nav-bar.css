@@ -10,12 +10,6 @@
 .navbar-container .sign-out a i {
     color: #d71921;
     font-size: 24px;
-    opacity: 0.5;
-}
-
-.navbar-container .sign-out a i:hover {
-    color: #d71921;
-    opacity: 0.8;
 }
 
 .tc-nav-bar .navbar .navbar-container .sign-out a i {
@@ -98,12 +92,14 @@
 }
 
 .navbar .navbar-brand {
-    padding: 3px;
-    padding-bottom: 4px;
+    padding: 4px 0;
+    display: flex;
+    align-items: center;
+    width: 125px;
 }
 
 .navbar .navbar-brand .product-logo {
-    height: 100%;
+    width: 100%;
 }
 
 .navbar-container .tc-setting-icon .dropdown>i {
@@ -115,7 +111,7 @@
 }
 
 .navbar .sidebar-collapse .collapse-icon {
-    color: #000;
+    color: #d71921;
 }
 
 .navbar-container .tc-setting-icon .dropdown-menu-center:before {
@@ -148,17 +144,18 @@
 }
 
 .navbar .navbar-account .account-area .task-count a i {
-    color: #aaa !important;
+    color: #d71921 !important;
 }
 
 .navbar .navbar-account .account-area .task-count a .badge {
-    border: 1px solid #aaa !important;
-    color: #444 !important;
+    border: 1px solid #d71921 !important;
+    color: #d71921 !important;
     width: 23px !important;
     height: 23px !important;
     padding: 5px 0 !important;
     top: 2px !important;
     left: 0 !important;
+    box-shadow: none !important;
 }
 
 .language-dropdown .dropdown-menu {
@@ -172,4 +169,27 @@
     color: #D73D32;
     background-color: transparent;
     padding: 13px 12px;
+}
+
+.navbar .navbar-inner .navbar-header .navbar-account .account-area>li .dropdown-menu.dropdown-login-area>li {
+    border-bottom: 1px solid rgba(215, 25, 33, 0.2);
+}
+
+.navbar .navbar-inner .navbar-header .navbar-account .account-area>li .dropdown-menu li.switch-role a {
+    font-size: 13px;
+}
+
+.navbar .navbar-brand small img {
+    width: auto;
+}
+
+.avatar-area .caption .ea-custom-file-upload {
+    margin: 0;
+    font-size: 10px;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
 }

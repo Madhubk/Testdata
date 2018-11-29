@@ -3,8 +3,7 @@
 }
 
 .ui-grid-header-cell {
-    border-bottom: 2px solid #a0d468 !important;
-    background-image: linear-gradient(to bottom, #f2f2f2 0, #fafafa 100%);
+    border-color: #f2f2f2;
 }
 
 .ui-grid-header-cell-label {
@@ -80,8 +79,83 @@ abbr[title] {
 
 .ui-grid-pager-row-count-picker select {
     padding: 0 10px;
+    border-radius: 0;
 }
 
 .ui-grid-pager-control .ui-grid-pager-max-pages-number {
     vertical-align: middle;
+}
+
+/* ----------------------------- */
+.ui-grid-cell {
+    overflow: visible;
+    border-bottom: 1px solid;
+    border-color: #f2f2f2;
+}
+
+.ui-grid-cell-contents.ui-grid-header-cell-primary-focus,
+.ui-grid-pinned-container-left .ui-grid-header-cell-row .ui-grid-cell-contents {
+    background-color: #fdfdfd;
+    color: #333;
+    line-height: 1.42857;
+    font-size: 12px;
+}
+
+.ui-grid-pinned-container.ui-grid-pinned-container-left .ui-grid-cell:last-child {
+    border-width: 2px;
+    border-right-color: #eee;
+}
+
+.ui-grid-row .ui-grid-cell.ui-grid-row-header-cell {
+    border-bottom: solid 1px #f3f3f3;
+    background-color: transparent;
+}
+
+.ui-grid-pinned-container.ui-grid-pinned-container-left .ui-grid-header-cell:last-child {
+    border-width: 2px;
+    border-right-color: #eee;
+}
+
+.ui-grid-row:last-child .ui-grid-cell {
+    border-bottom-width: 1px;
+    border-bottom-color: #f3f3f3;
+}
+
+.ui-grid-header-cell {
+    background-image: none !important;
+    border-bottom: 2px solid #ddd !important;
+}
+
+.ui-grid-top-panel {
+    background: none !important;
+}
+
+.ui-grid-header {
+    border-bottom: none !important;
+}
+
+.ui-grid-canvas {
+    padding-top: 0 !important;
+}
+
+.ui-grid-row:nth-child(even) .ui-grid-cell {
+    background-color: transparent;
+}
+
+.ui-grid-row:nth-child(odd) .ui-grid-cell {
+    background-color: transparent;
+}
+
+.ui-grid-menu-button {
+    background: #f7f7f7;
+    height: 28px;
+}
+
+.ui-grid-menu .ui-grid-menu-inner ul li button {
+    background: #fff;
+    box-shadow: none;
+}
+
+.ui-grid-row-selected .ui-grid-row .ui-grid-cell {
+    background-color: green;
 }

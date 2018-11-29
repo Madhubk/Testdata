@@ -5,12 +5,140 @@
         .module("Application")
         .factory('tcMappingConfig', TCMappingConfig);
 
-    TCMappingConfig.$inject = ["authService"];
+    TCMappingConfig.$inject = [];
 
-    function TCMappingConfig(authService) {
+    function TCMappingConfig() {
         var exports = {
             "Entities": {
                 "Mapping": {
+                    "SECAPP_SECTENANT": {
+                        "Title": "Role Access",
+                        "AccessTo": {
+                            "Visible": false,
+                            "Enable": false,
+                            "Label": undefined,
+                            "TYPE": undefined,
+                            "API": undefined,
+                            "APIUrl": undefined,
+                            "FilterID": undefined,
+                            "TextField": undefined,
+                            "ValueField": undefined,
+                            "LabelField": undefined,
+                            "IsHashRequired": false,
+                            "MinLength": 1,
+                            "Input": []
+                        },
+                        "BasedOn": {
+                            "Visible": false,
+                            "Enable": false,
+                            "Label": undefined,
+                            "TYPE": undefined,
+                            "API": undefined,
+                            "APIUrl": undefined,
+                            "FilterID": undefined,
+                            "TextField": undefined,
+                            "ValueField": undefined,
+                            "LabelField": undefined,
+                            "IsHashRequired": false,
+                            "MinLength": 3,
+                            "Input": []
+                        },
+                        "OtherEntitySource": {
+                            "Visible": false,
+                            "Enable": false,
+                            "Label": undefined,
+                            "TYPE": undefined,
+                            "API": undefined,
+                            "APIUrl": undefined,
+                            "FilterID": undefined,
+                            "TextField": undefined,
+                            "ValueField": undefined,
+                            "LabelField": undefined,
+                            "IsHashRequired": false,
+                            "MinLength": 3,
+                            "Input": []
+                        },
+                        "OtherEntitySource_2": {
+                            "Visible": false,
+                            "Enable": false,
+                            "Label": undefined,
+                            "TYPE": undefined,
+                            "API": undefined,
+                            "APIUrl": undefined,
+                            "FilterID": undefined,
+                            "TextField": undefined,
+                            "ValueField": undefined,
+                            "LabelField": undefined,
+                            "IsHashRequired": false,
+                            "MinLength": 3,
+                            "Input": []
+                        },
+                        "OtherEntitySource_3": {
+                            "Visible": false,
+                            "Enable": false,
+                            "Label": undefined,
+                            "TYPE": undefined,
+                            "API": undefined,
+                            "APIUrl": undefined,
+                            "FilterID": undefined,
+                            "TextField": undefined,
+                            "ValueField": undefined,
+                            "LabelField": undefined,
+                            "IsHashRequired": false,
+                            "MinLength": 3,
+                            "Input": []
+                        },
+                        "OtherEntitySource_4": {
+                            "Visible": false,
+                            "Enable": false,
+                            "Label": undefined,
+                            "TYPE": undefined,
+                            "API": undefined,
+                            "APIUrl": undefined,
+                            "FilterID": undefined,
+                            "TextField": undefined,
+                            "ValueField": undefined,
+                            "LabelField": undefined,
+                            "IsHashRequired": false,
+                            "MinLength": 3,
+                            "Input": []
+                        },
+                        "Tenant": {
+                            "Visible": true,
+                            "Enable": true,
+                            "Label": "Tenant",
+                            "TYPE": "TNT",
+                            "API": "authAPI",
+                            "APIUrl": "SecTenant/MasterFindAll",
+                            "FilterID": "SECTENA",
+                            "TextField": "TenantCode",
+                            "ValueField": "PK",
+                            "LabelField": "TenantName",
+                            "DisplayLabel": "TenantName",
+                            "IsHashRequired": true,
+                            "MinLength": 1,
+                            "Input": []
+                        },
+                        "Application": {
+                            "Visible": true,
+                            "Enable": false,
+                            "Label": "Application",
+                            "TYPE": "SAP",
+                            "API": "authAPI",
+                            "APIUrl": "SecApp/FindAll",
+                            "FilterID": "SECAPP",
+                            "TextField": "AppCode",
+                            "ValueField": "PK",
+                            "LabelField": "AppName",
+                            "IsHashRequired": true,
+                            "MinLength": 1,
+                            "Input": [{
+                                "FieldName": "SAP_FK",
+                                "value": "AppPk",
+                                "Type": 2
+                            }]
+                        }
+                    },
                     "USER_ROLE_APP_TNT": {
                         "Title": "Role Access",
                         "AccessTo": {
@@ -657,7 +785,7 @@
                         }
                     },
                     "GRUP_DTYP_ORG_APP_TNT": {
-                        "Title": " DocType Org Access",
+                        "Title": "DocType Org Access",
                         "AccessTo": {
                             "Visible": true,
                             "Enable": true,
@@ -777,6 +905,18 @@
                             "IsHashRequired": true,
                             "MinLength": 1,
                             "Input": []
+                        },
+                        "IsDefault": {
+                            "Visible": true,
+                            "Enable": true,
+                            "Label": "Is Default",
+                            "ValueField": "IsDefault"
+                        },
+                        "IsResticted": {
+                            "Visible": true,
+                            "Enable": true,
+                            "Label": "Is Resticted",
+                            "ValueField": "IsResticted"
                         }
                     },
                     "GRUP_CTYP_APP_TNT": {
@@ -787,18 +927,18 @@
                             "Label": "CommentType",
                             "TYPE": "COMMENT",
                             "API": "eAxisAPI",
-                            "APIUrl": "cfxtypes/FindAll/",
-                            "APIUrlSuffix": "AppPk",
-                            "FilterID": "CFXTYPE",
-                            "TextField": "Key",
+                            "APIUrl": "MstCommentType/FindAll",
+                            // "APIUrlSuffix": "AppPk",
+                            "FilterID": "MSTCMDT",
+                            "TextField": "TypeCode",
                             "ValueField": "PK",
-                            "LabelField": "Desc",
+                            "LabelField": "Key",
                             "IsHashRequired": true,
                             "MinLength": 1,
                             "Input": [{
-                                "FieldName": "TypeCode",
-                                "value": "COMT_DESC",
-                                "Type": 4
+                                "FieldName": "SAP_FK",
+                                "value": "AppPk",
+                                "Type": 2
                             }]
                         },
                         "BasedOn": {
@@ -921,19 +1061,15 @@
                             "Label": "CommentType",
                             "TYPE": "COMMENT",
                             "API": "eAxisAPI",
-                            "APIUrl": "cfxtypes/FindAll/",
-                            "APIUrlSuffix": "AppPk",
-                            "FilterID": "CFXTYPE",
-                            "TextField": "Key",
+                            "APIUrl": "MstCommentType/FindAll",
+                            // "APIUrlSuffix": "AppPk",
+                            "FilterID": "MSTCMDT",
+                            "TextField": "TypeCode",
                             "ValueField": "PK",
-                            "LabelField": "Desc",
+                            "LabelField": "Key",
                             "IsHashRequired": true,
                             "MinLength": 1,
-                            "Input": [{
-                                "FieldName": "TypeCode",
-                                "value": "COMT_DESC",
-                                "Type": 4
-                            }]
+                            "Input": []
                         },
                         "BasedOn": {
                             "Visible": true,
@@ -1039,6 +1175,18 @@
                             "IsHashRequired": true,
                             "MinLength": 1,
                             "Input": []
+                        },
+                        "IsDefault": {
+                            "Visible": true,
+                            "Enable": true,
+                            "Label": "Is Default",
+                            "ValueField": "IsDefault"
+                        },
+                        "IsResticted": {
+                            "Visible": true,
+                            "Enable": true,
+                            "Label": "Is Resticted",
+                            "ValueField": "IsResticted"
                         }
                     },
                     "GRUP_ETYP_APP_TNT": {
@@ -1173,11 +1321,11 @@
                             "Label": "Is Default",
                             "ValueField": "IsDefault"
                         },
-                        "OtherConfig": {
-                            "Visible": true,
-                            "Enable": true,
-                            "Label": "Other Config",
-                            "ValueField": "OtherConfig"
+                        "Value": {
+                            "Visible": false,
+                            "Enable": false,
+                            "Label": "Value",
+                            "ValueField": "Value"
                         }
                     },
                     "GRUP_ETYP_ORG_APP_TNT": {
@@ -1301,6 +1449,18 @@
                             "IsHashRequired": true,
                             "MinLength": 1,
                             "Input": []
+                        },
+                        "IsDefault": {
+                            "Visible": true,
+                            "Enable": true,
+                            "Label": "Is Default",
+                            "ValueField": "IsDefault"
+                        },
+                        "IsResticted": {
+                            "Visible": true,
+                            "Enable": true,
+                            "Label": "Is Resticted",
+                            "ValueField": "IsResticted"
                         }
                     },
                     "GRUP_ETYP_MAST_ORG_APP_TNT": {
@@ -1424,6 +1584,12 @@
                             "IsHashRequired": true,
                             "MinLength": 1,
                             "Input": []
+                        },
+                        "Value": {
+                            "Visible": true,
+                            "Enable": true,
+                            "Label": "Value",
+                            "ValueField": "Value"
                         }
                     },
                     "GRUP_EVTYP_APP_TNT": {
@@ -1434,18 +1600,15 @@
                             "Label": "EventType",
                             "TYPE": "EVENT",
                             "API": "eAxisAPI",
-                            "APIUrl": "MstExceptionType/FindAll",
-                            "FilterID": "MSTEXCE",
-                            "TextField": "Key",
-                            "ValueField": "PK",
-                            "LabelField": "Value",
+                            "APIUrl": "DataEntry/Dynamic/FindLookup",
+                            "FilterID": "EVEMA",
+                            "TextField": "EVT_Code",
+                            "ValueField": "EVT_PK",
+                            "LabelField": "EVT_Description",
                             "IsHashRequired": true,
                             "MinLength": 1,
-                            "Input": [{
-                                "FieldName": "SAP_FK",
-                                "value": "AppPk",
-                                "Type": 2
-                            }]
+                            "DBObjectName": "vwEventMaster",
+                            "Input": []
                         },
                         "BasedOn": {
                             "Visible": false,
@@ -1567,13 +1730,14 @@
                             "Label": "EventType",
                             "TYPE": "EVENT",
                             "API": "eAxisAPI",
-                            "APIUrl": "MstExceptionType/FindAll",
-                            "FilterID": "MSTEXCE",
-                            "TextField": "Key",
-                            "ValueField": "PK",
-                            "LabelField": "Value",
+                            "APIUrl": "DataEntry/Dynamic/FindLookup",
+                            "FilterID": "EVEMA",
+                            "TextField": "EVT_Code",
+                            "ValueField": "EVT_PK",
+                            "LabelField": "EVT_Description",
                             "IsHashRequired": true,
                             "MinLength": 1,
+                            "DBObjectName": "vwEventMaster",
                             "Input": []
                         },
                         "BasedOn": {
@@ -1680,6 +1844,18 @@
                             "IsHashRequired": true,
                             "MinLength": 1,
                             "Input": []
+                        },
+                        "IsDefault": {
+                            "Visible": true,
+                            "Enable": true,
+                            "Label": "Is Default",
+                            "ValueField": "IsDefault"
+                        },
+                        "IsResticted": {
+                            "Visible": true,
+                            "Enable": true,
+                            "Label": "Is Resticted",
+                            "ValueField": "IsResticted"
                         }
                     },
                     "GRUP_ELTYP_APP_TNT": {
@@ -1690,8 +1866,8 @@
                             "Label": "EmailType",
                             "TYPE": "EMAIL",
                             "API": "eAxisAPI",
-                            "APIUrl": "MstExceptionType/FindAll",
-                            "FilterID": "MSTEXCE",
+                            "APIUrl": "MstEmailType/FindAll",
+                            "FilterID": "MSTMAIL",
                             "TextField": "Key",
                             "ValueField": "PK",
                             "LabelField": "Value",
@@ -1823,8 +1999,8 @@
                             "Label": "EmailType",
                             "TYPE": "EMAIL",
                             "API": "eAxisAPI",
-                            "APIUrl": "MstExceptionType/FindAll",
-                            "FilterID": "MSTEXCE",
+                            "APIUrl": "MstEmailType/FindAll",
+                            "FilterID": "MSTMAIL",
                             "TextField": "Key",
                             "ValueField": "PK",
                             "LabelField": "Value",
@@ -1936,6 +2112,18 @@
                             "IsHashRequired": true,
                             "MinLength": 1,
                             "Input": []
+                        },
+                        "IsDefault": {
+                            "Visible": true,
+                            "Enable": true,
+                            "Label": "Is Default",
+                            "ValueField": "IsDefault"
+                        },
+                        "IsResticted": {
+                            "Visible": true,
+                            "Enable": true,
+                            "Label": "Is Resticted",
+                            "ValueField": "IsResticted"
                         }
                     },
                     "MENU_GROUP_APP_TNT": {
@@ -2968,19 +3156,43 @@
                             "Input": []
                         },
                         "BasedOn": {
-                            "Visible": false,
-                            "Enable": false,
-                            "Label": undefined,
-                            "TYPE": undefined,
-                            "API": undefined,
-                            "APIUrl": undefined,
-                            "FilterID": undefined,
-                            "TextField": undefined,
-                            "ValueField": undefined,
-                            "LabelField": undefined,
-                            "IsHashRequired": false,
-                            "MinLength": 3,
-                            "Input": []
+                            "Visible": true,
+                            "Enable": true,
+                            "Label": "Role",
+                            "TYPE": "ROLE",
+                            "API": "authAPI",
+                            // "APIUrl": "SecRole/FindAll",
+                            // "FilterID":  "SECROLE",
+                            // "TextField": "RoleName",
+                            // "ValueField": "PK",
+                            // "LabelField":"RoleDescription",
+                            "APIUrl": "SecMappings/FindAll",
+                            "FilterID":  "SECMAPP",
+                            "TextField": "AccessCode",
+                            "ValueField": "Access_FK",
+                            "LabelField":"AccessCode",
+                            "IsHashRequired": true,
+                            "MinLength": 1,
+                            "Input": [{
+                                "FieldName": "SAP_FK",
+                                "value": "AppPk",
+                                "Type": 2
+                            }, {
+                                "FieldName": "TenantCode",
+                                "value": "TenantCode",
+                                "Type": 1
+                            },{
+                                "FieldName":"ItemPk",
+                                "value":"ItemPk",
+                                "Type": 2
+                            },{
+                                "FieldName":"ItemCode",
+                                "value":"ItemCode",
+                                "Type": 2
+                            }, {
+                                "FieldName":"MappingCode",
+                                "value":"USER_ROLE_APP_TNT"
+                            }]
                         },
                         "OtherEntitySource": {
                             "Visible": false,
@@ -3328,6 +3540,280 @@
                             "IsHashRequired": true,
                             "MinLength": 1,
                             "Input": []
+                        }
+                    },
+                    "GRUP_STYP_APP_TNT": {
+                        "Title": "Process Access",
+                        "AccessTo": {
+                            "Visible": true,
+                            "Enable": true,
+                            "Label": "Task",
+                            "TYPE": "PROCS",
+                            "API": "eAxisAPI",
+                            "APIUrl": "EBPMWorkStepInfo/DynamicFindAll",
+                            "FilterID": "BPMWSI",
+                            "TextField": "StepCode",
+                            "ValueField": "PK",
+                            "LabelField": "StepName",
+                            "IsHashRequired": true,
+                            "MinLength": 1,
+                            "Input": [{
+                                "FieldName": "SAP_FK",
+                                "value": "AppPk",
+                                "Type": 2
+                            }]
+                        },
+                        "BasedOn": {
+                            "Visible": false,
+                            "Enable": false,
+                            "Label": undefined,
+                            "TYPE": undefined,
+                            "API": undefined,
+                            "APIUrl": undefined,
+                            "FilterID": undefined,
+                            "TextField": undefined,
+                            "ValueField": undefined,
+                            "LabelField": undefined,
+                            "IsHashRequired": false,
+                            "MinLength": 3,
+                            "Input": []
+                        },
+                        "OtherEntitySource": {
+                            "Visible": false,
+                            "Enable": false,
+                            "Label": undefined,
+                            "TYPE": undefined,
+                            "API": undefined,
+                            "APIUrl": undefined,
+                            "FilterID": undefined,
+                            "TextField": undefined,
+                            "ValueField": undefined,
+                            "LabelField": undefined,
+                            "IsHashRequired": false,
+                            "MinLength": 3,
+                            "Input": []
+                        },
+                        "OtherEntitySource_2": {
+                            "Visible": false,
+                            "Enable": false,
+                            "Label": undefined,
+                            "TYPE": undefined,
+                            "API": undefined,
+                            "APIUrl": undefined,
+                            "FilterID": undefined,
+                            "TextField": undefined,
+                            "ValueField": undefined,
+                            "LabelField": undefined,
+                            "IsHashRequired": false,
+                            "MinLength": 3,
+                            "Input": []
+                        },
+                        "OtherEntitySource_3": {
+                            "Visible": false,
+                            "Enable": false,
+                            "Label": undefined,
+                            "TYPE": undefined,
+                            "API": undefined,
+                            "APIUrl": undefined,
+                            "FilterID": undefined,
+                            "TextField": undefined,
+                            "ValueField": undefined,
+                            "LabelField": undefined,
+                            "IsHashRequired": false,
+                            "MinLength": 3,
+                            "Input": []
+                        },
+                        "OtherEntitySource_4": {
+                            "Visible": false,
+                            "Enable": false,
+                            "Label": undefined,
+                            "TYPE": undefined,
+                            "API": undefined,
+                            "APIUrl": undefined,
+                            "FilterID": undefined,
+                            "TextField": undefined,
+                            "ValueField": undefined,
+                            "LabelField": undefined,
+                            "IsHashRequired": false,
+                            "MinLength": 3,
+                            "Input": []
+                        },
+                        "Tenant": {
+                            "Visible": true,
+                            "Enable": false,
+                            "Label": "Tenant",
+                            "TYPE": "TNT",
+                            "API": "authAPI",
+                            "APIUrl": "SecTenant/MasterFindAll",
+                            "FilterID": "SECTENA",
+                            "TextField": "TenantCode",
+                            "ValueField": "PK",
+                            "LabelField": "TenantName",
+                            "IsHashRequired": true,
+                            "MinLength": 1,
+                            "Input": []
+                        },
+                        "Application": {
+                            "Visible": true,
+                            "Enable": false,
+                            "Label": "Application",
+                            "TYPE": "SAP",
+                            "API": "authAPI",
+                            "APIUrl": "SecApp/FindAll",
+                            "FilterID": "SECAPP",
+                            "TextField": "AppCode",
+                            "ValueField": "PK",
+                            "LabelField": "AppName",
+                            "IsHashRequired": true,
+                            "MinLength": 1,
+                            "Input": []
+                        },
+                        "IsDefault": {
+                            "Visible": true,
+                            "Enable": true,
+                            "Label": "Is Default",
+                            "ValueField": "IsDefault"
+                        },
+                        "Value": {
+                            "Visible": false,
+                            "Enable": false,
+                            "Label": "Value",
+                            "ValueField": "Value"
+                        }
+                    },
+                    "GRUP_STYP_ORG_APP_TNT": {
+                        "Title": "Task Type Organization Access",
+                        "AccessTo": {
+                            "Visible": true,
+                            "Enable": true,
+                            "Label": "Task",
+                            "TYPE": "PROCS",
+                            "API": "eAxisAPI",
+                            "APIUrl": "EBPMWorkStepInfo/DynamicFindAll",
+                            "FilterID": "BPMWSI",
+                            "TextField": "StepCode",
+                            "ValueField": "PK",
+                            "LabelField": "StepName",
+                            "IsHashRequired": true,
+                            "MinLength": 1,
+                            "Input": []
+                        },
+                        "BasedOn": {
+                            "Visible": true,
+                            "Enable": true,
+                            "Label": "Organization",
+                            "TYPE": "ORG",
+                            "API": "eAxisAPI",
+                            "APIUrl": "OrgHeader/MasterFindAll",
+                            "FilterID": "ORGHEAD",
+                            "TextField": "Code",
+                            "ValueField": "PK",
+                            "LabelField": "FullName",
+                            "IsHashRequired": false,
+                            "MinLength": 3,
+                            "Input": []
+                        },
+                        "OtherEntitySource": {
+                            "Visible": false,
+                            "Enable": false,
+                            "Label": undefined,
+                            "TYPE": undefined,
+                            "API": undefined,
+                            "APIUrl": undefined,
+                            "FilterID": undefined,
+                            "TextField": undefined,
+                            "ValueField": undefined,
+                            "LabelField": undefined,
+                            "IsHashRequired": false,
+                            "MinLength": 3,
+                            "Input": []
+                        },
+                        "OtherEntitySource_2": {
+                            "Visible": false,
+                            "Enable": false,
+                            "Label": undefined,
+                            "TYPE": undefined,
+                            "API": undefined,
+                            "APIUrl": undefined,
+                            "FilterID": undefined,
+                            "TextField": undefined,
+                            "ValueField": undefined,
+                            "LabelField": undefined,
+                            "IsHashRequired": false,
+                            "MinLength": 3,
+                            "Input": []
+                        },
+                        "OtherEntitySource_3": {
+                            "Visible": false,
+                            "Enable": false,
+                            "Label": undefined,
+                            "TYPE": undefined,
+                            "API": undefined,
+                            "APIUrl": undefined,
+                            "FilterID": undefined,
+                            "TextField": undefined,
+                            "ValueField": undefined,
+                            "LabelField": undefined,
+                            "IsHashRequired": false,
+                            "MinLength": 3,
+                            "Input": []
+                        },
+                        "OtherEntitySource_4": {
+                            "Visible": false,
+                            "Enable": false,
+                            "Label": undefined,
+                            "TYPE": undefined,
+                            "API": undefined,
+                            "APIUrl": undefined,
+                            "FilterID": undefined,
+                            "TextField": undefined,
+                            "ValueField": undefined,
+                            "LabelField": undefined,
+                            "IsHashRequired": false,
+                            "MinLength": 3,
+                            "Input": []
+                        },
+                        "Tenant": {
+                            "Visible": true,
+                            "Enable": false,
+                            "Label": "Tenant",
+                            "TYPE": "TNT",
+                            "API": "authAPI",
+                            "APIUrl": "SecTenant/MasterFindAll",
+                            "FilterID": "SECTENA",
+                            "TextField": "TenantCode",
+                            "ValueField": "PK",
+                            "LabelField": "TenantName",
+                            "IsHashRequired": true,
+                            "MinLength": 1,
+                            "Input": []
+                        },
+                        "Application": {
+                            "Visible": true,
+                            "Enable": false,
+                            "Label": "Application",
+                            "TYPE": "SAP",
+                            "API": "authAPI",
+                            "APIUrl": "SecApp/FindAll",
+                            "FilterID": "SECAPP",
+                            "TextField": "AppCode",
+                            "ValueField": "PK",
+                            "LabelField": "AppName",
+                            "IsHashRequired": true,
+                            "MinLength": 1,
+                            "Input": []
+                        },
+                        "IsDefault": {
+                            "Visible": true,
+                            "Enable": true,
+                            "Label": "Is Default",
+                            "ValueField": "IsDefault"
+                        },
+                        "IsResticted": {
+                            "Visible": true,
+                            "Enable": true,
+                            "Label": "Is Resticted",
+                            "ValueField": "IsResticted"
                         }
                     }
                 }

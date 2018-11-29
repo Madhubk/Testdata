@@ -1,0 +1,13 @@
+<div id="myDialog">
+    <div class="modal-header ">
+        <h3 class="modal-title " id="modal-title ">Gatepass Initiated Successfully </h3>
+    </div>
+    <div class="modal-body " id="modal-body ">
+        <h4>Reference No : {{CreateGatepassCtrl.ePage.Masters.ProcessInfo.TMSGatepassHeader.GatepassNo}}</h4>
+        <h4>Process InstanceID : {{CreateGatepassCtrl.ePage.Masters.ProcessInfo.ProcessInfo[0].PSI_InstanceNo}}</h4>
+    </div>
+    <div class="modal-footer ">
+        <button class="btn btn-primary " type="button " ng-click="CreateGatepassCtrl.ePage.Masters.GoToDashboard() ">Go to Dashboard</button>
+        <button class="btn btn-warning " type="button " ng-click="CreateGatepassCtrl.ePage.Masters.CreateGatepass()">Create New Gatepass</button>
+    </div>
+</div>

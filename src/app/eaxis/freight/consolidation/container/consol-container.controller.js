@@ -30,14 +30,6 @@
             ContainerConCtrl.ePage.Masters.DatePicker.isOpen = [];
             ContainerConCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
 
-
-
-            // Grid Configuration Input
-            ContainerConCtrl.ePage.Masters.Container.gridConfig = ContainerConCtrl.ePage.Entities.Container.Grid.GridConfig;
-
-            ContainerConCtrl.ePage.Masters.Container.gridConfig.columnDef = ContainerConCtrl.ePage.Entities.Container.Grid.ColumnDef;
-
-
             ContainerConCtrl.ePage.Masters.Container.AddNewContainer = AddNewContainer;
             ContainerConCtrl.ePage.Masters.Container.SelectedGridRow = SelectedGridRow;
             ContainerConCtrl.ePage.Masters.Container.DeleteContainer = DeleteContainer;
@@ -46,18 +38,14 @@
 
             ContainerConCtrl.ePage.Masters.DropDownMasterList = consolidationConfig.Entities.Header.Meta;
 
-
             if (!ContainerConCtrl.currentConsol.isNew) {
                 getContainerList();
             } else {
                 ContainerConCtrl.ePage.Masters.Container.GridData = [];
             }
-
-
         }
 
         function getContainerList() {
-
             var _filter = [{
                 "FieldName": "CON_FK",
                 "value": ContainerConCtrl.ePage.Entities.Header.Data.PK
@@ -151,16 +139,15 @@
             );
         }
 
-        function SelectedGridRow($item) {
-            if ($item.action == 'edit') {
-                PopUpModal('edit', $item.data, $item.index)
+        function SelectedGridRow(item, type, index) {
+            if (type == 'edit') {
+                PopUpModal('edit', item, index)
             } else {
-                DeleteConfirmation($item);
+                DeleteConfirmation(item, index);
             }
-
         }
 
-        function DeleteConfirmation($item) {
+        function DeleteConfirmation(item, index) {
             var modalOptions = {
                 closeButtonText: 'Cancel',
                 actionButtonText: 'Ok',
@@ -170,19 +157,17 @@
 
             confirmation.showModal({}, modalOptions)
                 .then(function (result) {
-                    DeleteContainer($item);
+                    DeleteContainer(item, index);
                 }, function () {
                     console.log("Cancelled");
                 });
         }
 
-        function DeleteContainer($item) {
-
-            if ($item.index !== -1) {
-
-                apiService.post("eAxisAPI", ContainerConCtrl.ePage.Entities.Container.API.Delete.Url+$item.data.PK).then(function (response) {
+        function DeleteContainer(item, index) {
+            if (index !== -1) {
+                apiService.post("eAxisAPI", ContainerConCtrl.ePage.Entities.Container.API.Delete.Url + item.PK).then(function (response) {
                     if (response.data.Response) {
-                        ContainerConCtrl.ePage.Entities.Header.Data.UICntContainers.splice($item.index, 1);
+                        ContainerConCtrl.ePage.Entities.Header.Data.UICntContainers.splice(index, 1);
                         GetContainerDetails();
                         toastr.success("Record Deleted Successfully...!");
                     }
@@ -230,9 +215,6 @@
 
         //     });
         // }
-
-
-
 
         Init();
     }

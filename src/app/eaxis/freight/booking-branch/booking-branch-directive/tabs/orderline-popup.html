@@ -1,0 +1,114 @@
+<div class="modal-header">
+    <div class="row">
+        <div class="col-sm-12 col-xs-12">
+            <h4 class="modal-title" id="myModalLabel">
+                <strong>Order Number - {{OrderLinePopupCtrl.ePage.Masters.row.OrderNo}}</strong>
+            </h4>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal-body">
+    <div ng-show="OrderLinePopupCtrl.ePage.Masters.validationAlert" class="alert alert-warning fade in" data-localize="Please provide Booked Quantity value for all the Line Items">
+        Please provide Booked Quantity value for all the Line Items
+    </div>
+
+    <table style="width: 100%;" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th data-localize="Line#">
+                    Line#
+                </th>
+                <th data-localize="PartNo">
+                    PartNo
+                </th>
+                <th data-localize="PartDescription">
+                    PartDescription
+                </th>
+                <th data-localize="Qty">
+                    Qty
+                </th>
+                <th data-localize="Booked Qty">
+                    Booked Qty
+                </th>
+                <th data-localize="Variance">
+                    Variance
+                </th>
+                <th data-localize="RecQty">
+                    RecQty
+                </th>
+                <th data-localize="RemQty">
+                    RemQty
+                </th>
+                <th data-localize="UnitQty">
+                    UnitQty
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-if="!OrderLinePopupCtrl.ePage.Masters.UIPorOrderLines">
+                <td colspan="9" class="text-center">
+                    Loading....
+                </td>
+            </tr>
+            <tr ng-if="OrderLinePopupCtrl.ePage.Masters.UIPorOrderLines.length==0">
+                <td colspan="9" class="text-center">
+                    No Records...
+                </td>
+            </tr>
+            <tr ng-repeat="line in OrderLinePopupCtrl.ePage.Masters.UIPorOrderLines">
+                <td>
+                    {{line.LineNo}}
+                </td>
+                <td>
+                    {{line.PartNo}}
+                </td>
+                <td>
+                    {{line.LineDescription}}
+                </td>
+                <td>
+                    {{line.Quantity.toFixed(5)}}
+                </td>
+
+                <td>
+
+                    <input type="text" ng-class="{'notequal':line.RecievedQuantity != line.Quantity,'equal':line.RecievedQuantity == line.Quantity}"
+                        ng-model="line.RecievedQuantity" numbers-only value="{{line.RecievedQuantity}}" maxlength="10">
+
+                </td>
+                <td ng-if="line.RecievedQuantity!='' && line.RecievedQuantity!='undefined' && (-(line.Quantity-line.RecievedQuantity)/(line.Quantity)*100)!='-100'">
+                    {{ -((line.Quantity-line.RecievedQuantity)/(line.Quantity)*100).toFixed(5)}}%
+                </td>
+                <td ng-if="line.RecievedQuantity=='' || line.RecievedQuantity=='undefined' || (-(line.Quantity-line.RecievedQuantity)/(line.Quantity)*100)=='-100'">
+                    {{ 0}}
+                </td>
+                <td>
+                    {{(line.RecievedQuantity).toFixed(5)}}
+                </td>
+                <td>
+                    {{line.Quantity-line.RecievedQuantity}}
+                </td>
+                <td>
+                    {{line.PackType}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+</div>
+<div class="mt-50">
+    <div class="modal-footer">
+        <div class="col-sm-6 col-xs-12 pull-left">
+            <i class="fa fa-circle  borderNone" style="color: #ff7400;" data-localize="Quantity Mismatch">&nbsp;&nbsp;Quantity Mismatch</i>
+            <br>
+            <i class="fa fa-circle  borderNone" style="color: #009933;" data-localize="Quantity Mismatch">&nbsp;&nbsp;Quantity Match
+            </i>
+        </div>
+        <input type="button" value="{{OrderLinePopupCtrl.ePage.Masters.attachBtn}}" ng-disabled="{{OrderLinePopupCtrl.ePage.Masters.attachBtnDisable}}"
+            class="btn btn-primary" ng-click="OrderLinePopupCtrl.ePage.Masters.attachOrder();" prevent-default-submit="" data-localize="Attach">
+        <button type="button" class="btn btn-default" ng-click="OrderLinePopupCtrl.ePage.Masters.attachOrderCancel()" data-localize="Cancel">
+            Cancel</button>
+    </div>
+</div>

@@ -1,0 +1,86 @@
+<div class="clearfix test">
+    <div class="chrometab-box1">
+        <div class="ik-box1">
+            <span data-ng-bind="'Freight Reports'" class="ik-title">Freight Reports</span>
+        </div>
+        <div class="clearfix p-20 text-center" data-ng-if="FreightReportCtrl.ePage.Masters.ChildMenuList && FreightReportCtrl.ePage.Masters.ChildMenuList.length===0">
+            <i>No Records...!</i>
+        </div>
+        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 p-0" data-ng-if="FreightReportCtrl.ePage.Masters.ChildMenuList && FreightReportCtrl.ePage.Masters.ChildMenuList.length>0">
+            <div class="orders-container border">
+                <div class="">
+                    <div class="orders-header">
+                        <span class="menu-desc">Freight Reports</span>
+                        <span>
+                            <a class="item-more-icon margin-right-30" data-ng-if="FreightReportCtrl.ePage.Masters.ChildMenuList.length>0"
+                                href="" data-toggle="collapse" data-target="#Freight{{$index}}">
+                                <i></i>
+                            </a>
+                        </span>
+                    </div>
+                    <ul id="Freight{{$index}}" class="orders-list collapse in">
+                        <li class="order-item filter-sidebar-setting" data-ng-repeat="x in FreightReportCtrl.ePage.Masters.ChildMenuList" ng-class="{active_list: FreightReportCtrl.ePage.Masters.selectedRow==$index}">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <!-- <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                        <div class="notification-icon margin-top-10">
+                                            <i class="{{x.Icon | getIconColorForMenu: 'icon'}} bg-darkorange white"></i>
+                                        </div>
+                                    </div> -->
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                        <div class="item-booker">{{x.Key}}</div>
+                                        <div class="item-time">
+                                            <span class="font-style">{{x.SourceEntityRefKey}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pt-20">
+                                        <div class="meter" data-ng-if="x.IsDownloading==true">
+                                            <span></span>
+                                        </div>
+                                        <div class="text-single-line" data-ng-if="x.DocumentName">
+                                            <a href="" title="{{x.DocumentName}}" data-ng-click="FreightReportCtrl.ePage.Masters.DownloadReport(x)">{{x.DocumentName}}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="item-more-icon" href="" data-ng-click="FreightReportCtrl.ePage.Masters.GetConfigDetails(x,$index)">
+                                <i></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="grid-loading-norecord-container ng-scope" data-ng-show="FreightReportCtrl.ePage.Masters.IsLoading"></div>
+    </div>
+</div>
+<!--FIlter Bar  -->
+<div id="filterSideBar{{FreightReportCtrl.ePage.Masters.DynamicControl.DataEntryName}}" data-ng-if="FreightReportCtrl.ePage.Masters.DynamicControl"
+    class="dynamic-filter-sidebar-wrapper report-fix clearfix filter-text" data-ng-class="FreightReportCtrl.ePage.Masters.ViewType == 1 ? 'one-column' : 'two-column'">
+    <form name="filterSidebar" novalidate>
+        <div class="header clearfix">
+            <div class="title pull-left">
+                <i class="fa fa-filter"></i>
+                <span>Filter</span>
+            </div>
+            <div class="btn-wrapper pull-right">
+                <ul class="clearfix">
+                    <li>
+                        <input type="submit" class="filter-title-btn" ng-click="FreightReportCtrl.ePage.Masters.CloseFilter()" data-ng-disabled="!FreightReportCtrl.ePage.Masters.DynamicControl"
+                            value="Close">
+                    </li>
+                    <li>
+                        <input type="submit" class="filter-title-btn" ng-click="FreightReportCtrl.ePage.Masters.GenerateReports()" data-ng-disabled="!FreightReportCtrl.ePage.Masters.DynamicControl"
+                            value="Generate Report">
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="filter-list clearfix">
+            <div class="clearfix" data-ng-if="FreightReportCtrl.ePage.Masters.DynamicControl">
+                <dynamic-control input="FreightReportCtrl.ePage.Masters.DynamicControl" mode="S" control-style="" default-filter="FreightReportCtrl.ePage.Masters.defaultFilter"
+                    toggle="FreightReportCtrl.ePage.Masters.IsDynamicControlAccess" view-type="FreightReportCtrl.ePage.Masters.ViewType"></dynamic-control>
+            </div>
+        </div>
+    </form>
+</div>

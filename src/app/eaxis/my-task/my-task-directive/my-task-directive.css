@@ -1,0 +1,222 @@
+.my-task-wrapper .my-task-header {
+    width: 100%;
+    padding: 7px 18px;
+    background: #f6f6f6;
+    border-radius: 4px 4px 0 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.my-task-wrapper .my-task-header div {
+    color: #555;
+}
+
+.my-task-wrapper .my-task-header.task-changed {
+    border-left: 3px solid #ff0000;
+}
+
+.my-task-wrapper .my-task-body {
+    width: 100%;
+    padding: 14px 0;
+}
+
+.my-task-wrapper .my-task-header .my-task-title-inner {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.my-task-wrapper .my-task-body .my-task-inner-icon {
+    padding: 10px;
+    text-align: center;
+}
+
+.my-task-wrapper .my-task-body .my-task-inner-icon i {
+    font-size: 45px;
+    color: #676767;
+}
+
+.my-task-wrapper .my-task-body .my-task-status {
+    padding: 0 5px;
+    text-align: center;
+    display: inline;
+    font-size: 11px;
+}
+
+.my-task-wrapper .my-task-body .my-task-status.AVAILABLE {
+    border: 1px solid #57b5e3;
+    color: #57b5e3 !important;
+}
+
+.my-task-wrapper .my-task-body .my-task-status.ASSIGNED {
+    border: 1px solid #f4b400;
+    color: #f4b400 !important;
+}
+
+.my-task-wrapper .my-task-body .my-task-status.WOKSTARTED {
+    border: 1px solid #585858;
+    color: #585858 !important;
+}
+
+.my-task-wrapper .my-task-body .my-task-status.COMPLETED {
+    border: 1px solid #0c9e0c;
+    color: #0c9e0c !important;
+}
+
+/* .my-task-wrapper */
+.my-task-btn {
+    background: #e7e9ec;
+    border-radius: 3px;
+    border-color: #ADB1B8 #A2A6AC #8D9096;
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none !important;
+    vertical-align: middle;
+    background: #eff1f3;
+    background: -webkit-linear-gradient(top, #f7f8fa, #e7e9ec);
+    background: linear-gradient(to bottom, #f7f8fa, #e7e9ec);
+    overflow: hidden;
+    height: 35px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, .6) inset;
+    border-radius: 2px;
+    font-size: 13px;
+    line-height: 30px;
+    white-space: nowrap;
+    color: #111;
+}
+
+.my-task-btn.my-task-open-activity-btn {
+    background: #0096ff;
+    border-color: #007fd8 #0277c9 #016db9;
+    color: #fff;
+    width: 70%;
+    height: 25px;
+    line-height: 20px;
+}
+
+.my-task-btn.my-task-directive-btn {
+    width: 100%;
+}
+
+.my-task-wrapper .my-task-body .my-task-directive-icon-wrapper {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.my-task-wrapper .my-task-body .my-task-directive-icon {
+    margin: 0 5px;
+}
+
+.my-task-wrapper .my-task-body .my-task-directive-icon:hover {
+    text-decoration: none;
+}
+
+.my-task-wrapper .my-task-footer {
+    padding: 5px 18px;
+    border-radius: 0 0 4px 4px;
+    border-top: 1px solid #eee;
+}
+
+.my-task-wrapper .my-task-footer .footer-list {
+    float: left;
+    padding-right: 15px;
+    border-right: 1px solid #ddd;
+    margin: 10px 15px 10px 0;
+}
+
+.my-task-wrapper .my-task-footer .footer-list:last-child {
+    border-right: 0;
+}
+
+.my-task-wrapper .my-task-footer .footer-list a.fa:hover {
+    text-decoration: none;
+}
+
+.my-task-list li.list {
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    width: 100%;
+    list-style: none;
+}
+
+.my-task-adhoc-process .dropdown-menu {
+    width: 310px;
+}
+
+.my-task-adhoc-process .process-list {
+    font-size: 13px;
+    padding: 5px 10px !important;
+}
+
+.my-task-adhoc-process .process-list:hover {
+    background-color: #f4f4f4;
+}
+
+.my-task-adhoc-process .adhoc-header {
+    font-weight: bold;
+    padding: 5px 10px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 5px;
+}
+
+/* Adhoc Process */
+.adhoc-process .modal-dialog {
+    width: 25%;
+    height: auto;
+    margin: 40px auto;
+}
+
+.adhoc-process .modal-dialog .modal-header {
+    padding: 5px 10px;
+}
+
+.adhoc-process .modal-dialog .modal-footer {
+    padding: 10px;
+    position: relative;
+}
+
+/* ===================== */
+/* Edit Activity Page */
+.my-task-activity-page-warpper .edit-activity-header-wrapper {
+    background-color: #cbd9de;
+    border-bottom: 1px solid #91a1a7;
+    border-top: 1px solid #91a1a7;
+    display: table;
+    width: 100%;
+}
+
+.my-task-activity-page-warpper .edit-activity-header {
+    display: table-row;
+}
+
+.my-task-activity-page-warpper .edit-activity-header .title {
+    font-weight: bold;
+    font-size: 14px;
+    display: table-cell;
+    padding: 10px;
+    vertical-align: middle;
+}
+
+.my-task-activity-page-warpper .edit-activity-header .buttons {
+    display: table-cell;
+    padding: 10px;
+    vertical-align: middle;
+}
+
+.my-task-activity-page-warpper .edit-activity-header .buttons .close-icon {
+    font-size: 15px;
+    opacity: 0.5;
+}
+
+.my-task-activity-page-warpper .edit-activity-header .buttons .close-icon:hover {
+    opacity: 1;
+}
+
+.my-task-activity-page-warpper .edit-activity-header .go-back-icon {
+    font-size: 30px;
+    font-weight: bold;
+    position: absolute;
+    top: 5px;
+}

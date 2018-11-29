@@ -34,17 +34,16 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(['confirmation', 'navBar', 'sideBar', 'chromeTab', 'changePassword', 'customDatepicker', 'dynamicListModal', "dynamicControl", "dynamicGrid", "dynamicList", "dynamicTable", "dynamicLookup", "standardMenu", "JsonModal", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "Event", "EventModal", "Exception", "ExceptionModal", "DataEvent", "DataEventModal", "AuditLog", "AuditLogModal", "EmailTemplate", "EmailTemplateModal", 'MD']);
+                        return $ocLazyLoad.load(['navBar', 'navbarDropdownMenu', 'sideBar', 'footerBar', "changePassword", 'MDM']);
                     }]
                 }
             })
-            .state('MD.home', {
-                abstract: true,
-                url: '/home',
-                templateUrl: 'app/Mdm/home/home.html',
-                controller: "MdmHomeController as MdmHomeCtrl",
+            .state('MD.organization', {
+                url: '/organization',
+                templateUrl: 'app/mdm/organization/organization.html',
+                controller: "OrganizationController as OrganizationCtrl",
                 ncyBreadcrumb: {
-                    label: 'Home'
+                    label: 'Organization'
                 },
                 resolve: {
                     CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
@@ -55,27 +54,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(['MDHome']);
-                    }]
-                }
-            })
-            .state('MD.home.dashboard', {
-                url: '/dashboard',
-                templateUrl: 'app/mdm/dashboard/dashboard.html',
-                controller: "MdmDashboardController as MdmDashboardCtrl",
-                ncyBreadcrumb: {
-                    label: 'Dashboard'
-                },
-                resolve: {
-                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
-                        var deferred = $q.defer();
-                        if (pageAccessService.CheckAuthToken()) {
-                            deferred.resolve();
-                        }
-                        return deferred.promise;
-                    }],
-                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load('MDDashboard');
+                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "JsonModal", "errorWarning", "dynamicTable", "organization", "organizationMenu", "organizationGeneral", "organizationGeneralModal", "organizationAddress", "organizationContact", "organizationCompany", "organizationCompanyModal", "organizationEmployee", "organizationEmployeeModal", "organizationRelatedParties", "organizationRelatedPartiesModal", "organizationVisibility", "organizationConsignee", "organizationConsigneeModal", "organizationConsigneeDocModal", "organizationConsignor", "organizationConsignorModal", "organizationConsignorDocModal", "organizationWarehouse", "organizationWarehouseModal", "organizationGenRelatedPartiesModal", "organizationGenRelatedParties", "organizationReference", "organizationReferenceModal", "organizationAccessRights", "organizationEventGroup", "ExpressionFormatter", "ExpressionGroupFormatter", "NotificationFormatter", "NotificationTemplateFormatter", "TaskConfigFormatter", "organizationTaskGroup", "organizationCommentGroup", "organizationDocumentGroup", "organizationExceptionGroup", "organizationEmailGroup", "PartyMapping"]);
                     }]
                 }
             })
@@ -96,26 +75,6 @@
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
                         return $ocLazyLoad.load(['MDEmployee', 'MDEmployeeMenu', 'MDEmployeeDetails', 'MDEmployeeDetailsModal']);
-                    }]
-                }
-            })
-            .state('MD.organization', {
-                url: '/organization',
-                templateUrl: 'app/mdm/organization/organization.html',
-                controller: "OrganizationController as OrganizationCtrl",
-                ncyBreadcrumb: {
-                    label: 'Organization'
-                },
-                resolve: {
-                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
-                        var deferred = $q.defer();
-                        if (pageAccessService.CheckAuthToken()) {
-                            deferred.resolve();
-                        }
-                        return deferred.promise;
-                    }],
-                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["errorWarning", "organization", "organizationMenu", "organizationGeneral", "organizationGeneralModal", "organizationAddress", "organizationAddressModal", "organizationContact", "organizationContactModal", "organizationCompany", "organizationCompanyModal", "organizationEmployee", "organizationEmployeeModal", "organizationRelatedParties", "organizationRelatedPartiesModal", "organizationVisibility", "organizationConsignee", "organizationConsigneeModal", "organizationConsigneeDocModal", "organizationConsignor", "organizationConsignorModal", "organizationConsignorDocModal", "organizationWarehouse", "organizationWarehouseModal", "organizationGenRelatedPartiesModal", "organizationGenRelatedParties", "organizationReference", "organizationReferenceModal"]);
                     }]
                 }
             })
@@ -195,7 +154,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["products", "productMenu", "productGeneral", "general", "unitConversions", "relatedOrganization", "productWarehouse", "pickFace", "bom", "barcodes", "additionalDetails"]);
+                        return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "products", "productBulkUpload", "productMenu", "productGeneral", "general", "unitConversions", "relatedOrganization", "productWarehouse", "pickFace", "bom", "barcodes", "additionalDetails"]);
                     }]
                 }
             })
@@ -217,7 +176,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["warehouse"]);
+                        return $ocLazyLoad.load(["MasterWarehouse"]);
                     }]
                 }
             })
@@ -237,7 +196,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["warehouse", "warehouses", "warehousesMenu", "warehousesDetails", "warehouseAddress"]);
+                        return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "MasterWarehouse", "MasterWarehouses", "MasterWarehousesMenu", "MasterWarehousesDetails", "MasterWarehouseAddress"]);
                     }]
                 }
             })
@@ -257,50 +216,11 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["areas", "areasDetails", "areasMenu"]);
+                        return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "areas", "areasDetails", "areasMenu"]);
                     }]
                 }
             })
-            .state('MD.WMS.locationDashboard', {
-                url: '/location-dashboard',
-                templateUrl: 'app/mdm/warehouse/locations/location-dashboard/location-dashboard.html',
-                controller: "LocationDashboardController as LocationDashboardCtrl",
-                ncyBreadcrumb: {
-                    label: 'Location'
-                },
-                resolve: {
-                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
-                        var deferred = $q.defer();
-                        if (pageAccessService.CheckAuthToken()) {
-                            deferred.resolve();
-                        }
-                        return deferred.promise;
-                    }],
-                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["locationDashboard"]);
-                    }]
-                }
-            })
-            .state('MD.WMS.locationDashboardV2', {
-                url: '/location-dashboardv2',
-                templateUrl: 'app/mdm/warehouse/locations/location-dashboard-V2/location-dashboardV2.html',
-                controller: "LocationDashboardControllerV2 as LocationDashboardCtrlV2",
-                ncyBreadcrumb: {
-                    label: 'Location'
-                },
-                resolve: {
-                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
-                        var deferred = $q.defer();
-                        if (pageAccessService.CheckAuthToken()) {
-                            deferred.resolve();
-                        }
-                        return deferred.promise;
-                    }],
-                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["locationDashboardV2", "location", "locationMenu", "locationDetails"]);
-                    }]
-                }
-            })
+
             .state('MD.WMS.location', {
                 url: '/location',
                 templateUrl: 'app/mdm/warehouse/locations/location.html',
@@ -317,7 +237,48 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["warehouse", "location", "locationMenu", "locationDetails", "LocationDashboardModal"]);
+                        return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "location", "locationMenu", "locationDetails"]);
+                    }]
+                }
+            })
+
+            .state('MD.WMS.locationDashboard', {
+                url: '/location-dashboard',
+                templateUrl: 'app/mdm/warehouse/locations/location-dashboard/location-dashboard.html',
+                controller: "LocationDashboardController as LocationDashboardCtrl",
+                ncyBreadcrumb: {
+                    label: 'Location'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        if (pageAccessService.CheckAuthToken()) {
+                            deferred.resolve();
+                        }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "locationDashboard"]);
+                    }]
+                }
+            })
+            .state('MD.vehicle', {
+                url: '/vehicle',
+                templateUrl: 'app/mdm/vehicle/vehicle.html',
+                controller: "VehicleController as VehicleCtrl",
+                ncyBreadcrumb: {
+                    label: 'Vehicle'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        if (pageAccessService.CheckAuthToken()) {
+                            deferred.resolve();
+                        }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "MasterWarehouse", "Vehicle", "VehicleMenu", "VehicleGeneral"]);
                     }]
                 }
             })
@@ -339,7 +300,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["Transports"]);
+                        return $ocLazyLoad.load(["MDMTransports"]);
                     }]
                 }
             })
@@ -359,7 +320,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(['Transports', "mhu", "mhuMenu", "mhuGeneral", "mhuRelatedOrg"]);
+                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "errorWarning", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "Event", "EventModal", "AuditLog", "AuditLogModal", "MDMTransports", "mhu", "mhuMenu", "mhuGeneral", "mhuRelatedOrg"]);
                     }]
                 }
             })
@@ -379,7 +340,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(['Transports', "journey"]);
+                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "errorWarning", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "Event", "EventModal", "AuditLog", "AuditLogModal", "MDMTransports", "journey", "journeyGeneral"]);
                     }]
                 }
             })
@@ -399,7 +360,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(['Transports', "leg"]);
+                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "errorWarning", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "Event", "EventModal", "AuditLog", "AuditLogModal", "MDMTransports", "leg", "legGeneral"]);
                     }]
                 }
             })
@@ -419,7 +380,47 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(['Transports', "zone"]);
+                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "errorWarning", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "Event", "EventModal", "AuditLog", "AuditLogModal", "MDMTransports", "zone", "zoneGeneral"]);
+                    }]
+                }
+            })
+            .state('MD.TMS.nonWorkingDays', {
+                url: '/non-working-days',
+                templateUrl: 'app/mdm/transports/non-working-days/non-working-days.html',
+                controller: "NonWorkingDaysController as NWDaysCtrl",
+                ncyBreadcrumb: {
+                    label: 'Non Working Days'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        if (pageAccessService.CheckAuthToken()) {
+                            deferred.resolve();
+                        }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "errorWarning", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "Event", "EventModal", "AuditLog", "AuditLogModal", "MDMTransports", "nonWorkingDays", "nonWorkingDaysGeneral"]);
+                    }]
+                }
+            })
+            .state('MD.TMS.region', {
+                url: '/region',
+                templateUrl: 'app/mdm/transports/region/region.html',
+                controller: "RegionController as RegionCtrl",
+                ncyBreadcrumb: {
+                    label: 'Region'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        if (pageAccessService.CheckAuthToken()) {
+                            deferred.resolve();
+                        }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "errorWarning", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "Event", "EventModal", "AuditLog", "AuditLogModal", "MDMTransports", "region", "regionGeneral"]);
                     }]
                 }
             })
@@ -439,10 +440,29 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(['Transports', "mapping", "mappingMenu", "mappingSenderCarrier", "mappingSenderReceiver", "mappingCarrierVehicle", "mappingStoreDepot", "mappingDcDepotStore"]);
+                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "errorWarning", "MDMTransports", "mapping", "mappingMenu", "mappingSenderCarrier", "mappingSenderReceiver", "mappingCarrierVehicle", "mappingStoreDepot", "mappingDcDepotStore", "mappingServiceType", "mappingContainermhu", "mappingSenderReceiverCons", "mappingReceiverCarrier"]);
                     }]
                 }
             })
-
+            .state('MD.TMS.types', {
+                url: '/types',
+                templateUrl: 'app/mdm/transports/types/types.html',
+                controller: "TypeController as TypeCtrl",
+                ncyBreadcrumb: {
+                    label: 'Type'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        if (pageAccessService.CheckAuthToken()) {
+                            deferred.resolve();
+                        }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "errorWarning", "MDMTransports", "types", "typesMenu", "typesServiceType", "typesTags", "typesVehicleType", "typesLevelLoadType", "typesManifestType", "typesConsolEvent"]);
+                    }]
+                }
+            });
     }
 })();

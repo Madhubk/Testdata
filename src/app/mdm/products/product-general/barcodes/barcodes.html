@@ -1,45 +1,43 @@
-<!-- hide save -->
-<span ng-if="!BarcodesCtrl.ePage.Masters.Lineslist" ng-init="BarcodesCtrl.ePage.Entities.Header.CheckPoints.DisableSave=true"></span>
-<span ng-if="BarcodesCtrl.ePage.Masters.Lineslist" ng-init="BarcodesCtrl.ePage.Entities.Header.CheckPoints.DisableSave=false"></span>
-
-<!-- Saving Your Data-->
-<div class="grid-loading-norecord-container ng-scope" style='z-index: 4;'data-ng-if="BarcodesCtrl.ePage.Masters.IsLoadingToSave">
-    <div class="grid-no-record">Saving your Data...</div>
-</div>
-
-<div class="p-10" ng-show='BarcodesCtrl.ePage.Masters.Lineslist'>
-    <div>
-        <span><button type="button" class="btn btn-sm btn-outline-secondary" title="Add New"  data-ng-click="BarcodesCtrl.ePage.Masters.AddNewRow()"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button></span>
-        <span ng-hide='BarcodesCtrl.ePage.Masters.selectedRow==-1'><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Copy"  data-ng-click="BarcodesCtrl.ePage.Masters.CopyRow()"><span class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button></span>
-        <span ng-hide='BarcodesCtrl.ePage.Masters.selectedRow==-1'><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Edit"  data-ng-click="BarcodesCtrl.ePage.Masters.Edit(BarcodesCtrl.ePage.Masters.selectedRow,'Edit List')"><span class="fa fa-pencil"></span>&nbsp;&nbsp;Edit</button></span>
-        <span ng-hide='BarcodesCtrl.ePage.Masters.selectedRow==-1'><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Delete"  data-ng-click="BarcodesCtrl.ePage.Masters.RemoveRow()"><span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button></span>        
+<div class="clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding">
+        <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+            <span><button type="button" class="btn btn-sm btn-outline-secondary font-10"  title="Add New"  data-ng-click="BarcodesCtrl.ePage.Masters.AddNewRow()"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button></span>
+            <span><button type="button" class="btn btn-sm btn-outline-primary font-10"  title="Copy"  data-ng-click="BarcodesCtrl.ePage.Masters.CopyRow()" ng-disabled="!BarcodesCtrl.ePage.Masters.EnableDeleteButton"><span class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button></span>
+            <span><button type="button" class="btn btn-sm btn-outline-primary font-10"  title="Delete"  data-ng-click="BarcodesCtrl.ePage.Masters.RemoveRow()" ng-disabled="!BarcodesCtrl.ePage.Masters.EnableDeleteButton"><span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button></span>
+            <span><button type="button" class="btn btn-sm btn-outline-primary font-10"  title="Customize"  data-ng-click="BarcodesCtrl.ePage.Masters.EditTableColumns = true"><span class="fa fa-filter"></span>&nbsp;&nbsp;Customize</button></span>
+        </div>
+        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0">
+            <div class="input-group">
+                <div class="input-group-addon font-10"><i class="fa fa-search font-10"></i></div>
+                <input type="text" class="form-control height-25 font-10" placeholder="Search" ng-model="BarcodesCtrl.ePage.Masters.SearchTable">
+            </div>      
+        </div>
     </div>
-    <div id='BarcodesCtrl.ePage.Masters.your_div' class="wmstable_scroll" style="height:442px;padding-top: 2px;">
-        <div class="table" id="results">
-            <div class='theader'>
-                <div class='table_header'>List No</div>
-                <div class='table_header'>Package</div>
-                <div class='table_header'>Barcode</div>
-            </div>
-
-            <!-- List Empty Response -->
-            <div data-ng-if="BarcodesCtrl.ePage.Entities.Header.Data.UIOrgSupplierPartBarcode.length==0">
-                <div class="grid-no-record" style="bottom:200px">No records found...</div>
-            </div>
-            
-            <div class='table_row' ng-repeat="x in BarcodesCtrl.ePage.Entities.Header.Data.UIOrgSupplierPartBarcode | orderBy:'CreatedDateTime' | filter:{IsDeleted:'false'}  track by $index" 
-                ng-click="BarcodesCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: BarcodesCtrl.ePage.Masters.selectedRow==$index}" style="font-size: 11px;">
-                <div class='table_small'>
-                    <div class='table_cell'>List No</div>
-                    <div class='table_cell'>
-                        <span class="list-error-warning" data-ng-if="BarcodesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgSupplierPartBarcode.WARNING | listCount: 'RowIndex': $index">
-                            <error-warning-directive 
-                                list="BarcodesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgSupplierPartBarcode.WARNING"
-                                type="'warning'" icon="fa fa-warning" parent-type="'arrayObjectRow'" parent-ref=""
-                                g-parent-ref="" row-index="$index"
-                                col-index="">
-                            </error-warning-directive>
-                        </span>
+    <div id="BarcodeTable{{BarcodesCtrl.ePage.Entities.Header.Data.PK}}" class="fixedheader" key-events table-object='BarcodesCtrl.ePage.Entities.Header.Data.UIOrgSupplierPartBarcode' enable='BarcodesCtrl.ePage.Masters.Enable' selected-row='BarcodesCtrl.ePage.Masters.selectedRow' unique-id='BarcodeTable{{BarcodesCtrl.ePage.Entities.Header.Data.PK}}'>
+        <table id="BarcodesCtrl.ePage.Masters.AddScroll" style="height: 395px">
+            <thead>
+                <tr id="tableHeader">
+                    <th id="barcodecheckbox" data-ng-if="BarcodesCtrl.ePage.Entities.Header.TableProperties.UIOrgSupplierPartBarcode.barcodecheckbox.isenabled" ng-style="{ 'width': BarcodesCtrl.ePage.Entities.Header.TableProperties.UIOrgSupplierPartBarcode.barcodecheckbox.width + 'px' }">
+                        <label class="customcheckbox">
+                            <input type="checkbox" ng-change="BarcodesCtrl.ePage.Masters.SelectAllCheckBox()" ng-checked="BarcodesCtrl.ePage.Masters.SelectAll"
+                                ng-model="BarcodesCtrl.ePage.Masters.SelectAll">
+                            <span class="text"></span>
+                        </label>
+                    </th>
+                    <th id="barcodesno" data-ng-if="BarcodesCtrl.ePage.Entities.Header.TableProperties.UIOrgSupplierPartBarcode.barcodesno.isenabled" ng-style="{ 'width': BarcodesCtrl.ePage.Entities.Header.TableProperties.UIOrgSupplierPartBarcode.barcodesno.width + 'px' }" title="S.No">S.No</th>
+                    <th id="package" data-ng-if="BarcodesCtrl.ePage.Entities.Header.TableProperties.UIOrgSupplierPartBarcode.package.isenabled" ng-style="{ 'width': BarcodesCtrl.ePage.Entities.Header.TableProperties.UIOrgSupplierPartBarcode.package.width + 'px' }" title="Package">Package</th>
+                    <th id="barcode"data-ng-if="BarcodesCtrl.ePage.Entities.Header.TableProperties.UIOrgSupplierPartBarcode.barcode.isenabled" ng-style="{ 'width': BarcodesCtrl.ePage.Entities.Header.TableProperties.UIOrgSupplierPartBarcode.barcode.width + 'px' }" title="Barcode">Barcode</th>
+                </tr>
+            </thead>
+            <tbody id="BarcodesCustomTable{{BarcodesCtrl.ePage.Entities.Header.Data.PK}}">
+                <tr id="tableBody" ng-repeat="x in BarcodesCtrl.ePage.Entities.Header.Data.UIOrgSupplierPartBarcode | filter:BarcodesCtrl.ePage.Masters.SearchTable"  ng-click="BarcodesCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: (BarcodesCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}" 
+                    watch-table table-properties="BarcodesCtrl.ePage.Entities.Header.TableProperties.UIOrgSupplierPartBarcode"   unique-id="BarcodesCustomTable{{BarcodesCtrl.ePage.Entities.Header.Data.PK}}" row-position="$index">
+                    <td id="barcodecheckbox" data-ng-show='BarcodesCtrl.ePage.Entities.Header.TableProperties.UIOrgSupplierPartBarcode.barcodecheckbox.isenabled' ng-style="{ 'width': BarcodesCtrl.ePage.Entities.Header.TableProperties.UIOrgSupplierPartBarcode.barcodecheckbox.width + 'px' ,'padding-top':'0px' }" ng-click="BarcodesCtrl.ePage.Masters.Enable = true">
+                        <label class="mb-0 customcheckbox">
+                            <input type="checkbox" ng-checked="x.SingleSelect" ng-change="BarcodesCtrl.ePage.Masters.SingleSelectCheckBox()"
+                                ng-model="x.SingleSelect"> </input>
+                            <span class="text"></span>
+                        </label>
                         <span class="list-error-warning" data-ng-if="BarcodesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgSupplierPartBarcode.ERROR | listCount: 'RowIndex': $index">
                             <error-warning-directive 
                                 list="BarcodesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgSupplierPartBarcode.ERROR"
@@ -48,77 +46,56 @@
                                 col-index="">
                             </error-warning-directive>
                         </span>
+                    </td>
+                    <td id="barcodesno"   data-ng-show='BarcodesCtrl.ePage.Entities.Header.TableProperties.UIOrgSupplierPartBarcode.barcodesno.isenabled' ng-style="{ 'width': BarcodesCtrl.ePage.Entities.Header.TableProperties.UIOrgSupplierPartBarcode.barcodesno.width + 'px' }" ng-click="BarcodesCtrl.ePage.Masters.Enable = true">
                         {{$index+1}}
-                    </div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Package</div>
-                    <div class='table_cell'>{{x.PAC_NKPackType || BarcodesCtrl.ePage.Masters.emptyText}}</div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Barcode</div>
-                    <div class='table_cell'>{{x.Barcode || BarcodesCtrl.ePage.Masters.emptyText}}</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="clearfix" ng-hide='BarcodesCtrl.ePage.Masters.Lineslist' style="padding:5px">
-    <div class="panel panel-default mt-5">
-        <div class="panel-heading">
-            <span ng-show="BarcodesCtrl.ePage.Masters.HeaderName =='Copy Of List'">
-                    {{BarcodesCtrl.ePage.Masters.HeaderName}} - {{BarcodesCtrl.ePage.Masters.selectedRow}}                     
-            </span>
-            <span ng-show="BarcodesCtrl.ePage.Masters.HeaderName!='Copy Of List'">
-                    {{BarcodesCtrl.ePage.Masters.HeaderName}} - {{BarcodesCtrl.ePage.Masters.selectedRow+1}}                     
-            </span>
-        </div>
-        <div class="panel-body">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ex-line-padding">
-                <div class="ex-line-box" style="height:100px;padding-top:10px">
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                        <div class="form-group">
-                            <div class="error-warning-container" ng-repeat="x in BarcodesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgSupplierPartBarcode.ERROR">
-                                <error-warning-directive data-ng-if="x.ColIndex == 1 && x.RowIndex ==BarcodesCtrl.ePage.Masters.selectedRow"
-                                    list="BarcodesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgSupplierPartBarcode.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
-                                    g-parent-ref="" row-index="BarcodesCtrl.ePage.Masters.selectedRow"
-                                    col-index="1">
-                                </error-warning-directive>
-                            </div>
-                            <label class="control-label text-single-line">Package</label>
-                            <div  class="">
-                                <select chosen class="form-control" ng-model="BarcodesCtrl.ePage.Entities.Header.Data.UIOrgSupplierPartBarcode[BarcodesCtrl.ePage.Masters.selectedRow].PAC_NKPackType" ng-options="x.Key as x.Key + ' - '  + x.Value for x in BarcodesCtrl.ePage.Masters.DropDownMasterList.INW_LINE_UQ.ListSource"
-                                    search-contains="true" ng-change="BarcodesCtrl.ePage.Masters.OnChangeValues(BarcodesCtrl.ePage.Entities.Header.Data.UIOrgSupplierPartBarcode[BarcodesCtrl.ePage.Masters.selectedRow].PAC_NKPackType,'E7023',true,BarcodesCtrl.ePage.Masters.selectedRow); BarcodesCtrl.ePage.Masters.CheckWarning(BarcodesCtrl.ePage.Entities.Header.Data.UIOrgSupplierPartBarcode[BarcodesCtrl.ePage.Masters.selectedRow].PAC_NKPackType,BarcodesCtrl.ePage.Masters.selectedRow); ">
+                    </td>
+                    <td id="package"   data-ng-show='BarcodesCtrl.ePage.Entities.Header.TableProperties.UIOrgSupplierPartBarcode.package.isenabled' ng-style="{ 'width': BarcodesCtrl.ePage.Entities.Header.TableProperties.UIOrgSupplierPartBarcode.package.width + 'px' }">
+                        <div data-ng-if="$index!=BarcodesCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                            {{ x.PAC_NKPackType || BarcodesCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==BarcodesCtrl.ePage.Masters.selectedRow">
+                            <div class=" height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0" ng-click="BarcodesCtrl.ePage.Masters.Enable = false">
+                                <select chosen class="form-control" ng-model="x.PAC_NKPackType" ng-options="x.Key as x.Key + ' - '  + x.Value for x in BarcodesCtrl.ePage.Masters.DropDownMasterList.INW_LINE_UQ.ListSource"
+                                    search-contains="true" ng-change="BarcodesCtrl.ePage.Masters.OnChangeValues(x.PAC_NKPackType,'E7032',true,$index); BarcodesCtrl.ePage.Masters.CheckWarning(x.PAC_NKPackType,$index); ">
                                     <option value="">--Select--</option>
                                 </select>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                        <div class="form-group">
-                            <div class="error-warning-container" ng-repeat="x in BarcodesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgSupplierPartBarcode.ERROR">
-                                <error-warning-directive data-ng-if="x.ColIndex == 2 && x.RowIndex ==BarcodesCtrl.ePage.Masters.selectedRow"
-                                    list="BarcodesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgSupplierPartBarcode.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
-                                    g-parent-ref="" row-index="BarcodesCtrl.ePage.Masters.selectedRow"
-                                    col-index="2">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="BarcodesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgSupplierPartBarcode.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':1">
+                                <error-warning-directive  list="BarcodesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgSupplierPartBarcode.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                    row-index="BarcodesCtrl.ePage.Masters.selectedRow" col-index="1">
                                 </error-warning-directive>
                             </div>
-                            <label class="control-label text-single-line">Barcode</label>
-                            <div  class="">
-                                <input type="text" maxlength="64" class="form-control input-sm" placeholder="Barcode" data-ng-model="BarcodesCtrl.ePage.Entities.Header.Data.UIOrgSupplierPartBarcode[BarcodesCtrl.ePage.Masters.selectedRow].Barcode" ng-change="BarcodesCtrl.ePage.Masters.OnChangeValues(BarcodesCtrl.ePage.Entities.Header.Data.UIOrgSupplierPartBarcode[BarcodesCtrl.ePage.Masters.selectedRow].Barcode,'E7024',true,BarcodesCtrl.ePage.Masters.selectedRow)"/>                                
+                        </div>
+                    </td>
+                    <td id="barcode"  data-ng-show='BarcodesCtrl.ePage.Entities.Header.TableProperties.UIOrgSupplierPartBarcode.barcode.isenabled'  ng-style="{ 'width': BarcodesCtrl.ePage.Entities.Header.TableProperties.UIOrgSupplierPartBarcode.barcode.width + 'px' }" ng-click="BarcodesCtrl.ePage.Masters.Enable = true">
+                        <div data-ng-if="$index!=BarcodesCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                            {{ x.Barcode || BarcodesCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==BarcodesCtrl.ePage.Masters.selectedRow">
+                            <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0" ng-click="BarcodesCtrl.ePage.Masters.Enable = false">
+                                <input type="text" maxlength="64" class="form-control input-sm" placeholder="Barcode" data-ng-model="x.Barcode" ng-change="BarcodesCtrl.ePage.Masters.OnChangeValues(x.Barcode,'E7024',true,$index)"/>              
+                            </div>
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="BarcodesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgSupplierPartBarcode.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':2">
+                                <error-warning-directive  list="BarcodesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgSupplierPartBarcode.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                    row-index="BarcodesCtrl.ePage.Masters.selectedRow" col-index="2">
+                                </error-warning-directive>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-lg-offset-8 mt-5">
-                <button class="btn btn-blue btn-sm mr-5 pull-right" title="Save" data-ng-click="BarcodesCtrl.ePage.Masters.Done()"><i class="fa fa-save pr-5"></i>Save</button>
-                <button class="btn btn-primary btn-sm mr-5 pull-right" title="Delete" data-ng-click="BarcodesCtrl.ePage.Masters.RemoveRow()"><i class="fa fa-trash pr-5"></i>Delete</button>
-                <button class="btn btn-primary btn-sm mr-5 pull-right" title="Back" data-ng-click="BarcodesCtrl.ePage.Masters.Back()"><i class="fa fa-angle-double-left pr-5"></i>Back</button>
-            </div>
-        </div>
+                    </td>         
+                </tr>
+            </tbody>
+        </table>
     </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound"  ng-if="BarcodesCtrl.ePage.Entities.Header.Data.UIOrgSupplierPartBarcode.length==0">No Record Found...</div>
+</div>
+<!-- To show Customize Modal -->
+<div ng-if='BarcodesCtrl.ePage.Masters.EditTableColumns'>
+    <customize-table table-properties="BarcodesCtrl.ePage.Entities.Header.TableProperties.UIOrgSupplierPartBarcode" enable="BarcodesCtrl.ePage.Masters.EditTableColumns" unique-id="BarcodesCustomTable{{BarcodesCtrl.ePage.Entities.Header.Data.PK}}" user-value='BarcodesCtrl.ePage.Masters.UserValue' entity-source='WMS_PRODUCTBARCODE' ></customize-table>
+</div>
+ <!-- Call Directive If user has value -->
+ <div ng-if='BarcodesCtrl.ePage.Masters.UserHasValue' ng-init="BarcodesCtrl.ePage.Masters.UserHasValue=false">
+    <watch-table table-properties="BarcodesCtrl.ePage.Entities.Header.TableProperties.UIOrgSupplierPartBarcode"  unique-id="BarcodesCustomTable{{BarcodesCtrl.ePage.Entities.Header.Data.PK}}"></watch-table>
 </div>

@@ -1,0 +1,121 @@
+<div class="p-10 ng-scope">
+        <div class="widget-main track-shipment-details p-5" ng-if="!TrackShipmentDetailsDirectiveCtrl.ePage.Masters.NoConsol">
+            <div class="panel panel-default set-bg-f5f5f5 mb-15">
+                    <div class="clearfix">
+                            <div class="row margin-right-10 margin-left-10 margin-top-10 address-panel">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-4 pr-0 padding-top-10 address-design">
+                                            <div class="form-group">
+                                                <label class="control-label">Sending Agent</label>
+                                                <div class="input-group input-group-sm">
+                                                    <input type="hidden" ng-model="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.ConsolDetails.UIConConsolHeader.ORG_SendingForwarderFK">
+                                                    <input class="form-control    no-resize" placeholder="Organization Code" ng-model="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.ConsolDetails.UIConConsolHeader.ORG_SendingForwarderCode"
+                                                        disabled="disabled" />
+                                                    <span class="input-group-btn">
+                                                        <button dynamic-list-modal obj="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.ConsolDetails.UIConConsolHeader" field-name="'ConGeneralORG_SendingForwarderCode'"
+                                                            prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                                            disabled="disabled" class="btn btn-default shiny" type="button">
+                                                            <i class="fa fa-ellipsis-h"></i>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                                <label class="control-label">Sending Agent Address</label>
+                                                <div class="input-group input-group-sm">
+                                                    <input type="hidden" ng-model="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.ConsolDetails.UIConConsolHeader.ORG_SendingForwarderFK">
+                                                    <input class="form-control    no-resize" placeholder="address" ng-model="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.Address1"
+                                                        disabled="disabled" />
+                                                    <span class="input-group-btn">
+                                                        <button dynamic-list-modal obj="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.ConsolDetails.UIConConsolHeader" field-name="'ConGeneralORG_SendingForwarderCode'"
+                                                            prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                                            disabled="disabled" class="btn btn-default shiny" type="button">
+                                                            <i class="fa fa-address-book-o"></i>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-4 pr-0 padding-top-10 address-design">
+                                                <div class="form-group">
+                                                    <label class="control-label">Receiving Agent</label>
+                                                    <div class="input-group input-group-sm">
+                                                        <input type="hidden" ng-model="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.ConsolDetails.UIConConsolHeader.ORG_ReceivingForwarderFK">
+                                                        <input class="form-control    no-resize" placeholder="Organization Code" ng-model="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.ConsolDetails.UIConConsolHeader.ORG_ReceivingForwarderCode"
+                                                            disabled="disabled" />
+                                                        <span class="input-group-btn">
+                                                            <button dynamic-list-modal obj="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIConConsolHeader" field-name="'ConGeneralORG_SendingForwarderCode'"
+                                                                prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                                                disabled="disabled" class="btn btn-default shiny" type="button">
+                                                                <i class="fa fa-ellipsis-h"></i>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                    <label class="control-label">Receiving Agent Address</label>
+                                                    <div class="input-group input-group-sm">
+                                                        <input class="form-control    no-resize" placeholder="Organization Code" ng-model="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.Address1"
+                                                            disabled="disabled" />
+                                                        <span class="input-group-btn">
+                                                            <button dynamic-list-modal obj="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIConConsolHeader" field-name="'ConGeneralORG_SendingForwarderCode'"
+                                                                prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                                                disabled="disabled" class="btn btn-default shiny" type="button">
+                                                                <i class="fa fa-address-book-o"></i>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                             </div>
+                                             </div>
+            </div> 
+            </div>
+               
+                <div class="clearfix">
+                    <div class="clearfix mb-10">
+                        <uib-tabset id="Consol" style="border: 1px solid #ddd;">
+                            <!--Consol Details Tab-->
+                            <uib-tab>
+                                <uib-tab-heading title="Consol">
+                                    <i class="menu-icon icomoon icon-console"></i>
+                                    <span class="text-single-line" data-ng-bind="'Consol Details'"></span>
+                                </uib-tab-heading>
+                                <div data-ng-include="'app/eaxis/smart-track/track-shipments/track-shipment-directive/consol-details.html'"></div>
+                            </uib-tab>
+                        </uib-tabset>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix">
+             <div class="clearfix pl-5 pr-5">
+                    <uib-tabset id="Routing" style="border: 1px solid #ddd;">
+                        <!--Routing Details Tab-->
+                        <uib-tab>
+                            <uib-tab-heading title="Routing">
+                                <i class="fa fa-ship mr-5"></i>
+                                <span class="text-single-line" data-ng-bind="'Routing Details'"></span>
+                            </uib-tab-heading>
+                            <routing-grid current-object="TrackShipmentDetailsDirectiveCtrl.currentShipment" data-ng-if="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIJobRoutes.length>0"
+                                freight-mode="'OUT'" btn-visible="{'AddNew':false,'Delete':false,'More':false}" read-only="true"></routing-grid>
+                            <div data-ng-if="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIJobRoutes.length == 0" class="grid-no-record-shipment order-empty-top ng-scope">
+                                No Routing Available
+                            </div>
+                        </uib-tab>
+                    </uib-tabset>
+             </div></div>
+             <div class="clearfix pt-10">
+             <div class="clearfix pl-5 pr-5">
+                   <uib-tabset id="Container" style="border: 1px solid #ddd;">
+                                <!--Container Details Tab-->
+                                <uib-tab>
+                                    <uib-tab-heading title="Container">
+                                        <i class="fa fa-truck margin-right-5"></i>
+                                        <span class="text-single-line" data-ng-bind="'Container Details'"></span>
+                                    </uib-tab-heading>
+                                    <container-grid data-ng-if="TrackShipmentDetailsDirectiveCtrl.currentConsol" current-consol="TrackShipmentDetailsDirectiveCtrl.currentConsol"
+                                        con-list="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UICntContainers" btn-visible="{'AddNew':false,'Delete':false,'More':false}" read-only="true"></container-grid>
+                                </uib-tab>
+                   </uib-tabset>
+             </div>
+            </div>
+            <div class="widget-main track-shipment-details p-5">
+                <div class="text-center" data-ng-if="TrackShipmentDetailsDirectiveCtrl.ePage.Masters.NoConsol">
+                    No Consol Attached...
+                </div>
+            </div>
+</div>

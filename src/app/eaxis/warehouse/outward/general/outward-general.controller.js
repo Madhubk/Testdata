@@ -5,12 +5,11 @@
         .module("Application")
         .controller("OutwardGeneralController", OutwardGeneralController);
 
-    OutwardGeneralController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "appConfig", "outwardConfig", "helperService", "toastr", "$filter","$injector","$uibModal"];
+    OutwardGeneralController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "appConfig", "outwardConfig", "helperService", "toastr", "$filter", "$injector", "$uibModal"];
 
-    function OutwardGeneralController($rootScope, $scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, appConfig, outwardConfig, helperService, toastr, $filter,$injector,$uibModal) {
+    function OutwardGeneralController($rootScope, $scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, appConfig, outwardConfig, helperService, toastr, $filter, $injector, $uibModal) {
 
         var OutwardGeneralCtrl = this;
-
 
         function Init() {
 
@@ -41,50 +40,31 @@
             OutwardGeneralCtrl.ePage.Masters.SelectedLookupDataClient = SelectedLookupDataClient;
             OutwardGeneralCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
             OutwardGeneralCtrl.ePage.Masters.OtherConsigneeAddresses = OtherConsigneeAddresses;
-            OutwardGeneralCtrl.ePage.Masters.CheckFutureDate = CheckFutureDate;
-
-
+            OutwardGeneralCtrl.ePage.Masters.SelectedLookupToWarehouse = SelectedLookupToWarehouse;
             //DropDown
             GetDropDownList();
             GeneralOperations();
             GetBindValues();
             GetClientAddress();
-            AllocatePartAttribute();
+            AllocateUDF();
             GetNewConsigneeAddress();
             GetOrgAddress();
-            
+
         }
 
-        function CheckFutureDate(fieldvalue) {
-            if(!fieldvalue){
-                OnChangeValues('value', 'E3528')
-            }
-            var selectedDate = new Date(fieldvalue);
-            var now = new Date();
-
-            selectedDate.setHours(0,0,0,0);
-            now.setHours(0,0,0,0);
-            
-            if (selectedDate < now) {
-                OnChangeValues(null, 'E3528')
-            } else {
-                OnChangeValues('value', 'E3528')
-            }
-        }
-
-        function OnChangeValues(fieldvalue,code) {
-            angular.forEach(OutwardGeneralCtrl.ePage.Masters.Config.ValidationValues,function(value,key){
-                if(value.Code.trim() === code){
-                    GetErrorMessage(fieldvalue,value)                   
+        function OnChangeValues(fieldvalue, code) {
+            angular.forEach(OutwardGeneralCtrl.ePage.Masters.Config.ValidationValues, function (value, key) {
+                if (value.Code.trim() === code) {
+                    GetErrorMessage(fieldvalue, value)
                 }
             });
         }
 
-        function GetErrorMessage(fieldvalue,value){
+        function GetErrorMessage(fieldvalue, value) {
             if (!fieldvalue) {
-                OutwardGeneralCtrl.ePage.Masters.Config.PushErrorWarning(value.Code,value.Message,"E",false,value.CtrlKey,OutwardGeneralCtrl.currentOutward.label,false,undefined,undefined,undefined,undefined,value.GParentRef);
+                OutwardGeneralCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, OutwardGeneralCtrl.currentOutward.label, false, undefined, undefined, undefined, undefined, value.GParentRef);
             } else {
-                OutwardGeneralCtrl.ePage.Masters.Config.RemoveErrorWarning(value.Code,"E",value.CtrlKey,OutwardGeneralCtrl.currentOutward.label);
+                OutwardGeneralCtrl.ePage.Masters.Config.RemoveErrorWarning(value.Code, "E", value.CtrlKey, OutwardGeneralCtrl.currentOutward.label);
             }
         }
 
@@ -97,7 +77,7 @@
 
         function GetDropDownList() {
             // Get CFXType Dropdown list
-            var typeCodeList = [ "WorkOrderType", "WmsOrderFulfillmentRule", "PickOption", "DropMode"];
+            var typeCodeList = ["WorkOrderType", "WmsOrderFulfillmentRule", "PickOption", "DropMode", "WorkOrder_SubType"];
             var dynamicFindAllInput = [];
 
             typeCodeList.map(function (value, key) {
@@ -123,30 +103,30 @@
 
 
 
-        function GetClientAddress(){
-            
-            if(!OutwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader){
+        function GetClientAddress() {
+
+            if (!OutwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader) {
                 var obj = {
-                    "OAD_Address1":"",
-                    "OAD_Address2":"",
-                    "OAD_State":"",
-                    "OAD_PostCode":"",
-                    "OAD_City":"",
-                    "OAD_City":"",
-                    "OAD_Fax":"",
-                    "OAD_Phone":""
+                    "OAD_Address1": "",
+                    "OAD_Address2": "",
+                    "OAD_State": "",
+                    "OAD_PostCode": "",
+                    "OAD_City": "",
+                    "OAD_City": "",
+                    "OAD_Fax": "",
+                    "OAD_Phone": ""
                 };
                 OutwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.push([obj]);
             }
         }
 
-        function OtherConsigneeAddresses(otheraddress){
+        function OtherConsigneeAddresses(otheraddress) {
             $uibModal.open({
 
                 animation: true,
                 backdrop: "static",
                 keyboard: true,
-                windowClass: "general-edit right address" ,
+                windowClass: "general-edit right address",
                 scope: $scope,
 
                 templateUrl: 'app/eaxis/warehouse/outward/general/Consigneeaddress/address.html',
@@ -156,72 +136,72 @@
                     myData: function () {
                         var exports = {
                             "UIJobAddress": OutwardGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress,
-                            "otheraddress":otheraddress
+                            "otheraddress": otheraddress
                         };
                         return exports;
                     }
                 }
-              });
-            }
-            
-        function GetNewConsigneeAddress(){
-            var myvalue  = OutwardGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress.some(function(value,key){
-                return value.AddressType=='CED';
+            });
+        }
+
+        function GetNewConsigneeAddress() {
+            var myvalue = OutwardGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress.some(function (value, key) {
+                return value.AddressType == 'CED';
             });
 
-            if(!myvalue){
+            if (!myvalue) {
                 var obj = {
-                    "EntityRefKey":OutwardGeneralCtrl.ePage.Entities.Header.Data.PK,
-                    "EntitySource":"WAR",
-                    "AddressType":"CED",
-                    "ORG_FK":"",
-                    "OAD_Address_FK":"",
+                    "EntityRefKey": OutwardGeneralCtrl.ePage.Entities.Header.Data.PK,
+                    "EntitySource": "WAR",
+                    "AddressType": "CED",
+                    "ORG_FK": "",
+                    "OAD_Address_FK": "",
                     "Address1": "",
-                    "Address2":"",
-                    "City":"",
-                    "State":"",
-                    "JDA_RN_NKCountryCode":"",
-                    "PostCode":"",
-                    "Email":"",
-                    "Mobile":"",
-                    "Phone":"",
-                    "Fax":"",
+                    "Address2": "",
+                    "City": "",
+                    "State": "",
+                    "JDA_RN_NKCountryCode": "",
+                    "PostCode": "",
+                    "Email": "",
+                    "Mobile": "",
+                    "Phone": "",
+                    "Fax": "",
                 };
                 OutwardGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress.splice(OutwardGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress.length + 1, 0, obj);
-            } 
+            }
         }
 
-            function GetOrgAddress() {
-                var _filter = {
-                    "ORG_FK": OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Consignee_FK
-                };
-                var _input = {
-                    "searchInput": helperService.createToArrayOfObject(_filter),
-                    "FilterID": OutwardGeneralCtrl.ePage.Entities.Header.API.OrgAddress.FilterID
-                };
-                apiService.post("eAxisAPI", OutwardGeneralCtrl.ePage.Entities.Header.API.OrgAddress.Url, _input).then(function (response) {
-                    if (response.data.Response) {
-                          OutwardGeneralCtrl.ePage.Masters.OrgConsigneeAddress = response.data.Response;
-                    }
-                });
-            }
-    
+        function GetOrgAddress() {
+            var _filter = {
+                "ORG_FK": OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Consignee_FK
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.OrgAddress.API.FindAll.FilterID
+            };
+            apiService.post("eAxisAPI", appConfig.Entities.OrgAddress.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    OutwardGeneralCtrl.ePage.Masters.OrgConsigneeAddress = response.data.Response;
+                }
+            });
+        }
+
 
         function SelectedLookupDataClient(item) {
-            OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Client = item.Code+ ' - ' +item.FullName;
+            OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Client = item.Code + ' - ' + item.FullName;
             OutwardGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader = item;
             OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Client_FK = item.PK;
-            OnChangeValues(OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Client,'E3501')
-            AllocatePartAttribute();
+            OnChangeValues(OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Client, 'E3501')
+            AllocateUDF();
         }
-        
+
         function SelectedLookupDataConsignee(item) {
 
-            OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Consignee = item.Code+ ' - ' +item.FullName;
+            OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Consignee = item.Code + ' - ' + item.FullName;
             OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Consignee_FK = item.PK;
-            
+
             angular.forEach(OutwardGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress, function (value, key) {
-                if (value.AddressType == "CED" ) {
+                if (value.AddressType == "CED") {
                     value.ORG_FK = item.PK;
                     value.OAD_Address_FK = item.OAD_PK;
                     value.Address1 = item.OAD_Address1;
@@ -237,14 +217,20 @@
                 }
             });
             GetOrgAddress();
-         }   
-        
-        
+        }
+
+
 
         function SelectedLookupWarehouse(item) {
-            OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Warehouse = item.WarehouseCode + " - " + item.WarehouseName; 
-            OnChangeValues(OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Warehouse,'E3502');  
+            OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Warehouse = item.WarehouseCode + " - " + item.WarehouseName;
+            OnChangeValues(OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Warehouse, 'E3502');
         }
+
+        function SelectedLookupToWarehouse(item) {
+            OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.TransferWarehouse = item.WarehouseCode + " - " + item.WarehouseName;
+            OnChangeValues(OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.TransferWarehouse, 'E3542');
+        }
+
         function SelectedLookupCode_Desc(item) {
             OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ServiceLevel = item.Code + " - " + item.Description;
         }
@@ -284,13 +270,23 @@
             if (OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeName == null) {
                 OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeName = "";
             }
+            if (OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.TransferTo_WAR_Code == null) {
+                OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.TransferTo_WAR_Code = "";
+            }
+            if (OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.TransferTo_WAR_Name == null) {
+                OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.TransferTo_WAR_Name = "";
+            }
 
-            if(!OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PackagesSent)
-            OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PackagesSent = 0;
+            if (!OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PackagesSent)
+                OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PackagesSent = 0;
 
-            if(!OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.TotalUnits)
-            OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.TotalUnits = 0;
-            
+            if (!OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.TotalUnits)
+                OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.TotalUnits = 0;
+
+            if (OutwardGeneralCtrl.currentOutward.isNew) {
+                OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ExternalReference = '';
+            }
+
         }
 
         function GetBindValues() {
@@ -299,53 +295,55 @@
             OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.CarrierServiceLevel = OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.CSL_CarrierServiceLevel + ' - ' + OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.CSL_CarrierServiceLevelDescription;
             OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Client = OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ClientCode + ' - ' + OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ClientName;
             OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Consignee = OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeCode + ' - ' + OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeName;
+            OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.TransferWarehouse = OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.TransferTo_WAR_Code + ' - ' + OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.TransferTo_WAR_Name;
             removehyphen();
         }
 
-        function removehyphen(){
-          
-            if(OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Warehouse ==' - ')
-               OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Warehouse=""
+        function removehyphen() {
 
-            if(OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ServiceLevel==' - ')
-               OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ServiceLevel ="";
+            if (OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Warehouse == ' - ')
+                OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Warehouse = ""
 
-            if(OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.CarrierServiceLevel==' - ')
-               OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.CarrierServiceLevel="";
-               
-            if(OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Client==' - ')
-            OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Client = "";
+            if (OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ServiceLevel == ' - ')
+                OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ServiceLevel = "";
 
-            if(OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Consignee==' - ')
-               OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Consignee = "";
+            if (OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.CarrierServiceLevel == ' - ')
+                OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.CarrierServiceLevel = "";
+
+            if (OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Client == ' - ')
+                OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Client = "";
+
+            if (OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Consignee == ' - ')
+                OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Consignee = "";
+
+            if (OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.TransferWarehouse == " - ")
+                OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.TransferWarehouse = "";
         }
 
-        function AllocatePartAttribute() {
-            if(OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Client_FK){
+        function AllocateUDF() {
+            if (OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Client_FK) {
                 var _filter = {
-                    "ORG_FK": OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Client_FK     
+                    "ORG_FK": OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Client_FK
                 };
-    
+
                 var _input = {
                     "searchInput": helperService.createToArrayOfObject(_filter),
-                    "FilterID": OutwardGeneralCtrl.ePage.Entities.Header.API.OrgMiscServ.FilterID
+                    "FilterID": appConfig.Entities.OrgMiscServ.API.FindAll.FilterID
                 };
-        
-                    apiService.post("eAxisAPI", OutwardGeneralCtrl.ePage.Entities.Header.API.OrgMiscServ.Url, _input).then(function (response) {
-                        if (response.data.Response) {
-                            OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IMPartAttrib1Name = response.data.Response[0].IMPartAttrib1Name; 
-                            OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IMPartAttrib2Name = response.data.Response[0].IMPartAttrib2Name;
-                            OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IMPartAttrib3Name = response.data.Response[0].IMPartAttrib3Name;
-                            OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IMPartAttrib1Type = response.data.Response[0].IMPartAttrib1Type; 
-                            OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IMPartAttrib2Type = response.data.Response[0].IMPartAttrib2Type;
-                            OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IMPartAttrib3Type = response.data.Response[0].IMPartAttrib3Type;
-                        }
-                    });
-                }
+
+                apiService.post("eAxisAPI", appConfig.Entities.OrgMiscServ.API.FindAll.Url, _input).then(function (response) {
+                    if (response.data.Response) {
+                        OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IMPartAttrib1Name = response.data.Response[0].IMPartAttrib1Name;
+                        OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IMPartAttrib2Name = response.data.Response[0].IMPartAttrib2Name;
+                        OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IMPartAttrib3Name = response.data.Response[0].IMPartAttrib3Name;
+                        OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IMPartAttrib1Type = response.data.Response[0].IMPartAttrib1Type;
+                        OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IMPartAttrib2Type = response.data.Response[0].IMPartAttrib2Type;
+                        OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IMPartAttrib3Type = response.data.Response[0].IMPartAttrib3Type;
+                    }
+                });
             }
+        }
 
         Init();
     }
-
-
 })();

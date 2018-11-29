@@ -1,30 +1,29 @@
 <div class="clearfix p-15 pl-0 pr-0">
 
-    <div class="col-lg-4 mb-10" data-ng-repeat="x in addressDirectiveCtrl.ePage.Masters.Address.AddressTypeList.ListSource | orderBy: Sequence"
+    <div class="col-lg-4 mb-10" data-ng-repeat="x in addressDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CfxTypeList | orderBy: Sequence"
         data-ng-dblclick="addressWrapperCtrl.ePage.Masters.OnAddressChange(x)">
         <div class="address-box-1 height-175 p-0 pb-5">
             <div class="address-title-1 text-Ellipsis p-10 bor-bottom-1px" title="{{x.Value}}">{{x.Value}}</div>
-
-            <div class="p-10" data-ng-show="addressDirectiveCtrl.ePage.Masters.Address.AddressContactObj[x.Key].PK!='00000000-0000-0000-0000-000000000000'">
-                <div class="address-txt-2 text-Ellipsis" title="{{addressDirectiveCtrl.ePage.Masters.Address.AddressContactObj[x.Key].Address1}}">{{addressDirectiveCtrl.ePage.Masters.Address.AddressContactObj[x.Key].Address1}} </div>
-                <div class="address-txt-2 text-Ellipsis" title="{{addressDirectiveCtrl.ePage.Masters.Address.AddressContactObj[x.Key].Address2}}">{{addressDirectiveCtrl.ePage.Masters.Address.AddressContactObj[x.Key].Address2}} </div>
-                <div class="address-txt-2 text-Ellipsis" title="{{addressDirectiveCtrl.ePage.Masters.Address.AddressContactObj[x.Key].City}} {{addressDirectiveCtrl.ePage.Masters.Address.AddressContactObj[x.Key].State}} {{addressDirectiveCtrl.ePage.Masters.Address.AddressContactObj[x.Key].PostCode}}">{{addressDirectiveCtrl.ePage.Masters.Address.AddressContactObj[x.Key].City}} {{addressDirectiveCtrl.ePage.Masters.Address.AddressContactObj[x.Key].State}}
-                    {{addressDirectiveCtrl.ePage.Masters.Address.AddressContactObj[x.Key].Postcode}}
+            <div class="p-10" data-ng-show="addressDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList[x.Key].PK!='00000000-0000-0000-0000-000000000000'">
+                <div class="address-txt-2 text-Ellipsis" title="{{addressDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList[x.Key].Address1}}">{{addressDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList[x.Key].Address1}} </div>
+                <div class="address-txt-2 text-Ellipsis" title="{{addressDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList[x.Key].Address2}}">{{addressDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList[x.Key].Address2}} </div>
+                <div class="address-txt-2 text-Ellipsis" title="{{addressDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList[x.Key].City}} {{addressDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList[x.Key].State}} {{addressDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList[x.Key].PostCode}}">{{addressDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList[x.Key].City}} {{addressDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList[x.Key].State}}
+                    {{addressDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList[x.Key].Postcode}}
                 </div>
 
-                <div class="address-icon-txt-1" data-ng-show="addressDirectiveCtrl.ePage.Masters.Address.AddressContactObj[x.Key].Phone!=null">
+                <div class="address-icon-txt-1" data-ng-show="addressDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList[x.Key].Phone!=null">
 
-                    <span>Phone number : {{addressDirectiveCtrl.ePage.Masters.Address.AddressContactObj[x.Key].Phone}}</span>
+                    <span>Phone number : {{addressDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList[x.Key].Phone}}</span>
                 </div>
-                <div class="address-icon-txt-1" data-ng-show="addressDirectiveCtrl.ePage.Masters.Address.AddressContactObj[x.Key].Email!=null">
+                <div class="address-icon-txt-1" data-ng-show="addressDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList[x.Key].Email!=null">
 
-                    <span>Email : {{addressDirectiveCtrl.ePage.Masters.Address.AddressContactObj[x.Key].Email}}</span>
+                    <span>Email : {{addressDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList[x.Key].Email}}</span>
                 </div>
-                <div class="address-edit-1 mt-10 cursor-pointer" data-ng-show="addressDirectiveCtrl.ePage.Masters.Address.AddressContactObj[x.Key].PK!='00000000-0000-0000-0000-000000000000'"
+                <div class="address-edit-1 mt-10 cursor-pointer" data-ng-show="addressDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList[x.Key].PK!='00000000-0000-0000-0000-000000000000'"
                     data-ng-click="addressDirectiveCtrl.ePage.Masters.Address.OnAddressTypeMenuClick(x)">Edit</div>
 
             </div>
-            <div class="address-box-dash-1 text-center" data-ng-show="addressDirectiveCtrl.ePage.Masters.Address.AddressContactObj[x.Key].PK=='00000000-0000-0000-0000-000000000000'">
+            <div class="address-box-dash-1 text-center" data-ng-show="addressDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList[x.Key].PK=='00000000-0000-0000-0000-000000000000'">
                 <div class="address-box-add-icon-1 cursor-pointer" data-ng-click="addressDirectiveCtrl.ePage.Masters.Address.OnAddressTypeMenuClick(x)">
                     <i class="glyphicons glyphicons-plus"></i>
                 </div>

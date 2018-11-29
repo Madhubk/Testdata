@@ -5,9 +5,9 @@
         .module("Application")
         .controller("LanguageController", LanguageController);
 
-    LanguageController.$inject = ["authService", "apiService", "helperService", "appConfig", "APP_CONSTANT", "$location", "confirmation", "toastr"];
+    LanguageController.$inject = ["authService", "apiService", "helperService", "$location", "confirmation", "toastr", "trustCenterConfig"];
 
-    function LanguageController(authService, apiService, helperService, appConfig, APP_CONSTANT, $location, confirmation, toastr) {
+    function LanguageController(authService, apiService, helperService, $location, confirmation, toastr, trustCenterConfig) {
         /* jshint validthis: true */
         var LanguageCtrl = this;
         var _queryString = $location.path().split("/").pop();
@@ -28,9 +28,10 @@
 
                 if (LanguageCtrl.ePage.Masters.QueryString.AppPk) {
                     InitBreadcrumb();
+                    InitApplication();
                     InitModule();
-                    InitLanguageCode();
                     InitLanguage();
+                    InitLanguageCode();
                 }
             } catch (error) {
                 console.log(error)
@@ -54,10 +55,15 @@
                 IsRequireQueryString: false,
                 IsActive: false
             }, {
-                Code: "configuration",
-                Description: "Configuration",
-                Link: "TC/dashboard/" + helperService.encryptData('{"Type":"Configuration", "BreadcrumbTitle": "Configuration"}'),
-                IsRequireQueryString: false,
+                Code: "dashboard",
+                Description: "Dashboard",
+                Link: "TC/dashboard",
+                IsRequireQueryString: true,
+                QueryStringObj: {
+                    "AppPk": LanguageCtrl.ePage.Masters.QueryString.AppPk,
+                    "AppCode": LanguageCtrl.ePage.Masters.QueryString.AppCode,
+                    "AppName": LanguageCtrl.ePage.Masters.QueryString.AppName
+                },
                 IsActive: false
             }, {
                 Code: "language",
@@ -78,25 +84,43 @@
 
         // ========================Breadcrumb End========================
 
+        //=========================Application Start=====================
+        function InitApplication() {
+            LanguageCtrl.ePage.Masters.Application = {};
+            LanguageCtrl.ePage.Masters.Application.OnApplicationChange = OnApplicationChange;
+        }
+
+        function OnApplicationChange($item) {
+            LanguageCtrl.ePage.Masters.Application.ActiveApplication = angular.copy($item);
+
+            if (!LanguageCtrl.ePage.Masters.Application.ActiveApplication) {
+                LanguageCtrl.ePage.Masters.Application.ActiveApplication = {
+                    "PK": LanguageCtrl.ePage.Masters.QueryString.AppPk,
+                    "AppCode": LanguageCtrl.ePage.Masters.QueryString.AppCode,
+                    "AppName": LanguageCtrl.ePage.Masters.QueryString.AppName
+                };
+            }
+
+            GetModuleList();
+
+        }
         // ========================Module Start========================
 
         function InitModule() {
             LanguageCtrl.ePage.Masters.Module = {};
             LanguageCtrl.ePage.Masters.Module.OnModuleChange = OnModuleChange;
-
-            GetModuleList();
         }
 
         function GetModuleList() {
             LanguageCtrl.ePage.Masters.Module.ListSource = undefined;
             var _filter = {
                 TypeCode: "MODULE_MASTER"
-            }
+            };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.CfxTypes.API.FindAll.FilterID
-            }
-            apiService.post("eAxisAPI", appConfig.Entities.CfxTypes.API.FindAll.Url + LanguageCtrl.ePage.Masters.QueryString.AppPk, _input).then(function (response) {
+                "FilterID": trustCenterConfig.Entities.API.CfxTypes.API.FindAll.FilterID
+            };
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxTypes.API.FindAll.Url + LanguageCtrl.ePage.Masters.Application.ActiveApplication.PK, _input).then(function (response) {
                 if (response.data.Response) {
                     LanguageCtrl.ePage.Masters.Module.ListSource = response.data.Response;
 
@@ -114,10 +138,12 @@
         function OnModuleChange($item) {
             LanguageCtrl.ePage.Masters.Module.ActiveModule = angular.copy($item);
 
-            if (LanguageCtrl.ePage.Masters.Module.ActiveModule && LanguageCtrl.ePage.Masters.LanguageCode.ActiveLanguageCode) {
+            if (LanguageCtrl.ePage.Masters.Module.ActiveModule) {
                 GetLanguageList();
                 LanguageCtrl.ePage.Masters.LanguageCode.IsLanguageCodeChanged = true;
             }
+
+
         }
 
         // ========================Module End========================
@@ -138,10 +164,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.CfxTypes.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.CfxTypes.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.CfxTypes.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxTypes.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
                 if (response.data.Response) {
                     LanguageCtrl.ePage.Masters.LanguageCode.ListSource = response.data.Response;
 
@@ -166,11 +192,6 @@
             }
 
             LanguageCtrl.ePage.Masters.LanguageCode.ActiveLanguageCode.LanguageCodeCopy = _keyCopy;
-
-            if (LanguageCtrl.ePage.Masters.Module.ActiveModule && LanguageCtrl.ePage.Masters.LanguageCode.ActiveLanguageCode && !LanguageCtrl.ePage.Masters.LanguageCode.IsLanguageCodeChanged) {
-                GetLanguageList();
-                LanguageCtrl.ePage.Masters.LanguageCode.IsLanguageCodeChanged = true;
-            }
         }
 
         // ========================Language Code End========================
@@ -188,16 +209,16 @@
         function GetLanguageList() {
             LanguageCtrl.ePage.Masters.Language.ListSource = undefined;
             var _filter = {
-                "SAP_FK": LanguageCtrl.ePage.Masters.QueryString.AppPk,
+                "SAP_FK": LanguageCtrl.ePage.Masters.Application.ActiveApplication.PK,
                 "TenantCode": authService.getUserInfo().TenantCode,
-                "ModuleCode": LanguageCtrl.ePage.Masters.Module.ActiveModule.Module
+                "ModuleCode": LanguageCtrl.ePage.Masters.Module.ActiveModule.Key
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.Multilingual.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.Multilingual.API.FindAll.FilterID
             };
 
-            apiService.post("authAPI", appConfig.Entities.Multilingual.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("authAPI", trustCenterConfig.Entities.API.Multilingual.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     LanguageCtrl.ePage.Masters.Language.ListSource = response.data.Response;
                 } else {
@@ -222,9 +243,9 @@
             _input.ModuleCode = LanguageCtrl.ePage.Masters.Module.ActiveModule.Module;
             _input.IsModified = true;
 
-            apiService.post("authAPI", appConfig.Entities.Multilingual.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
+            apiService.post("authAPI", trustCenterConfig.Entities.API.Multilingual.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
                 if (response.data.Response) {
-                     LanguageCtrl.ePage.Masters.Language.ListSource[$index] = response.data.Response[0];
+                    LanguageCtrl.ePage.Masters.Language.ListSource[$index] = response.data.Response[0];
                     $item.IsDisableSave = false;
                     toastr.success("Saved Successfully...!");
                 } else {
@@ -256,7 +277,7 @@
                 var _input = angular.copy($item);
                 _input.IsDeleted = true;
 
-                apiService.post("authAPI", appConfig.Entities.Multilingual.API.Upsert.Url, [_input]).then(function (response) {
+                apiService.post("authAPI", trustCenterConfig.Entities.API.Multilingual.API.Upsert.Url, [_input]).then(function (response) {
                     if (response.data.Response) {
                         LanguageCtrl.ePage.Masters.Language.ListSource.splice($index, 1);
                         $item.IsDisableDelete = false;
@@ -269,7 +290,16 @@
         }
 
         function RedirectToAppSetting() {
-            var _queryString = LanguageCtrl.ePage.Masters.QueryString;
+            if (LanguageCtrl.ePage.Masters.Application.ActiveApplication) {
+                var _queryString = {
+                    "AppPk": LanguageCtrl.ePage.Masters.Application.ActiveApplication.PK,
+                    "AppCode": LanguageCtrl.ePage.Masters.Application.ActiveApplication.AppCode,
+                    "AppName": LanguageCtrl.ePage.Masters.Application.ActiveApplication.AppName
+                };
+            } else {
+                var _queryString = LanguageCtrl.ePage.Masters.QueryString;
+            }
+
             _queryString.EntitySource = "LANGUAGE";
             _queryString.ModuleCode = LanguageCtrl.ePage.Masters.Module.ActiveModule.Module;
             _queryString.BreadcrumbTitle = "Language";

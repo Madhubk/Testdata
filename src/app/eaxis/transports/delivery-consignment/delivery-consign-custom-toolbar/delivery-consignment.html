@@ -1,0 +1,78 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="DeliveryConsignToolBarCtrl.ePage.Masters.CloseEditActivityModal()">&times;</button>
+    <h5 class="modal-title" id="modal-title">
+        <strong>Consignment Details</strong>
+    </h5>
+</div>
+<div class="clearfix">
+    <div class="col-lg-12">
+        <div class="clearfix form-group">
+            <label class="control-label text-single-line">Consignment Number</label>
+            <div class="">
+                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" readonly="" placeholder="Consignment Number"
+                    data-ng-model="DeliveryConsignToolBarCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ConsignmentNumber">
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="clearfix form-group">
+            <label class="control-label text-single-line">Sender</label>
+            <div class="">
+                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" readonly="" placeholder="Sender"
+                    data-ng-model="DeliveryConsignToolBarCtrl.ePage.Masters.Sender">
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="clearfix form-group">
+            <label class="control-label text-single-line">Receiver</label>
+            <div class="">
+                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" readonly="" placeholder="Receiver"
+                    data-ng-model="DeliveryConsignToolBarCtrl.ePage.Masters.Receiver">
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="clearfix form-group">
+            <label class="control-label text-single-line">Pickup Carrier</label>
+            <div class="">
+                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" readonly="" placeholder="Pickup Carrier"
+                    data-ng-model="DeliveryConsignToolBarCtrl.ePage.Masters.PickupCarrier">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12">
+        <div class="form-group">
+            <label class="control-label text-single-line">Actual Delivery Date</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{DeliveryConsignToolBarCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    datetime-picker="{{DeliveryConsignToolBarCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" ng-model="DeliveryConsignToolBarCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ActualDeliveryDateTime"
+                    is-open="DeliveryConsignToolBarCtrl.ePage.Masters.DatePicker.isOpen['isActualDeliveryDateTime']" datepicker-options="DeliveryConsignToolBarCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-date="true" enable-time="false" default-date=""
+                    default-time="" when-closed="DeliveryConsignToolBarCtrl.ePage.Masters.onchangeEDD(DeliveryConsignToolBarCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ActualDeliveryDateTime)"
+                    save-as="DeliveryConsignToolBarCtrl.ePage.Masters.DatePicker.Options.saveFormat" popup-placement="bottom-right"
+                    data-ng-click="DeliveryConsignToolBarCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isActualDeliveryDateTime')"
+                    ng-change='' custom-date-time-format/>
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" data-ng-click="DeliveryConsignToolBarCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'ActualDeliveryDateTime')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="clearfix form-group">
+            <label class="control-label text-single-line">Expected Delivery Date</label>
+            <div class="">
+                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" readonly="" placeholder="Expected Pickup Date"
+                    data-ng-model="DeliveryConsignToolBarCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedDeliveryDateTime">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix col-lg-12 mt-10">
+    <input type="button" class="btn btn-primary btn-sm pull-right ml-5" data-ng-click="DeliveryConsignToolBarCtrl.ePage.Masters.Update()"
+        data-ng-disabled="DeliveryConsignToolBarCtrl.ePage.Masters.IsDisableCompleteBtn" value="{{DeliveryConsignToolBarCtrl.ePage.Masters.UpdateBtnText}}">
+</div>

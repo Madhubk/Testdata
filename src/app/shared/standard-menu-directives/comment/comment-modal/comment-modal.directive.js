@@ -5,15 +5,29 @@
         .module("Application")
         .directive("commentModal", CommentModal);
 
-    CommentModal.$inject = ["$uibModal"];
+    CommentModal.$inject = ["$uibModal", "$templateCache"];
 
-    function CommentModal($uibModal) {
+    function CommentModal($uibModal, $templateCache) {
+        var _template = `<div class="modal-header">
+            <button type="button" class="close" ng-click="CommentModalCtrl.ePage.Masters.Close()">&times;</button>
+            <h5 class="modal-title" id="modal-title">
+                <strong>Comment</strong>
+            </h5>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <comment input="input" mode="mode" type="type" config="config" list-source="listSource"></comment>
+        </div>`;
+        $templateCache.put("CommentModal.html", _template);
+
         var exports = {
             restrict: "EA",
             scope: {
                 input: "=",
+                config: "=",
                 mode: "=",
-                type: "="
+                type: "=",
+                listSource: "=",
+                onCloseModal: "&"
             },
             link: Link
         };
@@ -29,7 +43,7 @@
                     keyboard: true,
                     windowClass: "right comment",
                     scope: scope,
-                    templateUrl: "app/shared/standard-menu-directives/comment/comment-modal/comment-modal.html",
+                    templateUrl: "CommentModal.html",
                     controller: 'CommentModalController as CommentModalCtrl',
                     bindToController: true,
                     resolve: {
@@ -42,7 +56,13 @@
                     }
                 }).result.then(function (response) {
                     console.log(response);
+                    scope.onCloseModal({
+                        $item: "comment"
+                    });
                 }, function () {
+                    scope.onCloseModal({
+                        $item: "comment"
+                    });
                     console.log("Cancelled");
                 });
             }

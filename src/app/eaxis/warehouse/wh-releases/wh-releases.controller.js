@@ -23,6 +23,7 @@
             ReleaseCtrl.ePage.Masters.dataentryName = "WarehouseRelease";
             ReleaseCtrl.ePage.Masters.taskName = "WarehouseRelease";
             ReleaseCtrl.ePage.Masters.TabList = [];
+            releaseConfig.TabList = [];
             ReleaseCtrl.ePage.Masters.activeTabIndex = 0;
             ReleaseCtrl.ePage.Masters.isNewClicked = false;
             ReleaseCtrl.ePage.Masters.IsTabClick = false;

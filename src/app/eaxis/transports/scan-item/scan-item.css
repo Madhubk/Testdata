@@ -24,12 +24,18 @@
     margin-bottom: 20px;
     position: relative;
     border: 1px solid #f0f0f0;
+    height: 140px;
 }
+
 
 .card .content {
     padding: 10px 0px 0px 0px;
+    height: 100px;
 }
 
+.height-45{
+    height: 45px;
+}
 
 .card .footer {
     padding: 0;
@@ -46,10 +52,10 @@
 }
 
 .fs-10{
-	style="font-size: 10.5px;"
+	font-size: 10.5px;
 }
 .attachlink{
-	background-color: #8be6e8;
+	background-color: #5db2ff;
 	color:  white;
 	margin-top:  -10px;
 	    padding: 5px 5px 5px 15px;
@@ -91,7 +97,7 @@
     box-shadow: 1px 1px 5px #ccc;
 }
 
-.header {
+.headers {
     font-size: 12px;
     font-weight: normal;
     text-transform: uppercase;
@@ -101,7 +107,7 @@
     background: #f5f5f5;
 }
 
-.bordered-yellow {
+.bordered-aqua {
     border-color: rgb(45, 195, 232) !important;
 }
 
@@ -113,7 +119,7 @@
     text-shadow: none;
 }
 
-.yellow {
+.aqua {
     color: rgb(45, 195, 232) !important;
 }
 
@@ -151,7 +157,7 @@
     margin: 15px;
 }
 
-.bg-yellow {
+.bg-aqua {
     background-color: rgb(45, 195, 232) !important;
 }
 
@@ -163,4 +169,7 @@
     font-size: 12px;
     margin-left: 12px;
 }
-    
+.chosen-container-multi>.chosen-choices{
+    background-image: none !important;
+    border-color: #d5d5d5 !important;
+}

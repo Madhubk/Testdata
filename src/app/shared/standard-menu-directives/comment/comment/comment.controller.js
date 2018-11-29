@@ -20,9 +20,13 @@
                 "Entities": CommentCtrl.input
             };
 
+            (CommentCtrl.config) ? CommentCtrl.Config = CommentCtrl.config: CommentCtrl.Config = {};
+
             if (CommentCtrl.ePage.Entities) {
                 InitComments();
             }
+
+           
         }
 
         function InitComments() {
@@ -35,14 +39,15 @@
             InitListView();
             InitReadView();
             InitEditView();
-            InitSideBar();
 
-            if (CommentCtrl.mode == "1") {
+            if (CommentCtrl.mode != "2") {
+                InitSideBar();
                 GetCommentsFilterList();
             }
         }
 
         function GetCommentsFilterList() {
+            CommentCtrl.ePage.Masters.Comments.CommentTypeList = undefined;
             var _filter = {
                 "EntitySource": "CONFIGURATION",
                 "SourceEntityRefKey": "JobComments",
@@ -56,34 +61,49 @@
             apiService.post("eAxisAPI", appConfig.Entities.AppSettings.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
-                        var _response = response.data.Response[0];
-                        if (!_response.Value) {
-                            _response.Value = "General";
-                        }
-                        GetCommentsDescription(_response.Value);
-                    }else{
-                        GetCommentsDescription("General");
+                        CommentCtrl.ePage.Masters.Comments.CommentTypeList = response.data.Response[0].Value;
+                        GetCommentsDescription(response.data.Response[0].Value);
+                    } else {
+                        var _commentTypeList = [{
+                            TypeCode: "ALL",
+                            Value: "All",
+                            Key: "All"
+                        }, {
+                            TypeCode: "GEN",
+                            Value: "General",
+                            Key: "General"
+                        }];
+                        CommentCtrl.ePage.Masters.Comments.CommentDescriptionList = _commentTypeList;
+
+                        CommentCtrl.ePage.Masters.Comments.CommentTypeList = "GEN";
+
+                        OnSideBarListClick(CommentCtrl.ePage.Masters.Comments.CommentDescriptionList[0]);
                     }
                 }
             });
         }
 
         function GetCommentsDescription($item) {
+            CommentCtrl.ePage.Masters.Comments.CommentDescriptionList = undefined;
             var _filter = {
-                TypeCode: "COMT_DESC",
-                Key: $item
+                TypeCode: $item,
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.CfxTypes.API.FindAll.FilterID
+                "FilterID": appConfig.Entities.MstCommentType.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.CfxTypes.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
+            apiService.post("eAxisAPI", appConfig.Entities.MstCommentType.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     var _list = response.data.Response;
+                    if (!_list) {
+                        _list = [];
+                    }
+
                     var _obj = {
-                        Description: "All",
-                        Value: "All"
+                        TypeCode: "ALL",
+                        Value: "All",
+                        Key: "All"
                     };
 
                     _list.push(_obj);
@@ -105,12 +125,14 @@
             CommentCtrl.ePage.Masters.Comments.ListView.ActiveComment = {};
 
             if ($item) {
-                CommentCtrl.ePage.Masters.Comments.ListView.ActiveComment.Description = $item.Key;
+                CommentCtrl.ePage.Masters.Comments.ListView.ActiveComment.CommentsType = $item.TypeCode;
+                CommentCtrl.ePage.Masters.Comments.ListView.ActiveComment.Description = $item.Value;
                 if (CommentCtrl.ePage.Masters.Comments.SideBar.ActiveMenu.Value != $item.Value) {
                     OnSideBarListClick($item);
                 }
             } else {
-                CommentCtrl.ePage.Masters.Comments.ListView.ActiveComment.Description = CommentCtrl.type;
+                CommentCtrl.ePage.Masters.Comments.ListView.ActiveComment.CommentsType = CommentCtrl.type.CommentsType;
+                CommentCtrl.ePage.Masters.Comments.ListView.ActiveComment.Description = CommentCtrl.type.Value;
             }
         }
 
@@ -122,7 +144,7 @@
         }
 
         function OnSideBarListClick($item) {
-            CommentCtrl.ePage.Masters.Comments.SideBar.ActiveMenu = $item;
+            CommentCtrl.ePage.Masters.Comments.SideBar.ActiveMenu = angular.copy($item);
 
             GetCommentsList();
         }
@@ -149,21 +171,31 @@
                 "EntityRefCode": CommentCtrl.ePage.Entities.EntityRefCode
             };
 
-            if (CommentCtrl.mode == "2") {
-                _filter.Description = CommentCtrl.type;
-            } else {
+            if (CommentCtrl.mode == "1") {
                 if (CommentCtrl.ePage.Masters.Comments.SideBar.ActiveMenu) {
-                    _filter.Description = CommentCtrl.ePage.Masters.Comments.SideBar.ActiveMenu.Key;
+                    if (CommentCtrl.ePage.Masters.Comments.SideBar.ActiveMenu.TypeCode != "ALL") {
+                        _filter.CommentsType = CommentCtrl.ePage.Masters.Comments.SideBar.ActiveMenu.TypeCode;
+                    }
+                }
+            } else if (CommentCtrl.mode == "2") {
+                _filter.CommentsType = CommentCtrl.type.CommentsType;
+            } else if (CommentCtrl.mode == "3") {
+                if (CommentCtrl.ePage.Masters.Comments.SideBar.ActiveMenu) {
+                    if (CommentCtrl.ePage.Masters.Comments.SideBar.ActiveMenu.TypeCode == "ALL") {
+                        _filter.CommentsType = CommentCtrl.ePage.Masters.Comments.CommentTypeList;
+                    } else {
+                        _filter.CommentsType = CommentCtrl.ePage.Masters.Comments.SideBar.ActiveMenu.TypeCode;
+                    }
                 }
             }
 
-            if (CommentCtrl.ePage.Entities.ParentEntityRefKey) {
+            if (CommentCtrl.ePage.Entities.ParentEntityRefKey && CommentCtrl.ePage.Entities.IsDisableParentEntity != true) {
                 _filter.ParentEntityRefKey = CommentCtrl.ePage.Entities.ParentEntityRefKey;
                 _filter.ParentEntitySource = CommentCtrl.ePage.Entities.ParentEntitySource;
                 _filter.ParentEntityRefCode = CommentCtrl.ePage.Entities.ParentEntityRefCode;
             }
 
-            if (CommentCtrl.ePage.Entities.AdditionalEntityRefKey) {
+            if (CommentCtrl.ePage.Entities.AdditionalEntityRefKey && CommentCtrl.ePage.Entities.IsDisableAdditionalEntity != true) {
                 _filter.AdditionalEntityRefKey = CommentCtrl.ePage.Entities.AdditionalEntityRefKey;
                 _filter.AdditionalEntitySource = CommentCtrl.ePage.Entities.AdditionalEntitySource;
                 _filter.AdditionalEntityRefCode = CommentCtrl.ePage.Entities.AdditionalEntityRefCode;
@@ -171,12 +203,13 @@
 
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.JobComments.API.FindAll.FilterID
+                "FilterID": appConfig.Entities.JobComments.API.FindAllWithAccess.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.JobComments.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", appConfig.Entities.JobComments.API.FindAllWithAccess.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
                 if (response.data.Response) {
                     CommentCtrl.ePage.Masters.Comments.ListView.ListSource = response.data.Response;
+                    CommentCtrl.listSource = CommentCtrl.ePage.Masters.Comments.ListView.ListSource;
                 } else {
                     CommentCtrl.ePage.Masters.Comments.ListView.ListSource = [];
                 }
@@ -189,10 +222,9 @@
 
         function OnListViewClick($item) {
             CommentCtrl.ePage.Masters.Comments.ListView.ActiveComment = angular.copy($item);
-
             if (CommentCtrl.mode == "1") {
                 PrepareGroupMapping();
-            }else{
+            } else {
                 CommentCtrl.ePage.Masters.Comments.ViewMode = "Read";
             }
         }
@@ -202,33 +234,38 @@
 
             $timeout(function () {
                 CommentCtrl.ePage.Masters.Comments.ReadView.GroupMapping = {
-                    "MappingCode": "COMT_GRUP_APP_TNT",
+                    "MappingCode": "CMNT_GRUP_APP_TNT",
                     "Item_FK": CommentCtrl.ePage.Masters.Comments.ListView.ActiveComment.PK,
-                    "ItemCode": CommentCtrl.ePage.Masters.Comments.ListView.ActiveComment.Description,
+                    "ItemCode": CommentCtrl.ePage.Masters.Comments.ListView.ActiveComment.CommentsType,
                     "ItemName": "GRUP",
                     "Title": " Group Access",
+                    "MappingAPI": {
+                        "API":"eAxisAPI",
+                        "FilterID":"JOCOAC",
+                        "FindAll":appConfig.Entities.JobCommentsAccess.API.FindAll.Url,
+                        "Insert":appConfig.Entities.JobCommentsAccess.API.Insert.Url,
+                        "Update":appConfig.Entities.JobCommentsAccess.API.Update.Url,
+                        "Delete":appConfig.Entities.JobCommentsAccess.API.Delete.Url
+                    },
                     "AccessTo": {
                         "Type": "COMMENT",
-                        "API": "authAPI",
-                        "APIUrl": "SecMappings/FindAll",
-                        "FilterID": "SECMAPP",
+                        "API": "eAxisAPI",
+                        "APIUrl": "JobComments/CommentsTypeAccess",
                         "TextField": "ItemCode",
                         "ValueField": "Item_FK",
-                        "Input": [{
-                            "FieldName": "AccessCode",
-                            "Value": CommentCtrl.ePage.Masters.Comments.ListView.ActiveComment.Description
-                        }, {
-                            "FieldName": "MappingCode",
-                            "Value": "GRUP_CTYP_APP_TNT"
-                        }, {
-                            "FieldName": "AppCode",
-                            "Value": authService.getUserInfo().AppCode
-                        }, {
-                            "FieldName": "TenantCode",
-                            "Value": authService.getUserInfo().TenantCode
-                        }]
+                        "Input": {
+                            "PartyTypeCode": CommentCtrl.ePage.Masters.Comments.ListView.ActiveComment.PartyType_Code,
+                            "PartyTypeRefKey": CommentCtrl.ePage.Masters.Comments.ListView.ActiveComment.PartyType_FK,
+                            "StandardType": CommentCtrl.ePage.Masters.Comments.ListView.ActiveComment.CommentsType,
+                            "ParentRefKey": CommentCtrl.ePage.Masters.Comments.ListView.ActiveComment.EntityRefKey,
+                            "ParentRefCode":CommentCtrl.ePage.Masters.Comments.ListView.ActiveComment.EntityRefCode,
+                            "ParentSource":CommentCtrl.ePage.Masters.Comments.ListView.ActiveComment.EntitySource,
+                            "MappingCode": "GRUP_CTYP_APP_TNT",
+                            "IsroleInclude":"True"
+                        }
                     }
                 };
+
                 CommentCtrl.ePage.Masters.Comments.ViewMode = "Read";
             });
         }
@@ -287,14 +324,23 @@
 
         function InsertComments() {
             var _input = angular.copy(CommentCtrl.ePage.Masters.Comments.ListView.ActiveComment);
-
             _input.EntityRefKey = CommentCtrl.ePage.Entities.EntityRefKey;
             _input.EntitySource = CommentCtrl.ePage.Entities.EntitySource;
             _input.EntityRefCode = CommentCtrl.ePage.Entities.EntityRefCode;
-            _input.CommentsType = "PUB";
+
+            if (CommentCtrl.mode != "2") {
+                _input.PartyType_FK = CommentCtrl.ePage.Masters.Comments.SideBar.ActiveMenu.PartyType_FK;
+                _input.PartyType_Code = CommentCtrl.ePage.Masters.Comments.SideBar.ActiveMenu.PartyType_Code;
+                _input.CommentsType = CommentCtrl.ePage.Masters.Comments.SideBar.ActiveMenu.TypeCode;
+                _input.Description = CommentCtrl.ePage.Masters.Comments.SideBar.ActiveMenu.Value;
+            }
 
             if (CommentCtrl.mode == "2") {
-                _input.Description = CommentCtrl.type;
+                _input.Description = CommentCtrl.input.Description;
+                _input.PartyType_FK = CommentCtrl.input.PartyType_FK;
+                _input.PartyType_Code = CommentCtrl.input.PartyType_Code;
+                _input.CommentsType = CommentCtrl.input.CommentsType;
+                _input.Description = CommentCtrl.input.Value;
             }
 
             if (CommentCtrl.ePage.Entities.ParentEntityRefKey) {

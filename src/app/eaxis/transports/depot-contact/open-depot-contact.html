@@ -1,0 +1,305 @@
+<div class="modal-header">
+    <div class="col-lg-9 no-padding">
+        <h5 class="modal-title" id="modal-title">
+            <strong>Edit Depot Contact - {{DepotContactCtrl.ePage.Masters.Details[DepotContactCtrl.ePage.Masters.selectedRow].Depot}}</strong>
+        </h5>
+    </div>
+    <div class="col-lg-3">
+        <button type="button" class="close" ng-click="DepotContactCtrl.ePage.Masters.CloseEditActivityModal()">&times;</button>
+        <button type="button" class="btn btn-default" ng-click="DepotContactCtrl.ePage.Masters.Save()">
+            <i class="fa fa-floppy-o" aria-hidden="true"></i>
+        </button>
+    </div>
+</div>
+<div class="clearfix mt-10" style="padding: 5px;">
+    <div class="card-edit-box">
+        <div class="card-edit-header col-lg-12">
+            <div class="col-lg-6 bordered-right">Level Load Details</div>
+            <div class="col-lg-6">National Load Details</div>
+        </div>
+        <div class="card-edit-body col-lg-12">
+            <div class="col-lg-6 bordered-right">
+                <div class="col-lg-12 no-padding mt-10">
+                    <div class="col-lg-6 mt-10">
+                        <span>Enable Auto Plan</span>
+                    </div>
+                    <div class="col-lg-6 no-padding">
+                        <div class="col-lg-12 no-padding">
+                            <div class=" col-lg-6 no-padding">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" value="1" ng-model="DepotContactCtrl.ePage.Masters.Details[DepotContactCtrl.ePage.Masters.selectedRow].LevelLoadDetails.EnableAutoPlan">
+                                        <span class="text">True</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 no-padding">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" value="0" ng-model="DepotContactCtrl.ePage.Masters.Details[DepotContactCtrl.ePage.Masters.selectedRow].LevelLoadDetails.EnableAutoPlan">
+                                        <span class="text"> False</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 no-padding mt-10">
+                    <div class="col-lg-6">
+                        <span>Plan Last Processed</span>
+                    </div>
+                    <div class="col-lg-6 no-padding">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" placeholder="{{DepotContactCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datetime-picker="{{DepotContactCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                ng-model="DepotContactCtrl.ePage.Masters.Details[DepotContactCtrl.ePage.Masters.selectedRow].LevelLoadDetails.PlanLastProcessed"
+                                is-open="DepotContactCtrl.ePage.Masters.DatePicker.isOpen['isPlanLastProcessed']" datepicker-options="DepotContactCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-date="true" enable-time="false"
+                                default-date="" default-time="" when-closed="" save-as="DepotContactCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                popup-placement="bottom-right" data-ng-click="DepotContactCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPlanLastProcessed')"
+                                ng-change='' custom-date-time-format/>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" data-ng-click="DepotContactCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPlanLastProcessed')">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 no-padding mt-10">
+                    <div class="col-lg-6">
+                        <span>Plan Working Days</span>
+                        </br>
+                        <span class="fs-10"> (in Advance)</span>
+                    </div>
+                    <div class="col-lg-6 no-padding">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" placeholder="{{DepotContactCtrl.ePage.Masters.DatePicker.Options.timeFormat}}" datetime-picker="{{DepotContactCtrl.ePage.Masters.DatePicker.Options.timeFormat}}"
+                                ng-model="DepotContactCtrl.ePage.Masters.Details[DepotContactCtrl.ePage.Masters.selectedRow].LevelLoadDetails.PlanWorkingDays"
+                                is-open="DepotContactCtrl.ePage.Masters.DatePicker.isOpen['isPlanWorkingDays']" datepicker-append-to-body="false"
+                                close-on-selection="false" enable-date="false" enable-time="true" timepicker-options="true" default-date=""
+                                default-time="" when-closed="" save-as="DepotContactCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                popup-placement="bottom-right" data-ng-click="DepotContactCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPlanWorkingDays')"
+                                ng-change='' custom-date-time-format/>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" data-ng-click="DepotContactCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPlanWorkingDays')">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 no-padding mt-10">
+                    <div class="col-lg-6 mt-10">
+                        <span>Enable Auto Commit</span>
+                    </div>
+                    <div class="col-lg-6 no-padding">
+                        <div class="col-lg-12 no-padding">
+                            <div class=" col-lg-6 no-padding">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" value="1" ng-model="DepotContactCtrl.ePage.Masters.Details[DepotContactCtrl.ePage.Masters.selectedRow].LevelLoadDetails.EnableAutoCommit">
+                                        <span class="text">True</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 no-padding">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" value="0" ng-model="DepotContactCtrl.ePage.Masters.Details[DepotContactCtrl.ePage.Masters.selectedRow].LevelLoadDetails.EnableAutoCommit">
+                                        <span class="text"> False</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 no-padding mt-10">
+                    <div class="col-lg-6">
+                        <span>Commit Date Time</span>
+                    </div>
+                    <div class="col-lg-6 no-padding">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" placeholder="{{DepotContactCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datetime-picker="{{DepotContactCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                ng-model="DepotContactCtrl.ePage.Masters.Details[DepotContactCtrl.ePage.Masters.selectedRow].LevelLoadDetails.CommitLastProcessed"
+                                is-open="DepotContactCtrl.ePage.Masters.DatePicker.isOpen['isCommitLastProcessed']" datepicker-options="DepotContactCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-date="true" enable-time="false"
+                                default-date="" default-time="" when-closed="" save-as="DepotContactCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                popup-placement="bottom-right" data-ng-click="DepotContactCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCommitLastProcessed')"
+                                ng-change='' custom-date-time-format/>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" data-ng-click="DepotContactCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCommitLastProcessed')">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 no-padding mt-10">
+                    <div class="col-lg-6">
+                        <span>Commit Working Days</span>
+                        </br>
+                        <span class="fs-10"> (in Advance)</span>
+                    </div>
+                    <div class="col-lg-6 no-padding">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" placeholder="{{DepotContactCtrl.ePage.Masters.DatePicker.Options.timeFormat}}" datetime-picker="{{DepotContactCtrl.ePage.Masters.DatePicker.Options.timeFormat}}"
+                                ng-model="DepotContactCtrl.ePage.Masters.Details[DepotContactCtrl.ePage.Masters.selectedRow].LevelLoadDetails.CommitWorkingDays"
+                                is-open="DepotContactCtrl.ePage.Masters.DatePicker.isOpen['isCommitWorkingDays']" datepicker-options="DepotContactCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-date="false" enable-time="true"
+                                default-date="" default-time="" when-closed="" save-as="DepotContactCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                popup-placement="bottom-right" data-ng-click="DepotContactCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCommitWorkingDays')"
+                                ng-change='' custom-date-time-format/>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" data-ng-click="DepotContactCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCommitWorkingDays')">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 mt-10"></div>
+            </div>
+            <div class="col-lg-6">
+                <div class="col-lg-12 no-padding mt-10">
+                    <div class="col-lg-6 mt-10">
+                        <span>Enable Auto Plan</span>
+                    </div>
+                    <div class="col-lg-6 no-padding">
+                        <div class="col-lg-12 no-padding">
+                            <div class=" col-lg-6 no-padding">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" value="1" ng-model="DepotContactCtrl.ePage.Masters.Details[DepotContactCtrl.ePage.Masters.selectedRow].NationalLoadDetails.EnableAutoPlan">
+                                        <span class="text">True</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 no-padding">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" value="0" ng-model="DepotContactCtrl.ePage.Masters.Details[DepotContactCtrl.ePage.Masters.selectedRow].NationalLoadDetails.EnableAutoPlan">
+                                        <span class="text"> False</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 no-padding mt-10">
+                    <div class="col-lg-6">
+                        <span>Plan Last Processed</span>
+                    </div>
+                    <div class="col-lg-6 no-padding">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" placeholder="{{DepotContactCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datetime-picker="{{DepotContactCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                ng-model="DepotContactCtrl.ePage.Masters.Details[DepotContactCtrl.ePage.Masters.selectedRow].NationalLoadDetails.PlanLastProcessed"
+                                is-open="DepotContactCtrl.ePage.Masters.DatePicker.isOpen['isPlanLastProcessed']" datepicker-options="DepotContactCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-date="true" enable-time="false"
+                                default-date="" default-time="" when-closed="" save-as="DepotContactCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                popup-placement="bottom-right" data-ng-click="DepotContactCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPlanLastProcessed')"
+                                ng-change='' custom-date-time-format/>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" data-ng-click="DepotContactCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPlanLastProcessed')">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 no-padding mt-10">
+                    <div class="col-lg-6">
+                        <span>Plan Working Days</span>
+                        </br>
+                        <span class="fs-10"> (in Advance)</span>
+                    </div>
+                    <div class="col-lg-6 no-padding">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" placeholder="{{DepotContactCtrl.ePage.Masters.DatePicker.Options.timeFormat}}" datetime-picker="{{DepotContactCtrl.ePage.Masters.DatePicker.Options.timeFormat}}"
+                                ng-model="DepotContactCtrl.ePage.Masters.Details[DepotContactCtrl.ePage.Masters.selectedRow].NationalLoadDetails.PlanWorkingDays"
+                                is-open="DepotContactCtrl.ePage.Masters.DatePicker.isOpen['isPlanWorkingDays']" datepicker-options="DepotContactCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-date="false" enable-time="true"
+                                default-date="" default-time="" when-closed="" save-as="DepotContactCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                popup-placement="bottom-right" data-ng-click="DepotContactCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPlanWorkingDays')"
+                                ng-change='' custom-date-time-format/>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" data-ng-click="DepotContactCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPlanWorkingDays')">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 no-padding mt-10">
+                    <div class="col-lg-6 mt-10">
+                        <span>Enable Auto Commit</span>
+                    </div>
+                    <div class="col-lg-6 no-padding">
+                        <div class="col-lg-12 no-padding">
+                            <div class=" col-lg-6 no-padding">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" value="1" ng-model="DepotContactCtrl.ePage.Masters.Details[DepotContactCtrl.ePage.Masters.selectedRow].NationalLoadDetails.EnableAutoCommit">
+                                        <span class="text">True</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 no-padding">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" value="0" ng-model="DepotContactCtrl.ePage.Masters.Details[DepotContactCtrl.ePage.Masters.selectedRow].NationalLoadDetails.EnableAutoCommit">
+                                        <span class="text"> False</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 no-padding mt-10">
+                    <div class="col-lg-6">
+                        <span>Commit Date Time</span>
+                    </div>
+                    <div class="col-lg-6 no-padding">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" placeholder="{{DepotContactCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datetime-picker="{{DepotContactCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                ng-model="DepotContactCtrl.ePage.Masters.Details[DepotContactCtrl.ePage.Masters.selectedRow].NationalLoadDetails.CommitLastProcessed"
+                                is-open="DepotContactCtrl.ePage.Masters.DatePicker.isOpen['isCommitLastProcessed']" datepicker-options="DepotContactCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-date="true" enable-time="false"
+                                default-date="" default-time="" when-closed="" save-as="DepotContactCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                popup-placement="bottom-right" data-ng-click="DepotContactCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCommitLastProcessed')"
+                                ng-change='' custom-date-time-format/>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" data-ng-click="DepotContactCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCommitLastProcessed')">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 no-padding mt-10">
+                    <div class="col-lg-6">
+                        <span>Commit Working Days</span>
+                        </br>
+                        <span class="fs-10"> (in Advance)</span>
+                    </div>
+                    <div class="col-lg-6 no-padding">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" placeholder="{{DepotContactCtrl.ePage.Masters.DatePicker.Options.timeFormat}}" datetime-picker="{{DepotContactCtrl.ePage.Masters.DatePicker.Options.timeFormat}}"
+                                ng-model="DepotContactCtrl.ePage.Masters.Details[DepotContactCtrl.ePage.Masters.selectedRow].NationalLoadDetails.CommitWorkingDays"
+                                is-open="DepotContactCtrl.ePage.Masters.DatePicker.isOpen['isCommitWorkingDays']" datepicker-options="DepotContactCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-date="false" enable-time="true"
+                                default-date="" default-time="" when-closed="" save-as="DepotContactCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                popup-placement="bottom-right" data-ng-click="DepotContactCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCommitWorkingDays')"
+                                ng-change='' custom-date-time-format/>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" data-ng-click="DepotContactCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCommitWorkingDays')">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 mt-10"></div>
+            </div>
+        </div>
+    </div>
+</div>

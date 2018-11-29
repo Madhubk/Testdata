@@ -1,0 +1,100 @@
+<div class="clearfix margin-top-20">
+    <!-- PreAlert Verified -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">PreAlert Verified </label>
+            <div class="">
+                <select chosen name="category-group" class="form-control" ng-model="VerifyPreAlertEditDirCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillType"
+                    ng-options="x.Key as x.Description for x in VerifyPreAlertEditDirCtrl.ePage.Masters.DropDownMasterList.HOUSEBILL.ListSource"
+                    search-contains="true">
+                    <!-- <option value="">--Select--</option> -->
+                </select>
+            </div>
+        </div>
+    </div>
+    <!-- Shipment Type -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">Shipment Type</label>
+            <div class="">
+                <select chosen name="category-group" class="form-control" ng-model="VerifyPreAlertEditDirCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillType"
+                    ng-options="x.Key as x.Description for x in VerifyPreAlertEditDirCtrl.ePage.Masters.DropDownMasterList.HOUSEBILL.ListSource"
+                    search-contains="true">
+                    <!-- <option value="">--Select--</option> -->
+                </select>
+            </div>
+        </div>
+    </div>
+    <!-- MBL Ref No -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">MBL Ref No</label>
+            <input type="text" class="form-control input-sm" max-length="40" data-ng-model="VerifyPreAlertEditDirCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBill"
+                placeholder="MBL Ref No." />
+        </div>
+    </div>
+    <!-- Endorsement Shipment -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label"> Endorsement Shipment</label>
+            <div class="">
+                <select chosen name="category-group" class="form-control" ng-model="VerifyPreAlertEditDirCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillType"
+                    ng-options="x.Key as x.Description for x in VerifyPreAlertEditDirCtrl.ePage.Masters.DropDownMasterList.HOUSEBILL.ListSource"
+                    search-contains="true">
+                    <!-- <option value="">--Select--</option> -->
+                </select>
+            </div>
+        </div>
+    </div>
+    <!-- Product Type -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">Product Type </label>
+            <div class="">
+                <select chosen name="category-group" class="form-control" ng-model="VerifyPreAlertEditDirCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillType"
+                    ng-options="x.Key as x.Description for x in VerifyPreAlertEditDirCtrl.ePage.Masters.DropDownMasterList.PRODTYPE.ListSource"
+                    search-contains="true">
+                    <!-- <option value="">--Select--</option> -->
+                </select>
+            </div>
+        </div>
+    </div>
+    <!-- All Import Doc Received Date -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">All Import Doc Received Date</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{VerifyPreAlertEditDirCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    ng-model="VerifyPreAlertEditDirCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillIssueDate" datetime-picker="{{VerifyPreAlertEditDirCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    datepicker-options="VerifyPreAlertEditDirCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                    close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" save-as="VerifyPreAlertEditDirCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                    is-open="VerifyPreAlertEditDirCtrl.ePage.Masters.DatePicker.isOpen['isHBLContIssueDate']" when-closed=""
+                    data-ng-click="" data-ng-change="" custom-date-time-format />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" type="button" data-ng-click="VerifyPreAlertEditDirCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isHBLContIssueDate')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- PreAlert ETA -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">PreAlert ETA</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{VerifyPreAlertEditDirCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    ng-model="VerifyPreAlertEditDirCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillIssueDate" datetime-picker="{{VerifyPreAlertEditDirCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    datepicker-options="VerifyPreAlertEditDirCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                    close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" save-as="VerifyPreAlertEditDirCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                    is-open="VerifyPreAlertEditDirCtrl.ePage.Masters.DatePicker.isOpen['isHBLContIssueDate']" when-closed=""
+                    data-ng-click="" data-ng-change="" custom-date-time-format />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" type="button" data-ng-click="VerifyPreAlertEditDirCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isHBLContIssueDate')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

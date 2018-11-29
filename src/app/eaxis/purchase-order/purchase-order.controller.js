@@ -5,9 +5,9 @@
         .module("Application")
         .controller("PurchaseOrderController", PurchaseOrderController);
 
-    PurchaseOrderController.$inject = ["authService", "helperService"];
+    PurchaseOrderController.$inject = ["helperService"];
 
-    function PurchaseOrderController(authService, helperService) {
+    function PurchaseOrderController(helperService) {
         /* jshint validthis: true */
         var PurchaseOrderCtrl = this;
 
@@ -19,8 +19,6 @@
                 "Meta": helperService.metaBase(),
                 "Entities": {}
             };
-
-            PurchaseOrderCtrl.ePage.Masters.MenuVisibleType = authService.getUserInfo().Menu.VisibleType;
         }
 
         Init();

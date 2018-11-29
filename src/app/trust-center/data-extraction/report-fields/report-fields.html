@@ -1,0 +1,515 @@
+<div class="clearfix tc-data-extraction-ReportFields-container">
+    <!-- Breadcrumb -->
+    <div class="clearfix tc-breadcrumb" data-ng-if="DataExtReportFieldsCtrl.ePage.Masters.ActiveApplication == 'TC'">
+        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-xs-12 p-0">
+            <i class="fa fa-home home-icon"></i>
+            <div class="breadcrumb-list-wrapper">
+                <ol class="breadcrumb">
+                    <li data-ng-repeat="x in DataExtReportFieldsCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                        <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="DataExtReportFieldsCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                    </li>
+                    <li data-ng-repeat="x in DataExtReportFieldsCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive"
+                        data-ng-bind="x.Description" class="active"></li>
+                </ol>
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12 p-4">
+            <tc-application-dropdown query-string="DataExtReportFieldsCtrl.ePage.Masters.QueryString"
+                on-application-change="DataExtReportFieldsCtrl.ePage.Masters.Application.OnApplicationChange($item)"></tc-application-dropdown>
+        </div>
+    </div>
+    <!-- Header -->
+    <div class="clearfix tc-header-container">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="tc-header with-add-new">
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-5">
+                    <div class="text-single-line" data-ng-bind="'Report Fields'"></div>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-5 pt-4 text-right">
+                    <button class="btn btn-xs btn-info" data-ng-click="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.AddNew()">New</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">
+            <div class="tc-header edit-view">
+                <span data-ng-bind="'Details'"></span>
+                <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10" data-ng-click="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.Edit()"
+                    data-ng-disabled="!DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.PK">Edit</button>
+                <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.Delete()"
+                    data-ng-bind="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DeleteBtnText"
+                    data-ng-disabled="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.IsDisableDeleteBtn || !DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.PK"></button>
+            </div>
+        </div>
+    </div>
+    <!-- Body -->
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 tc-page-height-fixed">
+            <div class="tc-list-container">
+                <div class="tc-list-search">
+                    <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="DataExtReportFieldsCtrl.ePage.Masters.Search">
+                </div>
+                <ul class="tc-list-ul">
+                    <div class="p-15 text-center tc-loading" data-ng-if="!DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsList">
+                        <i class="fa fa-spin fa-spinner"></i>
+                    </div>
+                    <div data-ng-if="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsList && (DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsList | filter: DataExtReportFieldsCtrl.ePage.Masters.Search).length===0"
+                        class="p-15 text-center">
+                        <i>No Records...</i>
+                    </div>
+                    <li data-ng-if="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsList && (DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsList | filter: DataExtReportFieldsCtrl.ePage.Masters.Search).length > 0"
+                        data-ng-repeat="x in DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsList | filter: DataExtReportFieldsCtrl.ePage.Masters.Search"
+                        data-ng-click="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.PK != x.PK && DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.OnDataExtReportFieldsClick(x)"
+                        data-ng-class="{'active': DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.PK == x.PK}">
+                        <div class="clearfix tc-list">
+                            <div class="tc-list-name">
+                                <i class="fa fa-circle-o mr-10"></i>
+                                <span class="text-single-line" data-ng-bind="x.UIEntityName"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed">
+            <div class="pt-10 pb-10 tc-details-view clearfix">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Entity Name</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.UIEntityName || DataExtReportFieldsCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Class Source</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.ClassSource || DataExtReportFieldsCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">DB Source</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.DBSource || DataExtReportFieldsCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Entity Source</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.EntitySource || DataExtReportFieldsCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Entity RefKey</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.EntityRefKey || DataExtReportFieldsCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="clearfix form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Entity RefCode</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <label data-ng-bind="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.EntityRefCode || DataExtReportFieldsCtrl.ePage.Masters.emptyText"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tc-section-divider"></div>
+            <div class="clearfix mb-30 tc-data-config-field-container tc-list-container" data-ng-if="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.PK">
+                <div class="tc-list-header ng-binding">DATA CONFIG FIELDS</div>
+                <div class="clearfix header">
+                    <!-- <div class="col-lg-3 pr-0">
+                        <div class="text-single-line" data-ng-bind="'External Code'"></div>
+                    </div> -->
+                    <!-- <div class="col-lg-4 pr-0">
+                        <div class="text-single-line" data-ng-bind="'Field Name'"></div>
+                    </div> -->
+                    <div class="col-lg-4 pr-0">
+                        <div class="text-single-line" data-ng-bind="'Display Name'"></div>
+                    </div>
+                    <div class="col-lg-4 pr-0"></div>
+
+                    <div class="col-lg-4 text-right">
+                        <!-- <span class="fa fa-plus-circle cursor-pointer" data-ng-click="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.AddNewField(undefined, 'Main')"></span> -->
+                        <a href="javascript:void(0)" data-ng-click="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.AddNewField(undefined, 'Main')">Add</a>
+                    </div>
+                </div>
+                <div class="clearfix p-5">
+                    <div class="clearfix text-center p-20" data-ng-if="!DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.DataExtReportFieldsFieldsListSource">
+                        <i class="fa fa-spin fa-spinner font-160"></i>
+                    </div>
+                    <div class="clearfix text-center p-20" data-ng-if="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.DataExtReportFieldsFieldsListSource && DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.DataExtReportFieldsFieldsListSource.length == 0">
+                        <i>No Records...!</i>
+                    </div>
+                    <div class="clearfix pt-5 pb-5" data-ng-class="{'highlight-bg' : x.ItemType == 'Main'}" data-ng-if="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.DataExtReportFieldsFieldsListSource && DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.DataExtReportFieldsFieldsListSource.length > 0"
+                        data-ng-repeat="x in DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.DataExtReportFieldsFieldsListSource | orderBy:['SortField','SortNo']">
+                        <!-- <div class="col-lg-3 pr-0" data-ng-if="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.IsExternalCode">
+                            <div class="text-single-line" data-ng-bind="x.External_Code" title="{{x.External_Code}}"></div>
+                        </div> -->
+                        <!-- <div class="col-lg-4 pr-0">
+                            <div class="text-single-line" data-ng-bind="x.DbField" title="{{x.DbField}}"></div>
+                        </div> -->
+                        <div class="col-lg-4 pr-0">
+                            <div class="text-single-line" data-ng-bind="x.UIField" title="{{x.UIField}}"></div>
+                        </div>
+                        <div class="col-lg-4 pr-0"></div>
+                        <div class="col-lg-4 text-right">
+                            <!-- <a href="javascript:void(0)" data-ng-click="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.AddNewField(x, 'Default')"
+                                data-ng-if="x.ItemType == 'Main'" title="Add">Add</a> -->
+                            <span class="ml-5 mr-5" data-ng-if="x.ItemType == 'Main'"></span>
+                            <a href="javascript:void(0)" data-ng-click="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.EditReportFieldsField(x)"
+                                title="Edit">Edit</a>
+                                <span class="ml-5 mr-5">|</span>
+                            <a href="javascript:void(0)" data-ng-click="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.Delete(x)"
+                                title="Delete">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Data ReportFields Edit -->
+<script type="text/ng-template" id="DataExtReportFieldsEdit">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.CloseDataExtReportFieldsModal()">&times;</button>
+        <h5 class="modal-title" id="modal-title">
+            <strong>Edit</strong>
+        </h5>
+    </div>
+    <div class="modal-body pt-10" id="modal-body">
+        <div class="clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group tc-autocomplete-container">
+                    <label class="control-label">Entity Name</label>
+                    <input type="text" class="form-control input-sm" placeholder="Entity Name" data-ng-model="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.UIEntityName"
+                        uib-typeahead="x.Name as x.Name for x in DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.GetTargetTableList($viewValue)"
+                        typeahead-on-select="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.OnTargetTableSelect($item, $model, $label, $event)"
+                        typeahead-loading="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.IsLoading"
+                        typeahead-editable="false" typeahead-append-to-body='false' typeahead-min-length="" />
+                    <div class="clearfix dropdown-menu auto-complete" data-ng-if="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.IsAutocompleteNoResults">
+                        <div class="auto-complete-no-result">No Results Found!</div>
+                    </div>
+                    <div class="clearfix dropdown-menu auto-complete" data-ng-if="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.IsAutocompleteLoading">
+                        <div class="auto-complete-no-result">
+                            <i class="fa fa-spin fa-spinner"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Class Source</label>
+                    <div class="clearfix">
+                        <input type="text" class="form-control input-sm" placeholder="Class Source" data-ng-model="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.ClassSource">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">DB Source</label>
+                    <div class="clearfix">
+                        <input type="text" class="form-control input-sm" placeholder="DB Source" data-ng-model="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.DBSource">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Entity Source</label>
+                    <div class="clearfix">
+                        <input type="text" class="form-control input-sm" placeholder="Entity Source" data-ng-model="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.EntitySource">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Entity RefKey</label>
+                    <select chosen class="form-control" ng-model="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.EntityRefKey"
+                        data-ng-options="x.ColumnName as x.ColumnName for x in DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.TargetFieldList"
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Entity RefCode</label>
+                    <select chosen class="form-control" ng-model="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.EntityRefCode"
+                        data-ng-options="x.ColumnName as x.ColumnName for x in DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.TargetFieldList"
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Parent Entity RefKey</label>
+                    <select chosen class="form-control" ng-model="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.ParentEntityRefKey"
+                        data-ng-options="x.ColumnName as x.ColumnName for x in DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.TargetFieldList"
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Parent Entity Source</label>
+                    <div class="clearfix">
+                        <input type="text" class="form-control input-sm" placeholder="Parent Entity Source" data-ng-model="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.ParentEntitySource">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Parent Entity RefCode</label>
+                    <select chosen class="form-control" ng-model="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.ParentEntityRefCode"
+                        data-ng-options="x.ColumnName as x.ColumnName for x in DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.TargetFieldList"
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Additional Entity RefKey</label>
+                    <select chosen class="form-control" ng-model="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.AdditionalEntityRefKey"
+                        data-ng-options="x.ColumnName as x.ColumnName for x in DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.TargetFieldList"
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Additional Entity Source</label>
+                    <div class="clearfix">
+                        <input type="text" class="form-control input-sm" placeholder="Additional Entity Source" data-ng-model="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.AdditionalEntitySource">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label class="control-label">Additional Entity RefCode</label>
+                    <select chosen class="form-control" ng-model="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.AdditionalEntityRefCode"
+                        data-ng-options="x.ColumnName as x.ColumnName for x in DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.TargetFieldList"
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+            <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="form-group">
+                    <label class="control-label">
+                        Fields
+                        <span data-ng-click="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.OpenJsonModal()" class="glyphicon glyphicon-pencil cursor-pointer ml-5"></span>
+                    </label>
+                    <div class="clearfix">
+                        <textarea rows="15" class="form-control input-sm no-resize" placeholder="Fields" data-ng-model="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.Fields"></textarea>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+        <div class="tc-section-divider-small"></div>
+        <div class="clearfix p-10">
+            <button class="btn btn-default tc-btn-save btn-xs pull-right ml-10" data-ng-click="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.Save()"
+                data-ng-bind="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.SaveBtnText" data-ng-disabled="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.IsDisableSaveBtn"></button>
+            <button class="btn btn-default tc-btn-cancel btn-xs pull-right ml-10" data-ng-click="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.CloseDataExtReportFieldsModal()">Cancel</button>
+        </div>
+        <div class="tc-section-divider-small mb-20"></div>
+    </div>
+</script>
+
+<!-- Data ReportFields Fields-->
+<script type="text/ng-template" id="ReportFieldsConfigFields">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.CloseReportFieldsFields()">&times;</button>
+        <h5 class="modal-title" id="modal-title">
+            <strong>Edit</strong>
+        </h5>
+    </div>
+    <div class="modal-body pt-10" id="modal-body">
+        <form class="clearfix form-horizontal pl-15 pr-15" novalidate>
+            <!-- <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">Source</label>
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                    <select chosen class="form-control" ng-model="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.DAC_FK" data-ng-options="x.PK as (x.ClassSource + ' - ' + x.UIEntityName) for x in DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.DataExtReportFieldsFieldsListSource"
+                        search-contains="true" data-ng-change=" DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.OnConfigChange((DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.DataExtReportFieldsFieldsListSource | filter: {'PK': TCEventConfigureCtrl.ePage.Masters.Rule.ActiveConfigField.DAC_FK})[0])">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div> -->
+            <!-- <div class="form-group" data-ng-if="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.ItemType != 'Main'">
+                <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">Item Type</label>
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                    <select chosen class="form-control" ng-model="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.ItemType"
+                        data-ng-options="x as x for x in DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.Expression.ItemTypeList"
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div> -->
+            <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">Expression Type</label>
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                    <select chosen class="form-control" ng-model="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.ExpressionType"
+                        data-ng-options="x as x for x in  DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.Expression.ExpressionTypeList"
+                        disable-search="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">Expression
+                    <i class="fa fa-pencil cursor-pointer ml-5" data-ng-click="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.Expression.OnEditExpression()"></i>
+                </label>
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                    <pre class="json-display-disabled" data-ng-bind="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.Expression"></pre>
+                </div>
+            </div>
+            <!-- <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">Field Name</label>
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                    <select chosen class="form-control" ng-model="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.DbField"
+                        data-ng-options="x.ColumnName as x.ColumnName for x in  DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.FieldNameList"
+                        search-contains="true" data-ng-change="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.UIField = DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.DbField">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div> -->
+            <!-- <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">Display Name</label>
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                    <input type="text" class="form-control input-sm" placeholder="Display Name" data-ng-model="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.UIField"
+                    />
+                </div>
+            </div> -->
+            <div class="form-group tc-autocomplete-container">
+                <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">Display Name</label>
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                    <input type="text" class="form-control input-sm" placeholder="Display Name" data-ng-model="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.UIField"
+                        uib-typeahead="x.Name as x.Name for x in DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.GetTargetTableList($viewValue)"
+                        typeahead-loading="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.UIField = DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.IsLoading"
+                        typeahead-no-results=" DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.IsAutocompleteNoResults"
+                        typeahead-editable="false" typeahead-append-to-body='false' typeahead-on-select="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.OnTargetTableSelect($item, $model, $label, $event)"
+                        typeahead-min-length="" />
+                    <div class="clearfix dropdown-menu auto-complete" data-ng-if="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.IsAutocompleteNoResults">
+                        <div class="auto-complete-no-result">No Results Found!</div>
+                    </div>
+                    <div class="clearfix dropdown-menu auto-complete" data-ng-if="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.IsAutocompleteLoading">
+                        <div class="auto-complete-no-result">
+                            <i class="fa fa-spin fa-spinner"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="form-group tc-autocomplete-container">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">Display Name</label>
+                    <input type="text" class="form-control input-sm" placeholder="Entity Name" data-ng-model="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.UIField"
+                        uib-typeahead="x.Name as x.Name for x in DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.GetTargetTableList($viewValue)"
+                        typeahead-on-select="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.OnTargetTableSelect($item, $model, $label, $event)"
+                        typeahead-loading="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.UIField = DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.IsLoading"
+                        typeahead-editable="false" typeahead-append-to-body='false' typeahead-min-length="" />
+                    <div class="clearfix dropdown-menu auto-complete" data-ng-if="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.IsAutocompleteNoResults">
+                        <div class="auto-complete-no-result">No Results Found!</div>
+                    </div>
+                    <div class="clearfix dropdown-menu auto-complete" data-ng-if="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.IsAutocompleteLoading">
+                        <div class="auto-complete-no-result">
+                            <i class="fa fa-spin fa-spinner"></i>
+                        </div>
+                    </div>
+                </div> -->
+
+
+            <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">Related Input
+                    <i class="fa fa-pencil cursor-pointer ml-5" data-ng-click="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.RelatedInput.OnEditRelatedInput()"></i>
+                </label>
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                    <pre class="json-display-disabled" data-ng-bind="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.RelatedInput"></pre>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">Update Rules
+                    <i class="fa fa-pencil cursor-pointer ml-5" data-ng-click="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.UpdateRules.OnEditUpdateRules()"></i>
+                </label>
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                    <pre class="json-display-disabled" data-ng-bind="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.UpdateRules"></pre>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">Is Scheduler</label>
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" data-ng-model=" DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.IsScheduler"
+                                class="colored-blue">
+                            <span class="text"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="tc-section-divider-small"></div>
+            <div class="clearfix p-10">
+                <input type="submit" class="btn btn-default tc-btn-save btn-xs pull-right ml-10" data-ng-click="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ReportFieldsFieldsSave()"
+                    value="{{DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ReportFieldsSaveBtnText}}"
+                    data-ng-disabled=" DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.IsDisableReportFieldsSaveBtn"
+                />
+                <button class="btn btn-default tc-btn-cancel btn-xs pull-right ml-10" data-ng-click="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.CloseReportFieldsFields()">Cancel</button>
+            </div>
+            <div class="tc-section-divider-small mb-20"></div>
+        </form>
+    </div>
+</script>
+
+<!-- Edit Expression-->
+<script type="text/ng-template" id="editExpression">
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-title">
+            <strong>Expression</strong>
+            <button class="btn btn-xs btn-primary pull-right ml-10" data-ng-click="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.Expression.PrepareExpression()">OK</button>
+            <button class="btn btn-xs btn-default pull-right ml-10" data-ng-click="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.Expression.CloseEditExpressionModal()">Close</button>
+        </h5>
+    </div>
+    <div class="modal-body p-20 pl-0" id="modal-body">
+        <event-expression-group-formatter exp-group-list="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.ExpressionGroup"
+            is-logical-operator="true" is-result="true"></event-expression-group-formatter>
+    </div>
+</script>
+
+<!-- Related Input Template -->
+<script type="text/ng-template" id="editRelatedInput">
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-title">
+            <strong>Related Input</strong>
+            <button class="btn btn-xs btn-primary pull-right ml-10" data-ng-click="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.PrepareRelatedInput()">OK</button>
+            <button class="btn btn-xs btn-default pull-right ml-10" data-ng-click="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.CloseEditRelatedInputModal()">Close</button>
+        </h5>
+    </div>
+    <div class="modal-body p-20 pl-0" id="modal-body">
+        <event-expression-formatter exp-list="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.RelatedInputGroup"
+            is-logical-operator="false" is-result="false" is-action="false"></event-expression-formatter>
+    </div>
+</script>
+
+<!-- Update Rules Template -->
+<script type="text/ng-template" id="editUpdateRules">
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-title">
+            <strong>Update Rules</strong>
+            <button class="btn btn-xs btn-primary pull-right ml-10" data-ng-click="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.UpdateRules.PrepareUpdateRules()">OK</button>
+            <button class="btn btn-xs btn-default pull-right ml-10" data-ng-click="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.UpdateRules.CloseEditUpdateRulesModal()">Close</button>
+        </h5>
+    </div>
+    <div class="modal-body p-20 pl-0" id="modal-body">
+        <event-expression-group-formatter exp-group-list="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.UpdateRulesGroup"
+            is-logical-operator="true" is-result="true"></event-expression-group-formatter>
+    </div>
+</script>

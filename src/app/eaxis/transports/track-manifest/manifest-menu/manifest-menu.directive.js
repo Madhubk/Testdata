@@ -17,7 +17,9 @@
             controllerAs: "ManifestMenuCtrl",
             scope: {
                 currentManifest: "=",
-                activeMenu: "="
+                activeMenu: "=",
+                dataentryObject: "=",
+                showError: "="
             },
             bindToController: true
 

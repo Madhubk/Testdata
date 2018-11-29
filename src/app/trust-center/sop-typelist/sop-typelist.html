@@ -1,0 +1,45 @@
+<div class="clearfix tc-filtergroup">
+    <!-- Breadcrumb -->
+    <div class="clearfix tc-breadcrumb" data-ng-if="TCSOPTypelistCtrl.ePage.Masters.ActiveApplication == 'TC'">
+        <i class="fa fa-home home-icon"></i>
+        <div class="breadcrumb-list-wrapper">
+            <ol class="breadcrumb">
+                <li data-ng-repeat="x in TCSOPTypelistCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="TCSOPTypelistCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                </li>
+                <li data-ng-repeat="x in TCSOPTypelistCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
+                    class="active">
+            </ol>
+        </div>
+        <span class="tc-breadcrumb-app-name" data-ng-if="TCSOPTypelistCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="TCSOPTypelistCtrl.ePage.Masters.QueryString.AppName"></span>
+    </div>
+    <!-- Body -->
+    <div class="clearfix">
+        <div class="clearfix tc-page-height-fixed without-header">
+            <uib-tabset id="chromeTab" active="TCSOPTypelistCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+                <uib-tab>
+                    <uib-tab-heading title="SOP TypeList">
+                        <span data-ng-bind="'SOPTypeList'"></span>
+                        <i class="fa fa-thumb-tack pinned-tab"></i>
+                    </uib-tab-heading>
+                    <div class="p-0 tab-list-view-wrapper">
+                        <dynamic-list dataentry-name="TCSOPTypelistCtrl.ePage.Masters.dataentryName" selected-grid-row="TCSOPTypelistCtrl.ePage.Masters.SelectedGridRow($item)"
+                            mode="1" default-filter="TCSOPTypelistCtrl.ePage.Masters.DefaultFilter" dataentry-object="TCSOPTypelistCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+                        <div class="tab-loading" data-ng-show="TCSOPTypelistCtrl.ePage.Masters.IsTabClick"></div>
+                    </div>
+                </uib-tab>
+                <uib-tab active="TCSOPTypelistCtrl.ePage.Masters.activeTabIndex == $index" data-ng-repeat="tab in TCSOPTypelistCtrl.ePage.Masters.TabList"
+                    ng-click="TCSOPTypelistCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+                    <uib-tab-heading title="{{tab.label}}">
+                        <span data-ng-bind="tab.label"></span>
+                        <i class="glyphicon glyphicon-remove" ng-click="TCSOPTypelistCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+                    </uib-tab-heading>
+                    <div class="pb-10 clearfix">
+                        <sop-typelist-configure current-sop-typelist="tab"></sop-typelist-configure>
+                    </div>
+                </uib-tab>
+                <button class="btn btn-default" data-ng-click="TCSOPTypelistCtrl.ePage.Masters.CreateNewTab()" data-ng-disabled="TCSOPTypelistCtrl.ePage.Masters.IsNewTabClicked">+</button>
+            </uib-tabset>
+        </div>
+    </div>
+</div>

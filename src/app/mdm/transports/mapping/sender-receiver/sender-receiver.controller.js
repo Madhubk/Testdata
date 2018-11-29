@@ -106,12 +106,35 @@
             });
         }
 
-        function setSelectedRow(index) {
-            SenderReceiverCtrl.ePage.Masters.selectedRow = index;
+        function setSelectedRow(index,x) {
+            angular.forEach(SenderReceiverCtrl.ePage.Entities.Header.Data.SenderReceiverDetails,function(value,key){
+                if(x.PK == value.PK){
+                    SenderReceiverCtrl.ePage.Masters.selectedRow = key;        
+                }
+            })
+            SenderReceiverCtrl.ePage.Masters.LineselectedRow = index;
         }
 
         function Back() {
-            SenderReceiverCtrl.ePage.Masters.Lineslist = true;
+            var item = SenderReceiverCtrl.ePage.Entities.Header.Data.SenderReceiverDetails[SenderReceiverCtrl.ePage.Masters.selectedRow];
+            if (item.PK == "") {
+                var modalOptions = {
+                    closeButtonText: 'Cancel',
+                    actionButtonText: 'Ok',
+                    headerText: 'Are you sure?',
+                    bodyText: 'Please save your changes. Otherwise given details will be discarded.'
+                };
+                confirmation.showModal({}, modalOptions)
+                    .then(function (result) {
+                        SenderReceiverCtrl.ePage.Entities.Header.Data.SenderReceiverDetails.splice(SenderReceiverCtrl.ePage.Masters.selectedRow, 1);
+                        SenderReceiverCtrl.ePage.Masters.Lineslist = true;
+                        SenderReceiverCtrl.ePage.Masters.selectedRow = SenderReceiverCtrl.ePage.Masters.selectedRow - 1;
+                    }, function () {
+                        console.log("Cancelled");
+                    });
+            } else {
+                SenderReceiverCtrl.ePage.Masters.Lineslist = true;
+            }
         }
 
         function Done() {
@@ -180,9 +203,10 @@
             };
             confirmation.showModal({}, modalOptions)
                 .then(function (result) {
-                    SenderReceiverCtrl.ePage.Entities.Header.Data.SenderReceiverDetails.splice(SenderReceiverCtrl.ePage.Masters.selectedRow, 1);
-                    toastr.success('Record Removed Successfully');
-                    SenderReceiverCtrl.ePage.Masters.Lineslist = true;
+                    apiService.get("eAxisAPI", 'CfxMapping/Delete/' + item.PK).then(function (response) {
+                        toastr.success('Record Removed Successfully');
+                        getCfxMappingDetail();
+                    });
                     SenderReceiverCtrl.ePage.Masters.selectedRow = SenderReceiverCtrl.ePage.Masters.selectedRow - 1;
                 }, function () {
                     console.log("Cancelled");
@@ -209,22 +233,54 @@
         };
 
         function SaveList($item) {
-            if ($item.PK) {
-                $item.IsModified = true;
-                SenderReceiverCtrl.ePage.Masters.IsLoadingToSave = true;
-                apiService.post("eAxisAPI", SenderReceiverCtrl.ePage.Entities.Header.API.UpdateCfxMapping.Url, $item).then(function SuccessCallback(response) {
-                    if (response.data.Status == "Success") {
-                        SenderReceiverCtrl.ePage.Entities.Header.Data.SenderReceiverDetails[SenderReceiverCtrl.ePage.Masters.selectedRow] = response.data.Response;
-                    }
-                });
+            if ($item.MappingForCode && $item.AddRef1Code && $item.MappingToCode) {
+                if ($item.PK) {
+                    $item.IsModified = true;
+                    SenderReceiverCtrl.ePage.Masters.IsLoadingToSave = true;
+                    apiService.post("eAxisAPI", SenderReceiverCtrl.ePage.Entities.Header.API.UpdateCfxMapping.Url, $item).then(function SuccessCallback(response) {
+                        if (response.data.Status == "Success") {
+                            SenderReceiverCtrl.ePage.Entities.Header.Data.SenderReceiverDetails[SenderReceiverCtrl.ePage.Masters.selectedRow] = response.data.Response;
+                        }
+                    });
+                } else {
+                    SenderReceiverCtrl.ePage.Masters.IsLoadingToSave = true;
+                    apiService.post("eAxisAPI", SenderReceiverCtrl.ePage.Entities.Header.API.InsertCfxMapping.Url, [$item]).then(function SuccessCallback(response) {
+                        if (response.data.Status == "Success") {
+                            SenderReceiverCtrl.ePage.Entities.Header.Data.SenderReceiverDetails[SenderReceiverCtrl.ePage.Masters.selectedRow] = response.data.Response[0];
+                        }
+                    });
+                }
+                getCfxMappingDetail();
             } else {
-                SenderReceiverCtrl.ePage.Masters.IsLoadingToSave = true;
-                apiService.post("eAxisAPI", SenderReceiverCtrl.ePage.Entities.Header.API.InsertCfxMapping.Url, [$item]).then(function SuccessCallback(response) {
-                    if (response.data.Status == "Success") {
-                        SenderReceiverCtrl.ePage.Entities.Header.Data.SenderReceiverDetails[SenderReceiverCtrl.ePage.Masters.selectedRow] = response.data.Response[0];
-                    }
-                });
+                toastr.warning("Dont leave any fields Empty")
             }
+
+        }
+
+        function getCfxMappingDetail() {
+            SenderReceiverCtrl.ePage.Masters.IsLoading = true;
+            var _filter = {
+                "SortColumn": "CFM_CreatedDateTime",
+                "SortType": "ASC",
+                "PageNumber": 1,
+                "PageSize": 1000
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": SenderReceiverCtrl.ePage.Entities.Header.API.CfxMappingFindall.FilterID
+            };
+            apiService.post("eAxisAPI", SenderReceiverCtrl.ePage.Entities.Header.API.CfxMappingFindall.Url, _input).then(function SuccessCallback(response) {
+                if (response.data.Status == "Success") {
+                    SenderReceiverCtrl.ePage.Entities.Header.CheckPoints.CfxMappingValues = response.data.Response;
+                    SenderReceiverCtrl.ePage.Entities.Header.Data.SenderReceiverDetails = [];
+                    angular.forEach(SenderReceiverCtrl.ePage.Entities.Header.CheckPoints.CfxMappingValues, function (value, key) {
+                        if (value.MappingCode == "SENDER_RECEIVER") {
+                            SenderReceiverCtrl.ePage.Entities.Header.Data.SenderReceiverDetails.push(value);
+                        }
+                    });
+                    SenderReceiverCtrl.ePage.Masters.IsLoading = false;
+                }
+            });
         }
 
         Init();

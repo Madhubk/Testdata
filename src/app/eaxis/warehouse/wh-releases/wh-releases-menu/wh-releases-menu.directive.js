@@ -16,7 +16,8 @@
             controller: "ReleaseMenuController",
             controllerAs: "ReleaseMenuCtrl",
             scope: {
-                currentRelease: "="
+                currentRelease: "=",
+                dataentryObject:'='
             },
             bindToController: true
 

@@ -1,9 +1,4 @@
 
-.input-group1{
-    position: relative;
-    display: table;
-    border-collapse: separate;
-}
 .top-48{
     top:48px;
 }
@@ -43,4 +38,6 @@
  font-size:18px;
  color:#666;
 }
+
+
 

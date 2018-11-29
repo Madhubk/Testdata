@@ -160,12 +160,12 @@
         {
             
             var _isExist = TransOrdersCtrl.ePage.Entities.Header.Data.WmsOutward.some(function (value, index) {
-                return value.PK === $item.entity.PK;
+                return value.PK === $item.data.entity.PK;
             });
 
             if (!_isExist) {
-                if ($item.entity.PK !== TransOrdersCtrl.ePage.Entities.Header.Data.PK) {
-                    TransOrdersCtrl.ePage.Entities.Header.Data.WmsOutward.push($item.entity);
+                if ($item.data.entity.PK !== TransOrdersCtrl.ePage.Entities.Header.Data.PK) {
+                    TransOrdersCtrl.ePage.Entities.Header.Data.WmsOutward.push($item.data.entity);
                 } else {
                     toastr.warning("You cannot add the same opened ORDER...!");
                 }
@@ -177,12 +177,12 @@
     function attachinwardOrders($item) 
         {
             var _isExist = TransOrdersCtrl.ePage.Entities.Header.Data.WmsInward.some(function (value, index) {
-                return value.PK === $item.entity.PK;
+                return value.PK === $item.data.entity.PK;
             });
 
             if (!_isExist) {
-                if ($item.entity.PK !== TransOrdersCtrl.ePage.Entities.Header.Data.PK) {
-                    TransOrdersCtrl.ePage.Entities.Header.Data.WmsInward.push($item.entity);
+                if ($item.data.entity.PK !== TransOrdersCtrl.ePage.Entities.Header.Data.PK) {
+                    TransOrdersCtrl.ePage.Entities.Header.Data.WmsInward.push($item.data.entity);
                 } else {
                     toastr.warning("You cannot add the same opened ORDER...!");
                 }
@@ -197,7 +197,7 @@
                     response.data.Response.Response.UIWmsTransportHeader.PK = response.data.Response.Response.PK;
                     TransOrdersCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader.WorkOrderID = response.data.Response.Response.UIWmsTransportHeader.WorkOrderID
 
-                    apiService.post("eAxisAPI", 'WmsTransportList/Insert', response.data.Response.Response).then(function (response) {
+                    apiService.post("eAxisAPI",TransOrdersCtrl.ePage.Entities.Header.API.InsertTrans.Url, response.data.Response.Response).then(function (response) {
                     });
 
                     var _queryString = {
@@ -216,7 +216,7 @@
                     response.data.Response.Response.UIWmsTransportHeader.PK = response.data.Response.Response.PK;
                     TransOrdersCtrl.ePage.Entities.Header.Data.UIWmsTransportHeader.WorkOrderID = response.data.Response.Response.UIWmsTransportHeader.WorkOrderID
 
-                    apiService.post("eAxisAPI", 'WmsTransportList/Insert', response.data.Response.Response).then(function (response) {
+                    apiService.post("eAxisAPI", TransOrdersCtrl.ePage.Entities.Header.API.InsertTrans.Url, response.data.Response.Response).then(function (response) {
                     });
 
                     var _queryString = {

@@ -1,0 +1,49 @@
+.border-radius-2{
+    border-radius: 2px;
+}
+
+.border-box{
+    border: 1px solid #eee;
+}
+
+.border-right{
+    border-right: 1px solid #f5f5f5;
+}
+
+.border-left{
+    border-left: 1px solid #f5f5f5;
+}
+
+.border-bottom{
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.border-bottom-eee{
+    border-bottom: 1px solid #eee;
+}
+
+.border-yellow{
+    border: 1px solid rgba(255,255,0,.3);
+}
+
+.color-999{
+    color: #999;
+}
+
+.color-blue{
+    color: #4385f5;
+}
+
+.bg-light-yellow{
+    background: rgba(255,255,0,.2);
+}
+
+.bg-fbfbfb{
+    background: #fbfbfb;
+}
+.table1{
+    width: 100%;
+}
+.Width-18{
+    width: 18%;   
+}

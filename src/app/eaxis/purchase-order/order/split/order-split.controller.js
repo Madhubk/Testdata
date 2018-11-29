@@ -5,9 +5,9 @@
         .module("Application")
         .controller("OrdSplitController", OrdSplitController);
 
-    OrdSplitController.$inject = ["$window", "$injector", "apiService", "helperService", "appConfig"];
+    OrdSplitController.$inject = ["$window", "$injector", "$state", "apiService", "helperService", "appConfig"];
 
-    function OrdSplitController($window, $injector, apiService, helperService, appConfig) {
+    function OrdSplitController($window, $injector, $state, apiService, helperService, appConfig) {
         var OrdSplitCtrl = this;
 
         function Init() {
@@ -19,7 +19,7 @@
                 "Meta": helperService.metaBase(),
                 "Entities": currentOrder
             };
-            
+
             InitSplit();
         }
 
@@ -42,10 +42,16 @@
                 }
             });
         }
-        
+
         function NewSplitRecord() {
-            var configObj = $injector.get(appConfig.Entities.standardMenuConfigList.OrderHeader.configName);
-            configObj.SplitOrder(OrdSplitCtrl.currentOrder, appConfig.Entities.standardMenuConfigList.OrderHeader.keyObject, configObj);
+            var _state = $state;
+            if (_state.current.url == "/order" || _state.current.url == "/po-order/:taskNo" || _state.current.url == "/order/:orderId") {
+                var configObj = $injector.get('orderConfig');
+            } else {
+                var configObj = $injector.get('poBatchUploadConfig');
+            }
+            // var configObj = $injector.get(appConfig.Entities.standardMenuConfigList.OrderHeader.configName);
+            configObj.SplitOrder(OrdSplitCtrl.currentOrder, 'UIPorOrderHeader', configObj);
         }
 
         Init();

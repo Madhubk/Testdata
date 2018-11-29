@@ -1,0 +1,184 @@
+<div class="clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="">
+            <div class="row padding-top-20 padding-bottom-10 link-orders">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pr-0 pl-0">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9 col-xl-9">
+                        <div class="">
+                            <span class="pull-left padding-top-5 padding-right-5">Quick Orders Ref : </span>
+                            <div class="input-group input-group-sm">
+
+                                <input type="text" class="form-control" data-ng-model="oneThreeShipmentOrderCtrl.ePage.Masters.orderReferenceText"
+                                    data-ng-focus="oneThreeShipmentOrderCtrl.ePage.Masters.IsMore=false" data-ng-blur="oneThreeShipmentOrderCtrl.ePage.Masters.OrderItemCall(oneThreeShipmentOrderCtrl.ePage.Masters.orderReferenceText)">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-ng-click="oneThreeShipmentOrderCtrl.ePage.Masters.IsMore=!oneThreeShipmentOrderCtrl.ePage.Masters.IsMore"
+                                        data-ng-disabled="oneThreeShipmentOrderCtrl.ePage.Entities.Header.Data.UIOrderHeaders.length!=0">
+                                        <i class="fa fa-angle-double-down"></i>
+                                    </button>
+                                </span>
+                                <div class="dropdownWrapOrderItem animated fadeInDown" data-ng-show="oneThreeShipmentOrderCtrl.ePage.Masters.IsMore">
+                                    <div class="clearfix margin-top-10 margin-bottom-10">
+                                        <div class="col-lg-12">
+                                            <table class="set-table table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Order Reference</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr data-ng-repeat="item in oneThreeShipmentOrderCtrl.ePage.Entities.Header.Data.UIPorOrderItem | filter:{'IsDeleted':false}:true">
+                                                        <td>
+                                                            <input class="form-control" type="text" data-ng-model="item.OrderReference"
+                                                                disabled="disabled">
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-1 col-xl-1">
+                        <div class="padding-5 padding-left-20">
+                            <label class="control-label text-single-line">(OR)</label>
+                        </div>
+                    </div>
+                    <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                    </div> -->
+                    <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-1 col-xl-1">
+                        <div class="input-group-sm">
+                            <button class="btn btn-md btn-outline-secondary pull-right" data-ng-click="oneThreeShipmentOrderCtrl.ePage.Masters.GetNewOrder()"
+                                type="button">
+                                <i class="fa fa-paperclip"></i> Create New
+                            </button>
+                        </div>
+                    </div> -->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-1 col-xl-1 pull-right">
+                        <div class="input-group-sm">
+                            <button dynamic-list-modal obj="oneThreeShipmentOrderCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                                page-name="'OrderHeaderBuyer'" control-id="'ShpAttachOrder'" control-key="ShpAttachOrder_3052"
+                                mode="3" is-full-obj="true" grid-refresh-fun-name="GetOrderDetails" grid-refresh-fun="oneThreeShipmentOrderCtrl.ePage.Masters.ShipmentOrderGridRefreshFun($item)"
+                                selected-data="oneThreeShipmentOrderCtrl.ePage.Masters.SelectedData($item)" class="btn btn-md btn-outline-secondary pull-right"
+                                type="button">
+                                <i class="fa fa-paperclip"></i> Attach Orders
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- attachment order grid -->
+<div id='' class="Shipmentstable_scroll order-hgt">
+    <div class="table tab-position" id="results">
+        <div class='theader'>
+            <div class='table_header'>Order #</div>
+            <div class='table_header'>Status</div>
+            <div class='table_header'>Order Date</div>
+            <div class='table_header'>Order Description</div>
+            <div class='table_header'>Pack / Type</div>
+            <div class='table_header'>Volume</div>
+            <div class='table_header'>Weight</div>
+            <div class='table_header'>Confirm #</div>
+            <div class='table_header'>Confirm Date</div>
+            <div class='table_header'>POL</div>
+            <div class='table_header'>POD</div>
+            <div class='table_header'>Action</div>
+        </div>
+        <!-- List Empty Response -->
+        <div class="text-center grid-view-loader-order" data-ng-if="!oneThreeShipmentOrderCtrl.ePage.Entities.Header.Data.UIOrderHeaders">
+            <i class="fa fa-spin fa-spinner font-160"></i>
+        </div>
+        <div>
+            <div class="grid-no-record" data-ng-if="oneThreeShipmentOrderCtrl.ePage.Entities.Header.Data.UIOrderHeaders.length==0">No
+                records found...</div>
+        </div>
+        <div class='table_row' data-ng-repeat="x in oneThreeShipmentOrderCtrl.ePage.Entities.Header.Data.UIOrderHeaders"
+            data-ng-if="oneThreeShipmentOrderCtrl.ePage.Entities.Header.Data.UIOrderHeaders && oneThreeShipmentOrderCtrl.ePage.Entities.Header.Data.UIOrderHeaders.length > 0"
+            style="font-size: 11px;">
+            <div class='table_small'>
+                <div class='table_cell'>Order #</div>
+                <div class='table_cell'>
+                    <b>
+                        <span data-ng-bind="x.OrderNo || oneThreeShipmentOrderCtrl.ePage.Masters.EmptyText"></span>
+                    </b>
+                </div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>Status</div>
+                <div class='table_cell'>
+                    <span data-ng-bind="x.OrderStatus || oneThreeShipmentOrderCtrl.ePage.Masters.EmptyText"></span>
+                </div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>Order Date</div>
+                <div class='table_cell'>
+                    <span data-ng-bind="x.OrderDate | date:'dd-MMM-yyyy' || oneThreeShipmentOrderCtrl.ePage.Masters.EmptyText"></span>
+                </div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>Order Description</div>
+                <div class='table_cell'>
+                    <span data-ng-bind="x.GoodsDescription || oneThreeShipmentOrderCtrl.ePage.Masters.EmptyText"></span>
+                </div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>Pack / Type</div>
+                <div class='table_cell'>
+                    <span data-ng-bind="x.Packs || oneThreeShipmentOrderCtrl.ePage.Masters.EmptyText"></span> /
+                    <span data-ng-bind="x.OrderPackType || oneThreeShipmentOrderCtrl.ePage.Masters.EmptyText"></span>
+                </div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>Volume</div>
+                <div class='table_cell'>
+                    <span data-ng-bind="x.ActualVolume || oneThreeShipmentOrderCtrl.ePage.Masters.EmptyText"></span>
+                </div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>Weight</div>
+                <div class='table_cell'>
+                    <span data-ng-bind="x.ActualWeight || oneThreeShipmentOrderCtrl.ePage.Masters.EmptyText"></span>
+                </div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>Confirm #</div>
+                <div class='table_cell'>
+                    <span data-ng-bind="x.ConfirmNo || oneThreeShipmentOrderCtrl.ePage.Masters.EmptyText"></span>
+                </div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>Confirm Date</div>
+                <div class='table_cell'>
+                    <span data-ng-bind="x.ConfirmDate | date:'dd-MMM-yyyy' || oneThreeShipmentOrderCtrl.ePage.Masters.EmptyText"></span>
+                </div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>POL</div>
+                <div class='table_cell'>
+                    <span data-ng-bind="x.PortOfLoading || oneThreeShipmentOrderCtrl.ePage.Masters.EmptyText"></span>
+                </div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>POD</div>
+                <div class='table_cell'>
+                    <span data-ng-bind="x.PortOfDischarge || oneThreeShipmentOrderCtrl.ePage.Masters.EmptyText"></span>
+                </div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>Action</div>
+                <div class='table_cell'>
+                    <span>
+                        <a>
+                            <i class="fa fa-trash order-icon" data-ng-click="oneThreeShipmentOrderCtrl.ePage.Masters.DeleteConfirmation(x)"></i>
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

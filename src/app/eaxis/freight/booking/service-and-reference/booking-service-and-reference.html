@@ -4,15 +4,20 @@
             <!--Service Tab-->
             <uib-tab>
                 <uib-tab-heading title="Services">
-                    <i class="fa fa-gavel margin-right-5"></i> <span class="text-single-line" data-ng-bind="'Services'"></span>
+                    <i class="fa fa-gavel margin-right-5"></i>
+                    <span class="text-single-line" data-ng-bind="'Services'"></span>
                 </uib-tab-heading>
                 <div>
-                    <div class="horizontal-space"></div>
-                    <div class="clearfix">
-                        <button class="btn btn-primary btn-sm pull-right" data-ng-click="BookingServiceAndReferenceCtrl.ePage.Masters.Service.AddToService()" data-ng-show = "!BookingServiceAndReferenceCtrl.ePage.Masters.Service.IsFormView"> Add New Service</button>
-                        <br/>
+                    <div class="clearfix mt-10">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <span>
+                                <button class="btn btn-sm btn-outline-secondary" data-ng-click="BookingServiceAndReferenceCtrl.ePage.Masters.Service.AddToService()"
+                                    data-ng-show="!BookingServiceAndReferenceCtrl.ePage.Masters.Service.IsFormView">
+                                    <span class="fa fa-plus"></span>&nbsp;&nbsp;Add New Service
+                            </span>
+                        </div>
                     </div>
-                    <div data-ng-show = "BookingServiceAndReferenceCtrl.ePage.Masters.Service.IsFormView">
+                    <div data-ng-show="BookingServiceAndReferenceCtrl.ePage.Masters.Service.IsFormView">
                         <div class="clearfix margin-bottom-10 service-details-heading">
                             <div class="text-center clearfix">
                                 <i class="fa fa-angle-double-left pull-left btn btn-link" data-ng-click="BookingServiceAndReferenceCtrl.ePage.Masters.Service.IsFormView = false"></i>
@@ -28,8 +33,8 @@
                                         <select chosen name="category-group" class="form-control" ng-model="BookingServiceAndReferenceCtrl.ePage.Masters.Service.FormView.ServiceCode"
                                             ng-options="x.Key as x.Description for x in BookingServiceAndReferenceCtrl.ePage.Masters.DropDownMasterList.SERVICETYPE.ListSource"
                                             search-contains="true">
-                                        <option value="">--Select--</option>
-                                    </select>
+                                            <option value="">--Select--</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -45,8 +50,10 @@
                                             is-open="BookingServiceAndReferenceCtrl.ePage.Masters.DatePicker.isOpen['isBooked']"
                                         />
                                         <span class="input-group-btn">
-                                        <button class="btn btn-default shiny" data-ng-click="BookingServiceAndReferenceCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isBooked')"><i class="fa fa-calendar"></i></button>
-                                    </span>
+                                            <button class="btn btn-default shiny" data-ng-click="BookingServiceAndReferenceCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isBooked')">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -91,8 +98,10 @@
                                                 enable-date="false" timepicker-options="BookingServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.TimeOptions"
                                                 close-on-selection="true" />
                                             <span class="input-group-btn">
-                                            <button type="button" class="btn btn-default shiny" data-ng-click="BookingServiceAndReferenceCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isDuration')"><i class="fa fa-clock-o"></i></button>
-                                        </span>
+                                                <button type="button" class="btn btn-default shiny" data-ng-click="BookingServiceAndReferenceCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isDuration')">
+                                                    <i class="fa fa-clock-o"></i>
+                                                </button>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -107,8 +116,13 @@
                                             obj="BookingServiceAndReferenceCtrl.ePage.Masters.Service.FormView" prefix-data="'OrganizationList'"
                                             config="'ShpServiceContractor'"></div>
                                         <span class="input-group-btn">
-                                        <button dynamic-list-modal obj="BookingServiceAndReferenceCtrl.ePage.Masters.Service.FormView" field-name="'ShpServiceContractor'" prefix-data="'OrganizationList'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingServiceAndReferenceCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
-                                    </span>
+                                            <button dynamic-list-modal obj="BookingServiceAndReferenceCtrl.ePage.Masters.Service.FormView" field-name="'ShpServiceContractor'"
+                                                prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                                selected-data="BookingServiceAndReferenceCtrl.ePage.Masters.SelectedData($item)"
+                                                class="btn btn-default shiny" type="button">
+                                                <i class="fa fa-ellipsis-h"></i>
+                                            </button>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -123,8 +137,13 @@
                                             obj="BookingServiceAndReferenceCtrl.ePage.Masters.Service.FormView" prefix-data="'OrganizationList'"
                                             config="'ShpServiceLocation'" auto-complete-on-select="BookingServiceAndReferenceCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'Location')"></div>
                                         <span class="input-group-btn">
-                                        <button dynamic-list-modal obj="BookingServiceAndReferenceCtrl.ePage.Masters.Service.FormView" field-name="'ShpServiceLocation'" prefix-data="'OrganizationList'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingServiceAndReferenceCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button" data-ng-click="BookingServiceAndReferenceCtrl.ePage.Masters.Service.IsClicked = 'true'"><i class="fa fa-ellipsis-h"></i></button>
-                                    </span>
+                                            <button dynamic-list-modal obj="BookingServiceAndReferenceCtrl.ePage.Masters.Service.FormView" field-name="'ShpServiceLocation'"
+                                                prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                                selected-data="BookingServiceAndReferenceCtrl.ePage.Masters.SelectedData($item)"
+                                                class="btn btn-default shiny" type="button" data-ng-click="BookingServiceAndReferenceCtrl.ePage.Masters.Service.IsClicked = 'true'">
+                                                <i class="fa fa-ellipsis-h"></i>
+                                            </button>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -136,8 +155,8 @@
                                         <select chosen name="category-group" class="form-control" ng-model="BookingServiceAndReferenceCtrl.ePage.Masters.Service.FormView.OAD_Location_FK"
                                             ng-options="x.PK as x.Code for x in BookingServiceAndReferenceCtrl.ePage.Masters.LocationAddress.ListSource"
                                             search-contains="true">
-                                        <option value="">--Select--</option>
-                                    </select>
+                                            <option value="">--Select--</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -153,10 +172,10 @@
                                             is-open="BookingServiceAndReferenceCtrl.ePage.Masters.DatePicker.isOpen['isCompleted']"
                                         />
                                         <span class="input-group-btn">
-                                        <button class="btn btn-default shiny" data-ng-click="BookingServiceAndReferenceCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCompleted')">
-                                            <i class="fa fa-calendar"></i>
-                                        </button>
-                                    </span>
+                                            <button class="btn btn-default shiny" data-ng-click="BookingServiceAndReferenceCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCompleted')">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -168,27 +187,70 @@
                         <div class="clearfix">
                         </div>
                     </div>
-                    <!-- <div class="horizontal-space"></div>
-                    <div class="clearfix">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                            <input type="button" class="btn btn-primary btn-sm pull-right margin-left-5" data-ng-click="BookingServiceAndReferenceCtrl.ePage.Masters.Service.AddToGridService(BookingServiceAndReferenceCtrl.ePage.Masters.Service.AddNewAndUpdate)"
-                                value="{{BookingServiceAndReferenceCtrl.ePage.Masters.Service.AddNewAndUpdate}}">
-                             <button class="btn btn-primary btn-sm pull-right margin-left-5" data-ng-click="BookingServiceAndReferenceCtrl.ePage.Masters.Service.EditService()"
-                                data-ng-disabled="!BookingServiceAndReferenceCtrl.ePage.Masters.Service.IsSelected">Edit</button>
-                            <button class="btn btn-primary btn-sm pull-right margin-left-5" data-ng-click="BookingServiceAndReferenceCtrl.ePage.Masters.Service.DeleteConfirmation()"
-                                data-ng-disabled="!BookingServiceAndReferenceCtrl.ePage.Masters.Service.IsSelected">Delete</button> 
-                        </div>
-                    </div> -->
                 </div>
-                <div class="horizontal-space"></div>
-                <div class="clearfix" data-ng-show = "!BookingServiceAndReferenceCtrl.ePage.Masters.Service.IsFormView">
+                <div class="clearfix" data-ng-show="!BookingServiceAndReferenceCtrl.ePage.Masters.Service.IsFormView">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                        <div class="height-230 clearfix">
-                            <div class="text-center grid-view-loader" data-ng-if="!BookingServiceAndReferenceCtrl.ePage.Masters.Service.GridData"><i class="fa fa-spin fa-spinner font-160"></i></div>
-                            <dynamic-table data-ng-if="BookingServiceAndReferenceCtrl.ePage.Masters.Service.GridData" grid-data="BookingServiceAndReferenceCtrl.ePage.Masters.Service.GridData"
-                                grid-config="BookingServiceAndReferenceCtrl.ePage.Masters.Service.gridConfig" selected-grid-row="BookingServiceAndReferenceCtrl.ePage.Masters.Service.SelectedGridRow($item)"></dynamic-table>
-                            <!-- <dynamic-grid data-ng-if="BookingServiceAndReferenceCtrl.ePage.Masters.Service.GridData" input-data="BookingServiceAndReferenceCtrl.ePage.Masters.Service.GridData"
-                                grid-config="BookingServiceAndReferenceCtrl.ePage.Masters.Service.gridConfig" row-selection-changed="BookingServiceAndReferenceCtrl.ePage.Masters.Service.ServiceRowSelectionChanged($item)"></dynamic-grid> -->
+                        <div id='' class="Bookingstable_scroll" style="height:300px; padding-top: 2px;">
+                            <div class="table tab-position" id="results">
+                                <div class='theader'>
+                                    <div class='table_header'>Service Code</div>
+                                    <div class='table_header'>Booked</div>
+                                    <div class='table_header'>Duration</div>
+                                    <div class='table_header'>Service Count</div>
+                                    <div class='table_header'>Completed</div>
+                                    <div class='table_header'>Action</div>
+                                </div>
+
+                                <!-- List Empty Response -->
+                                <div class="text-center grid-view-loader" data-ng-if="!BookingServiceAndReferenceCtrl.ePage.Masters.Service.GridData">
+                                    <i class="fa fa-spin fa-spinner font-160"></i>
+                                </div>
+                                <div>
+                                    <div class="grid-no-record1" style="top:110px;" data-ng-if="BookingServiceAndReferenceCtrl.ePage.Masters.Service.GridData.length==0">No records found...</div>
+                                </div>
+
+                                <div class='table_row' data-ng-repeat="x in BookingServiceAndReferenceCtrl.ePage.Masters.Service.GridData" data-ng-if="BookingServiceAndReferenceCtrl.ePage.Masters.Service.GridData && BookingServiceAndReferenceCtrl.ePage.Masters.Service.GridData.length > 0"
+                                    style="font-size: 11px;">
+
+                                    <div class='table_small'>
+                                        <div class='table_cell'>Service Code</div>
+                                        <div class='table_cell'>
+                                            <b>{{x.ServiceCode}}</b>
+                                        </div>
+                                    </div>
+                                    <div class='table_small'>
+                                        <div class='table_cell'>Booked</div>
+                                        <div class='table_cell'>{{x.Booked | date: 'dd-MMM-yyyy'}}</div>
+                                    </div>
+                                    <div class='table_small'>
+                                        <div class='table_cell'>Duration</div>
+                                        <div class='table_cell'>
+                                            {{x.Duration | duration}}
+                                        </div>
+                                    </div>
+                                    <div class='table_small'>
+                                        <div class='table_cell'>Service Count</div>
+                                        <div class='table_cell'>
+                                            {{x.ServiceCount}}
+                                        </div>
+
+                                    </div>
+                                    <div class='table_small'>
+                                        <div class='table_cell'>Completed</div>
+                                        <div class='table_cell'>
+                                            {{x.Completed | date: 'dd-MMM-yyyy'}}
+                                        </div>
+
+                                    </div>
+                                    <div class='table_small'>
+                                        <div class='table_cell'>Action</div>
+                                        <div class='table_cell'>
+                                            <i class="fa fa-pencil order-icon" data-ng-click="BookingServiceAndReferenceCtrl.ePage.Masters.Service.SelectedGridRow(x,'edit')"></i>
+                                            <i class="fa fa-trash order-icon" data-ng-click="BookingServiceAndReferenceCtrl.ePage.Masters.Service.SelectedGridRow(x,'delete')"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -197,13 +259,19 @@
             <!--Reference Tab-->
             <uib-tab>
                 <uib-tab-heading title="References">
-                    <i class="fa fa-info margin-right-5"></i> <span class="text-single-line" data-ng-bind="'References'"></span>
+                    <i class="fa fa-info margin-right-5"></i>
+                    <span class="text-single-line" data-ng-bind="'References'"></span>
                 </uib-tab-heading>
-                <div class="horizontal-space"></div>
-                <div class="clearfix">
-                    <button class="btn btn-primary btn-sm pull-right" data-ng-click="BookingServiceAndReferenceCtrl.ePage.Masters.Reference.AddToReference()" data-ng-show = "!BookingServiceAndReferenceCtrl.ePage.Masters.Reference.IsFormView"> Add New Reference</button>
-                    <br/>
+                <div class="clearfix mt-10">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <span>
+                            <button class="btn btn-sm btn-outline-secondary" data-ng-click="BookingServiceAndReferenceCtrl.ePage.Masters.Reference.AddToReference()"
+                                data-ng-show="!BookingServiceAndReferenceCtrl.ePage.Masters.Reference.IsFormView">
+                                <span class="fa fa-plus"></span>&nbsp;&nbsp;Add New Reference
+                        </span>
+                    </div>
                 </div>
+
                 <div data-ng-show="BookingServiceAndReferenceCtrl.ePage.Masters.Reference.IsFormView">
                     <div class="clearfix margin-bottom-10 referance-details-heading">
                         <div class="text-center clearfix">
@@ -276,38 +344,67 @@
                         </div>
 
                     </div>
-                     <div class="clearfix">
+                    <div class="clearfix">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                              <input type="button" class="btn btn-primary btn-sm pull-right" data-ng-click="BookingServiceAndReferenceCtrl.ePage.Masters.Reference.AddToGridReference()"
-                            value="{{BookingServiceAndReferenceCtrl.ePage.Masters.Reference.AddNewAndUpdate}}">
+                            <input type="button" class="btn btn-primary btn-sm pull-right" data-ng-click="BookingServiceAndReferenceCtrl.ePage.Masters.Reference.AddToGridReference()"
+                                value="{{BookingServiceAndReferenceCtrl.ePage.Masters.Reference.AddNewAndUpdate}}">
                         </div>
-                    </div> 
-                </div>
-                <!-- <div class="horizontal-space"></div> -->
-                <!-- <div class="clearfix">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                        <input type="button" class="btn btn-primary btn-sm pull-right margin-left-5" data-ng-click="BookingServiceAndReferenceCtrl.ePage.Masters.Reference.AddToGridReference()"
-                            value="{{BookingServiceAndReferenceCtrl.ePage.Masters.Reference.AddNewAndUpdate}}">
-                        <button class="btn btn-primary btn-sm pull-right margin-left-5" data-ng-click="BookingServiceAndReferenceCtrl.ePage.Masters.Reference.EditReference()"
-                            data-ng-disabled="!BookingServiceAndReferenceCtrl.ePage.Masters.Reference.IsSelected">Edit</button>
-                        <button class="btn btn-primary btn-sm pull-right margin-left-5" data-ng-click="BookingServiceAndReferenceCtrl.ePage.Masters.Reference.DeleteConfirmation()"
-                            data-ng-disabled="!BookingServiceAndReferenceCtrl.ePage.Masters.Reference.IsSelected">Delete</button>
                     </div>
-                </div> -->
+                </div>
+
                 <div>
-                    <div class="clearfix margin-top-10" data-ng-show = "!BookingServiceAndReferenceCtrl.ePage.Masters.Reference.IsFormView">
+                    <div class="clearfix" data-ng-show="!BookingServiceAndReferenceCtrl.ePage.Masters.Reference.IsFormView">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                            <div class="height-230 clearfix">
-                                <div class="text-center grid-view-loader" data-ng-if="!BookingServiceAndReferenceCtrl.ePage.Masters.Reference.GridData"><i class="fa fa-spin fa-spinner font-160"></i></div>
-                                <dynamic-table data-ng-if="BookingServiceAndReferenceCtrl.ePage.Masters.Reference.GridData" grid-data="BookingServiceAndReferenceCtrl.ePage.Masters.Reference.GridData"
-                                grid-config="BookingServiceAndReferenceCtrl.ePage.Masters.Reference.gridConfig" selected-grid-row="BookingServiceAndReferenceCtrl.ePage.Masters.Reference.SelectedGridRow($item)"></dynamic-table>
-                                <!-- <dynamic-grid data-ng-if="BookingServiceAndReferenceCtrl.ePage.Masters.Reference.GridData" input-data="BookingServiceAndReferenceCtrl.ePage.Masters.Reference.GridData"
-                                    grid-config="BookingServiceAndReferenceCtrl.ePage.Masters.Reference.gridConfig" row-selection-changed="BookingServiceAndReferenceCtrl.ePage.Masters.Reference.ReferenceRowSelectionChanged($item)"></dynamic-grid> -->
+                            <div id='' class="Bookingstable_scroll" style="height:300px; padding-top: 2px;">
+                                <div class="table tab-position" id="results">
+                                    <div class='theader'>
+                                        <div class='table_header'>Number</div>
+                                        <div class='table_header'>Number Type</div>
+                                        <div class='table_header'>Action</div>
+                                    </div>
+
+                                    <!-- List Empty Response -->
+                                    <div class="text-center" data-ng-if="!BookingServiceAndReferenceCtrl.ePage.Masters.Reference.GridData">
+                                        <i class="fa fa-spin fa-spinner font-160"></i>
+                                    </div>
+                                    <div>
+                                        <div class="grid-no-record1" style="top:110px;" data-ng-if="BookingServiceAndReferenceCtrl.ePage.Masters.Reference.GridData.length==0">No records found...</div>
+                                    </div>
+
+                                    <div class='table_row' data-ng-repeat="x in BookingServiceAndReferenceCtrl.ePage.Masters.Reference.GridData" data-ng-if="BookingServiceAndReferenceCtrl.ePage.Masters.Reference.GridData && BookingServiceAndReferenceCtrl.ePage.Masters.Reference.GridData.length > 0"
+                                        style="font-size: 11px;">
+
+                                        <div class='table_small'>
+                                            <div class='table_cell'>Number</div>
+                                            <div class='table_cell'>
+                                                <b>{{x.EntryNum}}</b>
+                                            </div>
+                                        </div>
+                                       
+                                        <div class='table_small'>
+                                            <div class='table_cell'>Number Type</div>
+                                            <div class='table_cell'>
+                                                {{x.EntryType}}
+                                            </div>
+
+                                        </div>
+                                       
+                                        <div class='table_small'>
+                                            <div class='table_cell'>Action</div>
+                                            <div class='table_cell'>
+                                                <i class="fa fa-pencil order-icon" data-ng-click="BookingServiceAndReferenceCtrl.ePage.Masters.Reference.SelectedGridRow(x,'edit')"></i>
+                                                <i class="fa fa-trash order-icon" data-ng-click="BookingServiceAndReferenceCtrl.ePage.Masters.Reference.SelectedGridRow(x,'delete')"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+                          
                         </div>
                     </div>
                 </div>
-            </uib-tab>
-        </uib-tabset>
     </div>
+    </uib-tab>
+    </uib-tabset>
+</div>
 </div>

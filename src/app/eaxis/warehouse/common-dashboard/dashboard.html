@@ -1,0 +1,155 @@
+<div class="full-page">
+    <!-- Header -->
+    <div class="clearfix border-bottom bg-white pt-20 pb-20">
+        <div class="col-lg-5">
+            <span class="dashboard-dms-icon-box fa fa-truck set-color-blue fs-22 mt-10"></span>
+            <span class="dashboard-dms-title ml-10 fs-25">Distribution Dashboard</span>
+        </div>
+        <div class="col-lg-7">
+            <div class="text-right">
+                <select class="btn btn-default select-rounded fs-12" ng-model="DashboardCtrl.ePage.Masters.userselected" ng-options="x.WarehouseCode+'-'+x.WarehouseName for x in DashboardCtrl.ePage.Masters.WarehouseDetails"
+                    ng-change="DashboardCtrl.ePage.Masters.WarehouseChanged()" search-contains="true"></select>
+
+                <a class="btn btn-default set-br-blue set-bg-blue-light fs-12" href='#/EA/DMS/create-gatepass'>Create Gatepass</a>
+                <a class="btn btn-default set-br-yellow set-bg-yellow-light fs-12" href='#/EA/DMS/create-manifest'>Create Manifest</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix">
+
+        <!-- Notification -->
+        <div  class="col-lg-8 mt-20 custom-widget">
+            <div class="widget">
+                <div class="widget-header bordered-bottom">
+                    <span class="widget-caption">Notification</span>
+                </div>
+                <div class="widget-body no-padding">
+                    <div class="tickets-container bg-white">
+                        <ul class="tickets-list scrollarea" id="style-1">
+                            <li data-ng-repeat="x in DashboardCtrl.ePage.Masters.NotificationDashboardDetails">
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <span class="mycircle">
+                                            <i class="glyphicon glyphicon-saved"></i>
+                                        </span>
+                                        <span class="p-10">{{x.DisplayText}}</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <div data-ng-if="DashboardCtrl.ePage.Masters.NotificationDashboardDetails.length==0">No Records Found!..</div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- KPI -->
+        <div class="col-lg-4 mt-20 custom-widget">
+            <div class="widget">
+                <div class="widget-header bordered-bottom">
+                    <span class="widget-caption">KPI (for last 30 days)</span>
+                </div>
+                <div class="widget-body no-padding">
+                    <div class="tickets-container bg-white">
+                        <ul class="tickets-list scrollarea" id="style-1">
+                            <li data-ng-repeat="x in DashboardCtrl.ePage.Masters.KPIDashboardDetails">
+                                <div class="clearfix">
+                                    <span class="user-company pull-left">{{x.TGP_Description}}</span>
+                                    <span class="badge badge-info pull-right">{{x.TGP_Count || 0 | number : 2 }}{{x.TGP_Units}}</span>.
+                                </div>
+                            </li>
+                            <div data-ng-if="DashboardCtrl.ePage.Masters.KPIDashboardDetails.length==0">No Records Found!..</div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix mb-30">
+        <!-- My Task -->
+        <div class="col-lg-4 mt-10 custom-widget">
+            <div class="widget">
+                <div class="widget-header bordered-bottom">
+                    <span class="widget-caption">My Task</span>
+                </div>
+                <div class="widget-body  no-padding">
+                    <div class="tickets-container bg-white">
+                        <ul class="tickets-list  scrollarea" id="style-1">
+                            <a href='#/EA/my-task' data-ng-if="DashboardCtrl.ePage.Masters.WorkItemList.length>0">
+                                <li ng-repeat="x in DashboardCtrl.ePage.Masters.WorkItemList">
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <span class="mycircle">
+                                                {{x.OVERDUE_TOTAL}}
+                                            </span>
+                                        </div>
+                                        <div class="col-lg-10">
+                                            <div class="user-mine">{{x.WSI_StepName}}</div>
+                                            <div class="user-at">{{x.KPIDescription}}</div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </a>
+                            <div data-ng-if="DashboardCtrl.ePage.Masters.WorkItemList.length==0">No Records Found!..</div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8 mt-10 custom-widget">
+            <div class="widget">
+                <div class="widget-header bordered-bottom">
+                    <span class="widget-caption">Exception</span>
+                </div>
+                <!--Widget Header-->
+                <div class="widget-body  no-padding">
+                    <div class="tickets-container bg-white">
+                        <ul class="tickets-list scrollarea" id="style-1">
+                            <li class="border-bottom-eee">
+                                <div class="clearfix">
+                                    <span class="user-mine">Delayed Delivery</span>
+                                </div>
+                                <div class="clearfix">
+                                    <span class="user-company">Manifest No(MAN0003211) delivered after 2 hours from the expected time.</span>
+                                </div>
+                                <div class="clearfix">
+                                    <span class="user-at">Exp Date : 9.00 A.M,4 Jul 2018</span>
+                                    <span class="user-at pull-right set-color-blue">Act Date : 11.00 A.M,4 Jul 2018</span>
+                                </div>
+                            </li>
+
+                            <li class="border-bottom-eee">
+                                <div class="clearfix">
+                                    <span class="user-mine">Early Pickup</span>
+                                </div>
+                                <div class="clearfix">
+                                    <span class="user-company">Manifest No(MAN0003212) pickedup 3 hours earlier from the expected time.</span>
+                                </div>
+                                <div class="clearfix">
+                                    <span class="user-at">Exp Date : 8.00 A.M,5 Jul 2018</span>
+                                    <span class="user-at pull-right set-color-blue">Act Date : 11.00 A.M,5 Jul 2018</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="clearfix">
+                                    <span class="user-mine">Advanced Delivery</span>
+                                </div>
+                                <div class="clearfix">
+                                    <span class="user-company">Manifest No(MAN0003213) delivered before 2 hours from the expected time.</span>
+                                </div>
+                                <div class="clearfix">
+                                    <span class="user-at">Exp Date : 8.00 A.M,5 Jul 2018</span>
+                                    <span class="user-at pull-right set-color-blue">Act Date : 10.00 A.M,5 Jul 2018</span>
+                                </div>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,109 @@
+<div id='' class="Shipmentstable_scroll" data-ng-if="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIOrderHeaders.length > 0"
+    style="min-height: 500px">
+    <div class="table tab-position" id="results">
+        <div class='theader'>
+            <div class='table_header'>Order #</div>
+            <div class='table_header'>Status</div>
+            <div class='table_header'>Order Date</div>
+            <div class='table_header'>Order Description</div>
+            <div class='table_header'>Pack / Type</div>
+            <div class='table_header'>Volume</div>
+            <div class='table_header'>Weight</div>
+            <div class='table_header'>Confirm #</div>
+            <div class='table_header'>Confirm Date</div>
+            <div class='table_header'>POL</div>
+            <div class='table_header'>POD</div>
+        </div>
+        <!-- List Empty Response -->
+        <div class="text-center grid-view-loader" data-ng-if="!TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIOrderHeaders">
+            <i class="fa fa-spin fa-spinner font-160"></i>
+        </div>
+        <div>
+            <div class="grid-no-record-shipment order-empty-top" data-ng-if="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIOrderHeaders.length==0">No records found...</div>
+        </div>
+        <div class='table_row' data-ng-repeat="x in TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIOrderHeaders"
+            data-ng-if="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIOrderHeaders && TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIOrderHeaders.length > 0"
+            style="font-size: 11px;">
+            <div class='table_small'>
+                <div class='table_cell'>Order #</div>
+                <div class='table_cell'>
+                    <b>
+                        <span data-ng-bind="x.OrderNo || TrackShipmentDetailsDirectiveCtrl.ePage.Masters.EmptyText"></span>
+                    </b>
+                </div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>Status</div>
+                <div class='table_cell'>
+                    <span data-ng-bind="x.OrderStatus || TrackShipmentDetailsDirectiveCtrl.ePage.Masters.EmptyText"></span>
+                </div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>Order Date</div>
+                <div class='table_cell'>
+                    <span data-ng-bind="x.OrderDate | date:'dd-MMM-yyyy' || TrackShipmentDetailsDirectiveCtrl.ePage.Masters.EmptyText"></span>
+                </div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>Order Description</div>
+                <div class='table_cell'>
+                    <span data-ng-bind="x.GoodsDescription || TrackShipmentDetailsDirectiveCtrl.ePage.Masters.EmptyText"></span>
+                </div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>Pack / Type</div>
+                <div class='table_cell'>
+                    <span data-ng-bind="x.Packs || TrackShipmentDetailsDirectiveCtrl.ePage.Masters.EmptyText"></span> /
+                    <span data-ng-bind="x.OrderPackType || TrackShipmentDetailsDirectiveCtrl.ePage.Masters.EmptyText"></span>
+                </div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>Volume</div>
+                <div class='table_cell'>
+                    <span data-ng-bind="x.ActualVolume || TrackShipmentDetailsDirectiveCtrl.ePage.Masters.EmptyText"></span>
+                </div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>Weight</div>
+                <div class='table_cell'>
+                    <span data-ng-bind="x.ActualWeight || TrackShipmentDetailsDirectiveCtrl.ePage.Masters.EmptyText"></span>
+                </div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>Confirm #</div>
+                <div class='table_cell'>
+                    <span data-ng-bind="x.ConfirmNo || TrackShipmentDetailsDirectiveCtrl.ePage.Masters.EmptyText"></span>
+                </div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>Confirm Date</div>
+                <div class='table_cell'>
+                    <span data-ng-bind="x.ConfirmDate | date:'dd-MMM-yyyy' || TrackShipmentDetailsDirectiveCtrl.ePage.Masters.EmptyText"></span>
+                </div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>POL</div>
+                <div class='table_cell'>
+                    <span data-ng-bind="x.PortOfLoading || TrackShipmentDetailsDirectiveCtrl.ePage.Masters.EmptyText"></span>
+                </div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>POD</div>
+                <div class='table_cell'>
+                    <span data-ng-bind="x.PortOfDischarge || TrackShipmentDetailsDirectiveCtrl.ePage.Masters.EmptyText"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="widget-main track-shipment-details p-5">
+    <ul class="related-action pl-0">
+        <li data-ng-if="TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIOrderHeaders.length==0">
+            <div class="row">
+                <div class="text-center">
+                    No Order Attached...
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,279 @@
+<div class="clearfix mt-10" data-ng-show="!BookingPlanningCtrl.ePage.Masters.JobSailing.IsFormView">
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <span>
+                <button class="btn btn-sm btn-outline-secondary" data-ng-click="BookingPlanningCtrl.ePage.Masters.JobSailing.AddNewSailing()"
+                    data-ng-show="!BookingPlanningCtrl.ePage.Masters.JobSailing.IsFormView">
+                    <span class="fa fa-plus"></span>&nbsp;&nbsp;Add Sailing
+
+            </span>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+
+        <div id='' class="Bookingstable_scroll" style="height:300px; padding-top: 2px;">
+            <div class="table tab-position" id="results">
+                <div class='theader'>
+                    <div class='table_header'>Carrier</div>
+                    <div class='table_header'>Vessel</div>
+                    <div class='table_header'>Voyage</div>
+                    <div class='table_header'>ETD</div>
+                    <div class='table_header'>ETA</div>
+                    <div class='table_header'>POL</div>
+                    <div class='table_header'>POD</div>
+                    <div class='table_header'>Action</div>
+                </div>
+
+                <!-- List Empty Response -->
+                <div class="text-center grid-view-loader" data-ng-if="!BookingPlanningCtrl.ePage.Masters.JobSailing.GridData">
+                    <i class="fa fa-spin fa-spinner font-160"></i>
+                </div>
+                <div>
+                    <div class="grid-no-record1" style="top:110px;" data-ng-if="BookingPlanningCtrl.ePage.Masters.JobSailing.GridData.length==0">No records found...</div>
+                </div>
+
+                <div class='table_row' data-ng-repeat="x in BookingPlanningCtrl.ePage.Masters.JobSailing.GridData" data-ng-if="BookingPlanningCtrl.ePage.Masters.JobSailing.GridData && BookingPlanningCtrl.ePage.Masters.JobSailing.GridData.length > 0"
+                    style="font-size: 11px;">
+
+                    <div class='table_small'>
+                        <div class='table_cell'>Carrier</div>
+                        <div class='table_cell'>
+                            <b>{{x.CarrierOrg_Code}}</b>
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Vessel</div>
+                        <div class='table_cell'>{{x.Vessel}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Voyage</div>
+                        <div class='table_cell'>
+                            {{x.VoyageFlight}}
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>ETD</div>
+                        <div class='table_cell'>
+                            {{x.ETD | date:'dd-MMM-yy'}}
+                        </div>
+
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>ETA</div>
+                        <div class='table_cell'>
+                            {{x.ETA | date:'dd-MMM-yy'}}
+                        </div>
+
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>POL</div>
+                        <div class='table_cell'>
+                            {{x.LoadPort}}
+                        </div>
+
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>POD</div>
+                        <div class='table_cell'>
+                            {{x.DischargePort}}
+                        </div>
+
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Action</div>
+                        <div class='table_cell'>
+                            <i class="fa fa-pencil order-icon" data-ng-click="BookingPlanningCtrl.ePage.Masters.JobSailing.SelectedGridRow(x,'edit')"></i>
+                            <i class="fa fa-trash order-icon" data-ng-click="BookingPlanningCtrl.ePage.Masters.JobSailing.SelectedGridRow(x,'delete')"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="clearfix mt-10" data-ng-show="BookingPlanningCtrl.ePage.Masters.JobSailing.IsFormView">
+    <div class="clearfix margin-bottom-10 service-details-heading">
+        <div class="text-center clearfix">
+            <i class="fa fa-angle-double-left pull-left btn btn-link" data-ng-click="BookingPlanningCtrl.ePage.Masters.JobSailing.IsFormView = false"></i>
+            <span class="heading">Sailing Details</span>
+        </div>
+    </div>
+    <div class="clearfix">
+        <!--Truck Ref-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3" data-ng-show="BookingPlanningCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode=='ROA'">
+            <div class="form-group">
+                <label class="control-label">Truck Ref</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm" placeholder="Truck Ref" data-ng-model="BookingPlanningCtrl.ePage.Masters.JobSailing.FormView.Vessel"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <!--Type-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">Carrier</label>
+                <div class="input-group input-group-sm">
+                    <input type="hidden" ng-model="BookingPlanningCtrl.ePage.Masters.JobSailing.FormView.CarrierOrg_FK">
+                    <div dynamic-lookup my-ng-model="BookingPlanningCtrl.ePage.Masters.JobSailing.FormView.CarrierOrg_Code" obj="BookingPlanningCtrl.ePage.Masters.JobSailing.FormView"
+                        prefix-data="'OrgCarrierList'" config="'BkgSailingCarrier'" auto-complete-on-select="BookingPlanningCtrl.ePage.Masters.SelectedLookupData($item)"></div>
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="BookingPlanningCtrl.ePage.Masters.JobSailing.FormView" field-name="'BkgSailingCarrier'" prefix-data="'OrgCarrierList'"
+                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingPlanningCtrl.ePage.Masters.SelectedLookupData($item)"
+                            class="btn btn-default shiny" type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- Vessel -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Vessel</label>
+                <div class="input-group input-group-sm">
+                    <input type="hidden" ng-model="BookingPlanningCtrl.ePage.Masters.JobSailing.FormView.Vessel_FK">
+                    <div dynamic-lookup placeholder="Vessel" my-ng-model="BookingPlanningCtrl.ePage.Masters.JobSailing.FormView.Vessel" obj="BookingPlanningCtrl.ePage.Masters.JobSailing.FormView"
+                        prefix-data="'MstVessel'" config="'OrdPlannedVessel'" auto-complete-on-select="SPAVesselModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)"></div>
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="BookingPlanningCtrl.ePage.Masters.JobSailing.FormView" field-name="'OrdPlannedVessel'" prefix-data="'MstVessel'"
+                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="" class="btn btn-default shiny"
+                            type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- Voyage -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label for="" data-ng-show="BookingPlanningCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode =='SEA'" class="control-label">Voyage</label>
+                <label for="" data-ng-show="BookingPlanningCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode =='AIR'" class="control-label">Flight</label>
+                <label for="" data-ng-show="BookingPlanningCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode =='ROA'" class="control-label">Truck Reference</label>
+                <input type="text" data-ng-show="BookingPlanningCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode =='SEA'" class="form-control input-sm"
+                    placeholder="Voyage" max-length="1" data-ng-model="BookingPlanningCtrl.ePage.Masters.JobSailing.FormView.VoyageFlight">
+                <input type="text" data-ng-show="BookingPlanningCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode =='AIR'" class="form-control input-sm"
+                    placeholder="Flight" max-length="1" data-ng-model="BookingPlanningCtrl.ePage.Masters.JobSailing.FormView.VoyageFlight">
+                <input type="text" data-ng-show="BookingPlanningCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode =='ROA'" class="form-control input-sm"
+                    placeholder="Truck Reference" max-length="1" data-ng-model="BookingPlanningCtrl.ePage.Masters.JobSailing.FormView.VoyageFlight">
+            </div>
+        </div>
+
+        <!--POL-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">POL </label>
+                <div class="input-group input-group-sm">
+                    <div dynamic-lookup placeholder="Origin" my-ng-model="BookingPlanningCtrl.ePage.Masters.JobSailing.FormView.LoadPort" obj="BookingPlanningCtrl.ePage.Masters.JobSailing.FormView"
+                        prefix-data="'MstUNLOCO'" config="'PortOfLoading'"></div>
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="BookingPlanningCtrl.ePage.Masters.JobSailing.FormView" field-name="'PortOfLoading'" prefix-data="'MstUNLOCO'"
+                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingPlanningCtrl.ePage.Masters.SelectedLookupData($item)"
+                            class="btn btn-default shiny" type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!--POD-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">POD </label>
+                <div class="input-group input-group-sm">
+
+                    <div dynamic-lookup placeholder="Destination" my-ng-model="BookingPlanningCtrl.ePage.Masters.JobSailing.FormView.DischargePort"
+                        obj="BookingPlanningCtrl.ePage.Masters.JobSailing.FormView" prefix-data="'MstUNLOCO'" config="'PortOfDischarge'"></div>
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="BookingPlanningCtrl.ePage.Masters.JobSailing.FormView" field-name="'PortOfDischarge'" prefix-data="'MstUNLOCO'"
+                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="BookingPlanningCtrl.ePage.Masters.SelectedLookupData($item)"
+                            class="btn btn-default shiny" type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!--ETD-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="ontrol-label">ETD</label>
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="{{BookingPlanningCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="BookingPlanningCtrl.ePage.Masters.JobSailing.FormView.ETD"
+                        uib-datepicker-popup="{{BookingPlanningCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-click="BookingPlanningCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'issETD')"
+                        datepicker-options="BookingPlanningCtrl.ePage.Masters.DatePicker.Options" is-open="BookingPlanningCtrl.ePage.Masters.DatePicker.isOpen['issETD']"
+                    />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="BookingPlanningCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'issETD')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!--ETA-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">ETA </label>
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="{{BookingPlanningCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="BookingPlanningCtrl.ePage.Masters.JobSailing.FormView.ETA"
+                        uib-datepicker-popup="{{BookingPlanningCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-click="BookingPlanningCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'issETA')"
+                        datepicker-options="BookingPlanningCtrl.ePage.Masters.DatePicker.Options" is-open="BookingPlanningCtrl.ePage.Masters.DatePicker.isOpen['issETA']"
+                    />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="BookingPlanningCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'issETA')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!--Cargo Cut Off Date-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="ontrol-label">Cargo Cut Off Date</label>
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="{{BookingPlanningCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="BookingPlanningCtrl.ePage.Masters.JobSailing.FormView.CargoCutOffDate"
+                        uib-datepicker-popup="{{BookingPlanningCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-click="BookingPlanningCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'issCargoCutOffDate')"
+                        datepicker-options="BookingPlanningCtrl.ePage.Masters.DatePicker.Options" is-open="BookingPlanningCtrl.ePage.Masters.DatePicker.isOpen['issCargoCutOffDate']"
+                    />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="BookingPlanningCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'issCargoCutOffDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!--Booking Cut Off Date-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Booking Cut Off Date </label>
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="{{BookingPlanningCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="BookingPlanningCtrl.ePage.Masters.JobSailing.FormView.BookingCutOffDate"
+                        uib-datepicker-popup="{{BookingPlanningCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-click="BookingPlanningCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'issBookingCutOffDate')"
+                        datepicker-options="BookingPlanningCtrl.ePage.Masters.DatePicker.Options" is-open="BookingPlanningCtrl.ePage.Masters.DatePicker.isOpen['issBookingCutOffDate']"
+                    />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="BookingPlanningCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'issBookingCutOffDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 margin-top-30">
+            <input type="button" class="btn btn-sm btn-outline-secondary pull-right margin-left-5" data-ng-click="BookingPlanningCtrl.ePage.Masters.JobSailing.AddToGridSailing(BookingPlanningCtrl.ePage.Masters.JobSailing.AddNewAndUpdate)"
+                value="{{BookingPlanningCtrl.ePage.Masters.JobSailing.AddNewAndUpdate}}">
+        </div>
+
+    </div>
+</div>

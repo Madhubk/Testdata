@@ -1,0 +1,76 @@
+<form class="clearfix task-assign-start-complete-wrapper" role="form" data-ng-if="TaskAssignStartCompleteCtrl.ePage.Masters.Task">
+    <!-- Assign to Me -->
+    <div class="col-xs-6 col-md-6 col-lg-6 col-sm-6" data-ng-if="TaskAssignStartCompleteCtrl.ePage.Masters.Task.Status == 'AVAILABLE' &&  TaskAssignStartCompleteCtrl.ePage.Masters.Task.IsWorkStartedStr == '0'">
+        <div class="radio">
+            <label>
+                <input name="mt-task-assign-to" type="radio" class="colored-blue" data-ng-model="TaskAssignStartCompleteCtrl.ePage.Masters.Task.RadioBtnOption"
+                    value="Me">
+                <span class="text">Assign To Me</span>
+            </label>
+        </div>
+    </div>
+    <!-- Move to Queue -->
+    <div class="col-xs-6 col-md-6 col-lg-6 col-sm-6" data-ng-if="TaskAssignStartCompleteCtrl.ePage.Masters.Task.Status == 'ASSIGNED' &&  TaskAssignStartCompleteCtrl.ePage.Masters.Task.IsWorkStartedStr == '0' && TaskAssignStartCompleteCtrl.ePage.Masters.Task.AccessMode != 'USER'">
+        <div class="radio">
+            <label>
+                <input name="mt-task-assign-to" type="radio" class="colored-blue" data-ng-model="TaskAssignStartCompleteCtrl.ePage.Masters.Task.RadioBtnOption"
+                    value="MoveToQueue">
+                <span class="text">Back To Queue</span>
+            </label>
+        </div>
+    </div>
+    <!-- Assign to Others -->
+    <div class="col-xs-6 col-md-6 col-lg-6 col-sm-6" data-ng-if="(TaskAssignStartCompleteCtrl.ePage.Masters.Task.Status == 'AVAILABLE' || TaskAssignStartCompleteCtrl.ePage.Masters.Task.Status == 'ASSIGNED') &&  TaskAssignStartCompleteCtrl.ePage.Masters.Task.IsWorkStartedStr == '0'">
+        <div class="radio">
+            <label>
+                <input name="mt-task-assign-to" type="radio" class="colored-blue" data-ng-model="TaskAssignStartCompleteCtrl.ePage.Masters.Task.RadioBtnOption"
+                    value="Others">
+                <span class="text">Assign To Others</span>
+            </label>
+        </div>
+    </div>
+    <!-- Assign to Others - UserList -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" data-ng-if="TaskAssignStartCompleteCtrl.ePage.Masters.Task.RadioBtnOption == 'Others'">
+        <div class="form-group">
+            <div class="clearfix">
+                <input type="text" class="form-control input-sm txt-assign-to-others" ng-model="TaskAssignStartCompleteCtrl.ePage.Masters.Task.AssignToOthers"
+                    placeholder="User" uib-typeahead="x.EmailId as x.EmailId for x in  TaskAssignStartCompleteCtrl.ePage.Masters.GetUserList($viewValue)">
+            </div>
+        </div>
+    </div>
+    <!-- Start My Work -->
+    <div class="col-xs-6 col-md-6 col-lg-6 col-sm-6" data-ng-if="TaskAssignStartCompleteCtrl.ePage.Masters.Task.Status == 'ASSIGNED' && TaskAssignStartCompleteCtrl.ePage.Masters.Task.IsWorkStartEnabledStr == '1' && TaskAssignStartCompleteCtrl.ePage.Masters.Task.IsWorkStartedStr == '0'">
+        <div class="radio">
+            <label>
+                <input name="mt-task-assign-to" type="radio" class="colored-blue" data-ng-model="TaskAssignStartCompleteCtrl.ePage.Masters.Task.RadioBtnOption"
+                    value="StartWork">
+                <span class="text">Start My Work</span>
+            </label>
+        </div>
+    </div>
+    <!-- Abort Work -->
+    <div class="col-xs-6 col-md-6 col-lg-6 col-sm-6" data-ng-if="TaskAssignStartCompleteCtrl.ePage.Masters.Task.Status == 'ASSIGNED' && TaskAssignStartCompleteCtrl.ePage.Masters.Task.IsWorkStartedStr == '1'">
+        <div class="radio">
+            <label>
+                <input name="mt-task-assign-to" type="radio" class="colored-blue" data-ng-model="TaskAssignStartCompleteCtrl.ePage.Masters.Task.RadioBtnOption"
+                    value="AbortWork">
+                <span class="text">Abort Work</span>
+            </label>
+        </div>
+    </div>
+    <!-- Complete Work -->
+    <!-- <div class="col-xs-6 col-md-6 col-lg-6 col-sm-6" data-ng-if="TaskAssignStartCompleteCtrl.ePage.Masters.Task.Status == 'ASSIGNED' && TaskAssignStartCompleteCtrl.ePage.Masters.Task.IsWorkStartedStr == '1' && TaskAssignStartCompleteCtrl.mode == '2'">
+        <div class="radio">
+            <label>
+                <input name="mt-task-assign-to" type="radio" class="colored-blue" data-ng-model="TaskAssignStartCompleteCtrl.ePage.Masters.Task.RadioBtnOption"
+                    value="Complete">
+                <span class="text">Complete</span>
+            </label>
+        </div>
+    </div> -->
+    <!-- Submit -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-5">
+        <button class="btn btn-primary btn-xs pull-right" data-ng-click="TaskAssignStartCompleteCtrl.ePage.Masters.Submit()" data-ng-bind="TaskAssignStartCompleteCtrl.ePage.Masters.SubmitBtnText"
+            data-ng-disabled="!TaskAssignStartCompleteCtrl.ePage.Masters.Task.RadioBtnOption || TaskAssignStartCompleteCtrl.ePage.Masters.IsDisableSubmitBtn"></button>
+    </div>
+</form>

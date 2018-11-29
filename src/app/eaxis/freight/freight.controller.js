@@ -5,23 +5,13 @@
         .module("Application")
         .controller("FreightController", FreightController);
 
-    FreightController.$inject = ["authService", "helperService"];
+    FreightController.$inject = [];
 
-    function FreightController(authService, helperService) {
+    function FreightController() {
         /* jshint validthis: true */
         var FreightCtrl = this;
 
-        function Init() {
-            FreightCtrl.ePage = {
-                "Title": "",
-                "Prefix": "eAxis_Freight",
-                "Masters": {},
-                "Meta": helperService.metaBase(),
-                "Entities": {}
-            };
-
-            FreightCtrl.ePage.Masters.MenuVisibleType = authService.getUserInfo().Menu.VisibleType;
-        }
+        function Init() {}
 
         Init();
     }

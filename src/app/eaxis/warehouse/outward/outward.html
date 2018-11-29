@@ -9,7 +9,7 @@
 
         <div class="no-padding tab-list-view-wrapper">
             <!--Outward Grid Page-->
-            <dynamic-list dataentry-name="OutwardCtrl.ePage.Masters.dataentryName" task-name="OutwardCtrl.ePage.Masters.taskName" grid-config-type="0" selected-grid-row="OutwardCtrl.ePage.Masters.SelectedGridRow($item)" mode="1"></dynamic-list>
+            <dynamic-list dataentry-name="OutwardCtrl.ePage.Masters.dataentryName" task-name="OutwardCtrl.ePage.Masters.taskName" grid-config-type="0" selected-grid-row="OutwardCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" dataentry-object="OutwardCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
             <div class="tab-loading" data-ng-show="OutwardCtrl.ePage.Masters.IsTabClick"></div>
         </div>
     </uib-tab>
@@ -37,7 +37,7 @@
         </uib-tab-heading>
         <div class="padding-bottom-10 clearfix">
             <!--Outward Menu Directive-->
-            <Outward-menu current-outward="tab"></Outward-menu>
+            <Outward-menu current-outward="tab" dataentry-object="OutwardCtrl.ePage.Masters.DataEntryObject"></Outward-menu>
             <div class="horizontal-space"></div>
         </div>
         <span ng-if="OutwardCtrl.ePage.Masters.Config.SaveAndClose" ng-init="OutwardCtrl.ePage.Masters.SaveandClose(OutwardCtrl.ePage.Masters.activeTabIndex, tab)"></span>
@@ -45,7 +45,8 @@
     </uib-tab>
     
     <button class="btn btn-default" ng-click="OutwardCtrl.ePage.Masters.CreateNewOutward()" data-ng-disabled="OutwardCtrl.ePage.Masters.isNewClicked">+</button>
-            
+    <button class="btn btn-default btn-batch-upload-outward" style="margin-left:auto;"  data-ng-click="OutwardCtrl.ePage.Masters.BulkUploadOption()" >Batch Upload</button>
+
 </uib-tabset>
            
     

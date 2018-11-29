@@ -1,0 +1,11 @@
+<div data-ng-if="ConsolMyTaskCtrl.ePage.Masters.MyTask.ListSource">
+    <div class="text-center p-20" data-ng-if="!ConsolMyTaskCtrl.ePage.Masters.MyTask.ListSource">
+        <i class="fa fa-spinner fa-spin"></i>
+    </div>
+    <div class="text-center p-20" data-ng-if="ConsolMyTaskCtrl.ePage.Masters.MyTask.ListSource && ConsolMyTaskCtrl.ePage.Masters.MyTask.ListSource.length==0">
+        <i>No Records...</i>
+    </div>
+    <div class="clearfix" data-ng-if="ConsolMyTaskCtrl.ePage.Masters.MyTask.ListSource && ConsolMyTaskCtrl.ePage.Masters.MyTask.ListSource.length > 0">
+        <activity-tab task-list="ConsolMyTaskCtrl.ePage.Masters.MyTask.ListSource" obj="ConsolMyTaskCtrl.ePage.Entities"></activity-tab>
+    </div>
+</div>

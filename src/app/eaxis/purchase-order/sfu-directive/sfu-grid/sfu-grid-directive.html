@@ -7,21 +7,10 @@
             <div class='table_header'>Follow Up Date</div>
             <div class='table_header'>Consignee</div>
             <div class='table_header'>Consignor</div>
-            <!-- <div class='table_header'>Forwarder</div>
-            <div class='table_header'>Load Port</div> -->
             <div class='table_header'>T.Mode</div>
             <div class='table_header'>C.Mode</div>
             <div class='table_header'>Cargo Ready Date</div>
             <div class='table_header'>Comments</div>
-            <div class='table_header'>Req In Store</div>
-            <div class='table_header'>Req Ex. Store</div>
-            <div class='table_header'>Cus.Date1</div>
-            <div class='table_header'>Cus.Date2</div>
-        </div>
-
-        <!-- List Empty Response -->
-        <div data-ng-if="SupplierFollowUpGridDirectiveCtrl.ePage.Masters.SfuOrderList.length==0">
-            <div class="grid-no-record grid-width" style="bottom:38px">No record found..</div>
         </div>
         <!-- List Loading -->
         <div data-ng-show="SupplierFollowUpGridDirectiveCtrl.ePage.Masters.spinner">
@@ -34,7 +23,8 @@
             </div>
         </div>
         <!-- List Order(s) -->
-        <div class='table_row' ng-repeat="x in SupplierFollowUpGridDirectiveCtrl.ePage.Masters.SfuOrderList" ng-class="{row_active: x.status === true}" style="font-size: 11px;">
+        <div class='table_row' data-ng-repeat="x in SupplierFollowUpGridDirectiveCtrl.ePage.Masters.SfuOrderList"
+            data-ng-class="{row_active: x.status === true}" style="font-size: 11px;">
             <div class='table_small'>
                 <div class='table_cell'>Select</div>
                 <div class='table_cell'>
@@ -49,7 +39,9 @@
             </div>
             <div class='table_small'>
                 <div class='table_cell'>Order #</div>
-                <div class='table_cell'><a data-ng-click="SupplierFollowUpGridDirectiveCtrl.ePage.Masters.SingleRecordView(x)">{{x.OrderCumSplitNo}}</a></div>
+                <div class='table_cell'>
+                    <a data-ng-click="SupplierFollowUpGridDirectiveCtrl.ePage.Masters.SingleRecordView(x)">{{x.OrderCumSplitNo}}</a>
+                </div>
             </div>
             <div class='table_small'>
                 <div class='table_cell'>Order Date</div>
@@ -67,15 +59,6 @@
                 <div class='table_cell'>Consignor</div>
                 <div class='table_cell'>{{x.Supplier}}</div>
             </div>
-            <!-- <div class='table_small'>
-                <div class='table_cell'>Forwarder</div>
-                <div class='table_cell'>{{x.Forwarder}}</div>
-            </div>
-
-            <div class='table_small'>
-                <div class='table_cell'>Load Port</div>
-                <div class='table_cell'>{{x.PortOfLoading}}</div>
-            </div> -->
             <div class='table_small'>
                 <div class='table_cell'>T.Mode</div>
                 <div class='table_cell'>{{x.TransportMode}}</div>
@@ -89,9 +72,18 @@
                 <div class='table_cell'>Cargo Ready Date</div>
                 <div class='table_cell'>
                     <div class="input-group input-group-sm">
-                        <input type="text" class="form-control align-size" placeholder="{{SupplierFollowUpGridDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-model="x.CargoReadyDate" data-ng-click="SupplierFollowUpGridDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoReadyDate'+ $index)" uib-datepicker-popup="{{SupplierFollowUpGridDirectiveCtrl.ePage.Masters.DatePicker.Options.format}}" datepicker-options="SupplierFollowUpGridDirectiveCtrl.ePage.Masters.DatePicker.Options" is-open="SupplierFollowUpGridDirectiveCtrl.ePage.Masters.DatePicker.isOpen['isCargoReadyDate'+ $index]" />
+                        <input type="text" class="form-control" placeholder="{{SupplierFollowUpGridDirectiveCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                            data-ng-model="x.CargoReadyDate" datetime-picker="{{SupplierFollowUpGridDirectiveCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                            datepicker-options="SupplierFollowUpGridDirectiveCtrl.ePage.Masters.DatePicker.Options"
+                            datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                            enable-date="true" default-date="" default-time="" save-as="SupplierFollowUpGridDirectiveCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                            is-open="SupplierFollowUpGridDirectiveCtrl.ePage.Masters.DatePicker.isOpen['isCargoReadyDate'+ $index]"
+                            when-closed="" data-ng-click="SupplierFollowUpGridDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoReadyDate'+ $index)"
+                            data-ng-change="" custom-date-time-format />
                         <span class="input-group-btn">
-                            <button class="btn btn-default shiny align-size" data-ng-click="SupplierFollowUpGridDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoReadyDate'+ $index)"><i class="fa fa-calendar"></i></button>
+                            <button class="btn btn-default shiny align-size" data-ng-click="SupplierFollowUpGridDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoReadyDate'+ $index)">
+                                <i class="fa fa-calendar"></i>
+                            </button>
                         </span>
                     </div>
                 </div>
@@ -100,30 +92,21 @@
                 <div class='table_cell'>Comments</div>
                 <div class='table_cell'>
                     <div class="input-group input-group-sm">
-                        <textarea class="form-control no-resize align-size" placeholder="Enter your comments" data-ng-model="x.Comments">{{x.Comments}} </textarea>
+                        <textarea class="form-control no-resize align-size" placeholder="Enter your comments"
+                            data-ng-model="x.Comments">{{x.Comments}} </textarea>
                         <span class="input-group-btn">
-                            <button class="btn btn-default align-size" type="button"><i class="fa fa-comments"></i></button>
+                            <button class="btn btn-default align-size" type="button">
+                                <i class="fa fa-comments"></i>
+                            </button>
                         </span>
                     </div>
                 </div>
             </div>
-            <div class='table_small'>
-                <div class='table_cell'>Req In Store</div>
-                <div class='table_cell'>{{x.RequiredDeliveryDate | date:'dd-MMM-yyyy'}}</div>
-            </div>
-            <div class='table_small'>
-                <div class='table_cell'>Req Ex. Store</div>
-                <div class='table_cell'>{{x.RequiredExWorksDate | date:'dd-MMM-yyyy'}}</div>
-            </div>
-            <div class='table_small'>
-                <div class='table_cell'>Cus.Date1</div>
-                <div class='table_cell'>{{x.CustomDate1 | date:'dd-MMM-yyyy'}}</div>
-            </div>
-            <div class='table_small'>
-                <div class='table_cell'>Cus.Date2</div>
-                <div class='table_cell'>{{x.CustomDate2 | date:'dd-MMM-yyyy'}}</div>
-            </div>
 
         </div>
+    </div>
+    <!-- List Empty Response -->
+    <div data-ng-if="SupplierFollowUpGridDirectiveCtrl.ePage.Masters.SfuOrderList.length==0">
+        <div class="grid-no-record-sfu">No record found..</div>
     </div>
 </div>

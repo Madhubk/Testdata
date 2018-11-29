@@ -5,9 +5,9 @@
         .module("Application")
         .controller("EAAdminHomeController", EAAdminHomeController);
 
-    EAAdminHomeController.$inject = ["$location", "authService", "apiService", "helperService", "toastr", "appConfig"];
+    EAAdminHomeController.$inject = ["$location", "authService", "apiService", "helperService", "appConfig"];
 
-    function EAAdminHomeController($location, authService, apiService, helperService, toastr, appConfig) {
+    function EAAdminHomeController($location, authService, apiService, helperService, appConfig) {
         /* jshint validthis: true */
         var EAAdminHomeCtrl = this;
 
@@ -69,19 +69,20 @@
                         _link = $item.Link.substring(2, $item.Link.length);
                     }
 
-                    if ($item.OtherConfig) {
-                        var _input = JSON.parse($item.OtherConfig).QueryString;
-
-                        if (_input) {
-                            for (var x in _input) {
-                                _input[x] = GetUserData(_input[x]);
-                            }
-
-                            $location.path(_link + "/" + helperService.encryptData(_input));
-                        }
+                    if ($item.Code == "EA_ADMN_LOGIN_USERS" || $item.Code == "EA_ADMIN_USER_CREATION") {
+                        $location.path(_link);
                     } else {
-                        if ($item.Code == "EA_ADMN_LOGIN_USERS")
-                            $location.path(_link)
+                        if ($item.OtherConfig) {
+                            var _input = JSON.parse($item.OtherConfig).QueryString;
+
+                            if (_input) {
+                                for (var x in _input) {
+                                    _input[x] = GetUserData(_input[x]);
+                                }
+
+                                $location.path(_link + "/" + helperService.encryptData(_input));
+                            }
+                        }
                     }
                 }
             }

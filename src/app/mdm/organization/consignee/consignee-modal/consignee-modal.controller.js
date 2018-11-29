@@ -18,7 +18,6 @@
                 "Meta": helperService.metaBase(),
                 "Entities": {}
             };
-            console.log(param.Header)
             
             ModePopUpModalCtrl.ePage.Masters.ModeData = {};
             ModePopUpModalCtrl.ePage.Masters.Ok = Save;

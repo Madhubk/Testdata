@@ -5,9 +5,9 @@
         .module("Application")
         .factory('shipmentConfig', ShipmentConfig);
 
-    ShipmentConfig.$inject = ["$rootScope", "$location", "$q", "apiService", "helperService", "toastr"];
+    ShipmentConfig.$inject = ["$rootScope", "$location", "$q", "apiService", "helperService", "toastr", "appConfig", "errorWarningService", "$timeout"];
 
-    function ShipmentConfig($rootScope, $location, $q, apiService, helperService, toastr) {
+    function ShipmentConfig($rootScope, $location, $q, apiService, helperService, toastr, appConfig, errorWarningService, $timeout) {
         var exports = {
             "Entities": {
                 "Header": {
@@ -25,11 +25,155 @@
                             "Url": "ShipmentList/ShipmentActivityClose/"
                         }
                     },
+                    "GlobalVar": "Shipment",
                     "Meta": {}
+                },
+                "TableProperties": {
+                    "UIConShpMappings": {
+                        "HeaderProperties": {
+                            "ConsolNo": {
+                                "columnname": "ConsolNo",
+                                "isenabled": true,
+                                "property": "consolNo",
+                                "position": "1",
+                                "width": "300",
+                                "display": true
+                            },
+                            "POL": {
+                                "columnname": "POL",
+                                "isenabled": true,
+                                "property": "POL",
+                                "position": "2",
+                                "width": "250",
+                                "display": true
+                            },
+                            "POD": {
+                                "columnname": "POD",
+                                "isenabled": true,
+                                "property": "POD",
+                                "position": "3",
+                                "width": "250",
+                                "display": true
+                            },
+                            "MBL": {
+                                "columnname": "MBL",
+                                "isenabled": true,
+                                "property": "MBL",
+                                "position": "4",
+                                "width": "250",
+                                "display": true
+                            },
+                            "Mode": {
+                                "columnname": "Mode",
+                                "isenabled": true,
+                                "property": "mode",
+                                "position": "5",
+                                "width": "250",
+                                "display": true
+                            },
+                            "Action": {
+                                "columnname": "Action",
+                                "isenabled": true,
+                                "property": "action",
+                                "position": "5",
+                                "width": "50",
+                                "display": true
+                            }
+                        },
+                        "consolNo": {
+                            "isenabled": true,
+                            "width": "300",
+                            "position": "1"
+                        },
+                        "POL": {
+                            "isenabled": true,
+                            "width": "250",
+                            "position": "2"
+                        },
+                        "POD": {
+                            "isenabled": true,
+                            "width": "250",
+                            "position": "3"
+                        },
+                        "MBL": {
+                            "isenabled": true,
+                            "width": "250",
+                            "position": "3"
+                        },
+                        "Mode": {
+                            "isenabled": true,
+                            "width": "250",
+                            "position": "3"
+                        },
+                        "Action": {
+                            "isenabled": true,
+                            "width": "50",
+                            "position": "3"
+                        }
+                    },
+                    "ContainerList": {
+                        "HeaderProperties": {
+                            "ContainerNo": {
+                                "columnname": "ContainerNo",
+                                "isenabled": true,
+                                "property": "ContainerNo",
+                                "position": "1",
+                                "width": "200",
+                                "display": true
+                            },
+                            "ContainerCount": {
+                                "columnname": "ContainerCount",
+                                "isenabled": true,
+                                "property": "ContainerCount",
+                                "position": "2",
+                                "width": "200",
+                                "display": true
+                            },
+                            "RC_Type": {
+                                "columnname": "RC_Type",
+                                "isenabled": true,
+                                "property": "RC_Type",
+                                "position": "3",
+                                "width": "200",
+                                "display": true
+                            },
+                            "SealNo": {
+                                "columnname": "SealNo",
+                                "isenabled": true,
+                                "property": "SealNo",
+                                "position": "4",
+                                "width": "200",
+                                "display": true
+                            },
+                        },
+                        "ContainerNo": {
+                            "isenabled": true,
+                            "width": "200",
+                            "position": "1"
+                        },
+                        "ContainerCount": {
+                            "isenabled": true,
+                            "width": "200",
+                            "position": "2"
+                        },
+                        "RC_Type": {
+                            "isenabled": true,
+                            "width": "200",
+                            "position": "3"
+                        },
+                        "SealNo": {
+                            "isenabled": true,
+                            "width": "200",
+                            "position": "4"
+                        }
+                    }
                 }
             },
             "TabList": [],
-            "GetTabDetails": GetTabDetails
+            "GetTabDetails": GetTabDetails,
+            "GeneralValidation": GeneralValidation,
+            "ShowErrorWarningModal": ShowErrorWarningModal,
+            "PortsComparison": PortsComparison
         };
         return exports;
 
@@ -51,6 +195,16 @@
                                 "IsAPI": "true",
                                 "HttpType": "POST",
                                 "Url": "ShipmentList/Update"
+                            },
+                            "InsertBooking": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "Booking/Insert"
+                            },
+                            "UpdateBooking": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "Booking/Update"
                             }
                         },
                         "Meta": {
@@ -68,56 +222,67 @@
                                 "DisplayName": "General",
                                 "Value": "General",
                                 "Icon": "fa-plane",
+                                "GParentRef": "General",
                                 "IsDisabled": false
                             }, {
                                 "DisplayName": "Link Orders",
                                 "Value": "Order",
                                 "Icon": "fa-cart-plus",
+                                "GParentRef": "linkorders",
                                 "IsDisabled": false
                             }, {
                                 "DisplayName": "Consol & Packing",
                                 "Value": "ConsolAndPacking",
                                 "Icon": "fa-suitcase",
+                                "GParentRef": "consolandpacking",
                                 "IsDisabled": false
                             }, {
                                 "DisplayName": "Service & Reference",
                                 "Value": "ServiceAndReference",
                                 "Icon": "fa-wrench",
+                                "GParentRef": "serviceandreference",
                                 "IsDisabled": false
                             }, {
                                 "DisplayName": "Routing",
                                 "Value": "Routing",
                                 "Icon": "fa-ship",
+                                "GParentRef": "routing",
                                 "IsDisabled": false
                             }, {
                                 "DisplayName": "Related Shipment",
                                 "Value": "RelatedShipment",
                                 "Icon": "fa-link",
+                                "GParentRef": "relatedshipment",
                                 "IsDisabled": false
                             }, {
                                 "DisplayName": "Pickup & Delivery",
                                 "Value": "PickupAndDelivery",
                                 "Icon": "fa-train",
+                                "GParentRef": "pickupanddelivery",
                                 "IsDisabled": false
                             }, {
                                 "DisplayName": "Job",
                                 "Value": "Job",
                                 "Icon": "fa-gg",
+                                "GParentRef": "job",
                                 "IsDisabled": false
                             }, {
                                 "DisplayName": "Address",
                                 "Value": "Address",
                                 "Icon": "fa-address-card-o",
+                                "GParentRef": "address",
                                 "IsDisabled": false
                             }, {
                                 "DisplayName": "Documents",
                                 "Value": "Documents",
                                 "Icon": "fa-address-card-o",
+                                "GParentRef": "documents",
                                 "IsDisabled": true
                             }, {
                                 "DisplayName": "Dynamic Table",
                                 "Value": "DynamicTable",
                                 "Icon": "fa-address-card-o",
+                                "GParentRef": "dynamictable",
                                 "IsDisabled": true
                             }],
                             "PacksUOM": helperService.metaBase(),
@@ -126,6 +291,7 @@
                             "ProfitLoss": helperService.metaBase(),
                             "Country": helperService.metaBase(),
                             "Container": helperService.metaBase()
+
                         }
                     },
                     "Container": {
@@ -858,24 +1024,24 @@
                             "itemsPerPage": 10,
                             "isRowTemplate": false,
                             "columnDef": [{
-                                    "field": "DG_NKSubs",
-                                    "displayName": "DG_NKSubs",
-                                }, {
-                                    "field": "IMOClass",
-                                    "displayName": "IMO Class",
-                                }, {
-                                    "field": "DGFlashPoint",
-                                    "displayName": "DGFlashPoint",
-                                }, {
-                                    "field": "DGVolume",
-                                    "displayName": "DGVolume",
-                                }, {
-                                    "field": "UnitOfVolume",
-                                    "displayName": "UnitOfVolume",
-                                }, {
-                                    "field": "DGWeight",
-                                    "displayName": "DGWeights",
-                                },
+                                "field": "DG_NKSubs",
+                                "displayName": "DG_NKSubs",
+                            }, {
+                                "field": "IMOClass",
+                                "displayName": "IMO Class",
+                            }, {
+                                "field": "DGFlashPoint",
+                                "displayName": "DGFlashPoint",
+                            }, {
+                                "field": "DGVolume",
+                                "displayName": "DGVolume",
+                            }, {
+                                "field": "UnitOfVolume",
+                                "displayName": "UnitOfVolume",
+                            }, {
+                                "field": "DGWeight",
+                                "displayName": "DGWeights",
+                            },
                                 // {
                                 //     "field": "UnitOfWeight",
                                 //     "displayName": "UnitOfWeight",
@@ -997,10 +1163,18 @@
                                 "_paginationPageSizes": [25, 50, 100]
                             }
                         }
+                    },
+
+                    "GlobalVar": {
+                        "IsOrgMapping": true,
+                        "IsShowEditActivityPage": false,
+                        "ActivityName": "",
+                        "IsActiveShipmentEnable": false,
+                        "Input": []
                     }
                 }
-            };
 
+            };
             if (isNew) {
                 _exports.Entities.Header.Data = currentShipment.data;
                 var _obj = {
@@ -1040,5 +1214,52 @@
 
             return deferred.promise;
         }
+
+        function ShowErrorWarningModal(EntityObject) {
+            $("#errorWarningContainer" + EntityObject.code).toggleClass("open");
+        }
+
+        function GeneralValidation($item) {
+            //General Page Validation
+            var _Data = $item[$item.label].ePage.Entities,
+                _input = _Data.Header.Data;
+            var _deferred = $q.defer();
+            var _obj = {
+                ModuleName: ["Shipment"],
+                Code: [$item.code],
+                API: "Group",
+                FilterInput: {
+                    ModuleCode: "SHP",
+                    SubModuleCode: "SHP"
+                },
+                GroupCode: "SHP_GENERAL",
+                RelatedBasicDetails: [{
+                    // "UIField": "TEST",
+                    // "DbField": "TEST",
+                    // "Value": "TEST"
+                }],
+                EntityObject: $item[$item.label].ePage.Entities.Header.Data
+            };
+            errorWarningService.ValidateValue(_obj);
+            $timeout(function () {
+                _deferred.resolve(errorWarningService);
+            });
+            return _deferred.promise;
+
+        }
+
+        function PortsComparison(Str1, Str2) {
+            if (!Str1 || !Str2) {
+                return false
+            }
+            if (Str1 && Str2) {
+                if (Str1.slice(0, 2) == Str2.slice(0, 2)) {
+                    return true
+                } else {
+                    return false
+                }
+            }
+        }
+
     }
 })();

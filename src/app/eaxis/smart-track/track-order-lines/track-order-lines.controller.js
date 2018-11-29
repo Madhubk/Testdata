@@ -40,6 +40,7 @@
             TrackOrderLineCtrl.ePage.Masters.RemoveTab = RemoveTab;
             TrackOrderLineCtrl.ePage.Masters.CurrentActiveTab = CurrentActiveTab;
             TrackOrderLineCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
+            orderLinesConfig.TabList = [];
 
             // routing for container
             var _Entity = $location.search(),

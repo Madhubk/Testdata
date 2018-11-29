@@ -1,0 +1,12 @@
+.doc-modal .modal-dialog {
+    width: 80% !important;
+}
+
+.fix-top {
+    margin-top: 20px !important;
+}
+
+.doc-modal-hide {
+    overflow: hidden;
+    position: relative;
+}

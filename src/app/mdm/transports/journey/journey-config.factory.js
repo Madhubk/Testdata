@@ -29,7 +29,7 @@
                         "GetByID": {
                             "IsAPI": "true",
                             "HttpType": "GET",
-                            "Url": "TmsJourney/GetById/"
+                            "Url": "TmsJourneyList/GetById/"
                         },
                         "Validationapi": {
                             "IsAPI": "true",
@@ -41,7 +41,10 @@
                     "Meta": {
 
 
-                    }
+                    },
+                    "CheckPoints": {
+                        "LebelText": ""
+                    },
                 }
 
             },
@@ -49,6 +52,7 @@
             "TabList": [],
             "GetTabDetails": GetTabDetails,
             "ValidationValues": "",
+            "ValidationValues1": "",
             "TempConsignmentNumber": "",
             "GeneralValidation": GeneralValidation,
             "RemoveApiErrors": RemoveApiErrors,
@@ -74,12 +78,12 @@
                             "InsertJourney": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
-                                "Url": "TmsJourney/Insert"
+                                "Url": "TmsJourneyList/Insert"
                             },
                             "UpdateJourney": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
-                                "Url": "TmsJourney/Update"
+                                "Url": "TmsJourneyList/Update"
                             },
                             "CfxTypes": {
                                 "IsAPI": "true",
@@ -93,6 +97,18 @@
                                 "Url": "OrgAddress/FindAll",
                                 "FilterID": "ORGADDR"
                             },
+                            "CfxOrgMapping": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "CfxOrgMapping/FindAll",
+                                "FilterID": "CFXORMAP"
+                            },
+                            "TmsJourney": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "TmsJourney/FindAll",
+                                "FilterID": "TMSJNY"
+                            },
                         },
 
                         "Meta": {
@@ -104,11 +120,23 @@
                             }],
                             "ErrorWarning": {
                                 "GlobalErrorWarningList": [],
-                                // "SenderCode": helperService.metaBase(),
+                                "FromZoneName": helperService.metaBase(),
+                                "ToZoneName": helperService.metaBase(),
+                                "Title": helperService.metaBase(),
+                                "JourneyType": helperService.metaBase(),
+                                "ServiceType": helperService.metaBase(),
+                                "TransitDays": helperService.metaBase(),
+                                "ToZoneName": helperService.metaBase(),
+                                "FromZoneName": helperService.metaBase(),
+                                "Title": helperService.metaBase(),
+                                "LegType": helperService.metaBase(),
+                                "ManifestType": helperService.metaBase(),
+                                "TmsJourneyLeg": helperService.metaBase(),
                             },
                         },
                         "CheckPoints": {
                             "DisableSave": false,
+                            "LebelText": ""
                         },
                     },
                 }
@@ -116,14 +144,16 @@
 
 
             if (isNew) {
+
                 _exports.Entities.Header.Data = currentJourney.data;
                 _exports.Entities.Header.GetById = currentJourney.data;
                 _exports.Entities.Header.Validations = currentJourney.Validations;
                 var obj = {
-                    [currentJourney.entity.Title]: {
+                    New: {
                         ePage: _exports
                     },
-                    label: currentJourney.entity.Title,
+                    label: 'New',
+                    Code: currentJourney.entity.Title,
                     isNew: isNew
                 };
                 exports.TabList.push(obj);
@@ -149,6 +179,7 @@
             }
             return deferred.promise;
         }
+
         function PushErrorWarning(Code, Message, MessageType, IsAlert, MetaObject, EntityObject, IsArray, RowIndex, ColIndex, DisplayName, ParentRef, GParentRef) {
             if (Code) {
                 var _obj = {
@@ -360,14 +391,20 @@
         }
 
         function ShowErrorWarningModal(EntityObject) {
-            $("#errorWarningContainer" + EntityObject.label).toggleClass("open");
+            if (EntityObject.label != "New") {
+                exports.Entities.Header.CheckPoints.LebelText = EntityObject.label;
+                exports.Entities.Header.CheckPoints.LebelText = exports.Entities.Header.CheckPoints.LebelText.replace(/ +/g, "");
+                $("#errorWarningContainer" + exports.Entities.Header.CheckPoints.LebelText).toggleClass("open");
+            } else {
+                $("#errorWarningContainer" + EntityObject.label).toggleClass("open");
+            }
         }
 
         // Validations
         function ValidationFindall() {
             var _filter = {
                 "ModuleCode": "TMS",
-                "SubModuleCode": "MAN"
+                "SubModuleCode": "JOU"
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
@@ -384,9 +421,44 @@
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
 
-            // if (!_input.TmsJourneyHeader.SenderCode || _input.TmsJourneyHeader.SenderCode) {
-            //     OnChangeValues(_input.TmsJourneyHeader.SenderCode, 'E5501', false, undefined, $item.label);
-            // }
+            if (!_input.TmsJourneyHeader.FromZoneName || _input.TmsJourneyHeader.FromZoneName) {
+                OnChangeValues(_input.TmsJourneyHeader.FromZoneName, 'E5524', false, undefined, $item.label);
+            }
+            if (!_input.TmsJourneyHeader.ToZoneName || _input.TmsJourneyHeader.ToZoneName) {
+                OnChangeValues(_input.TmsJourneyHeader.ToZoneName, 'E5525', false, undefined, $item.label);
+            }
+            if (!_input.TmsJourneyHeader.Title || _input.TmsJourneyHeader.Title) {
+                OnChangeValues(_input.TmsJourneyHeader.Title, 'E5526', false, undefined, $item.label);
+            }
+            if (!_input.TmsJourneyHeader.JourneyType || _input.TmsJourneyHeader.JourneyType) {
+                OnChangeValues(_input.TmsJourneyHeader.JourneyType, 'E5527', false, undefined, $item.label);
+            }
+            if (!_input.TmsJourneyHeader.ServiceType || _input.TmsJourneyHeader.ServiceType) {
+                OnChangeValues(_input.TmsJourneyHeader.ServiceType, 'E5528', false, undefined, $item.label);
+            }
+
+            if (_input.TmsJourneyLeg.length > 0) {
+                angular.forEach(_input.TmsJourneyLeg, function (value, key) {
+                    if (!value.TML_FromZoneName || value.TML_FromZoneName)
+                        OnChangeValues(value.TML_FromZoneName, 'E5560', true, key, $item.label);
+
+                    if (!value.TML_ToZoneName || value.TML_ToZoneName)
+                        OnChangeValues(value.TML_ToZoneName, 'E5559', true, key, $item.label);
+
+                    if (!value.TML_Title || value.TML_Title)
+                        OnChangeValues(value.TML_Title, 'E5557', true, key, $item.label);
+
+                    if (!value.TML_LegType || value.TML_LegType)
+                        OnChangeValues(value.TML_LegType, 'E5556', true, key, $item.label);
+
+                    if (!value.TML_ManifestType || value.TML_ManifestType)
+                        OnChangeValues(value.TML_ManifestType, 'E5558', true, key, $item.label);
+
+                    if (!value.TML_TransitDays || value.TML_TransitDays)
+                        OnChangeValues(value.TML_TransitDays, 'E5555', true, key, $item.label);
+
+                });
+            }
         }
 
         function OnChangeValues(fieldvalue, code, IsArray, RowIndex, label) {
@@ -398,10 +470,18 @@
         }
 
         function GetErrorMessage(fieldvalue, value, IsArray, RowIndex, label) {
-            if (!fieldvalue) {
-                PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey.trim(), label, undefined, undefined, undefined, undefined, undefined, undefined);
+            if (!IsArray) {
+                if (!fieldvalue) {
+                    PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, label, undefined, undefined, undefined, undefined, undefined, value.GParentRef);
+                } else {
+                    RemoveErrorWarning(value.Code, "E", value.CtrlKey, label);
+                }
             } else {
-                RemoveErrorWarning(value.Code, "E", value.CtrlKey.trim(), label);
+                if (!fieldvalue) {
+                    PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, label, IsArray, RowIndex, value.ColIndex, value.DisplayName, undefined, value.GParentRef);
+                } else {
+                    RemoveErrorWarning(value.Code, "E", value.CtrlKey, label, IsArray, RowIndex, value.ColIndex);
+                }
             }
         }
 

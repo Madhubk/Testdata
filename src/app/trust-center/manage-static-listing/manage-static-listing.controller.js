@@ -5,9 +5,9 @@
         .module("Application")
         .controller("TCManageStaticListingController", TCManageStaticListingController);
 
-    TCManageStaticListingController.$inject = ["$scope", "$location", "$timeout", "$uibModal", "authService", "apiService", "helperService", "appConfig", "toastr", "confirmation"];
+    TCManageStaticListingController.$inject = ["$scope", "$location", "$timeout", "$uibModal", "authService", "apiService", "helperService", "toastr", "confirmation", "trustCenterConfig"];
 
-    function TCManageStaticListingController($scope, $location, $timeout, $uibModal, authService, apiService, helperService, appConfig, toastr, confirmation) {
+    function TCManageStaticListingController($scope, $location, $timeout, $uibModal, authService, apiService, helperService, toastr, confirmation, trustCenterConfig) {
         /* jshint validthis: true */
         var TCManageStaticListingCtrl = this;
         var _queryString = $location.path().split("/").pop();
@@ -28,9 +28,7 @@
                 TCManageStaticListingCtrl.ePage.Masters.QueryString = JSON.parse(helperService.decryptData(_queryString));
                 if (TCManageStaticListingCtrl.ePage.Masters.QueryString.AppPk) {
                     InitBreadcrumb();
-                    InitModule();
-                    InitStaticListType();
-                    InitStaticListTypeList();
+                    InitApplication();
                 }
             } catch (error) {
                 console.log(error);
@@ -54,10 +52,15 @@
                 IsRequireQueryString: false,
                 IsActive: false
             }, {
-                Code: "configuration",
-                Description: "Configuration",
-                Link: "TC/dashboard/" + helperService.encryptData('{"Type":"Configuration", "BreadcrumbTitle": "Configuration"}'),
-                IsRequireQueryString: false,
+                Code: "dashboard",
+                Description: "Dashboard",
+                Link: "TC/dashboard",
+                IsRequireQueryString: true,
+                QueryStringObj: {
+                    "AppPk": TCManageStaticListingCtrl.ePage.Masters.QueryString.AppPk,
+                    "AppCode": TCManageStaticListingCtrl.ePage.Masters.QueryString.AppCode,
+                    "AppName": TCManageStaticListingCtrl.ePage.Masters.QueryString.AppName
+                },
                 IsActive: false
             }, {
                 Code: "managestaticlisting",
@@ -78,6 +81,30 @@
 
         // ========================Breadcrumb End========================
 
+        // ========================Application Start========================
+
+        function InitApplication() {
+            TCManageStaticListingCtrl.ePage.Masters.Application = {};
+            TCManageStaticListingCtrl.ePage.Masters.Application.OnApplicationChange = OnApplicationChange;
+        }
+
+        function OnApplicationChange($item) {
+            TCManageStaticListingCtrl.ePage.Masters.Application.ActiveApplication = angular.copy($item);
+
+            if (!TCManageStaticListingCtrl.ePage.Masters.Application.ActiveApplication) {
+                TCManageStaticListingCtrl.ePage.Masters.Application.ActiveApplication = {
+                    "PK": TCManageStaticListingCtrl.ePage.Masters.QueryString.AppPk,
+                    "AppCode": TCManageStaticListingCtrl.ePage.Masters.QueryString.AppCode,
+                    "AppName": TCManageStaticListingCtrl.ePage.Masters.QueryString.AppName
+                };
+            }
+
+            InitModule();
+            InitStaticListType();
+            InitStaticListTypeList();
+
+        }
+
         // ========================Module Start========================
 
         function InitModule() {
@@ -91,24 +118,25 @@
 
         function GetModuleList() {
             var _filter = {
-                TypeCode: "MODULE_MASTER"
+                TypeCode: "MODULE_MASTER",
+                SAP_FK: TCManageStaticListingCtrl.ePage.Masters.Application.ActiveApplication.PK
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.CfxTypes.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.CfxTypes.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.CfxTypes.API.FindAll.Url + TCManageStaticListingCtrl.ePage.Masters.QueryString.AppPk, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxTypes.API.FindAll.Url +  TCManageStaticListingCtrl.ePage.Masters.Application.ActiveApplication.PK, _input).then(function (response) {
                 if (response.data.Response) {
                     TCManageStaticListingCtrl.ePage.Masters.Module.ListSource = response.data.Response;
                     if (TCManageStaticListingCtrl.ePage.Masters.Module.ListSource.length > 0) {
                         OnModuleChange(TCManageStaticListingCtrl.ePage.Masters.Module.ListSource[0])
-                    }else{
+                    } else {
                         TCManageStaticListingCtrl.ePage.Masters.SubModule.ListSource = [];
                         TCManageStaticListingCtrl.ePage.Masters.StaticListType.ListSource = [];
                         TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.ListSource = [];
                     }
-                }else{
+                } else {
                     TCManageStaticListingCtrl.ePage.Masters.SubModule.ListSource = [];
                     TCManageStaticListingCtrl.ePage.Masters.StaticListType.ListSource = [];
                     TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.ListSource = [];
@@ -128,15 +156,15 @@
             var _filter = {
                 "PropertyName": "TYP_Group",
                 "Module": TCManageStaticListingCtrl.ePage.Masters.Module.ActiveModule.Key,
-                "SAP_FK": TCManageStaticListingCtrl.ePage.Masters.QueryString.AppPk
+                "SAP_FK": TCManageStaticListingCtrl.ePage.Masters.Application.ActiveApplication.PK
             };
 
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.CfxTypes.API.GetColumnValuesWithFilters.FilterID
+                "FilterID": trustCenterConfig.Entities.API.CfxTypes.API.GetColumnValuesWithFilters.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.CfxTypes.API.GetColumnValuesWithFilters.Url + TCManageStaticListingCtrl.ePage.Masters.QueryString.AppPk, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxTypes.API.GetColumnValuesWithFilters.Url + TCManageStaticListingCtrl.ePage.Masters.Application.ActiveApplication.PK, _input).then(function (response) {
                 if (response.data.Response) {
                     TCManageStaticListingCtrl.ePage.Masters.SubModule.ListSource = response.data.Response;
                     if (TCManageStaticListingCtrl.ePage.Masters.SubModule.ListSource.length > 0) {
@@ -183,7 +211,7 @@
                 "PropertyName": "TYP_TypeCode",
                 "Module": TCManageStaticListingCtrl.ePage.Masters.Module.ActiveModule.Key,
                 "Group": TCManageStaticListingCtrl.ePage.Masters.SubModule.ActiveSubModule,
-                "SAP_FK": TCManageStaticListingCtrl.ePage.Masters.QueryString.AppPk
+                "SAP_FK": TCManageStaticListingCtrl.ePage.Masters.Application.ActiveApplication.PK
             };
 
             if (authService.getUserInfo().AppCode == 'EA') {
@@ -191,10 +219,10 @@
             }
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.CfxTypes.API.GetColumnValuesWithFilters.FilterID
+                "FilterID": trustCenterConfig.Entities.API.CfxTypes.API.GetColumnValuesWithFilters.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.CfxTypes.API.GetColumnValuesWithFilters.Url + TCManageStaticListingCtrl.ePage.Masters.QueryString.AppPk, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxTypes.API.GetColumnValuesWithFilters.Url + TCManageStaticListingCtrl.ePage.Masters.Application.ActiveApplication.PK, _input).then(function (response) {
                 if (response.data.Response) {
                     TCManageStaticListingCtrl.ePage.Masters.StaticListType.ListSource = response.data.Response;
 
@@ -258,10 +286,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.CfxTypes.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.CfxTypes.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.CfxTypes.API.FindAll.Url + TCManageStaticListingCtrl.ePage.Masters.QueryString.AppPk, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxTypes.API.FindAll.Url + TCManageStaticListingCtrl.ePage.Masters.Application.ActiveApplication.PK, _input).then(function (response) {
                 if (response.data.Response) {
                     TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.ListSource = response.data.Response;
 
@@ -296,7 +324,7 @@
             TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.SaveBtnText = "OK";
             TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.IsDisableSaveBtn = false;
 
-            EditModalInstance().result.then(function (response) {}, function () {
+            EditModalInstance().result.then(function (response) { }, function () {
                 Cancel();
             });
         }
@@ -309,13 +337,13 @@
                 TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.IsDisableSaveBtn = true;
 
                 TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.ActiveStaticListTypeList.TenantCode = authService.getUserInfo().TenantCode;
-                TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.ActiveStaticListTypeList.SAP_FK = TCManageStaticListingCtrl.ePage.Masters.QueryString.AppPk;
+                TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.ActiveStaticListTypeList.SAP_FK = TCManageStaticListingCtrl.ePage.Masters.Application.ActiveApplication.PK;
                 TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.ActiveStaticListTypeList.IsModified = true;
                 TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.ActiveStaticListTypeList.IsDeleted = false;
 
                 var _input = [TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.ActiveStaticListTypeList];
 
-                apiService.post("eAxisAPI", appConfig.Entities.CfxTypes.API.Upsert.Url + TCManageStaticListingCtrl.ePage.Masters.QueryString.AppPk, _input).then(function (response) {
+                apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxTypes.API.Upsert.Url + TCManageStaticListingCtrl.ePage.Masters.Application.ActiveApplication.PK, _input).then(function (response) {
                     if (response.data.Response) {
                         var _response = response.data.Response[0];
                         var _indexTypeCode = TCManageStaticListingCtrl.ePage.Masters.StaticListType.ListSource.map(function (e) {
@@ -409,7 +437,7 @@
 
             var _input = [TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.ActiveStaticListTypeList];
 
-            apiService.post("eAxisAPI", appConfig.Entities.CfxTypes.API.Upsert.Url + TCManageStaticListingCtrl.ePage.Masters.QueryString.AppPk, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxTypes.API.Upsert.Url + TCManageStaticListingCtrl.ePage.Masters.Application.ActiveApplication.PK, _input).then(function (response) {
                 if (response.data.Response) {
                     var _index = TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.ListSource.map(function (e) {
                         return e.PK

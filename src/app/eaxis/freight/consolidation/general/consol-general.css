@@ -12,3 +12,16 @@
 .referance-details-heading i:hover {
     text-decoration: none;
 }
+.con-ref-hgt {
+    min-height: 150px;
+}
+
+.con-ref-empty-top {
+    top: 40px;
+    left: 35%;
+}
+.ship-font label {
+    color: gray;
+    font-weight: 600;
+    font-size: 12px;
+}

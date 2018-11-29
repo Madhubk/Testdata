@@ -1,0 +1,178 @@
+<div class="clearfix padding-top-10">
+    <div class="clearfix">
+        <fieldset>
+            <!-- IGM No -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">IGM NO</label>
+                    <input type="text" maxlength="30" ng-model="IcdClearanceEditCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.LocalIIGMNO"
+                        class="form-control input-sm ng-pristine ng-untouched ng-valid ng-not-empty ng-valid-maxlength" placeholder="IGM No">
+                </div>
+            </div>
+            <!-- Line / Item No -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Line / Item NO</label>
+                    <input type="text" maxlength="30" ng-model="IcdClearanceEditCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.EmptyYardNameWhereReturned"
+                        class="form-control input-sm ng-pristine ng-untouched ng-valid ng-not-empty ng-valid-maxlength" ng-disabled="ng-disabled"
+                        placeholder="Line / Item NO">
+                </div>
+            </div>
+            <!-- Co- Loader / Liner MBL No -->
+            <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Co Loader / Liner MBL No</label>
+                    <input type="text" maxlength="30" ng-model="IcdClearanceEditCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo." class="form-control input-sm ng-pristine ng-untouched ng-valid ng-not-empty ng-valid-maxlength"
+                        ng-disabled="ng-disabled" placeholder="Co-Loader / Liner MBL No">
+                </div>
+            </div> -->
+            <!-- ICD Movement Follow up Required  -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label text-single-line">ICD Movement Follow up Required </label>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" data-ng-model="IcdClearanceEditCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.IsICDMvmtFollowUpRequired"
+                                data-ng-checked="IcdClearanceEditCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.IsICDMvmtFollowUpRequired"
+                                class="colored-blue">
+                            <span class="text"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <!-- Progress update Notification to customer -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Progress update Notification to customer </label>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" data-ng-model="IcdClearanceEditCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.IsProgressUpdateNotificationToCustomer"
+                                data-ng-checked="IcdClearanceEditCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.IsProgressUpdateNotificationToCustomer"
+                                class="colored-blue">
+                            <span class="text"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <!-- IGM Notification to customer -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label text-single-line">IGM Notification to customer </label>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" data-ng-model="IcdClearanceEditCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.IsIGMNotificationToCustomer"
+                                data-ng-checked="IcdClearanceEditCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.IsIGMNotificationToCustomer"
+                                class="colored-blue">
+                            <span class="text"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <!-- Discharge Port -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Discharge Port</label>
+                    <input type="text" maxlength="30" ng-model="IcdClearanceEditCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.DischargePort"
+                        class="form-control input-sm ng-pristine ng-untouched ng-valid ng-not-empty ng-valid-maxlength" placeholder="Discharge Port">
+                </div>
+            </div>
+            <!-- Arrived Data at discharge Port-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Arrived Data at discharge Port</label>
+                    <div>
+                        <div>
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" placeholder="{{IcdClearanceEditCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                    datetime-picker="{{IcdClearanceEditCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" data-ng-model="IcdClearanceEditCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.ArrivalDateAtDischargePort"
+                                    datepicker-options="IcdClearanceEditCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                                    close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time=""
+                                    save-as="IcdClearanceEditCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="IcdClearanceEditCtrl.ePage.Masters.DatePicker.isOpen['isValidity']"
+                                    when-closed="" data-ng-click="" data-ng-change="IcdClearanceEditCtrl.ePage.Masters.OnChangeValues(IcdClearanceEditCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.ArrivalDateAtDischargePort,'E11059',false);"
+                                    custom-date-time-format />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default shiny" data-ng-click="IcdClearanceEditCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isValidity')">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <!-- ETA at ICD-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">ETA at ICD</label>
+                    <div>
+                        <div>
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" placeholder="{{IcdClearanceEditCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                    datetime-picker="{{IcdClearanceEditCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" data-ng-model="IcdClearanceEditCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.ETAatICD"
+                                    datepicker-options="IcdClearanceEditCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                                    close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time=""
+                                    save-as="IcdClearanceEditCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="IcdClearanceEditCtrl.ePage.Masters.DatePicker.isOpen['isETAatICD']"
+                                    when-closed="" data-ng-click="" data-ng-change="IcdClearanceEditCtrl.ePage.Masters.OnChangeValues(IcdClearanceEditCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.ETAatICD,'E11059',false);"
+                                    custom-date-time-format />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default shiny" data-ng-click="IcdClearanceEditCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETAatICD')">
+                                        <i class="fa fa-calendar" ng-disabled="ng-disabled"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ATA at ICD -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">ATA at ICD </label>
+                    <div>
+                        <div>
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" placeholder="{{IcdClearanceEditCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                    datetime-picker="{{IcdClearanceEditCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" data-ng-model="IcdClearanceEditCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.ATAatICD"
+                                    datepicker-options="IcdClearanceEditCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                                    close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time=""
+                                    save-as="IcdClearanceEditCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="IcdClearanceEditCtrl.ePage.Masters.DatePicker.isOpen['isATAatICD']"
+                                    when-closed="" data-ng-click="" custom-date-time-format />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default shiny" data-ng-click="IcdClearanceEditCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isATAatICD')">
+                                        <i class="fa fa-calendar" ng-disabled="ng-disabled"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- RailOutMovementDate -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Rail Out Movement Date</label>
+                    <div>
+                        <div>
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" placeholder="{{IcdClearanceEditCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                    datetime-picker="{{IcdClearanceEditCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" data-ng-model="IcdClearanceEditCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.RailOutMovementDate"
+                                    datepicker-options="IcdClearanceEditCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                                    close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time=""
+                                    save-as="IcdClearanceEditCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="IcdClearanceEditCtrl.ePage.Masters.DatePicker.isOpen['isRailOutMovementDate']"
+                                    when-closed="" data-ng-click="" data-ng-change="IcdClearanceEditCtrl.ePage.Masters.OnChangeValues(IcdClearanceEditCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.RailOutMovementDate,'E11059',false);"
+                                    custom-date-time-format />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default shiny" data-ng-click="IcdClearanceEditCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isRailOutMovementDate')">
+                                        <i class="fa fa-calendar" ng-disabled="ng-disabled"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>

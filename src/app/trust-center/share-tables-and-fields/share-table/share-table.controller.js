@@ -5,9 +5,9 @@
         .module("Application")
         .controller("ShareTableController", ShareTableController);
 
-    ShareTableController.$inject = ["$scope", "$location", "$uibModal", "authService", "apiService", "helperService", "appConfig", "APP_CONSTANT", "toastr", "confirmation"];
+    ShareTableController.$inject = ["$scope", "$location", "$uibModal", "authService", "apiService", "helperService", "toastr", "confirmation", "trustCenterConfig"];
 
-    function ShareTableController($scope, $location, $uibModal, authService, apiService, helperService, appConfig, APP_CONSTANT, toastr, confirmation) {
+    function ShareTableController($scope, $location, $uibModal, authService, apiService, helperService, toastr, confirmation, trustCenterConfig) {
         /* jshint validthis: true */
         var ShareTableCtrl = this;
         var _queryString = $location.path().split("/").pop();
@@ -29,10 +29,11 @@
 
                 if (ShareTableCtrl.ePage.Masters.QueryString.AppPk) {
                     InitBreadcrumb();
+                    InitApplication();
                     InitShareTable();
                 }
             } catch (error) {
-                console.log(error)
+                console.log(error);
             }
         }
 
@@ -53,10 +54,15 @@
                 IsRequireQueryString: false,
                 IsActive: false
             }, {
-                Code: "configuration",
-                Description: "Configuration",
-                Link: "TC/dashboard/" + helperService.encryptData('{"Type":"Configuration", "BreadcrumbTitle": "Configuration"}'),
-                IsRequireQueryString: false,
+                Code: "dashboard",
+                Description: "Dashboard",
+                Link: "TC/dashboard",
+                IsRequireQueryString: true,
+                QueryStringObj: {
+                    "AppPk": ShareTableCtrl.ePage.Masters.QueryString.AppPk,
+                    "AppCode": ShareTableCtrl.ePage.Masters.QueryString.AppCode,
+                    "AppName": ShareTableCtrl.ePage.Masters.QueryString.AppName
+                },
                 IsActive: false
             }, {
                 Code: "sharetable",
@@ -76,9 +82,25 @@
         }
 
         // ========================Breadcrumb End========================
+        function InitApplication() {
+            ShareTableCtrl.ePage.Masters.Application = {};
+            ShareTableCtrl.ePage.Masters.Application.OnApplicationChange = OnApplicationChange;
+        }
+
+        function OnApplicationChange($item) {
+            ShareTableCtrl.ePage.Masters.Application.ActiveApplication = angular.copy($item);
+
+            if (!ShareTableCtrl.ePage.Masters.Application.ActiveApplication)
+                ShareTableCtrl.ePage.Masters.Application.ActiveApplication = {
+                    "PK": ShareTableCtrl.ePage.Masters.QueryString.AppPk,
+                    "AppCode": ShareTableCtrl.ePage.Masters.QueryString.AppCode,
+                    "AppName": ShareTableCtrl.ePage.Masters.QueryString.AppName
+                };
+
+            GetShareTableList();
+        }
 
         // ========================ShareTable Start========================
-
         function InitShareTable() {
             ShareTableCtrl.ePage.Masters.ShareTable = {};
 
@@ -97,21 +119,20 @@
             ShareTableCtrl.ePage.Masters.ShareTable.IsDisableDeleteBtn = false;
 
             GetRedirectLinkList();
-            GetShareTableList();
         }
 
         function GetShareTableList() {
             ShareTableCtrl.ePage.Masters.ShareTable.ListSource = undefined;
             var _filter = {
-                "SAP_FK": ShareTableCtrl.ePage.Masters.QueryString.AppPk,
+                "SAP_FK": ShareTableCtrl.ePage.Masters.Application.ActiveApplication.PK,
                 "TenantCode": authService.getUserInfo().TenantCode,
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.EntityMaster.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.EntityMaster.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.EntityMaster.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EntityMaster.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     ShareTableCtrl.ePage.Masters.ShareTable.ListSource = response.data.Response;
 
@@ -151,7 +172,7 @@
             ShareTableCtrl.ePage.Masters.ShareTable.SaveBtnText = "OK";
             ShareTableCtrl.ePage.Masters.ShareTable.IsDisableSaveBtn = false;
 
-            EditModalInstance().result.then(function (response) {}, function () {
+            EditModalInstance().result.then(function (response) { }, function () {
                 Cancel();
             });
         }
@@ -164,9 +185,9 @@
 
             _input.IsModified = true;
             _input.TenantCode = authService.getUserInfo().TenantCode;
-            _input.SAP_FK = ShareTableCtrl.ePage.Masters.QueryString.AppPk;
+            _input.SAP_FK = ShareTableCtrl.ePage.Masters.Application.ActiveApplication.PK;
 
-            apiService.post("eAxisAPI", appConfig.Entities.EntityMaster.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EntityMaster.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     var _response = response.data.Response[0];
                     ShareTableCtrl.ePage.Masters.ShareTable.ActiveShareTable = angular.copy(_response);
@@ -237,7 +258,7 @@
 
             var _input = [ShareTableCtrl.ePage.Masters.ShareTable.ActiveShareTable];
 
-            apiService.post("eAxisAPI", appConfig.Entities.EntityMaster.API.Upsert.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EntityMaster.API.Upsert.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     var _index = ShareTableCtrl.ePage.Masters.ShareTable.ListSource.map(function (value, key) {
                         return value.Entity_PK;
@@ -270,7 +291,15 @@
         }
 
         function OnFieldListClick() {
-            var _queryString = ShareTableCtrl.ePage.Masters.QueryString;
+            if (ShareTableCtrl.ePage.Masters.Application.ActiveApplication) {
+                var _queryString = {
+                    "AppPk": ShareTableCtrl.ePage.Masters.Application.ActiveApplication.PK,
+                    "AppCode": ShareTableCtrl.ePage.Masters.Application.ActiveApplication.AppCode,
+                    "AppName": ShareTableCtrl.ePage.Masters.Application.ActiveApplication.AppName
+                };
+            } else {
+                var _queryString = ShareTableCtrl.ePage.Masters.QueryString;
+            }
             _queryString.Entity_PK = ShareTableCtrl.ePage.Masters.ShareTable.ActiveShareTable.Entity_PK;
             _queryString.BreadcrumbTitle = ShareTableCtrl.ePage.Masters.ShareTable.ActiveShareTable.EntityName;
 

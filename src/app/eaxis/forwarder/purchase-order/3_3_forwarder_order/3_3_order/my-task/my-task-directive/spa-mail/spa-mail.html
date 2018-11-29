@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="col-lg-4">Consignor :
+        <a class="my-task-content-shipper-link" href="javascript: void(0)">{{SpaMailDirectiveCtrl.ePage.Masters.SpaDetails[0].SupplierCode}}</a>
+    </div>
+    <div class="col-lg-4">Consignee :
+        <a class="my-task-content-shipper-link" href="javascript: void(0)">{{SpaMailDirectiveCtrl.ePage.Masters.SpaDetails[0].BuyerCode}}</a>
+    </div>
+    <div class="col-lg-4">Load Port : {{SpaMailDirectiveCtrl.ePage.Masters.PortOfLoading}}</div>
+</div>
+
+<div class="clearfix mt-10">
+    <div class="table" id="results">
+        <div class="theader">
+            <div class="table_header">Order #</div>
+            <div class="table_header">Order Date</div>
+            <div class="table_header">Follow Up Date</div>
+            <div class="table_header">T.Mode</div>
+            <div class="table_header">C.Mode</div>
+            <div class="table_header">Cargo Ready Date</div>
+        </div>
+        <div class="table_row" data-ng-repeat="x in SpaMailDirectiveCtrl.ePage.Masters.SpaDetails">
+            <div class="table_small">
+                <div class="table_cell">Order #</div>
+                <div class="table_cell">{{x.OrderCumSplitNo}}</div>
+            </div>
+            <div class="table_small">
+                <div class="table_cell">Order Date</div>
+                <div class="table_cell"> {{x.OrderDate | date: 'dd-MMM-yyyy'}}</div>
+            </div>
+            <div class="table_small">
+                <div class="table_cell">Follow Up Date</div>
+                <div class="table_cell"> {{x.FollowUpDate | date: 'dd-MMM-yyyy'}}</div>
+            </div>
+            <div class="table_small">
+                <div class="table_cell">T.Mode</div>
+                <div class="table_cell">{{x.TransportMode}}</div>
+            </div>
+            <div class="table_small">
+                <div class="table_cell">C.Mode</div>
+                <div class="table_cell">{{x.ContainerMode}}</div>
+            </div>
+            <div class="table_small">
+                <div class="table_cell">Cargo Ready Date</div>
+                <div class="table_cell">
+                    {{x.CargoReadyDate | date: 'dd-MMM-yyyy'}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

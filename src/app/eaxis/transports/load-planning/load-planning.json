@@ -1,0 +1,30 @@
+    [
+        {
+            "label" : "20cube400901", 
+            "MHUType" : "Carton",
+            "Event" : "E20",
+            "Consol" : "M49",
+            "Depot" : "SPLNDC Depot"
+        },
+        {
+            "label" : "20cube400902", 
+            "MHUType" : "Carton",
+            "Event" : "E20",
+            "Consol" : "M49",
+            "Depot" : "SPLNDC Depot"
+        },
+        {
+            "label" : "20cube400903", 
+            "MHUType" : "Carton",
+            "Event" : "E20",
+            "Consol" : "M49",
+            "Depot" : "SPLNDC Depot"
+        },
+        {
+            "label" : "20cube400904", 
+            "MHUType" : "Carton",
+            "Event" : "E20",
+            "Consol" : "M49",
+            "Depot" : "SPLNDC Depot"
+        }
+    ]    

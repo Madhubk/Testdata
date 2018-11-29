@@ -15,7 +15,8 @@
             controller: "AreasMenuController",
             controllerAs: "AreasMenuCtrl",
             scope: {
-                currentAreas: "="
+                currentAreas: "=",
+                dataentryObject:"="
             },
             bindToController: true
 

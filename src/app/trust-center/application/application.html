@@ -7,8 +7,8 @@
                 <li data-ng-repeat="x in TCApplicationCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
                     <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="TCApplicationCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
                 </li>
-                <li data-ng-repeat="x in TCApplicationCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
-                    class="active"></li>
+                <li data-ng-repeat="x in TCApplicationCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive"
+                    data-ng-bind="x.Description" class="active"></li>
             </ol>
         </div>
     </div>
@@ -63,21 +63,24 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed">
             <div class="tc-avatar-lg clearfix">
-                <div class="avatar-container">
-                    <file-upload-custom class="file-upload-directive"  ng-model="TCApplicationCtrl.ePage.Masters.Application.Logo.fileDetails" size="TCApplicationCtrl.ePage.Masters.Application.Logo.fileSize"
-                        auth="{{TCApplicationCtrl.ePage.Masters.Application.Logo.autherization}}" additional-value="{{TCApplicationCtrl.ePage.Masters.Application.Logo.additionalValue}}" url="{{TCApplicationCtrl.ePage.Masters.Application.Logo.UploadUrl}}" doc-type="image/*" multiple-file="false" is-disabled="!TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.PK"  
-                         get-uploaded-files="TCApplicationCtrl.ePage.Masters.Application.Logo.GetUploadedFiles($item)" get-selected-files="TCApplicationCtrl.ePage.Masters.Application.Logo.GetSelectedFiles($item)"  fu-class="tc-application left" modal-template="" template="">
-                        <img data-ng-src="{{TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.LogoStr}}" alt="" data-ng-if="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.LogoStr">
-                        <span data-ng-bind="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.AppCode | getCharacters: 2" data-ng-if="!TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.LogoStr"></span>
-                        <div class='change-logo'>Change</div>
-                    </file-upload-custom>
+                <div class="tc-custom-file-upload">
+                    <img data-ng-src="{{TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.LogoStr}}" alt=""
+                        data-ng-if="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.LogoStr">
+                    <span data-ng-bind="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.AppName | getCharacters: 1"
+                        data-ng-if="!TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.LogoStr"></span>
+                    <div data-ng-if="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication" class='change-logo'>Change
+                        <label>
+                            <input type="file" accept="image/*" class="hide" onchange="angular.element(this).scope().OnLogoChange(event, this)"
+                                data-max-size="204800" />
+                        </label>
+                    </div>
                 </div>
             </div>
             <div class="tc-section-divider"></div>
             <div class="tc-list-container tc-list-container-inner-redirect clearfix" data-ng-if="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.PK">
                 <ul class="tc-list-ul">
-                    <li data-ng-click="TCApplicationCtrl.ePage.Masters.Application.OnRedirectListClick(x)" data-ng-repeat="x in TCApplicationCtrl.ePage.Masters.Application.RedirectPagetList"
-                        data-ng-if="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.AppCode != x.AppCode">
+                    <li data-ng-click="TCApplicationCtrl.ePage.Masters.Application.OnRedirectListClick(x)"
+                        data-ng-repeat="x in TCApplicationCtrl.ePage.Masters.Application.RedirectPagetList" data-ng-if="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.AppCode != x.AppCode">
                         <div class="clearfix tc-list">
                             <div class="tc-list-name">
                                 <i class="fa {{x.Icon}} mr-10" data-ng-style="{'color': x.Color}"></i>
@@ -130,19 +133,22 @@
                     <div class="form-group" data-ng-if="!TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.PK">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Code</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <input type="text" class="form-control input-sm" placeholder="Code" data-ng-model="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.AppCode" data-ng-change="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.IsModified = true">
+                            <input type="text" class="form-control input-sm" placeholder="Code" data-ng-model="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.AppCode"
+                                data-ng-change="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.IsModified = true">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Name</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <input type="text" class="form-control input-sm" placeholder="Name" data-ng-model="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.AppName" data-ng-change="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.IsModified = true">
+                            <input type="text" class="form-control input-sm" placeholder="Name" data-ng-model="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.AppName"
+                                data-ng-change="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.IsModified = true">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Description</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <input type="text" class="form-control input-sm" placeholder="Description" data-ng-model="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.Description" data-ng-change="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.IsModified = true">
+                            <input type="text" class="form-control input-sm" placeholder="Description" data-ng-model="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.Description"
+                                data-ng-change="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.IsModified = true">
                         </div>
                     </div>
                     <!-- <div class="form-group">
@@ -154,14 +160,16 @@
                     <div class="form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Internal Url</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <input type="text" class="form-control input-sm" placeholder="Internal Url" data-ng-model="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.InternalUrl" data-ng-change="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.IsModified = true">
+                            <input type="text" class="form-control input-sm" placeholder="Internal Url" data-ng-model="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.InternalUrl"
+                                data-ng-change="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.IsModified = true">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
                             <span data-ng-click="TCApplicationCtrl.ePage.Masters.Application.OpenJsonModal()" class="glyphicon glyphicon-pencil cursor-pointer mr-5"></span> Other Config</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <textarea rows="6" class="form-control input-sm no-resize" placeholder="Other Config" data-ng-model="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.OtherConfig" data-ng-change="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.IsModified = true"></textarea>
+                            <textarea rows="6" class="form-control input-sm no-resize" placeholder="Other Config" data-ng-model="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.OtherConfig"
+                                data-ng-change="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.IsModified = true"></textarea>
                         </div>
                     </div>
                     <div class="form-group" data-ng-if="TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.PK">
@@ -179,24 +187,26 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr data-ng-if="!TCApplicationCtrl.ePage.Masters.Application.ExternalUrlList" >
+                                    <tr data-ng-if="!TCApplicationCtrl.ePage.Masters.Application.ExternalUrlList">
                                         <td colspan="2">
                                             <div class="clearfix p-10 text-center" style="font-size: 16px;">
                                                 <i class="fa fa-spin fa-spinner"></i>
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr data-ng-if="TCApplicationCtrl.ePage.Masters.Application.ExternalUrlList && TCApplicationCtrl.ePage.Masters.Application.ExternalUrlList.length == 0" >
+                                    <tr data-ng-if="TCApplicationCtrl.ePage.Masters.Application.ExternalUrlList && TCApplicationCtrl.ePage.Masters.Application.ExternalUrlList.length == 0">
                                         <td colspan="2">
                                             <div class="clearfix p-10 text-center">
                                                 <i>No Records...</i>
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr data-ng-if="TCApplicationCtrl.ePage.Masters.Application.ExternalUrlList && TCApplicationCtrl.ePage.Masters.Application.ExternalUrlList.length > 0 && !x.IsDeleted" data-ng-repeat="x in TCApplicationCtrl.ePage.Masters.Application.ExternalUrlList">
+                                    <tr data-ng-if="TCApplicationCtrl.ePage.Masters.Application.ExternalUrlList && TCApplicationCtrl.ePage.Masters.Application.ExternalUrlList.length > 0 && !x.IsDeleted"
+                                        data-ng-repeat="x in TCApplicationCtrl.ePage.Masters.Application.ExternalUrlList">
                                         <td>
                                             <div class="clearfix p-0">
-                                                <input type="text" class="form-control no-border input-sm" data-ng-model="x.ExternalUrl"  placeholder="Url" data-ng-change="x.IsModified = true"/>
+                                                <input type="text" class="form-control no-border input-sm" data-ng-model="x.ExternalUrl" placeholder="Url" data-ng-change="x.IsModified = true"
+                                                />
                                             </div>
                                         </td>
                                         <td>

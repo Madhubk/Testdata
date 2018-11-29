@@ -1,129 +1,164 @@
-<div class="clearfix padding-top-10">
+    <div class="clearfix padding-top-10">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group ship-font">
+                <label class="control-label">CTO</label>
+                <div class="input-group input-group-sm">
 
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-        <div class="form-group">
-            <label class="control-label">CTO</label>
-            <div class="input-group input-group-sm">
+                    <input type="hidden" ng-model="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ORG_DepartureCTOFK">
+                    <div dynamic-lookup my-ng-model="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ORG_DepartureCTOCode"
+                        obj="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader" control-id="'ConGeneralORG_DepartureCTOCode'" control-key="ConGeneralORG_DepartureCTOCode_2979" page-name="'OrganizationList'" auto-complete-on-select="ConsolArrivalDepartureCtrl.ePage.Masters.SelectedData($item,'OAD_DepartureCTOAddressFK')"></div>
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader" field-name="'ConGeneralORG_DepartureCTOCode'"
+                        control-id="'ConGeneralORG_DepartureCTOCode'" control-key="ConGeneralORG_DepartureCTOCode_2979" page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" default-filter="ConsolArrivalDepartureCtrl.ePage.Masters.DepatureCTO" selected-data="ConsolArrivalDepartureCtrl.ePage.Masters.SelectedData($item.data.entity,'OAD_DepartureCTOAddressFK')"
+                            class="btn btn-default shiny" type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group ship-font">
+                <label class="control-label">CTO Address</label>
+                <select chosen ng-options="x.PK as x.Code for x in ConsolArrivalDepartureCtrl.ePage.Masters.DropDownMasterListAddress.OAD_DepartureCTOAddressFK.ListSource"
+                    ng-model="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader.OAD_DepartureCTOAddressFK"
+                    class="form-control">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group ship-font">
+                <label class="control-label">CFS</label>
+                <div class="input-group input-group-sm">
 
-                <input type="hidden" ng-model="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ORG_DepartureCTOFK">
-                <div dynamic-lookup my-ng-model="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ORG_DepartureCTOCode" obj="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader"
-                     prefix-data="'OrganizationList'" config="'ConGeneralORG_DepartureCTOCode'" auto-complete-on-select="ConsolArrivalDepartureCtrl.ePage.Masters.SelectedData($item,'OAD_DepartureCTOAddressFK')"></div>
-                <span class="input-group-btn">
-                    <button dynamic-list-modal obj="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader" field-name="'ConGeneralORG_DepartureCTOCode'" prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConsolArrivalDepartureCtrl.ePage.Masters.SelectedData($item.entity,'OAD_DepartureCTOAddressFK')" class="btn btn-default shiny" type="button">
-                        <i class="fa fa-ellipsis-h"></i>
-                    </button>
-                </span>
+                    <input type="hidden" ng-model="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ORG_PackDepotFK">
+                    <div dynamic-lookup my-ng-model="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ORG_PackDepotCode"
+                        obj="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader" control-id="'ConGeneralORG_PackDepotCode'"
+                         control-key="ConGeneralORG_PackDepotCode_2978" page-name="'OrganizationList'"  placeholder="CFS" 
+                         auto-complete-on-select="ConsolArrivalDepartureCtrl.ePage.Masters.SelectedData($item,'OAD_PackDepotAddressFK')"></div>
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader" field-name="'ConGeneralORG_PackDepotCode'"
+                        control-id="'ConGeneralORG_PackDepotCode'" control-key="ConGeneralORG_PackDepotCode_2978" page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" default-filter=" ConsolArrivalDepartureCtrl.ePage.Masters.DepatureCFS" selected-data="ConsolArrivalDepartureCtrl.ePage.Masters.SelectedData($item.data.entity,'OAD_PackDepotAddressFK')"
+                            class="btn btn-default shiny" type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group ship-font">
+                <label class="control-label">CFS Address</label>
+                <select chosen ng-options="x.PK as x.Code for x in ConsolArrivalDepartureCtrl.ePage.Masters.DropDownMasterListAddress.OAD_PackDepotAddressFK.ListSource"
+                    ng-model="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader.OAD_PackDepotAddressFK" class="form-control">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group ship-font">
+                <label class="control-label">Container Yard</label>
+                <div class="input-group input-group-sm">
+
+                    <input type="hidden" ng-model="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ORG_ContainerYardEmptyPickupFK">
+                    <div dynamic-lookup obj="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader"
+                     my-ng-model="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ORG_ContainerYardEmptyPickupCode"
+                    control-id="'ConGeneralORG_ContainerYardEmptyPickupCode'" 
+                    control-key="ConGeneralORG_ContainerYardEmptyPickupCode_2977"
+                     page-name="'OrganizationList'" 
+                     auto-complete-on-select="ConsolArrivalDepartureCtrl.ePage.Masters.SelectedData($item,'OAD_ContainerYardEmptyPickupAddressPK')"></div>
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader"
+                         field-name="'ConGeneralORG_ContainerYardEmptyPickupCode'"
+                        control-id="'ConGeneralORG_ContainerYardEmptyPickupCode'"
+                         control-key="ConGeneralORG_ContainerYardEmptyPickupCode_2977" 
+                         page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""  default-filter="ConsolArrivalDepartureCtrl.ePage.Masters.DepatureContainerYard"
+                         selected-data="ConsolArrivalDepartureCtrl.ePage.Masters.SelectedData($item.data.entity,'OAD_ContainerYardEmptyPickupAddressPK')"
+                            class="btn btn-default shiny" type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group ship-font">
+                <label class="control-label">Container Yard Address</label>
+                <select chosen ng-options="x.PK as x.Code for x in ConsolArrivalDepartureCtrl.ePage.Masters.DropDownMasterListAddress.OAD_ContainerYardEmptyPickupAddressPK.ListSource"
+                    ng-model="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader.OAD_ContainerYardEmptyPickupAddressPK"
+                    class="form-control">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group ship-font">
+                <label class="control-label">First Foreign Port</label>
+                <div class="input-group input-group-sm">
+                    <div dynamic-lookup my-ng-model="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader.FirstForeignPort"
+                        obj="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader"  control-id="'ConGeneralFirstForeignPort'" control-key="ConGeneralFirstForeignPort_3100" page-name="'MstUNLOCO'"></div>
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader" field-name="'ConGeneralFirstForeignPort'" control-id="'ConGeneralFirstForeignPort'" control-key="ConGeneralFirstForeignPort_3100"
+                          page-name="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConsolArrivalDepartureCtrl.ePage.Masters.SelectedData($item)"
+                            class="btn btn-default shiny" type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group ship-font">
+                <label class="control-label">Arrival Date</label>
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="{{ConsolArrivalDepartureCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        ng-model="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader.FirstForeignPortDate" datetime-picker="{{ConsolArrivalDepartureCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="ConsolArrivalDepartureCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" save-as="ConsolArrivalDepartureCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        is-open="ConsolArrivalDepartureCtrl.ePage.Masters.DatePicker.isOpen['isFirstForeignPortDate']" when-closed=""
+                        data-ng-click="" custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="ConsolArrivalDepartureCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isFirstForeignPortDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group ship-font">
+                <label class="control-label">Last Foreign Port</label>
+                <div class="input-group input-group-sm">
+
+                    <div dynamic-lookup my-ng-model="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader.LastForeignPort"
+                        obj="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader" control-id="'ConGeneralLastForeignPort'" control-key="ConGeneralLastForeignPort_3099" page-name="'OrganizationList'"></div>
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader" field-name="'ConGeneralLastForeignPort'"
+                        control-id="'ConGeneralLastForeignPort'" control-key="ConGeneralLastForeignPort_3099" page-name="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConsolArrivalDepartureCtrl.ePage.Masters.SelectedData($item)"
+                            class="btn btn-default shiny" type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group ship-font">
+                <label class="control-label">Departure Date</label>
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="{{ConsolArrivalDepartureCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        ng-model="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader.LastForeignPortDate" datetime-picker="{{ConsolArrivalDepartureCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="ConsolArrivalDepartureCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" save-as="ConsolArrivalDepartureCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        is-open="ConsolArrivalDepartureCtrl.ePage.Masters.DatePicker.isOpen['isLastForeignPortDate']" when-closed=""
+                        data-ng-click="" custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="ConsolArrivalDepartureCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isLastForeignPortDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-        <div class="form-group">
-            <label class="control-label">CTO Address</label><select chosen ng-options="x.PK as x.Code for x in ConsolArrivalDepartureCtrl.ePage.Masters.DropDownMasterListAddress.OAD_DepartureCTOAddressFK.ListSource"
-                                                                    ng-model="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader.OAD_DepartureCTOAddressFK"
-                                                                    class="form-control">
-                <option value="">--Select--</option>
-            </select>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-        <div class="form-group">
-            <label class="control-label">CFS</label>
-            <div class="input-group input-group-sm">
-
-                <input type="hidden" ng-model="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ORG_PackDepotFK">
-                <div dynamic-lookup my-ng-model="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ORG_PackDepotCode" obj="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader"
-                     prefix-data="'OrganizationList'" config="'ConGeneralORG_PackDepotCode'" auto-complete-on-select="ConsolArrivalDepartureCtrl.ePage.Masters.SelectedData($item,'OAD_PackDepotAddressFK')"></div>
-                <span class="input-group-btn">
-                    <button dynamic-list-modal obj="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader" field-name="'ConGeneralORG_PackDepotCode'" prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConsolArrivalDepartureCtrl.ePage.Masters.SelectedData($item.entity,'OAD_PackDepotAddressFK')" class="btn btn-default shiny" type="button">
-                        <i class="fa fa-ellipsis-h"></i>
-                    </button>
-                </span>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-        <div class="form-group">
-            <label class="control-label">CFS Address</label><select chosen ng-options="x.PK as x.Code for x in ConsolArrivalDepartureCtrl.ePage.Masters.DropDownMasterListAddress.OAD_PackDepotAddressFK.ListSource"
-                                                                    ng-model="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader.OAD_PackDepotAddressFK"
-                                                                    class="form-control">
-                <option value="">--Select--</option>
-            </select>
-        </div>
-    </div>
-
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-        <div class="form-group">
-            <label class="control-label">Container Yard</label>
-            <div class="input-group input-group-sm">
-
-                <input type="hidden" ng-model="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ORG_ContainerYardEmptyPickupFK">
-                <div dynamic-lookup my-ng-model="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ORG_ContainerYardEmptyPickupCode" obj="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader"
-                     prefix-data="'OrganizationList'" config="'ConGeneralORG_ContainerYardEmptyPickupCode'" auto-complete-on-select="ConsolArrivalDepartureCtrl.ePage.Masters.SelectedData($item,'OAD_ContainerYardEmptyPickupAddressPK')"></div>
-                <span class="input-group-btn">
-                    <button dynamic-list-modal obj="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader" field-name="'ConGeneralORG_ContainerYardEmptyPickupCode'" prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConsolArrivalDepartureCtrl.ePage.Masters.SelectedData($item.entity,'OAD_ContainerYardEmptyPickupAddressPK')" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
-                </span>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-        <div class="form-group">
-            <label class="control-label">Container Yard Address</label><select chosen ng-options="x.PK as x.Code for x in ConsolArrivalDepartureCtrl.ePage.Masters.DropDownMasterListAddress.OAD_ContainerYardEmptyPickupAddressPK.ListSource"
-                                                                               ng-model="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader.OAD_ContainerYardEmptyPickupAddressPK"
-                                                                               class="form-control">
-                <option value="">--Select--</option>
-            </select>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-        <div class="form-group">
-            <label class="control-label">First Foreign Port</label>
-            <div class="input-group input-group-sm">
-                <div dynamic-lookup my-ng-model="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader.FirstForeignPort" obj="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader"
-                     prefix-data="'MstUNLOCO'" config="'ConGeneralFirstForeignPort'"></div>
-                <span class="input-group-btn">
-                    <button dynamic-list-modal obj="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader" field-name="'ConGeneralFirstForeignPort'" prefix-data="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConsolArrivalDepartureCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
-                </span>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-        <div class="form-group">
-            <label class="control-label">Arrival Date</label>
-            <div class="input-group input-group-sm">
-                <input class="form-control" type="text" ng-model="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader.FirstForeignPortDate"
-                       placeholder="{{ConsolArrivalDepartureCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-click="ConsolArrivalDepartureCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'ArrivalDate')" uib-datepicker-popup="{{ConsolArrivalDepartureCtrl.ePage.Masters.DatePicker.Options.format}}"
-                       datepicker-options="ConsolArrivalDepartureCtrl.ePage.Masters.DatePicker.Options" is-open="ConsolArrivalDepartureCtrl.ePage.Masters.DatePicker.isOpen['ArrivalDate']">
-                <span class="input-group-btn"> <button class="btn btn-default shiny" data-ng-click="ConsolArrivalDepartureCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'ArrivalDate')"><i class="fa fa-calendar"></i></button></span>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-        <div class="form-group">
-            <label class="control-label">Last Foreign Port</label>
-            <div class="input-group input-group-sm">
-              
-                <div dynamic-lookup my-ng-model="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader.LastForeignPort" obj="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader"
-                     prefix-data="'MstUNLOCO'" config="'ConGeneralLastForeignPort'"></div>
-                <span class="input-group-btn">
-                    <button dynamic-list-modal obj="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader" field-name="'ConGeneralLastForeignPort'" prefix-data="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConsolArrivalDepartureCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
-                </span>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-        <div class="form-group">
-            <label class="control-label">Departure Date</label>
-            <div class="input-group input-group-sm">
-                <input class="form-control" type="text" ng-model="ConsolArrivalDepartureCtrl.ePage.Entities.Header.Data.UIConConsolHeader.LastForeignPortDate"
-                       placeholder="{{ConsolArrivalDepartureCtrl.ePage.Masters.DatePicker.Options.format}}" data-ng-click="ConsolArrivalDepartureCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'DepartureDate')" uib-datepicker-popup="{{ConsolArrivalDepartureCtrl.ePage.Masters.DatePicker.Options.format}}"
-                       datepicker-options="ConsolArrivalDepartureCtrl.ePage.Masters.DatePicker.Options" is-open="ConsolArrivalDepartureCtrl.ePage.Masters.DatePicker.isOpen['DepartureDate']">
-                <span class="input-group-btn"> <button class="btn btn-default shiny" data-ng-click="ConsolArrivalDepartureCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'DepartureDate')"><i class="fa fa-calendar"></i></button></span>
-            </div>
-        </div>
-    </div>
-
-
-</div>
-
-

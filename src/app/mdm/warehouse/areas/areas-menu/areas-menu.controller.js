@@ -5,9 +5,9 @@
         .module("Application")
         .controller("AreasMenuController", AreasMenuController);
 
-    AreasMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "areasConfig", "helperService", "appConfig", "$state"];
+    AreasMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "areasConfig", "helperService", "appConfig", "$state","toastr"];
 
-    function AreasMenuController($scope, $timeout, APP_CONSTANT, apiService, areasConfig, helperService, appConfig, $state) {
+    function AreasMenuController($scope, $timeout, APP_CONSTANT, apiService, areasConfig, helperService, appConfig, $state,toastr) {
         var AreasMenuCtrl = this;
 
         function Init() {
@@ -20,9 +20,7 @@
                 "Meta": helperService.metaBase(),
                 "Entities": currentAreas
             };
-            // Standard Menu Configuration and Data
-            AreasMenuCtrl.ePage.Masters.StandardMenuInput = appConfig.Entities.standardMenuConfigList.WarehouseArea;
-            AreasMenuCtrl.ePage.Masters.StandardMenuInput.obj = AreasMenuCtrl.currentAreas;
+           
             // function
 
             AreasMenuCtrl.ePage.Masters.SaveButtonText = "Save";
@@ -51,26 +49,32 @@
         function Save($item) {
             AreasMenuCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
             AreasMenuCtrl.ePage.Masters.IsDisableSave = true;
+            AreasMenuCtrl.ePage.Masters.Loading = true;
 
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
 
             if ($item.isNew) {
                 _input.PK = _input.PK;
+                _input.CreatedDateTime = new Date();
             } else {
                 $item = filterObjectUpdate($item, "IsModified");
             }
             helperService.SaveEntity($item, 'Areas').then(function (response) {
                 AreasMenuCtrl.ePage.Masters.SaveButtonText = "Save";
                 AreasMenuCtrl.ePage.Masters.IsDisableSave = false;
+                AreasMenuCtrl.ePage.Masters.Loading = false;
+                
                 if (response.Status === "success") {
 
                     areasConfig.TabList.map(function (value, key) {
+                        
                         if (value.New) {
                             if (value.code == '') {
                                 value.label = AreasMenuCtrl.ePage.Entities.Header.Data.Name;
                                 value[AreasMenuCtrl.ePage.Entities.Header.Data.Name] = value.New;
                                 delete value.New;
+                                value.code = AreasMenuCtrl.ePage.Entities.Header.Data.Name;
                             }
                         }
                     });
@@ -80,24 +84,31 @@
                     }).indexOf(AreasMenuCtrl.currentAreas[AreasMenuCtrl.currentAreas.label].ePage.Entities.Header.Data.PK);
 
                     if (_index !== -1) {
-                        if (response.Data.Response) {
-                            areasConfig.TabList[_index][areasConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data.Response;
+                        
+                        areasConfig.TabList[_index][areasConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data;
+
+                        //Changing Label name when area name changes
+                        if(AreasMenuCtrl.ePage.Entities.Header.Data.Name != areasConfig.TabList[_index].label){
+                            areasConfig.TabList[_index].label = AreasMenuCtrl.ePage.Entities.Header.Data.Name;
+                            areasConfig.TabList[_index][areasConfig.TabList[_index].label] = areasConfig.TabList[_index][areasConfig.TabList[_index].code];
+                            delete areasConfig.TabList[_index][areasConfig.TabList[_index].code];
+                            areasConfig.TabList[_index].code = AreasMenuCtrl.ePage.Entities.Header.Data.Name
                         }
-                        else {
-                            areasConfig.TabList[_index][areasConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data;
-                        }
+
                         areasConfig.TabList[_index].isNew = false;
                         if ($state.current.url == "/areas") {
                             helperService.refreshGrid();
                         }
                     }
                     console.log("Success");
+                    toastr.success("Saved Successfully...!");
                     if(AreasMenuCtrl.ePage.Masters.SaveAndClose){
                         AreasMenuCtrl.ePage.Masters.Config.SaveAndClose = true;
                         AreasMenuCtrl.ePage.Masters.SaveAndClose = false;
                     }
                 } else if (response.Status === "failed") {
                     console.log("Failed");
+                    toastr.error("Could not Save...!");
                     AreasMenuCtrl.ePage.Entities.Header.Validations = response.Validations;
                     angular.forEach(response.Validations, function (value, key) {
                         AreasMenuCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, AreasMenuCtrl.currentAreas.label, false, undefined, undefined, undefined, undefined, undefined);

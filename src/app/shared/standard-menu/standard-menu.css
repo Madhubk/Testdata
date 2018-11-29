@@ -1,1 +1,12 @@
-
+.standard-menu-wrapper .sm-count {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 23px;
+    height: 23px;
+    border-radius: 100%;
+    background-color: #ddd;
+    text-align: center;
+    font-size: 10px;
+    line-height: 2.2;
+}

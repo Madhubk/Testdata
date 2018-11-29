@@ -1,14 +1,28 @@
 .tc-home {
-    padding: 50px 100px;
+    /* padding: 50px 100px; */
+    /* padding: 25px; */
+}
+
+.tc-home .tc-home-fixed-height {
+    height: calc(100vh - 65px);
+    height: -moz-calc(100vh - 65px);
+    height: -o-calc(100vh - 65px);
+    height: -webkit-calc(100vh - 65px);
+    margin-bottom: 20px;
+    overflow-y: auto;
+}
+
+.tc-home .tc-home-fixed-height.menu-list {
+    border-right: 1px solid #ddd;
 }
 
 .tc-home .menu-container {
-    width: 195px;
+    width: 180px;
     border: 1px solid #eee;
     padding: 10px;
     text-align: center;
-    float: left;
-    margin: 17px;
+    display: inline-block;
+    margin: 14px;
     cursor: pointer;
 }
 
@@ -17,8 +31,8 @@
 }
 
 .tc-home .menu-container .image {
-    width: 70px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
     margin: 0 auto;
     margin-bottom: 5px;
     font-size: 70px;
@@ -44,7 +58,32 @@
     overflow: hidden;
 }
 
-.session{
-    margin-left: 116px;
-    float: left;
+/* Company Details */
+
+.tc-company-details {
+    padding: 20px;
+}
+
+.tc-company-details .tc-logo {
+    text-align: center;
+    margin-bottom: 20px !important;
+    width: 150px;
+    margin: 0 auto;
+}
+
+.tc-company-details .tc-logo img {
+    width: 100%;
+    height: 100%;
+}
+
+.tc-company-details .tc-company-desc {
+    padding: 5px;
+    font-size: 12px;
+}
+
+.tc-company-details .tc-company-name {
+    padding: 5px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
 }

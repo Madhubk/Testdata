@@ -1,0 +1,53 @@
+<div class="clearfix help-content-container pb-100">
+    <div class="clearfix text-center p-20" data-ng-if="!HelpContentCtrl.ePage.Masters.Content.ContentListSource">
+        <i class="fa fa-spin fa-spinner font-160"></i>
+    </div>
+    <div class="text-center p-20" data-ng-if="HelpContentCtrl.ePage.Masters.Content.ContentListSource.length === 0">
+        <i class="content-topic">No Content for {{HelpContentCtrl.ePage.Masters.QueryString.Title}}</i>
+    </div>
+    <div class="clearfix header" data-ng-if="HelpContentCtrl.ePage.Masters.Content.ContentListSource">
+        <div class="col-sm-9">
+            <div class="clearfix content-list" data-ng-if="HelpContentCtrl.ePage.Masters.Content.ContentListSource.length > 0">
+                <div class="clearfix content-row" data-ng-repeat="x in HelpContentCtrl.ePage.Masters.Content.ContentListSource  | orderBy:'DisplayOrder' | filter: HelpContentCtrl.ePage.Masters.Content.Search">
+                    <div class="clearfix" data-ng-if="x.ContentType == 'Header1'">
+                        <h1>
+                            <span class="content-header1" data-ng-bind="x.Content"></span>
+                        </h1>
+                        <div class="clearfix">
+                            <span class="mr-10">
+                                <i class="fa fa-calendar"></i>
+                                <span class="text-single-line" data-ng-bind="x.CreatedDateTime | date:'dd-MMM-yyyy hh:mm a'"></span>
+                            </span>
+                            <span class="mr-10">
+                                <i class="fa fa-user"></i>
+                                <span class="text-single-line" data-ng-bind="x.CreatedBy"></span>
+                            </span>
+                            <span class="mr-10">
+                                <i class="fa fa-folder-open"></i>
+                                <span class="text-single-line" data-ng-bind="HelpContentCtrl.ePage.Masters.QueryString.Title"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="clearfix" data-ng-if="x.ContentType == 'Header2'">
+                        <h2>
+                            <span class="content-header2" data-ng-bind="x.Content"></span>
+                        </h2>
+                    </div>
+                    <div class="clearfix" data-ng-if="x.ContentType == 'Header3'">
+                        <h2>
+                            <span class="content-header3" data-ng-bind="x.Content"></span>
+                        </h2>
+                    </div>
+                    <div class="clearfix" data-ng-if="x.ContentType == 'TextFormater'">
+                        <span class="content-formatter" data-ng-bind-html="x.Content"></span>
+                    </div>
+                    <div class="clearfix image-container text-center pb-20" data-ng-if="x.ContentType == 'Image'">
+                        <img data-ng-src="{{x.ImgSrc}}" alt="" data-ng-if="x.ImgSrc">
+                        <i class="fa fa-image" data-ng-if="!x.ImgSrc" style="font-size:100px;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3"></div>
+    </div>
+</div>

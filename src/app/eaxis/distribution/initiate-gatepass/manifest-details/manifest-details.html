@@ -1,0 +1,179 @@
+<div class="" ng-if="ManifestDetailsCtrl.ePage.Masters.IsShowManifest">
+    <div class="col-lg-12 mt-15">
+        <div class="rows border-box border-radius-2 bg-fbfbfb">
+            <div class="col-lg-4 pt-10 pb-10">
+                <div class="tab-profile-title text-single-line fs-16" data-ng-bind=" ManifestDetailsCtrl.ePage.Entities.Header.Data.ManifestDetails.TmsManifestHeader.ManifestNumber"></div>
+            </div>
+
+            <!--Sender-->
+            <div class="col-lg-6 border-left border-right pt-10 pb-10 ">
+                <div class="fs-14">
+                    <span>
+                        {{ ManifestDetailsCtrl.ePage.Entities.Header.Data.ManifestDetails.OrgSender.FullName}}
+                    </span>
+                    <span class="ml-15 mr-15">
+                        <i class="fa fa-arrow-circle-right"></i>
+                    </span>
+                    <span>
+                        {{ ManifestDetailsCtrl.ePage.Entities.Header.Data.ManifestDetails.OrgReceiver.FullName}}
+                    </span>
+                </div>
+            </div>
+            <div class="col-lg-2 mt-10">
+                <div class="tab-profile-sub-title text-single-line fs-14" title="{{ ManifestDetailsCtrl.ePage.Entities.Header.Data.ManifestDetails.TmsManifestHeader.ManifestStatus}} - {{ ManifestDetailsCtrl.ePage.Entities.Header.Data.ManifestDetails.TmsManifestHeader.ManifestStatusDesc}}"
+                    data-ng-bind=" ManifestDetailsCtrl.ePage.Entities.Header.Data.ManifestDetails.TmsManifestHeader.ManifestStatusDesc"></div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix col-lg-12 mt-10">
+        <div class="rows border-box border-radius-2 pt-15 height-60">
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <div class="color-999 fs-11">Transporter</div>
+                    <div class="text-single-line">
+                        <span>{{ ManifestDetailsCtrl.ePage.Entities.Header.Data.ManifestDetails.TmsManifestHeader.TransporterName||ManifestDetailsCtrl.ePage.Masters.Empty}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <div class="color-999 fs-11">Manifest Type</div>
+                    <span>{{ ManifestDetailsCtrl.ePage.Entities.Header.Data.ManifestDetails.TmsManifestHeader.ManifestType||ManifestDetailsCtrl.ePage.Masters.Empty}}</span>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <div class="color-999 fs-11">Vehicle Type</div>
+                    <span>{{ ManifestDetailsCtrl.ePage.Entities.Header.Data.ManifestDetails.TmsManifestHeader.VehicleTypeDescription||ManifestDetailsCtrl.ePage.Masters.Empty}}</span>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <div class="color-999 fs-11">Load Type</div>
+                    <span>{{ ManifestDetailsCtrl.ePage.Entities.Header.Data.ManifestDetails.TmsManifestHeader.LoadType | dateFormat}}</span>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <div class="color-999 fs-11">Estimated Delivery Date</div>
+                    <span>{{ ManifestDetailsCtrl.ePage.Entities.Header.Data.ManifestDetails.TmsManifestHeader.EstimatedDeliveryDate|dateFormat}}</span>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <div class="color-999 fs-11">Estimated Dispatch Date</div>
+                    <span>{{ ManifestDetailsCtrl.ePage.Entities.Header.Data.ManifestDetails.TmsManifestHeader.EstimatedDispatchDate|dateFormat}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix col-lg-12 mt-10">
+        <div class="dmstable_scroll" id='ManifestDetailsCtrl.ePage.Masters.your_div' style="height:145px; padding-top: 2px;">
+            <div class="table" id="results">
+                <div class='theader'>
+                    <div class='table_header'>Consignment Number</div>
+                    <div class='table_header'>Sender</div>
+                    <div class='table_header'>Receiver</div>
+                    <div class='table_header'>Service Type</div>
+                    <div class='table_header'>Status</div>
+                    <div class='table_header'>Sender Reference</div>
+                    <div class='table_header'>Receiver Reference</div>
+                    <div class='table_header'>Expected Pickup Date Time</div>
+                    <div class='table_header'>Expected Delivery Date Time</div>
+                </div>
+
+                <!-- List Empty Response -->
+                <div data-ng-if=" ManifestDetailsCtrl.ePage.Entities.Header.Data.ManifestDetails.TmsManifestConsignment.length==0">
+                    <div class="text-no-record grid-width" style="bottom:38px">No Record Found</div>
+                </div>
+
+                <div class='table_row' ng-repeat="x in  ManifestDetailsCtrl.ePage.Entities.Header.Data.ManifestDetails.TmsManifestConsignment | filter:{IsDeleted:'false'}  track by $index"
+                    ng-click="ManifestDetailsCtrl.ePage.Masters.setSelectedRow($index)" ng-class="{row_active: ManifestDetailsCtrl.ePage.Masters.selectedRow==$index}"
+                    style="font-size: 11px;">
+                    <div class='table_small'>
+                        <div class='table_cell'>Consignment Number</div>
+                        <div class='table_cell'>{{x.TMC_ConsignmentNumber || ManifestDetailsCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Sender</div>
+                        <div class='table_cell'>{{x.TMC_SenderCode || ManifestDetailsCtrl.ePage.Masters.emptyText}} - {{x.TMC_SenderName || ManifestDetailsCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Receiver</div>
+                        <div class='table_cell'>{{x.TMC_ReceiverCode || ManifestDetailsCtrl.ePage.Masters.emptyText}} - {{x.TMC_ReceiverName || ManifestDetailsCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Service Type</div>
+                        <div class='table_cell'>{{x.TMC_ServiceType || ManifestDetailsCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Status</div>
+                        <div class='table_cell'>{{x.TMC_Status || ManifestDetailsCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Sender Reference</div>
+                        <div class='table_cell'>{{x.TMC_SenderRef || ManifestDetailsCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Receiver Reference </div>
+                        <div class='table_cell'>{{x.TMC_ReceiverRef || ManifestDetailsCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Expected Pickup Date Time</div>
+                        <div class='table_cell'>{{x.TMC_ExpectedPickupDateTime || ManifestDetailsCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Expected Delivery Date Time</div>
+                        <div class='table_cell'>{{x.TMC_ExpectedDeliveryDateTime || ManifestDetailsCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix col-lg-12 mt-10">
+        <div class="dmstable_scroll" id='ManifestDetailsCtrl.ePage.Masters.your_div' style="height:145px; padding-top: 2px;">
+            <div class="table" id="results">
+                <div class='theader'>
+                    <div class='table_header'>Consignment Number</div>
+                    <div class='table_header'>Receiver</div>
+                    <div class='table_header'>Status</div>
+                    <div class='table_header'>Item</div>
+                    <div class='table_header'>MHU Type</div>
+                </div>
+
+                <!-- List Empty Response -->
+                <div data-ng-if=" ManifestDetailsCtrl.ePage.Entities.Header.Data.ManifestDetails.TmsManifestItem.length==0">
+                    <div class="text-no-record grid-width" style="bottom:38px">No Record Found</div>
+                </div>
+
+                <div class='table_row' ng-repeat="x in  ManifestDetailsCtrl.ePage.Entities.Header.Data.ManifestDetails.TmsManifestItem | filter:{IsDeleted:'false'}  track by $index"
+                    ng-click="ManifestDetailsCtrl.ePage.Masters.setSelectedRow($index)" ng-class="{row_active: ManifestDetailsCtrl.ePage.Masters.selectedRow==$index}"
+                    style="font-size: 11px;">
+                    <div class='table_small'>
+                        <div class='table_cell'>Consignment Number</div>
+                        <div class='table_cell'>{{x.TMC_ConsignmentNumber || ManifestDetailsCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Receiver</div>
+                        <div class='table_cell'>{{x.TIT_ReceiverCode || ManifestDetailsCtrl.ePage.Masters.emptyText}} - {{x.TIT_ReceiverName || ManifestDetailsCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Status</div>
+                        <div class='table_cell'>{{x.TIT_ItemStatusDesc || ManifestDetailsCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Item</div>
+                        <div class='table_cell'>{{x.TIT_ItemCode || ManifestDetailsCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>MHU Type</div>
+                        <div class='table_cell'>{{x.TIT_ItemRef_ID || ManifestDetailsCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="" ng-if="!ManifestDetailsCtrl.ePage.Masters.IsShowManifest">
+    <div class="text-no-record grid-width" style="top: 100px; width: 280px;">No manifest found for this Gatepass</div>
+</div>

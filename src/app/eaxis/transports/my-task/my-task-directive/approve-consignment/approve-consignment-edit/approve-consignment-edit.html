@@ -1,0 +1,36 @@
+<!-- Loading -->
+<div class="grid-loading-norecord-container" data-ng-show="ApproveConsignmentEditDirectiveCtrl.ePage.Meta.IsLoading">
+    <div class="grid-loading">Loading...</div>
+</div>
+<!-- Asn Line Directive -->
+<div class="clearfix">
+    <div class="col-lg-12">
+        <div class="form-group height-275">
+            <label class="control-label text-single-line">Approval Remarks/Comments</label>
+            <div class="">
+                <textarea rows="7" type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Comments"
+                    data-ng-model="ApproveConsignmentEditDirectiveCtrl.ePage.Masters.TabList[ApproveConsignmentEditDirectiveCtrl.ePage.Masters.TabList.label].ePage.Entities.Header.Data.TmsConsignmentHeader.Comments"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Save & Complete Buttons -->
+<div class="clearfix">
+    <div class="clearfix my-task-standard-bar mt-150" data-ng-if="
+        ApproveConsignmentEditDirectiveCtrl.ePage.Masters.StandardMenuInput">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 pt-5">
+            <a href="javascript: void(0)" document-modal input="ApproveConsignmentEditDirectiveCtrl.ePage.Masters.StandardMenuInput" class="my-task-icon fa fa-file-text-o mr-5"></a>
+            <span class="my-task-slash"></span>
+            <a href="javascript: void(0)" comment-modal input="ApproveConsignmentEditDirectiveCtrl.ePage.Masters.StandardMenuInput" class="my-task-icon fa fa-comment-o mr-5"></a>
+            <span class="my-task-slash"></span>
+            <a href="javascript: void(0)" email-modal input="ApproveConsignmentEditDirectiveCtrl.ePage.Masters.StandardMenuInput" class="my-task-icon fa fa-envelope-o mr-5"></a>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <input type="submit" class="btn btn-success btn-save btn-sm pull-right ml-5" data-ng-click="ApproveConsignmentEditDirectiveCtrl.ePage.Masters.Approve()"
+            data-ng-disabled="ApproveConsignmentEditDirectiveCtrl.ePage.Masters.IsDisableCompleteBtn"
+            value="{{ApproveConsignmentEditDirectiveCtrl.ePage.Masters.ApprovebtnText}}">
+            <input type="button" class="btn btn-primary btn-sm pull-right ml-5" data-ng-click="ApproveConsignmentEditDirectiveCtrl.ePage.Masters.Reject()"
+                data-ng-disabled="ApproveConsignmentEditDirectiveCtrl.ePage.Masters.IsDisableCompleteBtn" value="{{ApproveConsignmentEditDirectiveCtrl.ePage.Masters.RejectbtnText}}">
+        </div>
+    </div>
+</div>

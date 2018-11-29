@@ -2,38 +2,50 @@
     <!--Organization header -->
     <div class="md-org-header clearfix">
         <div class="col-xs-8 xol-sm-8 col-md-4 col-lg-4 col-xl-4">
-            <span>{{OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.Code || emptyText}}</span>
+            <span data-ng-bind="OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.Code || OrganizationGeneralCtrl.ePage.Masters.OrgHeader.EmptyText"></span>
         </div>
         <div class="col-xs-4 xol-sm-4 col-md-1 col-lg-1 col-xl-1 text-center col-xs-push-0 col-sm-push-0 col-md-push-7 col-lg-push-7 col-xl-push-7">
-            <a class="eaxis-edit-2" href="javascript:void(0);" ng-if="OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.Code == ''" 
-            data-ng-click="OrganizationGeneralCtrl.ePage.Masters.OpenEditForm(OrganizationGeneralCtrl.ePage.Entities.Header.Data, 'general', true)" ><i class="fa fa-plus-circle fs-28"></i></a>
-            <a class="eaxis-edit-2" href="javascript:void(0);" ng-if="OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.Code"  data-ng-click="OrganizationGeneralCtrl.ePage.Masters.OpenEditForm(OrganizationGeneralCtrl.ePage.Entities.Header.Data, 'general', false)" ><i class="fa fa-pencil fs-28"></i></a>
+            <a class="eaxis-edit-2" href="javascript:void(0);" data-ng-if="OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.Code == ''"
+                data-ng-click="OrganizationGeneralCtrl.ePage.Masters.OpenEditForm(OrganizationGeneralCtrl.ePage.Entities.Header.Data, 'general', true)"><i
+                    class="fa fa-plus-circle fs-28"></i></a>
+            <a class="eaxis-edit-2" href="javascript:void(0);" data-ng-if="OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.Code"
+                data-ng-click="OrganizationGeneralCtrl.ePage.Masters.OpenEditForm(OrganizationGeneralCtrl.ePage.Entities.Header.Data, 'general', false)"><i
+                    class="fa fa-pencil fs-28"></i></a>
         </div>
         <div class="col-xs-12 xol-sm-12 col-md-12 col-lg-7 col-xl-7 col-xs-pull-0 col-sm-pull-0 col-md-pull-0 col-lg-pull-1 col-xl-pull-1">
-            <span class="eaxis-company-title-3">{{OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.FullName || emptyText}}</span>
+            <span class="eaxis-company-title-3" data-ng-bind="OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.FullName || OrganizationGeneralCtrl.ePage.Masters.OrgHeader.EmptyText"></span>
         </div>
     </div>
     <div class="label-container mb-10">
-        <span class="label" data-ng-repeat="x in OrganizationGeneralCtrl.ePage.Masters.OrgHeader.DataList" ng-if="OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader[x.Value]"
-            ng-class="OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader[x.Value] ? 'label-default' : 'label-danger'"
+        <span class="label" data-ng-repeat="x in OrganizationGeneralCtrl.ePage.Masters.OrgHeader.DataList" data-ng-if="OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader[x.Value]"
+            data-ng-class="OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader[x.Value] ? 'label-default' : 'label-danger'"
             data-ng-bind="x.DispName"></span>
     </div>
     <div class="org-address-general-container clearfix">
-        <div data-ng-if="OrganizationGeneralCtrl.ePage.Masters.MainAddress" class="colxs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 p-5 org-address-wrapper">
+        <div data-ng-if="OrganizationGeneralCtrl.ePage.Masters.MainAddress" class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 p-5 org-address-wrapper">
             <div class="eaxis-org-box">
                 <div class="eaxis-rows">
-                    <div class="eaxis-org-com text-single-line">{{OrganizationGeneralCtrl.ePage.Masters.MainAddress.Address1 || emptyText}}</div>
-                    <div class="eaxis-org-com text-single-line">{{OrganizationGeneralCtrl.ePage.Masters.MainAddress.Address2 || emptyText}}</div>
-                    <div class="eaxis-org-com text-single-line">{{OrganizationGeneralCtrl.ePage.Masters.MainAddress.City || emptyText}} - {{OrganizationGeneralCtrl.ePage.Masters.MainAddress.PostCode
-                        || emptyText}}</div>
-                    <div class="eaxis-org-state">{{OrganizationGeneralCtrl.ePage.Masters.MainAddress.State || emptyText}}</div>
+                    <div class="eaxis-org-com text-single-line">{{OrganizationGeneralCtrl.ePage.Masters.MainAddress.Address1
+                        || OrganizationGeneralCtrl.ePage.Masters.OrgHeader.EmptyText}}</div>
+                    <div class="eaxis-org-com text-single-line">{{OrganizationGeneralCtrl.ePage.Masters.MainAddress.Address2
+                        || OrganizationGeneralCtrl.ePage.Masters.OrgHeader.EmptyText}}</div>
+                    <div class="eaxis-org-com text-single-line">{{OrganizationGeneralCtrl.ePage.Masters.MainAddress.City
+                        || OrganizationGeneralCtrl.ePage.Masters.OrgHeader.EmptyText}} -
+                        {{OrganizationGeneralCtrl.ePage.Masters.MainAddress.PostCode
+                        || OrganizationGeneralCtrl.ePage.Masters.OrgHeader.EmptyText}}</div>
+                    <div class="eaxis-org-state">{{OrganizationGeneralCtrl.ePage.Masters.MainAddress.State ||
+                        OrganizationGeneralCtrl.ePage.Masters.OrgHeader.EmptyText}}</div>
                 </div>
                 <div class="eaxis-rows">
                     <div class="eaxis-org-p-m-g-f">
-                        <div class="eaxis-org-pmgf-com">{{OrganizationGeneralCtrl.ePage.Masters.MainAddress.Phone || emptyText}} <i class="fa fa-phone"></i></div>
-                        <div class="eaxis-org-pmgf-com">{{OrganizationGeneralCtrl.ePage.Masters.MainAddress.Mobile || emptyText}} <i class="fa fa-mobile"></i></div>
-                        <div class="eaxis-org-pmgf-com">{{OrganizationGeneralCtrl.ePage.Masters.MainAddress.Email || emptyText}} <i class="fa fa-envelope"></i></div>
-                        <div class="eaxis-org-pmgf-com">{{OrganizationGeneralCtrl.ePage.Masters.MainAddress.Fax || emptyText}} <i class="fa fa-fax"></i></div>
+                        <div class="eaxis-org-pmgf-com">{{OrganizationGeneralCtrl.ePage.Masters.MainAddress.Phone ||
+                            OrganizationGeneralCtrl.ePage.Masters.OrgHeader.EmptyText}} <i class="fa fa-phone"></i></div>
+                        <div class="eaxis-org-pmgf-com">{{OrganizationGeneralCtrl.ePage.Masters.MainAddress.Mobile ||
+                            OrganizationGeneralCtrl.ePage.Masters.OrgHeader.EmptyText}} <i class="fa fa-mobile"></i></div>
+                        <div class="eaxis-org-pmgf-com">{{OrganizationGeneralCtrl.ePage.Masters.MainAddress.Email ||
+                            OrganizationGeneralCtrl.ePage.Masters.OrgHeader.EmptyText}} <i class="fa fa-envelope"></i></div>
+                        <div class="eaxis-org-pmgf-com">{{OrganizationGeneralCtrl.ePage.Masters.MainAddress.Fax ||
+                            OrganizationGeneralCtrl.ePage.Masters.OrgHeader.EmptyText}} <i class="fa fa-fax"></i></div>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,61 @@
+<!-- <div class="error-modal-hide sfc-crd"> -->
+<div class="clearfix pull-right fs-25 mb-10 pr-10">
+    <div class="page-actions-panel-cell" id="pageaction-area">
+        <ul class="list-inline mt-5">
+            <li class="pl-0 pr-0">
+                <button class="btn btn-default btn-md" uib-popover-template="SfuCRDUpdateEditDirectiveCtrl.ePage.Masters.dynamicPopover.templateUrl"
+                    popover-title="{{SfuCRDUpdateEditDirectiveCtrl.ePage.Masters.dynamicPopover.title}}"
+                    popover-trigger="'outsideClick'" popover-class="popover-sfu-date" popover-append-to-body="true"
+                    popover-placement="bottom" type="button" class="btn btn-default set-br-orange set-bg-orange-light fs-12"
+                    rel="tooltip" data-placement="bottom" title="Change Date" data-original-title="Change Date"
+                    data-ng-click="SfuCRDUpdateEditDirectiveCtrl.ePage.Masters.BulkUpdate()" data-ng-disabled="SfuCRDUpdateEditDirectiveCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.length == 0">
+                    <i class="fa fa-caret-down txt-color-blueDark"></i> Bulk Update
+                </button>
+            </li>
+            <li>
+                <button class="btn btn-default set-br-blue set-bg-blue-light fs-12" data-ng-click="SfuCRDUpdateEditDirectiveCtrl.ePage.Masters.UpdateCaroReadyDate(SfuCRDUpdateEditDirectiveCtrl.ePage.Entities.Header.Data.UIPorOrderHeader)"
+                    data-ng-disabled="SfuCRDUpdateEditDirectiveCtrl.ePage.Masters.IsDisableSave">
+                    Update Cargo Ready Date
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="clearfix mt-20 pl-10 pr-10 common_table_hgt" data-ng-if="SfuCRDUpdateEditDirectiveCtrl.ePage.Masters.GridLoad">
+    <sfu-update-grid-directive input="SfuCRDUpdateEditDirectiveCtrl.ePage.Masters.SfuOrderList" grid-change="SfuCRDUpdateEditDirectiveCtrl.ePage.Masters.DataChanges({ item: item })"
+        task-obj="SfuCRDUpdateEditDirectiveCtrl.taskObj" master="SfuCRDUpdateEditDirectiveCtrl.ePage"></sfu-update-grid-directive>
+</div>
+<div class="error-warning-container right" id="errorWarningContainer{{SfuCRDUpdateEditDirectiveCtrl.ePage.Masters.TaskObj.PSI_InstanceNo}}">
+    <div class="error-warning-header clearfix">
+        <span class="title pull-left">
+            <!-- <i class="fa fa-warning"></i>  -->
+            Errors & Warnings
+        </span>
+        <span class="error-warning-toggle-icon pull-right" data-ng-click="SfuCRDUpdateEditDirectiveCtrl.ePage.Masters.ShowErrorWarningModal(SfuCRDUpdateEditDirectiveCtrl.ePage.Masters.TaskObj.PSI_InstanceNo)">
+            <i class="fa fa-arrow-right"></i>
+        </span>
+    </div>
+    <div class="error-warning-body">
+        <div class="clearfix" data-ng-if="SfuCRDUpdateEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList.length>0">
+            <div class="clearfix">
+                <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in SfuCRDUpdateEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList">
+                    <div class="clearfix">
+                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                            <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                        </div>
+                        <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                            <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                            <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- </div> -->
+<!-- <div class="clearfix mt-10 pull-right fs-25 mr-10">
+    <button class="btn btn-default set-br-yellow set-bg-yellow-light fs-12" data-ng-click="SfuCRDUpdateEditDirectiveCtrl.ePage.Masters.Complete()">
+        Complete
+    </button>
+</div> -->

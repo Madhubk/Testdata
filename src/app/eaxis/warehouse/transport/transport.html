@@ -10,7 +10,7 @@
         <div class="no-padding tab-list-view-wrapper">
             <!--Transport Grid Page-->
             <dynamic-list dataentry-name="TransportCtrl.ePage.Masters.dataentryName" task-name="TransportCtrl.ePage.Masters.taskName"
-                grid-config-type="0" selected-grid-row="TransportCtrl.ePage.Masters.SelectedGridRow($item)" mode="1"></dynamic-list>
+                grid-config-type="0" selected-grid-row="TransportCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" dataentry-object="TransportCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
             <div class="tab-loading" data-ng-show="TransportCtrl.ePage.Masters.IsTabClick"></div>
         </div>
     </uib-tab>
@@ -27,7 +27,7 @@
         <div class="padding-bottom-10 clearfix">
 
 
-            <Transport-menu current-transport="tab"></Transport-menu>
+            <Transport-menu current-transport="tab" dataentry-object="TransportCtrl.ePage.Masters.DataEntryObject"></Transport-menu>
             <div class="horizontal-space"></div>
 
 

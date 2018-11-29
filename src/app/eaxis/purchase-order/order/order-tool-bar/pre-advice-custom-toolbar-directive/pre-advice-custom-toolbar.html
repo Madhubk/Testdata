@@ -1,0 +1,17 @@
+<div class="clearfix pull-right fs-25 mb-10 pr-10">
+    <email-modal input="PreAdviceCustomToolBarCtrl.ePage.Masters.Input" mode="2" type="PreAdviceCustomToolBarCtrl.ePage.Masters.MailObj"
+        on-complete="PreAdviceCustomToolBarCtrl.ePage.Masters.OnComplete($item)">
+        <button class="btn btn-default set-br-yellow set-bg-yellow-light fs-12" data-ng-disabled="!PreAdviceCustomToolBarCtrl.ePage.Masters.IsDisableSend">
+            <!-- <i class="fa fa-envelope"></i> -->
+            Shipment Pre-Advice Mail
+        </button>
+    </email-modal>
+    <button class="btn btn-default set-br-blue set-bg-blue-light fs-12" data-ng-disabled="PreAdviceCustomToolBarCtrl.ePage.Masters.IsDisableSchedule"
+        data-ng-click="PreAdviceCustomToolBarCtrl.ePage.Masters.AddSchedule(PreAdviceCustomToolBarCtrl.ePage.Entities.Header.Data.UISelectionList)">
+        {{PreAdviceCustomToolBarCtrl.ePage.Masters.ScheduleBtn}}
+    </button>
+</div>
+<div class="clearfix common_table_scroll mt-20 pl-10 pr-10 common_table_hgt" data-ng-if="PreAdviceCustomToolBarCtrl.ePage.Entities.Header.Data.UIPorOrderheader.length > 0">
+    <pre-advice-inline current-object="PreAdviceCustomToolBarCtrl.ePage.Entities.Header.Data.UIPorOrderheader"
+        btn-visible="{'AddNew':false,'Delete':false,'More':false}" read-only="false" table-properties="" grid-change="PreAdviceCustomToolBarCtrl.ePage.Masters.DataChanges({ item : item })"></pre-advice-inline>
+</div>

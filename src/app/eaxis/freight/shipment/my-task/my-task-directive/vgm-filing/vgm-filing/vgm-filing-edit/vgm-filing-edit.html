@@ -1,0 +1,82 @@
+<div class="cargo-receipt">
+    <div class="clearfix pb-10">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="VgmFilingEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CargoPickedUpDate.IsWarning && !VgmFilingEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CargoPickedUpDate.IsError"
+                        list="VgmFilingEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CargoPickedUpDate.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="VgmFilingEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CargoPickedUpDate.IsError"
+                        list="VgmFilingEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CargoPickedUpDate.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <div class="form-group">
+                    <label class="control-label">Cargo Pickup Date</label>
+                    <div>
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" placeholder="{{VgmFilingEditDirCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                data-ng-model="VgmFilingEditDirCtrl.ePage.Masters.EntityObj.UIShpExtendedInfo.CargoPickedUpDate"
+                                datetime-picker="{{VgmFilingEditDirCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datepicker-options="VgmFilingEditDirCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                                default-date="" default-time="" save-as="VgmFilingEditDirCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="VgmFilingEditDirCtrl.ePage.Masters.DatePicker.isOpen['CargoPickedUpDate']" when-closed=""
+                                data-ng-click="" data-ng-change="VgmFilingEditDirCtrl.ePage.Masters.ErrorWarningConfig.OnFieldValueChange('MyTask',VgmFilingEditDirCtrl.taskObj.PSI_InstanceNo,VgmFilingEditDirCtrl.ePage.Masters.EntityObj.UIShpExtendedInfo.CargoPickedUpDate,'E11072',false)"
+                                custom-date-time-format />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default shiny" data-ng-click="VgmFilingEditDirCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'CargoPickedUpDate')">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3"> &nbsp;</div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">&nbsp; </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3"> &nbsp; </div>
+        </div>
+    </div>
+    <!-- Save & Complete Buttons -->
+    <div class="clearfix decision">
+        <div class="clearfix" data-ng-if="VgmFilingEditDirCtrl.ePage.Masters.StandardMenuInput">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 pt-5">
+                <a href="javascript: void(0)" document-modal input="VgmFilingEditDirCtrl.ePage.Masters.StandardMenuInput" mode="1" class="my-task-icon fa fa-file-text-o mr-5"></a>
+                <span class="my-task-slash"></span>
+                <a href="javascript: void(0)" comment-modal input="VgmFilingEditDirCtrl.ePage.Masters.StandardMenuInput" mode="1" class="my-task-icon fa fa-comment-o mr-5"></a>
+                <span class="my-task-slash"></span>
+                <a href="javascript: void(0)" email-modal input="VgmFilingEditDirCtrl.ePage.Masters.StandardMenuInput" mode="1" class="my-task-icon fa fa-envelope-o mr-5"></a>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <input type="button" class="btn btn-primary btn-sm pull-right ml-5" data-ng-click="VgmFilingEditDirCtrl.ePage.Masters.Complete()"
+                    data-ng-disabled="VgmFilingEditDirCtrl.ePage.Masters.IsDisableCompleteBtn" value="{{VgmFilingEditDirCtrl.ePage.Masters.CompleteBtnText}}">
+            </div>
+        </div>
+    </div>
+    <div class="error-warning-container right" id="errorWarningContainer{{VgmFilingEditDirCtrl.taskObj.PSI_InstanceNo}}">
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right" data-ng-click="VgmFilingEditDirCtrl.ePage.Masters.ShowErrorWarningModal(VgmFilingEditDirCtrl.taskObj.PSI_InstanceNo)">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+        </div>
+        <div class="error-warning-body">
+            <div class="clearfix" data-ng-if="VgmFilingEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GlobalErrorWarningList.length > 0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in VgmFilingEditDirCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 Stext-center">
+                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

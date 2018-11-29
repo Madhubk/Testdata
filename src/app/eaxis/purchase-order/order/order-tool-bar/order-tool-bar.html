@@ -1,0 +1,20 @@
+<div class="clearfix col-lg-12 margin-top-5">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <input type="button" class="btn btn-primary btn-sm ml-5" data-ng-click="OrderCustomToolBarCtrl.ePage.Masters.OnClickBtn('IsConformationEnable', 'Order Confirmation')"
+            value="Order Confirmation">
+        <email-modal input="OrderCustomToolBarCtrl.ePage.Masters.InputObj" mode="2" type="OrderCustomToolBarCtrl.ePage.Masters.MailObj"
+            on-complete="OrderCustomToolBarCtrl.ePage.Masters.OnComplete($item)">
+            <button class="btn btn-primary btn-sm ml-5" data-ng-disabled="ToolBarCtrl.ePage.Masters.Input.length == 0">
+                Supplier Followup Mail
+            </button>
+        </email-modal>
+        <input type="button" class="btn btn-primary btn-sm ml-5" data-ng-click="OrderCustomToolBarCtrl.ePage.Masters.OnClickBtn('IsCargoRedinessEnable','Cargo Readiness')"
+            value="Cargo Ready Date Update">
+        <input type="button" class="btn btn-primary btn-sm ml-5" data-ng-click="OrderCustomToolBarCtrl.ePage.Masters.OnClickBtn('IsPreAdviceEnable', 'Shipment Pre-advice')"
+            value="Send Pre-advice">
+        <input type="button" class="btn btn-primary btn-sm ml-5" data-ng-click="OrderCustomToolBarCtrl.ePage.Masters.Booking()"
+            value="Convert As Booking">
+        <input type="button" class="btn btn-primary btn-sm ml-5" data-ng-click="OrderCustomToolBarCtrl.ePage.Masters.Activation('IsActiveOrderEnable','Order Activation')"
+            value="Active/ In-active">
+    </div>
+</div>

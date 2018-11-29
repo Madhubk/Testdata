@@ -5,9 +5,9 @@
         .module("Application")
         .controller("WarehouseController", WarehouseController);
 
-    WarehouseController.$inject = ["authService", "helperService"];
+    WarehouseController.$inject = [ "helperService"];
 
-    function WarehouseController(authService, helperService) {
+    function WarehouseController( helperService) {
         /* jshint validthis: true */
         var WarehouseCtrl = this;
 
@@ -20,7 +20,6 @@
                 "Entities": {}
             };
 
-            WarehouseCtrl.ePage.Masters.MenuVisibleType = authService.getUserInfo().Menu.VisibleType;
         }
 
         Init();

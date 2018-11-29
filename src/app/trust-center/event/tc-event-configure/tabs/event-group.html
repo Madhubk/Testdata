@@ -1,0 +1,52 @@
+<div class="clearfix" data-ng-if="!TCEventConfigureCtrl.ePage.Masters.EventGroup.ListSource">
+    <i class="fa fa-spin fa-spinner"></i>
+</div>
+<div class="clearfix" data-ng-if="TCEventConfigureCtrl.ePage.Masters.EventGroup.ListSource && TCEventConfigureCtrl.ePage.Masters.EventGroup.ListSource.length == 0">
+    <i>No Records...!</i>
+</div>
+<div class="header clearfix p-10 mb-10" style="border-bottom: 1px solid #eee;">
+    <a class="pull-right" href="javascript:void(0);" data-ng-click="TCEventConfigureCtrl.ePage.Masters.Group.CreateEventGroup()">Add New</a>
+</div>
+<div class="clearfix pl-10 pr-10 event-group-list-container">
+    <span class="keyword" data-ng-repeat="x in TCEventConfigureCtrl.ePage.Masters.EventGroup.ListSource" data-ng-if="TCEventConfigureCtrl.ePage.Masters.EventGroup.ListSource && TCEventConfigureCtrl.ePage.Masters.EventGroup.ListSource.length > 0">
+        <span data-ng-bind="x.GroupName"></span>
+        <i class="fa fa-pencil cursor-pointer ml-10" data-ng-click="TCEventConfigureCtrl.ePage.Masters.Group.EditEventGroup(x, $index)"></i>
+    </span>
+</div>
+
+<!-- Event Group Template -->
+<script type="text/ng-template" id="editEventGroup">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="TCEventConfigureCtrl.ePage.Masters.Group.CloseEventGroupModal()">&times;</button>
+        <h5 class="modal-title" id="modal-title">
+            <strong>Edit</strong>
+        </h5>
+    </div>
+    <div class="modal-body pt-10" id="modal-body">
+        <form class="clearfix form-horizontal pl-15 pr-15" novalidate>
+            <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">Group Name</label>
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                    <input type="text" class="form-control input-sm" data-ng-model="TCEventConfigureCtrl.ePage.Masters.Group.ActiveEventGroup.GroupName">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">Entity Source</label>
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                    <input type="text" class="form-control input-sm" data-ng-model="TCEventConfigureCtrl.ePage.Masters.Group.ActiveEventGroup.EntitySource" disabled>
+                </div>
+            </div>
+            <div class="tc-section-divider-small"></div>
+            <div class="clearfix p-10">
+                <input type="submit" class="btn btn-success btn-xs pull-right ml-10" data-ng-click="TCEventConfigureCtrl.ePage.Masters.Group.SaveEventGroup()"
+                    value="{{TCEventConfigureCtrl.ePage.Masters.Group.SaveBtnTxt}}" data-ng-disabled="TCEventConfigureCtrl.ePage.Masters.Group.IsDisabledSaveBtn"
+                />
+                <input type="submit" class="btn btn-danger btn-xs pull-right ml-10" data-ng-click="TCEventConfigureCtrl.ePage.Masters.Group.DeleteEventGroup()"
+                    value="{{TCEventConfigureCtrl.ePage.Masters.Group.DeleteBtnTxt}}" data-ng-disabled="TCEventConfigureCtrl.ePage.Masters.Group.IsDisabledDeleteBtn"
+                />
+                <!-- <button class="btn btn-default tc-btn-cancel btn-xs pull-right ml-10" data-ng-click="TCEventConfigureCtrl.ePage.Masters.Group.CloseEventGroupModal()">Cancel</button> -->
+            </div>
+            <div class="tc-section-divider-small mb-20"></div>
+        </form>
+    </div>
+</script>

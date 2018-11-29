@@ -1,0 +1,87 @@
+<div class="grid-loading-norecord-container ng-scope" style='z-index: 15;' data-ng-if="DeliveryMenuCtrl.ePage.Masters.Loading">
+    <div class="grid-no-record">
+        <i class="fa fa-spinner fa-pulse"></i> Saving your Data...</div>
+</div>
+
+<div class="clearfix wms-menu-wraper">
+    <div id="wmsMenuWrapper{{DeliveryMenuCtrl.currentDelivery.label}}" class="col-sm-12 no-padding-left no-padding-right">
+        <!-- <delivery-general current-delivery="DeliveryMenuCtrl.currentDelivery"></delivery-general> -->
+
+        <uib-tabset class="wms-menu tabs-left tabbable" active="DeliveryMenuCtrl.ePage.Masters.active">
+            <div class="tab-profile">
+                <div class="tab-profile-title text-single-line text-center" style="color: rgb(66, 50, 50);font-weight: 600;" data-ng-bind="DeliveryMenuCtrl.currentDelivery.label"></div>
+                <div class="wocstatusmenu text-single-line text-center" title="{{DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatus + ' - '+ DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatusDesc}}"
+                    data-ng-bind="DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatusDesc"></div>
+            </div>
+            <uib-tab ng-repeat="x in DeliveryMenuCtrl.ePage.Masters.DeliveryMenu.ListSource" index="$index" deselect="DeliveryMenuCtrl.ePage.Masters.tabSelected(x,$selectedIndex,$event);"
+                data-ng-if="!x.IsDisabled">
+                <uib-tab-heading title="{{x.DisplayName}}">
+                    <i class="{{x.Icon}} mr-5"></i>
+                    <span class="text-single-line" data-ng-bind="x.DisplayName"></span>
+                    <error-warning-directive data-ng-if="DeliveryMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, DeliveryMenuCtrl.currentDelivery.label, 'W', 'GParent').length > 0 && DeliveryMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, DeliveryMenuCtrl.currentDelivery.label, 'E', 'GParent').length == 0"
+                        list="DeliveryMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList" type="'warning'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
+                    <error-warning-directive data-ng-if="DeliveryMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, DeliveryMenuCtrl.currentDelivery.label, 'E', 'GParent').length > 0"
+                        list="DeliveryMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList" type="'error'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
+                </uib-tab-heading>
+
+                <!-- <div class="finalisedstate" ng-show="DeliveryMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                    <span class="finaliseddatedescription">Inward {{DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatusDesc}} and it cannot
+                        be edited</span>
+                </div> -->
+
+                <div>
+                    <div ng-switch="x.Value">
+                        <!--Menu directives-->
+                        <div ng-switch-when="MyTask" delivery-my-task current-delivery="DeliveryMenuCtrl.currentDelivery"></div>
+                        <div ng-switch-when="General" delivery-general current-delivery="DeliveryMenuCtrl.currentDelivery"></div>
+                        <div ng-switch-when="DeliveryLine" delivery-line current-delivery="DeliveryMenuCtrl.currentDelivery"></div>
+                        <div ng-switch-when="DeliveryOrders" delivery-orders current-delivery="DeliveryMenuCtrl.currentDelivery"></div>
+                        <div ng-switch-when="DeliveryDetails" delivery-details current-delivery="DeliveryMenuCtrl.currentDelivery"></div>
+                    </div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+
+    </div>
+    <div class="error-warning-container right" id="errorWarningContainer{{DeliveryMenuCtrl.currentDelivery.label}}">
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                <!-- <i class="fa fa-warning"></i>  -->
+                Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right" data-ng-click="DeliveryMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(DeliveryMenuCtrl.currentDelivery)">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+        </div>
+        <div class="error-warning-body">
+            <div class="clearfix" data-ng-if="DeliveryMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length>0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in DeliveryMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="eaxis-footer-strip">
+        <div class="col-xs-6 col-sm-8 col-md-8 col-lg-9 col-xl-9">
+            <standard-menu dataentry-object="DeliveryMenuCtrl.dataentryObject" input="DeliveryMenuCtrl.currentDelivery"></standard-menu>
+        </div>
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 col-xl-3">
+            <span class="">
+                <button class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6" data-ng-click="DeliveryMenuCtrl.ePage.Masters.Validation(DeliveryMenuCtrl.currentDelivery)"
+                    ng-disabled="DeliveryMenuCtrl.ePage.Masters.DisableSave" data-ng-bind="DeliveryMenuCtrl.ePage.Masters.SaveButtonText">Save</button>
+            </span>
+        </div>
+    </div>
+</div>

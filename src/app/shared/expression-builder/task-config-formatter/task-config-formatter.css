@@ -1,0 +1,9 @@
+.process-expression-group-wrapper .exp-wrapper .dropdown-menu.typeahead {
+    display: block !important;
+    font-size: 12px;
+    margin-left: 15px;
+}
+
+.process-expression-group-wrapper .exp-wrapper .dropdown-menu.typeahead .auto-complete-no-result {
+    padding: 0 10px;
+}

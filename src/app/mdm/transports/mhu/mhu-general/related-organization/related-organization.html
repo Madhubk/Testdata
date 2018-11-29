@@ -12,7 +12,7 @@
                 </div>
                 <label class="control-label text-single-line">Code</label>
                 <div class="">
-                    <input type="text" capitalize class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Code"
+                    <input type="text" capitalize class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" no-special-char placeholder="Code"
                         data-ng-model="RelatedOrgCtrl.ePage.Entities.Header.Data.UIProductGeneral.PartNum" ng-change="RelatedOrgCtrl.ePage.Masters.OnChangeValues(RelatedOrgCtrl.ePage.Entities.Header.Data.UIProductGeneral.PartNum,'E12001')">
                 </div>
             </div>
@@ -28,17 +28,25 @@
                 </div>
                 <label class="control-label text-single-line">Description</label>
                 <div class="">
-                    <input type="text" capitalize class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Description"
+                    <input type="text" capitalize class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Description" no-special-char
                         data-ng-model="RelatedOrgCtrl.ePage.Entities.Header.Data.UIProductGeneral.Desc" ng-change="RelatedOrgCtrl.ePage.Masters.OnChangeValues(RelatedOrgCtrl.ePage.Entities.Header.Data.UIProductGeneral.Desc,'E12002')">
                 </div>
             </div>
         </div>
         <div class="col-lg-4">
             <div class="form-group">
+                <div class="error-warning-container">
+                    <error-warning-directive data-ng-if="RelatedOrgCtrl.ePage.Entities.Header.Meta.ErrorWarning.Length.IsWarning && !RelatedOrgCtrl.ePage.Entities.Header.Meta.ErrorWarning.Length.IsError"
+                        list="RelatedOrgCtrl.ePage.Entities.Header.Meta.ErrorWarning.Length.WARNING" type="'warning'" icon="fa fa-warning"
+                        parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="RelatedOrgCtrl.ePage.Entities.Header.Meta.ErrorWarning.Length.IsError" list="RelatedOrgCtrl.ePage.Entities.Header.Meta.ErrorWarning.Length.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
                 <label class="control-label text-single-line">Length</label>
                 <div class="">
                     <input type="text" numbers-only maxlength="5" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                        placeholder="Depth" data-ng-model="RelatedOrgCtrl.ePage.Entities.Header.Data.UIProductGeneral.Depth">
+                        placeholder="Length" data-ng-model="RelatedOrgCtrl.ePage.Entities.Header.Data.UIProductGeneral.Length" 
+                        ng-change="RelatedOrgCtrl.ePage.Masters.OnChangeValues(RelatedOrgCtrl.ePage.Entities.Header.Data.UIProductGeneral.Length,'E12008')">
                 </div>
             </div>
         </div>
@@ -46,28 +54,51 @@
     <div class="col-lg-5 p-0">
         <div class="col-lg-4">
             <div class="form-group">
+                <div class="error-warning-container">
+                    <error-warning-directive data-ng-if="RelatedOrgCtrl.ePage.Entities.Header.Meta.ErrorWarning.Width.IsWarning && !RelatedOrgCtrl.ePage.Entities.Header.Meta.ErrorWarning.Width.IsError"
+                        list="RelatedOrgCtrl.ePage.Entities.Header.Meta.ErrorWarning.Width.WARNING" type="'warning'" icon="fa fa-warning"
+                        parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="RelatedOrgCtrl.ePage.Entities.Header.Meta.ErrorWarning.Width.IsError" list="RelatedOrgCtrl.ePage.Entities.Header.Meta.ErrorWarning.Width.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
                 <label class="control-label text-single-line">Width</label>
                 <div class="">
                     <input type="text" numbers-only maxlength="5" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                        placeholder="Width" data-ng-model="RelatedOrgCtrl.ePage.Entities.Header.Data.UIProductGeneral.Width">
+                        placeholder="Width" data-ng-model="RelatedOrgCtrl.ePage.Entities.Header.Data.UIProductGeneral.Width"
+                        ng-change="RelatedOrgCtrl.ePage.Masters.OnChangeValues(RelatedOrgCtrl.ePage.Entities.Header.Data.UIProductGeneral.Width,'E12009')">
                 </div>
             </div>
         </div>
         <div class="col-lg-4">
             <div class="form-group">
+                <div class="error-warning-container">
+                    <error-warning-directive data-ng-if="RelatedOrgCtrl.ePage.Entities.Header.Meta.ErrorWarning.Height.IsWarning && !RelatedOrgCtrl.ePage.Entities.Header.Meta.ErrorWarning.Height.IsError"
+                        list="RelatedOrgCtrl.ePage.Entities.Header.Meta.ErrorWarning.Height.WARNING" type="'warning'" icon="fa fa-warning"
+                        parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="RelatedOrgCtrl.ePage.Entities.Header.Meta.ErrorWarning.Height.IsError" list="RelatedOrgCtrl.ePage.Entities.Header.Meta.ErrorWarning.Height.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
                 <label class="control-label text-single-line">Height</label>
                 <div class="">
                     <input type="text" numbers-only maxlength="5" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                        placeholder="Height" data-ng-model="RelatedOrgCtrl.ePage.Entities.Header.Data.UIProductGeneral.Height">
+                        placeholder="Height" data-ng-model="RelatedOrgCtrl.ePage.Entities.Header.Data.UIProductGeneral.Height" 
+                        ng-change="RelatedOrgCtrl.ePage.Masters.OnChangeValues(RelatedOrgCtrl.ePage.Entities.Header.Data.UIProductGeneral.Height,'E12010')">
                 </div>
             </div>
         </div>
         <div class="col-lg-4">
             <div class="form-group">
+                <div class="error-warning-container">
+                    <error-warning-directive data-ng-if="RelatedOrgCtrl.ePage.Entities.Header.Meta.ErrorWarning.MeasureUQ.IsWarning && !RelatedOrgCtrl.ePage.Entities.Header.Meta.ErrorWarning.MeasureUQ.IsError"
+                        list="RelatedOrgCtrl.ePage.Entities.Header.Meta.ErrorWarning.MeasureUQ.WARNING" type="'warning'" icon="fa fa-warning"
+                        parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="RelatedOrgCtrl.ePage.Entities.Header.Meta.ErrorWarning.MeasureUQ.IsError" list="RelatedOrgCtrl.ePage.Entities.Header.Meta.ErrorWarning.MeasureUQ.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
                 <label class="control-label text-single-line">Units</label>
                 <div class="">
                     <select chosen class="form-control" ng-model="RelatedOrgCtrl.ePage.Entities.Header.Data.UIProductGeneral.MeasureUQ" ng-options="x.Key as x.Key + ' - '  + x.Value for x in RelatedOrgCtrl.ePage.Masters.DropDownMasterList.DimentionsUnit.ListSource"
-                        search-contains="true">
+                        search-contains="true" ng-change="RelatedOrgCtrl.ePage.Masters.OnChangeValues(RelatedOrgCtrl.ePage.Entities.Header.Data.UIProductGeneral.MeasureUQ,'E12011')">
                             <option value="">--Select--</option>
                     </select>
                 </div>
@@ -77,14 +108,28 @@
     <div class="col-lg-2 p-0">
         <div class="col-lg-12">
             <div class="form-group">
+                <div class="error-warning-container mr-20">
+                    <error-warning-directive data-ng-if="RelatedOrgCtrl.ePage.Entities.Header.Meta.ErrorWarning.Weight.IsWarning && !RelatedOrgCtrl.ePage.Entities.Header.Meta.ErrorWarning.Weight.IsError"
+                    list="RelatedOrgCtrl.ePage.Entities.Header.Meta.ErrorWarning.Weight.WARNING" type="'warning'" icon="fa fa-warning"
+                    parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="RelatedOrgCtrl.ePage.Entities.Header.Meta.ErrorWarning.Weight.IsError" list="RelatedOrgCtrl.ePage.Entities.Header.Meta.ErrorWarning.Weight.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
+                <div class="error-warning-container">
+                    <error-warning-directive data-ng-if="RelatedOrgCtrl.ePage.Entities.Header.Meta.ErrorWarning.WeightUQ.IsWarning && !RelatedOrgCtrl.ePage.Entities.Header.Meta.ErrorWarning.WeightUQ.IsError"
+                    list="RelatedOrgCtrl.ePage.Entities.Header.Meta.ErrorWarning.WeightUQ.WARNING" type="'warning'" icon="fa fa-warning"
+                    parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="RelatedOrgCtrl.ePage.Entities.Header.Meta.ErrorWarning.WeightUQ.IsError" list="RelatedOrgCtrl.ePage.Entities.Header.Meta.ErrorWarning.WeightUQ.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
                 <label class="control-label text-single-line">Gross Weight</label>
                 <div class="col-lg-4 p-0">
                     <input type="text" numbers-only maxlength="5" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                        placeholder="Gross Weight" data-ng-model="RelatedOrgCtrl.ePage.Entities.Header.Data.UIProductGeneral.Weight">
+                        placeholder="Gross Weight" data-ng-model="RelatedOrgCtrl.ePage.Entities.Header.Data.UIProductGeneral.Weight" ng-change="RelatedOrgCtrl.ePage.Masters.OnChangeValues(RelatedOrgCtrl.ePage.Entities.Header.Data.UIProductGeneral.Weight,'E12012')">
                 </div>
                 <div class="col-lg-8 p-0">
                     <select chosen class="form-control" ng-model="RelatedOrgCtrl.ePage.Entities.Header.Data.UIProductGeneral.WeightUQ" ng-options="x.Key as x.Key + ' - '  + x.Value for x in RelatedOrgCtrl.ePage.Masters.DropDownMasterList.GrossWeightUnit.ListSource"
-                        search-contains="true">
+                        search-contains="true" ng-change="RelatedOrgCtrl.ePage.Masters.OnChangeValues(RelatedOrgCtrl.ePage.Entities.Header.Data.UIProductGeneral.WeightUQ,'E12013')">
                         <option value="">--Select--</option>
                     </select>
                 </div>

@@ -15,8 +15,7 @@
             controller: "PickSlipController",
             controllerAs: "PickSlipCtrl",
             scope: {
-                currentPick: "=",
-                currentRelease: "="
+                currentPick: "="
             },
             bindToController: true
 

@@ -1,29 +1,32 @@
-(function(){
+(function () {
     "use strict";
 
     angular
-         .module("Application")
-         .directive("consignmentMenu",ConsignmentMenu);
+        .module("Application")
+        .directive("consignmentMenu", ConsignmentMenu);
 
-    ConsignmentMenu.$inject=[];
+    ConsignmentMenu.$inject = [];
 
-    function ConsignmentMenu(){
+    function ConsignmentMenu() {
 
         var exports = {
-            restrict : "EA",
+            restrict: "EA",
             templateUrl: "app/eaxis/transports/track-consignment/consignment-menu/consignment-menu.html",
             link: Link,
             controller: "ConsignmentMenuController",
             controllerAs: "ConsignmentMenuCtrl",
             scope: {
-                currentConsignment: "="
+                currentConsignment: "=",
+                dataentryObject: "=",
+                activeMenu: "=",
+                showError: "="
             },
             bindToController: true
 
         };
         return exports;
-        
-        function Link(scope, elem, attr) {}
+
+        function Link(scope, elem, attr) { }
     }
 
 })();

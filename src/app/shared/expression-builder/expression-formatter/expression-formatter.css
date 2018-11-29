@@ -1,0 +1,73 @@
+.exp-wrapper {
+    box-shadow: 0px 0px 5px #ccc;
+    margin-bottom: 20px;
+    padding: 15px;
+    min-height: 75px;
+}
+
+.exp-wrapper:before {
+    content: "";
+    position: absolute;
+    left: -10px;
+    top: 3px;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 10px solid #ddd;
+}
+
+.process-expression-group-wrapper .exp-list {
+    border-bottom: 1px solid #ddd
+}
+
+.text-border-bottom {
+    border: 0 !important;
+    border-bottom: 1px solid #ddd !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.exp-sql-query:before {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 3px;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 10px solid #ddd;
+}
+
+.parameter-list {
+    background-color: #eee;
+    display: inline-block;
+    border-radius: 20px;
+    margin-right: 10px;
+    margin-bottom: 7px;
+    position: relative;
+}
+
+.parameter-list .field-no {
+    width: 24px;
+    height: 24px;
+    border-radius: 100%;
+    display: inline-block;
+    text-align: center;
+    line-height: 1.7;
+    background-color: #ccc;
+}
+
+.parameter-list .field-name {
+    padding-right: 25px;
+}
+
+.parameter-list .close-icon {
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    opacity: 0.5;
+}
+
+.parameter-list .close-icon:hover {
+    opacity: 1;
+}

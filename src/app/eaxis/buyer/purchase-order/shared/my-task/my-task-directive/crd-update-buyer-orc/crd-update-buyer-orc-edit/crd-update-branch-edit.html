@@ -1,0 +1,37 @@
+<div class="p-10 mt-10" style="min-height:500px;">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-3 pr-0 padding-top-10">
+        <div class="form-group ex-line-font">
+            <div class="error-warning-container">
+                <error-warning-directive data-ng-if="CrdUpdateBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CargoReadyDate.IsError"
+                    list="CrdUpdateBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CargoReadyDate.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </div>
+            <label class="control-label">Cargo Ready Date</label>
+            <div class="input-group input-group-sm col-lg-11">
+                <input type="text" class="form-control" placeholder="{{CrdUpdateBranchEditDirectiveCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    data-ng-model="CrdUpdateBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.CargoReadyDate"
+                    datetime-picker="{{CrdUpdateBranchEditDirectiveCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    datepicker-options="CrdUpdateBranchEditDirectiveCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                    default-date="" default-time="" save-as="CrdUpdateBranchEditDirectiveCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                    is-open="CrdUpdateBranchEditDirectiveCtrl.ePage.Masters.DatePicker.isOpen['isCargoReadyDate']"
+                    when-closed="" data-ng-click="CrdUpdateBranchEditDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoReadyDate')"
+                    data-ng-change="CrdUpdateBranchEditDirectiveCtrl.ePage.Masters.CommonErrorObjInput()"
+                    custom-date-time-format />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" data-ng-click="CrdUpdateBranchEditDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoReadyDate')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 mt-10">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Cargo Ready Comments</label>
+            <div class="input-group input-group-sm col-lg-12">
+                <textarea class="form-control no-resize" max-length="4000" data-ng-model="CrdUpdateBranchEditDirectiveCtrl.ePage.Entities.Header.Data.Comments"></textarea>
+            </div>
+        </div>
+    </div>
+</div>

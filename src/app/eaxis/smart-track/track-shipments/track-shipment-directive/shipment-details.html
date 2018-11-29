@@ -1,0 +1,150 @@
+<div class="clearfix">
+    <div class="row">
+        <div class="pl-15 col-lg-16">
+            <div class="col-lg-2 mb-10">
+                <div class="control-label">Shipment No</div>
+                <div class="com-shp-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.currentShipment.label}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="control-label">HBL No</div>
+                <div class="com-shp-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBill}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="control-label">Mode</div>
+                <div class="com-shp-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="control-label">Inco-terms</div>
+                <div class="com-shp-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.IncoTerm}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="control-label">Origin</div>
+                <div class="com-shp-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="control-label">Destination</div>
+                <div class="com-shp-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="control-label">ETD</div>
+                <div class="com-shp-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETD | date:'dd-MMM-yyyy'}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="control-label">ETA</div>
+                <div class="com-shp-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETA | date:'dd-MMM-yyyy'}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="control-label">Sending Agent</div>
+                <div class="com-shp-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportForwarder_Code}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="control-label">Receiving Agent</div>
+                <div class="com-shp-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ImportForwarder_Code}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="control-label">Shipment Type</div>
+                <div class="com-shp-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentType}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="control-label">Volume</div>
+                <div class="com-shp-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Volume}} {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.UnitOfVolume}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="control-label">Weight</div>
+                <div class="com-shp-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Weight}} {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.UnitOfWeight}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="control-label">Outer Packs</div>
+                <div class="com-shp-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.OuterPackCount}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="control-label">Inner Packs</div>
+                <div class="com-shp-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.InnerPackCount}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="control-label">HBL Issue Date</div>
+                <div class="com-shp-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillIssueDate}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="control-label">HBL Expiry Date</div>
+                <div class="com-shp-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillExpiryDate}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="control-label">Relase Type</div>
+                <div class="com-shp-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ReleaseType}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="control-label">House Bill Type</div>
+                <div class="com-shp-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillType}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="control-label">On Board</div>
+                <div class="com-shp-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShippedOnBoard}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="control-label">On Board Date</div>
+                <div class="com-shp-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShippedOnBoardDate}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="control-label">No Of Originals</div>
+                <div class="com-shp-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.NoOfOriginals}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="control-label">No Of Copies</div>
+                <div class="com-shp-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.NoOfCopies}}
+                </div>
+            </div>
+            <div class="col-lg-2 mb-10">
+                <div class="control-label">Charges Apply</div>
+                <div class="com-shp-value">
+                    {{TrackShipmentDetailsDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillCharges}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

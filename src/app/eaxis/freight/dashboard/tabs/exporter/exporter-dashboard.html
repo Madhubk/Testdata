@@ -1,0 +1,213 @@
+<div id="exporter-canvas" class="clearfix">
+    <!-- List Empty Response -->
+    <div class="dashboard-loading" data-ng-show="ExporterDashboardCtrl.ePage.Masters.IsLoading"></div>
+    <!-- Page Body -->
+    <div class="clearfix">
+        <div class="col-lg-12 mt-10 text-right pr-5">
+            <span class="dashboard-inward-title pull-left fs-25"></span>
+            <button class="btn btn-default set-br-yellow set-bg-yellow-light fs-12" data-ng-click="ExporterDashboardCtrl.ePage.Masters.UploadSLI()">Upload SLI</button>
+            <button class="btn btn-default set-br-yellow set-bg-yellow-light fs-12" data-ng-click="ExporterDashboardCtrl.ePage.Masters.CreateNewBooking()">Create Booking</button>
+            <button class="btn btn-default set-br-blue set-bg-blue-light fs-12" data-ng-click="ExporterDashboardCtrl.ePage.Masters.TrackShipments()">Track Shipments</button>
+        </div>
+    </div>
+    <div class="clearfix mt-10 set-bg-dashboard-blue set-br-top-dashboard-blue">
+        <div class="clearfix mt-10">
+            <div class="col-lg-3 col-md-3 col-sm-6 pl-10 pr-5">
+                <div class="tile tile-primary set-br-dashboard-blue">
+                    <div class="tile-heading">Supplier Followup</div>
+                    <div class="tile-body">
+                        <i class="fa fa-file-text-o"></i>
+                        <span class="count-size pull-right" data-ng-if="ExporterDashboardCtrl.ePage.Masters.DashboardConut.ContainerPackingCount != undefined">{{ExporterDashboardCtrl.ePage.Masters.DashboardConut.ContainerPackingCount}}</span>
+                        <span class="count-size pull-right" data-ng-if="ExporterDashboardCtrl.ePage.Masters.DashboardConut.ContainerPackingCount == undefined">0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 pl-5 pr-5">
+                <div class="tile tile-primary set-br-dashboard-blue">
+                    <div class="tile-heading">Pending Vessel Planning</div>
+                    <div class="tile-body">
+                        <i class="fa fa-shield"></i>
+                        <span class="count-size pull-right" data-ng-if="ExporterDashboardCtrl.ePage.Masters.DashboardConut.ContainerPackingCount != undefined">{{ExporterDashboardCtrl.ePage.Masters.DashboardConut.ContainerPackingCount}}</span>
+                        <span class="count-size pull-right" data-ng-if="ExporterDashboardCtrl.ePage.Masters.DashboardConut.ContainerPackingCount == undefined">0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 pl-5 pr-5">
+                <div class="tile tile-primary set-br-dashboard-blue">
+                    <div class="tile-heading">Rejected Booking</div>
+                    <div class="tile-body">
+                        <i class="fa fa-remove"></i>
+                        <span class="count-size pull-right" data-ng-if="ExporterDashboardCtrl.ePage.Masters.DashboardConut.ContainerPackingCount != undefined">{{ExporterDashboardCtrl.ePage.Masters.DashboardConut.ContainerPackingCount}}</span>
+                        <span class="count-size pull-right" data-ng-if="ExporterDashboardCtrl.ePage.Masters.DashboardConut.ContainerPackingCount == undefined">0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 pl-5 pr-5">
+                <div class="tile tile-primary set-br-dashboard-blue">
+                    <div class="tile-heading">Rejected Exception</div>
+                    <div class="tile-body">
+                        <i class="fa fa-remove"></i>
+                        <span class="count-size pull-right" data-ng-if="ExporterDashboardCtrl.ePage.Masters.DashboardConut.ContainerPackingCount != undefined">{{ExporterDashboardCtrl.ePage.Masters.DashboardConut.ContainerPackingCount}}</span>
+                        <span class="count-size pull-right" data-ng-if="ExporterDashboardCtrl.ePage.Masters.DashboardConut.ContainerPackingCount == undefined">0</span>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-lg-3 col-md-3 col-sm-6 pl-5 pr-5">
+                <div class="tile tile-primary set-br-dashboard-blue">
+                    <div class="tile-heading">Cargo Readiness</div>
+                    <div class="tile-body">
+                        <i class="fa fa-truck"></i>
+                        <span class="count-size pull-right" data-ng-if="ExporterDashboardCtrl.ePage.Masters.DashboardConut.ContainerPackingCount != undefined">{{ExporterDashboardCtrl.ePage.Masters.DashboardConut.ContainerPackingCount}}</span>
+                        <span class="count-size pull-right" data-ng-if="ExporterDashboardCtrl.ePage.Masters.DashboardConut.ContainerPackingCount == undefined">0</span>
+                    </div>
+                </div>
+            </div> -->
+            <!-- <div class="col-lg-3 col-md-3 col-sm-6 pl-5 pr-10">
+                <div class="tile tile-primary set-br-dashboard-blue">
+                    <div class="tile-heading">Shipment Pre-Advice</div>
+                    <div class="tile-body">
+                        <i class="fa fa-globe"></i>
+                        <span class="count-size pull-right" data-ng-if="ExporterDashboardCtrl.ePage.Masters.DashboardConut.ContainerPackingCount != undefined">{{ExporterDashboardCtrl.ePage.Masters.DashboardConut.ContainerPackingCount}}</span>
+                        <span class="count-size pull-right" data-ng-if="ExporterDashboardCtrl.ePage.Masters.DashboardConut.ContainerPackingCount == undefined">0</span>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+        <div class="clearfix">
+            <div class="col-lg-4 col-md-4 col-sm-4 pl-10 pr-5">
+                <div class="panel height-300">
+                    <div class="panel-heading-dashboard">
+                        <div class="card-content">
+                            <div class="card-actions pull-right">
+                                <!-- <button type="button" class="btn btn-link" rel="tooltip" data-placement="bottom" title="Refresh" data-original-title="Refresh"
+                                            data-ng-click="BuyerDashboardCtrl.ePage.Masters.GetCargoReadyVariance()">
+                                            <i class="fa fa-refresh"></i>
+                                        </button>
+                                        <button uib-popover-template="BuyerDashboardCtrl.ePage.Masters.dynamicPopover.templateUrl" popover-title="{{BuyerDashboardCtrl.ePage.Masters.dynamicPopover.title}}"
+                                            popover-trigger="'outsideClick'" popover-class="popover-ord-date" popover-append-to-body="true"
+                                            popover-placement="bottom" type="button" class="btn btn-link" rel="tooltip" data-placement="bottom"
+                                            title="Change Date" data-original-title="Change Date" data-ng-click="BuyerDashboardCtrl.ePage.Masters.Container = false;BuyerDashboardCtrl.ePage.Masters.CargoReady = true">
+                                            <i class="fa fa-pencil"></i>
+                                        </button> -->
+                            </div>
+                        </div>
+                        <div class="panel-title"></div>
+                        <!-- <p class="category">Last 7 days Container details</p> -->
+                        <div class="list-group ml-10 mb-10 mr-10">
+                            <div class="card card-chart p-10" data-count="10">
+                                <div class="card-header" data-background-color="rose" data-header-animation="true">
+                                    <div class="ct-chart">
+                                        <!-- <canvas class="mt-50" id="barChartGroup" width="800" height="450"></canvas> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="card-footer">
+                                        <span class="category">From : {{BuyerDashboardCtrl.ePage.Masters.Last7DaysFrom | date:'dd-MMM-yyyy'}}</span>
+                                        <span class="category pull-right">To : {{BuyerDashboardCtrl.ePage.Masters.Last7DaysEnd | date:'dd-MMM-yyyy'}}</span>
+                                    </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 pl-5 pr-5">
+                <div class="panel height-300">
+                    <div class="panel-heading-dashboard">
+                        <div class="card-content">
+                            <div class="card-actions pull-right">
+                                <!-- <button type="button" class="btn btn-link" rel="tooltip" data-placement="bottom" title="Refresh" data-original-title="Refresh"
+                                            data-ng-click="BuyerDashboardCtrl.ePage.Masters.GetSupplierContainerValues()">
+                                            <i class="fa fa-refresh"></i>
+                                        </button>
+                                        <button uib-popover-template="BuyerDashboardCtrl.ePage.Masters.dynamicPopover.templateUrl" popover-title="{{BuyerDashboardCtrl.ePage.Masters.dynamicPopover.title}}"
+                                            popover-trigger="'outsideClick'" popover-class="popover-ord-date" popover-append-to-body="true"
+                                            popover-placement="bottom" type="button" class="btn btn-link" rel="tooltip" data-placement="bottom"
+                                            title="Change Date" data-original-title="Change Date" data-ng-click="BuyerDashboardCtrl.ePage.Masters.Container = true;BuyerDashboardCtrl.ePage.Masters.Volume = false">
+                                            <i class="fa fa-pencil"></i>
+                                        </button> -->
+                            </div>
+                        </div>
+                        <div class="panel-title"></div>
+                        <!-- <p class="category">Last 7 days Container details</p> -->
+                        <div class="list-group ml-10 mb-10 mr-10">
+                            <div class="card card-chart p-10" data-count="10">
+                                <div class="card-header" data-background-color="rose" data-header-animation="true">
+                                    <div class="ct-chart">
+                                        <!-- <canvas class="mt-50" id="portBarChartGroup" width="800" height="450"></canvas> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="card-footer">
+                                        <span class="category">From : {{BuyerDashboardCtrl.ePage.Masters.Last7DaysFrom | date:'dd-MMM-yyyy'}}</span>
+                                        <span class="category pull-right">To : {{BuyerDashboardCtrl.ePage.Masters.Last7DaysEnd | date:'dd-MMM-yyyy'}}</span>
+                                    </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 pl-5 pr-10">
+                <div class="panel pb-15">
+                    <div class="panel-heading-dashboard">
+                        <div class="panel-title">Recent Bookings</div>
+                    </div>
+                    <div class="list-group list-group-height">
+                        <div class="list-group-item">
+                            <div class="media-box">
+                                <div class="media-box-body clearfix">
+                                    <div class="media-box-heading">
+                                        <span class="fa fa-star"></span>
+                                        <a class="text-purple m0" href="#">OD0012345</a>
+                                    </div>
+                                    <a class="fs-11" href="#">DEMBUYMEL | DEMSUPSHA | CNSHA</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-group-item">
+                            <div class="media-box">
+                                <div class="media-box-body clearfix">
+                                    <div class="media-box-heading">
+                                        <span class="fa fa-star"></span>
+                                        <a class="text-purple m0" href="#">OD0012345</a>
+                                    </div>
+                                    <a class="fs-11" href="#">DEMBUYMEL | DEMSUPSHA | CNSHA</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-group-item">
+                            <div class="media-box">
+                                <div class="media-box-body clearfix">
+                                    <div class="media-box-heading">
+                                        <span class="fa fa-star"></span>
+                                        <a class="text-purple m0" href="#">OD0012345</a>
+                                    </div>
+                                    <a class="fs-11" href="#">DEMBUYMEL | DEMSUPSHA | CNSHA</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-group-item">
+                            <div class="media-box">
+                                <div class="media-box-body clearfix">
+                                    <div class="media-box-heading">
+                                        <span class="fa fa-star"></span>
+                                        <a class="text-purple m0" href="#">OD0012345</a>
+                                    </div>
+                                    <a class="fs-11" href="#">DEMBUYMEL | DEMSUPSHA | CNSHA</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-group-item">
+                            <div class="media-box">
+                                <div class="media-box-body clearfix">
+                                    <div class="media-box-heading">
+                                        <span class="fa fa-star"></span>
+                                        <a class="text-purple m0" href="#">OD0012345</a>
+                                    </div>
+                                    <a class="fs-11" href="#">DEMBUYMEL | DEMSUPSHA | CNSHA</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

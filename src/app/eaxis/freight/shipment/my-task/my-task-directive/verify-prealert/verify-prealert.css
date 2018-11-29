@@ -1,0 +1,51 @@
+.pre-alert {
+    position: relative;
+    overflow: hidden;
+}
+
+.decision {
+    background-color: #f0f0f0;
+    padding: 5px;
+}
+
+.prealert-Document {
+    height: 300px;
+    overflow-y: auto;
+}
+
+.consol .tab-content {
+    border: 1px solid #ddd;
+}
+
+.pre-alert .fixedheader {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.pre-alert .container-pagination{
+    margin-right: 0px!important;
+    margin-left: 0px !important;
+}
+
+.pre-alert-con {
+    font-size: 15px;
+    text-align: center;
+}
+
+.pre-alert-loading {
+    font-size: 18px;
+    text-align: center
+}
+
+.prealert .tab-content {
+    border: 1px solid #ddd;
+}
+
+#prealert .tab-content {
+    padding: 0;
+}
+
+#prealert .mr-10.ml-10{
+    margin-left: 0 !important;
+    margin-right: 0!important;
+    }

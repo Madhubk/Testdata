@@ -1,0 +1,46 @@
+<div class="clearfix">
+    <div class="mt-10 col-lg-6" style="float: unset !important;">
+        <div class="form-group">
+            <label class="control-label text-single-line">Select your Depot</label>
+            <select chosen class="form-control" style="height: 30px;" ng-model="NationalDepotCtrl.ePage.Masters.OrganizationCode" ng-options="x.Code as x.Code +' - '+ x.FullName for x in NationalDepotCtrl.ePage.Masters.Organization"
+                ng-change="NationalDepotCtrl.ePage.Masters.OnChangeOrganization(NationalDepotCtrl.ePage.Masters.OrganizationCode)"
+                search-contains="true">
+                <option value="">--Select--</option>
+            </select>
+        </div>
+    </div>
+    <div class="grid-loading-norecord-container ng-scope mt-200" style='z-index: 4;' data-ng-if="NationalDepotCtrl.ePage.Masters.IsNoRecords">
+        <div class="grid-no-record">No Record Found.</div>
+    </div>
+    <div class="grid-loading-norecord-container ng-scope mt-200" style='z-index: 4;' data-ng-show="NationalDepotCtrl.ePage.Masters.IsLoading">
+        <div class="grid-no-record">Loading...</div>
+    </div>
+    <div class="mt-10" style="padding: 15px;margin-bottom: 20px;" ng-if="!NationalDepotCtrl.ePage.Masters.IsNoRecords">
+        <div ng-repeat="(key, value)  in NationalDepotCtrl.ePage.Masters.TempDetails">
+            <div class="dc-header set-bg-dc-headers">{{key}}</div>
+            <table class="table table-bordered">
+                <tr class="tr-boldBorder   header-bg">
+                    <td></td>
+                    <td></td>
+                    <td colspan=3 ng-repeat="y in NationalDepotCtrl.ePage.Masters.DateDetails track by $index " class="td-dateEnd">{{y}}</td>
+                </tr>
+                <tr class="tr-boldBorder header-bg">
+                    <td>
+                        <div class="txt-bolder" style="transform: rotate(-45deg);">Store</div>
+                    </td>
+                    <td class="td-dateEnd txt-bolder">Transit Days</td>
+                    <td ng-repeat-start="y in NationalDepotCtrl.ePage.Masters.DateDetails track by $index">Stock In Hand</td>
+                    <td>To be Received</td>
+                    <td ng-repeat-end class="td-dateEnd">To be Send</td>
+                </tr>
+                <tr ng-repeat="z in value track by $index">
+                    <td class="store-bg txt-bolder">{{z.Store}}</td>
+                    <td class="td-dateEnd txt-bolder">{{z.TransitDays}}</td>
+                    <td ng-repeat-start="x in z.TempDateDetails track by $index">{{x.StockOnHand}}</td>
+                    <td>{{x.ToBeReceived}}</td>
+                    <td ng-repeat-end class="td-dateEnd" ng-class="x.ToBeSent!='NA' && x.ShortFallItems<0 ?'td-shortfall':''">{{x.ToBeSent}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

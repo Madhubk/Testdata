@@ -22,7 +22,8 @@
                 <div class="form-group">
                     <label class="control-label">Code</label>
                     <div class="">
-                        <input type="text" class="form-control input-sm" placeholder="Tenant Code" data-ng-model="OrganizationVisibilityCtrl.ePage.Masters.Tenant.Modal.TenantCode">
+                        <input type="text" class="form-control input-sm" placeholder="Tenant Code" data-ng-model="OrganizationVisibilityCtrl.ePage.Masters.Tenant.Modal.TenantCode"
+                            maxlength="5">
                     </div>
                 </div>
                 <div class="form-group">
@@ -66,8 +67,8 @@
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-2 col-xl-2">
                                 <div class="clearfix text-center">
-                                    <button class="org-user-save-btn" data-ng-style="(!x.Access_FK || !x.UserName || x.IsSaveBtnClick) ? {'opacity': 0.5} : {'opacity' : 1 }" data-ng-disabled="!x.Access_FK || !x.UserName || x.IsSaveBtnClick"
-                                        data-ng-click="OrganizationVisibilityCtrl.ePage.Masters.User.Save(x)">
+                                    <button class="org-user-save-btn" data-ng-style="(!x.Access_FK || !x.UserName || x.IsSaveBtnClick) ? {'opacity': 0.5} : {'opacity' : 1 }"
+                                        data-ng-disabled="!x.Access_FK || !x.UserName || x.IsSaveBtnClick" data-ng-click="OrganizationVisibilityCtrl.ePage.Masters.User.Save(x)">
                                         <i class="fa fa-floppy-o org-user-save"></i>
                                     </button>
                                 </div>

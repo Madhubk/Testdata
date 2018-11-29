@@ -1,0 +1,164 @@
+<div class="container-empty-return error-modal-hide">
+    <!-- Organization INFO -->
+    <div class="clearfix">
+        <consol-organization-details read-only="true" current-obj="ContainerEmptyReturnEditCtrl.ePage.Masters.TaskObj"></consol-organization-details>
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-xl-12 col-sm-12 col-xs-12 mb-10">
+        <uib-tabset id="Consol" style="border: 1px solid #ddd;">
+            <!-- Empty Container Details -->
+            <uib-tab>
+                <uib-tab-heading title="Pre Alert">
+                    <i class="fa fa-list-alt margin-right-5"></i>
+                    <span class="text-single-line" data-ng-bind="'Empty Container Details'"></span>
+                </uib-tab-heading>
+                <div class="pl-0 pb-10 pr-0">
+                    <!-- Loading -->
+                    <div class="text-center p-20 font-160" data-ng-if="!ContainerEmptyReturnEditCtrl.currentContainer">
+                        <i class="fa fa-spinner fa-spin"></i>
+                    </div>
+                    <div data-ng-if="ContainerEmptyReturnEditCtrl.currentContainer" data-ng-include="'app/eaxis/freight/container/my-task/my-task-directive/container-empty-return/container-empty-return/container-empty-return-edit/tabs/container-empty-return-details.html'"></div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+    <!-- Consol Activity Form -->
+    <div class="col-lg-12 col-md-12 col-xl-12 col-sm-12 col-xs-12 mb-10">
+        <uib-tabset id="Consol" style="border: 1px solid #ddd;">
+            <!--Consol Details Tab-->
+            <uib-tab>
+                <uib-tab-heading title="Consol">
+                    <i class="fa fa-list-alt margin-right-5"></i>
+                    <span class="text-single-line" data-ng-bind="'Consol'"></span>
+                </uib-tab-heading>
+                <div class="pl-0 pb-10 pr-0">
+                    <!-- Loading -->
+                    <div class="text-center p-20 font-160" data-ng-if="!ContainerEmptyReturnEditCtrl.currentConsol">
+                        <i class="fa fa-spinner fa-spin"></i>
+                    </div>
+                    <consol-activity-details data-ng-if="ContainerEmptyReturnEditCtrl.currentConsol" read-only="true" current-obj="ContainerEmptyReturnEditCtrl.currentConsol"></consol-activity-details>
+                </div>
+            </uib-tab>
+            <!-- Related Shipment details -->
+            <!-- Linked Shipment details -->
+            <uib-tab>
+                <uib-tab-heading title="Linked Shipment">
+                    <i class="fa fa-list-alt margin-right-5"></i>
+                    <span class="text-single-line" data-ng-bind="'Linked Shipment'"></span>
+                </uib-tab-heading>
+                <div class="panel-body no-padding">
+                    <div class="text-center p-20 font-160" data-ng-if="!ContainerEmptyReturnEditCtrl.currentConsol">
+                        <i class="fa fa-spinner fa-spin"></i>
+                    </div>
+                    <linked-shipment data-ng-if="ContainerEmptyReturnEditCtrl.currentConsol[ContainerEmptyReturnEditCtrl.currentConsol.label].ePage.Entities.Header.Data.UIConShpMappings"
+                        current-obj="ContainerEmptyReturnEditCtrl.currentContainer">
+                        </inked-shipment>
+                </div>
+            </uib-tab>
+            <!-- container details -->
+            <uib-tab>
+                <uib-tab-heading title="Container Details">
+                    <i class="fa fa-list-alt margin-right-5"></i>
+                    <span class="text-single-line" data-ng-bind="'Container Details'"></span>
+                </uib-tab-heading>
+                <div class="panel-body no-padding">
+                    <!-- Loading -->
+                    <div class="text-center p-20 font-160" data-ng-if="!ContainerEmptyReturnEditCtrl.ePage.Masters.CntList">
+                        <i class="fa fa-spinner fa-spin"></i>
+                    </div>
+                    <container-grid data-ng-if="ContainerEmptyReturnEditCtrl.ePage.Masters.CntList" current-object="ContainerEmptyReturnEditCtrl.currentConsol"
+                        key-object-name="'CON'" api-header-name="'UIConConsolHeader'" api-header-field-name="'CON_FK'" api-header-value-name="'UICntContainers'"
+                        btn-visible="{'AddNew':false,'Delete':false,'More':false}" table-properties="" read-only="true">
+                    </container-grid>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+    <div class="clearfix">
+        <!-- Document upload -->
+        <article class="col-sm-12 col-md-12 col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-lg fa-fw fa-file-text"></i>
+                    <span>File Upload Form </span>
+                </div>
+                <div class="panel-body no-padding hbl-Document">
+
+                    <article class="col-sm-12 col-md-12 col-lg-12 mt-10" data-ng-if="ContainerEmptyReturnEditCtrl.ePage.Masters.StandardMenuInput">
+                        <div class="" document input="ContainerEmptyReturnEditCtrl.ePage.Masters.StandardMenuInput" mode="3" config="ContainerEmptyReturnEditCtrl.ePage.Masters.StandardConfigInput"
+                            list-source="ContainerEmptyReturnEditCtrl.ePage.Masters.DocListSource" class="my-task-icon fa fa-file-text-o mr-5">
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </article>
+        <!-- Comments Details -->
+        <article class="col-sm-12 col-md-12 col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-lg fa-fw fa-file-text"></i>
+                    <span>Comments Details</span>
+                </div>
+                <div class="panel-body no-padding hbl-Document">
+                    <article class="col-sm-12 col-md-12 col-lg-12 mt-10" data-ng-if="ContainerEmptyReturnEditCtrl.ePage.Masters.StandardMenuInput">
+                        <div class="" comment input="ContainerEmptyReturnEditCtrl.ePage.Masters.StandardMenuInput" mode="3" config="ContainerEmptyReturnEditCtrl.ePage.Masters.StandardConfigInput"
+                            class="my-task-icon fa fa-file-text-o mr-5">
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </article>
+    </div>
+    <!-- Save & Complete Buttons -->
+    <div class="clearfix decision">
+        <div class="clearfix" data-ng-if="
+            ContainerEmptyReturnEditCtrl.ePage.Masters.StandardMenuInput">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 pt-5">
+                <a href="javascript: void(0)" document-modal input="ContainerEmptyReturnEditCtrl.ePage.Masters.StandardMenuInput" mode="1"
+                    class="my-task-icon fa fa-file-text-o mr-5"></a>
+                <span class="my-task-slash"></span>
+                <a href="javascript: void(0)" comment-modal input="ContainerEmptyReturnEditCtrl.ePage.Masters.StandardMenuInput" mode="1"
+                    class="my-task-icon fa fa-comment-o mr-5"></a>
+                <span class="my-task-slash"></span>
+                <a href="javascript: void(0)" email-modal input="ContainerEmptyReturnEditCtrl.ePage.Masters.StandardMenuInput" mode="1" class="my-task-icon fa fa-envelope-o mr-5"></a>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <!-- <input type="submit" class="btn btn-success btn-save btn-sm pull-right ml-5" data-ng-click="ContainerEmptyReturnEditCtrl.ePage.Masters.Save()"
+                    data-ng-disabled="ContainerEmptyReturnEditCtrl.ePage.Masters.IsDisableSaveBtn" value="{{ContainerEmptyReturnEditCtrl.ePage.Masters.SaveBtnText}}"> -->
+                <input type="button" class="btn btn-primary btn-sm pull-right ml-5" data-ng-click="ContainerEmptyReturnEditCtrl.ePage.Masters.Complete()"
+                    data-ng-disabled="ContainerEmptyReturnEditCtrl.ePage.Masters.IsDisableCompleteBtn" value="{{ContainerEmptyReturnEditCtrl.ePage.Masters.AlertBtnText}}">
+
+            </div>
+        </div>
+    </div>
+    <!-- Errors and Warnings  -->
+    <div class="error-warning-container right" id="errorWarningContainer{{ContainerEmptyReturnEditCtrl.taskObj.PSI_InstanceNo}}">
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                <!-- <i class="fa fa-warning"></i>  -->
+                Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right" data-ng-click="ContainerEmptyReturnEditCtrl.ePage.Masters.ShowErrorWarningModal(ContainerEmptyReturnEditCtrl.taskObj.PSI_InstanceNo)">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+        </div>
+        <div class="error-warning-body">
+            <div class="clearfix" data-ng-if="ContainerEmptyReturnEditCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GlobalErrorWarningList.length>0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in ContainerEmptyReturnEditCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

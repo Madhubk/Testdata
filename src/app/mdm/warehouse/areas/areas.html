@@ -9,7 +9,7 @@
 
         <div class="no-padding tab-list-view-wrapper">
             <!--Areas Grid Page-->
-            <dynamic-list dataentry-name="AreasCtrl.ePage.Masters.dataentryName" task-name="AreasCtrl.ePage.Masters.taskName" grid-config-type="0" selected-grid-row="AreasCtrl.ePage.Masters.SelectedGridRow($item)" mode="1"></dynamic-list>
+            <dynamic-list dataentry-name="AreasCtrl.ePage.Masters.dataentryName" task-name="AreasCtrl.ePage.Masters.taskName" grid-config-type="0" selected-grid-row="AreasCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" dataentry-object="AreasCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
             <div class="tab-loading" data-ng-show="AreasCtrl.ePage.Masters.IsTabClick"></div>
         </div>
     </uib-tab>
@@ -40,7 +40,7 @@
         <div class="padding-5 padding-bottom-10 clearfix">
 
             <!--Areas Menu Directive-->
-            <areas-menu current-areas="tab"></areas-menu>
+            <areas-menu current-areas="tab" dataentry-object="AreasCtrl.ePage.Masters.DataEntryObject"></areas-menu>
             <div class="horizontal-space"></div>
             </div>
             <span ng-if="AreasCtrl.ePage.Masters.Config.SaveAndClose" ng-init="AreasCtrl.ePage.Masters.SaveandClose(AreasCtrl.ePage.Masters.activeTabIndex, tab)"></span>

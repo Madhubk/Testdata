@@ -4,9 +4,12 @@
     line-height: 1.39;
     margin-top: 3px;
 }
+
 .fix-crt {
     margin-top: 5px;
 }
-.pagination>li>a, .pagination>li>span{
-  border: 0px solid #ddd !important;
+
+.pagination>li>a,
+.pagination>li>span {
+    border: 0px solid #ddd !important;
 }

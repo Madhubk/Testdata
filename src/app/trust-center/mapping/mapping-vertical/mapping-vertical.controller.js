@@ -5,9 +5,9 @@
         .module("Application")
         .controller("MappingVerticalController", MappingVerticalController);
 
-    MappingVerticalController.$inject = ["$scope", "$location", "$uibModal", "authService", "apiService", "helperService", "appConfig", "APP_CONSTANT", "toastr", "confirmation", "tcMappingConfig"];
+    MappingVerticalController.$inject = ["$scope", "$location", "$uibModal", "authService", "apiService", "helperService", "appConfig", "toastr", "confirmation", "tcMappingConfig", "trustCenterConfig"];
 
-    function MappingVerticalController($scope, $location, $uibModal, authService, apiService, helperService, appConfig, APP_CONSTANT, toastr, confirmation, tcMappingConfig) {
+    function MappingVerticalController($scope, $location, $uibModal, authService, apiService, helperService, appConfig, toastr, confirmation, tcMappingConfig, trustCenterConfig) {
         /* jshint validthis: true */
         var MappingVerticalCtrl = this;
         var _queryString = $location.path().split("/").pop();
@@ -26,7 +26,6 @@
 
             try {
                 MappingVerticalCtrl.ePage.Masters.QueryString = JSON.parse(helperService.decryptData(_queryString));
-
                 if (MappingVerticalCtrl.ePage.Masters.QueryString.AppPk) {
                     InitBreadcrumb();
                     InitMappingList();
@@ -58,10 +57,15 @@
                 IsRequireQueryString: false,
                 IsActive: false
             }, {
-                Code: "system",
-                Description: "System",
-                Link: "TC/dashboard/" + helperService.encryptData('{"Type":"System", "BreadcrumbTitle": "System"}'),
-                IsRequireQueryString: false,
+                Code: "dashboard",
+                Description: "Dashboard",
+                Link: "TC/dashboard",
+                IsRequireQueryString: true,
+                QueryStringObj: {
+                    "AppPk": MappingVerticalCtrl.ePage.Masters.QueryString.AppPk,
+                    "AppCode": MappingVerticalCtrl.ePage.Masters.QueryString.AppCode,
+                    "AppName": MappingVerticalCtrl.ePage.Masters.QueryString.AppName
+                },
                 IsActive: false
             }, {
                 Code: "mapping",
@@ -101,6 +105,9 @@
             MappingVerticalCtrl.ePage.Masters.MappingVertical.Edit = Edit;
             MappingVerticalCtrl.ePage.Masters.MappingVertical.OnMappingClick = OnMappingClick;
             MappingVerticalCtrl.ePage.Masters.MappingVertical.OnUserListClick = OnUserListClick;
+            MappingVerticalCtrl.ePage.Masters.MappingVertical.OnRePublishClick = OnRePublishClick;
+           
+            MappingVerticalCtrl.ePage.Masters.MappingVertical.UserTenantRoleCancel = UserTenantRoleCancel;
             MappingVerticalCtrl.ePage.Masters.MappingVertical.AddNew = AddNew;
             MappingVerticalCtrl.ePage.Masters.CheckUIControl = CheckUIControl;
 
@@ -119,24 +126,6 @@
         }
 
         function GetUIControlList() {
-            // var _filter = {
-            //     MappingCode: 'COMP_ROLE_APP_TNT',
-            //     PropertyName: "SMP_ItemCode",
-            //     SAP_FK: MappingVerticalCtrl.ePage.Masters.QueryString.AppPk,
-            //     UserName: authService.getUserInfo().UserId
-            // };
-            // var _input = {
-            //     "searchInput": helperService.createToArrayOfObject(_filter),
-            //     "FilterID": appConfig.Entities.SecMappings.API.GetColumnValuesWithFilters.FilterID
-            // };
-
-            // apiService.post("authAPI", appConfig.Entities.SecMappings.API.GetColumnValuesWithFilters.Url, _input).then(function (response) {
-            //     if (response.data.Response) {
-            //         console.log(response)
-            //         MappingVerticalCtrl.ePage.Masters.UIControlList = response.data.Response;
-            //     }
-            // });
-
             MappingVerticalCtrl.ePage.Masters.UIControlList = undefined;
             var _filter = {
                 "SAP_FK": MappingVerticalCtrl.ePage.Masters.QueryString.AppPk,
@@ -174,13 +163,18 @@
             var _filter = {
                 "SAP_FK": MappingVerticalCtrl.ePage.Masters.QueryString.AppPk,
                 "MappingCode": MappingVerticalCtrl.ePage.Masters.QueryString.MappingCode,
-                "Item_FK": MappingVerticalCtrl.ePage.Masters.QueryString.ItemPk
             };
 
-            if (MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.Tenant.Visible) {
+            if (MappingVerticalCtrl.ePage.Masters.QueryString.MappingCode !== 'SECAPP_SECTENANT') {
+                _filter.Item_FK = MappingVerticalCtrl.ePage.Masters.QueryString.ItemPk;
+                _filter.ItemCode = MappingVerticalCtrl.ePage.Masters.QueryString.ItemCode;
+            }
+
+            if (MappingVerticalCtrl.ePage.Masters.MappingVertical.Config.Tenant.Visible && MappingVerticalCtrl.ePage.Masters.QueryString.MappingCode !== 'SECAPP_SECTENANT') {
                 _filter.TenantCode = authService.getUserInfo().TenantCode;
             }
-            if (MappingVerticalCtrl.ePage.Masters.QueryString.MappingCode === 'APP_TRUST_APP_TNT') {
+
+            if (MappingVerticalCtrl.ePage.Masters.QueryString.MappingCode === 'APP_TRUST_APP_TNT' || MappingVerticalCtrl.ePage.Masters.QueryString.MappingCode === 'SECAPP_SECTENANT') {
                 _filter.PropertyName = "false";
             }
 
@@ -205,12 +199,19 @@
         }
 
         function AddNew() {
-            MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical = {
-                TenantCode: authService.getUserInfo().TenantCode,
-                TNT_FK: authService.getUserInfo().TenantPK,
-                SAP_FK: MappingVerticalCtrl.ePage.Masters.QueryString.AppPk,
-                SAP_Code: MappingVerticalCtrl.ePage.Masters.QueryString.AppCode
-            };
+            if (MappingVerticalCtrl.ePage.Masters.QueryString.MappingCode === 'SECAPP_SECTENANT') {
+                MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical = {
+                    SAP_FK: MappingVerticalCtrl.ePage.Masters.QueryString.AppPk,
+                    SAP_Code: MappingVerticalCtrl.ePage.Masters.QueryString.AppCode
+                };
+            } else {
+                MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical = {
+                    TenantCode: authService.getUserInfo().TenantCode,
+                    TNT_FK: authService.getUserInfo().TenantPK,
+                    SAP_FK: MappingVerticalCtrl.ePage.Masters.QueryString.AppPk,
+                    SAP_Code: MappingVerticalCtrl.ePage.Masters.QueryString.AppCode
+                };
+            }
 
             Edit();
         }
@@ -218,7 +219,9 @@
         function OnMappingClick($item) {
             MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical = angular.copy($item);
             MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVerticalCopy = angular.copy($item);
-        }
+         }
+
+         
 
         function EditModalInstance() {
             return MappingVerticalCtrl.ePage.Masters.MappingVertical.EditModal = $uibModal.open({
@@ -255,6 +258,10 @@
                 _input.SAP_Code = MappingVerticalCtrl.ePage.Masters.QueryString.AppCode;
             }
 
+            if (_input.Value) {
+                _input.IsJson = true;
+            }
+
             _input.MappingCode = MappingVerticalCtrl.ePage.Masters.QueryString.MappingCode;
             _input.Item_FK = MappingVerticalCtrl.ePage.Masters.QueryString.ItemPk;
             _input.ItemName = MappingVerticalCtrl.ePage.Masters.QueryString.ItemName;
@@ -264,21 +271,34 @@
 
             apiService.post("authAPI", appConfig.Entities.SecMappings.API.Upsert.Url, [_input]).then(function (response) {
                 if (response.data.Response) {
-                    var _response = response.data.Response[0];
-                    var _index = MappingVerticalCtrl.ePage.Masters.MappingVertical.MappingList.map(function (e) {
-                        return e.PK;
-                    }).indexOf(_response.PK);
+                    if (response.data.Response.length > 0) {
+                        var _response = response.data.Response[0];
 
-                    if (_index === -1) {
-                        MappingVerticalCtrl.ePage.Masters.MappingVertical.MappingList.push(_response);
-                    } else {
-                        MappingVerticalCtrl.ePage.Masters.MappingVertical.MappingList[_index] = _response;
+                        if (_response.MappingCode == "SECAPP_SECTENANT") {
+                            var _index = MappingVerticalCtrl.ePage.Masters.MappingVertical.MappingList.map(function (value, key) {
+                                return value.TenantCode;
+                            }).indexOf(_response.TenantCode);
+
+                            if (_index == -1) {
+                                SetDefaultTenantAccess();
+                            }
+                        }
+
+                        var _index = MappingVerticalCtrl.ePage.Masters.MappingVertical.MappingList.map(function (e) {
+                            return e.PK;
+                        }).indexOf(_response.PK);
+
+                        if (_index === -1) {
+                            MappingVerticalCtrl.ePage.Masters.MappingVertical.MappingList.push(_response);
+                        } else {
+                            MappingVerticalCtrl.ePage.Masters.MappingVertical.MappingList[_index] = _response;
+                        }
+
+                        MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical = angular.copy(_response);
+
+                        OnMappingClick(MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical);
+                        toastr.success("Saved Successfully...!");
                     }
-
-                    MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical = angular.copy(_response);
-
-                    OnMappingClick(MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical);
-                    toastr.success("Saved Successfully...!");
                 } else {
                     toastr.error("Could not Save...!");
                 }
@@ -359,7 +379,6 @@
         // ======================================================
 
         // ======================================================
-
         function GetAutoCompleteList($viewValue, mapObj, mapCode, mapFK) {
             var _configObj = angular.copy(MappingVerticalCtrl.ePage.Masters.MappingVertical.Config[mapObj]);
 
@@ -418,6 +437,11 @@
                         "searchInput": _filterObj,
                         "FilterID": _configObj.FilterID,
                     };
+
+                    if (_configObj.DBObjectName) {
+                        _input.DBObjectName = _configObj.DBObjectName
+                    }
+
                     return AutoCompleteAPICall(mapObj, _input);
                 } else if ($viewValue === "#" && _configObj.IsHashRequired) {
                     _filterObj.map(function (value, key) {
@@ -430,6 +454,11 @@
                         "searchInput": _filterObj,
                         "FilterID": _configObj.FilterID,
                     };
+
+                    if (_configObj.DBObjectName) {
+                        _input.DBObjectName = _configObj.DBObjectName
+                    }
+
                     return AutoCompleteAPICall(mapObj, _input);
                 }
             }
@@ -480,7 +509,8 @@
                 Description: "User List",
                 Icon: "fa fa-user",
                 Link: "#/TC/dynamic-list-view/UserProfile",
-                Color: "#333333"
+                Color: "#333333",
+                MappingCode: "GRUP_ROLE_APP_TNT"
             }];
         }
 
@@ -488,8 +518,66 @@
             var _queryString = {
                 USR_ROLES: MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.AccessCode
             };
-            _queryString = helperService.encryptData(_queryString);
-            window.open($item.Link + '?item=' + _queryString, "_blank");
+            var _queryString2 = angular.copy(MappingVerticalCtrl.ePage.Masters.QueryString);
+            _queryString2.BreadcrumbTitle = undefined;
+
+            if ($item.Link != "#") {
+                window.open($item.Link + "/" + helperService.encryptData(_queryString2) + '?item=' + helperService.encryptData(_queryString), "_blank");
+            }
+        }
+
+        function SetDefaultTenantAccess() {
+            var _input = {
+                "FromTenant": "TBASE",
+                "ToTenant": MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.TenantCode,
+                "AppCode": MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.SAP_Code
+            };
+
+            apiService.post("authAPI", appConfig.Entities.SecTenant.API.CopyBaseTenantBehavior.Url, _input).then(function (response) {
+                if (response.data.Response) {}
+            });
+        }
+
+        function OnRePublishClick() {
+            GetRepublishAccessList();
+         }
+
+        function GetRepublishAccessList() {
+            var _input = {
+                "AppCode": MappingVerticalCtrl.ePage.Masters.QueryString.AppCode,
+                "TNTCode": authService.getUserInfo().TenantCode,
+                "userName": MappingVerticalCtrl.ePage.Masters.QueryString.ItemCode,
+            };
+            apiService.post("authAPI", trustCenterConfig.Entities.API.UsePrivileges.API.PublishPrivilegesByUser.Url, _input).then(function SuccessCallback(response) {
+                if (response.data.Response) {
+                    MappingVerticalCtrl.ePage.Masters.MappingVertical.RePublishAccessList = response.data.Response;
+
+                    if (typeof MappingVerticalCtrl.ePage.Masters.MappingVertical.RePublishAccessList == "string") {
+                        MappingVerticalCtrl.ePage.Masters.MappingVertical.RePublishAccessList = JSON.parse(RolesCtrl.ePage.Masters.Role.RePublishAccessList);
+                    }
+
+                    EditUserTenantRoleModalInstance().result.then(function (response) { }, function () {
+                        UserTenantRoleCancel();
+                    });
+                } else {
+                    MappingVerticalCtrl.ePage.Masters.MappingVertical.RePublishAccessList = [];
+                }
+            });
+        }
+
+        function EditUserTenantRoleModalInstance() {
+            return MappingVerticalCtrl.ePage.Masters.MappingVertical.EditUserTenantRoleModal = $uibModal.open({
+                animation: true,
+                keyboard: true,
+                backdrop: "static",
+                windowClass: "tc-edit-modal right",
+                scope: $scope,
+                template: `<div ng-include src="'userTenantRoleEdit'"></div>`
+            });
+        }
+
+        function UserTenantRoleCancel() {
+            MappingVerticalCtrl.ePage.Masters.MappingVertical.EditUserTenantRoleModal.dismiss('cancel');
         }
 
         // ======================================================

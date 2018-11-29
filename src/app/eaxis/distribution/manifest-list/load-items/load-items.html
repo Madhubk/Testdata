@@ -1,0 +1,218 @@
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-5">
+    <div class="rows border-box border-radius-2 bg-fbfbfb">
+        <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 col-xl-2 pt-10 pb-10">
+            <div class="tab-profile-title text-single-line fs-16" data-ng-bind="LoadItemsCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestNumber"></div>
+        </div>
+        <!--Sender-->
+        <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8 col-xl-8 border-left border-right pt-10 pb-10 ">
+            <div class="fs-14">
+                <span>
+                    {{LoadItemsCtrl.ePage.Entities.Header.Data.OrgSender.FullName}}
+                </span>
+                <span class="ml-15 mr-15">
+                    <i class="fa fa-arrow-circle-right"></i>
+                </span>
+                <span>
+                    {{LoadItemsCtrl.ePage.Entities.Header.Data.OrgReceiver.FullName}}
+                </span>
+            </div>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 mt-10">
+            <div class="tab-profile-sub-title text-single-line fs-14" title="{{LoadItemsCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatus}} - {{LoadItemsCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatusDesc}}"
+                data-ng-bind="LoadItemsCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatusDesc"></div>
+        </div>
+    </div>
+</div>
+<div class="clearfix mt-5 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <div class="dmstable_scroll" id='LoadItemsCtrl.ePage.Masters.your_div' style="height:200px; padding-top: 2px;">
+        <div class="table" id="results">
+            <div class='theader'>
+                <div class='table_header'>MHU Type</div>
+                <div class='table_header'>Item Code</div>
+                <div class='table_header'>Item Desc</div>
+                <div class='table_header'>Consignment Number</div>
+                <div class='table_header'>Loaded Date</div>
+                <div class='table_header'>Quantity</div>
+            </div>
+
+            <!-- List Empty Response -->
+            <div data-ng-if="LoadItemsCtrl.ePage.Entities.Header.Data.TmsManifestItem.length==0">
+                <div class="text-no-record grid-width" style="bottom:38px">No Record Found</div>
+            </div>
+            <div class='table_row' data-ng-if="LoadItemsCtrl.ePage.Masters.IsPickup" ng-repeat="x in LoadItemsCtrl.ePage.Entities.Header.Data.TmsManifestItem | filter:{TIT_Sender_ORG_FK:LoadItemsCtrl.orgfk} | filter:filter2"
+                ng-click="LoadItemsCtrl.ePage.Masters.setSelectedRow($index)" ng-class="{row_active: LoadItemsCtrl.ePage.Masters.selectedRow==$index}"
+                style="font-size: 11px;">
+                <div class='table_small'>
+                    <div class='table_cell'>MHU Type</div>
+                    <div class='table_cell'>{{x.TIT_ItemRef_ID || LoadItemsCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Item Code</div>
+                    <div class='table_cell'>{{x.TIT_ItemCode || LoadItemsCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Item Desc</div>
+                    <div class='table_cell'>{{x.TIT_ItemDesc || LoadItemsCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Consignment Number</div>
+                    <div class='table_cell'>{{x.TMC_ConsignmentNumber || LoadItemsCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Loaded Date</div>
+                    <div class='table_cell'>{{x.LoadedDateTime | dateFormat}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Quantity</div>
+                    <div class='table_cell'>{{x.Quantity || LoadItemsCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+            </div>
+            <div class='table_row' data-ng-if="LoadItemsCtrl.ePage.Masters.IsDelivery" ng-repeat="x in LoadItemsCtrl.ePage.Entities.Header.Data.TmsManifestItem | filter:{TIT_Receiver_ORG_FK:LoadItemsCtrl.orgfk} | filter:filter2"
+                ng-click="LoadItemsCtrl.ePage.Masters.setSelectedRow($index)" ng-class="{row_active: LoadItemsCtrl.ePage.Masters.selectedRow==$index}"
+                style="font-size: 11px;">
+                <div class='table_small'>
+                    <div class='table_cell'>MHU Type</div>
+                    <div class='table_cell'>{{x.TIT_ItemRef_ID || LoadItemsCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Item Code</div>
+                    <div class='table_cell'>{{x.TIT_ItemCode || LoadItemsCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Item Desc</div>
+                    <div class='table_cell'>{{x.TIT_ItemDesc || LoadItemsCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Consignment Number</div>
+                    <div class='table_cell'>{{x.TMC_ConsignmentNumber || LoadItemsCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Loaded Date</div>
+                    <div class='table_cell'>{{x.LoadedDateTime | dateFormat}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Quantity</div>
+                    <div class='table_cell'>{{x.Quantity || LoadItemsCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+    <div class="form-group">
+        <label class="control-label text-single-line">Item Code</label>
+        <div class="">
+            <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Item Code" data-ng-model="LoadItemsCtrl.ePage.Masters.ItemCode"
+                ng-blur="LoadItemsCtrl.ePage.Masters.UpdateLoadedDateTime(LoadItemsCtrl.ePage.Masters.ItemCode)">
+        </div>
+    </div>
+</div>
+<div class="clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-10">
+    <div class="dmstable_scroll" id='LoadItemsCtrl.ePage.Masters.your_div' style="height:200px; padding-top: 2px;">
+        <div class="table" id="results">
+            <div class='theader'>
+                <div class='table_header'>MHU Type</div>
+                <div class='table_header'>Item Code</div>
+                <div class='table_header'>Item Desc</div>
+                <div class='table_header'>Consignment Number</div>
+                <div class='table_header'>Loaded Date</div>
+                <div class='table_header'>Quantity</div>
+            </div>
+
+            <!-- List Empty Response -->
+            <div data-ng-if="LoadItemsCtrl.ePage.Entities.Header.Data.TmsManifestItem.length==0">
+                <div class="text-no-record grid-width" style="bottom:38px">No Record Found</div>
+            </div>
+            <div class='table_row' data-ng-if="LoadItemsCtrl.ePage.Masters.IsPickup" ng-repeat="x in LoadItemsCtrl.ePage.Entities.Header.Data.TmsManifestItem | filter:{TIT_Sender_ORG_FK:LoadItemsCtrl.orgfk} | filter:filter1"
+                ng-click="LoadItemsCtrl.ePage.Masters.setSelectedRow($index)" ng-class="{row_active: LoadItemsCtrl.ePage.Masters.selectedRow==$index}"
+                style="font-size: 11px;">
+                <div class='table_small'>
+                    <div class='table_cell'>MHU Type</div>
+                    <div class='table_cell'>{{x.TIT_ItemRef_ID || LoadItemsCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Item Code</div>
+                    <div class='table_cell'>{{x.TIT_ItemCode || LoadItemsCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Item Desc</div>
+                    <div class='table_cell'>{{x.TIT_ItemDesc || LoadItemsCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Consignment Number</div>
+                    <div class='table_cell'>{{x.TMC_ConsignmentNumber || LoadItemsCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Loaded Date</div>
+                    <div class='table_cell'>
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" placeholder="{{LoadItemsCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datetime-picker="{{LoadItemsCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                ng-model="x.LoadedDateTime" is-open="LoadItemsCtrl.ePage.Masters.DatePicker.isOpen['isLoadedDateTime'+[$index]]"
+                                datepicker-options="LoadItemsCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                                close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time=""
+                                save-as="LoadItemsCtrl.ePage.Masters.DatePicker.Options.saveFormat" when-closed="LoadItemsCtrl.ePage.Masters.DatePicker.OnLoadedDateTimeSelected(LoadItemsCtrl.ePage.Masters.DatePicker.LoadedDateTime)"
+                                data-ng-click="LoadItemsCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isLoadedDateTime'+[$index])"
+                                popup-placement="bottom-right" custom-date-time-format/>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" data-ng-click="LoadItemsCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isLoadedDateTime'+[$index])">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Quantity</div>
+                    <div class='table_cell'>
+                        <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Quantity" data-ng-model="x.Quantity">
+                    </div>
+                </div>
+            </div>
+            <div class='table_row' data-ng-if="LoadItemsCtrl.ePage.Masters.IsDelivery" ng-repeat="x in LoadItemsCtrl.ePage.Entities.Header.Data.TmsManifestItem | filter:{TIT_Receiver_ORG_FK:LoadItemsCtrl.orgfk} | filter:filter1"
+                ng-click="LoadItemsCtrl.ePage.Masters.setSelectedRow($index)" ng-class="{row_active: LoadItemsCtrl.ePage.Masters.selectedRow==$index}"
+                style="font-size: 11px;">
+                <div class='table_small'>
+                    <div class='table_cell'>MHU Type</div>
+                    <div class='table_cell'>{{x.TIT_ItemRef_ID || LoadItemsCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Item Code</div>
+                    <div class='table_cell'>{{x.TIT_ItemCode || LoadItemsCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Item Desc</div>
+                    <div class='table_cell'>{{x.TIT_ItemDesc || LoadItemsCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Consignment Number</div>
+                    <div class='table_cell'>{{x.TMC_ConsignmentNumber || LoadItemsCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Loaded Date</div>
+                    <div class='table_cell'>
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" placeholder="{{LoadItemsCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datetime-picker="{{LoadItemsCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                ng-model="x.LoadedDateTime" is-open="LoadItemsCtrl.ePage.Masters.DatePicker.isOpen['isLoadedDateTime'+[$index]]"
+                                datepicker-options="LoadItemsCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                                close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time=""
+                                save-as="LoadItemsCtrl.ePage.Masters.DatePicker.Options.saveFormat" when-closed="LoadItemsCtrl.ePage.Masters.DatePicker.OnLoadedDateTimeSelected(LoadItemsCtrl.ePage.Masters.DatePicker.LoadedDateTime)"
+                                data-ng-click="LoadItemsCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isLoadedDateTime'+[$index])"
+                                popup-placement="bottom-right" custom-date-time-format/>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" data-ng-click="LoadItemsCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isLoadedDateTime'+[$index])">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Quantity</div>
+                    <div class='table_cell'>
+                        <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Quantity" data-ng-model="x.Quantity">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -19,14 +19,16 @@
                 "Meta": helperService.metaBase(),
                 "Entities": CurrentOrder
             };
-            
+
             InitActionModal();
         }
+
         function InitActionModal() {
             ActionModalCtrl.ePage.Masters.SplitOrder = SplitOrder;
             ActionModalCtrl.ePage.Masters.CreateOrder = CreateOrder;
             ActionModalCtrl.ePage.Masters.DoNothing = DoNothing;
         }
+
         function SplitOrder() {
             apiService.get("eAxisAPI", appConfig.Entities.PorOrderHeader.API.SplitOrderByOrderPk.Url + ActionModalCtrl.ePage.Entities.Header.Data.UIPorOrderHeader.PK).then(function (response) {
                 if (response.data.Response) {

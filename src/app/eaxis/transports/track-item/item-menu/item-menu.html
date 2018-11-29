@@ -4,7 +4,7 @@
             <div item-general current-item="ItemMenuCtrl.currentItem"></div>
             <div item-consignment current-item="ItemMenuCtrl.currentItem" ng-if="!ItemMenuCtrl.currentItem.isNew"></div>
             <div item-manifest current-item="ItemMenuCtrl.currentItem" ng-if="!ItemMenuCtrl.currentItem.isNew"></div>
-        </div>    
+        </div>
         <div ng-if="ItemMenuCtrl.ePage.Entities.Header.Data.TmsItemHeader.ItemStatusDesc!='Created'">
             <div item-read-only current-item="ItemMenuCtrl.currentItem"></div>
         </div>
@@ -38,19 +38,24 @@
         </div>
     </div>
 
-    
+
     <span ng-if="ItemMenuCtrl.ePage.Entities.Header.CheckPoints.Receiveline" ng-init="ItemMenuCtrl.ePage.Masters.active = 3"></span>
     <!--Footer-->
 
     <div class="eaxis-footer-strip">
         <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-            <standard-menu entity-name="'TransportItem'" input="ItemMenuCtrl.currentItem"></standard-menu>
+            <standard-menu input="ItemMenuCtrl.currentItem" ng-if="!ItemMenuCtrl.currentItem.isNew" dataentry-object="ItemMenuCtrl.dataentryObject"></standard-menu>
         </div>
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
-            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="ItemMenuCtrl.ePage.Masters.Validation(ItemMenuCtrl.currentItem)"
-                data-ng-bind="ItemMenuCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="ItemMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave"></button>
-            <button class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6" data-ng-click="ItemMenuCtrl.ePage.Masters.SaveClose(ItemMenuCtrl.currentItem)"
-                data-ng-bind="ItemMenuCtrl.ePage.Masters.SaveAndCloseButtonText" data-ng-disabled="ItemMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave"></button>
+            <div class=" col-lg-4 pl-0"></div>
+            <div class=" col-lg-4 pl-0">
+                <button class="btn btn-primary btn-sm item-btn-width-85 mt-6" data-ng-click="ItemMenuCtrl.ePage.Masters.Validation(ItemMenuCtrl.currentItem)"
+                    data-ng-bind="ItemMenuCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="ItemMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave"></button>
+            </div>
+            <div class=" col-lg-4 pl-0">
+                <button class="btn btn-primary btn-sm mt-6" data-ng-click="ItemMenuCtrl.ePage.Masters.SaveClose(ItemMenuCtrl.currentItem)"
+                    data-ng-bind="ItemMenuCtrl.ePage.Masters.SaveAndCloseButtonText" data-ng-disabled="ItemMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave"></button>
+            </div>
         </div>
     </div>
 </div>

@@ -32,6 +32,7 @@
             LocationCtrl.ePage.Masters.IsNewLocationClicked = false;
             LocationCtrl.ePage.Masters.OrderData = [];
             LocationCtrl.ePage.Masters.TabList = [];
+            locationConfig.TabList = [];
             LocationCtrl.ePage.Masters.activeTabIndex = 0;
             LocationCtrl.ePage.Masters.AddTab = AddTab;
             LocationCtrl.ePage.Masters.CurrentActiveTab = CurrentActiveTab;

@@ -37,6 +37,11 @@
                             "Url": "Validation/FindAll",
                             "FilterID": "VALIDAT"
                         },
+                        "GenerateReport": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "Communication/GenerateReport",
+                        }
                     },
                     "Meta": {
 
@@ -122,6 +127,23 @@
                                 "Url": "CfxMapping/FindAll",
                                 "FilterID": "CFXMAPP"
                             },
+                            "ConsignmentLeg": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "TmsConsignmentLeg/FindAll",
+                                "FilterID": "TMSCNLG"
+                            },
+                            "ItemDetails": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "TmsItem/FindAll",
+                                "FilterID": "TMSITE"
+                            },
+                            "GenerateReport": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "Communication/GenerateReport",
+                            },
                         },
 
                         "Meta": {
@@ -144,13 +166,22 @@
                             ],
                             "ErrorWarning": {
                                 "GlobalErrorWarningList": [],
-                                // "ConsignmentNumber": helperService.metaBase(),
+                                "SenderCode": helperService.metaBase(),
+                                "ReceiverCode": helperService.metaBase(),
+                                "ServiceType": helperService.metaBase(),
+                                "SenderCarrierCode": helperService.metaBase(),
+                                "Item Duplicate": helperService.metaBase(),
+                                "ExpectedPickupDateTime": helperService.metaBase(),
+                                "TmsConsignmentItem": helperService.metaBase(),
+                                "Consignmentorders": helperService.metaBase(),
                             },
                         },
                         "CheckPoints": {
                             "DisableSave": false,
                             "DisableAllocate": false,
-                            "SaveAndClose": false
+                            "SaveAndClose": false,
+                            "CurrentLocationCode": "",
+                            "IsStore":false
                         },
                     },
                 }
@@ -161,7 +192,7 @@
                 _exports.Entities.Header.Data = currentConsignment.data;
                 _exports.Entities.Header.GetById = currentConsignment.data;
                 _exports.Entities.Header.Validations = currentConsignment.Validations;
-                
+
                 var obj = {
                     New: {
                         ePage: _exports
@@ -428,8 +459,42 @@
         function GeneralValidation($item) {
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
-            if (!_input.TmsConsignmentHeader.ConsignmentNumber || _input.TmsConsignmentHeader.ConsignmentNumber) {
-                OnChangeValues(_input.TmsConsignmentHeader.ConsignmentNumber, 'E8001', false, undefined, $item.label);
+            
+                OnChangeValues(_input.TmsConsignmentHeader.SenderCode, 'E5516', false, undefined, $item.label);
+            
+            
+                OnChangeValues(_input.TmsConsignmentHeader.ReceiverCode, 'E5517', false, undefined, $item.label);
+            
+            
+                OnChangeValues(_input.TmsConsignmentHeader.ServiceType, 'E5518', false, undefined, $item.label);
+            
+            
+                OnChangeValues(_input.TmsConsignmentHeader.SenderCarrierCode, 'E5519', false, undefined, $item.label);
+            
+            // if (!_input.TmsConsignmentHeader.JourneyTitle || _input.TmsConsignmentHeader.JourneyTitle) {
+            //     OnChangeValues(_input.TmsConsignmentHeader.JourneyTitle, 'E5520', false, undefined, $item.label);
+            // }
+            if (_input.TmsConsignmentHeader.ServiceType == "STS" || _input.TmsConsignmentHeader.ServiceType == "PRF") {
+                OnChangeValues(_input.TmsConsignmentHeader.ExpectedPickupDateTime, 'E5521', false, undefined, $item.label);
+            }
+
+            //TmsConsignmentItem Validation
+            if (_input.TmsConsignmentItem.length > 0) {
+                angular.forEach(_input.TmsConsignmentItem, function (value, key) {                    
+                        OnChangeValues(value.TIT_ItemCode, 'E5547', true, key, $item.label);
+
+                        OnChangeValues(value.TIT_ItemRef_ID, 'E5548', true, key, $item.label);
+                });
+            }
+            // Consignment Order Validation 
+            if (_input.Consignmentorders.length > 0) {
+                angular.forEach(_input.Consignmentorders, function (value, key) {
+                    OnChangeValues(value.RegionCode, 'E5551', true, key, $item.label);
+                
+                    OnChangeValues(value.ASNNumber, 'E5552', true, key, $item.label);
+
+                    OnChangeValues(value.Qty, 'E5553', true, key, $item.label);
+                });
             }
         }
 
@@ -442,10 +507,18 @@
         }
 
         function GetErrorMessage(fieldvalue, value, IsArray, RowIndex, label) {
-            if (!fieldvalue) {
-                PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey.trim(), label, undefined, undefined, undefined, undefined, undefined, undefined);
+            if (!IsArray) {
+                if (!fieldvalue) {
+                    PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, label, undefined, undefined, undefined, undefined, undefined, value.GParentRef);
+                } else {
+                    RemoveErrorWarning(value.Code, "E", value.CtrlKey, label);
+                }
             } else {
-                RemoveErrorWarning(value.Code, "E", value.CtrlKey.trim(), label);
+                if (!fieldvalue) {
+                    PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, label, IsArray, RowIndex, value.ColIndex, value.DisplayName, undefined, value.GParentRef);
+                } else {
+                    RemoveErrorWarning(value.Code, "E", value.CtrlKey, label, IsArray, RowIndex, value.ColIndex);
+                }
             }
         }
 

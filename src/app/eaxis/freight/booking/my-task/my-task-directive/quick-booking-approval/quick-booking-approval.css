@@ -1,0 +1,29 @@
+#quick-bookin-approval .form-control {
+	line-height: 1.7;
+}
+
+.task-slash {
+	color: #aaa;
+	font-size: 10px;
+	padding: 0 5px;
+}
+
+.task-arrow {
+	color: #aaa;
+	font-size: 10px;
+	padding: 2px 5px 0 5px;
+}
+
+.task-list-des-sub-title {
+	color: #666;
+	font-size: 10px;
+	padding-top: 5px;
+}
+
+#quick-bookin-approval .except-comment-icon {
+	left: 0;
+}
+
+#quick-bookin-approval .except-comments {
+	height: auto;
+}

@@ -21,6 +21,7 @@
                     <thead>
                         <tr>
                             <th class="th-dropdown">Module Name</th>
+                            <th class="th-dropdown">Country</th>
                             <th class="th-dropdown">Company</th>
                             <th class="th-dropdown">Branch</th>
                             <th class="th-dropdown">Department</th>
@@ -29,53 +30,128 @@
                             <th class="th-custom">Custom 1</th>
                             <th class="th-custom">Custom 2</th>
                             <th class="th-custom">Custom 3</th>
+                            <!-- <th class="th-custom">STD Name</th> -->
                             <th class="th-action"></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr data-ng-if="!ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList">
-                            <td colspan="10" class="text-center p-10">
+                            <td colspan="11" class="text-center p-10">
                                 <i class="fa fa-spin fa-spinner" style="font-size:18px;"></i>
                             </td>
                         </tr>
                         <tr data-ng-if="ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList.length==0">
-                            <td colspan="10" class="text-center p-10">
+                            <td colspan="11" class="text-center p-10">
                                 <i>No Records...!</i>
                             </td>
                         </tr>
                         <tr data-ng-if="ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList && ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList.length>0"
                             data-ng-repeat="item in ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList">
                             <td>
-                                <select chosen class="form-control" data-ng-model="item.ModuleCode" data-ng-options="x.Code as x.Name
-                                        for x in ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ModuleList">
+                                <select chosen class="form-control" data-ng-model="item.ModuleCode" data-ng-options="x.Key as x.Value
+                                        for x in ProcessScenariosCtrl.ePage.Masters.Module.ListSource" data-ng-change="ProcessScenariosCtrl.ePage.Masters.Module.OnModuleChange((ProcessScenariosCtrl.ePage.Masters.Module.ListSource | filter :{ModuleCode : item.ModuleCode})[0])">
                                     <option value="">--Select--</option>
                                 </select>
                             </td>
                             <td>
-                                <select chosen class="form-control" data-ng-model="item.CMP_Code" data-ng-options="x.Code as x.Name
+                                <input class="set-tabel-text form-control input-sm" type="text" placeholder="Country Name" data-ng-model="item.Country"
+                                    uib-typeahead="x.Code as x.Desc for x in ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.GetCountryList($viewValue)"
+                                    typeahead-loading="ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList.IsLoading"
+                                    typeahead-editable="false" typeahead-append-to-body='false' typeahead-min-length="2" />
+                                <div class="clearfix dropdown-menu auto-complete" data-ng-if="ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList.IsAutocompleteNoResults">
+                                    <div class="auto-complete-no-result">No Results Found!</div>
+                                </div>
+
+                                <div class="clearfix dropdown-menu auto-complete" data-ng-if="ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList.IsAutocompleteLoading">
+                                    <div class="auto-complete-no-result">
+                                        <i class="fa fa-spin fa-spinner"></i>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <!-- <select chosen class="form-control" data-ng-model="item.CMP_Code" data-ng-options="x.Code as x.Name
                                         for x in ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.CompanyList" data-ng-change="ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.OnCompanyChange((ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.CompanyList | filter: {Code: item.CMP_Code}: true)[0])">
                                     <option value="">--Select--</option>
-                                </select>
+                                </select> -->
+
+
+                                <input class="set-tabel-text form-control input-sm" type="text" placeholder="Company Name" data-ng-model="item.CMP_Code"
+                                    uib-typeahead="x.Code as x.Name for x in ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.GetCompanyList($viewValue)"
+                                    typeahead-on-select="ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.OnCompanySelect($item, $model, $label, $event)"
+                                    typeahead-loading="ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList.IsLoading"
+                                    typeahead-editable="false" typeahead-append-to-body='false' typeahead-min-length="" />
+                                <div class="clearfix dropdown-menu" data-ng-if="ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList.IsAutocompleteNoResults">
+                                    <div class="auto-complete-no-result">No Results Found!</div>
+                                </div>
+
+                                <div class="clearfix dropdown-menu" data-ng-if="ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList.IsAutocompleteLoading">
+                                    <div class="auto-complete-no-result">
+                                        <i class="fa fa-spin fa-spinner"></i>
+                                    </div>
+                                </div>
+
+
                             </td>
                             <td>
-                                <select chosen class="form-control" data-ng-model="item.BRN_Code" data-ng-options="x.Code as x.BranchName for x in ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.BranchList">
-                                    <option value="">--Select--</option>
-                                </select>
+                                <input class="set-tabel-text form-control input-sm" type="text" placeholder="Branch Name" data-ng-model="item.BRN_Code" uib-typeahead="x.Code as x.BranchName for x in ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.GetBranchList($viewValue, item)"
+                                    typeahead-loading="ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList.IsLoading"
+                                    typeahead-editable="false" typeahead-append-to-body='false' typeahead-min-length="1" />
+                                <div class="clearfix dropdown-menu" data-ng-if="ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList.IsAutocompleteNoResults">
+                                    <div class="auto-complete-no-result">No Results Found!</div>
+                                </div>
+
+                                <div class="clearfix dropdown-menu" data-ng-if="ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList.IsAutocompleteLoading">
+                                    <div class="auto-complete-no-result">
+                                        <i class="fa fa-spin fa-spinner"></i>
+                                    </div>
+                                </div>
                             </td>
                             <td>
-                                <select chosen class="form-control" data-ng-model="item.DEP_Code" data-ng-options="x.Code as x.Desc for x in ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.DepartmentList">
-                                    <option value="">--Select--</option>
-                                </select>
+                                <input class="set-tabel-text form-control input-sm" type="text" placeholder="Department Name" data-ng-model="item.DEP_Code"
+                                    uib-typeahead="x.Code as x.Desc for x in ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.GetDepartmentList($viewValue)"
+                                    typeahead-loading="ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList.IsLoading"
+                                    typeahead-editable="false" typeahead-append-to-body='false' typeahead-min-length="2" />
+                                <div class="clearfix dropdown-menu auto-complete" data-ng-if="ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList.IsAutocompleteNoResults">
+                                    <div class="auto-complete-no-result">No Results Found!</div>
+                                </div>
+
+                                <div class="clearfix dropdown-menu auto-complete" data-ng-if="ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList.IsAutocompleteLoading">
+                                    <div class="auto-complete-no-result">
+                                        <i class="fa fa-spin fa-spinner"></i>
+                                    </div>
+                                </div>
+
                             </td>
                             <td>
-                                <select chosen class="form-control" data-ng-model="item.WAR_Code" data-ng-options="x.WarehouseCode as x.WarehouseName for x in ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.WarehouseList">
-                                    <option value="">--Select--</option>
-                                </select>
+
+                                <input class="set-tabel-text form-control input-sm" type="text" placeholder="Warehouse Name" data-ng-model="item.WAR_Code"
+                                    uib-typeahead="x.WarehouseCode as x.WarehouseName for x in ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.GetWarehouseList($viewValue)"
+                                    typeahead-loading="ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList.IsLoading"
+                                    typeahead-editable="false" typeahead-append-to-body='false' typeahead-min-length="2" />
+                                <div class="clearfix dropdown-menu auto-complete" data-ng-if="ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList.IsAutocompleteNoResults">
+                                    <div class="auto-complete-no-result">No Results Found!</div>
+                                </div>
+
+                                <div class="clearfix dropdown-menu auto-complete" data-ng-if="ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList.IsAutocompleteLoading">
+                                    <div class="auto-complete-no-result">
+                                        <i class="fa fa-spin fa-spinner"></i>
+                                    </div>
+                                </div>
                             </td>
                             <td>
-                                <select chosen class="form-control" data-ng-model="item.ORG_Code" data-ng-options="x.PK as x.Code for x in ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.OrganizationList">
-                                    <option value="">--Select--</option>
-                                </select>
+                                <input class="set-tabel-text form-control input-sm" type="text" placeholder="Organization Name" data-ng-model="item.ORG_Code"
+                                    uib-typeahead="x.Code as x.FullName for x in ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.GetOrganizationList($viewValue)"
+                                    typeahead-loading="ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList.IsLoading"
+                                    typeahead-editable="false" typeahead-append-to-body='false' typeahead-min-length="2" />
+                                <div class="clearfix dropdown-menu auto-complete" data-ng-if="ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList.IsAutocompleteNoResults">
+                                    <div class="auto-complete-no-result">No Results Found!</div>
+                                </div>
+
+                                <div class="clearfix dropdown-menu auto-complete" data-ng-if="ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList.IsAutocompleteLoading">
+                                    <div class="auto-complete-no-result">
+                                        <i class="fa fa-spin fa-spinner"></i>
+                                    </div>
+                                </div>
                             </td>
                             <td>
                                 <input class="set-tabel-text" type="text" data-ng-model="item.Custom_CodeI" placeholder="Custom 1">
@@ -86,6 +162,9 @@
                             <td>
                                 <input class="set-tabel-text" type="text" data-ng-model="item.Custom_CodeIII" placeholder="Custom 3">
                             </td>
+                            <!-- <td>
+                                <input class="set-tabel-text" type="text" data-ng-model="item.STDName" placeholder="STD Name">
+                            </td> -->
                             <td style="text-align:center; vertical-align:middle">
                                 <span style="font-size:14px; color:#D6171F" data-ng-click="ProcessScenariosCtrl.ePage.Masters.RemoveRecord(item, $index)">
                                     <i class="glyphicon glyphicon-trash text-danger cursor-pointer"></i>
@@ -93,7 +172,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="10">
+                            <td colspan="11">
                                 <a class="padding-10 pull-left" href="javascript:(0);" data-ng-click="ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.AddNewRow()">Add new Record…</a>
                                 <button class="btn btn-default btn-xs pull-right tc-btn-save margin-top-10" data-ng-click="ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.Save()">Save</button>
                             </td>

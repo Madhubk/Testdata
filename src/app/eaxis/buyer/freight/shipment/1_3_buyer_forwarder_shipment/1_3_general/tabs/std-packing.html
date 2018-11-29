@@ -1,0 +1,161 @@
+<div class="clearfix margin-top-10">
+    <!--Weight-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+        <div class="error-warning-container">
+            <!-- <error-warning-directive data-ng-if="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Weight.IsWarning && !oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Weight.IsError"
+                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Weight.WARNING" type="'warning'" icon="fa fa-warning"
+                parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            <error-warning-directive data-ng-if="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Weight.IsError" list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Weight.ERROR"
+                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive> -->
+        </div>
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">Weight </label>
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 pr-0">
+                    <input type="text" class="form-control input-sm no-border-right" numbers-only-dot sb-precision="3" placeholder="Weight" max-length="9"
+                        data-ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Weight" data-ng-change="oneThreeShipmentGeneralCtrl.ePage.Masters.OnWeightChange()"/>
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 pl-0">
+                    <select  chosen name="category-group" class="form-control" ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.UnitOfWeight"
+                        ng-options="x.Key as x.Description for x in oneThreeShipmentGeneralCtrl.ePage.Masters.DropDownMasterList.WEIGHTUNIT.ListSource"
+                        search-contains="true">
+                        <!-- <option value="">--Select--</option> -->
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Volume-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">Volume </label>
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 pr-0">
+                    <input type="text" class="form-control input-sm no-border-right" numbers-only-dot sb-precision="3" placeholder="Volume" max-length="9"
+                        data-ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Volume" />
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 pl-0">
+                    <select  chosen name="category-group" class="form-control" ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.UnitOfVolume"
+                        ng-options="x.Key as x.Description for x in oneThreeShipmentGeneralCtrl.ePage.Masters.DropDownMasterList.VOLUMEUNIT.ListSource"
+                        search-contains="true">
+                        <!-- <option value="">--Select--</option> -->
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Chargeable-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">Chargeable </label>
+            <div class="input-group input-group-sm">
+                <input type="text" max-length="9" numbers-only-dot sb-precision="3" data-ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Chargeable"
+                    class="form-control" placeholder="Chargeable">
+                <span class="input-group-addon">M3</span>
+            </div>
+        </div>
+    </div>
+    <!--Outer Packs-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">Outer Packs </label>
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 pr-0">
+                    <input type="text" class="form-control input-sm no-border-right" max-length="4" data-ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.OuterPackCount"
+                        placeholder="Packs" />
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 pl-0">
+                    <select  chosen class="form-control" ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.OuterPackType" ng-options="x.Code as x.Value for x in oneThreeShipmentGeneralCtrl.ePage.Masters.DropDownMasterList.PackType.ListSource"
+                        search-contains="true">
+                        <!-- <option value="">--Select--</option> -->
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Inner Packs-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">Inner Packs </label>
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 pr-0">
+                    <input type="text" class="form-control input-sm no-border-right" max-length="4" data-ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.InnerPackCount"
+                        placeholder="Inner Packs" />
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 pl-0">
+                    <select  chosen class="form-control" ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.InnerPackType" ng-options="x.Code as x.Value for x in oneThreeShipmentGeneralCtrl.ePage.Masters.DropDownMasterList.PackType.ListSource"
+                        search-contains="true">
+                        <!-- <option value="">--Select--</option> -->
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Goods Value-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">Goods Value </label>
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 pr-0">
+                    <input type="text" class="form-control input-sm no-border-right" numbers-only-dot sb-precision="2" max-length="8" data-ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.GoodsValue"
+                        placeholder="Goods Value" />
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 pl-0">
+                    <select  chosen name="category-group" class="form-control" ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.RX_NKGoodsValueCur"
+                        ng-options="x.Code as x.Code + '-' + x.Desc for x in oneThreeShipmentGeneralCtrl.ePage.Masters.DropDownMasterList.Currency.ListSource"
+                        search-contains="true">
+                        <!-- <option value="">--Select--</option> -->
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Insurance Value-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">Insurance Value </label>
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 pr-0">
+                    <input type="text" class="form-control input-sm no-border-right" numbers-only-dot sb-precision="2" max-length="8" data-ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.InsuranceValue"
+                        placeholder="Insurance Value" />
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 pl-0">
+                    <select  chosen name="category-group" class="form-control" ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.RX_NKInsuranceCur"
+                        ng-options="x.Code as x.Code + '-' + x.Desc for x in oneThreeShipmentGeneralCtrl.ePage.Masters.DropDownMasterList.Currency.ListSource"
+                        search-contains="true">
+                        <!-- <option value="">--Select--</option> -->
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Detailed Goods Description-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">Goods Description </label>
+            <div class="">
+                <textarea class="form-control no-resize" data-ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.GoodsDesc"
+                    placeholder="Goods Description"></textarea>
+            </div>
+        </div>
+    </div>
+    <!--Marks & Numbers-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">Marks and Numbers </label>
+            <div class="">
+                <textarea class="form-control no-resize" data-ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.MarksAndNums"
+                    placeholder="Marks and Numbers"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 pull-right">
+        <div class="input-group-sm">
+            <button data-ng-click="oneThreeShipmentGeneralCtrl.ePage.Masters.Package.PackageModal();" class="btn btn-primary pull-right padding-10" type="button">
+                <b>
+                    <i class="fa fa-suitcase"></i> Standard Package Details</b>
+                <i class="fa fa-angle-double-right"></i>
+            </button>
+        </div>
+    </div>
+</div>

@@ -3,7 +3,6 @@
 }
 
 /*Nav Bar  */
-
 .tc-nav-bar .navbar {
     position: fixed;
     width: 100%;
@@ -15,6 +14,7 @@
     background-color: #3367D6;
     -webkit-filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.3));
     filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.3));
+    border-bottom: none;
 }
 
 .tc-nav-bar .navbar .navbar-inner .navbar-header .navbar-account .account-area>li.open>a {
@@ -111,7 +111,6 @@
 }
 
 /* Buttons */
-
 .tc-btn-cancel,
 .tc-btn-cancel:focus {
     background-color: #fff;
@@ -175,7 +174,6 @@
 }
 
 /* Alphabet Sort */
-
 .tc-alphabetic-sort {
     background-color: #fff;
     padding: 5px 20px;
@@ -215,9 +213,7 @@
 }
 
 /* Breadcrumb */
-
 .tc-breadcrumb {
-    font-size: 15px;
     -webkit-filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.3));
     filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.3));
     background-color: #f7f7f7;
@@ -236,10 +232,11 @@
 .tc-breadcrumb .breadcrumb-list-wrapper {
     display: inline-block;
     padding: 7px 0;
+    font-size: 15px;
 }
 
-.tc-breadcrumb .breadcrumb-list-wrapper .breadcrumb>li.active {
-    color: #aaa;
+.tc-breadcrumb .breadcrumb-list-wrapper .breadcrumb>li a {
+    color: #585858;
 }
 
 .tc-breadcrumb-app-name {
@@ -251,7 +248,6 @@
 }
 
 /* Header */
-
 .tc-header-container {}
 
 .tc-header {
@@ -287,16 +283,11 @@
     font-weight: normal;
 }
 
-.tc-header.with-drop-down .chosen-container-single .chosen-single {
-    border: 1px solid #f4f4f4;
-}
-
 .tc-header.with-add-new {
     padding: 6px;
 }
 
 /* List with Link and Header */
-
 .tc-list-container .tc-list-header {
     margin-left: 20px;
     padding: 10px 20px 10px 0;
@@ -394,7 +385,6 @@
 }
 
 /* Large Avatar */
-
 .tc-avatar-lg {
     padding: 10px;
 }
@@ -484,7 +474,64 @@
 }
 
 /* Inner Redirect List */
-
 .tc-list-container-inner-redirect {
     padding: 10px 0;
+}
+
+.json-display-disabled {
+    width: 100%;
+    height: 200px;
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    padding: 7px;
+    white-space: pre-wrap;
+}
+
+/* File Upload */
+.tc-custom-file-upload {
+    display: flex;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+    text-align: center;
+    font-size: 34px;
+    color: #fff;
+    background-color: #aaa;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+}
+
+.tc-custom-file-upload img {
+    width: 100%;
+}
+
+.tc-custom-file-upload span {
+    line-height: 2;
+    width: 100%;
+    height: 100%;
+}
+
+.tc-custom-file-upload .change-logo {
+    position: absolute;
+    width: 100%;
+    padding: 5px;
+    padding-top: 2px;
+    text-align: center;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    font-size: 11px;
+}
+
+.tc-custom-file-upload .change-logo label {
+    margin: 0;
+    font-size: 10px;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
 }

@@ -1,0 +1,316 @@
+<div class="clearfix padding-top-10">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <span class="error-warning-container">
+            <error-warning-directive data-ng-if="ThreeOneGeneralConCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.AgentType.IsWarning && !ThreeOneGeneralConCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.AgentType.IsError"
+                list="ThreeOneGeneralConCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.AgentType.WARNING" type="'warning'"
+                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            <error-warning-directive data-ng-if="ThreeOneGeneralConCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.AgentType.IsError"
+                list="ThreeOneGeneralConCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.AgentType.ERROR" type="'error'"
+                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+        </span>
+        <div class="form-group">
+            <label class="control-label">Agent Type</label>
+            <select chosen data-ng-options="x.Key as x.Description for x in ThreeOneGeneralConCtrl.ePage.Masters.DropDownMasterList.CON_TYPE.ListSource"
+                data-ng-model="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.AgentType" class="form-control"
+                data-ng-change="ThreeOneGeneralConCtrl.ePage.Masters.ValueChange('AgentType')">
+                <option value="">--Select--</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <span class="error-warning-container">
+            <error-warning-directive data-ng-if="ThreeOneGeneralConCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ContainerMode.IsWarning && !ThreeOneGeneralConCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ContainerMode.IsError"
+                list="ThreeOneGeneralConCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ContainerMode.WARNING"
+                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            <error-warning-directive data-ng-if="ThreeOneGeneralConCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ContainerMode.IsError"
+                list="ThreeOneGeneralConCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ContainerMode.ERROR" type="'error'"
+                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+        </span>
+        <div class="form-group">
+            <label class="control-label text-single-line"> Mode</label>
+            <select chosen class="form-control" data-ng-model="ThreeOneGeneralConCtrl.ePage.Masters.selectedMode"
+                data-ng-options="term as (term.Key+'-'+term.PARENT_Value + '(' + term.Key+')') for term in ThreeOneGeneralConCtrl.ePage.Masters.CfxTypesList.CntType"
+                search-contains="true" data-ng-change="ThreeOneGeneralConCtrl.ePage.Masters.modeChange(ThreeOneGeneralConCtrl.ePage.Masters.selectedMode)">
+                <option value="">--Select--</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <span class="error-warning-container">
+            <error-warning-directive data-ng-if="ThreeOneGeneralConCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IsDomestic.IsWarning && !ThreeOneGeneralConCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IsDomestic.IsError"
+                list="ThreeOneGeneralConCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IsDomestic.WARNING" type="'warning'"
+                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            <error-warning-directive data-ng-if="ThreeOneGeneralConCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IsDomestic.IsError"
+                list="ThreeOneGeneralConCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IsDomestic.ERROR" type="'error'"
+                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+        </span>
+        <div class="form-group">
+            <label class="control-label">Is Domestic</label>
+            <fieldset disabled='true'>
+                <div class="checkbox mt-0 mb-0">
+                    <label>
+                        <input type="checkbox" data-ng-model="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.IsDomestic"
+                            class="colored-blue" data-ng-change="ThreeOneGeneralConCtrl.ePage.Masters.ValueChange('Is Domestic')">
+                        <span class="text"></span>
+                    </label>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3" data-ng-show="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.TransportMode!='AIR'">
+        <div class="form-group">
+            <label class="control-label">BOL</label>
+            <input type="text" maxlength="30" data-ng-model="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.MasterBillNo"
+                maxlength="12" class="form-control input-sm" placeholder="BOL">
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3" data-ng-show="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.TransportMode=='AIR'">
+        <div class="form-group">
+            <label class="control-label">MAWB</label>
+            <input type="text" maxlength="11" data-ng-model="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.MasterBillNo"
+                maxlength="12" class="form-control input-sm" placeholder="MAWB">
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <span class="error-warning-container">
+            <error-warning-directive data-ng-if="ThreeOneGeneralConCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.FirstLoadPort.IsWarning && !ThreeOneGeneralConCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.FirstLoadPort.IsError"
+                list="ThreeOneGeneralConCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.FirstLoadPort.WARNING"
+                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            <error-warning-directive data-ng-if="ThreeOneGeneralConCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.FirstLoadPort.IsError"
+                list="ThreeOneGeneralConCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.FirstLoadPort.ERROR" type="'error'"
+                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+        </span>
+        <div class="form-group">
+            <label class="control-label">First Load</label>
+            <div class="input-group input-group-sm">
+                <div dynamic-lookup my-ng-model="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.FirstLoadPort"
+                    obj="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader" page-name="'MstUNLOCO'"
+                    control-id="'ConListFirstLoadPort'" control-key="ConListFirstLoadPort_3115" auto-complete-on-select="ThreeOneGeneralConCtrl.ePage.Masters.SelectedDataPorts(ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.FirstLoadPort,ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.LastDischargePort);">
+                </div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader"
+                        control-id="'ConListFirstLoadPort'" control-key="ConListFirstLoadPort_3115" page-name="'MstUNLOCO'"
+                        mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ThreeOneGeneralConCtrl.ePage.Masters.SelectedDataPorts(ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.FirstLoadPort,ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.LastDischargePort);"
+                        class="btn btn-default shiny" type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <span class="error-warning-container">
+            <error-warning-directive data-ng-if="ThreeOneGeneralConCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.LastDischargePort.IsWarning && !ThreeOneGeneralConCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.LastDischargePort.IsError"
+                list="ThreeOneGeneralConCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.LastDischargePort.WARNING"
+                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            <error-warning-directive data-ng-if="ThreeOneGeneralConCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.LastDischargePort.IsError"
+                list="ThreeOneGeneralConCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.LastDischargePort.ERROR"
+                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+        </span>
+        <div class="form-group">
+            <label class="control-label">Last Discharge</label>
+            <div class="input-group input-group-sm">
+                <dynamic-lookup my-ng-model="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.LastDischargePort"
+                    obj="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader" page-name="'MstUNLOCO'"
+                    control-id="'ConListLastDischargePort'" control-key="ConListLastDischargePort_3117"
+                    auto-complete-on-select="ThreeOneGeneralConCtrl.ePage.Masters.SelectedDataPorts(ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.FirstLoadPort,ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.LastDischargePort);"></dynamic-lookup>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader"
+                        control-id="'ConListLastDischargePort'" control-key="ConListLastDischargePort_3117" page-name="'MstUNLOCO'"
+                        mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ThreeOneGeneralConCtrl.ePage.Masters.SelectedDataPorts(ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.FirstLoadPort,ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.LastDischargePort);"
+                        class="btn btn-default shiny" type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">Phase</label>
+            <select chosen data-ng-options="x.Key as x.Description for x in ThreeOneGeneralConCtrl.ePage.Masters.DropDownMasterList.PHASE.ListSource"
+                data-ng-model="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.Phase" class="form-control">
+                <option value="">--Select--</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">Service Level</label>
+            <select chosen data-ng-options="x.Key as x.Description for x in ThreeOneGeneralConCtrl.ePage.Masters.DropDownMasterList.CON_SERVICELEVEL.ListSource"
+                data-ng-model="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.AWBServiceLevel"
+                class="form-control">
+                <option value="">--Select--</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">Payment</label>
+            <select chosen data-ng-options="x.Key as x.Description for x in ThreeOneGeneralConCtrl.ePage.Masters.DropDownMasterList.CON_PAYMENT.ListSource"
+                data-ng-model="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.PrepaidCollect"
+                class="form-control">
+                <option value="">--Select--</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">CRN</label>
+            <div>
+                <input type="text" max-length="70" data-ng-disabled="true" data-ng-model="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.CRN"
+                    maxlength="12" class="form-control input-sm" placeholder="CRN">
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">Scrn</label>
+            <div>
+                <select chosen data-ng-options="x.Key as x.Description for x in ThreeOneGeneralConCtrl.ePage.Masters.DropDownMasterList.CON_SCRN.ListSource"
+                    data-ng-model="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ScreeningStatus"
+                    class="form-control">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3" data-ng-show="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.TransportMode=='AIR'">
+        <div class="form-group">
+            <label class="control-label">Neutral MAWB</label>
+            <div class="checkbox mt10">
+                <label>
+                    <input type="checkbox" data-ng-model="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.IsNeutralMaster"
+                        class="colored-blue" />
+                    <span class="text"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix padding-top-5 routing-box">
+    <div class="padding-left-10">
+        <label class="control-label text-single-line text-single-line-label1">
+            <i class="fa fa-ship"></i> <span data-ng-if="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.TransportMode=='SEA'">Vessel</span>
+            <span data-ng-if="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.TransportMode=='AIR'">Flight</span>
+            <span data-ng-if="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.TransportMode=='COU' || ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.TransportMode=='ROA' || ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.TransportMode=='RAI'">Journey</span>
+            Details
+            <span class="pl-20">
+                {{ThreeOneGeneralConCtrl.ePage.Masters.LegLabel}}
+            </span>
+        </label>
+    </div>
+</div>
+<div class="clearfix padding-top-10 routing-box-line">
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label" data-ng-show="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.TransportMode=='SEA'">Voyage</label>
+                <label class="control-label" data-ng-show="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.TransportMode=='AIR'">Flight</label>
+                <label class="control-label" data-ng-show="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.TransportMode=='ROA' || ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.TransportMode=='RAI'">Truck
+                    Ref</label>
+                <label class="control-label" data-ng-show="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.TransportMode=='COU' || ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.TransportMode==null">Journey
+                </label>
+                <input type="text" data-ng-disabled="true" data-ng-model="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.JobRoutesObj.VoyageFlight"
+                    maxlength="12" class="form-control" placeholder="">
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3" data-ng-show="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.TransportMode !='AIR' && ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.TransportMode!='ROA' && ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.TransportMode!='RAI'">
+            <div class="form-group">
+                <label class="control-label">Vessel</label>
+                <input class="form-control" data-ng-disabled="true" data-ng-model="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.JobRoutesObj.Vessel"
+                    type="text" placeholder="Vessel">
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">Load</label>
+                <input class="form-control" data-ng-disabled="true" data-ng-model="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.JobRoutesObj.LoadPort"
+                    type="text" placeholder="Load Port">
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">Discharge</label>
+                <input class="form-control" data-ng-disabled="true" data-ng-model="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.JobRoutesObj.DischargePort"
+                    type="text" placeholder="Discharge Port">
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">ETD</label>
+                <input type="text" class="form-control" data-ng-disabled="true" placeholder="{{ThreeOneGeneralConCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    data-ng-model="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.JobRoutesObj.ETD" datetime-picker="{{ThreeOneGeneralConCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    datepicker-options="ThreeOneGeneralConCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                    default-date="" default-time="" save-as="ThreeOneGeneralConCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                    is-open="ThreeOneGeneralConCtrl.ePage.Masters.DatePicker.isOpen['isETD']" when-closed=""
+                    data-ng-click="" custom-date-time-format />
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">ETA</label>
+                <input type="text" class="form-control" data-ng-disabled="true" placeholder="{{ThreeOneGeneralConCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    data-ng-model="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.JobRoutesObj.ETA" datetime-picker="{{ThreeOneGeneralConCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    datepicker-options="ThreeOneGeneralConCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                    default-date="" default-time="" save-as="ThreeOneGeneralConCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                    is-open="ThreeOneGeneralConCtrl.ePage.Masters.DatePicker.isOpen['isETA']" when-closed=""
+                    data-ng-click="" custom-date-time-format />
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">ATD</label>
+                <input type="text" class="form-control" data-ng-disabled="true" placeholder="{{ThreeOneGeneralConCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    data-ng-model="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.JobRoutesObj.ATD" datetime-picker="{{ThreeOneGeneralConCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    datepicker-options="ThreeOneGeneralConCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                    default-date="" default-time="" save-as="ThreeOneGeneralConCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                    is-open="ThreeOneGeneralConCtrl.ePage.Masters.DatePicker.isOpen['isATD']" when-closed=""
+                    data-ng-click="" custom-date-time-format />
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">ATA</label>
+                <input type="text" class="form-control" data-ng-disabled="true" placeholder="{{ThreeOneGeneralConCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    data-ng-model="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.JobRoutesObj.ATA" datetime-picker="{{ThreeOneGeneralConCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    datepicker-options="ThreeOneGeneralConCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                    default-date="" default-time="" save-as="ThreeOneGeneralConCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                    is-open="ThreeOneGeneralConCtrl.ePage.Masters.DatePicker.isOpen['isATA']" when-closed=""
+                    data-ng-click="" custom-date-time-format />
+            </div>
+        </div>
+    </div>
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" data-ng-disabled="true" data-ng-model="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.JobRoutesObj.IsDomestic"
+                        class="colored-blue" />
+                    <span class="text">Is Domestic</span>
+                </label>
+                <label class="padding-left-50">
+                    <input type="checkbox" data-ng-disabled="true" data-ng-model="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.JobRoutesObj.IsLinked"
+                        class="colored-blue" />
+                    <span class="text">Is Linked</span>
+                </label>
+                <label class="padding-left-50">
+                    <input type="checkbox" data-ng-disabled="true" data-ng-model="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.JobRoutesObj.IsCharter"
+                        class="colored-blue" />
+                    <span class="text">Is Charter</span>
+                </label>
+                <label class="padding-left-50">
+                    <input type="checkbox" data-ng-disabled="true" data-ng-model="ThreeOneGeneralConCtrl.ePage.Entities.Header.Data.JobRoutesObj.IsCargoOnly"
+                        class="colored-blue" />
+                    <span class="text">Is Cargo Only</span>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

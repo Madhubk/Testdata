@@ -1,17 +1,21 @@
 <div class="clearfix tc-manage-parameter">
     <!-- Breadcrumb -->
     <div class="clearfix tc-breadcrumb" data-ng-if="ManageParameterCtrl.ePage.Masters.ActiveApplication == 'TC'">
-        <i class="fa fa-home home-icon"></i>
-        <div class="breadcrumb-list-wrapper">
-            <ol class="breadcrumb">
-                <li data-ng-repeat="x in ManageParameterCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
-                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="ManageParameterCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
-                </li>
-                <li data-ng-repeat="x in ManageParameterCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
-                    class="active"></li>
-            </ol>
+        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-xs-12 p-0">
+            <i class="fa fa-home home-icon"></i>
+            <div class="breadcrumb-list-wrapper">
+                <ol class="breadcrumb">
+                    <li data-ng-repeat="x in ManageParameterCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                        <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="ManageParameterCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                    </li>
+                    <li data-ng-repeat="x in ManageParameterCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive"
+                        data-ng-bind="x.Description" class="active"></li>
+                </ol>
+            </div>
         </div>
-        <span class="tc-breadcrumb-app-name" data-ng-if="ManageParameterCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="ManageParameterCtrl.ePage.Masters.QueryString.AppName"></span>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12 p-4">
+            <tc-application-dropdown query-string="ManageParameterCtrl.ePage.Masters.QueryString" on-application-change="ManageParameterCtrl.ePage.Masters.Application.OnApplicationChange($item)"></tc-application-dropdown>
+        </div>
     </div>
     <!-- Header -->
     <div class="clearfix">
@@ -28,8 +32,7 @@
                     <div class="text-single-line" data-ng-bind="ManageParameterCtrl.ePage.Masters.ManageParametersListType.ActiveManageParametersListType"></div>
                 </div>
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-5 pt-4 text-right">
-                    <button class="btn btn-xs btn-info" data-ng-click="ManageParameterCtrl.ePage.Masters.ManageParametersListType.ActiveManageParametersListType && ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.AddNew()"
-                        data-ng-disabled="!ManageParameterCtrl.ePage.Masters.ManageParametersListType.ActiveManageParametersListType">New</button>
+                    <button class="btn btn-xs btn-info" data-ng-click="ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.AddNew()">New</button>
                 </div>
             </div>
         </div>
@@ -39,7 +42,8 @@
                 <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10" data-ng-click="ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.Edit()"
                     data-ng-disabled="!ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.ActiveManageParametersListTypeList">Edit</button>
                 <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.DeleteConfirmation()"
-                    data-ng-bind="ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.DeleteBtnText" data-ng-disabled="ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.IsDisableDeleteBtn || !ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.ActiveManageParametersListTypeList"></button>
+                    data-ng-bind="ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.DeleteBtnText"
+                    data-ng-disabled="ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.IsDisableDeleteBtn || !ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.ActiveManageParametersListTypeList"></button>
             </div>
         </div>
     </div>
@@ -98,7 +102,7 @@
                 </ul>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 p-0 tc-page-height-fixed">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 p-0 tc-page-height-fixed" data-ng-if="ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.ActiveManageParametersListTypeList">
             <div class="pt-10 pb-10 tc-details-view clearfix">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <div class="clearfix form-group">

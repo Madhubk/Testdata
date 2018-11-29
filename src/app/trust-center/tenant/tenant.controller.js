@@ -5,9 +5,9 @@
         .module("Application")
         .controller("TCTenantController", TCTenantController);
 
-    TCTenantController.$inject = ["$scope", "$location", "$uibModal", "authService", "apiService", "helperService", "appConfig", "APP_CONSTANT", "toastr"];
+    TCTenantController.$inject = ["$scope", "$location", "$uibModal", "authService", "apiService", "helperService", "toastr", "trustCenterConfig"];
 
-    function TCTenantController($scope, $location, $uibModal, authService, apiService, helperService, appConfig, APP_CONSTANT, toastr) {
+    function TCTenantController($scope, $location, $uibModal, authService, apiService, helperService, toastr, trustCenterConfig) {
         /* jshint validthis: true */
         var TCTenantCtrl = this;
 
@@ -76,6 +76,8 @@
             TCTenantCtrl.ePage.Masters.Tenant.SaveBtnText = "OK";
             TCTenantCtrl.ePage.Masters.Tenant.IsDisableSaveBtn = false;
 
+            $scope.OnLogoChange = OnLogoChange;
+
             GetTenantList();
         }
 
@@ -88,10 +90,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.SecTenant.API.MasterFindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.SecTenant.API.MasterFindAll.FilterID
             };
 
-            apiService.post("authAPI", appConfig.Entities.SecTenant.API.MasterFindAll.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("authAPI", trustCenterConfig.Entities.API.SecTenant.API.MasterFindAll.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     TCTenantCtrl.ePage.Masters.Tenant.TenantList = response.data.Response;
 
@@ -117,7 +119,7 @@
 
             if ($item) {
                 if (!TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.LogoStr) {
-                    InitLogoUpload(TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant);
+                    GetLogo();
                 }
             }
         }
@@ -137,9 +139,6 @@
             TCTenantCtrl.ePage.Masters.Tenant.SaveBtnText = "OK";
             TCTenantCtrl.ePage.Masters.Tenant.IsDisableSaveBtn = false;
 
-            TCTenantCtrl.ePage.Masters.Tenant.Logo.fileDetails = [];
-            TCTenantCtrl.ePage.Masters.Tenant.Logo.fileCount = 0;
-
             EditModalInstance().result.then(function (response) {}, function () {
                 Cancel();
             });
@@ -149,12 +148,11 @@
             TCTenantCtrl.ePage.Masters.Tenant.SaveBtnText = "Please Wait...";
             TCTenantCtrl.ePage.Masters.Tenant.IsDisableSaveBtn = true;
 
-            TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.IsModified = true;
-            TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.IsDeleted = false;
+            var _input = TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant;
+            _input.IsModified = true;
+            _input.BaseTenantCode = "TBASE";
 
-            var _input = [TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant];
-
-            apiService.post("authAPI", appConfig.Entities.SecTenant.API.Upsert.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("authAPI", trustCenterConfig.Entities.API.SecTenant.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     var _response = response.data.Response[0];
                     TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant = angular.copy(_response);
@@ -187,127 +185,114 @@
                     TCTenantCtrl.ePage.Masters.Tenant.TenantList = undefined;
                 }
             } else if (TCTenantCtrl.ePage.Masters.Tenant.ActiveTenantCopy) {
-                var _index = TCTenantCtrl.ePage.Masters.Tenant.TenantList.map(function (value, key) {
-                    return value.PK;
-                }).indexOf(TCTenantCtrl.ePage.Masters.Tenant.ActiveTenantCopy.PK);
-
-                if (_index !== -1) {
-                    TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant = angular.copy(TCTenantCtrl.ePage.Masters.Tenant.TenantList[_index]);
-                }
+                TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant = angular.copy(TCTenantCtrl.ePage.Masters.Tenant.ActiveTenantCopy);
             }
 
             TCTenantCtrl.ePage.Masters.Tenant.EditModal.dismiss('cancel');
         }
 
-        function InitLogoUpload() {
-            TCTenantCtrl.ePage.Masters.Tenant.Logo = {};
-            TCTenantCtrl.ePage.Masters.Tenant.Logo.autherization = authService.getUserInfo().AuthToken;
-            TCTenantCtrl.ePage.Masters.Tenant.Logo.fileDetails = [];
-            TCTenantCtrl.ePage.Masters.Tenant.Logo.fileCount = 0;
-            TCTenantCtrl.ePage.Masters.Tenant.Logo.fileSize = 1;
-            TCTenantCtrl.ePage.Masters.Tenant.Logo.documentTypeList = [{
-                Value: "Logo",
-                DisplayName: "Logo"
-            }];
-            var _additionalValue = {
-                "Entity": "TrustCenter",
-                "Path": "TrustCenter,Tenant"
-            };
-            TCTenantCtrl.ePage.Masters.Tenant.Logo.additionalValue = JSON.stringify(_additionalValue);
-            TCTenantCtrl.ePage.Masters.Tenant.Logo.UploadUrl = APP_CONSTANT.URL.eAxisAPI + appConfig.Entities.DMS.API.DMSUpload.Url;
+        function OnLogoChange(event, input) {
+            var maxSize = input.dataset.maxSize / 1024; // in bytes to KB
+            TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.LogoStr = undefined;
+            TCTenantCtrl.ePage.Masters.Tenant.ActiveTenantCopy.LogoStr = undefined;
 
-            TCTenantCtrl.ePage.Masters.Tenant.Logo.GetUploadedFiles = GetUploadedFiles;
-            TCTenantCtrl.ePage.Masters.Tenant.Logo.GetSelectedFiles = GetSelectedFiles;
+            if (input.files.length > 0) {
+                var fileSize = input.files[0].size / 1024;
 
-            GetLogo();
+                if (fileSize > maxSize) {
+                    toastr.warning('File size should not be more then ' + maxSize + ' KB');
+                    TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.LogoStr = TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.Logo.Logo;
+                    TCTenantCtrl.ePage.Masters.Tenant.ActiveTenantCopy.LogoStr = TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.Logo.Logo;
+                    return false;
+                } else {
+                    var ext = input.files[0]['name'].substring(input.files[0]['name'].lastIndexOf('.') + 1).toLowerCase();
+                    if (input.files && input.files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+                        helperService.getImageBase64Str(input.files[0]).then(function (response) {
+                            TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.LogoStr = angular.copy(response);
+                            TCTenantCtrl.ePage.Masters.Tenant.ActiveTenantCopy.LogoStr = angular.copy(response);
+                            SaveLogo();
+                        }, function (error) {
+                            console.log(error);
+                        });
+                    }
+                }
+            }
         }
 
         function GetLogo() {
+            TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.LogoStr = undefined;
+            TCTenantCtrl.ePage.Masters.Tenant.ActiveTenantCopy.LogoStr = undefined;
             var _filter = {
+                "EntitySource": "TNT_LOGO",
                 "EntityRefKey": TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.PK,
-                "EntitySource": "TNT"
+                "EntityRefCode": TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.TenantCode
             };
+
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.JobDocument.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.SecLogo.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.JobDocument.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.SecLogo.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
-                        if (TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant) {
-                            TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.JobDocument = response.data.Response;
-                            DownloadDocument(response.data.Response[0]);
-                        }
+                        TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.LogoStr = response.data.Response[0].Logo;
+                        TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.Logo = response.data.Response[0];
+                        TCTenantCtrl.ePage.Masters.Tenant.ActiveTenantCopy.LogoStr = response.data.Response[0].Logo;
+                        TCTenantCtrl.ePage.Masters.Tenant.ActiveTenantCopy.Logo = response.data.Response[0];
                     }
-                } else {
-                    console.log("Empty response");
                 }
             });
         }
 
-        function DownloadDocument(curDoc) {
-            apiService.get("eAxisAPI", appConfig.Entities.JobDocument.API.JobDocumentDownload.Url + curDoc.PK + "/" + authService.getUserInfo().AppPK).then(function (response) {
-                if (response.data.Response) {
-                    if (response.data.Response !== "No Records Found!") {
-                        if (TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant) {
-                            TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.LogoStr = "data:image/jpeg;base64," + response.data.Response.Base64str;
-                        }
-                    }
-                } else {
-                    console.log("Invalid response");
-                }
-            });
-        }
-
-        function GetUploadedFiles(Files) {
-            if (TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.JobDocument && TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.JobDocument.length > 0) {
-                DeleteDocument(Files[0]);
+        function SaveLogo() {
+            if (TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.Logo) {
+                UpdateLogo();
             } else {
-                InsertLogo(Files[0]);
+                InsertLogo();
             }
         }
 
-        function GetSelectedFiles(Files) {
-
-        }
-
-        function DeleteDocument($item) {
-            if (TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.JobDocument) {
-                var _DocFK = TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.JobDocument[0].PK;
-                apiService.get("eAxisAPI", appConfig.Entities.JobDocument.API.Delete.Url + _DocFK + "/" + authService.getUserInfo().AppPK).then(function (response) {
-                    if (response.data.Response) {
-                        InsertLogo($item);
-                    } else {
-                        console.log("Empty Documents Response");
-                    }
-                });
-            } else {
-                InsertLogo($item);
-            }
-        }
-
-        function InsertLogo($item) {
+        function InsertLogo() {
             var _input = {
-                "FileName": $item.FileName,
-                "FileExtension": $item.FileExtension,
-                "ContentType": $item.DocType,
-                "IsActive": true,
-                "IsModified": true,
-                "IsDeleted": false,
-                "DocFK": $item.Doc_PK,
-                "EntitySource": "TNT",
-                "EntityRefKey": TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.PK
+                "EntitySource": "TNT_LOGO",
+                "EntityRefKey": TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.PK,
+                "EntityRefCode": TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.TenantCode,
+                "Logo": TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.LogoStr,
+                "IsModified": true
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.JobDocument.API.Upsert.Url + authService.getUserInfo().AppPK, [_input]).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.SecLogo.API.Insert.Url, [_input]).then(function (response) {
+                TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.LogoStr = undefined;
+                TCTenantCtrl.ePage.Masters.Tenant.ActiveTenantCopy.LogoStr = undefined;
                 if (response.data.Response) {
-                    TCTenantCtrl.ePage.Masters.Tenant.Logo.fileDetails = [];
-                    TCTenantCtrl.ePage.Masters.Tenant.Logo.fileCount = 0;
-
-                    DownloadDocument(response.data.Response[0]);
+                    if (response.data.Response.length > 0) {
+                        TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.Logo = response.data.Response[0];
+                        TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.LogoStr = response.data.Response[0].Logo;
+                        TCTenantCtrl.ePage.Masters.Tenant.ActiveTenantCopy.Logo = response.data.Response[0];
+                        TCTenantCtrl.ePage.Masters.Tenant.ActiveTenantCopy.LogoStr = response.data.Response[0].Logo;
+                    }
                 } else {
-                    console.log("Empty Documents Response");
+                    toastr.error("Couldn't Upload Logo...!");
+                }
+            });
+        }
+
+        function UpdateLogo() {
+            var _input = TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.Logo;
+            _input.Logo = TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.LogoStr;
+            _input.IsModified = true;
+
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.SecLogo.API.Update.Url, _input).then(function (response) {
+                TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.LogoStr = undefined;
+                TCTenantCtrl.ePage.Masters.Tenant.ActiveTenantCopy.LogoStr = undefined;
+                if (response.data.Response) {
+                    TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.Logo = response.data.Response;
+                    TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.LogoStr = response.data.Response.Logo;
+                    TCTenantCtrl.ePage.Masters.Tenant.ActiveTenantCopy.Logo = response.data.Response;
+                    TCTenantCtrl.ePage.Masters.Tenant.ActiveTenantCopy.LogoStr = response.data.Response.Logo;
+                } else {
+                    toastr.error("Couldn't Upload Logo...!");
                 }
             });
         }

@@ -1,0 +1,202 @@
+<div class="clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding" data-ng-if="!ContainerDirCtrl.readOnly">
+        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0">
+            <span>
+                <button type="button" class="btn btn-sm btn-outline-secondary font-10" title="Add New" data-ng-if="ContainerDirCtrl.btnVisible.AddNew"
+                    data-ng-click="ContainerDirCtrl.ePage.Masters.AddNewRow()">
+                    <span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button>
+            </span>
+            <span>
+                <button type="button" class="btn btn-sm btn-outline-primary font-10" title="Delete" data-ng-if="ContainerDirCtrl.btnVisible.Delete"
+                    data-ng-disabled="ContainerDirCtrl.ePage.Masters.selectedRow==-1" data-ng-click="ContainerDirCtrl.ePage.Masters.RemoveRow(ContainerDirCtrl.ePage.Masters.selectedRow, ContainerDirCtrl.ePage.Masters.selectedRowObj) && ContainerDirCtrl.ePage.Masters.selectedRow!=-1">
+                    <span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button>
+            </span>
+            <span>
+                <button type="button" data-ng-disabled="ContainerDirCtrl.ePage.Masters.selectedRow==-1" data-ng-if="ContainerDirCtrl.btnVisible.More"
+                    class="btn btn-sm btn-outline-primary font-10" title="More" data-ng-click="ContainerDirCtrl.ePage.Masters.More(ContainerDirCtrl.ePage.Masters.selectedRow,ContainerDirCtrl.ePage.Masters.selectedRowObj) && ContainerDirCtrl.ePage.Masters.selectedRow!=-1">
+                    <span class="fa fa-ellipsis-v"></span>&nbsp;&nbsp;More</button>
+            </span>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 p-0">
+            &nbsp;
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0">
+            &nbsp;
+        </div>
+    </div>
+    <div id="ASNTable{{ContainerDirCtrl.currentObject.label}}" class="fixedheader mb-0">
+        <table id="ContainerDirCtrl.ePage.Masters.AddScroll" style="height:250px; overflow: hidden;">
+            <thead>
+                <tr id="tableHeader">
+                    <th data-ng-repeat="x in ContainerDirCtrl.ePage.Entities.Header.TableProperties.UICntContainers.HeaderProperties |  orderBy : 'position'"
+                        data-ng-style="{'width': x.width + 'px'}">{{x.columnname}} </th>
+                </tr>
+            </thead>
+            <tbody id="">
+                <tr id="tableBody" data-ng-if="ContainerDirCtrl.keyObjectName=='CON'&&!ContainerDirCtrl.readOnly" data-ng-repeat="x in ContainerDirCtrl.ePage.Entities.Header.Data[ContainerDirCtrl.apiHeaderValueName] | filter:{IsDeleted:false}"
+                    ng-class="{row_active: (ContainerDirCtrl.ePage.Masters.selectedRow==$index)}" data-ng-click="ContainerDirCtrl.ePage.Masters.selectedRow = $index;ContainerDirCtrl.ePage.Masters.selectedRowObj=x">
+                    <td id="containerno" data-ng-if="ContainerDirCtrl.ePage.Entities.Header.TableProperties.UICntContainers.containerno.isenabled"
+                        data-ng-style="{ 'width': ContainerDirCtrl.ePage.Entities.Header.TableProperties.UICntContainers.containerno.width + 'px' }">
+                        <div data-ng-if="$index!=ContainerDirCtrl.ePage.Masters.selectedRow || ContainerDirCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.ContainerNo|| ContainerDirCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div class="ship-font height-22" data-ng-if="$index==ContainerDirCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                            <input type="text" class="form-control input-sm" data-ng-model="x.ContainerNo">
+                        </div>
+                    </td>
+                    <td id="containermode" data-ng-if='ContainerDirCtrl.ePage.Entities.Header.TableProperties.UICntContainers.containermode.isenabled'
+                        ng-style="{ 'width': ContainerDirCtrl.ePage.Entities.Header.TableProperties.UICntContainers.containermode.width + 'px' }">
+                        <div data-ng-if="$index!=ContainerDirCtrl.ePage.Masters.selectedRow || ContainerDirCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.ContainerMode || ContainerDirCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==ContainerDirCtrl.ePage.Masters.selectedRow" data-ng-if='ContainerDirCtrl.ePage.Entities.Header.TableProperties.UICntContainers.isenabled'
+                            ng-style="{ 'width': ContainerDirCtrl.ePage.Entities.Header.TableProperties.UICntContainers.containermode.width + 'px' }">
+                            <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0" ng-click="ContainerDirCtrl.ePage.Masters.Enable = false">
+                                <select chosen class="form-control" ng-model="x.ContainerMode" ng-options="x.Key as x.Description  + ' - '  + x.Value for x in ContainerDirCtrl.ePage.Masters.DropDownMasterList.CON_CNTMODE.ListSource"
+                                    search-contains="true">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                        </div>
+                    </td>
+                    <td id="containerstatus" data-ng-if='ContainerDirCtrl.ePage.Entities.Header.TableProperties.UICntContainers.containerstatus.isenabled'
+                        ng-style="{ 'width': ContainerDirCtrl.ePage.Entities.Header.TableProperties.UICntContainers.containerstatus.width + 'px' }">
+                        <div data-ng-if="$index!=ContainerDirCtrl.ePage.Masters.selectedRow || ContainerDirCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.ContainerStatus || ContainerDirCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==ContainerDirCtrl.ePage.Masters.selectedRow">
+                            <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0" ng-click="ContainerDirCtrl.ePage.Masters.Enable = false">
+                                <select chosen class="form-control" ng-model="x.ContainerStatus" ng-options="x.Key as x.Description  + ' - '  + x.Value for x in ContainerDirCtrl.ePage.Masters.DropDownMasterList.CNT_STATUS.ListSource"
+                                    search-contains="true">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                        </div>
+                    </td>
+                    <td id="deliverymode" data-ng-if='ContainerDirCtrl.ePage.Entities.Header.TableProperties.UICntContainers.deliverymode.isenabled'
+                        ng-style="{ 'width': ContainerDirCtrl.ePage.Entities.Header.TableProperties.UICntContainers.deliverymode.width + 'px' }">
+                        <div data-ng-if="$index!=ContainerDirCtrl.ePage.Masters.selectedRow || ContainerDirCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.DeliveryMode || ContainerDirCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==ContainerDirCtrl.ePage.Masters.selectedRow">
+                            <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0" ng-click="ContainerDirCtrl.ePage.Masters.Enable = false">
+                                <select chosen class="form-control" ng-model="x.DeliveryMode" ng-options="x.Key as x.Key   + ' - '  + x.Value for x in ContainerDirCtrl.ePage.Masters.DropDownMasterList.CNT_DELIVERYMODE.ListSource"
+                                    search-contains="true">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                        </div>
+                    </td>
+                    <td id="isemptycontainer" ng-click="ContainerDirCtrl.ePage.Masters.Enable = true" data-ng-if='ContainerDirCtrl.ePage.Entities.Header.TableProperties.UICntContainers.isemptycontainer.isenabled'
+                        ng-style="{ 'width': ContainerDirCtrl.ePage.Entities.Header.TableProperties.UICntContainers.isemptycontainer.width + 'px' }">
+                        <label class="mb-0 customcheckbox">
+                            <input type="checkbox" ng-model="x.IsEmptyContainer"> </input>
+                            <span class="text"></span>
+                        </label>
+                    </td>
+                </tr>
+                <tr id="tableBody" data-ng-if="ContainerDirCtrl.keyObjectName=='CON'&&ContainerDirCtrl.readOnly" data-ng-repeat="x in ContainerDirCtrl.ePage.Entities.Header.Data[ContainerDirCtrl.apiHeaderValueName]">
+                    <td id="containerno" data-ng-if='ContainerDirCtrl.ePage.Entities.Header.TableProperties.UICntContainers.containerno.isenabled'
+                        ng-style="{ 'width': ContainerDirCtrl.ePage.Entities.Header.TableProperties.UICntContainers.containerno.width + 'px' }">
+                        {{x.ContainerNo || ContainerDirCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <td id="containermode" data-ng-if='ContainerDirCtrl.ePage.Entities.Header.TableProperties.UICntContainers.containermode.isenabled'
+                        ng-style="{ 'width': ContainerDirCtrl.ePage.Entities.Header.TableProperties.UICntContainers.containermode.width + 'px' }">
+                        {{x.ContainerMode || ContainerDirCtrl.ePage.Masters.emptyText}}
+
+                    </td>
+                    <td id="containerstatus" data-ng-if='ContainerDirCtrl.ePage.Entities.Header.TableProperties.UICntContainers.containerstatus.isenabled'
+                        ng-style="{ 'width': ContainerDirCtrl.ePage.Entities.Header.TableProperties.UICntContainers.containerstatus.width + 'px' }">
+                        {{x.ContainerStatus || ContainerDirCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <td id="deliverymode" data-ng-if='ContainerDirCtrl.ePage.Entities.Header.TableProperties.UICntContainers.deliverymode.isenabled'
+                        ng-style="{ 'width': ContainerDirCtrl.ePage.Entities.Header.TableProperties.UICntContainers.deliverymode.width + 'px' }">
+                        {{x.DeliveryMode || ContainerDirCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <td id="isemptycontainer" data-ng-if='ContainerDirCtrl.ePage.Entities.Header.TableProperties.UICntContainers.isemptycontainer.isenabled'
+                        ng-style="{ 'width': ContainerDirCtrl.ePage.Entities.Header.TableProperties.UICntContainers.isemptycontainer.width + 'px' }">
+                        {{x.IsEmptyContainer || ContainerDirCtrl.ePage.Masters.emptyText}}
+                    </td>
+                </tr>
+                <tr id="tableBody" data-ng-if="ContainerDirCtrl.keyObjectName=='SHP'&&!ContainerDirCtrl.readOnly" data-ng-repeat="x in ContainerDirCtrl.ePage.Entities.Header.Data[ContainerDirCtrl.apiHeaderValueName]"
+                    ng-class="{row_active: (ContainerDirCtrl.ePage.Masters.selectedRow==$index)}" data-ng-click="ContainerDirCtrl.ePage.Masters.selectedRow = $index;ContainerDirCtrl.ePage.Masters.selectedRowObj=x">
+                    <td data-ng-if="ContainerDirCtrl.ePage.Entities.Header.TableProperties.UICntContainers.containercount.isenabled" data-ng-style="{ 'width': ContainerDirCtrl.ePage.Entities.Header.TableProperties.UICntContainers.containercount.width + 'px' }">
+                        <div data-ng-if="$index!=ContainerDirCtrl.ePage.Masters.selectedRow || ContainerDirCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.ContainerCount|| ContainerDirCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div class="ship-font height-22" data-ng-if="$index==ContainerDirCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                            <input type="text" class="form-control input-sm" data-ng-model="x.ContainerCount">
+                        </div>
+                    </td>
+                    <td data-ng-if='ContainerDirCtrl.ePage.Entities.Header.TableProperties.UICntContainers.containertype.isenabled' ng-style="{ 'width': ContainerDirCtrl.ePage.Entities.Header.TableProperties.UICntContainers.containertype.width + 'px' }">
+                        <div data-ng-if="$index!=ContainerDirCtrl.ePage.Masters.selectedRow || ContainerDirCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.ContainerMode || ContainerDirCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div class="ship-font height-22" data-ng-if="$index==ContainerDirCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                            <div class="input-group input-group-sm">
+                                <input type="hidden" ng-model="ContainerDirCtrl.ePage.Entities.Header.Data[ContainerDirCtrl.apiHeaderValueName].RC">
+                                <div dynamic-lookup my-ng-model="ContainerDirCtrl.ePage.Entities.Header.Data[ContainerDirCtrl.apiHeaderValueName].RC_Type"
+                                    obj="ContainerDirCtrl.ePage.Entities.Header.Data[ContainerDirCtrl.apiHeaderValueName]" prefix-data="'MstContainer'"
+                                    config="'ContainerConType'" auto-complete-on-select="ContainerDirCtrl.ePage.Masters.SelectedConTypeData($item.data.entity,ContainerDirCtrl.ePage.Entities.Header.Data[ContainerDirCtrl.apiHeaderValueName].RC_Type)"></div>
+                                <span class="input-group-btn">
+                                    <button dynamic-list-modal obj="ContainerDirCtrl.ePage.Entities.Header.Data[ContainerDirCtrl.apiHeaderValueName]" field-name="'ContainerConType'"
+                                        prefix-data="'MstContainer'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ContainerDirCtrl.ePage.Masters.SelectedConTypeData($item.data.entity,ContainerDirCtrl.ePage.Entities.Header.Data[ContainerDirCtrl.apiHeaderValueName].RC_Type)"
+                                        class="btn btn-default shiny" type="button">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </td>
+                    <td data-ng-if='ContainerDirCtrl.ePage.Entities.Header.TableProperties.UICntContainers.Commodity.isenabled' ng-style="{ 'width': ContainerDirCtrl.ePage.Entities.Header.TableProperties.UICntContainers.Commodity.width + 'px' }">
+                        <div data-ng-if="$index!=ContainerDirCtrl.ePage.Masters.selectedRow || ContainerDirCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.RH_NKContainerCommodityCode || ContainerDirCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div class="ship-font height-22" data-ng-if="$index==ContainerDirCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                            <input type="text" class="form-control input-sm" data-ng-model="x.RH_NKContainerCommodityCode">
+                        </div>
+                    </td>
+                </tr>
+                <tr id="tableBody" data-ng-if="ContainerDirCtrl.readOnly">
+                    <td id="ContainerMode" data-ng-if='ContainerDirCtrl.ePage.Entities.Header.TableProperties.UICntContainers.containercount.isenabled'
+                        ng-style="{ 'width': ContainerDirCtrl.ePage.Entities.Header.TableProperties.UICntContainers.containercount.width + 'px' }">
+                        {{x.ContainerCount || ContainerDirCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <td id="ContainerCount" data-ng-if='ContainerDirCtrl.ePage.Entities.Header.TableProperties.UICntContainers.containertype.isenabled'
+                        ng-style="{ 'width': ContainerDirCtrl.ePage.Entities.Header.TableProperties.UICntContainers.containertype.width + 'px' }">
+                        {{x.ContainerMode || ContainerDirCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <td id="RH_NKContainerCommodityCode" data-ng-if='ContainerDirCtrl.ePage.Entities.Header.TableProperties.UICntContainers.Commodity.isenabled'
+                        ng-style="{ 'width': ContainerDirCtrl.ePage.Entities.Header.TableProperties.UICntContainers.Commodity.width + 'px' }">
+                        {{x.RH_NKContainerCommodityCode || ContainerDirCtrl.ePage.Masters.emptyText}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="grid-no-record" data-ng-if="ContainerDirCtrl.ePage.Entities.Header.Data[ContainerDirCtrl.apiHeaderValueName].length==0">No records found...</div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="container-pagination mr-10 ml-10">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pagination-border ">
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3 col-xl-3 pt-10 p-0 ">
+                <ul uib-pagination boundary-links="true " total-items="ContainerDirCtrl.ePage.Entities.Header.Data[ContainerDirCtrl.apiHeaderValueName].length "
+                    ng-model="ContainerDirCtrl.ePage.Masters.Pagination.CurrentPage " class="pagination-sm " max-size="ContainerDirCtrl.ePage.Masters.Pagination.MaxSize "
+                    items-per-page="ContainerDirCtrl.ePage.Masters.Pagination.ItemsPerPage " num-pages="ContainerDirCtrl.ePage.Masters.Pagination.TotalPage "
+                    previous-text="&lsaquo; " next-text="&rsaquo; " first-text="&laquo; " last-text="&raquo; "></ul>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3 col-xl-3 pt-10 ">
+                <select ng-model="ContainerDirCtrl.ePage.Masters.Pagination.ItemsPerPage " ng-change=" ">
+                    <option ng-selected="true ">25</option>
+                    <option>50</option>
+                    <option>100</option>
+                    <option>500</option>
+                </select> Records Per Page.
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 pt-10 pull-right ">
+                <div class=" ">Page : {{ContainerDirCtrl.ePage.Masters.Pagination.CurrentPage}} / {{ContainerDirCtrl.ePage.Masters.Pagination.TotalPage}}</div>
+                <div class=" ">Total Records : {{(ContainerDirCtrl.ePage.Entities.Header.Data[ContainerDirCtrl.apiHeaderValueName] | filter:{IsDeleted:false}).length}}</div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -7,7 +7,7 @@
 
     CancelModalController.$inject = ["$uibModalInstance", "helperService", "param"];
 
-    function CancelModalController($uibModalInstance, helperService,  param) {
+    function CancelModalController($uibModalInstance, helperService, param) {
         var CancelModalCtrl = this;
 
         function Init() {
@@ -28,9 +28,9 @@
             CancelModalCtrl.ePage.Masters.Cancel = Cancel;
             CancelModalCtrl.ePage.Masters.SaveOrderList = param.CancelList;
             CancelModalCtrl.ePage.Masters.CancelButtonText = "Save";
-            CancelModalCtrl.ePage.Masters.IsDisableSave =false;
+            CancelModalCtrl.ePage.Masters.IsDisableSave = false;
         }
-        
+
         function Ok() {
             CancelModalCtrl.ePage.Masters.CancelButtonText = "Please wait";
             CancelModalCtrl.ePage.Masters.IsDisableSave = true;

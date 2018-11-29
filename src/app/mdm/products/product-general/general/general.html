@@ -1,6 +1,6 @@
 <div style="height: 540px;padding-top:1px;">
     <div class="row margin-right-10 margin-left-5 margin-top-10" style="background-color: #f9f9f9; border: 1px solid #eee;">
-        <div class="col-lg-12 mypadding mt-20" style="border-bottom:1px solid #eee;">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mypadding mt-20" style="border-bottom:1px solid #eee;">
     
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                 <div class="form-group">
@@ -12,7 +12,7 @@
                     </div>
                     <label class="control-label text-single-line">Product Code</label>
                     <div class="">
-                        <input  type="text" capitalize class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Product Code"  data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.PartNum" ng-change="GeneralCtrl.ePage.Masters.OnChangeValues(GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.PartNum,'E7010')">
+                        <input  type="text"  maxlength="30" capitalize class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Product Code"  data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.PartNum" ng-change="GeneralCtrl.ePage.Masters.OnChangeValues(GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.PartNum,'E7010')">
                     </div>
                 </div>
             </div>
@@ -54,14 +54,14 @@
         
                         <!-- Dynamic look up Search in textbox -->
                         <div dynamic-lookup placeholder="Commodity" my-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.Commodity"
-                            obj="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral" prefix-data="'MstCommodity'"
-                            config="'ProductCommodity'" auto-complete-on-select="GeneralCtrl.ePage.Masters.SelectedLookupCommodity($item)">
+                            obj="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral" page-name="'MstCommodity'"
+                            control-id="'ProductCommodity'" control-key="'ProductCommodity_3127'" auto-complete-on-select="GeneralCtrl.ePage.Masters.SelectedLookupCommodity($item)">
                         </div>
         
                         <!-- Look Up page opens when button clicks -->
                         <span class="input-group-btn">
-                                <button dynamic-list-modal obj="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral" field-name="'ProductCommodity'" 
-                                selected-data='GeneralCtrl.ePage.Masters.SelectedLookupCommodity($item.entity)' prefix-data="'MstCommodity'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  
+                                <button dynamic-list-modal obj="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral" control-id="'ProductCommodity'" control-key="'ProductCommodity_3127'" 
+                                selected-data='GeneralCtrl.ePage.Masters.SelectedLookupCommodity($item.data.entity)' page-name="'MstCommodity'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  
                                 class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
                         </span>
                     </div>
@@ -73,7 +73,7 @@
                 <div class="form-group">
                     <label class="control-label text-single-line">Depth</label>
                     <div class="">
-                        <input type="text" numbers-only maxlength="5" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Depth" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.Depth">
+                        <input type="text" numbers-only-dot  maxlength="5" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Depth" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.Depth">
                     </div>
                 </div>
             </div>
@@ -81,7 +81,7 @@
                 <div class="form-group">
                     <label class="control-label text-single-line">Width</label>
                     <div class="">
-                        <input type="text" numbers-only maxlength="5" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Width" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.Width">
+                        <input type="text" numbers-only-dot  maxlength="5" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Width" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.Width">
                     </div>
                 </div>
             </div>
@@ -89,7 +89,7 @@
                 <div class="form-group">
                     <label class="control-label text-single-line">Height</label>
                     <div class="">
-                        <input type="text" numbers-only maxlength="5" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Height" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.Height">
+                        <input type="text" numbers-only-dot  maxlength="5" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Height" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.Height">
                     </div>
                 </div>
             </div>
@@ -109,7 +109,7 @@
                 <div class="form-group">
                     <label class="control-label text-single-line">Gross Weight</label>
                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 mypadding">
-                        <input type="text" numbers-only maxlength="5" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Gross" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.Weight">
+                        <input type="text" numbers-only-dot  maxlength="5" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Gross" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.Weight">
                     </div>
                     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 mypadding">
                         <select chosen class="form-control" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.WeightUQ" ng-options="x.Key as x.Key + ' - '  + x.Value for x in GeneralCtrl.ePage.Masters.DropDownMasterList.GrossWeightUnit.ListSource" search-contains="true">
@@ -122,7 +122,7 @@
                 <div class="form-group">
                     <label class="control-label text-single-line">Cubic Weight</label>
                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 mypadding">
-                        <input type="text" numbers-only maxlength="5" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Cubic" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.Cubic">
+                        <input type="text" numbers-only-dot  maxlength="5" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Cubic" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.Cubic">
                     </div>
                     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 mypadding">
                         <select chosen class="form-control" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.CubicUQ" ng-options="x.Key as x.Key + ' - '  + x.Value for x in GeneralCtrl.ePage.Masters.DropDownMasterList.CubicUnit.ListSource" search-contains="true">
@@ -135,7 +135,7 @@
                 <div class="form-group">
                     <label class="control-label text-single-line">Net Weight</label>
                     <div class="">
-                        <input type="text" numbers-only class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Net Weight"  data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.NetWeight">
+                        <input type="text" numbers-only-dot  class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Net Weight"  data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.NetWeight">
                     </div>
                 </div>
             </div>

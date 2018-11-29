@@ -1,0 +1,96 @@
+.process-info-json-view {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.process-info-json .modal-dialog {
+  width: 650px !important;
+}
+
+.process-instance-work-item-table {
+  table-layout: fixed;
+}
+
+.process-instance-work-item-table th,
+.process-instance-work-item-table td {
+  padding: 5px !important;
+  font-size: 11px !important;
+}
+
+.process-instance-work-item-table td.instance-no {
+  padding: 0px !important;
+}
+
+.process-instance-work-item-table td .AVAILABLE {
+  border: 1px solid #57b5e3;
+  color: #57b5e3 !important;
+  padding: 0 5px;
+  text-align: center;
+  display: inline;
+}
+
+.process-instance-work-item-table td .ASSIGNED {
+  border: 1px solid #f4b400;
+  color: #f4b400 !important;
+  padding: 0 5px;
+  text-align: center;
+  display: inline;
+}
+
+.process-instance-work-item-table td .WOKSTARTED {
+  border: 1px solid #585858;
+  color: #585858 !important;
+  padding: 0 5px;
+  text-align: center;
+  display: inline;
+}
+
+.process-instance-work-item-table td .COMPLETED {
+  border: 1px solid #0c9e0c;
+  color: #0c9e0c !important;
+  padding: 0 5px;
+  text-align: center;
+  display: inline;
+}
+
+.process-instance-work-item-details-wrapper .entity-info {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 400px;
+  background-color: #fff;
+  max-height: 100%;
+  overflow-y: auto;
+  padding-bottom: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.process-instance-work-item-details-wrapper .entity-info .fa-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 18px;
+  opacity: 0.5;
+}
+
+.process-instance-work-item-details-wrapper .entity-info .fa-close:hover {
+  opacity: 1;
+}
+
+.process-instance-work-item-details-wrapper .entity-info .header {
+  font-weight: bold;
+}
+
+.process-instance-work-item-details-wrapper .entity-info .parent-additional-entity-link {
+  padding: 5px 15px;
+}
+
+a.process-instance-action-link {
+  padding-right: 5px;
+  margin-right: 5px;
+  border-right: 1px solid #ddd;
+}
+
+a.process-instance-action-link:last-child {
+  border-right: none;
+}

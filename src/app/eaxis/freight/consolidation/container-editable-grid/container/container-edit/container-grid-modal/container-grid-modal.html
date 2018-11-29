@@ -1,0 +1,16 @@
+<div class="modal-header">
+    <h5 class="modal-title pull-left">
+        <strong>Container Details</strong>
+    </h5>
+    <button type="button" class="btn btn-secondary btn-sm pull-right margin-left-5" ng-click="ContainerModalPopUpCtrl.ePage.Masters.Cancel()">Close</button>
+    <button type="button" class="btn btn-primary btn-sm pull-right margin-left-5" ng-click="ContainerModalPopUpCtrl.ePage.Masters.Cancel()"
+        data-ng-bind="ContainerModalPopUpCtrl.ePage.Masters.SaveButton" data-ng-disabled="ContainerModalPopUpCtrl.ePage.Masters.SaveButtonDisable"></button>
+</div>
+<div class="modal-body" data-ng-if="ContainerModalPopUpCtrl.ePage.Masters.Container.FormView">
+    <container-grid-form-directive ref-code="{{ContainerModalPopUpCtrl.ePage.Masters.refCode}}" current-container="ContainerModalPopUpCtrl.ePage.Masters.Container.FormView"></container-grid-form-directive>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary btn-sm pull-right margin-left-5" ng-click="ContainerModalPopUpCtrl.ePage.Masters.Cancel()">Close</button>
+    <button type="button" class="btn btn-primary btn-sm pull-right margin-left-5" ng-click="ContainerModalPopUpCtrl.ePage.Masters.Cancel()"
+        data-ng-bind="ContainerModalPopUpCtrl.ePage.Masters.SaveButton" data-ng-disabled="ContainerModalPopUpCtrl.ePage.Masters.SaveButtonDisable"></button>
+</div>

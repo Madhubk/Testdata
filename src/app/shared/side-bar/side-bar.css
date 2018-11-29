@@ -3,15 +3,20 @@
 }
 
 #sidebar ul.nav.sidebar-menu {
-    padding-bottom: 50px;
+    padding-bottom: 100px;
 }
 
-/* #sidebar {
-    overflow: auto;
-    height: calc(100vh - 65px);
-    background-color: #364150;
+@media only screen and (max-width: 767px) {
+    .page-sidebar {
+        display: block;
+    }
+
+    .page-sidebar .sidebar-menu>li>a {
+        background: #364150;
+    }
 }
 
-.page-sidebar:before {
-    width: 202px !important;
-} */
+.page-sidebar .sidebar-menu>li>a:focus,
+.page-sidebar .sidebar-menu>li>a:hover {
+    background-color: transparent;
+}

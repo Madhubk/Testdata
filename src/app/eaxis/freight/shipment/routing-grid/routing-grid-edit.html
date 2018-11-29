@@ -1,0 +1,414 @@
+<div class="modal-header">
+    <div class="row">
+        <div class="text-center clearfix">
+            <button class="btn btn-default set-br-blue set-bg-blue-light fs-12 pr-5 pull-right mr-10" data-ng-click="RoutingGridPopUpCtrl.ePage.Masters.Close()">
+                <i class="fa fa-plus-circle"></i> Save Routing
+            </button>
+            <button class="btn btn-default  fs-12 pr-5 pull-right mr-10" data-ng-click="RoutingGridPopUpCtrl.ePage.Masters.Close()">
+                <i class="fa fa-times"></i> Close
+            </button>
+        </div>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="clearfix">
+        <div class="clearfix mt-20">
+            <!--Leg Order-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                <div class="form-group ship-font">
+                    <label for="" class="control-label">Leg Order</label>
+                    <input type="text" class="form-control input-sm" data-ng-disabled="true" placeholder="Leg Order"
+                        max-length="1" data-ng-model="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.LegOrder">
+                </div>
+            </div>
+            <!--Mode-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                <div class="form-group ship-font">
+                    <label for="" class="control-label">Mode</label>
+                    <select chosen name="category-group" id="categoryGroup" class="form-control" data-ng-model="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.TransportMode"
+                        data-ng-options="x.Key as x.Description for x in RoutingGridPopUpCtrl.ePage.Masters.DropDownMasterList.ROUTEMODE.ListSource"
+                        search-contains="true">
+                        <!-- <option value="">--Select--</option> -->
+                    </select>
+                </div>
+            </div>
+            <!--Type-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group ship-font">
+                    <label for="" class="control-label">Type</label>
+                    <select chosen name="category-group" id="categoryGroup" class="form-control" data-ng-model="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.TransportType"
+                        data-ng-options="x.Key as x.Value for x in RoutingGridPopUpCtrl.ePage.Masters.DropDownMasterList.ROUTETYPES.ListSource"
+                        search-contains="true">
+                        <!-- <option value="">--Select--</option> -->
+                    </select>
+                </div>
+            </div>
+            <!--Status-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group ship-font">
+                    <label for="" class="control-label">Status</label>
+                    <select chosen name="category-group" id="categoryGroup" class="form-control" data-ng-model="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.Status"
+                        data-ng-options="x.Key as x.Description for x in RoutingGridPopUpCtrl.ePage.Masters.DropDownMasterList.ROUTESTATUS.ListSource"
+                        search-contains="true">
+                        <!-- <option value="">--Select--</option> -->
+                    </select>
+                </div>
+            </div>
+            <!--Is Linked-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                <div class="form-group ship-font">
+                    <label class="control-label">Is Linked</label>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" data-ng-model="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.IsLinked"
+                                data-ng-checked="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.IsLinked==true"
+                                class="colored-blue">
+                            <span class="text"></span>
+                        </label>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="clearfix padding-top-10 rout-line">
+            <!-- ===================Start======================== -->
+            <!--Flight -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group ship-font">
+                    <label for="" data-ng-show="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.TransportMode =='SEA'"
+                        class="control-label">Voyage</label>
+                    <label for="" data-ng-show="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.TransportMode =='AIR'"
+                        class="control-label">Flight</label>
+                    <label for="" data-ng-show="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.TransportMode =='ROA'"
+                        class="control-label">Truck Reference</label>
+                    <input type="text" data-ng-show="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.TransportMode =='SEA'"
+                        class="form-control input-sm" placeholder="Voyage" max-length="1" data-ng-model="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.VoyageFlight">
+                    <input type="text" data-ng-show="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.TransportMode =='AIR'"
+                        class="form-control input-sm" placeholder="Flight" max-length="1" data-ng-model="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.VoyageFlight">
+                    <input type="text" data-ng-show="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.TransportMode =='ROA'"
+                        class="form-control input-sm" placeholder="Truck Reference" max-length="1" data-ng-model="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.VoyageFlight">
+                </div>
+            </div>
+            <!--Vessel -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group ship-font">
+                    <label class="control-label text-single-line">Vessel</label>
+                    <div class="input-group input-group-sm">
+                        <div dynamic-lookup placeholder="Organization Code" my-ng-model="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.Vessel"
+                            obj="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView" page-name="'MstVessel'"
+                            control-key="'RoutingVessel_3186'" control-id="'RoutingVessel'" auto-complete-on-select=""></div>
+                        <span class="input-group-btn">
+                            <button dynamic-list-modal obj="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView"
+                                control-key="'RoutingVessel_3186'" control-id="'RoutingVessel'" page-name="'MstVessel'"
+                                mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="RoutingGridPopUpCtrl.ePage.Masters.MstvesselSelected(RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView)" class="btn btn-default shiny"
+                                type="button">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+                <!-- <div class="form-group ship-font">
+                    <label for="" class="control-label">Vessel</label>
+                    <input type="text" class="form-control input-sm" placeholder="Vessel" max-length="1" data-ng-model="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.Vessel">
+                </div> -->
+            </div>
+            <!--Creditor Organization Code-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group ship-font">
+                    <label class="control-label text-single-line">Creditor</label>
+                    <div class="input-group input-group-sm">
+                        <input type="hidden" data-ng-model="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.CreditorOrg_FK">
+                        <div dynamic-lookup placeholder="Organization Code" my-ng-model="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.CreditorOrg_Code"
+                            obj="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView" page-name="'OrganizationList'"
+                            control-key="'ShpCreditorOrg_2961'" control-id="'ShpCreditorOrg'" auto-complete-on-select="RoutingGridPopUpCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'Creditor')"></div>
+                        <span class="input-group-btn">
+                            <button dynamic-list-modal obj="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView"
+                                control-key="'ShpCreditorOrg_2961'" control-id="'ShpCreditorOrg'" page-name="'OrganizationList'"
+                                mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="RoutingGridPopUpCtrl.ePage.Masters.SelectedLookupData($item, 'Creditor')"
+                                class="btn btn-default shiny" type="button">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!--Creditor Address-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group ship-font">
+                    <label class="control-label text-single-line">Address</label>
+                    <div class="">
+                        <select chosen class="form-control" data-ng-model="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.Creditor_OAD_FK"
+                            data-ng-options="x.PK as x.Code for x in RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.Creditor.AddressList"
+                            search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!--Carrier Organization Code-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group ship-font">
+                    <label class="control-label text-single-line">Carrier</label>
+                    <div class="input-group input-group-sm">
+                        <input type="hidden" data-ng-model="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.CarrierOrg_FK">
+                        <div dynamic-lookup placeholder="Organization Code" my-ng-model="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.CarrierOrg_Code"
+                            obj="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView" page-name="'OrganizationList'"
+                            control-key="'ShpCarrierOrg_2962'" control-id="'ShpCarrierOrg'" auto-complete-on-select="RoutingGridPopUpCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'Carrier')"></div>
+                        <span class="input-group-btn">
+                            <button dynamic-list-modal obj="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView"
+                                control-key="'ShpCarrierOrg_2962'" control-id="'ShpCarrierOrg'" page-name="'OrganizationList'"
+                                mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="RoutingGridPopUpCtrl.ePage.Masters.SelectedLookupData($item, 'Carrier')"
+                                class="btn btn-default shiny" type="button">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!--Carrier Address-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group ship-font">
+                    <label class="control-label text-single-line">Address</label>
+                    <div class="">
+                        <select chosen class="form-control" data-ng-model="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.Carrier_OAD_FK"
+                            data-ng-options="x.PK as x.Code for x in RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.Carrier.AddressList"
+                            search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!-- ===================End======================== -->
+            <!--Carrier Reference-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group ship-font">
+                    <label for="" class="control-label">Carrier Reference</label>
+                    <input type="text" class="form-control input-sm" placeholder="Carrier Reference" max-length="70"
+                        data-ng-model="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.CarrierReference" />
+                </div>
+            </div>
+
+            <!-- ====================Start======================= -->
+            <!--Carrier Service Level -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group ship-font">
+                    <label for="" class="control-label">Carrier Service Level</label>
+                    <input type="text" class="form-control input-sm" placeholder="Carrier Service Level" max-length="1"
+                        data-ng-model="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.LegOrder">
+                </div>
+            </div>
+        </div>
+        <div class="clearfix ">
+            <div class="row margin-right-10 margin-left-10 rout-box">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 pl-0 pr-0 padding-top-10">
+                    <!--Load-->
+                    <div class=" col-lg-6 col-xl-6 padding-right-10">
+                        <div class="form-group ship-font">
+                            <label class="control-label">Load</label>
+                            <div class="input-group input-group-sm">
+                                <div dynamic-lookup placeholder="Load" my-ng-model="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.LoadPort"
+                                    obj="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView" page-name="'MstUNLOCO'"
+                                    control-key="'ShpRoutingLoadPort_3103'" control-id="'ShpRoutingLoadPort'"></div>
+                                <span class="input-group-btn">
+                                    <button dynamic-list-modal obj="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView"
+                                        control-key="'ShpRoutingLoadPort_3103'" control-id="'ShpRoutingLoadPort'"
+                                        page-name="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                        selected-data="RoutingGridPopUpCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny"
+                                        type="button">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Dept. From Organization Code-->
+                    <div class=" col-lg-6 col-xl-6 padding-right-10">
+                        <div class="form-group ship-font">
+                            <label class="control-label text-single-line">Dept. From</label>
+                            <div class="input-group input-group-sm">
+                                <input type="hidden" data-ng-model="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.DepartureLocationOrg_FK">
+                                <div dynamic-lookup placeholder="Organization Code" my-ng-model="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.DepartureLocationOrg_Code"
+                                    obj="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView" page-name="'OrganizationList'"
+                                    control-key="'ShpDeptFromOrg_2964'" control-id="'ShpDeptFromOrg'"
+                                    auto-complete-on-select="RoutingGridPopUpCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'DeptFrom')"></div>
+                                <span class="input-group-btn">
+                                    <button dynamic-list-modal obj="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView"
+                                        control-key="'ShpDeptFromOrg_2964'" control-id="'ShpDeptFromOrg'" page-name="'OrganizationList'"
+                                        mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="RoutingGridPopUpCtrl.ePage.Masters.SelectedLookupData($item, 'DeptFrom')"
+                                        class="btn btn-default shiny" type="button">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Dept. From Address-->
+                    <div class=" col-lg-6 col-xl-6 padding-right-10">
+                        <div class="form-group ship-font">
+                            <label class="control-label text-single-line">Address</label>
+                            <div class="">
+                                <select chosen class="form-control" data-ng-model="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.DepartureLocation_OAD_FK"
+                                    data-ng-options="x.PK as x.Code for x in RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.DeptFrom.AddressList"
+                                    search-contains="true">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--ETD-->
+                    <div class=" col-lg-6 col-xl-6 padding-right-10">
+                        <div class="form-group ship-font">
+                            <label class="control-label">ETD </label>
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" placeholder="{{RoutingGridPopUpCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                    data-ng-model="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.ETD"
+                                    datetime-picker="{{RoutingGridPopUpCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                    datepicker-options="RoutingGridPopUpCtrl.ePage.Masters.DatePicker.Options"
+                                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                    enable-date="true" default-date="" default-time="" save-as="RoutingGridPopUpCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                    is-open="RoutingGridPopUpCtrl.ePage.Masters.DatePicker.isOpen['isETD']" when-closed=""
+                                    data-ng-click="" data-ng-change="" custom-date-time-format />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default shiny" data-ng-click="RoutingGridPopUpCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETD')">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--ATD-->
+                    <div class=" col-lg-6 col-xl-6 padding-right-10">
+                        <div class="form-group ship-font">
+                            <label class="control-label">ATD </label>
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" placeholder="{{RoutingGridPopUpCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                    data-ng-model="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.ATD"
+                                    datetime-picker="{{RoutingGridPopUpCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                    datepicker-options="RoutingGridPopUpCtrl.ePage.Masters.DatePicker.Options"
+                                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                    enable-date="true" default-date="" default-time="" save-as="RoutingGridPopUpCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                    is-open="RoutingGridPopUpCtrl.ePage.Masters.DatePicker.isOpen['isATD']" when-closed=""
+                                    data-ng-click="" data-ng-change="" custom-date-time-format />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default shiny" data-ng-click="RoutingGridPopUpCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isATD')">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 pl-0 pr-0 padding-top-10 rout-box1">
+                    <!--Discharge-->
+                    <div class=" col-lg-6 col-xl-6 padding-right-10">
+                        <div class="form-group ship-font">
+                            <label class="control-label">Discharge</label>
+                            <div class="input-group input-group-sm">
+                                <div dynamic-lookup placeholder="Discharge" my-ng-model="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.DischargePort"
+                                    obj="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView" page-name="'MstUNLOCO'"
+                                    control-key="'ShpRoutingDischargePort_3102'" control-id="'ShpRoutingDischargePort'"></div>
+                                <span class="input-group-btn">
+                                    <button dynamic-list-modal obj="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView"
+                                        control-key="'ShpRoutingDischargePort_3102'" control-id="'ShpRoutingDischargePort'"
+                                        page-name="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                        selected-data="RoutingGridPopUpCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny"
+                                        type="button">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Arrival At Organization Code-->
+                    <div class=" col-lg-6 col-xl-6 padding-right-10">
+                        <div class="form-group ship-font">
+                            <label class="control-label text-single-line">Arrival At</label>
+                            <div class="input-group input-group-sm">
+                                <input type="hidden" data-ng-model="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.ArrivalLocationOrg_FK">
+                                <div dynamic-lookup placeholder="Organization Code" my-ng-model="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.ArrivalLocationOrg_Code"
+                                    obj="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView" page-name="'OrganizationList'"
+                                    control-key="'ShpArrivalAtOrg_2963'" control-id="'ShpArrivalAtOrg'"
+                                    auto-complete-on-select="RoutingGridPopUpCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'ArrivalAt')"></div>
+                                <span class="input-group-btn">
+                                    <button dynamic-list-modal obj="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView"
+                                        control-key="'ShpArrivalAtOrg_2963'" control-id="'ShpArrivalAtOrg'" page-name="'OrganizationList'"
+                                        mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="RoutingGridPopUpCtrl.ePage.Masters.SelectedLookupData($item, 'ArrivalAt')"
+                                        class="btn btn-default shiny" type="button">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Arrival At Address-->
+                    <div class=" col-lg-6 col-xl-6 padding-right-10">
+                        <div class="form-group ship-font">
+                            <label class="control-label text-single-line">Address</label>
+                            <div class="">
+                                <select chosen class="form-control" data-ng-model="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.ArrivalLocation_OAD_FK"
+                                    data-ng-options="x.PK as x.Code for x in RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.ArrivalAt.AddressList"
+                                    search-contains="true">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--ATA-->
+                    <div class=" col-lg-6 col-xl-6 padding-right-10">
+                        <div class="form-group ship-font">
+                            <label class="control-label">ATA </label>
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" placeholder="{{RoutingGridPopUpCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                    data-ng-model="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.ATA"
+                                    datetime-picker="{{RoutingGridPopUpCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                    datepicker-options="RoutingGridPopUpCtrl.ePage.Masters.DatePicker.Options"
+                                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                    enable-date="true" default-date="" default-time="" save-as="RoutingGridPopUpCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                    is-open="RoutingGridPopUpCtrl.ePage.Masters.DatePicker.isOpen['isATA']" when-closed=""
+                                    data-ng-click="" data-ng-change="" custom-date-time-format />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default shiny" data-ng-click="RoutingGridPopUpCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isATA')">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--ETA-->
+                    <div class=" col-lg-6 col-xl-6 padding-right-10">
+                        <div class="form-group ship-font">
+                            <label class="control-label">ETA </label>
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" placeholder="{{RoutingGridPopUpCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                    data-ng-model="RoutingGridPopUpCtrl.ePage.Masters.Routing.FormView.ETA"
+                                    datetime-picker="{{RoutingGridPopUpCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                    datepicker-options="RoutingGridPopUpCtrl.ePage.Masters.DatePicker.Options"
+                                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                    enable-date="true" default-date="" default-time="" save-as="RoutingGridPopUpCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                    is-open="RoutingGridPopUpCtrl.ePage.Masters.DatePicker.isOpen['isETA']" when-closed=""
+                                    data-ng-click="" data-ng-change="" custom-date-time-format />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default shiny" data-ng-click="RoutingGridPopUpCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETA')">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="clearfix">
+        <button class="btn btn-default set-br-blue set-bg-blue-light fs-12 pr-5 pull-right mr-10" data-ng-click="RoutingGridPopUpCtrl.ePage.Masters.Close()">
+            <i class="fa fa-plus-circle"></i> Save Routing
+        </button>
+        <button class="btn btn-default fs-12 pr-5 pull-right mr-10" data-ng-click="RoutingGridPopUpCtrl.ePage.Masters.Close()">
+            <i class="fa fa-times"></i> Close
+        </button>
+    </div>
+</div>

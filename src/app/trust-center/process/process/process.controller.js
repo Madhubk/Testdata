@@ -5,9 +5,9 @@
         .module("Application")
         .controller("ProcessController", ProcessController);
 
-    ProcessController.$inject = ["$scope", "$location", "$uibModal", "authService", "apiService", "helperService", "appConfig", "APP_CONSTANT", "toastr", "confirmation"];
+    ProcessController.$inject = ["$scope", "$location", "$uibModal", "authService", "apiService", "helperService", "toastr", "confirmation", "trustCenterConfig"];
 
-    function ProcessController($scope, $location, $uibModal, authService, apiService, helperService, appConfig, APP_CONSTANT, toastr, confirmation) {
+    function ProcessController($scope, $location, $uibModal, authService, apiService, helperService, toastr, confirmation, trustCenterConfig) {
         /* jshint validthis: true */
         var ProcessCtrl = this;
         var _queryString = $location.path().split("/").pop();
@@ -29,6 +29,7 @@
 
                 if (ProcessCtrl.ePage.Masters.QueryString.AppPk) {
                     InitBreadcrumb();
+                    InitApplication();
                     InitProcess();
                 }
             } catch (error) {
@@ -53,10 +54,15 @@
                 IsRequireQueryString: false,
                 IsActive: false
             }, {
-                Code: "configuration",
-                Description: "Configuration",
-                Link: "TC/dashboard/" + helperService.encryptData('{"Type":"Configuration", "BreadcrumbTitle": "Configuration"}'),
-                IsRequireQueryString: false,
+                Code: "dashboard",
+                Description: "Dashboard",
+                Link: "TC/dashboard",
+                IsRequireQueryString: true,
+                QueryStringObj: {
+                    "AppPk": ProcessCtrl.ePage.Masters.QueryString.AppPk,
+                    "AppCode": ProcessCtrl.ePage.Masters.QueryString.AppCode,
+                    "AppName": ProcessCtrl.ePage.Masters.QueryString.AppName
+                },
                 IsActive: false
             }, {
                 Code: "process",
@@ -76,14 +82,34 @@
         }
 
         // ========================Breadcrumb End========================
+        // ========================Application Start========================
+        function InitApplication() {
+            ProcessCtrl.ePage.Masters.Application = {};
+            ProcessCtrl.ePage.Masters.Application.OnApplicationChange = OnApplicationChange;
+        }
+
+        function OnApplicationChange($item) {
+            ProcessCtrl.ePage.Masters.Application.ActiveApplication = angular.copy($item);
+
+            if (!ProcessCtrl.ePage.Masters.Application.ActiveApplication) {
+                ProcessCtrl.ePage.Masters.Application.ActiveApplication = {
+                    "PK": ProcessCtrl.ePage.Masters.QueryString.AppPk,
+                    "AppCode": ProcessCtrl.ePage.Masters.QueryString.AppCode,
+                    "AppName": ProcessCtrl.ePage.Masters.QueryString.AppName
+                };
+            }
+
+            GetRedirecrLinkList();
+            GetProcessTypeList();
+        }
 
         // ========================Process Start========================
-
 
         function InitProcess() {
             ProcessCtrl.ePage.Masters.Process = {};
             ProcessCtrl.ePage.Masters.Process.ActiveProcess = {};
 
+            ProcessCtrl.ePage.Masters.Process.OnProcessTypeChange = OnProcessTypeChange;
             ProcessCtrl.ePage.Masters.Process.Edit = Edit;
             ProcessCtrl.ePage.Masters.Process.Save = Save;
             ProcessCtrl.ePage.Masters.Process.AddNew = AddNew;
@@ -99,10 +125,6 @@
 
             ProcessCtrl.ePage.Masters.Process.DeleteBtnText = "Delete";
             ProcessCtrl.ePage.Masters.Process.IsDisableDeleteBtn = false;
-
-            GetRedirecrLinkList();
-            GetProcessTypeList();
-            GetProcessList();
         }
 
         function GetProcessTypeList() {
@@ -112,29 +134,44 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.CfxTypes.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.CfxTypes.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.CfxTypes.API.FindAll.Url + ProcessCtrl.ePage.Masters.QueryString.AppPk, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxTypes.API.FindAll.Url + ProcessCtrl.ePage.Masters.Application.ActiveApplication.PK, _input).then(function (response) {
                 if (response.data.Response) {
                     ProcessCtrl.ePage.Masters.Process.TypeList = response.data.Response;
+                    OnProcessTypeChange();
                 } else {
                     ProcessCtrl.ePage.Masters.Process.TypeList = [];
+                    ProcessCtrl.ePage.Masters.Process.ProcessList = [];
                 }
             });
         }
 
+        function OnProcessTypeChange($item) {
+            ProcessCtrl.ePage.Masters.Process.ActiveProcessType = angular.copy($item);
+
+            if (ProcessCtrl.ePage.Masters.Application.ActiveApplication) {
+                GetProcessList();
+            }
+        }
+
         function GetProcessList() {
+            ProcessCtrl.ePage.Masters.Process.ProcessList = undefined;
             var _filter = {
-                "SAP_FK": ProcessCtrl.ePage.Masters.QueryString.AppPk,
-                //"TenantCode": authService.getUserInfo().TenantCode,
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.EBPMProcessMaster.API.FindAll.FilterID
+                "SAP_FK": ProcessCtrl.ePage.Masters.Application.ActiveApplication.PK
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMProcessMaster.API.FindAll.Url, _input).then(function (response) {
+            if (ProcessCtrl.ePage.Masters.Process.ActiveProcessType) {
+                _filter.ProcessType = ProcessCtrl.ePage.Masters.Process.ActiveProcessType.Key
+            }
+
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": trustCenterConfig.Entities.API.EBPMProcessMaster.API.FindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EBPMProcessMaster.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     ProcessCtrl.ePage.Masters.Process.ProcessList = response.data.Response;
                     if (ProcessCtrl.ePage.Masters.Process.ProcessList.length > 0) {
@@ -150,13 +187,17 @@
         }
 
         function AddNew() {
-            ProcessCtrl.ePage.Masters.Process.ActiveProcess = {};
+            ProcessCtrl.ePage.Masters.Process.ActiveProcess = {
+                ProcessType: ProcessCtrl.ePage.Masters.Process.ActiveProcessType.Key
+            };
+
             Edit();
         }
 
         function OnProcessClick($item) {
             ProcessCtrl.ePage.Masters.Process.ActiveProcess = angular.copy($item);
             ProcessCtrl.ePage.Masters.Process.ActiveProcessCopy = angular.copy($item);
+
         }
 
         function EditModalInstance() {
@@ -174,7 +215,7 @@
             ProcessCtrl.ePage.Masters.Process.SaveBtnText = "OK";
             ProcessCtrl.ePage.Masters.Process.IsDisableSaveBtn = false;
 
-            EditModalInstance().result.then(function (response) {}, function () {
+            EditModalInstance().result.then(function (response) { }, function () {
                 Cancel();
             });
         }
@@ -187,10 +228,10 @@
 
             _input.IsModified = true;
             _input.IsDeleted = false;
-           // _input.TenantCode = authService.getUserInfo().TenantCode;
-            _input.SAP_FK = ProcessCtrl.ePage.Masters.QueryString.AppPk;
+            // _input.TenantCode = authService.getUserInfo().TenantCode;
+            _input.SAP_FK = ProcessCtrl.ePage.Masters.Application.ActiveApplication.PK;
 
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMProcessMaster.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EBPMProcessMaster.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     var _response = response.data.Response[0];
                     ProcessCtrl.ePage.Masters.Process.ActiveProcess = angular.copy(_response);
@@ -260,9 +301,9 @@
 
             _input.IsModified = true;
             _input.IsDeleted = true;
-           // _input.TenantCode = authService.getUserInfo().TenantCode;
+            // _input.TenantCode = authService.getUserInfo().TenantCode;
 
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMProcessMaster.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EBPMProcessMaster.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     var _index = ProcessCtrl.ePage.Masters.Process.ProcessList.map(function (value, key) {
                         return value.PK;
@@ -292,10 +333,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.UserExtended.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.UserExtended.API.FindAll.FilterID
             };
 
-            return apiService.post("authAPI", appConfig.Entities.UserExtended.API.FindAll.Url, _input).then(function SuccessCallback(response) {
+            return apiService.post("authAPI", trustCenterConfig.Entities.API.UserExtended.API.FindAll.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     return response.data.Response;
                 }
@@ -309,10 +350,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.UserExtended.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.UserExtended.API.FindAll.FilterID
             };
 
-            return apiService.post("authAPI", appConfig.Entities.UserExtended.API.FindAll.Url, _input).then(function SuccessCallback(response) {
+            return apiService.post("authAPI", trustCenterConfig.Entities.API.UserExtended.API.FindAll.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     return response.data.Response;
                 }
@@ -320,35 +361,41 @@
         }
 
         function GetRedirecrLinkList() {
-            ProcessCtrl.ePage.Masters.Process.RedirectPagetList = [
-                //     {
-                //     Code: "Scenarios",
-                //     Description: "Scenarios",
-                //     Icon: "fa fa-cog",
-                //     Link: "TC/process-scenarios",
-                //     Color: "#333333"
-                // },
-                {
-                    Code: "WorkSteps",
-                    Description: "Configure Steps",
-                    Icon: "fa fa-cog",
-                    Link: "TC/process-work-step",
-                    Color: "#333333"
-                }, {
-                    Code: "ProcessInstance",
-                    Description: "Instance",
-                    Icon: "fa fa-cog",
-                    Link: "TC/process-instance",
-                    Color: "#333333"
-                }
-            ];
+            ProcessCtrl.ePage.Masters.Process.RedirectPagetList = [{
+                Code: "Scenarios",
+                Description: "Scenarios",
+                Icon: "fa fa-cog",
+                Link: "TC/process-scenarios",
+                Color: "#333333"
+            }, {
+                Code: "WorkSteps",
+                Description: "Configure Steps",
+                Icon: "fa fa-cog",
+                Link: "TC/process-work-step",
+                Color: "#333333"
+            }, {
+                Code: "ProcessInstance",
+                Description: "Instance",
+                Icon: "fa fa-cog",
+                Link: "TC/process-instance",
+                Color: "#333333"
+            }];
         }
 
         function OnProcessListClick($item) {
-            var _queryString = ProcessCtrl.ePage.Masters.QueryString;
-            _queryString.BreadcrumbTitle = ProcessCtrl.ePage.Masters.Process.ActiveProcess.ProcessName;
-            _queryString.Item = ProcessCtrl.ePage.Masters.Process.ActiveProcess;
+            if (ProcessCtrl.ePage.Masters.Application.ActiveApplication) {
+                var _queryString = {
+                    "AppPk": ProcessCtrl.ePage.Masters.Application.ActiveApplication.PK,
+                    "AppCode": ProcessCtrl.ePage.Masters.Application.ActiveApplication.AppCode,
+                    "AppName": ProcessCtrl.ePage.Masters.Application.ActiveApplication.AppName
+                };
+            } else {
+                var _queryString = ProcessCtrl.ePage.Masters.QueryString;
+            }
 
+            _queryString.BreadcrumbTitle = ProcessCtrl.ePage.Masters.Process.ActiveProcess.ProcessDescription;
+            _queryString.PK = ProcessCtrl.ePage.Masters.Process.ActiveProcess.PK;
+            _queryString.Item = ProcessCtrl.ePage.Masters.Process.ActiveProcess;
             $location.path($item.Link + "/" + helperService.encryptData(_queryString));
         }
 

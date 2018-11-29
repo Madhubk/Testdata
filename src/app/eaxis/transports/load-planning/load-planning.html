@@ -1,0 +1,105 @@
+<div class="clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3 col-xl-4 pull-right pb-10">
+            <input type="text" class="form-control input-sm" placeholder="Search ..." data-ng-model="LoadPlanningCtrl.ePage.Masters.find">
+        </div>
+    </div>
+    <!--store design-->
+        <!-- <div class="col-xs-12 col-sm-6 col-md-3" drag-me id="drag" ng-repeat="x in LoadPlanningCtrl.ePage.Masters.Details  | filter : LoadPlanningCtrl.ePage.Masters.find">
+            <div class="plan">
+                <div class="header txt-center bordered-azure">{{x.Store}}</div>
+                <ul>
+                    <li><span>Event Items</span> <span class="pl-50">:&nbsp;&nbsp; {{x.LoadPlanning.EventItems}}</span></li>
+                    <li><span>Event Started</span> <span class="pl-40">:&nbsp;&nbsp; {{x.LoadPlanning.EventStarted}}</span></li>
+                    <li><span>Event Ended</span> <span class="pl-45">:&nbsp;&nbsp; {{x.LoadPlanning.EventEnded}}</span></li> 
+                    <li><span>Consol Items</span> <span class="pl-42">:&nbsp;&nbsp; 
+                    {{ x.LoadPlanning.ConsolItems}}</span></li>
+                    <li><span>Consol Started </span> <span class="pl-32">:&nbsp;&nbsp; {{x.LoadPlanning.ConsolStarted}}</span></li>
+                    <li><span>Consol End</span> <span class="pl-52">:&nbsp;&nbsp; {{x.LoadPlanning.ConsolEnd}}</span></li>
+                    <li><span>OverDue Consol</span> <span class="pl-22">:&nbsp;&nbsp; {{x.LoadPlanning.OverDueConsol}}</span></li>
+                    <li><span>OverDue Event</span> <span class="pl-30">:&nbsp;&nbsp; {{x.LoadPlanning.OverDueEvent}}</span></li>
+                    <li><span>All Other Item</span> <span class="pl-38">:&nbsp;&nbsp; {{x.LoadPlanning.AllOtherItem}}</span></li>
+                </ul>
+            </div>
+        </div> -->
+    <!--UI drag-->
+        <!-- <div ui-tree class="col-lg-2">
+            <div  ui-tree-nodes="" ng-model="LoadPlanningCtrl.ePage.Masters.Details">
+                <div ng-repeat="x in LoadPlanningCtrl.ePage.Masters.Details" ui-tree-node>
+                    <div ui-tree-handle class="plan">
+                        <div class="header txt-center bordered-azure">{{x.Store}}</div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    <div class="pb-30">
+        <div id="accordion" ng-repeat="(key, value) in LoadPlanningCtrl.ePage.Masters.PlanningDetail track by $index ">
+          <div class="loadcard">
+            <div class="load-card-header" id="headingOne">
+              <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#{{key}}" aria-expanded="true" ng-click="" aria-controls="collapseOne">
+                  {{key}}
+                </button>
+              </h5>
+            </div>
+            <div id="{{key}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="load-card-body">
+                <table id="LoadPlanning" class="mb-50" ng-repeat="x in LoadPlanningCtrl.ePage.Masters.Details | filter: { Depot : key }">
+                    <tr>
+                        <th rowspan="2">Store</th>
+                        <th rowspan="2">Stock Level</th>
+                        <th rowspan="2">Total</th>
+                        <th colspan="2">Event</th>
+                        <th colspan="2">Consol</th>
+                    </tr>
+                    <tr>
+                        <th>Total</th>
+                        <th>Overdue</th>
+                        <th>Total</th>
+                        <th>Overdue</th>
+                    </tr>
+                    <tr ng-repeat = "value in x.Details">
+                        <td rowspan="5" ng-if="$index==0">{{x.Store}}</td>
+                        <td> <a class="fs-15 ml-10" href="javascript:void(0);" data-ng-click="LoadPlanningCtrl.ePage.Masters.OpenEditForm(key,value,x)">{{value.Module}}
+                            </a>
+                        </td>
+                        <td>{{value.Total}}</td>
+                        <td>{{value.EventTotal}}</td>
+                        <td>{{value.ConsolTotal}}</td>
+                        <td>{{value.OverdueEventTotal}}</td>
+                        <td>{{value.OverdueConsolTotal}}</td>
+                    </tr>
+                </table>         
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <!--store table-->
+        <!-- <div class="tms-table-title fs-5 p-10">Load Planning</div>
+        <table id="LoadPlanning" class="mb-50" ng-repeat="x in LoadPlanningCtrl.ePage.Masters.Details">
+            <tr>
+                <th rowspan="2">Store</th>
+                <th rowspan="2">Stock Level</th>
+                <th rowspan="2">Total</th>
+                <th colspan="2">Event</th>
+                <th colspan="2">Consol</th>
+            </tr>
+            <tr>
+                <th>Total</th>
+                <th>Overdue</th>
+                <th>Total</th>
+                <th>Overdue</th>
+            </tr>
+            <tr ng-repeat = "value in x.Details">
+                <td rowspan="5" ng-if="$index==0">{{x.Store}}</td>
+                <td>{{value.Module}}</td>
+                <td></td>
+                <td>{{value.Event}}</td>
+                <td>{{value.Consol}}</td>
+                <td>{{value.OverdueEvent}}</td>
+                <td>{{value.OverdueConsol}}</td>
+            </tr>
+        </table> -->        
+</div>
+

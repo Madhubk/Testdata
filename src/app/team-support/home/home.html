@@ -6,7 +6,7 @@
             <div class="clearfix">
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
                     <a href="javascript:void(0);" class="logo">
-                        <img src="assets/img/logo/logo-20cube.png" alt="" data-ng-click="SupportCtrl.ePage.Masters.RedirectToHomeLogo()"/>
+                        <img data-ng-src="{{SupportCtrl.ePage.Masters.TenantLogo}}" alt="" data-ng-click="SupportCtrl.ePage.Masters.RedirectToHomeLogo()"/>
                     </a>
                 </div>
                 <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 padding-left-10">
@@ -26,8 +26,11 @@
                 </div>
                 <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5">
                     <div class="pull-right padding-10 dropdown user-avatar-wrapper">
-                        <button class="user-avatar bg-themeprimary dropdown-toggle" data-ng-bind="SupportCtrl.ePage.Masters.UserProfile.DisplayName | getCharacters: 1"
+                        <button data-ng-if="!SupportCtrl.ePage.Masters.UserProfile.Photo"  class="user-avatar bg-themeprimary dropdown-toggle" data-ng-bind="SupportCtrl.ePage.Masters.UserProfile.DisplayName | getCharacters: 1"
                             data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+                        </button>
+                        <button data-ng-if="SupportCtrl.ePage.Masters.UserProfile.Photo" class="user-avatar  dropdown-toggle p-0" style="overflow: hidden;" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+                            <img style="position: relative; top: -2px; width: 100%;" data-ng-src="{{SupportCtrl.ePage.Masters.UserProfile.Photo}}">
                         </button>
                         <div class="dropdown-menu dropdown-menu-right" role="menu">
                             <form class="clearfix" role="form">
@@ -136,7 +139,7 @@
             <div class="clearfix">
                 <div class="col-sm-4 col-xs-6">
                     <a href="javascript:void(0);" class="logo pt-2">
-                        <img class="mt-0" src="assets/img/logo/logo-20cube.png" alt="" data-ng-click="SupportCtrl.ePage.Masters.RedirectToHomeLogo()"/>
+                        <img class="mt-0" src="assets/img/logo/product-logo.png" alt="" data-ng-click="SupportCtrl.ePage.Masters.RedirectToHomeLogo()"/>
                     </a>
                 </div>
 

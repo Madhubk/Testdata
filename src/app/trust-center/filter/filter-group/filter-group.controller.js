@@ -5,9 +5,9 @@
         .module("Application")
         .controller("TCFilterGroupController", TCFilterGroupController);
 
-    TCFilterGroupController.$inject = ["$scope", "$location", "$timeout", "$uibModal", "authService", "apiService", "helperService", "appConfig", "APP_CONSTANT", "toastr", "confirmation"];
+    TCFilterGroupController.$inject = ["$scope", "$location", "$uibModal", "authService", "apiService", "helperService", "toastr", "confirmation", "trustCenterConfig"];
 
-    function TCFilterGroupController($scope, $location, $timeout, $uibModal, authService, apiService, helperService, appConfig, APP_CONSTANT, toastr, confirmation) {
+    function TCFilterGroupController($scope, $location, $uibModal, authService, apiService, helperService, toastr, confirmation, trustCenterConfig) {
         /* jshint validthis: true */
         var TCFilterGroupCtrl = this;
         var _queryString = $location.path().split("/").pop();
@@ -22,7 +22,7 @@
             };
 
             TCFilterGroupCtrl.ePage.Masters.ActiveApplication = authService.getUserInfo().AppCode;
-            
+
             TCFilterGroupCtrl.ePage.Masters.emptyText = "-";
 
             try {
@@ -30,6 +30,7 @@
                 if (TCFilterGroupCtrl.ePage.Masters.QueryString.AppPk) {
                     InitFilterGroup();
                     InitBreadcrumb();
+                    InitApplication();
                     InitSortAlphabets();
                 }
             } catch (error) {
@@ -54,10 +55,15 @@
                 IsRequireQueryString: false,
                 IsActive: false
             }, {
-                Code: "configuration",
-                Description: "Configuration",
-                Link: "TC/dashboard/" + helperService.encryptData('{"Type":"Configuration", "BreadcrumbTitle": "Configuration"}'),
-                IsRequireQueryString: false,
+                Code: "dashboard",
+                Description: "Dashboard",
+                Link: "TC/dashboard",
+                IsRequireQueryString: true,
+                QueryStringObj: {
+                    "AppPk": TCFilterGroupCtrl.ePage.Masters.QueryString.AppPk,
+                    "AppCode": TCFilterGroupCtrl.ePage.Masters.QueryString.AppCode,
+                    "AppName": TCFilterGroupCtrl.ePage.Masters.QueryString.AppName
+                },
                 IsActive: false
             }, {
                 Code: "filtergroup",
@@ -78,6 +84,26 @@
 
         // ========================Breadcrumb End========================
 
+        //=========================Application Start=====================
+
+        function InitApplication() {
+            TCFilterGroupCtrl.ePage.Masters.Application = {};
+            TCFilterGroupCtrl.ePage.Masters.Application.OnApplicationChange = OnApplicationChange;
+        }
+
+        function OnApplicationChange($item) {
+            TCFilterGroupCtrl.ePage.Masters.Application.ActiveApplication = angular.copy($item);
+
+            if (!TCFilterGroupCtrl.ePage.Masters.Application.ActiveApplication) {
+                TCFilterGroupCtrl.ePage.Masters.Application.ActiveApplication = {
+                    "PK": TCFilterGroupCtrl.ePage.Masters.QueryString.AppPk,
+                    "AppCode": TCFilterGroupCtrl.ePage.Masters.QueryString.AppCode,
+                    "AppName": TCFilterGroupCtrl.ePage.Masters.QueryString.AppName
+                };
+            }
+
+            GetFilterGroupList();
+        }
         // ========================Alphabetic Sort Start========================
 
         function InitSortAlphabets() {
@@ -90,7 +116,10 @@
 
         function OnAlphabetClick($item) {
             TCFilterGroupCtrl.ePage.Masters.Sort.ActiveAlphabet = $item;
-            GetFilterGroupList();
+
+            if (TCFilterGroupCtrl.ePage.Masters.Application.ActiveApplication) {
+                GetFilterGroupList();
+            }
         }
 
         // ========================Alphabetic Sort End========================
@@ -133,15 +162,15 @@
         function GetFilterGroupList() {
             TCFilterGroupCtrl.ePage.Masters.FilterGroup.FilterGroupList = undefined;
             var _filter = {
-                "SAP_FK": TCFilterGroupCtrl.ePage.Masters.QueryString.AppPk,
+                "SAP_FK": TCFilterGroupCtrl.ePage.Masters.Application.ActiveApplication.PK,
                 "FilterCode": TCFilterGroupCtrl.ePage.Masters.Sort.ActiveAlphabet
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.ComFilterGroup.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.ComFilterGroup.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.ComFilterGroup.API.FindAll.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.ComFilterGroup.API.FindAll.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     TCFilterGroupCtrl.ePage.Masters.FilterGroup.FilterGroupList = response.data.Response;
                     if (TCFilterGroupCtrl.ePage.Masters.FilterGroup.FilterGroupList.length > 0) {
@@ -184,7 +213,7 @@
             TCFilterGroupCtrl.ePage.Masters.FilterGroup.SaveBtnText = "OK";
             TCFilterGroupCtrl.ePage.Masters.FilterGroup.IsDisableSaveBtn = false;
 
-            EditModalInstance().result.then(function (response) {}, function () {
+            EditModalInstance().result.then(function (response) { }, function () {
                 Cancel();
             });
         }
@@ -193,14 +222,13 @@
             TCFilterGroupCtrl.ePage.Masters.FilterGroup.SaveBtnText = "Please Wait...";
             TCFilterGroupCtrl.ePage.Masters.FilterGroup.IsDisableSaveBtn = true;
 
-            TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.TenantCode = authService.getUserInfo().TenantCode;
-            TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.SAP_FK = TCFilterGroupCtrl.ePage.Masters.QueryString.AppPk;
+            TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.SAP_FK = TCFilterGroupCtrl.ePage.Masters.Application.ActiveApplication.PK;
             TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.IsModified = true;
             TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.IsDeleted = false;
 
             var _input = [TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup];
 
-            apiService.post("eAxisAPI", appConfig.Entities.ComFilterGroup.API.Upsert.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.ComFilterGroup.API.Upsert.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     var _response = response.data.Response[0];
                     var _firstLetter = TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.FilterCode.substring(0, 1).toUpperCase();
@@ -277,7 +305,7 @@
 
             var _input = [TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup];
 
-            apiService.post("eAxisAPI", appConfig.Entities.ComFilterGroup.API.Upsert.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.ComFilterGroup.API.Upsert.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     var _index = TCFilterGroupCtrl.ePage.Masters.FilterGroup.FilterGroupList.map(function (value, key) {
                         return value.Id
@@ -301,7 +329,16 @@
         }
 
         function OnFilterListClick($item) {
-            var _queryString = TCFilterGroupCtrl.ePage.Masters.QueryString;
+            if (TCFilterGroupCtrl.ePage.Masters.Application.ActiveApplication) {
+                var _queryString = {
+                    "AppPk": TCFilterGroupCtrl.ePage.Masters.Application.ActiveApplication.PK,
+                    "AppCode": TCFilterGroupCtrl.ePage.Masters.Application.ActiveApplication.AppCode,
+                    "AppName": TCFilterGroupCtrl.ePage.Masters.Application.ActiveApplication.AppName
+                };
+            } else {
+                var _queryString = TCFilterGroupCtrl.ePage.Masters.QueryString;
+            }
+
             _queryString.FilterID = TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.FilterCode;
             _queryString.GroupId = TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.GroupId;
             _queryString.ModuleCode = TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.ModuleCode;
@@ -313,17 +350,16 @@
         function GetFilterList() {
             TCFilterGroupCtrl.ePage.Masters.FilterGroup.FilterListSource = undefined;
             var _filter = {
-                "TenantCode": authService.getUserInfo().TenantCode,
-                "SAP_FK": TCFilterGroupCtrl.ePage.Masters.QueryString.AppPk,
+                "SAP_FK": TCFilterGroupCtrl.ePage.Masters.Application.ActiveApplication.PK,
                 "FilterID": TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.FilterCode,
                 "GroupId": TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.GroupId
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.ComFilterList.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.ComFilterList.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.ComFilterList.API.FindAll.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.ComFilterList.API.FindAll.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     TCFilterGroupCtrl.ePage.Masters.FilterGroup.FilterListSource = response.data.Response;
                 } else {

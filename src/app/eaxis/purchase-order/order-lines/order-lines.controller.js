@@ -19,7 +19,7 @@
                 "Entities": orderLinesConfig.Entities
             };
 
-            InitOrderLine();            
+            InitOrderLine();
         }
 
         function InitOrderLine() {
@@ -30,6 +30,7 @@
             OrderLinesCtrl.ePage.Masters.TabList = [];
             OrderLinesCtrl.ePage.Masters.activeTabIndex = 0;
             OrderLinesCtrl.ePage.Masters.IsTabClick = false;
+            orderLinesConfig.TabList = [];
             OrderLinesCtrl.ePage.Masters.SaveButtonText = "Save";
             OrderLinesCtrl.ePage.Masters.SaveCloseButtonText = "Save & Close";
             OrderLinesCtrl.ePage.Masters.Save = Save;

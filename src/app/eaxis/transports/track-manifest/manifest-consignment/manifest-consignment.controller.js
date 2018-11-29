@@ -46,36 +46,45 @@
         }
 
         function Attach($item) {
-            $item.some(function (value, index) {
-                var _isExist = ManifestConsignCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.some(function (value1, index1) {
-                    return value1.TMC_FK === value.TMC_FK;
-                });
+            angular.forEach($item, function (value, key) {
+                apiService.get("eAxisAPI", 'TmsConsignmentList/GetById/' + value.TMC_FK).then(function (response) {
+                    if (response.data.Response.TmsConsignmentItem.length > 0) {
+                        var _isExist = ManifestConsignCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.some(function (value1, index1) {
+                            return value1.TMC_FK === value.TMC_FK;
+                        });
 
-                if (!_isExist) {
-                    var obj = {
-                        "TMC_ConsignmentNumber": value.TMC_ConsignmentNumber,
-                        "TMC_ExpectedDeliveryDateTime": value.TMC_ExpectedDeliveryDateTime,
-                        "TMC_ExpectedPickupDateTime": value.TMC_ExpectedPickupDateTime,
-                        "TMC_ReceiverCode": value.TMC_ReceiverCode,
-                        "TMC_ReceiverName": value.TMC_ReceiverName,
-                        "TMC_Receiver_ORG_FK": value.TMC_Receiver_ORG_FK,
-                        "TMC_SenderCode": value.TMC_SenderCode,
-                        "TMC_SenderName": value.TMC_SenderName,
-                        "TMC_Sender_ORG_FK": value.TMC_Sender_ORG_FK,
-                        "TMC_ServiceType": value.TMC_ServiceType,
-                        "TMC_FK": value.TMC_FK,
-                        "IsDeleted": value.IsDeleted,
-                        "IsModified": value.IsModified,
-                        "TMC_Status": value.Status,
-                        "TMM_FK": ManifestConsignCtrl.ePage.Entities.Header.Data.TmsManifestHeader.PK
+                        if (!_isExist) {
+                            var obj = {
+                                "TMC_ConsignmentNumber": value.TMC_ConsignmentNumber,
+                                "TMC_ExpectedDeliveryDateTime": value.TMC_ExpectedDeliveryDateTime,
+                                "TMC_ExpectedPickupDateTime": value.TMC_ExpectedPickupDateTime,
+                                "TMC_ReceiverCode": value.TMC_ReceiverCode,
+                                "TMC_ReceiverName": value.TMC_ReceiverName,
+                                "TMC_Receiver_ORG_FK": value.TMC_Receiver_ORG_FK,
+                                "TMC_SenderCode": value.TMC_SenderCode,
+                                "TMC_SenderName": value.TMC_SenderName,
+                                "TMC_Sender_ORG_FK": value.TMC_Sender_ORG_FK,
+                                "TMC_ServiceType": value.TMC_ServiceType,
+                                "TMC_FK": value.TMC_FK,
+                                "IsDeleted": value.IsDeleted,
+                                "IsModified": value.IsModified,
+                                "TMC_Status": value.Status,
+                                "TMM_FK": ManifestConsignCtrl.ePage.Entities.Header.Data.TmsManifestHeader.PK
+                            }
+                            ManifestConsignCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.push(obj);
+                            // getConsignmentNumber();
+                            GetManifestItemDetails();
+                        } else {
+                            toastr.warning(value.TMC_ConsignmentNumber + " Already Available...!");
+                        }
+                    } else {
+                        toastr.warning("Consignment Number:" + value.TMC_ConsignmentNumber + " having No Items...!");
                     }
-                    ManifestConsignCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.push(obj);
-                    // getConsignmentNumber();
-                    GetManifestItemDetails();
-                } else {
-                    toastr.warning(value.TMC_ConsignmentNumber + " Already Available...!");
-                }
+                });
             });
+            // $item.some(function (value, index) {
+
+            // });
         }
 
         function GetManifestItemDetails() {
@@ -122,8 +131,7 @@
             $window.open("#/EA/single-record-view/consignment/" + _queryString, "_blank");
         }
 
-        function RemoveRow() {
-            var item = ManifestConsignCtrl.ePage.Entities.Header.Data.TmsManifestConsignment[ManifestConsignCtrl.ePage.Masters.selectedRow]
+        function RemoveRow($item) {
             var modalOptions = {
                 closeButtonText: 'Cancel',
                 actionButtonText: 'Ok',
@@ -132,13 +140,16 @@
             };
             confirmation.showModal({}, modalOptions)
                 .then(function (result) {
-                    // if (item.PK) {
-                    //     apiService.get("eAxisAPI", ManifestConsignCtrl.ePage.Entities.Header.API.LineDelete.Url + item.PK).then(function(response) {
-                    //     });
-                    // }
-                    ManifestConsignCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.splice(ManifestConsignCtrl.ePage.Masters.selectedRow, 1);
-                    toastr.success('Record Removed Successfully');
-                    ManifestConsignCtrl.ePage.Masters.selectedRow = ManifestConsignCtrl.ePage.Masters.selectedRow - 1;
+                    $item.IsDeleted = true;
+                    ManifestConsignCtrl.ePage.Entities.Header.Data = filterObjectUpdate(ManifestConsignCtrl.ePage.Entities.Header.Data, "IsModified");
+                    apiService.post("eAxisAPI", 'TmsManifestList/Update', ManifestConsignCtrl.ePage.Entities.Header.Data).then(function (response) {
+                        if (response.data.Response) {
+                            apiService.get("eAxisAPI", 'TmsManifestList/GetById/' + response.data.Response.Response.PK).then(function (response) {
+                                ManifestConsignCtrl.ePage.Entities.Header.Data = response.data.Response;
+                                toastr.success('Consignment Removed Successfully');
+                            });
+                        }
+                    });
                 }, function () {
                     console.log("Cancelled");
                 });

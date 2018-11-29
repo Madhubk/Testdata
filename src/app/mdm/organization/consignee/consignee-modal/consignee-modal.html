@@ -91,9 +91,9 @@
                                 <label class="control-label text-single-line">Carrier</label>
                                 <input type="hidden" ng-model="ModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ORG_CarrierLinePK">
                                 <div class="input-group input-group-sm">
-                                    <div dynamic-lookup my-ng-model="ModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ORG_CarrierLineCode" obj="ModePopUpModalCtrl.ePage.Masters.ModeData.FormView" auto-complete-on-select="ModePopUpModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)" prefix-data="'MDM_CarrierList'" config="'OrgCarrierCode'" ></div>
+                                    <div dynamic-lookup my-ng-model="ModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ORG_CarrierLineCode" obj="ModePopUpModalCtrl.ePage.Masters.ModeData.FormView" auto-complete-on-select="ModePopUpModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)" prefix-data="'OrgCarrierList'" config="'OrgCarrierCode'" ></div>
                                     <span class="input-group-btn">
-                                        <button dynamic-list-modal obj="ModePopUpModalCtrl.ePage.Masters.ModeData.FormView" field-name="'OrgCarrierCode'" prefix-data="'MDM_CarrierList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ModePopUpModalCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                        <button dynamic-list-modal obj="ModePopUpModalCtrl.ePage.Masters.ModeData.FormView" field-name="'OrgCarrierCode'" prefix-data="'OrgCarrierList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ModePopUpModalCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
                                     </span>
                                 </div>
                             </div>
@@ -126,8 +126,8 @@
                             <div class="form-group"><label class="control-label">Ctrl Customer</label>
                                 <div class="input-group input-group-sm">
                                     <input type="hidden" ng-model="ModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ORG_ControllingCustomerFK">
-                                    <div dynamic-lookup my-ng-model="ModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ORG_ControllingCustomerCode" obj="ModePopUpModalCtrl.ePage.Masters.ModeData.FormView" prefix-data="'OrganizationList'" config="'OrgCtrlCustomer'" auto-complete-on-select="ModePopUpModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)"></div>
-                                    <span class="input-group-btn"> <button dynamic-list-modal obj="ModePopUpModalCtrl.ePage.Masters.ModeData.FormView" field-name="'OrgCtrlCustomer'" prefix-data="'OrganizationList'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ModePopUpModalCtrl.ePage.Masters.SelectedData($item,'OAD_SendingForwarderAddressFK')" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i> </button></span>
+                                    <div dynamic-lookup my-ng-model="ModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ORG_ControllingCustomerCode" obj="ModePopUpModalCtrl.ePage.Masters.ModeData.FormView" page-name="'OrganizationList'" control-id="'OrgCtrlCustomer'" control-key="'OrgCtrlCustomer_3295'" auto-complete-on-select="ModePopUpModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)"></div>
+                                    <span class="input-group-btn"> <button dynamic-list-modal obj="ModePopUpModalCtrl.ePage.Masters.ModeData.FormView" page-name="'OrganizationList'" control-id="'OrgCtrlCustomer'" control-key="'OrgCtrlCustomer_3295'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ModePopUpModalCtrl.ePage.Masters.SelectedData($item,'OAD_SendingForwarderAddressFK')" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i> </button></span>
                                 </div>
                             </div>
                         </div>
@@ -137,8 +137,8 @@
                             <div class="form-group"><label class="control-label">Import Customs Broker</label>
                                 <div class="input-group input-group-sm">
                                     <input type="hidden" ng-model="ModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ORG_ImportCustomsAgentPK">
-                                    <div dynamic-lookup my-ng-model="ModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ORG_ImportCustomsAgentCode" obj="ModePopUpModalCtrl.ePage.Masters.ModeData.FormView" prefix-data="'OrganizationList'" config="'OrgImpCustomsBroker'" auto-complete-on-select="ModePopUpModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)"></div>
-                                    <span class="input-group-btn"> <button dynamic-list-modal obj="ModePopUpModalCtrl.ePage.Masters.ModeData.FormView" field-name="'OrgImpCustomsBroker'" prefix-data="'OrganizationList'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ModePopUpModalCtrl.ePage.Masters.SelectedData($item,'OAD_SendingForwarderAddressFK')" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i> </button></span>
+                                    <div dynamic-lookup my-ng-model="ModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ORG_ImportCustomsAgentCode" obj="ModePopUpModalCtrl.ePage.Masters.ModeData.FormView" page-name="'OrganizationList'" control-id="'OrgImpCustomsBroker'" control-key="'OrgImpCustomsBroker_3296'" auto-complete-on-select="ModePopUpModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)"></div>
+                                    <span class="input-group-btn"> <button dynamic-list-modal obj="ModePopUpModalCtrl.ePage.Masters.ModeData.FormView" page-name="'OrganizationList'" control-id="'OrgImpCustomsBroker'" control-key="'OrgImpCustomsBroker_3296'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ModePopUpModalCtrl.ePage.Masters.SelectedData($item,'OAD_SendingForwarderAddressFK')" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i> </button></span>
                                 </div>
                             </div>
                         </div>
@@ -146,8 +146,8 @@
                             <div class="form-group"><label class="control-label">Pickup Port Transport Contractor</label>
                                 <div class="input-group input-group-sm">
                                     <input type="hidden" ng-model="ModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ORG_PickupCartageContractorPK">
-                                    <div dynamic-lookup my-ng-model="ModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ORG_PickupCartageContractorCode" obj="ModePopUpModalCtrl.ePage.Masters.ModeData.FormView" prefix-data="'OrganizationList'" config="'OrgPickupPortTranCtr'" auto-complete-on-select="ModePopUpModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)"></div>
-                                    <span class="input-group-btn"> <button dynamic-list-modal obj="ModePopUpModalCtrl.ePage.Masters.ModeData.FormView" field-name="'OrgPickupPortTranCtr'" prefix-data="'OrganizationList'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ModePopUpModalCtrl.ePage.Masters.SelectedData($item,'OAD_SendingForwarderAddressFK')" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i> </button></span>
+                                    <div dynamic-lookup my-ng-model="ModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ORG_PickupCartageContractorCode" obj="ModePopUpModalCtrl.ePage.Masters.ModeData.FormView" page-name="'OrganizationList'" control-id="'OrgPickupPortTranCtr'" control-key="'OrgPickupPortTranCtr_3297'" auto-complete-on-select="ModePopUpModalCtrl.ePage.Masters.AutoCompleteOnSelect($item)"></div>
+                                    <span class="input-group-btn"> <button dynamic-list-modal obj="ModePopUpModalCtrl.ePage.Masters.ModeData.FormView" control-id="'OrgPickupPortTranCtr'" control-key="'OrgPickupPortTranCtr_3297'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ModePopUpModalCtrl.ePage.Masters.SelectedData($item,'OAD_SendingForwarderAddressFK')" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i> </button></span>
                                 </div>
                             </div>
                         </div>

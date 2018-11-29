@@ -17,14 +17,13 @@
                         "GetByID": {
                             "IsAPI": "true",
                             "HttpType": "GET",
-                            "Url": "CntContainerList/GetById/",
-                            "FilterID": ""
+                            "Url": "CntContainer/GetById/",
+                            "FilterID": "CONTHEAD"
                         },
-                        "CntContainerListActivityClose": {
+                        "ContainerActivityClose": {
                             "IsAPI": "true",
                             "HttpType": "GET",
-                            "Url": "CntContainerList/CntContainerListActivityClose/",
-                            "FilterID": ""
+                            "Url": "CntContainer/ContainerActivityClose/"
                         }
                     },
                     "Meta": {}

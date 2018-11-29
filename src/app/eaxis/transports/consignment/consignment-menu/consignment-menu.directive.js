@@ -16,7 +16,8 @@
             controller: "AdminConsignmentMenuController",
             controllerAs: "AdminConsignmentMenuCtrl",
             scope: {
-                currentConsignment: "="
+                currentConsignment: "=",
+                dataentryObject:"="
             },
             bindToController: true
 

@@ -1,238 +1,226 @@
-<div class="row my-task-wrapper">
+<div class="clearfix my-task-wrapper pt-20 mb-150" data-ng-show="!MyTaskCtrl.ePage.Masters.MyTask.IsShowEditActivityPage">
     <div data-ng-class="MyTaskCtrl.ePage.Masters.IsToggleFilter ? 'col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8' : 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12'">
+        <!-- Search -->
         <form novalidate class="clearfix">
             <div class="input-group input-group-sm">
-                <input type="text" class="form-control" data-ng-model="MyTaskCtrl.ePage.Masters.MyTask.Search" placeholder="Search">
+                <input type="text" class="form-control" data-ng-model="MyTaskCtrl.ePage.Masters.MyTask.Search"
+                    placeholder="Search">
                 <span class="input-group-btn">
-                    <input type="submit" class="btn btn-default no-border-left" value="Go" data-ng-click="MyTaskCtrl.ePage.Masters.MyTask.SearchTask()"
-                    />
+                    <input type="submit" class="btn btn-default no-border-left" value="Go" data-ng-disabled="!MyTaskCtrl.ePage.Masters.MyTask.Search"
+                        data-ng-click="MyTaskCtrl.ePage.Masters.MyTask.Search && MyTaskCtrl.ePage.Masters.MyTask.SearchTask()" />
                 </span>
-                <span class="input-group-btn hidden-sm hidden-xs">
+                <span class="input-group-btn">
                     <button class="btn btn-default my-task-togle-icon ml-10" data-ng-class="MyTaskCtrl.ePage.Masters.IsToggleFilter ? 'fa fa-arrow-right' : 'fa fa-arrow-left'"
-                        type="button" data-ng-click="MyTaskCtrl.ePage.Masters.OnToggleFilterClick()" title="Toggle Filter"></button>
-                </span>
-                <span class="input-group-btn hidden-lg hidden-md">
-                    <button class="btn btn-default my-task-togle-icon ml-10" data-ng-class="MyTaskCtrl.ePage.Masters.IsToggleFilter ? 'fa fa-arrow-left' : 'fa fa-arrow-right'"
                         type="button" data-ng-click="MyTaskCtrl.ePage.Masters.OnToggleFilterClick()" title="Toggle Filter"></button>
                 </span>
             </div>
         </form>
         <div class="my-task-list clearfix">
+            <div class="clearfix p-10">
+                <span data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount">{{MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount.ProcessName}}
+                    | {{MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount.WSI_StepName}}
+                    | {{MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount.UserStatus}}</span>
+                <span class="pull-right" data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetailsCount > 0">No. of
+                    Items: {{MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetailsCount}}</span>
+            </div>
             <ul class="clearfix">
-                <div class="clearfix pt-100 text-center" data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.IsFirstLoad">
-                    <img src="assets/img/no-records/task.png">
-                </div>
-
-                <div class="clearfix p-30 text-center" data-ng-if="!MyTaskCtrl.ePage.Masters.MyTask.IsFirstLoad && !MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails">
+                <!-- Loading -->
+                <div class="clearfix p-30 text-center" data-ng-if="!MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails">
                     <i class="fa fa-spin fa-spinner" style="font-size: 18px;"></i>
                 </div>
-
-                <div class="clearfix p-30 text-center" data-ng-if="!MyTaskCtrl.ePage.Masters.MyTask.IsFirstLoad && MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails.length == 0">
+                <!-- No Records -->
+                <div class="clearfix p-30 text-center" data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails.length == 0">
                     <i>No Records...!</i>
                 </div>
+                <!-- Task List -->
+                <li class="list clearfix" data-ng-repeat="y in MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails"
+                    data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails.length > 0">
+                    <my-task-directive mode="1" task-obj="y" on-complete="MyTaskCtrl.ePage.Masters.MyTask.OnTaskComplete($item)"
+                        on-refresh-status-count="MyTaskCtrl.ePage.Masters.MyTask.StatusCount.OnRefreshStatusCount($item)"
+                        on-refresh-task="MyTaskCtrl.ePage.Masters.MyTask.OnRefreshTask($item)" edit-activity="MyTaskCtrl.ePage.Masters.MyTask.EditActivity($item)"
+                        assign-start-complete-response="MyTaskCtrl.ePage.Masters.MyTask.AssignTo.AssignStartCompleteResponse($item, y)"></my-task-directive>
+                </li>
 
-                <li class="list" data-ng-repeat="y in MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails" data-ng-if="!MyTaskCtrl.ePage.Masters.MyTask.IsFirstLoad && MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails.length > 0">
-                    <div class="clearfix my-task-wrapper">
-                        <div class="my-task-header clearfix">
-                            <div class="row">
-                                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                                    <div class="text-single-line font-600">Available Date</div>
-                                    <div class="text-single-line" title="{{y.AvailableDate | date:'dd MMM h:mm a'}}">{{y.AvailableDate | date:'dd MMM h:mm a'}}</div>
-                                </div>
-                                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                                    <div class="text-single-line font-600">Due Date</div>
-                                    <div class="text-single-line" title="{{y.DueDate | date:'dd MMM h:mm a'}}">{{y.DueDate | date:'dd MMM h:mm a'}}</div>
-                                </div>
-                                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                                    <div class="text-single-line" title="{{y.Delay}}">{{y.Delay}}</div>
-                                    <div class="text-single-line" title="{{y.UserName}}">{{y.UserName}}</div>
-                                </div>
-                                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-                                    <div class="dropdown my-task-assign-to" data-ng-if="y.Status == 'AVAILABLE'">
-                                        <i class="fa fa-calendar-o dropdown-toggle my-task-head-icon" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false"></i>
-                                        <div class="dropdown-menu" role="menu">
-                                            <form class="clearfix" role="form">
-                                                <div class="col-xs-6 col-md-6 col-lg-6 col-sm-6">
-                                                    <div class="radio">
-                                                        <label>
-                                                            <input name="mt-task-assign-to" type="radio" class="colored-blue" data-ng-model="y.AvailableObj.RadioBtnOption" value="Me">
-                                                            <span class="text">Me</span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-6 col-md-6 col-lg-6 col-sm-6">
-                                                    <div class="radio">
-                                                        <label>
-                                                            <input name="mt-task-assign-to" type="radio" class="colored-blue" data-ng-model="y.AvailableObj.RadioBtnOption" value="Others">
-                                                            <span class="text">Others</span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" data-ng-if="y.AvailableObj.RadioBtnOption == 'Others'">
-                                                    <div class="form-group">
-                                                        <div class="clearfix">
-                                                            <input type="text" class="form-control input-sm" ng-model="y.AvailableObj.AssignTo" placeholder="User" uib-typeahead="x.EmailId as x.EmailId for x in  MyTaskCtrl.ePage.Masters.GetUserList($viewValue)"
-                                                                typeahead-loading="MyTaskCtrl.ePage.Masters.IsLoading" typeahead-no-results="MyTaskCtrl.ePage.Masters.NoRecords">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-5">
-                                                    <button class="btn btn-primary btn-xs pull-right" data-ng-click="MyTaskCtrl.ePage.Masters.MyTask.AvailableStatusSave(y)" data-ng-bind="y.AvailableObj.SaveBtnText"
-                                                        data-ng-disabled="!y.AvailableObj.RadioBtnOption || y.AvailableObj.IsDisableSaveBtn"></button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <div class="dropdown my-task-assign-to" data-ng-if="y.Status == 'ASSIGNED'">
-                                        <i class="fa fa-cube dropdown-toggle my-task-head-icon" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false"></i>
-                                        <div class="dropdown-menu assigned" role="menu">
-                                            <form class="clearfix" role="form">
-                                                <div class="col-xs-6 col-md-6 col-lg-6 col-sm-6">
-                                                    <div class="radio">
-                                                        <label>
-                                                            <input name="mt-task-assign-to" type="radio" class="colored-blue" data-ng-model="y.AssignedObj.RadioBtnOption" value="MoveToQueue">
-                                                            <span class="text">Move To Queue</span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-6 col-md-6 col-lg-6 col-sm-6">
-                                                    <div class="radio">
-                                                        <label>
-                                                            <input name="mt-task-assign-to" type="radio" class="colored-blue" data-ng-model="y.AssignedObj.RadioBtnOption" value="Others">
-                                                            <span class="text">Assign To Others</span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" data-ng-if="y.AssignedObj.RadioBtnOption == 'Others'">
-                                                    <div class="form-group">
-                                                        <div class="clearfix">
-                                                            <input type="text" class="form-control input-sm" ng-model="y.AssignedObj.AssignTo" placeholder="User" uib-typeahead="x.EmailId as x.EmailId for x in  MyTaskCtrl.ePage.Masters.GetUserList($viewValue)"
-                                                                typeahead-loading="MyTaskCtrl.ePage.Masters.IsLoading" typeahead-no-results="MyTaskCtrl.ePage.Masters.NoRecords">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-5 mt-5">
-                                                    <button class="btn btn-primary btn-xs pull-right" data-ng-click="MyTaskCtrl.ePage.Masters.MyTask.AssignedStatusSave(y)" data-ng-bind="y.AssignedObj.SaveBtnText"
-                                                        data-ng-disabled="y.AssignedObj.IsDisableSaveBtn"></button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-right">
-                                    <div class="text-single-line" title="{{y.EntitySource}} # {{y.KeyReference}}">{{y.EntitySource}} # {{y.KeyReference}}</div>
-                                    <div class="text-single-line" title="{{y.PSI_InstanceNo}}">{{y.PSI_InstanceNo}}</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="my-task-body clearfix">
-                            <div class="clearfix mb-5">
-                                <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-                                    <div class="my-task-title-inner">{{y.WSI_StepName}}</div>
-                                    <div class="my-task-sub-title-inner">{{y.KPIDescription}}</div>
-                                </div>
-                                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 col-xl-3 pl-0">
-                                    <a class="a-button a-button-primary" href="javascript:void(0);" data-ng-click="MyTaskCtrl.ePage.Masters.MyTask.EditActivity(y)">Edit Activity</a>
-                                </div>
-                            </div>
-                            <div class="clearfix">
-                                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                    <div class="my-task-inner-icon clearfix">
-                                        <i data-ng-class="y.OtherConfig.icon ? y.OtherConfig.icon : 'fa fa-plane'" data-ng-style="y.OtherConfig.color ? {'color': y.OtherConfig.color} : {'color': '#000'}"></i>
-                                    </div>
-                                    <div class="clearfix my-task-directive-icon-wrapper">
-                                        <a href="javascript: void(0)" document-modal input="y.StandardMenuInput" class="my-task-directive-icon fa fa-file-text-o"></a>
-                                        <a href="javascript: void(0)" comment-modal input="y.StandardMenuInput" class="my-task-directive-icon fa fa-comment-o"></a>
-                                        <a href="javascript: void(0)" email-template-modal input="y.StandardMenuInput" class="my-task-directive-icon fa fa-envelope-o"></a>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 col-xl-10">
-                                    <my-task-dynamic-directive task-obj="y"></my-task-dynamic-directive>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 hidden-xs hidden-sm" data-ng-if="MyTaskCtrl.ePage.Masters.IsToggleFilter">
-        <div class="row">
-            <div class="col-xs-6 col-sm-6 col-lg-6 col-xl-6 pr-5">
-                <select chosen class="form-control" data-ng-model="MyTaskCtrl.ePage.Masters.MyTask.EBPMProcessMasterList.ProcessName" data-ng-options="x.ProcessName as x.ProcessName
-                           for x in MyTaskCtrl.ePage.Masters.MyTask.EBPMProcessMasterList" data-ng-change="MyTaskCtrl.ePage.Masters.OnProcessChange((MyTaskCtrl.ePage.Masters.MyTask.EBPMProcessMasterList | filter: {'ProcessName': MyTaskCtrl.ePage.Masters.MyTask.EBPMProcessMasterList.ProcessName})[0])"
-                    search-contains="true">
-                    <option value="">All</option>
-                </select>
-            </div>
-            <div class="col-xs-6 col-sm-6 col-lg-6 col-xl-6 pl-5">
-                <select chosen class="form-control" data-ng-model="MyTaskCtrl.ePage.Masters.MyTask.EBPMWorkStepItemList.Description" data-ng-options="x.Description as x.Description
-                    for x in MyTaskCtrl.ePage.Masters.MyTask.EBPMWorkStepItemList" data-ng-change="MyTaskCtrl.ePage.Masters.OnWorkItemChange((MyTaskCtrl.ePage.Masters.MyTask.EBPMWorkStepItemList | filter: {'Description': MyTaskCtrl.ePage.Masters.MyTask.EBPMWorkStepItemList.Description})[0])"
-                    search-contains="true">
-                    <option value="">All</option>
-                </select>
-            </div>
-        </div>
-        <div class="control-list clearfix">
-            <ul>
-                <li class="clearfix p-30 text-center" data-ng-if="!MyTaskCtrl.ePage.Masters.MyTask.WorkItemList">
-                    <i class="fa fa-spin fa-spinner" style="font-size: 18px;"></i>
-                </li>
-                <li class="clearfix p-30 text-center" data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.WorkItemList.length == 0">No Records...</li>
-                <li data-ng-repeat="x in MyTaskCtrl.ePage.Masters.MyTask.WorkItemList" data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.WorkItemList.length > 0">
-                    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-7 p-0">
-                        <div class="control-title">{{x.WSI_StepName}}</div>
-                        <div class="control-title-2">{{x.KPIDescription}}</div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 pr-0 text-center">
-                        <a href="javascript:void(0);" data-ng-bind="x.Available" title="Available" class="control-count color-green" data-ng-click="MyTaskCtrl.ePage.Masters.OnWorkItemClick(x, 'Available')"></a>
-                        <a href="javascript:void(0);" data-ng-bind="x.Assigned" title="Assigned" class="control-count color-blue" data-ng-click="MyTaskCtrl.ePage.Masters.OnWorkItemClick(x, 'Assigned')"></a>
-                        <a href="javascript:void(0);" data-ng-bind="x.OverDue" title="OverDue" class="control-count color-red" data-ng-click="MyTaskCtrl.ePage.Masters.OnWorkItemClick(x, 'OverDue')"></a>
-                        <!-- <a href="javascript:void(0);" data-ng-bind="x.Completed" title="Completed" class="control-count color-blue" data-ng-click="MyTaskCtrl.ePage.Masters.OnWorkItemClick(x, 'Completed')"></a> -->
-                        <!-- <a href="javascript:void(0);" data-ng-bind="x.Waiting" title="Waiting" class="control-count color-blue" data-ng-click="MyTaskCtrl.ePage.Masters.OnWorkItemClick(x, 'Waiting')"></a> -->
-                    </div>
-                </li>
+                <!-- Load More -->
+                <div class="clearfix p-20 text-center" data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.IsVisibleLoadMoreBtn">
+                    <button class="btn btn-sm btn-primary" data-ng-click="MyTaskCtrl.ePage.Masters.MyTask.LoadMore()"
+                        data-ng-disabled="MyTaskCtrl.ePage.Masters.MyTask.IsDisabledLoadMoreBtn" data-ng-bind="MyTaskCtrl.ePage.Masters.MyTask.LoadMoreBtnTxt"></button>
+                </div>
             </ul>
         </div>
     </div>
 
-    <div class="hidden-lg mytask-filter mytask-filter-hide">
-        <div class="row">
-            <div class="col-xs-6 col-sm-6 col-lg-6 col-xl-6 pr-5">
-                <select chosen class="form-control" data-ng-model="MyTaskCtrl.ePage.Masters.MyTask.EBPMProcessMasterList.ProcessName" data-ng-options="x.ProcessName as x.ProcessName
-                           for x in MyTaskCtrl.ePage.Masters.MyTask.EBPMProcessMasterList" data-ng-change="MyTaskCtrl.ePage.Masters.OnProcessChange((MyTaskCtrl.ePage.Masters.MyTask.EBPMProcessMasterList | filter: {'ProcessName': MyTaskCtrl.ePage.Masters.MyTask.EBPMProcessMasterList.ProcessName})[0])"
-                    search-contains="true">
-                    <option value="">All</option>
-                </select>
+    <!-- Status Count -->
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mytask-tablet-view work-item-status-count" data-ng-show="MyTaskCtrl.ePage.Masters.IsToggleFilter">
+        <div class="clearfix">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 p-0">
+                <div class="form-group">
+                    <input type="text" class="form-control input-sm" data-ng-model="MyTaskCtrl.ePage.Masters.MyTask.StatusCount.Search"
+                        placeholder="Search">
+                </div>
             </div>
-            <div class="col-xs-6 col-sm-6 col-lg-6 col-xl-6 pl-5">
-                <select chosen class="form-control" data-ng-model="MyTaskCtrl.ePage.Masters.MyTask.EBPMWorkStepItemList.Description" data-ng-options="x.Description as x.Description
-                    for x in MyTaskCtrl.ePage.Masters.MyTask.EBPMWorkStepItemList" data-ng-change="MyTaskCtrl.ePage.Masters.OnWorkItemChange((MyTaskCtrl.ePage.Masters.MyTask.EBPMWorkStepItemList | filter: {'Description': MyTaskCtrl.ePage.Masters.MyTask.EBPMWorkStepItemList.Description})[0])"
-                    search-contains="true">
-                    <option value="">All</option>
-                </select>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 p-0">
+                <button class="btn btn-default btn-sm ml-10 pull-right hidden-sm hidden-xs" type="button" data-ng-click="MyTaskCtrl.ePage.Masters.MyTask.StatusCount.ViewSentItems()"
+                    title="Sent Item">Sent Item</button>
+                <button class="btn btn-default btn-sm ml-10 pull-right" type="button" data-ng-click="MyTaskCtrl.ePage.Masters.MyTask.StatusCount.RefreshStatusCount()"
+                    title="Refresh">Refresh</button>
+                <button class="btn btn-default btn-sm pull-right ml-10 hidden-lg hidden-md" data-ng-click="MyTaskCtrl.ePage.Masters.OnToggleFilterClick()"
+                    title="Toggle Filter">Close</button>
             </div>
         </div>
         <div class="control-list clearfix">
-            <ul>
-                <li class="clearfix p-30 text-center" data-ng-if="!MyTaskCtrl.ePage.Masters.MyTask.WorkItemList">
+            <ul class="clearfix">
+                <li class="clearfix p-30 text-center" data-ng-if="!MyTaskCtrl.ePage.Masters.MyTask.StatusCount.ListSource">
                     <i class="fa fa-spin fa-spinner" style="font-size: 18px;"></i>
                 </li>
-                <li class="clearfix p-30 text-center" data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.WorkItemList.length == 0">No Records...</li>
-                <li data-ng-repeat="x in MyTaskCtrl.ePage.Masters.MyTask.WorkItemList" data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.WorkItemList.length > 0">
+                <li class="clearfix p-30 text-center" data-ng-if="(MyTaskCtrl.ePage.Masters.MyTask.StatusCount.ListSource | filter: MyTaskCtrl.ePage.Masters.MyTask.StatusCount.Search).length == 0">
+                    <i>No Records...</i>
+                </li>
+                <!-- Header -->
+                <div class="clearfix" style="font-weight: bold;" data-ng-if="(MyTaskCtrl.ePage.Masters.MyTask.StatusCount.ListSource | filter: MyTaskCtrl.ePage.Masters.MyTask.StatusCount.Search).length > 0">
+                    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0"></div>
+                    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0 pt-5 text-center">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 p-0 pt-5 pb-5">Asgn</div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 p-0 pt-5 pb-5">Aval</div>
+                    </div>
+                </div>
+                <!-- List -->
+                <li class="clearfix" data-ng-repeat="x in (MyTaskCtrl.ePage.Masters.MyTask.StatusCount.ListSource | filter: MyTaskCtrl.ePage.Masters.MyTask.StatusCount.Search)"
+                    data-ng-if="(MyTaskCtrl.ePage.Masters.MyTask.StatusCount.ListSource | filter: MyTaskCtrl.ePage.Masters.MyTask.StatusCount.Search).length > 0"
+                    data-ng-class="x.IsChanged ? 'task-changed' : ''">
                     <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
-                        <div class="control-title">{{x.WSI_StepName}}</div>
-                        <div class="control-title-2">{{x.KPIDescription}}</div>
+                        <div class="control-title text-single-line" title="{{x.WSI_StepName}}">{{x.WSI_StepName}}</div>
+                        <div class="control-title-2 text-single-line" title="{{x.KPIDescription}} | {{x.ProcessName}}">{{x.KPIDescription}}
+                            | {{x.ProcessName}}</div>
                     </div>
-                    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 pr-0 text-center">
-                        <a href="javascript:void(0);" data-ng-bind="x.Available" title="Available" class="control-count color-green" data-ng-click="MyTaskCtrl.ePage.Masters.OnWorkItemClick(x, 'Available')"></a>
-                        <a href="javascript:void(0);" data-ng-bind="x.Assigned" title="Assigned" class="control-count color-blue" data-ng-click="MyTaskCtrl.ePage.Masters.OnWorkItemClick(x, 'Assigned')"></a>
-                        <a href="javascript:void(0);" data-ng-bind="x.OverDue" title="OverDue" class="control-count color-red" data-ng-click="MyTaskCtrl.ePage.Masters.OnWorkItemClick(x, 'OverDue')"></a>
-                        <!-- <a href="javascript:void(0);" data-ng-bind="x.Completed" title="Completed" class="control-count color-blue" data-ng-click="MyTaskCtrl.ePage.Masters.OnWorkItemClick(x, 'Completed')"></a> -->
-                        <!-- <a href="javascript:void(0);" data-ng-bind="x.Waiting" title="Waiting" class="control-count color-blue" data-ng-click="MyTaskCtrl.ePage.Masters.OnWorkItemClick(x, 'Waiting')"></a> -->
+                    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0 pt-5 text-center">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 p-0 pt-5 pb-5">
+                            <a href="javascript:void(0);" data-ng-bind="x.WITHIN_KPI_ASSIGNED" title="Within KPI Assigned"
+                                class="control-count txt-color-blue" data-ng-click="MyTaskCtrl.ePage.Masters.MyTask.StatusCount.OnStatusCountClick(x, x.WITHIN_KPI_ASSIGNED, 'WITHIN_KPI_ASSIGNED')"></a>
+                            <a href="javascript:void(0);" data-ng-bind="x.OVERDUE_ASSIGNED" title="Overdue Assigned"
+                                class="control-count txt-color-red" data-ng-click="MyTaskCtrl.ePage.Masters.MyTask.StatusCount.OnStatusCountClick(x, x.OVERDUE_ASSIGNED, 'OVERDUE_ASSIGNED')"></a>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 p-0 pt-5 pb-5">
+                            <a href="javascript:void(0);" data-ng-bind="x.WITHIN_KPI_AVAILABLE" title="Within KPI Available"
+                                class="control-count txt-color-green" data-ng-click="MyTaskCtrl.ePage.Masters.MyTask.StatusCount.OnStatusCountClick(x, x.WITHIN_KPI_AVAILABLE, 'WITHIN_KPI_AVAILABLE')"></a>
+                            <a href="javascript:void(0);" data-ng-bind="x.OVERDUE_AVAILABLE" title="Overdue Available"
+                                class="control-count txt-color-red" data-ng-click="MyTaskCtrl.ePage.Masters.MyTask.StatusCount.OnStatusCountClick(x, x.OVERDUE_AVAILABLE, 'OVERDUE_AVAILABLE')"></a>
+                        </div>
                     </div>
                 </li>
             </ul>
         </div>
+    </div>
+</div>
+
+<div class="clearfix my-task-activity-page-warpper" data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.IsShowEditActivityPage">
+    <div class="clearfix edit-activity-header-wrapper">
+        <div class="clearfix edit-activity-header">
+            <div class="title">
+                <i class="mr-10 position-relative font-120" style="top: 2px;" data-ng-class="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.OtherConfig.icon ? MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.OtherConfig.icon : 'fa fa-plane'"
+                    data-ng-if="!MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.OtherConfig.image"></i>
+                <img class="mr-10 position-relative" style="top: 2px;" data-ng-src="{{MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.OtherConfig.image}}"
+                    data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.OtherConfig.image">
+                <span>{{MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.WSI_StepName}} -
+                    {{MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.PSI_InstanceNo}}</span>
+            </div>
+            <div class="buttons">
+                <button class="btn btn-warning btn-xs pull-right ml-5" data-ng-click="MyTaskCtrl.ePage.Masters.MyTask.IsShowEditActivityPage = false"
+                    title="Close">Close</i>
+                </button>
+                <div class="dropdown my-task-assign-to pull-right mr-5">
+                    <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                        role="button" aria-expanded="false" data-ng-click="MyTaskCtrl.ePage.Masters.MyTask.IsShowOverrideDirective = false; MyTaskCtrl.ePage.Masters.MyTask.IsShowOverrideDirective = true;">
+                        <i class="fa fa-calendar-o"></i>
+                        <span href="javascript:void(0);">Override KPI</span>
+                    </button>
+                    <div class="dropdown-menu" role="menu">
+                        <override-kpi input="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem" on-submit-response="MyTaskCtrl.ePage.Masters.MyTask.OverrideKPI($item)"
+                            data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.IsShowOverrideDirective"></override-kpi>
+                    </div>
+                </div>
+                <!-- <button class="btn btn-default btn-xs pull-right mr-5" data-ng-click="MyTaskCtrl.ePage.Masters.MyTask.OverrideKPI(MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem)">Override
+                        KPI</button> -->
+                <button class="btn btn-default btn-xs pull-right mr-5 dropdown my-task-assign-to" data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.IsWorkStartedStr == '0' && MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.Status == 'AVAILABLE'">
+                    <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button"
+                        aria-expanded="false">
+                        <i class="fa fa-calendar-o"></i>
+                        <span>Assign Task</span>
+                    </span>
+                    <div class="dropdown-menu" role="menu">
+                        <task-assign-start-complete input="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem" mode="1"
+                            on-submit-response="MyTaskCtrl.ePage.Masters.MyTask.AssignTo.AssignStartCompleteResponse($item, MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem)"></task-assign-start-complete>
+                    </div>
+                </button>
+                <button class="btn btn-default btn-xs pull-right mr-5 dropdown my-task-assign-to" data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.IsWorkStartedStr == '0' && MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.Status == 'ASSIGNED'">
+                    <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button"
+                        aria-expanded="false">
+                        <i class="fa fa-calendar-o"></i>
+                        <span>Manage Task</span>
+                    </span>
+                    <div class="dropdown-menu" role="menu">
+                        <task-assign-start-complete input="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem" mode="1"
+                            on-submit-response="MyTaskCtrl.ePage.Masters.MyTask.AssignTo.AssignStartCompleteResponse($item, MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem)"></task-assign-start-complete>
+                    </div>
+                </button>
+                <button class="btn btn-default btn-xs pull-right mr-5 dropdown my-task-assign-to" data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.IsWorkStartedStr == '1' && MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.Status == 'ASSIGNED'">
+                    <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button"
+                        aria-expanded="false">
+                        <i class="fa fa-calendar-o"></i>
+                        <span>Manage Task</span>
+                    </span>
+                    <div class="dropdown-menu" role="menu">
+                        <task-assign-start-complete input="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem" mode="1"
+                            on-submit-response="MyTaskCtrl.ePage.Masters.MyTask.AssignTo.AssignStartCompleteResponse($item, MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem)"></task-assign-start-complete>
+                    </div>
+                </button>
+                <button class="btn btn-default btn-xs pull-right mr-5 dropdown my-task-adhoc-process" data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.RelatedProcess && MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.RelatedProcess.length > 0">
+                    <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button"
+                        aria-expanded="false">
+                        <i class="fa fa-cog"></i>
+                        <span>Related Process</span>
+                    </span>
+                    <div class="dropdown-menu" role="menu">
+                        <div class="clearfix form-process-list" data-ng-show="!MyTaskCtrl.ePage.Masters.MyTask.Adhoc.ActiveAdhocItem">
+                            <div class="clearfix adhoc-header">Related Process</div>
+                            <div class="clearfix cursor-pointer process-list text-single-line" data-ng-repeat="x in MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.RelatedProcess"
+                                data-ng-click=" MyTaskCtrl.ePage.Masters.MyTask.Adhoc.OnProcessSelectClick(MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem, x)"
+                                data-ng-bind="x.ProcessName">
+                            </div>
+                        </div>
+                        <div class="clearfix form-process-assign-to" data-ng-show="MyTaskCtrl.ePage.Masters.MyTask.Adhoc.ActiveAdhocItem">
+                            <div class="clearfix adhoc-header">
+                                <span class="pull-left" data-ng-bind="MyTaskCtrl.ePage.Masters.MyTask.Adhoc.ActiveAdhocItem.ProcessName"></span>
+                                <a href="javascript:void(0);" class="pull-right" data-ng-click="MyTaskCtrl.ePage.Masters.MyTask.Adhoc.ActiveAdhocItem = undefined">Back</a>
+                            </div>
+                            <div class="form-group pl-10 pr-10">
+                                <label>Assign To </label>
+                                <input type="text" class="form-control input-sm" ng-model="MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItem.AdhocObj.AssignTo"
+                                    placeholder="User" uib-typeahead="x.EmailId as x.EmailId for x in  MyTaskCtrl.ePage.Masters.GetUserList($viewValue)"
+                                    typeahead-loading="MyTaskCtrl.ePage.Masters.IsLoading" typeahead-no-results="MyTaskCtrl.ePage.Masters.NoRecords">
+                            </div>
+                            <div class="clearfix pb-10 pr-10 pl-10 text-right">
+                                <input type="submit" class="btn btn-primary btn-xs ml-5" data-ng-click="MyTaskCtrl.ePage.Masters.MyTask.Adhoc.OnAdhocProcessSave( MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItem,MyTaskCtrl.ePage.Masters.MyTask.Adhoc.ActiveAdhocItem)"
+                                    data-ng-bind="MyTaskCtrl.ePage.Masters.MyTask.Adhoc.SaveBtnText" data-ng-disabled="MyTaskCtrl.ePage.Masters.MyTask.Adhoc.IsDisableSaveBtn" />
+                            </div>
+                        </div>
+                    </div>
+                </button>
+                <div class="delay-date mr-20 pt-2 pull-right" title="{{MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.DueDate | dateTimeDifference: true: 'Desc'}}"
+                    data-ng-class="((MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.DueDate | dateTimeDifference: true: 'IsDeley')) ? 'lesser-value' : 'greater-value'">
+                    <span>{{MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.DueDate | dateTimeDifference:
+                        true: 'Desc'}}</span>
+                    <span>-</span>
+                    <span class="text-single-line" title="Due - {{MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.DueDate | date:'dd MMM h:mm a'}}">{{MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.DueDate
+                        | date:'dd MMM h:mm a'}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix edit-activity-body pb-50">
+        <my-task-dynamic-edit-directive task-obj='MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem' entity-obj=''
+            tab-obj='' on-complete="MyTaskCtrl.ePage.Masters.MyTask.OnTaskComplete($item, 'edit')"
+            on-refresh-status-count="MyTaskCtrl.ePage.Masters.MyTask.StatusCount.OnRefreshStatusCount($item, 'edit')"
+            on-refresh-task="MyTaskCtrl.ePage.Masters.MyTask.OnRefreshTask($item)"></my-task-dynamic-edit-directive>
     </div>
 </div>

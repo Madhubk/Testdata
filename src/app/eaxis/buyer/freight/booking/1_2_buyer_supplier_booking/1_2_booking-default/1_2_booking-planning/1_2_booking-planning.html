@@ -1,0 +1,22 @@
+<div class="clearfix">
+    <div class="widget-main ">
+        <uib-tabset id="shipmentGeneral">
+            <!-- Container -->
+            <uib-tab>
+                <uib-tab-heading title="Container">
+                    <i class="fa fa-list-alt margin-right-5"></i>
+                    <span class="text-single-line" data-ng-bind="'Container'"></span>
+                </uib-tab-heading>
+                <div data-ng-include="'app/eaxis/buyer/freight/booking/1_2_buyer_supplier_booking/1_2_booking-default/1_2_booking-planning/tabs/container.html'"></div>
+            </uib-tab>
+            <!-- packing -->
+            <uib-tab>
+                <uib-tab-heading title="Packing">
+                    <i class="fa fa-suitcase margin-right-5"></i>
+                    <span class="text-single-line" data-ng-bind="'Packing'"></span>
+                </uib-tab-heading>
+                <div data-ng-include="'app/eaxis/buyer/freight/booking/1_2_buyer_supplier_booking/1_2_booking-default/1_2_booking-planning/tabs/packing.html'"></div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>

@@ -1,0 +1,100 @@
+<div class="confirm-dep">
+    <div class="col-lg-12 col-sm-12 col-md-12 col-xl-12 col-xs-12 pt-10 pb-10">
+        <consol-details current-obj="ExportSeaConsolConfirmDepartureGlbCtrl.ePage.Masters.TaskObj"></consol-details>
+    </div>
+    <!-- consol details -->
+    <div class="clearfix mb-10">
+        <consol-entity-details current-obj="ExportSeaConsolConfirmDepartureGlbCtrl.ePage.Masters.TaskObj" mode=""></consol-entity-details>
+    </div>
+    <!-- Document upload -->
+    <!-- <div class="clearfix mt-10">
+        <doc-directive current-obj="ExportSeaConsolConfirmDepartureGlbCtrl.ePage.Masters.TaskObj" entity="'Consol'"></doc-directive>
+    </div> -->
+    <!-- Activity Form -->
+    <div class="clearfix" data-ng-if="ExportSeaConsolConfirmDepartureGlbCtrl.currentConsol">
+        <routing-grid current-object="ExportSeaConsolConfirmDepartureGlbCtrl.currentConsol" key-object-name="'CON'" fk-name="'PK'"
+            pk-name="'CON_PK'" api-header-name="'UIConConsolHeader'" api-header-field-name="'PK'" api-header-value-name="'CON_FK'"
+            btn-visible="{'AddNew':true,'Delete':false,'More':true}" table-properties="" read-only="false"></routing-grid>
+    </div>
+    <div class="clearfix">
+        <!-- Document upload -->
+        <article class="col-sm-12 col-md-12 col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-lg fa-fw fa-file-text"></i>
+                    <span>File Upload Form </span>
+                </div>
+                <div class="panel-body no-padding hbl-Document">
+
+                    <article class="col-sm-12 col-md-12 col-lg-12 mt-10" data-ng-if="ExportSeaConsolConfirmDepartureGlbCtrl.ePage.Masters.StandardMenuInput">
+                        <div class="" document input="ExportSeaConsolConfirmDepartureGlbCtrl.ePage.Masters.StandardMenuInput" mode="3" config="ExportSeaConsolConfirmDepartureGlbCtrl.ePage.Masters.StandardConfigInput"
+                            list-source="ExportSeaConsolConfirmDepartureGlbCtrl.ePage.Masters.DocListSource" class="my-task-icon fa fa-file-text-o mr-5">
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </article>
+        <!-- Comments Details -->
+        <article class="col-sm-12 col-md-12 col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-lg fa-fw fa-file-text"></i>
+                    <span>Comments Details</span>
+                </div>
+                <div class="panel-body no-padding hbl-Document">
+                    <article class="col-sm-12 col-md-12 col-lg-12 mt-10" data-ng-if="ExportSeaConsolConfirmDepartureGlbCtrl.ePage.Masters.StandardMenuInput">
+                        <div class="" comment input="ExportSeaConsolConfirmDepartureGlbCtrl.ePage.Masters.StandardMenuInput" mode="3" config="ExportSeaConsolConfirmDepartureGlbCtrl.ePage.Masters.StandardConfigInput"
+                            class="my-task-icon fa fa-file-text-o mr-5">
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </article>
+    </div>
+    <!-- Save & Complete Buttons -->
+    <div class="clearfix decision">
+        <div class="clearfix my-task-standard-bar" data-ng-if="ExportSeaConsolConfirmDepartureGlbCtrl.ePage.Masters.StandardMenuInput">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 pt-5">
+                <a href="javascript: void(0)" document-modal input="ExportSeaConsolConfirmDepartureGlbCtrl.ePage.Masters.StandardMenuInput"
+                    mode="1" class="my-task-icon fa fa-file-text-o mr-5"></a>
+                <span class="my-task-slash"></span>
+                <a href="javascript: void(0)" comment-modal input="ExportSeaConsolConfirmDepartureGlbCtrl.ePage.Masters.StandardMenuInput"
+                    mode="1" class="my-task-icon fa fa-comment-o mr-5"></a>
+                <span class="my-task-slash"></span>
+                <a href="javascript: void(0)" email-modal input="ExportSeaConsolConfirmDepartureGlbCtrl.ePage.Masters.StandardMenuInput"
+                    mode="1" class="my-task-icon fa fa-envelope-o mr-5"></a>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <input type="button" class="btn btn-primary btn-sm pull-right ml-5" data-ng-click="ExportSeaConsolConfirmDepartureGlbCtrl.ePage.Masters.Complete(ExportSeaConsolConfirmDepartureGlbCtrl.currentConsol)"
+                    data-ng-disabled="ExportSeaConsolConfirmDepartureGlbCtrl.ePage.Masters.IsDisableCompleteBtn" value="{{ExportSeaConsolConfirmDepartureGlbCtrl.ePage.Masters.CompleteBtnText}}">
+            </div>
+        </div>
+    </div>
+    <div class="error-warning-container right" id="errorWarningContainer{{ExportSeaConsolConfirmDepartureGlbCtrl.taskObj.PSI_InstanceNo}}">
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right" data-ng-click="ExportSeaConsolConfirmDepartureGlbCtrl.ePage.Masters.ShowErrorWarningModal(ExportSeaConsolConfirmDepartureGlbCtrl.taskObj.PSI_InstanceNo)">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+        </div>
+        <div class="error-warning-body">
+            <div class="clearfix" data-ng-if="ExportSeaConsolConfirmDepartureGlbCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList.length>0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in ExportSeaConsolConfirmDepartureGlbCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 Stext-center">
+                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

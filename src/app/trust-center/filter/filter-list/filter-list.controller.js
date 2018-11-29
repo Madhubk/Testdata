@@ -5,9 +5,9 @@
         .module("Application")
         .controller("TCFilterListController", TCFilterListController);
 
-    TCFilterListController.$inject = ["$scope", "$location", "$uibModal", "authService", "apiService", "helperService", "appConfig", "APP_CONSTANT", "toastr", "confirmation"];
+    TCFilterListController.$inject = ["$scope", "$location", "$uibModal", "authService", "apiService", "helperService", "toastr", "confirmation", "trustCenterConfig"];
 
-    function TCFilterListController($scope, $location, $uibModal, authService, apiService, helperService, appConfig, APP_CONSTANT, toastr, confirmation) {
+    function TCFilterListController($scope, $location, $uibModal, authService, apiService, helperService, toastr, confirmation, trustCenterConfig) {
         /* jshint validthis: true */
         var TCFilterListCtrl = this;
         var _queryString = $location.path().split("/").pop();
@@ -20,7 +20,7 @@
                 "Meta": helperService.metaBase(),
                 "Entities": {}
             };
-            
+
             TCFilterListCtrl.ePage.Masters.ActiveApplication = authService.getUserInfo().AppCode;
 
             TCFilterListCtrl.ePage.Masters.emptyText = "-";
@@ -58,10 +58,15 @@
                 IsRequireQueryString: false,
                 IsActive: false
             }, {
-                Code: "configuration",
-                Description: "Configuration",
-                Link: "TC/dashboard/" + helperService.encryptData('{"Type":"Configuration", "BreadcrumbTitle": "Configuration"}'),
-                IsRequireQueryString: false,
+                Code: "dashboard",
+                Description: "Dashboard",
+                Link: "TC/dashboard",
+                IsRequireQueryString: true,
+                QueryStringObj: {
+                    "AppPk": TCFilterListCtrl.ePage.Masters.QueryString.AppPk,
+                    "AppCode": TCFilterListCtrl.ePage.Masters.QueryString.AppCode,
+                    "AppName": TCFilterListCtrl.ePage.Masters.QueryString.AppName
+                },
                 IsActive: false
             }, {
                 Code: "filtergroup",
@@ -123,10 +128,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.ComFilterList.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.ComFilterList.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.ComFilterList.API.FindAll.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.ComFilterList.API.FindAll.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     TCFilterListCtrl.ePage.Masters.FilterList.ListSource = response.data.Response;
 
@@ -166,7 +171,7 @@
             TCFilterListCtrl.ePage.Masters.FilterList.SaveBtnText = "OK";
             TCFilterListCtrl.ePage.Masters.FilterList.IsDisableSaveBtn = false;
 
-            EditModalInstance().result.then(function (response) {}, function () {
+            EditModalInstance().result.then(function (response) { }, function () {
                 Cancel();
             });
         }
@@ -183,7 +188,7 @@
 
             var _input = [TCFilterListCtrl.ePage.Masters.FilterList.ActiveFilterList];
 
-            apiService.post("eAxisAPI", appConfig.Entities.ComFilterList.API.Upsert.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.ComFilterList.API.Upsert.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     var _response = response.data.Response[0];
                     TCFilterListCtrl.ePage.Masters.FilterList.ActiveFilterList = angular.copy(_response);
@@ -253,7 +258,7 @@
 
             var _input = [TCFilterListCtrl.ePage.Masters.FilterList.ActiveFilterList];
 
-            apiService.post("eAxisAPI", appConfig.Entities.ComFilterList.API.Upsert.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.ComFilterList.API.Upsert.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     var _index = TCFilterListCtrl.ePage.Masters.FilterList.ListSource.map(function (value, key) {
                         return value.Id;

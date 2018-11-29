@@ -53,6 +53,22 @@
                             "HttpType": "POST",
                             "Url": "CfxOrgMapping/FindAll",
                             "FilterID": "CFXORMAP"
+                        },
+                        "InsertContainerMHUMapping": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "MstContainerMHUMapping/Insert"
+                        },
+                        "UpdateContainerMHUMapping": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "MstContainerMHUMapping/Update"
+                        },
+                        "ContainerMHUMappingFindall": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "MstContainerMHUMapping/FindAll",
+                            "FilterID": "MSTCMM"
                         }
                     },
                     "Meta": {
@@ -67,12 +83,22 @@
                             "Icon": "icomoon icon-inward",
                             "GParentRef": "senderreceiver"
                         }, {
-                            "DisplayName": "Stores",
+                            "DisplayName": "ReceiverConsignment",
+                            "Value": "SenderReceiverCons",
+                            "Icon": "icomoon icon-inward",
+                            "GParentRef": "senderreceivercons"
+                        }, {
+                            "DisplayName": "ReceiverCarrier",
+                            "Value": "ReceiverCarrier",
+                            "Icon": "icomoon icon-inward",
+                            "GParentRef": "receivercarrier"
+                        }, {
+                            "DisplayName": "Dispatch Hub",
                             "Value": "StoreDepot",
                             "Icon": "icomoon icon-sales",
                             "GParentRef": "storedepot"
                         }, {
-                            "DisplayName": "Dispatch Hubs for DC to Store",
+                            "DisplayName": "Dispatch Hubs Exception",
                             "Value": "DCDepotStore",
                             "Icon": "icomoon icon-warehouse",
                             "GParentRef": "depotstore"
@@ -81,6 +107,16 @@
                             "Value": "CarrierVehicle",
                             "Icon": "icomoon icon-leads",
                             "GParentRef": "carriervehicle"
+                        }, {
+                            "DisplayName": "Service Type",
+                            "Value": "ServiceType",
+                            "Icon": "icomoon icon-leads",
+                            "GParentRef": "servicetype"
+                        },{
+                            "DisplayName": "Container MHU",
+                            "Value": "ContainerMhu",
+                            "Icon": "icomoon icon-leads",
+                            "GParentRef": "containermhu"
                         }],
                     },
                     "CheckPoints": {

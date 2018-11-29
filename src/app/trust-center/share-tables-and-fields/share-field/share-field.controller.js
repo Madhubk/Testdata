@@ -5,9 +5,9 @@
         .module("Application")
         .controller("ShareFieldController", ShareFieldController);
 
-    ShareFieldController.$inject = ["$scope", "$location", "$uibModal", "authService", "apiService", "helperService", "appConfig", "APP_CONSTANT", "toastr", "confirmation"];
+    ShareFieldController.$inject = ["$scope", "$location", "$uibModal", "authService", "apiService", "helperService", "toastr", "confirmation", "trustCenterConfig"];
 
-    function ShareFieldController($scope, $location, $uibModal, authService, apiService, helperService, appConfig, APP_CONSTANT, toastr, confirmation) {
+    function ShareFieldController($scope, $location, $uibModal, authService, apiService, helperService, toastr, confirmation, trustCenterConfig) {
         /* jshint validthis: true */
         var ShareFieldCtrl = this;
         var _queryString = $location.path().split("/").pop();
@@ -58,10 +58,15 @@
                 IsRequireQueryString: false,
                 IsActive: false
             }, {
-                Code: "configuration",
-                Description: "Configuration",
-                Link: "TC/dashboard/" + helperService.encryptData('{"Type":"Configuration", "BreadcrumbTitle": "Configuration"}'),
-                IsRequireQueryString: false,
+                Code: "dashboard",
+                Description: "Dashboard",
+                Link: "TC/dashboard",
+                IsRequireQueryString: true,
+                QueryStringObj: {
+                    "AppPk": ShareFieldCtrl.ePage.Masters.QueryString.AppPk,
+                    "AppCode": ShareFieldCtrl.ePage.Masters.QueryString.AppCode,
+                    "AppName": ShareFieldCtrl.ePage.Masters.QueryString.AppName
+                },
                 IsActive: false
             }, {
                 Code: "sharetable",
@@ -123,10 +128,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.FieldMaster.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.FieldMaster.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.FieldMaster.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.FieldMaster.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     ShareFieldCtrl.ePage.Masters.ShareField.ListSource = response.data.Response;
                     if (ShareFieldCtrl.ePage.Masters.ShareField.ListSource.length > 0) {
@@ -165,7 +170,7 @@
             ShareFieldCtrl.ePage.Masters.ShareField.SaveBtnText = "OK";
             ShareFieldCtrl.ePage.Masters.ShareField.IsDisableSaveBtn = false;
 
-            EditModalInstance().result.then(function (response) {}, function () {
+            EditModalInstance().result.then(function (response) { }, function () {
                 Cancel();
             });
         }
@@ -181,7 +186,7 @@
             ShareFieldCtrl.ePage.Masters.ShareField.ActiveShareField.SAP_FK = ShareFieldCtrl.ePage.Masters.QueryString.AppPk;
 
             var _input = [ShareFieldCtrl.ePage.Masters.ShareField.ActiveShareField];
-            apiService.post("eAxisAPI", appConfig.Entities.FieldMaster.API.Upsert.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.FieldMaster.API.Upsert.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     var _response = response.data.Response[0];
                     ShareFieldCtrl.ePage.Masters.ShareField.ActiveShareField = angular.copy(_response);
@@ -252,7 +257,7 @@
             ShareFieldCtrl.ePage.Masters.ShareField.ActiveShareField.IsDelete = true;
             var _input = [ShareFieldCtrl.ePage.Masters.ShareField.ActiveShareField];
 
-            apiService.post("eAxisAPI", appConfig.Entities.FieldMaster.API.Upsert.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.FieldMaster.API.Upsert.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     var _index = ShareFieldCtrl.ePage.Masters.ShareField.ListSource.map(function (value, key) {
                         return value.Field_PK;

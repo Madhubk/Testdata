@@ -46,19 +46,11 @@
 
             ShipmentBillingCtrl.ePage.Masters.DatePicker.isOpen[opened] = true;
         }
-
         // ========================= Job BIlling Start =========================
-
         function InitBilling() {
-
             ShipmentBillingCtrl.ePage.Masters.Job = {};
             ShipmentBillingCtrl.ePage.Masters.Job.IsFormView = false;
             ShipmentBillingCtrl.ePage.Masters.Job.FormView = {};
-
-            // Grid Configuration Input
-            ShipmentBillingCtrl.ePage.Masters.Job.gridConfig = appConfig.Entities.JobHeader.Grid.GridConfig;
-            ShipmentBillingCtrl.ePage.Masters.Job.gridConfig.columnDef = appConfig.Entities.JobHeader.Grid.ColumnDef;
-
             ShipmentBillingCtrl.ePage.Masters.Job.SelectedGridRow = SelectedGridRow;
             ShipmentBillingCtrl.ePage.Masters.Job.AddNewJob = AddNewJob;
             ShipmentBillingCtrl.ePage.Masters.Job.EditJob = EditJob;
@@ -66,7 +58,6 @@
             ShipmentBillingCtrl.ePage.Masters.Job.BackClick = BackClick;
             ShipmentBillingCtrl.ePage.Masters.Job.DeleteConfirmation = DeleteConfirmation;
             ShipmentBillingCtrl.ePage.Masters.Job.AddToGrid = AddToGrid;
-
             ShipmentBillingCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
             ShipmentBillingCtrl.ePage.Masters.AutoCompleteOnSelect = AutoCompleteOnSelect;
             ShipmentBillingCtrl.ePage.Masters.OnAddressChange = OnAddressChange;
@@ -97,7 +88,6 @@
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
                         ShipmentBillingCtrl.ePage.Masters.Job.GridData = response.data.Response;
-                        // ShipmentBillingCtrl.ePage.Entities.Header.Data.UIJobHeaders = response.data.Response;
                     } else {
                         ShipmentBillingCtrl.ePage.Masters.Job.GridData = []
                     }
@@ -125,8 +115,8 @@
 
         function SelectedLookupData($item, type) {
             if (type === "Local" || type === "Agent") {
-                GetAddressContactList($item.entity, "OrgAddress", "AddressList", "PK", type);
-                GetAddressContactList($item.entity, "OrgContact", "ContactList", "PK", type);
+                GetAddressContactList($item.data.entity, "OrgAddress", "AddressList", "PK", type);
+                GetAddressContactList($item.data.entity, "OrgContact", "ContactList", "PK", type);
             }
         }
 
@@ -149,12 +139,10 @@
             });
         }
 
-        function OnAddressChange(selectedItem, type) {
-            // console.log(selectedItem);
+        function OnAddressChange(selectedItem, type) {     
         }
 
         function OnContactChange(selectedItem, type) {
-            // console.log(selectedItem);
         }
 
         function getCompany() {
@@ -219,7 +207,6 @@
         }
 
         function EditJob() {
-
             ShipmentBillingCtrl.ePage.Masters.Job.IsFormView = true;
             ShipmentBillingCtrl.ePage.Masters.Job.FormView = ShipmentBillingCtrl.ePage.Masters.Job.SelectedRow;
             ShipmentBillingCtrl.ePage.Masters.Job.addText = 'Update';
@@ -234,9 +221,8 @@
             } else {
                 ShipmentBillingCtrl.ePage.Masters.Job.FormView.JobBufferPercentOverride = false;
             }
+
             LoadAddressContactListAutomatic();
-
-
         }
 
         function BackClick() {
@@ -270,13 +256,12 @@
             });
         }
 
-        function SelectedGridRow($item) {
-            console.log($item)
-            ShipmentBillingCtrl.ePage.Masters.Job.SelectedRow = $item.data;
+        function SelectedGridRow(item, type) {
+            ShipmentBillingCtrl.ePage.Masters.Job.SelectedRow = item;
 
-            if ($item.action === "edit") {
+            if (type === "edit") {
                 EditJob();
-            } else if ($item.action === "delete") {
+            } else if (type === "delete") {
                 DeleteConfirmation();
             }
         }
@@ -299,10 +284,9 @@
                             GetBillingDetails();
                             toastr.success("Record Added Successfully...!");
                             ShipmentBillingCtrl.ePage.Masters.Job.IsFormView = false;
-                            ShipmentBillingCtrl.ePage.Masters.Job.FormView = {}
+                            ShipmentBillingCtrl.ePage.Masters.Job.FormView = {};
                         }
                     });
-
                 } else {
                     ShipmentBillingCtrl.ePage.Masters.Job.GridData = undefined;
                     ShipmentBillingCtrl.ePage.Masters.Job.FormView.IsModified = true;
@@ -316,12 +300,10 @@
                             GetBillingDetails();
                             toastr.success("Record Updated Successfully...!");
                             ShipmentBillingCtrl.ePage.Masters.Job.IsFormView = false;
-                            ShipmentBillingCtrl.ePage.Masters.Job.FormView = {}
+                            ShipmentBillingCtrl.ePage.Masters.Job.FormView = {};
                         }
                     });
-
                 }
-
             } else {
                 toastr.success("Cannot Insert Empty Data...!");
             }
@@ -334,11 +316,6 @@
             ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.IsSelected = false;
             ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.IsFormView = false;
             ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.FormView = {};
-
-            // Column Definition For Comments
-            ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.gridConfig = ShipmentBillingCtrl.ePage.Entities.ShipmentJobCharge.Grid.GridConfig;
-            ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.gridConfig._columnDef = ShipmentBillingCtrl.ePage.Entities.ShipmentJobCharge.Grid.ColumnDef;
-
             ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.ShipmentJobChargeRowSelectionChanged = ShipmentJobChargeRowSelectionChanged;
             ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.AddNewShipmentJobCharge = AddNewShipmentJobCharge;
             ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.EditShipmentJobCharge = EditShipmentJobCharge;
@@ -385,7 +362,6 @@
                 ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.FormView = {};
             });
         }
-
         //RowSelection For AccTransaction
         function ShipmentJobChargeRowSelectionChanged($item) {
             if ($item.isSelected) {
@@ -396,19 +372,16 @@
                 ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.IsSelected = false;
             }
         }
-
         //Add New For AccTransaction 
         function AddNewShipmentJobCharge() {
             ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.FormView = {};
             ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.IsFormView = true;
         }
-
         //Edit For AccTransaction 
         function EditShipmentJobCharge() {
             ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.IsFormView = true;
             ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.FormView = ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.SelectedRow.entity;
         }
-
         //Delete For AccTransaction
         function DeleteShipmentJobCharge() {
             ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.IsFormView = false;
@@ -422,7 +395,6 @@
             GetShipmentJobChargeDetails();
             toastr.success("Record Deleted Successfully...!");
         }
-
         // AddToGrid For Service
         function AddToGridShipmentJobCharge() {
             ShipmentBillingCtrl.ePage.Masters.ShipmentJobCharge.FormView.isNewRecord = true;
@@ -430,9 +402,7 @@
             GetShipmentJobChargeDetails();
             toastr.success("Record Added Successfully...!");
         }
-
         // ========================= Job Charge End =========================
-
         Init();
     }
 })();

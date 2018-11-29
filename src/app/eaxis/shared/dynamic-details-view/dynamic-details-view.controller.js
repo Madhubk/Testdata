@@ -5,9 +5,9 @@
         .module("Application")
         .controller("DynamicDetailsViewController", DynamicDetailsViewController);
 
-    DynamicDetailsViewController.$inject = ["$location", "helperService", "authService"];
+    DynamicDetailsViewController.$inject = ["$location", "helperService"];
 
-    function DynamicDetailsViewController($location, helperService, authService) {
+    function DynamicDetailsViewController($location, helperService) {
         var DynamicDetailsViewCtrl = this;
 
         function Init() {
@@ -18,8 +18,6 @@
                 "Meta": helperService.metaBase(),
                 "Entities": {}
             };
-
-            DynamicDetailsViewCtrl.ePage.Masters.MenuVisibleType = authService.getUserInfo().Menu.VisibleType;
 
             DynamicDetailsViewCtrl.ePage.Masters.DataEntryName = $location.path().split("/").pop();
 

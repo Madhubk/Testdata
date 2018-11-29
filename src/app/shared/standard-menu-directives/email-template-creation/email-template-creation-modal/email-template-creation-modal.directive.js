@@ -5,9 +5,20 @@
         .module("Application")
         .directive("emailTemplateCreationModal", EmailTemplateCreationModal);
 
-    EmailTemplateCreationModal.$inject = ["$uibModal"];
+    EmailTemplateCreationModal.$inject = ["$uibModal", "$templateCache"];
 
-    function EmailTemplateCreationModal($uibModal) {
+    function EmailTemplateCreationModal($uibModal, $templateCache) {
+        var _template = `<div class="modal-header">
+            <button type="button" class="close" ng-click="EmailTemplateCreationModalCtrl.ePage.Masters.Close()">&times;</button>
+            <h5 class="modal-title" id="modal-title">
+                <strong>Email Template</strong>
+            </h5>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <email-template-creation input="input"></email-template-creation>
+        </div>`;
+        $templateCache.put("EmailTemplateCreationModal.html", _template);
+
         var exports = {
             restrict: "EA",
             scope: {
@@ -27,7 +38,7 @@
                     keyboard: true,
                     windowClass: "right email-template-creation",
                     scope: scope,
-                    templateUrl: "app/shared/standard-menu-directives/email-template-creation/email-template-creation-modal/email-template-creation-modal.html",
+                    templateUrl: "EmailTemplateCreationModal.html",
                     controller: 'EmailTemplateCreationModalController as EmailTemplateCreationModalCtrl',
                     bindToController: true,
                     resolve: {

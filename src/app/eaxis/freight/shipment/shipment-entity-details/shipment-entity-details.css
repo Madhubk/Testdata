@@ -1,0 +1,12 @@
+.com-shp-label,
+.com-shp-value {
+  font-size: 11px;
+}
+
+.com-shp-label {
+  color: #999;
+}
+
+.com-shp-value {
+  height: 15px;
+}

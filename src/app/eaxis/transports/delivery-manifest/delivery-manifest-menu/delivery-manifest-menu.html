@@ -1,0 +1,19 @@
+<div class="clearfix wms-menu-wraper">
+    <div id="wmsMenuWrapper{{DeliveryMenuCtrl.currentManifest.label}}" class="col-sm-12 no-padding-left no-padding-right">
+        <div manifest-read-only current-manifest="DeliveryMenuCtrl.currentManifest"></div>
+    </div>
+
+    <!--Footer-->
+    <div class="eaxis-footer-strip">
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+            <standard-menu dataentry-object="DeliveryMenuCtrl.dataentryObject" data-ng-if="!DeliveryMenuCtrl.currentManifest.isNew" input="DeliveryMenuCtrl.currentManifest"></standard-menu>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+
+            <div class=" col-lg-4 pl-0">
+                <button class="btn btn-primary btn-sm manifest-btn-width-85 mt-6" data-ng-click="DeliveryMenuCtrl.ePage.Masters.Validation(DeliveryMenuCtrl.currentManifest)"
+                    data-ng-bind="DeliveryMenuCtrl.ePage.Masters.SaveButtonText"></button>
+            </div>
+        </div>
+    </div>
+</div>

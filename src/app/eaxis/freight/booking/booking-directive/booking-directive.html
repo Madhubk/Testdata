@@ -1,35 +1,3 @@
 <div class="clearfix">
-        <div class="widget-main ">
-            <uib-tabset id="shipmentGeneral">
-                <!--General Tab-->
-                <uib-tab>
-                    <uib-tab-heading title="General">
-                        <i class="fa fa-file-o margin-right-5"></i> <span class="text-single-line" data-ng-bind="'General'"></span>
-                    </uib-tab-heading>
-                    <div data-ng-include="'app/eaxis/freight/booking/booking-directive/tabs/general.html'"></div>
-                </uib-tab>
-                <!--summary-->
-                <uib-tab>
-                    <uib-tab-heading title="Summary">
-                        <i class="fa fa-external-link margin-right-5"></i> <span class="text-single-line" data-ng-bind="'Summary'"></span>
-                    </uib-tab-heading>
-                    <div data-ng-include="'app/eaxis/freight/booking/booking-directive/tabs/summary.html'"></div>
-                </uib-tab>
-                <!-- House Bill -->
-                <uib-tab>
-                    <uib-tab-heading title="Container">
-                        <i class="fa fa-list-alt margin-right-5"></i> <span class="text-single-line" data-ng-bind="'Container'"></span>
-                    </uib-tab-heading>
-                    <div data-ng-include="'app/eaxis/freight/booking/booking-directive/tabs/container.html'"></div>
-                </uib-tab>
-                <!-- packing -->
-                <uib-tab>
-                    <uib-tab-heading title="Packing">
-                        <i class="fa fa-suitcase margin-right-5"></i> <span class="text-single-line" data-ng-bind="'Packing'"></span>
-                    </uib-tab-heading>
-                    <div data-ng-include="'app/eaxis/freight/booking/booking-directive/tabs/packing.html'"></div>
-                </uib-tab>
-            </uib-tabset>
-        </div>
-    </div>
-    
+    <div data-ng-include="'app/eaxis/freight/booking/booking-directive/tabs/general.html'"></div>
+</div>

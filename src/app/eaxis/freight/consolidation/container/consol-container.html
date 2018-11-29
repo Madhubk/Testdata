@@ -1,20 +1,66 @@
-<div class="clearfix">
-    <div class="clearfix margin-top-10">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <!--Grid directive-->
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                <div class="clearfix">
-                    <button class="btn btn-primary pull-right" data-ng-click="ContainerConCtrl.ePage.Masters.Container.AddNewContainer()">
-                        <i class="fa fa-plus-circle"></i> Add Container</button>
-                </div>
-                <div class="height-230 clearfix">
-                    <div class="text-center grid-view-loader" data-ng-if="!ContainerConCtrl.ePage.Masters.Container.GridData">
-                        <i class="fa fa-spin fa-spinner font-160"></i>
+<div class="clearfix padding-10">
+    <!--Grid directive-->
+    <div class="clearfix">
+        <button class="btn btn-primary pull-right" data-ng-click="ContainerConCtrl.ePage.Masters.Container.AddNewContainer()">
+            <i class="fa fa-plus-circle"></i> Add Container</button>
+    </div>
+    <div id='' class="Consolstable_scroll mt-10" style="height: 450px; overflow-y: auto">
+        <div class="table tab-position" id="results">
+            <div class='theader'>
+                <div class='table_header'>Container No</div>
+                <div class='table_header'>Container Mode</div>
+                <div class='table_header'>Container Status</div>
+                <div class='table_header'>Delivery Mode</div>
+                <div class='table_header'>Is Empty Container</div>
+                <div class='table_header'>Action</div>
+            </div>            
+            <div class='table_row' data-ng-repeat="x in ContainerConCtrl.ePage.Masters.Container.GridData" data-ng-if="ContainerConCtrl.ePage.Masters.Container.GridData && ContainerConCtrl.ePage.Masters.Container.GridData.length > 0"
+                style="font-size: 11px;">
+                <div class='table_small'>
+                    <div class='table_cell'>Container No</div>
+                    <div class='table_cell'>
+                        <b>{{x.ContainerNo}}</b>
                     </div>
-                    <dynamic-table data-ng-if="ContainerConCtrl.ePage.Masters.Container.GridData" grid-data="ContainerConCtrl.ePage.Masters.Container.GridData"
-                        grid-config="ContainerConCtrl.ePage.Masters.Container.gridConfig" selected-grid-row="ContainerConCtrl.ePage.Masters.Container.SelectedGridRow($item)"></dynamic-table>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Container Mode</div>
+                    <div class='table_cell'>{{x.ContainerMode}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Container Status</div>
+                    <div class='table_cell'>
+                        <b>{{x.ContainerStatus}}</b>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Delivery Mode</div>
+                    <div class='table_cell'>{{x.DeliveryMode}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Is Empty Container</div>
+                    <div class='table_cell'>{{x.IsEmptyContainer}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Action</div>
+                    <div class='table_cell'>
+                        <span>
+                            <a>
+                                <i class="fa fa-pencil order-icon" data-ng-click="ContainerConCtrl.ePage.Masters.Container.SelectedGridRow(x, 'edit', $index)"></i>
+                            </a>
+                        </span>|
+                        <span>
+                            <a>
+                                <i class="fa fa-trash order-icon" data-ng-click="ContainerConCtrl.ePage.Masters.Container.SelectedGridRow(x, 'delete', $index)"></i>
+                            </a>
+                        </span>
+                    </div>
                 </div>
             </div>
+            <!-- List Empty Response -->
+            <div class="text-center grid-view-loader" data-ng-if="!ContainerConCtrl.ePage.Masters.Container.GridData">
+                <i class="fa fa-spin fa-spinner font-160"></i>
+            </div> 
         </div>
+        <div class="grid-no-record-border-box text-center p-30" data-ng-if="ContainerConCtrl.ePage.Masters.Container.GridData.length==0">No records found...</div>
     </div>
 </div>

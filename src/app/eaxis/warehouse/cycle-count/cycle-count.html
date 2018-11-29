@@ -3,13 +3,13 @@
 
     <uib-tab>
         <uib-tab-heading title="CycleCount">
-            <span data-ng-bind="'CycleCount'" class="ng-binding">CycleCount</span>
+            <span data-ng-bind="'Cycle Count'" class="ng-binding">Cycle Count</span>
             <i class="fa fa-thumb-tack pinned-tab"></i>
         </uib-tab-heading>
 
         <div class="no-padding tab-list-view-wrapper">
             <!--CycleCount Grid Page-->
-            <dynamic-list dataentry-name="CycleCountCtrl.ePage.Masters.dataentryName" task-name="CycleCountCtrl.ePage.Masters.taskName" grid-config-type="0" selected-grid-row="CycleCountCtrl.ePage.Masters.SelectedGridRow($item)" mode="1"></dynamic-list>
+            <dynamic-list dataentry-name="CycleCountCtrl.ePage.Masters.dataentryName" task-name="CycleCountCtrl.ePage.Masters.taskName" grid-config-type="0" selected-grid-row="CycleCountCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" dataentry-object="CycleCountCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
             <div class="tab-loading" data-ng-show="CycleCountCtrl.ePage.Masters.IsTabClick"></div>
         </div>
     </uib-tab>
@@ -36,10 +36,10 @@
             </span>
         </uib-tab-heading>
 
-        <div class="padding-bottom-10 clearfix">
+        <div class="padding-5 padding-bottom-10 clearfix">
 
             <!--CycleCount Menu Directive-->
-            <cycle-count-menu current-cycle-count="tab"></cycle-count-menu>
+            <cycle-count-menu current-cycle-count="tab" dataentry-object="CycleCountCtrl.ePage.Masters.DataEntryObject"></cycle-count-menu>
             <div class="horizontal-space"></div>
             <span ng-if="CycleCountCtrl.ePage.Masters.Config.SaveAndClose" ng-init="CycleCountCtrl.ePage.Masters.SaveandClose(CycleCountCtrl.ePage.Masters.activeTabIndex, tab)"></span>
         </div>

@@ -1,0 +1,419 @@
+<div class="clearfix wms-menu-wraper">
+    <div ng-if="JourneyGeneralCtrl.currentJourney.isNew==true?JourneyGeneralCtrl.ePage.Masters.LebelText=JourneyGeneralCtrl.currentJourney.label:JourneyGeneralCtrl.ePage.Masters.LebelText=JourneyGeneralCtrl.ePage.Masters.Config.Entities.Header.CheckPoints.LebelText"></div>
+    <div class="error-warning-container right" id="errorWarningContainer{{JourneyGeneralCtrl.ePage.Masters.LebelText}}">
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                <!-- <i class="fa fa-warning"></i>  -->
+                Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right" data-ng-click="JourneyGeneralCtrl.ePage.Masters.Config.ShowErrorWarningModal(JourneyGeneralCtrl.currentJourney)">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+        </div>
+        <div class="error-warning-body">
+            <div class="clearfix" data-ng-if="JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length>0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix margin-top-10">
+        <div class="clearfix mt-5">
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.FromZoneName.IsWarning && !JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.FromZoneName.IsError"
+                        list="JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.FromZoneName.WARNING" type="'warning'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.FromZoneName.IsError" list="JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.FromZoneName.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <div class="form-group">
+                    <label>From Zone</label>
+                    <div class="input-group input-group-sm">
+                        <div dynamic-lookup placeholder="Zone" my-ng-model="JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyHeader.FromZoneName"
+                            obj="JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyHeader" prefix-data="'OrgZone'" config="'Zone'"
+                            auto-complete-on-select="JourneyGeneralCtrl.ePage.Masters.SelectedFromZone($item)"></div>
+                        <span class="input-group-btn">
+                            <button dynamic-list-modal obj="JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyHeader" field-name="'Zone'" prefix-data="'OrgZone'"
+                                mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="JourneyGeneralCtrl.ePage.Masters.SelectedFromZone($item)"
+                                class="btn btn-default shiny" type="button">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                        </span>
+                        <span ng-if='!JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyHeader.FromZoneName && !JourneyGeneralCtrl.currentJourney.isNew'>
+                            <div ng-init="JourneyGeneralCtrl.ePage.Masters.OnChangeValues(JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyHeader.FromZoneName,'E5524')"></div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ToZoneName.IsWarning && !JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ToZoneName.IsError"
+                        list="JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ToZoneName.WARNING" type="'warning'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ToZoneName.IsError" list="JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ToZoneName.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <div class="form-group">
+                    <label>To Zone</label>
+                    <div class="input-group input-group-sm">
+                        <div dynamic-lookup placeholder="Zone" my-ng-model="JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyHeader.ToZoneName"
+                            obj="JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyHeader" prefix-data="'OrgZone'" config="'Zone'"
+                            auto-complete-on-select="JourneyGeneralCtrl.ePage.Masters.SelectedToZone($item)"></div>
+                        <span class="input-group-btn">
+                            <button dynamic-list-modal obj="JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyHeader" field-name="'Zone'" prefix-data="'OrgZone'"
+                                mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="JourneyGeneralCtrl.ePage.Masters.SelectedToZone($item)"
+                                class="btn btn-default shiny" type="button">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                        </span>
+                        <span ng-if='!JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyHeader.ToZoneName && !JourneyGeneralCtrl.currentJourney.isNew'>
+                            <div ng-init="JourneyGeneralCtrl.ePage.Masters.OnChangeValues(JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyHeader.ToZoneName,'E5525')"></div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Title.IsWarning && !JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Title.IsError"
+                        list="JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Title.WARNING" type="'warning'" icon="fa fa-warning"
+                        parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Title.IsError" list="JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Title.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <div class="form-group">
+                    <label class="control-label text-single-line">Journey Title</label>
+                    <div class="">
+                        <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Journey Title" alphabets-only   no-special-char data-ng-model="JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyHeader.Title" ng-change='JourneyGeneralCtrl.ePage.Masters.OnChangeValues(JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyHeader.Title,"E5526",false,undefined)'>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.JourneyType.IsWarning && !JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.JourneyType.IsError"
+                        list="JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.JourneyType.WARNING" type="'warning'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.JourneyType.IsError" list="JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.JourneyType.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <div class="form-group">
+                    <label class="control-label text-single-line">Journey Type</label>
+                    <select chosen class="form-control" style="height: 30px;" ng-model="JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyHeader.JourneyType"
+                        ng-options="x.Key as x.Key + ' - ' + x.Value for x in JourneyGeneralCtrl.ePage.Masters.DropDownMasterList.JourneyType.ListSource"
+                        title="JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyHeader.JourneyType" ng-change='JourneyGeneralCtrl.ePage.Masters.OnChangeValues(JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyHeader.JourneyType,"E5527",false,undefined)'
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ServiceType.IsWarning && !JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ServiceType.IsError"
+                        list="JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ServiceType.WARNING" type="'warning'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ServiceType.IsError" list="JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ServiceType.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <div class="form-group">
+                    <label class="control-label text-single-line">Service Type</label>
+                    <select chosen class="form-control" style="height: 30px;" ng-model="JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyHeader.ServiceType"
+                        ng-options="x.AddRef1Code as x.AddRef1Code+' - '+ x.TYP_Value for x in JourneyGeneralCtrl.ePage.Masters.servicetypelistSource | unique:'AddRef1Code'"
+                        title="{{JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyHeader.ServiceType}}" ng-change='JourneyGeneralCtrl.ePage.Masters.OnChangeServiceType(JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyHeader.ServiceType)'
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+            <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3" ng-if="!JourneyGeneralCtrl.currentJourney.isNew">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TransitDays.IsWarning && !JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TransitDays.IsError"
+                        list="JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TransitDays.WARNING" type="'warning'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TransitDays.IsError" list="JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TransitDays.ERROR"
+                        type="'error'" icon="fa fa-warning" readonly="" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <div class="form-group">
+                    <label class="control-label text-single-line">Transit Days</label>
+                    <div class="">
+                        <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Transit Days"
+                            data-ng-model="JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyHeader.TransitDays" ng-change='JourneyGeneralCtrl.ePage.Masters.OnChangeValues(JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyHeader.TransitDays,"E5529",false,undefined)'>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+        <div class="clearfix margin-top-5">
+            <!-- Saving Your Data -->
+            <div class="grid-loading-norecord-container ng-scope" style='z-index: 4;' data-ng-if="JourneyGeneralCtrl.ePage.Masters.IsLoadingToSave">
+                <div class="grid-no-record">Saving your Data...</div>
+            </div>
+            <!-- hide save -->
+            <span ng-if="!JourneyGeneralCtrl.ePage.Masters.Lineslist" ng-init="JourneyGeneralCtrl.ePage.Entities.Header.CheckPoints.DisableSave=true"></span>
+            <span ng-if="JourneyGeneralCtrl.ePage.Masters.Lineslist" ng-init="JourneyGeneralCtrl.ePage.Entities.Header.CheckPoints.DisableSave=false"></span>
+
+            <div class="col-lg-12 margin-top-5" ng-if="!JourneyGeneralCtrl.currentJourney.isNew">
+                <!--Order Details-->
+                <div ng-show='JourneyGeneralCtrl.ePage.Masters.Lineslist'>
+                    <div>
+                        <span>
+                            <button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Add New" data-ng-click="JourneyGeneralCtrl.ePage.Masters.AddNew()">
+                                <span class="fa fa-external-link-square"></span>&nbsp;&nbsp;AddNew</button>
+                        </span>
+                        <span>
+                            <button dynamic-list-modal obj="JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyLeg" field-name="'AttachLegFromJourney'"
+                                selected-data="JourneyGeneralCtrl.ePage.Masters.Attach($item)" prefix-data="'Leg'" mode="3" grid-refresh-fun-name=""
+                                grid-refresh-fun="" class="btn btn-sm btn-outline-primary" type="button">
+                                <i class="fa fa-plus-circle"></i> Attach</button>
+                        </span>
+                        <span ng-hide='JourneyGeneralCtrl.ePage.Masters.selectedRow==-1'>
+                            <button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Edit" data-ng-click="JourneyGeneralCtrl.ePage.Masters.Edit(JourneyGeneralCtrl.ePage.Masters.selectedRow,'Edit List')">
+                                <span class="fa fa-pencil"></span>&nbsp;&nbsp;Edit</button>
+                        </span>
+                        <span ng-hide='JourneyGeneralCtrl.ePage.Masters.selectedRow==-1'>
+                            <button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Delete" data-ng-click="JourneyGeneralCtrl.ePage.Masters.RemoveRow()">
+                                <i class="fa fa-minus-circle"></i> Detach</button>
+                        </span>
+                    </div>
+
+                    <div class="wmstable_scroll" id='JourneyGeneralCtrl.ePage.Masters.your_div' style="height:310px; padding-top: 2px;">
+                        <div class="table" id="results">
+                            <div class='theader'>
+                                <div class='table_header'>List No</div>
+                                <div class='table_header'>From Zone</div>
+                                <div class='table_header'>To Zone</div>
+                                <!-- <div class='table_header'>JourneyType</div> -->
+                                <div class='table_header'>ManifestType</div>
+                                <div class='table_header'>LegType</div>
+                                <div class='table_header'>Leg Title</div>
+                                <div class='table_header'>TransitDays</div>
+                            </div>
+
+                            <!-- List Empty Response -->
+                            <div data-ng-if="JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyLeg.length==0">
+                                <div class="grid-no-record grid-width" style="bottom:38px">No Record Found</div>
+                            </div>
+
+                            <div class='table_row' ng-repeat="x in JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyLeg   track by $index" ng-click="JourneyGeneralCtrl.ePage.Masters.setSelectedRow($index)"
+                                ng-class="{row_active: JourneyGeneralCtrl.ePage.Masters.selectedRow==$index}" style="font-size: 11px;">
+                                <div class='table_small'>
+                                    <div class='table_cell'>List No</div>
+                                    <div class='table_cell'>
+                                        <span class="list-error-warning" data-ng-if="JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TmsJourneyLeg.ERROR | listCount: 'RowIndex': $index">
+                                            <error-warning-directive list="JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TmsJourneyLeg.ERROR" type="'error'"
+                                                icon="fa fa-warning" parent-type="'arrayObjectRow'" parent-ref="" g-parent-ref=""
+                                                row-index="$index" col-index="">
+                                            </error-warning-directive>
+                                        </span>{{$index+1}}
+                                    </div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>From Zone</div>
+                                    <div class='table_cell'>{{x.TML_FromZoneName || JourneyGeneralCtrl.ePage.Masters.emptyText}}</div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>To Zone</div>
+                                    <div class='table_cell'>{{x.TML_ToZoneName || JourneyGeneralCtrl.ePage.Masters.emptyText}}</div>
+                                </div>
+                                <!-- <div class='table_small'>
+                                    <div class='table_cell'>JourneyType</div>
+                                    <div class='table_cell'>{{x.TMJ_JourneyType || JourneyGeneralCtrl.ePage.Masters.emptyText}}</div>
+                                </div> -->
+                                <div class='table_small'>
+                                    <div class='table_cell'>ManifestType</div>
+                                    <div class='table_cell'>{{x.TML_ManifestType || JourneyGeneralCtrl.ePage.Masters.emptyText}}</div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>LegType</div>
+                                    <div class='table_cell'>{{x.TML_LegType || JourneyGeneralCtrl.ePage.Masters.emptyText}}</div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>Leg Title</div>
+                                    <div class='table_cell'>{{x.TML_Title || JourneyGeneralCtrl.ePage.Masters.emptyText}}</div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>TransitDays</div>
+                                    <div class='table_cell'>{{x.TML_TransitDays || JourneyGeneralCtrl.ePage.Masters.emptyText}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Editable Mode -->
+                <div class="clearfix" ng-hide='JourneyGeneralCtrl.ePage.Masters.Lineslist' style="padding:5px">
+                    <div class="panel panel-default mt-5">
+                        <div class="panel-heading">
+                            <span ng-show="JourneyGeneralCtrl.ePage.Masters.HeaderName =='Copy Of List'">
+                                {{JourneyGeneralCtrl.ePage.Masters.HeaderName}} - {{JourneyGeneralCtrl.ePage.Masters.selectedRow}}
+                            </span>
+                            <span ng-show="JourneyGeneralCtrl.ePage.Masters.HeaderName!='Copy Of List'">
+                                {{JourneyGeneralCtrl.ePage.Masters.HeaderName}} - {{JourneyGeneralCtrl.ePage.Masters.selectedRow+1}}
+                            </span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-lg-12 ex-line-padding">
+                                <div class="ex-line-box" style="height:150px;padding-top:10px">
+                                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                        <div class="form-group">
+                                            <div class="error-warning-container" ng-repeat="x in JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TmsJourneyLeg.ERROR">
+                                                <error-warning-directive data-ng-if="x.ColIndex == 1 && x.RowIndex ==JourneyGeneralCtrl.ePage.Masters.selectedRow" list="JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TmsJourneyLeg.ERROR"
+                                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                                    g-parent-ref="" row-index="JourneyGeneralCtrl.ePage.Masters.selectedRow"
+                                                    col-index="1">
+                                                </error-warning-directive>
+                                            </div>
+                                            <label>From Zone</label>
+                                            <div class="input-group input-group-sm">
+                                                <div dynamic-lookup placeholder="Zone" my-ng-model="JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyLeg[JourneyGeneralCtrl.ePage.Masters.selectedRow].TML_FromZoneName"
+                                                    obj="JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyLeg[JourneyGeneralCtrl.ePage.Masters.selectedRow]"
+                                                    prefix-data="'OrgZone'" config="'Zone'" auto-complete-on-select="JourneyGeneralCtrl.ePage.Masters.SelectedFromZoneLeg($item)"></div>
+                                                <span class="input-group-btn">
+                                                    <button dynamic-list-modal obj="JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyLeg[JourneyGeneralCtrl.ePage.Masters.selectedRow]"
+                                                        field-name="'Zone'" prefix-data="'OrgZone'" mode="2" grid-refresh-fun-name=""
+                                                        grid-refresh-fun="" selected-data="JourneyGeneralCtrl.ePage.Masters.SelectedFromZoneLeg($item)"
+                                                        class="btn btn-default shiny" type="button">
+                                                        <i class="fa fa-ellipsis-h"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                        <div class="form-group">
+                                            <div class="error-warning-container" ng-repeat="x in JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TmsJourneyLeg.ERROR">
+                                                <error-warning-directive data-ng-if="x.ColIndex == 2 && x.RowIndex ==JourneyGeneralCtrl.ePage.Masters.selectedRow" list="JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TmsJourneyLeg.ERROR"
+                                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                                    g-parent-ref="" row-index="JourneyGeneralCtrl.ePage.Masters.selectedRow"
+                                                    col-index="2">
+                                                </error-warning-directive>
+                                            </div>
+                                            <label>To Zone</label>
+                                            <div class="input-group input-group-sm">
+                                                <div dynamic-lookup placeholder="Zone" my-ng-model="JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyLeg[JourneyGeneralCtrl.ePage.Masters.selectedRow].TML_ToZoneName"
+                                                    obj="JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyLeg[JourneyGeneralCtrl.ePage.Masters.selectedRow]"
+                                                    prefix-data="'OrgZone'" config="'Zone'" auto-complete-on-select="JourneyGeneralCtrl.ePage.Masters.SelectedToZoneLeg($item)"></div>
+                                                <span class="input-group-btn">
+                                                    <button dynamic-list-modal obj="JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyLeg[JourneyGeneralCtrl.ePage.Masters.selectedRow]"
+                                                        field-name="'Zone'" prefix-data="'OrgZone'" mode="2" grid-refresh-fun-name=""
+                                                        grid-refresh-fun="" selected-data="JourneyGeneralCtrl.ePage.Masters.SelectedToZoneLeg($item)"
+                                                        class="btn btn-default shiny" type="button">
+                                                        <i class="fa fa-ellipsis-h"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-2">
+                                        <div class="form-group">
+                                            <div class="error-warning-container" ng-repeat="x in JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TmsJourneyLeg.ERROR">
+                                                <error-warning-directive data-ng-if="x.ColIndex == 3 && x.RowIndex ==JourneyGeneralCtrl.ePage.Masters.selectedRow" list="JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TmsJourneyLeg.ERROR"
+                                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                                    g-parent-ref="" row-index="JourneyGeneralCtrl.ePage.Masters.selectedRow"
+                                                    col-index="3">
+                                                </error-warning-directive>
+                                            </div>
+                                            <label class="control-label text-single-line">Leg Type</label>
+                                            <select chosen class="form-control" style="height: 30px;" ng-model="JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyLeg[JourneyGeneralCtrl.ePage.Masters.selectedRow].TML_LegType"
+                                                ng-options="x.Key as x.Key + ' - ' + x.Value for x in JourneyGeneralCtrl.ePage.Masters.DropDownMasterList.Leg_type.ListSource"
+                                                title="JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyLeg[JourneyGeneralCtrl.ePage.Masters.selectedRow].TML_LegType"
+                                                ng-change='JourneyGeneralCtrl.ePage.Masters.OnChangeValues(JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyLeg[JourneyGeneralCtrl.ePage.Masters.selectedRow].TML_LegType, "E5556", true, JourneyGeneralCtrl.ePage.Masters.selectedRow)'
+                                                search-contains="true">
+                                                <option value="">--Select--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-2">
+                                        <div class="form-group">
+                                            <div class="error-warning-container" ng-repeat="x in JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TmsJourneyLeg.ERROR">
+                                                <error-warning-directive data-ng-if="x.ColIndex == 4 && x.RowIndex ==JourneyGeneralCtrl.ePage.Masters.selectedRow" list="JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TmsJourneyLeg.ERROR"
+                                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                                    g-parent-ref="" row-index="JourneyGeneralCtrl.ePage.Masters.selectedRow"
+                                                    col-index="4">
+                                                </error-warning-directive>
+                                            </div>
+                                            <label class="control-label text-single-line">Manifest Type</label>
+                                            <select chosen class="form-control" style="height: 30px;" ng-model="JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyLeg[JourneyGeneralCtrl.ePage.Masters.selectedRow].TML_ManifestType"
+                                                ng-options="x.Key as x.Key + ' - ' + x.Value for x in JourneyGeneralCtrl.ePage.Masters.DropDownMasterList.ManifestType.ListSource"
+                                                title="JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyLeg[JourneyGeneralCtrl.ePage.Masters.selectedRow].TML_ManifestType"
+                                                ng-change='JourneyGeneralCtrl.ePage.Masters.OnChangeValues(JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyLeg[JourneyGeneralCtrl.ePage.Masters.selectedRow].TML_ManifestType, "E5558", true, JourneyGeneralCtrl.ePage.Masters.selectedRow)'
+                                                search-contains="true">
+                                                <option value="">--Select--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-2">
+                                        <div class="form-group">
+                                            <div class="error-warning-container" ng-repeat="x in JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TmsJourneyLeg.ERROR">
+                                                <error-warning-directive data-ng-if="x.ColIndex == 5 && x.RowIndex ==JourneyGeneralCtrl.ePage.Masters.selectedRow" list="JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TmsJourneyLeg.ERROR"
+                                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                                    g-parent-ref="" row-index="JourneyGeneralCtrl.ePage.Masters.selectedRow"
+                                                    col-index="5">
+                                                </error-warning-directive>
+                                            </div>
+                                            <label class="control-label text-single-line">Title</label>
+                                            <div class="">
+                                                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Leg Title" alphabets-only   no-special-char data-ng-model="JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyLeg[JourneyGeneralCtrl.ePage.Masters.selectedRow].TML_Title" ng-change='JourneyGeneralCtrl.ePage.Masters.OnChangeValues(JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyLeg[JourneyGeneralCtrl.ePage.Masters.selectedRow].TML_Title, "E5557", true, JourneyGeneralCtrl.ePage.Masters.selectedRow)'>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-2">
+                                        <div class="form-group">
+                                            <div class="error-warning-container" ng-repeat="x in JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TmsJourneyLeg.ERROR">
+                                                <error-warning-directive data-ng-if="x.ColIndex == 6 && x.RowIndex ==JourneyGeneralCtrl.ePage.Masters.selectedRow" list="JourneyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TmsJourneyLeg.ERROR"
+                                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                                    g-parent-ref="" row-index="JourneyGeneralCtrl.ePage.Masters.selectedRow"
+                                                    col-index="6">
+                                                </error-warning-directive>
+                                            </div>
+                                            <label class="control-label text-single-line">Transit Days</label>
+                                            <div class="">
+                                                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="TransitDays" numbers-only no-special-char
+                                                    data-ng-model="JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyLeg[JourneyGeneralCtrl.ePage.Masters.selectedRow].TML_TransitDays"
+                                                    ng-change='JourneyGeneralCtrl.ePage.Masters.OnChangeValues(JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyLeg[JourneyGeneralCtrl.ePage.Masters.selectedRow].TML_TransitDays, "E5555", true, JourneyGeneralCtrl.ePage.Masters.selectedRow)'>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-lg-offset-8 mt-5">
+                            <button class="btn btn-blue btn-sm mr-5 pull-right" title="Save" data-ng-click="JourneyGeneralCtrl.ePage.Masters.Done(JourneyGeneralCtrl.ePage.Entities.Header.Data.TmsJourneyLeg[JourneyGeneralCtrl.ePage.Masters.selectedRow])">
+                                <i class="fa fa-save pr-5"></i>Save</button>
+                            <!-- <button class="btn btn-primary btn-sm mr-5 pull-right" title="Delete" data-ng-click="JourneyGeneralCtrl.ePage.Masters.RemoveRow()">
+                            <i class="fa fa-trash pr-5"></i>Delete</button> -->
+                            <button class="btn btn-primary btn-sm mr-5 pull-right" title="Back" data-ng-click="JourneyGeneralCtrl.ePage.Masters.Back()">
+                                <i class="fa fa-angle-double-left pr-5"></i>Back</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="eaxis-footer-strip">
+    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+        <standard-menu input="JourneyGeneralCtrl.currentJourney" ng-if="!JourneyGeneralCtrl.currentJourney.isNew" dataentry-object="JourneyGeneralCtrl.dataentryObject"></standard-menu>
+    </div>
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+        <div class="col-lg-12 pl-0">
+            <button class="btn btn-primary pull-right btn-sm mt-6" data-ng-click="JourneyGeneralCtrl.ePage.Masters.Validation(JourneyGeneralCtrl.currentJourney)"
+                data-ng-disabled="JourneyGeneralCtrl.ePage.Entities.Header.CheckPoints.DisableSave" data-ng-bind="JourneyGeneralCtrl.ePage.Masters.SaveButtonText"></button>
+        </div>
+    </div>
+</div>

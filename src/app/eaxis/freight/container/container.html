@@ -6,8 +6,7 @@
         </uib-tab-heading>
         <div class="no-padding tab-list-view-wrapper">
             <!--Container Grid Page-->
-            <dynamic-list dataentry-name="ContainerCtrl.ePage.Masters.dataentryName" task-name="ContainerCtrl.ePage.Masters.taskName"
-                grid-config-type="0" selected-grid-row="ContainerCtrl.ePage.Masters.SelectedGridRow($item)" mode="1"></dynamic-list>
+            <dynamic-list dataentry-name="ContainerCtrl.ePage.Masters.dataentryName" selected-grid-row="ContainerCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" dataentry-object="ContainerCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
             <div class="tab-loading" data-ng-show="ContainerCtrl.ePage.Masters.IsTabClick"></div>
         </div>
     </uib-tab>
@@ -22,7 +21,6 @@
             <container-list-directive current-container="tab"></container-list-directive>
             <div class="eaxis-footer-strip">
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                     <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="ContainerCtrl.ePage.Masters.Save(tab)"

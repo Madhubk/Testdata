@@ -5,7 +5,7 @@
         .module("Application")
         .directive("containerFormDirective", containerForm);
 
-        containerForm.$inject = [];
+    containerForm.$inject = [];
 
     function containerForm() {
         var exports = {
@@ -15,7 +15,9 @@
             controller: "ContainerFormController",
             controllerAs: "ContainerFormCtrl",
             scope: {
-                currentContainer: "="
+                currentContainer: "=",
+                currentConsol:"=",
+                refCode: "@"
             },
             bindToController: true
         };

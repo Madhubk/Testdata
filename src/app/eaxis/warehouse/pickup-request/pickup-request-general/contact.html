@@ -1,0 +1,24 @@
+<div class="modal-header">
+    <span class="modal-title modalheader">Site Contact</span>
+    <span class="modal-title  pull-right" style="font-size: 18px;" ng-click="PickupGeneralCtrl.ePage.Masters.CloseEditActivity()">
+        <a href="javascript:void(0);">
+            <i class="fa fa-times"></i>
+        </a>
+    </span>
+</div>
+<div class="modal-body pb-50">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 mt-15" ng-repeat="x in PickupGeneralCtrl.ePage.Masters.CurrentSiteContact"
+        ng-click="PickupGeneralCtrl.ePage.Masters.ContactChosen(x)">
+        <div ng-class="{addressboxselected: x.PK == PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.Requester_PK, addressbox:x.PK != PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.Requester_PK}">
+            <div class="text-single-line" title='{{x.UserName}}'>{{x.UserName }}</div>
+            <div class="text-single-line" title='{{x.ContactName}}'>{{x.ContactName }}</div>
+            <div class="text-single-line" title='{{x.JobCategory}}'>{{x.JobCategory }}</div>
+            <div class="text-single-line" title='{{x.Phone}}'>{{x.Phone}}</div>
+            <div class="text-single-line" title='{{x.Mobile}}'>{{x.Mobile}}</div>
+            <div class="text-single-line" title='{{x.Email}}'>{{x.Email}}</div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-sm mb-15" ng-click="PickupGeneralCtrl.ePage.Masters.CloseEditActivity()">Cancel</button>
+</div>

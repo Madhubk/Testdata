@@ -1,0 +1,863 @@
+<div ng-if="!ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.isConverted">
+    <div class="clearfix pull-right fs-25 mb-10 pr-10">
+        <button class="btn btn-default set-br-blue set-bg-blue-light fs-12" data-ng-click="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ConvertBooking(ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.SelectedOrder)"
+            data-ng-disabled="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.IsDisableSave || ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.SelectedOrder.length == 0">
+            Convert to Booking
+        </button>
+    </div>
+    <div class="clearfix ctob_scroll mt-20 pl-10 pr-10 ctob_hgt" ng-if="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.GridLoad">
+        <convert-booking-branch-grid-directive input="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.SfuOrderList"
+            grid-change="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.DataChanges({ item: item })"></convert-booking-branch-grid-directive>
+    </div>
+</div>
+<div class="clearfix p-30 text-center" data-ng-if="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.isConverted && ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.Loaded==false">
+    <i class="fa fa-spin fa-spinner" style="font-size: 18px;"></i>
+</div>
+<div class="convertBooking error-modal-hide">
+    <div ng-if="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.isConverted && ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.Loaded ==true">
+        <div class="">
+            <article class="col-sm-12 col-md-8 col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-lg fa-fw fa-file-text"></i>
+                        <!-- <i class="fa fa-lg fa-fw icon-man236"></i> -->
+                        <span>Consignor Details</span>
+                        <span class="QuickBooking">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.BookingType"
+                                        ng-true-value="'QB'" ng-false-value="'CB'" class="colored-blue">
+                                    <span class="text">Quick Booking</span>
+                                </label>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="panel-body no-padding">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-10">
+                            <div class="form-group">
+                                <label class="control-label text-single-line">Consignor Code</label>
+                                <div class="input-group col-lg-12">
+                                    <input type="text" disabled="disabled" class="form-control input-sm" placeholder=""
+                                        data-ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Shipper_Code" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-10">
+                            <div class="form-group">
+                                <label class="control-label text-single-line">Consignor Name</label>
+                                <div class="input-group col-lg-12">
+                                    <input type="text" disabled="disabled" class="form-control input-sm" placeholder=""
+                                        data-ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.shipperName" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <div class="form-group">
+                                <label class="control-label text-single-line">Consignor Address Short Code</label>
+                                <select chosen class="form-control" ng-disabled="true" ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ConsignorAddressType"
+                                    ng-options="addressType as addressType.Code for addressType in ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.OrgConsignorAddressDetails"
+                                    search-contains="true">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <div class="form-group">
+                                <label class="control-label text-single-line">Consignor Contact</label>
+                                <select chosen class="form-control" ng-disabled="true" ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ConsignorContact"
+                                    ng-options="contact as contact.ContactName for contact in ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.OrgConsignorContactDetails"
+                                    search-contains="true">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <div class="form-group">
+                                <label class="control-label text-single-line">Consignor Address Details</label>
+                                <div class="input-group">
+                                    <textarea rows="3" style="width: 290px" class="col-lg-12" maxlength="250" name="info"
+                                        ng-disabled="true" ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ConsignorAddress"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <div class="form-group">
+                                <label class="control-label text-single-line">Consignor Contact Details</label>
+                                <div class="input-group">
+                                    <textarea rows="3" style="width: 290px" class="col-lg-12" maxlength="250" name="info"
+                                        ng-disabled="true" ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ConsignorContactDetails"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <article class="col-sm-12 col-md-8 col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-lg fa-fw fa-file-text"></i>
+                        <!-- <i class="fa fa-lg  fa-fw icon-package11"></i> -->
+                        <span>Consignee Details</span>
+                    </div>
+                    <div class="panel-body no-padding">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-10">
+                            <div class="form-group">
+                                <label class="control-label text-single-line">Consignee Code</label>
+                                <select chosen class="form-control" ng-disabled="true" ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.Buyer"
+                                    ng-options="buyer as buyer.ORG_BuyerCode for buyer in ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.OrgBuyerDetails"
+                                    search-contains="true">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-10">
+                            <div class="form-group">
+                                <label class="control-label text-single-line">Consignee Name</label>
+                                <div class="input-group col-lg-12">
+                                    <input type="text" disabled="disabled" class="form-control input-sm" placeholder=""
+                                        data-ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.buyerName" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <div class="form-group">
+                                <label class="control-label text-single-line">Consignee Address Short Code</label>
+                                <select chosen class="form-control" ng-disabled="true" ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ConsigneeAddressType"
+                                    ng-options="addressType as addressType.Code for addressType in ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.OrgConsigneeAddressDetails"
+                                    search-contains="true">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <div class="form-group">
+                                <label class="control-label text-single-line">Consignee Contact</label>
+                                <select chosen class="form-control" ng-disabled="true" ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ConsigneeContact"
+                                    ng-options="contact as contact.ContactName for contact in ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.OrgConsigneeContactDetails"
+                                    search-contains="true">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <div class="form-group">
+                                <label class="control-label text-single-line">Consignee Address Details</label>
+                                <div class="input-group">
+                                    <textarea rows="3" style="width: 290px" class="col-lg-12" maxlength="250" name="info"
+                                        ng-disabled="true" ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ConsigneeAddress"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <div class="form-group">
+                                <label class="control-label text-single-line">Consignee Contact Details</label>
+                                <div class="input-group">
+                                    <textarea rows="3" style="width: 290px" class="col-lg-12" maxlength="250" name="info"
+                                        ng-disabled="true" ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ConsigneeContactDetails"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <article class="col-sm-12 col-md-12 col-lg-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-lg fa-fw fa-file-text"></i>
+                        <!-- <i class="fa fa-lg fa-fw icon-delivery21"></i> -->
+                        <span>Open Orders</span>
+                    </div>
+                    <div class="panel-body no-padding">
+
+                        <div style="width: 100%; height: 230px;">
+                            <div class="clearfix">
+                                <div id="grid" ui-grid="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.gridOptions"
+                                    ui-grid-auto-resize ui-grid-resize-columns style="font-size:11px;height:230px;">
+                                    <div class="grid-loading-norecord-container" data-ng-if="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.IsLoading">
+                                        <div class="grid-loading">Loading...</div>
+                                    </div>
+                                    <div class="grid-loading-norecord-container" data-ng-if="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.IsNoRecords">
+                                        <div class="grid-no-record">No records found...</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </article>
+            <article class="col-sm-12 col-md-12 col-lg-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-lg fa-fw fa-file-text"></i>
+                        <!-- <i class="fa fa-lg fa-fw icon-delivery38"></i> -->
+                        <span>Attached Orders</span>
+                    </div>
+                    <div class="panel-body no-padding">
+                        <div class="wmstable_scroll" style="min-height: 230px;">
+                            <div class="table" id="results">
+                                <div class='theader'>
+                                    <div class='table_header'>De-attach</div>
+                                    <div class='table_header'>Edit</div>
+                                    <div class='table_header'>Order #</div>
+                                    <div class='table_header'>Order Date</div>
+                                    <div class='table_header'>Follow Up Date</div>
+                                    <div class='table_header'>Consignee</div>
+                                    <div class='table_header'>Consignor</div>
+                                    <div class='table_header'>T.Mode</div>
+                                    <div class='table_header'>C.Mode</div>
+                                    <div class='table_header'>Cargo Ready Date</div>
+                                    <div class='table_header'>Req In Store</div>
+                                    <div class='table_header'>Req Ex. Store</div>
+                                </div>
+                                <!-- List Empty Responses -->
+                                <div data-ng-if="ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIOrderHeaders.length==0">
+                                    <div class="grid-no-record grid-width" style="bottom:38px">No record found..</div>
+                                </div>
+                                <!-- List Order(s) -->
+                                <div class='table_row' ng-repeat="x in ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIOrderHeaders"
+                                    style="font-size: 11px;">
+
+                                    <div class='table_small'>
+                                        <div class='table_cell'>De-attach</div>
+                                        <div class='table_cell text-center'>
+                                            <i class="fa fa-arrow-circle-left" style="font-size: 16px; color: #3276b1;cursor: pointer;"
+                                                ng-click="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.deAttachOrder(x,$index)"></i>
+                                        </div>
+                                    </div>
+                                    <div class='table_small'>
+                                        <div class='table_cell'>Edit</div>
+                                        <div class='table_cell'>
+                                            <a href="javascript:void(0)" ng-click="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.addLineItem(x,$index,'true')">
+                                                <i class="fa fa-edit "></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class='table_small'>
+                                        <div class='table_cell'>Order #</div>
+                                        <div class='table_cell'>
+                                            <a href="javascript:void(0)" data-ng-click="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.singleRecordView(x)">
+                                                {{x.OrderCumSplitNo}}</a>
+                                        </div>
+                                    </div>
+                                    <div class='table_small'>
+                                        <div class='table_cell'>Order Date</div>
+                                        <div class='table_cell'>{{x.OrderDate | date:'dd-MMM-yyyy'}}</div>
+                                    </div>
+                                    <div class='table_small'>
+                                        <div class='table_cell'>Follow Up Date</div>
+                                        <div class='table_cell'>{{x.FollowUpDate | date:'dd-MMM-yyyy'}}</div>
+                                    </div>
+                                    <div class='table_small'>
+                                        <div class='table_cell'>Consignee</div>
+                                        <div class='table_cell'>{{x.Buyer}}</div>
+                                    </div>
+                                    <div class='table_small'>
+                                        <div class='table_cell'>Consignor</div>
+                                        <div class='table_cell'>{{x.Supplier}}</div>
+                                    </div>
+                                    <div class='table_small'>
+                                        <div class='table_cell'>T.Mode</div>
+                                        <div class='table_cell'>{{x.TransportMode}}</div>
+                                    </div>
+                                    <div class='table_small'>
+                                        <div class='table_cell'>C.Mode</div>
+                                        <div class='table_cell'>{{x.ContainerMode}}</div>
+                                    </div>
+                                    <div class='table_small CargoDate'>
+                                        <div class='table_cell'>Cargo Ready Date</div>
+                                        <div class='table_cell'>
+                                            {{x.CargoReadyDate | date:'dd-MMM-yyyy'}}
+                                        </div>
+                                    </div>
+                                    <div class='table_small'>
+                                        <div class='table_cell'>Req In Store</div>
+                                        <div class='table_cell'>{{x.RequiredDeliveryDate | date:'dd-MMM-yyyy'}}</div>
+                                    </div>
+                                    <div class='table_small'>
+                                        <div class='table_cell'>Req Ex. Store</div>
+                                        <div class='table_cell'>{{x.RequiredExWorksDate | date:'dd-MMM-yyyy'}}</div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <div class="col-lg-12 col-md-12 col-xl-12 col-sm-12 col-xs-12">
+                <uib-tabset style="border: 1px solid #ddd;">
+                    <uib-tab>
+                        <uib-tab-heading title="General">
+                            <i class="fa fa-list-alt margin-right-5"></i>
+                            <span data-ng-bind="'General'"></span>
+                        </uib-tab-heading>
+                        <div class="mt-10">
+                            <div class="panel-body no-padding">
+                                <div class="mt-10">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                        <span class="error-warning-container">
+                                            <error-warning-directive data-ng-if="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PackingMode.IsWarning && !ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PackingMode.IsError"
+                                                list="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PackingMode.WARNING"
+                                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
+                                                g-parent-ref=""></error-warning-directive>
+                                            <error-warning-directive data-ng-if="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PackingMode.IsError"
+                                                list="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PackingMode.ERROR"
+                                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
+                                                g-parent-ref=""></error-warning-directive>
+                                        </span>
+                                        <div class="form-group">
+                                            <label class="control-label text-single-line"> Mode</label>
+                                            <select chosen class="form-control" ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.selectedMode"
+                                                ng-options="term as (term.Key+'-'+term.PARENT_Value + '(' + term.Key+')') for term in ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.cfxTypeList.CntType"
+                                                search-contains="true" ng-change="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.modeChange(ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.selectedMode)">
+                                                <option value="">--Select--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                        <span class="error-warning-container">
+                                            <error-warning-directive data-ng-if="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IncoTerm.IsWarning && !ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IncoTerm.IsError"
+                                                list="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IncoTerm.WARNING"
+                                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
+                                                g-parent-ref=""></error-warning-directive>
+                                            <error-warning-directive data-ng-if="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IncoTerm.IsError"
+                                                list="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IncoTerm.ERROR"
+                                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
+                                                g-parent-ref=""></error-warning-directive>
+                                        </span>
+                                        <div class="form-group">
+                                            <label class="control-label text-single-line">IncoTerm</label>
+                                            <select chosen class="form-control" ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.IncoTerm"
+                                                ng-options="term.Key as (term.Key + ' - ' + term.Value) for term in ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.cfxTypeList.INCOTERM"
+                                                search-contains="true" ng-change="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.OnFieldValueChange('MyTask',ConvertBookingBranchEditDirectiveCtrl.taskObj.PSI_InstanceNo,ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.IncoTerm,'E0003',false)">
+                                                <option value="">--Select--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                        <span class="error-warning-container">
+                                            <error-warning-directive data-ng-if="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.HBLAWBChargesDisplay.IsWarning && !ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.HBLAWBChargesDisplay.IsError"
+                                                list="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.HBLAWBChargesDisplay.WARNING"
+                                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
+                                                g-parent-ref=""></error-warning-directive>
+                                            <error-warning-directive data-ng-if="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.HBLAWBChargesDisplay.IsError"
+                                                list="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.HBLAWBChargesDisplay.ERROR"
+                                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
+                                                g-parent-ref=""></error-warning-directive>
+                                        </span>
+                                        <div class="form-group">
+                                            <label class="control-label text-single-line">Freight Terms</label>
+                                            <select chosen class="form-control" ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HBLAWBChargesDisplay"
+                                                ng-options="term.Key as (term.Key + ' - ' + term.Value) for term in ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.cfxTypeList.FREIGHTTERMS"
+                                                search-contains="true" ng-change="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.OnFieldValueChange('MyTask',ConvertBookingBranchEditDirectiveCtrl.taskObj.PSI_InstanceNo,ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HBLAWBChargesDisplay,'E0039',false)">
+                                                <option value="">--Select--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                        <div class="form-group">
+                                            <label class="control-label text-single-line">Cargo Ready Date</label>
+                                            <div class="input-group input-group-sm">
+                                                <input type="text" class="form-control" placeholder="{{ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                                    data-ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.CargoReadyDate"
+                                                    datetime-picker="{{ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                                    datepicker-options="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.DatePicker.Options"
+                                                    datepicker-append-to-body="false" close-on-selection="false"
+                                                    enable-time="false" enable-date="true" default-date="" default-time=""
+                                                    save-as="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                                    is-open="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.DatePicker.isOpen['isCargoReadyDate']"
+                                                    when-closed="" data-ng-click="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoReadyDate')"
+                                                    custom-date-time-format />
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default shiny" type="button" data-ng-click="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoReadyDate')">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                        <span class="error-warning-container">
+                                            <error-warning-directive data-ng-if="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Origin.IsWarning && !ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Origin.IsError"
+                                                list="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Origin.WARNING"
+                                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
+                                                g-parent-ref=""></error-warning-directive>
+                                            <error-warning-directive data-ng-if="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Origin.IsError"
+                                                list="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Origin.ERROR"
+                                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
+                                                g-parent-ref=""></error-warning-directive>
+                                        </span>
+                                        <div class="form-group">
+                                            <label class="control-label text-single-line">Origin</label>
+                                            <div class="input-group input-group-sm">
+                                                <div dynamic-lookup placeholder="" my-ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin"
+                                                    obj="ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                                                    prefix-data="'MstUNLOCO'" config="'ShpGeneralOrigin'"
+                                                    auto-complete-on-select="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin,'E0004',false)"></div>
+                                                <span class="input-group-btn">
+                                                    <button dynamic-list-modal obj="ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                                                        field-name="'ShpGeneralOrigin'" prefix-data="'MstUNLOCO'" mode="2"
+                                                        grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.SelectedLookupData($item.data.entity.Code,ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin,'E0004',false)"
+                                                        class="btn btn-default shiny" type="button">
+                                                        <i class="fa fa-ellipsis-h"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                        <span class="error-warning-container">
+                                            <error-warning-directive data-ng-if="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PortOfLoading.IsWarning && !ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PortOfLoading.IsError"
+                                                list="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PortOfLoading.WARNING"
+                                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
+                                                g-parent-ref=""></error-warning-directive>
+                                            <error-warning-directive data-ng-if="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PortOfLoading.IsError"
+                                                list="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PortOfLoading.ERROR"
+                                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
+                                                g-parent-ref=""></error-warning-directive>
+                                        </span>
+                                        <div class="form-group">
+                                            <label class="control-label text-single-line">POL</label>
+                                            <div class="input-group input-group-sm">
+                                                <div dynamic-lookup placeholder="" my-ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PortOfLoading"
+                                                    obj="ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                                                    prefix-data="'MstUNLOCO'" config="'PortOfLoading'"
+                                                    auto-complete-on-select="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PortOfLoading,'E0006',false)"></div>
+                                                <span class="input-group-btn">
+                                                    <button dynamic-list-modal obj="ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                                                        field-name="'PortOfLoading'" prefix-data="'MstUNLOCO'" mode="2"
+                                                        grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.SelectedLookupData($item.data.entity.Code,ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PortOfLoading,'E0006',false)"
+                                                        class="btn btn-default shiny" type="button">
+                                                        <i class="fa fa-ellipsis-h"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                        <span class="error-warning-container">
+                                            <error-warning-directive data-ng-if="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PortOfDischarge.IsWarning && !ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PortOfDischarge.IsError"
+                                                list="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PortOfDischarge.WARNING"
+                                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
+                                                g-parent-ref=""></error-warning-directive>
+                                            <error-warning-directive data-ng-if="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PortOfDischarge.IsError"
+                                                list="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PortOfDischarge.ERROR"
+                                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
+                                                g-parent-ref=""></error-warning-directive>
+                                        </span>
+                                        <div class="form-group">
+                                            <label class="control-label text-single-line">POD</label>
+                                            <div class="input-group input-group-sm">
+                                                <div dynamic-lookup placeholder="" my-ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PortOfDischarge"
+                                                    obj="ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                                                    prefix-data="'MstUNLOCO'" config="'PortOfDischarge'"
+                                                    auto-complete-on-select="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PortOfDischarge,'E0007',false)"></div>
+                                                <span class="input-group-btn">
+                                                    <button dynamic-list-modal obj="ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                                                        field-name="'PortOfDischarge'" prefix-data="'MstUNLOCO'" mode="2"
+                                                        grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.SelectedLookupData($item.data.entity.Code,ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PortOfDischarge,'E0007',false)"
+                                                        class="btn btn-default shiny" type="button">
+                                                        <i class="fa fa-ellipsis-h"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                        <span class="error-warning-container">
+                                            <error-warning-directive data-ng-if="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Destination.IsWarning && !ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Destination.IsError"
+                                                list="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Destination.WARNING"
+                                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
+                                                g-parent-ref=""></error-warning-directive>
+                                            <error-warning-directive data-ng-if="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Destination.IsError"
+                                                list="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Destination.ERROR"
+                                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
+                                                g-parent-ref=""></error-warning-directive>
+                                        </span>
+                                        <div class="form-group">
+                                            <label class="control-label text-single-line">Destination</label>
+                                            <div class="input-group input-group-sm">
+                                                <div dynamic-lookup placeholder="" my-ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination"
+                                                    obj="ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                                                    prefix-data="'MstUNLOCO'" config="'ShpGeneralDestination'"
+                                                    auto-complete-on-select="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination,'E0005',false)"></div>
+                                                <span class="input-group-btn">
+                                                    <button dynamic-list-modal obj="ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                                                        field-name="'ShpGeneralDestination'" prefix-data="'MstUNLOCO'"
+                                                        mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                                        selected-data="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.SelectedLookupData($item.data.entity.Code,ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination,'E0005',false)"
+                                                        class="btn btn-default shiny" type="button">
+                                                        <i class="fa fa-ellipsis-h"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix">
+                                        <div class="row">
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                                                    <div class="form-group">
+                                                        <label class="control-label text-single-line">Pickup</label>
+                                                        <select chosen class="form-control" ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.serviceTypes.Pickup"
+                                                            ng-change="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.addRemoveServiceType('PIC',ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.serviceTypes.Pickup)"
+                                                            search-contains="true ">
+                                                            <option value="false">No</option>
+                                                            <option value="PIC">Yes</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                                                    <div class="form-group">
+                                                        <label class="control-label text-single-line">Export Clearance</label>
+                                                        <select chosen class="form-control" ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.serviceTypes.ExportClearance"
+                                                            ng-change="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.addRemoveServiceType('EXC',ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.serviceTypes.ExportClearance)"
+                                                            search-contains="true ">
+                                                            <option value="false">No</option>
+                                                            <option value="EXC">Yes</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                                                    <div class="form-group">
+                                                        <label class="control-label text-single-line">Factory Stuffing</label>
+                                                        <select chosen class="form-control" ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.serviceTypes.FactoryStuffing"
+                                                            ng-change="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.addRemoveServiceType('EXC',ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.serviceTypes.FactoryStuffing)"
+                                                            search-contains="true ">
+                                                            <option value="false">No</option>
+                                                            <option value="FAS">Yes</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                                                    <div class="form-group">
+                                                        <label class="control-label text-single-line">Delivery</label>
+                                                        <select chosen class="form-control" ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.serviceTypes.Delivery"
+                                                            search-contains="true " ng-change="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.addRemoveServiceType('DLV',ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.serviceTypes.Delivery)">
+                                                            <option value="false">No</option>
+                                                            <option value="DLV">Yes</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                                                    <div class="form-group">
+                                                        <label class="control-label text-single-line">Import Clearance</label>
+                                                        <select chosen class="form-control" ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.serviceTypes.ImportClearance"
+                                                            ng-change="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.addRemoveServiceType('IMC',ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.serviceTypes.ImportClearance)"
+                                                            search-contains="true ">
+                                                            <option value="false">No</option>
+                                                            <option value="IMC">Yes</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                                                    <div class="form-group">
+                                                        <label class="control-label text-single-line">Cargo Insurance</label>
+                                                        <select chosen class="form-control" ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.serviceTypes.CargoInsurance"
+                                                            ng-change="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.addRemoveServiceType('CAI',ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.serviceTypes.CargoInsurance)"
+                                                            search-contains="true ">
+                                                            <option value="false">No</option>
+                                                            <option value="CAI">Yes</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 pl-0">
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                                    <span class="error-warning-container">
+                                                        <error-warning-directive data-ng-if="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExportForwarder_Code.IsWarning && !ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExportForwarder_Code.IsError"
+                                                            list="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExportForwarder_Code.WARNING"
+                                                            type="'warning'" icon="fa fa-warning" parent-type="'null'"
+                                                            parent-ref="" g-parent-ref=""></error-warning-directive>
+                                                        <error-warning-directive data-ng-if="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExportForwarder_Code.IsError"
+                                                            list="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExportForwarder_Code.ERROR"
+                                                            type="'error'" icon="fa fa-warning" parent-type="'null'"
+                                                            parent-ref="" g-parent-ref=""></error-warning-directive>
+                                                    </span>
+                                                    <div class="form-group">
+                                                        <label class="control-label text-single-line">Sending Agent</label>
+                                                        <div class="input-group input-group-sm">
+                                                            <input type="hidden" my-ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportForwarder_FK">
+                                                            <div dynamic-lookup placeholder="" my-ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportForwarder_Code"
+                                                                obj="ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                                                                prefix-data="'OrganizationList'" config="'JobAddressOrgSendingForwarder'"
+                                                                auto-complete-on-select="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportForwarder_Code,'E0047',false)"></div>
+                                                            <span class="input-group-btn">
+                                                                <button dynamic-list-modal obj="ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                                                                    field-name="'JobAddressOrgSendingForwarder'"
+                                                                    prefix-data="'OrganizationList'" mode="2"
+                                                                    grid-refresh-fun-name="" grid-refresh-fun=""
+                                                                    selected-data="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.SelectedLookupData($item.data.entity.Code,ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportForwarder_Code,'E0047',false)"
+                                                                    class="btn btn-default shiny" type="button">
+                                                                    <i class="fa fa-ellipsis-h"></i>
+                                                                </button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                                    <span class="error-warning-container">
+                                                        <error-warning-directive data-ng-if="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ImportForwarder_Code.IsWarning && !ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ImportForwarder_Code.IsError"
+                                                            list="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ImportForwarder_Code.WARNING"
+                                                            type="'warning'" icon="fa fa-warning" parent-type="'null'"
+                                                            parent-ref="" g-parent-ref=""></error-warning-directive>
+                                                        <error-warning-directive data-ng-if="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ImportForwarder_Code.IsError"
+                                                            list="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ImportForwarder_Code.ERROR"
+                                                            type="'error'" icon="fa fa-warning" parent-type="'null'"
+                                                            parent-ref="" g-parent-ref=""></error-warning-directive>
+                                                    </span>
+                                                    <div class="form-group">
+                                                        <label class="control-label text-single-line">Receiving Agent</label>
+                                                        <div class="input-group input-group-sm">
+                                                            <input type="hidden" my-ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ImportForwarder_FK">
+                                                            <div dynamic-lookup placeholder="" my-ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ImportForwarder_Code"
+                                                                obj="ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                                                                prefix-data="'OrganizationList'" config="'JobAddressOrgReceivingForwarder'"
+                                                                auto-complete-on-select="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ImportForwarder_Code,'E0048',false)"></div>
+                                                            <span class="input-group-btn">
+                                                                <button dynamic-list-modal obj="ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                                                                    field-name="'JobAddressOrgReceivingForwarder'"
+                                                                    prefix-data="'OrganizationList'" mode="2"
+                                                                    grid-refresh-fun-name="" grid-refresh-fun=""
+                                                                    selected-data="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.SelectedLookupData($item.data.entity.Code,ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ImportForwarder_Code,'E0048',false)"
+                                                                    class="btn btn-default shiny" type="button">
+                                                                    <i class="fa fa-ellipsis-h"></i>
+                                                                </button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label text-single-line">Additional Terms</label>
+                                                        <div class="input-group">
+                                                            <textarea rows="3" style="width: 290px" class="col-lg-12"
+                                                                maxlength="250" name="info" ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.AdditionalTerms"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label text-single-line">Goods Desc</label>
+                                                        <div class="input-group">
+                                                            <textarea rows="3" style="width: 290px" class="col-lg-12"
+                                                                maxlength="250" name="info" ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.GoodsDesc"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </uib-tab>
+
+                    <uib-tab>
+                        <uib-tab-heading title="Container">
+                            <i class="fa fa-list-alt margin-right-5"></i>
+                            <span data-ng-bind="'Container'"></span>
+                        </uib-tab-heading>
+                        <div class="row padding-10 pb-0 containerForm">
+                            <div class="col-sm-12 col-md-8 col-lg-12">
+                                <div class="alert alert-info" id="info" ng-if="ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode!='SEA'">
+                                    <i class="fa-fw fa-lg fa fa-exclamation"></i>
+                                    <strong>Note!</strong> No container view for
+                                    {{ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode}}
+                                    Bookings
+                                </div>
+                                <div class="alert alert-info" id="info" ng-if="ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode=='LCL'">
+                                    <i class="fa-fw fa-lg fa fa-exclamation"></i>
+                                    <strong>Note!</strong> No container view for LCL shipment
+                                </div>
+                                <div data-ng-if="ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode=='SEA' && ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode=='FCL'">
+                                    <container-grid current-object="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.TabObj"
+                                        key-object-name="'SHP'" api-header-name="'UIShipmentHeader'"
+                                        api-header-field-name="'SHP_BookingOnlyLink'" api-header-value-name="'UICntContainer'"
+                                        btn-visible="{'AddNew':true,'Delete':true,'More':false}" table-properties="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ContainerHeader"
+                                        read-only="false">
+                                    </container-grid>
+                                </div>
+                            </div>
+                        </div>
+
+                    </uib-tab>
+                    <uib-tab>
+                        <uib-tab-heading title="Packing">
+                            <i class="fa fa-list-alt margin-right-5"></i>
+                            <span data-ng-bind="'Packing'"></span>
+                        </uib-tab-heading>
+                        <div class="row padding-10 pb-0">
+                            <div class="col-sm-12 col-md-8 col-lg-12">
+                                <packing-grid ng-if="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.TabObj"
+                                    current-object="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.TabObj"
+                                    freight-mode="'OUT'" btn-visible="{'AddNew':true,'Delete':true,'More':false}"></packing-grid>
+                            </div>
+                        </div>
+                    </uib-tab>
+
+                    <uib-tab>
+                        <uib-tab-heading title="Vessel Planning">
+                            <i class="fa fa-list-alt margin-right-5"></i>
+                            <span data-ng-bind="'Vessel Planning'"></span>
+                        </uib-tab-heading>
+                        <div class="row padding-10 pb-0">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                <div class="form-group">
+                                    <label class="control-label text-single-line">Cargo Cutoff Date</label>
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" class="form-control" placeholder="{{ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                            ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.CargoCutoffDate"
+                                            datetime-picker="{{ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                            datepicker-options="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.DatePicker.Options"
+                                            datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                            enable-date="true" default-date="" default-time="" save-as="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                            is-open="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.DatePicker.isOpen['isCargoCutoffDate']"
+                                            when-closed="" data-ng-click="" custom-date-time-format />
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default shiny" data-ng-click="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoCutoffDate')">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                <div class="form-group">
+                                    <label class="control-label text-single-line">Booking Cutoff Date</label>
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" class="form-control" placeholder="{{ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                            ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.BookingCutoffDate"
+                                            datetime-picker="{{ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                            datepicker-options="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.DatePicker.Options"
+                                            datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                            enable-date="true" default-date="" default-time="" save-as="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                            is-open="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.DatePicker.isOpen['isBookingCutoffDate']"
+                                            when-closed="" data-ng-click="" custom-date-time-format />
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default shiny" data-ng-click="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isBookingCutoffDate')">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                <div class="form-group">
+                                    <label class="control-label text-single-line">Document Cutoff Date</label>
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" class="form-control" placeholder="{{ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                            ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.DocumentCutoffDate"
+                                            datetime-picker="{{ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                            datepicker-options="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.DatePicker.Options"
+                                            datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                            enable-date="true" default-date="" default-time="" save-as="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                            is-open="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.DatePicker.isOpen['isDocumentCutoffDate']"
+                                            when-closed="" data-ng-click="" custom-date-time-format />
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default shiny" data-ng-click="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isDocumentCutoffDate')">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                <div class="form-group">
+                                    <label class="control-label text-single-line">{{ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode=='SEA'
+                                        &&
+                                        ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode=='FCL'?'Carrier
+                                        Reference':ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode=='AIR'?'Flight
+                                        Reference':ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode=='LCL'?'Co-Loader
+                                        Reference':'Reference'}}
+                                    </label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control col-lg-12" ng-model="ConvertBookingBranchEditDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.CarrierReference" />
+                                    </div>
+                                </div>
+                            </div>
+                            <routing-grid ng-if="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.TabObj"
+                                current-object="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.TabObj"
+                                key-object-name="'SHP'" fk-name="'PK'" pk-name="'EntityRefKey'" api-header-name="'UIShipmentHeader'"
+                                api-header-field-name="'PK'" api-header-value-name="'CON_FK'" btn-visible="{'AddNew':true,'Delete':true,'More':false}"
+                                table-properties="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.RoutingHeader"></routing-grid>
+                        </div>
+                    </uib-tab>
+                </uib-tabset>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-xl-12 col-sm-12 col-xs-12 mt-10">
+                    <!-- Document upload -->
+                    <article class="col-sm-12 col-md-12 col-lg-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="fa fa-lg fa-fw fa-file-text"></i>
+                                <span>File Upload Form </span>
+                            </div>
+                            <div class="panel-body no-padding" style="height: 300px;overflow-y: auto;">
+                                <article class="col-sm-12 col-md-12 col-lg-12 mt-10" data-ng-if="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.StandardMenuInput">
+                                    <div class="" list-source="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.DocumentDetails"
+                                        document input="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.StandardMenuInput"
+                                        mode="3" config="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.StandardConfigInput"
+                                        class="my-task-icon fa fa-file-text-o mr-5">
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                    </article>
+                    <!-- Comments Details -->
+                    <article class="col-sm-12 col-md-12 col-lg-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="fa fa-lg fa-fw fa-file-text"></i>
+                                <span>Comments Details</span>
+                            </div>
+                            <div class="panel-body no-padding" style="height: 300px;overflow-y: auto;">
+                                <article class="col-sm-12 col-md-12 col-lg-12 mt-10" data-ng-if="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.StandardMenuInput">
+                                    <div class="" list-source="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.CommentsDetails"
+                                        comment input="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.StandardMenuInput"
+                                        mode="3" config="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.StandardConfigInput"
+                                        class="my-task-icon fa fa-file-text-o mr-5">
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-lg-12 col-sm-12 col-md-12 col-xl-12 ">
+            <input type="button" ng-disabled="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.SaveBookingVerifiedDisabled || ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.SaveBothButtonDisabled"
+                value="{{ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.SaveBookingVerified}}" class="btn btn-primary btn-sm pull-right ml-5"
+                ng-click="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.submitBooking(false,'Verified','ApprovalRequired') ">
+            <input type="button" ng-disabled="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.SaveBookingApprovalDisabled || ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.SaveBothButtonDisabled"
+                value="{{ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.SaveBookingApproval}}" class="btn btn-primary btn-sm pull-right ml-5"
+                ng-click="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.submitBooking(true,'Approval','ApprovalRequired') ">
+        </div>
+    </div>
+    <div class="error-warning-container right" id="errorWarningContainer{{ConvertBookingBranchEditDirectiveCtrl.taskObj.PSI_InstanceNo}}">
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                <!-- <i class="fa fa-warning"></i>  -->
+                Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right" data-ng-click="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ShowErrorWarningModal(ConvertBookingBranchEditDirectiveCtrl.taskObj.PSI_InstanceNo)">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+        </div>
+        <div class="error-warning-body">
+            <div class="clearfix" data-ng-if="ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GlobalErrorWarningList.length>0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in ConvertBookingBranchEditDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

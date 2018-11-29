@@ -17,20 +17,28 @@
                     <div class="col-lg-8 height-40  p-5">
                         <div class="input-group input-group-sm">
                             <!-- Dynamic look up Search in textbox -->
-                            <div dynamic-lookup placeholder="Sender" is-disabled="ItemGeneralCtrl.ePage.Masters.IsDisabledSender" my-ng-model="ItemGeneralCtrl.ePage.Masters.Sender" auto-complete-on-select="ItemGeneralCtrl.ePage.Masters.SelectedLookupSender($item)"
-                                obj="ItemGeneralCtrl.ePage.Entities.Header.Data.OrgSender" prefix-data="'OrganizationList'" config="'Sender'">
+                            <div dynamic-lookup placeholder="Sender" is-disabled="ItemGeneralCtrl.ePage.Masters.IsDisabledSender" my-ng-model="ItemGeneralCtrl.ePage.Masters.Sender"
+                                auto-complete-on-select="ItemGeneralCtrl.ePage.Masters.SelectedLookupSender($item)" obj="ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader"
+                                prefix-data="'OrganizationList'" config="'Sender'">
                             </div>
 
                             <!-- Look Up page opens when button clicks -->
                             <span class="input-group-btn">
-                                <button dynamic-list-modal is-disabled="ItemGeneralCtrl.ePage.Masters.IsDisabledSender" obj="ItemGeneralCtrl.ePage.Entities.Header.Data.OrgSender" field-name="'Sender'" selected-data="ItemGeneralCtrl.ePage.Masters.SelectedLookupSender($item)"  prefix-data="'OrganizationList'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                <button dynamic-list-modal is-disabled="ItemGeneralCtrl.ePage.Masters.IsDisabledSender" obj="ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader"
+                                    field-name="'Sender'" selected-data="ItemGeneralCtrl.ePage.Masters.SelectedLookupSender($item)"
+                                    prefix-data="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny"
+                                    type="button">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
                             </span>
-                            <span class="input-group-btn"  ng-show="ItemGeneralCtrl.ePage.Masters.Sender && ItemGeneralCtrl.ePage.Masters.IsVisibleSenderAddress">
-                                <button   class="btn btn-default shiny" type="button" ng-click="ItemGeneralCtrl.ePage.Masters.OtherAddresses(ItemGeneralCtrl.ePage.Masters.OrgSenderAddress,'Sender')"><i class="fa fa-address-card-o"></i></button>
+                            <span class="input-group-btn" ng-show="ItemGeneralCtrl.ePage.Masters.Sender && ItemGeneralCtrl.ePage.Masters.IsVisibleSenderAddress">
+                                <button class="btn btn-default shiny" type="button" ng-click="ItemGeneralCtrl.ePage.Masters.OtherAddresses(ItemGeneralCtrl.ePage.Masters.OrgSenderAddress,'Sender')">
+                                    <i class="fa fa-address-card-o"></i>
+                                </button>
                             </span>
                             <span ng-if="!ItemGeneralCtrl.ePage.Masters.Sender">
                                 <span data-ng-init="ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader.SenderCode=''"></span>
-                            <span data-ng-init="ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader.SenderName=''"></span>
+                                <span data-ng-init="ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader.SenderName=''"></span>
                             </span>
                             <span ng-if='!ItemGeneralCtrl.ePage.Masters.Sender'>
                                 <div ng-init="ItemGeneralCtrl.ePage.Masters.OnChangeValues(ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader.SenderCode,'E5501')"></div>
@@ -49,16 +57,20 @@
                                 <span ng-show="x.PostCode" title="{{x.PostCode}}">{{x.PostCode}}</span>
                             </div>
                         </div>
-                        <div class="col-lg-4 p-0 mt-50">
-                            <div class="pull-right addressstyle1 font-12" ng-show="x.Mobile" title="{{x.Mobile}}">{{x.Mobile}}<i class="fa fa-phone ml-5 mr-5"></i></div>
-                            <div class="pull-right addressstyle1 font-12" ng-show="x.Email" title="{{x.Email}}">{{x.Email}}<i class="fa fa-envelope-o ml-5 mr-5"></i></div>
+                        <div class="col-lg-4 p-0 mt-70">
+                            <div class="pull-right addressstyle1 font-12" ng-show="x.Mobile" title="{{x.Mobile}}">{{x.Mobile}}
+                                <i class="fa fa-phone ml-5 mr-5"></i>
+                            </div>
+                            <div class="pull-right addressstyle1 font-12" ng-show="x.Email" title="{{x.Email}}">{{x.Email}}
+                                <i class="fa fa-envelope-o ml-5 mr-5"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <!--Receiver-->
-        <div class="col-lg-4" >
+        <div class="col-lg-4">
             <div class="inner-dashboard-box">
                 <div class="rows border-bottom">
                     <div class="col-lg-4 height-40  border-right pt-10 pb-10">
@@ -69,15 +81,18 @@
                     </div>
                     <div class="col-lg-7 height-40  pt-5">
                         <select chosen class="form-control" style="height: 30px;" ng-model="ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader.ReceiverCode"
-                        ng-options="x.ORG_MappingToCode as x.ORG_MappingToCode+' - '+ x.ORG_MappingToName for x in ItemGeneralCtrl.ePage.Masters.ReceiverList" title="{{ItemGeneralCtrl.ePage.Masters.Receiver}}"
-                        ng-change='ItemGeneralCtrl.ePage.Masters.OnChangeReceiver(ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader.ReceiverCode)' search-contains="true">
+                            ng-options="x.ORG_MappingToCode as x.ORG_MappingToCode+' - '+ x.ORG_MappingToName for x in ItemGeneralCtrl.ePage.Masters.ReceiverList | unique:'ORG_MappingToCode'"
+                            title="{{ItemGeneralCtrl.ePage.Masters.Receiver}}" ng-change='ItemGeneralCtrl.ePage.Masters.OnChangeReceiver(ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader.ReceiverCode)'
+                            search-contains="true">
                             <option value="">--Select--</option>
                         </select>
                     </div>
                     <div class="col-lg-1 height-40  p-5" style="margin-left: -20px;">
-                        <div class="input-group input-group-sm">        
+                        <div class="input-group input-group-sm">
                             <span class="input-group-btn" ng-show="ItemGeneralCtrl.ePage.Masters.Receiver">
-                                <button   class="btn btn-default shiny" type="button" ng-click="ItemGeneralCtrl.ePage.Masters.OtherAddresses(ItemGeneralCtrl.ePage.Masters.OrgReceiverAddress,'Receiver')"><i class="fa fa-address-card-o"></i></button>
+                                <button class="btn btn-default shiny" type="button" ng-click="ItemGeneralCtrl.ePage.Masters.OtherAddresses(ItemGeneralCtrl.ePage.Masters.OrgReceiverAddress,'Receiver')">
+                                    <i class="fa fa-address-card-o"></i>
+                                </button>
                             </span>
                         </div>
                     </div>
@@ -93,45 +108,52 @@
                                 <span ng-show="x.PostCode" title="{{x.PostCode}}">{{x.PostCode}}</span>
                             </div>
                         </div>
-                        <div class="col-lg-4 p-0 mt-50">
-                            <div class="pull-right addressstyle1 font-12" ng-show="x.Mobile" title="{{x.Mobile}}">{{x.Mobile}}<i class="fa fa-phone ml-5 mr-5"></i></div>
-                            <div class="pull-right addressstyle1 font-12" ng-show="x.Email" title="{{x.Email}}">{{x.Email}}<i class="fa fa-envelope-o ml-5 mr-5"></i></div>
+                        <div class="col-lg-4 p-0 mt-70">
+                            <div class="pull-right addressstyle1 font-12" ng-show="x.Mobile" title="{{x.Mobile}}">{{x.Mobile}}
+                                <i class="fa fa-phone ml-5 mr-5"></i>
+                            </div>
+                            <div class="pull-right addressstyle1 font-12" ng-show="x.Email" title="{{x.Email}}">{{x.Email}}
+                                <i class="fa fa-envelope-o ml-5 mr-5"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!---MHU REF & status -->
+        <!---MHU Type & status -->
         <div class="col-lg-4">
             <div class="inner-dashboard-box">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <div class="form-group">
-                        <label class="control-label text-single-line">MHU Ref</label>
+                        <label class="control-label text-single-line">MHU Type</label>
                         <div class="input-group input-group-sm">
                             <!-- Dynamic look up Search in textbox -->
-                            <div dynamic-lookup placeholder="MHU Ref" my-ng-model="ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader.ItemRef_ID"
+                            <div dynamic-lookup placeholder="MHU Type" my-ng-model="ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader.ItemRef_ID"
                                 auto-complete-on-select="ItemGeneralCtrl.ePage.Masters.SelectedLookupItem($item)" obj="ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader"
                                 prefix-data="'ProductRelatedParty'" config="'ItemDetails'">
                             </div>
                             <!-- Look Up page opens when button clicks -->
                             <span class="input-group-btn">
                                 <button dynamic-list-modal prefix-data="'ProductRelatedParty'" field-name="'ItemDetails'" obj="ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader"
-                                 selected-data="ItemGeneralCtrl.ePage.Masters.SelectedLookupItem($item)" mode ="2" 
-                                grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                    selected-data="ItemGeneralCtrl.ePage.Masters.SelectedLookupItem($item)" mode="2" grid-refresh-fun-name=""
+                                    grid-refresh-fun="" class="btn btn-default shiny" type="button">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
                             </span>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-12">
                     <div class="clearfix form-group">
-                    <label class="control-label text-single-line">Status</label>
+                        <label class="control-label text-single-line">Status</label>
                         <div class="">
-                            <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" title="{{ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader.ItemStatus}}" readonly="" placeholder="Status" data-ng-model="ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader.ItemStatus">
+                            <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" title="{{ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader.ItemStatus}}"
+                                readonly="" placeholder="Status" data-ng-model="ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader.ItemStatusDesc">
                         </div>
                     </div>
                 </div>
             </div>
-        </div>    
+        </div>
         <!--</div>-->
     </div>
     <div class="clearfix mt-5">
@@ -149,28 +171,9 @@
                 <!--Item Desc-->
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
                     <div class="form-group">
-                        <label class="control-label text-single-line">Item Desc</label>
+                        <label class="control-label text-single-line">Item Description</label>
                         <div class="">
                             <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Item Desc" data-ng-model="ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader.ItemDesc">
-                        </div>
-                    </div>
-                </div>
-                <!-- Receiver Ref-->
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                    <div class="form-group">
-                        <label class="control-label text-single-line">Receiver Ref</label>
-                        <div class="">
-                            <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Receiver Ref"
-                                data-ng-model="ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader.ReceiverRef">
-                        </div>
-                    </div>
-                </div>
-                <!--Sender ref-->
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                    <div class="form-group">
-                        <label class="control-label text-single-line">Sender Ref</label>
-                        <div class="">
-                            <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Sender Ref" data-ng-model="ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader.SenderRef">
                         </div>
                     </div>
                 </div>
@@ -217,13 +220,13 @@
                 <!--Volumn-->
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
                     <div class="form-group">
-                        <label class="control-label text-single-line">Volumn</label>
+                        <label class="control-label text-single-line">Volume</label>
                         <div class="">
-                            <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Volumn" data-ng-model="ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader.Volumn">
+                            <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Volume" data-ng-model="ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader.Volumn">
                         </div>
                     </div>
                 </div>
-            </div>    
+            </div>
         </div>
         <div class="col-lg-4">
             <div class="inner-dashboard-box">
@@ -231,7 +234,8 @@
                     <div class="form-group height-211">
                         <label class="control-label text-single-line">Special Instructions</label>
                         <div class="">
-                            <textarea rows="10" type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Special Instructions" data-ng-model="ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader.Instructions"></textarea> 
+                            <textarea rows="5" type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Special Instructions"
+                                data-ng-model="ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader.Instructions"></textarea>
                         </div>
                     </div>
                 </div>

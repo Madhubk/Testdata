@@ -1,0 +1,87 @@
+<div class="exp-before-border">
+	<div class="clearfix text-center p-20" data-ng-if="taskConfigList && taskConfigList.length == 0">
+		<i>No records...!</i>
+	</div>
+	<div class="clearfix process-expression-group-wrapper" data-ng-repeat="x in taskConfigList">
+		<div class="col-lg-1 text-center">
+			<button class="btn btn-sm btn-danger width-65" data-ng-click="TaskConfig.DeleteTaskConfig(x, $index)">Remove</button>
+		</div>
+		<div class="col-lg-11 exp-wrapper">
+			<div class="clearfix mb-10">
+				<div class="col-sm-1">
+					<div class="dropdown">
+						<button class="btn btn-sm btn-default process-btn-dropdown" style="width: 100%; height: 30px; text-align: left;" type="button"
+						    data-toggle="dropdown">{{x.ProcessType}}
+							<span class="caret mt-7 pull-right"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li data-ng-repeat="y in TaskConfig.ProcessTypeList">
+								<a href="javascript:(0);" data-ng-click="x.ProcessType = y">{{y}}</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control input-sm" data-ng-model="x.ProcessName" placeholder="Process Name" uib-typeahead="y.ProcessName as y.ProcessDescription for y in TaskConfig.GetProcessList($viewValue)"
+					    typeahead-on-select="TaskConfig.OnProcessListSelect($item, $model, $label, $event)" typeahead-loading="x.IsProcessLoading"
+					    typeahead-no-results="x.IsProcessNoResults" typeahead-editable="false" typeahead-append-to-body='false' typeahead-min-length=""
+					    data-ng-blur="TaskConfig.OnBlurAutoCompleteList($event, x)" data-ng-disabled="TaskConfig.ProcessName">
+					<div class="clearfix dropdown-menu typeahead" data-ng-if="x.IsProcessNoResults">
+						<div class="auto-complete-no-result">No Results Found!</div>
+					</div>
+					<div class="clearfix dropdown-menu typeahead" data-ng-if="x.IsProcessLoading">
+						<div class="auto-complete-no-result">
+							<i class="fa fa-spin fa-spinner"></i>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-1 p-0">
+					<button class="btn btn-link" data-ng-click="TaskConfig.ActiveProess.PK && TaskConfig.ViewProcessSteps()" data-ng-disabled="!TaskConfig.ActiveProess.PK">View Process</button>
+				</div>
+				<div class="col-sm-2">
+					<div class="dropdown">
+						<button class="btn btn-sm btn-default process-btn-dropdown" style="width: 100%; height: 30px; text-align: left;" type="button"
+						    data-toggle="dropdown">{{x.Action}}
+							<span class="caret mt-7 pull-right"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li data-ng-repeat="z in TaskConfig.ActionList">
+								<a href="javascript:(0);" data-ng-click="x.Action = z">{{z}}</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-sm-5">
+					<div class="col-sm-2 p-0">
+						<div class="dropdown">
+							<button class="btn btn-sm btn-default process-btn-dropdown" style="width: 100%; height: 30px; text-align: left;" type="button"
+							    data-toggle="dropdown">{{x.DataSlotKey}}
+								<span class="caret mt-7 pull-right"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li data-ng-repeat="y in TaskConfig.DataSlotList">
+									<a href="javascript:(0);" data-ng-click="x.DataSlotKey = y">{{y}}</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<input type="text" class="form-control input-sm" data-ng-model="x.DataSlotValue" placeholder="Value">
+					</div>
+					<div class="col-sm-3 p-0">
+						<button class="btn btn-default btn-sm" style="height: 30px;" data-ng-click="TaskConfig.AddDataSlotToObj(x)">Add DataSlot</button>
+					</div>
+					<div class="col-sm-4 pt-7">
+						<div class="text-single-line" data-ng-bind="x.DataSlotsDisplay" title="{{x.DataSlotsDisplay}}"></div>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix">
+				<event-expression-formatter exp-list="x.QueryResults" is-logical-operator="false" is-result="false"></event-expression-formatter>
+			</div>
+		</div>
+	</div>
+	<div class="clearfix text-right p-10 pt-0" data-ng-if="(isDisableMultipleGroup == true && taskConfigList.length == 0) || (!isDisableMultipleGroup ||isDisableMultipleGroup == false)">
+		<button class="btn btn-default btn-xs" data-ng-click="TaskConfig.AddTaskConfig(x)">Add Group</button>
+	</div>
+</div>

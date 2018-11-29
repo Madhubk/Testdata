@@ -5,10 +5,11 @@
         .module("Application")
         .controller("vesselModalController", VesselModalController);
 
-    VesselModalController.$inject = ["APP_CONSTANT", "authService", "apiService", "appConfig", "helperService", "toastr", "$uibModalInstance", "param", "preAdviceConfig"];
+    VesselModalController.$inject = ["$injector", "$timeout", "APP_CONSTANT", "authService", "apiService", "appConfig", "helperService", "toastr", "$uibModalInstance", "param", "preAdviceConfig", "errorWarningService"];
 
-    function VesselModalController( APP_CONSTANT, authService, apiService, appConfig, helperService, toastr, $uibModalInstance, param, preAdviceConfig) {
-        var VesselModalCtrl = this;
+    function VesselModalController($injector, $timeout, APP_CONSTANT, authService, apiService, appConfig, helperService, toastr, $uibModalInstance, param, preAdviceConfig, errorWarningService) {
+        var VesselModalCtrl = this,
+            dynamicLookupConfig = $injector.get("dynamicLookupConfig");
 
         function Init() {
             VesselModalCtrl.ePage = {
@@ -16,7 +17,11 @@
                 "Prefix": "Vessel_Planning",
                 "Masters": {},
                 "Meta": helperService.metaBase(),
-                "Entities": preAdviceConfig.Entities
+                "Entities": {
+                    "Header": {
+                        "Data": {}
+                    }
+                }
             };
 
             // DatePicker
@@ -24,8 +29,10 @@
             VesselModalCtrl.ePage.Masters.DatePicker.Options = APP_CONSTANT.DatePicker;
             VesselModalCtrl.ePage.Masters.DatePicker.isOpen = [];
             VesselModalCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
-            
-            InitVesselPlanning();       
+            VesselModalCtrl.ePage.Masters.DatePicker.OnChangeDatePicker = OnChangeDatePicker;
+
+            InitVesselPlanning();
+            InitValidation();
         }
 
         function InitVesselPlanning() {
@@ -38,36 +45,36 @@
             VesselModalCtrl.ePage.Masters.BulkReset = BulkReset;
             VesselModalCtrl.ePage.Masters.Cancel = Cancel;
             VesselModalCtrl.ePage.Masters.DetachVesselOrder = DetachVesselOrder;
+            VesselModalCtrl.ePage.Masters.AutoCompleteOnSelect = AutoCompleteOnSelect;
+            VesselModalCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
+            VesselModalCtrl.ePage.Masters.OnFieldValueChange = OnFieldValueChange;
+            // error warning modal
+            VesselModalCtrl.ePage.Masters.ShowErrorWarningModal = ShowErrorWarningModal;
 
             if (VesselModalCtrl.ePage.Masters.Param.Mode === "Edit") {
                 VesselModalCtrl.ePage.Masters.ResetText = false;
                 VesselModalCtrl.ePage.Masters.SaveText = "Update";
                 VesselModalCtrl.ePage.Masters.GridShow = true;
-                VesselModalCtrl.ePage.Masters.BulkInput = param.BulkInput[0];
-                VesselRelatedOrder();
+                VesselModalCtrl.ePage.Entities.Header.Data.UIVesselDetails = param.BulkInput[0];
+                VesselModalCtrl.ePage.Masters.TransportMode = param.BulkInput[0].TransportMode;
             } else {
-                VesselModalCtrl.ePage.Masters.BulkInput = param.BulkInput[0];
-                VesselModalCtrl.ePage.Masters.BulkInput.Vessel_FK = "";
+                VesselModalCtrl.ePage.Entities.Header.Data.UIVesselDetails = {};
+                VesselModalCtrl.ePage.Entities.Header.Data.UIVesselDetails.PlannedCarrier = "";
+                VesselModalCtrl.ePage.Entities.Header.Data.UIVesselDetails.BookingCutOffDate = "";
+                VesselModalCtrl.ePage.Entities.Header.Data.UIVesselDetails.CargoCutOffDate = "";
+                VesselModalCtrl.ePage.Entities.Header.Data.UIVesselDetails.DischargePort = "";
+                VesselModalCtrl.ePage.Entities.Header.Data.UIVesselDetails.PlannedETA = "";
+                VesselModalCtrl.ePage.Entities.Header.Data.UIVesselDetails.PlannedETD = "";
+                VesselModalCtrl.ePage.Entities.Header.Data.UIVesselDetails.LoadPort = "";
+                VesselModalCtrl.ePage.Entities.Header.Data.UIVesselDetails.PlannedVessel = "";
+                VesselModalCtrl.ePage.Entities.Header.Data.UIVesselDetails.PlannedVoyage = "";
+                VesselModalCtrl.ePage.Masters.TransportMode = param.BulkInput[0].TransportMode;
                 VesselModalCtrl.ePage.Masters.SaveText = "Save";
                 VesselModalCtrl.ePage.Masters.ResetText = true;
             }
 
             GetMastersDropDownList();
-        }
-
-        function Cancel() {
-            $uibModalInstance.dismiss('cancel');
-        }
-
-        function OpenDatePicker($event, opened) {
-            $event.preventDefault();
-            $event.stopPropagation();
-
-            VesselModalCtrl.ePage.Masters.DatePicker.isOpen[opened] = true;
-        }
-        
-        function BulkReset() {
-            VesselModalCtrl.ePage.Masters.BulkInput = {};
+            GetRelatedLookupList();
         }
 
         function GetMastersDropDownList() {
@@ -96,6 +103,111 @@
             });
         }
 
+        function Cancel() {
+            (VesselModalCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList.length == 0) ? $uibModalInstance.dismiss('cancel'): false;
+        }
+
+        function OnChangeDatePicker(type, check) {
+            switch (type) {
+                case "PlannedETD":
+                    DateCheck(type, check, 'Greater than');
+                    break;
+                case "PlannedETA":
+                    DateCheck(type, check, 'Less than');
+                    break;
+                case "CargoCutOffDate":
+                    DateCheck(type, check, 'Greater than');
+                    break;
+                case "BookingCutOffDate":
+                    DateCheck(type, check, 'Less than');
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        function DateCheck(type, check, condition) {
+            if (condition == 'Greater than') {
+                if (VesselModalCtrl.ePage.Entities.Header.Data.UIVesselDetails[type] && VesselModalCtrl.ePage.Entities.Header.Data.UIVesselDetails[check]) {
+                    var checkDate1 = new Date(VesselModalCtrl.ePage.Entities.Header.Data.UIVesselDetails[type]);
+                    var checkDate2 = new Date(VesselModalCtrl.ePage.Entities.Header.Data.UIVesselDetails[check]);
+                    if (Date.parse(checkDate1) <= Date.parse(checkDate2)) {} else {
+                        VesselModalCtrl.ePage.Entities.Header.Data.UIVesselDetails[type] = undefined;
+                        toastr.warning(type + ' is not ' + condition + ' ' + check);
+                    }
+                }
+            } else {
+                if (VesselModalCtrl.ePage.Entities.Header.Data.UIVesselDetails[type] && VesselModalCtrl.ePage.Entities.Header.Data.UIVesselDetails[check]) {
+                    var checkDate1 = new Date(VesselModalCtrl.ePage.Entities.Header.Data.UIVesselDetails[type]);
+                    var checkDate2 = new Date(VesselModalCtrl.ePage.Entities.Header.Data.UIVesselDetails[check]);
+                    if (Date.parse(checkDate1) >= Date.parse(checkDate2)) {} else {
+                        VesselModalCtrl.ePage.Entities.Header.Data.UIVesselDetails[type] = undefined;
+                        toastr.warning(type + ' is not ' + condition + ' ' + check);
+                    }
+                }
+            }
+        }
+
+        function InitValidation() {
+            if (param.BulkInput) {
+                var _obj = {
+                    ModuleName: ["PreAdvice"],
+                    Code: [param.BulkInput[0].OrderCumSplitNo],
+                    API: "Validation",
+                    FilterInput: {
+                        ModuleCode: "ORD",
+                        SubModuleCode: "PRE"
+                    },
+                    // GroupCode: "TC_Test",
+                    //     RelatedBasicDetails: [{
+                    //         "UIField": "TEST",
+                    //         "DbField": "TEST",
+                    //         "Value": "TEST"
+                    //     }],
+                    ErrorCode: [],
+                    EntityObject: VesselModalCtrl.ePage.Entities.Header.Data
+                };
+
+                errorWarningService.GetErrorCodeList(_obj);
+                // error warning modal
+                VesselModalCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
+                VesselModalCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList = errorWarningService.Modules.PreAdvice.Entity[VesselModalCtrl.ePage.Masters.Param.BulkInput[0].OrderCumSplitNo].GlobalErrorWarningList;
+                VesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.PreAdvice.Entity[VesselModalCtrl.ePage.Masters.Param.BulkInput[0].OrderCumSplitNo];
+            }
+        }
+
+        function OpenDatePicker($event, opened) {
+            $event.preventDefault();
+            $event.stopPropagation();
+
+            VesselModalCtrl.ePage.Masters.DatePicker.isOpen[opened] = true;
+        }
+
+        function BulkReset() {
+            VesselModalCtrl.ePage.Entities.Header.Data.UIVesselDetails = {};
+        }
+
+        function GetRelatedLookupList() {
+            var _filter = {
+                Key: "OrdCarrierPlanning_2834,OrdVesselPlanning_3187,VesselPOL_3309,VesselPOD_3310",
+                SAP_FK: authService.getUserInfo().AppPK
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.DYN_RelatedLookup.API.GroupFindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", appConfig.Entities.DYN_RelatedLookup.API.GroupFindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    var _isEmpty = angular.equals({}, response.data.Response);
+
+                    if (!_isEmpty) {
+                        dynamicLookupConfig.Entities = Object.assign({}, dynamicLookupConfig.Entities, response.data.Response);
+                    }
+                }
+            });
+        }
+
         function DetachVesselOrder(_data) {
             VesselModalCtrl.ePage.Masters.PreAdviceOrderList.map(function (value, key) {
                 if (value.PK === _data.PK) {
@@ -104,114 +216,66 @@
                 }
             })
         }
-        function VesselRelatedOrder() {
-            VesselModalCtrl.ePage.Masters.spinner = true;
-            var _filter = {
-                "IsShpCreated" : false,
-                "IsFollowUpIdCreated" : true,
-                "IsPreAdviceIdCreated" : false
-            }
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.PorOrderHeader.API.FindAll.FilterID
-            }
-            apiService.post('eAxisAPI', appConfig.Entities.PorOrderHeader.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    VesselModalCtrl.ePage.Masters.spinner = false;
-                    VesselModalCtrl.ePage.Masters.PreAdviceOrderList = response.data.Response;
+
+        function BulkUpdate(_item, type) {
+            CommonErrorObjInput();
+            // validation check
+            $timeout(function () {
+                var _errorcount = errorWarningService.Modules.PreAdvice.Entity[VesselModalCtrl.ePage.Masters.Param.BulkInput[0].OrderCumSplitNo].GlobalErrorWarningList;
+                if (_errorcount.length == 0) {
+                    // insert call for vessel
+                    var _input = InputData(_item, false);
+                    apiService.post('eAxisAPI', appConfig.Entities.SailingDetails.API.ListInsert.Url, _input).then(function (response) {
+                        if (response.data.Response) {
+                            JobRoutes(response.data.Response, _item);
+                        } else {
+                            toastr.error("Save failed...");
+                        }
+                    });
                 } else {
-                    VesselModalCtrl.ePage.Masters.spinner = false;
+                    ShowErrorWarningModal(VesselModalCtrl.ePage.Masters.Param.BulkInput[0].OrderCumSplitNo);
                 }
             });
         }
 
-        function FilterInput(_item, type) {
-            var _filter = [];
-            for ( i=0; i<VesselModalCtrl.ePage.Masters.Param.BulkInput.length; i++) {
-                var _filterInput = {
-                    "PK" : _item.Vessel_FK,
-                    "TransportMode" : _item.TransportMode,
-                    "Vessel" : _item.Vessel,
-                    "VoyageFlight" : _item.VoyageFlight,
-                    "LoadPort" : _item.PortOfLoading,
-                    "DischargePort" : _item.PortOfDischarge,
-                    "ETA" : _item.PlannedETA,
-                    "ETD" : _item.PlannedETD,
-                    "CarrierOrg_Code" : _item.CarrierOrg_Code,
-                    "CarrierOrg_FK" : _item.CarrierOrg_FK,
-                    "ATA" : _item.CargoCutOffDate,
-                    "ATD" : _item.BookingCutOffDate,
-                    "IsModified" : type,
-                    "EntityRefKey" : VesselModalCtrl.ePage.Masters.Param.BulkInput[i].PK
-                }
-                _filter.push(_filterInput);
-            }
-            return _filter;
+        function CommonErrorObjInput(errorCode) {
+            var _obj = {
+                ModuleName: ["PreAdvice"],
+                Code: [VesselModalCtrl.ePage.Masters.Param.BulkInput[0].OrderCumSplitNo],
+                API: "Validation",
+                FilterInput: {
+                    ModuleCode: "ORD",
+                    SubModuleCode: "PRE",
+                },
+                // GroupCode: "TC_Test",
+                // RelatedBasicDetails: [{
+                //     "UIField": "TEST",
+                //     "DbField": "TEST",
+                //     "Value": "TEST"
+                // }],
+                EntityObject: VesselModalCtrl.ePage.Entities.Header.Data,
+                ErrorCode: errorCode ? [errorCode] : []
+            };
+            errorWarningService.ValidateValue(_obj);
         }
 
-        function BulkUpdate(_item, type) {
-            if (EmptyOrNullCheck(_item.CarrierOrg_Code) || EmptyOrNullCheck(_item.Vessel)) {
-                toastr.warning("Selected Order(s) has should be manotary for Carrier & Vessel")                
-                return false;
-            }
-            if (EmptyOrNullCheck(_item.PortOfLoading) || EmptyOrNullCheck(_item.PortOfDischarge)) {
-                toastr.warning("Selected Order(s) has should be manotary for POL & POD")
-                return false;
-            }
-            if (EmptyOrNullCheck(_item.PlannedETA) || EmptyOrNullCheck(_item.PlannedETD)) {
-                toastr.warning("Selected Order(s) has should be manotary for ETA & ETD")
-                return false;
-            }
-            if (EmptyOrNullCheck(_item.BookingCutOffDate) || EmptyOrNullCheck(_item.CargoCutOffDate)) {
-                toastr.warning("Selected Order(s) has should be manotary for CargoCutOffDate & BookingCutOffDate")
-                return false;
-            }
-            if (EmptyOrNullCheck(_item.VoyageFlight)) {
-                toastr.warning("Selected Order(s) has should be manotary for Voyage")
-                return false;
-            }
-            if(type === "Save") {
-                var _input = InputData(_item, false);
-                apiService.post('eAxisAPI', appConfig.Entities.SailingDetails.API.ListInsert.Url, _input).then(function (response) {
-                    if (response.data) {
-                        JobRoutes(response.data, _item);
-                    } else {
-                        toastr.error("Save failed...");
-                    }
-                });
-            } else {
-
-            }
-            // if (type=="Save") {
-            //     var _input = FilterInput(_item, false)
-            //     apiService.post('eAxisAPI', appConfig.Entities.JobRoutes.API.Insert.Url, _input).then(function (response) {
-            //         if (response.data.Response) {
-            //             $uibModalInstance.close(response.data.Response[0]);
-            //         }
-            //     });
-            // } else {
-            //     var _input = FilterInput(_item, true)
-            //     apiService.post('eAxisAPI', appConfig.Entities.JobRoutes.API.UpdateList.Url, _input).then(function (response) {
-            //         if (response.data.Response) {
-            //             $uibModalInstance.close(response.data.Response);
-            //         }
-            //     });
-            // }
+        function ShowErrorWarningModal(EntityObject) {
+            $("#errorWarningContainer" + EntityObject).toggleClass("open");
         }
 
         function JobRoutes(data, _item) {
             var _jobRoutesInput = [];
             data.map(function (val, key) {
                 var _input = {
-                    "Vessel": _item.Vessel,
-                    "VoyageFlight": _item.VoyageFlight,
-                    "LoadPort": _item.PortOfLoading,
-                    "DischargePort": _item.PortOfDischarge,
+                    "Vessel": _item.PlannedVessel,
+                    "VoyageFlight": _item.PlannedVoyage,
+                    "LoadPort": _item.LoadPort,
+                    "DischargePort": _item.DischargePort,
                     "ETD": _item.PlannedETD,
                     "ETA": _item.PlannedETA,
                     "JBS_FK": val.PK,
                     "CarrierOrg_FK": _item.CarrierOrg_FK,
-                    "CarrierOrg_Code": _item.CarrierOrg_Code,
+                    "CarrierOrg_Code": _item.PlannedCarrier,
                     "EntitySource": "POH",
                     "EntityRefKey": val.SourceRefKey
                 };
@@ -219,7 +283,12 @@
             });
             apiService.post('eAxisAPI', appConfig.Entities.JobRoutes.API.Insert.Url, _jobRoutesInput).then(function (response) {
                 if (response.data.Response) {
-                    UpdateRecords(response.data.Response);
+                    response.data.Response.map(function (val, key) {
+                        val.BookingCutOffDate = data[0].LCLReceivalCommences;
+                        val.CargoCutOffDate = data[0].LCLCutOff;
+                    });
+                    UpdateRecords(response.data.Response[0]);
+                    // $uibModalInstance.close(response.data.Response[0]);
                 } else {
                     toastr.error("Save failed...");
                 }
@@ -228,33 +297,31 @@
 
         function UpdateRecords(list) {
             var _inputUpdateRecord = [];
-            list.map(function (val, key) {
-                var tempObj = _.filter(VesselModalCtrl.ePage.Masters.Param.BulkInput, {
-                    'PK': val.EntityRefKey
-                })[0];
+            param.BulkInput.map(function (val, key) {
                 var _input = {
-                    "EntityRefPK": tempObj.PK,
+                    "EntityRefPK": val.PK,
                     "Properties": [{
-                        "PropertyName": "PPA_CRT_FK",
-                        "PropertyNewValue": val.PK
+                        "PropertyName": "POH_CRT_FK",
+                        "PropertyNewValue": list.PK
                     }]
                 };
                 _inputUpdateRecord.push(_input);
             });
-            apiService.post('eAxisAPI', appConfig.Entities.VesselPlanning.API.UpdateRecords.Url, _inputUpdateRecord).then(function (response) {
+            apiService.post('eAxisAPI', appConfig.Entities.PorOrderHeader.API.UpdateRecords.Url, _inputUpdateRecord).then(function (response) {
                 if (response.data.Response) {
+                    $uibModalInstance.close(list);
                 } else {
                     toastr.error("Save failed...");
                 }
-            });    
+            });
         }
 
         function InputData(_item, type) {
             var _input = [];
-            for ( i=0; i < VesselModalCtrl.ePage.Masters.Param.BulkInput.length; i++) {
+            for (i = 0; i < VesselModalCtrl.ePage.Masters.Param.BulkInput.length; i++) {
                 var _filterInput = {
-                    "LCLCutOff": _item.LCLCutOff,
-                    "LCLReceivalCommences": _item.CutOff,
+                    "LCLCutOff": _item.CargoCutOffDate,
+                    "LCLReceivalCommences": _item.BookingCutOffDate,
                     "EntitySource": "POH",
                     "SourceRefKey": VesselModalCtrl.ePage.Masters.Param.BulkInput[i].PK
                 }
@@ -263,11 +330,20 @@
             return _input;
         }
 
-        function EmptyOrNullCheck(value) {
-            if (value == "" || value == null)
-                return true;
-            else
-                return false;
+        function AutoCompleteOnSelect($item, code) {
+            $timeout(function () {
+                CommonErrorObjInput(code);
+            });
+        }
+
+        function SelectedLookupData($item, code) {
+            $timeout(function () {
+                CommonErrorObjInput(code);
+            });
+        }
+
+        function OnFieldValueChange(code) {
+            CommonErrorObjInput(code);
         }
 
         Init();

@@ -10,7 +10,7 @@
 
             <dynamic-list ng-if="InventoryCtrl.ePage.Masters.dataentryName" dataentry-name="InventoryCtrl.ePage.Masters.dataentryName"
                 task-name="InventoryCtrl.ePage.Masters.taskName" grid-config-type="0" selected-grid-row="InventoryCtrl.ePage.Masters.SelectedGridRow($item)"
-                mode="1"></dynamic-list>
+                mode="1" dataentry-object="InventoryCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
             <div class="tab-loading" data-ng-show="InventoryCtrl.ePage.Masters.IsTabClick"></div>
         </div>
     </uib-tab>
@@ -26,7 +26,9 @@
         <div class="padding-bottom-10 clearfix">
             <inventory-menu current-inventory="tab"></inventory-menu>
         </div>
+        <span data-ng-if="InventoryCtrl.ePage.Masters.Config.IsCloseTab" data-ng-init="InventoryCtrl.ePage.Masters.CloseTab(InventoryCtrl.ePage.Masters.activeTabIndex, tab)"></span>
     </uib-tab>
+    
     <button class="btn btn-inventory" ng-class="InventoryCtrl.ePage.Masters.IsActiveDetail?'selected-btn':'btn-default'" ng-click="InventoryCtrl.ePage.Masters.InventorySummary('Details')" style="margin-left:auto;">Detailed Inventory </button>
     <button class="btn btn-inventory" ng-class="InventoryCtrl.ePage.Masters.IsActiveProduct?'selected-btn':'btn-default'" ng-click="InventoryCtrl.ePage.Masters.InventorySummary('Product')">Product Wise </button>
     <button class="btn btn-inventory" ng-class="InventoryCtrl.ePage.Masters.IsActiveAttribute?'selected-btn':'btn-default'" ng-click="InventoryCtrl.ePage.Masters.InventorySummary('Attribute')">Attribute Wise </button>

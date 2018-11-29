@@ -16,7 +16,8 @@
             controller: "InwardMenuController",
             controllerAs: "InwardMenuCtrl",
             scope: {
-                currentInward: "="
+                currentInward: "=",
+                dataentryObject:'='
             },
             bindToController: true
 

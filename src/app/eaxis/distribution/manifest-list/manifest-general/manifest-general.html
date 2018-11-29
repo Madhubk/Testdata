@@ -1,0 +1,331 @@
+<!--General-->
+<div class="clearfix margin-top-10">
+    <div class="clearfix mt-5">
+        <!--Sender-->
+        <div class="col-lg-6">
+            <div class="inner-dashboard-box height-143">
+                <div class="rows border-bottom">
+                    <div class="col-lg-4 height-40  border-right pt-10 pb-10">
+                        <span class="dashboard-item-icon-box">
+                            <i class="icomoon icon-supplier"></i>
+                        </span>
+                        <label class="ml-5 control-label">From</label>
+                        <span class="error-warning-container">
+                            <error-warning-directive data-ng-if="ManifestGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SenderCode.IsWarning && !ManifestGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SenderCode.IsError"
+                                list="ManifestGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SenderCode.WARNING"
+                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            <error-warning-directive data-ng-if="ManifestGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SenderCode.IsError"
+                                list="ManifestGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SenderCode.ERROR"
+                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        </span>
+                    </div>
+                    <div class="col-lg-8 height-40  p-5">
+                        <div class="input-group input-group-sm">
+                            <!-- Dynamic look up Search in textbox -->
+                            <div dynamic-lookup placeholder="Sender" my-ng-model="ManifestGeneralCtrl.ePage.Masters.Sender" auto-complete-on-select="ManifestGeneralCtrl.ePage.Masters.SelectedLookupSender($item,ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderCode,'E5501',false)"
+                                obj="ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader" page-name="'OrgHeaderWithWarehouse'"
+                                control-key="'Sender_3196'" control-id="'Sender'">
+                            </div> 
+
+                            <!-- Look Up page opens when button clicks -->
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal obj="ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader" control-id="'Sender'" control-key="'Sender_3196'" selected-data="ManifestGeneralCtrl.ePage.Masters.SelectedLookupSender($item,ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderCode,'E5501',false)"
+                                page-name="'OrgHeaderWithWarehouse'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                    class="btn btn-default shiny" type="button">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                            </span>
+                            <span class="input-group-btn" ng-show="ManifestGeneralCtrl.ePage.Masters.Sender">
+                                <button class="btn btn-default shiny" type="button" ng-click="ManifestGeneralCtrl.ePage.Masters.OtherAddresses(ManifestGeneralCtrl.ePage.Masters.OrgSenderAddress,'Sender')">
+                                    <i class="fa fa-address-card-o"></i>
+                                </button>
+                            </span>
+                            <span ng-if="!ManifestGeneralCtrl.ePage.Masters.Sender">
+                                <span data-ng-init="ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderCode=''"></span>
+                                <span data-ng-init="ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderName=''"></span>
+                            </span>
+                            <span ng-if='!ManifestGeneralCtrl.ePage.Masters.Sender && !ManifestGeneralCtrl.currentManifest.isNew'>
+                                <div ng-init="ManifestGeneralCtrl.ePage.Masters.OnFieldValueChange('E5501')"></div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="rows p-5 height-70">
+                    <div ng-show="ManifestGeneralCtrl.ePage.Masters.Sender" ng-repeat="x in ManifestGeneralCtrl.ePage.Entities.Header.Data.JobAddress | filter: {AddressType:'SND'}">
+                        <div class="col-lg-8 addressstyle">
+                            <div class="text-single-line font-12" title='{{x.Address1}}'>{{x.Address1 }}</div>
+                            <div class="text-single-line" title='{{x.Address2}}'>{{x.Address2 }}</div>
+                            <div class="text-single-line" title='{{x.State}}'>{{x.State}}</div>
+                            <div class="text-single-line">
+                                <span ng-show="x.City" title="{{x.City}}">{{x.City}} -</span>
+                                <span ng-show="x.Postcode" title="{{x.Postcode}}">{{x.Postcode}}</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 p-0 mt-50">
+                            <div class="pull-right addressstyle1 font-12" ng-show="x.Mobile" title="{{x.Mobile}}">{{x.Mobile}}
+                                <i class="fa fa-phone ml-5 mr-5"></i>
+                            </div>
+                            <div class="pull-right addressstyle1 font-12" ng-show="x.Email" title="{{x.Email}}">{{x.Email}}
+                                <i class="fa fa-envelope-o ml-5 mr-5"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Receiver-->
+        <div class="col-lg-6">
+            <div class="inner-dashboard-box height-143">
+                <div class="rows border-bottom">
+                    <div class="col-lg-4 height-40  border-right pt-10 pb-10">
+                        <span class="dashboard-item-icon-box">
+                            <i class="icomoon icon-supplier"></i>
+                        </span>
+                        <label class="ml-5 control-label">To</label>
+                        <span class="error-warning-container">
+                            <error-warning-directive data-ng-if="ManifestGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ReceiverCode.IsWarning && !ManifestGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ReceiverCode.IsError"
+                                list="ManifestGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ReceiverCode.WARNING"
+                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            <error-warning-directive data-ng-if="ManifestGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ReceiverCode.IsError"
+                                list="ManifestGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ReceiverCode.ERROR"
+                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        </span>
+                    </div>
+                    <div class="col-lg-8 height-40  p-5">
+                        <div class="input-group input-group-sm">
+                            <!-- Dynamic look up Search in textbox -->
+                            <div dynamic-lookup placeholder="Receiver" my-ng-model="ManifestGeneralCtrl.ePage.Masters.Receiver" auto-complete-on-select="ManifestGeneralCtrl.ePage.Masters.SelectedLookupReceiver($item,ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ReceiverCode,'E5500',false)"
+                                obj="ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader" page-name="'OrgHeaderWithWarehouse'"
+                                control-key="'Receiver_3197'" control-id="'Receiver'">
+                            </div>
+
+                            <!-- Look Up page opens when button clicks -->
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal obj="ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader" control-id="'Receiver'" control-key="'Receiver_3197'"
+                                    selected-data="ManifestGeneralCtrl.ePage.Masters.SelectedLookupReceiver($item,ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ReceiverCode,'E5500',false)"
+                                    page-name="'OrgHeaderWithWarehouse'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                    class="btn btn-default shiny" type="button">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                            </span>
+                            <span class="input-group-btn" ng-show="ManifestGeneralCtrl.ePage.Masters.Receiver">
+                                <button class="btn btn-default shiny" type="button" ng-click="ManifestGeneralCtrl.ePage.Masters.OtherAddresses(ManifestGeneralCtrl.ePage.Masters.OrgReceiverAddress,'Receiver')">
+                                    <i class="fa fa-address-card-o"></i>
+                                </button>
+                            </span>
+                            <span ng-if="!ManifestGeneralCtrl.ePage.Masters.Receiver">
+                                <span data-ng-init="ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ReceiverCode=''"></span>
+                                <span data-ng-init="ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ReceiverName=''"></span>
+                            </span>
+                            <span ng-if='!ManifestGeneralCtrl.ePage.Masters.Receiver && !ManifestGeneralCtrl.currentManifest.isNew'>
+                                <div ng-init="ManifestGeneralCtrl.ePage.Masters.OnFieldValueChange('E5500');"></div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="rows p-5 height-70">
+                    <div ng-show="ManifestGeneralCtrl.ePage.Masters.Receiver" ng-repeat="x in ManifestGeneralCtrl.ePage.Entities.Header.Data.JobAddress | filter: {AddressType:'REC'}">
+                        <div class="col-lg-8 addressstyle">
+                            <div class="text-single-line font-12" title='{{x.Address1}}'>{{x.Address1}}</div>
+                            <div class="text-single-line" title='{{x.Address2}}'>{{x.Address2}}</div>
+                            <div class="text-single-line" title='{{x.State}}'>{{x.State}}</div>
+                            <div class="text-single-line">
+                                <span ng-show="x.City" title="{{x.City}}">{{x.City}} -</span>
+                                <span ng-show="x.Postcode" title="{{x.Postcode}}">{{x.Postcode}}</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 p-0 mt-50">
+                            <div class="pull-right addressstyle1 font-12" ng-show="x.Mobile" title="{{x.Mobile}}">{{x.Mobile}}
+                                <i class="fa fa-phone ml-5 mr-5"></i>
+                            </div>
+                            <div class="pull-right addressstyle1 font-12" ng-show="x.Email" title="{{x.Email}}">{{x.Email}}
+                                <i class="fa fa-envelope-o ml-5 mr-5"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix mt-5 col-lg-12">
+        <div class="inner-dashboard-box">
+            <!-- Manifest Number -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="clearfix form-group">
+                    <label class="control-label text-single-line">Manifest Number</label>
+                    <div class="">
+                        <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" readonly="" placeholder="Manifest Number"
+                            data-ng-model="ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestNumber">
+                    </div>
+                </div>
+            </div>
+            <!--Transporter-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="ManifestGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransporterCode.IsWarning && !ManifestGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransporterCode.IsError"
+                        list="ManifestGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransporterCode.WARNING" type="'warning'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="ManifestGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransporterCode.IsError"
+                        list="ManifestGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransporterCode.ERROR" type="'error'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <div class="form-group">
+                    <label class="control-label text-single-line">Transporter</label>
+
+                    <div class="input-group input-group-sm">
+                        <!-- Dynamic look up Search in textbox -->
+                        <div dynamic-lookup placeholder="Carrier" my-ng-model="ManifestGeneralCtrl.ePage.Masters.Transporter" auto-complete-on-select="ManifestGeneralCtrl.ePage.Masters.SelectedLookupCarrier($item,ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterCode,'E5508',false)"
+                            obj="ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader" page-name="'OrganizationList'" control-key="'SenderCarrier_3239'"
+                            control-id="'SenderCarrier'">
+                        </div>
+
+                        <!-- Look Up page opens when button clicks -->
+                        <span class="input-group-btn">
+                            <button dynamic-list-modal obj="ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader" control-id="'SenderCarrier'" control-key="'SenderCarrier_3239'"
+                                selected-data="ManifestGeneralCtrl.ePage.Masters.SelectedLookupCarrier($item,ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterCode,'E5508',false)"
+                                page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny"
+                                type="button">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                        </span>
+                        <span ng-if="!ManifestGeneralCtrl.ePage.Masters.Transporter">
+                            <span data-ng-init="ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterCode=''"></span>
+                            <span data-ng-init="ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterName=''"></span>
+                        </span>
+                        <span ng-if='!ManifestGeneralCtrl.ePage.Masters.Transporter && !ManifestGeneralCtrl.currentManifest.isNew'>
+                            <div ng-init="ManifestGeneralCtrl.ePage.Masters.OnFieldValueChange('E5508');"></div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- manifest type  -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="ManifestGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ManifestType.IsWarning && !ManifestGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ManifestType.IsError"
+                        list="ManifestGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ManifestType.WARNING" type="'warning'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="ManifestGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ManifestType.IsError"
+                        list="ManifestGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ManifestType.ERROR" type="'error'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <div class="form-group">
+                    <label class="control-label text-single-line">Manifest Type</label>
+                    <select chosen class="form-control" style="height: 30px;" ng-model="ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestType"
+                        ng-options="x.Key as x.Key + ' - '  + x.Value for x in ManifestGeneralCtrl.ePage.Masters.DropDownMasterList.ManifestType.ListSource"
+                        ng-change="ManifestGeneralCtrl.ePage.Masters.OnFieldValueChange('E5502')" search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+            <!-- status -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="clearfix form-group">
+                    <label class="control-label text-single-line">Status</label>
+                    <div class="">
+                        <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" readonly="" placeholder="Status"
+                            data-ng-model="ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatusDesc">
+                    </div>
+                </div>
+            </div>
+            <!-- Mode Of Transport   -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="clearfix form-group">
+                    <label class="control-label text-single-line">Mode Of Transport </label>
+                    <select chosen class="form-control" style="height: 30px;" ng-model="ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransportMode"
+                        ng-options="x as x for x in ManifestGeneralCtrl.ePage.Masters.TransportMode" search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+            <!--Vehicle Type-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Vehicle Type</label>
+                    <select chosen class="form-control" style="height: 30px;" ng-model="ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.VehicleTypeCode"
+                        ng-options="x.Code as x.Code + ' - '  + x.Description for x in ManifestGeneralCtrl.ePage.Masters.VehicleType | filter: {IsVehicle:true}"
+                        ng-change="ManifestGeneralCtrl.ePage.Masters.OnChangeVehicleType(ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.VehicleTypeCode,'VehicleType')"
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+            <!-- Load type  -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label text-single-line">Load Type</label>
+                    <select chosen class="form-control" style="height: 30px;" ng-model="ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.LoadType"
+                        ng-options="x.Key as x.Key + ' - '  + x.Value for x in ManifestGeneralCtrl.ePage.Masters.DropDownMasterList.ManifestLoadType.ListSource"
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+            <!-- estimated dispatch date -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-3">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="ManifestGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedDispatchDate.IsWarning && !ManifestGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedDispatchDate.IsError"
+                        list="ManifestGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedDispatchDate.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="ManifestGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedDispatchDate.IsError"
+                        list="ManifestGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedDispatchDate.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <div class="form-group">
+                    <label class="control-label text-single-line">Estimated Dispatch Date Time</label>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" placeholder="{{ManifestGeneralCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                            datetime-picker="{{ManifestGeneralCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}" ng-model="ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDispatchDate"
+                            is-open="ManifestGeneralCtrl.ePage.Masters.DatePicker.isOpen['isEstimatedDispatchDate']" datepicker-options="ManifestGeneralCtrl.ePage.Masters.DatePicker.Options"
+                            datepicker-append-to-body="false" close-on-selection="false" enable-date="true" enable-time="true"
+                            default-date="" default-time="" when-closed="" save-as="ManifestGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                            popup-placement="bottom-right" data-ng-click="ManifestGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedDispatchDate')"
+                            ng-change="ManifestGeneralCtrl.ePage.Masters.OnFieldValueChange('E5545')" custom-date-time-format/>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" data-ng-click="ManifestGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedDispatchDate')">
+                                <i class="fa fa-calendar"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- Estimated Delivery Date -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-3">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="ManifestGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedDeliveryDate.IsWarning && !ManifestGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedDeliveryDate.IsError"
+                        list="ManifestGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedDeliveryDate.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="ManifestGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedDeliveryDate.IsError"
+                        list="ManifestGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimatedDeliveryDate.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <div class="form-group">
+                    <label class="control-label text-single-line">Estimated Delivery Date Time</label>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" placeholder="{{ManifestGeneralCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                            datetime-picker="{{ManifestGeneralCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}" ng-model="ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDeliveryDate"
+                            is-open="ManifestGeneralCtrl.ePage.Masters.DatePicker.isOpen['isEstimatedDeliveryDate']" datepicker-options="ManifestGeneralCtrl.ePage.Masters.DatePicker.Options"
+                            datepicker-append-to-body="false" close-on-selection="false" enable-date="true" enable-time="true"
+                            default-date="" default-time="" when-closed="" save-as="ManifestGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                            popup-placement="bottom-right" data-ng-click="ManifestGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedDeliveryDate')"
+                            ng-change="ManifestGeneralCtrl.ePage.Masters.OnFieldValueChange('E5546')" custom-date-time-format/>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" data-ng-click="ManifestGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedDeliveryDate')">
+                                <i class="fa fa-calendar"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!--special instructions-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="form-group height-211">
+                    <label class="control-label text-single-line">Special Instructions</label>
+                    <div class="">
+                        <textarea rows="2" type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Special Instructions"
+                            data-ng-model="ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.Instructions"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

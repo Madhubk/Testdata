@@ -5,9 +5,20 @@
         .module("Application")
         .directive("eventDataModal", DataEventModal);
 
-    DataEventModal.$inject = ["$uibModal"];
+    DataEventModal.$inject = ["$uibModal", "$templateCache"];
 
-    function DataEventModal($uibModal) {
+    function DataEventModal($uibModal, $templateCache) {
+        var _template = `<div class="modal-header">
+            <button type="button" class="close" ng-click="DataEventModalCtrl.ePage.Masters.Close()">&times;</button>
+            <h5 class="modal-title" id="modal-title">
+                <strong>Data Event</strong>
+            </h5>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <event-data input="input"></event-data>
+        </div>`;
+        $templateCache.put("DataEventModal.html", _template);
+
         var exports = {
             restrict: "EA",
             scope: {
@@ -27,7 +38,7 @@
                     keyboard: true,
                     windowClass: "right data-event",
                     scope: scope,
-                    templateUrl: "app/shared/standard-menu-directives/data-event/data-event-modal/data-event-modal.html",
+                    templateUrl: "DataEventModal.html",
                     controller: 'DataEventModalController as DataEventModalCtrl',
                     bindToController: true,
                     resolve: {

@@ -1,45 +1,102 @@
+<div class="grid-loading-norecord-container ng-scope" style='z-index: 15;'data-ng-if="PickMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading"></div>
 
 <div class="clearfix wms-menu-wraper">
-    <div pick-general current-pick="PickMenuCtrl.currentPick">
-    </div>
-    <div class="error-warning-container right" id="errorWarningContainer{{PickMenuCtrl.currentPick.label}}">
-        <div class="error-warning-header clearfix">
-            <span class="title pull-left">
-                Errors & Warnings
-            </span>
-            <span class="error-warning-toggle-icon pull-right" data-ng-click="PickMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(PickMenuCtrl.currentPick)">
-                <i class="fa fa-arrow-right"></i>
-            </span>
-        </div>
-        <div class="error-warning-body">
-            <div class="clearfix" data-ng-if="PickMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length>0">
-                <div class="clearfix">
-                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in PickMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList">
-                        <div class="clearfix">
-                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
-                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
-                            </div>
-                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
-                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
-                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+    <div class="widget-main">
+        <uib-tabset id="wmsMenuWrapper{{PickMenuCtrl.currentPick.label}}">
+            <uib-tab ng-repeat="x in PickMenuCtrl.ePage.Masters.PickMenu.ListSource">
+                <uib-tab-heading title="{{x.DisplayName}}">
+                    <i class="{{x.Icon}} mr-5"></i>
+                    <span class="text-single-line" data-ng-bind="x.DisplayName"></span>
+                    <error-warning-directive data-ng-if="PickMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, PickMenuCtrl.currentProduct.label, 'W', 'GParent').length > 0 && PickMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, PickMenuCtrl.currentProduct.label, 'E', 'GParent').length == 0"
+                        list="PickMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList" type="'warning'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
+                    <error-warning-directive data-ng-if="PickMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, PickMenuCtrl.currentProduct.label, 'E', 'GParent').length > 0"
+                        list="PickMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList" type="'error'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>  
+                </uib-tab-heading>
+
+                <div class="finalisedstate" data-ng-if="PickMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                    <span class="finaliseddatedescription">Pick {{PickMenuCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatusDesc}} and it cannot be edited</span>
+                </div>
+
+                <div>
+                    <div ng-switch="x.Value">
+                        <div ng-switch-when="Details">
+                            <pick-general current-pick="PickMenuCtrl.currentPick"></pick-general>                                    
+                        </div>
+                        <div ng-switch-when="PickAllocation">
+                            <pick-allocation current-pick="PickMenuCtrl.currentPick"></pick-allocation>                                    
+                        </div>
+                        <div ng-switch-when="PickSlip">
+                            <pick-slip current-pick="PickMenuCtrl.currentPick"></pick-slip>                                    
+                        </div>
+                        <div ng-switch-when="Documents">
+                            <pick-documents current-pick="PickMenuCtrl.currentPick"></pick-documents>                                    
+                        </div>
+                    </div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+
+        <div class="error-warning-container right" id="errorWarningContainer{{PickMenuCtrl.currentPick.label}}">
+            <div class="error-warning-header clearfix">
+                <span class="title pull-left">
+                    Errors & Warnings
+                </span>
+                <span class="error-warning-toggle-icon pull-right" data-ng-click="PickMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(PickMenuCtrl.currentPick)">
+                    <i class="fa fa-arrow-right"></i>
+                </span>
+            </div>
+            <div class="error-warning-body">
+                <div class="clearfix" data-ng-if="PickMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length>0">
+                    <div class="clearfix">
+                        <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in PickMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList">
+                            <div class="clearfix">
+                                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                    <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                                </div>
+                                <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                    <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                    <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!--Footer-->
-    <div class="eaxis-footer-strip">
-        <div class="col-lg-9">
-            <standard-menu entity-name="'WarehousePick'" input="PickMenuCtrl.currentPick" data-ng-if="!PickMenuCtrl.currentPick.isNew"></standard-menu>
-        </div>
-        <div class="col-lg-3">
-            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="PickMenuCtrl.ePage.Masters.Validation(PickMenuCtrl.currentPick)"
-            data-ng-bind="PickMenuCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="PickMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave"></button>
 
-            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="PickMenuCtrl.ePage.Masters.SaveClose(PickMenuCtrl.currentPick)"
-             data-ng-disabled="PickMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave" data-ng-bind="PickMenuCtrl.ePage.Masters.SaveAndCloseButtonText"></button>
+        <!--Footer-->
+    <div class="eaxis-footer-strip">
+        <div class="col-xs-6 col-sm-8 col-md-8 col-lg-9 col-xl-9">
+            <standard-menu dataentry-object="PickMenuCtrl.dataentryObject" input="PickMenuCtrl.currentPick"></standard-menu>
         </div>
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 col-xl-3">
+            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="PickMenuCtrl.ePage.Masters.Validation(PickMenuCtrl.currentPick)"data-ng-bind="PickMenuCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="PickMenuCtrl.ePage.Masters.DisableSave"></button>
+
+            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="PickMenuCtrl.ePage.Masters.Validation(PickMenuCtrl.currentPick);PickMenuCtrl.ePage.Masters.SaveAndClose = true" data-ng-disabled="PickMenuCtrl.ePage.Masters.DisableSave">Save & Close</button>
+
+             <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="PickMenuCtrl.ePage.Masters.CancelPick(PickMenuCtrl.currentPick)" data-ng-disabled="PickMenuCtrl.ePage.Masters.DisableSave">Cancel Pick</button>
+        </div>
+    </div>
+
     </div>
 </div>
+
+
+<!-- Cancelling Pick Popup -->
+<script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Pick Cancellation..</h3>
+    </div>
+    <div class="modal-body"  style="height:200px">
+        <div class="form-group">
+            <label for="comment">Leave Your Comment</label>
+            <textarea class="form-control" rows="2"  ng-model="comment"></textarea>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="!comment">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="close()">Close</button>
+    </div>
+</script>

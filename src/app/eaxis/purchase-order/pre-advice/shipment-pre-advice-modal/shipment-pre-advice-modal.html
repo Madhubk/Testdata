@@ -1,149 +1,151 @@
 <div class="modal-header">
     <h5 class="modal-title pull-left"><strong>Select Orders</strong></h5>
-    <button type="button" class="btn btn-warning btn-xs pull-right margin-left-5" ng-click="PreAdvicePopUpModalCtrl.ePage.Masters.Cancel()">Cancel</button>
-    <button type="button" class="btn btn-primary btn-xs pull-right margin-left-5" ng-click="PreAdvicePopUpModalCtrl.ePage.Masters.Ok(PreAdvicePopUpModalCtrl.ePage.Masters.OrderPreAdviceList)" data-ng-bind="PreAdvicePopUpModalCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="PreAdvicePopUpModalCtrl.ePage.Masters.SaveButtonDisable"></button>
+    <button type="button" class="btn btn-warning btn-xs pull-right margin-left-5" data-ng-click="PreAdvicePopUpModalCtrl.ePage.Masters.Cancel()">Cancel</button>
+    <button type="button" class="btn btn-primary btn-xs pull-right margin-left-5" data-ng-click="PreAdvicePopUpModalCtrl.ePage.Masters.Ok(PreAdvicePopUpModalCtrl.ePage.Masters.OrderPreAdviceList)"
+        data-ng-bind="PreAdvicePopUpModalCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="PreAdvicePopUpModalCtrl.ePage.Masters.SaveButtonDisable"></button>
 </div>
 <div class="modal-body">
     <div class="dynamic-table-container">
         <div class="widget">
             <div class="clearfix">
-            <!--Table  -->
-            <div class="dynamic-table-wrapper dynamic-table-wrapper-1">
-                <div class="row">
-                    <div class="col-sm-3 col-xs-3">
-                    
-                    </div>
-                    <div class="col-sm-3 col-xs-3">
-                        
-                    </div>
-                    <div class="col-sm-3 col-xs-3">
-                    </div>
-                    <div class="col-sm-3 col-xs-3">
-                        <div class="input-group stylish-input-group">
-                            <input type="text" class="form-control" data-ng-model="list.OrderNo"  placeholder="Search by Order #" >
-                            <span class="input-group-addon">
-                                <button type="submit">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                </button>  
-                            </span>
+                <!--Table  -->
+                <div class="dynamic-table-wrapper dynamic-table-wrapper-1">
+                    <div class="row">
+                        <div class="col-sm-3 col-xs-3">
+
+                        </div>
+                        <div class="col-sm-3 col-xs-3">
+
+                        </div>
+                        <div class="col-sm-3 col-xs-3">
+                        </div>
+                        <div class="col-sm-3 col-xs-3">
+                            <div class="input-group stylish-input-group">
+                                <input type="text" class="form-control" data-ng-model="list.OrderNo" placeholder="Search by Order #">
+                                <span class="input-group-addon">
+                                    <button type="submit">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+                                </span>
+                            </div>
                         </div>
                     </div>
+
+                    <table class="table table-hover">
+                        <!--Table header  -->
+                        <thead class="table table-head">
+                            <tr>
+                                <th class="list-header">
+                                </th>
+                                <th class="list-header">
+                                    <span>Order #</span>
+                                </th>
+                                <th class="list-header">
+                                    <span>Consignee</span>
+                                </th>
+                                <th class="list-header">
+                                    <span>Consignor</span>
+                                </th>
+                                <th class="list-header">
+                                    <span>C.Mode</span>
+                                </th>
+                                <th class="list-header">
+                                    <span>Incoterm</span>
+                                </th>
+                                <th class="list-header">
+                                    <span>Follow Up Date</span>
+                                </th>
+                                <th class="list-header">
+                                    <span>Cus.Date1</span>
+                                </th>
+                                <th class="list-header">
+                                    <span>Cus.Date2</span>
+                                </th>
+                                <th class="list-header">
+                                    <span>In Store</span>
+                                </th>
+                                <th class="list-header">
+                                    <span>Ex Works</span>
+                                </th>
+                                <th class="list-header">
+                                    <span>Cargo Ready Date</span>
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <!--table Data  -->
+                        <tbody>
+                            <!--Without row template  -->
+                            <tr data-ng-show="PreAdvicePopUpModalCtrl.ePage.Masters.Spinner">
+                                <td colspan="4"></td>
+                                <td colspan="4" class="spinner center">
+                                    <div class="rect1"></div>
+                                    <div class="rect2"></div>
+                                    <div class="rect3"></div>
+                                    <div class="rect4"></div>
+                                    <div class="rect5"></div>
+                                </td>
+                                <td colspan="4"></td>
+                            </tr>
+                            <tr class="text-align-center" data-ng-show="PreAdvicePopUpModalCtrl.ePage.Masters.NoRecord">
+                                <td colspan="4"></td>
+                                <td colspan="4"> No records found..! </td>
+                                <td colspan="4"> </td>
+                            </tr>
+                            <tr data-ng-repeat="obj in PreAdvicePopUpModalCtrl.ePage.Masters.OrderPreAdviceList | filter: list">
+                                <td class="text-single-line">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" data-ng-model="obj.status" data-ng-change="PreAdvicePopUpModalCtrl.ePage.Masters.SelectedList( obj.status ,$index)">
+                                            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                                        </label>
+                                    </div>
+                                </td>
+                                <td class="text-single-line" data-ng-bind="obj.OrderNo">
+
+                                </td>
+                                <td class="text-single-line" data-ng-bind="obj.Buyer">
+
+                                </td>
+                                <td class="text-single-line" data-ng-bind="obj.Supplier">
+
+                                </td>
+                                <td class="text-single-line" data-ng-bind="obj.ContainerMode">
+
+                                </td>
+                                <td class="text-single-line" data-ng-bind="obj.IncoTerm">
+
+                                </td>
+                                <td class="text-single-line" data-ng-bind="obj.FollowUpDate | date:'dd-MMM-yyyy'">
+
+                                </td>
+                                <td class="text-single-line" data-ng-bind="obj.CustomDate1 | date:'dd-MMM-yyyy'">
+
+                                </td>
+                                <td class="text-single-line" data-ng-bind="obj.CustomDate2 | date:'dd-MMM-yyyy'">
+
+                                </td>
+                                <td class="text-single-line" data-ng-bind="obj.RequiredDeliveryDate | date:'dd-MMM-yyyy'">
+
+                                </td>
+                                <td class="text-single-line" data-ng-bind="obj.RequiredExWorksDate | date:'dd-MMM-yyyy'">
+
+                                </td>
+                                <td class="text-single-line" data-ng-bind="obj.CargoReadyDate | date:'dd-MMM-yyyy'">
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                
-                <table class="table table-hover">
-                    <!--Table header  -->
-                    <thead class="table table-head">
-                        <tr>
-                            <th class="list-header">
-                            </th>
-                            <th class="list-header">
-                                <span >Order #</span>
-                            </th>
-                            <th class="list-header">
-                                <span >Consignee</span>
-                            </th>
-                            <th class="list-header">
-                                <span >Consignor</span>
-                            </th>
-                            <th class="list-header">
-                                <span >C.Mode</span>
-                            </th>
-                            <th class="list-header">
-                                <span >Incoterm</span>
-                            </th>
-                            <th class="list-header">
-                                <span >Follow Up Date</span>
-                            </th>
-                            <th class="list-header">
-                                <span >Cus.Date1</span>
-                            </th>
-                            <th class="list-header">
-                                <span >Cus.Date2</span>
-                            </th>
-                            <th class="list-header">
-                                <span >In Store</span>
-                            </th>
-                            <th class="list-header">
-                                <span >Ex Works</span>
-                            </th>
-                            <th class="list-header">
-                                <span >Cargo Ready Date</span>
-                            </th>
-                           
-                        </tr>
-                    </thead>
-                    <!--table Data  -->
-                    <tbody>
-                        <!--Without row template  -->
-                        <tr data-ng-show="PreAdvicePopUpModalCtrl.ePage.Masters.Spinner">
-                            <td colspan="4"></td>
-                            <td colspan="4" class="spinner center" >
-                              <div class="rect1"></div>
-                              <div class="rect2"></div>
-                              <div class="rect3"></div>
-                              <div class="rect4"></div>
-                              <div class="rect5"></div>
-                            </td>
-                            <td colspan="4"></td>
-                        </tr>
-                        <tr class="text-align-center" data-ng-show="PreAdvicePopUpModalCtrl.ePage.Masters.NoRecord">
-                             <td colspan="4"></td>
-                            <td colspan="4"> No records found..! </td>
-                            <td colspan="4"> </td>
-                        </tr>
-                        <tr data-ng-repeat ="obj in PreAdvicePopUpModalCtrl.ePage.Masters.OrderPreAdviceList | filter: list">
-                            <td class="text-single-line">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" data-ng-model="obj.status" data-ng-change="PreAdvicePopUpModalCtrl.ePage.Masters.SelectedList( obj.status ,$index)" >
-                                        <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-                                    </label>
-                                </div>
-                            </td>
-                            <td class="text-single-line" data-ng-bind="obj.OrderNo">
-                            
-                            </td>
-                            <td class="text-single-line" data-ng-bind="obj.Buyer">
-                            
-                            </td>
-                            <td class="text-single-line" data-ng-bind="obj.Supplier">
-                            
-                            </td>
-                            <td class="text-single-line" data-ng-bind="obj.ContainerMode">
-                            
-                            </td>
-                            <td class="text-single-line" data-ng-bind="obj.IncoTerm">
-                            
-                            </td>
-                            <td class="text-single-line" data-ng-bind="obj.FollowUpDate | date:'dd-MMM-yyyy'">
-                            
-                            </td>
-                            <td class="text-single-line" data-ng-bind="obj.CustomDate1 | date:'dd-MMM-yyyy'">
-                            
-                            </td>
-                            <td class="text-single-line" data-ng-bind="obj.CustomDate2 | date:'dd-MMM-yyyy'">
-                            
-                            </td>
-                            <td class="text-single-line" data-ng-bind="obj.RequiredDeliveryDate | date:'dd-MMM-yyyy'">
-                            
-                            </td>
-                            <td class="text-single-line" data-ng-bind="obj.RequiredExWorksDate | date:'dd-MMM-yyyy'">
-                            
-                            </td>
-                            <td class="text-single-line" data-ng-bind="obj.CargoReadyDate | date:'dd-MMM-yyyy'">
-                            
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
-        </div>
         </div>
     </div>
 
 </div>
 
 <div class="modal-footer">
-    <button type="button" class="btn btn-warning btn-xs pull-right margin-left-5" ng-click="PreAdvicePopUpModalCtrl.ePage.Masters.Cancel()">Cancel</button>
-    <button type="button" class="btn btn-primary btn-xs pull-right margin-left-5" ng-click="PreAdvicePopUpModalCtrl.ePage.Masters.Ok(PreAdvicePopUpModalCtrl.ePage.Masters.OrderPreAdviceList)" data-ng-bind="PreAdvicePopUpModalCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="PreAdvicePopUpModalCtrl.ePage.Masters.SaveButtonDisable"></button>
+    <button type="button" class="btn btn-warning btn-xs pull-right margin-left-5" data-ng-click="PreAdvicePopUpModalCtrl.ePage.Masters.Cancel()">Cancel</button>
+    <button type="button" class="btn btn-primary btn-xs pull-right margin-left-5" data-ng-click="PreAdvicePopUpModalCtrl.ePage.Masters.Ok(PreAdvicePopUpModalCtrl.ePage.Masters.OrderPreAdviceList)"
+        data-ng-bind="PreAdvicePopUpModalCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="PreAdvicePopUpModalCtrl.ePage.Masters.SaveButtonDisable"></button>
 </div>

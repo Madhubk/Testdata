@@ -5,9 +5,9 @@
         .module("Application")
         .controller("ProcessWorkStepRulesController", ProcessWorkStepRulesController);
 
-    ProcessWorkStepRulesController.$inject = ["$location", "$timeout", "authService", "apiService", "helperService", "appConfig", "toastr", "confirmation", "$uibModalInstance", "param"];
+    ProcessWorkStepRulesController.$inject = ["$scope", "$location", "$timeout", "authService", "apiService", "helperService", "toastr", "confirmation", "$uibModal", "$uibModalInstance", "param", "trustCenterConfig"];
 
-    function ProcessWorkStepRulesController($location, $timeout, authService, apiService, helperService, appConfig, toastr, confirmation, $uibModalInstance, param) {
+    function ProcessWorkStepRulesController($scope, $location, $timeout, authService, apiService, helperService, toastr, confirmation, $uibModal, $uibModalInstance, param, trustCenterConfig) {
         /* jshint validthis: true */
         var ProcessWorkStepRulesCtrl = this;
         var _queryString = $location.path().split("/").pop();
@@ -49,6 +49,7 @@
             ProcessWorkStepRulesCtrl.ePage.Masters.Rules.SaveRules = SaveRulesValidation;
             ProcessWorkStepRulesCtrl.ePage.Masters.Rules.DeleteRules = DeleteRulesConfirmation;
             ProcessWorkStepRulesCtrl.ePage.Masters.Rules.CloseModal = CloseModal;
+            ProcessWorkStepRulesCtrl.ePage.Masters.Rules.OnRuleTypeChange = OnRuleTypeChange;
 
             ProcessWorkStepRulesCtrl.ePage.Masters.Rules.IsDisableRulesSaveBtn = false;
             ProcessWorkStepRulesCtrl.ePage.Masters.Rules.RulesSaveBtnText = "Save";
@@ -59,11 +60,26 @@
 
             ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveTab = "General";
 
+            GetRuleTypeList();
             GetRules();
             GetRulesActionType();
             GetMode();
             GetInstanceRules();
             GetInstanceMandatorySteps();
+        }
+
+        function GetRuleTypeList() {
+            ProcessWorkStepRulesCtrl.ePage.Masters.Rules.RuleTypeList = [{
+                Code: "Expression1",
+                Desc: "Expression 1"
+            }, {
+                Code: "Expression2",
+                Desc: "Expression 2"
+            }];
+        }
+
+        function OnRuleTypeChange() {
+            ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.Rules = [];
         }
 
         function GetRules() {
@@ -75,10 +91,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.EBPMWorkStepRules.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.EBPMWorkStepRules.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkStepRules.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EBPMWorkStepRules.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
                         response.data.Response.map(function (val, key) {
@@ -194,7 +210,7 @@
             };
 
             var _input = [_obj];
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkStepRules.API.Upsert.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EBPMWorkStepRules.API.Upsert.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     var _response = response.data.Response[0];
                     _response.MandatorySteps = JSON.parse(_response.MandatorySteps);
@@ -215,6 +231,10 @@
 
             $timeout(function () {
                 ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule = $item;
+
+                if (!ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.RuleType) {
+                    ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.RuleType = ProcessWorkStepRulesCtrl.ePage.Masters.Rules.RuleTypeList[0].Code;
+                }
                 GetActionList();
             });
         }
@@ -244,7 +264,7 @@
             _input.WSI_StepNo = ProcessWorkStepRulesCtrl.ePage.Masters.Param.Item.StepNo;
             _input.WSI_FK = ProcessWorkStepRulesCtrl.ePage.Masters.Param.Item.PK;
 
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkStepRules.API.Upsert.Url, [_input]).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EBPMWorkStepRules.API.Upsert.Url, [_input]).then(function (response) {
                 if (response.data.Response) {
                     var _index = ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ListSource.map(function (value, key) {
                         return value.PK;
@@ -294,7 +314,7 @@
             _input.Rules = JSON.stringify(_input.Rules);
             _input.WorkStepActions = JSON.stringify(_input.WorkStepActions);
 
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkStepRules.API.Upsert.Url, [_input]).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EBPMWorkStepRules.API.Upsert.Url, [_input]).then(function (response) {
                 if (response.data.Response) {
                     var _index = ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ListSource.map(function (value, key) {
                         return value.PK;
@@ -310,8 +330,6 @@
                     } else {
                         ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule = undefined;
                     }
-
-                    console.log(ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ListSource);
                 } else {
                     toastr.error("Failed...!");
                 }
@@ -329,6 +347,7 @@
 
             ProcessWorkStepRulesCtrl.ePage.Masters.Actions.AddAction = AddAction;
             ProcessWorkStepRulesCtrl.ePage.Masters.Actions.EditAction = EditAction;
+            ProcessWorkStepRulesCtrl.ePage.Masters.Actions.OpenJsonModal = OpenJsonModal;
             ProcessWorkStepRulesCtrl.ePage.Masters.Actions.DeleteAction = DeleteActionConfirmation;
             ProcessWorkStepRulesCtrl.ePage.Masters.Actions.SaveAction = SaveAction;
 
@@ -341,6 +360,9 @@
             GetActionTypeList();
             GetCallBackModeList();
             GetProcessList();
+
+            InitNotification();
+            InitTaskConfig();
         }
 
         function GetActionList() {
@@ -352,10 +374,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.EBPMWorkStepActions.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.EBPMWorkStepActions.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkStepActions.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EBPMWorkStepActions.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.WorkStepActions = response.data.Response;
 
@@ -418,10 +440,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.EBPMProcessMaster.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.EBPMProcessMaster.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMProcessMaster.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EBPMProcessMaster.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     ProcessWorkStepRulesCtrl.ePage.Masters.Actions.EBPMProcessMasterList = response.data.Response;
                 } else {
@@ -458,6 +480,7 @@
             var _obj = {
                 ActionNo: _actionNo,
                 ActionName: "Action " + _actionNo,
+                ActionType: "REGULAR",
                 ResultType: "DEFAULT_ACTION",
                 InitStepNo: 0,
                 ChildReturnBackStepNo: 0
@@ -469,6 +492,25 @@
         function EditAction($item, $index) {
             ProcessWorkStepRulesCtrl.ePage.Masters.Actions.ActiveAction = $item;
             ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView = ProcessWorkStepRulesCtrl.ePage.Masters.Actions.ActiveAction;
+
+            if (!ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.NotificationConfig) {
+                ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.NotificationConfig = "[]";
+            }
+            if (!ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfig) {
+                ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfig = "[]";
+            }
+
+            if (ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.NotificationConfig) {
+                if (typeof ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.NotificationConfig == "string") {
+                    ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.NotificationGroup = JSON.parse(ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.NotificationConfig);
+                }
+            }
+
+            if (ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfig) {
+                if (typeof ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfig == "string") {
+                    ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfigGroup = JSON.parse(ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfig);
+                }
+            }
         }
 
         function DeleteActionConfirmation() {
@@ -502,7 +544,7 @@
                 $item.IsDeleted = true;
                 var _input = [$item];
 
-                apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkStepActions.API.Upsert.Url, _input).then(function (response) {
+                apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EBPMWorkStepActions.API.Upsert.Url, _input).then(function (response) {
                     if (response.data.Response) {
                         ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.WorkStepActions.splice($index, 1);
 
@@ -546,7 +588,7 @@
             _input.WSI_StepNo = ProcessWorkStepRulesCtrl.ePage.Masters.Param.Item.StepNo;
             _input.WSR_FK = ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.PK;
 
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkStepActions.API.Upsert.Url, [_input]).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EBPMWorkStepActions.API.Upsert.Url, [_input]).then(function (response) {
                 if (response.data.Response) {
                     var _response = response.data.Response[0];
                     if (!$item.PK) {
@@ -570,7 +612,233 @@
                 ProcessWorkStepRulesCtrl.ePage.Masters.ActionSaveBtnText = "Save";
             });
         }
+
+        function OpenJsonModal(objName) {
+            var _json = ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.WorkStepActions[objName];
+            if (_json !== undefined && _json !== null && _json !== '' && _json !== ' ') {
+                try {
+                    if (typeof JSON.parse(_json) == "object") {
+                        var modalDefaults = {
+                            resolve: {
+                                param: function () {
+                                    var exports = {
+                                        "Data": ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.WorkStepActions[objName]
+                                    };
+                                    return exports;
+                                }
+                            }
+                        };
+
+                        jsonEditModal.showModal(modalDefaults, {})
+                            .then(function (result) {
+                                ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.WorkStepActions[objName] = result;
+                            }, function () {
+                                console.log("Cancelled");
+                            });
+                    }
+                } catch (error) {
+                    toastr.warning("Value Should be JSON format...!");
+                }
+            } else {
+                toastr.warning("Value Should not be Empty...!");
+            }
+        }
         // ============================= Action End =============================
+
+        // Notification
+        function InitNotification() {
+            ProcessWorkStepRulesCtrl.ePage.Masters.Actions.Notification = {};
+
+            ProcessWorkStepRulesCtrl.ePage.Masters.Actions.Notification.OnEditNotification = OnEditNotification;
+            ProcessWorkStepRulesCtrl.ePage.Masters.Actions.Notification.CloseNotificationModal = CloseNotificationModal;
+            ProcessWorkStepRulesCtrl.ePage.Masters.Actions.Notification.PrepareNotification = PrepareNotification;
+        }
+
+        function EditNotificationModalInstance() {
+            return ProcessWorkStepRulesCtrl.ePage.Masters.Actions.EditNotificationModal = $uibModal.open({
+                animation: true,
+                keyboard: true,
+                backdrop: "static",
+                windowClass: "tc-edit-notification-modal right",
+                scope: $scope,
+                template: `<div ng-include src="'ProcessWorkStepEditNotification'"></div>`
+            });
+        }
+
+        function CloseNotificationModal() {
+            ProcessWorkStepRulesCtrl.ePage.Masters.Actions.EditNotificationModal.dismiss('cancel');
+        }
+
+        function OnEditNotification() {
+            if (!ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.NotificationGroup) {
+                ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.NotificationGroup = [];
+            }
+
+            EditNotificationModalInstance().result.then(function (response) { }, function () {
+                CloseNotificationModal();
+            });
+        }
+
+        function PrepareNotification() {
+            if (ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.NotificationGroup) {
+                if (ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.NotificationGroup.length > 0) {
+                    var _Group = angular.copy(ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.NotificationGroup);
+
+                    if (_Group.length > 0) {
+                        _Group.map(function (value1, key1) {
+                            if (value1.Attachment.length > 0) {
+                                value1.Attachment.map(function (value2, key2) {
+                                    delete value2.FieldNo;
+                                    delete value2.FieldName;
+                                });
+                            }
+                        });
+                    }
+
+                    if (typeof _Group == "object") {
+                        _Group = JSON.stringify(_Group);
+                    }
+                    ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.NotificationConfig = _Group;
+                } else {
+                    ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.NotificationConfig = "[]";
+                }
+            } else {
+                ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.NotificationConfig = "[]";
+            }
+
+            CloseNotificationModal();
+        }
+
+        // Task Config
+        function InitTaskConfig() {
+            ProcessWorkStepRulesCtrl.ePage.Masters.Actions.TaskConfig = {};
+
+            ProcessWorkStepRulesCtrl.ePage.Masters.Actions.TaskConfig.OnEditTaskConfig = OnEditTaskConfig;
+            ProcessWorkStepRulesCtrl.ePage.Masters.Actions.TaskConfig.CloseTaskConfigModal = CloseTaskConfigModal;
+            ProcessWorkStepRulesCtrl.ePage.Masters.Actions.TaskConfig.PrepareTaskConfig = PrepareTaskConfig;
+        }
+
+        function EditTaskConfigModalInstance() {
+            return ProcessWorkStepRulesCtrl.ePage.Masters.Actions.EditTaskConfigModal = $uibModal.open({
+                animation: true,
+                keyboard: true,
+                backdrop: "static",
+                windowClass: "tc-edit-task-config-modal right",
+                scope: $scope,
+                template: `<div ng-include src="'ProcessWorkStepEditTaskConfig'"></div>`
+            });
+        }
+
+        function CloseTaskConfigModal() {
+            ProcessWorkStepRulesCtrl.ePage.Masters.Actions.EditTaskConfigModal.dismiss('cancel');
+        }
+
+        function OnEditTaskConfig() {
+            if (!ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfigGroup || ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfigGroup.length == 0) {
+                var _obj = {
+                    // "ProcessType": "Process",
+                    // "ProcessName": ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.Process,
+                    // "Action": "Init",
+                    "DataSlots": {},
+                    "DataSlotKey": "Val1",
+                    "DataSlotValue": "",
+                    "DataSlotsDisplay": undefined,
+                    "QueryResults": [{
+                        "SQL": "",
+                        "Parameters": []
+                    }]
+                };
+
+                if (ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.ActionType == 'REGULAR') {
+                    _obj.ProcessType = "Task";
+                    _obj.ProcessName = "";
+                    _obj.Action = "Complete";
+                } else {
+                    _obj.ProcessType = "Process";
+                    _obj.ProcessName = ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.Process;
+                    _obj.Action = "Init";
+                }
+
+                ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfigGroup = [];
+                ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfigGroup.push(_obj);
+            } else {
+                if (ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.ActionType == 'REGULAR') {
+                    ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfigGroup[0].ProcessType = "Task";
+                    ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfigGroup[0].ProcessName = undefined;
+                    ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfigGroup[0].Action = "Complete";
+                } else {
+                    ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfigGroup[0].ProcessType = "Process";
+                    ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfigGroup[0].ProcessName = ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.Process;
+                    ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfigGroup[0].Action = "Init";
+                }
+            }
+
+            if (ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.ActionType == 'REGULAR') {
+                ProcessWorkStepRulesCtrl.ePage.Masters.Actions.TaskDirConfig = {
+                    ActionList: ["Complete", "Activate"],
+                    ProcessTypeList: ["Task"]
+                };
+            } else {
+                ProcessWorkStepRulesCtrl.ePage.Masters.Actions.TaskDirConfig = {
+                    ActionList: ["Init"],
+                    ProcessTypeList: ["Process"]
+                };
+            }
+
+            if (ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.ActionType == 'REGULAR') {
+                EditTaskConfigModalInstance().result.then(function (response) { }, function () {
+                    CloseTaskConfigModal();
+                });
+            } else {
+                if (ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.Process) {
+                    EditTaskConfigModalInstance().result.then(function (response) { }, function () {
+                        CloseTaskConfigModal();
+                    });
+                } else {
+                    toastr.warning("Select any Process...!");
+                }
+            }
+        }
+
+        function PrepareTaskConfig() {
+            if (ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfigGroup) {
+                if (ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfigGroup.length > 0) {
+                    var _Group = angular.copy(ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfigGroup);
+
+                    if (_Group.length > 0) {
+                        _Group.map(function (value1, key1) {
+                            if (value1.DataSlotKey || value1.DataSlotKey == "" || value1.DataSlotKey == " ") {
+                                delete value1.DataSlotKey;
+                            }
+                            if (value1.DataSlotValue || value1.DataSlotValue == "" || value1.DataSlotValue == " ") {
+                                delete value1.DataSlotValue;
+                            }
+                            if (value1.QueryResults.length > 0) {
+                                value1.QueryResults.map(function (value2, key2) {
+                                    delete value2.FieldNo;
+                                    delete value2.FieldName;
+                                });
+                            }
+                        });
+                    }
+
+                    if (ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.ActionType == 'REGULAR') {
+                        ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.Process = _Group[0].ProcessName;
+                    }
+
+                    if (typeof _Group == "object") {
+                        _Group = JSON.stringify(_Group);
+                    }
+                    ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfig = _Group;
+                } else {
+                    ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfig = "[]";
+                }
+            } else {
+                ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfig = "[]";
+            }
+
+            CloseTaskConfigModal();
+        }
 
         Init();
     }

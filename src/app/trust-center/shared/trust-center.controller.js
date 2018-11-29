@@ -5,9 +5,9 @@
         .module("Application")
         .controller("TrustCenterController", TrustCenterController);
 
-    TrustCenterController.$inject = ["trustCenterConfig", "helperService"];
+    TrustCenterController.$inject = ["helperService"];
 
-    function TrustCenterController(trustCenterConfig, helperService) {
+    function TrustCenterController(helperService) {
         /* jshint validthis: true */
         var TrustCenterCtrl = this;
 
@@ -17,7 +17,7 @@
                 "Prefix": "TrustCenter",
                 "Masters": {},
                 "Meta": helperService.metaBase(),
-                "Entities": trustCenterConfig.Entities
+                "Entities": {}
             };
         }
 

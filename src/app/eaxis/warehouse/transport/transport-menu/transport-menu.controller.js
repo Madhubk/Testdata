@@ -25,9 +25,7 @@
 
             };
 
-            // Standard Menu Configuration and Data
-            TransportMenuCtrl.ePage.Masters.StandardMenuInput = appConfig.Entities.standardMenuConfigList.WarehouseTransport;
-            TransportMenuCtrl.ePage.Masters.StandardMenuInput.obj = TransportMenuCtrl.currentTransport;
+            
             // function
             TransportMenuCtrl.ePage.Masters.Save = Save;
             TransportMenuCtrl.ePage.Masters.SaveButtonText = "Save";

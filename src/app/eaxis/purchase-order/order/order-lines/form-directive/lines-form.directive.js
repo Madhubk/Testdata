@@ -18,6 +18,7 @@
                 lineOrder: "=",
                 currentOrder: "=",
                 action: "=",
+                error: "=",
                 save: "&"
             },
             bindToController: true

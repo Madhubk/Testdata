@@ -5,9 +5,9 @@
         .module("Application")
         .controller("paginationController", PaginationController);
 
-    PaginationController.$inject = ["helperService", "appConfig", "$scope"];
+    PaginationController.$inject = ["helperService", "$scope"];
 
-    function PaginationController(helperService, appConfig, $scope) {
+    function PaginationController(helperService, $scope) {
         /* jshint validthis: true */
         var PaginationCtrl = this;
 
@@ -19,7 +19,7 @@
                 "Meta": helperService.metaBase(),
                 "Entities": ""
             };
-            
+
             InitPagination();
         }
 
@@ -32,50 +32,52 @@
             PaginationCtrl.ePage.Masters.SelectNext = SelectNext;
             PaginationCtrl.ePage.Masters.PageSize = 25;
 
-            $scope.$watch('PaginationCtrl.currentPage',function (value) {
-                PaginationCtrl.ePage.Masters.PageFrom = ((value-1)*PaginationCtrl.ePage.Masters.PageSize) + 1;
+            $scope.$watch('PaginationCtrl.currentPage', function (value) {
+                PaginationCtrl.ePage.Masters.PageFrom = ((value - 1) * PaginationCtrl.ePage.Masters.PageSize) + 1;
                 PaginationCtrl.ePage.Masters.PageTo = value * PaginationCtrl.ePage.Masters.PageSize;
             });
 
-            $scope.$watch('PaginationCtrl.numPages', function(value) {
+            $scope.$watch('PaginationCtrl.numPages', function (value) {
                 PaginationCtrl.ePage.Masters.pages = [];
-                for(var i=1;i<=value;i++) {
-                  PaginationCtrl.ePage.Masters.pages.push(i);
+                for (var i = 1; i <= value; i++) {
+                    PaginationCtrl.ePage.Masters.pages.push(i);
                 }
-                if (PaginationCtrl.currentPage > value ) {
+                if (PaginationCtrl.currentPage > value) {
                     SelectPage(value);
                 }
             });
         }
 
         function SelectPage(page) {
-            if ( !isActive(page) ) {
-              PaginationCtrl.currentPage = page;
-              PaginationCtrl.onSelectPage({ page: page });
+            if (!isActive(page)) {
+                PaginationCtrl.currentPage = page;
+                PaginationCtrl.onSelectPage({
+                    page: page
+                });
             }
         }
-        
+
         function NoPrevious() {
             return PaginationCtrl.currentPage === 1;
         }
-        
+
         function NoNext() {
             return PaginationCtrl.currentPage === PaginationCtrl.numPages;
         }
-        
-        function isActive(page) {            
+
+        function isActive(page) {
             return PaginationCtrl.currentPage === page;
         }
-        
+
         function SelectPrevious() {
-            if ( !NoPrevious() ) {
-              SelectPage(PaginationCtrl.currentPage-1);
+            if (!NoPrevious()) {
+                SelectPage(PaginationCtrl.currentPage - 1);
             }
         }
-        
+
         function SelectNext() {
-            if ( !NoNext() ) {
-              SelectPage(PaginationCtrl.currentPage+1);
+            if (!NoNext()) {
+                SelectPage(PaginationCtrl.currentPage + 1);
             }
         }
 

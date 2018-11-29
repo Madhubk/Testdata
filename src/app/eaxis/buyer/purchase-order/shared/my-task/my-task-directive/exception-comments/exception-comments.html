@@ -1,0 +1,10 @@
+<div class="except-reject-box pt-15">
+    <div data-ng-repeat="x in ExceptionCommentsDirectiveCtrl.ePage.Masters.CommentsList">
+        <div class="clearfix except-comments position-relative mb-15">
+            <i class="except-comment-icon fa fa-comment-o color-blue"></i>
+            <div>{{x.CreatedBy}}</div>
+            <div class="color-aaa pr-15 fs-12" data-ng-text-truncate="x.Comments" data-ng-tt-chars-threshold="150"
+                data-ng-tt-more-label="more" data-ng-tt-less-label="less"></div>
+        </div>
+    </div>
+</div>

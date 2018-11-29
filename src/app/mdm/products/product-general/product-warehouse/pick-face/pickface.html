@@ -1,47 +1,47 @@
-<!-- hide save -->
-<span ng-if="!PickfaceCtrl.ePage.Masters.Lineslist" ng-init="PickfaceCtrl.ePage.Entities.Header.CheckPoints.DisableSave=true"></span>
-<span ng-if="PickfaceCtrl.ePage.Masters.Lineslist" ng-init="PickfaceCtrl.ePage.Entities.Header.CheckPoints.DisableSave=false"></span>
-
-<span ng-if="PickfaceCtrl.ePage.Entities.Header.CheckPoints.HideindexPickface==false">
-    <span ng-init="PickfaceCtrl.ePage.Masters.selectedRow=-1"></span>
-</span>
-<span ng-if="PickfaceCtrl.ePage.Entities.Header.Meta.checkpointpick ==false">
-    <span ng-init="PickfaceCtrl.ePage.Masters.selectedRow=-1"></span>
-</span>
-<!-- List Empty Response -->
-<div class="grid-loading-norecord-container ng-scope" style='z-index: 4;'data-ng-if="PickfaceCtrl.ePage.Masters.IsLoadingToSave">
-    <div class="grid-no-record">Saving your Data...</div>
-</div>
-
-<div class="p-10 mt-10" ng-show='PickfaceCtrl.ePage.Masters.Lineslist'>
-    <div>
-        <span><button type="button" class="btn btn-sm btn-outline-secondary" title="Add New"  data-ng-click="PickfaceCtrl.ePage.Masters.AddNewRow()"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button></span>
-        <span ng-hide='PickfaceCtrl.ePage.Masters.selectedRow==-1'><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Copy"  data-ng-click="PickfaceCtrl.ePage.Masters.CopyRow()"><span class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button></span>
-        <span ng-hide='PickfaceCtrl.ePage.Masters.selectedRow==-1'><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Edit"  data-ng-click="PickfaceCtrl.ePage.Masters.Edit(PickfaceCtrl.ePage.Masters.selectedRow,'Edit List')"><span class="fa fa-pencil"></span>&nbsp;&nbsp;Edit</button></span>
-        <span ng-hide='PickfaceCtrl.ePage.Masters.selectedRow==-1'><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Delete"  data-ng-click="PickfaceCtrl.ePage.Masters.RemoveRow()"><span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button></span>        
+<div class="clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding">
+        <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 p-0">
+            <span><button type="button" class="btn btn-sm btn-outline-secondary font-10"  title="Add New"  data-ng-click="PickfaceCtrl.ePage.Masters.AddNewRow()"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button></span>
+            <span><button type="button" class="btn btn-sm btn-outline-primary font-10"  title="Copy"  data-ng-click="PickfaceCtrl.ePage.Masters.CopyRow()" ng-disabled="!PickfaceCtrl.ePage.Masters.EnableDeleteButton"><span class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button></span>
+            <span><button type="button" class="btn btn-sm btn-outline-primary font-10"  title="Delete"  data-ng-click="PickfaceCtrl.ePage.Masters.RemoveRow()" ng-disabled="!PickfaceCtrl.ePage.Masters.EnableDeleteButton"><span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button></span>
+            <span><button type="button" class="btn btn-sm btn-outline-primary font-10"  title="Customize"  data-ng-click="PickfaceCtrl.ePage.Masters.EditTableColumns = true"><span class="fa fa-filter"></span>&nbsp;&nbsp;Customize</button></span>
+        </div>
+        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0">
+            <div class="input-group">
+                <div class="input-group-addon font-10"><i class="fa fa-search font-10"></i></div>
+                <input type="text" class="form-control height-25 font-10" placeholder="Search" ng-model="PickfaceCtrl.ePage.Masters.SearchTable">
+            </div>      
+        </div>
     </div>
-    <div id='PickfaceCtrl.ePage.Masters.your_div' class="wmstable_scroll" style="height:193px; padding-top: 2px;">
-        <div class="table" id="results">
-            <div class='theader'>
-                <div class='table_header'>List No</div>
-                <div class='table_header'>Client</div>
-                <div class='table_header'>Warehouse</div>
-                <div class='table_header'>Location</div>
-                <div class='table_header'>Replenishment Minimum</div>
-                <div class='table_header'>Replenishment Maximum</div>
-                <div class='table_header'>Replenishment Multiple</div>
-            </div>
-
-            <!-- List Empty Response -->
-            <div data-ng-if="PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace.length==0">
-                <div class="grid-no-record" style="top:250px">No records found...</div>
-            </div>
-
-            <div class='table_row' ng-repeat="x in PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace | orderBy:'CreatedDateTime' | filter:{IsDeleted:'false'}  track by $index" 
-                ng-click="PickfaceCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: PickfaceCtrl.ePage.Masters.selectedRow==$index}" style="font-size: 11px;">
-                <div class='table_small'>
-                    <div class='table_cell'>List No</div>
-                    <div class='table_cell'>
+    <div id="PickFaceTable{{PickfaceCtrl.ePage.Entities.Header.Data.PK}}" class="fixedheader" key-events table-object='PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace' enable='PickfaceCtrl.ePage.Masters.Enable' selected-row='PickfaceCtrl.ePage.Masters.selectedRow' style="margin-bottom: 0px" unique-id='PickFaceTable{{PickfaceCtrl.ePage.Entities.Header.Data.PK}}'>
+        <table id="PickfaceCtrl.ePage.Masters.AddScroll" style="height: 200px">
+            <thead>
+                <tr id="tableHeader">
+                    <th id="pickfacecheckbox" data-ng-if="PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.pickfacecheckbox.isenabled" ng-style="{ 'width': PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.pickfacecheckbox.width + 'px' }">
+                        <label class="customcheckbox">
+                            <input type="checkbox" ng-change="PickfaceCtrl.ePage.Masters.SelectAllCheckBox()" ng-checked="PickfaceCtrl.ePage.Masters.SelectAll"
+                                ng-model="PickfaceCtrl.ePage.Masters.SelectAll">
+                            <span class="text"></span>
+                        </label>
+                    </th>
+                    <th id="pickfacesno" data-ng-if="PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.pickfacesno.isenabled" ng-style="{ 'width': PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.pickfacesno.width + 'px' }" title="S.No">S.No</th>
+                    <th id="pickfaceclient" data-ng-if="PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.pickfaceclient.isenabled" ng-style="{ 'width': PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.pickfaceclient.width + 'px' }" title="Client">Client</th>
+                    <th id="pickfacewarehouse" data-ng-if="PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.pickfacewarehouse.isenabled" ng-style="{ 'width': PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.pickfacewarehouse.width + 'px' }" title="Warehouse">Warehouse</th>
+                    <th id="location"data-ng-if="PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.location.isenabled" ng-style="{ 'width': PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.location.width + 'px' }" title="Location">Location</th>
+                    <th id="pickfacereplenishmentminimum" data-ng-if="PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.pickfacereplenishmentminimum.isenabled" ng-style="{ 'width': PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.pickfacereplenishmentminimum.width + 'px' }" title="Replenishment Minimum">Replenishment Minimum</th>
+                    <th id="replenishmentmaximum"data-ng-if="PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.replenishmentmaximum.isenabled" ng-style="{ 'width': PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.replenishmentmaximum.width + 'px' }" title="Replenishment Maximum">Replenishment Maximum</th>
+                    <th id="pickfacereplenishmentmultiple"data-ng-if="PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.pickfacereplenishmentmultiple.isenabled" ng-style="{ 'width': PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.pickfacereplenishmentmultiple.width + 'px' }" title="Replenishment Multiple">Replenishment Multiple</th>
+                </tr>
+            </thead>
+            <tbody id="PickFaceCustomTable{{PickfaceCtrl.ePage.Entities.Header.Data.PK}}">
+                <tr id="tableBody" ng-repeat="x in PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace | filter:PickfaceCtrl.ePage.Masters.SearchTable"  ng-click="PickfaceCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: (PickfaceCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}" 
+                    watch-table table-properties="PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace"  unique-id="PickFaceCustomTable{{PickfaceCtrl.ePage.Entities.Header.Data.PK}}" row-position="$index">
+                    <td id="pickfacecheckbox" data-ng-show='PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.pickfacecheckbox.isenabled' ng-style="{ 'width': PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.pickfacecheckbox.width + 'px' ,'padding-top':'0px' }" >
+                        <label class="mb-0 customcheckbox">
+                            <input type="checkbox" ng-checked="x.SingleSelect" ng-change="PickfaceCtrl.ePage.Masters.SingleSelectCheckBox()"
+                                ng-model="x.SingleSelect"> </input>
+                            <span class="text"></span>
+                        </label>
                         <span class="list-error-warning" data-ng-if="PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR | listCount: 'RowIndex': $index">
                             <error-warning-directive 
                                 list="PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR"
@@ -49,193 +49,155 @@
                                 g-parent-ref="" row-index="$index"
                                 col-index="">
                             </error-warning-directive>
-                        </span> 
+                        </span>
+                    </td>
+                    <td id="pickfacesno"   data-ng-show='PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.pickfacesno.isenabled' ng-style="{ 'width': PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.pickfacesno.width + 'px' }" >
                         {{$index+1}}
-                    </div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Client</div>
-                    <div class='table_cell'>{{x.Client || PickfaceCtrl.ePage.Masters.emptyText}}</div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Warehouse</div>
-                    <div class='table_cell'>{{x.Warehouse || PickfaceCtrl.ePage.Masters.emptyText}}</div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Location</div>
-                    <div class='table_cell'>{{x.Location || PickfaceCtrl.ePage.Masters.emptyText}}</div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Replenishment Minimum</div>
-                    <div class='table_cell'>{{x.ReplenishMinimum || PickfaceCtrl.ePage.Masters.emptyText}}</div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Replenishment Maximum</div>
-                    <div class='table_cell'>{{x.ReplenishMaximum || PickfaceCtrl.ePage.Masters.emptyText}}</div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Replenishment Multiple</div>
-                    <div class='table_cell'>{{x.ReplenishmentMultiple || PickfaceCtrl.ePage.Masters.emptyText}}</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="clearfix" ng-hide='PickfaceCtrl.ePage.Masters.Lineslist' style="padding:5px">
-    <div class="panel panel-default mt-5">
-        <div class="panel-heading">
-            <span ng-show="PickfaceCtrl.ePage.Masters.HeaderName =='Copy Of List'">
-                    {{PickfaceCtrl.ePage.Masters.HeaderName}} - {{PickfaceCtrl.ePage.Masters.selectedRow}}                     
-            </span>
-            <span ng-show="PickfaceCtrl.ePage.Masters.HeaderName!='Copy Of List'">
-                    {{PickfaceCtrl.ePage.Masters.HeaderName}} - {{PickfaceCtrl.ePage.Masters.selectedRow+1}}                     
-            </span>
-        </div>
-        <div class="panel-body">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ex-line-padding">
-                <div class="ex-line-box" style="height:160px;padding-top:10px">
-                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                        <div class="form-group">
-                            <div class="error-warning-container" ng-repeat="x in PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR">
-                                <error-warning-directive data-ng-if="x.ColIndex == 1 && x.RowIndex ==PickfaceCtrl.ePage.Masters.selectedRow"
-                                    list="PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
-                                    g-parent-ref="" row-index="PickfaceCtrl.ePage.Masters.selectedRow"
-                                    col-index="1">
-                                </error-warning-directive>
-                            </div>
-                            <label class="control-label text-single-line">Client</label>
-                            <div  class="input-group input-group-sm">
-                                <span ng-if='PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace[PickfaceCtrl.ePage.Masters.selectedRow].Client==" - "'>
-                                    <span ng-init="PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace[PickfaceCtrl.ePage.Masters.selectedRow].Client=''"></span>
-                                </span>
-                                <!-- Dynamic look up Search in textbox -->
-                                <div dynamic-lookup placeholder="Client" my-ng-model="PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace[PickfaceCtrl.ePage.Masters.selectedRow].Client" auto-complete-on-select="PickfaceCtrl.ePage.Masters.SelectedLookupDataClient($item,PickfaceCtrl.ePage.Masters.selectedRow)"
-                                    obj="PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace[PickfaceCtrl.ePage.Masters.selectedRow]" prefix-data="'OrganizationList'" config="'Client'">
-                                </div>
-
-                                <!-- Look Up page opens when button clicks -->
-                                <span class="input-group-btn">
-                                    <button dynamic-list-modal obj="PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace[PickfaceCtrl.ePage.Masters.selectedRow]" prefix-data="'OrganizationList'" field-name="'Client'" selected-data="PickfaceCtrl.ePage.Masters.SelectedLookupDataClient($item.entity,PickfaceCtrl.ePage.Masters.selectedRow)" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
-                                </span>
-
-                                <span ng-if='!PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace[PickfaceCtrl.ePage.Masters.selectedRow].Client && PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace[PickfaceCtrl.ePage.Masters.selectedRow].PK && !PickfaceCtrl.ePage.Masters.Lineslist && (PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR | filter: {RowIndex: PickfaceCtrl.ePage.Masters.selectedRow} | filter: {ColIndex: 1}).length==0'>
-                                    <span ng-init="PickfaceCtrl.ePage.Masters.OnChangeValues(PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace[PickfaceCtrl.ePage.Masters.selectedRow].Client,'E7027',true,PickfaceCtrl.ePage.Masters.selectedRow)"></span>
-                                </span>
-                            </div>
+                    </td>
+                    <td id="pickfaceclient"   data-ng-show='PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.pickfaceclient.isenabled' ng-style="{ 'width': PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.pickfaceclient.width + 'px' }" >
+                        <div data-ng-if="$index!=PickfaceCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                            {{x.Client || PickfaceCtrl.ePage.Masters.emptyText}}
                         </div>
-                    </div>
-                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                        <div class="form-group">
-                            <div class="error-warning-container" ng-repeat="x in PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR">
-                                <error-warning-directive data-ng-if="x.ColIndex == 2 && x.RowIndex ==PickfaceCtrl.ePage.Masters.selectedRow"
-                                    list="PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
-                                    g-parent-ref="" row-index="PickfaceCtrl.ePage.Masters.selectedRow"
-                                    col-index="2">
-                                </error-warning-directive>
-                            </div>
-                            <label class="control-label text-single-line">Warehouse</label>
-                            <div  class="input-group input-group-sm">
-                                <span ng-if='PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace[PickfaceCtrl.ePage.Masters.selectedRow].Warehouse==" - "'>
-                                    <span ng-init="PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace[PickfaceCtrl.ePage.Masters.selectedRow].Warehouse=''"></span>
-                                </span>
-                                <!-- Dynamic look up Search in textbox -->
-                                <div dynamic-lookup placeholder="Warehouse" my-ng-model="PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace[PickfaceCtrl.ePage.Masters.selectedRow].Warehouse" auto-complete-on-select="PickfaceCtrl.ePage.Masters.SelectedLookupDataWarehouse($item,PickfaceCtrl.ePage.Masters.selectedRow)"
-                                    obj="PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace[PickfaceCtrl.ePage.Masters.selectedRow]" prefix-data="'Warehouse'" config="'Warehouse'">
-                                </div>
-
-                                <!-- Look Up page opens when button clicks -->
-                                <span class="input-group-btn">
-                                    <button dynamic-list-modal obj="PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace[PickfaceCtrl.ePage.Masters.selectedRow]" prefix-data="'Warehouse'" field-name="'Warehouse'" selected-data="PickfaceCtrl.ePage.Masters.SelectedLookupDataWarehouse($item.entity,PickfaceCtrl.ePage.Masters.selectedRow)" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
-                                </span>
-
-                                <span ng-if='!PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace[PickfaceCtrl.ePage.Masters.selectedRow].Warehouse && PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace[PickfaceCtrl.ePage.Masters.selectedRow].PK && !PickfaceCtrl.ePage.Masters.Lineslist && (PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR | filter: {RowIndex: PickfaceCtrl.ePage.Masters.selectedRow} | filter: {ColIndex: 2}).length==0'>
-                                    <span ng-init="PickfaceCtrl.ePage.Masters.OnChangeValues(PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace[PickfaceCtrl.ePage.Masters.selectedRow].Warehouse,'E7028',true,PickfaceCtrl.ePage.Masters.selectedRow)"></span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                        <div class="form-group">
-                            <div class="error-warning-container" ng-repeat="x in PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR">
-                                <error-warning-directive data-ng-if="x.ColIndex == 3 && x.RowIndex ==PickfaceCtrl.ePage.Masters.selectedRow"
-                                    list="PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
-                                    g-parent-ref="" row-index="PickfaceCtrl.ePage.Masters.selectedRow"
-                                    col-index="3">
-                                </error-warning-directive>
-                            </div>
-                            <label class="control-label text-single-line">Location</label>
-                            <div  class="input-group input-group-sm">
-                                <!-- Dynamic look up Search in textbox -->
-                                <div dynamic-lookup placeholder="Location" my-ng-model="PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace[PickfaceCtrl.ePage.Masters.selectedRow].Location" 
-                                    obj="PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace[PickfaceCtrl.ePage.Masters.selectedRow]" prefix-data="'WarehouseLocation'" config="'Location'"
-                                    auto-complete-on-select="PickfaceCtrl.ePage.Masters.SelectedLookupLocation($item,PickfaceCtrl.ePage.Masters.selectedRow)" is-disabled='!PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace[PickfaceCtrl.ePage.Masters.selectedRow].Warehouse'>
-                                </div>
-
-                                <!-- Look Up page opens when button clicks -->
-                                <span class="input-group-btn">
-                                    <button is-disabled = "!PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace[PickfaceCtrl.ePage.Masters.selectedRow].Warehouse" dynamic-list-modal obj="PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace[PickfaceCtrl.ePage.Masters.selectedRow]" prefix-data="'WarehouseLocation'" field-name="'Location'" selected-data="PickfaceCtrl.ePage.Masters.SelectedLookupLocation($item.entity,PickfaceCtrl.ePage.Masters.selectedRow)" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
-                                </span>
-
-                                <span ng-if='!PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace[PickfaceCtrl.ePage.Masters.selectedRow].Location && PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace[PickfaceCtrl.ePage.Masters.selectedRow].PK && !PickfaceCtrl.ePage.Masters.Lineslist && (PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR | filter: {RowIndex: PickfaceCtrl.ePage.Masters.selectedRow} | filter: {ColIndex: 3}).length==0'>
-                                    <span ng-init="PickfaceCtrl.ePage.Masters.OnChangeValues(PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace[PickfaceCtrl.ePage.Masters.selectedRow].Location,'E7029',true,PickfaceCtrl.ePage.Masters.selectedRow)"></span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                        <div class="form-group">
-                            <div class="error-warning-container" ng-repeat="x in PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR">
-                                <error-warning-directive data-ng-if="x.ColIndex == 4 && x.RowIndex ==PickfaceCtrl.ePage.Masters.selectedRow"
-                                    list="PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
-                                    g-parent-ref="" row-index="PickfaceCtrl.ePage.Masters.selectedRow"
-                                    col-index="4">
-                                </error-warning-directive>
-                            </div>
-                            <label class="control-label text-single-line">Replenishment Minimum</label>
-                            <div  class="">
-                                <input type="text" maxlength="5" numbers-only class="form-control input-sm" placeholder="Replenishment Minimum" data-ng-model="PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace[PickfaceCtrl.ePage.Masters.selectedRow].ReplenishMinimum"
-                                 ng-change="PickfaceCtrl.ePage.Masters.OnChangeValues(PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace[PickfaceCtrl.ePage.Masters.selectedRow].ReplenishMinimum,'E7033',true,PickfaceCtrl.ePage.Masters.selectedRow);PickfaceCtrl.ePage.Masters.Replenish(PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace[PickfaceCtrl.ePage.Masters.selectedRow],PickfaceCtrl.ePage.Masters.selectedRow);"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                        <div class="form-group">
-                            <div class="error-warning-container" ng-repeat="x in PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR">
-                                <error-warning-directive data-ng-if="x.ColIndex == 5 && x.RowIndex ==PickfaceCtrl.ePage.Masters.selectedRow"
-                                    list="PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
-                                    g-parent-ref="" row-index="PickfaceCtrl.ePage.Masters.selectedRow"
-                                    col-index="5">
-                                </error-warning-directive>
-                            </div>
-                            <label class="control-label text-single-line">Replenishment Maximum</label>
-                            <div  class="">
-                                <input type="text" maxlength="5" numbers-only class="form-control input-sm" placeholder="Replenishment Maximum" data-ng-model="PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace[PickfaceCtrl.ePage.Masters.selectedRow].ReplenishMaximum"
-                                ng-change="PickfaceCtrl.ePage.Masters.OnChangeValues(PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace[PickfaceCtrl.ePage.Masters.selectedRow].ReplenishMaximum,'E7034',true,PickfaceCtrl.ePage.Masters.selectedRow);PickfaceCtrl.ePage.Masters.Replenish(PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace[PickfaceCtrl.ePage.Masters.selectedRow],PickfaceCtrl.ePage.Masters.selectedRow)"/>                                
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                        <div class="form-group">
-                            <label class="control-label text-single-line">Replenishment Multiple</label>
-                            <div  class="">
-                                <input type="text" maxlength="5" numbers-only class="form-control input-sm" placeholder="Replenishment Multiple" data-ng-model="PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace[PickfaceCtrl.ePage.Masters.selectedRow].ReplenishmentMultiple"/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-lg-offset-8 mt-5">
-                <button class="btn btn-blue btn-sm mr-5 pull-right" title="Save" data-ng-click="PickfaceCtrl.ePage.Masters.Done()"><i class="fa fa-save pr-5"></i>Save</button>
-                <button class="btn btn-primary btn-sm mr-5 pull-right" title="Delete" data-ng-click="PickfaceCtrl.ePage.Masters.RemoveRow()"><i class="fa fa-trash pr-5"></i>Delete</button>
-                <button class="btn btn-primary btn-sm mr-5 pull-right" title="Back" data-ng-click="PickfaceCtrl.ePage.Masters.Back()"><i class="fa fa-angle-double-left pr-5"></i>Back</button>
-            </div>
-        </div>
-    </div>
-</div>
+                        <div data-ng-if="$index==PickfaceCtrl.ePage.Masters.selectedRow">
+                            <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
+                                <div  class="input-group input-group-sm height-22">
+                                    <!-- Dynamic look up Search in textbox -->
+                                    <div dynamic-lookup placeholder="Client" my-ng-model="x.Client" auto-complete-on-select="PickfaceCtrl.ePage.Masters.SelectedLookupDataClient($item,$index)"
+                                        obj="x" page-name="'OrganizationList'" control-id="'Client'" control-key="'Client_3015'">
+                                    </div>
     
+                                    <!-- Look Up page opens when button clicks -->
+                                    <span class="input-group-btn">
+                                        <button dynamic-list-modal obj="x" page-name="'OrganizationList'" control-id="'Client'" control-key="'Client_3015'" selected-data="PickfaceCtrl.ePage.Masters.SelectedLookupDataClient($item.data.entity,$index)" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                    </span>
+    
+                                    <span ng-if='!x.Client && x.PK  && (PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR | filter: {RowIndex: $index} | filter: {ColIndex: 1}).length==0'>
+                                        <span ng-init="PickfaceCtrl.ePage.Masters.OnChangeValues(x.Client,'E7027',true,$index)"></span>
+                                    </span>
+                                </div>                                         
+                            </div>
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':1">
+                                <error-warning-directive  list="PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                    row-index="PickfaceCtrl.ePage.Masters.selectedRow" col-index="1">
+                                </error-warning-directive>
+                            </div>
+                        </div>
+                    </td>
+                    <td id="pickfacewarehouse"   data-ng-show='PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.pickfacewarehouse.isenabled' ng-style="{ 'width': PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.pickfacewarehouse.width + 'px' }" >
+                        <div data-ng-if="$index!=PickfaceCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                            {{x.Warehouse || PickfaceCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==PickfaceCtrl.ePage.Masters.selectedRow">
+                            <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
+                                <div  class="input-group input-group-sm height-22">
+                                    <!-- Dynamic look up Search in textbox -->
+                                    <div dynamic-lookup placeholder="Warehouse" my-ng-model="x.Warehouse" auto-complete-on-select="PickfaceCtrl.ePage.Masters.SelectedLookupDataWarehouse($item,$index)"
+                                        obj="x" page-name="'Warehouse'" control-id="'Warehouse'" control-key="'Warehouse_3067'">
+                                    </div>
+
+                                    <!-- Look Up page opens when button clicks -->
+                                    <span class="input-group-btn">
+                                        <button dynamic-list-modal obj="x" page-name="'Warehouse'" control-id="'Warehouse'" control-key="'Warehouse_3067'" selected-data="PickfaceCtrl.ePage.Masters.SelectedLookupDataWarehouse($item.data.entity,$index)" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                    </span>
+    
+                                    <span ng-if='!x.Warehouse && x.PK  && (PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR | filter: {RowIndex: $index} | filter: {ColIndex: 2}).length==0'>
+                                        <span ng-init="PickfaceCtrl.ePage.Masters.OnChangeValues(x.Client,'E7028',true,$index)"></span>
+                                    </span>
+                                </div>                                         
+                            </div>
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':2">
+                                <error-warning-directive  list="PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                    row-index="PickfaceCtrl.ePage.Masters.selectedRow" col-index="2">
+                                </error-warning-directive>
+                            </div>
+                        </div>
+                    </td>
+                    <td id="location"   data-ng-show='PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.location.isenabled' ng-style="{ 'width': PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.location.width + 'px' }" >
+                        <div data-ng-if="$index!=PickfaceCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                            {{x.Location || PickfaceCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==PickfaceCtrl.ePage.Masters.selectedRow">
+                            <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
+                                <div  class="input-group input-group-sm height-22">
+                                    <!-- Dynamic look up Search in textbox -->
+                                    <div dynamic-lookup placeholder="Location" my-ng-model="x.Location"  obj="x" page-name="'WarehouseLocation'" control-id="'Location'" control-key="'Location_2948'" auto-complete-on-select="PickfaceCtrl.ePage.Masters.SelectedLookupLocation($item,$index)" is-disabled='!x.Warehouse'>
+                                    </div>
+
+                                    <!-- Look Up page opens when button clicks -->
+                                    <span class="input-group-btn">
+                                        <button is-disabled = "!x.Warehouse" dynamic-list-modal obj="x" page-name="'WarehouseLocation'" control-id="'Location'" control-key="'Location_2948'" selected-data="PickfaceCtrl.ePage.Masters.SelectedLookupLocation($item.data.entity,$index)" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                    </span>
+    
+                                    <span ng-if='!x.Location && x.PK  && (PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR | filter: {RowIndex: $index} | filter: {ColIndex: 3}).length==0'>
+                                        <span ng-init="PickfaceCtrl.ePage.Masters.OnChangeValues(x.Client,'E7029',true,$index)"></span>
+                                    </span>
+                                </div>                                         
+                            </div>
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':3">
+                                <error-warning-directive  list="PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                    row-index="PickfaceCtrl.ePage.Masters.selectedRow" col-index="3">
+                                </error-warning-directive>
+                            </div>
+                        </div>
+                    </td>
+                    <td id="pickfacereplenishmentminimum"  data-ng-show='PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.pickfacereplenishmentminimum.isenabled'  ng-style="{ 'width': PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.pickfacereplenishmentminimum.width + 'px' }" >
+                        <div data-ng-if="$index!=PickfaceCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                            {{ x.ReplenishMinimum || PickfaceCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==PickfaceCtrl.ePage.Masters.selectedRow">
+                            <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0" >
+                                <input type="text" maxlength="5" numbers-only-dot  class="form-control input-sm" placeholder="Replenishment Minimum" data-ng-model="x.ReplenishMinimum"
+                                 ng-change="PickfaceCtrl.ePage.Masters.OnChangeValues(x.ReplenishMinimum,'E7033',true,$index);PickfaceCtrl.ePage.Masters.Replenish(x,$index);"/>
+                            </div>
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':4">
+                                <error-warning-directive  list="PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                    row-index="PickfaceCtrl.ePage.Masters.selectedRow" col-index="4">
+                                </error-warning-directive>
+                            </div>
+                        </div>
+                    </td>
+                    <td id="replenishmentmaximum"  data-ng-show='PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.replenishmentmaximum.isenabled'  ng-style="{ 'width': PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.replenishmentmaximum.width + 'px' }" >
+                        <div data-ng-if="$index!=PickfaceCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                            {{ x.ReplenishMaximum || PickfaceCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==PickfaceCtrl.ePage.Masters.selectedRow">
+                            <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0" >
+                                <input type="text" maxlength="5" numbers-only-dot  class="form-control input-sm" placeholder="Replenishment Maximum" data-ng-model="x.ReplenishMaximum"
+                                    ng-change="PickfaceCtrl.ePage.Masters.OnChangeValues(x.ReplenishMaximum,'E7034',true,$index);PickfaceCtrl.ePage.Masters.Replenish(x,$index)"/>                                
+                            </div>
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':5">
+                                <error-warning-directive  list="PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                    row-index="PickfaceCtrl.ePage.Masters.selectedRow" col-index="5">
+                                </error-warning-directive>
+                            </div>
+                        </div>
+                    </td>
+                    <td id="pickfacereplenishmentmultiple"  data-ng-show='PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.pickfacereplenishmentmultiple.isenabled'  ng-style="{ 'width': PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.pickfacereplenishmentmultiple.width + 'px' }">
+                        <div data-ng-if="$index!=PickfaceCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                            {{ x.ReplenishmentMultiple || PickfaceCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==PickfaceCtrl.ePage.Masters.selectedRow">
+                            <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0" >
+                                <input type="text" maxlength="5" numbers-only-dot  class="form-control input-sm" placeholder="Replenishment Multiple" data-ng-model="x.ReplenishmentMultiple"/>              
+                            </div>
+                        </div>
+                    </td>         
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound"  ng-if="PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace.length==0">No Record Found...</div>
+</div>
+<!-- To show Customize Modal -->
+<div ng-if='PickfaceCtrl.ePage.Masters.EditTableColumns'>
+    <customize-table table-properties="PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace" enable="PickfaceCtrl.ePage.Masters.EditTableColumns" unique-id="PickFaceCustomTable{{PickfaceCtrl.ePage.Entities.Header.Data.PK}}" user-value='PickfaceCtrl.ePage.Masters.UserValue' entity-source='WMS_PRODUCTPICKFACE'></customize-table>
+</div>  
+<!-- Call Directive If user has value -->
+<div ng-if='PickfaceCtrl.ePage.Masters.UserHasValue' ng-init="PickfaceCtrl.ePage.Masters.UserHasValue=false">
+    <watch-table table-properties="PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace"  unique-id="PickFaceCustomTable{{PickfaceCtrl.ePage.Entities.Header.Data.PK}}"></watch-table>
+</div>      

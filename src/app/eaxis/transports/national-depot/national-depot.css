@@ -1,0 +1,35 @@
+.set-bg-dc-headers {
+    background: rgba(67, 133, 245, 0.2);
+    padding: 9px;
+ }
+ .dc-header{
+     font-weight: 600;
+     font-size: 14px;
+     text-align: center;
+ }
+
+ .td-dateEnd
+ {
+     border-right:2px solid #bbb !important;
+ }
+ .tr-boldBorder
+ {
+     
+     border-bottom:2px solid #bbb !important;
+ }
+ .store-bg
+ {
+     background-color:aliceblue;
+ }
+ .header-bg
+ {
+     background-color:#f8f8f8;
+ }
+ .td-shortfall
+ {
+     background-color: #ef919161;
+ }
+ .txt-bolder
+ {
+     font-weight:bold;
+ }

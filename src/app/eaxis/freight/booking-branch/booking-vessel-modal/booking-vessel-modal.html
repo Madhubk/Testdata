@@ -1,0 +1,297 @@
+<div class="modal-header">
+	<button type="button" class="close" ng-click="ConvertBookingVesselModalCtrl.ePage.Masters.Cancel()">&times;</button>
+	<h5 class="modal-title" id="modal-title">
+		<strong>Vessel Planning</strong>
+	</h5>
+</div>
+<div class="modal-body" id="modal-body">
+	<div class="rows mt-10">
+		<div class="clearfix">
+			<div class="clearfix">
+				<!--Mode-->
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+					<div class="form-group">
+						<label for="" class="control-label">Mode</label>
+						<input type="text" ng-disabled="true" class="form-control" ng-model="ConvertBookingVesselModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode">
+					</div>
+				</div>
+			</div>
+			<!-- carrier -->
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+				<span class="error-warning-container">
+					<error-warning-directive data-ng-if="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.CarrierCode.IsWarning && !ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.CarrierCode.IsError"
+					 list="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.CarrierCode.WARNING"
+					 type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+					<error-warning-directive data-ng-if="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.CarrierCode.IsError"
+					 list="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.CarrierCode.ERROR"
+					 type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+				</span>
+				<div class="form-group  padding-top-10">
+					<label class="control-label text-single-line">Carrier</label>
+					<div class="input-group input-group-sm">
+						<input type="hidden" ng-model="ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes.CarrierOrg_FK">
+						<div dynamic-lookup placeholder="Carrier" my-ng-model="ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes.CarrierCode"
+						 obj="ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes" prefix-data="'OrgCarrierList'" config="'OrdPlannedCarrier'"
+						 auto-complete-on-select="ConvertBookingVesselModalCtrl.ePage.Masters.AutoCompleteOnSelect($item,ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes.CarrierCode,'E0023',false)"></div>
+						<span class="input-group-btn">
+							<button dynamic-list-modal obj="ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes" field-name="'OrdPlannedCarrier'"
+							 prefix-data="'OrgCarrierList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConvertBookingVesselModalCtrl.ePage.Masters.SelectedLookupData($item,ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes.CarrierCode,'E0023',false,'ORG_CarrierCode')"
+							 class="btn btn-default shiny" type="button">
+								<i class="fa fa-ellipsis-h"></i>
+							</button>
+						</span>
+					</div>
+				</div>
+			</div>
+			<!-- Vessel -->
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+				<span class="error-warning-container">
+					<error-warning-directive data-ng-if="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.Vessel.IsWarning && !ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.Vessel.IsError"
+					 list="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.Vessel.WARNING" type="'warning'"
+					 icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+					<error-warning-directive data-ng-if="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.Vessel.IsError"
+					 list="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.Vessel.ERROR" type="'error'"
+					 icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+				</span>
+				<div class="form-group  padding-top-10">
+					<label class="control-label text-single-line">Vessel</label>
+					<div class="input-group input-group-sm">
+						<input type="hidden" ng-model="ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes.Vessel_FK">
+						<div dynamic-lookup placeholder="Vessel" my-ng-model="ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes.Vessel"
+						 obj="ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes" prefix-data="'MstVessel'" config="'OrdPlannedVessel'"
+						 auto-complete-on-select="ConvertBookingVesselModalCtrl.ePage.Masters.AutoCompleteOnSelect($item,ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes.Vessel,'E0022',false)"></div>
+						<span class="input-group-btn">
+							<button dynamic-list-modal obj="ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes" field-name="'OrdPlannedVessel'"
+							 prefix-data="'MstVessel'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConvertBookingVesselModalCtrl.ePage.Masters.SelectedLookupData($item,ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes.Vessel,'E0022',false,'Code')"
+							 class="btn btn-default shiny" type="button">
+								<i class="fa fa-ellipsis-h"></i>
+							</button>
+						</span>
+					</div>
+				</div>
+			</div>
+			<!-- Voyage -->
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+				<span class="error-warning-container">
+					<error-warning-directive data-ng-if="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.VoyageFlight.IsWarning && !ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.VoyageFlight.IsError"
+					 list="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.VoyageFlight.WARNING"
+					 type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+					<error-warning-directive data-ng-if="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.VoyageFlight.IsError"
+					 list="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.VoyageFlight.ERROR"
+					 type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+				</span>
+				<div class="form-group padding-top-10">
+					<label for="" data-ng-show="ConvertBookingVesselModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode =='SEA'"
+					 class="control-label">Voyage</label>
+					<label for="" data-ng-show="ConvertBookingVesselModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode =='AIR'"
+					 class="control-label">Flight</label>
+					<label for="" data-ng-show="ConvertBookingVesselModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode =='ROA'"
+					 class="control-label">Truck Reference</label>
+					<input type="text" data-ng-show="ConvertBookingVesselModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode =='SEA'"
+					 class="form-control input-sm" placeholder="Voyage" max-length="1" data-ng-model="ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes.VoyageFlight"
+					 ng-change="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.OnFieldValueChange('BookingBranch', ConvertBookingVesselModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentNo+'Sailing',ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes.VoyageFlight,'E0024',false)">
+					<input type="text" data-ng-show="ConvertBookingVesselModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode =='AIR'"
+					 class="form-control input-sm" placeholder="Flight" max-length="1" data-ng-model="ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes.VoyageFlight"
+					 ng-change="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.OnFieldValueChange('BookingBranch', ConvertBookingVesselModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentNo+'Sailing',ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes.VoyageFlight,'E0024',false)">
+					<input type="text" data-ng-show="ConvertBookingVesselModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode =='ROA'"
+					 class="form-control input-sm" placeholder="Truck Reference" max-length="1" data-ng-model="ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes.VoyageFlight"
+					 ng-change="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.OnFieldValueChange('BookingBranch', ConvertBookingVesselModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentNo+'Sailing',ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes.VoyageFlight,'E0024',false)">
+				</div>
+			</div>
+			<!-- ETD -->
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+				<span class="error-warning-container">
+					<error-warning-directive data-ng-if="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.PlannedETD.IsWarning && !ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.PlannedETD.IsError"
+					 list="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.PlannedETD.WARNING"
+					 type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+					<error-warning-directive data-ng-if="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.PlannedETD.IsError"
+					 list="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.PlannedETD.ERROR"
+					 type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+				</span>
+				<div class="form-group padding-top-10">
+					<label class="control-label text-single-line">ETD</label>
+					<div class="input-group input-group-sm">
+						<input type="text" placeholder="{{ConvertBookingVesselModalCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+						 class="form-control" data-ng-model="ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes.PlannedETD"
+						 datetime-picker="{{ConvertBookingVesselModalCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+						 datepicker-options="ConvertBookingVesselModalCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+						 close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" save-as="ConvertBookingVesselModalCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+						 is-open="ConvertBookingVesselModalCtrl.ePage.Masters.DatePicker.isOpen['isETD']" when-closed="" data-ng-click="ConvertBookingVesselModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETD'+ $index)"
+						 data-ng-change="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.OnFieldValueChange('BookingBranch'
+						    , ConvertBookingVesselModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentNo+'Sailing',ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes.PlannedETD,'E0026',false)"
+						 custom-date-time-format />
+						<span class="input-group-btn">
+							<button class="btn btn-default fa fa-calendar" type="button" data-ng-click="ConvertBookingVesselModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETD'+ $index)"></button>
+						</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- ETA -->
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+				<span class="error-warning-container">
+					<error-warning-directive data-ng-if="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.PlannedETA.IsWarning && !ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.PlannedETA.IsError"
+					 list="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.PlannedETA.WARNING"
+					 type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+					<error-warning-directive data-ng-if="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.PlannedETA.IsError"
+					 list="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.PlannedETA.ERROR"
+					 type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+				</span>
+				<div class="form-group padding-top-10">
+					<label class="control-label text-single-line">ETA</label>
+					<div class="input-group input-group-sm">
+						<input type="text" class="form-control" placeholder="{{ConvertBookingVesselModalCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+						 data-ng-model="ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes.PlannedETA" data-ng-click="ConvertBookingVesselModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETA'+ $index)"
+						 datetime-picker="{{ConvertBookingVesselModalCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+						 datepicker-options="ConvertBookingVesselModalCtrl.ePage.Masters.DatePicker.Options" is-open="ConvertBookingVesselModalCtrl.ePage.Masters.DatePicker.isOpen['isETA'+ $index]"
+						 datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true" default-date=""
+						 default-time="" save-as="ConvertBookingVesselModalCtrl.ePage.Masters.DatePicker.Options.saveFormat" when-closed=""
+						 data-ng-change="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.OnFieldValueChange('BookingBranch', ConvertBookingVesselModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentNo+'Sailing',ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes.PlannedETA,'E0025',false)"
+						 custom-date-time-format />
+						<span class="input-group-btn">
+							<button class="btn btn-default fa fa-calendar" type="button" data-ng-click="ConvertBookingVesselModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETA'+ $index)"></button>
+						</span>
+					</div>
+				</div>
+			</div>
+			<!-- POL -->
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+				<span class="error-warning-container">
+					<error-warning-directive data-ng-if="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.PortOfLoading.IsWarning && !ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.PortOfLoading.IsError"
+					 list="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.PortOfLoading.WARNING"
+					 type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+					<error-warning-directive data-ng-if="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.PortOfLoading.IsError"
+					 list="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.PortOfLoading.ERROR"
+					 type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+				</span>
+				<div class="form-group  padding-top-10">
+					<label class="control-label text-single-line">POL</label>
+					<div class="input-group input-group-sm">
+						<!-- <input type="hidden" ng-model="ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes.PortOfLoading_PK"> -->
+						<div dynamic-lookup placeholder="Port Of Loading" my-ng-model="ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes.PortOfLoading"
+						 obj="ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes" prefix-data="'MstUNLOCO'" config="'PortOfLoading'"
+						 auto-complete-on-select="ConvertBookingVesselModalCtrl.ePage.Masters.AutoCompleteOnSelect($item,ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes.PortOfLoading,'E0027',false)"></div>
+						<span class="input-group-btn">
+							<button class="btn btn-default fa fa-ellipsis-h" dynamic-list-modal obj="ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes"
+							 field-name="'PortOfLoading'" prefix-data="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+							 selected-data="ConvertBookingVesselModalCtrl.ePage.Masters.SelectedLookupData($item,ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes.PortOfLoading,'E0027',false,'Code')"
+							 class="btn btn-default shiny" type="button"></button>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="rows mt-5">
+		<!-- POD -->
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+			<span class="error-warning-container">
+				<error-warning-directive data-ng-if="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.PortOfDischarge.IsWarning && !ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.PortOfDischarge.IsError"
+				 list="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.PortOfDischarge.WARNING"
+				 type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+				<error-warning-directive data-ng-if="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.PortOfDischarge.IsError"
+				 list="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.PortOfDischarge.ERROR"
+				 type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+			</span>
+			<div class="input-group input-group-sm margin-top-5">
+				<label class="control-label text-single-line">POD</label>
+				<div class="input-group input-group-sm">
+					<!-- <input type="hidden" ng-model="ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes.PortOfDischarge_PK"> -->
+					<div dynamic-lookup placeholder="Port Of Discharge" my-ng-model="ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes.PortOfDischarge"
+					 obj="ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes" prefix-data="'MstUNLOCO'" config="'PortOfDischarge'"
+					 auto-complete-on-select="ConvertBookingVesselModalCtrl.ePage.Masters.AutoCompleteOnSelect($item,ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes.PortOfDischarge,'E0028',false)"></div>
+
+					<span class="input-group-btn">
+						<button dynamic-list-modal obj="ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes" field-name="'PortOfDischarge'"
+						 prefix-data="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConvertBookingVesselModalCtrl.ePage.Masters.SelectedLookupData($item,ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes.PortOfDischarge,'E0028',false,'Code')"
+						 class="btn btn-default shiny" type="button">
+							<i class="fa fa-ellipsis-h"></i>
+						</button>
+					</span>
+				</div>
+			</div>
+		</div>
+		<!-- CarrierReference -->
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+			<span class="error-warning-container">
+				<error-warning-directive data-ng-if="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.CarrierReference.IsWarning && !ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.CarrierReference.IsError"
+				 list="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.CarrierReference.WARNING"
+				 type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+				<error-warning-directive data-ng-if="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.CarrierReference.IsError"
+				 list="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.CarrierReference.ERROR"
+				 type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+			</span>
+			<div class="form-group padding-top-10">
+				<label for="" data-ng-show="ConvertBookingVesselModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode =='SEA' && ConvertBookingVesselModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode =='FCL'"
+				 class="control-label">Carrier Booking #</label>
+				<label for="" data-ng-show="(ConvertBookingVesselModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode =='SEA' && ConvertBookingVesselModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode =='LCL') || ConvertBookingVesselModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode =='AIR'"
+				 class="control-label">Co-Loader Booking #</label>
+				<input type="text" class="form-control input-sm" max-length="1" data-ng-model="ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes.CarrierReference"
+				 ng-change="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.OnFieldValueChange('BookingBranch', ConvertBookingVesselModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentNo+'Sailing',ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes.CarrierReference,'E0036',false)">
+			</div>
+		</div>
+		<!-- CargoCutoffdate -->
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+			<span class="error-warning-container">
+				<error-warning-directive data-ng-if="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.LCLCutOff.IsWarning && !ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.LCLCutOff.IsError"
+				 list="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.LCLCutOff.WARNING"
+				 type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+				<error-warning-directive data-ng-if="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.LCLCutOff.IsError"
+				 list="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.LCLCutOff.ERROR" type="'error'"
+				 icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+			</span>
+			<div class="input-group input-group-sm margin-top-5">
+				<label class="control-label text-single-line">Cargo Cut Off Date</label>
+				<div class="input-group input-group-sm">
+					<input type="text" class="form-control" placeholder="{{ConvertBookingVesselModalCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+					 data-ng-model="ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobSailing.LCLCutOff" data-ng-click="ConvertBookingVesselModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoCutOffDate'+ $index)"
+					 datetime-picker="{{ConvertBookingVesselModalCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+					 datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true" default-date=""
+					 default-time="" save-as="ConvertBookingVesselModalCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+					 datepicker-options="ConvertBookingVesselModalCtrl.ePage.Masters.DatePicker.Options" is-open="ConvertBookingVesselModalCtrl.ePage.Masters.DatePicker.isOpen['isCargoCutOffDate'+ $index]"
+					 when-closed="" data-ng-change="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.OnFieldValueChange('BookingBranch'
+				    , ConvertBookingVesselModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentNo+'Sailing',ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobSailing.LCLCutOff,'E0029',false)"
+					 custom-date-time-format />
+					<span class="input-group-btn">
+						<button class="btn btn-default fa fa-calendar" type="button" data-ng-click="ConvertBookingVesselModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoCutOffDate'+ $index)"></button>
+					</span>
+				</div>
+			</div>
+		</div>
+		<!-- Document Cutoff date -->
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+			<span class="error-warning-container">
+				<error-warning-directive data-ng-if="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.DocumentCutOffDate.IsWarning && !ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.DocumentCutOffDate.IsError"
+				 list="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.DocumentCutOffDate.WARNING"
+				 type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+				<error-warning-directive data-ng-if="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.DocumentCutOffDate.IsError"
+				 list="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObjSailing.DocumentCutOffDate.ERROR"
+				 type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+			</span>
+			<div class="input-group input-group-sm margin-top-5">
+				<label class="control-label text-single-line">Document Cut Off Date</label>
+				<div class="input-group input-group-sm">
+					<input type="text" class="form-control" placeholder="{{ConvertBookingVesselModalCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+					 data-ng-model="ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes.DocumentCutOffDate"
+					 data-ng-click="ConvertBookingVesselModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isDocumentCutOffDate'+ $index)"
+					 datetime-picker="{{ConvertBookingVesselModalCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+					 datepicker-options="ConvertBookingVesselModalCtrl.ePage.Masters.DatePicker.Options" is-open="ConvertBookingVesselModalCtrl.ePage.Masters.DatePicker.isOpen['isDocumentCutOffDate'+ $index]"
+					 datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true" default-date=""
+					 default-time="" save-as="ConvertBookingVesselModalCtrl.ePage.Masters.DatePicker.Options.saveFormat" when-closed=""
+					 data-ng-change="ConvertBookingVesselModalCtrl.ePage.Masters.ErrorWarningConfig.OnFieldValueChange('BookingBranch'
+				    , ConvertBookingVesselModalCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentNo+'Sailing',ConvertBookingVesselModalCtrl.ePage.Masters.SailingObj.UIJobRoutes.DocumentCutOffDate,'E0030',false)"
+					 custom-date-time-format />
+					<span class="input-group-btn">
+						<button class="btn btn-default fa fa-calendar" type="button" data-ng-click="ConvertBookingVesselModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isDocumentCutOffDate'+ $index)"></button>
+					</span>
+				</div>
+			</div>
+		</div>
+		<!-- Bulk Update -->
+		<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 text-right">
+			<div class="input-group input-group-sm margin-top-5">
+				<button class="btn btn-default set-br-blue set-bg-blue-light fs-12 fix-top" data-ng-click="ConvertBookingVesselModalCtrl.ePage.Masters.save()">Save</button>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,132 @@
+<div class="clearfix tc-ebpm-types-configure-ebpm-types-container pb-100 pt-10">
+    <form class="clearfix" novalidate>
+        <div class="clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Code </label>
+                    <input type="text" class="form-control input-sm" data-ng-model="TCEBPMTypesConfigureCtrl.ePage.Masters.EBPMTypes.FormView.Code"
+                        placeholder="Code" />
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Category </label>
+                    <input type="text" class="form-control input-sm" data-ng-model="TCEBPMTypesConfigureCtrl.ePage.Masters.EBPMTypes.FormView.Category"
+                        placeholder="Category" />
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Name </label>
+                    <input type="text" class="form-control input-sm" data-ng-model="TCEBPMTypesConfigureCtrl.ePage.Masters.EBPMTypes.FormView.Name"
+                        placeholder="Name" />
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Key </label>
+                    <input type="text" class="form-control input-sm" data-ng-model="TCEBPMTypesConfigureCtrl.ePage.Masters.EBPMTypes.FormView.Key"
+                        placeholder="Key" />
+                </div>
+            </div>
+           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">Module Code </label>
+                    <select chosen class="form-control" data-ng-options="x.Value as x.Value for x in TCEBPMTypesConfigureCtrl.ePage.Masters.EBPMTypes.ModuleListSource"
+                        data-ng-model="TCEBPMTypesConfigureCtrl.ePage.Masters.EBPMTypes.FormView.ModuleCode"
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label class="control-label">SubModule Code </label>
+                    <input type="text" class="form-control input-sm" data-ng-model="TCEBPMTypesConfigureCtrl.ePage.Masters.EBPMTypes.FormView.SubModuleCode"
+                        placeholder="Sub Module Code" />
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                    <div class="form-group">
+                        <label class="control-label">Sequence No </label>
+                        <input type="text" class="form-control input-sm" data-ng-model="TCEBPMTypesConfigureCtrl.ePage.Masters.EBPMTypes.FormView.SequenceNo"
+                            placeholder="Sequence No" />
+                    </div>
+                </div>
+                <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                    <div class="form-group">
+                        <label class="control-label">Mapping Code</label>
+                        <input type="text" class="form-control input-sm" data-ng-model="TCEBPMTypesConfigureCtrl.ePage.Masters.EBPMTypes.FormView.MappingCode"
+                            placeholder="Mapping Code" />
+                    </div>
+                </div> -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                    <div class="clearfix">
+                        <div class="form-group">
+                            <label class="">
+                                Config
+                                <span data-ng-click="TCEBPMTypesConfigureCtrl.ePage.Masters.EBPMTypes.OpenJsonModal('Config')" class="glyphicon glyphicon-pencil cursor-pointer ml-5"></span>
+                            </label>
+                            <div class="">
+                                <textarea class="form-control set-text-bg no-resize" style="height:100px;" data-ng-model="TCEBPMTypesConfigureCtrl.ePage.Masters.EBPMTypes.FormView.Config"
+                                    placeholder="Config"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" data-ng-model="TCEBPMTypesConfigureCtrl.ePage.Masters.EBPMTypes.FormView.IsDefault" data-ng-checked="TCEBPMTypesConfigureCtrl.ePage.Masters.EBPMTypes.FormView.IsDefault"
+                                class="colored-blue">
+                            <span class="text text-single-line">Is Default</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" data-ng-model="TCEBPMTypesConfigureCtrl.ePage.Masters.EBPMTypes.FormView.IsResticted" data-ng-checked="TCEBPMTypesConfigureCtrl.ePage.Masters.EBPMTypes.FormView.IsResticted"
+                                class="colored-blue">
+                            <span class="text text-single-line">Is Resticted</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" data-ng-model="TCEBPMTypesConfigureCtrl.ePage.Masters.EBPMTypes.FormView.IsMandatory" data-ng-checked="TCEBPMTypesConfigureCtrl.ePage.Masters.EBPMTypes.FormView.IsMandatory"
+                                class="colored-blue">
+                            <span class="text text-single-line">Is Mandatory</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" data-ng-model="TCEBPMTypesConfigureCtrl.ePage.Masters.EBPMTypes.FormView.IsJSON" data-ng-checked="TCEBPMTypesConfigureCtrl.ePage.Masters.EBPMTypes.FormView.IsJSON"
+                                class="colored-blue">
+                            <span class="text text-single-line">Is JSON</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    </form>
+</div>
+
+<div class="eaxis-footer-strip">
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10"></div>
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+        <button class="btn btn-primary btn-sm pull-right mr-10 mt-6" data-ng-click="TCEBPMTypesConfigureCtrl.ePage.Masters.SaveEBPMTypes()"
+            data-ng-bind="TCEBPMTypesConfigureCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="TCEBPMTypesConfigureCtrl.ePage.Masters.IsDisableSave"></button>
+    </div>
+</div>

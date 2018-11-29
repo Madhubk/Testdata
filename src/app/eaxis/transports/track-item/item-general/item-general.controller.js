@@ -46,7 +46,12 @@
             GetNewItemAddress();
             // GetOrgSenderAddress();
             // GetOrgReceiverAddress();
-            getOrgSender();
+            if (!ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader.SenderCode) {
+                getOrgSender();
+            } else {
+                GetOrgSenderAddress();
+                Orgheader();
+            }
         }
 
         function getOrgSender() {
@@ -70,7 +75,7 @@
                         ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader.Sender_ORG_FK = response.data.Response[0].ROLE_FK;
                         ItemGeneralCtrl.ePage.Masters.Sender = response.data.Response[0].ORG_Code + ' - ' + response.data.Response[0].ORG_FullName;
                         GetOrgSenderAddress();
-                        Orgheader()
+                        Orgheader();
                     } else {
                         ItemGeneralCtrl.ePage.Masters.IsDisabledSender = false;
                         ItemGeneralCtrl.ePage.Masters.IsVisibleSenderAddress = true;
@@ -81,37 +86,37 @@
 
         function generalOperation() {
             // Sender
-            if (ItemGeneralCtrl.ePage.Entities.Header.Data.OrgSender.Code == null)
-                ItemGeneralCtrl.ePage.Entities.Header.Data.OrgSender.Code = "";
-            if (ItemGeneralCtrl.ePage.Entities.Header.Data.OrgSender.FullName == null)
-                ItemGeneralCtrl.ePage.Entities.Header.Data.OrgSender.FullName = "";
-            ItemGeneralCtrl.ePage.Masters.Sender = ItemGeneralCtrl.ePage.Entities.Header.Data.OrgSender.Code + ' - ' + ItemGeneralCtrl.ePage.Entities.Header.Data.OrgSender.FullName;
+            if (ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader.SenderCode == null)
+                ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader.SenderCode = "";
+            if (ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader.SenderName == null)
+                ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader.SenderName = "";
+            ItemGeneralCtrl.ePage.Masters.Sender = ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader.SenderCode + ' - ' + ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader.SenderName;
             if (ItemGeneralCtrl.ePage.Masters.Sender == " - ")
                 ItemGeneralCtrl.ePage.Masters.Sender = "";
         }
 
         function SelectedLookupSender(item) {
-            if (item.entity) {
-                ItemGeneralCtrl.ePage.Entities.Header.Data.OrgSender.Code = item.entity.Code;
-                ItemGeneralCtrl.ePage.Entities.Header.Data.OrgSender.FullName = item.entity.FullName;
-                ItemGeneralCtrl.ePage.Entities.Header.Data.OrgSender.PK = item.entity.PK;
-                ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader.Sender_ORG_FK = item.entity.PK;
-                ItemGeneralCtrl.ePage.Masters.Sender = item.entity.Code + '-' + item.entity.FullName;
+            if (item.data) {
+                ItemGeneralCtrl.ePage.Entities.Header.Data.OrgSender.Code = item.data.entity.Code;
+                ItemGeneralCtrl.ePage.Entities.Header.Data.OrgSender.FullName = item.data.entity.FullName;
+                ItemGeneralCtrl.ePage.Entities.Header.Data.OrgSender.PK = item.data.entity.PK;
+                ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader.Sender_ORG_FK = item.data.entity.PK;
+                ItemGeneralCtrl.ePage.Masters.Sender = item.data.entity.Code + '-' + item.data.entity.FullName;
 
                 angular.forEach(ItemGeneralCtrl.ePage.Entities.Header.Data.JobAddress, function (value, key) {
                     if (value.AddressType == "SND") {
-                        value.ORG_FK = item.entity.PK;
-                        value.OAD_Address_FK = item.entity.OAD_PK;
-                        value.Address1 = item.entity.OAD_Address1;
-                        value.Address2 = item.entity.OAD_Address2;
-                        value.State = item.entity.OAD_State;
-                        value.PostCode = item.entity.OAD_PostCode;
-                        value.City = item.entity.OAD_City;
-                        value.Email = item.entity.OAD_Email;
-                        value.Mobile = item.entity.OAD_Mobile;
-                        value.Phone = item.entity.OAD_Phone;
-                        value.RN_NKCountryCode = item.entity.OAD_CountryCode;
-                        value.Fax = item.entity.OAD_Fax;
+                        value.ORG_FK = item.data.entity.PK;
+                        value.OAD_Address_FK = item.data.entity.OAD_PK;
+                        value.Address1 = item.data.entity.OAD_Address1;
+                        value.Address2 = item.data.entity.OAD_Address2;
+                        value.State = item.data.entity.OAD_State;
+                        value.PostCode = item.data.entity.OAD_PostCode;
+                        value.City = item.data.entity.OAD_City;
+                        value.Email = item.data.entity.OAD_Email;
+                        value.Mobile = item.data.entity.OAD_Mobile;
+                        value.Phone = item.data.entity.OAD_Phone;
+                        value.RN_NKCountryCode = item.data.entity.OAD_CountryCode;
+                        value.Fax = item.data.entity.OAD_Fax;
                     }
                 });
             }
@@ -144,26 +149,26 @@
         }
 
         function SelectedLookupReceiver(item) {
-            if (item.entity) {
-                ItemGeneralCtrl.ePage.Entities.Header.Data.OrgReceiver.Code = item.entity.Code;
-                ItemGeneralCtrl.ePage.Entities.Header.Data.OrgReceiver.FullName = item.entity.FullName;
-                ItemGeneralCtrl.ePage.Entities.Header.Data.OrgReceiver.PK = item.entity.PK;
-                ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader.Receiver_ORG_FK = item.entity.PK;
-                
+            if (item.data) {
+                ItemGeneralCtrl.ePage.Entities.Header.Data.OrgReceiver.Code = item.data.entity.Code;
+                ItemGeneralCtrl.ePage.Entities.Header.Data.OrgReceiver.FullName = item.data.entity.FullName;
+                ItemGeneralCtrl.ePage.Entities.Header.Data.OrgReceiver.PK = item.data.entity.PK;
+                ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader.Receiver_ORG_FK = item.data.entity.PK;
+
                 angular.forEach(ItemGeneralCtrl.ePage.Entities.Header.Data.JobAddress, function (value, key) {
                     if (value.AddressType == "REC") {
-                        value.ORG_FK = item.entity.PK;
-                        value.OAD_Address_FK = item.entity.OAD_PK;
-                        value.Address1 = item.entity.OAD_Address1;
-                        value.Address2 = item.entity.OAD_Address2;
-                        value.State = item.entity.OAD_State;
-                        value.PostCode = item.entity.OAD_PostCode;
-                        value.City = item.entity.OAD_City;
-                        value.Email = item.entity.OAD_Email;
-                        value.Mobile = item.entity.OAD_Mobile;
-                        value.Phone = item.entity.OAD_Phone;
-                        value.RN_NKCountryCode = item.entity.OAD_CountryCode;
-                        value.Fax = item.entity.OAD_Fax;
+                        value.ORG_FK = item.data.entity.PK;
+                        value.OAD_Address_FK = item.data.entity.OAD_PK;
+                        value.Address1 = item.data.entity.OAD_Address1;
+                        value.Address2 = item.data.entity.OAD_Address2;
+                        value.State = item.data.entity.OAD_State;
+                        value.PostCode = item.data.entity.OAD_PostCode;
+                        value.City = item.data.entity.OAD_City;
+                        value.Email = item.data.entity.OAD_Email;
+                        value.Mobile = item.data.entity.OAD_Mobile;
+                        value.Phone = item.data.entity.OAD_Phone;
+                        value.RN_NKCountryCode = item.data.entity.OAD_CountryCode;
+                        value.Fax = item.data.entity.OAD_Fax;
                     }
                 });
             }
@@ -172,7 +177,7 @@
                 ItemGeneralCtrl.ePage.Entities.Header.Data.OrgReceiver.FullName = item.FullName;
                 ItemGeneralCtrl.ePage.Entities.Header.Data.OrgReceiver.PK = item.PK;
                 ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader.Receiver_ORG_FK = item.PK;
-                
+
                 angular.forEach(ItemGeneralCtrl.ePage.Entities.Header.Data.JobAddress, function (value, key) {
                     if (value.AddressType == "REC") {
                         value.ORG_FK = item.PK;
@@ -382,7 +387,6 @@
             apiService.post("eAxisAPI", ItemGeneralCtrl.ePage.Entities.Header.API.CfxOrgMapping.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     ItemGeneralCtrl.ePage.Masters.ReceiverList = response.data.Response;
-                    console.log(ItemGeneralCtrl.ePage.Entities.Header.Data.TmsItemHeader.ReceiverCode)
                 }
             });
         }

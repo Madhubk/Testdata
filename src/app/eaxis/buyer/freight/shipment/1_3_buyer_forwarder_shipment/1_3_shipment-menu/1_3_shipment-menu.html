@@ -1,0 +1,74 @@
+<div class="clearfix shipment-menu-wraper">
+    <div id="shipmentMenuWrapper{{oneThreeShipmentMenuCtrl.currentShipment.label}}" class="col-sm-12 no-padding-left no-padding-right"
+        data-ng-class="oneThreeShipmentMenuCtrl.ePage.Masters.IsShowAddress ? 'col-sm-8' : 'col-sm-12'">
+        <uib-tabset class="shipment-menu tabs-left tabbable" active="oneThreeShipmentMenuCtrl.ePage.Masters.TabIndex">
+            <div class="tab-profile">
+                <div class="tab-profile-title text-single-line text-center" data-ng-bind="oneThreeShipmentMenuCtrl.currentShipment.label"></div>
+            </div>
+            <uib-tab data-ng-repeat="x in oneThreeShipmentMenuCtrl.ePage.Masters.ShipmentMenu.ListSource" deselect="oneThreeShipmentMenuCtrl.ePage.Masters.TabSelected(x,$selectedIndex,$event);"
+                index="$index" data-ng-click="oneThreeShipmentMenuCtrl.ePage.Masters.OnMenuClick(x)" data-ng-if="!x.IsDisabled">
+                <uib-tab-heading title="{{x.DisplayName}}">
+                    <i class="fa {{x.Icon}} mr-5"></i>
+                    <span class="text-single-line" data-ng-bind="x.DisplayName"></span>
+                    <error-warning-directive data-ng-if="oneThreeShipmentMenuCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Shipment',oneThreeShipmentMenuCtrl.currentShipment.code,x.GParentRef, 'W', 'GParent').length > 0 && oneThreeShipmentMenuCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Shipment', oneThreeShipmentMenuCtrl.currentShipment.code,x.GParentRef, 'E', 'GParent').length == 0"
+                        list="oneThreeShipmentMenuCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList" type="'warning'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
+                    <error-warning-directive data-ng-if="oneThreeShipmentMenuCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Shipment', oneThreeShipmentMenuCtrl.currentShipment.code,x.GParentRef, 'E', 'GParent').length > 0"
+                        list="oneThreeShipmentMenuCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList" type="'error'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
+                </uib-tab-heading>
+                <div ng-switch="x.Value">
+                    <div ng-switch-when="QuickView" quick-view obj="oneThreeShipmentMenuCtrl.currentShipment"></div>
+                    <!-- <div ng-switch-when="MyTask" shipment-my-task current-shipment="oneThreeShipmentMenuCtrl.currentShipment"
+                        list-source="oneThreeShipmentMenuCtrl.ePage.Masters.MyTask.ListSource" data-ng-if="oneThreeShipmentMenuCtrl.ePage.Masters.MyTask.ListSource && oneThreeShipmentMenuCtrl.ePage.Masters.MyTask.ListSource.length > 0"></div> -->
+                    <div ng-switch-when="General" one-three-shipment-general booking-type="oneThreeShipmentMenuCtrl.bookingType"
+                        current-shipment="oneThreeShipmentMenuCtrl.currentShipment"></div>
+                    <div ng-switch-when="Order" one-three-shipment-order current-shipment="oneThreeShipmentMenuCtrl.currentShipment"></div>
+                    <div ng-switch-when="ConsolAndPacking" one-three-shipment-console-and-packing current-shipment="oneThreeShipmentMenuCtrl.currentShipment"></div>
+                    <div ng-switch-when="ServiceAndReference" one-three-shipment-service-and-reference current-shipment="oneThreeShipmentMenuCtrl.currentShipment"></div>
+                    <routing-grid ng-switch-when="Routing" current-object="oneThreeShipmentMenuCtrl.currentShipment"
+                        key-object-name="'SHP'" fk-name="'PK'" pk-name="'EntityRefKey'" api-header-name="'UIShipmentHeader'"
+                        api-header-field-name="'PK'" api-header-value-name="'CON_FK'" btn-visible="{'AddNew':true,'Delete':true,'More':true,'Refresh': true}"
+                        table-properties="" read-only="false"></routing-grid>
+                    <!-- <routing ng-switch-when="Routing" current-object="oneThreeShipmentMenuCtrl.currentShipment" key-object-name="'SHP'" fk-name="'PK'"
+                        pk-name="'EntityRefKey'" api-header-name="'UIShipmentHeader'" api-header-field-name="'PK'" api-header-value-name="'CON_FK'"></routing> -->
+                    <div ng-switch-when="RelatedShipment" one-three-related-shipment current-shipment="oneThreeShipmentMenuCtrl.currentShipment"></div>
+                    <div ng-switch-when="PickupAndDelivery" one-three-shipment-pickup-and-delivery current-shipment="oneThreeShipmentMenuCtrl.currentShipment"></div>
+                    <div ng-switch-when="Job" one-three-shipment-billing current-shipment="oneThreeShipmentMenuCtrl.currentShipment"></div>
+                    <div ng-switch-when="Address" data-ng-if="oneThreeShipmentMenuCtrl.currentShipment[oneThreeShipmentMenuCtrl.currentShipment.label].ePage.Entities.Header.Data.UIAddressContactList.CfxTypeList"
+                        address-directives current-obj="oneThreeShipmentMenuCtrl.currentShipment" entitysource="'SHP'"></div>
+                    <div ng-switch-when="Documents" shipment-documents current-shipment="oneThreeShipmentMenuCtrl.currentShipment"></div>
+                    <div ng-switch-when="DynamicTable" shipment-dynamic-table current-object="oneThreeShipmentMenuCtrl.currentShipment"></div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+    <div class="error-warning-container right" id="errorWarningContainer{{oneThreeShipmentMenuCtrl.currentShipment.code}}">
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                <!-- <i class="fa fa-warning"></i>  -->
+                Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right" data-ng-click="oneThreeShipmentMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(oneThreeShipmentMenuCtrl.currentShipment)">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+        </div>
+        <div class="error-warning-body">
+            <div class="clearfix" data-ng-if="oneThreeShipmentMenuCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList.length>0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in oneThreeShipmentMenuCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

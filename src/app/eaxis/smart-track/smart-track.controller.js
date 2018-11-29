@@ -5,9 +5,9 @@
         .module("Application")
         .controller("SmartTrackController", SmartTrackController);
 
-    SmartTrackController.$inject = ["authService", "helperService"];
+    SmartTrackController.$inject = ["helperService"];
 
-    function SmartTrackController(authService, helperService) {
+    function SmartTrackController(helperService) {
         /* jshint validthis: true */
         var SmartTrackCtrl = this;
 
@@ -19,8 +19,6 @@
                 "Meta": helperService.metaBase(),
                 "Entities": {}
             };
-
-            SmartTrackCtrl.ePage.Masters.MenuVisibleType = authService.getUserInfo().Menu.VisibleType;
         }
 
         Init();

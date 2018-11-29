@@ -10,7 +10,6 @@
     function RelatedShipmentController($rootScope, $scope, $state, $q, $location, $timeout, $uibModal, APP_CONSTANT, authService, apiService, appConfig, shipmentConfig, helperService, toastr, confirmation) {
         /* jshint validthis: true */
         var RelatedShipmentCtrl = this;
-
         function Init() {
             var currentShipment = RelatedShipmentCtrl.currentShipment[RelatedShipmentCtrl.currentShipment.label].ePage.Entities;
             RelatedShipmentCtrl.ePage = {
@@ -75,7 +74,6 @@
         }
 
         function GridRefreshFun($item) {
-
             var _tempArray = [];
             $item.map(function (val, key) {
                 var _isExist = RelatedShipmentCtrl.ePage.Entities.Header.Data.UIRelatedShipments.some(function (value, index) {

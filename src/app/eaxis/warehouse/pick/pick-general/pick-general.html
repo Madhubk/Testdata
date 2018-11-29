@@ -1,44 +1,156 @@
+<div class="clearfix margin-top-10">
+
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+        <div class="error-warning-container">
+            <error-warning-directive data-ng-if="PickGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PickNo.IsWarning && !PickGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PickNo.IsError"
+                list="PickGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PickNo.WARNING" type="'warning'" icon="fa fa-warning"
+                parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            <error-warning-directive data-ng-if="PickGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PickNo.IsError" list="PickGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PickNo.ERROR"
+                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+        </div>
+        <div class="form-group">
+            <label class="control-label text-single-line">Pick Number</label>
+            <div class="">
+                <input ng-if="PickGeneralCtrl.currentPick.isNew" type="text"class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Pick Number" value='New' readonly=''>
+                <input ng-if='!PickGeneralCtrl.currentPick.isNew' type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Pick Number" data-ng-model="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickNo"
+                    disabled ng-change='PickGeneralCtrl.ePage.Masters.OnChangeValues(PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickNo,"E8001",false,undefined);'>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+        <div class="error-warning-container">
+            <error-warning-directive data-ng-if="PickGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PickOption.IsWarning && !PickGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PickOption.IsError"
+                list="PickGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PickOption.WARNING" type="'warning'" icon="fa fa-warning"
+                parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            <error-warning-directive data-ng-if="PickGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PickOption.IsError" list="PickGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PickOption.ERROR"
+                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+        </div>
+        <div class="form-group">
+            <label class="control-label text-single-line">Pick Option</label>
+            <div class="">
+                <select chosen class="form-control" ng-model="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickOption" ng-disabled="PickGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable" ng-options="x.Key as x.Key + ' - '  + x.Value for x in PickGeneralCtrl.ePage.Masters.DropDownMasterList.PickOption.ListSource"
+                search-contains="true" ng-change='PickGeneralCtrl.ePage.Masters.OnChangeValues(PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickOption,"E8002",false,undefined);'>
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">Status</label>
+            <div class="">
+                <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Pick Status"
+                    data-ng-model="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatusDesc">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <div class="error-warning-container">
+                <error-warning-directive data-ng-if="PickGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.WarehouseCode.IsWarning && !PickGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.WarehouseCode.IsError"
+                    list="PickGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.WarehouseCode.WARNING" type="'warning'"
+                    icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="PickGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.WarehouseCode.IsError" list="PickGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.WarehouseCode.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </div>
+            <label class="control-label text-single-line">Warehouse</label>
+            <div class="input-group input-group-sm">
+
+                <!-- Dynamic look up Search in textbox -->
+                <div dynamic-lookup placeholder="Warehouse" my-ng-model="PickGeneralCtrl.ePage.Masters.Warehouse" auto-complete-on-select="PickGeneralCtrl.ePage.Masters.SelectedLookupDataWarCode($item)"
+                    obj="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader" page-name="'Warehouse'" control-id="'Warehouse'"  control-key="'Warehouse_3067'" is-disabled='PickGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable || PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutward.length>0'>
+                </div>
+
+                <!-- Look Up page opens when button clicks -->
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader" control-id="'Warehouse'" selected-data="PickGeneralCtrl.ePage.Masters.SelectedLookupDataWarCode($item.data.entity)"  page-name="'Warehouse'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button" control-key="'Warehouse_3067'"  is-disabled='PickGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable || PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutward.length>0'><i class="fa fa-ellipsis-h"></i></button>
+                </span>
+                <span ng-if="!PickGeneralCtrl.ePage.Masters.Warehouse">
+                    <span data-ng-init="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.WarehouseCode=''"></span>
+                    <span data-ng-init="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.WarehouseName=''"></span>
+                </span>
+                <span ng-if='!PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.WarehouseCode && !PickGeneralCtrl.currentPick.isNew'>
+                    <div ng-init="PickGeneralCtrl.ePage.Masters.OnChangeValues(PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.WarehouseCode,'E8003',false,undefined)"></div>
+                </span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 margin-top-5">
+    <span class="text-single-line custom_label">Orders On This Pick</span>
+</div>
+
 <div class="clearfix">
-    <div class="widget-main ">
-        <uib-tabset id="locationGeneral">
-            <!--General Tab-->
-            <uib-tab>
-                <uib-tab-heading title="Details">
-                    <i class="fa fa-info-circle margin-right-5"></i> <span class="text-single-line" data-ng-bind="'Details'"></span>
-                </uib-tab-heading>
-                <div class="finalisedstate" ng-show="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatusDesc=='Finalized'">
-                    <span class="finaliseddatedescription">Pick Finalized and it cannot be edited</span>
-                </div>
-                <div data-ng-include="'app/eaxis/warehouse/pick/pick-general/tabs/pick-details.html'"></div>
-            </uib-tab>
-            <!--Details-->
-            <uib-tab>
-                <uib-tab-heading title="Pick Allocation">
-                    <i class="fa fa-suitcase margin-right-5"></i> <span class="text-single-line" data-ng-bind="'Pick Allocation'"></span>
-                </uib-tab-heading>
-                <div class="finalisedstate" ng-show="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatusDesc=='Finalized'">
-                    <span class="finaliseddatedescription">Pick Finalized and it cannot be edited</span>
-                </div>
-                <pick-slip current-pick="PickGeneralCtrl.currentPick"></pick-slip>
-            </uib-tab>
-            <uib-tab>
-                <uib-tab-heading title="Pick Slip">
-                    <i class="fa fa-list-alt margin-right-5"></i> <span class="text-single-line" data-ng-bind="'Pick Slip'"></span>
-                </uib-tab-heading>
-                <div class="finalisedstate" ng-show="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatusDesc=='Finalized'">
-                    <span class="finaliseddatedescription">Pick Finalized and it cannot be edited</span>
-                </div>
-                <div data-ng-include="'app/eaxis/warehouse/pick/pick-general/tabs/pick-slip-tab.html'"></div>
-            </uib-tab>
-            <uib-tab>
-                <uib-tab-heading title="Documents">
-                    <i class="fa fa-file-pdf-o margin-right-5"></i> <span class="text-single-line" data-ng-bind="'Documents'"></span>
-                </uib-tab-heading>
-                <div class="finalisedstate" ng-show="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatusDesc=='Finalized'">
-                    <span class="finaliseddatedescription">Pick Finalized and it cannot be edited</span>
-                </div>
-                <div data-ng-include="'app/eaxis/warehouse/pick/pick-general/tabs/pick-slip-document.html'"></div>
-            </uib-tab>
-        </uib-tabset>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding">
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 p-0">
+            <span><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Add New Order"  data-ng-click="PickGeneralCtrl.ePage.Masters.AddNewOutward()" ng-disabled="PickGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable || PickGeneralCtrl.currentPick.isNew"><span class="fa fa-external-link-square"></span>&nbsp;&nbsp;New</button></span>
+            <span>
+                <button style="font-size:11px" dynamic-list-modal obj="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickHeader" control-id="'PickAttachOrder'" 
+                    selected-data="PickGeneralCtrl.ePage.Masters.AttachOrders($item)" page-name="'WarehouseOutward'" mode="3" control-key="'PickAttachOrder_2849'" 
+                    grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-sm btn-outline-primary" default-filter="PickGeneralCtrl.ePage.Masters.DefaultFilter"
+                    type="button" ng-disabled="PickGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable || PickGeneralCtrl.currentPick.isNew">
+                <i class="fa fa-plus-circle"></i> Attach</button>
+            </span>
+            <span><button type="button"  ng-disabled="PickGeneralCtrl.ePage.Masters.selectedRowForOutward==-1 || PickGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Edit"  data-ng-click="PickGeneralCtrl.ePage.Masters.EditOrderDetails(PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutward[PickGeneralCtrl.ePage.Masters.selectedRowForOutward])"><span class="fa fa-pencil"></span>&nbsp;&nbsp;Edit</button></span>
+            <span><button type="button" style="font-size:11px" ng-disabled="PickGeneralCtrl.ePage.Masters.selectedRowForOutward==-1 || PickGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Delete"  data-ng-click="PickGeneralCtrl.ePage.Masters.DeleteOrder(PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutward[PickGeneralCtrl.ePage.Masters.selectedRowForOutward])"><span class="fa fa-minus-circle"></span>&nbsp;&nbsp;Detach</button></span>
+            <span><button type="button" style="font-size:11px" class="btn btn-sm btn-outline-primary font-10"  title="Customize"  data-ng-click="PickGeneralCtrl.ePage.Masters.EditTableColumnsForOutward = true"><span class="fa fa-filter"></span>&nbsp;&nbsp;Customize</button></span>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="input-group">
+                <div class="input-group-addon font-10"><i class="fa fa-search font-10"></i></div>
+                <input type="text" class="form-control height-25 font-10" placeholder="Search" ng-model="PickGeneralCtrl.ePage.Masters.SearchTableForOutward">
+            </div>      
+        </div>
+    </div>  
+    <div id="GeneralTable{{PickGeneralCtrl.currentPick.label}}" class="fixedheader" key-events table-object='PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutward' enable='PickGeneralCtrl.ePage.Masters.EnableForOutward' selected-row='PickGeneralCtrl.ePage.Masters.selectedRowForOutward' unique-id='GeneralTable{{PickGeneralCtrl.currentPick.label}}'>
+        <table  style="height: 275px">
+            <thead>
+                <tr id="tableHeader">
+                    <th id="osno" data-ng-if="PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.osno.isenabled" ng-style="{ 'width': PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.osno.width + 'px' }" title="S.No">S.No</th>
+                    <th id="ooutwardno" data-ng-if="PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.ooutwardno.isenabled" ng-style="{ 'width': PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.ooutwardno.width + 'px' }" title="Outward Number">Outward No</th>
+                    <th id="owarehouse"data-ng-if="PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.owarehouse.isenabled" ng-style="{ 'width': PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.owarehouse.width + 'px' }" title="Warehouse">Warehouse</th>
+                    <th id="oclient" data-ng-if="PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.oclient.isenabled" ng-style="{ 'width': PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.oclient.width + 'px' }" title="Client">Client</th>
+                    <th id="oconsignee" data-ng-if="PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.oconsignee.isenabled" ng-style="{ 'width': PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.oconsignee.width + 'px' }" title="Consignee">Consignee</th>
+                    <th id="oorderno"data-ng-if="PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.oorderno.isenabled" ng-style="{ 'width': PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.oorderno.width + 'px' }" title="Order Number">Order No</th>
+                    <th id="ooutwardtype"data-ng-if="PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.ooutwardtype.isenabled" ng-style="{ 'width': PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.ooutwardtype.width + 'px' }" title="Outward Type">Outward Type</th>
+                    <th id="ostatus" data-ng-if="PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.ostatus.isenabled" ng-style="{ 'width': PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.ostatus.width + 'px' }" title="Status">Status</th>
+                    <th id="orequireddate" data-ng-if="PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.orequireddate.isenabled" ng-style="{ 'width': PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.orequireddate.width + 'px' }" title="Required Date">Required Date</th>
+                    <th id="ofinalizeddate" data-ng-if="PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.ofinalizeddate.isenabled" ng-style="{ 'width': PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.ofinalizeddate.width + 'px' }" title="Finalized Date">Finalized Date</th>
+                </tr>
+            </thead>
+            <tbody id="GeneralCustTable{{PickGeneralCtrl.currentPick.label}}">
+                <tr id="tableBody" ng-repeat="x in PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutward   | filter:PickGeneralCtrl.ePage.Masters.SearchTableForOutward"  ng-click="PickGeneralCtrl.ePage.Masters.setSelectedRowForOutward($index);" ng-class="{row_active: (PickGeneralCtrl.ePage.Masters.selectedRowForOutward==$index),copy_row_active :(x.IsCopied==true)}" 
+                    watch-table table-properties="PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward"  unique-id="GeneralCustTable{{PickGeneralCtrl.currentPick.label}}" row-position="$index">
+                    <td id="osno"   data-ng-show='PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.osno.isenabled' ng-style="{ 'width': PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.osno.width + 'px' }" >{{$index+1}}</td>
+                    <td id="ooutwardno"   data-ng-show='PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.ooutwardno.isenabled' ng-style="{ 'width': PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.ooutwardno.width + 'px' }" class="overflow-text">{{x.WorkOrderID||PickGeneralCtrl.ePage.Masters.emptyText}}</td>
+                    <td id="owarehouse"   data-ng-show='PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.owarehouse.isenabled' ng-style="{ 'width': PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.owarehouse.width + 'px' }" class="overflow-text">{{x.WarehouseCode}} - {{x.WarehouseName}}</td>
+                    <td id="oclient"   data-ng-show='PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.oclient.isenabled' ng-style="{ 'width': PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.oclient.width + 'px' }" class="overflow-text">{{x.ClientCode}} - {{x.ClientName}}</td>
+                    <td id="oconsignee"   data-ng-show='PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.oconsignee.isenabled' ng-style="{ 'width': PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.oconsignee.width + 'px' }" class="overflow-text">{{x.ConsigneeCode}} - {{ x.ConsigneeName}}</td>
+                    <td id="oorderno"   data-ng-show='PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.oorderno.isenabled' ng-style="{ 'width': PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.oorderno.width + 'px' }" class="overflow-text">{{ x.ExternalReference||PickGeneralCtrl.ePage.Masters.emptyText}}</td>
+                    <td id="ooutwardtype"   data-ng-show='PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.ooutwardtype.isenabled' ng-style="{ 'width': PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.ooutwardtype.width + 'px' }" class="overflow-text">{{ x.WorkOrderSubType||PickGeneralCtrl.ePage.Masters.emptyText}}</td>
+                    <td id="ostatus"   data-ng-show='PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.ostatus.isenabled' ng-style="{ 'width': PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.ostatus.width + 'px' }" class="overflow-text">{{x.WorkOrderStatusDesc || PickGeneralCtrl.ePage.Masters.emptyText}}</td> 
+                    <td id="orequireddate"   data-ng-show='PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.orequireddate.isenabled' ng-style="{ 'width': PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.orequireddate.width + 'px' }" class="overflow-text">{{x.RequiredDate || PickGeneralCtrl.ePage.Masters.emptyText | dateFormat}}</td>
+                    <td id="ofinalizeddate"   data-ng-show='PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.ofinalizeddate.isenabled' ng-style="{ 'width': PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.ofinalizeddate.width + 'px' }" class="overflow-text">{{x.FinalisedDate || PickGeneralCtrl.ePage.Masters.emptyText | dateFormat}}</td>      
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:240px" ng-if="PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutward.length==0">No Record Found...</div>
+
+        <!-- To show Customize Modal -->
+    <div ng-if='PickGeneralCtrl.ePage.Masters.EditTableColumnsForOutward'>
+        <customize-table table-properties="PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward" enable="PickGeneralCtrl.ePage.Masters.EditTableColumnsForOutward" unique-id="GeneralCustTable{{PickGeneralCtrl.currentPick.label}}" user-value='PickGeneralCtrl.ePage.Masters.UserValueForOutward' entity-source='WMS_PICKOUTWARD'></customize-table>
+    </div>
+    <!-- Call Directive If user has value -->
+    <div ng-if='PickGeneralCtrl.ePage.Masters.UserHasValueForOutward' ng-init="PickGeneralCtrl.ePage.Masters.UserHasValueForOutward=false">
+        <watch-table table-properties="PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward"  unique-id="GeneralCustTable{{PickGeneralCtrl.currentPick.label}}"></watch-table>
     </div>
 </div>
+   
+    

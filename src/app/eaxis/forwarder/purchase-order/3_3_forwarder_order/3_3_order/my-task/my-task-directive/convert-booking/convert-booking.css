@@ -1,0 +1,6 @@
+.text-single-line-80 {
+    max-width: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

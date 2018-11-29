@@ -45,7 +45,10 @@
     <div class="col-lg-10">
       <ul class="process-popup-content-list clearfix">
         <li data-ng-repeat="y in x.FilterInput track by $index">
-          <div class="col-lg-4 br-ebebeb">
+          <div class="col-lg-1 pt-5 pb-5 br-ebebeb">
+            <span>{{y.FieldName}}</span>
+          </div>
+          <div class="col-lg-3 br-ebebeb">
             <div class="pt-5 pb-5">
               <input class="process-popup-textbox" type="text" data-ng-model="y.InputName">
               <div class="dropdown process-popup-dropdown pull-right">
@@ -60,7 +63,6 @@
               </div>
             </div>
           </div>
-
           <div class="col-lg-3 br-ebebeb">
             <div class="pt-5 pb-5 process-popup-color">
               <input class="process-popup-textbox" type="text" data-ng-model="y.Value">

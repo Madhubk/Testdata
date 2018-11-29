@@ -1,100 +1,83 @@
-<div class="clearfix padding-5 padding-top-10">
-    <div class="widget-main">
-        <div class="clearfix">
-            <button dynamic-list-modal obj="RelatedShipmentCtrl.ePage.Entities.Header.Data.UIRelatedShipments" prefix-data="'ShipmentSearch'"
-                    field-name="'ShpAttachRelatedShipment'" mode="3" is-full-obj="true" grid-refresh-fun-name="GetRelatedShipmentDetails"
-                    grid-refresh-fun="RelatedShipmentCtrl.ePage.Masters.GridRefreshFun($item)" selected-data="RelatedShipmentCtrl.ePage.Masters.SelectedData($item)"
-                    class="btn btn-primary pull-right margin-right-5" type="button">
-                <i class="fa fa-paperclip"></i> Attach Shipment
-            </button>
-        </div>
-        <div class="clearfix">
-            <!--Grid directive-->
-            <div class="">
-                <div class="height-230 clearfix padding-5 pt-0">
-                    <ul class="related-action">
-                        <div class="text-center grid-view-loader" data-ng-if="!RelatedShipmentCtrl.ePage.Masters.RelatedShipment.GridData">
-                            <i class="fa fa-spin fa-spinner font-160"></i>
-                        </div>
-                        <li data-ng-if="RelatedShipmentCtrl.ePage.Masters.RelatedShipment.GridData.length==0">
-                            <div class="row">
-                                <div class="text-center">
-                                    No shipments found...
-                                </div>
-                            </div>
-                        </li>
-
-                        <li data-ng-repeat="x in RelatedShipmentCtrl.ePage.Masters.RelatedShipment.GridData">
-                            <div class="clearfix">
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 pl-0">
-                                        <div class="fontSizeColor">{{x.ShipmentNo}}</div>
-                                        <div class="org1">
-                                            <span>{{x.ORG_Shipper_Code}}</span>
-                                            <i class="fa fa-caret-right" aria-hidden="true"></i>
-                                            <span>{{x.ORG_Consignee_Code}}</span>
-                                        </div>
-
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
-                                        <div class="related-action-label-value">
-                                            <div class="related-action-label">HBL</div>
-                                            <div class="related-action-value">: {{x.HouseBill}}</div>
-                                        </div>
-                                        <div class="org">
-                                            <span>{{x.Origin}}</span>
-                                            <i class="fa fa-caret-right" aria-hidden="true"></i>
-                                            <span>{{x.Destination}}</span>
-                                        </div>
-
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
-
-                                        <div class="related-action-label-value">
-                                            <div class="related-action-label">Out Pk</div>
-                                            <div class="related-action-value">: {{x.OuterPackCount}} | {{x.OuterPackType}}</div>
-                                        </div>
-                                        <div class="related-action-label-value">
-                                            <div class="related-action-label">In Pk</div>
-                                            <div class="related-action-value">: {{x.InnerPackCount}} | {{x.InnerPackType}}</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
-                                        <div class="related-action-label-value">
-                                            <div class="related-action-label">Wt</div>
-                                            <div class="related-action-value">: {{x.Weight}} | {{x.UnitOfWeight}}</div>
-                                        </div>
-                                        <div class="related-action-label-value">
-                                            <div class="related-action-label">Vol</div>
-                                            <div class="related-action-value">: {{x.Volumn}} | {{x.UnitOfVolumn}}</div>
-                                        </div>
-
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
-                                        <div class="related-action-label-value">
-                                            <div class="related-action-label">ETD</div>
-                                            <div class="related-action-value">: {{x.ETD |date:'dd-MMM-yyyy'}}</div>
-                                        </div>
-                                        <div class="related-action-label-value">
-                                            <div class="related-action-label">ETA</div>
-                                            <div class="related-action-value">: {{x.ETA |date:'dd-MMM-yyyy'}}</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-1 col-xl-1 text-center pt-10">
-                                        <span class="trash" data-ng-click="RelatedShipmentCtrl.ePage.Masters.RelatedShipment.DeleteConfirmation(x)">
-                                            <i class="fa fa-trash" aria-hidden="true"></i>
-                                        </span>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </li>
-                        <!-- <dynamic-table data-ng-if="RelatedShipmentCtrl.ePage.Masters.RelatedShipment.GridData" grid-data="RelatedShipmentCtrl.ePage.Masters.RelatedShipment.GridData"
-                            grid-config="RelatedShipmentCtrl.ePage.Masters.RelatedShipment.gridConfig" selected-grid-row="RelatedShipmentCtrl.ePage.Masters.RelatedShipment.SelectedGridRow($item)"></dynamic-table> -->
-                    </ul>
-                    <!-- <dynamic-table data-ng-if="RoutingCtrl.ePage.Masters.Routing.GridData" grid-data="RoutingCtrl.ePage.Masters.Routing.GridData" grid-config="RoutingCtrl.ePage.Masters.Routing.gridConfig" selected-grid-row="RoutingCtrl.ePage.Masters.Routing.SelectedGridRow($item)"></dynamic-table> -->
-                </div>
+<div class="widget-main p-10">
+    <div class="clearfix">
+        <button dynamic-list-modal obj="RelatedShipmentCtrl.ePage.Entities.Header.Data.UIRelatedShipments" page-name="'ShipmentSearch'"
+            control-id ="'ShpAttachRelatedShipment'" control-key="'ShpAttachRelatedShipment_3231'" mode="3" is-full-obj="true" 
+            grid-refresh-fun-name="GetRelatedShipmentDetails"
+            grid-refresh-fun="RelatedShipmentCtrl.ePage.Masters.GridRefreshFun($item)" selected-data="RelatedShipmentCtrl.ePage.Masters.SelectedData($item)"
+            class="btn btn-sm btn-outline-secondary pull-right" type="button">
+            <i class="fa fa-paperclip"></i> Attach Shipment
+        </button>
+    </div>
+    <div class="clearfix">
+        <!--Grid directive-->
+        <ul class="related-action">
+            <div class="text-center grid-view-loader" data-ng-if="!RelatedShipmentCtrl.ePage.Masters.RelatedShipment.GridData">
+                <i class="fa fa-spin fa-spinner font-160"></i>
             </div>
-        </div>
+            <li class="text-center" data-ng-if="RelatedShipmentCtrl.ePage.Masters.RelatedShipment.GridData.length==0">
+                No shipments found...
+            </li>
+            <li data-ng-repeat="x in RelatedShipmentCtrl.ePage.Masters.RelatedShipment.GridData">
+                <div class="clearfix">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 pl-0">
+                            <div class="fontSizeColor">{{x.ShipmentNo}}</div>
+                            <div>
+                                <span>{{x.ORG_Shipper_Code}}</span>
+                                <i class="fa fa-caret-right" aria-hidden="true"></i>
+                                <span>{{x.ORG_Consignee_Code}}</span>
+                            </div>
+
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="rows">
+                                <div class="related-action-label">HBL</div>
+                                <div class="related-action-value">: {{x.HouseBill}}</div>
+                            </div>
+                            <div>
+                                <span>{{x.Origin}}</span>
+                                <i class="fa fa-caret-right" aria-hidden="true"></i>
+                                <span>{{x.Destination}}</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="rows">
+                                <div class="related-action-label">Out Pk</div>
+                                <div class="related-action-value">: {{x.OuterPackCount}} | {{x.OuterPackType}}</div>
+                            </div>
+                            <div class="rows">
+                                <div class="related-action-label">In Pk</div>
+                                <div class="related-action-value">: {{x.InnerPackCount}} | {{x.InnerPackType}}</div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="rows">
+                                <div class="related-action-label">Wt</div>
+                                <div class="related-action-value">: {{x.Weight}} | {{x.UnitOfWeight}}</div>
+                            </div>
+                            <div class="rows">
+                                <div class="related-action-label">Vol</div>
+                                <div class="related-action-value">: {{x.Volumn}} | {{x.UnitOfVolumn}}</div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                            <div class="rows">
+                                <div class="related-action-label">ETD</div>
+                                <div class="related-action-value">: {{x.ETD |date:'dd-MMM-yyyy'}}</div>
+                            </div>
+                            <div class="rows">
+                                <div class="related-action-label">ETA</div>
+                                <div class="related-action-value">: {{x.ETA |date:'dd-MMM-yyyy'}}</div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-1 col-xl-1 text-center pt-10">
+                            <span class="cursor-pointer set-color-red fs-18" data-ng-click="RelatedShipmentCtrl.ePage.Masters.RelatedShipment.DeleteConfirmation(x)">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
     </div>
 </div>

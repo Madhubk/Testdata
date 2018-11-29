@@ -1,6 +1,4 @@
-.chrometab-box {
-    border: 1px solid #bcbbd0;
-}
+
 .color-grey{
     background-color: gray;
     color: white;
@@ -43,9 +41,7 @@
     height: 28px;
 }
 
-.tab-list-view-wrapper {
-    position: relative;
-}
+
 
 .tab-list-view-wrapper .tab-loading {
     position: absolute;

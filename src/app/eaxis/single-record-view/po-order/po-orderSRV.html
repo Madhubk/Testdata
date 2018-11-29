@@ -1,0 +1,73 @@
+<uib-tabset id="chromeTab" active="SRVPOOrderCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box"
+    data-ng-show="!SRVPOOrderCtrl.ePage.Entities.GlobalVar.IsShowEditActivityPage">
+    <uib-tab>
+        <uib-tab-heading title="Order">
+            <span data-ng-bind="'Order'"></span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+        <div class="no-padding tab-list-view-wrapper">
+            <!--Order Grid Page-->
+            <dynamic-list dataentry-name="SRVPOOrderCtrl.ePage.Masters.dataentryName" selected-grid-row="SRVPOOrderCtrl.ePage.Masters.SelectedGridRow($item)"
+                mode="1" default-filter="SRVPOOrderCtrl.ePage.Masters.DefaultFilter" dataentry-object="SRVPOOrderCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+            <div class="tab-loading" data-ng-show="SRVPOOrderCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+    <uib-tab active="SRVPOOrderCtrl.ePage.Masters.activeTabIndex == $index" data-ng-repeat="tab in SRVPOOrderCtrl.ePage.Masters.TabList"
+        data-ng-click="SRVPOOrderCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+        <uib-tab-heading title="{{tab.label}}">
+            <span data-ng-bind="tab.label"></span>
+            <i class="glyphicon glyphicon-remove" data-ng-click="SRVPOOrderCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+            <span class="error-warning-container-common" data-ng-if="SRVPOOrderCtrl.ePage.Masters.ErrorWarningConfig.Modules.Order.Entity[tab.code].GlobalErrorWarningList.length > 0">
+                <span class="custom-warning-container" data-ng-if="(SRVPOOrderCtrl.ePage.Masters.ErrorWarningConfig.Modules.Order.Entity[tab.code].GlobalErrorWarningList | listCount: 'MessageType': 'W') > 0 && (SRVPOOrderCtrl.ePage.Masters.ErrorWarningConfig.Modules.Order.Entity[tab.code].GlobalErrorWarningList | listCount: 'MessageType': 'E') == 0">
+                    <button class="btn-warning" data-ng-click="SRVPOOrderCtrl.ePage.Masters.Configdetails.ShowErrorWarningModal(tab)">
+                        <i class="fa fa-warning"></i>
+                    </button>
+                    <span class="custom-warning-count">{{SRVPOOrderCtrl.ePage.Masters.ErrorWarningConfig.Modules.Order.Entity[tab.code].GlobalErrorWarningList
+                        | listCount: 'MessageType': 'W'}}
+                    </span>
+                </span>
+                <span class="custom-error-container" data-ng-if="(SRVPOOrderCtrl.ePage.Masters.ErrorWarningConfig.Modules.Order.Entity[tab.code].GlobalErrorWarningList | listCount: 'MessageType': 'E') > 0">
+                    <button class="btn-error" data-ng-click="SRVPOOrderCtrl.ePage.Masters.Configdetails.ShowErrorWarningModal(tab)">
+                        <i class="fa fa-warning"></i>
+                    </button>
+                    <span class="custom-error-count">{{SRVPOOrderCtrl.ePage.Masters.ErrorWarningConfig.Modules.Order.Entity[tab.code].GlobalErrorWarningList
+                        | listCount: 'MessageType': 'E'}}
+                    </span>
+                </span>
+            </span>
+        </uib-tab-heading>
+        <div class="padding-bottom-10 clearfix">
+            <!--Order Menu Directive-->
+            <one-one-order-menu current-order="tab" data-ng-if="SRVPOOrderCtrl.ePage.Masters.currentOrder && (tab[SRVPOOrderCtrl.ePage.Masters.currentOrder].ePage.Entities.Header.Data.UIOrder_Buyer.PAR_AccessCode=='1_1' || tab['New'].ePage.Entities.Header.Data.UIOrder_Buyer.PAR_AccessCode=='1_1')"
+                dataentry-object="SRVPOOrderCtrl.ePage.Masters.DataEntryObject"></one-one-order-menu>
+            <ord-buyer-supplier-view-template current-order="tab" data-ng-if="SRVPOOrderCtrl.ePage.Masters.currentOrder && tab[SRVPOOrderCtrl.ePage.Masters.currentOrder].ePage.Entities.Header.Data.UIOrder_Buyer_Supplier.PAR_AccessCode=='1_2'"
+                dataentry-object="SRVPOOrderCtrl.ePage.Masters.DataEntryObject"></ord-buyer-supplier-view-template>
+            <one-three-order-menu current-order="tab" data-ng-if="SRVPOOrderCtrl.ePage.Masters.currentOrder && (tab[SRVPOOrderCtrl.ePage.Masters.currentOrder].ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.PAR_AccessCode=='1_3' || tab['New'].ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.PAR_AccessCode=='1_3')"
+                dataentry-object="SRVPOOrderCtrl.ePage.Masters.DataEntryObject"></one-three-order-menu>
+            <three-one-order-general current-order="tab" data-ng-if="SRVPOOrderCtrl.ePage.Masters.currentOrder && tab[SRVPOOrderCtrl.ePage.Masters.currentOrder].ePage.Entities.Header.Data.UIOrder_Forwarder_Buyer.PAR_AccessCode=='3_1'"></three-one-order-general>
+        </div>
+    </uib-tab>
+    <button class="btn btn-default" data-ng-click="SRVPOOrderCtrl.ePage.Masters.CreateNewOrder()" data-ng-disabled="SRVPOOrderCtrl.ePage.Masters.CheckUIControl('CREATE_ORDER') && SRVPOOrderCtrl.ePage.Masters.IsNewOrderClicked">+</button>
+</uib-tabset>
+
+<div class="clearfix order-activity-page-warpper" data-ng-if="SRVPOOrderCtrl.ePage.Entities.GlobalVar.IsShowEditActivityPage">
+    <div class="clearfix order-activity-header-wrapper">
+        <div class="clearfix order-activity-header">
+            <div class="title">
+                <span>{{SRVPOOrderCtrl.ePage.Entities.GlobalVar.ActivityName}}</span>
+            </div>
+            <div class="buttons">
+                <button class="btn btn-warning btn-xs pull-right ml-5" data-ng-click="SRVPOOrderCtrl.ePage.Masters.ActionClose(SRVPOOrderCtrl.ePage.Entities.GlobalVar.ActivityName)"
+                    title="Close">Close</i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix order-activity-body pb-50">
+        <one-one-order-confirmation data-ng-if="SRVPOOrderCtrl.ePage.Entities.GlobalVar.IsConformationEnable" input="SRVPOOrderCtrl.ePage.Entities.GlobalVar.Input"></one-one-order-confirmation>
+        <one-one-cargo-readiness data-ng-if="SRVPOOrderCtrl.ePage.Entities.GlobalVar.IsCargoRedinessEnable" input="SRVPOOrderCtrl.ePage.Entities.GlobalVar.Input"></one-one-cargo-readiness>
+        <one-one-pre-advice-custom-tool-bar data-ng-if="SRVPOOrderCtrl.ePage.Entities.GlobalVar.IsPreAdviceEnable"
+            input="SRVPOOrderCtrl.ePage.Entities.GlobalVar.Input"></one-one-pre-advice-custom-tool-bar>
+        <one-one-order-activation data-ng-if="SRVPOOrderCtrl.ePage.Entities.GlobalVar.IsActiveOrderEnable" input="SRVPOOrderCtrl.ePage.Entities.GlobalVar.Input"></one-one-order-activation>
+    </div>
+</div>

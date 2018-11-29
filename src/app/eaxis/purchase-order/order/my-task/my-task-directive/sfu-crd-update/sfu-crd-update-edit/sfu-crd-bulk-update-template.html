@@ -1,0 +1,40 @@
+<div data-ng-show="SfuCRDUpdateEditDirectiveCtrl.ePage.Masters.BulkUploadOpen">
+    <div class="form-group">
+        <div class="col-lg-5 p-0 pr-5">
+            <div class="form-group">
+                <label class="control-label text-single-line">Cargo Ready Date</label>
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="{{SfuCRDUpdateEditDirectiveCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        data-ng-model="SfuCRDUpdateEditDirectiveCtrl.ePage.Masters.BulkInput.CargoReadyDate"
+                        datetime-picker="{{SfuCRDUpdateEditDirectiveCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="SfuCRDUpdateEditDirectiveCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                        default-date="" default-time="" save-as="SfuCRDUpdateEditDirectiveCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        is-open="SfuCRDUpdateEditDirectiveCtrl.ePage.Masters.DatePicker.isOpen['isCargoReadyDate']"
+                        when-closed="" data-ng-click="SfuCRDUpdateEditDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoReadyDate')"
+                        data-ng-change="" custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="SfuCRDUpdateEditDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoReadyDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-7 p-0 pr-5">
+            <div class="form-group">
+                <label class="control-label text-single-line">Comments</label>
+                <div class="input-group input-group-sm">
+                    <textarea class="form-control no-resize" placeholder="Enter your comments" data-ng-model="SfuCRDUpdateEditDirectiveCtrl.ePage.Masters.BulkInput.Comments"
+                        style="width: 220px;"> </textarea>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 p-0 pb-5">
+            <div class="col-lg-3 pull-right">
+                <button class="btn btn-blue btn-sm pull-right mt-6" title="Update" data-ng-disabled="SfuCRDUpdateEditDirectiveCtrl.ePage.Masters.IsDisableSave"
+                    data-ng-click="SfuCRDUpdateEditDirectiveCtrl.ePage.Masters.BulkSave(SfuCRDUpdateEditDirectiveCtrl.ePage.Masters.BulkInput)">{{SfuCRDUpdateEditDirectiveCtrl.ePage.Masters.UpdateBtn}}</button>
+            </div>
+        </div>
+    </div>
+</div>

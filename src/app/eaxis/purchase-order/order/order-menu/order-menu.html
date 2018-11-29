@@ -4,37 +4,60 @@
             <div class="tab-profile">
                 <div class="tab-profile-title text-single-line text-center" data-ng-bind="OrderMenuCtrl.currentOrder.label"></div>
             </div>
-            <uib-tab ng-repeat="x in OrderMenuCtrl.ePage.Masters.OrderMenu.ListSource" deselect="OrderMenuCtrl.ePage.Masters.TabSelected(x,$selectedIndex,$event);">
+            <uib-tab data-ng-repeat="x in OrderMenuCtrl.ePage.Masters.OrderMenu.ListSource" deselect="OrderMenuCtrl.ePage.Masters.TabSelected(x,$selectedIndex,$event, OrderMenuCtrl.currentObj);">
                 <uib-tab-heading title="{{x.DisplayName}}">
-                    <i class="fa {{x.Icon}} margin-right-5"></i> <span class="text-single-line" data-ng-bind="x.DisplayName"></span>
+                    <i class="fa {{x.Icon}} margin-right-5"></i>
+                    <span class="text-single-line" data-ng-bind="x.DisplayName"></span>
+                    <error-warning-directive data-ng-if="OrderMenuCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Order',OrderMenuCtrl.currentOrder.code,x.GParentRef, 'W', 'GParent').length > 0 && OrderMenuCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Order', OrderMenuCtrl.currentOrder.code,x.GParentRef, 'E', 'GParent').length == 0"
+                        list="OrderMenuCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList" type="'warning'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
+                    <error-warning-directive data-ng-if="OrderMenuCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Order', OrderMenuCtrl.currentOrder.code,x.GParentRef, 'E', 'GParent').length > 0"
+                        list="OrderMenuCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList" type="'error'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
                 </uib-tab-heading>
                 <div>
-                    <div ng-switch="x.Value">
+                    <div data-ng-switch="x.Value">
                         <!--Menu directives-->
-                        <div ng-switch-when="General" order-general current-order="OrderMenuCtrl.currentOrder"></div>
-                        <div ng-switch-when="OrderLines" order-lines current-order="OrderMenuCtrl.currentOrder"></div>
-                        <div ng-switch-when="ProductQuantitySummary" prod-summary current-order="OrderMenuCtrl.currentOrder"></div>
-                        <div ng-switch-when="CargoReadiness" order-cargo-readiness current-order="OrderMenuCtrl.currentOrder"></div>
-                        <div ng-switch-when="ShpPreAdvice" order-shipment-pre-advice current-order="OrderMenuCtrl.currentOrder"></div>
-                        <div ng-switch-when="Shipment" order-shipment current-order="OrderMenuCtrl.currentOrder"></div>
-                        <div ng-switch-when="Split" order-split current-order="OrderMenuCtrl.currentOrder"></div>
-                        <div ng-switch-when="Address" data-ng-if="OrderMenuCtrl.currentOrder[OrderMenuCtrl.currentOrder.label].ePage.Entities.Header.Data.UIAddressContactList.CfxTypeList"
+                        <div data-ng-switch-when="General" order-general current-order="OrderMenuCtrl.currentOrder"></div>
+                        <div data-ng-switch-when="OrderLines" order-lines current-order="OrderMenuCtrl.currentOrder"></div>
+                        <div data-ng-switch-when="ProductQuantitySummary" prod-summary current-order="OrderMenuCtrl.currentOrder"></div>
+                        <div data-ng-switch-when="CargoReadiness" order-cargo-readiness current-order="OrderMenuCtrl.currentOrder"></div>
+                        <div data-ng-switch-when="ShpPreAdvice" order-shipment-pre-advice current-order="OrderMenuCtrl.currentOrder"></div>
+                        <div data-ng-switch-when="Shipment" order-shipment current-order="OrderMenuCtrl.currentOrder"></div>
+                        <div data-ng-switch-when="Split" order-split current-order="OrderMenuCtrl.currentOrder"></div>
+                        <div data-ng-switch-when="Address" data-ng-if="OrderMenuCtrl.currentOrder[OrderMenuCtrl.currentOrder.label].ePage.Entities.Header.Data.UIAddressContactList.CfxTypeList"
                             address-directives current-obj="OrderMenuCtrl.currentOrder" entitysource="'POH'"></div>
-
                     </div>
                 </div>
             </uib-tab>
         </uib-tabset>
     </div>
-    <!--Standard Menu Directive-->
-    <!-- <div class="eaxis-footer-strip">
-        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
-            <standard-menu input="OrderMenuCtrl.ePage.Masters.StandardMenuInput" data-ng-if="!OrderMenuCtrl.currentOrder.isNew"></standard-menu>
+    <div class="error-warning-container right" id="errorWarningContainer{{OrderMenuCtrl.currentOrder.label}}">
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                <!-- <i class="fa fa-warning"></i>  -->
+                Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right" data-ng-click="OrderMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(OrderMenuCtrl.currentOrder)">
+                <i class="fa fa-arrow-right"></i>
+            </span>
         </div>
-        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="OrderMenuCtrl.ePage.Masters.Save(OrderMenuCtrl.currentOrder)"
-                data-ng-bind="OrderMenuCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="OrderMenuCtrl.ePage.Masters.IsDisableSave"></button>
+        <div class="error-warning-body">
+            <div class="clearfix" data-ng-if="OrderMenuCtrl.ePage.Masters.ErrorWarningConfig.Modules.Order.Entity[OrderMenuCtrl.currentOrder.code].GlobalErrorWarningList.length>0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in OrderMenuCtrl.ePage.Masters.ErrorWarningConfig.Modules.Order.Entity[OrderMenuCtrl.currentOrder.code].GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div> -->
-
+    </div>
 </div>

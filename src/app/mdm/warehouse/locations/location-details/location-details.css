@@ -1,82 +1,25 @@
-.button-align{
-    margin-left:-125px!important;
-}
-
-    
-.selected {
-    border-left: 3px solid #ff9090;
-}
-
-.done{
-    margin-top: 26px;
-    font-size: 12px;
-    padding: 4px 9px;
-    line-height: 1.39;
-    margin-left: 94px;
-    font-weight: 400;
-}
-.caption{
-    position: absolute;
-    height: 30px;
-    width: 208px;
-}
-
-input[readonly]{
-    background-color:#676C72;
-    border: 1;
-    font-size: 1em;
-  }
-
-
-.fwidth{
-    width: 100px;
-}
-.user-def1{
-    padding-bottom: 30px;
-}
-.btn-right{
-    float: right;
-}
-.user-def2{
+.backGroundStyle{
+    margin-right: 5px;
+    margin-left: 5px;
     margin-top: 10px;
-}
- .wmstable_scroll .table .tfield {
- display: table-row;
- font-size: 11px;
- }
-  .wmstable_scroll .table .tfield .table_field {
- display: table-cell;
- padding : 1px;
- padding-top: 4px;
- }
-    
-.border-0{
-    border: 0px !important;
-}
-.mtm-10{
-    margin-top: -10px !important;
-}
-.cus-style1{
-    margin-right: 60px;
-    margin-top: 38px;
-}
-.wid999{
-    width: 999px;
-}
-.wi425{
-    width: 425px;
-}
-.custom-error-directive{
-    margin-top: -15px;
-    margin-left: 50px;
-}
-.bo-575{
-    bottom: 575px !important;
+    padding: 10px;
+    margin-bottom: 50px;
+    background-color: #f9f9f9;
+     border: 1px solid #eee;
 }
 
-.rowName{
-    color: #759461;
-    font-weight: 500;
+.borderColor{
+    border-right: 1px solid gray;
 }
 
+.aligntext{
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+}
 
+.general-edit.locationbarcode>.modal-dialog {
+    width: 100% !important;
+    height: 100% !important;
+    margin : 0px !important;
+}
