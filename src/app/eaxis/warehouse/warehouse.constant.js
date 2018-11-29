@@ -701,6 +701,12 @@
                 'app/eaxis/warehouse/delivery-request/my-task/delivery-my-task.controller.js',
                 'app/eaxis/warehouse/delivery-request/my-task/delivery-my-task.directive.js'
             ]
+        }, {
+            name: 'deliveryDocument',
+            files: [
+                'app/eaxis/warehouse/delivery-request/delivery-document/delivery-document.controller.js',
+                'app/eaxis/warehouse/delivery-request/delivery-document/delivery-document.directive.js'
+            ]
         },
         // #endregion
         // #region pickup request

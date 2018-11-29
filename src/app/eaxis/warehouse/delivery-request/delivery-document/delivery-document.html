@@ -1,0 +1,16 @@
+<div class="clearfix p-10">
+    <div class="col-lg-12 mt-10 mb-10 headerstyle">
+        <div class="col-lg-6">DOCUMENT NAME</div>
+    </div>
+    <div ng-repeat='x in DeliveryDocumentCtrl.ePage.Masters.DocumentValues'>
+        <div class="col-lg-12 mt-10">
+            <div class="col-lg-6">
+                {{x.Description}}
+            </div>
+            <div class="col-lg-4">
+                <a href="" ng-click="DeliveryDocumentCtrl.ePage.Masters.GenerateReport(x,$index)" ng-if="!DeliveryDocumentCtrl.ePage.Masters.DocumentText[$index]"><i>Generate</i></a>
+                <span href="" ng-if="DeliveryDocumentCtrl.ePage.Masters.DocumentText[$index]"><i>Generating...</i></span>
+            </div>
+        </div>
+    </div>
+</div>
