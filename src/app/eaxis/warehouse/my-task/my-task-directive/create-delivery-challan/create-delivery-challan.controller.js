@@ -64,7 +64,7 @@
 
         //#region checkbox selection
         function SelectAllCheckBox() {
-            angular.forEach(CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine, function (value, key) {
+            angular.forEach(CreateDelChallanCtrl.ePage.Entities.Header.Data.UIvwWmsDeliveryList, function (value, key) {
                 if (CreateDelChallanCtrl.ePage.Masters.SelectAll) {
                     // Enable and disable based on page wise
                     value.SingleSelect = true;
@@ -75,7 +75,7 @@
         }
 
         function SingleSelectCheckBox() {
-            var Checked = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine.some(function (value, key) {
+            var Checked = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIvwWmsDeliveryList.some(function (value, key) {
                 // Enable and disable based on page wise
                 if (!value.SingleSelect)
                     return true;
@@ -86,7 +86,7 @@
                 CreateDelChallanCtrl.ePage.Masters.SelectAll = true;
             }
 
-            var Checked1 = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine.some(function (value, key) {
+            var Checked1 = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIvwWmsDeliveryList.some(function (value, key) {
                 return value.SingleSelect == true;
             });
         }
@@ -112,11 +112,11 @@
 
         function CreateOutward(type) {
             outwardConfig.ValidationFindall();
-            if (CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine.length > 0) {
+            if (CreateDelChallanCtrl.ePage.Entities.Header.Data.UIvwWmsDeliveryList.length > 0) {
                 var count = 0;
                 CreateDelChallanCtrl.ePage.Masters.SelectedDeliveryLine = [];
                 CreateDelChallanCtrl.ePage.Masters.SelectAll = false;
-                angular.forEach(CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine, function (value, key) {
+                angular.forEach(CreateDelChallanCtrl.ePage.Entities.Header.Data.UIvwWmsDeliveryList, function (value, key) {
                     if (value.SingleSelect) {
                         count = count + 1;
                         CreateDelChallanCtrl.ePage.Masters.SelectedDeliveryLine.push(value);
@@ -155,16 +155,53 @@
                                 if (type == "MTR")
                                     response.data.Response.Response.UIWmsOutwardHeader.WorkOrderSubType = "MTR";
                                 response.data.Response.Response.UIWmsOutwardHeader.WOD_Parent_FK = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.PK;
-                                CreateDelChallanCtrl.ePage.Masters.SelectedDeliveryLineList = angular.copy(CreateDelChallanCtrl.ePage.Masters.SelectedDeliveryLine);
-                                angular.forEach(CreateDelChallanCtrl.ePage.Masters.SelectedDeliveryLineList, function (value, key) {
-                                    value.PK = "";
-                                    value.ProductCondition = "GDC";
-                                    value.WorkOrderType = "ORD";
-                                    value.WorkOrderID = response.data.Response.Response.UIWmsOutwardHeader.WorkOrderID;
-                                    value.ExternalReference = response.data.Response.Response.UIWmsOutwardHeader.WorkOrderID;
-                                    value.WOD_FK = response.data.Response.Response.PK;
+                                angular.forEach(CreateDelChallanCtrl.ePage.Masters.SelectedDeliveryLine, function (value, key) {
+                                    var obj = {
+                                        "Parent_FK": value.PK,
+                                        "PK": "",
+                                        "WorkOrderType": "ORD",
+                                        "WorkOrderID": response.data.Response.Response.UIWmsOutwardHeader.WorkOrderID,
+                                        "ExternalReference": response.data.Response.Response.UIWmsOutwardHeader.WorkOrderID,
+                                        "WOD_FK": response.data.Response.Response.PK,
+                                        "ProductCode": value.DLPRD_Req_PrdCode,
+                                        "ProductDescription": value.DLPRD_Req_PrdDesc,
+                                        "PRO_FK": value.DLPRD_Req_PrdPk,
+                                        "Commodity": value.Commodity,
+                                        "MCC_NKCommodityCode": value.MCC_NKCommodityCode,
+                                        "MCC_NKCommodityDesc": value.MCC_NKCommodityDesc,
+                                        "ProductCondition": "GDC",
+                                        "Packs": value.Packs,
+                                        "PAC_PackType": value.PAC_PackType,
+                                        "Units": value.Units,
+                                        "StockKeepingUnit": value.StockKeepingUnit,
+                                        "PartAttrib1": value.PartAttrib1,
+                                        "PartAttrib2": value.PartAttrib2,
+                                        "PartAttrib3": value.PartAttrib3,
+                                        "LineComment": value.LineComment,
+                                        "PackingDate": value.PackingDate,
+                                        "ExpiryDate": value.ExpiryDate,
+                                        "AdditionalRef1Code": value.AdditionalRef1Code,
+                                        "UseExpiryDate": value.UseExpiryDate,
+                                        "UsePackingDate": value.UsePackingDate,
+                                        "UsePartAttrib1": value.UsePartAttrib1,
+                                        "UsePartAttrib2": value.UsePartAttrib2,
+                                        "UsePartAttrib3": value.UsePartAttrib3,
+                                        "IsPartAttrib1ReleaseCaptured": value.IsPartAttrib1ReleaseCaptured,
+                                        "IsPartAttrib2ReleaseCaptured": value.IsPartAttrib2ReleaseCaptured,
+                                        "IsPartAttrib3ReleaseCaptured": value.IsPartAttrib3ReleaseCaptured,
+
+                                        "IsDeleted": false,
+                                        "ORG_ClientCode": value.ORG_ClientCode,
+                                        "ORG_ClientName": value.ORG_ClientName,
+                                        "Client_FK": value.Client_FK,
+
+                                        "WAR_WarehouseCode": value.WAR_WarehouseCode,
+                                        "WAR_WarehouseName": value.WAR_WarehouseName,
+                                        "WAR_FK": value.WAR_FK,
+                                    };
+                                    response.data.Response.Response.UIWmsWorkOrderLine.push(obj);
                                 });
-                                response.data.Response.Response.UIWmsWorkOrderLine = CreateDelChallanCtrl.ePage.Masters.SelectedDeliveryLineList;
+
                                 var _obj = {
                                     entity: response.data.Response.Response.UIWmsOutwardHeader,
                                     data: response.data.Response.Response,

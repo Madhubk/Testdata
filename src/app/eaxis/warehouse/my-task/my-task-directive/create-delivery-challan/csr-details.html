@@ -213,7 +213,7 @@
     </div>
     <div class="clearfix mt-10">
         <div id="InwardLineTable{{CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID}}" class="fixedheader mb-0"
-            key-events table-object='CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine' enable='CreateDelChallanCtrl.ePage.Masters.Enable'
+            key-events table-object='CreateDelChallanCtrl.ePage.Entities.Header.Data.UIvwWmsDeliveryList' enable='CreateDelChallanCtrl.ePage.Masters.Enable'
             selected-row='CreateDelChallanCtrl.ePage.Masters.selectedRow' unique-id='InwardLineTable{{CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID}}'>
             <table style="height: 200px">
                 <thead>
@@ -241,7 +241,7 @@
                     </tr>
                 </thead>
                 <tbody id="InwardLineCustTable{{CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID}}">
-                    <tr id="tableBody" ng-repeat="x in CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine" ng-click="CreateDelChallanCtrl.ePage.Masters.setSelectedRow($index);"
+                    <tr id="tableBody" ng-repeat="x in CreateDelChallanCtrl.ePage.Entities.Header.Data.UIvwWmsDeliveryList" ng-click="CreateDelChallanCtrl.ePage.Masters.setSelectedRow($index);"
                         ng-class="{row_active: (CreateDelChallanCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}">
                         <td id="delcheckbox" ng-style="{ 'width':  '40px' ,'padding-top':'0px' }" ng-click="CreateDelChallanCtrl.ePage.Masters.Enable = true">
                             <label class="mb-0 customcheckbox">
@@ -252,8 +252,8 @@
                         </td>
                         <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
                         <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.AdditionalRef1Code}}</td>
-                        <td ng-style="{ 'width':  '275px' }" class="overflow-text">{{x.ProductCode}}</td>
-                        <td ng-style="{ 'width':  '300px' }" class="overflow-text">{{x.ProductDescription}}</td>
+                        <td ng-style="{ 'width':  '275px' }" class="overflow-text">{{x.DLPRD_Req_PrdCode}}</td>
+                        <td ng-style="{ 'width':  '300px' }" class="overflow-text">{{x.DLPRD_Req_PrdDesc}}</td>
                         <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.Packs}}</td>
                         <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PAC_PackType}}</td>
                         <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.Units}}</td>
