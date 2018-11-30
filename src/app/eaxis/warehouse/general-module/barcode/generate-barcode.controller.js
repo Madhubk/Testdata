@@ -85,9 +85,6 @@
                     "PageNumber": 1,
                     "PageSize": 30
                 };
-                // var _input = {
-                //     "searchInput": helperService.createToArrayOfObject(_filter)
-                // };
 
                 apiService.post("eAxisAPI",warehouseConfig.Entities.Header.API.WmsBarcode.Url, _filter).then(function SuccessCallback(response) {
                     if (response.data.Response) {
