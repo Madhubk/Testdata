@@ -38,6 +38,11 @@
             files: [
                 'app/eaxis/single-record-view/outward-release/outward-release.controller.js'
             ]
+        },{
+            name: 'SRVOutwardManifest',
+            files: [
+                'app/eaxis/single-record-view/outward-manifest/outward-manifest.controller.js'
+            ]
         }, {
             name: 'SRVOrder',
             files: [

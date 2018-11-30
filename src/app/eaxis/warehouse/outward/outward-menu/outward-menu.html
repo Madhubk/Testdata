@@ -32,7 +32,7 @@
                         <div ng-switch-when="Line" outward-line current-outward="OutwardMenuCtrl.currentOutward"></div>
                         <div ng-switch-when="Pick" ng-if="OutwardMenuCtrl.ePage.Masters.PickDetails" outward-pick pick-details="OutwardMenuCtrl.ePage.Masters.PickDetails"
                             current-outward="OutwardMenuCtrl.currentOutward"></div>
-                        <div ng-switch-when="Dispatch" data-ng-if="OutwardMenuCtrl.ePage.Masters.ManifestDetails" manifest-details="OutwardMenuCtrl.ePage.Masters.ManifestDetails"
+                        <div ng-switch-when="Dispatch" data-ng-if="OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails" manifest-details="OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails"
                             outward-dispatch current-outward="OutwardMenuCtrl.currentOutward"></div>
                         <div ng-switch-when="References & Services">
                             <div class="col-lg-12 p-0">

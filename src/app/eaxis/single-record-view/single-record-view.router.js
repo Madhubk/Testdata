@@ -138,6 +138,27 @@
                     }]
                 }
             })
+            .state('EA.singleRecordView.outwardManifest', {
+                url: '/outwardmanifest/:manifestnumber',
+                templateUrl: 'app/eaxis/single-record-view/outward-manifest/outward-manifest.html',
+                controller: "SRVOutwardManifestController as SRVOutwardManifestCtrl",
+                ncyBreadcrumb: {
+                    label: 'SRV - Outward Manifest'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        if (pageAccessService.CheckAuthToken()) {
+                            deferred.resolve();
+                        }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+
+                        return $ocLazyLoad.load(["confirmation", "errorWarning", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "EAwarehouse", "SRVOutwardManifest", "DNDUITress", "drogAndDrop", "routePlanning", "tracking", "dmsManifestList", "GatepassList", "manifestTab", "dmsManifestMenu", "dmsManifestGeneral", "dmsManifestAddress", "dmsManifestOrders", "dmsManifestItem", "approveManifest", "confirmTransportBooking", "dockinVehicle", "loadItems", "dockoutVehicle", "issueExitGatepass", "completeManifest", "pickupDelivery", "startLoad", "CreateManifestView", "AttachOrdersView", "AddItemsView", "ConfirmBookingView", "createManifest"]);
+                    }]
+                }
+            })
             .state('EA.singleRecordView.transinOrder', {
                 url: '/transinorder/:workorderid',
                 templateUrl: 'app/eaxis/single-record-view/trans-inorder/trans-inorder-page.html',

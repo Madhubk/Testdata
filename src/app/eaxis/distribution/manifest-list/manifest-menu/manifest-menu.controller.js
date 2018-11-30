@@ -24,9 +24,11 @@
             };
             // validation
             DMSManifestMenuCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
-            $timeout(function () {
-                DMSManifestMenuCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.Manifest.Entity[DMSManifestMenuCtrl.currentManifest.code];
-            });
+            if (errorWarningService.Modules.Manifest) {
+                $timeout(function () {
+                    DMSManifestMenuCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.Manifest.Entity[DMSManifestMenuCtrl.currentManifest.code];
+                });
+            }
             // Menu list from configuration
             DMSManifestMenuCtrl.ePage.Masters.ManifestMenu = {};
             DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource = DMSManifestMenuCtrl.ePage.Entities.Header.Meta.MenuList.UnloadMenu;
@@ -74,6 +76,8 @@
                 DMSManifestMenuCtrl.ePage.Masters.Config = dmsManifestConfig;
             } else if ($state.current.url == "/create-manifest") {
                 DMSManifestMenuCtrl.ePage.Masters.Config = createmanifestConfig;
+            } else {
+                DMSManifestMenuCtrl.ePage.Masters.Config = dmsManifestConfig;
             }
             DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsToggleFilter = true;
             getProcessDetails();

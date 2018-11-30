@@ -1,64 +1,66 @@
 <div class="col-lg-12 mt-15">
     <div class="rows border-box border-radius-2 bg-fbfbfb">
         <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 col-xl-2 pt-10 pb-10">
-            <div class="tab-profile-title text-single-line fs-16" data-ng-bind="OutwardDispatchCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader.ManifestNumber"></div>
+            <div class="tab-profile-title text-single-line fs-16">
+                <a href="" ng-click="OutwardDispatchCtrl.ePage.Masters.SingleRecordView()">{{OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.ManifestNumber}}</a>
+            </div>
         </div>
-
         <!--Sender-->
         <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8 col-xl-8 border-left border-right pt-10 pb-10 ">
             <div class="fs-14">
                 <span>
-                    {{OutwardDispatchCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader.SenderName}}
+                    {{OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.SenderName}}
                 </span>
                 <span class="ml-15 mr-15">
                     <i class="fa fa-arrow-circle-right"></i>
                 </span>
                 <span>
-                    {{OutwardDispatchCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader.ReceiverName}}
+                    {{OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.ReceiverName}}
                 </span>
             </div>
         </div>
         <div class="col-lg-2 mt-10">
-            <div class="tab-profile-sub-title text-single-line fs-14" title="{{OutwardDispatchCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader.ManifestStatus}} - {{OutwardDispatchCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader.ManifestStatusDesc}}"
-                data-ng-bind="OutwardDispatchCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader.ManifestStatusDesc"></div>
+            <div class="tab-profile-sub-title text-single-line fs-14" title="{{OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.ManifestStatus}} - {{OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.ManifestStatusDesc}}"
+                data-ng-bind="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.ManifestStatusDesc"></div>
         </div>
     </div>
 </div>
 <div class="clearfix col-lg-12 mt-10">
-    <div class="rows border-box  height-80">
+    <div class="rows border-box  height-150">
         <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10 mt-10">
             <div class="form-group">
                 <label class="control-label text-single-line">Transporter</label>
                 <div class="input-group input-group-sm">
                     <!-- Dynamic look up Search in textbox -->
                     <div dynamic-lookup placeholder="Transporter" my-ng-model="OutwardDispatchCtrl.ePage.Masters.Transporter" auto-complete-on-select="OutwardDispatchCtrl.ePage.Masters.SelectedLookupCarrier($item)"
-                        obj="OutwardDispatchCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader" page-name="'OrganizationList'"
+                        obj="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader" page-name="'OrganizationList'"
                         control-key="'SenderCarrier_3239'" control-id="'SenderCarrier'">
                     </div>
 
                     <!-- Look Up page opens when button clicks -->
                     <span class="input-group-btn">
-                        <button dynamic-list-modal obj="OutwardDispatchCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader" control-id="'SenderCarrier'"
-                            control-key="'SenderCarrier_3239'" selected-data="OutwardDispatchCtrl.ePage.Masters.SelectedLookupCarrier($item)"
+                        <button dynamic-list-modal obj="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader" control-id="'SenderCarrier'"
+                            control-key="'SenderCarrier_3239'" selected-data="OutwardDispatchCtrl.ePage.Masters.SelectedLookupCarrier($item.data.entity)"
                             page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny"
                             type="button">
                             <i class="fa fa-ellipsis-h"></i>
                         </button>
                     </span>
                     <span ng-if="!OutwardDispatchCtrl.ePage.Masters.Transporter">
-                        <span data-ng-init="OutwardDispatchCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader.TransporterCode=''"></span>
-                        <span data-ng-init="OutwardDispatchCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader.TransporterName=''"></span>
+                        <span data-ng-init="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.Transporter_ORG_FK=''"></span>
+                        <span data-ng-init="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.TransporterCode=''"></span>
+                        <span data-ng-init="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.TransporterName=''"></span>
                     </span>
-                    <span ng-if='!OutwardDispatchCtrl.ePage.Masters.Transporter && !OutwardDispatchCtrl.currentManifest.isNew'>
+                    <!-- <span ng-if='!OutwardDispatchCtrl.ePage.Masters.Transporter && !OutwardDispatchCtrl.currentManifest.isNew'>
                         <div ng-init="OutwardDispatchCtrl.ePage.Masters.OnFieldValueChange('E5508');"></div>
-                    </span>
+                    </span> -->
                 </div>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
             <div class="form-group">
                 <label class="control-label text-single-line">Manifest Type</label>
-                <select chosen class="form-control" style="height: 30px;" ng-model="OutwardDispatchCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader.ManifestType"
+                <select chosen class="form-control" style="height: 30px;" ng-model="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.ManifestType"
                     ng-options="x.Key as x.Key + ' - '  + x.Value for x in OutwardDispatchCtrl.ePage.Masters.DropDownMasterList.ManifestType.ListSource"
                     ng-change="OutwardDispatchCtrl.ePage.Masters.OnFieldValueChange('E5502')" search-contains="true">
                     <option value="">--Select--</option>
@@ -68,8 +70,9 @@
         <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
             <div class="form-group">
                 <label class="control-label text-single-line">Vehicle Type</label>
-                <select chosen class="form-control" style="height: 30px;" ng-model="OutwardDispatchCtrl.ePage.Masters.TmsManifestHeader.VehicleTypeCode"
+                <select chosen class="form-control" style="height: 30px;" ng-model="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.VehicleTypeCode"
                     ng-options="x.Code as x.Code + ' - '  + x.Description for x in OutwardDispatchCtrl.ePage.Masters.VehicleType | filter: {IsVehicle:true}"
+                    ng-change="OutwardDispatchCtrl.ePage.Masters.OnChangeVehicleType(OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.VehicleTypeCode)"
                     search-contains="true">
                     <option value="">--Select--</option>
                 </select>
@@ -78,7 +81,7 @@
         <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
             <div class="form-group">
                 <label class="control-label text-single-line">Load Type</label>
-                <select chosen class="form-control" style="height: 30px;" ng-model="OutwardDispatchCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader.LoadType"
+                <select chosen class="form-control" style="height: 30px;" ng-model="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.LoadType"
                     ng-options="x.Key as x.Key + ' - '  + x.Value for x in OutwardDispatchCtrl.ePage.Masters.DropDownMasterList.ManifestLoadType.ListSource"
                     search-contains="true">
                     <option value="">--Select--</option>
@@ -86,11 +89,58 @@
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
+            <div class="clearfix form-group">
+                <label class="control-label text-single-line">Mode Of Transport </label>
+                <select chosen class="form-control" style="height: 30px;" ng-model="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.TransportMode"
+                    ng-options="x as x for x in OutwardDispatchCtrl.ePage.Masters.TransportMode" search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
+            <div class="form-group">
+                <label class="control-label text-single-line">Transporter Reference No</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Transporter Reference No"
+                        data-ng-model="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.TransportRefNo">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+            <div class="form-group">
+                <label class="control-label text-single-line">Expected Vehicle No</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Expected Vehicle No"
+                        data-ng-model="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.VehicleNo">
+                </div>
+            </div>
+        </div>
+        <!-- Expected Driver Name   -->
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+            <div class="clearfix form-group">
+                <label class="control-label text-single-line">Expected Driver Name</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Expected Driver Name"
+                        data-ng-model="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.DriveName">
+                </div>
+            </div>
+        </div>
+        <!-- Driver Contact No   -->
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+            <div class="clearfix form-group">
+                <label class="control-label text-single-line">Driver Contact No</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Driver Contact No"
+                        data-ng-model="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.DriverContactNo">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
             <div class="form-group">
                 <label class="control-label text-single-line">Estimated Dispatch Date</label>
                 <div class="input-group input-group-sm">
                     <input type="text" class="form-control" placeholder="{{OutwardDispatchCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
-                        datetime-picker="{{OutwardDispatchCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}" ng-model="OutwardDispatchCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader.EstimatedDispatchDate"
+                        datetime-picker="{{OutwardDispatchCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}" ng-model="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.EstimatedDispatchDate"
                         is-open="OutwardDispatchCtrl.ePage.Masters.DatePicker.isOpen['isEstimatedDispatchDate']" datepicker-options="OutwardDispatchCtrl.ePage.Masters.DatePicker.Options"
                         datepicker-append-to-body="false" close-on-selection="false" enable-date="true" enable-time="true" default-date=""
                         default-time="" when-closed="" save-as="OutwardDispatchCtrl.ePage.Masters.DatePicker.Options.saveFormat"
@@ -104,12 +154,12 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
             <div class="form-group">
                 <label class="control-label text-single-line">Estimated Delivery Date</label>
                 <div class="input-group input-group-sm">
                     <input type="text" class="form-control" placeholder="{{OutwardDispatchCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
-                        datetime-picker="{{OutwardDispatchCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}" ng-model="OutwardDispatchCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader.EstimatedDeliveryDate"
+                        datetime-picker="{{OutwardDispatchCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}" ng-model="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.EstimatedDeliveryDate"
                         is-open="OutwardDispatchCtrl.ePage.Masters.DatePicker.isOpen['isEstimatedDeliveryDate']" datepicker-options="OutwardDispatchCtrl.ePage.Masters.DatePicker.Options"
                         datepicker-append-to-body="false" close-on-selection="false" enable-date="true" enable-time="true" default-date=""
                         default-time="" when-closed="" save-as="OutwardDispatchCtrl.ePage.Masters.DatePicker.Options.saveFormat"
@@ -123,5 +173,89 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div class="col-lg-12 p-5">
+    <div id="ManifestConsignmentTable{{OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.ManifestNumber}}"
+        class="fixedheader mb-0" key-events table-object='OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestConsignment'
+        enable='OutwardDispatchCtrl.ePage.Masters.Enable' selected-row='OutwardDispatchCtrl.ePage.Masters.selectedRow' unique-id='ManifestConsignmentTable{{OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.ManifestNumber}}'>
+        <table style="height: 200px">
+            <thead>
+                <tr id="tableHeader">
+                    <th ng-style="{ 'width':  '40px' }" title="S.No">S.No</th>
+                    <th ng-style="{ 'width':  '150px' }" title="Consignment Number">Consignment Number</th>
+                    <th ng-style="{ 'width':  '250px' }" title="Sender">Sender</th>
+                    <th ng-style="{ 'width':  '250px' }" title="Receiver">Receiver</th>
+                    <th ng-style="{ 'width':  '150px' }" title="Client">Client</th>
+                    <th ng-style="{ 'width':  '150px' }" title="Service Type">Service Type</th>
+                    <!-- <th ng-style="{ 'width':  '100px' }" title="Status">Status</th> -->
+                    <th ng-style="{ 'width':  '150px' }" title="Sender Reference">Sender Reference</th>
+                    <th ng-style="{ 'width':  '150px' }" title="Receiver Reference">Receiver Reference</th>
+                    <th ng-style="{ 'width':  '150px' }" title="Expected Pickup Date Time">Expected Pickup Date Time</th>
+                    <th ng-style="{ 'width':  '150px' }" title="Expected Delivery Date Time">Expected Delivery Date Time</th>
+                    <!-- <th ng-style="{ 'width':  '100px' }" title="Packing Date">Packing Date</th>
+                    <th ng-style="{ 'width':  '100px' }" title="Expiry Date">Expiry Date</th> -->
+                </tr>
+            </thead>
+            <tbody id="ManifestConsignmentLineTable{{OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.ManifestNumber}}">
+                <tr id="tableBody" ng-repeat="x in OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestConsignment" ng-click="OutwardDispatchCtrl.ePage.Masters.setSelectedRow($index);"
+                    ng-class="{row_active: (OutwardDispatchCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}">
+                    <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
+                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ConsignmentNumber}}</td>
+                    <td ng-style="{ 'width':  '250px' }" class="overflow-text">{{x.TMC_SenderCode}} - {{x.TMC_SenderName}}</td>
+                    <td ng-style="{ 'width':  '250px' }" class="overflow-text">{{x.TMC_ReceiverCode}} - {{x.TMC_ReceiverName}}</td>
+                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ClientId}}</td>
+                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ServiceType}}</td>
+                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_SenderRef}}</td>
+                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ReceiverRef}}</td>
+                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ExpectedPickupDateTime}}</td>
+                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ExpectedDeliveryDateTime}}</td>
+                    <!-- <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PartAttrib3}}</td>
+                    <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PackingDate}}</td>
+                    <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.ExpiryDate}}</td> -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="col-lg-12 p-5">
+    <div id="ManifestItemTable{{OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.ManifestNumber}}"
+        class="fixedheader mb-0" key-events table-object='OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestItem'
+        enable='OutwardDispatchCtrl.ePage.Masters.Enable' selected-row='OutwardDispatchCtrl.ePage.Masters.selectedRow' unique-id='ManifestItemTable{{OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.ManifestNumber}}'>
+        <table style="height: 200px">
+            <thead>
+                <tr id="tableHeader">
+                    <th ng-style="{ 'width':  '40px' }" title="S.No">S.No</th>
+                    <th ng-style="{ 'width':  '250px' }" title="Item">Item</th>
+                    <th ng-style="{ 'width':  '150px' }" title="MHU Type">MHU Type</th>
+                    <th ng-style="{ 'width':  '100px' }" title="Quantity">Quantity</th>
+                    <!-- <th ng-style="{ 'width':  '100px' }" title="Sender">Sender</th>
+                    <th ng-style="{ 'width':  '100px' }" title="Receiver">Receiver</th> -->
+                    <th ng-style="{ 'width':  '150px' }" title="Consignment Number">Consignment Number</th>
+                    <th ng-style="{ 'width':  '100px' }" title="UDF 1">UDF 1</th>
+                    <th ng-style="{ 'width':  '100px' }" title="UDF 2">UDF 2</th>
+                    <th ng-style="{ 'width':  '100px' }" title="UDF 3">UDF 3</th>
+                    <th ng-style="{ 'width':  '150px' }" title="Packing Date">Packing Date</th>
+                    <th ng-style="{ 'width':  '150px' }" title="Expiry Date">Expiry Date</th>
+                </tr>
+            </thead>
+            <tbody id="ManifestItemLineTable{{OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.ManifestNumber}}">
+                <tr id="tableBody" ng-repeat="x in OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestItem" ng-click="OutwardDispatchCtrl.ePage.Masters.setSelectedRow($index);"
+                    ng-class="{row_active: (OutwardDispatchCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}">
+                    <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
+                    <td ng-style="{ 'width':  '250px' }" class="overflow-text">{{x.TIT_ItemCode}} - {{x.TIT_ItemDesc}}</td>
+                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TIT_ItemRef_ID}}</td>
+                    <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.Quantity}}</td>
+                    <!-- <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.TIT_SenderCode}} - {{x.TIT_SenderName}}</td>
+                    <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.TIT_ReceiverCode}} - {{x.TIT_ReceiverName}}</td> -->
+                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ConsignmentNumber}}</td>
+                    <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.WOM_PartAttrib1}}</td>
+                    <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.WOM_PartAttrib2}}</td>
+                    <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.WOM_PartAttrib3}}</td>
+                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.WOM_PackingDate}}</td>
+                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.WOM_ExpiryDate}}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
