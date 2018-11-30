@@ -146,28 +146,46 @@
         }
 
         function getSearchReports() {
+            debugger
             var obj = angular.copy(ReportCtrl.ePage.Masters.OtherConfigList[ReportCtrl.ePage.Masters.selectedRow].ReportTemplate);
             ReportCtrl.ePage.Masters.ChildMenuList[ReportCtrl.ePage.Masters.selectedRow].IsDownloading = true;
             ReportCtrl.ePage.Masters.ChildMenuList[ReportCtrl.ePage.Masters.selectedRow].DocumentName = undefined;
 
+            //Setting Filter to Static Binding and Assigning Filter to SearchInput
             if (ReportCtrl.ePage.Masters.DynamicControl.Filter) {
 
                 obj.DataObjs[1].SearchInput.SearchInput = ReportCtrl.ePage.Masters.DynamicControl.Filter;
+
                 if(obj.DataObjs[2]){
                     obj.DataObjs[2].SearchInput.SearchInput = ReportCtrl.ePage.Masters.DynamicControl.Filter;
                 }
 
-                angular.forEach(ReportCtrl.ePage.Masters.DynamicControl.Filter, function (value1, key) {
-                    if (value1.FieldName == 'ClientCode' || value1.FileName=='ORG_ClientCode')
-                        obj.DataObjs[0].DataObject.Client_Code = value1.value;
-                    if (value1.FieldName == 'WAR_WarehouseCode')
-                        obj.DataObjs[0].DataObject.Warehouse_Code = value1.value;
+                ReportCtrl.ePage.Masters.DynamicControl.Filter.map(function(val,key){
+                    if(val.FieldName == "WAR_WarehouseCode" || val.FieldName == "WarehouseCode"){
+                        obj.DataObjs[0].DataObject.Warehouse_Code = val.value;
+                    }
+                    if(val.FieldName == "ClientCode" || val.FieldName == "ORG_ClientCode"){
+                        obj.DataObjs[0].DataObject.Client_Code = val.value;
+                    }
+                    if(val.FieldName == "ProductCode" || val.FieldName == "PartNum"){
+                        obj.DataObjs[0].DataObject.Product_Code = val.value;
+                    }
+                    if(val.FieldName == "Location" || val.FieldName == "WLO_Location" || val.FieldName == "ORG_Location_Code"){
+                        obj.DataObjs[0].DataObject.Location = val.value;
+                    }
+                    if(val.FieldName == "StockBalanceOn" ){
+                        obj.DataObjs[0].DataObject.Custom_Date = val.value;
+                    }
+                    
                 });
+
             } else {
                 obj.DataObjs[1].SearchInput.SearchInput = [];
             }
+
+
             var mydate = new Date();
-            var filtereddate = $filter('date')(mydate, 'yyyy-MM-dd');
+            var filtereddate = $filter('date')(mydate, 'dd-MMM-yyyy');
             obj.DataObjs[0].DataObject.Date = filtereddate;
 
             obj.JobDocs.EntityRefKey = ReportCtrl.ePage.Masters.ChildMenuList[ReportCtrl.ePage.Masters.selectedRow].Id;
