@@ -5,9 +5,9 @@
         .module("Application")
         .controller("ActivityTemplateInwardController", ActivityTemplateInwardController);
 
-    ActivityTemplateInwardController.$inject = ["helperService", "APP_CONSTANT", "$q", "apiService", "authService", "appConfig", "toastr", "errorWarningService", "myTaskActivityConfig", "$filter", "$timeout"];
+    ActivityTemplateInwardController.$inject = ["$rootScope", "helperService", "APP_CONSTANT", "$q", "apiService", "authService", "appConfig", "toastr", "errorWarningService", "myTaskActivityConfig", "$filter", "$timeout", "inwardConfig", "confirmation"];
 
-    function ActivityTemplateInwardController(helperService, APP_CONSTANT, $q, apiService, authService, appConfig, toastr, errorWarningService, myTaskActivityConfig, $filter, $timeout) {
+    function ActivityTemplateInwardController($rootScope, helperService, APP_CONSTANT, $q, apiService, authService, appConfig, toastr, errorWarningService, myTaskActivityConfig, $filter, $timeout, inwardConfig, confirmation) {
         var ActivityTemplateInwardCtrl = this;
 
         function Init() {
@@ -101,31 +101,42 @@
                     if (response.data.Response) {
                         ActivityTemplateInwardCtrl.ePage.Masters.EntityObj = response.data.Response;
                         ActivityTemplateInwardCtrl.ePage.Entities.Header.Data = ActivityTemplateInwardCtrl.ePage.Masters.EntityObj;
-                        ActivityTemplateInwardCtrl.currentInward = {
-                            [ActivityTemplateInwardCtrl.ePage.Masters.EntityObj.UIWmsInwardHeader.WorkOrderID]: {
-                                ePage: {
-                                    Entities: {
-                                        Header: {
-                                            Data: ActivityTemplateInwardCtrl.ePage.Entities.Header.Data
-                                        }
-                                    }
+                        inwardConfig.GetTabDetails(ActivityTemplateInwardCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader, false).then(function (response) {
+                            angular.forEach(response, function (value, key) {
+                                if (value.label == ActivityTemplateInwardCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderID) {
+                                    ActivityTemplateInwardCtrl.currentInward = value;
+                                    myTaskActivityConfig.Entities.Inward = ActivityTemplateInwardCtrl.currentInward;
+                                    getTaskConfigData();
                                 }
-                            },
-                            label: ActivityTemplateInwardCtrl.ePage.Masters.EntityObj.UIWmsInwardHeader.WorkOrderID,
-                            code: ActivityTemplateInwardCtrl.ePage.Masters.EntityObj.UIWmsInwardHeader.WorkOrderID,
-                            isNew: false
-                        };
-                        myTaskActivityConfig.Entities.Inward = ActivityTemplateInwardCtrl.currentInward;
-                        getTaskConfigData();
+                            });
+                        });
                     }
                 });
             }
         }
 
-        function SaveEntity() {
+        function SaveEntity(callback) {
+            if (ActivityTemplateInwardCtrl.taskObj.WSI_StepName == "Receive Transfer Material") {
+                if (callback) {
+                    $rootScope.FinalizeInwardFromTask(function () {
+                        if (callback)
+                            callback();
+                        // toastr.success("Saved Successfully");
+                    });
+                } else {
+                    $rootScope.SaveInwardFromTask(function () {
+                        // toastr.success("Saved Successfully");
+                    });
+                }
+            } else {
+                saves();
+            }
+        }
+
+        function saves() {
             ActivityTemplateInwardCtrl.ePage.Masters.SaveBtnText = "Please Wait...";
             ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = true;
-            var _input = angular.copy(ActivityTemplateInwardCtrl.ePage.Masters.EntityObj);
+            var _input = angular.copy(myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data);
             _input.UIWmsInwardHeader.IsModified = true;
             apiService.post("eAxisAPI", appConfig.Entities.InwardList.API.Update.Url, _input).then(function (response) {
                 if (response.data.Response) {
@@ -140,25 +151,95 @@
 
         function SaveOnly() {
             var deferred = $q.defer();
-            var _inputObj = {
-                "CompleteInstanceNo": ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.PSI_InstanceNo,
-                "CompleteStepNo": ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.WSI_StepNo,
-                "DataSlots": {
-                    "Val1": "",
-                    "Val2": "",
-                    "Val3": "",
-                    "Val4": "",
-                    "Val5": "",
-                    "Val6": "",
-                    "Val7": "",
-                    "Val8": "",
-                    "Val9": "",
-                    "Val10": ""
+            var input = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data;
+            helperService.getFullObjectUsingGetById(appConfig.Entities.WmsOutwardList.API.GetById.Url, 'null').then(function (response) {
+                if (response.data.Response.Response) {
+                    //Assigning Header Object
+                    response.data.Response.Response.UIWmsOutwardHeader.PK = response.data.Response.Response.PK;
+                    response.data.Response.Response.UIWmsOutwardHeader.CreatedDateTime = new Date();
+                    response.data.Response.Response.UIWmsOutwardHeader.WorkOrderType = 'ORD';
+                    response.data.Response.Response.UIWmsOutwardHeader.ExternalReference = "Outward " + response.data.Response.Response.UIWmsOutwardHeader.WorkOrderID;
+                    response.data.Response.Response.UIWmsOutwardHeader.ORG_Client_FK = input.UIWmsInwardHeader.ORG_Client_FK;
+                    response.data.Response.Response.UIWmsOutwardHeader.ORG_FK = input.UIWmsInwardHeader.ORG_FK;
+                    response.data.Response.Response.UIWmsOutwardHeader.ClientCode = input.UIWmsInwardHeader.ClientCode;
+                    response.data.Response.Response.UIWmsOutwardHeader.ClientName = input.UIWmsInwardHeader.ClientName;
+                    response.data.Response.Response.UIWmsOutwardHeader.ORG_Consignee_FK = input.UIWmsInwardHeader.ORG_Consignee_FK;
+                    response.data.Response.Response.UIWmsOutwardHeader.ConsigneeCode = input.UIWmsInwardHeader.ConsigneeCode;
+                    response.data.Response.Response.UIWmsOutwardHeader.ConsigneeName = input.UIWmsInwardHeader.ConsigneeName;
+                    response.data.Response.Response.UIWmsOutwardHeader.WAR_FK = input.UIWmsInwardHeader.WAR_FK;
+                    response.data.Response.Response.UIWmsOutwardHeader.WarehouseCode = input.UIWmsInwardHeader.WarehouseCode
+                    response.data.Response.Response.UIWmsOutwardHeader.WarehouseName = input.UIWmsInwardHeader.WarehouseName
+                    response.data.Response.Response.UIWmsOutwardHeader.WOD_Parent_FK = input.UIWmsInwardHeader.PK
 
+                    //Assigning Outward Line Object
+                    input.UIWmsWorkOrderLine.map(function (value, key) {
+                        var LineObj = {
+                            "PK": "",
+                            "Parent_FK": value.PK,
+                            "Client_FK": value.Client_FK,
+                            "ORG_Client_FK": value.ORG_Client_FK,
+                            "ORG_ClientCode": value.ORG_ClientCode,
+                            "ORG_ClientName": value.ORG_ClientName,
+                            "ExternalReference": value.ExternalReference,
+                            "MCC_NKCommodityCode": value.MCC_NKCommodityCode,
+                            "MCC_NKCommodityDesc": value.MCC_NKCommodityDesc,
+                            "ProductCode": value.ProductCode,
+                            "ProductDescription": value.ProductDescription,
+                            "ProductCondition": value.ProductCondition,
+                            "PRO_FK": value.PRO_FK,
+                            "Packs": value.Packs,
+                            "PAC_PackType": value.PAC_PackType,
+                            "Units": value.Units,
+                            "StockKeepingUnit": value.StockKeepingUnit,
+                            "PalletId": value.PalletID,
+                            "PartAttrib1": value.PartAttrib1,
+                            "PartAttrib2": value.PartAttrib2,
+                            "PartAttrib3": value.PartAttrib3,
+                            "PackingDate": value.PackingDate,
+                            "ExpiryDate": value.ExpiryDate,
+                            "AdditionalRef1Code": value.AdditionalRef1Code,
+                            "AdditionalRef1Type": value.AdditionalRef1Type,
+                            "UseExpiryDate": value.UseExpiryDate,
+                            "UsePackingDate": value.UsePackingDate,
+                            "UsePartAttrib1": value.UsePartAttrib1,
+                            "UsePartAttrib2": value.UsePartAttrib2,
+                            "UsePartAttrib3": value.UsePartAttrib3,
+                            "WAR_FK": value.WAR_FK,
+                            "WorkOrderID": response.data.Response.Response.UIWmsOutwardHeader.WorkOrderID,
+                            "WorkOrderLineType": "ORD",
+                            "WorkOrderType": "ORD"
+                        }
+                        response.data.Response.Response.UIWmsWorkOrderLine.push(LineObj);
+                    });
+
+                    //Inserting Outward
+                    apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.Insert.Url, response.data.Response.Response).then(function (response) {
+                        if (response.data.Status == 'Success') {
+                            var _inputObj = {
+                                "CompleteInstanceNo": ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.PSI_InstanceNo,
+                                "CompleteStepNo": ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.WSI_StepNo,
+                                "DataSlots": {
+                                    "Val1": "",
+                                    "Val2": "",
+                                    "Val3": "",
+                                    "Val4": "",
+                                    "Val5": "",
+                                    "Val6": "",
+                                    "Val7": "",
+                                    "Val8": "",
+                                    "Val9": "",
+                                    "Val10": ""
+                                }
+                            }
+                            apiService.post("eAxisAPI", appConfig.Entities.EBPMEngine.API.CompleteProcess.Url, _inputObj).then(function (response) {
+                                deferred.resolve(response);
+                            });
+                            toastr.success("Outward is successfully created.. Outward No : " + response.data.Response.UIWmsOutwardHeader.WorkOrderID);
+                        } else {
+                            toastr.error("Outward Save Failed.");
+                        }
+                    });
                 }
-            }
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMEngine.API.CompleteProcess.Url, _inputObj).then(function (response) {
-                deferred.resolve(response);
             });
             return deferred.promise;
         }
@@ -265,7 +346,7 @@
                             SubModuleCode: "INW",
                         },
                         GroupCode: ActivityTemplateInwardCtrl.ePage.Masters.ValidationSource[0].Code,
-                        EntityObject: ActivityTemplateInwardCtrl.ePage.Masters.EntityObj
+                        EntityObject: myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data
                     };
                     errorWarningService.ValidateValue(_obj);
                 }
@@ -372,25 +453,26 @@
         }
 
         function CompleteWithSave() {
-            ActivityTemplateInwardCtrl.ePage.Masters.CompleteBtnText = "Please Wait...";
-            ActivityTemplateInwardCtrl.ePage.Masters.IsDisableCompleteBtn = true;
-            SaveEntity();
-            SaveOnly().then(function (response) {
-                if (response.data.Status == "Success") {
-                    toastr.success("Task Completed Successfully...!");
-                    var _data = {
-                        IsCompleted: true,
-                        Item: ActivityTemplateInwardCtrl.ePage.Masters.TaskObj
-                    };
+            SaveEntity(function () {
+                ActivityTemplateInwardCtrl.ePage.Masters.CompleteBtnText = "Please Wait...";
+                ActivityTemplateInwardCtrl.ePage.Masters.IsDisableCompleteBtn = true;
+                SaveOnly().then(function (response) {
+                    if (response.data.Status == "Success") {
+                        toastr.success("Task Completed Successfully...!");
+                        var _data = {
+                            IsCompleted: true,
+                            Item: ActivityTemplateInwardCtrl.ePage.Masters.TaskObj
+                        };
 
-                    ActivityTemplateInwardCtrl.onComplete({
-                        $item: _data
-                    });
-                } else {
-                    toastr.error("Task Completion Failed...!");
-                }
-                ActivityTemplateInwardCtrl.ePage.Masters.IsDisableCompleteBtn = false;
-                ActivityTemplateInwardCtrl.ePage.Masters.CompleteBtnText = "Complete";
+                        ActivityTemplateInwardCtrl.onComplete({
+                            $item: _data
+                        });
+                    } else {
+                        toastr.error("Task Completion Failed...!");
+                    }
+                    ActivityTemplateInwardCtrl.ePage.Masters.IsDisableCompleteBtn = false;
+                    ActivityTemplateInwardCtrl.ePage.Masters.CompleteBtnText = "Complete";
+                });
             });
         }
 

@@ -188,13 +188,11 @@
                     <th ng-style="{ 'width':  '250px' }" title="Receiver">Receiver</th>
                     <th ng-style="{ 'width':  '150px' }" title="Client">Client</th>
                     <th ng-style="{ 'width':  '150px' }" title="Service Type">Service Type</th>
-                    <!-- <th ng-style="{ 'width':  '100px' }" title="Status">Status</th> -->
                     <th ng-style="{ 'width':  '150px' }" title="Sender Reference">Sender Reference</th>
                     <th ng-style="{ 'width':  '150px' }" title="Receiver Reference">Receiver Reference</th>
                     <th ng-style="{ 'width':  '150px' }" title="Expected Pickup Date Time">Expected Pickup Date Time</th>
                     <th ng-style="{ 'width':  '150px' }" title="Expected Delivery Date Time">Expected Delivery Date Time</th>
-                    <!-- <th ng-style="{ 'width':  '100px' }" title="Packing Date">Packing Date</th>
-                    <th ng-style="{ 'width':  '100px' }" title="Expiry Date">Expiry Date</th> -->
+                    <th ng-style="{ 'width':  '100px' }" title="Document">Document</th>
                 </tr>
             </thead>
             <tbody id="ManifestConsignmentLineTable{{OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.ManifestNumber}}">
@@ -210,9 +208,11 @@
                     <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ReceiverRef}}</td>
                     <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ExpectedPickupDateTime}}</td>
                     <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ExpectedDeliveryDateTime}}</td>
-                    <!-- <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PartAttrib3}}</td>
-                    <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PackingDate}}</td>
-                    <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.ExpiryDate}}</td> -->
+                    <td ng-style="{ 'width':  '100px' }" class="overflow-text">
+                        <div data-ng-init="OutwardDispatchCtrl.ePage.Masters.StandardMenuConfig(x,$index)"></div>
+                        <i class="fa fa-file" style="font-size: 14px; margin-left: 20px;" document-modal input="OutwardDispatchCtrl.ePage.Masters.DocumentInput[$index]"
+                            mode="1" data-ng-if="OutwardDispatchCtrl.ePage.Masters.DocumentInput[$index]"></i>
+                    </td>
                 </tr>
             </tbody>
         </table>

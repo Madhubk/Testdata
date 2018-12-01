@@ -25,6 +25,7 @@
             OutwardDispatchCtrl.ePage.Masters.DropDownMasterList = {};
             OutwardDispatchCtrl.ePage.Masters.TransportMode = ["Road", "Air", "Sea"];
             OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails = OutwardDispatchCtrl.manifestDetails;
+            OutwardDispatchCtrl.ePage.Masters.DocumentInput = [];
             // DatePicker
             OutwardDispatchCtrl.ePage.Masters.DatePicker = {};
             OutwardDispatchCtrl.ePage.Masters.DatePicker.Options = APP_CONSTANT.DatePicker;
@@ -34,8 +35,29 @@
             OutwardDispatchCtrl.ePage.Masters.SelectedLookupCarrier = SelectedLookupCarrier;
             OutwardDispatchCtrl.ePage.Masters.OnChangeVehicleType = OnChangeVehicleType;
             OutwardDispatchCtrl.ePage.Masters.SingleRecordView = SingleRecordView;
+            OutwardDispatchCtrl.ePage.Masters.StandardMenuConfig = StandardMenuConfig;
             GetDropDownList();
             getVehicleType();
+        }
+
+        function StandardMenuConfig(value, index) {
+            OutwardDispatchCtrl.ePage.Masters.DocumentInput[index] = {
+                // Entity
+                "EntityRefKey": OutwardDispatchCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK,
+                "EntityRefCode": OutwardDispatchCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID,
+                "EntitySource": "ORD",
+                // Parent Entity
+                "ParentEntityRefKey": value.TMC_FK,
+                "ParentEntityRefCode": value.TMC_ConsignmentNumber,
+                "ParentEntitySource": "TMC",
+                // Additional Entity
+                "AdditionalEntityRefKey": OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.PK,
+                "AdditionalEntityRefCode": OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.ManifestNumber,
+                "AdditionalEntitySource": "TMM",
+                "RowObj": undefined,
+                "Config": undefined,
+                "Entity": "TransportsManifest"
+            };
         }
 
         function SingleRecordView() {
@@ -43,7 +65,7 @@
                 PK: OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.PK,
                 ManifestNumber: OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.ManifestNumber,
                 ConfigName: "dmsManifestConfig",
-                Header:OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader
+                Header: OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader
             };
             _queryString = helperService.encryptData(_queryString);
             $window.open("#/EA/single-record-view/outwardmanifest/" + _queryString, "_blank");

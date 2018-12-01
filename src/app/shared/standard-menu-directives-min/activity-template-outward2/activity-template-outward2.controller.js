@@ -5,15 +5,15 @@
         .module("Application")
         .controller("ActivityTemplateOutward2Controller", ActivityTemplateOutward2Controller);
 
-    ActivityTemplateOutward2Controller.$inject = ["$rootScope", "helperService", "APP_CONSTANT", "$q", "apiService", "authService", "appConfig", "toastr", "errorWarningService", "myTaskActivityConfig", "$filter", "$timeout"];
+    ActivityTemplateOutward2Controller.$inject = ["$rootScope", "helperService", "APP_CONSTANT", "$q", "apiService", "authService", "appConfig", "toastr", "errorWarningService", "myTaskActivityConfig", "$filter", "$timeout", "outwardConfig"];
 
-    function ActivityTemplateOutward2Controller($rootScope, helperService, APP_CONSTANT, $q, apiService, authService, appConfig, toastr, errorWarningService, myTaskActivityConfig, $filter, $timeout) {
+    function ActivityTemplateOutward2Controller($rootScope, helperService, APP_CONSTANT, $q, apiService, authService, appConfig, toastr, errorWarningService, myTaskActivityConfig, $filter, $timeout, outwardConfig) {
         var ActivityTemplateOutward2Ctrl = this;
 
         function Init() {
             ActivityTemplateOutward2Ctrl.ePage = {
                 "Title": "",
-                "Prefix": "Activity_Template_Delivery_Request",
+                "Prefix": "Activity_Template_Outward",
                 "Masters": {},
                 "Meta": {},
                 "Entities": {
@@ -101,45 +101,47 @@
                     if (response.data.Response) {
                         ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj = response.data.Response;
                         ActivityTemplateOutward2Ctrl.ePage.Entities.Header.Data = ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj;
-                        ActivityTemplateOutward2Ctrl.currectOutward = {
-                            [ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj.UIWmsOutwardHeader.WorkOrderID]: {
-                                ePage: {
-                                    Entities: {
-                                        Header: {
-                                            Data: ActivityTemplateOutward2Ctrl.ePage.Entities.Header.Data
-                                        }
-                                    }
+                        outwardConfig.GetTabDetails(ActivityTemplateOutward2Ctrl.ePage.Entities.Header.Data.UIWmsOutwardHeader, false).then(function (response) {
+                            angular.forEach(response, function (value, key) {
+                                if (value.label == ActivityTemplateOutward2Ctrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID) {
+                                    ActivityTemplateOutward2Ctrl.currentOutward = value;
+                                    myTaskActivityConfig.Entities.Outward = ActivityTemplateOutward2Ctrl.currentOutward;
+                                    getTaskConfigData();
                                 }
-                            },
-                            label: ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj.UIWmsOutwardHeader.WorkOrderID,
-                            code: ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj.UIWmsOutwardHeader.WorkOrderID,
-                            isNew: false
-                        };
-                        myTaskActivityConfig.Entities.Outward = ActivityTemplateOutward2Ctrl.currectOutward;
-                        getTaskConfigData();
+                            });
+                        });
                     }
                 });
             }
         }
 
         function SaveEntity() {
-            if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Arrange Material") {
-                $rootScope.SaveOutwardFromTask();
-            } else {
-                ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableSaveBtn = true;
-                ActivityTemplateOutward2Ctrl.ePage.Masters.SaveBtnText = "Please Wait..";
-                var _input = angular.copy(ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj);
-                _input.UIWmsOutwardHeader.IsModified = true;
-                apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.Update.Url, _input).then(function (response) {
-                    if (response.data.Response) {
-                        toastr.success("Saved Successfully...!");
-                    } else {
-                        toastr.error("Save Failed...!");
-                    }
-                    ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableSaveBtn = false;
-                    ActivityTemplateOutward2Ctrl.ePage.Masters.SaveBtnText = "Save";
+            if (ActivityTemplateOutward2Ctrl.taskObj.ProcessName == "WMS_DeliveryMaterial") {
+                apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.Update.Url, myTaskActivityConfig.Entities.DeliveryData).then(function (response) {
+                    $rootScope.SaveOutwardFromTask(function () {
+                        // saves();
+                        toastr.success("Saved Successfully");
+                    });
                 });
+            } else {
+                saves();
             }
+        }
+
+        function saves() {
+            ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableSaveBtn = true;
+            ActivityTemplateOutward2Ctrl.ePage.Masters.SaveBtnText = "Please Wait..";
+            var _input = angular.copy(ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj);
+            _input.UIWmsOutwardHeader.IsModified = true;
+            apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.Update.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    toastr.success("Saved Successfully...!");
+                } else {
+                    toastr.error("Save Failed...!");
+                }
+                ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableSaveBtn = false;
+                ActivityTemplateOutward2Ctrl.ePage.Masters.SaveBtnText = "Save";
+            });
         }
 
         function SaveOnly() {
@@ -173,7 +175,7 @@
                 "Entity": ActivityTemplateOutward2Ctrl.ePage.Masters.TaskObj.Entity,
                 "EntityRefKey": ActivityTemplateOutward2Ctrl.ePage.Masters.TaskObj.EntityRefKey,
                 "EntityRefCode": ActivityTemplateOutward2Ctrl.ePage.Masters.TaskObj.KeyReference,
-                "EntitySource": ActivityTemplateOutward2Ctrl.ePage.Masters.TaskObj.EntitySource,
+                "EntitySource": "ORD",
                 "Communication": null,
                 "Config": undefined,
                 // Parent Entity
@@ -269,7 +271,7 @@
                             SubModuleCode: "DEL",
                         },
                         GroupCode: ActivityTemplateOutward2Ctrl.ePage.Masters.ValidationSource[0].Code,
-                        EntityObject: ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj
+                        EntityObject: myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data
                     };
                     errorWarningService.ValidateValue(_obj);
                 }
@@ -342,11 +344,9 @@
             var _filter = {
                 "Status": "Success",
                 "DocumentType": doctype,
-                // "ParentEntityRefCode": ActivityTemplateOutward2Ctrl.ePage.Masters.TaskObj.WSI_StepCode,
-                // "ParentEntitySource": ActivityTemplateOutward2Ctrl.ePage.Masters.TaskObj.EntitySource,
                 "EntityRefKey": ActivityTemplateOutward2Ctrl.ePage.Masters.TaskObj.EntityRefKey,
                 "EntityRefCode": ActivityTemplateOutward2Ctrl.ePage.Masters.TaskObj.KeyReference,
-                "EntitySource": ActivityTemplateOutward2Ctrl.ePage.Masters.TaskObj.EntitySource
+                "EntitySource": "ORD"
             }
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),

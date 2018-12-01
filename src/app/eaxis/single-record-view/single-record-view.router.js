@@ -93,7 +93,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["confirmation", "errorWarning", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "EAwarehouse", "SRVPickOrder", "inward", "outward", "outwardGeneral", "outwardMenu", "outwardPick", "outwardLine", "WmsReference", "WmsContainer", "WmsServices", "outwardDocument", "pick"]);
+                        return $ocLazyLoad.load(["confirmation", "errorWarning", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "EAwarehouse", "SRVPickOrder", "inward", "outward", "outwardGeneral", "outwardMenu", "outwardPick", "outwardLine", "WmsReference", "WmsContainer", "WmsServices", "outwardDocument", "pick", "outwardDispatch"]);
                     }]
                 }
             })
@@ -134,7 +134,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["SRVTransOrder", "EAwarehouse", "outward", "outwardGeneral", "outwardMenu", "outwardPick", "outwardLine", "reference", "container", "services", , "outwardDocument"]);
+                        return $ocLazyLoad.load(["SRVTransOrder", "EAwarehouse", "outward", "outwardGeneral", "outwardMenu", "outwardPick", "outwardLine", "reference", "container", "services", , "outwardDocument", "outwardDispatch"]);
                     }]
                 }
             })
@@ -416,7 +416,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["confirmation", "errorWarning", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "EAwarehouse", "SRVConsignmentOutward", "inward", "outward", "outwardGeneral", "outwardMenu", "outwardPick", "outwardLine", "WmsReference", "WmsContainer", "WmsServices", "outwardDocument", "pick"]);
+                        return $ocLazyLoad.load(["confirmation", "errorWarning", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "EAwarehouse", "SRVConsignmentOutward", "inward", "outward", "outwardGeneral", "outwardMenu", "outwardPick", "outwardLine", "WmsReference", "WmsContainer", "WmsServices", "outwardDocument", "pick", "outwardDispatch"]);
                     }]
                 }
             })

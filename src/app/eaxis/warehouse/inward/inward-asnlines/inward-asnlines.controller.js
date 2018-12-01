@@ -616,7 +616,8 @@
                             "IsPartAttrib1ReleaseCaptured": value.IsPartAttrib1ReleaseCaptured,
                             "IsPartAttrib2ReleaseCaptured": value.IsPartAttrib2ReleaseCaptured,
                             "IsPartAttrib3ReleaseCaptured": value.IsPartAttrib3ReleaseCaptured,
-                            "Parent_FK": value.Parent_FK
+                            "Parent_FK": value.Parent_FK,
+                            "WorkOrderLineType": "INW"
                         }
                         if (InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Client) {
                             obj.Client = InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ClientCode;

@@ -5,9 +5,9 @@
         .module("Application")
         .controller("InwardMenuController", InwardMenuController);
 
-    InwardMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "inwardConfig", "helperService", "appConfig", "authService", "$location", "$state", "toastr", "confirmation","$uibModal"];
+    InwardMenuController.$inject = ["$rootScope", "$scope", "$timeout", "APP_CONSTANT", "apiService", "inwardConfig", "helperService", "appConfig", "authService", "$location", "$state", "toastr", "confirmation", "$uibModal"];
 
-    function InwardMenuController($scope, $timeout, APP_CONSTANT, apiService, inwardConfig, helperService, appConfig, authService, $location, $state, toastr, confirmation,$uibModal) {
+    function InwardMenuController($rootScope, $scope, $timeout, APP_CONSTANT, apiService, inwardConfig, helperService, appConfig, authService, $location, $state, toastr, confirmation, $uibModal) {
 
         var InwardMenuCtrl = this
 
@@ -31,10 +31,13 @@
             InwardMenuCtrl.ePage.Masters.SaveButtonText = "Save";
             InwardMenuCtrl.ePage.Masters.FinaliseSaveText = "Finalize";
 
-           
+
             InwardMenuCtrl.ePage.Masters.tabSelected = tabSelected;
             InwardMenuCtrl.ePage.Masters.Validation = Validation;
             InwardMenuCtrl.ePage.Masters.Config = inwardConfig;
+
+            $rootScope.SaveInwardFromTask = SaveInwardFromTask;
+            $rootScope.FinalizeInwardFromTask = FinalizeInwardFromTask;
 
             //To show hide mytask
             var _menuList = angular.copy(InwardMenuCtrl.ePage.Entities.Header.Meta.MenuList);
@@ -51,10 +54,18 @@
                 GetMyTaskList(_menuList, _index);
             }
 
-            if(InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatus == 'FIN' || InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatus == 'CAN'){
+            if (InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatus == 'FIN' || InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatus == 'CAN') {
                 InwardMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
                 InwardMenuCtrl.ePage.Masters.DisableSave = true;
             }
+        }
+
+        function SaveInwardFromTask(callback) {
+            Validation(InwardMenuCtrl.currentInward, callback)
+        }
+
+        function FinalizeInwardFromTask(callback) {
+            FinaliseSave(InwardMenuCtrl.currentInward, callback)
         }
 
         function GetMyTaskList(menuList, index) {
@@ -90,7 +101,7 @@
                 InwardMenuCtrl.ePage.Masters.ActiveMenu = InwardMenuCtrl.ePage.Masters.InwardMenu.ListSource[0];
             });
         }
-        
+
         function tabSelected(tab, $index, $event) {
             var _index = inwardConfig.TabList.map(function (value, key) {
                 return value[value.label].ePage.Entities.Header.Data.PK
@@ -115,7 +126,7 @@
                     }
                 }
                 else {
-                    if(InwardMenuCtrl.ePage.Masters.InwardMenu.ListSource[0].IsDisabled){
+                    if (InwardMenuCtrl.ePage.Masters.InwardMenu.ListSource[0].IsDisabled) {
                         if ($index == 1 || $index == 2) {
                             var mydata = InwardMenuCtrl.currentInward[InwardMenuCtrl.currentInward.label].ePage.Entities.Header.Data;
                             if (mydata.UIWmsInwardHeader.Client && mydata.UIWmsInwardHeader.Warehouse) {
@@ -128,7 +139,7 @@
                                 Validation(InwardMenuCtrl.currentInward);
                             }
                         }
-                    }else{
+                    } else {
                         if ($index == 2 || $index == 3) {
                             var mydata = InwardMenuCtrl.currentInward[InwardMenuCtrl.currentInward.label].ePage.Entities.Header.Data;
                             if (mydata.UIWmsInwardHeader.Client && mydata.UIWmsInwardHeader.Warehouse) {
@@ -146,7 +157,7 @@
             }
         };
 
-        function Validation($item) {
+        function Validation($item, callback) {
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data,
                 _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
@@ -158,15 +169,14 @@
             }
 
             if (_errorcount.length == 0) {
-                Saveonly($item);
+                Saveonly($item, callback);
             } else {
                 InwardMenuCtrl.ePage.Masters.Finalisesave = false;
                 InwardMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(InwardMenuCtrl.currentInward);
             }
         }
 
-        function Saveonly($item) {
-
+        function Saveonly($item, callback) {
             InwardMenuCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
             InwardMenuCtrl.ePage.Masters.DisableSave = true;
             InwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
@@ -179,7 +189,7 @@
                 _input.UIWmsInwardHeader.PK = _input.PK;
                 _input.UIWmsInwardHeader.CreatedDateTime = new Date();
                 _input.UIWmsInwardHeader.WorkOrderType = 'INW';
-                if(!_input.UIWmsInwardHeader.ExternalReference){
+                if (!_input.UIWmsInwardHeader.ExternalReference) {
                     _input.UIWmsInwardHeader.ExternalReference = _input.UIWmsInwardHeader.WorkOrderID;
                 }
             } else {
@@ -190,38 +200,38 @@
             }
 
             // Location Allocation Status Change
-            if((_input.UIWmsInwardHeader.WorkOrderStatus=='ENT' ||  _input.UIWmsInwardHeader.WorkOrderStatus=='IGA' ) && (_input.UIWmsWorkOrderLine.length>0)){
-               var myData = _input.UIWmsWorkOrderLine.some(function(value,key){
-                   return value.WLO_FK;
-               });
-               
-               if(myData){
-                _input.UIWmsInwardHeader.PutOrPickSlipDateTime = new Date();
-                _input.UIWmsInwardHeader.WorkOrderStatus = "IAL"
-                _input.UIWmsInwardHeader.WorkOrderStatusDesc = 'Location Allocated'; 
-               }
+            if ((_input.UIWmsInwardHeader.WorkOrderStatus == 'ENT' || _input.UIWmsInwardHeader.WorkOrderStatus == 'IGA') && (_input.UIWmsWorkOrderLine.length > 0)) {
+                var myData = _input.UIWmsWorkOrderLine.some(function (value, key) {
+                    return value.WLO_FK;
+                });
+
+                if (myData) {
+                    _input.UIWmsInwardHeader.PutOrPickSlipDateTime = new Date();
+                    _input.UIWmsInwardHeader.WorkOrderStatus = "IAL"
+                    _input.UIWmsInwardHeader.WorkOrderStatusDesc = 'Location Allocated';
+                }
             }
 
             //Putaway Completed or Started Status and location allocation status changes
-            if(_input.UIWmsInwardHeader.WorkOrderStatus!='FIN' && _input.UIWmsInwardHeader.WorkOrderStatus!='CAN'){
-                if(_input.UIWmsInwardHeader.PutOrPickCompDateTime){
-                    _input.UIWmsInwardHeader.WorkOrderStatus='ICP'
-                    _input.UIWmsInwardHeader.WorkOrderStatusDesc='Putaway Completed'
-                }else if(!_input.UIWmsInwardHeader.PutOrPickCompDateTime && _input.UIWmsInwardHeader.PutOrPickStartDateTime){
-                    _input.UIWmsInwardHeader.WorkOrderStatus='ISP'
-                    _input.UIWmsInwardHeader.WorkOrderStatusDesc='Putaway Started'
-                }else if(!_input.UIWmsInwardHeader.PutOrPickCompDateTime && !_input.UIWmsInwardHeader.PutOrPickStartDateTime && _input.UIWmsInwardHeader.PutOrPickSlipDateTime){
-                    _input.UIWmsInwardHeader.WorkOrderStatus='IAL'
-                    _input.UIWmsInwardHeader.WorkOrderStatusDesc='Location Allocated'
+            if (_input.UIWmsInwardHeader.WorkOrderStatus != 'FIN' && _input.UIWmsInwardHeader.WorkOrderStatus != 'CAN') {
+                if (_input.UIWmsInwardHeader.PutOrPickCompDateTime) {
+                    _input.UIWmsInwardHeader.WorkOrderStatus = 'ICP'
+                    _input.UIWmsInwardHeader.WorkOrderStatusDesc = 'Putaway Completed'
+                } else if (!_input.UIWmsInwardHeader.PutOrPickCompDateTime && _input.UIWmsInwardHeader.PutOrPickStartDateTime) {
+                    _input.UIWmsInwardHeader.WorkOrderStatus = 'ISP'
+                    _input.UIWmsInwardHeader.WorkOrderStatusDesc = 'Putaway Started'
+                } else if (!_input.UIWmsInwardHeader.PutOrPickCompDateTime && !_input.UIWmsInwardHeader.PutOrPickStartDateTime && _input.UIWmsInwardHeader.PutOrPickSlipDateTime) {
+                    _input.UIWmsInwardHeader.WorkOrderStatus = 'IAL'
+                    _input.UIWmsInwardHeader.WorkOrderStatusDesc = 'Location Allocated'
                 }
             }
 
             helperService.SaveEntity($item, 'Inward').then(function (response) {
-                
+
                 InwardMenuCtrl.ePage.Masters.SaveButtonText = "Save";
                 InwardMenuCtrl.ePage.Masters.DisableSave = false;
                 InwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
-                
+
                 if (response.Status === "success") {
                     inwardConfig.TabList.map(function (value, key) {
                         if (value.New) {
@@ -231,7 +241,7 @@
                                 delete value.New;
                             }
                         }
-                    });                   
+                    });
                     var _index = inwardConfig.TabList.map(function (value, key) {
                         return value[value.label].ePage.Entities.Header.Data.PK
                     }).indexOf(InwardMenuCtrl.currentInward[InwardMenuCtrl.currentInward.label].ePage.Entities.Header.Data.PK);
@@ -242,25 +252,28 @@
                         if ($state.current.url == "/inward") {
                             helperService.refreshGrid();
                         }
-                    }                    
+                    }
                     console.log("Success");
                     InwardMenuCtrl.ePage.Entities.Header.GlobalVariables.PercentageValues = true;
 
-                    if(InwardMenuCtrl.ePage.Masters.SaveAndClose){
+                    if (InwardMenuCtrl.ePage.Masters.SaveAndClose) {
                         InwardMenuCtrl.ePage.Masters.Config.SaveAndClose = true;
                         InwardMenuCtrl.ePage.Masters.SaveAndClose = false;
                         InwardMenuCtrl.ePage.Masters.DisableSave = true;
                     }
-                    if (InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatus=="CAN"|| InwardMenuCtrl.ePage.Masters.Finalisesave) {
+                    if (InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatus == "CAN" || InwardMenuCtrl.ePage.Masters.Finalisesave) {
                         InwardMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
                         InwardMenuCtrl.ePage.Masters.DisableSave = true;
                         InwardMenuCtrl.ePage.Masters.active = 1;
-                    } 
+                    }
 
-                    if(InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatus=="CAN"){
+                    if (InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatus == "CAN") {
                         toastr.success("Cancelled Successfully");
-                    }else{
+                    } else {
                         toastr.success("Saved Successfully");
+                    }
+                    if (callback) {
+                        callback()
                     }
 
                 } else if (response.Status === "failed") {
@@ -273,6 +286,9 @@
                     if (InwardMenuCtrl.ePage.Entities.Header.Validations != null) {
                         InwardMenuCtrl.ePage.Masters.Finalisesave = false;
                         InwardMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(InwardMenuCtrl.currentInward);
+                    }
+                    if (callback) {
+                        callback()
                     }
                 }
                 InwardMenuCtrl.ePage.Masters.Config.ProductSummary(InwardMenuCtrl.ePage.Entities.Header);
@@ -292,7 +308,7 @@
             return obj;
         }
 
-        function FinaliseSave($item) {
+        function FinaliseSave($item, callback) {
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
 
@@ -315,43 +331,46 @@
                     confirmation.showModal({}, modalOptions)
                         .then(function (result) {
                             InwardMenuCtrl.ePage.Masters.Finalisesave = true;
-                            Validation($item);
+                            Validation($item, callback);
                         }, function () {
                             console.log("Cancelled");
                         });
                 }
             } else {
                 toastr.info('Receive Line Should Not Be Empty');
+                if (callback) {
+                    callback()
+                }
             }
         }
 
-        function CancelInward($item){
+        function CancelInward($item) {
             $uibModal.open({
                 templateUrl: 'myModalContent.html',
                 controller: function ($scope, $uibModalInstance) {
-                    
+
                     $scope.close = function () {
                         $uibModalInstance.dismiss('cancel');
                     };
 
-                    $scope.ok = function(){
+                    $scope.ok = function () {
                         var InsertCommentObject = [];
-                        var obj ={
-                            "Description":"General",
+                        var obj = {
+                            "Description": "General",
                             "Comments": $scope.comment,
                             "EntityRefKey": InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PK,
                             "EntityRefCode": InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderID,
-                            "CommentsType":"GEN"
+                            "CommentsType": "GEN"
                         }
                         InsertCommentObject.push(obj);
-                        apiService.post("eAxisAPI", appConfig.Entities.JobComments.API.Insert.Url, InsertCommentObject).then(function(response){
+                        apiService.post("eAxisAPI", appConfig.Entities.JobComments.API.Insert.Url, InsertCommentObject).then(function (response) {
 
-                            InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.map(function(value,key){
+                            InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.map(function (value, key) {
                                 value.TotalUnits = 0;
                             });
                             InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.CancelledDate = new Date();
                             Validation($item);
-                            
+
                             $uibModalInstance.dismiss('cancel');
                         });
                     }

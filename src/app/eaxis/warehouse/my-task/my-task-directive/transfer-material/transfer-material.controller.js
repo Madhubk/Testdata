@@ -29,24 +29,10 @@
                 TransferMaterialCtrl.ePage.Masters.TaskObj = TransferMaterialCtrl.taskObj;
                 GetEntityObj();
             } else {
-                if (myTaskActivityConfig.Entities.TaskObj.EntityRefKey) {
-                    apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + myTaskActivityConfig.Entities.TaskObj.EntityRefKey).then(function (response) {
-                        if (response.data.Response) {
-                            TransferMaterialCtrl.ePage.Masters.Outward = response.data.Response;
-                            getDeliveryList();
-                            outwardConfig.GetTabDetails(response.data.Response.UIWmsOutwardHeader, false).then(function (response) {
-                                angular.forEach(response, function (value, key) {
-                                    if (value.label == TransferMaterialCtrl.ePage.Masters.Outward.UIWmsOutwardHeader.WorkOrderID) {
-                                        TransferMaterialCtrl.ePage.Masters.TabList = value;
-                                        TransferMaterialCtrl.ePage.Meta.IsLoading = false;
-                                    }
-                                });
-                            });
-                        }
-                    });
-                }
-                // TransferMaterialCtrl.ePage.Entities.Header.DeliveryData = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data;
+                TransferMaterialCtrl.ePage.Masters.Config = myTaskActivityConfig;
+                TransferMaterialCtrl.ePage.Entities.Header.Data = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data;
                 GetDynamicLookupConfig();
+                getDeliveryList();
 
                 if (errorWarningService.Modules.MyTask)
                     TransferMaterialCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.MyTask.Entity[myTaskActivityConfig.Entities.Delivery.label];
@@ -61,7 +47,7 @@
         }
 
         function getDeliveryList() {
-            apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + TransferMaterialCtrl.ePage.Masters.Outward.UIWmsOutwardHeader.WOD_Parent_FK).then(function (response) {
+            apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WOD_Parent_FK).then(function (response) {
                 if (response.data.Response) {
                     TransferMaterialCtrl.ePage.Entities.Header.DeliveryData = response.data.Response;
                     GeneralOperation();
@@ -99,7 +85,7 @@
         function GetDynamicLookupConfig() {
             // Get DataEntryNameList 
             var _filter = {
-                pageName: 'WarehouseOutward'
+                pageName: 'WarehouseInward'
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
