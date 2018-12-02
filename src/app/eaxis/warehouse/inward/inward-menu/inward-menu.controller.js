@@ -338,9 +338,9 @@
                 }
             } else {
                 toastr.info('Receive Line Should Not Be Empty');
-                if (callback) {
-                    callback()
-                }
+                // if (callback) {
+                //     callback()
+                // }
             }
         }
 

@@ -238,6 +238,8 @@
                         <th ng-style="{ 'width':  '100px' }" title="UDF 3">UDF 3</th>
                         <th ng-style="{ 'width':  '100px' }" title="Packing Date">Packing Date</th>
                         <th ng-style="{ 'width':  '100px' }" title="Expiry Date">Expiry Date</th>
+                        <th ng-style="{ 'width':  '150px' }" title="MTROW Product Code">MTROW Product Code</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Outward Product Code">Outward Product Code</th>
                     </tr>
                 </thead>
                 <tbody id="InwardLineCustTable{{CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID}}">
@@ -263,6 +265,8 @@
                         <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PartAttrib3}}</td>
                         <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PackingDate}}</td>
                         <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.ExpiryDate}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.MTOUT_PrdCode}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.OUT_PrdCode}}</td>
                     </tr>
                 </tbody>
             </table>

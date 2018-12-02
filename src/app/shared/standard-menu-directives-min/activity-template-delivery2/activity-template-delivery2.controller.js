@@ -132,8 +132,8 @@
             } else {
                 saves();
             }
-
         }
+
         function saves() {
             ActivityTemplateDelivery2Ctrl.ePage.Masters.IsDisableSaveBtn = true;
             ActivityTemplateDelivery2Ctrl.ePage.Masters.SaveBtnText = "Please Wait..";
@@ -288,7 +288,19 @@
         }
 
         function Complete() {
-            if (ActivityTemplateDelivery2Ctrl.ePage.Masters.ValidationSource.length > 0 || ActivityTemplateDelivery2Ctrl.ePage.Masters.DocumentValidation.length > 0) {
+            if (ActivityTemplateDelivery2Ctrl.ePage.Masters.ValidationSource.length > 0 || ActivityTemplateDelivery2Ctrl.ePage.Masters.DocumentValidation.length > 0) {                
+                if (ActivityTemplateDelivery2Ctrl.taskObj.WSI_StepName == "Create Delivery Challan") {
+                    var input = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data
+                    var temp = 0;
+                    angular.forEach(input.UIvwWmsDeliveryList, function (value, key) {
+                        if (value.OUT_PrdCode || value.MTOUT_PrdCode) {
+                            temp = temp + 1;
+                        }
+                    });
+                    if (temp == input.UIvwWmsDeliveryList.length) {
+                        input.IsComplete = true;
+                    }
+                }
                 if (ActivityTemplateDelivery2Ctrl.ePage.Masters.ValidationSource.length > 0) {
                     var _obj = {
                         ModuleName: ["MyTask"],
@@ -299,7 +311,7 @@
                             SubModuleCode: "DEL",
                         },
                         GroupCode: ActivityTemplateDelivery2Ctrl.ePage.Masters.ValidationSource[0].Code,
-                        EntityObject: ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj
+                        EntityObject: myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data
                     };
                     errorWarningService.ValidateValue(_obj);
                 }

@@ -35,7 +35,7 @@
                 getDeliveryList();
 
                 if (errorWarningService.Modules.MyTask)
-                    TransferMaterialCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.MyTask.Entity[myTaskActivityConfig.Entities.Delivery.label];
+                    TransferMaterialCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.MyTask.Entity[myTaskActivityConfig.Entities.Outward.label];
             }
 
             TransferMaterialCtrl.ePage.Masters.OnFieldValueChange = OnFieldValueChange;
@@ -106,7 +106,7 @@
         function OnFieldValueChange(code) {
             var _obj = {
                 ModuleName: ["MyTask"],
-                Code: [myTaskActivityConfig.Entities.Delivery.label],
+                Code: [myTaskActivityConfig.Entities.Outward.label],
                 API: "Validation", // Validation/Group
                 FilterInput: {
                     ModuleCode: "WMS",
