@@ -100,16 +100,22 @@
                 apiService.get("eAxisAPI", appConfig.Entities.InwardList.API.GetById.Url + ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
                     if (response.data.Response) {
                         ActivityTemplateInwardCtrl.ePage.Masters.EntityObj = response.data.Response;
-                        ActivityTemplateInwardCtrl.ePage.Entities.Header.Data = ActivityTemplateInwardCtrl.ePage.Masters.EntityObj;
-                        inwardConfig.GetTabDetails(ActivityTemplateInwardCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader, false).then(function (response) {
-                            angular.forEach(response, function (value, key) {
-                                if (value.label == ActivityTemplateInwardCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderID) {
-                                    ActivityTemplateInwardCtrl.currentInward = value;
-                                    myTaskActivityConfig.Entities.Inward = ActivityTemplateInwardCtrl.currentInward;
-                                    getTaskConfigData();
-                                }
+                        ActivityTemplateInwardCtrl.ePage.Entities.Header.Data = ActivityTemplateInwardCtrl.ePage.Masters.EntityObj;                        
+                        if (ActivityTemplateInwardCtrl.tabObj) {
+                            ActivityTemplateInwardCtrl.currentInward = ActivityTemplateInwardCtrl.tabObj;
+                            myTaskActivityConfig.Entities.Inward = ActivityTemplateInwardCtrl.currentInward;
+                            getTaskConfigData();
+                        } else {
+                            inwardConfig.GetTabDetails(ActivityTemplateInwardCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader, false).then(function (response) {
+                                angular.forEach(response, function (value, key) {
+                                    if (value.label == ActivityTemplateInwardCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderID) {
+                                        ActivityTemplateInwardCtrl.currentInward = value;
+                                        myTaskActivityConfig.Entities.Inward = ActivityTemplateInwardCtrl.currentInward;
+                                        getTaskConfigData();
+                                    }
+                                });
                             });
-                        });
+                        }
                     }
                 });
             }

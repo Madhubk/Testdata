@@ -756,6 +756,12 @@
                 'app/eaxis/warehouse/pickup-request/pickup-details/pickup-details.controller.js',
                 'app/eaxis/warehouse/pickup-request/pickup-details/pickup-details.directive.js'
             ]
+        }, {
+            name: 'pickupMyTask',
+            files: [
+                'app/eaxis/warehouse/pickup-request/my-task/pickup-my-task.controller.js',
+                'app/eaxis/warehouse/pickup-request/my-task/pickup-my-task.directive.js'
+            ]
         },
         // endregion
         //#region WMS Common Dashboard

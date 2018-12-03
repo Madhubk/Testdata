@@ -17,7 +17,8 @@
             controllerAs: "PickupMenuCtrl",
             scope: {
                 currentPickup: "=",
-                dataentryObject: '='
+                dataentryObject: '=',
+                isHideMenu:"="
             },
             bindToController: true
 

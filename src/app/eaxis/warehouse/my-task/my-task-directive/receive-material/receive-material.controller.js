@@ -28,14 +28,8 @@
                 ReceiveMaterialCtrl.ePage.Masters.TaskObj = ReceiveMaterialCtrl.taskObj;
                 GetEntityObj();
             } else {
+                ReceiveMaterialCtrl.ePage.Masters.Config = myTaskActivityConfig;
                 ReceiveMaterialCtrl.ePage.Entities.Header.Data = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data;
-                inwardConfig.GetTabDetails(ReceiveMaterialCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader, false).then(function (response) {
-                    angular.forEach(response, function (value, key) {
-                        if (value.label == ReceiveMaterialCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderID) {
-                            ReceiveMaterialCtrl.currentInward = value;
-                        }
-                    });
-                });
                 GetDynamicLookupConfig();
                 if (errorWarningService.Modules.MyTask)
                     ReceiveMaterialCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.MyTask.Entity[myTaskActivityConfig.Entities.Inward.label];

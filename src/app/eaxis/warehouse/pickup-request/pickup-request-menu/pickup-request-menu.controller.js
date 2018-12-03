@@ -25,6 +25,7 @@
 
             PickupMenuCtrl.ePage.Masters.PickupMenu = {};
             PickupMenuCtrl.ePage.Masters.MyTask = {};
+            PickupMenuCtrl.ePage.Masters.IsHideMytaskMenu = PickupMenuCtrl.isHideMenu;
             // Menu list from configuration
 
             PickupMenuCtrl.ePage.Masters.SaveButtonText = "Save";
@@ -43,7 +44,13 @@
                 PickupMenuCtrl.ePage.Masters.PickupMenu.ListSource = _menuList;
                 PickupMenuCtrl.ePage.Masters.ActiveMenu = PickupMenuCtrl.ePage.Masters.PickupMenu.ListSource[0];
             } else {
-                GetMyTaskList(_menuList, _index);
+                if (PickupMenuCtrl.ePage.Masters.IsHideMytaskMenu) {
+                    _menuList[_index].IsDisabled = true;
+                    PickupMenuCtrl.ePage.Masters.PickupMenu.ListSource = _menuList;
+                    PickupMenuCtrl.ePage.Masters.ActiveMenu = PickupMenuCtrl.ePage.Masters.PickupMenu.ListSource[0];
+                } else {
+                    GetMyTaskList(_menuList, _index);
+                }
             }
         }
 

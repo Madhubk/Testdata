@@ -101,15 +101,22 @@
                     if (response.data.Response) {
                         ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj = response.data.Response;
                         ActivityTemplateOutward2Ctrl.ePage.Entities.Header.Data = ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj;
-                        outwardConfig.GetTabDetails(ActivityTemplateOutward2Ctrl.ePage.Entities.Header.Data.UIWmsOutwardHeader, false).then(function (response) {
-                            angular.forEach(response, function (value, key) {
-                                if (value.label == ActivityTemplateOutward2Ctrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID) {
-                                    ActivityTemplateOutward2Ctrl.currentOutward = value;
-                                    myTaskActivityConfig.Entities.Outward = ActivityTemplateOutward2Ctrl.currentOutward;
-                                    getTaskConfigData();
-                                }
+
+                        if (ActivityTemplateOutward2Ctrl.tabObj) {
+                            ActivityTemplateOutward2Ctrl.currentOutward = ActivityTemplateOutward2Ctrl.tabObj;
+                            myTaskActivityConfig.Entities.Outward = ActivityTemplateOutward2Ctrl.currentOutward;
+                            getTaskConfigData();
+                        } else {
+                            outwardConfig.GetTabDetails(ActivityTemplateOutward2Ctrl.ePage.Entities.Header.Data.UIWmsOutwardHeader, false).then(function (response) {
+                                angular.forEach(response, function (value, key) {
+                                    if (value.label == ActivityTemplateOutward2Ctrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID) {
+                                        ActivityTemplateOutward2Ctrl.currentOutward = value;
+                                        myTaskActivityConfig.Entities.Outward = ActivityTemplateOutward2Ctrl.currentOutward;
+                                        getTaskConfigData();
+                                    }
+                                });
                             });
-                        });
+                        }
                     }
                 });
             }
