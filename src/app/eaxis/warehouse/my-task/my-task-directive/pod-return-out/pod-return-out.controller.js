@@ -29,27 +29,13 @@
                 PodReturnCtrl.ePage.Masters.TaskObj = PodReturnCtrl.taskObj;
                 GetEntityObj();
             } else {
-                if (myTaskActivityConfig.Entities.TaskObj.EntityRefKey) {
-                    apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + myTaskActivityConfig.Entities.TaskObj.EntityRefKey).then(function (response) {
-                        if (response.data.Response) {
-                            PodReturnCtrl.ePage.Masters.Outward = response.data.Response;
-                            getDeliveryList();
-                            outwardConfig.GetTabDetails(response.data.Response.UIWmsOutwardHeader, false).then(function (response) {
-                                angular.forEach(response, function (value, key) {
-                                    if (value.label == PodReturnCtrl.ePage.Masters.Outward.UIWmsOutwardHeader.WorkOrderID) {
-                                        PodReturnCtrl.ePage.Masters.TabList = value;
-                                        PodReturnCtrl.ePage.Meta.IsLoading = false;
-                                    }
-                                });
-                            });
-                        }
-                    });
-                }
-                // PodReturnCtrl.ePage.Entities.Header.DeliveryData = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data;
+                PodReturnCtrl.ePage.Masters.Config = myTaskActivityConfig;
+                PodReturnCtrl.ePage.Entities.Header.Data = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data;
                 GetDynamicLookupConfig();
+                getDeliveryList();
 
                 if (errorWarningService.Modules.MyTask)
-                    PodReturnCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.MyTask.Entity[myTaskActivityConfig.Entities.Delivery.label];
+                    PodReturnCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.MyTask.Entity[myTaskActivityConfig.Entities.Outward.label];
             }
 
             PodReturnCtrl.ePage.Masters.OnFieldValueChange = OnFieldValueChange;
@@ -61,7 +47,7 @@
         }
 
         function getDeliveryList() {
-            apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + PodReturnCtrl.ePage.Masters.Outward.UIWmsOutwardHeader.WOD_Parent_FK).then(function (response) {
+            apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + PodReturnCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WOD_Parent_FK).then(function (response) {
                 if (response.data.Response) {
                     PodReturnCtrl.ePage.Entities.Header.DeliveryData = response.data.Response;
                     GeneralOperation();
@@ -120,7 +106,7 @@
         function OnFieldValueChange(code) {
             var _obj = {
                 ModuleName: ["MyTask"],
-                Code: [myTaskActivityConfig.Entities.Delivery.label],
+                Code: [myTaskActivityConfig.Entities.Outward.label],
                 API: "Validation", // Validation/Group
                 FilterInput: {
                     ModuleCode: "WMS",

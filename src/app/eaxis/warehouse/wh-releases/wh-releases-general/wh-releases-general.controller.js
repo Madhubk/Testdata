@@ -361,15 +361,17 @@
             InwardObject.UIWmsInwardHeader.WorkOrderSubType = currentOutward.WorkOrderSubType;
 
             //Assigning ASN Line Object
-            ReleasesGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickLineSummary.map(function (value, key) {
+            ReleasesGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardLines.map(function (value, key) {
                 if (value.WOD_FK == currentOutward.PK) {
                     var AsnLineObj = {
                         "PK": "",
+                        "Parent_FK": value.PK,
                         "Client_FK": currentOutward.ORG_Client_FK,
                         "ORG_ClientCode": currentOutward.ClientCode,
                         "ORG_ClientName": currentOutward.ClientName,
                         "ProductCode": value.ProductCode,
                         "ProductDescription": value.ProductDescription,
+                        "ProductCondition": value.ProductCondition,
                         "POR_FK": value.PRO_FK,
                         "Packs": value.Packs,
                         "PAC_PackType": value.PAC_PackType,
@@ -381,7 +383,8 @@
                         "PartAttrib3": value.PartAttrib3,
                         "PackingDate": value.PackingDate,
                         "ExpiryDate": value.ExpiryDate,
-                        "AdditionalRef1Code":value.AdditionalRef1Code,
+                        "AdditionalRef1Code": value.AdditionalRef1Code,
+                        "AdditionalRef1Type": value.AdditionalRef1Type
                     }
                     InwardObject.UIWmsAsnLine.push(AsnLineObj);
                 }

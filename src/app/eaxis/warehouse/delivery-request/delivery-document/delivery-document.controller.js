@@ -4,9 +4,9 @@
         .module("Application")
         .controller("DeliveryDocumentController", DeliveryDocumentController);
 
-    DeliveryDocumentController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "deliveryConfig", "helperService", "$uibModal", "$http", "$document", "appConfig", "authService", "$location", "toastr", "confirmation", "$state", "$rootScope","$filter"];
+    DeliveryDocumentController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "deliveryConfig", "helperService", "$uibModal", "$http", "$document", "appConfig", "authService", "$location", "toastr", "confirmation", "$state", "$rootScope", "$filter"];
 
-    function DeliveryDocumentController($scope, $timeout, APP_CONSTANT, apiService, deliveryConfig, helperService, $uibModal, $http, $document, appConfig, authService, $location, toastr, confirmation, $state, $rootScope,$filter) {
+    function DeliveryDocumentController($scope, $timeout, APP_CONSTANT, apiService, deliveryConfig, helperService, $uibModal, $http, $document, appConfig, authService, $location, toastr, confirmation, $state, $rootScope, $filter) {
 
         var DeliveryDocumentCtrl = this;
 
@@ -39,13 +39,13 @@
             };
             apiService.post("eAxisAPI", appConfig.Entities.CfxMenus.API.MasterFindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
-                    DeliveryDocumentCtrl.ePage.Masters.DocumentValues = $filter('orderBy')(response.data.Response,'DisplayOrder');
+                    DeliveryDocumentCtrl.ePage.Masters.DocumentValues = $filter('orderBy')(response.data.Response, 'DisplayOrder');
                 }
             });
         }
 
         function GenerateReport(item, index) {
-            if(index==3){
+            if (index == 0) {
                 DeliveryDocumentCtrl.ePage.Masters.DocumentText[index] = true;
                 var obj = JSON.parse(item.OtherConfig)
 
@@ -54,27 +54,27 @@
                 obj.JobDocs.EntityRefCode = item.Description;
                 obj.DataObjs[0].ApiName = obj.DataObjs[0].ApiName + DeliveryDocumentCtrl.ePage.Entities.Header.Data.PK;
 
-                apiService.post("eAxisAPI", appConfig.Entities.Export.API.Excel.Url, obj).then(function(response){
-                   if(response.data.Response.Status=='Success'){
-                    apiService.get("eAxisAPI", appConfig.Entities.Communication.API.JobDocument.Url + response.data.Response.PK +"/"+ authService.getUserInfo().AppPK).then(function(response){
-                        if (response.data.Response) {
-                            if (response.data.Response !== "No Records Found!") {
-                                helperService.DownloadDocument(response.data.Response);
-                                DeliveryDocumentCtrl.ePage.Masters.DocumentText[index] = false;
+                apiService.post("eAxisAPI", appConfig.Entities.Export.API.Excel.Url, obj).then(function (response) {
+                    if (response.data.Response.Status == 'Success') {
+                        apiService.get("eAxisAPI", appConfig.Entities.Communication.API.JobDocument.Url + response.data.Response.PK + "/" + authService.getUserInfo().AppPK).then(function (response) {
+                            if (response.data.Response) {
+                                if (response.data.Response !== "No Records Found!") {
+                                    helperService.DownloadDocument(response.data.Response);
+                                    DeliveryDocumentCtrl.ePage.Masters.DocumentText[index] = false;
+                                }
+                            } else {
+                                console.log("Invalid response");
                             }
-                        } else {
-                            console.log("Invalid response");
-                        }
-                    })
-                   }
+                        })
+                    }
                 })
-            }else{
+            } else {
                 DeliveryDocumentCtrl.ePage.Masters.DocumentText[index] = true;
                 var _SearchInputConfig = JSON.parse(item.OtherConfig)
                 var _output = helperService.getSearchInput(DeliveryDocumentCtrl.ePage.Entities.Header.Data, _SearchInputConfig.DocumentInput);
-    
+
                 if (_output) {
-    
+
                     _SearchInputConfig.DocumentSource = APP_CONSTANT.URL.eAxisAPI + _SearchInputConfig.DocumentSource;
                     _SearchInputConfig.DocumentInput = _output;
                     apiService.post("eAxisAPI", appConfig.Entities.Communication.API.GenerateReport.Url, _SearchInputConfig).then(function SuccessCallback(response) {
@@ -86,9 +86,9 @@
                                 var ascii = binaryString.charCodeAt(i);
                                 bytes[i] = ascii;
                             }
-                            saveByteArray([bytes], item.Description+'-'+DeliveryDocumentCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + '.pdf');
+                            saveByteArray([bytes], item.Description + '-' + DeliveryDocumentCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + '.pdf');
                         }
-    
+
                         var saveByteArray = (function () {
                             var a = document.createElement("a");
                             document.body.appendChild(a);
@@ -103,8 +103,8 @@
                                 a.click();
                                 window.URL.revokeObjectURL(url);
                             };
-                        } ());
-    
+                        }());
+
                         base64ToArrayBuffer(response.data);
                         DeliveryDocumentCtrl.ePage.Masters.DocumentText[index] = false;
                     });

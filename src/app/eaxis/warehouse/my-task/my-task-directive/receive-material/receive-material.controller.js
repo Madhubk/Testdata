@@ -5,9 +5,9 @@
         .module("Application")
         .controller("ReceiveMaterialController", ReceiveMaterialController);
 
-    ReceiveMaterialController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "inwardConfig"];
+    ReceiveMaterialController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "inwardConfig", "dynamicLookupConfig"];
 
-    function ReceiveMaterialController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, inwardConfig) {
+    function ReceiveMaterialController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, inwardConfig, dynamicLookupConfig) {
         var ReceiveMaterialCtrl = this;
 
         function Init() {
@@ -36,6 +36,7 @@
                         }
                     });
                 });
+                GetDynamicLookupConfig();
                 if (errorWarningService.Modules.MyTask)
                     ReceiveMaterialCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.MyTask.Entity[myTaskActivityConfig.Entities.Inward.label];
             }
@@ -46,6 +47,27 @@
             ReceiveMaterialCtrl.ePage.Masters.DatePicker.Options = APP_CONSTANT.DatePicker;
             ReceiveMaterialCtrl.ePage.Masters.DatePicker.isOpen = [];
             ReceiveMaterialCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
+        }
+
+        function GetDynamicLookupConfig() {
+            // Get DataEntryNameList 
+            var _filter = {
+                pageName: 'WarehouseInward'
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.DYN_RelatedLookup.API.GroupFindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", appConfig.Entities.DYN_RelatedLookup.API.GroupFindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    var _isEmpty = angular.equals({}, response.data.Response);
+
+                    if (!_isEmpty) {
+                        dynamicLookupConfig.Entities = Object.assign({}, dynamicLookupConfig.Entities, response.data.Response);
+                    }
+                }
+            });
         }
 
         function OnFieldValueChange(code) {

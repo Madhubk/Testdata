@@ -5,9 +5,9 @@
         .module("Application")
         .controller("DeliveryLineController", DeliveryLineController);
 
-        DeliveryLineController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "appConfig", "deliveryConfig", "helperService", "toastr", "$filter", "$injector", "$uibModal", "confirmation"];
+    DeliveryLineController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "appConfig", "deliveryConfig", "helperService", "toastr", "$filter", "$injector", "$uibModal", "confirmation"];
 
-    function DeliveryLineController($rootScope, $scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, appConfig, deliveryConfig, helperService, toastr, $filter, $injector, $uibModal, confirmation){
+    function DeliveryLineController($rootScope, $scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, appConfig, deliveryConfig, helperService, toastr, $filter, $injector, $uibModal, confirmation) {
         var DeliveryLineCtrl = this
 
         function Init() {
@@ -123,8 +123,9 @@
                 "PK": "",
                 "ProductCode": "",
                 "ProductDescription": "",
-                "ProductCondition":"GDC",
+                "ProductCondition": "GDC",
                 "PRO_FK": "",
+                "WorkOrderLineType": "DEL",
                 "Commodity": "",
                 "MCC_NKCommodityCode": "",
                 "MCC_NKCommodityDesc": "",
@@ -182,9 +183,10 @@
                         "PK": "",
                         "ProductCode": item.ProductCode,
                         "ProductDescription": item.ProductDescription,
-                        "ProductCondition":item.ProductCondition,
+                        "ProductCondition": item.ProductCondition,
                         "PRO_FK": item.PRO_FK,
                         "Commodity": item.Commodity,
+                        "WorkOrderLineType": item.WorkOrderLineType,
                         "MCC_NKCommodityCode": item.MCC_NKCommodityCode,
                         "MCC_NKCommodityDesc": item.MCC_NKCommodityDesc,
                         "Packs": item.Packs,
@@ -374,7 +376,7 @@
                 }
             }
         }
-        
+
         Init();
     }
 

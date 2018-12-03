@@ -2030,6 +2030,11 @@
                             "HttpType": "POST",
                             "Url": "WmsOutwardList/Update"
                         },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsOutwardList/Insert"
+                        },
                     }
                 },
                 "WmsDeliveryList": {

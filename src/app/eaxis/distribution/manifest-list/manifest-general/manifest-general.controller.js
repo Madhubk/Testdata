@@ -24,8 +24,9 @@
             };
 
             ManifestGeneralCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
-            ManifestGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.Manifest.Entity[ManifestGeneralCtrl.currentManifest.code];
-
+            if (errorWarningService.Modules.Manifest) {
+                ManifestGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.Manifest.Entity[ManifestGeneralCtrl.currentManifest.code];
+            }
             if (ManifestGeneralCtrl.ePage.Entities.Header.CheckPoints.WarehouseClient) {
                 ManifestGeneralCtrl.ePage.Masters.MenuList = ManifestGeneralCtrl.ePage.Entities.Header.Meta.MenuList.UnloadMenu;
             } else {

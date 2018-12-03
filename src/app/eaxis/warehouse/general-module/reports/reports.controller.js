@@ -146,7 +146,6 @@
         }
 
         function getSearchReports() {
-            debugger
             var obj = angular.copy(ReportCtrl.ePage.Masters.OtherConfigList[ReportCtrl.ePage.Masters.selectedRow].ReportTemplate);
             ReportCtrl.ePage.Masters.ChildMenuList[ReportCtrl.ePage.Masters.selectedRow].IsDownloading = true;
             ReportCtrl.ePage.Masters.ChildMenuList[ReportCtrl.ePage.Masters.selectedRow].DocumentName = undefined;
