@@ -887,6 +887,12 @@
                 "app/eaxis/warehouse/my-task/my-task-directive/receive-material/receive-material.controller.js",
                 "app/eaxis/warehouse/my-task/my-task-directive/receive-material/receive-material.directive.js"
             ]
+        }, {
+            name: 'CreatePickupChallanDirective',
+            files: [
+                "app/eaxis/warehouse/my-task/my-task-directive/create-pickup-challan/create-pickup-challan.controller.js",
+                "app/eaxis/warehouse/my-task/my-task-directive/create-pickup-challan/create-pickup-challan.directive.js"
+            ]
         },
         // #endregion
         // #region Raise CSR

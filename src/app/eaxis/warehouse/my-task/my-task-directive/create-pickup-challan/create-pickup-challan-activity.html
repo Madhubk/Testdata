@@ -1,23 +1,23 @@
 <div class="padding-bottom-10 clearfix">
     <!--Gatepass Menu Directive-->
-    <uib-tabset id="Gatepass" active="CreateDelChallanCtrl.ePage.Masters.activeTabIndex">
+    <uib-tabset id="Gatepass" active="CreatePickupChallanCtrl.ePage.Masters.activeTabIndex">
         <!--General Tab-->
         <uib-tab>
             <uib-tab-heading title="CSR Details">
                 <i class="fa fa-truck margin-right-5"></i>
                 <span class="text-single-line" data-ng-bind="'CSR Details'"></span>
             </uib-tab-heading>
-            <div data-ng-include="'app/eaxis/warehouse/my-task/my-task-directive/create-delivery-challan/csr-details.html'"></div>
+            <div data-ng-include="'app/eaxis/warehouse/my-task/my-task-directive/create-pickup-challan/csr-details.html'"></div>
         </uib-tab>
 
-        <uib-tab active="CreateDelChallanCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in CreateDelChallanCtrl.ePage.Masters.TabList"
-            ng-click="CreateDelChallanCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+        <uib-tab active="CreatePickupChallanCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in CreatePickupChallanCtrl.ePage.Masters.TabList"
+            ng-click="CreatePickupChallanCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
             <uib-tab-heading title="{{tab.label}}">
                 <span data-ng-bind="tab.label" class="mr-5"></span>
-                <!-- <i class="glyphicon glyphicon-remove" ng-click="CreateDelChallanCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i> -->
+                <!-- <i class="glyphicon glyphicon-remove" ng-click="CreatePickupChallanCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i> -->
                 <span class="error-warning-container-common" data-ng-if="tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length > 0">
                     <span class="custom-warning-container" data-ng-if="(tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'W') > 0 && (tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'E') == 0">
-                        <button class="btn-warning" data-ng-click="CreateDelChallanCtrl.ePage.Masters.Config.ShowErrorWarningModal(tab)">
+                        <button class="btn-warning" data-ng-click="CreatePickupChallanCtrl.ePage.Masters.Config.ShowErrorWarningModal(tab)">
                             <i class="fa fa-warning"></i>
                         </button>
                         <span class="custom-warning-count">{{tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType':
@@ -25,7 +25,7 @@
                         </span>
                     </span>
                     <span class="custom-error-container" data-ng-if="(tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'E') > 0">
-                        <button class="btn-error" data-ng-click="CreateDelChallanCtrl.ePage.Masters.Config.ShowErrorWarningModal(tab)">
+                        <button class="btn-error" data-ng-click="CreatePickupChallanCtrl.ePage.Masters.Config.ShowErrorWarningModal(tab)">
                             <i class="fa fa-warning"></i>
                         </button>
                         <span class="custom-error-count">{{tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType':
@@ -35,10 +35,10 @@
                 </span>
             </uib-tab-heading>
             <div class="padding-bottom-10 clearfix">
-                <outward-menu current-outward="tab" hide-footer="true" is-hide-menu="true"></outward-menu>
+                <inward-menu current-inward="tab" is-hide-menu="true" hide-footer="true"></inward-menu>
                 <div class="horizontal-space"></div>
             </div>
-            <span ng-if="CreateDelChallanCtrl.ePage.Masters.Config.SaveAndClose" ng-init="CreateDelChallanCtrl.ePage.Masters.SaveandClose(CreateDelChallanCtrl.ePage.Masters.activeTabIndex, tab)"></span>
+            <span ng-if="CreatePickupChallanCtrl.ePage.Masters.Config.SaveAndClose" ng-init="CreatePickupChallanCtrl.ePage.Masters.SaveandClose(CreatePickupChallanCtrl.ePage.Masters.activeTabIndex, tab)"></span>
         </uib-tab>
     </uib-tabset>
     <div class="horizontal-space"></div>

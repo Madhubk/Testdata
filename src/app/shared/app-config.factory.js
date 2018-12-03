@@ -2009,6 +2009,17 @@
                             "HttpType": "POST",
                             "Url": "WmsInwardList/Update"
                         },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsInwardList/Insert"
+                        },
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsInward/FindAll",
+                            "FilterID": "WMSINW"
+                        }
                     }
                 },
                 "WmsOutwardList": {
@@ -2060,6 +2071,32 @@
                             "HttpType": "POST",
                             "Url": "WmsDelivery/FindAll",
                             "FilterID": "WMSDEL"
+                        }
+                    }
+                },
+                "WmsPickupList": {
+                    "RowIndex": -1,
+                    "API": {
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "WmsPickupList/GetById/",
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsPickupList/Update"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsPickupList/Insert"
+                        },
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsPickup/FindAll",
+                            "FilterID": "WMSPICR"
                         }
                     }
                 },
@@ -4035,7 +4072,7 @@
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "conshpmapping/buyer/update"
-                        },                        
+                        },
                         "Upsert": {
                             "IsAPI": "true",
                             "HttpType": "POST",
