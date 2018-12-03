@@ -72,7 +72,8 @@
             var _menuList = menuList,
                 _index = index;
             var _filter = {
-                UserName: authService.getUserInfo().UserId,
+                C_Performer: authService.getUserInfo().UserId,
+                Status: "AVAILABLE,ASSIGNED",
                 EntityRefKey: InwardMenuCtrl.ePage.Entities.Header.Data.PK,
                 KeyReference: InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderID
             };
