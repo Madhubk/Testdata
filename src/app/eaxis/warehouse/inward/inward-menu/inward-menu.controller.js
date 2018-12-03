@@ -128,7 +128,7 @@
                     }
                 }
                 else {
-                    if (((!InwardMenuCtrl.ePage.Masters.InwardMenu.ListSource[0].IsDisabled) && ($index == 1 || $index == 2)) || ((InwardMenuCtrl.ePage.Masters.InwardMenu.ListSource[0].IsDisabled) && ($index == 2 || $index == 3))) {
+                    if (((InwardMenuCtrl.ePage.Masters.InwardMenu.ListSource[0].IsDisabled) && ($index == 1 || $index == 2)) || ((!InwardMenuCtrl.ePage.Masters.InwardMenu.ListSource[0].IsDisabled) && ($index == 2 || $index == 3))) {
                         var mydata = InwardMenuCtrl.currentInward[InwardMenuCtrl.currentInward.label].ePage.Entities.Header.Data;
                         if (mydata.UIWmsInwardHeader.Client && mydata.UIWmsInwardHeader.Warehouse) {
                             //It opens line page         

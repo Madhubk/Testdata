@@ -28,7 +28,6 @@
             OutwardMenuCtrl.ePage.Masters.OutwardMenu = {};
             OutwardMenuCtrl.ePage.Masters.MyTask = {};
             // Menu list from configuration
-            OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource = OutwardMenuCtrl.ePage.Entities.Header.Meta.MenuList;
             OutwardMenuCtrl.ePage.Masters.SaveButtonText = "Save";
             OutwardMenuCtrl.ePage.Masters.FinaliseSaveText = "Finalize";
             OutwardMenuCtrl.ePage.Masters.DisableSave = false;
@@ -130,7 +129,7 @@
                 }
                 else {
                     //To check whether client and warehouse are present before changing tab to line
-                    if (($index == 1 && !OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled) || ($index == 2 && OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled)) {
+                    if (($index == 1 && OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled) || ($index == 2 && !OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled)) {
                         var mydata = OutwardMenuCtrl.currentOutward[OutwardMenuCtrl.currentOutward.label].ePage.Entities.Header.Data;
                         if (mydata.UIWmsOutwardHeader.Client && mydata.UIWmsOutwardHeader.Warehouse) {
                             //It opens line page         
@@ -142,7 +141,7 @@
                             Validation(OutwardMenuCtrl.currentOutward);
                         }
                     }
-                    else if (($index == 2 && !OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled) || ($index == 3 && OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled)) {
+                    else if (($index == 2 && OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled) || ($index == 3 && !OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled)) {
 
                         // If not cancelled outward then create or prevent from creation
                         if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus != 'CAN') {
@@ -230,7 +229,7 @@
                             toastr.error("Cannot create pick for cancelled outward");
                         }
                     }
-                    else if (($index == 3 && !OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled) || ($index == 4 && OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled)) {
+                    else if (($index == 3 && OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled) || ($index == 4 && !OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled)) {
 
                         // If not cancelled outward then create or prevent from creation
                         if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus != 'CAN') {

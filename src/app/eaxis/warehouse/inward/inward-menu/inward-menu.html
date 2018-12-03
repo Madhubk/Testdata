@@ -7,7 +7,7 @@
                 <div  class="tab-profile-title text-single-line text-center" style="color: rgb(66, 50, 50);font-weight: 600;" data-ng-bind="InwardMenuCtrl.currentInward.label"></div>
                 <div class="wocstatusmenu text-single-line text-center" title="{{InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatus + ' - '+ InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatusDesc}}" data-ng-bind="InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatusDesc"></div>
             </div>
-            <uib-tab ng-repeat="x in InwardMenuCtrl.ePage.Masters.InwardMenu.ListSource" index="$index" deselect="InwardMenuCtrl.ePage.Masters.tabSelected(x,$selectedIndex,$event);" data-ng-if="!x.IsDisabled">
+            <uib-tab ng-repeat="x in InwardMenuCtrl.ePage.Masters.InwardMenu.ListSource" index="$index" deselect="InwardMenuCtrl.ePage.Masters.tabSelected(x,$selectedIndex,$event)" data-ng-if="!x.IsDisabled">
                 <uib-tab-heading title="{{x.DisplayName}}">
                     <i class="{{x.Icon}} mr-5"></i>
                     <span class="text-single-line" data-ng-bind="x.DisplayName"></span>
