@@ -37,10 +37,27 @@
             OutwardMenuCtrl.ePage.Masters.Config = outwardConfig;
             OutwardMenuCtrl.ePage.Masters.CancelOutward = CancelOutward;
 
+            //To show hide mytask
+            var _menuList = angular.copy(OutwardMenuCtrl.ePage.Entities.Header.Meta.MenuList);
+            var _index = _menuList.map(function (value, key) {
+                return value.Value;
+            }).indexOf("MyTask");
+
+            if (OutwardMenuCtrl.currentInward.isNew) {
+                _menuList[_index].IsDisabled = true;
+
+                OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource = _menuList;
+                OutwardMenuCtrl.ePage.Masters.ActiveMenu = OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0];
+            } else {
+                GetMyTaskList(_menuList, _index);
+            }
+
+
             if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus == 'FIN' || OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus == 'CAN') {
                 OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
                 OutwardMenuCtrl.ePage.Masters.DisableSave = true;
             }
+
             $rootScope.SaveOutwardFromTask = SaveOutwardFromTask;
         }
 
@@ -48,8 +65,43 @@
             Validation(OutwardMenuCtrl.currentOutward, callback)
         }
 
-        function tabSelected(tab, $index, $event) {
 
+        function GetMyTaskList(menuList, index) {
+            var _menuList = menuList,
+                _index = index;
+            var _filter = {
+                UserName: authService.getUserInfo().UserId,
+                EntityRefKey: OutwardMenuCtrl.ePage.Entities.Header.Data.PK,
+                KeyReference: OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.EBPMWorkItem.API.FindAllWithAccess.FilterID
+            };
+
+            apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkItem.API.FindAllWithAccess.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    if (response.data.Response.length > 0) {
+                        OutwardMenuCtrl.ePage.Masters.MyTask.ListSource = response.data.Response;
+                    } else {
+                        if (_index != -1) {
+                            _menuList[_index].IsDisabled = true;
+                        }
+                    }
+                } else {
+                    OutwardMenuCtrl.ePage.Masters.MyTask.ListSource = [];
+                    if (_index != -1) {
+                        _menuList[_index].IsDisabled = true;
+                    }
+                }
+
+                OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource = _menuList;
+                OutwardMenuCtrl.ePage.Masters.ActiveMenu = OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0];
+            });
+        }
+        
+        function tabSelected(tab, $index, $event) {
+            debugger
             var _index = outwardConfig.TabList.map(function (value, key) {
                 return value[value.label].ePage.Entities.Header.Data.PK
             }).indexOf(OutwardMenuCtrl.currentOutward[OutwardMenuCtrl.currentOutward.label].ePage.Entities.Header.Data.PK);

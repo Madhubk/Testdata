@@ -9,7 +9,7 @@
                 <div class="wocstatusmenu text-single-line text-center" title="{{OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus + ' - '+ OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatusDesc}}"
                     data-ng-bind="OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatusDesc"></div>
             </div>
-            <uib-tab ng-repeat="x in OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource" index="$index" deselect="OutwardMenuCtrl.ePage.Masters.tabSelected(x,$selectedIndex,$event);">
+            <uib-tab ng-repeat="x in OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource" index="$index" deselect="OutwardMenuCtrl.ePage.Masters.tabSelected(x,$selectedIndex,$event);" data-ng-if="!x.IsDisabled">
                 <uib-tab-heading title="{{x.DisplayName}}">
                     <i class="{{x.Icon}} mr-5"></i>
                     <span class="text-single-line" data-ng-bind="x.DisplayName"></span>
