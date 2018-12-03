@@ -28,6 +28,7 @@
                     <div ng-switch="x.Value">
 
                         <!--Menu directives-->
+                        <div ng-switch-when="MyTask" inward-my-task current-inward="OutwardMenuCtrl.currentOutward" ></div>
                         <div ng-switch-when="General" outward-general current-outward="OutwardMenuCtrl.currentOutward"></div>
                         <div ng-switch-when="Line" outward-line current-outward="OutwardMenuCtrl.currentOutward"></div>
                         <div ng-switch-when="Pick" ng-if="OutwardMenuCtrl.ePage.Masters.PickDetails" outward-pick pick-details="OutwardMenuCtrl.ePage.Masters.PickDetails"

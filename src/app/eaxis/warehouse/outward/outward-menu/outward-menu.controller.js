@@ -26,6 +26,7 @@
             };
 
             OutwardMenuCtrl.ePage.Masters.OutwardMenu = {};
+            OutwardMenuCtrl.ePage.Masters.MyTask = {};
             // Menu list from configuration
             OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource = OutwardMenuCtrl.ePage.Entities.Header.Meta.MenuList;
             OutwardMenuCtrl.ePage.Masters.SaveButtonText = "Save";
@@ -43,7 +44,7 @@
                 return value.Value;
             }).indexOf("MyTask");
 
-            if (OutwardMenuCtrl.currentInward.isNew) {
+            if (OutwardMenuCtrl.currentOutward.isNew) {
                 _menuList[_index].IsDisabled = true;
 
                 OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource = _menuList;
@@ -67,10 +68,12 @@
 
 
         function GetMyTaskList(menuList, index) {
+            debugger
             var _menuList = menuList,
                 _index = index;
             var _filter = {
-                UserName: authService.getUserInfo().UserId,
+                C_Performer: authService.getUserInfo().UserId,
+                Status: "AVAILABLE,ASSIGNED",
                 EntityRefKey: OutwardMenuCtrl.ePage.Entities.Header.Data.PK,
                 KeyReference: OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID
             };
@@ -127,19 +130,19 @@
                 }
                 else {
                     //To check whether client and warehouse are present before changing tab to line
-                    if ($index == 1) {
+                    if (($index == 1 && !OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled) || ($index == 2 && OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled)) {
                         var mydata = OutwardMenuCtrl.currentOutward[OutwardMenuCtrl.currentOutward.label].ePage.Entities.Header.Data;
                         if (mydata.UIWmsOutwardHeader.Client && mydata.UIWmsOutwardHeader.Warehouse) {
                             //It opens line page         
                         } else {
-                            if (OutwardMenuCtrl.ePage.Masters.active == 0) {
+                            if (OutwardMenuCtrl.ePage.Masters.active == 1) {
                                 $event.preventDefault();
                             }
-                            OutwardMenuCtrl.ePage.Masters.active = 0;
+                            OutwardMenuCtrl.ePage.Masters.active = 1;
                             Validation(OutwardMenuCtrl.currentOutward);
                         }
                     }
-                    else if ($index == 2) {
+                    else if (($index == 2 && !OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled) || ($index == 3 && OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled)) {
 
                         // If not cancelled outward then create or prevent from creation
                         if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus != 'CAN') {
@@ -189,7 +192,7 @@
                                                             if (response.data.Status == 'Success') {
                                                                 OutwardMenuCtrl.ePage.Masters.PickDetails = response.data.Response;
                                                                 OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo = response.data.Response.UIWmsPickHeader.PickNo;
-                                                                OutwardMenuCtrl.ePage.Masters.active = 2;
+                                                                OutwardMenuCtrl.ePage.Masters.active = 3;
                                                                 OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
                                                             }
                                                         });
@@ -227,7 +230,7 @@
                             toastr.error("Cannot create pick for cancelled outward");
                         }
                     }
-                    else if ($index == 3) {
+                    else if (($index == 3 && !OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled) || ($index == 4 && OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled)) {
 
                         // If not cancelled outward then create or prevent from creation
                         if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus != 'CAN') {
@@ -333,7 +336,7 @@
                                                                                 if (response.data.Status == 'Success') {
                                                                                     OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails = response.data.Response;
                                                                                     OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code = response.data.Response.TmsManifestHeader.ManifestNumber;
-                                                                                    OutwardMenuCtrl.ePage.Masters.active = 3;
+                                                                                    OutwardMenuCtrl.ePage.Masters.active = 4;
                                                                                     OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
                                                                                 }
                                                                             });
