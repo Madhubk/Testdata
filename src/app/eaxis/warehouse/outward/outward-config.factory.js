@@ -148,39 +148,51 @@
 
                         "Meta": {
                             "MenuList": [{
+                                "DisplayName": "My Task",
+                                "Value": "MyTask",
+                                "Icon": "menu-icon icomoon icon-my-task",
+                                "IsDisabled": false
+                            },{
                                 "DisplayName": "General",
                                 "Value": "General",
                                 "Icon": "fa fa-file",
-                                "GParentRef": "general"
+                                "GParentRef": "general",
+                                "IsDisabled": false
                             }, {
                                 "DisplayName": "Line",
                                 "Value": "Line",
                                 "Icon": "glyphicon glyphicon-list-alt",
-                                "GParentRef": "line"
+                                "GParentRef": "line",
+                                "IsDisabled": false
                             }, {
                                 "DisplayName": "Pick",
                                 "Value": "Pick",
                                 "Icon": "icomoon icon-pick",
-                                "GParentRef": "pick"
+                                "GParentRef": "pick",
+                                "IsDisabled": false
                             }, {
                                 "DisplayName": "Dispatch",
                                 "Value": "Dispatch",
                                 "Icon": "fa fa-truck",
-                                "GParentRef": "dispatch"
+                                "GParentRef": "dispatch",
+                                "IsDisabled": false
                             }, {
                                 "DisplayName": "Containers",
                                 "Value": "Containers",
                                 "Icon": "fa fa-truck",
-                                "GParentRef": "containers"
+                                "GParentRef": "containers",
+                                "IsDisabled": false
                             }, {
                                 "DisplayName": "References & Services",
                                 "Value": "References & Services",
                                 "Icon": "fa fa-pencil-square-o",
-                                "GParentRef": "referencesandserivces"
+                                "GParentRef": "referencesandserivces",
+                                "IsDisabled": false
                             }, {
                                 "DisplayName": "Documents",
                                 "Value": "Documents",
-                                "Icon": "fa fa-file-pdf-o"
+                                "Icon": "fa fa-file-pdf-o",
+                                "IsDisabled": false
 
                             }],
                             "Language": helperService.metaBase(),

@@ -172,7 +172,7 @@
                     if(val.FieldName == "Location" || val.FieldName == "WLO_Location" || val.FieldName == "ORG_Location_Code"){
                         obj.DataObjs[0].DataObject.Location = val.value;
                     }
-                    if(val.FieldName == "StockBalanceOn" ){
+                    if(val.FieldName == "StockBalanceOn" || val.FieldName=="FromDate"){
                         obj.DataObjs[0].DataObject.Custom_Date = val.value;
                     }
                     

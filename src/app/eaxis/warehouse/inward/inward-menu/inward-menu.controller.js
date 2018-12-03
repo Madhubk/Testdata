@@ -111,6 +111,7 @@
         }
 
         function tabSelected(tab, $index, $event) {
+            debugger
             var _index = inwardConfig.TabList.map(function (value, key) {
                 return value[value.label].ePage.Entities.Header.Data.PK
             }).indexOf(InwardMenuCtrl.currentInward[InwardMenuCtrl.currentInward.label].ePage.Entities.Header.Data.PK);
@@ -134,31 +135,16 @@
                     }
                 }
                 else {
-                    if (InwardMenuCtrl.ePage.Masters.InwardMenu.ListSource[0].IsDisabled) {
-                        if ($index == 1 || $index == 2) {
-                            var mydata = InwardMenuCtrl.currentInward[InwardMenuCtrl.currentInward.label].ePage.Entities.Header.Data;
-                            if (mydata.UIWmsInwardHeader.Client && mydata.UIWmsInwardHeader.Warehouse) {
-                                //It opens line page         
-                            } else {
-                                if (InwardMenuCtrl.ePage.Masters.active == 1) {
-                                    $event.preventDefault();
-                                }
-                                InwardMenuCtrl.ePage.Masters.active = 1;
-                                Validation(InwardMenuCtrl.currentInward);
+                    if (((InwardMenuCtrl.ePage.Masters.InwardMenu.ListSource[0].IsDisabled) && ($index == 1 || $index == 2)) || ((!InwardMenuCtrl.ePage.Masters.InwardMenu.ListSource[0].IsDisabled) && ($index == 2 || $index == 3))) {
+                        var mydata = InwardMenuCtrl.currentInward[InwardMenuCtrl.currentInward.label].ePage.Entities.Header.Data;
+                        if (mydata.UIWmsInwardHeader.Client && mydata.UIWmsInwardHeader.Warehouse) {
+                            //It opens line page         
+                        } else {
+                            if (InwardMenuCtrl.ePage.Masters.active == 1) {
+                                $event.preventDefault();
                             }
-                        }
-                    } else {
-                        if ($index == 2 || $index == 3) {
-                            var mydata = InwardMenuCtrl.currentInward[InwardMenuCtrl.currentInward.label].ePage.Entities.Header.Data;
-                            if (mydata.UIWmsInwardHeader.Client && mydata.UIWmsInwardHeader.Warehouse) {
-                                //It opens line page         
-                            } else {
-                                if (InwardMenuCtrl.ePage.Masters.active == 1) {
-                                    $event.preventDefault();
-                                }
-                                InwardMenuCtrl.ePage.Masters.active = 1;
-                                Validation(InwardMenuCtrl.currentInward);
-                            }
+                            InwardMenuCtrl.ePage.Masters.active = 1;
+                            Validation(InwardMenuCtrl.currentInward);
                         }
                     }
                 }

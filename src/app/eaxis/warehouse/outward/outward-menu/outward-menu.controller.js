@@ -26,8 +26,8 @@
             };
 
             OutwardMenuCtrl.ePage.Masters.OutwardMenu = {};
+            OutwardMenuCtrl.ePage.Masters.MyTask = {};
             // Menu list from configuration
-            OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource = OutwardMenuCtrl.ePage.Entities.Header.Meta.MenuList;
             OutwardMenuCtrl.ePage.Masters.SaveButtonText = "Save";
             OutwardMenuCtrl.ePage.Masters.FinaliseSaveText = "Finalize";
             OutwardMenuCtrl.ePage.Masters.DisableSave = false;
@@ -37,10 +37,27 @@
             OutwardMenuCtrl.ePage.Masters.Config = outwardConfig;
             OutwardMenuCtrl.ePage.Masters.CancelOutward = CancelOutward;
 
+            //To show hide mytask
+            var _menuList = angular.copy(OutwardMenuCtrl.ePage.Entities.Header.Meta.MenuList);
+            var _index = _menuList.map(function (value, key) {
+                return value.Value;
+            }).indexOf("MyTask");
+
+            if (OutwardMenuCtrl.currentOutward.isNew) {
+                _menuList[_index].IsDisabled = true;
+
+                OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource = _menuList;
+                OutwardMenuCtrl.ePage.Masters.ActiveMenu = OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0];
+            } else {
+                GetMyTaskList(_menuList, _index);
+            }
+
+
             if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus == 'FIN' || OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus == 'CAN') {
                 OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
                 OutwardMenuCtrl.ePage.Masters.DisableSave = true;
             }
+
             $rootScope.SaveOutwardFromTask = SaveOutwardFromTask;
         }
 
@@ -48,8 +65,45 @@
             Validation(OutwardMenuCtrl.currentOutward, callback)
         }
 
-        function tabSelected(tab, $index, $event) {
 
+        function GetMyTaskList(menuList, index) {
+            debugger
+            var _menuList = menuList,
+                _index = index;
+            var _filter = {
+                C_Performer: authService.getUserInfo().UserId,
+                Status: "AVAILABLE,ASSIGNED",
+                EntityRefKey: OutwardMenuCtrl.ePage.Entities.Header.Data.PK,
+                KeyReference: OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.EBPMWorkItem.API.FindAllWithAccess.FilterID
+            };
+
+            apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkItem.API.FindAllWithAccess.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    if (response.data.Response.length > 0) {
+                        OutwardMenuCtrl.ePage.Masters.MyTask.ListSource = response.data.Response;
+                    } else {
+                        if (_index != -1) {
+                            _menuList[_index].IsDisabled = true;
+                        }
+                    }
+                } else {
+                    OutwardMenuCtrl.ePage.Masters.MyTask.ListSource = [];
+                    if (_index != -1) {
+                        _menuList[_index].IsDisabled = true;
+                    }
+                }
+
+                OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource = _menuList;
+                OutwardMenuCtrl.ePage.Masters.ActiveMenu = OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0];
+            });
+        }
+        
+        function tabSelected(tab, $index, $event) {
+            debugger
             var _index = outwardConfig.TabList.map(function (value, key) {
                 return value[value.label].ePage.Entities.Header.Data.PK
             }).indexOf(OutwardMenuCtrl.currentOutward[OutwardMenuCtrl.currentOutward.label].ePage.Entities.Header.Data.PK);
@@ -75,19 +129,19 @@
                 }
                 else {
                     //To check whether client and warehouse are present before changing tab to line
-                    if ($index == 1) {
+                    if (($index == 1 && OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled) || ($index == 2 && !OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled)) {
                         var mydata = OutwardMenuCtrl.currentOutward[OutwardMenuCtrl.currentOutward.label].ePage.Entities.Header.Data;
                         if (mydata.UIWmsOutwardHeader.Client && mydata.UIWmsOutwardHeader.Warehouse) {
                             //It opens line page         
                         } else {
-                            if (OutwardMenuCtrl.ePage.Masters.active == 0) {
+                            if (OutwardMenuCtrl.ePage.Masters.active == 1) {
                                 $event.preventDefault();
                             }
-                            OutwardMenuCtrl.ePage.Masters.active = 0;
+                            OutwardMenuCtrl.ePage.Masters.active = 1;
                             Validation(OutwardMenuCtrl.currentOutward);
                         }
                     }
-                    else if ($index == 2) {
+                    else if (($index == 2 && OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled) || ($index == 3 && !OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled)) {
 
                         // If not cancelled outward then create or prevent from creation
                         if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus != 'CAN') {
@@ -137,7 +191,7 @@
                                                             if (response.data.Status == 'Success') {
                                                                 OutwardMenuCtrl.ePage.Masters.PickDetails = response.data.Response;
                                                                 OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo = response.data.Response.UIWmsPickHeader.PickNo;
-                                                                OutwardMenuCtrl.ePage.Masters.active = 2;
+                                                                OutwardMenuCtrl.ePage.Masters.active = 3;
                                                                 OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
                                                             }
                                                         });
@@ -175,7 +229,7 @@
                             toastr.error("Cannot create pick for cancelled outward");
                         }
                     }
-                    else if ($index == 3) {
+                    else if (($index == 3 && OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled) || ($index == 4 && !OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled)) {
 
                         // If not cancelled outward then create or prevent from creation
                         if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus != 'CAN') {
@@ -281,7 +335,7 @@
                                                                                 if (response.data.Status == 'Success') {
                                                                                     OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails = response.data.Response;
                                                                                     OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code = response.data.Response.TmsManifestHeader.ManifestNumber;
-                                                                                    OutwardMenuCtrl.ePage.Masters.active = 3;
+                                                                                    OutwardMenuCtrl.ePage.Masters.active = 4;
                                                                                     OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
                                                                                 }
                                                                             });

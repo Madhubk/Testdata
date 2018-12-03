@@ -9,7 +9,7 @@
                 <div class="wocstatusmenu text-single-line text-center" title="{{OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus + ' - '+ OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatusDesc}}"
                     data-ng-bind="OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatusDesc"></div>
             </div>
-            <uib-tab ng-repeat="x in OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource" index="$index" deselect="OutwardMenuCtrl.ePage.Masters.tabSelected(x,$selectedIndex,$event);">
+            <uib-tab ng-repeat="x in OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource" index="$index" deselect="OutwardMenuCtrl.ePage.Masters.tabSelected(x,$selectedIndex,$event)" data-ng-if="!x.IsDisabled">
                 <uib-tab-heading title="{{x.DisplayName}}">
                     <i class="{{x.Icon}} mr-5"></i>
                     <span class="text-single-line" data-ng-bind="x.DisplayName"></span>
@@ -28,6 +28,7 @@
                     <div ng-switch="x.Value">
 
                         <!--Menu directives-->
+                        <div ng-switch-when="MyTask" inward-my-task current-inward="OutwardMenuCtrl.currentOutward" ></div>
                         <div ng-switch-when="General" outward-general current-outward="OutwardMenuCtrl.currentOutward"></div>
                         <div ng-switch-when="Line" outward-line current-outward="OutwardMenuCtrl.currentOutward"></div>
                         <div ng-switch-when="Pick" ng-if="OutwardMenuCtrl.ePage.Masters.PickDetails" outward-pick pick-details="OutwardMenuCtrl.ePage.Masters.PickDetails"
