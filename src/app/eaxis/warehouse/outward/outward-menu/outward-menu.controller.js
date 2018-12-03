@@ -103,7 +103,6 @@
         }
         
         function tabSelected(tab, $index, $event) {
-            debugger
             var _index = outwardConfig.TabList.map(function (value, key) {
                 return value[value.label].ePage.Entities.Header.Data.PK
             }).indexOf(OutwardMenuCtrl.currentOutward[OutwardMenuCtrl.currentOutward.label].ePage.Entities.Header.Data.PK);
