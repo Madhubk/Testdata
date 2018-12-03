@@ -213,7 +213,14 @@
                 'app/eaxis/warehouse/outward/outward-dispatch/outward-dispatch.controller.js',
                 'app/eaxis/warehouse/outward/outward-dispatch/outward-dispatch.directive.js'
             ]
+        }, {
+            name: 'outwardMyTask',
+            files: [
+                'app/eaxis/warehouse/outward/my-task/outward-my-task.controller.js',
+                'app/eaxis/warehouse/outward/my-task/outward-my-task.directive.js'
+            ]
         },
+
         // endregion
         // --------------------- Pick -----------------------
         // region

@@ -110,8 +110,7 @@
             });
         }
 
-        function tabSelected(tab, $index, $event) {
-            debugger
+        function tabSelected(tab, $index, $event) {            
             var _index = inwardConfig.TabList.map(function (value, key) {
                 return value[value.label].ePage.Entities.Header.Data.PK
             }).indexOf(InwardMenuCtrl.currentInward[InwardMenuCtrl.currentInward.label].ePage.Entities.Header.Data.PK);
