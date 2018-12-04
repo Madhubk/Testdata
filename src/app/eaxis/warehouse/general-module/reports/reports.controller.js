@@ -5,9 +5,9 @@
         .module("Application")
         .controller("WarehouseReportController", WarehouseReportController);
 
-    WarehouseReportController.$inject = ["$location", "APP_CONSTANT", "authService", "apiService", "helperService",  "$timeout", "toastr", "appConfig", "$window", "dynamicLookupConfig", "$filter"];
+    WarehouseReportController.$inject = ["$location", "APP_CONSTANT", "authService", "apiService", "helperService", "$timeout", "toastr", "appConfig", "$window", "dynamicLookupConfig", "$filter", "$state"];
 
-    function WarehouseReportController($location, APP_CONSTANT, authService, apiService, helperService,  $timeout, toastr, appConfig, $window, dynamicLookupConfig, $filter) {
+    function WarehouseReportController($location, APP_CONSTANT, authService, apiService, helperService, $timeout, toastr, appConfig, $window, dynamicLookupConfig, $filter, $state) {
 
         var ReportCtrl = this;
 
@@ -25,6 +25,11 @@
             ReportCtrl.ePage.Masters.dataentryName = "WarehouseReports";
             ReportCtrl.ePage.Masters.defaultFilter = ReportCtrl.defaultFilter;
             ReportCtrl.ePage.Masters.selectedRow = -1;
+            if ($state.current.url == "/spare-parts-report") {
+                ReportCtrl.ePage.Masters.Title = "Spare Parts Reports";
+            } else {
+                ReportCtrl.ePage.Masters.Title = "Warehouse Reports";
+            }
 
             // function call from UI
             ReportCtrl.ePage.Masters.GetConfigDetails = GetConfigDetails;
@@ -69,14 +74,18 @@
                             $timeout(function () {
                                 $('#filterSideBar' + ReportCtrl.ePage.Masters.DynamicControl.DataEntryName).toggleClass('open');
                             });
-                            
+
                             if (ReportCtrl.ePage.Masters.defaultFilter !== undefined) {
                                 ReportCtrl.ePage.Masters.DynamicControl.Entities.map(function (value, key) {
                                     value.Data = ReportCtrl.ePage.Masters.defaultFilter;
                                 });
                             }
                             ReportCtrl.ePage.Masters.IsLoading = false;
-                            ReportCtrl.ePage.Masters.ViewType = 2;
+                            if ($state.current.url == "/spare-parts-report") {
+                                ReportCtrl.ePage.Masters.ViewType = 1;
+                            } else {
+                                ReportCtrl.ePage.Masters.ViewType = 2;
+                            }
                         }
                     });
                 }
@@ -86,16 +95,21 @@
 
         }
 
-        
+
         // CfxMenus
         function checkCfxMenus() {
-
+            var ModuleCode;
+            if ($state.current.url == "/spare-parts-report") {
+                ModuleCode = "SPMS";
+            } else {
+                ModuleCode = "WHS";
+            }
             ReportCtrl.ePage.Masters.ChildMenuList = [];
             var _filter = {
                 "USR_TenantCode": authService.getUserInfo().TenantCode,
                 "USR_SAP_FK": authService.getUserInfo().AppPK,
                 "PageType": "Report",
-                "ModuleCode": "WHS",
+                "ModuleCode": ModuleCode,
                 "USR_UserName": authService.getUserInfo().UserId,
             };
             var _input = {
@@ -123,7 +137,7 @@
         function GenerateReports() {
             ReportCtrl.ePage.Masters.DynamicControl.Entities[0].ConfigData.map(function (value, key) {
                 if (!value.Include) {
-                    delete(ReportCtrl.ePage.Masters.DynamicControl.Entities[0].Data[value.PropertyName])
+                    delete (ReportCtrl.ePage.Masters.DynamicControl.Entities[0].Data[value.PropertyName])
                 }
             });
             $timeout(function () {
@@ -155,27 +169,27 @@
 
                 obj.DataObjs[1].SearchInput.SearchInput = ReportCtrl.ePage.Masters.DynamicControl.Filter;
 
-                if(obj.DataObjs[2]){
+                if (obj.DataObjs[2]) {
                     obj.DataObjs[2].SearchInput.SearchInput = ReportCtrl.ePage.Masters.DynamicControl.Filter;
                 }
 
-                ReportCtrl.ePage.Masters.DynamicControl.Filter.map(function(val,key){
-                    if(val.FieldName == "WAR_WarehouseCode" || val.FieldName == "WarehouseCode"){
+                ReportCtrl.ePage.Masters.DynamicControl.Filter.map(function (val, key) {
+                    if (val.FieldName == "WAR_WarehouseCode" || val.FieldName == "WarehouseCode") {
                         obj.DataObjs[0].DataObject.Warehouse_Code = val.value;
                     }
-                    if(val.FieldName == "ClientCode" || val.FieldName == "ORG_ClientCode"){
+                    if (val.FieldName == "ClientCode" || val.FieldName == "ORG_ClientCode") {
                         obj.DataObjs[0].DataObject.Client_Code = val.value;
                     }
-                    if(val.FieldName == "ProductCode" || val.FieldName == "PartNum"){
+                    if (val.FieldName == "ProductCode" || val.FieldName == "PartNum") {
                         obj.DataObjs[0].DataObject.Product_Code = val.value;
                     }
-                    if(val.FieldName == "Location" || val.FieldName == "WLO_Location" || val.FieldName == "ORG_Location_Code"){
+                    if (val.FieldName == "Location" || val.FieldName == "WLO_Location" || val.FieldName == "ORG_Location_Code") {
                         obj.DataObjs[0].DataObject.Location = val.value;
                     }
-                    if(val.FieldName == "StockBalanceOn" || val.FieldName=="FromDate"){
+                    if (val.FieldName == "StockBalanceOn" || val.FieldName == "FromDate") {
                         obj.DataObjs[0].DataObject.Custom_Date = val.value;
                     }
-                    
+
                 });
 
             } else {

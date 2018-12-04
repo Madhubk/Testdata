@@ -687,5 +687,26 @@
                     }]
                 }
             })
+            .state('EA.WMS.sparePartsReport', {
+                url: '/spare-parts-report',
+                templateUrl: 'app/eaxis/warehouse/general-module/reports/reports.html',
+                controller: "WarehouseReportController as ReportCtrl",
+                ncyBreadcrumb: {
+                    label: 'Report'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        if (pageAccessService.CheckAuthToken()) {
+                            deferred.resolve();
+                        }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "warehouseReports", "QRCode", "AngularPrint", "generateBarcode",]);
+                    }]
+                }
+            })
+
     }
 })();
