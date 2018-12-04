@@ -100,7 +100,7 @@
                 apiService.get("eAxisAPI", appConfig.Entities.InwardList.API.GetById.Url + ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
                     if (response.data.Response) {
                         ActivityTemplateInwardCtrl.ePage.Masters.EntityObj = response.data.Response;
-                        ActivityTemplateInwardCtrl.ePage.Entities.Header.Data = ActivityTemplateInwardCtrl.ePage.Masters.EntityObj;                        
+                        ActivityTemplateInwardCtrl.ePage.Entities.Header.Data = ActivityTemplateInwardCtrl.ePage.Masters.EntityObj;
                         if (ActivityTemplateInwardCtrl.tabObj) {
                             ActivityTemplateInwardCtrl.currentInward = ActivityTemplateInwardCtrl.tabObj;
                             myTaskActivityConfig.Entities.Inward = ActivityTemplateInwardCtrl.currentInward;
@@ -134,6 +134,14 @@
                         // toastr.success("Saved Successfully");
                     });
                 }
+            } else if (ActivityTemplateInwardCtrl.taskObj.ProcessName = "WMS_CollectMaterial") {
+                $rootScope.SaveInwardFromTask(function () {
+                    apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, myTaskActivityConfig.Entities.PickupData).then(function (response) {
+                        toastr.success("Pickup Saved Successfully");
+                        if (callback)
+                            callback();
+                    });
+                });
             } else {
                 saves();
             }

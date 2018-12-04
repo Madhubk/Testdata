@@ -160,55 +160,35 @@
                                     response.data.Response.Response.UIWmsInwardHeader.Warehouse = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.Warehouse;
                                     response.data.Response.Response.UIWmsInwardHeader.WarehouseCode = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseCode;
                                     response.data.Response.Response.UIWmsInwardHeader.WarehouseName = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseName;
+                                    response.data.Response.Response.UIWmsInwardHeader.AdditionalRef2Fk = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.PK;
                                     response.data.Response.Response.UIWmsInwardHeader.WorkOrderType = "INW";
 
                                     response.data.Response.Response.UIWmsInwardHeader.WOD_Parent_FK = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.PK;
                                     angular.forEach(CreatePickupChallanCtrl.ePage.Masters.SelectedPickupLine, function (value, key) {
                                         var obj = {
-                                            "Parent_FK": value.PK,
                                             "PK": "",
-                                            "WorkOrderType": "ORD",
-                                            "WorkOrderLineType": "ORD",
-                                            "WorkOrderID": response.data.Response.Response.UIWmsInwardHeader.WorkOrderID,
-                                            "ExternalReference": response.data.Response.Response.UIWmsInwardHeader.WorkOrderID,
-                                            "WOD_FK": response.data.Response.Response.PK,
-                                            "ProductCode": value.DLPRD_Req_PrdCode,
-                                            "ProductDescription": value.DLPRD_Req_PrdDesc,
-                                            "PRO_FK": value.DLPRD_Req_PrdPk,
-                                            "Commodity": value.Commodity,
-                                            "MCC_NKCommodityCode": value.MCC_NKCommodityCode,
-                                            "MCC_NKCommodityDesc": value.MCC_NKCommodityDesc,
-                                            "ProductCondition": "GDC",
+                                            "Parent_FK": value.PK,
+                                            "Client_FK": value.Client_FK,
+                                            "ORG_ClientCode": value.ORG_ClientCode,
+                                            "ORG_ClientName": value.ORG_ClientName,
+                                            "ProductCode": value.ProductCode,
+                                            "ProductDescription": value.ProductDescription,
+                                            "ProductCondition": value.ProductCondition,
+                                            "POR_FK": value.PRO_FK,
                                             "Packs": value.Packs,
                                             "PAC_PackType": value.PAC_PackType,
-                                            "Units": value.Units,
+                                            "Quantity": value.Units,
                                             "StockKeepingUnit": value.StockKeepingUnit,
+                                            "PalletId": value.PalletID,
                                             "PartAttrib1": value.PartAttrib1,
                                             "PartAttrib2": value.PartAttrib2,
                                             "PartAttrib3": value.PartAttrib3,
-                                            "LineComment": value.LineComment,
                                             "PackingDate": value.PackingDate,
                                             "ExpiryDate": value.ExpiryDate,
                                             "AdditionalRef1Code": value.AdditionalRef1Code,
-                                            "UseExpiryDate": value.UseExpiryDate,
-                                            "UsePackingDate": value.UsePackingDate,
-                                            "UsePartAttrib1": value.UsePartAttrib1,
-                                            "UsePartAttrib2": value.UsePartAttrib2,
-                                            "UsePartAttrib3": value.UsePartAttrib3,
-                                            "IsPartAttrib1ReleaseCaptured": value.IsPartAttrib1ReleaseCaptured,
-                                            "IsPartAttrib2ReleaseCaptured": value.IsPartAttrib2ReleaseCaptured,
-                                            "IsPartAttrib3ReleaseCaptured": value.IsPartAttrib3ReleaseCaptured,
-
-                                            "IsDeleted": false,
-                                            "ORG_ClientCode": value.ORG_ClientCode,
-                                            "ORG_ClientName": value.ORG_ClientName,
-                                            "Client_FK": value.Client_FK,
-
-                                            "WAR_WarehouseCode": value.WAR_WarehouseCode,
-                                            "WAR_WarehouseName": value.WAR_WarehouseName,
-                                            "WAR_FK": value.WAR_FK,
+                                            "AdditionalRef1Type": value.AdditionalRef1Type
                                         };
-                                        response.data.Response.Response.UIWmsWorkOrderLine.push(obj);
+                                        response.data.Response.Response.UIWmsAsnLine.push(obj);
                                     });
 
                                     var _obj = {

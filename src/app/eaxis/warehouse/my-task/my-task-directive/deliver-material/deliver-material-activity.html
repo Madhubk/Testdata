@@ -11,9 +11,9 @@
         </uib-tab>
         <!--Details-->
         <uib-tab active="DeliverMaterialCtrl.ePage.Masters.activeTabIndex ==1">
-            <uib-tab-heading title="Outward">
+            <uib-tab-heading title="DeliverMaterialCtrl.ePage.Masters.Config.Entities.Outward.label">
                 <i class="fa fa-suitcase margin-right-5"></i>
-                <span class="text-single-line" data-ng-bind="'Outward'"></span>
+                <span class="text-single-line">{{DeliverMaterialCtrl.ePage.Masters.Config.Entities.Outward.label}} </span>
             </uib-tab-heading>
             <outward-menu ng-if="DeliverMaterialCtrl.ePage.Masters.Config.Entities.Outward" current-outward="DeliverMaterialCtrl.ePage.Masters.Config.Entities.Outward"
                 hide-footer="true" is-hide-menu="true"></outward-menu>

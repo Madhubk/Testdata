@@ -127,7 +127,7 @@
                 apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.Update.Url, myTaskActivityConfig.Entities.DeliveryData).then(function (response) {
                     $rootScope.SaveOutwardFromTask(function () {
                         // saves();
-                        toastr.success("Saved Successfully");
+                        // toastr.success("Saved Successfully");
                     });
                 });
             } else {

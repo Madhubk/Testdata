@@ -1,0 +1,23 @@
+<div class="padding-bottom-10 clearfix">
+    <!--Gatepass Menu Directive-->
+    <uib-tabset id="Gatepass" active="CollectMaterialCtrl.ePage.Masters.activeTabIndex">
+        <!--General Tab-->
+        <uib-tab>
+            <uib-tab-heading title="CSR Details">
+                <i class="fa fa-truck margin-right-5"></i>
+                <span class="text-single-line" data-ng-bind="'CSR Details'"></span>
+            </uib-tab-heading>
+            <div data-ng-include="'app/eaxis/warehouse/my-task/my-task-directive/collect-material/csr-details.html'"></div>
+        </uib-tab>
+        <!--Details-->
+        <uib-tab active="CollectMaterialCtrl.ePage.Masters.activeTabIndex ==1">
+            <uib-tab-heading title="CollectMaterialCtrl.ePage.Masters.Config.Entities.Inward.label">
+                <i class="fa fa-suitcase margin-right-5"></i>
+                <span class="text-single-line">{{CollectMaterialCtrl.ePage.Masters.Config.Entities.Inward.label}}</span>
+            </uib-tab-heading>
+            <inward-menu ng-if="CollectMaterialCtrl.ePage.Masters.Config.Entities.Inward" current-inward="CollectMaterialCtrl.ePage.Masters.Config.Entities.Inward"
+                hide-footer="true" is-hide-menu="true"></inward-menu>
+        </uib-tab>
+    </uib-tabset>
+    <div class="horizontal-space"></div>
+</div>

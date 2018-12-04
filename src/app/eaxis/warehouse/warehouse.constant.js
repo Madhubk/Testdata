@@ -893,6 +893,18 @@
                 "app/eaxis/warehouse/my-task/my-task-directive/create-pickup-challan/create-pickup-challan.controller.js",
                 "app/eaxis/warehouse/my-task/my-task-directive/create-pickup-challan/create-pickup-challan.directive.js"
             ]
+        }, {
+            name: 'CollectMaterialDirective',
+            files: [
+                "app/eaxis/warehouse/my-task/my-task-directive/collect-material/collect-material.controller.js",
+                "app/eaxis/warehouse/my-task/my-task-directive/collect-material/collect-material.directive.js"
+            ]
+        },{
+            name: 'GetSignatureDirective',
+            files: [
+                "app/eaxis/warehouse/my-task/my-task-directive/get-signature/get-signature.controller.js",
+                "app/eaxis/warehouse/my-task/my-task-directive/get-signature/get-signature.directive.js"
+            ]
         },
         // #endregion
         // #region Raise CSR
