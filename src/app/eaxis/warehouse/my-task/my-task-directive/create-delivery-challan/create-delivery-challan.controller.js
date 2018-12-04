@@ -160,6 +160,7 @@
                                     response.data.Response.Response.UIWmsOutwardHeader.Warehouse = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Warehouse;
                                     response.data.Response.Response.UIWmsOutwardHeader.WarehouseCode = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode;
                                     response.data.Response.Response.UIWmsOutwardHeader.WarehouseName = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseName;
+                                    response.data.Response.Response.UIWmsOutwardHeader.AdditionalRef2Fk = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.PK;
                                     response.data.Response.Response.UIWmsOutwardHeader.RequiredDate = new Date();
                                     response.data.Response.Response.UIWmsOutwardHeader.WorkOrderType = "ORD";
                                     if (type == "MTR")

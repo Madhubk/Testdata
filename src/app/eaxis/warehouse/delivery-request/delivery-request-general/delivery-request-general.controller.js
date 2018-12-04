@@ -116,10 +116,13 @@
                 if (response.data.Response) {
                     DeliveryGeneralCtrl.ePage.Masters.UserMappedWarehouseList = response.data.Response;
                     DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouse = "";
+                    DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouseFK = "";
                     angular.forEach(DeliveryGeneralCtrl.ePage.Masters.UserMappedWarehouseList, function (value, key) {
                         DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouse = DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouse + value.OtherEntityCode + ",";
+                        DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouseFK = DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouseFK + value.OtherEntity_FK + ",";
                     });
                     DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouse = DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouse.slice(0, -1);
+                    DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouseFK = DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouseFK.slice(0, -1);
                     getReceiveParamWarehouse();
                 }
             });
