@@ -206,8 +206,8 @@
                     <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ServiceType}}</td>
                     <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_SenderRef}}</td>
                     <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ReceiverRef}}</td>
-                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ExpectedPickupDateTime}}</td>
-                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ExpectedDeliveryDateTime}}</td>
+                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ExpectedPickupDateTime | date:"dd-MMM-yyyy hh:mm a"}}</td>
+                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ExpectedDeliveryDateTime | date:"dd-MMM-yyyy hh:mm a"}}</td>
                     <td ng-style="{ 'width':  '100px' }" class="overflow-text">
                         <div data-ng-init="OutwardDispatchCtrl.ePage.Masters.StandardMenuConfig(x,$index)"></div>
                         <i class="fa fa-file" style="font-size: 14px; margin-left: 20px;" document-modal input="OutwardDispatchCtrl.ePage.Masters.DocumentInput[$index]"

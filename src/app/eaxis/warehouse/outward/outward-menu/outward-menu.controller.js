@@ -177,7 +177,7 @@
                             _arr = _arr.filter(function (e) {
                                 return e;
                             });
-                            
+
                             $ocLazyLoad.load(_arr).then(function () {
                                 OutwardMenuCtrl.ePage.Masters.MyTask.ListSource = response.data.Response;
                             });
@@ -374,6 +374,8 @@
                                                             response.data.Response.TmsManifestHeader.ReceiverCode = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeCode;
                                                             response.data.Response.TmsManifestHeader.ReceiverName = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeName;
                                                             response.data.Response.TmsManifestHeader.Receiver_ORG_FK = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Consignee_FK;
+                                                            response.data.Response.TmsManifestHeader.EstimatedDispatchDate = new Date();
+                                                            response.data.Response.TmsManifestHeader.EstimatedDeliveryDate = new Date();
                                                             OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code = response.data.Response.TmsManifestHeader.ManifestNumber;
                                                             OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk = response.data.Response.TmsManifestHeader.PK;
                                                             OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IsModified = true;
@@ -393,8 +395,8 @@
                                                                         "TMC_Client_ORG_FK": OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Client_FK,
                                                                         "TMC_ClientId": OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ClientCode,
                                                                         "TMC_ConsignmentNumber": OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID,
-                                                                        "TMC_ExpectedDeliveryDateTime": new Date(),
-                                                                        "TMC_ExpectedPickupDateTime": new Date(),
+                                                                        "TMC_ExpectedDeliveryDateTime": response.data.Response.TmsManifestHeader.EstimatedDeliveryDate,
+                                                                        "TMC_ExpectedPickupDateTime": response.data.Response.TmsManifestHeader.EstimatedDispatchDate,
                                                                         "TMC_FK": "",
                                                                         "TMC_ServiceType": OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderType,
                                                                         "TMM_ManifestNumber": response.data.Response.TmsManifestHeader.ManifestNumber,
@@ -617,6 +619,10 @@
             // Save Manifest Details
             if (_input.UIWmsOutwardHeader.AdditionalRef1Code) {
                 if (OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails) {
+                    angular.forEach(OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestConsignment, function (value, key) {
+                        value.TMC_ExpectedDeliveryDateTime = OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.EstimatedDeliveryDate;
+                        value.TMC_ExpectedPickupDateTime = OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.EstimatedDispatchDate;
+                    });
                     OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails = filterObjectUpdate(OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails, "IsModified");
                     apiService.post("eAxisAPI", appConfig.Entities.TmsManifestList.API.Update.Url, OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails).then(function (response) {
                         if (response.data.Status == 'Success') {

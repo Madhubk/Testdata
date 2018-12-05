@@ -38,6 +38,19 @@
             OutwardDispatchCtrl.ePage.Masters.StandardMenuConfig = StandardMenuConfig;
             GetDropDownList();
             getVehicleType();
+            generalOperation();
+        }
+
+        function generalOperation() {
+            if (OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.TransporterCode == null) {
+                OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.TransporterCode = "";
+            }
+            if (OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.TransporterName == null) {
+                OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.TransporterName = "";
+            }
+            OutwardDispatchCtrl.ePage.Masters.Transporter = OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.TransporterCode + ' - ' + OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.TransporterName;
+            if (OutwardDispatchCtrl.ePage.Masters.Transporter == ' - ')
+                OutwardDispatchCtrl.ePage.Masters.Transporter = ""
         }
 
         function StandardMenuConfig(value, index) {
