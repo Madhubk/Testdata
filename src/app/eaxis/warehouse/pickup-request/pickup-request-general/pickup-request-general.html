@@ -240,7 +240,8 @@
             <div class="form-group">
                 <label class="control-label text-single-line">Pickup Point</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Pickup Point" data-ng-model="PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.AdditionalRef1Code">
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Pickup Point"
+                        data-ng-model="PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.AdditionalRef1Code">
                 </div>
             </div>
         </div>
@@ -248,8 +249,8 @@
             <div class="form-group">
                 <span class="error-warning-container">
                     <error-warning-directive data-ng-if="PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Requester.IsWarning && !PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Requester.IsError"
-                        list="PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Requester.WARNING" type="'warning'"
-                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        list="PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Requester.WARNING" type="'warning'" icon="fa fa-warning"
+                        parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     <error-warning-directive data-ng-if="PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Requester.IsError" list="PickupGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Requester.ERROR"
                         type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                 </span>
@@ -284,6 +285,24 @@
                 <div class="">
                     <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Pickup Request No"
                         data-ng-model="PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+            <div class="form-group">
+                <label class="control-label text-single-line">Receiver</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Receiver"
+                        data-ng-model="PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.Receiver">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+            <div class="form-group">
+                <label class="control-label text-single-line">Receiver Contact No</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Receiver Contact No"
+                        data-ng-model="PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.ReceiverContactNo">
                 </div>
             </div>
         </div>

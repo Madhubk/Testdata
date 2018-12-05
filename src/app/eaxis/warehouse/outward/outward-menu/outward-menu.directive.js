@@ -18,7 +18,6 @@
             scope: {
                 currentOutward: "=",
                 dataentryObject: '=',
-                hideFooter: "=",
                 isHideMenu:"="
             },
             bindToController: true

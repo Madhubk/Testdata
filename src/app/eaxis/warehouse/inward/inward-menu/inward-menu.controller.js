@@ -5,9 +5,9 @@
         .module("Application")
         .controller("InwardMenuController", InwardMenuController);
 
-    InwardMenuController.$inject = ["$rootScope", "$scope", "$timeout", "APP_CONSTANT", "apiService", "inwardConfig", "helperService", "appConfig", "authService", "$location", "$state", "toastr", "confirmation", "$uibModal"];
+    InwardMenuController.$inject = ["$rootScope", "$scope", "$timeout", "APP_CONSTANT", "apiService", "inwardConfig", "helperService", "appConfig", "authService", "$location", "$state", "toastr", "confirmation", "$uibModal", "$ocLazyLoad"];
 
-    function InwardMenuController($rootScope, $scope, $timeout, APP_CONSTANT, apiService, inwardConfig, helperService, appConfig, authService, $location, $state, toastr, confirmation, $uibModal) {
+    function InwardMenuController($rootScope, $scope, $timeout, APP_CONSTANT, apiService, inwardConfig, helperService, appConfig, authService, $location, $state, toastr, confirmation, $uibModal, $ocLazyLoad) {
 
         var InwardMenuCtrl = this
 
@@ -33,6 +33,7 @@
 
             InwardMenuCtrl.ePage.Masters.IsHideMytaskMenu = InwardMenuCtrl.isHideMenu;
 
+            InwardMenuCtrl.ePage.Masters.OnMenuClick = OnMenuClick;
             InwardMenuCtrl.ePage.Masters.tabSelected = tabSelected;
             InwardMenuCtrl.ePage.Masters.Validation = Validation;
             InwardMenuCtrl.ePage.Masters.Config = inwardConfig;
@@ -45,17 +46,16 @@
             var _index = _menuList.map(function (value, key) {
                 return value.Value;
             }).indexOf("MyTask");
-            
+
             if (InwardMenuCtrl.currentInward.isNew) {
                 _menuList[_index].IsDisabled = true;
 
                 InwardMenuCtrl.ePage.Masters.InwardMenu.ListSource = _menuList;
-                InwardMenuCtrl.ePage.Masters.ActiveMenu = InwardMenuCtrl.ePage.Masters.InwardMenu.ListSource[0];
+                OnMenuClick(InwardMenuCtrl.ePage.Masters.InwardMenu.ListSource[0]);
             } else {
                 if (InwardMenuCtrl.ePage.Masters.IsHideMytaskMenu) {
                     _menuList[_index].IsDisabled = true;
                     InwardMenuCtrl.ePage.Masters.InwardMenu.ListSource = _menuList;
-                    InwardMenuCtrl.ePage.Masters.ActiveMenu = InwardMenuCtrl.ePage.Masters.InwardMenu.ListSource[0];
                 } else {
                     GetMyTaskList(_menuList, _index);
                 }
@@ -76,6 +76,10 @@
         }
 
         function GetMyTaskList(menuList, index) {
+            var _DocumentConfig = {
+                IsDisableGenerate: true
+            };
+            var _CommentConfig = {};
             var _menuList = menuList,
                 _index = index;
             var _filter = {
@@ -92,7 +96,98 @@
             apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkItem.API.FindAllWithAccess.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
-                        InwardMenuCtrl.ePage.Masters.MyTask.ListSource = response.data.Response;
+                        var _response = response.data.Response;
+                        var _arr = [];
+                        if (_response.length > 0) {
+                            _response.map(function (value, key) {
+                                value.AvailableObj = {
+                                    RadioBtnOption: "Me",
+                                    SaveBtnText: "Submit",
+                                    IsDisableSaveBtn: false
+                                };
+                                value.AssignedObj = {
+                                    RadioBtnOption: "MoveToQueue",
+                                    SaveBtnText: "Submit",
+                                    IsDisableSaveBtn: false
+                                };
+                                value.AdhocObj = {
+                                    AssignTo: ""
+                                };
+
+                                if (value.OtherConfig) {
+                                    if (typeof value.OtherConfig == "string") {
+                                        value.OtherConfig = JSON.parse(value.OtherConfig);
+                                    }
+                                    if (value.OtherConfig) {
+                                        if (value.OtherConfig.Directives) {
+                                            var _index = value.OtherConfig.Directives.ListPage.indexOf(",");
+                                            if (_index != -1) {
+                                                var _split = value.OtherConfig.Directives.ListPage.split(",");
+
+                                                if (_split.length > 0) {
+                                                    _split.map(function (value, key) {
+                                                        var _index = _arr.map(function (value1, key1) {
+                                                            return value1;
+                                                        }).indexOf(value);
+                                                        if (_index == -1) {
+                                                            _arr.push(value);
+                                                        }
+                                                    });
+                                                }
+                                            } else {
+                                                var _index = _arr.indexOf(value.OtherConfig.Directives.ListPage);
+                                                if (_index == -1) {
+                                                    _arr.push(value.OtherConfig.Directives.ListPage);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if (value.RelatedProcess) {
+                                    if (typeof value.RelatedProcess == "string") {
+                                        value.RelatedProcess = JSON.parse(value.RelatedProcess);
+                                    }
+                                }
+
+                                var _StandardMenuInput = {
+                                    // Entity
+                                    // "Entity": value.ProcessName,
+                                    "Entity": value.WSI_StepCode,
+                                    "Communication": null,
+                                    "Config": undefined,
+                                    "EntityRefKey": value.EntityRefKey,
+                                    "EntityRefCode": value.KeyReference,
+                                    "EntitySource": value.EntitySource,
+                                    // Parent Entity
+                                    "ParentEntityRefKey": value.PK,
+                                    "ParentEntityRefCode": value.WSI_StepCode,
+                                    "ParentEntitySource": value.EntitySource,
+                                    // Additional Entity
+                                    "AdditionalEntityRefKey": value.ParentEntityRefKey,
+                                    "AdditionalEntityRefCode": value.ParentKeyReference,
+                                    "AdditionalEntitySource": value.ParentEntitySource,
+                                    "IsDisableParentEntity": true,
+                                    "IsDisableAdditionalEntity": true
+                                };
+
+                                value.StandardMenuInput = _StandardMenuInput;
+                                value.DocumentConfig = _DocumentConfig;
+                                value.CommentConfig = _CommentConfig;
+                            });
+                        }
+
+                        if (_arr.length > 0) {
+                            _arr = _arr.filter(function (e) {
+                                return e;
+                            });
+
+                            $ocLazyLoad.load(_arr).then(function () {
+                                InwardMenuCtrl.ePage.Masters.MyTask.ListSource = response.data.Response;
+                            });
+                        } else {
+                            InwardMenuCtrl.ePage.Masters.MyTask.ListSource = response.data.Response;
+                        }
                     } else {
                         if (_index != -1) {
                             _menuList[_index].IsDisabled = true;
@@ -106,11 +201,22 @@
                 }
 
                 InwardMenuCtrl.ePage.Masters.InwardMenu.ListSource = _menuList;
-                InwardMenuCtrl.ePage.Masters.ActiveMenu = InwardMenuCtrl.ePage.Masters.InwardMenu.ListSource[0];
+
+                var _isEnabledFirstTab = false;
+                InwardMenuCtrl.ePage.Masters.InwardMenu.ListSource.map(function (value, key) {
+                    if (!_isEnabledFirstTab && !value.IsDisabled) {
+                        OnMenuClick(value);
+                        _isEnabledFirstTab = true;
+                    }
+                });
             });
         }
 
-        function tabSelected(tab, $index, $event) {            
+        function OnMenuClick($item) {
+            InwardMenuCtrl.ePage.Masters.ActiveMenuTab = $item;
+        }
+
+        function tabSelected(tab, $index, $event) {
             var _index = inwardConfig.TabList.map(function (value, key) {
                 return value[value.label].ePage.Entities.Header.Data.PK
             }).indexOf(InwardMenuCtrl.currentInward[InwardMenuCtrl.currentInward.label].ePage.Entities.Header.Data.PK);

@@ -899,11 +899,17 @@
                 "app/eaxis/warehouse/my-task/my-task-directive/collect-material/collect-material.controller.js",
                 "app/eaxis/warehouse/my-task/my-task-directive/collect-material/collect-material.directive.js"
             ]
-        },{
+        }, {
             name: 'GetSignatureDirective',
             files: [
                 "app/eaxis/warehouse/my-task/my-task-directive/get-signature/get-signature.controller.js",
                 "app/eaxis/warehouse/my-task/my-task-directive/get-signature/get-signature.directive.js"
+            ]
+        }, {
+            name: 'AcknowledgePickupRequestDirective',
+            files: [
+                "app/eaxis/warehouse/my-task/my-task-directive/acknowledge-pickup-request/acknowledge-pickup-request.controller.js",
+                "app/eaxis/warehouse/my-task/my-task-directive/acknowledge-pickup-request/acknowledge-pickup-request.directive.js"
             ]
         },
         // #endregion

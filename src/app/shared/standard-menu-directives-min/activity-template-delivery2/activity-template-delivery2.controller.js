@@ -288,7 +288,7 @@
         }
 
         function Complete() {
-            if (ActivityTemplateDelivery2Ctrl.ePage.Masters.ValidationSource.length > 0 || ActivityTemplateDelivery2Ctrl.ePage.Masters.DocumentValidation.length > 0) {                
+            if (ActivityTemplateDelivery2Ctrl.ePage.Masters.ValidationSource.length > 0 || ActivityTemplateDelivery2Ctrl.ePage.Masters.DocumentValidation.length > 0) {
                 if (ActivityTemplateDelivery2Ctrl.taskObj.WSI_StepName == "Create Delivery Challan") {
                     var input = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data
                     var temp = 0;
@@ -422,6 +422,8 @@
             ActivityTemplateDelivery2Ctrl.ePage.Masters.IsDisableCompleteBtn = true;
             if (ActivityTemplateDelivery2Ctrl.taskObj.WSI_StepName == "Acknowledge Delivery Request") {
                 ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsWorkorderReport.AcknowledgementDateTime = new Date();
+                ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;
+                ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsWorkorderReport.DeliveryRequestedDateTime = new Date();
             }
             SaveEntity();
             SaveOnly().then(function (response) {

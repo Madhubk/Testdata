@@ -9,7 +9,8 @@
                 <div class="wocstatusmenu text-single-line text-center" title="{{OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus + ' - '+ OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatusDesc}}"
                     data-ng-bind="OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatusDesc"></div>
             </div>
-            <uib-tab ng-repeat="x in OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource" index="$index" deselect="OutwardMenuCtrl.ePage.Masters.tabSelected(x,$selectedIndex,$event)" data-ng-if="!x.IsDisabled">
+            <uib-tab ng-repeat="x in OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource" index="$index" deselect="OutwardMenuCtrl.ePage.Masters.tabSelected(x,$selectedIndex,$event)"
+                data-ng-if="!x.IsDisabled" data-ng-click="OutwardMenuCtrl.ePage.Masters.OnMenuClick(x)">
                 <uib-tab-heading title="{{x.DisplayName}}">
                     <i class="{{x.Icon}} mr-5"></i>
                     <span class="text-single-line" data-ng-bind="x.DisplayName"></span>
@@ -28,7 +29,8 @@
                     <div ng-switch="x.Value">
 
                         <!--Menu directives-->
-                        <div ng-switch-when="MyTask" outward-my-task current-outward="OutwardMenuCtrl.currentOutward" ></div>
+                        <div ng-switch-when="MyTask" data-ng-if="OutwardMenuCtrl.ePage.Masters.MyTask.ListSource" outward-my-task list-source="OutwardMenuCtrl.ePage.Masters.MyTask.ListSource"
+                            current-outward="OutwardMenuCtrl.currentOutward"></div>
                         <div ng-switch-when="General" outward-general current-outward="OutwardMenuCtrl.currentOutward"></div>
                         <div ng-switch-when="Line" outward-line current-outward="OutwardMenuCtrl.currentOutward"></div>
                         <div ng-switch-when="Pick" ng-if="OutwardMenuCtrl.ePage.Masters.PickDetails" outward-pick pick-details="OutwardMenuCtrl.ePage.Masters.PickDetails"
@@ -80,20 +82,7 @@
         </div>
     </div>
     <!--Footer-->
-    <div class="eaxis-footer-strip" data-ng-if="!OutwardMenuCtrl.hideFooter">
-        <div class="col-xs-6 col-sm-8 col-md-8 col-lg-9 col-xl-9">
-            <standard-menu dataentry-object="OutwardMenuCtrl.dataentryObject" input="OutwardMenuCtrl.currentOutward"></standard-menu>
-        </div>
-        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 col-xl-3">
-            <button class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6" data-ng-click="OutwardMenuCtrl.ePage.Masters.Validation(OutwardMenuCtrl.currentOutward)"
-                data-ng-bind="OutwardMenuCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="OutwardMenuCtrl.ePage.Masters.DisableSave"></button>
-            <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="OutwardMenuCtrl.ePage.Masters.Validation(OutwardMenuCtrl.currentOutward);OutwardMenuCtrl.ePage.Masters.SaveAndClose = true"
-                data-ng-disabled="OutwardMenuCtrl.ePage.Masters.DisableSave">Save & Close</button>
-        </div>
-
-    </div>
-
-    <div class="eaxis-footer-strip" data-ng-if="!OutwardMenuCtrl.hideFooter">
+    <div class="eaxis-footer-strip" data-ng-show="OutwardMenuCtrl.ePage.Masters.ActiveMenuTab.Value != 'MyTask'">
         <div class="col-xs-6 col-sm-8 col-md-8 col-lg-9 col-xl-9">
             <standard-menu dataentry-object="OutwardMenuCtrl.dataentryObject" input="OutwardMenuCtrl.currentOutward"></standard-menu>
         </div>

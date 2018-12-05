@@ -15,7 +15,8 @@
             controller: "DeliveryMyTaskController",
             controllerAs: "DeliveryMyTaskCtrl",
             scope: {
-                currentDelivery: "="
+                currentDelivery: "=",
+                listSource: "=",
             },
             bindToController: true
         };
