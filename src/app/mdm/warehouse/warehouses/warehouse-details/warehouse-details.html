@@ -22,7 +22,7 @@
                                             </div>
                                             <label class="control-label text-single-line ">Warehouse Code</label>
                                             <div class="">
-                                                <input type="text" maxlength="7" capitalize class="form-control input-sm" placeholder="Warehouse Code" data-ng-model="WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsWarehouse.WarehouseCode" ng-change='WarehouseDetailsCtrl.ePage.Masters.OnChangeValues(WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsWarehouse.WarehouseCode,"E4001",false,undefined);'>
+                                                <input type="text" maxlength="8" capitalize class="form-control input-sm" placeholder="Warehouse Code" data-ng-model="WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsWarehouse.WarehouseCode" ng-change='WarehouseDetailsCtrl.ePage.Masters.OnChangeValues(WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsWarehouse.WarehouseCode,"E4001",false,undefined);'>
                                             </div>
                                         </div>
                                     </div>
@@ -36,7 +36,7 @@
                                             </div>
                                             <label class="control-label text-single-line ">Warehouse Name</label>
                                             <div class="">
-                                                <input type="text" class="form-control input-sm" capitalize placeholder="Warehouse Name" data-ng-model="WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsWarehouse.WarehouseName" ng-change='WarehouseDetailsCtrl.ePage.Masters.OnChangeValues(WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsWarehouse.WarehouseName,"E4002",false,undefined);'>
+                                                <input type="text" maxlength="50" class="form-control input-sm" capitalize placeholder="Warehouse Name" data-ng-model="WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsWarehouse.WarehouseName" ng-change='WarehouseDetailsCtrl.ePage.Masters.OnChangeValues(WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsWarehouse.WarehouseName,"E4002",false,undefined);'>
                                             </div>
                                         </div>
                                     </div>
@@ -179,7 +179,7 @@
                                         </div>
                                     </div>
                                     <div class="fixedheader" id="WarehouseTable{{WarehouseDetailsCtrl.ePage.Entities.Header.Data.PK}}"  key-events table-object='WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsArea' enable='WarehouseDetailsCtrl.ePage.Masters.Enable' selected-row='WarehouseDetailsCtrl.ePage.Masters.selectedRow' unique-id="WarehouseTable{{WarehouseDetailsCtrl.ePage.Entities.Header.Data.PK}}">
-                                        <table id="WarehouseDetailsCtrl.ePage.Masters.AddScroll" style="height: 290px">
+                                        <table id="WarehouseDetailsCtrl.ePage.Masters.AddScroll" style="height: 340px">
                                             <thead>
                                                 <tr id="tableHeader">
                                                     <th id="checkbox" data-ng-if="WarehouseDetailsCtrl.ePage.Entities.Header.TableProperties.WmsArea.checkbox.isenabled" ng-style="{ 'width': WarehouseDetailsCtrl.ePage.Entities.Header.TableProperties.WmsArea.sno.width + 'px' }">
@@ -221,7 +221,7 @@
                                                         </div>
                                                         <div data-ng-if="$index==WarehouseDetailsCtrl.ePage.Masters.selectedRow">
                                                             <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
-                                                                <input type="text " capitalize class="height-22 form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Area Name"  data-ng-model="x.Name"
+                                                                <input type="text" maxlength="25" capitalize class="height-22 form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Area Name"  data-ng-model="x.Name"
                                                                     ng-change='WarehouseDetailsCtrl.ePage.Masters.OnChangeValues(x.Name,"E4009",true,$index)'>                                        
                                                             </div>
                                                             <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="WarehouseDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.WmsArea.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':1">
