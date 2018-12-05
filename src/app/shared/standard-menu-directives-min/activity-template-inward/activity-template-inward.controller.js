@@ -101,15 +101,21 @@
                     if (response.data.Response) {
                         ActivityTemplateInwardCtrl.ePage.Masters.EntityObj = response.data.Response;
                         ActivityTemplateInwardCtrl.ePage.Entities.Header.Data = ActivityTemplateInwardCtrl.ePage.Masters.EntityObj;
-                        inwardConfig.GetTabDetails(ActivityTemplateInwardCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader, false).then(function (response) {
-                            angular.forEach(response, function (value, key) {
-                                if (value.label == ActivityTemplateInwardCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderID) {
-                                    ActivityTemplateInwardCtrl.currentInward = value;
-                                    myTaskActivityConfig.Entities.Inward = ActivityTemplateInwardCtrl.currentInward;
-                                    getTaskConfigData();
-                                }
+                        if (ActivityTemplateInwardCtrl.tabObj) {
+                            ActivityTemplateInwardCtrl.currentInward = ActivityTemplateInwardCtrl.tabObj;
+                            myTaskActivityConfig.Entities.Inward = ActivityTemplateInwardCtrl.currentInward;
+                            getTaskConfigData();
+                        } else {
+                            inwardConfig.GetTabDetails(ActivityTemplateInwardCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader, false).then(function (response) {
+                                angular.forEach(response, function (value, key) {
+                                    if (value.label == ActivityTemplateInwardCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderID) {
+                                        ActivityTemplateInwardCtrl.currentInward = value;
+                                        myTaskActivityConfig.Entities.Inward = ActivityTemplateInwardCtrl.currentInward;
+                                        getTaskConfigData();
+                                    }
+                                });
                             });
-                        });
+                        }
                     }
                 });
             }
@@ -128,6 +134,14 @@
                         // toastr.success("Saved Successfully");
                     });
                 }
+            } else if (ActivityTemplateInwardCtrl.taskObj.ProcessName = "WMS_CollectMaterial") {
+                $rootScope.SaveInwardFromTask(function () {
+                    apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, myTaskActivityConfig.Entities.PickupData).then(function (response) {
+                        toastr.success("Pickup Saved Successfully");
+                        if (callback)
+                            callback();
+                    });
+                });
             } else {
                 saves();
             }
@@ -171,6 +185,7 @@
                         response.data.Response.Response.UIWmsOutwardHeader.WarehouseCode = input.UIWmsInwardHeader.WarehouseCode
                         response.data.Response.Response.UIWmsOutwardHeader.WarehouseName = input.UIWmsInwardHeader.WarehouseName
                         response.data.Response.Response.UIWmsOutwardHeader.WOD_Parent_FK = input.UIWmsInwardHeader.PK
+                        response.data.Response.Response.UIWmsOutwardHeader.AdditionalRef2Fk = input.UIWmsInwardHeader.AdditionalRef2Fk
 
                         //Assigning Outward Line Object
                         input.UIWmsWorkOrderLine.map(function (value, key) {

@@ -38,6 +38,7 @@
             "GetErrorWarningCountParent": GetErrorWarningCountParent,
             "ShowErrorWarningModal": ShowErrorWarningModal,
             "ValidationFindall": ValidationFindall,
+            "TempInwardPK": ""
         };
 
         return exports;

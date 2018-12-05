@@ -213,7 +213,14 @@
                 'app/eaxis/warehouse/outward/outward-dispatch/outward-dispatch.controller.js',
                 'app/eaxis/warehouse/outward/outward-dispatch/outward-dispatch.directive.js'
             ]
+        }, {
+            name: 'outwardMyTask',
+            files: [
+                'app/eaxis/warehouse/outward/my-task/outward-my-task.controller.js',
+                'app/eaxis/warehouse/outward/my-task/outward-my-task.directive.js'
+            ]
         },
+
         // endregion
         // --------------------- Pick -----------------------
         // region
@@ -756,6 +763,12 @@
                 'app/eaxis/warehouse/pickup-request/pickup-details/pickup-details.controller.js',
                 'app/eaxis/warehouse/pickup-request/pickup-details/pickup-details.directive.js'
             ]
+        }, {
+            name: 'pickupMyTask',
+            files: [
+                'app/eaxis/warehouse/pickup-request/my-task/pickup-my-task.controller.js',
+                'app/eaxis/warehouse/pickup-request/my-task/pickup-my-task.directive.js'
+            ]
         },
         // endregion
         //#region WMS Common Dashboard
@@ -873,6 +886,24 @@
             files: [
                 "app/eaxis/warehouse/my-task/my-task-directive/receive-material/receive-material.controller.js",
                 "app/eaxis/warehouse/my-task/my-task-directive/receive-material/receive-material.directive.js"
+            ]
+        }, {
+            name: 'CreatePickupChallanDirective',
+            files: [
+                "app/eaxis/warehouse/my-task/my-task-directive/create-pickup-challan/create-pickup-challan.controller.js",
+                "app/eaxis/warehouse/my-task/my-task-directive/create-pickup-challan/create-pickup-challan.directive.js"
+            ]
+        }, {
+            name: 'CollectMaterialDirective',
+            files: [
+                "app/eaxis/warehouse/my-task/my-task-directive/collect-material/collect-material.controller.js",
+                "app/eaxis/warehouse/my-task/my-task-directive/collect-material/collect-material.directive.js"
+            ]
+        },{
+            name: 'GetSignatureDirective',
+            files: [
+                "app/eaxis/warehouse/my-task/my-task-directive/get-signature/get-signature.controller.js",
+                "app/eaxis/warehouse/my-task/my-task-directive/get-signature/get-signature.directive.js"
             ]
         },
         // #endregion

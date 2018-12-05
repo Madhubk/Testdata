@@ -38,6 +38,7 @@
             OutwardMenuCtrl.ePage.Masters.CancelOutward = CancelOutward;
 
             //To show hide mytask
+            OutwardMenuCtrl.ePage.Masters.IsHideMytaskMenu = OutwardMenuCtrl.isHideMenu;
             var _menuList = angular.copy(OutwardMenuCtrl.ePage.Entities.Header.Meta.MenuList);
             var _index = _menuList.map(function (value, key) {
                 return value.Value;
@@ -49,9 +50,14 @@
                 OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource = _menuList;
                 OutwardMenuCtrl.ePage.Masters.ActiveMenu = OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0];
             } else {
-                GetMyTaskList(_menuList, _index);
+                if (OutwardMenuCtrl.ePage.Masters.IsHideMytaskMenu) {
+                    _menuList[_index].IsDisabled = true;
+                    OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource = _menuList;
+                    OutwardMenuCtrl.ePage.Masters.ActiveMenu = OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0];
+                } else {
+                    GetMyTaskList(_menuList, _index);
+                }
             }
-
 
             if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus == 'FIN' || OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus == 'CAN') {
                 OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
@@ -65,9 +71,7 @@
             Validation(OutwardMenuCtrl.currentOutward, callback)
         }
 
-
-        function GetMyTaskList(menuList, index) {
-            debugger
+        function GetMyTaskList(menuList, index) {            
             var _menuList = menuList,
                 _index = index;
             var _filter = {
@@ -101,7 +105,7 @@
                 OutwardMenuCtrl.ePage.Masters.ActiveMenu = OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0];
             });
         }
-        
+
         function tabSelected(tab, $index, $event) {
             var _index = outwardConfig.TabList.map(function (value, key) {
                 return value[value.label].ePage.Entities.Header.Data.PK

@@ -24,26 +24,26 @@
             };
 
             PickupOrdersCtrl.ePage.Masters.Config = $injector.get("pickupConfig");
-            getOutwardList();
+            getInwardList();
         }
 
-        function getOutwardList() {
+        function getInwardList() {
             var _filter = {
                 "WOD_Parent_FK": PickupOrdersCtrl.ePage.Entities.Header.Data.UIWmsPickup.PK
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.WmsOutwardList.API.FindAll.FilterID
+                "FilterID": appConfig.Entities.InwardList.API.FindAll.FilterID
             };
-            apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", appConfig.Entities.InwardList.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     PickupOrdersCtrl.ePage.Entities.Header.Data.PickupOrders = response.data.Response;
-                    PickupOrdersCtrl.ePage.Masters.TempOutwardPK = "";
+                    PickupOrdersCtrl.ePage.Masters.TempInwardPK = "";
                     angular.forEach(PickupOrdersCtrl.ePage.Entities.Header.Data.PickupOrders, function (value, key) {
-                        PickupOrdersCtrl.ePage.Masters.TempOutwardPK = PickupOrdersCtrl.ePage.Masters.TempOutwardPK + value.PK + ",";
+                        PickupOrdersCtrl.ePage.Masters.TempInwardPK = PickupOrdersCtrl.ePage.Masters.TempInwardPK + value.PK + ",";
                     });
-                    PickupOrdersCtrl.ePage.Masters.TempOutwardPK = PickupOrdersCtrl.ePage.Masters.TempOutwardPK.slice(0, -1);
-                    pickupConfig.TempOutwardPK = PickupOrdersCtrl.ePage.Masters.TempOutwardPK;
+                    PickupOrdersCtrl.ePage.Masters.TempInwardPK = PickupOrdersCtrl.ePage.Masters.TempInwardPK.slice(0, -1);
+                    pickupConfig.TempInwardPK = PickupOrdersCtrl.ePage.Masters.TempInwardPK;
                 }
             });
         }

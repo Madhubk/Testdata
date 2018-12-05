@@ -359,6 +359,7 @@
             InwardObject.UIWmsInwardHeader.WarehouseCode = currentOutward.TransferTo_WAR_Code
             InwardObject.UIWmsInwardHeader.WarehouseName = currentOutward.TransferTo_WAR_Name
             InwardObject.UIWmsInwardHeader.WorkOrderSubType = currentOutward.WorkOrderSubType;
+            InwardObject.UIWmsInwardHeader.AdditionalRef2Fk = currentOutward.AdditionalRef2Fk;
 
             //Assigning ASN Line Object
             ReleasesGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardLines.map(function (value, key) {

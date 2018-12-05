@@ -30,7 +30,7 @@
             PickupGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
 
             PickupGeneralCtrl.ePage.Masters.DropDownMasterList = {};
-            
+
             //Functions
             PickupGeneralCtrl.ePage.Masters.SelectedLookupWarehouse = SelectedLookupWarehouse;
             PickupGeneralCtrl.ePage.Masters.SelectedLookupClient = SelectedLookupClient;
@@ -42,7 +42,7 @@
             PickupGeneralCtrl.ePage.Masters.ContactChosen = ContactChosen;
             PickupGeneralCtrl.ePage.Masters.CloseEditActivity = CloseEditActivity;
             PickupGeneralCtrl.ePage.Masters.emptyText = '-';
-            
+
             GetNewAddress();
             GetDropDownList();
             GeneralOperations();
@@ -116,10 +116,13 @@
                 if (response.data.Response) {
                     PickupGeneralCtrl.ePage.Masters.UserMappedWarehouseList = response.data.Response;
                     PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.TempWarehouse = "";
+                    PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.TempWarehouseFK = "";
                     angular.forEach(PickupGeneralCtrl.ePage.Masters.UserMappedWarehouseList, function (value, key) {
                         PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.TempWarehouse = PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.TempWarehouse + value.OtherEntityCode + ",";
+                        PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.TempWarehouseFK = PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.TempWarehouseFK + value.OtherEntity_FK + ",";
                     });
                     PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.TempWarehouse = PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.TempWarehouse.slice(0, -1);
+                    PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.TempWarehouseFK = PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.TempWarehouseFK.slice(0, -1);
                     getReceiveParamWarehouse();
                 }
             });

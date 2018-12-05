@@ -31,6 +31,7 @@
             InwardMenuCtrl.ePage.Masters.SaveButtonText = "Save";
             InwardMenuCtrl.ePage.Masters.FinaliseSaveText = "Finalize";
 
+            InwardMenuCtrl.ePage.Masters.IsHideMytaskMenu = InwardMenuCtrl.isHideMenu;
 
             InwardMenuCtrl.ePage.Masters.tabSelected = tabSelected;
             InwardMenuCtrl.ePage.Masters.Validation = Validation;
@@ -44,14 +45,20 @@
             var _index = _menuList.map(function (value, key) {
                 return value.Value;
             }).indexOf("MyTask");
-
+            
             if (InwardMenuCtrl.currentInward.isNew) {
                 _menuList[_index].IsDisabled = true;
 
                 InwardMenuCtrl.ePage.Masters.InwardMenu.ListSource = _menuList;
                 InwardMenuCtrl.ePage.Masters.ActiveMenu = InwardMenuCtrl.ePage.Masters.InwardMenu.ListSource[0];
             } else {
-                GetMyTaskList(_menuList, _index);
+                if (InwardMenuCtrl.ePage.Masters.IsHideMytaskMenu) {
+                    _menuList[_index].IsDisabled = true;
+                    InwardMenuCtrl.ePage.Masters.InwardMenu.ListSource = _menuList;
+                    InwardMenuCtrl.ePage.Masters.ActiveMenu = InwardMenuCtrl.ePage.Masters.InwardMenu.ListSource[0];
+                } else {
+                    GetMyTaskList(_menuList, _index);
+                }
             }
 
             if (InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatus == 'FIN' || InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatus == 'CAN') {
@@ -103,7 +110,7 @@
             });
         }
 
-        function tabSelected(tab, $index, $event) {
+        function tabSelected(tab, $index, $event) {            
             var _index = inwardConfig.TabList.map(function (value, key) {
                 return value[value.label].ePage.Entities.Header.Data.PK
             }).indexOf(InwardMenuCtrl.currentInward[InwardMenuCtrl.currentInward.label].ePage.Entities.Header.Data.PK);

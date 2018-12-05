@@ -17,7 +17,8 @@
             controllerAs: "InwardMenuCtrl",
             scope: {
                 currentInward: "=",
-                dataentryObject:'='
+                dataentryObject:'=',
+                isHideMenu:"="
             },
             bindToController: true
 

@@ -17,19 +17,19 @@
 
             PickupDetailsCtrl.ePage = {
                 "Title": "",
-                "Prefix": "Pickup_Orders",
+                "Prefix": "Pickup_Details",
                 "Masters": {},
                 "Meta": helperService.metaBase(),
                 "Entities": currentPickup,
             };
 
             PickupDetailsCtrl.ePage.Masters.Config = $injector.get("pickupConfig");
-            PickupDetailsCtrl.ePage.Masters.getOutwardLineList = getOutwardLineList;
+            PickupDetailsCtrl.ePage.Masters.getInwardLineList = getInwardLineList;
         }
 
-        function getOutwardLineList() {
+        function getInwardLineList() {
             var _filter = {
-                "WOD_FK_IN": pickupConfig.TempOutwardPK
+                "WOD_FK_IN": pickupConfig.TempInwardPK
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
