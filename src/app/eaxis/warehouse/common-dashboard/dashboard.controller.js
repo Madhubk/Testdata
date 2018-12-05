@@ -26,6 +26,7 @@
 
             GetWarehouseValues();
             GetTaskDetails();
+            GetExceptionDetails();
         }
 
         function GetWarehouseValues() {
@@ -51,18 +52,18 @@
 
         function GetNotificationValues() {
             DashboardCtrl.ePage.Masters.NotificationDashboardDetails = [];
-            // var _input = {
-            //     "SourceEntityRefKey":"WMSDashboardNotifications",
-            //     "RelatedDetails": [{"UIField":"TGP_War_WarehouseCode",
-            //         "DbField":"TGP_War_WarehouseCode",
-            //         "Value":DashboardCtrl.ePage.Masters.userselected.WarehouseCode}]
-            // };
+            var _input = {
+                "SourceEntityRefKey":"WMSDashboardNotifications",
+                "RelatedDetails": [{"UIField":"TGP_War_WarehouseCode",
+                    "DbField":"TGP_War_WarehouseCode",
+                    "Value":DashboardCtrl.ePage.Masters.userselected.WarehouseCode}]
+            };
 
-            // apiService.post("eAxisAPI", warehouseConfig.Entities.Header.API.FindAllCommonDashboard.Url, _input).then(function (response) {
-            //     if (response.data.Response.QOutput) {
-            //         DashboardCtrl.ePage.Masters.NotificationDashboardDetails = response.data.Response.QOutput;
-            //     }
-            // });
+            apiService.post("eAxisAPI", warehouseConfig.Entities.Header.API.FindAllCommonDashboard.Url, _input).then(function (response) {
+                if (response.data.Response.QOutput) {
+                    DashboardCtrl.ePage.Masters.NotificationDashboardDetails = response.data.Response.QOutput;
+                }
+            });
 
         }
 
@@ -100,10 +101,27 @@
             apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkItem.API.FindAllStatusCount.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     DashboardCtrl.ePage.Masters.WorkItemList = response.data.Response;
-                } else {
-                    DashboardCtrl.ePage.Masters.WorkItemList = [];
-                }
+                } 
 
+            });
+        }
+
+        function GetExceptionDetails(){
+            DashboardCtrl.ePage.Masters.ExceptionList = [];
+            var _filter = {
+                "EntitySource":'TMS'
+            };
+ 
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.JobException.API.FindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", appConfig.Entities.JobException.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    debugger
+                    DashboardCtrl.ePage.Masters.ExceptionList = response.data.Response;
+                }
             });
         }
 

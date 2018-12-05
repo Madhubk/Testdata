@@ -190,6 +190,7 @@
                     _obj.RowIndex = RowIndex;
                     _obj.ColIndex = ColIndex;
                     _obj.DisplayName = DisplayName;
+                    _obj.Message = Message+' In Line No '+ (RowIndex+1);
                 }
 
                 var _index = exports.TabList.map(function (value, key) {
