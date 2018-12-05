@@ -149,7 +149,7 @@
                         </div>
                         <div data-ng-if="$index==PickfaceCtrl.ePage.Masters.selectedRow">
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0" >
-                                <input type="text" maxlength="5" numbers-only-dot  class="form-control input-sm" placeholder="Replenishment Minimum" data-ng-model="x.ReplenishMinimum"
+                                <input type="text" maxlength="4" numbers-only-dot  class="form-control input-sm" placeholder="Replenishment Minimum" data-ng-model="x.ReplenishMinimum"
                                  ng-change="PickfaceCtrl.ePage.Masters.OnChangeValues(x.ReplenishMinimum,'E7033',true,$index);PickfaceCtrl.ePage.Masters.Replenish(x,$index);"/>
                             </div>
                             <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':4">
@@ -166,7 +166,7 @@
                         </div>
                         <div data-ng-if="$index==PickfaceCtrl.ePage.Masters.selectedRow">
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0" >
-                                <input type="text" maxlength="5" numbers-only-dot  class="form-control input-sm" placeholder="Replenishment Maximum" data-ng-model="x.ReplenishMaximum"
+                                <input type="text" maxlength="4" numbers-only-dot  class="form-control input-sm" placeholder="Replenishment Maximum" data-ng-model="x.ReplenishMaximum"
                                     ng-change="PickfaceCtrl.ePage.Masters.OnChangeValues(x.ReplenishMaximum,'E7034',true,$index);PickfaceCtrl.ePage.Masters.Replenish(x,$index)"/>                                
                             </div>
                             <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':5">

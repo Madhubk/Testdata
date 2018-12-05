@@ -63,6 +63,15 @@
             if ($item.isNew) {
                 _input.PK = _input.WmsWarehouse.PK;
                 _input.WmsWarehouse.CreatedDateTime = new Date();
+
+                //Converting into Upper Case
+                _input.WmsWarehouse.WarehouseCode = _input.WmsWarehouse.WarehouseCode.toUpperCase();
+                _input.WmsWarehouse.WarehouseName = _input.WmsWarehouse.WarehouseName.toUpperCase();
+
+                _input.WmsArea.map(function(value,key){
+                    value.Name = value.Name.toUpperCase();
+                });
+
             } else {
                 $item = filterObjectUpdate($item, "IsModified");
             }

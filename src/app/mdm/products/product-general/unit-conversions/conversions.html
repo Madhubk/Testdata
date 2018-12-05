@@ -57,7 +57,7 @@
                         </div>
                         <div data-ng-if="$index==ConversionsCtrl.ePage.Masters.selectedRow">
                             <div class=" height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0" ng-click="ConversionsCtrl.ePage.Masters.Enable = false">
-                                <input type="text" maxlength="5" numbers-only-dot  class="form-control input-sm" placeholder="Quantity In Parent" data-ng-model="x.QuantityInParent" ng-change="ConversionsCtrl.ePage.Masters.OnChangeValues(x.QuantityInParent,'E7017',true,$index)" />
+                                <input type="text" maxlength="9" numbers-only-dot  class="form-control input-sm" placeholder="Quantity In Parent" data-ng-model="x.QuantityInParent" ng-change="ConversionsCtrl.ePage.Masters.OnChangeValues(x.QuantityInParent,'E7017',true,$index)" />
                             </div>
                             <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ConversionsCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartUnit.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':1">
                                 <error-warning-directive  list="ConversionsCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartUnit.ERROR"
