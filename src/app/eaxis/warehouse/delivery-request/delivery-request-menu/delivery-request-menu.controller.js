@@ -79,6 +79,7 @@
                 _input.UIWmsDelivery.CreatedDateTime = new Date();
                 _input.UIWmsDelivery.WorkOrderType = 'DEL';
                 _input.UIWmsWorkorderReport.AcknowledgementDateTime = new Date();
+                _input.UIWmsWorkorderReport.DeliveryRequestedDateTime = new Date();
                 _input.UIWmsWorkorderReport.WOD_FK = _input.PK;
                 if (!_input.UIWmsDelivery.ExternalReference) {
                     _input.UIWmsDelivery.ExternalReference = _input.UIWmsDelivery.WorkOrderID;

@@ -1,4 +1,4 @@
-<div data-ng-if="PickupDetailsCtrl.ePage.Masters.Config.TempOutwardPK" ng-init="PickupDetailsCtrl.ePage.Masters.getOutwardLineList()"></div>
+<div data-ng-if="PickupDetailsCtrl.ePage.Masters.Config.TempInwardPK" ng-init="PickupDetailsCtrl.ePage.Masters.getInwardLineList()"></div>
 <div class="clearfix mt-10 col-lg-12">
     <div id="PickupOrdersTable{{PickupDetailsCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID}}" class="fixedheader mb-0"
         key-events table-object='PickupDetailsCtrl.ePage.Entities.Header.Data.PickupOrdersLine' enable='PickupDetailsCtrl.ePage.Masters.Enable'
@@ -7,8 +7,8 @@
             <thead>
                 <tr id="tableHeader">
                     <th ng-style="{ 'width':  '40px' }" title="S.No">S.No</th>
-                    <th ng-style="{ 'width':  '150px' }" title="Outward No">Outward No</th>
-                    <th ng-style="{ 'width':  '150px' }" title="Outward No">CSR No</th>
+                    <th ng-style="{ 'width':  '150px' }" title="Inward No">Inward No</th>
+                    <th ng-style="{ 'width':  '150px' }" title="CSR No">CSR No</th>
                     <th ng-style="{ 'width':  '100px' }" title="Line Status">Line Status</th>
                     <th ng-style="{ 'width':  '100px' }" title="Work Order Type">Work Order Type</th>
                     <th ng-style="{ 'width':  '150px' }" title="Product Code">Product Code</th>
