@@ -57,6 +57,9 @@
             if ($item.isNew) {
                 _input.PK = _input.PK;
                 _input.CreatedDateTime = new Date();
+
+                //Converting into Upper Case
+                _input.Name = _input.Name.toUpperCase();
             } else {
                 $item = filterObjectUpdate($item, "IsModified");
             }

@@ -52,11 +52,17 @@
 
             var myData = PickAllocationCtrl.ePage.Entities.Header.Data.UIWmsOutward.some(function (value, key) {
                 if (value.WorkOrderStatus != 'FIN') { return true }
-            })
+            });
             if (!myData || PickAllocationCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatus == 'PIF' || PickAllocationCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatus == 'CAN') {
                 PickAllocationCtrl.ePage.Masters.EnableAllocateStock = false;
             } else {
                 PickAllocationCtrl.ePage.Masters.EnableAllocateStock = true;
+            }
+
+            if(PickAllocationCtrl.ePage.Entities.Header.Data.UIWmsOutwardLines.length>0){
+                PickAllocationCtrl.ePage.Masters.EnableAllocateStock = true;
+            }else{
+                PickAllocationCtrl.ePage.Masters.EnableAllocateStock = false;
             }
         }
 

@@ -345,6 +345,9 @@
             if ($item.isNew) {
                 input.WmsRow.PK = input.PK;
                 input.WmsRow.CreatedDateTime = new Date();
+
+                //Converting into Upper Case
+                _input.WmsRow.Name = _input.WmsRow.Name.toUpperCase();
             } else {
                 $item = filterObjectUpdate($item, "IsModified");
             }

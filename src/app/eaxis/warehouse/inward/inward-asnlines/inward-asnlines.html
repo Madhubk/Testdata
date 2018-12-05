@@ -127,7 +127,7 @@
                         </div>
                         <div data-ng-if="$index==InwardAsnLinesCtrl.ePage.Masters.selectedRow && !InwardAsnLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
-                                    <input type="text" numbers-only-dot  class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Quantity" data-ng-model="x.Packs"
+                                    <input type="text" maxlength="9" numbers-only-dot  class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Quantity" data-ng-model="x.Packs"
                                     ng-change="InwardAsnLinesCtrl.ePage.Masters.FetchQuantity(x,(($index) + InwardAsnLinesCtrl.ePage.Masters.CurrentPageStartingIndex));InwardAsnLinesCtrl.ePage.Masters.OnChangeValues(x.Packs,'E3006',true,(($index) + InwardAsnLinesCtrl.ePage.Masters.CurrentPageStartingIndex))">                                        
                             </div>
                             <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardAsnLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsAsnLine.ERROR | filter:{RowIndex:$index} | listCount: 'ColIndex':2">
@@ -163,7 +163,7 @@
                         </div>
                         <div data-ng-if="$index==InwardAsnLinesCtrl.ePage.Masters.selectedRow && !InwardAsnLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
-                                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Quantity" data-ng-model="x.Quantity" readonly=''>
+                                <input type="text" maxlength="9" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Quantity" data-ng-model="x.Quantity" readonly=''>
                             </div>
                             <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardAsnLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsAsnLine.ERROR | filter:{RowIndex:$index} | listCount: 'ColIndex':4">
                                 <error-warning-directive  list="InwardAsnLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsAsnLine.ERROR"
@@ -195,7 +195,7 @@
                         </div>
                         <div data-ng-if="$index==InwardAsnLinesCtrl.ePage.Masters.selectedRow && !InwardAsnLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
-                                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Pallet ID" data-ng-model="x.PalletId">
+                                    <input type="text" maxlength="25" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Pallet ID" data-ng-model="x.PalletId">
                             </div>
                         </div>
                     </td>
@@ -205,7 +205,7 @@
                         </div>
                         <div data-ng-if="$index==InwardAsnLinesCtrl.ePage.Masters.selectedRow  && !InwardAsnLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
-                                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="UDF 1" data-ng-model="x.PartAttrib1" ng-disabled="!x.UsePartAttrib1 || x.IsPartAttrib1ReleaseCaptured">
+                                <input type="text" maxlength="25" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="UDF 1" data-ng-model="x.PartAttrib1" ng-disabled="!x.UsePartAttrib1 || x.IsPartAttrib1ReleaseCaptured">
                             </div>
                         </div>
                     </td>
@@ -215,7 +215,7 @@
                         </div>
                         <div data-ng-if="$index==InwardAsnLinesCtrl.ePage.Masters.selectedRow && !InwardAsnLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
-                                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="UDF 2" data-ng-model="x.PartAttrib2" ng-disabled="!x.UsePartAttrib2 || x.IsPartAttrib2ReleaseCaptured">
+                                <input type="text" maxlength="25" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="UDF 2" data-ng-model="x.PartAttrib2" ng-disabled="!x.UsePartAttrib2 || x.IsPartAttrib2ReleaseCaptured">
                             </div>
                         </div>
                     </td>
@@ -225,7 +225,7 @@
                         </div>
                         <div data-ng-if="$index==InwardAsnLinesCtrl.ePage.Masters.selectedRow && !InwardAsnLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
-                                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="UDF 3" data-ng-model="x.PartAttrib3" ng-disabled="!x.UsePartAttrib3 || x.IsPartAttrib3ReleaseCaptured">
+                                <input type="text" maxlength="25" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="UDF 3" data-ng-model="x.PartAttrib3" ng-disabled="!x.UsePartAttrib3 || x.IsPartAttrib3ReleaseCaptured">
                             </div>
                         </div>
                     </td>
@@ -279,7 +279,7 @@
                         </div>
                         <div data-ng-if="$index==InwardAsnLinesCtrl.ePage.Masters.selectedRow && !InwardAsnLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
-                                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Additional Reference1" data-ng-model="x.AdditionalRef1Code" >
+                                <input type="text" maxlength="20" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Additional Reference1" data-ng-model="x.AdditionalRef1Code" >
                             </div>
                         </div>
                     </td>         

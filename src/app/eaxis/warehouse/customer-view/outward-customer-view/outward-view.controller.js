@@ -22,8 +22,8 @@
             };
             
 
-            OutwardViewCtrl.ePage.Masters.dataentryName = "OutwardCustomerView1";
-            OutwardViewCtrl.ePage.Masters.taskName = "OutwardCustomerView1";
+            OutwardViewCtrl.ePage.Masters.dataentryName = "OutwardCustomerView";
+            OutwardViewCtrl.ePage.Masters.taskName = "OutwardCustomerView";
             OutwardViewCtrl.ePage.Masters.TabList = [];
             outwardViewConfig.TabList = [];
             OutwardViewCtrl.ePage.Masters.activeTabIndex = 0;

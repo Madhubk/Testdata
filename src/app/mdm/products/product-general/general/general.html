@@ -12,7 +12,7 @@
                     </div>
                     <label class="control-label text-single-line">Product Code</label>
                     <div class="">
-                        <input  type="text"  maxlength="30" capitalize class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Product Code"  data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.PartNum" ng-change="GeneralCtrl.ePage.Masters.OnChangeValues(GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.PartNum,'E7010')">
+                        <input  type="text"  maxlength="35" capitalize class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Product Code"  data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.PartNum" ng-change="GeneralCtrl.ePage.Masters.OnChangeValues(GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.PartNum,'E7010')">
                     </div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                     </div>
                     <label class="control-label text-single-line">Product Description</label>
                     <div class="">
-                        <input type="text" capitalize class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Product Description"  data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.Desc" ng-change="GeneralCtrl.ePage.Masters.OnChangeValues(GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.Desc,'E7011')">
+                        <input type="text" maxlength="75" capitalize class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Product Description"  data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.Desc" ng-change="GeneralCtrl.ePage.Masters.OnChangeValues(GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.Desc,'E7011')">
                     </div>
                 </div>
             </div>
@@ -135,7 +135,7 @@
                 <div class="form-group">
                     <label class="control-label text-single-line">Net Weight</label>
                     <div class="">
-                        <input type="text" numbers-only-dot  class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Net Weight"  data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.NetWeight">
+                        <input type="text" numbers-only-dot  maxlength="5" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Net Weight"  data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.NetWeight">
                     </div>
                 </div>
             </div>
@@ -143,7 +143,7 @@
                 <div class="form-group">
                     <label class="control-label text-single-line">Pallet Size</label>
                     <div class="">
-                        <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Pallet Size"  data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.StockKeepingUnitPerPallet" readonly=''>
+                        <input type="text" maxlength="9" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Pallet Size"  data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.StockKeepingUnitPerPallet" readonly=''>
                     </div>
                 </div>
             </div>

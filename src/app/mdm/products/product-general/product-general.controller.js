@@ -87,6 +87,10 @@
             if ($item.isNew) {
                 _input.UIProductGeneral.PK = _input.PK;
                 _input.UIProductGeneral.CreatedDateTime = new Date();
+
+                //Converting into Upper Case
+                _input.UIProductGeneral.PartNum = _input.UIProductGeneral.PartNum.toUpperCase();
+                _input.UIProductGeneral.Desc = _input.UIProductGeneral.Desc.toUpperCase();
             } else {
                 $item = filterObjectUpdate($item, "IsModified");
             }

@@ -187,7 +187,7 @@
             <div class="form-group">
                 <label class="control-label text-single-line">Inward Reference</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Inward Reference"
+                    <input type="text" maxlength="50" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Inward Reference"
                         data-ng-model="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ExternalReference">
                 </div>
             </div>
@@ -198,7 +198,7 @@
             <div class="form-group">
                 <label class="control-label text-single-line">Customer Reference</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Customer Reference"
+                    <input type="text" maxlength="100" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Customer Reference"
                         data-ng-model="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.CustomerReference">
                 </div>
             </div>
@@ -344,7 +344,7 @@
             <div class="form-group">
                 <label class="control-label text-single-line">Total Packages</label>
                 <div class="">
-                    <input type="text" numbers-only class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Total Packages"
+                    <input type="text" numbers-only maxlength="4" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Total Packages"
                         data-ng-model="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PackagesSent" ng-blur="InwardGeneralCtrl.ePage.Entities.Header.GlobalVariables.PercentageValues = true">
                 </div>
             </div>
@@ -354,7 +354,7 @@
             <div class="form-group">
                 <label class="control-label text-single-line">Total Units</label>
                 <div class="">
-                    <input type="text" numbers-only class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Total Units"
+                    <input type="text" numbers-only maxlength="9" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Total Units"
                         data-ng-model="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalUnits" ng-blur="InwardGeneralCtrl.ePage.Entities.Header.GlobalVariables.PercentageValues = true">
                 </div>
             </div>
@@ -366,7 +366,7 @@
             <div class="form-group">
                 <label class="control-label text-single-line">Total Pallets</label>
                 <div class="">
-                    <input type="text" numbers-only class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Total Pallets"
+                    <input type="text" numbers-only maxlength="2" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Total Pallets"
                         data-ng-model="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalPallets" ng-blur="InwardGeneralCtrl.ePage.Entities.Header.GlobalVariables.PercentageValues = true">
                 </div>
             </div>

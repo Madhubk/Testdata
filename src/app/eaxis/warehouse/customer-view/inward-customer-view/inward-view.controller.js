@@ -21,8 +21,8 @@
                 "Entities": inwardViewConfig.Entities
             };
             
-            InwardViewCtrl.ePage.Masters.dataentryName = "InwardCustomerView1";
-            InwardViewCtrl.ePage.Masters.taskName = "InwardCustomerView1";
+            InwardViewCtrl.ePage.Masters.dataentryName = "InwardCustomerView";
+            InwardViewCtrl.ePage.Masters.taskName = "InwardCustomerView";
             InwardViewCtrl.ePage.Masters.TabList = [];
             inwardViewConfig.TabList = [];
             InwardViewCtrl.ePage.Masters.activeTabIndex = 0;
