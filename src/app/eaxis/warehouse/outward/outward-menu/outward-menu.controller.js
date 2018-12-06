@@ -49,7 +49,7 @@
                 _menuList[_index].IsDisabled = true;
 
                 OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource = _menuList;
-                OnMenuClick(OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0]);
+                OnMenuClick(OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[1]);
             } else {
                 if (OutwardMenuCtrl.ePage.Masters.IsHideMytaskMenu) {
                     _menuList[_index].IsDisabled = true;
@@ -264,12 +264,12 @@
                             if (OutwardMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList == 0) {
                                 //Check whether pick is already created or not
                                 if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length > 0) {
-                                    
+
                                     //Checking All the lines are saved
-                                    var Check = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.some(function(v,k){
+                                    var Check = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.some(function (v, k) {
                                         return !v.PK
                                     });
-                                    if(!Check){
+                                    if (!Check) {
                                         OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
                                         if (!OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo) {
                                             $event.preventDefault();
@@ -283,7 +283,7 @@
                                                 .then(function (result) {
                                                     helperService.getFullObjectUsingGetById(Config.Entities.Header.API.GetByID.Url, 'null').then(function (response) {
                                                         if (response.data.Response) {
-    
+
                                                             response.data.Response.Response.UIWmsPickHeader.PK = response.data.Response.Response.PK;
                                                             if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickOption) {
                                                                 response.data.Response.Response.UIWmsPickHeader.PickOption = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickOption;
@@ -301,7 +301,7 @@
                                                             OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatusDesc = "Pick Started";
                                                             OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IsModified = true;
                                                             response.data.Response.Response.UIWmsOutward.push(OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader);
-    
+
                                                             apiService.post("eAxisAPI", outwardConfig.Entities.Header.API.WmsPickInsert.Url, response.data.Response.Response).then(function (response) {
                                                                 if (response.data.Status == 'Success') {
                                                                     OutwardMenuCtrl.ePage.Masters.PickDetails = response.data.Response;
@@ -330,11 +330,11 @@
                                                 }
                                             });
                                         }
-                                    }else{
+                                    } else {
                                         $event.preventDefault();
                                         toastr.warning("Please Save the changes first");
                                     }
-                                    
+
                                 } else {
                                     $event.preventDefault();
                                     toastr.warning("Line is Empty so Pick cannot be created");

@@ -42,7 +42,7 @@
                 _menuList[_index].IsDisabled = true;
 
                 DeliveryMenuCtrl.ePage.Masters.DeliveryMenu.ListSource = _menuList;
-                OnMenuClick(DeliveryMenuCtrl.ePage.Masters.DeliveryMenu.ListSource[0]);
+                OnMenuClick(DeliveryMenuCtrl.ePage.Masters.DeliveryMenu.ListSource[1]);
             } else {
                 GetMyTaskList(_menuList, _index);
             }

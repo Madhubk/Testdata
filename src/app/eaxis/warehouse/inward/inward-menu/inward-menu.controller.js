@@ -51,7 +51,7 @@
                 _menuList[_index].IsDisabled = true;
 
                 InwardMenuCtrl.ePage.Masters.InwardMenu.ListSource = _menuList;
-                OnMenuClick(InwardMenuCtrl.ePage.Masters.InwardMenu.ListSource[0]);
+                OnMenuClick(InwardMenuCtrl.ePage.Masters.InwardMenu.ListSource[1]);
             } else {
                 if (InwardMenuCtrl.ePage.Masters.IsHideMytaskMenu) {
                     _menuList[_index].IsDisabled = true;

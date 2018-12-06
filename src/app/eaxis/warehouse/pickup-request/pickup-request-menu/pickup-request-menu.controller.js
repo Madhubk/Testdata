@@ -43,7 +43,7 @@
                 _menuList[_index].IsDisabled = true;
 
                 PickupMenuCtrl.ePage.Masters.PickupMenu.ListSource = _menuList;
-                OnMenuClick(PickupMenuCtrl.ePage.Masters.PickupMenu.ListSource[0]);
+                OnMenuClick(PickupMenuCtrl.ePage.Masters.PickupMenu.ListSource[1]);
             } else {
                 if (PickupMenuCtrl.ePage.Masters.IsHideMytaskMenu) {
                     _menuList[_index].IsDisabled = true;
