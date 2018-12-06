@@ -75,7 +75,9 @@
                     ActivityTemplatePickup2Ctrl.ePage.Masters.TaskConfigData = response.data.Response;
                     myTaskActivityConfig.Entities.TaskConfigData = ActivityTemplatePickup2Ctrl.ePage.Masters.TaskConfigData;
                     ActivityTemplatePickup2Ctrl.ePage.Masters.MenuListSource = $filter('filter')(ActivityTemplatePickup2Ctrl.ePage.Masters.TaskConfigData, { Category: 'Menu' });
-                    ActivityTemplatePickup2Ctrl.ePage.Masters.ValidationSource = $filter('filter')(ActivityTemplatePickup2Ctrl.ePage.Masters.TaskConfigData, { Category: 'Validation' });
+                    ActivityTemplatePickup2Ctrl.ePage.Masters.ValidationSource = $filter('filter')(ActivityTemplatePickup2Ctrl.ePage.Masters.TaskConfigData, function (val, key) {
+                        return val.Category == 'Validation'
+                    })
                     if (ActivityTemplatePickup2Ctrl.ePage.Masters.ValidationSource.length > 0) {
                         ValidationFindall();
                     }
@@ -288,7 +290,7 @@
         }
 
         function Complete() {
-            if (ActivityTemplatePickup2Ctrl.ePage.Masters.ValidationSource.length > 0 || ActivityTemplatePickup2Ctrl.ePage.Masters.DocumentValidation.length > 0) {                
+            if (ActivityTemplatePickup2Ctrl.ePage.Masters.ValidationSource.length > 0 || ActivityTemplatePickup2Ctrl.ePage.Masters.DocumentValidation.length > 0) {
                 if (ActivityTemplatePickup2Ctrl.taskObj.WSI_StepName == "Create Pickup Challan") {
                     var input = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data
                     var temp = 0;

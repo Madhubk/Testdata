@@ -88,3 +88,8 @@
 .height-70 {
     height: 70px;
 }
+.success-popup .modal-dialog{
+    width: 420px;
+    height: 190px;
+    margin: 120px auto;
+}
