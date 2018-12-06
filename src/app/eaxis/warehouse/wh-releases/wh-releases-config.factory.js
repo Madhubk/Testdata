@@ -1364,28 +1364,9 @@
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
 
-            if (_input.UIWmsPickHeader) {
-                if (!_input.UIWmsPickHeader.PickNo || _input.UIWmsPickHeader.PickNo) {
-                    OnChangeValues(_input.UIWmsPickHeader.PickNo, 'E8001', false, undefined, $item.label);
-                }
-                if (!_input.UIWmsPickHeader.PickOption || _input.UIWmsPickHeader.PickOption) {
-                    OnChangeValues(_input.UIWmsPickHeader.PickOption, 'E8002', false, undefined, $item.label);
-                }
-                if (!_input.UIWmsPickHeader.WarehouseCode || _input.UIWmsPickHeader.WarehouseCode) {
-                    OnChangeValues(_input.UIWmsPickHeader.WarehouseCode, 'E8003', false, undefined, $item.label);
-                }
-            } else if (_input.UIWmsOutwardHeader) {
-
-                if (!_input.UIWmsOutwardHeader.WarehouseCode || _input.UIWmsOutwardHeader.WarehouseCode) {
-                    OnChangeValues(_input.UIWmsOutwardHeader.WarehouseCode, 'E8501', false, undefined, $item.label);
-                }
-                if (!_input.UIWmsOutwardHeader.ClientCode || _input.UIWmsOutwardHeader.ClientCode) {
-                    OnChangeValues(_input.UIWmsOutwardHeader.ClientCode, 'E8502', false, undefined, $item.label);
-                }
-                if (!_input.UIWmsOutwardHeader.RequiredDate || _input.UIWmsOutwardHeader.RequiredDate) {
-                    OnChangeValues(_input.UIWmsOutwardHeader.RequiredDate, 'E8503', false, undefined, $item.label);
-                }
-            }
+                OnChangeValues(_input.UIWmsPickHeader.PickNo, 'E8001', false, undefined, $item.label);
+                OnChangeValues(_input.UIWmsPickHeader.PickOption, 'E8002', false, undefined, $item.label);
+                OnChangeValues(_input.UIWmsPickHeader.WarehouseCode, 'E8003', false, undefined, $item.label);
 
 
             if(_input.UIWmsReleaseLine.length>0){

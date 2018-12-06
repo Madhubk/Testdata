@@ -74,7 +74,7 @@
                         </div>
                         <div data-ng-if="$index==ReferenceCtrl.ePage.Masters.selectedRow && !ReferenceCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22  col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
-                                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Reference"  data-ng-model="x.Reference" ng-change="ReferenceCtrl.ePage.Masters.OnChangeValues(x.Reference,'E3016',true,$index)">                                        
+                                <input type="text" maxlength="200" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Reference"  data-ng-model="x.Reference" ng-change="ReferenceCtrl.ePage.Masters.OnChangeValues(x.Reference,'E3016',true,$index)">                                        
                             </div>
                             <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ReferenceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderReference.ERROR | filter:{RowIndex:$index} | listCount: 'ColIndex':2">
                                 <error-warning-directive  list="ReferenceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderReference.ERROR"

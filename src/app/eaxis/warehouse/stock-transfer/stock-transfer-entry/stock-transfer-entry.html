@@ -276,7 +276,7 @@
                         </div>
                         <div data-ng-if="$index==StocktransferEntryCtrl.ePage.Masters.selectedRow &&!StocktransferEntryCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
-                                <input type="text" numbers-only-dot  class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Pack" data-ng-model="x.Packs"
+                                <input type="text" maxlength="9" numbers-only-dot  class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Pack" data-ng-model="x.Packs"
                                 ng-blur="StocktransferEntryCtrl.ePage.Masters.FetchQuantity(x,$index);StocktransferEntryCtrl.ePage.Masters.OnChangeValues(x.Packs,'E11005',true,$index)">                                   
                             </div>
                             <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="StocktransferEntryCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':3">
@@ -313,7 +313,7 @@
                         </div>
                         <div data-ng-if="$index==StocktransferEntryCtrl.ePage.Masters.selectedRow && !StocktransferEntryCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
-                                <input type="text" class="form-control input-sm" placeholder="Quantity" ng-model="x.Units"readonly='' />
+                                <input type="text" maxlength="9" class="form-control input-sm" placeholder="Quantity" ng-model="x.Units"readonly='' />
                             </div>
                             <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="StocktransferEntryCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':4">
                                 <error-warning-directive  list="StocktransferEntryCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR"
@@ -450,7 +450,7 @@
                         </div>
                         <div data-ng-if="$index==StocktransferEntryCtrl.ePage.Masters.selectedRow && !StocktransferEntryCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
-                                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Pallet ID Source" data-ng-model="x.TransferFromPalletId">
+                                    <input type="text" maxlength="25" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Pallet ID Source" data-ng-model="x.TransferFromPalletId">
                             </div>
                         </div>
                     </td>
@@ -460,7 +460,7 @@
                         </div>
                         <div data-ng-if="$index==StocktransferEntryCtrl.ePage.Masters.selectedRow && !StocktransferEntryCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
-                                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Pallet ID Destination" data-ng-model="x.PalletID">
+                                    <input type="text" maxlength="25" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Pallet ID Destination" data-ng-model="x.PalletID">
                             </div>
                         </div>
                     </td>
@@ -473,7 +473,7 @@
                         </div>
                         <div data-ng-if="$index==StocktransferEntryCtrl.ePage.Masters.selectedRow && !StocktransferEntryCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
-                                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="UDF 1" data-ng-model="x.PartAttrib1" ng-disabled="!x.UsePartAttrib1 || x.IsPartAttrib1ReleaseCaptured"
+                                <input type="text" maxlength="25" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="UDF 1" data-ng-model="x.PartAttrib1" ng-disabled="!x.UsePartAttrib1 || x.IsPartAttrib1ReleaseCaptured"
                                 ng-blur="StocktransferEntryCtrl.ePage.Masters.UDF(x,$index)">
                             </div>
                             <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="StocktransferEntryCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':9">
@@ -490,7 +490,7 @@
                         </div>
                         <div data-ng-if="$index==StocktransferEntryCtrl.ePage.Masters.selectedRow && !StocktransferEntryCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
-                                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="UDF 2"data-ng-model="x.PartAttrib2"ng-disabled="!x.UsePartAttrib2 || x.IsPartAttrib2ReleaseCaptured"
+                                <input type="text" maxlength="25" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="UDF 2"data-ng-model="x.PartAttrib2"ng-disabled="!x.UsePartAttrib2 || x.IsPartAttrib2ReleaseCaptured"
                                 ng-blur="StocktransferEntryCtrl.ePage.Masters.UDF(x,$index)">
                             </div>
                             <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="StocktransferEntryCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':10">
@@ -507,7 +507,7 @@
                         </div>
                         <div data-ng-if="$index==StocktransferEntryCtrl.ePage.Masters.selectedRow && !StocktransferEntryCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
-                                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="UDF 3" data-ng-model="x.PartAttrib3" ng-disabled="!x.UsePartAttrib3 || x.IsPartAttrib3ReleaseCaptured"
+                                <input type="text" maxlength="25" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="UDF 3" data-ng-model="x.PartAttrib3" ng-disabled="!x.UsePartAttrib3 || x.IsPartAttrib3ReleaseCaptured"
                                 ng-blur="StocktransferEntryCtrl.ePage.Masters.UDF(x,$index)">
                             </div>
                             <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="StocktransferEntryCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':11">
