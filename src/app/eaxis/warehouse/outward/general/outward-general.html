@@ -171,7 +171,7 @@
                 <label class="control-label text-single-line">Order Number</label>
                 <div class="">
                     <div class="">
-                        <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Order Number"
+                        <input type="text" maxlength="50" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Order Number"
                             data-ng-model="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ExternalReference">
                     </div>
                 </div>
@@ -181,7 +181,7 @@
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line">Customer Reference</label>
-                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Customer Reference"
+                <input type="text" maxlength="100" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Customer Reference"
                     data-ng-model="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.CustomerReference" />
             </div>
         </div>
@@ -245,7 +245,7 @@
             <div class="form-group">
                 <label class="control-label text-single-line">Goods Description</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Goods Description"
+                    <input type="text" maxlength="35" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Goods Description"
                         data-ng-model="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.GoodsDescription">
                 </div>
             </div>
@@ -255,7 +255,7 @@
             <div class="form-group">
                 <label class="control-label text-single-line">Total Packages</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Total Packages"
+                    <input type="text" maxlength="4" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Total Packages"
                         data-ng-model="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PackagesSent" ng-blur="OutwardGeneralCtrl.ePage.Entities.Header.GlobalVariables.PercentageValues">
                 </div>
             </div>
@@ -267,7 +267,7 @@
             <div class="form-group">
                 <label class="control-label text-single-line">Total Units</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Total Units" data-ng-model="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.TotalUnits"
+                    <input type="text" maxlength="9" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Total Units" data-ng-model="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.TotalUnits"
                         ng-blur="OutwardGeneralCtrl.ePage.Entities.Header.GlobalVariables.PercentageValues">
                 </div>
             </div>

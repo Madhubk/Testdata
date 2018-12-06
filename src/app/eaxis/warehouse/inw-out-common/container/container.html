@@ -30,8 +30,8 @@
                     <th id="type" data-ng-if="ContainerCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderContainer.type.isenabled" ng-style="{ 'width': ContainerCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderContainer.type.width + 'px' }" title="Type">Type</th>
                     <th id="chargeable" data-ng-if="ContainerCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderContainer.chargeable.isenabled" ng-style="{ 'width': ContainerCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderContainer.chargeable.width + 'px' }" title="Chargeable">Chargeable</th>
                     <th id="palletized"data-ng-if="ContainerCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderContainer.palletized.isenabled" ng-style="{ 'width': ContainerCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderContainer.palletized.width + 'px' }" title="Palletized">Palletized</th>
-                    <th id="items" data-ng-if="ContainerCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderContainer.items.isenabled" ng-style="{ 'width': ContainerCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderContainer.items.width + 'px' }" title="Items">Items</th>
-                    <th id="pallets" data-ng-if="ContainerCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderContainer.pallets.isenabled" ng-style="{ 'width': ContainerCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderContainer.pallets.width + 'px' }" title="Pallets">Pallets</th>
+                    <th id="items" data-ng-if="ContainerCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderContainer.items.isenabled" ng-style="{ 'width': ContainerCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderContainer.items.width + 'px' }" title="Items Count">Items count</th>
+                    <th id="pallets" data-ng-if="ContainerCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderContainer.pallets.isenabled" ng-style="{ 'width': ContainerCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderContainer.pallets.width + 'px' }" title="Pallets Count">Pallets Count</th>
                 </tr>
             </thead>
             <tbody id="ContCustomTable{{ContainerCtrl.ePage.Entities.Header.Data.PK}}">
@@ -61,7 +61,7 @@
                         </div>
                         <div data-ng-if="$index==ContainerCtrl.ePage.Masters.selectedRow && !ContainerCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
-                                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Container No"  data-ng-model="x.ContainerNumber" ng-change="ContainerCtrl.ePage.Masters.OnChangeValues(x.ContainerNumber,'E3013',true,$index)">                                        
+                                <input type="text" maxlength="20" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Container No"  data-ng-model="x.ContainerNumber" ng-change="ContainerCtrl.ePage.Masters.OnChangeValues(x.ContainerNumber,'E3013',true,$index)">                                        
                             </div>
                             <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ContainerCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderContainer.ERROR | filter:{RowIndex:$index} | listCount: 'ColIndex':1">
                                 <error-warning-directive  list="ContainerCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderContainer.ERROR"
@@ -77,7 +77,7 @@
                         </div>
                         <div data-ng-if="$index==ContainerCtrl.ePage.Masters.selectedRow  && !ContainerCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
-                                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Seal No"  data-ng-model="x.SealNumber">
+                                <input type="text" maxlength="20" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Seal No"  data-ng-model="x.SealNumber">
                             </div>
                         </div>
                     </td>
@@ -141,7 +141,7 @@
                         </div>
                         <div data-ng-if="$index==ContainerCtrl.ePage.Masters.selectedRow && !ContainerCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
-                                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Item Count"  data-ng-model="x.ItemCount">
+                                    <input type="text" maxlength="4" numbers-only-dot class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Item Count"  data-ng-model="x.ItemCount">
                             </div>
                         </div>
                     </td>
@@ -151,7 +151,7 @@
                         </div>
                         <div data-ng-if="$index==ContainerCtrl.ePage.Masters.selectedRow && !ContainerCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
-                                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Pallet Count"  data-ng-model="x.PalletCount">
+                                <input type="text" maxlength="4" numbers-only-dot class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Pallet Count"  data-ng-model="x.PalletCount">
                             </div>
                         </div>
                     </td>         

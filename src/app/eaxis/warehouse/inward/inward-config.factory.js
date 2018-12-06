@@ -319,7 +319,7 @@
                                     "display":true
                                 },
                                 {
-                                    "columnname":"Items",
+                                    "columnname":"Items Count",
                                     "isenabled":true,
                                     "property":"items",
                                     "position":"8",
@@ -327,7 +327,7 @@
                                     "display":true
                                 },
                                 {
-                                    "columnname":"Pallets",
+                                    "columnname":"Pallets Count",
                                     "isenabled":true,
                                     "property":"pallets",
                                     "position":"9",
