@@ -150,14 +150,14 @@
                                 if (response.data.Response) {
                                     response.data.Response.Response.UIWmsInwardHeader.ClientCode = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ClientCode;
                                     response.data.Response.Response.UIWmsInwardHeader.ClientName = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ClientName;
-                                    response.data.Response.Response.UIWmsInwardHeader.Client = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.Client;
-                                    response.data.Response.Response.UIWmsInwardHeader.Consignee = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.Consignee;
+                                    response.data.Response.Response.UIWmsInwardHeader.Client = CreatePickupChallanCtrl.ePage.Masters.Client;
+                                    response.data.Response.Response.UIWmsInwardHeader.Consignee = CreatePickupChallanCtrl.ePage.Masters.Consignee;
                                     response.data.Response.Response.UIWmsInwardHeader.ConsigneeCode = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeCode;
                                     response.data.Response.Response.UIWmsInwardHeader.ConsigneeName = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeName;
                                     response.data.Response.Response.UIWmsInwardHeader.ORG_Client_FK = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ORG_Client_FK;
                                     response.data.Response.Response.UIWmsInwardHeader.ORG_Consignee_FK = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ORG_Consignee_FK;
                                     response.data.Response.Response.UIWmsInwardHeader.WAR_FK = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.WAR_FK;
-                                    response.data.Response.Response.UIWmsInwardHeader.Warehouse = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.Warehouse;
+                                    response.data.Response.Response.UIWmsInwardHeader.Warehouse = CreatePickupChallanCtrl.ePage.Masters.Warehouse;
                                     response.data.Response.Response.UIWmsInwardHeader.WarehouseCode = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseCode;
                                     response.data.Response.Response.UIWmsInwardHeader.WarehouseName = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseName;
                                     response.data.Response.Response.UIWmsInwardHeader.AdditionalRef2Fk = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.PK;
@@ -271,25 +271,25 @@
                 CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ClientCode = "";
             if (CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ClientName == null)
                 CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ClientName = "";
-            CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.Client = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ClientCode + ' - ' + CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ClientName;
-            if (CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.Client == " - ")
-                CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.Client = "";
+            CreatePickupChallanCtrl.ePage.Masters.Client = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ClientCode + ' - ' + CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ClientName;
+            if (CreatePickupChallanCtrl.ePage.Masters.Client == " - ")
+                CreatePickupChallanCtrl.ePage.Masters.Client = "";
             // Consignee
             if (CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeCode == null)
                 CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeCode = "";
             if (CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeName == null)
                 CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeName = "";
-            CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.Consignee = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeCode + ' - ' + CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeName;
-            if (CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.Consignee == " - ")
-                CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.Consignee = "";
+            CreatePickupChallanCtrl.ePage.Masters.Consignee = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeCode + ' - ' + CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeName;
+            if (CreatePickupChallanCtrl.ePage.Masters.Consignee == " - ")
+                CreatePickupChallanCtrl.ePage.Masters.Consignee = "";
             // Warehouse
             if (CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseCode == null)
                 CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseCode = "";
             if (CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseName == null)
                 CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseName = "";
-            CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.Warehouse = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseCode + ' - ' + CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseName;
-            if (CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.Warehouse == " - ")
-                CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.Warehouse = "";
+            CreatePickupChallanCtrl.ePage.Masters.Warehouse = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseCode + ' - ' + CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseName;
+            if (CreatePickupChallanCtrl.ePage.Masters.Warehouse == " - ")
+                CreatePickupChallanCtrl.ePage.Masters.Warehouse = "";
         }
 
         function GetDynamicLookupConfig() {

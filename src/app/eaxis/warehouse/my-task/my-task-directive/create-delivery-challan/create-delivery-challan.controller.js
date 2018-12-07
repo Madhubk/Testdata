@@ -58,7 +58,7 @@
             CreateDelChallanCtrl.ePage.Masters.SelectedLookupWarehouse = SelectedLookupWarehouse;
         }
 
-        function SelectedLookupWarehouse(item) {            
+        function SelectedLookupWarehouse(item) {
             CreateDelChallanCtrl.ePage.Masters.Warehouse = item.WarehouseCode + " - " + item.WarehouseName;
             CreateDelChallanCtrl.ePage.Masters.WarehouseCode = item.WarehouseCode;
             CreateDelChallanCtrl.ePage.Masters.WarehouseName = item.WarehouseName;
@@ -143,7 +143,7 @@
                         }
                     });
                     CreateDelChallanCtrl.ePage.Masters.TempCSR = CreateDelChallanCtrl.ePage.Masters.TempCSR.slice(0, -1);
-                    if (temp == 0) {                        
+                    if (temp == 0) {
                         if (type == "OUT") {
                             GoToOutwardCreation(type);
                         } else if (type == "MTR") {
@@ -187,7 +187,7 @@
             });
         }
 
-        function GoToOutwardCreation(type) {            
+        function GoToOutwardCreation(type) {
             var _isExist = outwardConfig.TabList.some(function (value) {
                 if (value.label === "New")
                     return true;
@@ -204,15 +204,15 @@
                     if (response.data.Response) {
                         response.data.Response.Response.UIWmsOutwardHeader.ClientCode = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode;
                         response.data.Response.Response.UIWmsOutwardHeader.ClientName = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientName;
-                        response.data.Response.Response.UIWmsOutwardHeader.Client = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Client;
-                        response.data.Response.Response.UIWmsOutwardHeader.Consignee = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Consignee;
+                        response.data.Response.Response.UIWmsOutwardHeader.Client = CreateDelChallanCtrl.ePage.Masters.Client;
+                        response.data.Response.Response.UIWmsOutwardHeader.Consignee = CreateDelChallanCtrl.ePage.Masters.Consignee;
                         response.data.Response.Response.UIWmsOutwardHeader.ConsigneeCode = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeCode;
                         response.data.Response.Response.UIWmsOutwardHeader.ConsigneeName = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeName;
                         response.data.Response.Response.UIWmsOutwardHeader.ORG_Client_FK = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ORG_Client_FK;
                         response.data.Response.Response.UIWmsOutwardHeader.ORG_Consignee_FK = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ORG_Consignee_FK;
                         if (type == "OUT") {
                             response.data.Response.Response.UIWmsOutwardHeader.WAR_FK = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WAR_FK;
-                            response.data.Response.Response.UIWmsOutwardHeader.Warehouse = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Warehouse;
+                            response.data.Response.Response.UIWmsOutwardHeader.Warehouse = CreateDelChallanCtrl.ePage.Masters.WarehouseCodeName;
                             response.data.Response.Response.UIWmsOutwardHeader.WarehouseCode = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode;
                             response.data.Response.Response.UIWmsOutwardHeader.WarehouseName = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseName;
                         } else if (type == "MTR") {
@@ -222,7 +222,7 @@
                             response.data.Response.Response.UIWmsOutwardHeader.WAR_FK = CreateDelChallanCtrl.ePage.Masters.WAR_PK;
 
                             response.data.Response.Response.UIWmsOutwardHeader.TransferTo_WAR_FK = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WAR_FK;
-                            response.data.Response.Response.UIWmsOutwardHeader.TransferWarehouse = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Warehouse;
+                            response.data.Response.Response.UIWmsOutwardHeader.TransferWarehouse = CreateDelChallanCtrl.ePage.Masters.WarehouseCodeName;
                             response.data.Response.Response.UIWmsOutwardHeader.TransferTo_WAR_Code = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode;
                             response.data.Response.Response.UIWmsOutwardHeader.TransferTo_WAR_Name = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseName;
                         }
@@ -354,25 +354,25 @@
                 CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode = "";
             if (CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientName == null)
                 CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientName = "";
-            CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Client = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode + ' - ' + CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientName;
-            if (CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Client == " - ")
-                CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Client = "";
+            CreateDelChallanCtrl.ePage.Masters.Client = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode + ' - ' + CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientName;
+            if (CreateDelChallanCtrl.ePage.Masters.Client == " - ")
+                CreateDelChallanCtrl.ePage.Masters.Client = "";
             // Consignee
             if (CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeCode == null)
                 CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeCode = "";
             if (CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeName == null)
                 CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeName = "";
-            CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Consignee = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeCode + ' - ' + CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeName;
-            if (CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Consignee == " - ")
-                CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Consignee = "";
+            CreateDelChallanCtrl.ePage.Masters.Consignee = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeCode + ' - ' + CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeName;
+            if (CreateDelChallanCtrl.ePage.Masters.Consignee == " - ")
+                CreateDelChallanCtrl.ePage.Masters.Consignee = "";
             // Warehouse
             if (CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode == null)
                 CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode = "";
             if (CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseName == null)
                 CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseName = "";
-            CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Warehouse = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode + ' - ' + CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseName;
-            if (CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Warehouse == " - ")
-                CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Warehouse = "";
+            CreateDelChallanCtrl.ePage.Masters.WarehouseCodeName = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode + ' - ' + CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseName;
+            if (CreateDelChallanCtrl.ePage.Masters.WarehouseCodeName == " - ")
+                CreateDelChallanCtrl.ePage.Masters.WarehouseCodeName = "";
         }
 
         function GetDynamicLookupConfig() {
