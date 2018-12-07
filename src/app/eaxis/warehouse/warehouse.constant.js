@@ -911,6 +911,16 @@
                 "app/eaxis/warehouse/my-task/my-task-directive/acknowledge-pickup-request/acknowledge-pickup-request.controller.js",
                 "app/eaxis/warehouse/my-task/my-task-directive/acknowledge-pickup-request/acknowledge-pickup-request.directive.js"
             ]
+        },{
+            name: 'pendingPickup',
+            files: [
+                'app/eaxis/warehouse/pending-pickup/pending-pickup.controller.js',
+            ]
+        },{
+            name: 'pickupLine',
+            files: [
+                'app/eaxis/warehouse/pickup-line/pickup-line.controller.js',
+            ]
         },
         // #endregion
         // #region Raise CSR

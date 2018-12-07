@@ -708,5 +708,45 @@
                 }
             })
 
+            .state('EA.WMS.PendingPickup', {
+                url: '/pending-pickup',
+                templateUrl: 'app/eaxis/warehouse/pending-pickup/pending-pickup.html',
+                controller: "PendingPickupController as PendingPickupCtrl",
+                ncyBreadcrumb: {
+                    label: 'PendingPickup'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        if (pageAccessService.CheckAuthToken()) {
+                            deferred.resolve();
+                        }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "pendingPickup"]);
+                    }]
+                }
+            })
+            .state('EA.WMS.PickupLine', {
+                url: '/pickup-line',
+                templateUrl: 'app/eaxis/warehouse/pickup-line/pickup-line.html',
+                controller: "PickupLineController as PickupLineCtrl",
+                ncyBreadcrumb: {
+                    label: 'PickupLine'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        if (pageAccessService.CheckAuthToken()) {
+                            deferred.resolve();
+                        }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "pickupLine"]);
+                    }]
+                }
+            })
     }
 })();
