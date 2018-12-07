@@ -1,0 +1,12 @@
+<uib-tabset id="chromeTab" active="DeliveryLineCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+    <uib-tab>
+        <uib-tab-heading title=" Delivery Line">
+            <span data-ng-bind="'Delivery Line'" class="ng-binding"> Delivery Line</span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+        <div class="no-padding tab-list-view-wrapper">
+            <dynamic-list dataentry-name="DeliveryLineCtrl.ePage.Masters.dataentryName" task-name="DeliveryLineCtrl.ePage.Masters.taskName" grid-config-type="0"
+                selected-grid-row="DeliveryLineCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" dataentry-object="DeliveryLineCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+            <div class="tab-loading" data-ng-show="DeliveryLineCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>

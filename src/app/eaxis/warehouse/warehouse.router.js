@@ -748,5 +748,25 @@
                     }]
                 }
             })
+            .state('EA.WMS.DeliveryLine', {
+                url: '/delivery-line',
+                templateUrl: 'app/eaxis/warehouse/delivery-line/delivery-line.html',
+                controller: "DeliveryLineController as DeliveryLineCtrl",
+                ncyBreadcrumb: {
+                    label: 'DeliveryLine'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        if (pageAccessService.CheckAuthToken()) {
+                            deferred.resolve();
+                        }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "DeliveryLine"]);
+                    }]
+                }
+            })
     }
 })();

@@ -922,6 +922,12 @@
                 'app/eaxis/warehouse/pickup-line/pickup-line.controller.js',
             ]
         },
+        {
+            name: 'DeliveryLine',
+            files: [
+                'app/eaxis/warehouse/delivery-line/delivery-line.controller.js',
+            ]
+        },
         // #endregion
         // #region Raise CSR
         {
