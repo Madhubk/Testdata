@@ -116,9 +116,9 @@
                     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 height-40  p-5">
                         <div class="input-group input-group-sm">
                             <!-- Dynamic look up Search in textbox -->
-                            <div dynamic-lookup placeholder="Site" is-disabled="true" my-ng-model="CreateDelChallanCtrl.ePage.Masters.Consignee"
-                                auto-complete-on-select="CreateDelChallanCtrl.ePage.Masters.SelectedLookupSupplier($item)" obj="CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery"
-                                page-name="'OrganizationList'" control-id="'Site'" control-key="'Site_3322'">
+                            <div dynamic-lookup placeholder="Site" is-disabled="true" my-ng-model="CreateDelChallanCtrl.ePage.Masters.Consignee" auto-complete-on-select="CreateDelChallanCtrl.ePage.Masters.SelectedLookupSupplier($item)"
+                                obj="CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery" page-name="'OrganizationList'"
+                                control-id="'Site'" control-key="'Site_3322'">
                             </div>
 
                             <!-- Look Up page opens when button clicks -->
@@ -211,6 +211,12 @@
             </div>
         </div>
     </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-20 mb-10">
+        <button class="btn btn-blue btn-sm pull-right ml-10" data-ng-click="CreateDelChallanCtrl.ePage.Masters.CreateOutward('OUT')"
+            data-ng-bind="CreateDelChallanCtrl.ePage.Masters.CreateOutwardText" data-ng-disabled="CreateDelChallanCtrl.ePage.Masters.IsDisabled"></button>
+        <button class="btn btn-blue btn-sm pull-right" data-ng-click="CreateDelChallanCtrl.ePage.Masters.CreateOutward('MTR')" data-ng-bind="CreateDelChallanCtrl.ePage.Masters.CreateMaterialTransferText"
+            data-ng-disabled="CreateDelChallanCtrl.ePage.Masters.IsDisabled"></button>
+    </div>
     <div class="clearfix mt-10">
         <div id="InwardLineTable{{CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID}}" class="fixedheader mb-0"
             key-events table-object='CreateDelChallanCtrl.ePage.Entities.Header.Data.UIvwWmsDeliveryList' enable='CreateDelChallanCtrl.ePage.Masters.Enable'
@@ -243,7 +249,7 @@
                     </tr>
                 </thead>
                 <tbody id="InwardLineCustTable{{CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID}}">
-                    <tr id="tableBody" ng-repeat="x in CreateDelChallanCtrl.ePage.Entities.Header.Data.UIvwWmsDeliveryList" ng-click="CreateDelChallanCtrl.ePage.Masters.setSelectedRow($index);"
+                    <tr id="tableBody" ng-repeat="x in CreateDelChallanCtrl.ePage.Entities.Header.Data.UIvwWmsDeliveryList" ng-click="CreateDelChallanCtrl.ePage.Masters.setSelectedRow($index,x);"
                         ng-class="{row_active: (CreateDelChallanCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}">
                         <td id="delcheckbox" ng-style="{ 'width':  '40px' ,'padding-top':'0px' }" ng-click="CreateDelChallanCtrl.ePage.Masters.Enable = true">
                             <label class="mb-0 customcheckbox">
@@ -272,10 +278,111 @@
             </table>
         </div>
     </div>
-</div>
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-20 mb-10">
-    <button class="btn btn-blue btn-sm pull-right ml-10" data-ng-click="CreateDelChallanCtrl.ePage.Masters.CreateOutward('OUT')"
-        data-ng-bind="CreateDelChallanCtrl.ePage.Masters.CreateOutwardText" data-ng-disabled="CreateDelChallanCtrl.ePage.Masters.IsDisabled"></button>
-    <button class="btn btn-blue btn-sm pull-right" data-ng-click="CreateDelChallanCtrl.ePage.Masters.CreateOutward('MTR')" data-ng-bind="CreateDelChallanCtrl.ePage.Masters.CreateMaterialTransferText"
-        data-ng-disabled="CreateDelChallanCtrl.ePage.Masters.IsDisabled"></button>
+    <!-- Inventory Line -->
+    <div class="clearfix mt-5 mb-10">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding">
+            <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0">
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 custom_label">
+                Inventory Details
+            </div>
+            <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 pr-0">
+                <button class="btn btn-primary btn-xs filter-sidebar-setting ml-5 dl-filter-btn pull-right" ng-click="CreateDelChallanCtrl.ePage.Masters.GetFilterList()">
+                    <i class="fa fa-filter txt-color-blueDark"></i> Filter</button>
+            </div>
+        </div>
+        <div id="InvTable{{CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID}}" class="fixedheader mb-0"
+            key-events table-object='CreateDelChallanCtrl.ePage.Masters.Inventory' enable='CreateDelChallanCtrl.ePage.Masters.EnableInventory'
+            selected-row='CreateDelChallanCtrl.ePage.Masters.selectedRowInventory' unique-id='InvTable{{CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID}}'>
+            <table style="height: 200px">
+                <thead>
+                    <tr id="tableHeader">
+                        <th ng-style="{ 'width':  '40px' }" title="S.No">S.No</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Product Code">Product Code</th>
+                        <th ng-style="{ 'width':  '275px' }" title="Product Description">Product Description</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Receipt Reference">Receipt Reference</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Inventory Status">Inventory Status</th>
+                        <th ng-style="{ 'width':  '100px' }" title="Available To Pick">Avl To Pick</th>
+                        <th ng-style="{ 'width':  '100px' }" title="In-Location Quantity">In-Loc Quantity</th>
+                        <th ng-style="{ 'width':  '100px' }" title="Committed Quantity">Committed Qty</th>
+                        <th ng-style="{ 'width':  '100px' }" title="In-Transit Quantity">In-Transit Qty</th>
+                        <th ng-style="{ 'width':  '100px' }" title="Reserved Quantity">Reserved Qty</th>
+                        <th ng-style="{ 'width':  '100px' }" title="Total Quantity">Total Qty</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Arrival Date">Arrival Date</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Location">Location</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Location Status">Location Status</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Pallet ID">Pallet ID</th>
+                        <th ng-style="{ 'width':  '150px' }" title="UDF 1">UDF 1</th>
+                        <th ng-style="{ 'width':  '150px' }" title="UDF 2">UDF 2</th>
+                        <th ng-style="{ 'width':  '150px' }" title="UDF 3">UDF 3</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Packing Date">Packing Date</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Expiry Date">Expiry Date</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Client">Client</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Warehouse">Warehouse</th>
+                    </tr>
+                </thead>
+                <tbody id="InwardLineCustTable{{CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID}}">
+                    <tr id="tableBody" ng-repeat="x in CreateDelChallanCtrl.ePage.Masters.Inventory | orderBy:'CreatedDateTime'" ng-class="{row_active: (CreateDelChallanCtrl.ePage.Masters.selectedRowInventory==$index),copy_row_active :(x.IsCopied==true)}">
+                        <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.ProductCode}}</td>
+                        <td ng-style="{ 'width':  '275px' }" class="overflow-text">{{x.ProductName}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.ExternalReference}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.OriginalInventoryStatusDesc}}</td>
+                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.AvailableToPick}}</td>
+                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.InLocationQty}}</td>
+                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.CommitedUnit}}</td>
+                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.InTransitUnit}}</td>
+                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.ReservedUnit}}</td>
+                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.TotalUnits}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.AdjustmentArrivalDate | date:'dd-MMM-yyyy hh:mm a'}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.Location}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.LocationStatusDescription}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.PalletID}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.PartAttrib1}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.PartAttrib2}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.PartAttrib3}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.PackingDate | dateFormat}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.ExpiryDate | dateFormat}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.ClientCode}} - {{x.ClientName}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.WAR_WarehouseCode}} - {{x.WAR_WarehouseName}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:560px" ng-if="CreateDelChallanCtrl.ePage.Masters.InventoryLoading">
+            <i class="fa fa-spin fa-spinner font-160"></i>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:560px" ng-if="CreateDelChallanCtrl.ePage.Masters.Inventory.length==0 && !CreateDelChallanCtrl.ePage.Masters.InventoryLoading">No Record Found...</div>
+    </div>
+
+    <!--FIlter Bar  -->
+    <div id="filterSideBar{{CreateDelChallanCtrl.ePage.Masters.DynamicControl.DataEntryName}}{{CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID}}"
+        data-ng-if="CreateDelChallanCtrl.ePage.Masters.DynamicControl" class="dynamic-filter-sidebar-wrapper  clearfix filter-text"
+        style="top:504px;height:200px;overflow-y: overlay;z-index: 13" data-ng-class="CreateDelChallanCtrl.ePage.Masters.ViewType == 1 ? 'one-column' : 'two-column'">
+        <form name="filterSidebar" novalidate>
+            <div class="header clearfix">
+                <div class="title pull-left">
+                    <i class="fa fa-filter"></i>
+                    <span>Filter</span>
+                </div>
+                <div class="btn-wrapper pull-right">
+                    <ul class="clearfix">
+                        <li>
+                            <button class="filter-title-btn" ng-click="CreateDelChallanCtrl.ePage.Masters.CloseFilterList()">Close</button>
+                        </li>
+                        <li>
+                            <input type="submit" class="filter-title-btn" ng-click="CreateDelChallanCtrl.ePage.Masters.Filter();CreateDelChallanCtrl.ePage.Masters.CloseFilterList()"
+                                value="Apply">
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="filter-list clearfix">
+                <div class="clearfix" data-ng-if="CreateDelChallanCtrl.ePage.Masters.DynamicControl">
+                    <dynamic-control input="CreateDelChallanCtrl.ePage.Masters.DynamicControl" mode="S" control-style="" default-filter="CreateDelChallanCtrl.ePage.Masters.defaultFilter"
+                        toggle="CreateDelChallanCtrl.ePage.Masters.IsDynamicControlAccess" view-type="CreateDelChallanCtrl.ePage.Masters.ViewType"></dynamic-control>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>

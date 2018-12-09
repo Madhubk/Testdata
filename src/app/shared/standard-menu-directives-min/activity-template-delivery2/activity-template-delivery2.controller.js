@@ -5,9 +5,9 @@
         .module("Application")
         .controller("ActivityTemplateDelivery2Controller", ActivityTemplateDelivery2Controller);
 
-    ActivityTemplateDelivery2Controller.$inject = ["$rootScope", "helperService", "APP_CONSTANT", "$q", "apiService", "authService", "appConfig", "toastr", "errorWarningService", "myTaskActivityConfig", "$filter", "$timeout"];
+    ActivityTemplateDelivery2Controller.$inject = ["$rootScope", "helperService", "APP_CONSTANT", "$q", "apiService", "authService", "appConfig", "toastr", "errorWarningService", "myTaskActivityConfig", "$filter", "$timeout", "deliveryConfig"];
 
-    function ActivityTemplateDelivery2Controller($rootScope, helperService, APP_CONSTANT, $q, apiService, authService, appConfig, toastr, errorWarningService, myTaskActivityConfig, $filter, $timeout) {
+    function ActivityTemplateDelivery2Controller($rootScope, helperService, APP_CONSTANT, $q, apiService, authService, appConfig, toastr, errorWarningService, myTaskActivityConfig, $filter, $timeout, deliveryConfig) {
         var ActivityTemplateDelivery2Ctrl = this;
 
         function Init() {
@@ -104,23 +104,22 @@
                     if (response.data.Response) {
                         ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj = response.data.Response;
                         ActivityTemplateDelivery2Ctrl.ePage.Entities.Header.Data = ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj;
-                        ActivityTemplateDelivery2Ctrl.currentDelivery = {
-                            [ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDelivery.WorkOrderID]: {
-                                ePage: {
-                                    Entities: {
-                                        Header: {
-                                            Data: ActivityTemplateDelivery2Ctrl.ePage.Entities.Header.Data
-                                        }
-                                    }
-                                }
-                            },
-                            label: ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDelivery.WorkOrderID,
-                            code: ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDelivery.WorkOrderID,
-                            isNew: false
-                        };
-                        myTaskActivityConfig.Entities.Delivery = ActivityTemplateDelivery2Ctrl.currentDelivery;
 
-                        getTaskConfigData();
+                        if (ActivityTemplateDelivery2Ctrl.tabObj) {
+                            ActivityTemplateDelivery2Ctrl.currentDelivery = ActivityTemplateDelivery2Ctrl.tabObj;
+                            myTaskActivityConfig.Entities.Delivery = ActivityTemplateDelivery2Ctrl.currentDelivery;
+                            getTaskConfigData();
+                        } else {
+                            deliveryConfig.GetTabDetails(ActivityTemplateDelivery2Ctrl.ePage.Entities.Header.Data.UIWmsDelivery, false).then(function (response) {
+                                angular.forEach(response, function (value, key) {
+                                    if (value.label == ActivityTemplateDelivery2Ctrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID) {
+                                        ActivityTemplateDelivery2Ctrl.currentDelivery = value;
+                                        myTaskActivityConfig.Entities.Delivery = ActivityTemplateDelivery2Ctrl.currentDelivery;
+                                        getTaskConfigData();
+                                    }
+                                });
+                            });
+                        }
                     }
                 });
             }

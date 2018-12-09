@@ -11,12 +11,12 @@
         </uib-tab>
         <!--Details-->
         <uib-tab active="TransferMaterialCtrl.ePage.Masters.activeTabIndex ==1">
-            <uib-tab-heading title="Outward">
+            <uib-tab-heading title="TransferMaterialCtrl.ePage.Masters.Config.Entities.Outward.label">
                 <i class="fa fa-suitcase margin-right-5"></i>
-                <span class="text-single-line" data-ng-bind="'Outward'"></span>
+                <span class="text-single-line">{{TransferMaterialCtrl.ePage.Masters.Config.Entities.Outward.label}} </span>
             </uib-tab-heading>
             <outward-menu ng-if="TransferMaterialCtrl.ePage.Masters.Config.Entities.Outward" current-outward="TransferMaterialCtrl.ePage.Masters.Config.Entities.Outward"
-               is-hide-menu="true"></outward-menu>
+                is-hide-menu="true"></outward-menu>
         </uib-tab>
     </uib-tabset>
     <div class="horizontal-space"></div>

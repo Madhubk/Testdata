@@ -38,10 +38,15 @@
             files: [
                 'app/eaxis/single-record-view/outward-release/outward-release.controller.js'
             ]
-        },{
+        }, {
             name: 'SRVOutwardManifest',
             files: [
                 'app/eaxis/single-record-view/outward-manifest/outward-manifest.controller.js'
+            ]
+        },{
+            name: 'SRVPendingPickup',
+            files: [
+                'app/eaxis/single-record-view/pending-pickup/pending-pickup.controller.js'
             ]
         }, {
             name: 'SRVOrder',

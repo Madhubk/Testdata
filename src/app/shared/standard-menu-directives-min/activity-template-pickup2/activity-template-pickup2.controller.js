@@ -5,9 +5,9 @@
         .module("Application")
         .controller("ActivityTemplatePickup2Controller", ActivityTemplatePickup2Controller);
 
-    ActivityTemplatePickup2Controller.$inject = ["$rootScope", "helperService", "APP_CONSTANT", "$q", "apiService", "authService", "appConfig", "toastr", "errorWarningService", "myTaskActivityConfig", "$filter", "$timeout"];
+    ActivityTemplatePickup2Controller.$inject = ["$rootScope", "helperService", "APP_CONSTANT", "$q", "apiService", "authService", "appConfig", "toastr", "errorWarningService", "myTaskActivityConfig", "$filter", "$timeout", "pickupConfig"];
 
-    function ActivityTemplatePickup2Controller($rootScope, helperService, APP_CONSTANT, $q, apiService, authService, appConfig, toastr, errorWarningService, myTaskActivityConfig, $filter, $timeout) {
+    function ActivityTemplatePickup2Controller($rootScope, helperService, APP_CONSTANT, $q, apiService, authService, appConfig, toastr, errorWarningService, myTaskActivityConfig, $filter, $timeout, pickupConfig) {
         var ActivityTemplatePickup2Ctrl = this;
 
         function Init() {
@@ -104,23 +104,22 @@
                     if (response.data.Response) {
                         ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj = response.data.Response;
                         ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data = ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj;
-                        ActivityTemplatePickup2Ctrl.currentPickup = {
-                            [ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj.UIWmsPickup.WorkOrderID]: {
-                                ePage: {
-                                    Entities: {
-                                        Header: {
-                                            Data: ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data
-                                        }
-                                    }
-                                }
-                            },
-                            label: ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj.UIWmsPickup.WorkOrderID,
-                            code: ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj.UIWmsPickup.WorkOrderID,
-                            isNew: false
-                        };
-                        myTaskActivityConfig.Entities.Pickup = ActivityTemplatePickup2Ctrl.currentPickup;
 
-                        getTaskConfigData();
+                        if (ActivityTemplatePickup2Ctrl.tabObj) {
+                            ActivityTemplatePickup2Ctrl.currentPickup = ActivityTemplatePickup2Ctrl.tabObj;
+                            myTaskActivityConfig.Entities.Pickup = ActivityTemplatePickup2Ctrl.currentPickup;
+                            getTaskConfigData();
+                        } else {
+                            pickupConfig.GetTabDetails(ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup, false).then(function (response) {
+                                angular.forEach(response, function (value, key) {
+                                    if (value.label == ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID) {
+                                        ActivityTemplatePickup2Ctrl.currentPickup = value;
+                                        myTaskActivityConfig.Entities.Pickup = ActivityTemplatePickup2Ctrl.currentPickup;
+                                        getTaskConfigData();
+                                    }
+                                });
+                            });
+                        }
                     }
                 });
             }
@@ -424,6 +423,7 @@
             ActivityTemplatePickup2Ctrl.ePage.Masters.IsDisableCompleteBtn = true;
             if (ActivityTemplatePickup2Ctrl.taskObj.WSI_StepName == "Acknowledge Pickup Request") {
                 ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj.UIWmsWorkorderReport.AcknowledgementDateTime = new Date();
+                ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj.AcknowledgedPerson = authService.getUserInfo().UserId;
             }
             SaveEntity();
             SaveOnly().then(function (response) {

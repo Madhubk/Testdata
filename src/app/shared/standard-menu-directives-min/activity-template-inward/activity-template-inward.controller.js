@@ -188,6 +188,7 @@
                         response.data.Response.Response.UIWmsOutwardHeader.WarehouseName = input.UIWmsInwardHeader.WarehouseName
                         response.data.Response.Response.UIWmsOutwardHeader.WOD_Parent_FK = input.UIWmsInwardHeader.PK
                         response.data.Response.Response.UIWmsOutwardHeader.AdditionalRef2Fk = input.UIWmsInwardHeader.AdditionalRef2Fk
+                        response.data.Response.Response.UIWmsOutwardHeader.RequiredDate = new Date();
 
                         //Assigning Outward Line Object
                         input.UIWmsWorkOrderLine.map(function (value, key) {

@@ -65,7 +65,19 @@
             }
 
             $rootScope.SaveOutwardFromTask = SaveOutwardFromTask;
+            getManifestDetails();
         }
+
+        function getManifestDetails() {
+            if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk) {
+                apiService.get("eAxisAPI", appConfig.Entities.TmsManifestList.API.GetById.Url + OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk).then(function (response) {
+                    if (response.data.Response) {
+                        OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails = response.data.Response;
+                    }
+                });
+            }
+        }
+
 
         function SaveOutwardFromTask(callback) {
             Validation(OutwardMenuCtrl.currentOutward, callback)
@@ -353,7 +365,9 @@
 
                         // If not cancelled outward then create or prevent from creation
                         if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus != 'CAN') {
-
+                            if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code) {
+                                OutwardMenuCtrl.ePage.Masters.active = 4;
+                            }
                             //check validation and create pick for this
                             OutwardMenuCtrl.ePage.Masters.Config.GeneralValidation(OutwardMenuCtrl.currentOutward);
                             if (OutwardMenuCtrl.ePage.Entities.Header.Validations) {
@@ -365,8 +379,8 @@
                                 if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length > 0) {
                                     //Check whether the pick is already created or not
                                     if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo) {
-                                        OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
                                         if (!OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code) {
+                                            OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
                                             $event.preventDefault();
                                             var modalOptions = {
                                                 closeButtonText: 'No',
@@ -478,16 +492,6 @@
                                                     console.log("Cancelled");
                                                     OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
                                                 });
-                                        } else {
-                                            apiService.get("eAxisAPI", appConfig.Entities.TmsManifestList.API.GetById.Url + OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk).then(function (response) {
-                                                if (response.data.Response) {
-                                                    OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails = response.data.Response;
-                                                    OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
-                                                } else {
-                                                    $event.preventDefault();
-                                                    OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
-                                                }
-                                            });
                                         }
                                     } else {
                                         $event.preventDefault();

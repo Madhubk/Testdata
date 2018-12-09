@@ -2100,6 +2100,17 @@
                         }
                     }
                 },
+                "WmsInventory": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsInventory/FindAll",
+                            "FilterID": "WMSINV",
+                        },
+                    }
+                },
                 "WmsClientParameterByWarehouse": {
                     "RowIndex": -1,
                     "API": {

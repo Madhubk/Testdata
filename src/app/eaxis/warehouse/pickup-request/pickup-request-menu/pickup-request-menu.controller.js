@@ -86,6 +86,7 @@
                 _input.UIWmsPickup.CreatedDateTime = new Date();
                 _input.UIWmsPickup.WorkOrderType = 'PIC';
                 _input.UIWmsWorkorderReport.AcknowledgementDateTime = new Date();
+                _input.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;
                 _input.UIWmsWorkorderReport.WOD_FK = _input.PK;
                 if (!_input.UIWmsPickup.ExternalReference) {
                     _input.UIWmsPickup.ExternalReference = _input.UIWmsPickup.WorkOrderID;

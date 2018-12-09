@@ -31,6 +31,7 @@
             } else {
                 DeliverMaterialCtrl.ePage.Masters.Config = myTaskActivityConfig;
                 DeliverMaterialCtrl.ePage.Entities.Header.Data = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data;
+                outwardConfig.ValidationFindall();
                 getDeliveryList();
                 GetDynamicLookupConfig();
 

@@ -5,9 +5,9 @@
         .module("Application")
         .controller("AcknowledgeCsrController", AcknowledgeCsrController);
 
-    AcknowledgeCsrController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "deliveryConfig"];
+    AcknowledgeCsrController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "deliveryConfig", "dynamicLookupConfig"];
 
-    function AcknowledgeCsrController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, deliveryConfig) {
+    function AcknowledgeCsrController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, deliveryConfig, dynamicLookupConfig) {
         var AcknowledgeCsrCtrl = this;
 
         function Init() {
@@ -28,7 +28,8 @@
                 AcknowledgeCsrCtrl.ePage.Masters.TaskObj = AcknowledgeCsrCtrl.taskObj;
                 GetEntityObj();
             } else {
-                AcknowledgeCsrCtrl.ePage.Entities.Header.Data = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data;                
+                AcknowledgeCsrCtrl.ePage.Masters.Config = myTaskActivityConfig;
+                AcknowledgeCsrCtrl.ePage.Entities.Header.Data = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data;
                 GeneralOperation();
                 GetDynamicLookupConfig();
                 if (errorWarningService.Modules.MyTask)

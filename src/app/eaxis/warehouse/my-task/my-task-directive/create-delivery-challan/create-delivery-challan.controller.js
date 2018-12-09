@@ -34,6 +34,7 @@
                 GeneralOperation();
                 getOutwardList();
                 GetDynamicLookupConfig();
+                DefaultFilter();
                 if (errorWarningService.Modules.MyTask)
                     CreateDelChallanCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.MyTask.Entity[myTaskActivityConfig.Entities.Delivery.label];
             }
@@ -56,6 +57,12 @@
             CreateDelChallanCtrl.ePage.Masters.CallIsReload = CallIsReload;
             CreateDelChallanCtrl.ePage.Masters.Close = Close;
             CreateDelChallanCtrl.ePage.Masters.SelectedLookupWarehouse = SelectedLookupWarehouse;
+            CreateDelChallanCtrl.ePage.Masters.setSelectedRow = setSelectedRow;
+            // Filter
+            CreateDelChallanCtrl.ePage.Masters.GetFilterList = GetFilterList;
+            CreateDelChallanCtrl.ePage.Masters.CloseFilterList = CloseFilterList;
+            CreateDelChallanCtrl.ePage.Masters.Filter = Filter;
+
         }
 
         function SelectedLookupWarehouse(item) {
@@ -70,7 +77,6 @@
             CreateDelChallanCtrl.ePage.Masters.Config.IsReload = false;
             CreateDelChallanCtrl.ePage.Entities.Header.Data = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data;
         }
-
 
         //#region checkbox selection
         function SelectAllCheckBox() {
@@ -347,7 +353,6 @@
             CreateDelChallanCtrl.ePage.Masters.currentDelivery = currentTab;
         }
 
-
         function GeneralOperation() {
             // Client
             if (CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode == null)
@@ -426,6 +431,124 @@
                         CreateDelChallanCtrl.ePage.Masters.EntityObj = response.data.Response;
                     }
                 });
+            }
+        }
+
+        function setSelectedRow(index, item) {
+            CreateDelChallanCtrl.ePage.Masters.selectedRow = index;
+            CreateDelChallanCtrl.ePage.Masters.defaultFilter = {
+                "ClientCode": CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode,
+                "WAR_WarehouseCode": CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode,
+                "InventoryStatusIn": "AVL,HEL",
+                "ProductCode": item.DLPRD_Req_PrdCode
+            };
+            CreateDelChallanCtrl.ePage.Masters.DynamicControl = undefined;
+            GetConfigDetails();
+        }
+
+        //#region Inventory Line Functionlities
+        function CloseFilterList() {
+            $('#filterSideBar' + "WarehouseInventory" + CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID).removeClass('open');
+        }
+
+        function GetFilterList() {
+            $timeout(function () {
+                $('#filterSideBar' + "WarehouseInventory" + CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID).toggleClass('open');
+            });
+        }
+
+        function DefaultFilter() {
+            if (CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode && CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode) {
+                CreateDelChallanCtrl.ePage.Masters.defaultFilter = {
+                    "ClientCode": CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode,
+                    "WAR_WarehouseCode": CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode,
+                    "InventoryStatusIn": "AVL,HEL"
+                };
+                CreateDelChallanCtrl.ePage.Masters.DynamicControl = undefined;
+                GetConfigDetails();
+            }
+        }
+
+        function GetConfigDetails() {
+            // Get Dynamic filter controls
+            var _filter = {
+                DataEntryName: "WarehouseInventory"
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.DataEntry.API.FindConfig.FilterID
+            };
+
+            apiService.post("eAxisAPI", appConfig.Entities.DataEntry.API.FindConfig.Url, _input).then(function (response) {
+                var _isEmpty = angular.equals({}, response.data.Response);
+                if (response.data.Response == null || !response.data.Response || _isEmpty) {
+                    console.log("Dynamic control config Empty Response");
+                } else {
+                    CreateDelChallanCtrl.ePage.Masters.DynamicControl = response.data.Response;
+
+                    if (CreateDelChallanCtrl.ePage.Masters.defaultFilter !== undefined) {
+                        CreateDelChallanCtrl.ePage.Masters.DynamicControl.Entities.map(function (value, key) {
+                            value.Data = CreateDelChallanCtrl.ePage.Masters.defaultFilter;
+
+                            value.CSS = {};
+                            value.ConfigData.map(function (value2, key2) {
+                                if (value2.PropertyName == 'ClientCode' || value2.PropertyName == 'OriginalInventoryStatus') {
+                                    value.CSS["Is" + value2.PropertyName + "Visible"] = true;
+                                    value.CSS["Is" + value2.PropertyName + "Disable"] = true;
+                                } else {
+                                    value.CSS["Is" + value2.PropertyName + "Visible"] = false;
+                                    value.CSS["Is" + value2.PropertyName + "Disable"] = false;
+                                }
+                            });
+                        });
+                    }
+                    CreateDelChallanCtrl.ePage.Masters.ViewType = 1;
+                    Filter();
+                }
+            });
+        }
+
+        function Filter() {
+            // if searching input and original client same then only process
+            if (CreateDelChallanCtrl.ePage.Masters.DynamicControl.Entities[0].Data.ClientCode == CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode) {
+
+                CreateDelChallanCtrl.ePage.Masters.Inventory = [];
+                CreateDelChallanCtrl.ePage.Masters.InventoryLoading = true;
+
+                $(".filter-sidebar-wrapper").toggleClass("open");
+
+                var FilterObj = {
+                    "ClientCode": CreateDelChallanCtrl.ePage.Masters.DynamicControl.Entities[0].Data.ClientCode,
+                    "WAR_WarehouseCode": CreateDelChallanCtrl.ePage.Masters.DynamicControl.Entities[0].Data.WAR_WarehouseCode,
+                    "AreaName": CreateDelChallanCtrl.ePage.Masters.DynamicControl.Entities[0].Data.AreaName,
+                    "InventoryStatusIn": CreateDelChallanCtrl.ePage.Masters.DynamicControl.Entities[0].Data.InventoryStatusIn,
+                    "ExternalReference": CreateDelChallanCtrl.ePage.Masters.DynamicControl.Entities[0].Data.ExternalReference,
+                    "Location": CreateDelChallanCtrl.ePage.Masters.DynamicControl.Entities[0].Data.Location,
+                    "PalletID": CreateDelChallanCtrl.ePage.Masters.DynamicControl.Entities[0].Data.PalletID,
+                    "ProductCode": CreateDelChallanCtrl.ePage.Masters.DynamicControl.Entities[0].Data.ProductCode,
+                    "WOL_AdjustmentArrivalDate": CreateDelChallanCtrl.ePage.Masters.DynamicControl.Entities[0].Data.WOL_AdjustmentArrivalDate,
+                    "PartAttrib1": CreateDelChallanCtrl.ePage.Masters.DynamicControl.Entities[0].Data.PartAttrib1,
+                    "PartAttrib2": CreateDelChallanCtrl.ePage.Masters.DynamicControl.Entities[0].Data.PartAttrib2,
+                    "PartAttrib3": CreateDelChallanCtrl.ePage.Masters.DynamicControl.Entities[0].Data.PartAttrib3,
+                    "PackingDate": CreateDelChallanCtrl.ePage.Masters.DynamicControl.Entities[0].Data.PackingDate,
+                    "ExpiryDate": CreateDelChallanCtrl.ePage.Masters.DynamicControl.Entities[0].Data.ExpiryDate,
+                    "SortColumn": "WOL_WAR_WarehouseCode",
+                    "SortType": "ASC",
+                    "PageNumber": 1,
+                    "PageSize": 1000
+                };
+
+                var _input = {
+                    "searchInput": helperService.createToArrayOfObject(FilterObj),
+                    "FilterID": appConfig.Entities.WmsInventory.API.FindAll.FilterID
+                };
+                apiService.post("eAxisAPI", appConfig.Entities.WmsInventory.API.FindAll.Url, _input).then(function (response) {
+                    CreateDelChallanCtrl.ePage.Masters.Inventory = response.data.Response;
+                    CreateDelChallanCtrl.ePage.Masters.InventoryCount = response.data.Count;
+                    CreateDelChallanCtrl.ePage.Masters.InventoryLoading = false;
+                });
+            } else {
+                toastr.warning("Please Enter Chosen Client And Warehouse in Filter");
             }
         }
 

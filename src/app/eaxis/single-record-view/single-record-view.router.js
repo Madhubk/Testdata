@@ -159,6 +159,27 @@
                     }]
                 }
             })
+            .state('EA.singleRecordView.pendingPickup', {
+                url: '/pendingpickup/:workorderid',
+                templateUrl: 'app/eaxis/single-record-view/pending-pickup/pending-pickup.html',
+                controller: "SRVPendingPickupController as SRVPendingPickupCtrl",
+                ncyBreadcrumb: {
+                    label: 'SRV - Pending Pickup'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        if (pageAccessService.CheckAuthToken()) {
+                            deferred.resolve();
+                        }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+
+                        return $ocLazyLoad.load(["confirmation", "errorWarning", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "EAwarehouse", "SRVPendingPickup", "pickupRequest", "pickupRequestMenu", "pickupRequestGeneral", "pickupRequestLine", "pickupOrders", "pickupDetails", "pickupMyTask", "ActivityTab", "MyTaskDirective", "WorkItemListView", "ProcessInstanceWorkItemDetails", "TaskAssignStartComplete", "MyTaskConfig", "MyTaskDynamicDirective", "MyTaskDefaultEditDirective", "ActivityTemplatePickup2", "ActivityFormTemplate1", "CreatePickupChallanDirective", "AcknowledgePickupRequestDirective", "inward", "outward", "inwardAddress", "inwardGeneral", "inwardMenu", "inwardAsnLines", "inwardLines", "inwardProductSummary", "inwardDocument", "WmsReference", "WmsContainer", "WmsServices", "LocationDashboardModal", "location"]);
+                    }]
+                }
+            })
             .state('EA.singleRecordView.transinOrder', {
                 url: '/transinorder/:workorderid',
                 templateUrl: 'app/eaxis/single-record-view/trans-inorder/trans-inorder-page.html',
