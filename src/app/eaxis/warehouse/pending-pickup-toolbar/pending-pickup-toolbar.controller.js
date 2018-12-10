@@ -106,6 +106,7 @@
                                 "ORG_ClientCode": value.WOD_ORG_Client_FK,
                                 "ORG_ClientName": value.DEL_ClientName,
                                 "Client_FK": value.DEL_ClientFk,
+                                "AdditionalRef1Code": value.AdditionalRef1Code,
 
                                 "WAR_WarehouseCode": value.DEL_WAR_Code,
                                 "WAR_WarehouseName": value.DEL_WAR_Name,
@@ -115,7 +116,7 @@
                         });
                         apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Insert.Url, response.data.Response.Response).then(function (response) {
                             if (response.data.Response) {
-                                PendingPickupToolbarCtrl.ePage.Masters.IsCreatePickupBtn = false;
+                                PendingPickupToolbarCtrl.ePage.Masters.IsCreatePickupBtn = true;
                                 PendingPickupToolbarCtrl.ePage.Masters.CreatePickupBtnText = "Create Pickup";
                                 toastr.success("Pickup Created Successfully");
                                 helperService.refreshGrid();
