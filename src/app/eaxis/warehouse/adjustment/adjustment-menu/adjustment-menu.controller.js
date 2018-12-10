@@ -1,22 +1,22 @@
-(function(){
+(function () {
     "use strict";
 
     angular
-         .module("Application")
-         .controller("AdjustmentMenuController",AdjustmentMenuController);
+        .module("Application")
+        .controller("AdjustmentMenuController", AdjustmentMenuController);
 
-    AdjustmentMenuController.$inject=["$scope", "$timeout", "APP_CONSTANT", "apiService", "adjustmentConfig", "helperService","appConfig","authService","$location","$state","toastr","confirmation","$uibModal"];
+    AdjustmentMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "adjustmentConfig", "helperService", "appConfig", "authService", "$location", "$state", "toastr", "confirmation", "$uibModal"];
 
-    function AdjustmentMenuController($scope, $timeout, APP_CONSTANT, apiService, adjustmentConfig, helperService,appConfig,authService,$location,$state,toastr,confirmation,$uibModal){
+    function AdjustmentMenuController($scope, $timeout, APP_CONSTANT, apiService, adjustmentConfig, helperService, appConfig, authService, $location, $state, toastr, confirmation, $uibModal) {
 
         var AdjustmentMenuCtrl = this
 
-        function Init(){
+        function Init() {
 
             var currentAdjustment = AdjustmentMenuCtrl.currentAdjustment[AdjustmentMenuCtrl.currentAdjustment.label].ePage.Entities;
             console.log(currentAdjustment);
 
-            AdjustmentMenuCtrl.ePage={
+            AdjustmentMenuCtrl.ePage = {
                 "Title": "",
                 "Prefix": "Adjustment_Menu",
                 "Masters": {},
@@ -31,23 +31,23 @@
             AdjustmentMenuCtrl.ePage.Masters.Validation = Validation;
             AdjustmentMenuCtrl.ePage.Masters.GenerateReport = GenerateReport;
             AdjustmentMenuCtrl.ePage.Masters.Config = adjustmentConfig;
-            AdjustmentMenuCtrl.ePage.Masters.Finalize = Finalize;    
-            AdjustmentMenuCtrl.ePage.Masters.CancelAdjustment = CancelAdjustment;  
+            AdjustmentMenuCtrl.ePage.Masters.Finalize = Finalize;
+            AdjustmentMenuCtrl.ePage.Masters.CancelAdjustment = CancelAdjustment;
 
-          
-            if(AdjustmentMenuCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.WorkOrderStatus == 'FIN' || AdjustmentMenuCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.WorkOrderStatus == 'CAN'){
+
+            if (AdjustmentMenuCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.WorkOrderStatus == 'FIN' || AdjustmentMenuCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.WorkOrderStatus == 'CAN') {
                 AdjustmentMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
                 AdjustmentMenuCtrl.ePage.Masters.DisableSave = true;
             }
         }
-        
-        function Finalize($item){
+
+        function Finalize($item) {
             var _Data = $item[$item.label].ePage.Entities,
-            _input = _Data.Header.Data,
-            _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
-            
-            
-            if(_errorcount.length==0){
+                _input = _Data.Header.Data,
+                _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
+
+
+            if (_errorcount.length == 0) {
                 var modalOptions = {
                     closeButtonText: 'No',
                     actionButtonText: 'YES',
@@ -55,57 +55,58 @@
                     bodyText: 'Do You Want To Finalize?'
                 };
                 confirmation.showModal({}, modalOptions)
-                .then(function (result) {
-                    if(_input.UIWmsWorkOrderLine.length>0){
-                        var mydate = _input.UIWmsWorkOrderLine.some(function(value,key){
-                            if(!value.PK)
-                            return true;
-                        })
-                        if(mydate){
-                            toastr.info("Please Save Before Finalizing Adjustment");
-                        }else{
-                            AdjustmentMenuCtrl.ePage.Masters.Finalisesave = true; 
-                            Validation($item);
+                    .then(function (result) {
+                        if (_input.UIWmsWorkOrderLine.length > 0) {
+                            var mydate = _input.UIWmsWorkOrderLine.some(function (value, key) {
+                                if (!value.PK)
+                                    return true;
+                            })
+                            if (mydate) {
+                                toastr.info("Please Save Before Finalizing Adjustment");
+                            } else {
+                                AdjustmentMenuCtrl.ePage.Masters.Finalisesave = true;
+                                Validation($item);
+                            }
+
+                        } else {
+                            toastr.info("Adjustment Cannot be finalized without Adjustment Line")
                         }
-                        
-                    }else{
-                        toastr.info("Adjustment Cannot be finalized without Adjustment Line")
-                    }
-                }, function () {
-                    console.log("Cancelled");
-                });
-            }else{
-                AdjustmentMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(AdjustmentMenuCtrl.currentAdjustment);                    
+                    }, function () {
+                        console.log("Cancelled");
+                    });
+            } else {
+                AdjustmentMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(AdjustmentMenuCtrl.currentAdjustment);
             }
 
         }
 
         function Validation($item) {
             var _Data = $item[$item.label].ePage.Entities,
-            _input = _Data.Header.Data,
-            _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
-            
+                _input = _Data.Header.Data,
+                _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
+
             //Validation Call
             AdjustmentMenuCtrl.ePage.Masters.Config.GeneralValidation($item);
-            if(AdjustmentMenuCtrl.ePage.Entities.Header.Validations){
-                AdjustmentMenuCtrl.ePage.Masters.Config.RemoveApiErrors(AdjustmentMenuCtrl.ePage.Entities.Header.Validations,$item.label); 
+            if (AdjustmentMenuCtrl.ePage.Entities.Header.Validations) {
+                AdjustmentMenuCtrl.ePage.Masters.Config.RemoveApiErrors(AdjustmentMenuCtrl.ePage.Entities.Header.Validations, $item.label);
             }
 
-            if(_errorcount.length==0){
+            if (_errorcount.length == 0) {
+                AdjustmentMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(AdjustmentMenuCtrl.currentAdjustment);
                 Save($item);
-            }else{
+            } else {
                 AdjustmentMenuCtrl.ePage.Masters.Finalisesave = false;
-                AdjustmentMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(AdjustmentMenuCtrl.currentAdjustment);                    
+                AdjustmentMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(AdjustmentMenuCtrl.currentAdjustment);
             }
         }
-           
-        function Save($item){
+
+        function Save($item) {
             AdjustmentMenuCtrl.ePage.Masters.DisableSave = true;
             AdjustmentMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
 
             var _Data = $item[$item.label].ePage.Entities,
-             _input = _Data.Header.Data;    
-             //_input.UIAdjustmentHeader.PK = _input.PK;
+                _input = _Data.Header.Data;
+            //_input.UIAdjustmentHeader.PK = _input.PK;
             _input.UIAdjustmentHeader.ExternalReference = AdjustmentMenuCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.WorkOrderID;
             if ($item.isNew) {
                 _input.UIAdjustmentHeader.PK = _input.PK;
@@ -115,22 +116,22 @@
                 _input.UIAdjustmentHeader.WorkOrderType = 'ADJ';
 
             } else {
-                if(AdjustmentMenuCtrl.ePage.Masters.Finalisesave){
+                if (AdjustmentMenuCtrl.ePage.Masters.Finalisesave) {
                     _input.UIAdjustmentHeader.FinalisedDate = new Date();
                     _input.UIAdjustmentHeader.WorkOrderStatus = 'FIN';
                     _input.UIAdjustmentHeader.WorkOrderStatusDesc = 'Finalized';
 
                     // Line Status
-                angular.forEach(_input.UIWmsWorkOrderLine,function(value,key){
-                    value.WorkOrderLineStatus = 'FIN';
-                    value.WorkOrderLineStatusDesc = 'Finalized';
-                });
+                    angular.forEach(_input.UIWmsWorkOrderLine, function (value, key) {
+                        value.WorkOrderLineStatus = 'FIN';
+                        value.WorkOrderLineStatusDesc = 'Finalized';
+                    });
                 }
                 $item = filterObjectUpdate($item, "IsModified");
             }
 
             helperService.SaveEntity($item, 'Adjustment').then(function (response) {
-                
+
                 AdjustmentMenuCtrl.ePage.Masters.DisableSave = false;
                 AdjustmentMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
 
@@ -145,7 +146,7 @@
                             }
                         }
                     });
-                    
+
                     var _index = adjustmentConfig.TabList.map(function (value, key) {
                         return value[value.label].ePage.Entities.Header.Data.PK
                     }).indexOf(AdjustmentMenuCtrl.currentAdjustment[AdjustmentMenuCtrl.currentAdjustment.label].ePage.Entities.Header.Data.PK);
@@ -156,19 +157,19 @@
                         if ($state.current.url == "/adjustment") {
                             helperService.refreshGrid();
                         }
-                    } 
+                    }
                     console.log("Success");
-                    if(AdjustmentMenuCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.WorkOrderStatus == 'CAN'){
+                    if (AdjustmentMenuCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.WorkOrderStatus == 'CAN') {
                         toastr.success("Cancelled Successfully...!")
-                    }else{
+                    } else {
                         toastr.success("Saved Successfully...!");
                     }
-                    
-                    if(AdjustmentMenuCtrl.ePage.Masters.SaveAndClose){
+
+                    if (AdjustmentMenuCtrl.ePage.Masters.SaveAndClose) {
                         AdjustmentMenuCtrl.ePage.Masters.Config.SaveAndClose = true;
                         AdjustmentMenuCtrl.ePage.Masters.SaveAndClose = false;
                     }
-                    if (AdjustmentMenuCtrl.ePage.Masters.Finalisesave || AdjustmentMenuCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.WorkOrderStatus=="CAN") {
+                    if (AdjustmentMenuCtrl.ePage.Masters.Finalisesave || AdjustmentMenuCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.WorkOrderStatus == "CAN") {
                         AdjustmentMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
                         AdjustmentMenuCtrl.ePage.Masters.DisableSave = true;
                     }
@@ -177,14 +178,14 @@
                     console.log("Failed");
                     toastr.error("Could not Save...!");
                     angular.forEach(response.Validations, function (value, key) {
-                        if(value.RowIndex>0){
-                            AdjustmentMenuCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, AdjustmentMenuCtrl.currentAdjustment.label, true, value.RowIndex-1, value.ColIndex, undefined, undefined, undefined);
-                        }else{
+                        if (value.RowIndex > 0) {
+                            AdjustmentMenuCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, AdjustmentMenuCtrl.currentAdjustment.label, true, value.RowIndex - 1, value.ColIndex, undefined, undefined, undefined);
+                        } else {
                             AdjustmentMenuCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, AdjustmentMenuCtrl.currentAdjustment.label, false, undefined, undefined, undefined, undefined, undefined);
                         }
                     });
                     angular.forEach(response.Messages, function (value, key) {
-                        if(value.Type == "NotUpdated"){
+                        if (value.Type == "NotUpdated") {
                             toastr.error(value.MessageDesc);
                         }
                     });
@@ -192,7 +193,7 @@
                         AdjustmentMenuCtrl.ePage.Masters.Finalisesave = false;
                         AdjustmentMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(AdjustmentMenuCtrl.currentAdjustment);
                     }
-                }                
+                }
             });
 
         }
@@ -209,35 +210,35 @@
             return obj;
         }
 
-        function CancelAdjustment($item){
+        function CancelAdjustment($item) {
             $uibModal.open({
                 templateUrl: 'myModalContent.html',
                 controller: function ($scope, $uibModalInstance) {
-                    
+
                     $scope.close = function () {
                         $uibModalInstance.dismiss('cancel');
                     };
 
-                    $scope.ok = function(){
+                    $scope.ok = function () {
                         var InsertCommentObject = [];
-                        var obj ={
-                            "Description":"General",
+                        var obj = {
+                            "Description": "General",
                             "Comments": $scope.comment,
                             "EntityRefKey": AdjustmentMenuCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.PK,
                             "EntityRefCode": AdjustmentMenuCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.WorkOrderID,
-                            "CommentsType":"GEN"
+                            "CommentsType": "GEN"
                         }
                         InsertCommentObject.push(obj);
-                        apiService.post("eAxisAPI", appConfig.Entities.JobComments.API.Insert.Url, InsertCommentObject).then(function(response){
+                        apiService.post("eAxisAPI", appConfig.Entities.JobComments.API.Insert.Url, InsertCommentObject).then(function (response) {
 
-                            AdjustmentMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.map(function(value,key){
+                            AdjustmentMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.map(function (value, key) {
                                 value.TotalUnits = 0;
                             });
                             AdjustmentMenuCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.CancelledDate = new Date();
                             AdjustmentMenuCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.WorkOrderStatus = 'CAN';
                             AdjustmentMenuCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.WorkOrderStatusDesc = 'Cancelled';
                             Validation($item);
-                            
+
                             $uibModalInstance.dismiss('cancel');
                         });
                     }
@@ -245,7 +246,7 @@
             });
         }
 
-        function GenerateReport(){
+        function GenerateReport() {
             AdjustmentMenuCtrl.ePage.Masters.DisableReport = true;
 
             var _filter = {
@@ -264,13 +265,13 @@
                     var item = response.data.Response[0];
                     var _SearchInputConfig = JSON.parse(item.OtherConfig)
                     var _output = helperService.getSearchInput(AdjustmentMenuCtrl.ePage.Entities.Header.Data, _SearchInputConfig.DocumentInput);
-        
+
                     if (_output) {
-        
+
                         _SearchInputConfig.DocumentSource = APP_CONSTANT.URL.eAxisAPI + _SearchInputConfig.DocumentSource;
                         _SearchInputConfig.DocumentInput = _output;
                         apiService.post("eAxisAPI", appConfig.Entities.Communication.API.GenerateReport.Url, _SearchInputConfig).then(function SuccessCallback(response) {
-        
+
                             function base64ToArrayBuffer(base64) {
                                 var binaryString = window.atob(base64);
                                 var binaryLen = binaryString.length;
@@ -279,9 +280,9 @@
                                     var ascii = binaryString.charCodeAt(i);
                                     bytes[i] = ascii;
                                 }
-                                saveByteArray([bytes], item.Description+'-'+AdjustmentMenuCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.WorkOrderID+ '.pdf');
+                                saveByteArray([bytes], item.Description + '-' + AdjustmentMenuCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.WorkOrderID + '.pdf');
                             }
-        
+
                             var saveByteArray = (function () {
                                 var a = document.createElement("a");
                                 document.body.appendChild(a);
@@ -296,8 +297,8 @@
                                     a.click();
                                     window.URL.revokeObjectURL(url);
                                 };
-                            } ());
-        
+                            }());
+
                             base64ToArrayBuffer(response.data);
                             AdjustmentMenuCtrl.ePage.Masters.DisableReport = false;
                         });
@@ -305,7 +306,7 @@
                 }
             });
         }
-        
+
         Init();
 
     }

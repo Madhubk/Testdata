@@ -268,6 +268,7 @@
             }
 
             if (_errorcount.length == 0) {
+                InwardMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(InwardMenuCtrl.currentInward);
                 Saveonly($item, callback);
             } else {
                 InwardMenuCtrl.ePage.Masters.Finalisesave = false;

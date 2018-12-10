@@ -1213,11 +1213,12 @@
 
         function ShowErrorWarningModal(EntityObject) {
             $("#errorWarningContainer" + EntityObject.label).toggleClass("open");
+            if (EntityObject[EntityObject.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length == 0) {
+                $("#errorWarningContainer" + EntityObject.label).removeClass("open");
+            }
         }
 
-
         // Validations
-
         function ValidationFindall() {
             var _filter = {
                 "ModuleCode": "WMS",

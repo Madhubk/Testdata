@@ -527,6 +527,7 @@
             }
 
             if (_errorcount.length == 0) {
+                OutwardMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(OutwardMenuCtrl.currentOutward);
                 Saveonly($item, callback);
             } else {
                 OutwardMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(OutwardMenuCtrl.currentOutward);

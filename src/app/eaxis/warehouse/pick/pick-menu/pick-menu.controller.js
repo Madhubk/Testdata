@@ -5,9 +5,9 @@
         .module("Application")
         .controller("PickMenuController", PickMenuController);
 
-    PickMenuController.$inject = ["$scope", "$rootScope", "$timeout", "APP_CONSTANT", "apiService", "pickConfig", "helperService", "appConfig", "authService", "$state","confirmation","toastr","$window","$uibModal","$filter"];
+    PickMenuController.$inject = ["$scope", "$rootScope", "$timeout", "APP_CONSTANT", "apiService", "pickConfig", "helperService", "appConfig", "authService", "$state", "confirmation", "toastr", "$window", "$uibModal", "$filter"];
 
-    function PickMenuController($scope, $rootScope, $timeout, APP_CONSTANT, apiService, pickConfig, helperService, appConfig, authService, $state,confirmation,toastr,$window,$uibModal,$filter) {
+    function PickMenuController($scope, $rootScope, $timeout, APP_CONSTANT, apiService, pickConfig, helperService, appConfig, authService, $state, confirmation, toastr, $window, $uibModal, $filter) {
 
         var PickMenuCtrl = this;
 
@@ -51,6 +51,7 @@
             }
 
             if (_errorcount.length == 0) {
+                PickMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(PickMenuCtrl.currentPick);
                 Save($item);
             } else {
                 PickMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(PickMenuCtrl.currentPick);
@@ -58,7 +59,7 @@
         }
 
         function Save($item) {
-            
+
             PickMenuCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
             PickMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
             PickMenuCtrl.ePage.Masters.DisableSave = true;
@@ -79,14 +80,14 @@
                 value.WPK_FK = _input.UIWmsPickHeader.PK;
             })
 
-            
+
             //Updating the status when manual allocation and deallocation happens
-            _input.UIWmsOutward.map(function(value,key){
-                _input.UIWmsPickLine.map(function(val,k){
-                    if(!val.Units){
-                        if(value.PK==val.WOD_FK){
-                            value.PutOrPickSlipDateTime  = null;
-                            value.PutOrPickCompDateTime  = null;
+            _input.UIWmsOutward.map(function (value, key) {
+                _input.UIWmsPickLine.map(function (val, k) {
+                    if (!val.Units) {
+                        if (value.PK == val.WOD_FK) {
+                            value.PutOrPickSlipDateTime = null;
+                            value.PutOrPickCompDateTime = null;
                             value.WorkOrderStatus = "OSP";
                             value.WorkOrderStatusDesc = "Pick Started";
                         }
@@ -135,17 +136,17 @@
                         }
                     }
                     console.log("Success");
-                    if(PickMenuCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatus == 'CAN'){
+                    if (PickMenuCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatus == 'CAN') {
                         PickMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
                         PickMenuCtrl.ePage.Masters.DisableSave = true;
                         toastr.success("Cancelled Successfully...!");
-                    }else{
+                    } else {
                         toastr.success("Saved Successfully...!");
                     }
-                    
+
                     PickMenuCtrl.ePage.Entities.Header.GlobalVariables.FetchingInventoryDetails = true;
 
-                    if(PickMenuCtrl.ePage.Masters.SaveAndClose){
+                    if (PickMenuCtrl.ePage.Masters.SaveAndClose) {
                         PickMenuCtrl.ePage.Masters.Config.SaveAndClose = true;
                         PickMenuCtrl.ePage.Masters.SaveAndClose = false;
                     }
@@ -176,45 +177,45 @@
             return obj;
         }
 
-        function CancelPick($item){
-            var myData = PickMenuCtrl.ePage.Entities.Header.Data.UIWmsOutward.some(function(value,key){
-                if(value.WorkOrderStatus =='FIN')
-                return true;
+        function CancelPick($item) {
+            var myData = PickMenuCtrl.ePage.Entities.Header.Data.UIWmsOutward.some(function (value, key) {
+                if (value.WorkOrderStatus == 'FIN')
+                    return true;
             })
-            if(myData){
+            if (myData) {
                 toastr.info("Outward is finalized so pick cannot be cancelled")
-            }else{
+            } else {
                 $uibModal.open({
                     templateUrl: 'myModalContent.html',
                     controller: function ($scope, $uibModalInstance) {
-                        
+
                         $scope.close = function () {
                             $uibModalInstance.dismiss('cancel');
                         };
-    
-                        $scope.ok = function(){
+
+                        $scope.ok = function () {
                             var InsertCommentObject = [];
-                            var obj ={
-                                "Description":"General",
+                            var obj = {
+                                "Description": "General",
                                 "Comments": $scope.comment,
                                 "EntityRefKey": PickMenuCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PK,
                                 "EntityRefCode": PickMenuCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickNo,
-                                "CommentsType":"GEN"
+                                "CommentsType": "GEN"
                             }
                             InsertCommentObject.push(obj);
-                            apiService.post("eAxisAPI", appConfig.Entities.JobComments.API.Insert.Url, InsertCommentObject).then(function(response){
-    
-                                angular.forEach(PickMenuCtrl.ePage.Entities.Header.Data.UIWmsPickLine,function(value,key){
-                                    value.Units=0;
+                            apiService.post("eAxisAPI", appConfig.Entities.JobComments.API.Insert.Url, InsertCommentObject).then(function (response) {
+
+                                angular.forEach(PickMenuCtrl.ePage.Entities.Header.Data.UIWmsPickLine, function (value, key) {
+                                    value.Units = 0;
                                     value.IsDeleted = true;
                                     value.IsModified = true;
                                 });
-                                angular.forEach(PickMenuCtrl.ePage.Entities.Header.Data.UIWmsOutward,function(value,key){
+                                angular.forEach(PickMenuCtrl.ePage.Entities.Header.Data.UIWmsOutward, function (value, key) {
                                     value.PickNo = ''
                                     value.WPK_FK = null;
                                     value.PutOrPickStartDateTime = null;
-                                    value.PutOrPickSlipDateTime  = null;
-                                    value.PutOrPickCompDateTime  = null;
+                                    value.PutOrPickSlipDateTime = null;
+                                    value.PutOrPickCompDateTime = null;
                                     value.WorkOrderStatus = "ENT";
                                     value.WorkOrderStatusDesc = "Entered";
                                     value.PickOption = "";
@@ -222,11 +223,11 @@
                                 });
                                 PickMenuCtrl.ePage.Masters.DisableSave = true;
                                 PickMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
-                                apiService.post("eAxisAPI",PickMenuCtrl.ePage.Entities.Header.API.UpdatePick.Url, PickMenuCtrl.ePage.Entities.Header.Data).then(function (response) {
+                                apiService.post("eAxisAPI", PickMenuCtrl.ePage.Entities.Header.API.UpdatePick.Url, PickMenuCtrl.ePage.Entities.Header.Data).then(function (response) {
                                     PickMenuCtrl.ePage.Masters.DisableSave = false;
                                     PickMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
                                     if (response.data.Response) {
-                                        apiService.get("eAxisAPI",pickConfig.Entities.Header.API.GetByID.Url + response.data.Response.PK).then(function (response) {
+                                        apiService.get("eAxisAPI", pickConfig.Entities.Header.API.GetByID.Url + response.data.Response.PK).then(function (response) {
                                             PickMenuCtrl.ePage.Entities.Header.Data = response.data.Response;
 
                                             PickMenuCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatus = 'CAN';
@@ -235,7 +236,7 @@
                                         });
                                     }
                                 });
-                                
+
                                 $uibModalInstance.dismiss('cancel');
                             });
                         }
