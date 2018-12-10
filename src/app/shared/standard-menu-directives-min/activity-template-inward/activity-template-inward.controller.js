@@ -335,6 +335,9 @@
 
         function ValidationFindall() {
             if (ActivityTemplateInwardCtrl.ePage.Masters.TaskObj) {
+                if (errorWarningService.Modules.MyTask) {
+                    errorWarningService.Modules.MyTask.ErrorCodeList = [];
+                }
                 // validation findall call
                 var _obj = {
                     ModuleName: ["MyTask"],

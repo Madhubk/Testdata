@@ -67,7 +67,7 @@
             if (PendingPickupToolbarCtrl.ePage.Masters.PendingPickupCount > 0) {
                 PendingPickupToolbarCtrl.ePage.Masters.IsCreatePickupBtn = true;
                 PendingPickupToolbarCtrl.ePage.Masters.CreatePickupBtnText = "Please Wait...";
-                
+
                 helperService.getFullObjectUsingGetById(appConfig.Entities.WmsPickupList.API.GetById.Url, 'null').then(function (response) {
                     if (response.data.Response.Response) {
                         response.data.Response.Response.UIWmsPickup.PK = response.data.Response.Response.PK;
@@ -118,6 +118,7 @@
                                 PendingPickupToolbarCtrl.ePage.Masters.IsCreatePickupBtn = false;
                                 PendingPickupToolbarCtrl.ePage.Masters.CreatePickupBtnText = "Create Pickup";
                                 toastr.success("Pickup Created Successfully");
+                                helperService.refreshGrid();
                                 var _queryString = {
                                     PK: response.data.Response.UIWmsPickup.PK,
                                     WorkOrderID: response.data.Response.UIWmsPickup.WorkOrderID,
