@@ -38,7 +38,7 @@
             "GetErrorWarningCountParent": GetErrorWarningCountParent,
             "ShowErrorWarningModal": ShowErrorWarningModal,
             "ValidationFindall": ValidationFindall,
-            "TempOutwardPK":""
+            "TempOutwardPK": ""
         };
 
         return exports;
@@ -99,7 +99,7 @@
                                     "Value": "DeliveryDetails",
                                     "Icon": "glyphicon glyphicon-list-alt",
                                     "IsDisabled": false
-                                },{
+                                }, {
                                     "DisplayName": "Document",
                                     "Value": "Documents",
                                     "Icon": "glyphicon glyphicon-list-alt",
@@ -635,11 +635,12 @@
 
         function ShowErrorWarningModal(EntityObject) {
             $("#errorWarningContainer" + EntityObject.label).toggleClass("open");
+            if (EntityObject[EntityObject.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length == 0) {
+                $("#errorWarningContainer" + EntityObject.label).removeClass("open");
+            }
         }
 
-
         // Validations
-
         function ValidationFindall() {
             var _filter = {
                 "ModuleCode": "WMS",

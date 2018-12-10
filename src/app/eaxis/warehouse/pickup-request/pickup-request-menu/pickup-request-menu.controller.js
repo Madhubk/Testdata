@@ -66,6 +66,7 @@
             }
 
             if (_errorcount.length == 0) {
+                PickupMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(PickupMenuCtrl.currentPickup);
                 Saveonly($item);
             } else {
                 PickupMenuCtrl.ePage.Masters.Finalisesave = false;

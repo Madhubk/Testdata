@@ -64,6 +64,7 @@
             }
 
             if (_errorcount.length == 0) {
+                DeliveryMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(DeliveryMenuCtrl.currentDelivery);
                 Saveonly($item);
             } else {
                 DeliveryMenuCtrl.ePage.Masters.Finalisesave = false;

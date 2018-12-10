@@ -75,6 +75,8 @@
                         response.data.Response.Response.UIWmsPickup.ORG_Client_FK = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WOD_ORG_Client_FK;
                         response.data.Response.Response.UIWmsPickup.ORG_Consignee_FK = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WOD_ORG_Consignee_FK
                         response.data.Response.Response.UIWmsPickup.WAR_FK = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WOD_WAR_FK;
+                        response.data.Response.Response.UIWmsWorkorderReport.AcknowledgementDateTime = new Date();
+                        response.data.Response.Response.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;
                         angular.forEach(PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList, function (value, key) {
                             var obj = {
                                 "PK": "",
