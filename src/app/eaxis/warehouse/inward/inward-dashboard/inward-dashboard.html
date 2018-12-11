@@ -2,17 +2,17 @@
     <!-- List Empty Response -->
     <div class="dashboard-loading" data-ng-show="InwardDashboardCtrl.ePage.Masters.IsLoading"></div>
     <div class="clearfix border-bottom set-bg-white pt-20 pb-20">
-        <div class="col-lg-5 mt-5">
+        <div class="col-lg-4 mt-5">
             <span class="dashboard-inward-icon-box menu-icon icomoon icon-inward set-color-blue fs-22"></span>
             <span class="dashboard-inward-title ml-10 fs-25">Inward Dashboard</span>
             <span class="open-inward-orders-count btn-rounded pl-5 pr-5 ml-10 mt-5 fs-10">{{InwardDashboardCtrl.ePage.Masters.SummaryDetails.OpenReceipts ||'0'}}</span>
         </div>
-        <div class="col-lg-7">
+        <div class="col-lg-8">
             <div class="text-right">
                 <select class="btn btn-default select-rounded fs-12" ng-model="InwardDashboardCtrl.ePage.Masters.userselected" ng-options="x.WarehouseCode+'-'+x.WarehouseName for x in InwardDashboardCtrl.ePage.Masters.WarehouseDetails"
                     ng-change="InwardDashboardCtrl.ePage.Masters.Getsummarydetails(InwardDashboardCtrl.ePage.Masters.userselected)"
                     search-contains="true"></select>
-                <a class="btn btn-default set-br-blue set-bg-blue-light fs-12" href='#/EA/WMS/raise-csr'>Raise CSR</a>
+                <a class="btn btn-default set-br-blue set-bg-blue-light fs-12" href='#/EA/WMS/raise-csr'>Raise Delivery Request</a>
                 <a class="btn btn-default set-br-blue set-bg-blue-light fs-12" href='#/EA/WMS/asn-request'>New ASN Request</a>
                 <a class="btn btn-default set-br-yellow set-bg-yellow-light fs-12" href='#/EA/WMS/inward' ng-click="InwardDashboardCtrl.ePage.Masters.CreateNewInward()">New Inward</a>
                 <a class="btn btn-default set-br-yellow set-bg-yellow-light fs-12" href='#/EA/WMS/inward'>Track Inward</a>

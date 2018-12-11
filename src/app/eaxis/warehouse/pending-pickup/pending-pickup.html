@@ -1,12 +1,13 @@
 <uib-tabset id="chromeTab" active="PendingPickupCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
     <uib-tab>
-        <uib-tab-heading title="Pending Pickup">
-            <span data-ng-bind="'Pending Pickup'" class="ng-binding">Pending Pickup</span>
+        <uib-tab-heading title="Track Pickup SKU">
+            <span data-ng-bind="'Track Pickup SKU'" class="ng-binding">Track Pickup SKU</span>
             <i class="fa fa-thumb-tack pinned-tab"></i>
         </uib-tab-heading>
         <div class="no-padding tab-list-view-wrapper">
-            <dynamic-list dataentry-name="PendingPickupCtrl.ePage.Masters.dataentryName" task-name="PendingPickupCtrl.ePage.Masters.taskName" grid-config-type="0"
-                selected-grid-row="PendingPickupCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" dataentry-object="PendingPickupCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+            <dynamic-list dataentry-name="PendingPickupCtrl.ePage.Masters.dataentryName" task-name="PendingPickupCtrl.ePage.Masters.taskName"
+                grid-config-type="0" selected-grid-row="PendingPickupCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" dataentry-object="PendingPickupCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
             <div class="tab-loading" data-ng-show="PendingPickupCtrl.ePage.Masters.IsTabClick"></div>
         </div>
     </uib-tab>
+</uib-tabset>

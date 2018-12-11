@@ -652,7 +652,7 @@
                 templateUrl: 'app/eaxis/warehouse/raise-csr/raise-csr.html',
                 controller: "RaiseCSRController as RaiseCSRCtrl",
                 ncyBreadcrumb: {
-                    label: 'Raise CSR'
+                    label: 'Raise Delivery Request'
                 },
                 resolve: {
                     CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
