@@ -86,7 +86,7 @@
                                     "DisplayName": "Delivery Line",
                                     "Value": "DeliveryLine",
                                     "Icon": "glyphicon glyphicon-indent-left",
-                                    "GParentRef": "deliveryline",
+                                    "GParentRef": "deliverylines",
                                     "IsDisabled": false
                                 }, {
                                     "DisplayName": "Delivery Orders",
@@ -115,7 +115,9 @@
                                 "RequestMode": helperService.metaBase(),
                                 "ResponseType": helperService.metaBase(),
                                 "Requester": helperService.metaBase(),
-                                "RequesterContactNo": helperService.metaBase()
+                                "RequesterContactNo": helperService.metaBase(),
+                                "AdditionalRef1Code": helperService.metaBase(),
+                                "UIWmsDeliveryLine": helperService.metaBase(),
                             },
                         },
                         "GlobalVariables": {
@@ -203,42 +205,18 @@
                                     "display": true
                                 },
                                 {
-                                    "columnname": "Quantity Met",
+                                    "columnname": "Product Condition",
                                     "isenabled": true,
-                                    "property": "rquantitymet",
+                                    "property": "rproductcondition",
                                     "position": "11",
-                                    "width": "100",
-                                    "display": true
-                                },
-                                {
-                                    "columnname": "Shortfall Qty",
-                                    "isenabled": true,
-                                    "property": "rshortfallqty",
-                                    "position": "12",
-                                    "width": "100",
-                                    "display": true
-                                },
-                                {
-                                    "columnname": "Reserved Qty",
-                                    "isenabled": true,
-                                    "property": "rreservedqty",
-                                    "position": "13",
-                                    "width": "100",
-                                    "display": true
-                                },
-                                {
-                                    "columnname": "Comment",
-                                    "isenabled": true,
-                                    "property": "rcomment",
-                                    "position": "14",
-                                    "width": "100",
+                                    "width": "150",
                                     "display": true
                                 },
                                 {
                                     "columnname": "UDF 1",
                                     "isenabled": true,
                                     "property": "rudf1",
-                                    "position": "15",
+                                    "position": "12",
                                     "width": "150",
                                     "display": true
                                 },
@@ -246,7 +224,7 @@
                                     "columnname": "UDF 2",
                                     "isenabled": true,
                                     "property": "rudf2",
-                                    "position": "16",
+                                    "position": "13",
                                     "width": "150",
                                     "display": true
                                 },
@@ -254,7 +232,7 @@
                                     "columnname": "UDF 3",
                                     "isenabled": true,
                                     "property": "rudf3",
-                                    "position": "17",
+                                    "position": "14",
                                     "width": "150",
                                     "display": true
                                 },
@@ -262,7 +240,7 @@
                                     "columnname": "Packing Date",
                                     "isenabled": true,
                                     "property": "rpackingdate",
-                                    "position": "18",
+                                    "position": "15",
                                     "width": "150",
                                     "display": true
                                 },
@@ -270,16 +248,8 @@
                                     "columnname": "Expiry Date",
                                     "isenabled": true,
                                     "property": "rexpirydate",
-                                    "position": "19",
+                                    "position": "16",
                                     "width": "150",
-                                    "display": true
-                                },
-                                {
-                                    "columnname": "Documents",
-                                    "isenabled": true,
-                                    "property": "rdocuments",
-                                    "position": "20",
-                                    "width": "100",
                                     "display": true
                                 }],
                                 "rcheckbox": {
@@ -332,56 +302,36 @@
                                     "position": "10",
                                     "width": "100"
                                 },
-                                "rquantitymet": {
+                                "rproductcondition": {
                                     "isenabled": true,
                                     "position": "11",
-                                    "width": "100"
-                                },
-                                "rshortfallqty": {
-                                    "isenabled": true,
-                                    "position": "12",
-                                    "width": "100"
-                                },
-                                "rreservedqty": {
-                                    "isenabled": true,
-                                    "position": "13",
-                                    "width": "100"
-                                },
-                                "rcomment": {
-                                    "isenabled": true,
-                                    "position": "14",
-                                    "width": "100"
+                                    "width": "150"
                                 },
                                 "rudf1": {
                                     "isenabled": true,
-                                    "position": "15",
+                                    "position": "12",
                                     "width": "150"
                                 },
                                 "rudf2": {
                                     "isenabled": true,
-                                    "position": "16",
+                                    "position": "13",
                                     "width": "150"
                                 },
                                 "rudf3": {
                                     "isenabled": true,
-                                    "position": "17",
+                                    "position": "14",
                                     "width": "150"
                                 },
                                 "rpackingdate": {
                                     "isenabled": true,
-                                    "position": "18",
+                                    "position": "15",
                                     "width": "150"
                                 },
                                 "rexpirydate": {
                                     "isenabled": true,
-                                    "position": "19",
+                                    "position": "16",
                                     "width": "150"
-                                },
-                                "rdocuments": {
-                                    "isenabled": true,
-                                    "position": "20",
-                                    "width": "100"
-                                }
+                                }                                
                             }
                         },
                     },
@@ -668,6 +618,26 @@
             OnChangeValues(_input.UIWmsWorkorderReport.ResponseType, 'E3054', false, undefined, $item.label);
             OnChangeValues(_input.UIWmsWorkorderReport.Requester, 'E3055', false, undefined, $item.label);
             OnChangeValues(_input.UIWmsWorkorderReport.RequesterContactNo, 'E3056', false, undefined, $item.label);
+            OnChangeValues(_input.UIWmsWorkorderReport.AdditionalRef1Code, 'E3083', false, undefined, $item.label);
+
+            //Delivery Lines Validation
+            if (_input.UIWmsDeliveryLine.length > 0) {
+                angular.forEach(_input.UIWmsDeliveryLine, function (value, key) {
+                    OnChangeValues(value.ProductCode, 'E3086', true, key, $item.label);
+                    // Packs should be 1
+                    if (value.Packs) {
+                        if (value.Packs != "1")
+                            OnChangeValues(value.Pack, 'E3091', true, key, $item.label);
+                        else
+                            OnChangeValues(value.Packs, 'E3091', true, key, $item.label);
+                    }
+                    OnChangeValues(parseFloat(value.Packs), 'E3087', true, key, $item.label);
+                    OnChangeValues(value.PAC_PackType, 'E3088', true, key, $item.label);
+                    OnChangeValues(parseFloat(value.Units), 'E3089', true, key, $item.label);
+                    OnChangeValues(value.StockKeepingUnit, 'E3090', true, key, $item.label);
+                    OnChangeValues(value.ProductCondition, 'E3085', true, key, $item.label);
+                });
+            }
         }
 
         function OnChangeValues(fieldvalue, code, IsArray, RowIndex, label) {

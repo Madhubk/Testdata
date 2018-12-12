@@ -67,6 +67,9 @@
                     <th id="rquantityuq" data-ng-if="DeliveryLineCtrl.ePage.Entities.Header.TableProperties.UIWmsDeliveryLine.rquantityuq.isenabled"
                         ng-style="{ 'width': DeliveryLineCtrl.ePage.Entities.Header.TableProperties.UIWmsDeliveryLine.rquantityuq.width + 'px' }"
                         title="Quantity UQ">Quantity UQ</th>
+                    <th id="rproductcondition" data-ng-if="DeliveryLineCtrl.ePage.Entities.Header.TableProperties.UIWmsDeliveryLine.rproductcondition.isenabled"
+                        ng-style="{ 'width': DeliveryLineCtrl.ePage.Entities.Header.TableProperties.UIWmsDeliveryLine.rproductcondition.width + 'px' }"
+                        title="Product Condition">Product Condition</th>
                     <th id="rudf1" data-ng-if="DeliveryLineCtrl.ePage.Entities.Header.TableProperties.UIWmsDeliveryLine.rudf1.isenabled" ng-style="{ 'width': DeliveryLineCtrl.ePage.Entities.Header.TableProperties.UIWmsDeliveryLine.rudf1.width + 'px' }"
                         title="User Defined Field 1">
                         <span ng-if="DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine.IMPartAttrib1Name">{{DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine.IMPartAttrib1Name}}</span>
@@ -103,8 +106,8 @@
                                 ng-disabled="DeliveryLineCtrl.ePage.Entities.Header.GlobalVariables.NonEditable || x.AllocatedQty"> </input>
                             <span class="text"></span>
                         </label>
-                        <span class="list-error-warning" data-ng-if="DeliveryLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | listCount: 'RowIndex': (($index) + DeliveryLineCtrl.ePage.Masters.CurrentPageStartingIndex)">
-                            <error-warning-directive list="DeliveryLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR" type="'error'"
+                        <span class="list-error-warning" data-ng-if="DeliveryLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsDeliveryLine.ERROR | listCount: 'RowIndex': (($index) + DeliveryLineCtrl.ePage.Masters.CurrentPageStartingIndex)">
+                            <error-warning-directive list="DeliveryLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsDeliveryLine.ERROR" type="'error'"
                                 icon="fa fa-warning" parent-type="'arrayObjectRow'" parent-ref="" g-parent-ref="" row-index="(($index) + DeliveryLineCtrl.ePage.Masters.CurrentPageStartingIndex)"
                                 col-index="">
                             </error-warning-directive>
@@ -142,14 +145,14 @@
                                             <i class="fa fa-ellipsis-h"></i>
                                         </button>
                                     </span>
-                                    <span ng-if='!x.ProductCode && x.PK && (DeliveryLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter: {RowIndex: (($index) + DeliveryLineCtrl.ePage.Masters.CurrentPageStartingIndex)} | filter: {ColIndex: 1}).length==0'>
-                                        <span ng-init="DeliveryLineCtrl.ePage.Masters.OnChangeValues(x.ProductCode,'E3504',true,(($index) + DeliveryLineCtrl.ePage.Masters.CurrentPageStartingIndex))"></span>
+                                    <span ng-if='!x.ProductCode && x.PK && (DeliveryLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsDeliveryLine.ERROR | filter: {RowIndex: (($index) + DeliveryLineCtrl.ePage.Masters.CurrentPageStartingIndex)} | filter: {ColIndex: 1}).length==0'>
+                                        <span ng-init="DeliveryLineCtrl.ePage.Masters.OnChangeValues(x.ProductCode,'E3086',true,(($index) + DeliveryLineCtrl.ePage.Masters.CurrentPageStartingIndex))"></span>
                                     </span>
                                 </div>
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" ng-repeat="x in DeliveryLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" ng-repeat="x in DeliveryLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsDeliveryLine.ERROR"
                                 data-ng-if="x.ColIndex == 1 && x.RowIndex ==(($parent.$index) + DeliveryLineCtrl.ePage.Masters.CurrentPageStartingIndex)">
-                                <error-warning-directive list="DeliveryLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR" type="'error'"
+                                <error-warning-directive list="DeliveryLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsDeliveryLine.ERROR" type="'error'"
                                     icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref="" row-index="((DeliveryLineCtrl.ePage.Masters.selectedRow) + DeliveryLineCtrl.ePage.Masters.CurrentPageStartingIndex)"
                                     col-index="1">
                                 </error-warning-directive>
@@ -170,11 +173,11 @@
                         <div data-ng-if="$index==DeliveryLineCtrl.ePage.Masters.selectedRow &&!DeliveryLineCtrl.ePage.Entities.Header.GlobalVariables.NonEditable && !x.AllocatedQty">
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
                                 <input type="text" numbers-only-dot class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Pack"
-                                    data-ng-model="x.Packs" ng-change="DeliveryLineCtrl.ePage.Masters.FetchQuantity(x,(($index) + DeliveryLineCtrl.ePage.Masters.CurrentPageStartingIndex));DeliveryLineCtrl.ePage.Masters.OnChangeValues(x.Packs,'E3505',true,(($index) + DeliveryLineCtrl.ePage.Masters.CurrentPageStartingIndex))">
+                                    data-ng-model="x.Packs" ng-change="DeliveryLineCtrl.ePage.Masters.FetchQuantity(x,(($index) + DeliveryLineCtrl.ePage.Masters.CurrentPageStartingIndex));DeliveryLineCtrl.ePage.Masters.OnChangeValues(x.Packs,'E3087',true,(($index) + DeliveryLineCtrl.ePage.Masters.CurrentPageStartingIndex))">
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" ng-repeat="x in DeliveryLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" ng-repeat="x in DeliveryLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsDeliveryLine.ERROR"
                                 data-ng-if="x.ColIndex == 2 && x.RowIndex ==(($parent.$index) + DeliveryLineCtrl.ePage.Masters.CurrentPageStartingIndex)">
-                                <error-warning-directive list="DeliveryLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR" type="'error'"
+                                <error-warning-directive list="DeliveryLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsDeliveryLine.ERROR" type="'error'"
                                     icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref="" row-index="((DeliveryLineCtrl.ePage.Masters.selectedRow) + DeliveryLineCtrl.ePage.Masters.CurrentPageStartingIndex)"
                                     col-index="2">
                                 </error-warning-directive>
@@ -190,14 +193,14 @@
                         <div data-ng-if="$index==DeliveryLineCtrl.ePage.Masters.selectedRow && !DeliveryLineCtrl.ePage.Entities.Header.GlobalVariables.NonEditable && !x.AllocatedQty">
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0" ng-click="DeliveryLineCtrl.ePage.Masters.Enable = false">
                                 <select chosen class="form-control" ng-model="x.PAC_PackType" ng-options="x.Key as x.Key + ' - '  + x.Value for x in DeliveryLineCtrl.ePage.Masters.DropDownMasterList.INW_LINE_UQ.ListSource"
-                                    ng-change="DeliveryLineCtrl.ePage.Masters.FetchQuantity(x,(($index) + DeliveryLineCtrl.ePage.Masters.CurrentPageStartingIndex));DeliveryLineCtrl.ePage.Masters.OnChangeValues(x.PAC_PackType,'E3506',true,(($index) + DeliveryLineCtrl.ePage.Masters.CurrentPageStartingIndex))"
+                                    ng-change="DeliveryLineCtrl.ePage.Masters.FetchQuantity(x,(($index) + DeliveryLineCtrl.ePage.Masters.CurrentPageStartingIndex));DeliveryLineCtrl.ePage.Masters.OnChangeValues(x.PAC_PackType,'E3088',true,(($index) + DeliveryLineCtrl.ePage.Masters.CurrentPageStartingIndex))"
                                     search-contains="true">
                                     <option value="">--Select--</option>
                                 </select>
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" ng-repeat="x in DeliveryLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" ng-repeat="x in DeliveryLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsDeliveryLine.ERROR"
                                 data-ng-if="x.ColIndex == 3 && x.RowIndex ==(($parent.$index) + DeliveryLineCtrl.ePage.Masters.CurrentPageStartingIndex)">
-                                <error-warning-directive list="DeliveryLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR" type="'error'"
+                                <error-warning-directive list="DeliveryLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsDeliveryLine.ERROR" type="'error'"
                                     icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref="" row-index="((DeliveryLineCtrl.ePage.Masters.selectedRow) + DeliveryLineCtrl.ePage.Masters.CurrentPageStartingIndex)"
                                     col-index="3">
                                 </error-warning-directive>
@@ -216,9 +219,9 @@
                                 <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Quantity" data-ng-model="x.Units"
                                     readonly=''>
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" ng-repeat="x in DeliveryLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" ng-repeat="x in DeliveryLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsDeliveryLine.ERROR"
                                 data-ng-if="x.ColIndex == 4 && x.RowIndex ==(($parent.$index) + DeliveryLineCtrl.ePage.Masters.CurrentPageStartingIndex)">
-                                <error-warning-directive list="DeliveryLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR" type="'error'"
+                                <error-warning-directive list="DeliveryLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsDeliveryLine.ERROR" type="'error'"
                                     icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref="" row-index="((DeliveryLineCtrl.ePage.Masters.selectedRow) + DeliveryLineCtrl.ePage.Masters.CurrentPageStartingIndex)"
                                     col-index="4">
                                 </error-warning-directive>
@@ -237,11 +240,32 @@
                                 <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Quantity UQ" data-ng-model="x.StockKeepingUnit"
                                     readonly=''>
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" ng-repeat="x in DeliveryLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" ng-repeat="x in DeliveryLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsDeliveryLine.ERROR"
                                 data-ng-if="x.ColIndex == 5 && x.RowIndex ==(($parent.$index) + DeliveryLineCtrl.ePage.Masters.CurrentPageStartingIndex)">
-                                <error-warning-directive list="DeliveryLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR" type="'error'"
+                                <error-warning-directive list="DeliveryLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsDeliveryLine.ERROR" type="'error'"
                                     icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref="" row-index="((DeliveryLineCtrl.ePage.Masters.selectedRow) + DeliveryLineCtrl.ePage.Masters.CurrentPageStartingIndex)"
                                     col-index="5">
+                                </error-warning-directive>
+                            </div>
+                        </div>
+                    </td>
+                    <td id="rproductcondition" data-ng-show='DeliveryLineCtrl.ePage.Entities.Header.TableProperties.UIWmsDeliveryLine.rproductcondition.isenabled'
+                        ng-style="{ 'width': DeliveryLineCtrl.ePage.Entities.Header.TableProperties.UIWmsDeliveryLine.rproductcondition.width + 'px' }">
+                        <div data-ng-if="$index!=DeliveryLineCtrl.ePage.Masters.selectedRow || DeliveryLineCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                            class="overflow-text">
+                            {{ x.ProductCondition || DeliveryLineCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==DeliveryLineCtrl.ePage.Masters.selectedRow && !DeliveryLineCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                            <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0" ng-click="DeliveryLineCtrl.ePage.Masters.Enable = false">
+                                <select chosen class="form-control" ng-model="x.ProductCondition" ng-options="x.Key as x.Key + ' - '  + x.Value for x in DeliveryLineCtrl.ePage.Masters.DropDownMasterList.ProductCondition.ListSource"
+                                    search-contains="true" data-ng-change="DeliveryLineCtrl.ePage.Masters.OnChangeValues(x.ProductCondition,'E3085',true,(($index) + (DeliveryLineCtrl.ePage.Masters.CurrentPageStartingIndex)))">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="DeliveryLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsDeliveryLine.ERROR | filter:{RowIndex:(($parent.$index) + (DeliveryLineCtrl.ePage.Masters.CurrentPageStartingIndex))} | listCount: 'ColIndex':6">
+                                <error-warning-directive list="DeliveryLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsDeliveryLine.ERROR" type="'error'"
+                                    icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref="" row-index="((DeliveryLineCtrl.ePage.Masters.selectedRow) + (DeliveryLineCtrl.ePage.Masters.CurrentPageStartingIndex))"
+                                    col-index="6">
                                 </error-warning-directive>
                             </div>
                         </div>
@@ -292,7 +316,7 @@
                             class="overflow-text">
                             {{ x.PackingDate || DeliveryLineCtrl.ePage.Masters.emptyText | dateFormat}}
                         </div>
-                        <div data-ng-if="$index==DeliveryLineCtrl.ePage.Masters.selectedRow  && !DeliveryLineCtrl.ePage.Entities.Header.GlobalVariables.NonEditable && !x.AllocatedQty">
+                        <div data-ng-if="$index==DeliveryLineCtrl.ePage.Masters.selectedRow && x.UsePackingDate  && !DeliveryLineCtrl.ePage.Entities.Header.GlobalVariables.NonEditable && !x.AllocatedQty">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
                                 <div class="input-group input-group-sm">
                                     <input type="text" class="form-control height-22" placeholder="{{DeliveryLineCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
@@ -317,7 +341,7 @@
                             class="overflow-text">
                             {{ x.ExpiryDate || DeliveryLineCtrl.ePage.Masters.emptyText | dateFormat}}
                         </div>
-                        <div data-ng-if="$index==DeliveryLineCtrl.ePage.Masters.selectedRow && !DeliveryLineCtrl.ePage.Entities.Header.GlobalVariables.NonEditable && !x.AllocatedQty">
+                        <div data-ng-if="$index==DeliveryLineCtrl.ePage.Masters.selectedRow && x.UseExpiryDate && !DeliveryLineCtrl.ePage.Entities.Header.GlobalVariables.NonEditable && !x.AllocatedQty">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
                                 <div class="input-group input-group-sm">
                                     <input type="text" class="form-control height-22" placeholder="{{DeliveryLineCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"

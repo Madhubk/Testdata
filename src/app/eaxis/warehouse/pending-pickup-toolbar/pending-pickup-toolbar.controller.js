@@ -83,7 +83,7 @@
                                 "WOL_Parent_FK": value.PK,
                                 "ProductCode": value.DELPRD_Req_PrdCode,
                                 "ProductDescription": value.DELPRD_Req_PrdDesc,
-                                "ProductCondition": "GDC",
+                                "ProductCondition": "",
                                 "PRO_FK": value.DELPRD_Req_PrdPk,
                                 "MCC_NKCommodityCode": value.DELPRD_MCC_NKCommodityCode,
                                 "Packs": value.Packs,
@@ -121,13 +121,13 @@
                                 PendingPickupToolbarCtrl.ePage.Masters.IsCreatePickupBtn = true;
                                 PendingPickupToolbarCtrl.ePage.Masters.CreatePickupBtnText = "Create Pickup";
                                 toastr.success("Pickup Created Successfully");
-                                helperService.refreshGrid();
                                 var _queryString = {
                                     PK: response.data.Response.UIWmsPickup.PK,
                                     WorkOrderID: response.data.Response.UIWmsPickup.WorkOrderID,
                                 };
                                 _queryString = helperService.encryptData(_queryString);
                                 $window.open("#/EA/single-record-view/pendingpickup/" + _queryString, "_blank");
+                                helperService.refreshGrid();
                             } else {
                                 toastr.error("Pickup Creation Failed. Please try again later");
                                 PendingPickupToolbarCtrl.ePage.Masters.IsCreatePickupBtn = false;

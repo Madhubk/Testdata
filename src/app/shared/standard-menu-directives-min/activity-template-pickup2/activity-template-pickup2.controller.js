@@ -296,12 +296,12 @@
                 if (ActivityTemplatePickup2Ctrl.taskObj.WSI_StepName == "Create Pickup Challan") {
                     var input = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data
                     var temp = 0;
-                    angular.forEach(input.UIWmsPickupLine, function (value, key) {
-                        if (value.OUT_PrdCode || value.MTOUT_PrdCode) {
+                    angular.forEach(input.UIvwWmsPickupLine, function (value, key) {
+                        if (value.INW_PrdCode) {
                             temp = temp + 1;
                         }
                     });
-                    if (temp == input.UIWmsPickupLine.length) {
+                    if (temp == input.UIvwWmsPickupLine.length) {
                         input.IsComplete = true;
                     }
                 }

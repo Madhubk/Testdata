@@ -248,7 +248,7 @@
             PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.ClientCode = item.Code;
             PickupGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader = item;
             PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.ORG_Client_FK = item.PK;
-            OnChangeValues(PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.ClientCode, 'E3050');
+            OnChangeValues(PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.ClientCode, 'E3075');
         }
 
         function SelectedLookupSite(item) {
@@ -275,14 +275,14 @@
                 }
             });
 
-            OnChangeValues(PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeCode, 'E3052');
+            OnChangeValues(PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeCode, 'E3076');
             GetContact();
         }
 
         function SelectedLookupWarehouse(item) {
             PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.Warehouse = item.WarehouseCode + "-" + item.WarehouseName;
             PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseCode = item.WarehouseCode;
-            OnChangeValues(PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseCode, 'E3051');
+            OnChangeValues(PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseCode, 'E3077');
             PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.TempWarehouse = PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseCode;
             getReceiveParamWarehouse();
             var _filter = {
