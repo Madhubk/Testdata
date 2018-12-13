@@ -22,6 +22,7 @@
             };
 
             OrgContactModalCtrl.ePage.Masters.param = angular.copy(param);
+            OrgContactModalCtrl.ePage.Masters.Config=organizationConfig;
 
             OrgContactModalCtrl.ePage.Masters.DropDownMasterList = angular.copy(organizationConfig.Entities.Header.Meta);
 
@@ -83,7 +84,16 @@
                     }
                 } else if (response.Status == "ValidationFailed" || response.Status == "failed") {
                     toastr.warning("Failed to Save...!");
-                    if (response.Validations && response.Validations.length > 0) {}
+                    if (response.Validations && response.Validations.length > 0) {
+                        OrgContactModalCtrl.ePage.Entities.Header.Validations = response.Validations;
+                        angular.forEach(response.Validations, function (value, key) {
+                            OrgContactModalCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey.trim(), OrgContactModalCtrl.ePage.Masters.param.Entity.label, false, undefined, undefined, undefined, undefined, undefined);
+                        });
+                        $uibModalInstance.close(_exports);
+                        if (OrgContactModalCtrl.ePage.Entities.Header.Validations != null) {
+                            OrgContactModalCtrl.ePage.Masters.Config.ShowErrorWarningModal(OrgContactModalCtrl.ePage.Masters.param.Entity);
+                        }
+                    }
                 }
 
                 OrgContactModalCtrl.ePage.Masters.SaveButtonText = "Save";
