@@ -19,8 +19,8 @@
                             </div>
                             <!-- Look Up page opens when button clicks -->
                             <span class="input-group-btn">
-                                <button dynamic-list-modal is-disabled="true" obj="DeliverMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery" control-id="'Customer'"
-                                    control-key="'Customer_3321'" selected-data="DeliverMaterialCtrl.ePage.Masters.SelectedLookupClient($item.data.entity)"
+                                <button dynamic-list-modal is-disabled="true" obj="DeliverMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery"
+                                    control-id="'Customer'" control-key="'Customer_3321'" selected-data="DeliverMaterialCtrl.ePage.Masters.SelectedLookupClient($item.data.entity)"
                                     page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny"
                                     type="button">
                                     <i class="fa fa-ellipsis-h"></i>
@@ -71,8 +71,8 @@
 
                             <!-- Look Up page opens when button clicks -->
                             <span class="input-group-btn">
-                                <button dynamic-list-modal is-disabled="true" obj="DeliverMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery" control-id="'Warehouse'"
-                                    selected-data="DeliverMaterialCtrl.ePage.Masters.SelectedLookupWarehouse($item.data.entity)"
+                                <button dynamic-list-modal is-disabled="true" obj="DeliverMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery"
+                                    control-id="'Warehouse'" selected-data="DeliverMaterialCtrl.ePage.Masters.SelectedLookupWarehouse($item.data.entity)"
                                     page-name="'OrgHeaderWithWarehouse'" control-key="'Warehouse_3323'" mode="2" grid-refresh-fun-name=""
                                     grid-refresh-fun="" class="btn btn-default shiny" type="button">
                                     <i class="fa fa-ellipsis-h"></i>
@@ -122,8 +122,8 @@
 
                             <!-- Look Up page opens when button clicks -->
                             <span class="input-group-btn">
-                                <button dynamic-list-modal is-disabled="true" obj="DeliverMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery" control-id="'Site'"
-                                    selected-data="DeliverMaterialCtrl.ePage.Masters.SelectedLookupSupplier($item.data.entity)"
+                                <button dynamic-list-modal is-disabled="true" obj="DeliverMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery"
+                                    control-id="'Site'" selected-data="DeliverMaterialCtrl.ePage.Masters.SelectedLookupSupplier($item.data.entity)"
                                     page-name="'OrganizationList'" control-key="'Site_3322'" mode="2" grid-refresh-fun-name=""
                                     grid-refresh-fun="" class="btn btn-default shiny" type="button">
                                     <i class="fa fa-ellipsis-h"></i>
@@ -178,7 +178,8 @@
                 <label class="control-label text-single-line">Site Engineer</label>
                 <div class="">
                     <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Site Engineer"
-                        data-ng-model="DeliverMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.Requester" ng-change="DeliverMaterialCtrl.ePage.Masters.OnChangeValues(DeliverMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.Requester,'E3055')">
+                        data-ng-model="DeliverMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.Requester"
+                        ng-change="DeliverMaterialCtrl.ePage.Masters.OnChangeValues(DeliverMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.Requester,'E3055')">
                 </div>
             </div>
         </div>
@@ -247,8 +248,8 @@
                         <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PartAttrib1}}</td>
                         <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PartAttrib2}}</td>
                         <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PartAttrib3}}</td>
-                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PackingDate}}</td>
-                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.ExpiryDate}}</td>
+                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PackingDate | dateFormat}}</td>
+                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.ExpiryDate | dateFormat}}</td>
                     </tr>
                 </tbody>
             </table>

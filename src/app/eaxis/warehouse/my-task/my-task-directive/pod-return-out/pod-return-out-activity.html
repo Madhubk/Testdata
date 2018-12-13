@@ -1,22 +1,33 @@
 <div class="padding-bottom-10 clearfix">
-    <!--Gatepass Menu Directive-->
-    <uib-tabset id="Gatepass" active="PodReturnCtrl.ePage.Masters.activeTabIndex">
-        <!--General Tab-->
+    <uib-tabset id="GetPOD" active="PodReturnCtrl.ePage.Masters.activeTabIndex">
         <uib-tab>
-            <uib-tab-heading title="CSR Details">
+            <uib-tab-heading title="Manifest Details">
                 <i class="fa fa-truck margin-right-5"></i>
-                <span class="text-single-line" data-ng-bind="'CSR Details'"></span>
+                <span class="text-single-line" data-ng-bind="'Manifest Details'"></span>
             </uib-tab-heading>
-            <div data-ng-include="'app/eaxis/warehouse/my-task/my-task-directive/pod-return-out/csr-details.html'"></div>
+            <div data-ng-include="'app/eaxis/warehouse/my-task/my-task-directive/pod-return-out/manifest-details.html'"></div>
         </uib-tab>
-        <!--Details-->
+        <uib-tab>
+            <uib-tab-heading title="Pick Details">
+                <i class="fa fa-truck margin-right-5"></i>
+                <span class="text-single-line" data-ng-bind="'Pick Details'"></span>
+            </uib-tab-heading>
+            <div data-ng-include="'app/eaxis/warehouse/my-task/my-task-directive/pod-return-out/pick-details.html'"></div>
+        </uib-tab>
         <uib-tab active="PodReturnCtrl.ePage.Masters.activeTabIndex ==1">
             <uib-tab-heading title="PodReturnCtrl.ePage.Masters.Config.Entities.Outward.label">
                 <i class="fa fa-suitcase margin-right-5"></i>
                 <span class="text-single-line">{{PodReturnCtrl.ePage.Masters.Config.Entities.Outward.label}} </span>
             </uib-tab-heading>
             <outward-menu ng-if="PodReturnCtrl.ePage.Masters.Config.Entities.Outward" current-outward="PodReturnCtrl.ePage.Masters.Config.Entities.Outward"
-                is-hide-menu="true"></outward-menu>
+                is-hide-menu="true" hide-pick="true" hide-dispatch="true"></outward-menu>
+        </uib-tab>
+        <uib-tab>
+            <uib-tab-heading title="CSR Details">
+                <i class="fa fa-truck margin-right-5"></i>
+                <span class="text-single-line" data-ng-bind="'CSR Details'"></span>
+            </uib-tab-heading>
+            <div data-ng-include="'app/eaxis/warehouse/my-task/my-task-directive/pod-return-out/csr-details.html'"></div>
         </uib-tab>
     </uib-tabset>
     <div class="horizontal-space"></div>

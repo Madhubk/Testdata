@@ -5,9 +5,9 @@
         .module("Application")
         .controller("ArrangeMaterialController", ArrangeMaterialController);
 
-    ArrangeMaterialController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "dynamicLookupConfig", "outwardConfig", "$injector"];
+    ArrangeMaterialController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "dynamicLookupConfig", "outwardConfig", "$injector", "toastr"];
 
-    function ArrangeMaterialController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, dynamicLookupConfig, outwardConfig, $injector) {
+    function ArrangeMaterialController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, dynamicLookupConfig, outwardConfig, $injector, toastr) {
         var ArrangeMaterialCtrl = this;
         var Config = $injector.get("pickConfig");
 
@@ -52,6 +52,7 @@
             ArrangeMaterialCtrl.ePage.Masters.CreatePick = CreatePick;
             ArrangeMaterialCtrl.ePage.Masters.CreatePickText = "Create Pick";
             ArrangeMaterialCtrl.ePage.Masters.IsDisabled = false;
+            ArrangeMaterialCtrl.ePage.Masters.Empty = "-";
         }
 
         function GetPickDetails() {
@@ -69,9 +70,10 @@
             });
         }
 
-        function CreatePick() {            
+        function CreatePick() {
+            ArrangeMaterialCtrl.ePage.Masters.LoadingValue = "Creating Pick..";            
             ArrangeMaterialCtrl.ePage.Masters.IsDisabled = true;
-            ArrangeMaterialCtrl.ePage.Masters.CreatePickText = "Create Pick";
+            ArrangeMaterialCtrl.ePage.Masters.CreatePickText = "Please Wait...";
             helperService.getFullObjectUsingGetById(Config.Entities.Header.API.GetByID.Url, 'null').then(function (response) {
                 if (response.data.Response) {
 
@@ -101,7 +103,9 @@
                                 angular.forEach(response, function (value, key) {
                                     if (value.label == ArrangeMaterialCtrl.ePage.Masters.PickDetails.UIWmsPickHeader.PickNo) {
                                         ArrangeMaterialCtrl.ePage.Masters.TabList = value;
+                                        ArrangeMaterialCtrl.ePage.Masters.LoadingValue = "";
                                         ArrangeMaterialCtrl.ePage.Masters.CreatePickText = "Create Pick";
+                                        toastr.success("Pick Created Successfully");
                                         ArrangeMaterialCtrl.ePage.Masters.IsDisabled = false;
                                     }
                                 });
@@ -109,6 +113,8 @@
                         }
                     });
                 } else {
+                    ArrangeMaterialCtrl.ePage.Masters.LoadingValue = "";
+                    toastr.error("Pick Creation Failed. Try again later.");
                     ArrangeMaterialCtrl.ePage.Masters.CreatePickText = "Create Pick";
                     ArrangeMaterialCtrl.ePage.Masters.IsDisabled = false;
                 }

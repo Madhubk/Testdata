@@ -1,4 +1,4 @@
-<div class="col-lg-12 clearfix no-padding" ng-if="UpdateReportCtrl.ePage.Entities.Header.DeliveryData">
+<div class="col-lg-12 clearfix no-padding" ng-if="ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData">
     <div class="clearfix mt-10">
         <!--Customer-->
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mt-5">
@@ -13,14 +13,14 @@
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-7 col-xl-7 height-40 p-5">
                         <div class="input-group input-group-sm">
                             <!-- Dynamic look up Search in textbox -->
-                            <div dynamic-lookup placeholder="Service Provider" is-disabled="true" my-ng-model="UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Client"
-                                auto-complete-on-select="UpdateReportCtrl.ePage.Masters.SelectedLookupClient($item)" obj="UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery"
+                            <div dynamic-lookup placeholder="Service Provider" is-disabled="true" my-ng-model="ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Client"
+                                auto-complete-on-select="ConfirmDeliveryCtrl.ePage.Masters.SelectedLookupClient($item)" obj="ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery"
                                 page-name="'OrganizationList'" control-id="'Customer'" control-key="'Customer_3321'">
                             </div>
                             <!-- Look Up page opens when button clicks -->
                             <span class="input-group-btn">
-                                <button dynamic-list-modal is-disabled="true" obj="UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery" control-id="'Customer'"
-                                    control-key="'Customer_3321'" selected-data="UpdateReportCtrl.ePage.Masters.SelectedLookupClient($item.data.entity)"
+                                <button dynamic-list-modal is-disabled="true" obj="ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery"
+                                    control-id="'Customer'" control-key="'Customer_3321'" selected-data="ConfirmDeliveryCtrl.ePage.Masters.SelectedLookupClient($item.data.entity)"
                                     page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny"
                                     type="button">
                                     <i class="fa fa-ellipsis-h"></i>
@@ -30,23 +30,23 @@
                     </div>
                 </div>
                 <div class="rows p-5 height-70">
-                    <div ng-show="UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Client">
+                    <div ng-show="ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Client">
                         <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 addressstyle">
-                            <div class="text-single-line font-12" title='{{UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_Address1}}'>{{UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_Address1}}</div>
-                            <div class="text-single-line" title='{{UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_Address2}}'>{{UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_Address2}}</div>
-                            <div class="text-single-line" title='{{UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_State}}'>{{UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_State}}</div>
+                            <div class="text-single-line font-12" title='{{ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_Address1}}'>{{ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_Address1}}</div>
+                            <div class="text-single-line" title='{{ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_Address2}}'>{{ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_Address2}}</div>
+                            <div class="text-single-line" title='{{ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_State}}'>{{ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_State}}</div>
                             <div class="text-single-line">
-                                <span ng-show="UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_City" title="{{UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_City}}">{{UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_City}} -</span>
-                                <span ng-show="UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_PostCode" title="{{UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_PostCode}}">{{UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_PostCode}}</span>
+                                <span ng-show="ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_City" title="{{ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_City}}">{{ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_City}} -</span>
+                                <span ng-show="ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_PostCode" title="{{ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_PostCode}}">{{ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_PostCode}}</span>
                             </div>
                         </div>
                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0 mt-30">
-                            <div class="pull-right text-single-line font-12" ng-show="UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_Mobile"
-                                title="{{UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_Mobile}}">
-                                <i class="fa fa-phone ml-5 mr-5"></i>{{UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_Mobile}}</div>
-                            <div class="pull-right text-single-line font-12" ng-show="UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_Email"
-                                title="{{UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_Email}}">
-                                <i class="fa fa-envelope-o ml-5 mr-5"></i>{{UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_Email}}</div>
+                            <div class="pull-right text-single-line font-12" ng-show="ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_Mobile"
+                                title="{{ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_Mobile}}">
+                                <i class="fa fa-phone ml-5 mr-5"></i>{{ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_Mobile}}</div>
+                            <div class="pull-right text-single-line font-12" ng-show="ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_Email"
+                                title="{{ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_Email}}">
+                                <i class="fa fa-envelope-o ml-5 mr-5"></i>{{ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_Email}}</div>
                         </div>
                     </div>
                 </div>
@@ -64,15 +64,15 @@
                     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 height-40  p-5">
                         <div class="input-group input-group-sm">
                             <!-- Dynamic look up Search in textbox -->
-                            <div dynamic-lookup placeholder="Warehouse Code And Name" is-disabled="true" my-ng-model="UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Warehouse"
-                                obj="UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery" page-name="'OrgHeaderWithWarehouse'"
-                                control-id="'Warehouse'" control-key="'Warehouse_3323'" auto-complete-on-select="UpdateReportCtrl.ePage.Masters.SelectedLookupWarehouse($item)">
+                            <div dynamic-lookup placeholder="Warehouse Code And Name" is-disabled="true" my-ng-model="ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Warehouse"
+                                obj="ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery" page-name="'OrgHeaderWithWarehouse'"
+                                control-id="'Warehouse'" control-key="'Warehouse_3323'" auto-complete-on-select="ConfirmDeliveryCtrl.ePage.Masters.SelectedLookupWarehouse($item)">
                             </div>
 
                             <!-- Look Up page opens when button clicks -->
                             <span class="input-group-btn">
-                                <button dynamic-list-modal is-disabled="true" obj="UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery" control-id="'Warehouse'"
-                                    selected-data="UpdateReportCtrl.ePage.Masters.SelectedLookupWarehouse($item.data.entity)"
+                                <button dynamic-list-modal is-disabled="true" obj="ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery"
+                                    control-id="'Warehouse'" selected-data="ConfirmDeliveryCtrl.ePage.Masters.SelectedLookupWarehouse($item.data.entity)"
                                     page-name="'OrgHeaderWithWarehouse'" control-key="'Warehouse_3323'" mode="2" grid-refresh-fun-name=""
                                     grid-refresh-fun="" class="btn btn-default shiny" type="button">
                                     <i class="fa fa-ellipsis-h"></i>
@@ -82,7 +82,7 @@
                     </div>
                 </div>
                 <div class="rows p-5 height-70">
-                    <div ng-show="UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Warehouse" ng-repeat="x in UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIJobAddress | filter: {AddressType:'SND'}">
+                    <div ng-show="ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Warehouse" ng-repeat="x in ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIJobAddress | filter: {AddressType:'SND'}">
                         <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 addressstyle">
                             <div class="text-single-line font-12" title='{{x.Address1}}'>{{x.Address1 }}</div>
                             <div class="text-single-line" title='{{x.Address2}}'>{{x.Address2 }}</div>
@@ -115,15 +115,15 @@
                     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 height-40  p-5">
                         <div class="input-group input-group-sm">
                             <!-- Dynamic look up Search in textbox -->
-                            <div dynamic-lookup placeholder="Site" is-disabled="true" my-ng-model="UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Consignee"
-                                auto-complete-on-select="UpdateReportCtrl.ePage.Masters.SelectedLookupSupplier($item)" obj="UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery"
+                            <div dynamic-lookup placeholder="Site" is-disabled="true" my-ng-model="ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Consignee"
+                                auto-complete-on-select="ConfirmDeliveryCtrl.ePage.Masters.SelectedLookupSupplier($item)" obj="ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery"
                                 page-name="'OrganizationList'" control-id="'Site'" control-key="'Site_3322'">
                             </div>
 
                             <!-- Look Up page opens when button clicks -->
                             <span class="input-group-btn">
-                                <button dynamic-list-modal is-disabled="true" obj="UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery" control-id="'Site'"
-                                    selected-data="UpdateReportCtrl.ePage.Masters.SelectedLookupSupplier($item.data.entity)"
+                                <button dynamic-list-modal is-disabled="true" obj="ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery"
+                                    control-id="'Site'" selected-data="ConfirmDeliveryCtrl.ePage.Masters.SelectedLookupSupplier($item.data.entity)"
                                     page-name="'OrganizationList'" control-key="'Site_3322'" mode="2" grid-refresh-fun-name=""
                                     grid-refresh-fun="" class="btn btn-default shiny" type="button">
                                     <i class="fa fa-ellipsis-h"></i>
@@ -133,7 +133,7 @@
                     </div>
                 </div>
                 <div class="rows p-5 height-70">
-                    <div ng-show="UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Consignee" ng-repeat="x in UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIJobAddress | filter: {AddressType:'SUD'}">
+                    <div ng-show="ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Consignee" ng-repeat="x in ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIJobAddress | filter: {AddressType:'SUD'}">
                         <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 addressstyle">
                             <div class="text-single-line font-12" title='{{x.Address1}}'>{{x.Address1 }}</div>
                             <div class="text-single-line" title='{{x.Address2}}'>{{x.Address2 }}</div>
@@ -160,7 +160,7 @@
                 <label class="control-label text-single-line">Request Mode</label>
                 <div class="">
                     <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Request Mode"
-                        data-ng-model="UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.RequestMode">
+                        data-ng-model="ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.RequestMode">
                 </div>
             </div>
         </div>
@@ -169,7 +169,7 @@
                 <label class="control-label text-single-line">Response Type</label>
                 <div class="">
                     <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Response Type"
-                        data-ng-model="UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.ResponseType">
+                        data-ng-model="ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.ResponseType">
                 </div>
             </div>
         </div>
@@ -178,7 +178,8 @@
                 <label class="control-label text-single-line">Site Engineer</label>
                 <div class="">
                     <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Site Engineer"
-                        data-ng-model="UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.Requester" ng-change="UpdateReportCtrl.ePage.Masters.OnChangeValues(UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.Requester,'E3055')">
+                        data-ng-model="ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.Requester"
+                        ng-change="ConfirmDeliveryCtrl.ePage.Masters.OnChangeValues(ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.Requester,'E3055')">
                 </div>
             </div>
         </div>
@@ -187,7 +188,7 @@
                 <label class="control-label text-single-line">Contact Number</label>
                 <div class="">
                     <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Contact Number"
-                        data-ng-model="UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.RequesterContactNo">
+                        data-ng-model="ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.RequesterContactNo">
                 </div>
             </div>
         </div>
@@ -196,7 +197,7 @@
                 <label class="control-label text-single-line">Drop Point</label>
                 <div class="">
                     <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Drop Point"
-                        data-ng-model="UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.AdditionalRef1Code">
+                        data-ng-model="ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.AdditionalRef1Code">
                 </div>
             </div>
         </div>
@@ -205,15 +206,15 @@
                 <label class="control-label text-single-line">Delivery Request No</label>
                 <div class="">
                     <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Delivery Request No"
-                        data-ng-model="UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.WorkOrderID">
+                        data-ng-model="ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.WorkOrderID">
                 </div>
             </div>
         </div>
     </div>
     <div class="clearfix mt-10">
-        <div id="InwardLineTable{{UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.WorkOrderID}}" class="fixedheader mb-0"
-            key-events table-object='UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIWmsDeliveryLine' enable='UpdateReportCtrl.ePage.Masters.Enable'
-            selected-row='UpdateReportCtrl.ePage.Masters.selectedRow' unique-id='InwardLineTable{{UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.WorkOrderID}}'>
+        <div id="InwardLineTable{{ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.WorkOrderID}}" class="fixedheader mb-0"
+            key-events table-object='ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIWmsDeliveryLine' enable='ConfirmDeliveryCtrl.ePage.Masters.Enable'
+            selected-row='ConfirmDeliveryCtrl.ePage.Masters.selectedRow' unique-id='InwardLineTable{{ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.WorkOrderID}}'>
             <table style="height: 200px">
                 <thead>
                     <tr id="tableHeader">
@@ -232,9 +233,9 @@
                         <th ng-style="{ 'width':  '100px' }" title="Expiry Date">Expiry Date</th>
                     </tr>
                 </thead>
-                <tbody id="InwardLineCustTable{{UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.WorkOrderID}}">
-                    <tr id="tableBody" ng-repeat="x in UpdateReportCtrl.ePage.Entities.Header.DeliveryData.UIWmsDeliveryLine" ng-click="UpdateReportCtrl.ePage.Masters.setSelectedRow($index);"
-                        ng-class="{row_active: (UpdateReportCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}">
+                <tbody id="InwardLineCustTable{{ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.WorkOrderID}}">
+                    <tr id="tableBody" ng-repeat="x in ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData.UIWmsDeliveryLine" ng-click="ConfirmDeliveryCtrl.ePage.Masters.setSelectedRow($index);"
+                        ng-class="{row_active: (ConfirmDeliveryCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}">
 
                         <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
                         <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.AdditionalRef1Code}}</td>
@@ -247,8 +248,8 @@
                         <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PartAttrib1}}</td>
                         <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PartAttrib2}}</td>
                         <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PartAttrib3}}</td>
-                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PackingDate}}</td>
-                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.ExpiryDate}}</td>
+                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PackingDate | dateFormat}}</td>
+                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.ExpiryDate | dateFormat}}</td>
                     </tr>
                 </tbody>
             </table>

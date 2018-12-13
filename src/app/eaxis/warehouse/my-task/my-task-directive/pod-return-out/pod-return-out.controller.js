@@ -5,10 +5,11 @@
         .module("Application")
         .controller("PodReturnController", PodReturnController);
 
-    PodReturnController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "dynamicLookupConfig", "outwardConfig"];
+    PodReturnController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "dynamicLookupConfig", "outwardConfig", "$injector"];
 
-    function PodReturnController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, dynamicLookupConfig, outwardConfig) {
+    function PodReturnController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, dynamicLookupConfig, outwardConfig, $injector) {
         var PodReturnCtrl = this;
+        var Config = $injector.get("pickConfig");
 
         function Init() {
             PodReturnCtrl.ePage = {
@@ -33,7 +34,10 @@
                 PodReturnCtrl.ePage.Entities.Header.Data = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data;
                 GetDynamicLookupConfig();
                 getDeliveryList();
-
+                if (PodReturnCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk)
+                    GetManifestDetails();
+                if (PodReturnCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WPK_FK)
+                    GetPickDetails();
                 if (errorWarningService.Modules.MyTask)
                     PodReturnCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.MyTask.Entity[myTaskActivityConfig.Entities.Outward.label];
             }
@@ -44,6 +48,29 @@
             PodReturnCtrl.ePage.Masters.DatePicker.Options = APP_CONSTANT.DatePicker;
             PodReturnCtrl.ePage.Masters.DatePicker.isOpen = [];
             PodReturnCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
+        }
+
+        function GetManifestDetails() {
+            apiService.get("eAxisAPI", appConfig.Entities.TmsManifestList.API.GetById.Url + PodReturnCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk).then(function (response) {
+                if (response.data.Response) {
+                    PodReturnCtrl.ePage.Entities.Header.ManifestData = response.data.Response;
+                }
+            });
+        }
+
+        function GetPickDetails() {
+            apiService.get("eAxisAPI", Config.Entities.Header.API.GetByID.Url + PodReturnCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WPK_FK).then(function (response) {
+                if (response.data.Response) {
+                    PodReturnCtrl.ePage.Entities.Header.PickData = response.data.Response;
+                    Config.GetTabDetails(PodReturnCtrl.ePage.Entities.Header.PickData.UIWmsPickHeader, false).then(function (response) {
+                        angular.forEach(response, function (value, key) {
+                            if (value.label == PodReturnCtrl.ePage.Entities.Header.PickData.UIWmsPickHeader.PickNo) {
+                                PodReturnCtrl.ePage.Masters.TabList = value;
+                            }
+                        });
+                    });
+                }
+            });
         }
 
         function getDeliveryList() {
