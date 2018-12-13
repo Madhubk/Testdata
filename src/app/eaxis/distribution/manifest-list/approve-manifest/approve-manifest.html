@@ -26,44 +26,71 @@
 </div>
 <div class="clearfix col-lg-12 mt-10">
     <div class="rows border-box border-radius-2 pt-15 height-60">
-        <div class="col-lg-2">
-            <div class="form-group">
-                <div class="color-999 fs-11">Transporter</div>
-                <div class="text-single-line">
-                    <span>{{ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterName||ApproveManifestCtrl.ePage.Masters.Empty}}</span>
+        <div class="col-lg-12 p-0">
+           
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <div class="color-999 fs-11">Transporter</div>
+                        <div class="text-single-line">
+                            <span>{{ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterName||ApproveManifestCtrl.ePage.Masters.Empty}}</span>
+                        </div>
+                    </div>
                 </div>
-            </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <div class="color-999 fs-11">Manifest Type</div>
+                        <span>{{ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestType||ApproveManifestCtrl.ePage.Masters.Empty}}</span>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <div class="color-999 fs-11">Vehicle Type</div>
+                        <span>{{ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.VehicleTypeDescription||ApproveManifestCtrl.ePage.Masters.Empty}}</span>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <div class="color-999 fs-11">Load Type</div>
+                        <span>{{ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.LoadType | dateFormat}}</span>
+                    </div>
+                </div>
+            
+            
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <div class="color-999 fs-11">Est Delivery Date</div>
+                        <span>{{ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDeliveryDate | date:"dd-MMM-yyyy h:mm a"}}</span>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <div class="color-999 fs-11">Est Dispatch Date</div>
+                        <span>{{ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDispatchDate | date:"dd-MMM-yyyy h:mm a"}}</span>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label class="color-999 fs-11">Transportation Cost</label>
+                        <div class="">
+                            <input type="text"  class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Transportation Cost"
+                                data-ng-model="ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransportationCost" ng-disabled = "ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SubmittedDateTime">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label class="color-999 fs-11">Currency</label>
+                        <select chosen class="form-control" ng-model="ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.CostCurrency" ng-options="x.Key as x.Key+' - '+x.Value for x in ApproveManifestCtrl.ePage.Masters.DropDownMasterList.Currency.ListSource"
+                            search-contains="true" ng-disabled = "ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SubmittedDateTime">
+                                <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>     
+                        
+            
         </div>
-        <div class="col-lg-2">
-            <div class="form-group">
-                <div class="color-999 fs-11">Manifest Type</div>
-                <span>{{ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestType||ApproveManifestCtrl.ePage.Masters.Empty}}</span>
-            </div>
-        </div>
-        <div class="col-lg-2">
-            <div class="form-group">
-                <div class="color-999 fs-11">Vehicle Type</div>
-                <span>{{ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.VehicleTypeDescription||ApproveManifestCtrl.ePage.Masters.Empty}}</span>
-            </div>
-        </div>
-        <div class="col-lg-2">
-            <div class="form-group">
-                <div class="color-999 fs-11">Load Type</div>
-                <span>{{ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.LoadType | dateFormat}}</span>
-            </div>
-        </div>
-        <div class="col-lg-2">
-            <div class="form-group">
-                <div class="color-999 fs-11">Estimated Delivery Date</div>
-                <span>{{ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDeliveryDate | date:"dd-MMM-yyyy h:mm a"}}</span>
-            </div>
-        </div>
-        <div class="col-lg-2">
-            <div class="form-group">
-                <div class="color-999 fs-11">Estimated Dispatch Date</div>
-                <span>{{ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDispatchDate | date:"dd-MMM-yyyy h:mm a"}}</span>
-            </div>
-        </div>
+        
+        
     </div>
 </div>
 <div class="clearfix col-lg-12 mt-10">
@@ -80,6 +107,8 @@
                 <div class='table_header'>Receiver Reference</div>
                 <div class='table_header'>Expected Pickup Date Time</div>
                 <div class='table_header'>Expected Delivery Date Time</div>
+                <div class='table_header'>Billable Amount</div>
+                <div class='table_header pr-30 pl-30'>Currency</div>
             </div>
 
             <!-- List Empty Response -->
@@ -130,12 +159,33 @@
                     <div class='table_cell'>Expected Delivery Date Time</div>
                     <div class='table_cell'>{{x.TMC_ExpectedDeliveryDateTime | date:"dd-MMM-yyyy h:mm a"}}</div>
                 </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Billable Amount</div>
+                    <div class='table_cell'>
+                        <div class="">
+                            <input type="text"  class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Billable Amount" 
+                            data-ng-model="x.BillableAmount" ng-disabled = "ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SubmittedDateTime">
+                        </div>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Currency</div>
+                    <div class='table_cell'>
+                        <div class="">
+                                <select chosen class="form-control" ng-model="x.BillableCurrency" ng-options="x.Key as x.Key+' - '+x.Value for x in ApproveManifestCtrl.ePage.Masters.DropDownMasterList.Currency.ListSource"
+                                search-contains="true" ng-disabled = "ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SubmittedDateTime">
+                                    <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
 </div>
 <div class="clearfix col-lg-12 mt-10">
-    <div class="dmstable_scroll" id='ApproveManifestCtrl.ePage.Masters.your_div' style="height:145px; padding-top: 2px;">
+    <div class="dmstable_scroll" id='ApproveManifestCtrl.ePage.Masters.your_div' style="height:145px; padding-top: 2px; padding-bottom: 40px">
         <div class="table" id="results">
             <div class='theader'>
                 <div class='table_header'>Item</div>
