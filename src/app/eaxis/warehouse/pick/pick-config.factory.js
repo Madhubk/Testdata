@@ -16,8 +16,17 @@
                         "GetByID": {
                             "IsAPI": "true",
                             "HttpType": "GET",
-                            "Url": "WmsPickList/GetById/",
-                            "FilterID": "WMSWORK"
+                            "Url": "WmsPickList/GetById/"
+                        },
+                        "InsertPick": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsPickList/Insert"
+                        },
+                        "UpdatePick": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsPickList/Update"
                         },
                         "OutwardGetByID": {
                             "IsAPI": "true",

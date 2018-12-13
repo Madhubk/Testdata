@@ -30,6 +30,7 @@
             } else {
                 ReceiveMaterialCtrl.ePage.Masters.Config = myTaskActivityConfig;
                 ReceiveMaterialCtrl.ePage.Entities.Header.Data = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data;
+                inwardConfig.ValidationFindall();
                 GetDynamicLookupConfig();
                 if (errorWarningService.Modules.MyTask)
                     ReceiveMaterialCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.MyTask.Entity[myTaskActivityConfig.Entities.Inward.label];

@@ -38,21 +38,41 @@
             OutwardMenuCtrl.ePage.Masters.CancelOutward = CancelOutward;
             OutwardMenuCtrl.ePage.Masters.OnMenuClick = OnMenuClick;
 
-            //To show hide mytask
+            //To show hide menus
             OutwardMenuCtrl.ePage.Masters.IsHideMytaskMenu = OutwardMenuCtrl.isHideMenu;
+            OutwardMenuCtrl.ePage.Masters.IsHideDispatchMenu = OutwardMenuCtrl.hideDispatch;
+            OutwardMenuCtrl.ePage.Masters.IsHidePickMenu = OutwardMenuCtrl.hidePick;
+
             var _menuList = angular.copy(OutwardMenuCtrl.ePage.Entities.Header.Meta.MenuList);
             var _index = _menuList.map(function (value, key) {
                 return value.Value;
             }).indexOf("MyTask");
 
+            var _Pickindex = _menuList.map(function (value, key) {
+                return value.Value;
+            }).indexOf("Pick");
+
+            var _Dispatchindex = _menuList.map(function (value, key) {
+                return value.Value;
+            }).indexOf("Dispatch");
+
             if (OutwardMenuCtrl.currentOutward.isNew) {
                 _menuList[_index].IsDisabled = true;
+                if (OutwardMenuCtrl.ePage.Masters.IsHidePickMenu)
+                    _menuList[_Pickindex].IsDisabled = true;
+                if (OutwardMenuCtrl.ePage.Masters.IsHideDispatchMenu)
+                    _menuList[_Dispatchindex].IsDisabled = true;
 
                 OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource = _menuList;
                 OnMenuClick(OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[1]);
             } else {
-                if (OutwardMenuCtrl.ePage.Masters.IsHideMytaskMenu) {
-                    _menuList[_index].IsDisabled = true;
+                if (OutwardMenuCtrl.ePage.Masters.IsHideMytaskMenu || OutwardMenuCtrl.ePage.Masters.IsHidePickMenu || OutwardMenuCtrl.ePage.Masters.IsHideDispatchMenu) {
+                    if (OutwardMenuCtrl.ePage.Masters.IsHideMytaskMenu)
+                        _menuList[_index].IsDisabled = true;
+                    if (OutwardMenuCtrl.ePage.Masters.IsHidePickMenu)
+                        _menuList[_Pickindex].IsDisabled = true;
+                    if (OutwardMenuCtrl.ePage.Masters.IsHideDispatchMenu)
+                        _menuList[_Dispatchindex].IsDisabled = true;
                     OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource = _menuList;
                 } else {
                     GetMyTaskList(_menuList, _index);

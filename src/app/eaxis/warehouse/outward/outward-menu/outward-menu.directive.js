@@ -18,7 +18,9 @@
             scope: {
                 currentOutward: "=",
                 dataentryObject: '=',
-                isHideMenu:"="
+                isHideMenu: "=",
+                hidePick: "=",
+                hideDispatch: "="
             },
             bindToController: true
 
