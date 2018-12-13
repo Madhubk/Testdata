@@ -470,6 +470,15 @@
             },
             //endregion
 
+            //OTP
+            {
+                name: 'otpList',
+                files: [
+                    'app/eaxis/distribution/otp-list/otp-list.config.factory.js',
+                    'app/eaxis/distribution/otp-list/otp-list.controller.js',
+                ]
+            },
+
             // endregion
         ]
     };
