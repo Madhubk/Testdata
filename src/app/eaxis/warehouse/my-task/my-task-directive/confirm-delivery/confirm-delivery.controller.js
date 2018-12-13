@@ -34,6 +34,7 @@
                 ConfirmDeliveryCtrl.ePage.Entities.Header.Data = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data;
                 GetDynamicLookupConfig();
                 getDeliveryList();
+                outwardConfig.ValidationFindall();
                 if (ConfirmDeliveryCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk)
                     GetManifestDetails();
                 if (ConfirmDeliveryCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WPK_FK)

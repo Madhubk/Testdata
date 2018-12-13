@@ -33,6 +33,7 @@
                 PodReturnCtrl.ePage.Masters.Config = myTaskActivityConfig;
                 PodReturnCtrl.ePage.Entities.Header.Data = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data;
                 GetDynamicLookupConfig();
+                outwardConfig.ValidationFindall();
                 getDeliveryList();
                 if (PodReturnCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk)
                     GetManifestDetails();

@@ -5,10 +5,11 @@
         .module("Application")
         .controller("TransferMaterialController", TransferMaterialController);
 
-    TransferMaterialController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "dynamicLookupConfig", "outwardConfig"];
+    TransferMaterialController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "dynamicLookupConfig", "outwardConfig", "$injector", "toastr", "$timeout"];
 
-    function TransferMaterialController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, dynamicLookupConfig, outwardConfig) {
+    function TransferMaterialController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, dynamicLookupConfig, outwardConfig, $injector, toastr, $timeout) {
         var TransferMaterialCtrl = this;
+        var Config = $injector.get("releaseConfig");
 
         function Init() {
             TransferMaterialCtrl.ePage = {
@@ -31,9 +32,12 @@
             } else {
                 TransferMaterialCtrl.ePage.Masters.Config = myTaskActivityConfig;
                 TransferMaterialCtrl.ePage.Entities.Header.Data = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data;
+                outwardConfig.ValidationFindall();
                 GetDynamicLookupConfig();
                 getDeliveryList();
-
+                if (TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo) {
+                    GetPickDetails();
+                }
                 if (errorWarningService.Modules.MyTask)
                     TransferMaterialCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.MyTask.Entity[myTaskActivityConfig.Entities.Outward.label];
             }
@@ -44,6 +48,93 @@
             TransferMaterialCtrl.ePage.Masters.DatePicker.Options = APP_CONSTANT.DatePicker;
             TransferMaterialCtrl.ePage.Masters.DatePicker.isOpen = [];
             TransferMaterialCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
+
+            TransferMaterialCtrl.ePage.Masters.CreatePick = CreatePick;
+            TransferMaterialCtrl.ePage.Masters.CreatePickText = "Create Pick";
+            TransferMaterialCtrl.ePage.Masters.ReloadOutwardDetails = ReloadOutwardDetails;
+        }
+
+        function ReloadOutwardDetails() {            
+            $timeout(function () {
+                apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK).then(function (response) {
+                    if (response.data.Response) {
+                        response.data.Response.UIWmsOutwardHeader.Client = response.data.Response.UIWmsOutwardHeader.ClientCode + "-" + response.data.Response.UIWmsOutwardHeader.ClientName;
+                        response.data.Response.UIWmsOutwardHeader.Warehouse = response.data.Response.UIWmsOutwardHeader.WarehouseCode + "-" + response.data.Response.UIWmsOutwardHeader.WarehouseName;
+                        response.data.Response.UIWmsOutwardHeader.Consignee = response.data.Response.UIWmsOutwardHeader.ConsigneeCode + "-" + response.data.Response.UIWmsOutwardHeader.ConsigneeName;
+                        myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data = response.data.Response;
+                        TransferMaterialCtrl.ePage.Entities.Header.Data = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data;
+                    }
+                });
+            }, 8000);
+        }
+
+        function GetPickDetails() {
+            apiService.get("eAxisAPI", Config.Entities.Header.API.GetByID.Url + TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WPK_FK).then(function (response) {
+                if (response.data.Response) {
+                    TransferMaterialCtrl.ePage.Entities.Header.PickData = response.data.Response;
+                    Config.GetTabDetails(TransferMaterialCtrl.ePage.Entities.Header.PickData.UIWmsPickHeader, false).then(function (response) {
+                        angular.forEach(response, function (value, key) {
+                            if (value.label == TransferMaterialCtrl.ePage.Entities.Header.PickData.UIWmsPickHeader.PickNo) {
+                                TransferMaterialCtrl.ePage.Masters.TabList = value;
+                            }
+                        });
+                    });
+                }
+            });
+        }
+
+        function CreatePick() {
+            TransferMaterialCtrl.ePage.Masters.LoadingValue = "Creating Pick..";
+            TransferMaterialCtrl.ePage.Masters.IsDisabled = true;
+            TransferMaterialCtrl.ePage.Masters.CreatePickText = "Please Wait...";
+            helperService.getFullObjectUsingGetById(Config.Entities.Header.API.GetByID.Url, 'null').then(function (response) {
+                if (response.data.Response) {
+
+                    response.data.Response.Response.UIWmsPickHeader.PK = response.data.Response.Response.PK;
+                    if (TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickOption) {
+                        response.data.Response.Response.UIWmsPickHeader.PickOption = TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickOption;
+                    } else {
+                        response.data.Response.Response.UIWmsPickHeader.PickOption = "AUT";
+                    }
+                    response.data.Response.Response.UIWmsPickHeader.WarehouseCode = TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WarehouseCode;
+                    response.data.Response.Response.UIWmsPickHeader.WarehouseName = TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WarehouseName;
+                    response.data.Response.Response.UIWmsPickHeader.WAR_FK = TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WAR_FK;
+                    TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo = response.data.Response.Response.PickNo
+                    TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WPK_FK = response.data.Response.Response.PK;
+                    TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo = response.data.Response.Response.UIWmsPickHeader.PickNo
+                    TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickStartDateTime = new Date();
+                    TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus = "OSP";
+                    TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatusDesc = "Pick Started";
+                    TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IsModified = true;
+                    response.data.Response.Response.UIWmsOutward.push(TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader);
+
+                    apiService.post("eAxisAPI", Config.Entities.Header.API.InsertPick.Url, response.data.Response.Response).then(function (response) {
+                        if (response.data.Status == 'Success') {
+                            TransferMaterialCtrl.ePage.Masters.PickDetails = response.data.Response;
+                            TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo = response.data.Response.UIWmsPickHeader.PickNo;
+                            Config.GetTabDetails(TransferMaterialCtrl.ePage.Masters.PickDetails.UIWmsPickHeader, false).then(function (response) {
+                                angular.forEach(response, function (value, key) {
+                                    if (value.label == TransferMaterialCtrl.ePage.Masters.PickDetails.UIWmsPickHeader.PickNo) {
+                                        TransferMaterialCtrl.ePage.Masters.TabList = value;
+                                        TransferMaterialCtrl.ePage.Masters.LoadingValue = "";
+                                        toastr.success("Pick Created Successfully");
+                                    }
+                                });
+                            });
+                        } else {
+                            TransferMaterialCtrl.ePage.Masters.LoadingValue = "";
+                            toastr.error("Pick Creation Failed. Try again later.");
+                            TransferMaterialCtrl.ePage.Masters.CreatePickText = "Create Pick";
+                            TransferMaterialCtrl.ePage.Masters.IsDisabled = false;
+                        }
+                    });
+                } else {
+                    TransferMaterialCtrl.ePage.Masters.LoadingValue = "";
+                    toastr.error("Pick Creation Failed. Try again later.");
+                    TransferMaterialCtrl.ePage.Masters.CreatePickText = "Create Pick";
+                    TransferMaterialCtrl.ePage.Masters.IsDisabled = false;
+                }
+            });
         }
 
         function getDeliveryList() {

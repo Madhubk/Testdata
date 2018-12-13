@@ -25,6 +25,58 @@
                             "HttpType": "GET",
                             "Url": "WmsPickList/PickHeaderActivityClose/",
                         },
+                        "InsertPick": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsPickList/Insert"
+                        },
+                        "UpdatePick": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsPickList/Update"
+                        },
+                        "Inventory": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsInventory/FindAll",
+                            "FilterID": "WMSINV"
+                        },
+                        "LineDelete": {
+                            "IsAPI": "true",
+                            "HttpType": "Get",
+                            "Url": "WmsOutwardWorkOrderLine/Delete/"
+                        },
+                        "OutwardGetByID": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "WmsOutwardList/GetById/",
+                            "FilterID": ""
+                        },
+                        "UpdateOutward": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsOutwardList/Update"
+                        },
+                        "AllocateStock": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsPickList/WmsAllocateStock",
+                        },
+                        "WmsReleaseLineDelete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "WmsReleaseLine/Delete/",
+                        },
+                        "InwardGetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "WmsInwardList/GetById/",
+                        },
+                        "InwardInsert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsInwardList/Insert",
+                        }
                     },
                     "Meta": {
 
@@ -108,10 +160,8 @@
                                 "IsAPI": "true",
                                 "HttpType": "POST",
                                 "Url": "WmsInwardList/Insert",
-                            },
-
+                            }
                         },
-
                         "Meta": {
                             "MenuList": [{
                                 "DisplayName": "Details",

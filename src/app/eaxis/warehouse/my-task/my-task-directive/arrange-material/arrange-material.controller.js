@@ -35,6 +35,7 @@
                 if (ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo) {
                     GetPickDetails();
                 }
+                outwardConfig.ValidationFindall();
                 GetDynamicLookupConfig();
                 getDeliveryList();
 
@@ -71,7 +72,7 @@
         }
 
         function CreatePick() {
-            ArrangeMaterialCtrl.ePage.Masters.LoadingValue = "Creating Pick..";            
+            ArrangeMaterialCtrl.ePage.Masters.LoadingValue = "Creating Pick..";
             ArrangeMaterialCtrl.ePage.Masters.IsDisabled = true;
             ArrangeMaterialCtrl.ePage.Masters.CreatePickText = "Please Wait...";
             helperService.getFullObjectUsingGetById(Config.Entities.Header.API.GetByID.Url, 'null').then(function (response) {
