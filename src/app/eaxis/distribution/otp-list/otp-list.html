@@ -1,0 +1,31 @@
+<uib-tabset id="chromeTab" active="OtpCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+        <uib-tab>
+            <uib-tab-heading title="OTP List">
+                <span data-ng-bind="'OTP List'" class="ng-binding">OTP List</span>
+                <i class="fa fa-thumb-tack pinned-tab"></i>
+            </uib-tab-heading>
+    
+            <div class="no-padding tab-list-view-wrapper">
+    
+                <!--OTP List Grid Page-->
+                <dynamic-list dataentry-name=" OtpCtrl.ePage.Masters.dataentryName" task-name=" OtpCtrl.ePage.Masters.taskName"
+                    grid-config-type="0" selected-grid-row=" OtpCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" dataentry-object="OtpCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+                <div class="tab-loading" data-ng-show=" OtpCtrl.ePage.Masters.IsTabClick"></div>
+            </div>
+        </uib-tab>
+    
+        <uib-tab active=" OtpCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in  OtpCtrl.ePage.Masters.TabList"
+            ng-click=" OtpCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+            <uib-tab-heading title="{{tab.label}}">
+                <span data-ng-bind="tab.label"></span>
+                <i class="glyphicon glyphicon-remove" ng-click=" OtpCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+                <span class="error-warning-container-common" data-ng-if="tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length > 0">
+                </span>
+            </uib-tab-heading>
+    
+            <div class="padding-bottom-10 clearfix">
+                    
+                <div class="horizontal-space"></div>
+            </div>
+        </uib-tab>
+    </uib-tabset>
