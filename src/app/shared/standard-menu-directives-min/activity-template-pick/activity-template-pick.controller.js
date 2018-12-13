@@ -74,7 +74,9 @@
                     ActivityTemplatePickCtrl.ePage.Masters.TaskConfigData = response.data.Response;
                     myTaskActivityConfig.Entities.TaskConfigData = ActivityTemplatePickCtrl.ePage.Masters.TaskConfigData;
                     ActivityTemplatePickCtrl.ePage.Masters.MenuListSource = $filter('filter')(ActivityTemplatePickCtrl.ePage.Masters.TaskConfigData, { Category: 'Menu' });
-                    ActivityTemplatePickCtrl.ePage.Masters.ValidationSource = $filter('filter')(ActivityTemplatePickCtrl.ePage.Masters.TaskConfigData, { Category: 'Validation' });
+                    ActivityTemplatePickCtrl.ePage.Masters.ValidationSource = $filter('filter')(ActivityTemplatePickCtrl.ePage.Masters.TaskConfigData, function (val, key) {
+                        return val.Category == 'Validation'
+                    })
                     if (ActivityTemplatePickCtrl.ePage.Masters.ValidationSource.length > 0) {
                         ValidationFindall();
                     }

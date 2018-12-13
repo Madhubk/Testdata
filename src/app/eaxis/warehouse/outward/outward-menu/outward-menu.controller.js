@@ -5,9 +5,9 @@
         .module("Application")
         .controller("OutwardMenuController", OutwardMenuController);
 
-    OutwardMenuController.$inject = ["$scope", "$rootScope", "$timeout", "APP_CONSTANT", "apiService", "outwardConfig", "helperService", "appConfig", "authService", "$location", "$state", "toastr", "confirmation", "$injector", "$window", "$uibModal"];
+    OutwardMenuController.$inject = ["$scope", "$rootScope", "$timeout", "APP_CONSTANT", "apiService", "outwardConfig", "helperService", "appConfig", "authService", "$location", "$state", "toastr", "confirmation", "$injector", "$window", "$uibModal", "$ocLazyLoad"];
 
-    function OutwardMenuController($scope, $rootScope, $timeout, APP_CONSTANT, apiService, outwardConfig, helperService, appConfig, authService, $location, $state, toastr, confirmation, $injector, $window, $uibModal) {
+    function OutwardMenuController($scope, $rootScope, $timeout, APP_CONSTANT, apiService, outwardConfig, helperService, appConfig, authService, $location, $state, toastr, confirmation, $injector, $window, $uibModal, $ocLazyLoad) {
 
         var OutwardMenuCtrl = this;
         var Config = $injector.get("pickConfig");
@@ -36,6 +36,7 @@
             OutwardMenuCtrl.ePage.Masters.Validation = Validation;
             OutwardMenuCtrl.ePage.Masters.Config = outwardConfig;
             OutwardMenuCtrl.ePage.Masters.CancelOutward = CancelOutward;
+            OutwardMenuCtrl.ePage.Masters.OnMenuClick = OnMenuClick;
 
             //To show hide mytask
             OutwardMenuCtrl.ePage.Masters.IsHideMytaskMenu = OutwardMenuCtrl.isHideMenu;
@@ -48,12 +49,11 @@
                 _menuList[_index].IsDisabled = true;
 
                 OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource = _menuList;
-                OutwardMenuCtrl.ePage.Masters.ActiveMenu = OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0];
+                OnMenuClick(OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[1]);
             } else {
                 if (OutwardMenuCtrl.ePage.Masters.IsHideMytaskMenu) {
                     _menuList[_index].IsDisabled = true;
                     OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource = _menuList;
-                    OutwardMenuCtrl.ePage.Masters.ActiveMenu = OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0];
                 } else {
                     GetMyTaskList(_menuList, _index);
                 }
@@ -65,13 +65,29 @@
             }
 
             $rootScope.SaveOutwardFromTask = SaveOutwardFromTask;
+            getManifestDetails();
         }
+
+        function getManifestDetails() {
+            if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk) {
+                apiService.get("eAxisAPI", appConfig.Entities.TmsManifestList.API.GetById.Url + OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk).then(function (response) {
+                    if (response.data.Response) {
+                        OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails = response.data.Response;
+                    }
+                });
+            }
+        }
+
 
         function SaveOutwardFromTask(callback) {
             Validation(OutwardMenuCtrl.currentOutward, callback)
         }
 
-        function GetMyTaskList(menuList, index) {            
+        function GetMyTaskList(menuList, index) {
+            var _DocumentConfig = {
+                IsDisableGenerate: true
+            };
+            var _CommentConfig = {};
             var _menuList = menuList,
                 _index = index;
             var _filter = {
@@ -88,7 +104,98 @@
             apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkItem.API.FindAllWithAccess.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
-                        OutwardMenuCtrl.ePage.Masters.MyTask.ListSource = response.data.Response;
+                        var _response = response.data.Response;
+                        var _arr = [];
+                        if (_response.length > 0) {
+                            _response.map(function (value, key) {
+                                value.AvailableObj = {
+                                    RadioBtnOption: "Me",
+                                    SaveBtnText: "Submit",
+                                    IsDisableSaveBtn: false
+                                };
+                                value.AssignedObj = {
+                                    RadioBtnOption: "MoveToQueue",
+                                    SaveBtnText: "Submit",
+                                    IsDisableSaveBtn: false
+                                };
+                                value.AdhocObj = {
+                                    AssignTo: ""
+                                };
+
+                                if (value.OtherConfig) {
+                                    if (typeof value.OtherConfig == "string") {
+                                        value.OtherConfig = JSON.parse(value.OtherConfig);
+                                    }
+                                    if (value.OtherConfig) {
+                                        if (value.OtherConfig.Directives) {
+                                            var _index = value.OtherConfig.Directives.ListPage.indexOf(",");
+                                            if (_index != -1) {
+                                                var _split = value.OtherConfig.Directives.ListPage.split(",");
+
+                                                if (_split.length > 0) {
+                                                    _split.map(function (value, key) {
+                                                        var _index = _arr.map(function (value1, key1) {
+                                                            return value1;
+                                                        }).indexOf(value);
+                                                        if (_index == -1) {
+                                                            _arr.push(value);
+                                                        }
+                                                    });
+                                                }
+                                            } else {
+                                                var _index = _arr.indexOf(value.OtherConfig.Directives.ListPage);
+                                                if (_index == -1) {
+                                                    _arr.push(value.OtherConfig.Directives.ListPage);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if (value.RelatedProcess) {
+                                    if (typeof value.RelatedProcess == "string") {
+                                        value.RelatedProcess = JSON.parse(value.RelatedProcess);
+                                    }
+                                }
+
+                                var _StandardMenuInput = {
+                                    // Entity
+                                    // "Entity": value.ProcessName,
+                                    "Entity": value.WSI_StepCode,
+                                    "Communication": null,
+                                    "Config": undefined,
+                                    "EntityRefKey": value.EntityRefKey,
+                                    "EntityRefCode": value.KeyReference,
+                                    "EntitySource": value.EntitySource,
+                                    // Parent Entity
+                                    "ParentEntityRefKey": value.PK,
+                                    "ParentEntityRefCode": value.WSI_StepCode,
+                                    "ParentEntitySource": value.EntitySource,
+                                    // Additional Entity
+                                    "AdditionalEntityRefKey": value.ParentEntityRefKey,
+                                    "AdditionalEntityRefCode": value.ParentKeyReference,
+                                    "AdditionalEntitySource": value.ParentEntitySource,
+                                    "IsDisableParentEntity": true,
+                                    "IsDisableAdditionalEntity": true
+                                };
+
+                                value.StandardMenuInput = _StandardMenuInput;
+                                value.DocumentConfig = _DocumentConfig;
+                                value.CommentConfig = _CommentConfig;
+                            });
+                        }
+
+                        if (_arr.length > 0) {
+                            _arr = _arr.filter(function (e) {
+                                return e;
+                            });
+
+                            $ocLazyLoad.load(_arr).then(function () {
+                                OutwardMenuCtrl.ePage.Masters.MyTask.ListSource = response.data.Response;
+                            });
+                        } else {
+                            OutwardMenuCtrl.ePage.Masters.MyTask.ListSource = response.data.Response;
+                        }
                     } else {
                         if (_index != -1) {
                             _menuList[_index].IsDisabled = true;
@@ -102,8 +209,19 @@
                 }
 
                 OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource = _menuList;
-                OutwardMenuCtrl.ePage.Masters.ActiveMenu = OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0];
+
+                var _isEnabledFirstTab = false;
+                OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource.map(function (value, key) {
+                    if (!_isEnabledFirstTab && !value.IsDisabled) {
+                        OnMenuClick(value);
+                        _isEnabledFirstTab = true;
+                    }
+                });
             });
+        }
+
+        function OnMenuClick($item) {
+            OutwardMenuCtrl.ePage.Masters.ActiveMenuTab = $item;
         }
 
         function tabSelected(tab, $index, $event) {
@@ -158,12 +276,12 @@
                             if (OutwardMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList == 0) {
                                 //Check whether pick is already created or not
                                 if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length > 0) {
-                                    
+
                                     //Checking All the lines are saved
-                                    var Check = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.some(function(v,k){
+                                    var Check = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.some(function (v, k) {
                                         return !v.PK
                                     });
-                                    if(!Check){
+                                    if (!Check) {
                                         OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
                                         if (!OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo) {
                                             $event.preventDefault();
@@ -177,7 +295,7 @@
                                                 .then(function (result) {
                                                     helperService.getFullObjectUsingGetById(Config.Entities.Header.API.GetByID.Url, 'null').then(function (response) {
                                                         if (response.data.Response) {
-    
+
                                                             response.data.Response.Response.UIWmsPickHeader.PK = response.data.Response.Response.PK;
                                                             if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickOption) {
                                                                 response.data.Response.Response.UIWmsPickHeader.PickOption = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickOption;
@@ -195,7 +313,7 @@
                                                             OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatusDesc = "Pick Started";
                                                             OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IsModified = true;
                                                             response.data.Response.Response.UIWmsOutward.push(OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader);
-    
+
                                                             apiService.post("eAxisAPI", outwardConfig.Entities.Header.API.WmsPickInsert.Url, response.data.Response.Response).then(function (response) {
                                                                 if (response.data.Status == 'Success') {
                                                                     OutwardMenuCtrl.ePage.Masters.PickDetails = response.data.Response;
@@ -224,11 +342,11 @@
                                                 }
                                             });
                                         }
-                                    }else{
+                                    } else {
                                         $event.preventDefault();
                                         toastr.warning("Please Save the changes first");
                                     }
-                                    
+
                                 } else {
                                     $event.preventDefault();
                                     toastr.warning("Line is Empty so Pick cannot be created");
@@ -247,7 +365,9 @@
 
                         // If not cancelled outward then create or prevent from creation
                         if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus != 'CAN') {
-
+                            if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code) {
+                                OutwardMenuCtrl.ePage.Masters.active = 4;
+                            }
                             //check validation and create pick for this
                             OutwardMenuCtrl.ePage.Masters.Config.GeneralValidation(OutwardMenuCtrl.currentOutward);
                             if (OutwardMenuCtrl.ePage.Entities.Header.Validations) {
@@ -259,8 +379,8 @@
                                 if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length > 0) {
                                     //Check whether the pick is already created or not
                                     if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo) {
-                                        OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
                                         if (!OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code) {
+                                            OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
                                             $event.preventDefault();
                                             var modalOptions = {
                                                 closeButtonText: 'No',
@@ -279,6 +399,8 @@
                                                             response.data.Response.TmsManifestHeader.ReceiverCode = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeCode;
                                                             response.data.Response.TmsManifestHeader.ReceiverName = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeName;
                                                             response.data.Response.TmsManifestHeader.Receiver_ORG_FK = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Consignee_FK;
+                                                            response.data.Response.TmsManifestHeader.EstimatedDispatchDate = new Date();
+                                                            response.data.Response.TmsManifestHeader.EstimatedDeliveryDate = new Date();
                                                             OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code = response.data.Response.TmsManifestHeader.ManifestNumber;
                                                             OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk = response.data.Response.TmsManifestHeader.PK;
                                                             OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IsModified = true;
@@ -298,8 +420,8 @@
                                                                         "TMC_Client_ORG_FK": OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Client_FK,
                                                                         "TMC_ClientId": OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ClientCode,
                                                                         "TMC_ConsignmentNumber": OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID,
-                                                                        "TMC_ExpectedDeliveryDateTime": new Date(),
-                                                                        "TMC_ExpectedPickupDateTime": new Date(),
+                                                                        "TMC_ExpectedDeliveryDateTime": response.data.Response.TmsManifestHeader.EstimatedDeliveryDate,
+                                                                        "TMC_ExpectedPickupDateTime": response.data.Response.TmsManifestHeader.EstimatedDispatchDate,
                                                                         "TMC_FK": "",
                                                                         "TMC_ServiceType": OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderType,
                                                                         "TMM_ManifestNumber": response.data.Response.TmsManifestHeader.ManifestNumber,
@@ -370,16 +492,6 @@
                                                     console.log("Cancelled");
                                                     OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
                                                 });
-                                        } else {
-                                            apiService.get("eAxisAPI", appConfig.Entities.TmsManifestList.API.GetById.Url + OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk).then(function (response) {
-                                                if (response.data.Response) {
-                                                    OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails = response.data.Response;
-                                                    OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
-                                                } else {
-                                                    $event.preventDefault();
-                                                    OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
-                                                }
-                                            });
                                         }
                                     } else {
                                         $event.preventDefault();
@@ -415,6 +527,7 @@
             }
 
             if (_errorcount.length == 0) {
+                OutwardMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(OutwardMenuCtrl.currentOutward);
                 Saveonly($item, callback);
             } else {
                 OutwardMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(OutwardMenuCtrl.currentOutward);
@@ -522,6 +635,10 @@
             // Save Manifest Details
             if (_input.UIWmsOutwardHeader.AdditionalRef1Code) {
                 if (OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails) {
+                    angular.forEach(OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestConsignment, function (value, key) {
+                        value.TMC_ExpectedDeliveryDateTime = OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.EstimatedDeliveryDate;
+                        value.TMC_ExpectedPickupDateTime = OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.EstimatedDispatchDate;
+                    });
                     OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails = filterObjectUpdate(OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails, "IsModified");
                     apiService.post("eAxisAPI", appConfig.Entities.TmsManifestList.API.Update.Url, OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails).then(function (response) {
                         if (response.data.Status == 'Success') {

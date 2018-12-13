@@ -22,6 +22,7 @@
                 "Meta": helperService.metaBase(),
                 "Entities": currentOutward
             };
+            OutwardDispatchCtrl.ePage.Masters.Config = outwardConfig;
             OutwardDispatchCtrl.ePage.Masters.DropDownMasterList = {};
             OutwardDispatchCtrl.ePage.Masters.TransportMode = ["Road", "Air", "Sea"];
             OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails = OutwardDispatchCtrl.manifestDetails;
@@ -36,8 +37,38 @@
             OutwardDispatchCtrl.ePage.Masters.OnChangeVehicleType = OnChangeVehicleType;
             OutwardDispatchCtrl.ePage.Masters.SingleRecordView = SingleRecordView;
             OutwardDispatchCtrl.ePage.Masters.StandardMenuConfig = StandardMenuConfig;
+            OutwardDispatchCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
             GetDropDownList();
             getVehicleType();
+            generalOperation();
+        }
+
+        function OnChangeValues(fieldvalue, code) {
+            angular.forEach(OutwardDispatchCtrl.ePage.Masters.Config.ValidationValues, function (value, key) {
+                if (value.Code.trim() === code) {
+                    GetErrorMessage(fieldvalue, value)
+                }
+            });
+        }
+
+        function GetErrorMessage(fieldvalue, value) {
+            if (!fieldvalue) {
+                OutwardDispatchCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, OutwardDispatchCtrl.currentOutward.label, false, undefined, undefined, undefined, undefined, value.GParentRef);
+            } else {
+                OutwardDispatchCtrl.ePage.Masters.Config.RemoveErrorWarning(value.Code, "E", value.CtrlKey, OutwardDispatchCtrl.currentOutward.label);
+            }
+        }
+
+        function generalOperation() {
+            if (OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.TransporterCode == null) {
+                OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.TransporterCode = "";
+            }
+            if (OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.TransporterName == null) {
+                OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.TransporterName = "";
+            }
+            OutwardDispatchCtrl.ePage.Masters.Transporter = OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.TransporterCode + ' - ' + OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.TransporterName;
+            if (OutwardDispatchCtrl.ePage.Masters.Transporter == ' - ')
+                OutwardDispatchCtrl.ePage.Masters.Transporter = ""
         }
 
         function StandardMenuConfig(value, index) {
@@ -77,6 +108,7 @@
                     OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.VehicleTypeCode = value.Code;
                     OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.VehicleTypeDescription = value.Description;
                     OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.VehicleType = value.PK;
+                    OnChangeValues(OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.VehicleTypeCode, 'E3065');
                 }
             });
         }
@@ -84,6 +116,8 @@
         function SelectedLookupCarrier(item) {
             OutwardDispatchCtrl.ePage.Masters.Transporter = item.Code + ' - ' + item.FullName;
             OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.Transporter_ORG_FK = item.PK;
+            OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.TransporterCode = item.Code;
+            OnChangeValues(OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.TransporterCode, 'E3064')
         }
 
         function OpenDatePicker($event, opened) {

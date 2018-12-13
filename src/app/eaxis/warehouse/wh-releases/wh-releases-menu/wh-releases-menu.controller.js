@@ -6,9 +6,9 @@
         .controller("ReleaseMenuController", ReleaseMenuController);
 
 
-    ReleaseMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "releaseConfig", "helperService", "appConfig", "authService", "$state", "$filter", "toastr","$window","confirmation"];
+    ReleaseMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "releaseConfig", "helperService", "appConfig", "authService", "$state", "$filter", "toastr", "$window", "confirmation"];
 
-    function ReleaseMenuController($scope, $timeout, APP_CONSTANT, apiService, releaseConfig, helperService, appConfig, authService, $state, $filter, toastr,$window,confirmation) {
+    function ReleaseMenuController($scope, $timeout, APP_CONSTANT, apiService, releaseConfig, helperService, appConfig, authService, $state, $filter, toastr, $window, confirmation) {
 
         var ReleaseMenuCtrl = this;
 
@@ -41,7 +41,7 @@
                 ReleaseMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
                 ReleaseMenuCtrl.ePage.Masters.DisableSave = true;
             }
-           
+
         }
 
         function FinalizePick($item) {
@@ -63,12 +63,12 @@
                     bodyText: 'Once Finalized Pick & Release Cannot be Edited'
                 };
                 confirmation.showModal({}, modalOptions)
-                .then(function (result) {
-                    ReleaseMenuCtrl.ePage.Masters.Finalisesave = true;
-                    Validation($item);
-                }, function () {
-                    console.log("Cancelled");
-                });
+                    .then(function (result) {
+                        ReleaseMenuCtrl.ePage.Masters.Finalisesave = true;
+                        Validation($item);
+                    }, function () {
+                        console.log("Cancelled");
+                    });
             } else {
                 toastr.error("Before finalize the pick all the Orders in this pick should finalized")
             }
@@ -86,6 +86,7 @@
             }
 
             if (_errorcount.length == 0) {
+                ReleaseMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(ReleaseMenuCtrl.currentRelease);
                 Save($item);
             } else {
                 ReleaseMenuCtrl.ePage.Masters.Finalisesave = false;
@@ -94,7 +95,7 @@
         }
 
         function Save($item) {
-            
+
             ReleaseMenuCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
             ReleaseMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
             ReleaseMenuCtrl.ePage.Masters.DisableSave = true;
@@ -105,7 +106,7 @@
             if ($item.isNew) {
                 _input.UIWmsPickHeader.PK = _input.PK;
             } else {
-                if(ReleaseMenuCtrl.ePage.Masters.Finalisesave){
+                if (ReleaseMenuCtrl.ePage.Masters.Finalisesave) {
                     _input.UIWmsPickHeader.PickStatus = 'PIF';
                     _input.UIWmsPickHeader.PickStatusDesc = 'Finalized';
                 }
@@ -113,19 +114,19 @@
             }
 
             //Updating the status when manual allocation and deallocation happens
-            _input.UIWmsOutward.map(function(value,key){
-                _input.UIWmsPickLine.map(function(val,k){
-                    if(!val.Units){
-                        if(value.PK==val.WOD_FK){
-                            value.PutOrPickSlipDateTime  = null;
-                            value.PutOrPickCompDateTime  = null;
+            _input.UIWmsOutward.map(function (value, key) {
+                _input.UIWmsPickLine.map(function (val, k) {
+                    if (!val.Units) {
+                        if (value.PK == val.WOD_FK) {
+                            value.PutOrPickSlipDateTime = null;
+                            value.PutOrPickCompDateTime = null;
                             value.WorkOrderStatus = "OSP";
                             value.WorkOrderStatusDesc = "Pick Started";
                         }
                     }
                 })
             });
-            
+
             helperService.SaveEntity($item, 'Pick').then(function (response) {
 
                 ReleaseMenuCtrl.ePage.Masters.SaveButtonText = "Save";
@@ -171,12 +172,12 @@
 
                     ReleaseMenuCtrl.ePage.Entities.Header.GlobalVariables.FetchingInventoryDetails = true;
 
-                    if(ReleaseMenuCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatus == 'PIF'){
+                    if (ReleaseMenuCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.PickStatus == 'PIF') {
                         ReleaseMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
                         ReleaseMenuCtrl.ePage.Masters.DisableSave = true;
                     }
 
-                    if(ReleaseMenuCtrl.ePage.Masters.SaveAndClose){
+                    if (ReleaseMenuCtrl.ePage.Masters.SaveAndClose) {
                         ReleaseMenuCtrl.ePage.Masters.Config.SaveAndClose = true;
                         ReleaseMenuCtrl.ePage.Masters.SaveAndClose = false;
                     }

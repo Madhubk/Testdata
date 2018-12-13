@@ -12,7 +12,7 @@
                     data-ng-bind="PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderStatusDesc"></div>
             </div>
             <uib-tab ng-repeat="x in PickupMenuCtrl.ePage.Masters.PickupMenu.ListSource" index="$index" deselect="PickupMenuCtrl.ePage.Masters.tabSelected(x,$selectedIndex,$event);"
-                data-ng-if="!x.IsDisabled">
+                data-ng-if="!x.IsDisabled" data-ng-click="PickupMenuCtrl.ePage.Masters.OnMenuClick(x)">
                 <uib-tab-heading title="{{x.DisplayName}}">
                     <i class="{{x.Icon}} mr-5"></i>
                     <span class="text-single-line" data-ng-bind="x.DisplayName"></span>
@@ -32,7 +32,7 @@
                 <div>
                     <div ng-switch="x.Value">
                         <!--Menu directives-->
-                        <div ng-switch-when="MyTask" pickup-my-task current-pickup="PickupMenuCtrl.currentPickup"></div>
+                        <div ng-switch-when="MyTask" pickup-my-task current-pickup="PickupMenuCtrl.currentPickup" data-ng-if="PickupMenuCtrl.ePage.Masters.MyTask.ListSource" list-source="PickupMenuCtrl.ePage.Masters.MyTask.ListSource"></div>
                         <div ng-switch-when="General" pickup-general current-pickup="PickupMenuCtrl.currentPickup"></div>
                         <div ng-switch-when="PickupLine" pickup-line current-pickup="PickupMenuCtrl.currentPickup"></div>
                         <div ng-switch-when="PickupOrders" pickup-orders current-pickup="PickupMenuCtrl.currentPickup"></div>
@@ -70,7 +70,7 @@
             </div>
         </div>
     </div>
-    <div class="eaxis-footer-strip">
+    <div class="eaxis-footer-strip" data-ng-show="PickupMenuCtrl.ePage.Masters.ActiveMenuTab.Value != 'MyTask'">
         <div class="col-xs-6 col-sm-8 col-md-8 col-lg-9 col-xl-9">
             <standard-menu dataentry-object="PickupMenuCtrl.dataentryObject" input="PickupMenuCtrl.currentPickup"></standard-menu>
         </div>

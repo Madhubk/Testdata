@@ -64,7 +64,7 @@
 
         //#region checkbox selection
         function SelectAllCheckBox() {
-            angular.forEach(CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickupLine, function (value, key) {
+            angular.forEach(CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIvwWmsPickupLine, function (value, key) {
                 if (CreatePickupChallanCtrl.ePage.Masters.SelectAll) {
                     // Enable and disable based on page wise
                     value.SingleSelect = true;
@@ -75,7 +75,7 @@
         }
 
         function SingleSelectCheckBox() {
-            var Checked = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickupLine.some(function (value, key) {
+            var Checked = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIvwWmsPickupLine.some(function (value, key) {
                 // Enable and disable based on page wise
                 if (!value.SingleSelect)
                     return true;
@@ -86,7 +86,7 @@
                 CreatePickupChallanCtrl.ePage.Masters.SelectAll = true;
             }
 
-            var Checked1 = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickupLine.some(function (value, key) {
+            var Checked1 = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIvwWmsPickupLine.some(function (value, key) {
                 return value.SingleSelect == true;
             });
         }
@@ -110,13 +110,13 @@
             });
         }
 
-        function CreateInward(type) {
+        function CreateInward() {
             inwardConfig.ValidationFindall();
-            if (CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickupLine.length > 0) {
+            if (CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIvwWmsPickupLine.length > 0) {
                 var count = 0;
                 CreatePickupChallanCtrl.ePage.Masters.SelectedPickupLine = [];
                 CreatePickupChallanCtrl.ePage.Masters.SelectAll = false;
-                angular.forEach(CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickupLine, function (value, key) {
+                angular.forEach(CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIvwWmsPickupLine, function (value, key) {
                     if (value.SingleSelect) {
                         count = count + 1;
                         CreatePickupChallanCtrl.ePage.Masters.SelectedPickupLine.push(value);
@@ -127,7 +127,7 @@
                     var temp = 0;
                     CreatePickupChallanCtrl.ePage.Masters.TempCSR = '';
                     angular.forEach(CreatePickupChallanCtrl.ePage.Masters.SelectedPickupLine, function (value, key) {
-                        if (value.OUT_PrdCode || value.MTOUT_PrdCode) {
+                        if (value.INW_PrdCode) {
                             temp = temp + 1;
                             CreatePickupChallanCtrl.ePage.Masters.TempCSR = CreatePickupChallanCtrl.ePage.Masters.TempCSR + value.AdditionalRef1Code + ",";
                         }
@@ -141,23 +141,20 @@
                                 return false;
                         });
                         if (!_isExist) {
-                            if (type == "OUT")
-                                CreatePickupChallanCtrl.ePage.Masters.CreateInwardText = "Please Wait..";
-                            else if (type == "MTR")
-                                CreatePickupChallanCtrl.ePage.Masters.CreateMaterialTransferText = "Please Wait..";
+                            CreatePickupChallanCtrl.ePage.Masters.CreateInwardText = "Please Wait..";
                             CreatePickupChallanCtrl.ePage.Masters.IsDisabled = true;
                             helperService.getFullObjectUsingGetById(appConfig.Entities.InwardList.API.GetById.Url, 'null').then(function (response) {
                                 if (response.data.Response) {
                                     response.data.Response.Response.UIWmsInwardHeader.ClientCode = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ClientCode;
                                     response.data.Response.Response.UIWmsInwardHeader.ClientName = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ClientName;
-                                    response.data.Response.Response.UIWmsInwardHeader.Client = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.Client;
-                                    response.data.Response.Response.UIWmsInwardHeader.Consignee = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.Consignee;
+                                    response.data.Response.Response.UIWmsInwardHeader.Client = CreatePickupChallanCtrl.ePage.Masters.Client;
+                                    response.data.Response.Response.UIWmsInwardHeader.Consignee = CreatePickupChallanCtrl.ePage.Masters.Consignee;
                                     response.data.Response.Response.UIWmsInwardHeader.ConsigneeCode = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeCode;
                                     response.data.Response.Response.UIWmsInwardHeader.ConsigneeName = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeName;
                                     response.data.Response.Response.UIWmsInwardHeader.ORG_Client_FK = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ORG_Client_FK;
                                     response.data.Response.Response.UIWmsInwardHeader.ORG_Consignee_FK = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ORG_Consignee_FK;
                                     response.data.Response.Response.UIWmsInwardHeader.WAR_FK = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.WAR_FK;
-                                    response.data.Response.Response.UIWmsInwardHeader.Warehouse = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.Warehouse;
+                                    response.data.Response.Response.UIWmsInwardHeader.Warehouse = CreatePickupChallanCtrl.ePage.Masters.Warehouse;
                                     response.data.Response.Response.UIWmsInwardHeader.WarehouseCode = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseCode;
                                     response.data.Response.Response.UIWmsInwardHeader.WarehouseName = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseName;
                                     response.data.Response.Response.UIWmsInwardHeader.AdditionalRef2Fk = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.PK;
@@ -168,17 +165,17 @@
                                         var obj = {
                                             "PK": "",
                                             "Parent_FK": value.PK,
-                                            "Client_FK": value.Client_FK,
+                                            "Client_FK": value.WOD_ORG_Client_FK,
                                             "ORG_ClientCode": value.ORG_ClientCode,
                                             "ORG_ClientName": value.ORG_ClientName,
-                                            "ProductCode": value.ProductCode,
-                                            "ProductDescription": value.ProductDescription,
+                                            "ProductCode": value.PICPRD_Req_PrdCode,
+                                            "ProductDescription": value.PICPRD_Req_PrdDesc,
                                             "ProductCondition": value.ProductCondition,
                                             "POR_FK": value.PRO_FK,
                                             "Packs": value.Packs,
                                             "PAC_PackType": value.PAC_PackType,
                                             "Quantity": value.Units,
-                                            "StockKeepingUnit": value.StockKeepingUnit,
+                                            "StockKeepingUnit": value.PICPRD_StockKeepingUnit,
                                             "PalletId": value.PalletID,
                                             "PartAttrib1": value.PartAttrib1,
                                             "PartAttrib2": value.PartAttrib2,
@@ -271,25 +268,25 @@
                 CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ClientCode = "";
             if (CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ClientName == null)
                 CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ClientName = "";
-            CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.Client = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ClientCode + ' - ' + CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ClientName;
-            if (CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.Client == " - ")
-                CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.Client = "";
+            CreatePickupChallanCtrl.ePage.Masters.Client = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ClientCode + ' - ' + CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ClientName;
+            if (CreatePickupChallanCtrl.ePage.Masters.Client == " - ")
+                CreatePickupChallanCtrl.ePage.Masters.Client = "";
             // Consignee
             if (CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeCode == null)
                 CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeCode = "";
             if (CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeName == null)
                 CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeName = "";
-            CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.Consignee = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeCode + ' - ' + CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeName;
-            if (CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.Consignee == " - ")
-                CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.Consignee = "";
+            CreatePickupChallanCtrl.ePage.Masters.Consignee = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeCode + ' - ' + CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeName;
+            if (CreatePickupChallanCtrl.ePage.Masters.Consignee == " - ")
+                CreatePickupChallanCtrl.ePage.Masters.Consignee = "";
             // Warehouse
             if (CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseCode == null)
                 CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseCode = "";
             if (CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseName == null)
                 CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseName = "";
-            CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.Warehouse = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseCode + ' - ' + CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseName;
-            if (CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.Warehouse == " - ")
-                CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.Warehouse = "";
+            CreatePickupChallanCtrl.ePage.Masters.Warehouse = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseCode + ' - ' + CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseName;
+            if (CreatePickupChallanCtrl.ePage.Masters.Warehouse == " - ")
+                CreatePickupChallanCtrl.ePage.Masters.Warehouse = "";
         }
 
         function GetDynamicLookupConfig() {

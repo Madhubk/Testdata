@@ -5,9 +5,9 @@
         .module("Application")
         .controller("ActivityTemplatePickup2Controller", ActivityTemplatePickup2Controller);
 
-    ActivityTemplatePickup2Controller.$inject = ["$rootScope", "helperService", "APP_CONSTANT", "$q", "apiService", "authService", "appConfig", "toastr", "errorWarningService", "myTaskActivityConfig", "$filter", "$timeout"];
+    ActivityTemplatePickup2Controller.$inject = ["$rootScope", "helperService", "APP_CONSTANT", "$q", "apiService", "authService", "appConfig", "toastr", "errorWarningService", "myTaskActivityConfig", "$filter", "$timeout", "pickupConfig"];
 
-    function ActivityTemplatePickup2Controller($rootScope, helperService, APP_CONSTANT, $q, apiService, authService, appConfig, toastr, errorWarningService, myTaskActivityConfig, $filter, $timeout) {
+    function ActivityTemplatePickup2Controller($rootScope, helperService, APP_CONSTANT, $q, apiService, authService, appConfig, toastr, errorWarningService, myTaskActivityConfig, $filter, $timeout, pickupConfig) {
         var ActivityTemplatePickup2Ctrl = this;
 
         function Init() {
@@ -75,7 +75,9 @@
                     ActivityTemplatePickup2Ctrl.ePage.Masters.TaskConfigData = response.data.Response;
                     myTaskActivityConfig.Entities.TaskConfigData = ActivityTemplatePickup2Ctrl.ePage.Masters.TaskConfigData;
                     ActivityTemplatePickup2Ctrl.ePage.Masters.MenuListSource = $filter('filter')(ActivityTemplatePickup2Ctrl.ePage.Masters.TaskConfigData, { Category: 'Menu' });
-                    ActivityTemplatePickup2Ctrl.ePage.Masters.ValidationSource = $filter('filter')(ActivityTemplatePickup2Ctrl.ePage.Masters.TaskConfigData, { Category: 'Validation' });
+                    ActivityTemplatePickup2Ctrl.ePage.Masters.ValidationSource = $filter('filter')(ActivityTemplatePickup2Ctrl.ePage.Masters.TaskConfigData, function (val, key) {
+                        return val.Category == 'Validation'
+                    })
                     if (ActivityTemplatePickup2Ctrl.ePage.Masters.ValidationSource.length > 0) {
                         ValidationFindall();
                     }
@@ -102,23 +104,22 @@
                     if (response.data.Response) {
                         ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj = response.data.Response;
                         ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data = ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj;
-                        ActivityTemplatePickup2Ctrl.currentPickup = {
-                            [ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj.UIWmsPickup.WorkOrderID]: {
-                                ePage: {
-                                    Entities: {
-                                        Header: {
-                                            Data: ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data
-                                        }
-                                    }
-                                }
-                            },
-                            label: ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj.UIWmsPickup.WorkOrderID,
-                            code: ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj.UIWmsPickup.WorkOrderID,
-                            isNew: false
-                        };
-                        myTaskActivityConfig.Entities.Pickup = ActivityTemplatePickup2Ctrl.currentPickup;
 
-                        getTaskConfigData();
+                        if (ActivityTemplatePickup2Ctrl.tabObj) {
+                            ActivityTemplatePickup2Ctrl.currentPickup = ActivityTemplatePickup2Ctrl.tabObj;
+                            myTaskActivityConfig.Entities.Pickup = ActivityTemplatePickup2Ctrl.currentPickup;
+                            getTaskConfigData();
+                        } else {
+                            pickupConfig.GetTabDetails(ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup, false).then(function (response) {
+                                angular.forEach(response, function (value, key) {
+                                    if (value.label == ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID) {
+                                        ActivityTemplatePickup2Ctrl.currentPickup = value;
+                                        myTaskActivityConfig.Entities.Pickup = ActivityTemplatePickup2Ctrl.currentPickup;
+                                        getTaskConfigData();
+                                    }
+                                });
+                            });
+                        }
                     }
                 });
             }
@@ -246,6 +247,9 @@
 
         function ValidationFindall() {
             if (ActivityTemplatePickup2Ctrl.ePage.Masters.TaskObj) {
+                if (errorWarningService.Modules.MyTask) {
+                    errorWarningService.Modules.MyTask.ErrorCodeList = [];
+                }
                 // validation findall call
                 var _obj = {
                     ModuleName: ["MyTask"],
@@ -288,16 +292,16 @@
         }
 
         function Complete() {
-            if (ActivityTemplatePickup2Ctrl.ePage.Masters.ValidationSource.length > 0 || ActivityTemplatePickup2Ctrl.ePage.Masters.DocumentValidation.length > 0) {                
+            if (ActivityTemplatePickup2Ctrl.ePage.Masters.ValidationSource.length > 0 || ActivityTemplatePickup2Ctrl.ePage.Masters.DocumentValidation.length > 0) {
                 if (ActivityTemplatePickup2Ctrl.taskObj.WSI_StepName == "Create Pickup Challan") {
                     var input = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data
                     var temp = 0;
-                    angular.forEach(input.UIWmsPickupLine, function (value, key) {
-                        if (value.OUT_PrdCode || value.MTOUT_PrdCode) {
+                    angular.forEach(input.UIvwWmsPickupLine, function (value, key) {
+                        if (value.INW_PrdCode) {
                             temp = temp + 1;
                         }
                     });
-                    if (temp == input.UIWmsPickupLine.length) {
+                    if (temp == input.UIvwWmsPickupLine.length) {
                         input.IsComplete = true;
                     }
                 }
@@ -422,6 +426,7 @@
             ActivityTemplatePickup2Ctrl.ePage.Masters.IsDisableCompleteBtn = true;
             if (ActivityTemplatePickup2Ctrl.taskObj.WSI_StepName == "Acknowledge Pickup Request") {
                 ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj.UIWmsWorkorderReport.AcknowledgementDateTime = new Date();
+                ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj.AcknowledgedPerson = authService.getUserInfo().UserId;
             }
             SaveEntity();
             SaveOnly().then(function (response) {

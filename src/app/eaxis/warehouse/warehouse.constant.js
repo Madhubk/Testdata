@@ -796,6 +796,46 @@
             ]
         },
         //#endregion
+        // #region Raise CSR
+        {
+            name: 'RaiseCSR',
+            files: [
+                "app/eaxis/warehouse/raise-csr/raise-csr.controller.js",
+                "app/eaxis/warehouse/raise-csr/raise-csr.css"
+            ]
+        }, {
+            name: 'RaiseCsrGeneral',
+            files: [
+                "app/eaxis/warehouse/raise-csr/raise-csr-general/raise-csr-general.controller.js",
+                "app/eaxis/warehouse/raise-csr/raise-csr-general/raise-csr-general.directive.js",
+                "app/eaxis/warehouse/raise-csr/raise-csr-general/raise-csr-general.css"
+            ]
+        },
+        // #endregion
+        // #region
+        {
+            name: 'pendingPickup',
+            files: [
+                'app/eaxis/warehouse/pending-pickup/pending-pickup.controller.js',
+            ]
+        }, {
+            name: 'pickupLine',
+            files: [
+                'app/eaxis/warehouse/pickup-line/pickup-line.controller.js',
+            ]
+        }, {
+            name: 'pendingPickupToolbar',
+            files: [
+                'app/eaxis/warehouse/pending-pickup-toolbar/pending-pickup-toolbar.controller.js',
+                'app/eaxis/warehouse/pending-pickup-toolbar/pending-pickup-toolbar.directive.js',
+            ]
+        }, {
+            name: 'deliveryLine',
+            files: [
+                'app/eaxis/warehouse/delivery-line/delivery-line.controller.js',
+            ]
+        },
+        // #endregion
         // #region my-task
         {
             name: 'ConfirmArrivalDirective',
@@ -899,31 +939,20 @@
                 "app/eaxis/warehouse/my-task/my-task-directive/collect-material/collect-material.controller.js",
                 "app/eaxis/warehouse/my-task/my-task-directive/collect-material/collect-material.directive.js"
             ]
-        },{
+        }, {
             name: 'GetSignatureDirective',
             files: [
                 "app/eaxis/warehouse/my-task/my-task-directive/get-signature/get-signature.controller.js",
                 "app/eaxis/warehouse/my-task/my-task-directive/get-signature/get-signature.directive.js"
             ]
-        },
-        // #endregion
-        // #region Raise CSR
-        {
-            name: 'RaiseCSR',
-            files: [
-                "app/eaxis/warehouse/raise-csr/raise-csr.controller.js",
-                "app/eaxis/warehouse/raise-csr/raise-csr.css"
-            ]
         }, {
-            name: 'RaiseCsrGeneral',
+            name: 'AcknowledgePickupRequestDirective',
             files: [
-                "app/eaxis/warehouse/raise-csr/raise-csr-general/raise-csr-general.controller.js",
-                "app/eaxis/warehouse/raise-csr/raise-csr-general/raise-csr-general.directive.js",
-                "app/eaxis/warehouse/raise-csr/raise-csr-general/raise-csr-general.css"
+                "app/eaxis/warehouse/my-task/my-task-directive/acknowledge-pickup-request/acknowledge-pickup-request.controller.js",
+                "app/eaxis/warehouse/my-task/my-task-directive/acknowledge-pickup-request/acknowledge-pickup-request.directive.js"
             ]
         },
             // #endregion
-
         ]
     };
 

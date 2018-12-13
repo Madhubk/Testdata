@@ -5,9 +5,9 @@
         .module("Application")
         .factory("releaseConfig", ReleaseConfig);
 
-    ReleaseConfig.$inject = ["$location", "$q", "helperService", "apiService", "toastr","appConfig"];
+    ReleaseConfig.$inject = ["$location", "$q", "helperService", "apiService", "toastr", "appConfig"];
 
-    function ReleaseConfig($location, $q, helperService, apiService, toastr,appConfig) {
+    function ReleaseConfig($location, $q, helperService, apiService, toastr, appConfig) {
         //var appName = $location.path().split("/")[1];
         var exports = {
             "Entities": {
@@ -36,7 +36,7 @@
             "GetTabDetails": GetTabDetails,
             "ValidationValues": "",
             "SaveAndClose": false,
-            "FinalizedOrderPK":'',
+            "FinalizedOrderPK": '',
             "GeneralValidation": GeneralValidation,
             "ReleaseCapture": ReleaseCapture,
             "RemoveApiErrors": RemoveApiErrors,
@@ -144,947 +144,947 @@
                                 "RequiredDate": helperService.metaBase(),
                                 "OutwardStatus": helperService.metaBase(),
                                 "PickStatus": helperService.metaBase(),
-                                "UIWmsReleaseLine":helperService.metaBase(),
-                                "UIWmsPickLineSummary":helperService.metaBase(),
+                                "UIWmsReleaseLine": helperService.metaBase(),
+                                "UIWmsPickLineSummary": helperService.metaBase(),
                             },
                         },
-                        "GlobalVariables":{
-                            "NonEditable":false,
-                            "Loading":false,
-                            "FetchingInventoryDetails":false,
-                            "MiscServDetails":[]
+                        "GlobalVariables": {
+                            "NonEditable": false,
+                            "Loading": false,
+                            "FetchingInventoryDetails": false,
+                            "MiscServDetails": []
                         },
-                        "TableProperties":{
-                            "UIWmsOutward":{
-                                "HeaderProperties":[{
-                                    "columnname":"S.No",
-                                    "isenabled":true,
-                                    "property":"osno",
-                                    "position":"1",
-                                    "width":"40",
-                                    "display":false
+                        "TableProperties": {
+                            "UIWmsOutward": {
+                                "HeaderProperties": [{
+                                    "columnname": "S.No",
+                                    "isenabled": true,
+                                    "property": "osno",
+                                    "position": "1",
+                                    "width": "40",
+                                    "display": false
                                 },
                                 {
-                                    "columnname":"Outward No",
-                                    "isenabled":true,
-                                    "property":"ooutwardno",
-                                    "position":"2",
-                                    "width":"100",
-                                    "display":true
+                                    "columnname": "Outward No",
+                                    "isenabled": true,
+                                    "property": "ooutwardno",
+                                    "position": "2",
+                                    "width": "100",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Warehouse",
-                                    "isenabled":true,
-                                    "property":"owarehouse",
-                                    "position":"3",
-                                    "width":"200",
-                                    "display":true
+                                    "columnname": "Warehouse",
+                                    "isenabled": true,
+                                    "property": "owarehouse",
+                                    "position": "3",
+                                    "width": "200",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Client",
-                                    "isenabled":true,
-                                    "property":"oclient",
-                                    "position":"4",
-                                    "width":"200",
-                                    "display":true
+                                    "columnname": "Client",
+                                    "isenabled": true,
+                                    "property": "oclient",
+                                    "position": "4",
+                                    "width": "200",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Consignee",
-                                    "isenabled":true,
-                                    "property":"oconsignee",
-                                    "position":"5",
-                                    "width":"200",
-                                    "display":true
+                                    "columnname": "Consignee",
+                                    "isenabled": true,
+                                    "property": "oconsignee",
+                                    "position": "5",
+                                    "width": "200",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Order No",
-                                    "isenabled":true,
-                                    "property":"oorderno",
-                                    "position":"6",
-                                    "width":"150",
-                                    "display":true
+                                    "columnname": "Order No",
+                                    "isenabled": true,
+                                    "property": "oorderno",
+                                    "position": "6",
+                                    "width": "150",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Outward Type",
-                                    "isenabled":true,
-                                    "property":"ooutwardtype",
-                                    "position":"7",
-                                    "width":"100",
-                                    "display":true
+                                    "columnname": "Outward Type",
+                                    "isenabled": true,
+                                    "property": "ooutwardtype",
+                                    "position": "7",
+                                    "width": "100",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Status",
-                                    "isenabled":true,
-                                    "property":"ostatus",
-                                    "position":"8",
-                                    "width":"100",
-                                    "display":true
+                                    "columnname": "Status",
+                                    "isenabled": true,
+                                    "property": "ostatus",
+                                    "position": "8",
+                                    "width": "100",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Required Date",
-                                    "isenabled":true,
-                                    "property":"orequireddate",
-                                    "position":"9",
-                                    "width":"100",
-                                    "display":true
+                                    "columnname": "Required Date",
+                                    "isenabled": true,
+                                    "property": "orequireddate",
+                                    "position": "9",
+                                    "width": "100",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Finalized Date",
-                                    "isenabled":true,
-                                    "property":"ofinalizeddate",
-                                    "position":"10",
-                                    "width":"100",
-                                    "display":true
+                                    "columnname": "Finalized Date",
+                                    "isenabled": true,
+                                    "property": "ofinalizeddate",
+                                    "position": "10",
+                                    "width": "100",
+                                    "display": true
                                 }],
-                                "osno":{
-                                    "isenabled":true,
-                                    "position":"1",
-                                    "width":"40"
+                                "osno": {
+                                    "isenabled": true,
+                                    "position": "1",
+                                    "width": "40"
                                 },
-                                "ooutwardno":{
-                                    "isenabled":true,
-                                    "position":"2",
-                                    "width":"100"
+                                "ooutwardno": {
+                                    "isenabled": true,
+                                    "position": "2",
+                                    "width": "100"
                                 },
-                                "owarehouse":{
-                                    "isenabled":true,
-                                    "position":"3",
-                                    "width":"200"
+                                "owarehouse": {
+                                    "isenabled": true,
+                                    "position": "3",
+                                    "width": "200"
                                 },
-                                "oclient":{
-                                    "isenabled":true,
-                                    "position":"4",
-                                    "width":"200"
+                                "oclient": {
+                                    "isenabled": true,
+                                    "position": "4",
+                                    "width": "200"
                                 },
-                                "oconsignee":{
-                                    "isenabled":true,
-                                    "position":"5",
-                                    "width":"200"
+                                "oconsignee": {
+                                    "isenabled": true,
+                                    "position": "5",
+                                    "width": "200"
                                 },
-                                "oorderno":{
-                                    "isenabled":true,
-                                    "position":"6",
-                                    "width":"150"
+                                "oorderno": {
+                                    "isenabled": true,
+                                    "position": "6",
+                                    "width": "150"
                                 },
-                                "ooutwardtype":{
-                                    "isenabled":true,
-                                    "position":"7",
-                                    "width":"100"
+                                "ooutwardtype": {
+                                    "isenabled": true,
+                                    "position": "7",
+                                    "width": "100"
                                 },
-                                "ostatus":{
-                                    "isenabled":true,
-                                    "position":"8",
-                                    "width":"100"
+                                "ostatus": {
+                                    "isenabled": true,
+                                    "position": "8",
+                                    "width": "100"
                                 },
-                                "orequireddate":{
-                                    "isenabled":true,
-                                    "position":"9",
-                                    "width":"100"
+                                "orequireddate": {
+                                    "isenabled": true,
+                                    "position": "9",
+                                    "width": "100"
                                 },
-                                "ofinalizeddate":{
-                                    "isenabled":true,
-                                    "position":"10",
-                                    "width":"100"
+                                "ofinalizeddate": {
+                                    "isenabled": true,
+                                    "position": "10",
+                                    "width": "100"
                                 }
                             },
-                            "UIWmsPickLineSummary":{
-                                "HeaderProperties":[{
-                                    "columnname":"S.No",
-                                    "isenabled":true,
-                                    "property":"ssno",
-                                    "position":"1",
-                                    "width":"40",
-                                    "display":false
+                            "UIWmsPickLineSummary": {
+                                "HeaderProperties": [{
+                                    "columnname": "S.No",
+                                    "isenabled": true,
+                                    "property": "ssno",
+                                    "position": "1",
+                                    "width": "40",
+                                    "display": false
                                 },
                                 {
-                                    "columnname":"Client",
-                                    "isenabled":true,
-                                    "property":"sclient",
-                                    "position":"2",
-                                    "width":"150",
-                                    "display":true
+                                    "columnname": "Client",
+                                    "isenabled": true,
+                                    "property": "sclient",
+                                    "position": "2",
+                                    "width": "150",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Product Code",
-                                    "isenabled":true,
-                                    "property":"sproductcode",
-                                    "position":"3",
-                                    "width":"100",
-                                    "display":true
+                                    "columnname": "Product Code",
+                                    "isenabled": true,
+                                    "property": "sproductcode",
+                                    "position": "3",
+                                    "width": "100",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Product Description",
-                                    "isenabled":true,
-                                    "property":"sproductdescription",
-                                    "position":"4",
-                                    "width":"100",
-                                    "display":true
+                                    "columnname": "Product Description",
+                                    "isenabled": true,
+                                    "property": "sproductdescription",
+                                    "position": "4",
+                                    "width": "100",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Packs",
-                                    "isenabled":true,
-                                    "property":"spacks",
-                                    "position":"5",
-                                    "width":"40",
-                                    "display":true
+                                    "columnname": "Packs",
+                                    "isenabled": true,
+                                    "property": "spacks",
+                                    "position": "5",
+                                    "width": "40",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Pack Type",
-                                    "isenabled":true,
-                                    "property":"spacktype",
-                                    "position":"6",
-                                    "width":"60",
-                                    "display":true
+                                    "columnname": "Pack Type",
+                                    "isenabled": true,
+                                    "property": "spacktype",
+                                    "position": "6",
+                                    "width": "60",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Quantity",
-                                    "isenabled":true,
-                                    "property":"squantity",
-                                    "position":"7",
-                                    "width":"40",
-                                    "display":true
+                                    "columnname": "Quantity",
+                                    "isenabled": true,
+                                    "property": "squantity",
+                                    "position": "7",
+                                    "width": "40",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Quanity UQ",
-                                    "isenabled":true,
-                                    "property":"squantityuq",
-                                    "position":"8",
-                                    "width":"60",
-                                    "display":true
+                                    "columnname": "Quanity UQ",
+                                    "isenabled": true,
+                                    "property": "squantityuq",
+                                    "position": "8",
+                                    "width": "60",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Product Condition",
-                                    "isenabled":true,
-                                    "property":"sproductcondition",
-                                    "position":"9",
-                                    "width":"80",
-                                    "display":true
+                                    "columnname": "Product Condition",
+                                    "isenabled": true,
+                                    "property": "sproductcondition",
+                                    "position": "9",
+                                    "width": "80",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Location",
-                                    "isenabled":true,
-                                    "property":"slocation",
-                                    "position":"10",
-                                    "width":"70",
-                                    "display":true
+                                    "columnname": "Location",
+                                    "isenabled": true,
+                                    "property": "slocation",
+                                    "position": "10",
+                                    "width": "70",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"UDF 1",
-                                    "isenabled":true,
-                                    "property":"sudf1",
-                                    "position":"11",
-                                    "width":"100",
-                                    "display":true
+                                    "columnname": "UDF 1",
+                                    "isenabled": true,
+                                    "property": "sudf1",
+                                    "position": "11",
+                                    "width": "100",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"UDF 2",
-                                    "isenabled":true,
-                                    "property":"sudf2",
-                                    "position":"12",
-                                    "width":"100",
-                                    "display":true
+                                    "columnname": "UDF 2",
+                                    "isenabled": true,
+                                    "property": "sudf2",
+                                    "position": "12",
+                                    "width": "100",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"UDF 3",
-                                    "isenabled":true,
-                                    "property":"sudf3",
-                                    "position":"13",
-                                    "width":"100",
-                                    "display":true
+                                    "columnname": "UDF 3",
+                                    "isenabled": true,
+                                    "property": "sudf3",
+                                    "position": "13",
+                                    "width": "100",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Packing Date",
-                                    "isenabled":true,
-                                    "property":"spackingdate",
-                                    "position":"14",
-                                    "width":"80",
-                                    "display":true
+                                    "columnname": "Packing Date",
+                                    "isenabled": true,
+                                    "property": "spackingdate",
+                                    "position": "14",
+                                    "width": "80",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Expiry Date",
-                                    "isenabled":true,
-                                    "property":"sexpirydate",
-                                    "position":"15",
-                                    "width":"80",
-                                    "display":true
+                                    "columnname": "Expiry Date",
+                                    "isenabled": true,
+                                    "property": "sexpirydate",
+                                    "position": "15",
+                                    "width": "80",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Picked Date Time",
-                                    "isenabled":true,
-                                    "property":"spickedqty",
-                                    "position":"16",
-                                    "width":"100",
-                                    "display":true
+                                    "columnname": "Picked Date Time",
+                                    "isenabled": true,
+                                    "property": "spickedqty",
+                                    "position": "16",
+                                    "width": "100",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Picked Qty",
-                                    "isenabled":true,
-                                    "property":"spickeddatetime",
-                                    "position":"17",
-                                    "width":"150",
-                                    "display":true
+                                    "columnname": "Picked Qty",
+                                    "isenabled": true,
+                                    "property": "spickeddatetime",
+                                    "position": "17",
+                                    "width": "150",
+                                    "display": true
                                 }],
-                                "ssno":{
-                                    "isenabled":true,
-                                    "position":"1",
-                                    "width":"40"
+                                "ssno": {
+                                    "isenabled": true,
+                                    "position": "1",
+                                    "width": "40"
                                 },
-                                "sclient":{
-                                    "isenabled":true,
-                                    "position":"2",
-                                    "width":"150"
+                                "sclient": {
+                                    "isenabled": true,
+                                    "position": "2",
+                                    "width": "150"
                                 },
-                                "sproductcode":{
-                                    "isenabled":true,
-                                    "position":"3",
-                                    "width":"100"
+                                "sproductcode": {
+                                    "isenabled": true,
+                                    "position": "3",
+                                    "width": "100"
                                 },
-                                "sproductdescription":{
-                                    "isenabled":true,
-                                    "position":"4",
-                                    "width":"100"
+                                "sproductdescription": {
+                                    "isenabled": true,
+                                    "position": "4",
+                                    "width": "100"
                                 },
-                                "spacks":{
-                                    "isenabled":true,
-                                    "position":"5",
-                                    "width":"40"
+                                "spacks": {
+                                    "isenabled": true,
+                                    "position": "5",
+                                    "width": "40"
                                 },
-                                "spacktype":{
-                                    "isenabled":true,
-                                    "position":"6",
-                                    "width":"60"
+                                "spacktype": {
+                                    "isenabled": true,
+                                    "position": "6",
+                                    "width": "60"
                                 },
-                                "squantity":{
-                                    "isenabled":true,
-                                    "position":"7",
-                                    "width":"40"
+                                "squantity": {
+                                    "isenabled": true,
+                                    "position": "7",
+                                    "width": "40"
                                 },
-                                "squantityuq":{
-                                    "isenabled":true,
-                                    "position":"8",
-                                    "width":"60"
+                                "squantityuq": {
+                                    "isenabled": true,
+                                    "position": "8",
+                                    "width": "60"
                                 },
-                                "sproductcondition":{
-                                    "isenabled":true,
-                                    "position":"9",
-                                    "width":"80"
+                                "sproductcondition": {
+                                    "isenabled": true,
+                                    "position": "9",
+                                    "width": "80"
                                 },
-                                "slocation":{
-                                    "isenabled":true,
-                                    "position":"10",
-                                    "width":"70"
+                                "slocation": {
+                                    "isenabled": true,
+                                    "position": "10",
+                                    "width": "70"
                                 },
-                                "sudf1":{
-                                    "isenabled":true,
-                                    "position":"11",
-                                    "width":"100"
+                                "sudf1": {
+                                    "isenabled": true,
+                                    "position": "11",
+                                    "width": "100"
                                 },
-                                "sudf2":{
-                                    "isenabled":true,
-                                    "position":"12",
-                                    "width":"100"
+                                "sudf2": {
+                                    "isenabled": true,
+                                    "position": "12",
+                                    "width": "100"
                                 },
-                                "sudf3":{
-                                    "isenabled":true,
-                                    "position":"13",
-                                    "width":"100"
+                                "sudf3": {
+                                    "isenabled": true,
+                                    "position": "13",
+                                    "width": "100"
                                 },
-                                "spackingdate":{
-                                    "isenabled":true,
-                                    "position":"14",
-                                    "width":"80"
+                                "spackingdate": {
+                                    "isenabled": true,
+                                    "position": "14",
+                                    "width": "80"
                                 },
-                                "sexpirydate":{
-                                    "isenabled":true,
-                                    "position":"15",
-                                    "width":"80"
+                                "sexpirydate": {
+                                    "isenabled": true,
+                                    "position": "15",
+                                    "width": "80"
                                 },
-                                "spickedqty":{
-                                    "isenabled":true,
-                                    "position":"16",
-                                    "width":"150"
+                                "spickedqty": {
+                                    "isenabled": true,
+                                    "position": "16",
+                                    "width": "150"
                                 },
-                                "spickeddatetime":{
-                                    "isenabled":true,
-                                    "position":"17",
-                                    "width":"100"
+                                "spickeddatetime": {
+                                    "isenabled": true,
+                                    "position": "17",
+                                    "width": "100"
                                 },
-                                
+
                             },
-                            "UIWmsOutwardLines":{
-                                "HeaderProperties":[{
-                                    "columnname":"S.No",
-                                    "isenabled":true,
-                                    "property":"lsno",
-                                    "position":"1",
-                                    "width":"40",
-                                    "display":false
+                            "UIWmsOutwardLines": {
+                                "HeaderProperties": [{
+                                    "columnname": "S.No",
+                                    "isenabled": true,
+                                    "property": "lsno",
+                                    "position": "1",
+                                    "width": "40",
+                                    "display": false
                                 },
                                 {
-                                    "columnname":"Client",
-                                    "isenabled":true,
-                                    "property":"lclient",
-                                    "position":"2",
-                                    "width":"150",
-                                    "display":true
+                                    "columnname": "Client",
+                                    "isenabled": true,
+                                    "property": "lclient",
+                                    "position": "2",
+                                    "width": "150",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Product Code",
-                                    "isenabled":true,
-                                    "property":"lproductcode",
-                                    "position":"3",
-                                    "width":"100",
-                                    "display":true
+                                    "columnname": "Product Code",
+                                    "isenabled": true,
+                                    "property": "lproductcode",
+                                    "position": "3",
+                                    "width": "100",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Product Description",
-                                    "isenabled":true,
-                                    "property":"lproductdescription",
-                                    "position":"4",
-                                    "width":"100",
-                                    "display":true
+                                    "columnname": "Product Description",
+                                    "isenabled": true,
+                                    "property": "lproductdescription",
+                                    "position": "4",
+                                    "width": "100",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Packs",
-                                    "isenabled":true,
-                                    "property":"lpacks",
-                                    "position":"5",
-                                    "width":"50",
-                                    "display":true
+                                    "columnname": "Packs",
+                                    "isenabled": true,
+                                    "property": "lpacks",
+                                    "position": "5",
+                                    "width": "50",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Packs UQ",
-                                    "isenabled":true,
-                                    "property":"lpacksuq",
-                                    "position":"6",
-                                    "width":"70",
-                                    "display":true
+                                    "columnname": "Packs UQ",
+                                    "isenabled": true,
+                                    "property": "lpacksuq",
+                                    "position": "6",
+                                    "width": "70",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"UQ",
-                                    "isenabled":true,
-                                    "property":"luq",
-                                    "position":"7",
-                                    "width":"60",
-                                    "display":true
+                                    "columnname": "UQ",
+                                    "isenabled": true,
+                                    "property": "luq",
+                                    "position": "7",
+                                    "width": "60",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Product Condition",
-                                    "isenabled":true,
-                                    "property":"lproductcondition",
-                                    "position":"8",
-                                    "width":"80",
-                                    "display":true
+                                    "columnname": "Product Condition",
+                                    "isenabled": true,
+                                    "property": "lproductcondition",
+                                    "position": "8",
+                                    "width": "80",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Ordered Qty",
-                                    "isenabled":true,
-                                    "property":"lorderedqty",
-                                    "position":"9",
-                                    "width":"80",
-                                    "display":true
+                                    "columnname": "Ordered Qty",
+                                    "isenabled": true,
+                                    "property": "lorderedqty",
+                                    "position": "9",
+                                    "width": "80",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Shortfall Qty",
-                                    "isenabled":true,
-                                    "property":"lshortfallqty",
-                                    "position":"10",
-                                    "width":"80",
-                                    "display":true
+                                    "columnname": "Shortfall Qty",
+                                    "isenabled": true,
+                                    "property": "lshortfallqty",
+                                    "position": "10",
+                                    "width": "80",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Allocated Qty",
-                                    "isenabled":true,
-                                    "property":"lallocatedqty",
-                                    "position":"11",
-                                    "width":"80",
-                                    "display":true
+                                    "columnname": "Allocated Qty",
+                                    "isenabled": true,
+                                    "property": "lallocatedqty",
+                                    "position": "11",
+                                    "width": "80",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"UDF 1",
-                                    "isenabled":true,
-                                    "property":"ludf1",
-                                    "position":"12",
-                                    "width":"100",
-                                    "display":true
+                                    "columnname": "UDF 1",
+                                    "isenabled": true,
+                                    "property": "ludf1",
+                                    "position": "12",
+                                    "width": "100",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"UDF 2",
-                                    "isenabled":true,
-                                    "property":"ludf2",
-                                    "position":"13",
-                                    "width":"100",
-                                    "display":true
+                                    "columnname": "UDF 2",
+                                    "isenabled": true,
+                                    "property": "ludf2",
+                                    "position": "13",
+                                    "width": "100",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"UDF 3",
-                                    "isenabled":true,
-                                    "property":"ludf3",
-                                    "position":"14",
-                                    "width":"100",
-                                    "display":true
+                                    "columnname": "UDF 3",
+                                    "isenabled": true,
+                                    "property": "ludf3",
+                                    "position": "14",
+                                    "width": "100",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Packing Date",
-                                    "isenabled":true,
-                                    "property":"lpackingdate",
-                                    "position":"15",
-                                    "width":"100",
-                                    "display":true
+                                    "columnname": "Packing Date",
+                                    "isenabled": true,
+                                    "property": "lpackingdate",
+                                    "position": "15",
+                                    "width": "100",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Expiry Date",
-                                    "isenabled":true,
-                                    "property":"lexpirydate",
-                                    "position":"16",
-                                    "width":"100",
-                                    "display":true
+                                    "columnname": "Expiry Date",
+                                    "isenabled": true,
+                                    "property": "lexpirydate",
+                                    "position": "16",
+                                    "width": "100",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Status",
-                                    "isenabled":true,
-                                    "property":"lstatus",
-                                    "position":"17",
-                                    "width":"100",
-                                    "display":true
+                                    "columnname": "Status",
+                                    "isenabled": true,
+                                    "property": "lstatus",
+                                    "position": "17",
+                                    "width": "100",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Outward No",
-                                    "isenabled":true,
-                                    "property":"lorderno",
-                                    "position":"18",
-                                    "width":"100",
-                                    "display":true
+                                    "columnname": "Outward No",
+                                    "isenabled": true,
+                                    "property": "lorderno",
+                                    "position": "18",
+                                    "width": "100",
+                                    "display": true
                                 }],
-                                "lsno":{
-                                    "isenabled":true,
-                                    "position":"1",
-                                    "width":"40"
+                                "lsno": {
+                                    "isenabled": true,
+                                    "position": "1",
+                                    "width": "40"
                                 },
-                                "lclient":{
-                                    "isenabled":true,
-                                    "position":"2",
-                                    "width":"150"
+                                "lclient": {
+                                    "isenabled": true,
+                                    "position": "2",
+                                    "width": "150"
                                 },
-                                "lproductcode":{
-                                    "isenabled":true,
-                                    "position":"3",
-                                    "width":"100"
+                                "lproductcode": {
+                                    "isenabled": true,
+                                    "position": "3",
+                                    "width": "100"
                                 },
-                                "lproductdescription":{
-                                    "isenabled":true,
-                                    "position":"4",
-                                    "width":"100"
+                                "lproductdescription": {
+                                    "isenabled": true,
+                                    "position": "4",
+                                    "width": "100"
                                 },
-                                "lpacks":{
-                                    "isenabled":true,
-                                    "position":"5",
-                                    "width":"50"
+                                "lpacks": {
+                                    "isenabled": true,
+                                    "position": "5",
+                                    "width": "50"
                                 },
-                                "lpacksuq":{
-                                    "isenabled":true,
-                                    "position":"6",
-                                    "width":"70"
+                                "lpacksuq": {
+                                    "isenabled": true,
+                                    "position": "6",
+                                    "width": "70"
                                 },
-                                "luq":{
-                                    "isenabled":true,
-                                    "position":"7",
-                                    "width":"60"
+                                "luq": {
+                                    "isenabled": true,
+                                    "position": "7",
+                                    "width": "60"
                                 },
-                                "lproductcondition":{
-                                    "isenabled":true,
-                                    "position":"8",
-                                    "width":"80"
+                                "lproductcondition": {
+                                    "isenabled": true,
+                                    "position": "8",
+                                    "width": "80"
                                 },
-                                "lorderedqty":{
-                                    "isenabled":true,
-                                    "position":"9",
-                                    "width":"80"
+                                "lorderedqty": {
+                                    "isenabled": true,
+                                    "position": "9",
+                                    "width": "80"
                                 },
-                                "lshortfallqty":{
-                                    "isenabled":true,
-                                    "position":"10",
-                                    "width":"80"
+                                "lshortfallqty": {
+                                    "isenabled": true,
+                                    "position": "10",
+                                    "width": "80"
                                 },
-                                "lallocatedqty":{
-                                    "isenabled":true,
-                                    "position":"11",
-                                    "width":"80"
+                                "lallocatedqty": {
+                                    "isenabled": true,
+                                    "position": "11",
+                                    "width": "80"
                                 },
-                                "ludf1":{
-                                    "isenabled":true,
-                                    "position":"12",
-                                    "width":"100"
+                                "ludf1": {
+                                    "isenabled": true,
+                                    "position": "12",
+                                    "width": "100"
                                 },
-                                "ludf2":{
-                                    "isenabled":true,
-                                    "position":"13",
-                                    "width":"100"
+                                "ludf2": {
+                                    "isenabled": true,
+                                    "position": "13",
+                                    "width": "100"
                                 },
-                                "ludf3":{
-                                    "isenabled":true,
-                                    "position":"14",
-                                    "width":"100"
+                                "ludf3": {
+                                    "isenabled": true,
+                                    "position": "14",
+                                    "width": "100"
                                 },
-                                "lpackingdate":{
-                                    "isenabled":true,
-                                    "position":"15",
-                                    "width":"100"
+                                "lpackingdate": {
+                                    "isenabled": true,
+                                    "position": "15",
+                                    "width": "100"
                                 },
-                                "lexpirydate":{
-                                    "isenabled":true,
-                                    "position":"16",
-                                    "width":"100"
+                                "lexpirydate": {
+                                    "isenabled": true,
+                                    "position": "16",
+                                    "width": "100"
                                 },
-                                "lstatus":{
-                                    "isenabled":true,
-                                    "position":"17",
-                                    "width":"100"
+                                "lstatus": {
+                                    "isenabled": true,
+                                    "position": "17",
+                                    "width": "100"
                                 },
-                                "lorderno":{
-                                    "isenabled":true,
-                                    "position":"18",
-                                    "width":"100"
+                                "lorderno": {
+                                    "isenabled": true,
+                                    "position": "18",
+                                    "width": "100"
                                 }
                             },
-                            "PickInventoryList":{
-                                "HeaderProperties":[{
-                                    "columnname":"Checkbox",
-                                    "isenabled":true,
-                                    "property":"icheckbox",
-                                    "position":'1',
-                                    "width":"80",
-                                    "display":false
-                                },{
-                                    "columnname":"S.No",
-                                    "isenabled":true,
-                                    "property":"isno",
-                                    "position":"2",
-                                    "width":"40",
-                                    "display":false
+                            "PickInventoryList": {
+                                "HeaderProperties": [{
+                                    "columnname": "Checkbox",
+                                    "isenabled": true,
+                                    "property": "icheckbox",
+                                    "position": '1',
+                                    "width": "80",
+                                    "display": false
+                                }, {
+                                    "columnname": "S.No",
+                                    "isenabled": true,
+                                    "property": "isno",
+                                    "position": "2",
+                                    "width": "40",
+                                    "display": false
                                 },
                                 {
-                                    "columnname":"Product Code",
-                                    "isenabled":true,
-                                    "property":"iproductcode",
-                                    "position":"3",
-                                    "width":"100",
-                                    "display":true
+                                    "columnname": "Product Code",
+                                    "isenabled": true,
+                                    "property": "iproductcode",
+                                    "position": "3",
+                                    "width": "100",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Product Description",
-                                    "isenabled":true,
-                                    "property":"iproductdescription",
-                                    "position":"4",
-                                    "width":"100",
-                                    "display":true
+                                    "columnname": "Product Description",
+                                    "isenabled": true,
+                                    "property": "iproductdescription",
+                                    "position": "4",
+                                    "width": "100",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Location",
-                                    "isenabled":true,
-                                    "property":"ilocation",
-                                    "position":"5",
-                                    "width":"100",
-                                    "display":true
+                                    "columnname": "Location",
+                                    "isenabled": true,
+                                    "property": "ilocation",
+                                    "position": "5",
+                                    "width": "100",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Allocated Qty",
-                                    "isenabled":true,
-                                    "property":"iallocatedqty",
-                                    "position":"6",
-                                    "width":"100",
-                                    "display":true
+                                    "columnname": "Allocated Qty",
+                                    "isenabled": true,
+                                    "property": "iallocatedqty",
+                                    "position": "6",
+                                    "width": "100",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"In Location Qty",
-                                    "isenabled":true,
-                                    "property":"iinlocationqty",
-                                    "position":"7",
-                                    "width":"80",
-                                    "display":true
+                                    "columnname": "In Location Qty",
+                                    "isenabled": true,
+                                    "property": "iinlocationqty",
+                                    "position": "7",
+                                    "width": "80",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Available To Pick",
-                                    "isenabled":true,
-                                    "property":"iavailabletopick",
-                                    "position":"8",
-                                    "width":"80",
-                                    "display":true
+                                    "columnname": "Available To Pick",
+                                    "isenabled": true,
+                                    "property": "iavailabletopick",
+                                    "position": "8",
+                                    "width": "80",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Committed Qty",
-                                    "isenabled":true,
-                                    "property":"icommittedqty",
-                                    "position":"9",
-                                    "width":"80",
-                                    "display":true
+                                    "columnname": "Committed Qty",
+                                    "isenabled": true,
+                                    "property": "icommittedqty",
+                                    "position": "9",
+                                    "width": "80",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Reserved Qty",
-                                    "isenabled":true,
-                                    "property":"ireservedqty",
-                                    "position":"10",
-                                    "width":"80",
-                                    "display":true
+                                    "columnname": "Reserved Qty",
+                                    "isenabled": true,
+                                    "property": "ireservedqty",
+                                    "position": "10",
+                                    "width": "80",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"InTransit Qty",
-                                    "isenabled":true,
-                                    "property":"iinstransitqty",
-                                    "position":"11",
-                                    "width":"80",
-                                    "display":true
+                                    "columnname": "InTransit Qty",
+                                    "isenabled": true,
+                                    "property": "iinstransitqty",
+                                    "position": "11",
+                                    "width": "80",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Total Qty",
-                                    "isenabled":true,
-                                    "property":"itotalqty",
-                                    "position":"12",
-                                    "width":"80",
-                                    "display":true
+                                    "columnname": "Total Qty",
+                                    "isenabled": true,
+                                    "property": "itotalqty",
+                                    "position": "12",
+                                    "width": "80",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Inventory Status",
-                                    "isenabled":true,
-                                    "property":"iinventorystatus",
-                                    "position":"13",
-                                    "width":"100",
-                                    "display":true
+                                    "columnname": "Inventory Status",
+                                    "isenabled": true,
+                                    "property": "iinventorystatus",
+                                    "position": "13",
+                                    "width": "100",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Location Status",
-                                    "isenabled":true,
-                                    "property":"ilocationstatus",
-                                    "position":"14",
-                                    "width":"100",
-                                    "display":true
+                                    "columnname": "Location Status",
+                                    "isenabled": true,
+                                    "property": "ilocationstatus",
+                                    "position": "14",
+                                    "width": "100",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Arrival Date",
-                                    "isenabled":true,
-                                    "property":"iarrivaldate",
-                                    "position":"15",
-                                    "width":"100",
-                                    "display":true
+                                    "columnname": "Arrival Date",
+                                    "isenabled": true,
+                                    "property": "iarrivaldate",
+                                    "position": "15",
+                                    "width": "100",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"UDF 1",
-                                    "isenabled":true,
-                                    "property":"iudf1",
-                                    "position":"16",
-                                    "width":"100",
-                                    "display":true
+                                    "columnname": "UDF 1",
+                                    "isenabled": true,
+                                    "property": "iudf1",
+                                    "position": "16",
+                                    "width": "100",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"UDF 2",
-                                    "isenabled":true,
-                                    "property":"iudf2",
-                                    "position":"17",
-                                    "width":"100",
-                                    "display":true
+                                    "columnname": "UDF 2",
+                                    "isenabled": true,
+                                    "property": "iudf2",
+                                    "position": "17",
+                                    "width": "100",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"UDF 3",
-                                    "isenabled":true,
-                                    "property":"iudf3",
-                                    "position":"18",
-                                    "width":"100",
-                                    "display":true
+                                    "columnname": "UDF 3",
+                                    "isenabled": true,
+                                    "property": "iudf3",
+                                    "position": "18",
+                                    "width": "100",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Packing Date",
-                                    "isenabled":true,
-                                    "property":"ipackingdate",
-                                    "position":"19",
-                                    "width":"100",
-                                    "display":true
+                                    "columnname": "Packing Date",
+                                    "isenabled": true,
+                                    "property": "ipackingdate",
+                                    "position": "19",
+                                    "width": "100",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"Expiry Date",
-                                    "isenabled":true,
-                                    "property":"iexpirydate",
-                                    "position":"20",
-                                    "width":"100",
-                                    "display":true
+                                    "columnname": "Expiry Date",
+                                    "isenabled": true,
+                                    "property": "iexpirydate",
+                                    "position": "20",
+                                    "width": "100",
+                                    "display": true
                                 }],
-                                "icheckbox":{
-                                    "isenabled":true,
-                                    "position":"1",
-                                    "width":"80"
+                                "icheckbox": {
+                                    "isenabled": true,
+                                    "position": "1",
+                                    "width": "80"
                                 },
-                                "isno":{
-                                    "isenabled":true,
-                                    "position":"2",
-                                    "width":"40"
+                                "isno": {
+                                    "isenabled": true,
+                                    "position": "2",
+                                    "width": "40"
                                 },
-                                "iproductcode":{
-                                    "isenabled":true,
-                                    "position":"3",
-                                    "width":"100"
+                                "iproductcode": {
+                                    "isenabled": true,
+                                    "position": "3",
+                                    "width": "100"
                                 },
-                                "iproductdescription":{
-                                    "isenabled":true,
-                                    "position":"4",
-                                    "width":"100"
+                                "iproductdescription": {
+                                    "isenabled": true,
+                                    "position": "4",
+                                    "width": "100"
                                 },
-                                "ilocation":{
-                                    "isenabled":true,
-                                    "position":"5",
-                                    "width":"100"
+                                "ilocation": {
+                                    "isenabled": true,
+                                    "position": "5",
+                                    "width": "100"
                                 },
-                                "iallocatedqty":{
-                                    "isenabled":true,
-                                    "position":"6",
-                                    "width":"100"
+                                "iallocatedqty": {
+                                    "isenabled": true,
+                                    "position": "6",
+                                    "width": "100"
                                 },
-                                "iinlocationqty":{
-                                    "isenabled":true,
-                                    "position":"7",
-                                    "width":"80"
+                                "iinlocationqty": {
+                                    "isenabled": true,
+                                    "position": "7",
+                                    "width": "80"
                                 },
-                                "iavailabletopick":{
-                                    "isenabled":true,
-                                    "position":"8",
-                                    "width":"80"
+                                "iavailabletopick": {
+                                    "isenabled": true,
+                                    "position": "8",
+                                    "width": "80"
                                 },
-                                "icommittedqty":{
-                                    "isenabled":true,
-                                    "position":"9",
-                                    "width":"80"
+                                "icommittedqty": {
+                                    "isenabled": true,
+                                    "position": "9",
+                                    "width": "80"
                                 },
-                                "ireservedqty":{
-                                    "isenabled":true,
-                                    "position":"10",
-                                    "width":"80"
+                                "ireservedqty": {
+                                    "isenabled": true,
+                                    "position": "10",
+                                    "width": "80"
                                 },
-                                "iinstransitqty":{
-                                    "isenabled":true,
-                                    "position":"11",
-                                    "width":"80"
+                                "iinstransitqty": {
+                                    "isenabled": true,
+                                    "position": "11",
+                                    "width": "80"
                                 },
-                                "itotalqty":{
-                                    "isenabled":true,
-                                    "position":"12",
-                                    "width":"80"
+                                "itotalqty": {
+                                    "isenabled": true,
+                                    "position": "12",
+                                    "width": "80"
                                 },
-                                "iinventorystatus":{
-                                    "isenabled":true,
-                                    "position":"13",
-                                    "width":"100"
+                                "iinventorystatus": {
+                                    "isenabled": true,
+                                    "position": "13",
+                                    "width": "100"
                                 },
-                                "ilocationstatus":{
-                                    "isenabled":true,
-                                    "position":"14",
-                                    "width":"100"
+                                "ilocationstatus": {
+                                    "isenabled": true,
+                                    "position": "14",
+                                    "width": "100"
                                 },
-                                "iarrivaldate":{
-                                    "isenabled":true,
-                                    "position":"15",
-                                    "width":"100"
+                                "iarrivaldate": {
+                                    "isenabled": true,
+                                    "position": "15",
+                                    "width": "100"
                                 },
-                                "iudf1":{
-                                    "isenabled":true,
-                                    "position":"16",
-                                    "width":"100"
+                                "iudf1": {
+                                    "isenabled": true,
+                                    "position": "16",
+                                    "width": "100"
                                 },
-                                "iudf2":{
-                                    "isenabled":true,
-                                    "position":"17",
-                                    "width":"100"
+                                "iudf2": {
+                                    "isenabled": true,
+                                    "position": "17",
+                                    "width": "100"
                                 },
-                                "iudf3":{
-                                    "isenabled":true,
-                                    "position":"18",
-                                    "width":"100"
+                                "iudf3": {
+                                    "isenabled": true,
+                                    "position": "18",
+                                    "width": "100"
                                 },
-                                "ipackingdate":{
-                                    "isenabled":true,
-                                    "position":"19",
-                                    "width":"100"
+                                "ipackingdate": {
+                                    "isenabled": true,
+                                    "position": "19",
+                                    "width": "100"
                                 },
-                                "iexpirydate":{
-                                    "isenabled":true,
-                                    "position":"20",
-                                    "width":"100"
+                                "iexpirydate": {
+                                    "isenabled": true,
+                                    "position": "20",
+                                    "width": "100"
                                 }
                             },
-                            "UIWmsReleaseLine":{
-                                "HeaderProperties":[{
-                                    "columnname":"Checkbox",
-                                    "isenabled":true,
-                                    "property":"rcheckbox",
-                                    "position":'1',
-                                    "width":"40",
-                                    "display":false
-                                },{
-                                    "columnname":"S.No",
-                                    "isenabled":true,
-                                    "property":"rsno",
-                                    "position":"2",
-                                    "width":"40",
-                                    "display":false
+                            "UIWmsReleaseLine": {
+                                "HeaderProperties": [{
+                                    "columnname": "Checkbox",
+                                    "isenabled": true,
+                                    "property": "rcheckbox",
+                                    "position": '1',
+                                    "width": "40",
+                                    "display": false
+                                }, {
+                                    "columnname": "S.No",
+                                    "isenabled": true,
+                                    "property": "rsno",
+                                    "position": "2",
+                                    "width": "40",
+                                    "display": false
                                 },
                                 {
-                                    "columnname":"Qty",
-                                    "isenabled":true,
-                                    "property":"rqty",
-                                    "position":"3",
-                                    "width":"100",
-                                    "display":true
+                                    "columnname": "Qty",
+                                    "isenabled": true,
+                                    "property": "rqty",
+                                    "position": "3",
+                                    "width": "100",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"UDF 1",
-                                    "isenabled":true,
-                                    "property":"rudf1",
-                                    "position":"4",
-                                    "width":"200",
-                                    "display":true
+                                    "columnname": "UDF 1",
+                                    "isenabled": true,
+                                    "property": "rudf1",
+                                    "position": "4",
+                                    "width": "200",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"UDF 2",
-                                    "isenabled":true,
-                                    "property":"rudf2",
-                                    "position":"5",
-                                    "width":"200",
-                                    "display":true
+                                    "columnname": "UDF 2",
+                                    "isenabled": true,
+                                    "property": "rudf2",
+                                    "position": "5",
+                                    "width": "200",
+                                    "display": true
                                 },
                                 {
-                                    "columnname":"UDF 3",
-                                    "isenabled":true,
-                                    "property":"rudf3",
-                                    "position":"6",
-                                    "width":"200",
-                                    "display":true
+                                    "columnname": "UDF 3",
+                                    "isenabled": true,
+                                    "property": "rudf3",
+                                    "position": "6",
+                                    "width": "200",
+                                    "display": true
                                 }],
-                                "rcheckbox":{
-                                    "isenabled":true,
-                                    "position":"1",
-                                    "width":"40"
+                                "rcheckbox": {
+                                    "isenabled": true,
+                                    "position": "1",
+                                    "width": "40"
                                 },
-                                "rsno":{
-                                    "isenabled":true,
-                                    "position":"1",
-                                    "width":"40"
+                                "rsno": {
+                                    "isenabled": true,
+                                    "position": "1",
+                                    "width": "40"
                                 },
-                                "rqty":{
-                                    "isenabled":true,
-                                    "position":"2",
-                                    "width":"100"
+                                "rqty": {
+                                    "isenabled": true,
+                                    "position": "2",
+                                    "width": "100"
                                 },
-                                "rudf1":{
-                                    "isenabled":true,
-                                    "position":"3",
-                                    "width":"200"
+                                "rudf1": {
+                                    "isenabled": true,
+                                    "position": "3",
+                                    "width": "200"
                                 },
-                                "rudf2":{
-                                    "isenabled":true,
-                                    "position":"4",
-                                    "width":"200"
+                                "rudf2": {
+                                    "isenabled": true,
+                                    "position": "4",
+                                    "width": "200"
                                 },
-                                "rudf3":{
-                                    "isenabled":true,
-                                    "position":"5",
-                                    "width":"200"
+                                "rudf3": {
+                                    "isenabled": true,
+                                    "position": "5",
+                                    "width": "200"
                                 }
                             },
                         }
@@ -1142,7 +1142,7 @@
                     _obj.RowIndex = RowIndex;
                     _obj.ColIndex = ColIndex;
                     _obj.DisplayName = DisplayName;
-                    _obj.Message = Message+' In Line No '+ (RowIndex+1);
+                    _obj.Message = Message + ' In Line No ' + (RowIndex + 1);
                 }
 
                 var _index = exports.TabList.map(function (value, key) {
@@ -1151,14 +1151,14 @@
 
                 if (_index !== -1) {
 
-                    if(!IsArray){
+                    if (!IsArray) {
                         var _isExistGlobal = exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.some(function (value, key) {
                             return value.Code == Code;
-                        });  
-                    }else{
+                        });
+                    } else {
                         var _isExistGlobal = exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.some(function (value, key) {
-                            if(value.Code == Code && value.RowIndex == RowIndex && value.ColIndex == ColIndex)
-                            return true;
+                            if (value.Code == Code && value.RowIndex == RowIndex && value.ColIndex == ColIndex)
+                                return true;
                         });
                     }
 
@@ -1172,15 +1172,15 @@
 
                     if (MessageType === "W") {
                         exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].IsWarning = true;
-                        
-                        if(!IsArray){
+
+                        if (!IsArray) {
                             var _indexWarning = exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].WARNING.map(function (val, key) {
                                 return val.Code;
                             }).indexOf(Code);
-                        }else{
+                        } else {
                             var _indexError = exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].ERROR.map(function (val, key) {
-                                if(val.Code == Code && val.RowIndex == RowIndex && val.ColIndex==ColIndex)
-                                return val.Code;
+                                if (val.Code == Code && val.RowIndex == RowIndex && val.ColIndex == ColIndex)
+                                    return val.Code;
                             }).indexOf(Code);
                         }
 
@@ -1196,14 +1196,14 @@
                     } else if (MessageType === "E") {
                         exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].IsError = true;
 
-                        if(!IsArray){
+                        if (!IsArray) {
                             var _indexError = exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].ERROR.map(function (val, key) {
                                 return val.Code;
                             }).indexOf(Code);
-                        }else{
+                        } else {
                             var _indexError = exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].ERROR.map(function (val, key) {
-                                if(val.Code == Code && val.RowIndex == RowIndex && val.ColIndex==ColIndex)
-                                return val.Code;
+                                if (val.Code == Code && val.RowIndex == RowIndex && val.ColIndex == ColIndex)
+                                    return val.Code;
                             }).indexOf(Code);
                         }
 
@@ -1221,23 +1221,23 @@
             }
         }
 
-        function RemoveErrorWarning(Code, MessageType, MetaObject, EntityObject,IsArray, RowIndex, ColIndex) {
+        function RemoveErrorWarning(Code, MessageType, MetaObject, EntityObject, IsArray, RowIndex, ColIndex) {
             if (Code) {
                 var _index = exports.TabList.map(function (value, key) {
                     return value.label;
                 }).indexOf(EntityObject);
 
-                    if (_index !== -1) {
-                        if(!IsArray){
-                            var _indexGlobal = exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.map(function (value, key) {
+                if (_index !== -1) {
+                    if (!IsArray) {
+                        var _indexGlobal = exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.map(function (value, key) {
+                            return value.Code;
+                        }).indexOf(Code);
+                    } else {
+                        var _indexGlobal = exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.map(function (value, key) {
+                            if (value.Code == Code && value.RowIndex == RowIndex && value.ColIndex == ColIndex)
                                 return value.Code;
-                            }).indexOf(Code);
-                        }else{
-                            var _indexGlobal = exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.map(function (value, key) {
-                                if(value.Code==Code && value.RowIndex==RowIndex && value.ColIndex==ColIndex)
-                                return value.Code;
-                            }).indexOf(Code);
-                        }
+                        }).indexOf(Code);
+                    }
 
 
                     if (_indexGlobal !== -1) {
@@ -1245,12 +1245,12 @@
                     }
 
                     if (MessageType === "E") {
-                        if(!IsArray){
+                        if (!IsArray) {
                             if (exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].ERROR.length > 0) {
                                 exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].ERROR.map(function (value, key) {
                                     if (value.Code === Code) {
                                         exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].ERROR.splice(key, 1);
-    
+
                                         if (exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].ERROR.length === 0) {
                                             exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].IsError = false;
                                         }
@@ -1260,12 +1260,12 @@
                                 exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].IsError = false;
                                 exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].ERROR = [];
                             }
-                        }else if(IsArray){
+                        } else if (IsArray) {
                             if (exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].ERROR.length > 0) {
                                 exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].ERROR.map(function (value, key) {
                                     if (value.Code == Code && value.ColIndex == ColIndex && value.RowIndex == RowIndex) {
                                         exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].ERROR.splice(key, 1);
-    
+
                                         if (exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].ERROR.length === 0) {
                                             exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].IsError = false;
                                         }
@@ -1274,15 +1274,15 @@
                             } else {
                                 exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].IsError = false;
                                 exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].ERROR = [];
-                            }  
+                            }
                         }
                     } else if (MessageType === "W") {
-                        if(!IsArray){
+                        if (!IsArray) {
                             if (exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].WARNING.length > 0) {
                                 exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].WARNING.map(function (value, key) {
                                     if (value.Code == Code) {
                                         exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].WARNING.splice(key, 1);
-    
+
                                         if (exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].WARNING.length === 0) {
                                             exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].IsWarning = false;
                                         }
@@ -1292,12 +1292,12 @@
                                 exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].IsWarning = false;
                                 exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].WARNING = [];
                             }
-                        }else if(IsArray){
+                        } else if (IsArray) {
                             if (exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].WARNING.length > 0) {
                                 exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].WARNING.map(function (value, key) {
                                     if (value.Code == Code && value.ColIndex == ColIndex && value.RowIndex == RowIndex) {
                                         exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].WARNING.splice(key, 1);
-    
+
                                         if (exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].WARNING.length === 0) {
                                             exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].IsWarning = false;
                                         }
@@ -1339,6 +1339,9 @@
 
         function ShowErrorWarningModal(EntityObject) {
             $("#errorWarningContainer" + EntityObject.label).toggleClass("open");
+            if (EntityObject[EntityObject.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length == 0) {
+                $("#errorWarningContainer" + EntityObject.label).removeClass("open");
+            }
         }
 
         // Validations
@@ -1346,7 +1349,7 @@
         function ValidationFindall() {
             var _filter = {
                 "ModuleCode": "WMS",
-                "SubModuleCode":"WPK"
+                "SubModuleCode": "WPK"
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
@@ -1364,70 +1367,70 @@
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
 
-                OnChangeValues(_input.UIWmsPickHeader.PickNo, 'E8001', false, undefined, $item.label);
-                OnChangeValues(_input.UIWmsPickHeader.PickOption, 'E8002', false, undefined, $item.label);
-                OnChangeValues(_input.UIWmsPickHeader.WarehouseCode, 'E8003', false, undefined, $item.label);
+            OnChangeValues(_input.UIWmsPickHeader.PickNo, 'E8001', false, undefined, $item.label);
+            OnChangeValues(_input.UIWmsPickHeader.PickOption, 'E8002', false, undefined, $item.label);
+            OnChangeValues(_input.UIWmsPickHeader.WarehouseCode, 'E8003', false, undefined, $item.label);
 
 
-            if(_input.UIWmsReleaseLine.length>0){
-                angular.forEach(_input.UIWmsReleaseLine,function(value,key){
+            if (_input.UIWmsReleaseLine.length > 0) {
+                angular.forEach(_input.UIWmsReleaseLine, function (value, key) {
 
                     OnChangeValues(value.Units, 'E8021', true, key, $item.label);
 
-                    if((value.IsPartAttrib1ReleaseCaptured) && (value.IMPartAttrib1Type=='MAN' || value.IMPartAttrib1Type=='BAT' || value.IMPartAttrib1Type=='SER')){
+                    if ((value.IsPartAttrib1ReleaseCaptured) && (value.IMPartAttrib1Type == 'MAN' || value.IMPartAttrib1Type == 'BAT' || value.IMPartAttrib1Type == 'SER')) {
                         OnChangeValues(value.PartAttrib1, 'E8014', true, key, $item.label);
                     }
-                    if((value.IsPartAttrib2ReleaseCaptured) && (value.IMPartAttrib2Type=='MAN' || value.IMPartAttrib2Type=='BAT' || value.IMPartAttrib2Type=='SER')){
+                    if ((value.IsPartAttrib2ReleaseCaptured) && (value.IMPartAttrib2Type == 'MAN' || value.IMPartAttrib2Type == 'BAT' || value.IMPartAttrib2Type == 'SER')) {
                         OnChangeValues(value.PartAttrib2, 'E8015', true, key, $item.label);
                     }
-                    if((value.IsPartAttrib3ReleaseCaptured) && (value.IMPartAttrib3Type=='MAN' || value.IMPartAttrib3Type=='BAT' || value.IMPartAttrib3Type=='SER')){
+                    if ((value.IsPartAttrib3ReleaseCaptured) && (value.IMPartAttrib3Type == 'MAN' || value.IMPartAttrib3Type == 'BAT' || value.IMPartAttrib3Type == 'SER')) {
                         OnChangeValues(value.PartAttrib3, 'E8016', true, key, $item.label);
                     }
 
-                    OnChangeValues('value','E8018',true,key,$item.label);
-                    OnChangeValues('value','E8019',true,key,$item.label);
-                    OnChangeValues('value','E8020',true,key,$item.label);
+                    OnChangeValues('value', 'E8018', true, key, $item.label);
+                    OnChangeValues('value', 'E8019', true, key, $item.label);
+                    OnChangeValues('value', 'E8020', true, key, $item.label);
                 });
 
-                if(_input.UIWmsPickLineSummary.length>0){
-                    angular.forEach(_input.UIWmsPickLineSummary,function(value,key){
-                        OnChangeValues('value','E8022',true,key,$item.label);
-                        OnChangeValues('value','E8023',true,key,$item.label);
-                        OnChangeValues('value','E8024',true,key,$item.label);
+                if (_input.UIWmsPickLineSummary.length > 0) {
+                    angular.forEach(_input.UIWmsPickLineSummary, function (value, key) {
+                        OnChangeValues('value', 'E8022', true, key, $item.label);
+                        OnChangeValues('value', 'E8023', true, key, $item.label);
+                        OnChangeValues('value', 'E8024', true, key, $item.label);
                     })
                 }
             }
 
             //Check Duplicate
-            if(_input.UIWmsReleaseLine.length>1){
+            if (_input.UIWmsReleaseLine.length > 1) {
                 var finishloop = false;
 
-                for(var i = 0;i<_input.UIWmsReleaseLine.length;i++){
-                    for(var j=i+1;j<_input.UIWmsReleaseLine.length;j++){
-                        if(!finishloop){
-                            if(_input.UIWmsReleaseLine[j].IsPartAttrib1ReleaseCaptured && _input.UIWmsReleaseLine[j].IMPartAttrib1Type =='SER'){
-                                if(_input.UIWmsReleaseLine[j].PartAttrib1){
-                                    if(_input.UIWmsReleaseLine[i].PartAttrib1 == _input.UIWmsReleaseLine[j].PartAttrib1){
-                                        OnChangeValues(null,'E8018',true,i,$item.label);
-                                        OnChangeValues(null,'E8018',true,j,$item.label);
+                for (var i = 0; i < _input.UIWmsReleaseLine.length; i++) {
+                    for (var j = i + 1; j < _input.UIWmsReleaseLine.length; j++) {
+                        if (!finishloop) {
+                            if (_input.UIWmsReleaseLine[j].IsPartAttrib1ReleaseCaptured && _input.UIWmsReleaseLine[j].IMPartAttrib1Type == 'SER') {
+                                if (_input.UIWmsReleaseLine[j].PartAttrib1) {
+                                    if (_input.UIWmsReleaseLine[i].PartAttrib1 == _input.UIWmsReleaseLine[j].PartAttrib1) {
+                                        OnChangeValues(null, 'E8018', true, i, $item.label);
+                                        OnChangeValues(null, 'E8018', true, j, $item.label);
                                         finishloop = true;
                                     }
                                 }
                             }
-                            if(!_input.UIWmsReleaseLine[j].IsPartAttrib2ReleaseCaptured &&  _input.UIWmsReleaseLine[j].IMPartAttrib2Type =='SER'){
-                                if(_input.UIWmsReleaseLine[j].PartAttrib2){
-                                    if(_input.UIWmsReleaseLine[i].PartAttrib2 == _input.UIWmsReleaseLine[j].PartAttrib2){
-                                        OnChangeValues(null,'E8019',true,i,$item.label);
-                                        OnChangeValues(null,'E8019',true,j,$item.label);
+                            if (!_input.UIWmsReleaseLine[j].IsPartAttrib2ReleaseCaptured && _input.UIWmsReleaseLine[j].IMPartAttrib2Type == 'SER') {
+                                if (_input.UIWmsReleaseLine[j].PartAttrib2) {
+                                    if (_input.UIWmsReleaseLine[i].PartAttrib2 == _input.UIWmsReleaseLine[j].PartAttrib2) {
+                                        OnChangeValues(null, 'E8019', true, i, $item.label);
+                                        OnChangeValues(null, 'E8019', true, j, $item.label);
                                         finishloop = true;
                                     }
                                 }
                             }
-                            if(!_input.UIWmsReleaseLine[j].IsPartAttrib3ReleaseCaptured && _input.UIWmsReleaseLine[j].IMPartAttrib3Type =='SER'){
-                                if(_input.UIWmsReleaseLine[j].PartAttrib3){
-                                    if(_input.UIWmsReleaseLine[i].PartAttrib3 == _input.UIWmsReleaseLine[j].PartAttrib3){
-                                        OnChangeValues(null,'E8020',true,i,$item.label);
-                                        OnChangeValues(null,'E8020',true,j,$item.label);
+                            if (!_input.UIWmsReleaseLine[j].IsPartAttrib3ReleaseCaptured && _input.UIWmsReleaseLine[j].IMPartAttrib3Type == 'SER') {
+                                if (_input.UIWmsReleaseLine[j].PartAttrib3) {
+                                    if (_input.UIWmsReleaseLine[i].PartAttrib3 == _input.UIWmsReleaseLine[j].PartAttrib3) {
+                                        OnChangeValues(null, 'E8020', true, i, $item.label);
+                                        OnChangeValues(null, 'E8020', true, j, $item.label);
                                         finishloop = true;
                                     }
                                 }
@@ -1439,38 +1442,38 @@
         }
 
         // While release capture UDFs are mandatory
-        function ReleaseCapture($item,PK){
+        function ReleaseCapture($item, PK) {
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
-            if(_input.UIWmsPickLineSummary.length>0){
-                angular.forEach(_input.UIWmsPickLineSummary,function(value,key){
-                    if(value.IsPartAttrib1ReleaseCaptured || value.IsPartAttrib2ReleaseCaptured || value.IsPartAttrib3ReleaseCaptured){
+            if (_input.UIWmsPickLineSummary.length > 0) {
+                angular.forEach(_input.UIWmsPickLineSummary, function (value, key) {
+                    if (value.IsPartAttrib1ReleaseCaptured || value.IsPartAttrib2ReleaseCaptured || value.IsPartAttrib3ReleaseCaptured) {
                         var totalunits = 0;
-                        if(value.WOD_FK==PK){
-                            var temp = _input.UIWmsReleaseLine.map(function(val,k){
-                                if(val.WPL_FK == value.PK)
-                                return val;
-                           });
-                           
-                           angular.forEach(temp,function(val,k){
-                               if(val){
-                                totalunits = totalunits+parseFloat(val.Units);
-                               }
-                           })
-                           
-       
-                           if(totalunits===0){
-                               OnChangeValues(null,'E8022',true,key,$item.label); 
-                           }else if(value.Units > totalunits){
-                               OnChangeValues(null,'E8023',true,key,$item.label);
-                           }else if(value.Units < totalunits){
-                               OnChangeValues(null,'E8024',true,key,$item.label);
-                           }else
-                           if(parseFloat(value.Units)==totalunits){
-                               OnChangeValues('value','E8022',true,key,$item.label);
-                               OnChangeValues('value','E8023',true,key,$item.label);
-                               OnChangeValues('value','E8024',true,key,$item.label);
-                           }
+                        if (value.WOD_FK == PK) {
+                            var temp = _input.UIWmsReleaseLine.map(function (val, k) {
+                                if (val.WPL_FK == value.PK)
+                                    return val;
+                            });
+
+                            angular.forEach(temp, function (val, k) {
+                                if (val) {
+                                    totalunits = totalunits + parseFloat(val.Units);
+                                }
+                            })
+
+
+                            if (totalunits === 0) {
+                                OnChangeValues(null, 'E8022', true, key, $item.label);
+                            } else if (value.Units > totalunits) {
+                                OnChangeValues(null, 'E8023', true, key, $item.label);
+                            } else if (value.Units < totalunits) {
+                                OnChangeValues(null, 'E8024', true, key, $item.label);
+                            } else
+                                if (parseFloat(value.Units) == totalunits) {
+                                    OnChangeValues('value', 'E8022', true, key, $item.label);
+                                    OnChangeValues('value', 'E8023', true, key, $item.label);
+                                    OnChangeValues('value', 'E8024', true, key, $item.label);
+                                }
                         }
                     }
                 })

@@ -15,7 +15,8 @@
             controller: "OutwardMyTaskController",
             controllerAs: "OutwardMyTaskCtrl",
             scope: {
-                currentOutward: "="
+                currentOutward: "=",
+                listSource: "=",
             },
             bindToController: true
         };

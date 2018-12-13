@@ -1,0 +1,30 @@
+<div id="myDialog">
+    <div class="modal-header ">
+        <h4 class="modal-title " id="modal-title ">Choose the Transfer From Warehouse </h4>
+    </div>
+    <div class="modal-body " id="modal-body ">
+        <!--Warehouse Code And Name-->
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+                <label class="control-label text-single-line">Transfer From Warehouse</label>
+                <div class="input-group input-group-sm">
+                    <!-- Dynamic look up Search in textbox -->
+                    <div dynamic-lookup placeholder="Warehouse" my-ng-model="CreateDelChallanCtrl.ePage.Masters.Warehouse" auto-complete-on-select="CreateDelChallanCtrl.ePage.Masters.SelectedLookupWarehouse($item)"
+                        obj="CreateDelChallanCtrl.ePage.Masters" page-name="'Warehouse'" control-id="'Warehouse'" control-key="'Warehouse_3067'">
+                    </div>
+                    <!-- Look Up page opens when button clicks -->
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="CreateDelChallanCtrl.ePage.Masters" control-id="'Warehouse'" control-key="'Warehouse_3067'"
+                            selected-data="CreateDelChallanCtrl.ePage.Masters.SelectedLookupWarehouse($item.data.entity)" page-name="'Warehouse'"
+                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny" type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer ">
+        <button class="btn btn-primary " type="button " ng-click="CreateDelChallanCtrl.ePage.Masters.Close() ">Close</button>
+    </div>
+</div>

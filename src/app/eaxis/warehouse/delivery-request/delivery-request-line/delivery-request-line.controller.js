@@ -36,6 +36,7 @@
             DeliveryLineCtrl.ePage.Masters.SelectAllCheckBox = SelectAllCheckBox;
             DeliveryLineCtrl.ePage.Masters.SingleSelectCheckBox = SingleSelectCheckBox;
             DeliveryLineCtrl.ePage.Masters.FetchQuantity = FetchQuantity;
+            DeliveryLineCtrl.ePage.Masters.SelectedLookupProduct = SelectedLookupProduct;
 
             DeliveryLineCtrl.ePage.Masters.Config = $injector.get("deliveryConfig");
             DeliveryLineCtrl.ePage.Masters.setSelectedRow = setSelectedRow;
@@ -56,9 +57,32 @@
             GetDropDownList();
         }
 
+        function SelectedLookupProduct(item, index) {
+            DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine[index].PRO_FK = item.OSP_FK;
+
+            if (item.MCC_NKCommodityCode == null)
+                item.MCC_NKCommodityCode = '';
+
+            if (item.MCC_NKCommodityDesc == null)
+                item.MCC_NKCommodityDesc = '';
+
+            DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine[index].Commodity = item.MCC_NKCommodityCode + ' - ' + item.MCC_NKCommodityDesc;
+
+            //To remove Attributes when copy row
+            DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine[index].PartAttrib1 = '';
+            DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine[index].PartAttrib2 = '';
+            DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine[index].PartAttrib3 = '';
+            DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine[index].PackingDate = '';
+            DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine[index].ExpiryDate = '';
+            DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine[index].Units = DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine[index].Packs;
+
+            OnChangeValues(item.ProductCode, 'E3086', true, index);
+            OnChangeValues(item.StockKeepingUnit, 'E3090', true, index);
+        }
+
         function GetDropDownList() {
             // Get CFXType Dropdown list
-            var typeCodeList = ["INW_LINE_UQ"];
+            var typeCodeList = ["INW_LINE_UQ", "ProductCondition"];
             var dynamicFindAllInput = [];
 
             typeCodeList.map(function (value, key) {
@@ -268,12 +292,12 @@
 
         function RemoveAllLineErrors() {
             for (var i = 0; i < DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine.length; i++) {
-                OnChangeValues('value', "E3504", true, i);
-                OnChangeValues('value', "E3505", true, i);
-                OnChangeValues('value', "E3506", true, i);
-                OnChangeValues('value', "E3520", true, i);
-                OnChangeValues('value', "E3521", true, i);
-                OnChangeValues('value', "E3530", true, i);
+                OnChangeValues('value', "E3085", true, i);
+                OnChangeValues('value', "E3086", true, i);
+                OnChangeValues('value', "E3087", true, i);
+                OnChangeValues('value', "E3088", true, i);
+                OnChangeValues('value', "E3089", true, i);
+                OnChangeValues('value', "E3090", true, i);
             }
             return true;
         }
@@ -356,7 +380,7 @@
         function FetchQuantity(item, index) {
             if (item.PAC_PackType == item.StockKeepingUnit) {
                 item.Units = item.Packs;
-                OnChangeValues(item.Units, "E3520");
+                // OnChangeValues(item.Units, "E3089");
             } else {
                 var _input = {
                     "OSP_FK": item.PRO_FK,
@@ -370,7 +394,7 @@
                         if (response.data.Response) {
                             item.Units = response.data.Response;
                             DeliveryLineCtrl.ePage.Masters.Loading = false;
-                            OnChangeValues(item.Units, "E3520");
+                            OnChangeValues(item.Units, "E3089");
                         }
                     });
                 }

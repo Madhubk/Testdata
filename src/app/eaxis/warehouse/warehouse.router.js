@@ -73,7 +73,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "inward", "outward", "inwardAddress", "inwardGeneral", "inwardMenu", "inwardAsnLines", "inwardLines", "inwardProductSummary", "inwardDocument", "WmsReference", "WmsContainer", "WmsServices", "LocationDashboardModal", "location", "inwardMyTask", "ActivityTab", "MyTaskDirective", "WorkItemListView", "ProcessInstanceWorkItemDetails", "TaskAssignStartComplete", "MyTaskConfig", "MyTaskDynamicDirective", "MyTaskDefaultEditDirective", "ActivityTemplateInward", "ActivityFormTemplate1", "ReceiveMaterialDirective", "CollectMaterialDirective"]);
+                        return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "inward", "outward", "inwardAddress", "inwardGeneral", "inwardMenu", "inwardAsnLines", "inwardLines", "inwardProductSummary", "inwardDocument", "WmsReference", "WmsContainer", "WmsServices", "LocationDashboardModal", "location", "inwardMyTask", "ActivityTab", "MyTaskDirective", "WorkItemListView", "ProcessInstanceWorkItemDetails", "TaskAssignStartComplete", "MyTaskConfig", "MyTaskDynamicDirective", "MyTaskDefaultEditDirective", "ActivityTemplateInward", "ActivityFormTemplate1", "ReceiveMaterialDirective", "CollectMaterialDirective", "GetSignatureDirective"]);
                     }]
                 }
             })
@@ -652,7 +652,7 @@
                 templateUrl: 'app/eaxis/warehouse/raise-csr/raise-csr.html',
                 controller: "RaiseCSRController as RaiseCSRCtrl",
                 ncyBreadcrumb: {
-                    label: 'Raise CSR'
+                    label: 'Raise Delivery Request'
                 },
                 resolve: {
                     CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
@@ -683,7 +683,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "EAwarehouse", "MasterWarehouse", "pickupRequest", "pickupRequestMenu", "pickupRequestGeneral", "pickupRequestLine", "pickupOrders", "pickupDetails", "pickupMyTask", "ActivityTab", "MyTaskDirective", "WorkItemListView", "ProcessInstanceWorkItemDetails", "TaskAssignStartComplete", "MyTaskConfig", "MyTaskDynamicDirective", "MyTaskDefaultEditDirective"]);
+                        return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "EAwarehouse", "MasterWarehouse", "pickupRequest", "pickupRequestMenu", "pickupRequestGeneral", "pickupRequestLine", "pickupOrders", "pickupDetails", "pickupMyTask", "ActivityTab", "MyTaskDirective", "WorkItemListView", "ProcessInstanceWorkItemDetails", "TaskAssignStartComplete", "MyTaskConfig", "MyTaskDynamicDirective", "MyTaskDefaultEditDirective", "ActivityTemplatePickup2", "ActivityFormTemplate1", "CreatePickupChallanDirective", "AcknowledgePickupRequestDirective", "inward", "outward", "inwardAddress", "inwardGeneral", "inwardMenu", "inwardAsnLines", "inwardLines", "inwardProductSummary", "inwardDocument", "WmsReference", "WmsContainer", "WmsServices", "LocationDashboardModal", "location"]);
                     }]
                 }
             })
@@ -708,5 +708,45 @@
                 }
             })
 
+            .state('EA.WMS.PendingPickup', {
+                url: '/pending-pickup',
+                templateUrl: 'app/eaxis/warehouse/pending-pickup/pending-pickup.html',
+                controller: "PendingPickupController as PendingPickupCtrl",
+                ncyBreadcrumb: {
+                    label: 'PendingPickup'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        if (pageAccessService.CheckAuthToken()) {
+                            deferred.resolve();
+                        }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "CustomFileUpload", "customToolbar", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "pendingPickup", "pendingPickupToolbar"]);
+                    }]
+                }
+            })
+            .state('EA.WMS.DeliveryLine', {
+                url: '/delivery-line',
+                templateUrl: 'app/eaxis/warehouse/delivery-line/delivery-line.html',
+                controller: "DeliveryLineController as DeliveryLineCtrl",
+                ncyBreadcrumb: {
+                    label: 'DeliveryLine'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        if (pageAccessService.CheckAuthToken()) {
+                            deferred.resolve();
+                        }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "deliveryLine"]);
+                    }]
+                }
+            })
     }
 })();

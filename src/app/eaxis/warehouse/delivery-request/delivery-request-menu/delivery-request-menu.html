@@ -14,7 +14,7 @@
                     data-ng-bind="DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatusDesc"></div>
             </div>
             <uib-tab ng-repeat="x in DeliveryMenuCtrl.ePage.Masters.DeliveryMenu.ListSource" index="$index" deselect="DeliveryMenuCtrl.ePage.Masters.tabSelected(x,$selectedIndex,$event);"
-                data-ng-if="!x.IsDisabled">
+                data-ng-if="!x.IsDisabled" data-ng-click="DeliveryMenuCtrl.ePage.Masters.OnMenuClick(x)">
                 <uib-tab-heading title="{{x.DisplayName}}">
                     <i class="{{x.Icon}} mr-5"></i>
                     <span class="text-single-line" data-ng-bind="x.DisplayName"></span>
@@ -25,16 +25,10 @@
                         list="DeliveryMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList" type="'error'"
                         icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
                 </uib-tab-heading>
-
-                <!-- <div class="finalisedstate" ng-show="DeliveryMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
-                    <span class="finaliseddatedescription">Inward {{DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatusDesc}} and it cannot
-                        be edited</span>
-                </div> -->
-
                 <div>
                     <div ng-switch="x.Value">
                         <!--Menu directives-->
-                        <div ng-switch-when="MyTask" delivery-my-task current-delivery="DeliveryMenuCtrl.currentDelivery"></div>
+                        <div ng-switch-when="MyTask" delivery-my-task data-ng-if="DeliveryMenuCtrl.ePage.Masters.MyTask.ListSource" list-source="DeliveryMenuCtrl.ePage.Masters.MyTask.ListSource" current-delivery="DeliveryMenuCtrl.currentDelivery"></div>
                         <div ng-switch-when="General" delivery-general current-delivery="DeliveryMenuCtrl.currentDelivery"></div>
                         <div ng-switch-when="DeliveryLine" delivery-line current-delivery="DeliveryMenuCtrl.currentDelivery"></div>
                         <div ng-switch-when="DeliveryOrders" delivery-orders current-delivery="DeliveryMenuCtrl.currentDelivery"></div>
@@ -74,7 +68,7 @@
             </div>
         </div>
     </div>
-    <div class="eaxis-footer-strip">
+    <div class="eaxis-footer-strip" data-ng-show="DeliveryMenuCtrl.ePage.Masters.ActiveMenuTab.Value != 'MyTask'">
         <div class="col-xs-6 col-sm-8 col-md-8 col-lg-9 col-xl-9">
             <standard-menu dataentry-object="DeliveryMenuCtrl.dataentryObject" input="DeliveryMenuCtrl.currentDelivery"></standard-menu>
         </div>

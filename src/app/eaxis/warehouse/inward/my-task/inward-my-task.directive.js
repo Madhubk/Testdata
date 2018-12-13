@@ -15,7 +15,8 @@
             controller: "InwardMyTaskController",
             controllerAs: "InwardMyTaskCtrl",
             scope: {
-                currentInward: "="
+                currentInward: "=",
+                listSource: "=",
             },
             bindToController: true
         };

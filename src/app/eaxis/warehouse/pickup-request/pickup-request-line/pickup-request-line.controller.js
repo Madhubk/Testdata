@@ -5,9 +5,9 @@
         .module("Application")
         .controller("PickupLineController", PickupLineController);
 
-        PickupLineController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "appConfig", "pickupConfig", "helperService", "toastr", "$filter", "$injector", "$uibModal", "confirmation"];
+    PickupLineController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "appConfig", "pickupConfig", "helperService", "toastr", "$filter", "$injector", "$uibModal", "confirmation"];
 
-    function PickupLineController($rootScope, $scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, appConfig, pickupConfig, helperService, toastr, $filter, $injector, $uibModal, confirmation){
+    function PickupLineController($rootScope, $scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, appConfig, pickupConfig, helperService, toastr, $filter, $injector, $uibModal, confirmation) {
         var PickupLineCtrl = this
 
         function Init() {
@@ -36,6 +36,7 @@
             PickupLineCtrl.ePage.Masters.SelectAllCheckBox = SelectAllCheckBox;
             PickupLineCtrl.ePage.Masters.SingleSelectCheckBox = SingleSelectCheckBox;
             PickupLineCtrl.ePage.Masters.FetchQuantity = FetchQuantity;
+            PickupLineCtrl.ePage.Masters.SelectedLookupProduct = SelectedLookupProduct;
 
             PickupLineCtrl.ePage.Masters.Config = $injector.get("pickupConfig");
             PickupLineCtrl.ePage.Masters.setSelectedRow = setSelectedRow;
@@ -56,9 +57,32 @@
             GetDropDownList();
         }
 
+        function SelectedLookupProduct(item, index) {
+            PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine[index].PRO_FK = item.OSP_FK;
+
+            if (item.MCC_NKCommodityCode == null)
+                item.MCC_NKCommodityCode = '';
+
+            if (item.MCC_NKCommodityDesc == null)
+                item.MCC_NKCommodityDesc = '';
+
+            PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine[index].Commodity = item.MCC_NKCommodityCode + ' - ' + item.MCC_NKCommodityDesc;
+
+            //To remove Attributes when copy row
+            PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine[index].PartAttrib1 = '';
+            PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine[index].PartAttrib2 = '';
+            PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine[index].PartAttrib3 = '';
+            PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine[index].PackingDate = '';
+            PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine[index].ExpiryDate = '';
+            PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine[index].Units = PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine[index].Packs;
+
+            OnChangeValues(item.ProductCode, 'E3093', true, index);
+            OnChangeValues(item.StockKeepingUnit, 'E3097', true, index);
+        }
+
         function GetDropDownList() {
             // Get CFXType Dropdown list
-            var typeCodeList = ["INW_LINE_UQ"];
+            var typeCodeList = ["INW_LINE_UQ", "ProductCondition"];
             var dynamicFindAllInput = [];
 
             typeCodeList.map(function (value, key) {
@@ -123,7 +147,7 @@
                 "PK": "",
                 "ProductCode": "",
                 "ProductDescription": "",
-                "ProductCondition":"GDC",
+                "ProductCondition": "",
                 "PRO_FK": "",
                 "Commodity": "",
                 "MCC_NKCommodityCode": "",
@@ -182,7 +206,7 @@
                         "PK": "",
                         "ProductCode": item.ProductCode,
                         "ProductDescription": item.ProductDescription,
-                        "ProductCondition":item.ProductCondition,
+                        "ProductCondition": item.ProductCondition,
                         "PRO_FK": item.PRO_FK,
                         "Commodity": item.Commodity,
                         "MCC_NKCommodityCode": item.MCC_NKCommodityCode,
@@ -266,12 +290,12 @@
 
         function RemoveAllLineErrors() {
             for (var i = 0; i < PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine.length; i++) {
-                OnChangeValues('value', "E3504", true, i);
-                OnChangeValues('value', "E3505", true, i);
-                OnChangeValues('value', "E3506", true, i);
-                OnChangeValues('value', "E3520", true, i);
-                OnChangeValues('value', "E3521", true, i);
-                OnChangeValues('value', "E3530", true, i);
+                OnChangeValues('value', "E3092", true, i);
+                OnChangeValues('value', "E3093", true, i);
+                OnChangeValues('value', "E3094", true, i);
+                OnChangeValues('value', "E3095", true, i);
+                OnChangeValues('value', "E3096", true, i);
+                OnChangeValues('value', "E3097", true, i);
             }
             return true;
         }
@@ -354,7 +378,7 @@
         function FetchQuantity(item, index) {
             if (item.PAC_PackType == item.StockKeepingUnit) {
                 item.Units = item.Packs;
-                OnChangeValues(item.Units, "E3520");
+                // OnChangeValues(item.Units, "E3520");
             } else {
                 var _input = {
                     "OSP_FK": item.PRO_FK,
@@ -368,13 +392,13 @@
                         if (response.data.Response) {
                             item.Units = response.data.Response;
                             PickupLineCtrl.ePage.Masters.Loading = false;
-                            OnChangeValues(item.Units, "E3520");
+                            OnChangeValues(item.Units, "E3096");
                         }
                     });
                 }
             }
         }
-        
+
         Init();
     }
 

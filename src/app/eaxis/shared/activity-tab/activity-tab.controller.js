@@ -10,7 +10,7 @@
     function ActivityTabController(helperService, authService) {
         /* jshint validthis: true */
         var ActivityTabCtrl = this;
-        
+
         if (ActivityTabCtrl.obj.label != undefined) {
             var currentObj = ActivityTabCtrl.obj[ActivityTabCtrl.obj.label].ePage.Entities;
         } else {
@@ -31,14 +31,29 @@
             ActivityTabCtrl.ePage.Masters.EditActivity = EditActivity;
             ActivityTabCtrl.ePage.Masters.AssignStartCompleteResponse = AssignStartCompleteResponse;
             ActivityTabCtrl.ePage.Masters.IsShowEditActivityPage = false;
+            ActivityTabCtrl.ePage.Masters.OnTaskComplete = Close;
         }
 
-        function EditActivity($item){
+        function EditActivity($item) {
             ActivityTabCtrl.ePage.Masters.EditActivityItem = $item;
             ActivityTabCtrl.ePage.Masters.IsShowEditActivityPage = true;
         }
 
-        function AssignStartCompleteResponse($item, y){
+        function Close($item) {
+            ActivityTabCtrl.ePage.Masters.IsShowEditActivityPage = false;
+            var y = $item;
+            if (y.IsCompleted) {
+                var _index = ActivityTabCtrl.ePage.Masters.ActivityTab.List.map(function (value, key) {
+                    return value.PK;
+                }).indexOf(y.Item.PK);
+                if (_index != -1) {
+                    ActivityTabCtrl.ePage.Masters.ActivityTab.List.splice(_index, 1);
+                    ActivityTabCtrl.ePage.Masters.ActivityTab.ListCount = ActivityTabCtrl.ePage.Masters.ActivityTab.ListCount - 1;
+                }
+            }
+        }
+
+        function AssignStartCompleteResponse($item, y) {
             for (var x in $item) {
                 if ($item[x] != null && $item[x] != undefined) {
                     if (x == "OtherConfig" || x == "RelatedProcess") {

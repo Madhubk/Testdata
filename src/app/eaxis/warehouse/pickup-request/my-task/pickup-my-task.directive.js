@@ -15,7 +15,8 @@
             controller: "PickupMyTaskController",
             controllerAs: "PickupMyTaskCtrl",
             scope: {
-                currentPickup: "="
+                currentPickup: "=",
+                listSource: "=",
             },
             bindToController: true
         };

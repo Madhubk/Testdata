@@ -74,7 +74,9 @@
                     ActivityTemplateOutward2Ctrl.ePage.Masters.TaskConfigData = response.data.Response;
                     myTaskActivityConfig.Entities.TaskConfigData = ActivityTemplateOutward2Ctrl.ePage.Masters.TaskConfigData;
                     ActivityTemplateOutward2Ctrl.ePage.Masters.MenuListSource = $filter('filter')(ActivityTemplateOutward2Ctrl.ePage.Masters.TaskConfigData, { Category: 'Menu' });
-                    ActivityTemplateOutward2Ctrl.ePage.Masters.ValidationSource = $filter('filter')(ActivityTemplateOutward2Ctrl.ePage.Masters.TaskConfigData, { Category: 'Validation' });
+                    ActivityTemplateOutward2Ctrl.ePage.Masters.ValidationSource = $filter('filter')(ActivityTemplateOutward2Ctrl.ePage.Masters.TaskConfigData, function (val, key) {
+                        return val.Category == 'Validation'
+                    })
                     if (ActivityTemplateOutward2Ctrl.ePage.Masters.ValidationSource.length > 0) {
                         ValidationFindall();
                     }
@@ -225,6 +227,9 @@
 
         function ValidationFindall() {
             if (ActivityTemplateOutward2Ctrl.ePage.Masters.TaskObj) {
+                if (errorWarningService.Modules.MyTask) {
+                    errorWarningService.Modules.MyTask.ErrorCodeList = [];
+                }
                 // validation findall call
                 var _obj = {
                     ModuleName: ["MyTask"],

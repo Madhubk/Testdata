@@ -5,9 +5,9 @@
         .module("Application")
         .controller("PickupMenuController", PickupMenuController);
 
-    PickupMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "pickupConfig", "helperService", "appConfig", "authService", "$location", "$state", "toastr", "confirmation", "$uibModal"];
+    PickupMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "pickupConfig", "helperService", "appConfig", "authService", "$location", "$state", "toastr", "confirmation", "$uibModal", "$ocLazyLoad"];
 
-    function PickupMenuController($scope, $timeout, APP_CONSTANT, apiService, pickupConfig, helperService, appConfig, authService, $location, $state, toastr, confirmation, $uibModal) {
+    function PickupMenuController($scope, $timeout, APP_CONSTANT, apiService, pickupConfig, helperService, appConfig, authService, $location, $state, toastr, confirmation, $uibModal, $ocLazyLoad) {
 
         var PickupMenuCtrl = this
 
@@ -31,6 +31,7 @@
             PickupMenuCtrl.ePage.Masters.SaveButtonText = "Save";
             PickupMenuCtrl.ePage.Masters.Validation = Validation;
             PickupMenuCtrl.ePage.Masters.Config = pickupConfig;
+            PickupMenuCtrl.ePage.Masters.OnMenuClick = OnMenuClick;
 
             //To show hide mytask
             var _menuList = angular.copy(PickupMenuCtrl.ePage.Entities.Header.Meta.MenuList);
@@ -42,12 +43,11 @@
                 _menuList[_index].IsDisabled = true;
 
                 PickupMenuCtrl.ePage.Masters.PickupMenu.ListSource = _menuList;
-                PickupMenuCtrl.ePage.Masters.ActiveMenu = PickupMenuCtrl.ePage.Masters.PickupMenu.ListSource[0];
+                OnMenuClick(PickupMenuCtrl.ePage.Masters.PickupMenu.ListSource[1]);
             } else {
                 if (PickupMenuCtrl.ePage.Masters.IsHideMytaskMenu) {
                     _menuList[_index].IsDisabled = true;
                     PickupMenuCtrl.ePage.Masters.PickupMenu.ListSource = _menuList;
-                    PickupMenuCtrl.ePage.Masters.ActiveMenu = PickupMenuCtrl.ePage.Masters.PickupMenu.ListSource[0];
                 } else {
                     GetMyTaskList(_menuList, _index);
                 }
@@ -66,6 +66,7 @@
             }
 
             if (_errorcount.length == 0) {
+                PickupMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(PickupMenuCtrl.currentPickup);
                 Saveonly($item);
             } else {
                 PickupMenuCtrl.ePage.Masters.Finalisesave = false;
@@ -86,6 +87,7 @@
                 _input.UIWmsPickup.CreatedDateTime = new Date();
                 _input.UIWmsPickup.WorkOrderType = 'PIC';
                 _input.UIWmsWorkorderReport.AcknowledgementDateTime = new Date();
+                _input.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;
                 _input.UIWmsWorkorderReport.WOD_FK = _input.PK;
                 if (!_input.UIWmsPickup.ExternalReference) {
                     _input.UIWmsPickup.ExternalReference = _input.UIWmsPickup.WorkOrderID;
@@ -165,6 +167,10 @@
         }
 
         function GetMyTaskList(menuList, index) {
+            var _DocumentConfig = {
+                IsDisableGenerate: true
+            };
+            var _CommentConfig = {};
             var _menuList = menuList,
                 _index = index;
             var _filter = {
@@ -181,7 +187,98 @@
             apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkItem.API.FindAllWithAccess.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
-                        PickupMenuCtrl.ePage.Masters.MyTask.ListSource = response.data.Response;
+                        var _response = response.data.Response;
+                        var _arr = [];
+                        if (_response.length > 0) {
+                            _response.map(function (value, key) {
+                                value.AvailableObj = {
+                                    RadioBtnOption: "Me",
+                                    SaveBtnText: "Submit",
+                                    IsDisableSaveBtn: false
+                                };
+                                value.AssignedObj = {
+                                    RadioBtnOption: "MoveToQueue",
+                                    SaveBtnText: "Submit",
+                                    IsDisableSaveBtn: false
+                                };
+                                value.AdhocObj = {
+                                    AssignTo: ""
+                                };
+
+                                if (value.OtherConfig) {
+                                    if (typeof value.OtherConfig == "string") {
+                                        value.OtherConfig = JSON.parse(value.OtherConfig);
+                                    }
+                                    if (value.OtherConfig) {
+                                        if (value.OtherConfig.Directives) {
+                                            var _index = value.OtherConfig.Directives.ListPage.indexOf(",");
+                                            if (_index != -1) {
+                                                var _split = value.OtherConfig.Directives.ListPage.split(",");
+
+                                                if (_split.length > 0) {
+                                                    _split.map(function (value, key) {
+                                                        var _index = _arr.map(function (value1, key1) {
+                                                            return value1;
+                                                        }).indexOf(value);
+                                                        if (_index == -1) {
+                                                            _arr.push(value);
+                                                        }
+                                                    });
+                                                }
+                                            } else {
+                                                var _index = _arr.indexOf(value.OtherConfig.Directives.ListPage);
+                                                if (_index == -1) {
+                                                    _arr.push(value.OtherConfig.Directives.ListPage);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if (value.RelatedProcess) {
+                                    if (typeof value.RelatedProcess == "string") {
+                                        value.RelatedProcess = JSON.parse(value.RelatedProcess);
+                                    }
+                                }
+
+                                var _StandardMenuInput = {
+                                    // Entity
+                                    // "Entity": value.ProcessName,
+                                    "Entity": value.WSI_StepCode,
+                                    "Communication": null,
+                                    "Config": undefined,
+                                    "EntityRefKey": value.EntityRefKey,
+                                    "EntityRefCode": value.KeyReference,
+                                    "EntitySource": value.EntitySource,
+                                    // Parent Entity
+                                    "ParentEntityRefKey": value.PK,
+                                    "ParentEntityRefCode": value.WSI_StepCode,
+                                    "ParentEntitySource": value.EntitySource,
+                                    // Additional Entity
+                                    "AdditionalEntityRefKey": value.ParentEntityRefKey,
+                                    "AdditionalEntityRefCode": value.ParentKeyReference,
+                                    "AdditionalEntitySource": value.ParentEntitySource,
+                                    "IsDisableParentEntity": true,
+                                    "IsDisableAdditionalEntity": true
+                                };
+
+                                value.StandardMenuInput = _StandardMenuInput;
+                                value.DocumentConfig = _DocumentConfig;
+                                value.CommentConfig = _CommentConfig;
+                            });
+                        }
+
+                        if (_arr.length > 0) {
+                            _arr = _arr.filter(function (e) {
+                                return e;
+                            });
+
+                            $ocLazyLoad.load(_arr).then(function () {
+                                PickupMenuCtrl.ePage.Masters.MyTask.ListSource = response.data.Response;
+                            });
+                        } else {
+                            PickupMenuCtrl.ePage.Masters.MyTask.ListSource = response.data.Response;
+                        }
                     } else {
                         if (_index != -1) {
                             _menuList[_index].IsDisabled = true;
@@ -195,8 +292,19 @@
                 }
 
                 PickupMenuCtrl.ePage.Masters.PickupMenu.ListSource = _menuList;
-                PickupMenuCtrl.ePage.Masters.ActiveMenu = PickupMenuCtrl.ePage.Masters.PickupMenu.ListSource[0];
+
+                var _isEnabledFirstTab = false;
+                PickupMenuCtrl.ePage.Masters.PickupMenu.ListSource.map(function (value, key) {
+                    if (!_isEnabledFirstTab && !value.IsDisabled) {
+                        OnMenuClick(value);
+                        _isEnabledFirstTab = true;
+                    }
+                });
             });
+        }
+
+        function OnMenuClick($item) {
+            PickupMenuCtrl.ePage.Masters.ActiveMenuTab = $item;
         }
 
         Init();

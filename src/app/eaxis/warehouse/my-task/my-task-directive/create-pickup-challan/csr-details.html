@@ -14,7 +14,7 @@
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-7 col-xl-7 height-40 p-5">
                         <div class="input-group input-group-sm">
                             <!-- Dynamic look up Search in textbox -->
-                            <div dynamic-lookup placeholder="Service Provider" is-disabled="true" my-ng-model="CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.Client"
+                            <div dynamic-lookup placeholder="Service Provider" is-disabled="true" my-ng-model="CreatePickupChallanCtrl.ePage.Masters.Client"
                                 auto-complete-on-select="CreatePickupChallanCtrl.ePage.Masters.SelectedLookupClient($item)" obj="CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup"
                                 page-name="'OrganizationList'" control-id="'Customer'" control-key="'Customer_3321'">
                             </div>
@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div class="rows p-5 height-70">
-                    <div ng-show="CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.Client">
+                    <div ng-show="CreatePickupChallanCtrl.ePage.Masters.Client">
                         <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 addressstyle">
                             <div class="text-single-line font-12" title='{{CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address1}}'>{{CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address1}}</div>
                             <div class="text-single-line" title='{{CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address2}}'>{{CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address2}}</div>
@@ -65,7 +65,7 @@
                     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 height-40  p-5">
                         <div class="input-group input-group-sm">
                             <!-- Dynamic look up Search in textbox -->
-                            <div dynamic-lookup placeholder="Warehouse Code And Name" is-disabled="true" my-ng-model="CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.Warehouse"
+                            <div dynamic-lookup placeholder="Warehouse Code And Name" is-disabled="true" my-ng-model="CreatePickupChallanCtrl.ePage.Masters.Warehouse"
                                 obj="CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup" page-name="'OrgHeaderWithWarehouse'"
                                 control-id="'Warehouse'" control-key="'Warehouse_3323'" auto-complete-on-select="CreatePickupChallanCtrl.ePage.Masters.SelectedLookupWarehouse($item)">
                             </div>
@@ -83,7 +83,7 @@
                     </div>
                 </div>
                 <div class="rows p-5 height-70">
-                    <div ng-show="CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.Warehouse" ng-repeat="x in CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIJobAddress | filter: {AddressType:'SND'}">
+                    <div ng-show="CreatePickupChallanCtrl.ePage.Masters.Warehouse" ng-repeat="x in CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIJobAddress | filter: {AddressType:'SND'}">
                         <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 addressstyle">
                             <div class="text-single-line font-12" title='{{x.Address1}}'>{{x.Address1 }}</div>
                             <div class="text-single-line" title='{{x.Address2}}'>{{x.Address2 }}</div>
@@ -116,8 +116,7 @@
                     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 height-40  p-5">
                         <div class="input-group input-group-sm">
                             <!-- Dynamic look up Search in textbox -->
-                            <div dynamic-lookup placeholder="Site" is-disabled="true" my-ng-model="CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.Consignee"
-                                auto-complete-on-select="CreatePickupChallanCtrl.ePage.Masters.SelectedLookupSupplier($item)"
+                            <div dynamic-lookup placeholder="Site" is-disabled="true" my-ng-model="CreatePickupChallanCtrl.ePage.Masters.Consignee" auto-complete-on-select="CreatePickupChallanCtrl.ePage.Masters.SelectedLookupSupplier($item)"
                                 obj="CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup" page-name="'OrganizationList'"
                                 control-id="'Site'" control-key="'Site_3322'">
                             </div>
@@ -135,7 +134,7 @@
                     </div>
                 </div>
                 <div class="rows p-5 height-70">
-                    <div ng-show="CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.Consignee" ng-repeat="x in CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIJobAddress | filter: {AddressType:'SUD'}">
+                    <div ng-show="CreatePickupChallanCtrl.ePage.Masters.Consignee" ng-repeat="x in CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIJobAddress | filter: {AddressType:'SUD'}">
                         <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 addressstyle">
                             <div class="text-single-line font-12" title='{{x.Address1}}'>{{x.Address1 }}</div>
                             <div class="text-single-line" title='{{x.Address2}}'>{{x.Address2 }}</div>
@@ -211,10 +210,27 @@
                 </div>
             </div>
         </div>
+        <!-- <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+            <div class="form-group">
+                <label class="control-label text-single-line">Receiver</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Receiver" data-ng-model="CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.Receiver">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+            <div class="form-group">
+                <label class="control-label text-single-line">Receiver Contact No</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Receiver Contact No"
+                        data-ng-model="CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.ReceiverContactNo">
+                </div>
+            </div>
+        </div> -->
     </div>
     <div class="clearfix mt-10">
         <div id="InwardLineTable{{CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID}}" class="fixedheader mb-0"
-            key-events table-object='CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickupLine' enable='CreatePickupChallanCtrl.ePage.Masters.Enable'
+            key-events table-object='CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIvwWmsPickupLine' enable='CreatePickupChallanCtrl.ePage.Masters.Enable'
             selected-row='CreatePickupChallanCtrl.ePage.Masters.selectedRow' unique-id='InwardLineTable{{CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID}}'>
             <table style="height: 200px">
                 <thead>
@@ -239,10 +255,13 @@
                         <th ng-style="{ 'width':  '100px' }" title="UDF 3">UDF 3</th>
                         <th ng-style="{ 'width':  '100px' }" title="Packing Date">Packing Date</th>
                         <th ng-style="{ 'width':  '100px' }" title="Expiry Date">Expiry Date</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Inward No">Inward No</th>
+                        <th ng-style="{ 'width':  '300px' }" title="Inward Product">Inward Product</th>
+                        <th ng-style="{ 'width':  '300px' }" title="Inward Warehouse">Inward Warehouse</th>
                     </tr>
                 </thead>
                 <tbody id="InwardLineCustTable{{CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID}}">
-                    <tr id="tableBody" ng-repeat="x in CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickupLine" ng-click="CreatePickupChallanCtrl.ePage.Masters.setSelectedRow($index);"
+                    <tr id="tableBody" ng-repeat="x in CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIvwWmsPickupLine" ng-click="CreatePickupChallanCtrl.ePage.Masters.setSelectedRow($index);"
                         ng-class="{row_active: (CreatePickupChallanCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}">
                         <td id="delcheckbox" ng-style="{ 'width':  '40px' ,'padding-top':'0px' }" ng-click="CreatePickupChallanCtrl.ePage.Masters.Enable = true">
                             <label class="mb-0 customcheckbox">
@@ -253,17 +272,20 @@
                         </td>
                         <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
                         <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.AdditionalRef1Code}}</td>
-                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.ProductCode}}</td>
-                        <td ng-style="{ 'width':  '250px' }" class="overflow-text">{{x.ProductDescription}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.PICPRD_Req_PrdCode}}</td>
+                        <td ng-style="{ 'width':  '250px' }" class="overflow-text">{{x.PICPRD_Req_PrdDesc}}</td>
                         <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.Packs}}</td>
                         <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PAC_PackType}}</td>
                         <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.Units}}</td>
-                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.StockKeepingUnit}}</td>
+                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PICPRD_StockKeepingUnit}}</td>
                         <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PartAttrib1}}</td>
                         <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PartAttrib2}}</td>
                         <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PartAttrib3}}</td>
                         <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PackingDate}}</td>
                         <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.ExpiryDate}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.INW_WorkOrderId}}</td>
+                        <td ng-style="{ 'width':  '300px' }" class="overflow-text">{{x.INW_PrdCode}} - {{x.INW_PrdDesc}}</td>
+                        <td ng-style="{ 'width':  '300px' }" class="overflow-text">{{x.INW_WAR_Code}} - {{x.INW_WAR_Name}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -271,8 +293,6 @@
     </div>
 </div>
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-20 mb-10">
-    <button class="btn btn-blue btn-sm pull-right ml-10" data-ng-click="CreatePickupChallanCtrl.ePage.Masters.CreateInward('OUT')"
+    <button class="btn btn-blue btn-sm pull-right ml-10" data-ng-click="CreatePickupChallanCtrl.ePage.Masters.CreateInward()"
         data-ng-bind="CreatePickupChallanCtrl.ePage.Masters.CreateInwardText" data-ng-disabled="CreatePickupChallanCtrl.ePage.Masters.IsDisabled"></button>
-    <!-- <button class="btn btn-blue btn-sm pull-right" data-ng-click="CreatePickupChallanCtrl.ePage.Masters.CreateInward('MTR')" data-ng-bind="CreatePickupChallanCtrl.ePage.Masters.CreateMaterialTransferText"
-        data-ng-disabled="CreatePickupChallanCtrl.ePage.Masters.IsDisabled"></button> -->
 </div>

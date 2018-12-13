@@ -5,9 +5,9 @@
         .module("Application")
         .controller("AcknowledgeCsrController", AcknowledgeCsrController);
 
-    AcknowledgeCsrController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "deliveryConfig"];
+    AcknowledgeCsrController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "deliveryConfig", "dynamicLookupConfig"];
 
-    function AcknowledgeCsrController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, deliveryConfig) {
+    function AcknowledgeCsrController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, deliveryConfig, dynamicLookupConfig) {
         var AcknowledgeCsrCtrl = this;
 
         function Init() {
@@ -28,14 +28,10 @@
                 AcknowledgeCsrCtrl.ePage.Masters.TaskObj = AcknowledgeCsrCtrl.taskObj;
                 GetEntityObj();
             } else {
+                AcknowledgeCsrCtrl.ePage.Masters.Config = myTaskActivityConfig;
                 AcknowledgeCsrCtrl.ePage.Entities.Header.Data = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data;
-                deliveryConfig.GetTabDetails(AcknowledgeCsrCtrl.ePage.Entities.Header.Data.UIWmsDelivery, false).then(function (response) {
-                    angular.forEach(response, function (value, key) {
-                        if (value.label == AcknowledgeCsrCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID) {
-                            AcknowledgeCsrCtrl.currentDelivery = value;
-                        }
-                    });
-                });
+                GeneralOperation();
+                GetDynamicLookupConfig();
                 if (errorWarningService.Modules.MyTask)
                     AcknowledgeCsrCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.MyTask.Entity[myTaskActivityConfig.Entities.Delivery.label];
             }
@@ -46,6 +42,54 @@
             AcknowledgeCsrCtrl.ePage.Masters.DatePicker.Options = APP_CONSTANT.DatePicker;
             AcknowledgeCsrCtrl.ePage.Masters.DatePicker.isOpen = [];
             AcknowledgeCsrCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
+        }
+
+        function GeneralOperation() {
+            // Client
+            if (AcknowledgeCsrCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode == null)
+                AcknowledgeCsrCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode = "";
+            if (AcknowledgeCsrCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientName == null)
+                AcknowledgeCsrCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientName = "";
+            AcknowledgeCsrCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Client = AcknowledgeCsrCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode + ' - ' + AcknowledgeCsrCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientName;
+            if (AcknowledgeCsrCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Client == " - ")
+                AcknowledgeCsrCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Client = "";
+            // Consignee
+            if (AcknowledgeCsrCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeCode == null)
+                AcknowledgeCsrCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeCode = "";
+            if (AcknowledgeCsrCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeName == null)
+                AcknowledgeCsrCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeName = "";
+            AcknowledgeCsrCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Consignee = AcknowledgeCsrCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeCode + ' - ' + AcknowledgeCsrCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeName;
+            if (AcknowledgeCsrCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Consignee == " - ")
+                AcknowledgeCsrCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Consignee = "";
+            // Warehouse
+            if (AcknowledgeCsrCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode == null)
+                AcknowledgeCsrCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode = "";
+            if (AcknowledgeCsrCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseName == null)
+                AcknowledgeCsrCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseName = "";
+            AcknowledgeCsrCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Warehouse = AcknowledgeCsrCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode + ' - ' + AcknowledgeCsrCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseName;
+            if (AcknowledgeCsrCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Warehouse == " - ")
+                AcknowledgeCsrCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Warehouse = "";
+        }
+
+        function GetDynamicLookupConfig() {
+            // Get DataEntryNameList 
+            var _filter = {
+                pageName: 'DeliveryRequest'
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.DYN_RelatedLookup.API.GroupFindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", appConfig.Entities.DYN_RelatedLookup.API.GroupFindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    var _isEmpty = angular.equals({}, response.data.Response);
+
+                    if (!_isEmpty) {
+                        dynamicLookupConfig.Entities = Object.assign({}, dynamicLookupConfig.Entities, response.data.Response);
+                    }
+                }
+            });
         }
 
         function OnFieldValueChange(code) {

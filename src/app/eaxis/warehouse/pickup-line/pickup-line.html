@@ -1,0 +1,12 @@
+<uib-tabset id="chromeTab" active="PickupLineCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+    <uib-tab>
+        <uib-tab-heading title=" Pickup Line">
+            <span data-ng-bind="'Pickup Line'" class="ng-binding"> Pickup Line</span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+        <div class="no-padding tab-list-view-wrapper">
+            <dynamic-list dataentry-name="PickupLineCtrl.ePage.Masters.dataentryName" task-name="PickupLineCtrl.ePage.Masters.taskName" grid-config-type="0"
+                selected-grid-row="PickupLineCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" dataentry-object="PickupLineCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+            <div class="tab-loading" data-ng-show="PickupLineCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>

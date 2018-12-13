@@ -74,7 +74,9 @@
                     ActivityTemplateInwardCtrl.ePage.Masters.TaskConfigData = response.data.Response;
                     myTaskActivityConfig.Entities.TaskConfigData = ActivityTemplateInwardCtrl.ePage.Masters.TaskConfigData;
                     ActivityTemplateInwardCtrl.ePage.Masters.MenuListSource = $filter('filter')(ActivityTemplateInwardCtrl.ePage.Masters.TaskConfigData, { Category: 'Menu' });
-                    ActivityTemplateInwardCtrl.ePage.Masters.ValidationSource = $filter('filter')(ActivityTemplateInwardCtrl.ePage.Masters.TaskConfigData, { Category: 'Validation' });
+                    ActivityTemplateInwardCtrl.ePage.Masters.ValidationSource = $filter('filter')(ActivityTemplateInwardCtrl.ePage.Masters.TaskConfigData, function (val, key) {
+                        return val.Category == 'Validation'
+                    })
                     if (ActivityTemplateInwardCtrl.ePage.Masters.ValidationSource.length > 0) {
                         ValidationFindall();
                     }
@@ -186,6 +188,7 @@
                         response.data.Response.Response.UIWmsOutwardHeader.WarehouseName = input.UIWmsInwardHeader.WarehouseName
                         response.data.Response.Response.UIWmsOutwardHeader.WOD_Parent_FK = input.UIWmsInwardHeader.PK
                         response.data.Response.Response.UIWmsOutwardHeader.AdditionalRef2Fk = input.UIWmsInwardHeader.AdditionalRef2Fk
+                        response.data.Response.Response.UIWmsOutwardHeader.RequiredDate = new Date();
 
                         //Assigning Outward Line Object
                         input.UIWmsWorkOrderLine.map(function (value, key) {
@@ -332,6 +335,9 @@
 
         function ValidationFindall() {
             if (ActivityTemplateInwardCtrl.ePage.Masters.TaskObj) {
+                if (errorWarningService.Modules.MyTask) {
+                    errorWarningService.Modules.MyTask.ErrorCodeList = [];
+                }
                 // validation findall call
                 var _obj = {
                     ModuleName: ["MyTask"],

@@ -14,7 +14,8 @@
             bindToController: true,
             scope: {
                 taskObj: "=",
-                onComplete: "&"
+                onComplete: "&",
+                tabObj: "="
             },
             link: Link
         };
