@@ -52,10 +52,10 @@
                     <td id="spackingdate"   data-ng-show='PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spackingdate.isenabled' ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spackingdate.width + 'px' }" class="overflow-text">{{x.PackingDate || PickSlipCtrl.ePage.Masters.emptyText | dateFormat}}</td>
                     <td id="sexpirydate"   data-ng-show='PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sexpirydate.isenabled' ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sexpirydate.width + 'px' }" class="overflow-text">{{x.ExpiryDate || PickSlipCtrl.ePage.Masters.emptyText | dateFormat}}</td>
                     <td id="spickedqty"   data-ng-show='PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spickedqty.isenabled' ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spickedqty.width + 'px' }" >
-                        <div data-ng-if="$index!=PickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary || PickSlipCtrl.ePage.Entities.Header.GlobalVariables.Finalized  || x.IsPicked=='True'" class="overflow-text">
+                        <div data-ng-if="$index!=PickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary || PickSlipCtrl.ePage.Entities.Header.GlobalVariables.NonEditable  || x.IsPicked=='True'" class="overflow-text">
                             {{ x.PickedQty || PickSlipCtrl.ePage.Masters.emptyText | dateFormat}}
                         </div>
-                        <div data-ng-if="$index==PickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary &&  !PickSlipCtrl.ePage.Entities.Header.GlobalVariables.Finalized &&  x.IsPicked!='True'">
+                        <div data-ng-if="$index==PickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary &&  !PickSlipCtrl.ePage.Entities.Header.GlobalVariables.NonEditable &&  x.IsPicked!='True'">
                             <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
                                 <input type="text" numbers-only-dot  class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Picked Qty" data-ng-model="x.PickedQty" ng-change="PickSlipCtrl.ePage.Masters.UpdatePickedDate(x)"
                                     data-ng-disabled = "(x.IMPartAttrib1Type=='SER' && x.PartAttrib1 && !x.IsPartAttrib1ReleaseCaptured) || (x.IMPartAttrib2Type=='SER' && x.PartAttrib2 && !x.IsPartAttrib2ReleaseCaptured) || (x.IMPartAttrib3Type=='SER' && x.PartAttrib3 && !x.IsPartAttrib3ReleaseCaptured)">                                        
@@ -63,10 +63,10 @@
                         </div>
                     </td> 
                     <td id="spickeddatetime"   data-ng-show='PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spickeddatetime.isenabled' ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spickeddatetime.width + 'px' }" >
-                        <div data-ng-if="$index!=PickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary || PickSlipCtrl.ePage.Entities.Header.GlobalVariables.Finalized  || x.IsPicked=='True'" class="overflow-text">
+                        <div data-ng-if="$index!=PickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary || PickSlipCtrl.ePage.Entities.Header.GlobalVariables.NonEditable  || x.IsPicked=='True'" class="overflow-text">
                             {{ x.PickedDateTime || PickSlipCtrl.ePage.Masters.emptyText | dateFormat}}
                         </div>
-                        <div data-ng-if="$index==PickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary &&  !PickSlipCtrl.ePage.Entities.Header.GlobalVariables.Finalized &&  x.IsPicked!='True'">
+                        <div data-ng-if="$index==PickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary &&  !PickSlipCtrl.ePage.Entities.Header.GlobalVariables.NonEditable &&  x.IsPicked!='True'">
                             <div class="col-xs-10 col-sm-10 col-md-0 col-lg-10 col-xl-10 p-0">
                                 <div class="input-group input-group-sm">
                                     <input type="text" class="form-control height-22" placeholder="{{PickSlipCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datetime-picker="{{PickSlipCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
