@@ -1,0 +1,12 @@
+<uib-tabset id="chromeTab" active="TrackdamagedSKUCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+    <uib-tab>
+        <uib-tab-heading title=" Track Damaged SKU ">
+            <span data-ng-bind="'Track Damaged SKU'" class="ng-binding"> Track Damaged SKU</span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+        <div class="no-padding tab-list-view-wrapper">
+            <dynamic-list dataentry-name="TrackdamagedSKUCtrl.ePage.Masters.dataentryName" task-name="TrackdamagedSKUCtrl.ePage.Masters.taskName" grid-config-type="0"
+                selected-grid-row="TrackdamagedSKUCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" dataentry-object="TrackdamagedSKUCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+            <div class="tab-loading" data-ng-show="TrackdamagedSKUCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>

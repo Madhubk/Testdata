@@ -748,5 +748,25 @@
                     }]
                 }
             })
+            .state('EA.WMS.DamagedSKU', {
+                url: '/track-damaged-sku',
+                templateUrl: 'app/eaxis/warehouse/track-damaged-sku/track-damaged-sku.html',
+                controller: "TrackdamagedSKUController as TrackdamagedSKUCtrl",
+                ncyBreadcrumb: {
+                    label: 'TrackDamagedSKU'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        if (pageAccessService.CheckAuthToken()) {
+                            deferred.resolve();
+                        }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "CustomFileUpload", "customToolbar", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "damagedSKU"]);
+                    }]
+                }
+            })
     }
 })();
