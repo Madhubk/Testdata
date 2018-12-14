@@ -38,21 +38,41 @@
             OutwardMenuCtrl.ePage.Masters.CancelOutward = CancelOutward;
             OutwardMenuCtrl.ePage.Masters.OnMenuClick = OnMenuClick;
 
-            //To show hide mytask
+            //To show hide menus
             OutwardMenuCtrl.ePage.Masters.IsHideMytaskMenu = OutwardMenuCtrl.isHideMenu;
+            OutwardMenuCtrl.ePage.Masters.IsHideDispatchMenu = OutwardMenuCtrl.hideDispatch;
+            OutwardMenuCtrl.ePage.Masters.IsHidePickMenu = OutwardMenuCtrl.hidePick;
+
             var _menuList = angular.copy(OutwardMenuCtrl.ePage.Entities.Header.Meta.MenuList);
             var _index = _menuList.map(function (value, key) {
                 return value.Value;
             }).indexOf("MyTask");
 
+            var _Pickindex = _menuList.map(function (value, key) {
+                return value.Value;
+            }).indexOf("Pick");
+
+            var _Dispatchindex = _menuList.map(function (value, key) {
+                return value.Value;
+            }).indexOf("Dispatch");
+
             if (OutwardMenuCtrl.currentOutward.isNew) {
                 _menuList[_index].IsDisabled = true;
+                if (OutwardMenuCtrl.ePage.Masters.IsHidePickMenu)
+                    _menuList[_Pickindex].IsDisabled = true;
+                if (OutwardMenuCtrl.ePage.Masters.IsHideDispatchMenu)
+                    _menuList[_Dispatchindex].IsDisabled = true;
 
                 OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource = _menuList;
                 OnMenuClick(OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[1]);
             } else {
-                if (OutwardMenuCtrl.ePage.Masters.IsHideMytaskMenu) {
-                    _menuList[_index].IsDisabled = true;
+                if (OutwardMenuCtrl.ePage.Masters.IsHideMytaskMenu || OutwardMenuCtrl.ePage.Masters.IsHidePickMenu || OutwardMenuCtrl.ePage.Masters.IsHideDispatchMenu) {
+                    if (OutwardMenuCtrl.ePage.Masters.IsHideMytaskMenu)
+                        _menuList[_index].IsDisabled = true;
+                    if (OutwardMenuCtrl.ePage.Masters.IsHidePickMenu)
+                        _menuList[_Pickindex].IsDisabled = true;
+                    if (OutwardMenuCtrl.ePage.Masters.IsHideDispatchMenu)
+                        _menuList[_Dispatchindex].IsDisabled = true;
                     OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource = _menuList;
                 } else {
                     GetMyTaskList(_menuList, _index);
@@ -248,7 +268,7 @@
                             });
                     }
                 }
-                else {
+                else {                    
                     //To check whether client and warehouse are present before changing tab to line
                     if (($index == 1 && OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled) || ($index == 2 && !OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled)) {
                         var mydata = OutwardMenuCtrl.currentOutward[OutwardMenuCtrl.currentOutward.label].ePage.Entities.Header.Data;
@@ -262,7 +282,7 @@
                             Validation(OutwardMenuCtrl.currentOutward);
                         }
                     }
-                    else if (($index == 2 && OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled) || ($index == 3 && !OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled)) {
+                    else if (!OutwardMenuCtrl.ePage.Masters.IsHidePickMenu && (($index == 2 && OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled) || ($index == 3 && !OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled))) {
 
                         // If not cancelled outward then create or prevent from creation
                         if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus != 'CAN') {
@@ -361,7 +381,7 @@
                             toastr.error("Cannot create pick for cancelled outward");
                         }
                     }
-                    else if (($index == 3 && OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled) || ($index == 4 && !OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled)) {
+                    else if (!OutwardMenuCtrl.ePage.Masters.IsHideDispatchMenu && (($index == 3 && OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled) || ($index == 4 && !OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled))) {
 
                         // If not cancelled outward then create or prevent from creation
                         if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus != 'CAN') {

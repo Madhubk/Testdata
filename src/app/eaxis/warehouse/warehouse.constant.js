@@ -910,10 +910,10 @@
                 "app/eaxis/warehouse/my-task/my-task-directive/pod-return-out/pod-return-out.directive.js"
             ]
         }, {
-            name: 'UpdateReportOutDirective',
+            name: 'ConfirmDeliveryDirective',
             files: [
-                "app/eaxis/warehouse/my-task/my-task-directive/update-report-out/update-report-out.controller.js",
-                "app/eaxis/warehouse/my-task/my-task-directive/update-report-out/update-report-out.directive.js"
+                "app/eaxis/warehouse/my-task/my-task-directive/confirm-delivery/confirm-delivery.controller.js",
+                "app/eaxis/warehouse/my-task/my-task-directive/confirm-delivery/confirm-delivery.directive.js"
             ]
         }, {
             name: 'TransferMaterialDirective',

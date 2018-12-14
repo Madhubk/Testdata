@@ -1,0 +1,34 @@
+<div class="padding-bottom-10 clearfix">
+    <uib-tabset id="Gatepass" active="ConfirmDeliveryCtrl.ePage.Masters.activeTabIndex">
+        <uib-tab>
+            <uib-tab-heading title="Manifest Details">
+                <i class="fa fa-truck margin-right-5"></i>
+                <span class="text-single-line" data-ng-bind="'Manifest Details'"></span>
+            </uib-tab-heading>
+            <div data-ng-include="'app/eaxis/warehouse/my-task/my-task-directive/confirm-delivery/manifest-details.html'"></div>
+        </uib-tab>
+        <uib-tab>
+            <uib-tab-heading title="Release Details">
+                <i class="fa fa-truck margin-right-5"></i>
+                <span class="text-single-line" data-ng-bind="'Release Details'"></span>
+            </uib-tab-heading>
+            <div data-ng-include="'app/eaxis/warehouse/my-task/my-task-directive/confirm-delivery/release-details.html'"></div>
+        </uib-tab>
+        <uib-tab active="ConfirmDeliveryCtrl.ePage.Masters.activeTabIndex ==1">
+            <uib-tab-heading title="ConfirmDeliveryCtrl.ePage.Masters.Config.Entities.Outward.label">
+                <i class="fa fa-suitcase margin-right-5"></i>
+                <span class="text-single-line">{{ConfirmDeliveryCtrl.ePage.Masters.Config.Entities.Outward.label}} </span>
+            </uib-tab-heading>
+            <outward-menu ng-if="ConfirmDeliveryCtrl.ePage.Masters.Config.Entities.Outward" current-outward="ConfirmDeliveryCtrl.ePage.Masters.Config.Entities.Outward"
+                is-hide-menu="true" hide-pick="true" hide-dispatch="true"></outward-menu>
+        </uib-tab>
+        <uib-tab>
+            <uib-tab-heading title="CSR Details">
+                <i class="fa fa-truck margin-right-5"></i>
+                <span class="text-single-line" data-ng-bind="'CSR Details'"></span>
+            </uib-tab-heading>
+            <div data-ng-include="'app/eaxis/warehouse/my-task/my-task-directive/confirm-delivery/csr-details.html'"></div>
+        </uib-tab>
+    </uib-tabset>
+    <div class="horizontal-space"></div>
+</div>

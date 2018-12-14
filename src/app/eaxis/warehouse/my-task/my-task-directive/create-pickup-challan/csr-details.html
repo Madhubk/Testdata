@@ -281,8 +281,8 @@
                         <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PartAttrib1}}</td>
                         <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PartAttrib2}}</td>
                         <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PartAttrib3}}</td>
-                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PackingDate}}</td>
-                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.ExpiryDate}}</td>
+                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PackingDate | dateFormat}}</td>
+                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.ExpiryDate | dateFormat}}</td>
                         <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.INW_WorkOrderId}}</td>
                         <td ng-style="{ 'width':  '300px' }" class="overflow-text">{{x.INW_PrdCode}} - {{x.INW_PrdDesc}}</td>
                         <td ng-style="{ 'width':  '300px' }" class="overflow-text">{{x.INW_WAR_Code}} - {{x.INW_WAR_Name}}</td>

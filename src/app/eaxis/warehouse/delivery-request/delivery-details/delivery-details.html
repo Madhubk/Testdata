@@ -43,8 +43,8 @@
                     <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.PartAttrib1}}</td>
                     <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.PartAttrib2}}</td>
                     <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.PartAttrib3}}</td>
-                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.PackingDate}}</td>
-                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.ExpiryDate}}</td>
+                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.PackingDate | dateFormat}}</td>
+                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.ExpiryDate | dateFormat}}</td>
                 </tr>
             </tbody>
         </table>

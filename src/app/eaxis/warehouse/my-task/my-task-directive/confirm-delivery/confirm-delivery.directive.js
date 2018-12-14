@@ -2,17 +2,17 @@
     "use strict"
     angular
         .module("Application")
-        .directive("updatereportout", UpdateReportOutDirective)
-        .directive("updateReportOutEdit", UpdateReportOutEditDirective);
+        .directive("confirmdelivery", ConfirmDeliveryDirective)
+        .directive("confirmDeliveryEdit", ConfirmDeliveryEditDirective);
 
-    function UpdateReportOutDirective() {
+    function ConfirmDeliveryDirective() {
         var exports = {
             restrict: "EA",
             templateUrl:
-                "app/eaxis/warehouse/my-task/my-task-directive/update-report-out/update-report-out-task-list.html",
+                "app/eaxis/warehouse/my-task/my-task-directive/confirm-delivery/confirm-delivery-task-list.html",
             link: Link,
-            controller: "UpdateReportController",
-            controllerAs: "UpdateReportCtrl",
+            controller: "ConfirmDeliveryController",
+            controllerAs: "ConfirmDeliveryCtrl",
             bindToController: true,
             scope: {
                 taskObj: "="
@@ -25,13 +25,13 @@
         function Link(scope, elem, attr) { }
     }
 
-    function UpdateReportOutEditDirective() {
+    function ConfirmDeliveryEditDirective() {
         var exports = {
             restrict: "EA",
-            templateUrl: "app/eaxis/warehouse/my-task/my-task-directive/update-report-out/update-report-out-activity.html",
+            templateUrl: "app/eaxis/warehouse/my-task/my-task-directive/confirm-delivery/confirm-delivery-activity.html",
             link: Link,
-            controller: "UpdateReportController",
-            controllerAs: "UpdateReportCtrl",
+            controller: "ConfirmDeliveryController",
+            controllerAs: "ConfirmDeliveryCtrl",
             bindToController: true,
             scope: {
                 currentObj: "="

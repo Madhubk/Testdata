@@ -1,0 +1,101 @@
+<div class="grid-loading-norecord-container ng-scope" style='z-index: 15;margin-top: 50px;' data-ng-if="TransferMaterialCtrl.ePage.Masters.LoadingValue">
+    <div class="grid-no-record">{{TransferMaterialCtrl.ePage.Masters.LoadingValue}}</div>
+</div>
+<div class="col-lg-12 clearfix no-padding" data-ng-if="TransferMaterialCtrl.ePage.Entities.Header.Data">
+    <div class="clearfix mt-10" data-ng-if="!TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-10">
+            <button class="btn btn-blue btn-sm pull-right ml-10" data-ng-click="TransferMaterialCtrl.ePage.Masters.CreatePick()" data-ng-bind="TransferMaterialCtrl.ePage.Masters.CreatePickText"
+                data-ng-disabled="TransferMaterialCtrl.ePage.Masters.IsDisabled"></button>
+        </div>
+        <div class="clearfix col-lg-12 mt-10 mb-10">
+            <div class="rows border-box border-radius-2 pt-15 height-60">
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <div class="color-999 fs-11">Outward No</div>
+                        <div class="text-single-line">
+                            <span>{{TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID || TransferMaterialCtrl.ePage.Masters.Empty}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <div class="color-999 fs-11">Client</div>
+                        <span>{{TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ClientCode || TransferMaterialCtrl.ePage.Masters.Empty}}
+                            - {{TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ClientName || TransferMaterialCtrl.ePage.Masters.Empty}}</span>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <div class="color-999 fs-11">Warehouse</div>
+                        <span>{{TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WarehouseCode || TransferMaterialCtrl.ePage.Masters.Empty}}
+                            - {{TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WarehouseName || TransferMaterialCtrl.ePage.Masters.Empty}}</span>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <div class="color-999 fs-11">Consignee</div>
+                        <span>{{TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeCode || TransferMaterialCtrl.ePage.Masters.Empty}}
+                            - {{TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeName || TransferMaterialCtrl.ePage.Masters.Empty}}</span>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <div class="color-999 fs-11">Order Number</div>
+                        <span>{{TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ExternalReference || TransferMaterialCtrl.ePage.Masters.Empty}}</span>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <div class="color-999 fs-11">Required Date</div>
+                        <span>{{TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.RequiredDate | dateFormat}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="OutwardLineTable{{TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID}}" class="fixedheader mb-0"
+            key-events table-object='TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine' enable='TransferMaterialCtrl.ePage.Masters.Enable'
+            selected-row='TransferMaterialCtrl.ePage.Masters.selectedRow' unique-id='OutwardLineTable{{TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID}}'>
+            <table style="height: 200px">
+                <thead>
+                    <tr id="tableHeader">
+                        <th ng-style="{ 'width':  '40px' }" title="S.No">S.No</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Product Code">Product Code</th>
+                        <th ng-style="{ 'width':  '250px' }" title="Product Description">Product Description</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Commodity">Commodity</th>
+                        <th ng-style="{ 'width':  '100px' }" title="Pack">Pack</th>
+                        <th ng-style="{ 'width':  '100px' }" title="Pack Type">Pack Type</th>
+                        <th ng-style="{ 'width':  '100px' }" title="Quantity">Quantity</th>
+                        <th ng-style="{ 'width':  '100px' }" title="Quantity UQ">Quantity UQ</th>
+                        <th ng-style="{ 'width':  '100px' }" title="UDF 1">UDF 1</th>
+                        <th ng-style="{ 'width':  '100px' }" title="UDF 2">UDF 2</th>
+                        <th ng-style="{ 'width':  '100px' }" title="UDF 3">UDF 3</th>
+                        <th ng-style="{ 'width':  '100px' }" title="Packing Date">Packing Date</th>
+                        <th ng-style="{ 'width':  '100px' }" title="Expiry Date">Expiry Date</th>
+                        <th ng-style="{ 'width':  '150px' }" title="CSR No">CSR No</th>
+                    </tr>
+                </thead>
+                <tbody id="OutwardLineCustTable{{TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID}}">
+                    <tr id="tableBody" ng-repeat="x in TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine">
+                        <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.ProductCode}}</td>
+                        <td ng-style="{ 'width':  '250px' }" class="overflow-text">{{x.ProductDescription}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.Commodity}}</td>
+                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.Packs}}</td>
+                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PAC_PackType}}</td>
+                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.Units}}</td>
+                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.StockKeepingUnit}}</td>
+                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PartAttrib1}}</td>
+                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PartAttrib2}}</td>
+                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PartAttrib3}}</td>
+                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PackingDate | dateFormat}}</td>
+                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.ExpiryDate | dateFormat}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.AdditionalRef1Code}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="clearfix mt-10" data-ng-if="TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo">
+    <release-menu data-ng-if="TransferMaterialCtrl.ePage.Masters.TabList" current-release="TransferMaterialCtrl.ePage.Masters.TabList"></release-menu>
+</div>
