@@ -242,12 +242,14 @@
                     <error-warning-directive data-ng-if="DeliveryGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.AdditionalRef1Code.IsWarning && !DeliveryGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.AdditionalRef1Code.IsError"
                         list="DeliveryGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.AdditionalRef1Code.WARNING" type="'warning'"
                         icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                    <error-warning-directive data-ng-if="DeliveryGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.AdditionalRef1Code.IsError" list="DeliveryGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.AdditionalRef1Code.ERROR"
-                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="DeliveryGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.AdditionalRef1Code.IsError"
+                        list="DeliveryGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.AdditionalRef1Code.ERROR" type="'error'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                 </span>
                 <label class="control-label text-single-line">Drop Point</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Drop Point" data-ng-model="DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.AdditionalRef1Code" ng-change="DeliveryGeneralCtrl.ePage.Masters.OnChangeValues(DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.AdditionalRef1Code,'E3083')">
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Drop Point" data-ng-model="DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.AdditionalRef1Code"
+                        ng-change="DeliveryGeneralCtrl.ePage.Masters.OnChangeValues(DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.AdditionalRef1Code,'E3083')">
                 </div>
             </div>
         </div>
@@ -288,9 +290,13 @@
         <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
             <div class="form-group">
                 <label class="control-label text-single-line">Delivery Request No</label>
-                <div class="">
+                <div class="" data-ng-if="!DeliveryGeneralCtrl.currentDelivery.isNew">
                     <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Delivery Request No"
                         data-ng-model="DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID">
+                </div>
+                <div class="" data-ng-if="DeliveryGeneralCtrl.currentDelivery.isNew">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Delivery Request No"
+                        data-ng-model="DeliveryGeneralCtrl.ePage.Masters.TempWorkOrderID">
                 </div>
             </div>
         </div>

@@ -123,13 +123,15 @@
         }
 
         function getDeliveryList() {
-            apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef2Fk).then(function (response) {
-                if (response.data.Response) {
-                    ArrangeMaterialCtrl.ePage.Entities.Header.DeliveryData = response.data.Response;
-                    myTaskActivityConfig.Entities.DeliveryData = ArrangeMaterialCtrl.ePage.Entities.Header.DeliveryData;
-                    GeneralOperation();
-                }
-            });
+            if (ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef2Fk) {
+                apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef2Fk).then(function (response) {
+                    if (response.data.Response) {
+                        ArrangeMaterialCtrl.ePage.Entities.Header.DeliveryData = response.data.Response;
+                        myTaskActivityConfig.Entities.DeliveryData = ArrangeMaterialCtrl.ePage.Entities.Header.DeliveryData;
+                        GeneralOperation();
+                    }
+                });
+            }
         }
 
         function GeneralOperation() {

@@ -5,9 +5,9 @@
         .module("Application")
         .controller("ConfirmDeliveryController", ConfirmDeliveryController);
 
-    ConfirmDeliveryController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "dynamicLookupConfig", "outwardConfig", "$injector"];
+    ConfirmDeliveryController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "dynamicLookupConfig", "outwardConfig", "$injector", "$timeout"];
 
-    function ConfirmDeliveryController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, dynamicLookupConfig, outwardConfig, $injector) {
+    function ConfirmDeliveryController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, dynamicLookupConfig, outwardConfig, $injector, $timeout) {
         var ConfirmDeliveryCtrl = this;
         var Config = $injector.get("releaseConfig");
 
@@ -49,6 +49,25 @@
             ConfirmDeliveryCtrl.ePage.Masters.DatePicker.Options = APP_CONSTANT.DatePicker;
             ConfirmDeliveryCtrl.ePage.Masters.DatePicker.isOpen = [];
             ConfirmDeliveryCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
+
+            ConfirmDeliveryCtrl.ePage.Masters.ReloadOutwardDetails = ReloadOutwardDetails;
+        }
+
+        function ReloadOutwardDetails() {            
+            if (!ConfirmDeliveryCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.FinalisedDate) {
+                $timeout(function () {
+                    apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + ConfirmDeliveryCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK).then(function (response) {
+                        if (response.data.Response) {
+                            response.data.Response.UIWmsOutwardHeader.Client = response.data.Response.UIWmsOutwardHeader.ClientCode + "-" + response.data.Response.UIWmsOutwardHeader.ClientName;
+                            response.data.Response.UIWmsOutwardHeader.Warehouse = response.data.Response.UIWmsOutwardHeader.WarehouseCode + "-" + response.data.Response.UIWmsOutwardHeader.WarehouseName;
+                            response.data.Response.UIWmsOutwardHeader.Consignee = response.data.Response.UIWmsOutwardHeader.ConsigneeCode + "-" + response.data.Response.UIWmsOutwardHeader.ConsigneeName;
+                            myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data = response.data.Response;
+                            myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.GlobalVariables.NonEditable = true;
+                            ConfirmDeliveryCtrl.ePage.Entities.Header.Data = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data;
+                        }
+                    });
+                }, 8000);
+            }
         }
 
         function GetManifestDetails() {

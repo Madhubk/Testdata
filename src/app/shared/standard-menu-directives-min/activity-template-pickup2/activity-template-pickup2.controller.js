@@ -125,13 +125,13 @@
             }
         }
 
-        function SaveEntity() {
+        function SaveEntity(callback) {
             if (ActivityTemplatePickup2Ctrl.taskObj.WSI_StepName == "Create Pickup Challan") {
                 $rootScope.SaveInwardFromTask(function () {
-                    saves();
+                    saves(callback);
                 });
             } else {
-                saves();
+                saves(callback);
             }
         }
 
@@ -162,11 +162,15 @@
                             };
                             myTaskActivityConfig.Entities.Pickup = ActivityTemplatePickup2Ctrl.currentPickup;
                             ActivityTemplatePickup2Ctrl.ePage.Masters.Config.IsReload = true;
-                            toastr.success("Saved Successfully...!");
+                            toastr.success("Pickup Saved Successfully...!");
+                            if (callback)
+                                callback();
                         }
                     });
                 } else {
                     toastr.error("Save Failed...!");
+                    if (callback)
+                        callback();
                 }
                 ActivityTemplatePickup2Ctrl.ePage.Masters.IsDisableSaveBtn = false;
                 ActivityTemplatePickup2Ctrl.ePage.Masters.SaveBtnText = "Save";
@@ -428,23 +432,24 @@
                 ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj.UIWmsWorkorderReport.AcknowledgementDateTime = new Date();
                 ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj.AcknowledgedPerson = authService.getUserInfo().UserId;
             }
-            SaveEntity();
-            SaveOnly().then(function (response) {
-                if (response.data.Status == "Success") {
-                    toastr.success("Task Completed Successfully...!");
-                    var _data = {
-                        IsCompleted: true,
-                        Item: ActivityTemplatePickup2Ctrl.ePage.Masters.TaskObj
-                    };
+            SaveEntity(function () {
+                SaveOnly().then(function (response) {
+                    if (response.data.Status == "Success") {
+                        toastr.success("Task Completed Successfully...!");
+                        var _data = {
+                            IsCompleted: true,
+                            Item: ActivityTemplatePickup2Ctrl.ePage.Masters.TaskObj
+                        };
 
-                    ActivityTemplatePickup2Ctrl.onComplete({
-                        $item: _data
-                    });
-                } else {
-                    toastr.error("Task Completion Failed...!");
-                }
-                ActivityTemplatePickup2Ctrl.ePage.Masters.IsDisableCompleteBtn = false;
-                ActivityTemplatePickup2Ctrl.ePage.Masters.CompleteBtnText = "Complete";
+                        ActivityTemplatePickup2Ctrl.onComplete({
+                            $item: _data
+                        });
+                    } else {
+                        toastr.error("Task Completion Failed...!");
+                    }
+                    ActivityTemplatePickup2Ctrl.ePage.Masters.IsDisableCompleteBtn = false;
+                    ActivityTemplatePickup2Ctrl.ePage.Masters.CompleteBtnText = "Complete";
+                });
             });
         }
 

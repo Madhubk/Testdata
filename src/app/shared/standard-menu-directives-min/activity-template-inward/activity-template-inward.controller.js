@@ -129,11 +129,10 @@
                     $rootScope.FinalizeInwardFromTask(function () {
                         if (callback)
                             callback();
-                        // toastr.success("Saved Successfully");
                     });
                 } else {
                     $rootScope.SaveInwardFromTask(function () {
-                        // toastr.success("Saved Successfully");
+
                     });
                 }
             } else if (ActivityTemplateInwardCtrl.taskObj.ProcessName = "WMS_CollectMaterial") {

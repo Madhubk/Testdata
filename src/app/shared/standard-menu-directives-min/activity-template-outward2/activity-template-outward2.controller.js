@@ -124,32 +124,34 @@
             }
         }
 
-        function SaveEntity() {
+        function SaveEntity(callback) {
             if (ActivityTemplateOutward2Ctrl.taskObj.ProcessName == "WMS_DeliveryMaterial") {
                 apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.Update.Url, myTaskActivityConfig.Entities.DeliveryData).then(function (response) {
                     $rootScope.SaveOutwardFromTask(function () {
-                        // saves();
-                        // toastr.success("Saved Successfully");
+                        if (callback)
+                            callback();
                     });
                 });
             } else {
-                saves();
+                saves(callback);
             }
         }
 
-        function saves() {
+        function saves(callback) {
             ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableSaveBtn = true;
             ActivityTemplateOutward2Ctrl.ePage.Masters.SaveBtnText = "Please Wait..";
             var _input = angular.copy(ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj);
             _input.UIWmsOutwardHeader.IsModified = true;
             apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.Update.Url, _input).then(function (response) {
                 if (response.data.Response) {
-                    toastr.success("Saved Successfully...!");
+                    toastr.success("Outward Saved Successfully...!");
                 } else {
-                    toastr.error("Save Failed...!");
+                    toastr.error("Outward Save Failed...!");
                 }
                 ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableSaveBtn = false;
                 ActivityTemplateOutward2Ctrl.ePage.Masters.SaveBtnText = "Save";
+                if (callback)
+                    callback();
             });
         }
 
@@ -329,8 +331,22 @@
                             });
                         }
                         ActivityTemplateOutward2Ctrl.ePage.Masters.ShowErrorWarningModal(ActivityTemplateOutward2Ctrl.taskObj.PSI_InstanceNo);
-                    } else {
-                        CompleteWithSave();
+                    } else {                        
+                        if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Transfer Material") {
+                            myTaskActivityConfig.Entities.PickData.UIWmsPickHeader.PickStatus = 'PIF';
+                            myTaskActivityConfig.Entities.PickData.UIWmsPickHeader.PickStatusDesc = 'Finalized';
+                            myTaskActivityConfig.Entities.PickData = filterObjectUpdate(myTaskActivityConfig.Entities.PickData, "IsModified");
+                            apiService.post("eAxisAPI", appConfig.Entities.WmsPickList.API.Update.Url, myTaskActivityConfig.Entities.PickData).then(function (response) {
+                                if (response.data.Response) {
+                                    toastr.success("Pick Finalized Successfully");
+                                    CompleteWithSave();
+                                } else {
+                                    toastr.error("Pick Finalize failed. Try again later.")
+                                }
+                            });
+                        } else {
+                            CompleteWithSave();
+                        }
                     }
                 }, 1000);
             } else {
@@ -390,24 +406,37 @@
         function CompleteWithSave() {
             ActivityTemplateOutward2Ctrl.ePage.Masters.CompleteBtnText = "Please Wait...";
             ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableCompleteBtn = true;
-            SaveEntity();
-            SaveOnly().then(function (response) {
-                if (response.data.Status == "Success") {
-                    toastr.success("Task Completed Successfully...!");
-                    var _data = {
-                        IsCompleted: true,
-                        Item: ActivityTemplateOutward2Ctrl.ePage.Masters.TaskObj
-                    };
+            SaveEntity(function () {
+                SaveOnly().then(function (response) {
+                    if (response.data.Status == "Success") {
+                        toastr.success("Task Completed Successfully...!");
+                        var _data = {
+                            IsCompleted: true,
+                            Item: ActivityTemplateOutward2Ctrl.ePage.Masters.TaskObj
+                        };
 
-                    ActivityTemplateOutward2Ctrl.onComplete({
-                        $item: _data
-                    });
-                } else {
-                    toastr.error("Task Completion Failed...!");
-                }
-                ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableCompleteBtn = false;
-                ActivityTemplateOutward2Ctrl.ePage.Masters.CompleteBtnText = "Complete";
+                        ActivityTemplateOutward2Ctrl.onComplete({
+                            $item: _data
+                        });
+                    } else {
+                        toastr.error("Task Completion Failed...!");
+                    }
+                    ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableCompleteBtn = false;
+                    ActivityTemplateOutward2Ctrl.ePage.Masters.CompleteBtnText = "Complete";
+                });
             });
+        }
+
+        function filterObjectUpdate(obj, key) {
+            for (var i in obj) {
+                if (!obj.hasOwnProperty(i)) continue;
+                if (typeof obj[i] == 'object') {
+                    filterObjectUpdate(obj[i], key);
+                } else if (i == key) {
+                    obj[key] = true;
+                }
+            }
+            return obj;
         }
 
         function ShowErrorWarningModal(EntityObject) {

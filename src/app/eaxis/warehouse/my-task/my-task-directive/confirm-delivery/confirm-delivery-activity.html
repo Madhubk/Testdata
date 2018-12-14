@@ -32,3 +32,6 @@
     </uib-tabset>
     <div class="horizontal-space"></div>
 </div>
+<!-- To reload the outward details -->
+<div data-ng-if="ConfirmDeliveryCtrl.ePage.Masters.TabList[ConfirmDeliveryCtrl.ePage.Masters.TabList.label].ePage.Entities.Header.Data.UIWmsOutward[0].WorkOrderStatus=='FIN'"
+    ng-init="ConfirmDeliveryCtrl.ePage.Masters.ReloadOutwardDetails()"></div>
