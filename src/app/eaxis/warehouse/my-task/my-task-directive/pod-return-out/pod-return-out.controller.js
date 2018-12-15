@@ -55,6 +55,7 @@
             apiService.get("eAxisAPI", appConfig.Entities.TmsManifestList.API.GetById.Url + PodReturnCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk).then(function (response) {
                 if (response.data.Response) {
                     PodReturnCtrl.ePage.Entities.Header.ManifestData = response.data.Response;
+                    myTaskActivityConfig.Entities.ManifestData = PodReturnCtrl.ePage.Entities.Header.ManifestData;
                 }
             });
         }

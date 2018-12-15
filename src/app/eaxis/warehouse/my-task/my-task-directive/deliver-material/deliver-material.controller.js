@@ -59,6 +59,7 @@
             apiService.get("eAxisAPI", appConfig.Entities.TmsManifestList.API.GetById.Url + DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk).then(function (response) {
                 if (response.data.Response) {
                     DeliverMaterialCtrl.ePage.Entities.Header.ManifestData = response.data.Response;
+                    myTaskActivityConfig.Entities.ManifestData = DeliverMaterialCtrl.ePage.Entities.Header.ManifestData;
                 }
             });
         }
@@ -93,9 +94,15 @@
                     response.data.Response.TmsManifestHeader.Receiver_ORG_FK = DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Consignee_FK;
                     response.data.Response.TmsManifestHeader.EstimatedDispatchDate = new Date();
                     response.data.Response.TmsManifestHeader.EstimatedDeliveryDate = new Date();
-                    DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code = response.data.Response.TmsManifestHeader.ManifestNumber;
                     DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk = response.data.Response.TmsManifestHeader.PK;
                     DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IsModified = true;
+
+                    response.data.Response.JobAddress = DeliverMaterialCtrl.ePage.Entities.Header.Data.UIJobAddress;
+                    angular.forEach(response.data.Response.JobAddress, function (value, key) {
+                        value.PK = "";
+                        if (value.AddressType == "CED")
+                            value.AddressType = "REC";
+                    })
 
                     apiService.post("eAxisAPI", appConfig.Entities.TmsManifestList.API.Insert.Url, response.data.Response).then(function (response) {
                         if (response.data.Status == 'Success') {
@@ -151,6 +158,9 @@
                                 response.data.Response.TmsManifestItem.push(obj);
                             });
 
+                            response.data.Response.TmsManifestHeader.SubmittedDateTime = new Date();
+                            response.data.Response.TmsManifestHeader.ApproveOrRejectDateTime = new Date();
+                            response.data.Response.TmsManifestHeader.IsModified = true;
                             apiService.post("eAxisAPI", appConfig.Entities.TmsManifestList.API.Update.Url, response.data.Response).then(function (response) {
                                 if (response.data.Status == 'Success') {
                                     apiService.get("eAxisAPI", appConfig.Entities.TmsManifestList.API.GetById.Url + response.data.Response.Response.PK).then(function (response) {
@@ -158,6 +168,7 @@
                                             DeliverMaterialCtrl.ePage.Masters.LoadingValue = "";
                                             toastr.success("Manifest Created Successfully");
                                             DeliverMaterialCtrl.ePage.Entities.Header.ManifestData = response.data.Response;
+                                            myTaskActivityConfig.Entities.ManifestData = DeliverMaterialCtrl.ePage.Entities.Header.ManifestData;
                                             DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code = response.data.Response.TmsManifestHeader.ManifestNumber;
                                         }
                                     });

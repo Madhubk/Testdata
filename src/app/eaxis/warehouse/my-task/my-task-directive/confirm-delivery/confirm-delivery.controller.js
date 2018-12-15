@@ -53,7 +53,7 @@
             ConfirmDeliveryCtrl.ePage.Masters.ReloadOutwardDetails = ReloadOutwardDetails;
         }
 
-        function ReloadOutwardDetails() {            
+        function ReloadOutwardDetails() {
             if (!ConfirmDeliveryCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.FinalisedDate) {
                 $timeout(function () {
                     apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + ConfirmDeliveryCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK).then(function (response) {
@@ -74,6 +74,7 @@
             apiService.get("eAxisAPI", appConfig.Entities.TmsManifestList.API.GetById.Url + ConfirmDeliveryCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk).then(function (response) {
                 if (response.data.Response) {
                     ConfirmDeliveryCtrl.ePage.Entities.Header.ManifestData = response.data.Response;
+                    myTaskActivityConfig.Entities.ManifestData = ConfirmDeliveryCtrl.ePage.Entities.Header.ManifestData;
                 }
             });
         }
@@ -82,6 +83,7 @@
             apiService.get("eAxisAPI", Config.Entities.Header.API.GetByID.Url + ConfirmDeliveryCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WPK_FK).then(function (response) {
                 if (response.data.Response) {
                     ConfirmDeliveryCtrl.ePage.Entities.Header.PickData = response.data.Response;
+                    myTaskActivityConfig.Entities.PickData = ConfirmDeliveryCtrl.ePage.Entities.Header.PickData;
                     Config.GetTabDetails(ConfirmDeliveryCtrl.ePage.Entities.Header.PickData.UIWmsPickHeader, false).then(function (response) {
                         angular.forEach(response, function (value, key) {
                             if (value.label == ConfirmDeliveryCtrl.ePage.Entities.Header.PickData.UIWmsPickHeader.PickNo) {
