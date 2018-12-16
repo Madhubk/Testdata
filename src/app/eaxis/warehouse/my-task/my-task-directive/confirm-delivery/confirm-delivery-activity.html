@@ -1,18 +1,18 @@
 <div class="padding-bottom-10 clearfix">
     <uib-tabset id="Gatepass" active="ConfirmDeliveryCtrl.ePage.Masters.activeTabIndex">
         <uib-tab>
-            <uib-tab-heading title="Manifest Details">
-                <i class="fa fa-truck margin-right-5"></i>
-                <span class="text-single-line" data-ng-bind="'Manifest Details'"></span>
-            </uib-tab-heading>
-            <div data-ng-include="'app/eaxis/warehouse/my-task/my-task-directive/confirm-delivery/manifest-details.html'"></div>
-        </uib-tab>
-        <uib-tab>
             <uib-tab-heading title="Release Details">
                 <i class="fa fa-truck margin-right-5"></i>
                 <span class="text-single-line" data-ng-bind="'Release Details'"></span>
             </uib-tab-heading>
             <div data-ng-include="'app/eaxis/warehouse/my-task/my-task-directive/confirm-delivery/release-details.html'"></div>
+        </uib-tab>
+        <uib-tab>
+            <uib-tab-heading title="Manifest Details">
+                <i class="fa fa-truck margin-right-5"></i>
+                <span class="text-single-line" data-ng-bind="'Manifest Details'"></span>
+            </uib-tab-heading>
+            <div data-ng-include="'app/eaxis/warehouse/my-task/my-task-directive/confirm-delivery/manifest-details.html'"></div>
         </uib-tab>
         <uib-tab active="ConfirmDeliveryCtrl.ePage.Masters.activeTabIndex ==1">
             <uib-tab-heading title="ConfirmDeliveryCtrl.ePage.Masters.Config.Entities.Outward.label">

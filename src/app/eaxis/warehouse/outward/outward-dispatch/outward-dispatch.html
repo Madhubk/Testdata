@@ -300,14 +300,14 @@
                     <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ReceiverRef}}</td>
                     <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ExpectedPickupDateTime | date:"dd-MMM-yyyy hh:mm a"}}</td>
                     <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ExpectedDeliveryDateTime | date:"dd-MMM-yyyy hh:mm a"}}</td>
-                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">
+                    <td ng-style="{ 'width':  '150px' }">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
                             <div class="input-group input-group-sm">
                                 <input type="text" class="form-control height-22" placeholder="{{OutwardDispatchCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
                                     datetime-picker="{{OutwardDispatchCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
                                     ng-model="x.TMC_ActualPickupDateTime" is-open="OutwardDispatchCtrl.ePage.Masters.DatePicker.isOpen['isTMC_ActualPickupDateTime']"
                                     datepicker-options="OutwardDispatchCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
-                                    close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time=""
+                                    close-on-selection="false" enable-time="true" enable-date="true" default-date="" default-time=""
                                     when-closed="" save-as="OutwardDispatchCtrl.ePage.Masters.DatePicker.Options.saveFormat"
                                     data-ng-click="" data-ng-change="" custom-date-time-format/>
                                 <span class="input-group-btn height-22">
@@ -318,14 +318,14 @@
                             </div>
                         </div>
                     </td>
-                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">
+                    <td ng-style="{ 'width':  '150px' }" >
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
                             <div class="input-group input-group-sm">
                                 <input type="text" class="form-control height-22" placeholder="{{OutwardDispatchCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
                                     datetime-picker="{{OutwardDispatchCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
                                     ng-model="x.TMC_ActualDeliveryDateTime" is-open="OutwardDispatchCtrl.ePage.Masters.DatePicker.isOpen['isTMC_ActualDeliveryDateTime']"
                                     datepicker-options="OutwardDispatchCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
-                                    close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time=""
+                                    close-on-selection="false" enable-time="true" enable-date="true" default-date="" default-time=""
                                     when-closed="" save-as="OutwardDispatchCtrl.ePage.Masters.DatePicker.Options.saveFormat"
                                     data-ng-click="" data-ng-change="" custom-date-time-format/>
                                 <span class="input-group-btn height-22">

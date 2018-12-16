@@ -68,6 +68,7 @@
             },
             "TabList": [],
             "ValidationValues": "",
+            "IsSaveManifest": false,
             "SaveAndClose": false,
             "GetTabDetails": GetTabDetails,
             "GeneralValidation": GeneralValidation,

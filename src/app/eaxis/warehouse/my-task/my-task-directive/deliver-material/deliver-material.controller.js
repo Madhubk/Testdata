@@ -58,8 +58,8 @@
         function GetManifestDetails() {
             apiService.get("eAxisAPI", appConfig.Entities.TmsManifestList.API.GetById.Url + DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk).then(function (response) {
                 if (response.data.Response) {
-                    DeliverMaterialCtrl.ePage.Entities.Header.ManifestData = response.data.Response;
-                    myTaskActivityConfig.Entities.ManifestData = DeliverMaterialCtrl.ePage.Entities.Header.ManifestData;
+                    DeliverMaterialCtrl.ePage.Entities.Header.ManifestDetails = response.data.Response;
+                    myTaskActivityConfig.Entities.ManifestData = DeliverMaterialCtrl.ePage.Entities.Header.ManifestDetails;
                 }
             });
         }
@@ -160,6 +160,7 @@
 
                             response.data.Response.TmsManifestHeader.SubmittedDateTime = new Date();
                             response.data.Response.TmsManifestHeader.ApproveOrRejectDateTime = new Date();
+                            response.data.Response.TmsManifestHeader.ApprovalStatus="Approved";
                             response.data.Response.TmsManifestHeader.IsModified = true;
                             apiService.post("eAxisAPI", appConfig.Entities.TmsManifestList.API.Update.Url, response.data.Response).then(function (response) {
                                 if (response.data.Status == 'Success') {
@@ -167,8 +168,8 @@
                                         if (response.data.Status == 'Success') {
                                             DeliverMaterialCtrl.ePage.Masters.LoadingValue = "";
                                             toastr.success("Manifest Created Successfully");
-                                            DeliverMaterialCtrl.ePage.Entities.Header.ManifestData = response.data.Response;
-                                            myTaskActivityConfig.Entities.ManifestData = DeliverMaterialCtrl.ePage.Entities.Header.ManifestData;
+                                            DeliverMaterialCtrl.ePage.Entities.Header.ManifestDetails = response.data.Response;
+                                            myTaskActivityConfig.Entities.ManifestData = DeliverMaterialCtrl.ePage.Entities.Header.ManifestDetails;
                                             DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code = response.data.Response.TmsManifestHeader.ManifestNumber;
                                         }
                                     });

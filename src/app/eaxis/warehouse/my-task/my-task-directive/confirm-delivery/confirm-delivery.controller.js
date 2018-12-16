@@ -73,8 +73,8 @@
         function GetManifestDetails() {
             apiService.get("eAxisAPI", appConfig.Entities.TmsManifestList.API.GetById.Url + ConfirmDeliveryCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk).then(function (response) {
                 if (response.data.Response) {
-                    ConfirmDeliveryCtrl.ePage.Entities.Header.ManifestData = response.data.Response;
-                    myTaskActivityConfig.Entities.ManifestData = ConfirmDeliveryCtrl.ePage.Entities.Header.ManifestData;
+                    ConfirmDeliveryCtrl.ePage.Entities.Header.ManifestDetails = response.data.Response;
+                    myTaskActivityConfig.Entities.ManifestData = ConfirmDeliveryCtrl.ePage.Entities.Header.ManifestDetails;
                 }
             });
         }
