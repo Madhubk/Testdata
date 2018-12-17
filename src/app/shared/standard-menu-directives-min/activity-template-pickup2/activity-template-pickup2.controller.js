@@ -172,7 +172,7 @@
             ActivityTemplatePickup2Ctrl.ePage.Masters.IsDisableSaveBtn = true;
             ActivityTemplatePickup2Ctrl.ePage.Masters.SaveBtnText = "Please Wait..";
             var _input = angular.copy(myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data);
-            _input.UIWmsPickup.IsModified = true;
+            _input = filterObjectUpdate(_input, "IsModified");
             apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     apiService.get("eAxisAPI", appConfig.Entities.WmsPickupList.API.GetById.Url + response.data.Response.UIWmsPickup.PK).then(function (response) {
@@ -194,6 +194,18 @@
                 ActivityTemplatePickup2Ctrl.ePage.Masters.IsDisableSaveBtn = false;
                 ActivityTemplatePickup2Ctrl.ePage.Masters.SaveBtnText = "Save";
             });
+        }
+
+        function filterObjectUpdate(obj, key) {
+            for (var i in obj) {
+                if (!obj.hasOwnProperty(i)) continue;
+                if (typeof obj[i] == 'object') {
+                    filterObjectUpdate(obj[i], key);
+                } else if (i == key) {
+                    obj[key] = true;
+                }
+            }
+            return obj;
         }
 
         function SaveOnly() {

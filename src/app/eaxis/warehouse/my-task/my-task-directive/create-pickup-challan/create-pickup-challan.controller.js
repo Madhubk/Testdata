@@ -127,9 +127,9 @@
                     var temp = 0;
                     CreatePickupChallanCtrl.ePage.Masters.TempCSR = '';
                     angular.forEach(CreatePickupChallanCtrl.ePage.Masters.SelectedPickupLine, function (value, key) {
-                        if (value.INW_PrdCode) {
+                        if (value.IL_PrdCode) {
                             temp = temp + 1;
-                            CreatePickupChallanCtrl.ePage.Masters.TempCSR = CreatePickupChallanCtrl.ePage.Masters.TempCSR + value.AdditionalRef1Code + ",";
+                            CreatePickupChallanCtrl.ePage.Masters.TempCSR = CreatePickupChallanCtrl.ePage.Masters.TempCSR + value.PL_AdditionalRef1Code + ",";
                         }
                     });
                     CreatePickupChallanCtrl.ePage.Masters.TempCSR = CreatePickupChallanCtrl.ePage.Masters.TempCSR.slice(0, -1);
@@ -164,26 +164,26 @@
                                     angular.forEach(CreatePickupChallanCtrl.ePage.Masters.SelectedPickupLine, function (value, key) {
                                         var obj = {
                                             "PK": "",
-                                            "Parent_FK": value.PK,
-                                            "Client_FK": value.WOD_ORG_Client_FK,
-                                            "ORG_ClientCode": value.ORG_ClientCode,
+                                            "Parent_FK": value.PL_PK,
+                                            "Client_FK": value.PIC_ORG_Client_FK,
+                                            "ORG_ClientCode": value.PIC_ConsigneeCode,
                                             "ORG_ClientName": value.ORG_ClientName,
-                                            "ProductCode": value.PICPRD_Req_PrdCode,
-                                            "ProductDescription": value.PICPRD_Req_PrdDesc,
-                                            "ProductCondition": value.ProductCondition,
-                                            "POR_FK": value.PRO_FK,
-                                            "Packs": value.Packs,
-                                            "PAC_PackType": value.PAC_PackType,
-                                            "Quantity": value.Units,
-                                            "StockKeepingUnit": value.PICPRD_StockKeepingUnit,
-                                            "PalletId": value.PalletID,
-                                            "PartAttrib1": value.PartAttrib1,
-                                            "PartAttrib2": value.PartAttrib2,
-                                            "PartAttrib3": value.PartAttrib3,
-                                            "PackingDate": value.PackingDate,
-                                            "ExpiryDate": value.ExpiryDate,
-                                            "AdditionalRef1Code": value.AdditionalRef1Code,
-                                            "AdditionalRef1Type": value.AdditionalRef1Type
+                                            "ProductCode": value.PL_Req_PrdCode,
+                                            "ProductDescription": value.PL_Req_PrdDesc,
+                                            "ProductCondition": value.PL_ProductCondition,
+                                            "POR_FK": value.PL_Req_PrdPk,
+                                            "Packs": value.PL_Packs,
+                                            "PAC_PackType": value.PL_PAC_PackType,
+                                            "Quantity": value.PL_Units,
+                                            "StockKeepingUnit": value.PL_StockKeepingUnit,
+                                            "PalletId": value.PL_PalletID,
+                                            "PartAttrib1": value.PL_PartAttrib1,
+                                            "PartAttrib2": value.PL_PartAttrib2,
+                                            "PartAttrib3": value.PL_PartAttrib3,
+                                            "PackingDate": value.PL_PackingDate,
+                                            "ExpiryDate": value.PL_ExpiryDate,
+                                            "AdditionalRef1Code": value.PL_AdditionalRef1Code,
+                                            "AdditionalRef1Type": value.PL_AdditionalRef1Type
                                         };
                                         response.data.Response.Response.UIWmsAsnLine.push(obj);
                                     });
