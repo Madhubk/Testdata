@@ -5,9 +5,9 @@
         .module("Application")
         .controller("AcknowledgePickupReqController", AcknowledgePickupReqController);
 
-    AcknowledgePickupReqController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "dynamicLookupConfig"];
+    AcknowledgePickupReqController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "dynamicLookupConfig", "pickupConfig"];
 
-    function AcknowledgePickupReqController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, dynamicLookupConfig) {
+    function AcknowledgePickupReqController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, dynamicLookupConfig, pickupConfig) {
         var AckPickupReqCtrl = this;
 
         function Init() {
@@ -32,6 +32,7 @@
                 AckPickupReqCtrl.ePage.Entities.Header.Data = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data;
                 GeneralOperation();
                 GetDynamicLookupConfig();
+                pickupConfig.ValidationFindall();
                 if (errorWarningService.Modules.MyTask)
                     AckPickupReqCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.MyTask.Entity[myTaskActivityConfig.Entities.Pickup.label];
             }

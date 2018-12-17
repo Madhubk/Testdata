@@ -63,8 +63,7 @@
             }
         }
 
-        function CreatePickup() {
-            debugger
+        function CreatePickup() {            
             if (PendingPickupToolbarCtrl.ePage.Masters.PendingPickupCount > 0) {
                 var TempWarehouse = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].DEL_WAR_Code;
                 var TempConsignee = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].DEL_ConsigneeCode;
@@ -76,76 +75,85 @@
                 });
                 if (count == PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList.length) {
                     PendingPickupToolbarCtrl.ePage.Masters.IsCreatePickupBtn = true;
-                    PendingPickupToolbarCtrl.ePage.Masters.CreatePickupBtnText = "Please Wait...";
+                    PendingPickupToolbarCtrl.ePage.Masters.CreatePickupBtnText = "Please Wait...";                    
+                    apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WOD_FK).then(function (response) {
+                        if (response.data.Response) {
+                            PendingPickupToolbarCtrl.ePage.Masters.DeliveryData = response.data.Response;
+                            helperService.getFullObjectUsingGetById(appConfig.Entities.WmsPickupList.API.GetById.Url, 'null').then(function (response) {
+                                if (response.data.Response.Response) {
+                                    response.data.Response.Response.UIWmsPickup.PK = response.data.Response.Response.PK;
+                                    response.data.Response.Response.UIWmsPickup.ExternalReference = response.data.Response.Response.UIWmsPickup.WorkOrderID;
+                                    response.data.Response.Response.UIWmsPickup.ORG_Client_FK = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WOD_ORG_Client_FK;
+                                    response.data.Response.Response.UIWmsPickup.ORG_Consignee_FK = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WOD_ORG_Consignee_FK
+                                    response.data.Response.Response.UIWmsPickup.WAR_FK = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WOD_WAR_FK;
+                                    response.data.Response.Response.UIWmsWorkorderReport.AdditionalRef1Code = PendingPickupToolbarCtrl.ePage.Masters.DeliveryData.UIWmsWorkorderReport.AdditionalRef1Code;
+                                    response.data.Response.Response.UIJobAddress = angular.copy(PendingPickupToolbarCtrl.ePage.Masters.DeliveryData.UIJobAddress);
+                                    angular.forEach(response.data.Response.Response.UIJobAddress, function (value, key) {
+                                        value.PK = "";
+                                    });
+                                    // response.data.Response.Response.UIWmsWorkorderReport.AcknowledgementDateTime = new Date();
+                                    // response.data.Response.Response.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;
+                                    angular.forEach(PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList, function (value, key) {
+                                        var obj = {
+                                            "PK": "",
+                                            "WOL_Parent_FK": value.PK,
+                                            "ProductCode": value.DELPRD_Req_PrdCode,
+                                            "ProductDescription": value.DELPRD_Req_PrdDesc,
+                                            "ProductCondition": "",
+                                            "PRO_FK": value.DELPRD_Req_PrdPk,
+                                            "MCC_NKCommodityCode": value.DELPRD_MCC_NKCommodityCode,
+                                            "Packs": value.Packs,
+                                            "PAC_PackType": value.PAC_PackType,
+                                            "Units": value.Units,
+                                            "StockKeepingUnit": value.DELPRD_StockKeepingUnit,
+                                            "PartAttrib1": value.PartAttrib1,
+                                            "PartAttrib2": value.PartAttrib2,
+                                            "PartAttrib3": value.PartAttrib3,
+                                            "PackingDate": value.PackingDate,
+                                            "ExpiryDate": value.ExpiryDate,
+                                            "UseExpiryDate": false,
+                                            "UsePackingDate": false,
+                                            "UsePartAttrib1": false,
+                                            "UsePartAttrib2": false,
+                                            "UsePartAttrib3": false,
+                                            "IsPartAttrib1ReleaseCaptured": false,
+                                            "IsPartAttrib2ReleaseCaptured": false,
+                                            "IsPartAttrib3ReleaseCaptured": false,
+                                            "WorkOrderLineType": "PIC",
+                                            "IsDeleted": false,
+                                            "ORG_ClientCode": value.DEL_ClientCode,
+                                            "ORG_ClientName": value.DEL_ClientName,
+                                            "Client_FK": value.DEL_ClientFk,
+                                            "AdditionalRef1Code": value.AdditionalRef1Code,
 
-                    helperService.getFullObjectUsingGetById(appConfig.Entities.WmsPickupList.API.GetById.Url, 'null').then(function (response) {
-                        if (response.data.Response.Response) {
-                            response.data.Response.Response.UIWmsPickup.PK = response.data.Response.Response.PK;
-                            response.data.Response.Response.UIWmsPickup.ExternalReference = response.data.Response.Response.UIWmsPickup.WorkOrderID;
-                            response.data.Response.Response.UIWmsPickup.ORG_Client_FK = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WOD_ORG_Client_FK;
-                            response.data.Response.Response.UIWmsPickup.ORG_Consignee_FK = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WOD_ORG_Consignee_FK
-                            response.data.Response.Response.UIWmsPickup.WAR_FK = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WOD_WAR_FK;
-                            response.data.Response.Response.UIWmsWorkorderReport.AcknowledgementDateTime = new Date();
-                            response.data.Response.Response.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;
-                            angular.forEach(PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList, function (value, key) {
-                                var obj = {
-                                    "PK": "",
-                                    "WOL_Parent_FK": value.PK,
-                                    "ProductCode": value.DELPRD_Req_PrdCode,
-                                    "ProductDescription": value.DELPRD_Req_PrdDesc,
-                                    "ProductCondition": "",
-                                    "PRO_FK": value.DELPRD_Req_PrdPk,
-                                    "MCC_NKCommodityCode": value.DELPRD_MCC_NKCommodityCode,
-                                    "Packs": value.Packs,
-                                    "PAC_PackType": value.PAC_PackType,
-                                    "Units": value.Units,
-                                    "StockKeepingUnit": value.DELPRD_StockKeepingUnit,
-                                    "PartAttrib1": value.PartAttrib1,
-                                    "PartAttrib2": value.PartAttrib2,
-                                    "PartAttrib3": value.PartAttrib3,
-                                    "PackingDate": value.PackingDate,
-                                    "ExpiryDate": value.ExpiryDate,
-                                    "UseExpiryDate": false,
-                                    "UsePackingDate": false,
-                                    "UsePartAttrib1": false,
-                                    "UsePartAttrib2": false,
-                                    "UsePartAttrib3": false,
-                                    "IsPartAttrib1ReleaseCaptured": false,
-                                    "IsPartAttrib2ReleaseCaptured": false,
-                                    "IsPartAttrib3ReleaseCaptured": false,
-                                    "WorkOrderLineType": "PIC",
-                                    "IsDeleted": false,
-                                    "ORG_ClientCode": value.DEL_ClientCode,
-                                    "ORG_ClientName": value.DEL_ClientName,
-                                    "Client_FK": value.DEL_ClientFk,
-                                    "AdditionalRef1Code": value.AdditionalRef1Code,
-
-                                    "WAR_WarehouseCode": value.DEL_WAR_Code,
-                                    "WAR_WarehouseName": value.DEL_WAR_Name,
-                                    "WAR_FK": value.WOD_WAR_FK,
-                                };
-                                response.data.Response.Response.UIWmsPickupLine.push(obj);
-                            });
-                            apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Insert.Url, response.data.Response.Response).then(function (response) {
-                                if (response.data.Response) {
-                                    PendingPickupToolbarCtrl.ePage.Masters.IsCreatePickupBtn = true;
-                                    PendingPickupToolbarCtrl.ePage.Masters.CreatePickupBtnText = "Create Pickup";
-                                    toastr.success("Pickup Created Successfully");
-                                    var _queryString = {
-                                        PK: response.data.Response.UIWmsPickup.PK,
-                                        WorkOrderID: response.data.Response.UIWmsPickup.WorkOrderID,
-                                    };
-                                    _queryString = helperService.encryptData(_queryString);
-                                    $window.open("#/EA/single-record-view/pendingpickup/" + _queryString, "_blank");
-                                    helperService.refreshGrid();
+                                            "WAR_WarehouseCode": value.DEL_WAR_Code,
+                                            "WAR_WarehouseName": value.DEL_WAR_Name,
+                                            "WAR_FK": value.WOD_WAR_FK,
+                                        };
+                                        response.data.Response.Response.UIWmsPickupLine.push(obj);
+                                    });
+                                    apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Insert.Url, response.data.Response.Response).then(function (response) {
+                                        if (response.data.Response) {
+                                            PendingPickupToolbarCtrl.ePage.Masters.IsCreatePickupBtn = true;
+                                            PendingPickupToolbarCtrl.ePage.Masters.CreatePickupBtnText = "Create Pickup";
+                                            toastr.success("Pickup Created Successfully");
+                                            var _queryString = {
+                                                PK: response.data.Response.UIWmsPickup.PK,
+                                                WorkOrderID: response.data.Response.UIWmsPickup.WorkOrderID,
+                                            };
+                                            _queryString = helperService.encryptData(_queryString);
+                                            $window.open("#/EA/single-record-view/pendingpickup/" + _queryString, "_blank");
+                                            helperService.refreshGrid();
+                                        } else {
+                                            toastr.error("Pickup Creation Failed. Please try again later");
+                                            PendingPickupToolbarCtrl.ePage.Masters.IsCreatePickupBtn = false;
+                                            PendingPickupToolbarCtrl.ePage.Masters.CreatePickupBtnText = "Create Pickup";
+                                        }
+                                    });
                                 } else {
-                                    toastr.error("Pickup Creation Failed. Please try again later");
-                                    PendingPickupToolbarCtrl.ePage.Masters.IsCreatePickupBtn = false;
-                                    PendingPickupToolbarCtrl.ePage.Masters.CreatePickupBtnText = "Create Pickup";
+                                    console.log("Empty New Pickup response");
                                 }
                             });
-                        } else {
-                            console.log("Empty New Pickup response");
                         }
                     });
                 } else {
