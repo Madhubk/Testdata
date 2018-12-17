@@ -124,32 +124,34 @@
             }
         }
 
-        function SaveEntity() {
+        function SaveEntity(callback) {
             if (ActivityTemplateOutward2Ctrl.taskObj.ProcessName == "WMS_DeliveryMaterial") {
                 apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.Update.Url, myTaskActivityConfig.Entities.DeliveryData).then(function (response) {
                     $rootScope.SaveOutwardFromTask(function () {
-                        // saves();
-                        // toastr.success("Saved Successfully");
+                        if (callback)
+                            callback();
                     });
                 });
             } else {
-                saves();
+                saves(callback);
             }
         }
 
-        function saves() {
+        function saves(callback) {
             ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableSaveBtn = true;
             ActivityTemplateOutward2Ctrl.ePage.Masters.SaveBtnText = "Please Wait..";
             var _input = angular.copy(ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj);
             _input.UIWmsOutwardHeader.IsModified = true;
             apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.Update.Url, _input).then(function (response) {
                 if (response.data.Response) {
-                    toastr.success("Saved Successfully...!");
+                    toastr.success("Outward Saved Successfully...!");
                 } else {
-                    toastr.error("Save Failed...!");
+                    toastr.error("Outward Save Failed...!");
                 }
                 ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableSaveBtn = false;
                 ActivityTemplateOutward2Ctrl.ePage.Masters.SaveBtnText = "Save";
+                if (callback)
+                    callback();
             });
         }
 
@@ -274,6 +276,11 @@
         function Complete() {
             if (ActivityTemplateOutward2Ctrl.ePage.Masters.ValidationSource.length > 0 || ActivityTemplateOutward2Ctrl.ePage.Masters.DocumentValidation.length > 0) {
                 if (ActivityTemplateOutward2Ctrl.ePage.Masters.ValidationSource.length > 0) {
+                    if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Get POD and Return to Order Desk") {
+                        if (myTaskActivityConfig.Entities.ManifestData.TmsManifestConsignment[0].TMC_ActualDeliveryDateTime) {
+                            myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.ActualDeliveryDate = new Date();
+                        }
+                    }
                     var _obj = {
                         ModuleName: ["MyTask"],
                         Code: [ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj.UIWmsOutwardHeader.WorkOrderID],
@@ -290,10 +297,15 @@
 
                 if (ActivityTemplateOutward2Ctrl.ePage.Masters.DocumentValidation.length > 0) {
                     GetDocumentValidation().then(function (response) {
-                        if (ActivityTemplateOutward2Ctrl.ePage.Masters.docTypeSource.length == 0 || ActivityTemplateOutward2Ctrl.ePage.Masters.docTypeSource.length == response.length) {
+                        if (ActivityTemplateOutward2Ctrl.ePage.Masters.docTypeSource.length == 0 || (ActivityTemplateOutward2Ctrl.ePage.Masters.docTypeSource.length == response.length)) {
                             ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj.Document = true;
                         } else {
                             ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj.Document = null;
+                        }
+                        if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Get POD and Return to Order Desk") {
+                            if (myTaskActivityConfig.Entities.ManifestData.TmsManifestConsignment[0].TMC_ActualDeliveryDateTime) {
+                                ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj.ActualDeliveryDate = new Date();
+                            }
                         }
                         var _obj = {
                             ModuleName: ["MyTask"],
@@ -330,7 +342,68 @@
                         }
                         ActivityTemplateOutward2Ctrl.ePage.Masters.ShowErrorWarningModal(ActivityTemplateOutward2Ctrl.taskObj.PSI_InstanceNo);
                     } else {
-                        CompleteWithSave();
+                        ActivityTemplateOutward2Ctrl.ePage.Masters.CompleteBtnText = "Please Wait...";
+                        ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableCompleteBtn = true;
+                        if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Transfer Material") {
+                            apiService.get("eAxisAPI", appConfig.Entities.WmsPickList.API.GetById.Url + myTaskActivityConfig.Entities.PickData.UIWmsPickHeader.PK).then(function (response) {
+                                if (response.data.Response) {
+                                    response.data.Response.UIWmsPickHeader.PickStatus = 'PIF';
+                                    response.data.Response.UIWmsPickHeader.PickStatusDesc = 'Finalized';
+                                    response.data.Response = filterObjectUpdate(response.data.Response, "IsModified");
+                                    apiService.post("eAxisAPI", appConfig.Entities.WmsPickList.API.Update.Url, response.data.Response).then(function (response) {
+                                        if (response.data.Response) {
+                                            toastr.success("Pick Finalized Successfully");
+                                            CompleteWithSave();
+                                        } else {
+                                            toastr.error("Pick Finalize failed. Try again later.")
+                                            ActivityTemplateOutward2Ctrl.ePage.Masters.CompleteBtnText = "Complete";
+                                            ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableCompleteBtn = false;
+                                        }
+                                    });
+                                }
+                            });
+                        } else if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Deliver Material") {
+                            myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.TransportBookedDateTime = new Date();
+                            myTaskActivityConfig.Entities.ManifestData.TmsManifestConsignment[0].TMC_ActualPickupDateTime = new Date();
+                            myTaskActivityConfig.Entities.ManifestData.TmsManifestConsignment[0].IsModified = true;
+                            myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.IsModified = true;
+                            apiService.post("eAxisAPI", appConfig.Entities.TmsManifestList.API.Update.Url, myTaskActivityConfig.Entities.ManifestData).then(function (response) {
+                                if (response.data.Response.Response) {
+                                    myTaskActivityConfig.Entities.ManifestData = response.data.Response.Response;
+                                    outwardConfig.IsSaveManifest = true;
+                                    CompleteWithSave();
+                                }
+                            });
+                        } else if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Confirm Delivery") {
+                            apiService.get("eAxisAPI", appConfig.Entities.WmsPickList.API.GetById.Url + myTaskActivityConfig.Entities.PickData.UIWmsPickHeader.PK).then(function (response) {
+                                if (response.data.Response) {
+                                    response.data.Response.UIWmsPickHeader.PickStatus = 'PIF';
+                                    response.data.Response.UIWmsPickHeader.PickStatusDesc = 'Finalized';
+                                    response.data.Response = filterObjectUpdate(response.data.Response, "IsModified");
+                                    apiService.post("eAxisAPI", appConfig.Entities.WmsPickList.API.Update.Url, response.data.Response).then(function (response) {
+                                        if (response.data.Response) {
+                                            toastr.success("Pick Finalized Successfully");
+                                            myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.ManifestCompleteDatetime = new Date();
+                                            myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.IsModified = true;
+                                            apiService.post("eAxisAPI", appConfig.Entities.TmsManifestList.API.Update.Url, myTaskActivityConfig.Entities.ManifestData).then(function (response) {
+                                                if (response.data.Response.Response) {
+                                                    myTaskActivityConfig.Entities.ManifestData = response.data.Response.Response;
+                                                    outwardConfig.IsSaveManifest = true;
+                                                    CompleteWithSave();
+                                                }
+                                            });
+                                        } else {
+                                            toastr.error("Pick Finalize failed. Try again later.")
+                                            ActivityTemplateOutward2Ctrl.ePage.Masters.CompleteBtnText = "Complete";
+                                            ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableCompleteBtn = false;
+                                        }
+                                    });
+                                }
+                            });
+
+                        } else {
+                            CompleteWithSave();
+                        }
                     }
                 }, 1000);
             } else {
@@ -390,24 +463,37 @@
         function CompleteWithSave() {
             ActivityTemplateOutward2Ctrl.ePage.Masters.CompleteBtnText = "Please Wait...";
             ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableCompleteBtn = true;
-            SaveEntity();
-            SaveOnly().then(function (response) {
-                if (response.data.Status == "Success") {
-                    toastr.success("Task Completed Successfully...!");
-                    var _data = {
-                        IsCompleted: true,
-                        Item: ActivityTemplateOutward2Ctrl.ePage.Masters.TaskObj
-                    };
+            SaveEntity(function () {
+                SaveOnly().then(function (response) {
+                    if (response.data.Status == "Success") {
+                        toastr.success("Task Completed Successfully...!");
+                        var _data = {
+                            IsCompleted: true,
+                            Item: ActivityTemplateOutward2Ctrl.ePage.Masters.TaskObj
+                        };
 
-                    ActivityTemplateOutward2Ctrl.onComplete({
-                        $item: _data
-                    });
-                } else {
-                    toastr.error("Task Completion Failed...!");
-                }
-                ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableCompleteBtn = false;
-                ActivityTemplateOutward2Ctrl.ePage.Masters.CompleteBtnText = "Complete";
+                        ActivityTemplateOutward2Ctrl.onComplete({
+                            $item: _data
+                        });
+                    } else {
+                        toastr.error("Task Completion Failed...!");
+                    }
+                    ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableCompleteBtn = false;
+                    ActivityTemplateOutward2Ctrl.ePage.Masters.CompleteBtnText = "Complete";
+                });
             });
+        }
+
+        function filterObjectUpdate(obj, key) {
+            for (var i in obj) {
+                if (!obj.hasOwnProperty(i)) continue;
+                if (typeof obj[i] == 'object') {
+                    filterObjectUpdate(obj[i], key);
+                } else if (i == key) {
+                    obj[key] = true;
+                }
+            }
+            return obj;
         }
 
         function ShowErrorWarningModal(EntityObject) {

@@ -268,7 +268,7 @@
                             });
                     }
                 }
-                else {                    
+                else {
                     //To check whether client and warehouse are present before changing tab to line
                     if (($index == 1 && OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled) || ($index == 2 && !OutwardMenuCtrl.ePage.Masters.OutwardMenu.ListSource[0].IsDisabled)) {
                         var mydata = OutwardMenuCtrl.currentOutward[OutwardMenuCtrl.currentOutward.label].ePage.Entities.Header.Data;
@@ -649,27 +649,33 @@
                     if (callback) {
                         callback()
                     }
+                } else {
+                    if (callback) {
+                        callback()
+                    }
                 }
-
             });
             // Save Manifest Details
             if (_input.UIWmsOutwardHeader.AdditionalRef1Code) {
-                if (OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails) {
-                    angular.forEach(OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestConsignment, function (value, key) {
-                        value.TMC_ExpectedDeliveryDateTime = OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.EstimatedDeliveryDate;
-                        value.TMC_ExpectedPickupDateTime = OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.EstimatedDispatchDate;
-                    });
-                    OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails = filterObjectUpdate(OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails, "IsModified");
-                    apiService.post("eAxisAPI", appConfig.Entities.TmsManifestList.API.Update.Url, OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails).then(function (response) {
-                        if (response.data.Status == 'Success') {
-                            apiService.get("eAxisAPI", appConfig.Entities.TmsManifestList.API.GetById.Url + response.data.Response.Response.PK).then(function (response) {
-                                if (response.data.Status == 'Success') {
-                                    OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails = response.data.Response;
-                                    toastr.success("Manifest Saved Successfully.");
-                                }
-                            });
-                        }
-                    });
+                if (OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails) {                    
+                    if (!outwardConfig.IsSaveManifest) {
+                        outwardConfig.IsSaveManifest = false;
+                        angular.forEach(OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestConsignment, function (value, key) {
+                            value.TMC_ExpectedDeliveryDateTime = OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.EstimatedDeliveryDate;
+                            value.TMC_ExpectedPickupDateTime = OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.EstimatedDispatchDate;
+                        });
+                        OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails = filterObjectUpdate(OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails, "IsModified");
+                        apiService.post("eAxisAPI", appConfig.Entities.TmsManifestList.API.Update.Url, OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails).then(function (response) {
+                            if (response.data.Status == 'Success') {
+                                apiService.get("eAxisAPI", appConfig.Entities.TmsManifestList.API.GetById.Url + response.data.Response.Response.PK).then(function (response) {
+                                    if (response.data.Status == 'Success') {
+                                        OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails = response.data.Response;
+                                        toastr.success("Manifest Saved Successfully.");
+                                    }
+                                });
+                            }
+                        });
+                    }
                 }
             }
         }

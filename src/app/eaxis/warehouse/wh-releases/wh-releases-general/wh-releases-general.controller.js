@@ -320,23 +320,34 @@
                     if (response.data.Response.Response) {
                         var InwardObject = response.data.Response.Response
                         InwardObject.UIWmsInwardHeader.PK = response.data.Response.Response.PK;
-
-                        //Assigning Oganization object into orgheader
-                        var _filter = {
-                            "PK": currentOutward.ORG_Client_FK
-                        };
-
-                        var _input = {
-                            "searchInput": helperService.createToArrayOfObject(_filter),
-                            "FilterID": appConfig.Entities.OrgHeader.API.FindAll.FilterID
-                        };
-
-                        apiService.post("eAxisAPI", appConfig.Entities.OrgHeader.API.FindAll.Url, _input).then(function (response) {
+                        apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + currentOutward.PK).then(function (response) {
                             if (response.data.Response) {
-                                InwardObject.UIOrgHeader = response.data.Response[0];
+                                InwardObject.UIOrgHeader = response.data.Response.UIOrgHeader;
+                                InwardObject.UIJobAddress = angular.copy(response.data.Response.UIJobAddress);
+                                angular.forEach(InwardObject.UIJobAddress, function (value, key) {
+                                    value.PK = "";
+                                    if (value.AddressType == "CED")
+                                        value.AddressType = "SUD";
+                                });
                                 CreatingInward(InwardObject, currentOutward)
                             }
                         });
+                        //Assigning Oganization object into orgheader
+                        // var _filter = {
+                        //     "PK": currentOutward.ORG_Client_FK
+                        // };
+
+                        // var _input = {
+                        //     "searchInput": helperService.createToArrayOfObject(_filter),
+                        //     "FilterID": appConfig.Entities.OrgHeader.API.FindAll.FilterID
+                        // };
+
+                        // apiService.post("eAxisAPI", appConfig.Entities.OrgHeader.API.FindAll.Url, _input).then(function (response) {
+                        //     if (response.data.Response) {
+                        //         InwardObject.UIOrgHeader = response.data.Response[0];
+                        // CreatingInward(InwardObject, currentOutward)
+                        //     }
+                        // });
 
                     }
                 });
@@ -352,9 +363,9 @@
             InwardObject.UIWmsInwardHeader.ORG_FK = currentOutward.ORG_FK;
             InwardObject.UIWmsInwardHeader.ClientCode = currentOutward.ClientCode;
             InwardObject.UIWmsInwardHeader.ClientName = currentOutward.ClientName;
-            InwardObject.UIWmsInwardHeader.ORG_Consignee_FK = currentOutward.ORG_Consignee_FK;
-            InwardObject.UIWmsInwardHeader.ConsigneeCode = currentOutward.ConsigneeCode;
-            InwardObject.UIWmsInwardHeader.ConsigneeName = currentOutward.ConsigneeName;
+            InwardObject.UIWmsInwardHeader.ORG_Supplier_FK = currentOutward.ORG_Consignee_FK;
+            InwardObject.UIWmsInwardHeader.SupplierCode = currentOutward.ConsigneeCode;
+            InwardObject.UIWmsInwardHeader.SupplierName = currentOutward.ConsigneeName;
             InwardObject.UIWmsInwardHeader.WAR_FK = currentOutward.TransferTo_WAR_FK;
             InwardObject.UIWmsInwardHeader.WarehouseCode = currentOutward.TransferTo_WAR_Code
             InwardObject.UIWmsInwardHeader.WarehouseName = currentOutward.TransferTo_WAR_Name

@@ -87,9 +87,8 @@
                     response.data.Response.Response.UIWmsPickHeader.WarehouseCode = ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WarehouseCode;
                     response.data.Response.Response.UIWmsPickHeader.WarehouseName = ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WarehouseName;
                     response.data.Response.Response.UIWmsPickHeader.WAR_FK = ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WAR_FK;
-                    ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo = response.data.Response.Response.PickNo
                     ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WPK_FK = response.data.Response.Response.PK;
-                    ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo = response.data.Response.Response.UIWmsPickHeader.PickNo
+                    // ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo = response.data.Response.Response.UIWmsPickHeader.PickNo
                     ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickStartDateTime = new Date();
                     ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus = "OSP";
                     ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatusDesc = "Pick Started";
@@ -123,13 +122,15 @@
         }
 
         function getDeliveryList() {
-            apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef2Fk).then(function (response) {
-                if (response.data.Response) {
-                    ArrangeMaterialCtrl.ePage.Entities.Header.DeliveryData = response.data.Response;
-                    myTaskActivityConfig.Entities.DeliveryData = ArrangeMaterialCtrl.ePage.Entities.Header.DeliveryData;
-                    GeneralOperation();
-                }
-            });
+            if (ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef2Fk) {
+                apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef2Fk).then(function (response) {
+                    if (response.data.Response) {
+                        ArrangeMaterialCtrl.ePage.Entities.Header.DeliveryData = response.data.Response;
+                        myTaskActivityConfig.Entities.DeliveryData = ArrangeMaterialCtrl.ePage.Entities.Header.DeliveryData;
+                        GeneralOperation();
+                    }
+                });
+            }
         }
 
         function GeneralOperation() {

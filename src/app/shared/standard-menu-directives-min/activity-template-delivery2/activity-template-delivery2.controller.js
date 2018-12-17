@@ -125,17 +125,17 @@
             }
         }
 
-        function SaveEntity() {
+        function SaveEntity(callback) {
             if (ActivityTemplateDelivery2Ctrl.taskObj.WSI_StepName == "Create Delivery Challan") {
                 $rootScope.SaveOutwardFromTask(function () {
-                    saves();
+                    saves(callback);
                 });
             } else {
-                saves();
+                saves(callback);
             }
         }
 
-        function saves() {
+        function saves(callback) {
             ActivityTemplateDelivery2Ctrl.ePage.Masters.IsDisableSaveBtn = true;
             ActivityTemplateDelivery2Ctrl.ePage.Masters.SaveBtnText = "Please Wait..";
             var _input = angular.copy(ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj);
@@ -162,11 +162,15 @@
                             };
                             myTaskActivityConfig.Entities.Delivery = ActivityTemplateDelivery2Ctrl.currentDelivery;
                             ActivityTemplateDelivery2Ctrl.ePage.Masters.Config.IsReload = true;
-                            toastr.success("Saved Successfully...!");
+                            toastr.success("Delivery Saved Successfully...!");
+                            if (callback)
+                                callback();
                         }
                     });
                 } else {
                     toastr.error("Save Failed...!");
+                    if (callback)
+                        callback();
                 }
                 ActivityTemplateDelivery2Ctrl.ePage.Masters.IsDisableSaveBtn = false;
                 ActivityTemplateDelivery2Ctrl.ePage.Masters.SaveBtnText = "Save";
@@ -429,23 +433,24 @@
                 ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;
                 ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsWorkorderReport.DeliveryRequestedDateTime = new Date();
             }
-            SaveEntity();
-            SaveOnly().then(function (response) {
-                if (response.data.Status == "Success") {
-                    toastr.success("Task Completed Successfully...!");
-                    var _data = {
-                        IsCompleted: true,
-                        Item: ActivityTemplateDelivery2Ctrl.ePage.Masters.TaskObj
-                    };
+            SaveEntity(function () {
+                SaveOnly().then(function (response) {
+                    if (response.data.Status == "Success") {
+                        toastr.success("Task Completed Successfully...!");
+                        var _data = {
+                            IsCompleted: true,
+                            Item: ActivityTemplateDelivery2Ctrl.ePage.Masters.TaskObj
+                        };
 
-                    ActivityTemplateDelivery2Ctrl.onComplete({
-                        $item: _data
-                    });
-                } else {
-                    toastr.error("Task Completion Failed...!");
-                }
-                ActivityTemplateDelivery2Ctrl.ePage.Masters.IsDisableCompleteBtn = false;
-                ActivityTemplateDelivery2Ctrl.ePage.Masters.CompleteBtnText = "Complete";
+                        ActivityTemplateDelivery2Ctrl.onComplete({
+                            $item: _data
+                        });
+                    } else {
+                        toastr.error("Task Completion Failed...!");
+                    }
+                    ActivityTemplateDelivery2Ctrl.ePage.Masters.IsDisableCompleteBtn = false;
+                    ActivityTemplateDelivery2Ctrl.ePage.Masters.CompleteBtnText = "Complete";
+                });
             });
         }
 

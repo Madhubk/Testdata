@@ -129,11 +129,10 @@
                     $rootScope.FinalizeInwardFromTask(function () {
                         if (callback)
                             callback();
-                        // toastr.success("Saved Successfully");
                     });
                 } else {
                     $rootScope.SaveInwardFromTask(function () {
-                        // toastr.success("Saved Successfully");
+
                     });
                 }
             } else if (ActivityTemplateInwardCtrl.taskObj.ProcessName = "WMS_CollectMaterial") {
@@ -180,9 +179,9 @@
                         response.data.Response.Response.UIWmsOutwardHeader.ORG_FK = input.UIWmsInwardHeader.ORG_FK;
                         response.data.Response.Response.UIWmsOutwardHeader.ClientCode = input.UIWmsInwardHeader.ClientCode;
                         response.data.Response.Response.UIWmsOutwardHeader.ClientName = input.UIWmsInwardHeader.ClientName;
-                        response.data.Response.Response.UIWmsOutwardHeader.ORG_Consignee_FK = input.UIWmsInwardHeader.ORG_Consignee_FK;
-                        response.data.Response.Response.UIWmsOutwardHeader.ConsigneeCode = input.UIWmsInwardHeader.ConsigneeCode;
-                        response.data.Response.Response.UIWmsOutwardHeader.ConsigneeName = input.UIWmsInwardHeader.ConsigneeName;
+                        response.data.Response.Response.UIWmsOutwardHeader.ORG_Consignee_FK = input.UIWmsInwardHeader.ORG_Supplier_FK;
+                        response.data.Response.Response.UIWmsOutwardHeader.ConsigneeCode = input.UIWmsInwardHeader.SupplierCode;
+                        response.data.Response.Response.UIWmsOutwardHeader.ConsigneeName = input.UIWmsInwardHeader.SupplierName;
                         response.data.Response.Response.UIWmsOutwardHeader.WAR_FK = input.UIWmsInwardHeader.WAR_FK;
                         response.data.Response.Response.UIWmsOutwardHeader.WarehouseCode = input.UIWmsInwardHeader.WarehouseCode
                         response.data.Response.Response.UIWmsOutwardHeader.WarehouseName = input.UIWmsInwardHeader.WarehouseName
@@ -190,6 +189,13 @@
                         response.data.Response.Response.UIWmsOutwardHeader.AdditionalRef2Fk = input.UIWmsInwardHeader.AdditionalRef2Fk
                         response.data.Response.Response.UIWmsOutwardHeader.RequiredDate = new Date();
 
+                        response.data.Response.Response.UIOrgHeader = input.UIOrgHeader;
+                        response.data.Response.Response.UIJobAddress = angular.copy(input.UIJobAddress);
+                        angular.forEach(response.data.Response.Response.UIJobAddress, function (value, key) {
+                            value.PK = "";
+                            if (value.AddressType == "SUD")
+                                value.AddressType = "CED";
+                        });
                         //Assigning Outward Line Object
                         input.UIWmsWorkOrderLine.map(function (value, key) {
                             var LineObj = {

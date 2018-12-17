@@ -200,7 +200,7 @@
                 else
                     return false;
             });
-            if (!_isExist) {
+            if (!_isExist) {                
                 if (type == "OUT")
                     CreateDelChallanCtrl.ePage.Masters.CreateOutwardText = "Please Wait..";
                 else if (type == "MTR")
@@ -233,8 +233,18 @@
                             response.data.Response.Response.UIWmsOutwardHeader.TransferTo_WAR_Name = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseName;
                         }
                         response.data.Response.Response.UIWmsOutwardHeader.AdditionalRef2Fk = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.PK;
+                        response.data.Response.Response.UIWmsOutwardHeader.AdditionalRef2Code = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID;
                         response.data.Response.Response.UIWmsOutwardHeader.RequiredDate = new Date();
                         response.data.Response.Response.UIWmsOutwardHeader.WorkOrderType = "ORD";
+
+                        response.data.Response.Response.UIOrgHeader = angular.copy(CreateDelChallanCtrl.ePage.Entities.Header.Data.UIOrgHeader);
+                        response.data.Response.Response.UIJobAddress = angular.copy(CreateDelChallanCtrl.ePage.Entities.Header.Data.UIJobAddress);
+                        angular.forEach(response.data.Response.Response.UIJobAddress, function (value, key) {
+                            value.PK = "";
+                            if (value.AddressType == "SUD") {
+                                value.AddressType = "CED";
+                            }
+                        })
                         if (type == "MTR")
                             response.data.Response.Response.UIWmsOutwardHeader.WorkOrderSubType = "MTR";
                         response.data.Response.Response.UIWmsOutwardHeader.WOD_Parent_FK = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.PK;

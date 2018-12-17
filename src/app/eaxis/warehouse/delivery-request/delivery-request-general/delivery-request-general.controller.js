@@ -30,7 +30,7 @@
             DeliveryGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
 
             DeliveryGeneralCtrl.ePage.Masters.DropDownMasterList = {};
-            
+
             //Functions
             DeliveryGeneralCtrl.ePage.Masters.SelectedLookupWarehouse = SelectedLookupWarehouse;
             DeliveryGeneralCtrl.ePage.Masters.SelectedLookupClient = SelectedLookupClient;
@@ -42,7 +42,8 @@
             DeliveryGeneralCtrl.ePage.Masters.ContactChosen = ContactChosen;
             DeliveryGeneralCtrl.ePage.Masters.CloseEditActivity = CloseEditActivity;
             DeliveryGeneralCtrl.ePage.Masters.emptyText = '-';
-            
+            DeliveryGeneralCtrl.ePage.Masters.TempWorkOrderID = "New";
+
             GetNewAddress();
             GetDropDownList();
             GeneralOperations();
