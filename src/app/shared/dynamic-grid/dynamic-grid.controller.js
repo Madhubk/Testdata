@@ -95,7 +95,11 @@
         }
 
         function GetGridData(api, input) {
-            apiService.post("eAxisAPI", api, input).then(function (response) {
+            var URL = "eAxisAPI";
+            if(GridCtrl.url == "tc"){
+                URL = "authAPI"
+            }
+            apiService.post(URL, api, input).then(function (response) {
                 GridCtrl.ePage.Masters.IsLoading = false;
                 if (response.data.Response) {
                     GridCtrl.ePage.Masters.gridData = response.data.Response;
