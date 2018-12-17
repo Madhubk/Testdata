@@ -21,7 +21,8 @@
                 baseFilter: "=",
                 selectedGridRow: "&",
                 lookupConfigControlKey: "=",
-                isNewButton: "="
+                isNewButton: "=",
+                overrideUrl:"="
             },
             bindToController: true
         };

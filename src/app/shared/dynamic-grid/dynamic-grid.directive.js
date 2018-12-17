@@ -43,7 +43,8 @@
                 baseFilter: "=",
                 selectedGridRow: "&",
                 isLocalSearch: "=",
-                isApi: "="
+                isApi: "=",
+                overrideUrl:"="
             },
             link: Link,
             bindToController: true

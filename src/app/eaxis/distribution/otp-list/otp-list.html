@@ -8,8 +8,9 @@
             <div class="no-padding tab-list-view-wrapper">
     
                 <!--OTP List Grid Page-->
-                <dynamic-list dataentry-name=" OtpCtrl.ePage.Masters.dataentryName" task-name=" OtpCtrl.ePage.Masters.taskName"
-                    grid-config-type="0" selected-grid-row=" OtpCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" dataentry-object="OtpCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+                <dynamic-list dataentry-name=" OtpCtrl.ePage.Masters.dataentryName" task-name="OtpCtrl.ePage.Masters.taskName"
+                    grid-config-type="0" selected-grid-row=" OtpCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" dataentry-object="OtpCtrl.ePage.Masters.DataEntryObject"
+                    override-url="'authAPI'"></dynamic-list>
                 <div class="tab-loading" data-ng-show=" OtpCtrl.ePage.Masters.IsTabClick"></div>
             </div>
         </uib-tab>

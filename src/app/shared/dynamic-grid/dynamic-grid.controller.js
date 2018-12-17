@@ -95,7 +95,12 @@
         }
 
         function GetGridData(api, input) {
-            apiService.post("eAxisAPI", api, input).then(function (response) {
+            debugger
+            var _url = "eAxisAPI";
+            if(GridCtrl.overrideUrl){
+                _url = GridCtrl.overrideUrl;
+            }
+            apiService.post(_url, api, input).then(function (response) {
                 GridCtrl.ePage.Masters.IsLoading = false;
                 if (response.data.Response) {
                     GridCtrl.ePage.Masters.gridData = response.data.Response;
