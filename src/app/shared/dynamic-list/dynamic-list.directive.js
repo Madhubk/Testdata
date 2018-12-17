@@ -22,7 +22,7 @@
                 selectedGridRow: "&",
                 lookupConfigControlKey: "=",
                 isNewButton: "=",
-                url:"="
+                overrideUrl:"="
             },
             bindToController: true
         };

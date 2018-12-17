@@ -44,7 +44,7 @@
                 selectedGridRow: "&",
                 isLocalSearch: "=",
                 isApi: "=",
-                url : "="
+                overrideUrl:"="
             },
             link: Link,
             bindToController: true
