@@ -94,8 +94,7 @@
             }
         }
 
-        function GetGridData(api, input) {
-            debugger
+        function GetGridData(api, input) {            
             var _url = "eAxisAPI";
             if(GridCtrl.overrideUrl){
                 _url = GridCtrl.overrideUrl;

@@ -28,12 +28,12 @@
             if (GetSignatureCtrl.taskObj) {
                 GetSignatureCtrl.ePage.Masters.TaskObj = GetSignatureCtrl.taskObj;
                 GetEntityObj();
-            } else {               
+            } else {
                 GetSignatureCtrl.ePage.Masters.Config = myTaskActivityConfig;
                 GetSignatureCtrl.ePage.Entities.Header.Data = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data;
                 GetDynamicLookupConfig();
                 getPickupList();
-
+                inwardConfig.ValidationFindall();
                 if (errorWarningService.Modules.MyTask)
                     GetSignatureCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.MyTask.Entity[myTaskActivityConfig.Entities.Inward.label];
             }

@@ -834,11 +834,16 @@
             files: [
                 'app/eaxis/warehouse/delivery-line/delivery-line.controller.js',
             ]
-        },
-        {
+        }, {
             name: 'damagedSKU',
             files: [
                 'app/eaxis/warehouse/track-damaged-sku/track-damaged-sku.controller.js',
+            ]
+        }, {
+            name: 'damagedSkuToolbar',
+            files: [
+                'app/eaxis/warehouse/track-damaged-sku-toolbar/track-damaged-sku-toolbar.controller.js',
+                'app/eaxis/warehouse/track-damaged-sku-toolbar/track-damaged-sku-toolbar.directive.js',
             ]
         },
         // #endregion

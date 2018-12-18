@@ -118,8 +118,7 @@
             };
 
             apiService.post("eAxisAPI", appConfig.Entities.JobException.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    debugger
+                if (response.data.Response) {                    
                     DashboardCtrl.ePage.Masters.ExceptionList = response.data.Response;
                 }
             });

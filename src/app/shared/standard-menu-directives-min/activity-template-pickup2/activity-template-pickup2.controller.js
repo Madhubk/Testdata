@@ -332,7 +332,7 @@
                     var input = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data
                     var temp = 0;
                     angular.forEach(input.UIvwWmsPickupLine, function (value, key) {
-                        if (value.INW_PrdCode) {
+                        if (value.IL_PrdCode) {
                             temp = temp + 1;
                         }
                     });

@@ -135,7 +135,7 @@
 
                     });
                 }
-            } else if (ActivityTemplateInwardCtrl.taskObj.ProcessName = "WMS_CollectMaterial") {
+            } else if (ActivityTemplateInwardCtrl.taskObj.WSI_StepName = "Collect Material") {
                 $rootScope.SaveInwardFromTask(function () {
                     apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, myTaskActivityConfig.Entities.PickupData).then(function (response) {
                         toastr.success("Pickup Saved Successfully");
@@ -143,6 +143,17 @@
                             callback();
                     });
                 });
+            } else if (ActivityTemplateInwardCtrl.taskObj.WSI_StepName == "Get Signature in Challan") {                
+                if (callback) {
+                    $rootScope.FinalizeInwardFromTask(function () {
+                        if (callback)
+                            callback();
+                    });
+                } else {
+                    $rootScope.SaveInwardFromTask(function () {
+
+                    });
+                }
             } else {
                 saves();
             }
@@ -167,104 +178,139 @@
         function SaveOnly() {
             var deferred = $q.defer();
             if (ActivityTemplateInwardCtrl.taskObj.WSI_StepName == "Receive Transferred Material") {
-                var input = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data;
-                helperService.getFullObjectUsingGetById(appConfig.Entities.WmsOutwardList.API.GetById.Url, 'null').then(function (response) {
-                    if (response.data.Response.Response) {
-                        //Assigning Header Object
-                        response.data.Response.Response.UIWmsOutwardHeader.PK = response.data.Response.Response.PK;
-                        response.data.Response.Response.UIWmsOutwardHeader.CreatedDateTime = new Date();
-                        response.data.Response.Response.UIWmsOutwardHeader.WorkOrderType = 'ORD';
-                        response.data.Response.Response.UIWmsOutwardHeader.ExternalReference = "Outward " + response.data.Response.Response.UIWmsOutwardHeader.WorkOrderID;
-                        response.data.Response.Response.UIWmsOutwardHeader.ORG_Client_FK = input.UIWmsInwardHeader.ORG_Client_FK;
-                        response.data.Response.Response.UIWmsOutwardHeader.ORG_FK = input.UIWmsInwardHeader.ORG_FK;
-                        response.data.Response.Response.UIWmsOutwardHeader.ClientCode = input.UIWmsInwardHeader.ClientCode;
-                        response.data.Response.Response.UIWmsOutwardHeader.ClientName = input.UIWmsInwardHeader.ClientName;
-                        response.data.Response.Response.UIWmsOutwardHeader.ORG_Consignee_FK = input.UIWmsInwardHeader.ORG_Supplier_FK;
-                        response.data.Response.Response.UIWmsOutwardHeader.ConsigneeCode = input.UIWmsInwardHeader.SupplierCode;
-                        response.data.Response.Response.UIWmsOutwardHeader.ConsigneeName = input.UIWmsInwardHeader.SupplierName;
-                        response.data.Response.Response.UIWmsOutwardHeader.WAR_FK = input.UIWmsInwardHeader.WAR_FK;
-                        response.data.Response.Response.UIWmsOutwardHeader.WarehouseCode = input.UIWmsInwardHeader.WarehouseCode
-                        response.data.Response.Response.UIWmsOutwardHeader.WarehouseName = input.UIWmsInwardHeader.WarehouseName
-                        response.data.Response.Response.UIWmsOutwardHeader.WOD_Parent_FK = input.UIWmsInwardHeader.PK
-                        response.data.Response.Response.UIWmsOutwardHeader.AdditionalRef2Fk = input.UIWmsInwardHeader.AdditionalRef2Fk
-                        response.data.Response.Response.UIWmsOutwardHeader.RequiredDate = new Date();
-
-                        response.data.Response.Response.UIOrgHeader = input.UIOrgHeader;
-                        response.data.Response.Response.UIJobAddress = angular.copy(input.UIJobAddress);
-                        angular.forEach(response.data.Response.Response.UIJobAddress, function (value, key) {
-                            value.PK = "";
-                            if (value.AddressType == "SUD")
-                                value.AddressType = "CED";
-                        });
-                        //Assigning Outward Line Object
-                        input.UIWmsWorkOrderLine.map(function (value, key) {
-                            var LineObj = {
-                                "PK": "",
-                                "Parent_FK": value.PK,
-                                "Client_FK": value.Client_FK,
-                                "ORG_Client_FK": value.ORG_Client_FK,
-                                "ORG_ClientCode": value.ORG_ClientCode,
-                                "ORG_ClientName": value.ORG_ClientName,
-                                "ExternalReference": value.ExternalReference,
-                                "MCC_NKCommodityCode": value.MCC_NKCommodityCode,
-                                "MCC_NKCommodityDesc": value.MCC_NKCommodityDesc,
-                                "ProductCode": value.ProductCode,
-                                "ProductDescription": value.ProductDescription,
-                                "ProductCondition": value.ProductCondition,
-                                "PRO_FK": value.PRO_FK,
-                                "Packs": value.Packs,
-                                "PAC_PackType": value.PAC_PackType,
-                                "Units": value.Units,
-                                "StockKeepingUnit": value.StockKeepingUnit,
-                                "PalletId": value.PalletID,
-                                "PartAttrib1": value.PartAttrib1,
-                                "PartAttrib2": value.PartAttrib2,
-                                "PartAttrib3": value.PartAttrib3,
-                                "PackingDate": value.PackingDate,
-                                "ExpiryDate": value.ExpiryDate,
-                                "AdditionalRef1Code": value.AdditionalRef1Code,
-                                "AdditionalRef1Type": value.AdditionalRef1Type,
-                                "UseExpiryDate": value.UseExpiryDate,
-                                "UsePackingDate": value.UsePackingDate,
-                                "UsePartAttrib1": value.UsePartAttrib1,
-                                "UsePartAttrib2": value.UsePartAttrib2,
-                                "UsePartAttrib3": value.UsePartAttrib3,
-                                "WAR_FK": value.WAR_FK,
-                                "WorkOrderID": response.data.Response.Response.UIWmsOutwardHeader.WorkOrderID,
-                                "WorkOrderLineType": "ORD",
-                                "WorkOrderType": "ORD"
-                            }
-                            response.data.Response.Response.UIWmsWorkOrderLine.push(LineObj);
-                        });
-
-                        //Inserting Outward
-                        apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.Insert.Url, response.data.Response.Response).then(function (response) {
-                            if (response.data.Status == 'Success') {
-                                // complete process
-                                var _inputObj = {
-                                    "CompleteInstanceNo": ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.PSI_InstanceNo,
-                                    "CompleteStepNo": ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.WSI_StepNo,
-                                    "DataSlots": {
-                                        "Val1": "",
-                                        "Val2": "",
-                                        "Val3": "",
-                                        "Val4": "",
-                                        "Val5": "",
-                                        "Val6": "",
-                                        "Val7": "",
-                                        "Val8": "",
-                                        "Val9": "",
-                                        "Val10": ""
-                                    }
+                var _filter = {
+                    "PK": myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.AdditionalRef2Fk
+                };
+                var _input = {
+                    "searchInput": helperService.createToArrayOfObject(_filter),
+                    "FilterID": appConfig.Entities.WmsWorkOrder.API.FindAll.FilterID
+                };
+                apiService.post("eAxisAPI", appConfig.Entities.WmsWorkOrder.API.FindAll.Url, _input).then(function (response) {
+                    if (response.data.Response) {
+                        ActivityTemplateInwardCtrl.ePage.Masters.WorkOrderList = response.data.Response[0];
+                        if (ActivityTemplateInwardCtrl.ePage.Masters.WorkOrderList.WorkOrderType == "PIC") {
+                            // complete process
+                            var _inputObj = {
+                                "CompleteInstanceNo": ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.PSI_InstanceNo,
+                                "CompleteStepNo": ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.WSI_StepNo,
+                                "DataSlots": {
+                                    "Val1": "",
+                                    "Val2": "",
+                                    "Val3": "",
+                                    "Val4": "",
+                                    "Val5": "",
+                                    "Val6": "",
+                                    "Val7": "",
+                                    "Val8": "",
+                                    "Val9": "",
+                                    "Val10": ""
                                 }
-                                apiService.post("eAxisAPI", appConfig.Entities.EBPMEngine.API.CompleteProcess.Url, _inputObj).then(function (response) {
-                                    deferred.resolve(response);
-                                });
-                                toastr.success("Outward is successfully created.. Outward No : " + response.data.Response.UIWmsOutwardHeader.WorkOrderID);
-                            } else {
-                                toastr.error("Outward Save Failed.");
                             }
-                        });
+                            apiService.post("eAxisAPI", appConfig.Entities.EBPMEngine.API.CompleteProcess.Url, _inputObj).then(function (response) {
+                                deferred.resolve(response);
+                            });
+                        } else {
+                            var input = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data;
+                            helperService.getFullObjectUsingGetById(appConfig.Entities.WmsOutwardList.API.GetById.Url, 'null').then(function (response) {
+                                if (response.data.Response.Response) {
+                                    //Assigning Header Object
+                                    response.data.Response.Response.UIWmsOutwardHeader.PK = response.data.Response.Response.PK;
+                                    response.data.Response.Response.UIWmsOutwardHeader.CreatedDateTime = new Date();
+                                    response.data.Response.Response.UIWmsOutwardHeader.WorkOrderType = 'ORD';
+                                    response.data.Response.Response.UIWmsOutwardHeader.ExternalReference = "Outward " + response.data.Response.Response.UIWmsOutwardHeader.WorkOrderID;
+                                    response.data.Response.Response.UIWmsOutwardHeader.ORG_Client_FK = input.UIWmsInwardHeader.ORG_Client_FK;
+                                    response.data.Response.Response.UIWmsOutwardHeader.ORG_FK = input.UIWmsInwardHeader.ORG_FK;
+                                    response.data.Response.Response.UIWmsOutwardHeader.ClientCode = input.UIWmsInwardHeader.ClientCode;
+                                    response.data.Response.Response.UIWmsOutwardHeader.ClientName = input.UIWmsInwardHeader.ClientName;
+                                    response.data.Response.Response.UIWmsOutwardHeader.ORG_Consignee_FK = input.UIWmsInwardHeader.ORG_Supplier_FK;
+                                    response.data.Response.Response.UIWmsOutwardHeader.ConsigneeCode = input.UIWmsInwardHeader.SupplierCode;
+                                    response.data.Response.Response.UIWmsOutwardHeader.ConsigneeName = input.UIWmsInwardHeader.SupplierName;
+                                    response.data.Response.Response.UIWmsOutwardHeader.WAR_FK = input.UIWmsInwardHeader.WAR_FK;
+                                    response.data.Response.Response.UIWmsOutwardHeader.WarehouseCode = input.UIWmsInwardHeader.WarehouseCode
+                                    response.data.Response.Response.UIWmsOutwardHeader.WarehouseName = input.UIWmsInwardHeader.WarehouseName
+                                    response.data.Response.Response.UIWmsOutwardHeader.WOD_Parent_FK = input.UIWmsInwardHeader.PK
+                                    response.data.Response.Response.UIWmsOutwardHeader.AdditionalRef2Fk = input.UIWmsInwardHeader.AdditionalRef2Fk
+                                    response.data.Response.Response.UIWmsOutwardHeader.RequiredDate = new Date();
+
+                                    response.data.Response.Response.UIOrgHeader = input.UIOrgHeader;
+                                    response.data.Response.Response.UIJobAddress = angular.copy(input.UIJobAddress);
+                                    angular.forEach(response.data.Response.Response.UIJobAddress, function (value, key) {
+                                        value.PK = "";
+                                        if (value.AddressType == "SUD")
+                                            value.AddressType = "CED";
+                                    });
+                                    //Assigning Outward Line Object
+                                    input.UIWmsWorkOrderLine.map(function (value, key) {
+                                        var LineObj = {
+                                            "PK": "",
+                                            "Parent_FK": value.PK,
+                                            "Client_FK": value.Client_FK,
+                                            "ORG_Client_FK": value.ORG_Client_FK,
+                                            "ORG_ClientCode": value.ORG_ClientCode,
+                                            "ORG_ClientName": value.ORG_ClientName,
+                                            "ExternalReference": value.ExternalReference,
+                                            "MCC_NKCommodityCode": value.MCC_NKCommodityCode,
+                                            "MCC_NKCommodityDesc": value.MCC_NKCommodityDesc,
+                                            "ProductCode": value.ProductCode,
+                                            "ProductDescription": value.ProductDescription,
+                                            "ProductCondition": value.ProductCondition,
+                                            "PRO_FK": value.PRO_FK,
+                                            "Packs": value.Packs,
+                                            "PAC_PackType": value.PAC_PackType,
+                                            "Units": value.Units,
+                                            "StockKeepingUnit": value.StockKeepingUnit,
+                                            "PalletId": value.PalletID,
+                                            "PartAttrib1": value.PartAttrib1,
+                                            "PartAttrib2": value.PartAttrib2,
+                                            "PartAttrib3": value.PartAttrib3,
+                                            "PackingDate": value.PackingDate,
+                                            "ExpiryDate": value.ExpiryDate,
+                                            "AdditionalRef1Code": value.AdditionalRef1Code,
+                                            "AdditionalRef1Type": value.AdditionalRef1Type,
+                                            "UseExpiryDate": value.UseExpiryDate,
+                                            "UsePackingDate": value.UsePackingDate,
+                                            "UsePartAttrib1": value.UsePartAttrib1,
+                                            "UsePartAttrib2": value.UsePartAttrib2,
+                                            "UsePartAttrib3": value.UsePartAttrib3,
+                                            "WAR_FK": value.WAR_FK,
+                                            "WorkOrderID": response.data.Response.Response.UIWmsOutwardHeader.WorkOrderID,
+                                            "WorkOrderLineType": "ORD",
+                                            "WorkOrderType": "ORD"
+                                        }
+                                        response.data.Response.Response.UIWmsWorkOrderLine.push(LineObj);
+                                    });
+
+                                    //Inserting Outward
+                                    apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.Insert.Url, response.data.Response.Response).then(function (response) {
+                                        if (response.data.Status == 'Success') {
+                                            // complete process
+                                            var _inputObj = {
+                                                "CompleteInstanceNo": ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.PSI_InstanceNo,
+                                                "CompleteStepNo": ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.WSI_StepNo,
+                                                "DataSlots": {
+                                                    "Val1": "",
+                                                    "Val2": "",
+                                                    "Val3": "",
+                                                    "Val4": "",
+                                                    "Val5": "",
+                                                    "Val6": "",
+                                                    "Val7": "",
+                                                    "Val8": "",
+                                                    "Val9": "",
+                                                    "Val10": ""
+                                                }
+                                            }
+                                            apiService.post("eAxisAPI", appConfig.Entities.EBPMEngine.API.CompleteProcess.Url, _inputObj).then(function (response) {
+                                                deferred.resolve(response);
+                                            });
+                                            toastr.success("Outward is successfully created.. Outward No : " + response.data.Response.UIWmsOutwardHeader.WorkOrderID);
+                                        } else {
+                                            toastr.error("Outward Save Failed.");
+                                        }
+                                    });
+                                }
+                            });
+                        }
                     }
                 });
             } else {

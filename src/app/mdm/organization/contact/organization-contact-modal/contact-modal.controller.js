@@ -48,8 +48,7 @@
             $uibModalInstance.dismiss("cancel");
         }
 
-        function SaveContact() {
-            debugger
+        function SaveContact() {            
             OrgContactModalCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
             OrgContactModalCtrl.ePage.Masters.IsDisableSave = true;
 
