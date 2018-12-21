@@ -48,8 +48,8 @@
                     <div class="tile-heading til-bo mt-10">Create New PO</div>
                     <div class="set-color-999">Create Purchase Order Using Data Entry</div>
                     <input class="btn btn-default mt-20" type="submit" value="Create New PO" data-ng-click="one_one_POBatchUploadCtrl.ePage.Masters.CreateNewOrder()">-->
-                    <!-- <input class="btn btn-default mt-20" type="submit" value="Create New PO" data-ng-click="one_one_POBatchUploadCtrl.ePage.Masters.ShowLists=true;one_one_POBatchUploadCtrl.ePage.Masters.CreateBatchUplaod('POR')"> -->
-                <!--</div>
+            <!-- <input class="btn btn-default mt-20" type="submit" value="Create New PO" data-ng-click="one_one_POBatchUploadCtrl.ePage.Masters.ShowLists=true;one_one_POBatchUploadCtrl.ePage.Masters.CreateBatchUplaod('POR')"> -->
+            <!--</div>
             </div>-->
             <!--<div class="col-lg-3 col-md-3 col-sm-6 pl-5 mb-10">
                 <div class="set-bg-white border-f5f5f5 text-center pt-20 pb-20">
@@ -147,14 +147,14 @@
 <uib-tabset id="chromeTab" data-ng-if="one_one_POBatchUploadCtrl.ePage.Masters.ShowLists" active="one_one_POBatchUploadCtrl.ePage.Masters.activeTabIndex"
     class="tab-container chrometab-box">
     <uib-tab>
-        <uib-tab-heading title="Order Upload">
-            <span data-ng-bind="'Order Upload'"></span>
+        <uib-tab-heading title="Uploaded Order(s) List">
+            <span data-ng-bind="'Uploaded Order(s) List'"></span>
             <i class="fa fa-thumb-tack pinned-tab"></i>
         </uib-tab-heading>
         <div class="no-padding tab-list-view-wrapper">
             <!--Order Grid Page-->
             <dynamic-list dataentry-name="one_one_POBatchUploadCtrl.ePage.Masters.dataentryName" selected-grid-row="one_one_POBatchUploadCtrl.ePage.Masters.SelectedGridRow($item)"
-                mode="1" dataentry-object="one_one_POBatchUploadCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+                mode="1" default-filter="one_one_POBatchUploadCtrl.ePage.Masters.defaultFilter" dataentry-object="one_one_POBatchUploadCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
             <div class="tab-loading" data-ng-show="one_one_POBatchUploadCtrl.ePage.Masters.IsTabClick"></div>
         </div>
     </uib-tab>

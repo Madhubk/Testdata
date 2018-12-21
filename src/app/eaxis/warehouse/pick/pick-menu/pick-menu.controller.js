@@ -177,14 +177,32 @@
             return obj;
         }
 
-        function CancelPick($item) {
-            var myData = PickMenuCtrl.ePage.Entities.Header.Data.UIWmsOutward.some(function (value, key) {
+        function CancelPick($item){
+
+            //Checking any of the outward finalized
+            var outwardcheck = PickMenuCtrl.ePage.Entities.Header.Data.UIWmsOutward.some(function (value, key) {
                 if (value.WorkOrderStatus == 'FIN')
                     return true;
-            })
-            if (myData) {
-                toastr.info("Outward is finalized so pick cannot be cancelled")
-            } else {
+            });
+            if (outwardcheck) {
+                toastr.warning("Outward is finalized so pick cannot be cancelled")
+            }
+
+            //checking release line added 
+            if(PickMenuCtrl.ePage.Entities.Header.Data.UIWmsReleaseLine.length>0){
+                toastr.warning("Release line added. So it cannot be cancelled");
+            }
+
+            //Checking Qty picked
+            var qtycheck = PickMenuCtrl.ePage.Entities.Header.Data.UIWmsPickLine.some(function(value,key){
+                return value.PickedDateTime;
+            });
+
+            if(qtycheck){
+                toastr.warning("Qty has been picked so Pick cannot be cancelled");
+            }
+
+            if(!outwardcheck && !qtycheck && PickMenuCtrl.ePage.Entities.Header.Data.UIWmsReleaseLine.length==0){
                 $uibModal.open({
                     templateUrl: 'myModalContent.html',
                     controller: function ($scope, $uibModalInstance) {
@@ -243,6 +261,7 @@
                     }
                 });
             }
+
         }
 
         Init();

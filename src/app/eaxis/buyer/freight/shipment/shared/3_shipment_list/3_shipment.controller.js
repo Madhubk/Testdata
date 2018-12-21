@@ -5,9 +5,9 @@
         .module("Application")
         .controller("three_ShipmentController", three_ShipmentController);
 
-    three_ShipmentController.$inject = ["$rootScope", "$scope", "$state", "$timeout", "$location", "$q", "$http", "APP_CONSTANT", "authService", "apiService", "helperService", "appConfig", "three_shipmentConfig", "toastr", "confirmation", "errorWarningService"];
+    three_ShipmentController.$inject = ["$rootScope", "$scope", "$state", "$timeout", "$location", "$q", "$http", "APP_CONSTANT", "authService", "apiService", "helperService", "appConfig", "three_shipmentConfig", "toastr", "confirmation", "errorWarningService", "freightApiConfig"];
 
-    function three_ShipmentController($rootScope, $scope, $state, $timeout, $location, $q, $http, APP_CONSTANT, authService, apiService, helperService, appConfig, three_shipmentConfig, toastr, confirmation, errorWarningService) {
+    function three_ShipmentController($rootScope, $scope, $state, $timeout, $location, $q, $http, APP_CONSTANT, authService, apiService, helperService, appConfig, three_shipmentConfig, toastr, confirmation, errorWarningService, freightApiConfig) {
         /* jshint validthis: true */
         var three_ShipmentCtrl = this;
         var location = $location;
@@ -43,11 +43,10 @@
             three_ShipmentCtrl.ePage.Masters.taskName = "Shipment_BUYER_EXPORT_CS";
             three_ShipmentCtrl.ePage.Masters.dataentryName = "Shipment_BUYER_EXPORT_CS";
             three_ShipmentCtrl.ePage.Masters.taskHeader = "";
-            three_ShipmentCtrl.ePage.Masters.DefaultFilter = {
-                "IsBooking": "false"
-            };
+            // three_ShipmentCtrl.ePage.Masters.DefaultFilter = {
+            //     "IsBooking": "false"
+            // };
             three_ShipmentCtrl.ePage.Masters.config = three_ShipmentCtrl.ePage.Entities;
-            // $rootScope.ShipmentSelection=ShipmentSelection;
 
             // Remove all Tabs while load shipment
             three_shipmentConfig.TabList = [];
@@ -87,7 +86,7 @@
             if (!_isExist) {
                 three_ShipmentCtrl.ePage.Masters.IsNewShipmentClicked = true;
 
-                helperService.getFullObjectUsingGetById(three_ShipmentCtrl.ePage.Entities.Header.API.GetByID.Url, 'null').then(function (response) {
+                helperService.getFullObjectUsingGetById(freightApiConfig.Entities["1_3"].API.listgetbyid.Url, 'null').then(function (response) {
                     if (response.data.Response) {
                         if (three_ShipmentCtrl.ePage.Masters.QB == true) {
                             response.data.Response.Response.UIShipmentHeader.BookingType = 'QB';
@@ -163,7 +162,7 @@
             var _currentShipment = currentShipment[currentShipment.label].ePage.Entities;
 
             // Close Current Shipment
-            apiService.get("eAxisAPI", three_ShipmentCtrl.ePage.Entities.Header.API.ShipmentActivityClose.Url + _currentShipment.Header.Data.PK).then(function (response) {
+            apiService.get("eAxisAPI", freightApiConfig.Entities["1_3"].API.activityclose.Url + _currentShipment.Header.Data.PK).then(function (response) {
                 if (response.data.Response === "Success") {
                     // three_ShipmentCtrl.ePage.Masters.TabList.splice(index, 1);
                 } else {
@@ -366,7 +365,7 @@
                 "searchInput": helperService.createToArrayOfObject(dynamicFindAllInput),
                 "FilterID": appConfig.Entities.ShipmentHeader.API.FindAll.FilterID
             };
-            apiService.post("eAxisAPI", appConfig.Entities.ShipmentHeader.API.FindAll.Url, input).then(function (response) {
+            apiService.post("eAxisAPI", freightApiConfig.Entities["1_3"].API.findall.Url, input).then(function (response) {
                 if (response.data.Response) {
                     var houseBillMatch = [];
                     var houseBillMisMatch = [];
@@ -486,7 +485,7 @@
                 _Data.Header.Data.UIJobEntryNums.push(_Data.Header.Data.UIJobEntryNumsObj)
             }
             $item = filterObjectUpdate($item, "IsModified");
-            helperService.SaveEntity($item, 'Shipment').then(function (response) {
+            helperService.SaveEntity($item, 'ShipmentBuyerForwarder').then(function (response) {
                 if (response.Status === "success") {
                     three_shipmentConfig.TabList.map(function (value, key) {
                         if (value.New) {
@@ -507,6 +506,7 @@
                         three_shipmentConfig.TabList[_index][three_shipmentConfig.TabList[_index].label].ePage.Entities.Header.Data.UICustomEntity = response.Data.UICustomEntity;
                         three_shipmentConfig.TabList[_index][three_shipmentConfig.TabList[_index].label].ePage.Entities.Header.Data.UIJobPickupAndDelivery = response.Data.UIJobPickupAndDelivery;
                         three_shipmentConfig.TabList[_index][three_shipmentConfig.TabList[_index].label].ePage.Entities.Header.Data.UIShipmentHeader = response.Data.UIShipmentHeader;
+                        three_shipmentConfig.TabList[_index][three_shipmentConfig.TabList[_index].label].ePage.Entities.Header.Data.UIShipmentHeader.CMN_SharedRoleCode = '1_3';
                         three_shipmentConfig.TabList[_index][three_shipmentConfig.TabList[_index].label].ePage.Entities.Header.Data.UIShpExtendedInfo = response.Data.UIShpExtendedInfo;
                         three_shipmentConfig.TabList[_index][three_shipmentConfig.TabList[_index].label].ePage.Entities.Header.Data.UIPorOrderItem = response.Data.UIPorOrderItem;
                         response.Data.UIJobAddress.map(function (val, key) {
@@ -525,9 +525,9 @@
                     toastr.error("Shipment Save Failed...!");
                     console.log("Failed");
                 }
+                three_ShipmentCtrl.ePage.Masters.SaveButtonText = "Save";
+                three_ShipmentCtrl.ePage.Masters.IsDisableSave = false;
             });
-            three_ShipmentCtrl.ePage.Masters.SaveButtonText = "Save";
-            three_ShipmentCtrl.ePage.Masters.IsDisableSave = false;
         }
 
         function filterObjectUpdate(obj, key) {

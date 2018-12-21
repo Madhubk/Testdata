@@ -149,7 +149,7 @@
                             },
                             "Delete": {
                                 "IsAPI": "true",
-                                "HttpType": "POST",
+                                "HttpType": "GET",
                                 "Url": "JobDocument/Delete/"
                             },
                             "Upsert": {
@@ -344,6 +344,20 @@
                                 "IsAPI": true,
                                 "Url": "Validation/ValidationByGroup",
                                 "FilterID": "ENTIMAP"
+                            }
+                        }
+                    },
+                    "ValidationGroup": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": true,
+                                "Url": "ValidationGroup/FindAll",
+                                "FilterID": "VADATGRO"
+                            },
+                            "Upsert": {
+                                "IsAPI": true,
+                                "Url": "ValidationGroup/Upsert"
                             }
                         }
                     },
@@ -1054,12 +1068,29 @@
                         "API": {
                             "FindAll": {
                                 "IsAPI": true,
+                                "HttpType": "POST",
                                 "Url": "EBPMProcessScenario/FindAll",
                                 "FilterID": "BPMPSS"
                             },
                             "Upsert": {
                                 "IsAPI": true,
+                                "HttpType": "POST",
                                 "Url": "EBPMProcessScenario/Upsert"
+                            },
+                            "Insert": {
+                                "IsAPI": true,
+                                "HttpType": "POST",
+                                "Url": "EBPMProcessScenario/Insert"
+                            },
+                            "Update": {
+                                "IsAPI": true,
+                                "HttpType": "POST",
+                                "Url": "EBPMProcessScenario/Update"
+                            },
+                            "Delete": {
+                                "IsAPI": true,
+                                "HttpType": "GET",
+                                "Url": "EBPMProcessScenario/Delete/"
                             }
                         }
                     },
@@ -1374,7 +1405,7 @@
                             },
                             "Delete": {
                                 "IsAPI": "true",
-                                "HttpType": "POST",
+                                "HttpType": "GET",
                                 "Url": "ApplicationTrust/Delete/"
                             }
                         }
@@ -1400,7 +1431,7 @@
                             },
                             "Delete": {
                                 "IsAPI": "true",
-                                "HttpType": "POST",
+                                "HttpType": "GET",
                                 "Url": "SecAppSecTenant/Delete/"
                             }
                         }
@@ -1426,7 +1457,7 @@
                             },
                             "Delete": {
                                 "IsAPI": "true",
-                                "HttpType": "POST",
+                                "HttpType": "GET",
                                 "Url": "UserCompanyBranchOrganisationWarehouseDepartment/Delete/"
                             }
                         }
@@ -1452,10 +1483,151 @@
                             },
                             "Delete": {
                                 "IsAPI": "true",
-                                "HttpType": "POST",
+                                "HttpType": "GET",
                                 "Url": "UserCompanyBranchWarehouse/Delete/"
                             }
                         }
+                    },
+                    "UserOrganisation": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "UserOrganisation/FindAll",
+                                "FilterID": "SECMAPP"
+                            },
+                            "Insert": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "UserOrganisation/Insert"
+                            },
+                            "Update": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "UserOrganisation/Update"
+                            },
+                            "Delete": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "UserOrganisation/Delete/"
+                            }
+                        }
+                    },
+                    "ComponentRole": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "ComponentRole/FindAll",
+                                "FilterID": "SECMAPP"
+                            },
+                            "Insert": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "ComponentRole/Insert"
+                            },
+                            "Update": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "ComponentRole/Update"
+                            },
+                            "Delete": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "ComponentRole/Delete/"
+                            }
+                        }
+                    },
+                    "ComponentOrganisation": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "ComponentOrganisation/FindAll",
+                                "FilterID": "SECMAPP"
+                            },
+                            "Insert": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "ComponentOrganisation/Insert"
+                            },
+                            "Update": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "ComponentOrganisation/Update"
+                            },
+                            "Delete": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "ComponentOrganisation/Delete/"
+                            }
+                        }
+                    },
+                    "GroupRole": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "GroupRole/FindAll",
+                                "FilterID": "SECMAPP"
+                            },
+                            "Insert": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "GroupRole/Insert"
+                            },
+                            "Update": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "GroupRole/Update"
+                            },
+                            "Delete": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "GroupRole/Delete/"
+                            }
+                        }
+                    },
+                    "MenuRole": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "MenuRole/FindAll",
+                                "FilterID": "SECMAPP"
+                            },
+                            "Insert": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "MenuRole/Insert"
+                            },
+                            "Update": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "MenuRole/Update"
+                            },
+                            "Delete": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "MenuRole/Delete/"
+                            }
+                        }
+                    },
+                    "Export": {
+                        "RowIndex": -1,
+                        "API": {
+                            "AsHtml": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "Export/AsHtml",
+                                "FilterID": "TEST"
+                            }
+                         }
                     }
                 },
                 "OrgEmployeeAssignments": {

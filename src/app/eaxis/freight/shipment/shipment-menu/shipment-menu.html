@@ -29,7 +29,7 @@
                     <routing-grid ng-switch-when="Routing" current-object="ShipmentMenuCtrl.currentShipment"
                         key-object-name="'SHP'" fk-name="'PK'" pk-name="'EntityRefKey'" api-header-name="'UIShipmentHeader'"
                         api-header-field-name="'PK'" api-header-value-name="'CON_FK'" btn-visible="{'AddNew':true,'Delete':true,'More':true,'Refresh': true}"
-                        table-properties="ShipmentMenuCtrl.ePage.Masters.TableProperty" read-only="false"></routing-grid>
+                        table-properties="ShipmentMenuCtrl.ePage.Masters.TableProperty" read-only="ShipmentMenuCtrl.ePage.Masters.Disable" type="'ConDisable'"></routing-grid>
                     <!-- <routing ng-switch-when="Routing" current-object="ShipmentMenuCtrl.currentShipment" key-object-name="'SHP'" fk-name="'PK'"
                         pk-name="'EntityRefKey'" api-header-name="'UIShipmentHeader'" api-header-field-name="'PK'" api-header-value-name="'CON_FK'"></routing> -->
                     <div ng-switch-when="RelatedShipment" related-shipment current-shipment="ShipmentMenuCtrl.currentShipment"></div>

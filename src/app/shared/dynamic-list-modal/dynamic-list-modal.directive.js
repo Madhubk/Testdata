@@ -50,6 +50,16 @@
                         if (_index !== -1) {
                             scope.LookupConfig = dynamicLookupConfig.Entities[x];
                         }
+
+                        // if (scope.controlKey) {
+                        //     if (x == scope.controlKey) {
+                        //         scope.LookupConfig = dynamicLookupConfig.Entities[x];
+                        //     }
+                        // } else if (scope.controlId) {
+                        //     if (x == scope.controlId) {
+                        //         scope.LookupConfig = dynamicLookupConfig.Entities[x];
+                        //     }
+                        // }
                     }
 
                     OpenModal();

@@ -8,7 +8,8 @@
                 name: 'MDM',
                 files: [
                     'app/mdm/shared/mdm.css',
-                    'app/mdm/shared/mdm.controller.js'
+                    'app/mdm/shared/mdm.controller.js',
+                    'app/mdm/shared/mdm-config.factory.js'
                 ]
             },
             // endregion
@@ -24,60 +25,37 @@
                 name: 'organizationMenu',
                 files: [
                     'app/mdm/organization/organization-menu/organization-menu.css',
-                    'app/mdm/organization/organization-menu/organization-menu.controller.js',
                     'app/mdm/organization/organization-menu/organization-menu.directive.js'
                 ]
             }, {
                 name: 'organizationGeneral',
                 files: [
-                    'app/mdm/organization/general/organization-general.css',
-                    'app/mdm/organization/general/organization-general.controller.js',
-                    'app/mdm/organization/general/organization-general.directive.js'
-                ]
-            }, {
-                name: 'organizationGeneralModal',
-                files: [
-                    'app/mdm/organization/general/organization-general-modal/general-modal.css',
+                    'app/mdm/organization/general/organization-general.directive.js',
                     'app/mdm/organization/general/organization-general-modal/general-modal.controller.js'
                 ]
             }, {
                 name: 'organizationAddress',
                 files: [
-                    'app/mdm/organization/address/organization-address.css',
-                    'app/mdm/organization/address/organization-address.controller.js',
+                    'app/mdm/organization/address/organization-address.directive.js',
+                    'app/mdm/organization/address/organization-address-modal/address-modal.css',
                     'app/mdm/organization/address/organization-address-modal/address-modal.controller.js'
                 ]
             }, {
                 name: 'organizationContact',
                 files: [
-                    'app/mdm/organization/contact/organization-contact.css',
-                    'app/mdm/organization/contact/organization-contact.controller.js',
+                    'app/mdm/organization/contact/organization-contact.directive.js',
                     'app/mdm/organization/contact/organization-contact-modal/contact-modal.controller.js'
                 ]
             }, {
                 name: 'organizationCompany',
                 files: [
-                    'app/mdm/organization/company/organization-company.css',
-                    'app/mdm/organization/company/organization-company.controller.js',
-                    'app/mdm/organization/company/organization-company.directive.js'
-                ]
-            }, {
-                name: 'organizationCompanyModal',
-                files: [
-                    'app/mdm/organization/company/org-company-modal/org-company-modal.css',
+                    'app/mdm/organization/company/organization-company.directive.js',
                     'app/mdm/organization/company/org-company-modal/org-company-modal.controller.js'
                 ]
             }, {
                 name: 'organizationEmployee',
                 files: [
-                    'app/mdm/organization/employee/organization-employee.css',
-                    'app/mdm/organization/employee/organization-employee.controller.js',
-                    'app/mdm/organization/employee/organization-employee.directive.js'
-                ]
-            }, {
-                name: 'organizationEmployeeModal',
-                files: [
-                    'app/mdm/organization/employee/org-employee-modal/org-employee-modal.css',
+                    'app/mdm/organization/employee/organization-employee.directive.js',
                     'app/mdm/organization/employee/org-employee-modal/org-employee-modal.controller.js'
                 ]
             }, {
@@ -110,7 +88,6 @@
                 name: 'organizationVisibility',
                 files: [
                     'app/mdm/organization/visibility/organization-visibility.css',
-                    'app/mdm/organization/visibility/organization-visibility.controller.js',
                     'app/mdm/organization/visibility/organization-visibility.directive.js'
                 ]
             }, {
@@ -180,23 +157,19 @@
             }, {
                 name: 'organizationAccessRights',
                 files: [
-                    'app/mdm/organization/access-rights/organization-access-rights.css',
                     'app/mdm/organization/access-rights/organization-access-rights.directive.js',
-                    'app/mdm/organization/access-rights/organization-access-rights.controller.js'
                 ]
             }, {
                 name: 'organizationEventGroup',
                 files: [
                     'app/mdm/organization/access-rights/event-group/organization-event-group.css',
-                    'app/mdm/organization/access-rights/event-group/organization-event-group.directive.js',
-                    'app/mdm/organization/access-rights/event-group/organization-event-group.controller.js'
+                    'app/mdm/organization/access-rights/event-group/organization-event-group.directive.js'
                 ]
             }, {
                 name: 'organizationTaskGroup',
                 files: [
                     'app/mdm/organization/access-rights/task-group/organization-task-group.css',
-                    'app/mdm/organization/access-rights/task-group/organization-task-group.directive.js',
-                    'app/mdm/organization/access-rights/task-group/organization-task-group.controller.js'
+                    'app/mdm/organization/access-rights/task-group/organization-task-group.directive.js'
                 ]
             }, {
                 name: 'organizationCommentGroup',

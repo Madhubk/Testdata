@@ -1,0 +1,87 @@
+<div class="clearfix mt-10">
+    <div class="col-lg-3">
+        <div class="ex-line-padding">
+            <div class="ex-line-box2">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-2 pr-0 padding-top-10">
+                    <div class="form-group ex-line-font">
+                        <label class="control-label text-single-line">Shipment #</label>
+                        <span class="fs-16 set-color-blue">
+                            {{shpBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentNo}}
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 pr-0 pt-5">
+                    <div class="form-group ex-line-font">
+                        <label class="control-label">Created Date</label>
+                        <div class="input-group input-group-sm col-lg-11">
+                            <span>
+                                {{
+                                shpBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.CreatedDateTime
+                                | date:'dd-MMM-yyyy'
+                                }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-9 pl-0">
+        <div class="col-lg-6 pl-0">
+            <div class="panel panel-default ex-line-box2 mb-0">
+                <div class="panel-heading height-30 pt-5 position-relative">
+                    <span class="form-group ex-line-font"><label class="control-label text-single-line">Supplier</label></span>
+                </div>
+                <div class="clearfix height-120 pt-10 pb-10">
+                    <div class="col-lg-2">
+                        <!--<img src="assets/img/ExportGray.png">-->
+                        <i class="fa fa-angle-double-up text-center fa-3x set-color-blue pt-15"></i>
+                    </div>
+                    <div class="col-lg-10">
+                        <div class="mt-5">
+                            <b>{{shpBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipperName}}</b>
+                        </div>
+                        <div class="mt-5">{{shpBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.Address1}}</div>
+
+                        <!-- <div class="mt-5">{{shpBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.Address2}}</div> -->
+                        <div class="mt-5">
+                            Origin -
+                            <span class="set-color-blue">{{shpBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 pl-0 pr-0">
+            <div class="panel panel-default ex-line-box2 mb-0">
+                <div class="panel-heading height-30 pt-5 position-relative">
+                    <span class="form-group ex-line-font"><label class="control-label text-single-line">Buyer</label></span>
+                </div>
+                <div class="clearfix pt-10 pb-10">
+                    <div class="col-lg-2">
+                        <i class="fa fa-angle-double-down text-center fa-3x set-color-blue pt-15"></i>
+
+                    </div>
+
+                    <div class="col-lg-10 pl-0">
+
+                        <div class="mt-5">
+                            <b>{{shpBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ConsigneeName}}</b>
+                        </div>
+                        <div class="mt-5">{{shpBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.Address1}}</div>
+                        <!-- <div class="mt-5">{{shpBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.Address2}}</div> -->
+                        <div class="mt-5">
+                            Destination -
+                            <span class="set-color-blue">{{shpBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix p-15">
+    <div class="widget-main" style="border:1px solid #eee">
+        <div data-ng-include="'app/eaxis/buyer/freight/shipment/shp-buyer-read-only/shp-buyer-view/general/details.html'"></div>
+    </div>
+</div>

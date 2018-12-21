@@ -5,9 +5,9 @@
         .module("Application")
         .controller("MappingHorizontalController", MappingHorizontalController);
 
-    MappingHorizontalController.$inject = ["$location", "authService", "apiService", "helperService", "appConfig", "tcMappingConfig", "toastr", "confirmation"];
+    MappingHorizontalController.$inject = ["$location", "authService", "apiService", "helperService", "trustCenterConfig", "tcMappingConfig", "toastr", "confirmation"];
 
-    function MappingHorizontalController($location, authService, apiService, helperService, appConfig, tcMappingConfig, toastr, confirmation) {
+    function MappingHorizontalController($location, authService, apiService, helperService, trustCenterConfig, tcMappingConfig, toastr, confirmation) {
         /* jshint validthis: true */
         var MappingHorizontalCtrl = this;
         var _queryString = $location.path().split("/").pop();
@@ -208,10 +208,10 @@
 
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.SecMappings.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.SecMappings.API.FindAll.FilterID
             };
 
-            apiService.post("authAPI", appConfig.Entities.SecMappings.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("authAPI", trustCenterConfig.Entities.API.SecMappings.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.MappingList = response.data.Response;
 
@@ -265,7 +265,7 @@
             _input.IsModified = true;
             _input.IsDeleted = false;
 
-            apiService.post("authAPI", appConfig.Entities.SecMappings.API.Upsert.Url, [_input]).then(function (response) {
+            apiService.post("authAPI", trustCenterConfig.Entities.API.SecMappings.API.Upsert.Url, [_input]).then(function (response) {
                 if (response.data.Response) {
                     var _response = response.data.Response[0];
                     var _index = MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.MappingList.map(function (e) {
@@ -303,7 +303,7 @@
             _input.IsModified = true;
             _input.IsDeleted = true;
 
-            apiService.post("authAPI", appConfig.Entities.SecMappings.API.Upsert.Url, [_input]).then(function (response) {
+            apiService.post("authAPI", trustCenterConfig.Entities.API.SecMappings.API.Upsert.Url, [_input]).then(function (response) {
                 if (response.data.Response) {
                     var _index = MappingHorizontalCtrl.ePage.Masters.MappingHorizontal.MappingList.map(function (value, key) {
                         return value.PK;

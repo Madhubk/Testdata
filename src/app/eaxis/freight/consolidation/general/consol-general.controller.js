@@ -66,12 +66,12 @@
             }
             GeneralConCtrl.ePage.Masters.CarrierFilter = {
                 "IsShippingProvider": true,
-                "IsConsignee" : true
+                "IsConsignee": true
             }
 
             GeneralConCtrl.ePage.Masters.SelectedData = SelectedData;
             GeneralConCtrl.ePage.Masters.SelectedDataPorts = SelectedDataPorts
-            GeneralConCtrl.ePage.Masters.modeChange = ModeChange;
+            // GeneralConCtrl.ePage.Masters.modeChange = ModeChange;
             GeneralConCtrl.ePage.Entities.Header.Data.JobRoutesObj = {}
             var _isEmpty = angular.equals({}, GeneralConCtrl.ePage.Masters.DropDownMasterList);
             if (_isEmpty) {
@@ -187,19 +187,19 @@
 
         }
 
-        function ModeChange(obj) {
-            if (obj) {
-                GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ContainerMode = obj.Key
-                GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.TransportMode = obj.PARENT_Key
-                OnFieldValueChange('E9005')
+        // function ModeChange(obj) {
+        //     if (obj) {
+        //         GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ContainerMode = obj.Key
+        //         GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.TransportMode = obj.PARENT_Key
+        //         OnFieldValueChange('E9005')
 
-            } else {
-                GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ContainerMode = null
-                GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.TransportMode = null
-                OnFieldValueChange('E9005')
+        //     } else {
+        //         GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ContainerMode = null
+        //         GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.TransportMode = null
+        //         OnFieldValueChange('E9005')
 
-            }
-        }
+        //     }
+        // }
 
         function SelectedData(item, ListSource) {
             if (ListSource) {
@@ -474,4 +474,25 @@
         // ===================== Reference End =====================
         Init();
     }
+    angular
+        .module("Application")
+        .filter('shpcntmode', function () {
+            return function (input, type) {
+                var _list = [];
+                if (input && type) {
+                    var x = input.map(function (value, key) {
+                        if (value.OtherConfig != "" && value.OtherConfig != undefined) {
+                            var _input = JSON.parse(value.OtherConfig).mode
+                            if (_input) {
+                                var _index = _input.indexOf(type);
+                                if (_index != -1) {
+                                    _list.push(value)
+                                }
+                            }
+                        }
+                    });
+                    return _list;
+                }
+            };
+        });
 })();

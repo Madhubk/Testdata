@@ -24,7 +24,6 @@
         }, {
             name: 'TCTenant',
             files: [
-                'app/trust-center/tenant/tenant.css',
                 'app/trust-center/tenant/tenant.controller.js'
             ]
         }, {
@@ -36,8 +35,13 @@
         }, {
             name: 'TCUser',
             files: [
-                'app/trust-center/user/user.css',
                 'app/trust-center/user/user.controller.js'
+            ]
+        }, {
+            name: 'TCMaintenance',
+            files: [
+                'app/trust-center/maintenance/maintenance.css',
+                'app/trust-center/maintenance/maintenance.controller.js'
             ]
         }, {
             name: 'TCManageStaticListing',
@@ -283,7 +287,6 @@
         }, {
             name: 'TCUserList',
             files: [
-                'app/trust-center/user-list/user-list.css',
                 'app/trust-center/user-list/user-list.controller.js'
             ]
         }, {
@@ -313,13 +316,11 @@
         }, {
             name: 'TCValidationGroup',
             files: [
-                'app/trust-center/validation/validation-group/validation-group.css',
                 'app/trust-center/validation/validation-group/validation-group.controller.js'
             ]
         }, {
             name: 'TCValidationGroupMapping',
             files: [
-                'app/trust-center/validation/validation-group-mapping/validation-group-mapping.css',
                 'app/trust-center/validation/validation-group-mapping/validation-group-mapping.controller.js'
             ]
         }, {
@@ -438,12 +439,6 @@
                 'app/trust-center/shared/tc-application-dropdown/tc-application-dropdown.directive.js',
             ]
         }, {
-            name: 'TCUserRoleAppTenant',
-            files: [
-                'app/trust-center/mapping/user-role-app-tenant/user-role-app-tenant.css',
-                'app/trust-center/mapping/user-role-app-tenant/user-role-app-tenant.controller.js'
-            ]
-        }, {
             name: 'TCAppTrustAppTenant',
             files: [
                 'app/trust-center/mapping/app-trust-app-tenant/app-trust-app-tenant.css',
@@ -456,6 +451,12 @@
                 'app/trust-center/mapping/sec-app-sec-tenant/sec-app-sec-tenant.controller.js'
             ]
         }, {
+            name: 'TCUserRoleAppTenant',
+            files: [
+                'app/trust-center/mapping/user-role-app-tenant/user-role-app-tenant.css',
+                'app/trust-center/mapping/user-role-app-tenant/user-role-app-tenant.controller.js'
+            ]
+        }, {
             name: 'TCUserCmpAppTenant',
             files: [
                 'app/trust-center/mapping/user-cmp-app-tenant/user-cmp-app-tenant.css',
@@ -466,6 +467,42 @@
             files: [
                 'app/trust-center/mapping/user-warehouse-app-tenant/user-warehouse-app-tenant.css',
                 'app/trust-center/mapping/user-warehouse-app-tenant/user-warehouse-app-tenant.controller.js'
+            ]
+        }, {
+            name: 'TCUserOrganizationAppTenant',
+            files: [
+                'app/trust-center/mapping/user-organization-app-tenant/user-organization-app-tenant.css',
+                'app/trust-center/mapping/user-organization-app-tenant/user-organization-app-tenant.controller.js'
+            ]
+        }, {
+            name: 'TCCompRoleAppTenant',
+            files: [
+                'app/trust-center/mapping/comp-role-app-tenant/comp-role-app-tenant.css',
+                'app/trust-center/mapping/comp-role-app-tenant/comp-role-app-tenant.controller.js'
+            ]
+        }, {
+            name: 'TCCompRoleAppTenant',
+            files: [
+                'app/trust-center/mapping/comp-role-app-tenant/comp-role-app-tenant.css',
+                'app/trust-center/mapping/comp-role-app-tenant/comp-role-app-tenant.controller.js'
+            ]
+        }, {
+            name: 'TCCompOrgAppTenant',
+            files: [
+                'app/trust-center/mapping/comp-org-app-tenant/comp-org-app-tenant.css',
+                'app/trust-center/mapping/comp-org-app-tenant/comp-org-app-tenant.controller.js'
+            ]
+        }, {
+            name: 'TCGroupRoleAppTenant',
+            files: [
+                'app/trust-center/mapping/group-role-app-tenant/group-role-app-tenant.css',
+                'app/trust-center/mapping/group-role-app-tenant/group-role-app-tenant.controller.js'
+            ]
+        }, {
+            name: 'TCMenuRoleAppTenant',
+            files: [
+                'app/trust-center/mapping/menu-role-app-tenant/menu-role-app-tenant.css',
+                'app/trust-center/mapping/menu-role-app-tenant/menu-role-app-tenant.controller.js'
             ]
         }]
     };

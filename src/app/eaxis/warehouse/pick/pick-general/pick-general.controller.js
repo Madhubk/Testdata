@@ -38,7 +38,7 @@
 
             PickGeneralCtrl.ePage.Masters.AddNewOutward = AddNewOutward;
             PickGeneralCtrl.ePage.Masters.AttachOrders = AttachOrders;
-            PickGeneralCtrl.ePage.Masters.DeleteOrder = DeleteOrder;
+            PickGeneralCtrl.ePage.Masters.DetachOrder = DetachOrder;
             PickGeneralCtrl.ePage.Masters.EditOrderDetails = EditOrderDetails;
             PickGeneralCtrl.ePage.Masters.SelectedLookupDataWarCode = SelectedLookupDataWarCode;
             PickGeneralCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
@@ -181,23 +181,52 @@
             return obj;
         }
 
-        function DeleteOrder($item) {
-            var modalOptions = {
-                closeButtonText: 'Cancel',
-                actionButtonText: 'Ok',
-                headerText: 'Delete?',
-                bodyText: 'Are you sure?'
-            };
+        function DetachOrder($item) {
 
-            confirmation.showModal({}, modalOptions)
-                .then(function (result) {
-                    DeletePickOrder($item);
-                }, function () {
-                    console.log("Cancelled");
+            //Checking whether release lines added for the current outward
+            var releasecheck = PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickLineSummary.some(function(value,key){
+                if(value.WOD_FK == $item.PK){
+                    var check = PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsReleaseLine.some(function(v,k){
+                        return v.WPL_FK == value.PK
+                    });
+                }
+                return check;
+            });
+
+            if(releasecheck){
+                toastr.warning("Release Capture Lines are added against this outward. So it cannot be detached.")
+            }
+
+            //Checking whether the qty has picked for the current outward.
+            var pickedqtycheck = PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickLineSummary.some(function(value,key){
+                if(value.WOD_FK == $item.PK){
+                    if(value.PickedDateTime)
+                    return true;
+                }
+            });
+
+            if(pickedqtycheck){
+                toastr.warning("Qty has been picked in the allocated stock against this outward. So it cannot be detached.")
+            }
+
+            if(!releasecheck && !pickedqtycheck){
+                var modalOptions = {
+                    closeButtonText: 'Cancel',
+                    actionButtonText: 'Ok',
+                    headerText: 'Delete?',
+                    bodyText: 'Are you sure?'
+                };
+    
+                confirmation.showModal({}, modalOptions)
+                    .then(function (result) {
+                        DetachPickOrder($item);
+                    }, function () {
+                        console.log("Cancelled");
                 });
+            }
         }
 
-        function DeletePickOrder($item) {
+        function DetachPickOrder($item) {
             PickGeneralCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
             angular.forEach(PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickLine,function(value,key){
                 if(value.WOD_FK == $item.PK){

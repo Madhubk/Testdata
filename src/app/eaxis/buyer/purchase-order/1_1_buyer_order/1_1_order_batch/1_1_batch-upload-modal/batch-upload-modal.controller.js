@@ -5,9 +5,9 @@
         .module("Application")
         .controller("PoModalController", PoModalController);
 
-    PoModalController.$inject = ["$injector", "$uibModalInstance", "authService", "apiService", "appConfig", "helperService", "param", "toastr"];
+    PoModalController.$inject = ["$injector", "$uibModalInstance", "authService", "apiService", "appConfig", "helperService", "param", "toastr", "confirmation"];
 
-    function PoModalController($injector, $uibModalInstance, authService, apiService, appConfig, helperService, param, toastr) {
+    function PoModalController($injector, $uibModalInstance, authService, apiService, appConfig, helperService, param, toastr, confirmation) {
         var PoModalCtrl = this,
             dynamicLookupConfig = $injector.get("dynamicLookupConfig");
 
@@ -37,7 +37,24 @@
         }
 
         function Close(item) {
-            (item) ? Cancel(): false;
+            (item) ? Confirmation(item.item[0]): false;
+        }
+
+        function Confirmation(item) {
+            var modalOptions = {
+                closeButtonText: 'Cancel',
+                closeButtonVisible: false,
+                actionButtonText: 'Ok',
+                headerText: 'Document Uploaded Successfully..',
+                bodyText: "Ref #: " + item.BatchUploadNo
+            };
+
+            confirmation.showModal({}, modalOptions)
+                .then(function (result) {
+                    Cancel();
+                }, function () {
+                    console.log("Cancelled");
+                });
         }
 
         function GetRelatedLookupList() {

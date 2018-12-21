@@ -375,7 +375,7 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": trustCenterConfig.Entities.API.SecMappings.API.GetPartiesByUserApp.FilterID
+                "FilterID": trustCenterConfig.Entities.API.SecMappings.API.GetRoleByUserApp.FilterID
             };
 
             apiService.post("authAPI", trustCenterConfig.Entities.API.SecMappings.API.GetRoleByUserApp.Url, _input).then(function SuccessCallback(response) {

@@ -31,7 +31,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["eAxisAdmin", "confirmation"]);
+                        return $ocLazyLoad.load(["trustCenter", "eAxisAdmin", "confirmation"]);
                     }]
                 }
             })
@@ -45,9 +45,6 @@
                 resolve: {
                     CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
                         var deferred = $q.defer();
-                        // if (pageAccessService.CheckAuthToken()) {
-                        //     deferred.resolve();
-                        // }
                         pageAccessService.CheckPageAccess("/EA/admin/home").then(function (response) {
                             if (response == true) {
                                 deferred.resolve();
@@ -62,7 +59,7 @@
             })
             .state('EA.admin.user', {
                 url: '/user',
-                templateUrl: 'app/eaxis/admin/user/user.html',
+                template: `<div class="clearfix p-0"><div data-ng-include="'app/trust-center/user/user.html'"></div></div>`,
                 controller: "TCUserController as TCUserCtrl",
                 ncyBreadcrumb: {
                     label: 'User'
@@ -78,13 +75,36 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["EAUser"]);
+                        return $ocLazyLoad.load(["TCUser"]);
+                    }]
+                }
+            })
+            .state('EA.admin.userAccess', {
+                url: '/user-list/:id',
+                template: `<div class="clearfix p-0"><div data-ng-include="'app/trust-center/user-list/user-list.html'"></div></div>`,
+                controller: "TCUserListController as TCUserListCtrl",
+                ncyBreadcrumb: {
+                    label: 'User'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        pageAccessService.CheckPageAccess("/EA/admin/user-list").then(function (response) {
+                            if (response == true) {
+                                deferred.resolve();
+                            }
+                        });
+                        deferred.resolve();
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["TCUserList"]);
                     }]
                 }
             })
             .state('EA.admin.userRoleAppTenant', {
                 url: '/user-role-app-tenant/:id',
-                templateUrl: 'app/eaxis/admin/user-role-app-tenant/user-role-app-tenant.html',
+                template: `<div class="clearfix p-0"><div data-ng-include="'app/trust-center/mapping/user-role-app-tenant/user-role-app-tenant.html'"></div></div>`,
                 controller: "TCUserRoleAppTenantController as TCUserRoleAppTenantCtrl",
                 ncyBreadcrumb: {
                     label: 'User Role Access'
@@ -100,52 +120,53 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["EAUserRoleAppTenant"]);
+                        return $ocLazyLoad.load(["TCUserRoleAppTenant"]);
                     }]
                 }
             })
-            .state('EA.admin.mapping', {
-                url: '/mapping/:id',
-                templateUrl: 'app/eaxis/admin/mapping/mapping.html',
-                controller: "MappingVerticalController as MappingVerticalCtrl",
+            .state('EA.admin.userWarehouseAppTenant', {
+                url: '/user-warehouse-app-tenant/:id',
+                template: `<div class="clearfix p-0"><div data-ng-include="'app/trust-center/mapping/user-warehouse-app-tenant/user-warehouse-app-tenant.html'"></div></div>`,
+                controller: "TCUserWarehouseAppTenantController as TCUserWarehouseAppTenantCtrl",
                 ncyBreadcrumb: {
-                    label: 'Mapping'
+                    label: 'User Warehouse App Tenant Access'
                 },
                 resolve: {
                     CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
                         var deferred = $q.defer();
-                        pageAccessService.CheckPageAccess("/EA/admin/mapping").then(function (response) {
+                        pageAccessService.CheckPageAccess("/EA/admin/user-warehouse-app-tenant").then(function (response) {
                             if (response == true) {
                                 deferred.resolve();
                             }
                         });
-                        return deferred.promise;
-                    }],
-                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["EAMapping"]);
-                    }]
-                }
-            })
-            .state('EA.admin.userAccess', {
-                url: '/user-list/:id',
-                templateUrl: 'app/eaxis/admin/user-list/user-list.html',
-                controller: "TCUserListController as TCUserListCtrl",
-                ncyBreadcrumb: {
-                    label: 'User'
-                },
-                resolve: {
-                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
-                        var deferred = $q.defer();
-                        // pageAccessService.CheckPageAccess("/EA/admin/user-list").then(function (response) {
-                        //     if (response == true) {
-                        //         deferred.resolve();
-                        //     }
-                        // });
                         deferred.resolve();
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["EAUserAccess"]);
+                        return $ocLazyLoad.load(["TCUserWarehouseAppTenant"]);
+                    }]
+                }
+            })
+            .state('EA.admin.userOrganizationAppTenant', {
+                url: '/user-organization-app-tenant/:id',
+                template: `<div class="clearfix p-0"><div data-ng-include="'app/trust-center/mapping/user-organization-app-tenant/user-organization-app-tenant.html'"></div></div>`,
+                controller: "TCUserOrganizationAppTenantController as TCUserOrganizationAppTenantCtrl",
+                ncyBreadcrumb: {
+                    label: 'User Organization App Tenant Access'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        pageAccessService.CheckPageAccess("/EA/admin/user-organization-app-tenant").then(function (response) {
+                            if (response == true) {
+                                deferred.resolve();
+                            }
+                        });
+                        deferred.resolve();
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["TCUserOrganizationAppTenant"]);
                     }]
                 }
             });

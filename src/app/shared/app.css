@@ -8,6 +8,10 @@ ul {
     overflow: hidden;
 }
 
+.bold {
+    font-weight: bold;
+}
+
 .cursor-pointer {
     cursor: pointer !important;
 }
@@ -38,6 +42,10 @@ ul {
     padding: 0 1px;
     font-size: 11px;
     color: #D56161;
+}
+
+.form-group label {
+    font-weight: bold !important;
 }
 
 /* Toastr */

@@ -123,6 +123,7 @@
                             pickupConfig.TabList[_index][pickupConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data;
 
                         PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.Consignee = PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeCode + ' - ' + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeName;
+                        PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.Warehouse = PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseCode + ' - ' + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseName;
 
                         pickupConfig.TabList[_index].isNew = false;
                         if ($state.current.url == "/pickup-request") {

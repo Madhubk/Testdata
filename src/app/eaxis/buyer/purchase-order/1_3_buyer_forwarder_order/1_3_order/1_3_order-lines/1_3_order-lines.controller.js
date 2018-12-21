@@ -86,7 +86,7 @@
                 keyboard: false,
                 windowClass: "general-edit right",
                 scope: $scope,
-                templateUrl: "app/eaxis/buyer/purchase-order/1_1_buyer_order/1_1_order/1_1_order-lines/1_1_order-lines.form.html",
+                templateUrl: "app/eaxis/buyer/purchase-order/1_3_buyer_forwarder_order/1_3_order/1_3_order-lines/1_3_order-lines.form.html",
                 controller: 'one_three_OrderLinesFormModalController as one_three_OrderLinesFormModalCtrl',
                 bindToController: true,
                 resolve: {

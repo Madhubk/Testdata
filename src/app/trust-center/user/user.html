@@ -39,16 +39,16 @@
     </div>
     <!-- Body -->
     <div class="clearfix">
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 tc-page-height-fixed with-alphabetic-sort">
-            <div class="tc-list-container">
-                <div class="tc-list-search input-group input-group-sm">
-                    <input type="text" class="form-control input-sm" placeholder="Search..." data-ng-model="TCUserCtrl.ePage.Masters.Search">
-                    <div class="input-group-btn">
-                        <button class="btn btn-default" data-ng-click="TCUserCtrl.ePage.Masters.User.SearchUser()">
-                            <i class="glyphicon glyphicon-search"></i>
-                        </button>
-                    </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="tc-list-search input-group input-group-sm">
+                <input type="text" class="form-control input-sm" placeholder="Search..." data-ng-model="TCUserCtrl.ePage.Masters.Search">
+                <div class="input-group-btn">
+                    <button class="btn btn-default" data-ng-click="TCUserCtrl.ePage.Masters.User.SearchUser()">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </button>
                 </div>
+            </div>
+            <div class="tc-list-container tc-page-height-fixed with-alphabetic-sort left">
                 <ul class="tc-list-ul">
                     <div class="p-15 text-center tc-loading" data-ng-if="!TCUserCtrl.ePage.Masters.User.UserList">
                         <i class="fa fa-spin fa-spinner"></i>
@@ -88,68 +88,52 @@
             </div>
             <div class="tc-section-divider"></div>
             <div class="tc-user-details pt-10 pb-10 tc-details-view clearfix" data-ng-if="TCUserCtrl.ePage.Masters.User.ActiveUser">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">User Name</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.UserName || TCUserCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">User Name</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.UserName || TCUserCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">First Name</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.FirstName || TCUserCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">First Name</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.FirstName || TCUserCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Last Name</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.LastName || TCUserCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Last Name</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.LastName || TCUserCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Email</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.Email || TCUserCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Email</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.Email || TCUserCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Display Name</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.DisplayName || TCUserCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Display Name</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.DisplayName || TCUserCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Designation</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.Designation || TCUserCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Designation</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.Designation || TCUserCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Mobile Number</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.MobileNo || TCUserCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Mobile Number</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.MobileNo || TCUserCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">User Type</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.UserType || TCUserCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">User Type</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.UserType || TCUserCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
             </div>

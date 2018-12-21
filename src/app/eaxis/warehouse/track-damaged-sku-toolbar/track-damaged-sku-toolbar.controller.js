@@ -201,9 +201,9 @@
                                 response.data.Response.Response.UIWmsOutwardHeader.WarehouseName = "TESTING CENTER";
                                 response.data.Response.Response.UIWmsOutwardHeader.WAR_FK = "11e796e6-3c37-4853-bd8c-6d61d4ea2bf8";
 
-                                response.data.Response.Response.UIWmsOutwardHeader.TransferTo_WAR_FK = DamagedSkuToolbarCtrl.ePage.Masters.PickupData.UIWmsPickup.WAR_FK;
-                                response.data.Response.Response.UIWmsOutwardHeader.TransferTo_WAR_Code = DamagedSkuToolbarCtrl.ePage.Masters.PickupData.UIWmsPickup.WarehouseCode;
-                                response.data.Response.Response.UIWmsOutwardHeader.TransferTo_WAR_Name = DamagedSkuToolbarCtrl.ePage.Masters.PickupData.UIWmsPickup.WarehouseName;
+                                response.data.Response.Response.UIWmsOutwardHeader.TransferTo_WAR_FK = DamagedSkuToolbarCtrl.ePage.Masters.WarehouseList[0].PK;
+                                response.data.Response.Response.UIWmsOutwardHeader.TransferTo_WAR_Code = DamagedSkuToolbarCtrl.ePage.Masters.WarehouseList[0].WarehouseCode;
+                                response.data.Response.Response.UIWmsOutwardHeader.TransferTo_WAR_Name = DamagedSkuToolbarCtrl.ePage.Masters.WarehouseList[0].WarehouseName;
                             } else {
                                 response.data.Response.Response.UIWmsOutwardHeader.WarehouseCode = "REPAIR";
                                 response.data.Response.Response.UIWmsOutwardHeader.WarehouseName = "REPAIR WAREHOUSE";

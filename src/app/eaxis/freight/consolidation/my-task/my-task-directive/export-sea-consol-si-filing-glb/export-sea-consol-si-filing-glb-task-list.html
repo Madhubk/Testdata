@@ -1,3 +1,52 @@
 <div class="clearfix">
-    <consol-details current-obj="ExportSeaConsolidationSIFilingGlbCtrl.ePage.Masters.TaskObj"></consol-details>
+    <!-- <consol-details current-obj="ExportSeaConsolidationSIFilingGlbCtrl.ePage.Masters.TaskObj"></consol-details> -->
+</div>
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <!-- <div class="my-task-content-shipper">
+        <div class="row">
+            <div class="col-lg-4">Consignor :
+                <a data-ng-bind="ExportSeaConsolidationSIFilingGlbCtrl.ePage.Masters.EntityObj.UIConConsolHeader.ShipperName"></a>
+            </div>
+            <div class="col-lg-4">Consignee :
+                <a data-ng-bind="ExportSeaConsolidationSIFilingGlbCtrl.ePage.Masters.EntityObj.UIConConsolHeader.ConsigneeName"></a>
+            </div>
+            <div class="col-lg-4 ng-binding">Load Port :
+                <a data-ng-bind="ExportSeaConsolidationSIFilingGlbCtrl.ePage.Masters.EntityObj.UIConConsolHeader.PortOfLoading"></a>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="clearfix mt-10">
+        <div class="table" id="results">
+            <div class="theader">
+                <div class="table_header">Port of Load</div>
+                <div class="table_header">Port Of Discharge</div>
+                <div class="table_header">Transport Mode</div>
+                <div class="table_header">Container Mode</div>
+            </div>
+            <div class="table_row">
+                <div class="table_small">
+                    <div class='table_cell'></div>
+                    <div class="table_cell" data-ng-bind="ExportSeaConsolidationSIFilingGlbCtrl.ePage.Masters.EntityObj.UIConConsolHeader.FirstLoadPort"
+                        title="{{ExportSeaConsolidationSIFilingGlbCtrl.ePage.Masters.EntityObj.UIConConsolHeader.FirstLoadPort}}"></div>
+                </div>
+                <div class="table_small">
+                    <div class='table_cell'></div>
+                    <div class="table_cell" data-ng-bind="ExportSeaConsolidationSIFilingGlbCtrl.ePage.Masters.EntityObj.UIConConsolHeader.LastDischargePort"
+                        title="{{ExportSeaConsolidationSIFilingGlbCtrl.ePage.Masters.EntityObj.UIConConsolHeader.ContainerMode}}"></div>
+                </div>
+                <div class="table_small">
+                    <div class='table_cell'></div>
+                    <div class="table_cell" data-ng-bind="ExportSeaConsolidationSIFilingGlbCtrl.ePage.Masters.EntityObj.UIConConsolHeader.TransportMode"
+                        title="{{ExportSeaConsolidationSIFilingGlbCtrl.ePage.Masters.EntityObj.UIConConsolHeader.TransportMode}}"></div>
+                </div>
+                <div class="table_small">
+                    <div class='table_cell'></div>
+                    <div class="table_cell" data-ng-bind="ExportSeaConsolidationSIFilingGlbCtrl.ePage.Masters.EntityObj.UIConConsolHeader.ContainerMode"
+                        title="{{ExportSeaConsolidationSIFilingGlbCtrl.ePage.Masters.EntityObj.UIConConsolHeader.ContainerMode}}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

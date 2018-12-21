@@ -19,33 +19,47 @@
     </div>
     <!-- Header -->
     <div class="clearfix tc-header-container">
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
-            <div class="tc-header">
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 p-0">
-                    <span data-ng-bind="MenuCtrl.ePage.Masters.QueryString.AdditionalData.BreadcrumbTitle"></span>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">
+            <div class="tc-header with-drop-down">
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0 pr-5">
+                    <select chosen class="form-control" data-ng-model="MenuCtrl.ePage.Masters.ActiveModule.Key"
+                        data-ng-options="x.Key as (x.Key + ' - ' + x.Value) for x  in MenuCtrl.ePage.Masters.ModuleList"
+                        data-ng-change="MenuCtrl.ePage.Masters.OnModuleChange((MenuCtrl.ePage.Masters.ModuleList | filter: {'Key': MenuCtrl.ePage.Masters.ActiveModule.Key})[0])"
+                        data-ng-disabled="!MenuCtrl.ePage.Masters.ModuleList || MenuCtrl.ePage.Masters.ModuleList.length == 0">
+                        <option value="">--Select--</option>
+                    </select>
                 </div>
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 pr-5 text-right">
-                    <button class="btn btn-xs btn-info" data-ng-click="MenuCtrl.ePage.Masters.Menu.AddNew()">New</button>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0 pl-5">
+                    <!-- <select chosen class="form-control" data-ng-model="MenuCtrl.ePage.Masters.ActiveSubModule"
+                        data-ng-options="x for x in MenuCtrl.ePage.Masters.SubModuleList" data-ng-disabled="!MenuCtrl.ePage.Masters.SubModuleList || MenuCtrl.ePage.Masters.SubModuleList.length == 0"
+                        data-ng-change="MenuCtrl.ePage.Masters.OnSubModuleChange(MenuCtrl.ePage.Masters.ActiveSubModule)">
+                        <option value="">--Select--</option>
+                    </select> -->
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3"></div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 p-5 pt-4 text-right">
+                    <button class="btn btn-xs btn-info" data-ng-click="MenuCtrl.ePage.Masters.Menu.AddNew()"
+                        data-ng-disabled="!MenuCtrl.ePage.Masters.ActiveModule.Key">New</button>
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
             <div class="tc-header edit-view">
                 <span data-ng-bind="'Details'"></span>
                 <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10" data-ng-click="MenuCtrl.ePage.Masters.Menu.Edit()"
-                    data-ng-disabled="!MenuCtrl.ePage.Masters.Menu.ActiveMenu">Edit</button>
+                    data-ng-disabled="!MenuCtrl.ePage.Masters.Menu.ActiveMenu.Id">Edit</button>
                 <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="MenuCtrl.ePage.Masters.Menu.DeleteConfirmation()"
-                    data-ng-bind="MenuCtrl.ePage.Masters.Menu.DeleteBtnText" data-ng-disabled="MenuCtrl.ePage.Masters.Menu.IsDisableDeleteBtn || !MenuCtrl.ePage.Masters.Menu.ActiveMenu"></button>
+                    data-ng-bind="MenuCtrl.ePage.Masters.Menu.DeleteBtnText" data-ng-disabled="MenuCtrl.ePage.Masters.Menu.IsDisableDeleteBtn || !MenuCtrl.ePage.Masters.Menu.ActiveMenu.Id"></button>
             </div>
         </div>
     </div>
     <!-- Body -->
     <div class="clearfix">
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 tc-page-height-fixed">
-            <div class="tc-list-container">
-                <div class="tc-list-search">
-                    <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="MenuCtrl.ePage.Masters.Search">
-                </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">
+            <div class="tc-list-search">
+                <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="MenuCtrl.ePage.Masters.Search">
+            </div>
+            <div class="tc-list-container tc-page-height-fixed left">
                 <ul class="tc-list-ul">
                     <div class="p-15 text-center tc-loading" data-ng-if="!MenuCtrl.ePage.Masters.Menu.MenuList">
                         <i class="fa fa-spin fa-spinner"></i>
@@ -59,70 +73,69 @@
                         data-ng-click="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Id != x.Id && MenuCtrl.ePage.Masters.Menu.OnMenuClick(x)"
                         data-ng-class="{'active': MenuCtrl.ePage.Masters.Menu.ActiveMenu.Id == x.Id}">
                         <div class="clearfix tc-list">
-                            <div class="tc-list-name">
-                                <i class="fa fa-circle-o mr-10"></i>
-                                <span class="text-single-line" data-ng-bind="x.Description"></span>
+                            <div class="tc-list-name row">
+                                <div class="col-sm-4">
+                                    <div class="text-single-line" title="{{x.Code}}">{{x.Code}}</div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="text-single-line" title="{{x.Description}}">{{x.Description}}</div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="text-single-line" title="{{x.ModuleCode}}">{{x.ModuleCode}}</div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="text-single-line" title="{{x.ParentMenu}}">{{x.ParentMenu}}</div>
+                                </div>
                             </div>
                         </div>
                     </li>
                 </ul>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed" data-ng-if="MenuCtrl.ePage.Masters.Menu.ActiveMenu">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 tc-page-height-fixed" data-ng-if="MenuCtrl.ePage.Masters.Menu.ActiveMenu">
             <div class="pt-10 pb-10 tc-details-view clearfix">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Code</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Code || MenuCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Code</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Code || MenuCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Name</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="MenuCtrl.ePage.Masters.Menu.ActiveMenu.MenuName || MenuCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Name</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="MenuCtrl.ePage.Masters.Menu.ActiveMenu.MenuName || MenuCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Description</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Description || MenuCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Description</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Description || MenuCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Link</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Link || MenuCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Link</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Link || MenuCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Parent Menu</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="MenuCtrl.ePage.Masters.Menu.ActiveMenu.ParentMenu || MenuCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Parent Menu</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="MenuCtrl.ePage.Masters.Menu.ActiveMenu.ParentMenu || MenuCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Display Order</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="MenuCtrl.ePage.Masters.Menu.ActiveMenu.DisplayOrder || MenuCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Display Order</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="MenuCtrl.ePage.Masters.Menu.ActiveMenu.DisplayOrder || MenuCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
             </div>
             <div class="tc-section-divider"></div>
             <div class="tc-list-container tc-list-container-inner-redirect clearfix" data-ng-if="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Id">
                 <ul class="tc-list-ul">
-                    <li data-ng-click="MenuCtrl.ePage.Masters.Menu.OnRedirectListClick(x)" data-ng-repeat="x in MenuCtrl.ePage.Masters.Menu.RedirectPagetList">
+                    <li data-ng-click="MenuCtrl.ePage.Masters.Menu.OnRedirectListClick(x)" data-ng-repeat="x in MenuCtrl.ePage.Masters.Menu.RedirectPageList"
+                        data-ng-if="x.IsEnable">
                         <div class="clearfix tc-list">
                             <div class="tc-list-name">
                                 <i class="fa {{x.Icon}} mr-10" data-ng-style="{'color': x.Color}"></i>
@@ -136,8 +149,8 @@
     </div>
 </div>
 
-<!-- Edit Template -->
-<script type="text/ng-template" id="menuEdit">
+<!-- Edit Menu Template -->
+<script type="text/ng-template" id="MenuEdit">
     <div class="modal-header">
         <button type="button" class="close" ng-click="MenuCtrl.ePage.Masters.Menu.Cancel()">&times;</button>
         <h5 class="modal-title" id="modal-title">
@@ -184,7 +197,7 @@
                     <div class="form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Module</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <select chosen name="category-group" class="form-control" ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.ModuleCode" ng-options="x.Key as x.Description for x in MenuCtrl.ePage.Masters.Menu.ModuleList"
+                            <select chosen name="category-group" class="form-control" ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.ModuleCode" ng-options="x.Key as (x.Key + ' - ' + x.Value) for x  in MenuCtrl.ePage.Masters.ModuleList"
                                 search-contains="true">
                                 <option value="">--Select--</option>
                             </select>
@@ -202,13 +215,349 @@
                             <input type="text" class="form-control input-sm" placeholder="Display Order" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.DisplayOrder">
                         </div>
                     </div>
-                    <!-- <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Menu Type</label>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                            Icon
+                            <span data-ng-click="MenuCtrl.ePage.Masters.Menu.OpenJsonModal('icon')" class="glyphicon glyphicon-pencil cursor-pointer ml-5"></span></label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <input type="text" class="form-control input-sm" placeholder="Menu Type" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.PageType"
-                                ng-disabled="true">
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" placeholder="Icon" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Icon.icon">
+                                <span class="input-group-btn">
+                                    <button icon-color-list type="icon" selected-item="MenuCtrl.ePage.Masters.Menu.SelectedIconColor($item, 'icon')" class="btn btn-default shiny">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                            </div>
                         </div>
-                    </div> -->
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                            Color <span data-ng-click="MenuCtrl.ePage.Masters.Menu.OpenJsonModal('icon')" class="glyphicon glyphicon-pencil cursor-pointer ml-5"></span> </label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" placeholder="Color" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Icon.color">
+                                <span class="input-group-btn">
+                                    <button icon-color-list type="color" selected-item="MenuCtrl.ePage.Masters.Menu.SelectedIconColor($item, 'color')" class="btn btn-default shiny">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                            Other Config <span data-ng-click="MenuCtrl.ePage.Masters.Menu.OpenJsonModal('OtherConfig')" class="glyphicon glyphicon-pencil cursor-pointer ml-5"></span></label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <textarea rows="15" class="form-control input-sm no-resize" placeholder="Fields" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.OtherConfig"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="tc-section-divider-small"></div>
+        <div class="clearfix p-10">
+            <button class="btn btn-default tc-btn-save btn-xs pull-right ml-10" data-ng-click="MenuCtrl.ePage.Masters.Menu.Save()" data-ng-bind="MenuCtrl.ePage.Masters.Menu.SaveBtnText"
+                data-ng-disabled="MenuCtrl.ePage.Masters.Menu.IsDisableSaveBtn"></button>
+            <button class="btn btn-default tc-btn-cancel btn-xs pull-right ml-10" data-ng-click="MenuCtrl.ePage.Masters.Menu.Cancel()">Cancel</button>
+        </div>
+        <div class="tc-section-divider-small mb-20"></div>
+    </div>
+</script>
+
+<!-- Edit Admin Menu Template-->
+<script type="text/ng-template" id="AdminEdit">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="MenuCtrl.ePage.Masters.Menu.Cancel()">&times;</button>
+        <h5 class="modal-title" id="modal-title">
+            <strong>Edit</strong>
+        </h5>
+    </div>
+    <div class="modal-body pt-10" id="modal-body">
+        <div class="clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-5 pb-5">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Code</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Menu Name" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Code">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Menu Name</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Menu Name" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.MenuName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Description</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Description" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Description">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Link</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Link" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Link">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Parent</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <select chosen name="category-group" class="form-control" ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.ParentId" ng-options="x.Id as x.MenuName for x in MenuCtrl.ePage.Masters.Menu.MenuList"
+                                search-contains="true" data-ng-change="MenuCtrl.ePage.Masters.Menu.OnParentChange((MenuCtrl.ePage.Masters.Menu.MenuList | filter :{Id: MenuCtrl.ePage.Masters.Menu.ActiveMenu.ParentId})[0])">
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Module</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <select chosen name="category-group" class="form-control" ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.ModuleCode" ng-options="x.Key as x.Description for x in MenuCtrl.ePage.Masters.Module.ListSource"
+                                search-contains="true">
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Sub Module</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Sub Module" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.SubModuleCode">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Display Order</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Display Order" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.DisplayOrder">
+                        </div>
+                    </div>
+                   <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                            <span data-ng-click="MenuCtrl.ePage.Masters.Menu.OpenJsonModal('icon')" class="glyphicon glyphicon-pencil cursor-pointer mr-5"></span> Icon</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" placeholder="Icon" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Icon.icon">
+                                <span class="input-group-btn">
+                                    <button icon-color-list type="icon" selected-item="MenuCtrl.ePage.Masters.Menu.SelectedIconColor($item, 'icon')" class="btn btn-default shiny">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                            <span data-ng-click="MenuCtrl.ePage.Masters.Menu.OpenJsonModal('icon')" class="glyphicon glyphicon-pencil cursor-pointer mr-5"></span> Color</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" placeholder="Color" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Icon.color">
+                                <span class="input-group-btn">
+                                    <button icon-color-list type="color" selected-item="MenuCtrl.ePage.Masters.Menu.SelectedIconColor($item, 'color')" class="btn btn-default shiny">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                            <span data-ng-click="MenuCtrl.ePage.Masters.Menu.OpenJsonModal('OtherConfig')" class="glyphicon glyphicon-pencil cursor-pointer mr-5"></span>Other Config</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <textarea rows="15" class="form-control input-sm no-resize" placeholder="Fields" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.OtherConfig"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="tc-section-divider-small"></div>
+        <div class="clearfix p-10">
+            <button class="btn btn-default tc-btn-save btn-xs pull-right ml-10" data-ng-click="MenuCtrl.ePage.Masters.Menu.Save()" data-ng-bind="MenuCtrl.ePage.Masters.Menu.SaveBtnText"
+                data-ng-disabled="MenuCtrl.ePage.Masters.Menu.IsDisableSaveBtn"></button>
+            <button class="btn btn-default tc-btn-cancel btn-xs pull-right ml-10" data-ng-click="MenuCtrl.ePage.Masters.Menu.Cancel()">Cancel</button>
+        </div>
+        <div class="tc-section-divider-small mb-20"></div>
+    </div>
+</script>
+
+<!-- Edit Tab Menu Template-->
+<script type="text/ng-template" id="TabMenuEdit">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="MenuCtrl.ePage.Masters.Menu.Cancel()">&times;</button>
+        <h5 class="modal-title" id="modal-title">
+            <strong>Edit</strong>
+        </h5>
+    </div>
+    <div class="modal-body pt-10" id="modal-body">
+        <div class="clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-5 pb-5">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Code</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Menu Name" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Code">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Menu Name</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Menu Name" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.MenuName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Description</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Description" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Description">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Link</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Link" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Link">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Parent</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <select chosen name="category-group" class="form-control" ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.ParentId" ng-options="x.Id as x.MenuName for x in MenuCtrl.ePage.Masters.Menu.MenuList"
+                                search-contains="true" data-ng-change="MenuCtrl.ePage.Masters.Menu.OnParentChange((MenuCtrl.ePage.Masters.Menu.MenuList | filter :{Id: MenuCtrl.ePage.Masters.Menu.ActiveMenu.ParentId})[0])">
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Module</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <select chosen name="category-group" class="form-control" ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.ModuleCode" ng-options="x.Key as x.Description for x in MenuCtrl.ePage.Masters.Module.ListSource"
+                                search-contains="true">
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Sub Module</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Sub Module" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.SubModuleCode">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Display Order</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Display Order" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.DisplayOrder">
+                        </div>
+                    </div>
+                   <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                            <span data-ng-click="MenuCtrl.ePage.Masters.Menu.OpenJsonModal('icon')" class="glyphicon glyphicon-pencil cursor-pointer mr-5"></span> Icon</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" placeholder="Icon" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Icon.icon">
+                                <span class="input-group-btn">
+                                    <button icon-color-list type="icon" selected-item="MenuCtrl.ePage.Masters.Menu.SelectedIconColor($item, 'icon')" class="btn btn-default shiny">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                            <span data-ng-click="MenuCtrl.ePage.Masters.Menu.OpenJsonModal('icon')" class="glyphicon glyphicon-pencil cursor-pointer mr-5"></span> Color</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" placeholder="Color" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Icon.color">
+                                <span class="input-group-btn">
+                                    <button icon-color-list type="color" selected-item="MenuCtrl.ePage.Masters.Menu.SelectedIconColor($item, 'color')" class="btn btn-default shiny">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                            <span data-ng-click="MenuCtrl.ePage.Masters.Menu.OpenJsonModal('OtherConfig')" class="glyphicon glyphicon-pencil cursor-pointer mr-5"></span>Other Config</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <textarea rows="15" class="form-control input-sm no-resize" placeholder="Fields" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.OtherConfig"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="tc-section-divider-small"></div>
+        <div class="clearfix p-10">
+            <button class="btn btn-default tc-btn-save btn-xs pull-right ml-10" data-ng-click="MenuCtrl.ePage.Masters.Menu.Save()" data-ng-bind="MenuCtrl.ePage.Masters.Menu.SaveBtnText"
+                data-ng-disabled="MenuCtrl.ePage.Masters.Menu.IsDisableSaveBtn"></button>
+            <button class="btn btn-default tc-btn-cancel btn-xs pull-right ml-10" data-ng-click="MenuCtrl.ePage.Masters.Menu.Cancel()">Cancel</button>
+        </div>
+        <div class="tc-section-divider-small mb-20"></div>
+    </div>
+</script>
+
+<!--Edit Short Cut Temaplate-->
+<script type="text/ng-template" id="ShortcutEdit">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="MenuCtrl.ePage.Masters.Menu.Cancel()">&times;</button>
+        <h5 class="modal-title" id="modal-title">
+            <strong>Edit</strong>
+        </h5>
+    </div>
+    <div class="modal-body pt-10" id="modal-body">
+        <div class="clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-5 pb-5">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Code</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Menu Name" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Code">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Menu Name</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Menu Name" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.MenuName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Description</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Description" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Description">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Link</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Link" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Link">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Parent</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <select chosen name="category-group" class="form-control" ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.ParentId" ng-options="x.Id as x.MenuName for x in MenuCtrl.ePage.Masters.Menu.MenuList"
+                                search-contains="true" data-ng-change="MenuCtrl.ePage.Masters.Menu.OnParentChange((MenuCtrl.ePage.Masters.Menu.MenuList | filter :{Id: MenuCtrl.ePage.Masters.Menu.ActiveMenu.ParentId})[0])">
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Module</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <select chosen name="category-group" class="form-control" ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.ModuleCode" ng-options="x.Key as x.Description for x in MenuCtrl.ePage.Masters.Module.ListSource"
+                                search-contains="true">
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Sub Module</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Sub Module" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.SubModuleCode">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Display Order</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Display Order" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.DisplayOrder">
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">File Path</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
@@ -241,6 +590,292 @@
                                     </button>
                                 </span>
                             </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                            <span data-ng-click="MenuCtrl.ePage.Masters.Menu.OpenJsonModal('OtherConfig')" class="glyphicon glyphicon-pencil cursor-pointer mr-5"></span>Other Config</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <textarea rows="15" class="form-control input-sm no-resize" placeholder="Fields" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.OtherConfig"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="tc-section-divider-small"></div>
+        <div class="clearfix p-10">
+            <button class="btn btn-default tc-btn-save btn-xs pull-right ml-10" data-ng-click="MenuCtrl.ePage.Masters.Menu.Save()" data-ng-bind="MenuCtrl.ePage.Masters.Menu.SaveBtnText"
+                data-ng-disabled="MenuCtrl.ePage.Masters.Menu.IsDisableSaveBtn"></button>
+            <button class="btn btn-default tc-btn-cancel btn-xs pull-right ml-10" data-ng-click="MenuCtrl.ePage.Masters.Menu.Cancel()">Cancel</button>
+        </div>
+        <div class="tc-section-divider-small mb-20"></div>
+    </div>
+</script>
+
+<!--Edit Internal Url Temaplate-->
+<script type="text/ng-template" id="InternalUrlEdit">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="MenuCtrl.ePage.Masters.Menu.Cancel()">&times;</button>
+        <h5 class="modal-title" id="modal-title">
+            <strong>Edit</strong>
+        </h5>
+    </div>
+    <div class="modal-body pt-10" id="modal-body">
+        <div class="clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-5 pb-5">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Code</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Menu Name" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Code">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Menu Name</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Menu Name" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.MenuName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Description</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Description" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Description">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Link</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Link" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Link">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Parent</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <select chosen name="category-group" class="form-control" ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.ParentId" ng-options="x.Id as x.MenuName for x in MenuCtrl.ePage.Masters.Menu.MenuList"
+                                search-contains="true" data-ng-change="MenuCtrl.ePage.Masters.Menu.OnParentChange((MenuCtrl.ePage.Masters.Menu.MenuList | filter :{Id: MenuCtrl.ePage.Masters.Menu.ActiveMenu.ParentId})[0])">
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Module</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <select chosen name="category-group" class="form-control" ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.ModuleCode" ng-options="x.Key as x.Description for x in MenuCtrl.ePage.Masters.Module.ListSource"
+                                search-contains="true">
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Sub Module</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Sub Module" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.SubModuleCode">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Display Order</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Display Order" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.DisplayOrder">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                            <span data-ng-click="MenuCtrl.ePage.Masters.Menu.OpenJsonModal('OtherConfig')" class="glyphicon glyphicon-pencil cursor-pointer mr-5"></span>Other Config</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <textarea rows="15" class="form-control input-sm no-resize" placeholder="Fields" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.OtherConfig"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="tc-section-divider-small"></div>
+        <div class="clearfix p-10">
+            <button class="btn btn-default tc-btn-save btn-xs pull-right ml-10" data-ng-click="MenuCtrl.ePage.Masters.Menu.Save()" data-ng-bind="MenuCtrl.ePage.Masters.Menu.SaveBtnText"
+                data-ng-disabled="MenuCtrl.ePage.Masters.Menu.IsDisableSaveBtn"></button>
+            <button class="btn btn-default tc-btn-cancel btn-xs pull-right ml-10" data-ng-click="MenuCtrl.ePage.Masters.Menu.Cancel()">Cancel</button>
+        </div>
+        <div class="tc-section-divider-small mb-20"></div>
+    </div>
+</script>
+
+<!-- Edit Report Template-->
+<script type="text/ng-template" id="ReportEdit">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="MenuCtrl.ePage.Masters.Menu.Cancel()">&times;</button>
+        <h5 class="modal-title" id="modal-title">
+            <strong>Edit</strong>
+        </h5>
+    </div>
+    <div class="modal-body pt-10" id="modal-body">
+        <div class="clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-5 pb-5">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Code</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Menu Name" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Code">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Menu Name</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Menu Name" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.MenuName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Description</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Description" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Description">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Link</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Link" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Link">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Parent</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <select chosen name="category-group" class="form-control" ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.ParentId" ng-options="x.Id as x.MenuName for x in MenuCtrl.ePage.Masters.Menu.MenuList"
+                                search-contains="true" data-ng-change="MenuCtrl.ePage.Masters.Menu.OnParentChange((MenuCtrl.ePage.Masters.Menu.MenuList | filter :{Id: MenuCtrl.ePage.Masters.Menu.ActiveMenu.ParentId})[0])">
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Module</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <select chosen name="category-group" class="form-control" ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.ModuleCode" ng-options="x.Key as x.Description for x in MenuCtrl.ePage.Masters.Module.ListSource"
+                                search-contains="true">
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Sub Module</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Sub Module" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.SubModuleCode">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Display Order</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Display Order" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.DisplayOrder">
+                        </div>
+                    </div>
+                   <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                            <span data-ng-click="MenuCtrl.ePage.Masters.Menu.OpenJsonModal('icon')" class="glyphicon glyphicon-pencil cursor-pointer mr-5"></span> Icon</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" placeholder="Icon" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Icon.icon">
+                                <span class="input-group-btn">
+                                    <button icon-color-list type="icon" selected-item="MenuCtrl.ePage.Masters.Menu.SelectedIconColor($item, 'icon')" class="btn btn-default shiny">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                            <span data-ng-click="MenuCtrl.ePage.Masters.Menu.OpenJsonModal('icon')" class="glyphicon glyphicon-pencil cursor-pointer mr-5"></span> Color</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" placeholder="Color" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Icon.color">
+                                <span class="input-group-btn">
+                                    <button icon-color-list type="color" selected-item="MenuCtrl.ePage.Masters.Menu.SelectedIconColor($item, 'color')" class="btn btn-default shiny">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                            <span data-ng-click="MenuCtrl.ePage.Masters.Menu.OpenJsonModal('OtherConfig')" class="glyphicon glyphicon-pencil cursor-pointer mr-5"></span>Other Config</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <textarea rows="15" class="form-control input-sm no-resize" placeholder="Fields" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.OtherConfig"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="tc-section-divider-small"></div>
+        <div class="clearfix p-10">
+            <button class="btn btn-default tc-btn-save btn-xs pull-right ml-10" data-ng-click="MenuCtrl.ePage.Masters.Menu.Save()" data-ng-bind="MenuCtrl.ePage.Masters.Menu.SaveBtnText"
+                data-ng-disabled="MenuCtrl.ePage.Masters.Menu.IsDisableSaveBtn"></button>
+            <button class="btn btn-default tc-btn-cancel btn-xs pull-right ml-10" data-ng-click="MenuCtrl.ePage.Masters.Menu.Cancel()">Cancel</button>
+        </div>
+        <div class="tc-section-divider-small mb-20"></div>
+    </div>
+</script>
+
+<!-- Edit Document Template-->
+<script type="text/ng-template" id="DocumentEdit">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="MenuCtrl.ePage.Masters.Menu.Cancel()">&times;</button>
+        <h5 class="modal-title" id="modal-title">
+            <strong>Edit</strong>
+        </h5>
+    </div>
+    <div class="modal-body pt-10" id="modal-body">
+        <div class="clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-5 pb-5">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Code</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Menu Name" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Code">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Menu Name</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Menu Name" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.MenuName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Description</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Description" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Description">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Link</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Link" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.Link">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Parent</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <select chosen name="category-group" class="form-control" ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.ParentId" ng-options="x.Id as x.MenuName for x in MenuCtrl.ePage.Masters.Menu.MenuList"
+                                search-contains="true" data-ng-change="MenuCtrl.ePage.Masters.Menu.OnParentChange((MenuCtrl.ePage.Masters.Menu.MenuList | filter :{Id: MenuCtrl.ePage.Masters.Menu.ActiveMenu.ParentId})[0])">
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Module</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <select chosen name="category-group" class="form-control" ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.ModuleCode" ng-options="x.Key as x.Description for x in MenuCtrl.ePage.Masters.Module.ListSource"
+                                search-contains="true">
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Sub Module</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Sub Module" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.SubModuleCode">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Display Order</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Display Order" data-ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.DisplayOrder">
                         </div>
                     </div>
                     <div class="form-group">

@@ -37,7 +37,7 @@
             ExportConsolDetailsSeaGlbCtrl.ePage.Masters.DatePicker.Options = APP_CONSTANT.DatePicker;
             ExportConsolDetailsSeaGlbCtrl.ePage.Masters.DatePicker.isOpen = [];
             ExportConsolDetailsSeaGlbCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
-            ExportConsolDetailsSeaGlbCtrl.ePage.Masters.DatePicker.TableProperty = {
+            ExportConsolDetailsSeaGlbCtrl.ePage.Masters.TableProperty = {
                 "status": {
                     "isenabled": true,
                     "position": "5",

@@ -335,7 +335,7 @@
                 "IsCreated": "Track Orders"
             };
             _queryString = helperService.encryptData(_queryString);
-            $location.path('/EA/PO/order').search({
+            $location.path('/EA/BUYER/PO/order').search({
                 item: _queryString
             });
         }

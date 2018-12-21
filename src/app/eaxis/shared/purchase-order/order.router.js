@@ -118,6 +118,27 @@
                         return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "customToolbar", "oneLevelMapping", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "Event", "EventModal", "AuditLog", "AuditLogModal", "Parties", "PartiesModal", "Summernote", "pagination", "addressDirective", "addressWrapper", "addressModal", "errorWarning", "EditableTableDirective", "3_order_list", "3_3_order-menu", "3_3_order-general", "3_3_orderLines", "3_3_orderLinesFormDirective", "3_3_prodSummary", "3_3_orderCargoReadiness", "3_3_orderShipmentPreAdvice", "3_3_orderVesselPlanning", "3_3_orderShipment", "3_3_orderSplit", "3_3_orderAction", "3_3_OrderCustomToolBar", "3_3_ActiveCustomToolBar", "3_3_OrderConfirmationDirective", "3_3_ConfrimDirective", "3_3_CargoReadinessToolBarDirective", "3_3_CargoReadinessInLineEditDirective", "3_3_PreAdviceToolBarDirective", "3_3_PreAdviceInLineEditDirective", "1_3_order-general"]);
                     }]
                 }
+            })
+            // 
+            .state('EA.BUYER.trackOrders', {
+                url: '/PO/track-orders',                
+                templateUrl: 'app/eaxis/buyer/purchase-order/shared/track-order/track-order.html',
+                controller: "TrackOrderListController as TrackOrderListCtrl",
+                ncyBreadcrumb: {
+                    label: 'Track Orders'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        if (pageAccessService.CheckAuthToken()) {
+                            deferred.resolve();
+                        }
+                        return deferred.promise;
+                    }],
+                    loadMyCtrl: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "customToolbar", "oneLevelMapping", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "Event", "EventModal", "AuditLog", "AuditLogModal", "Parties", "PartiesModal", "Task", "TaskModal", "Summernote", "pagination", "addressDirective", "addressWrapper", "addressModal", "errorWarning", "ActivityTab", "MyTaskDirective", "WorkItemListView", "ProcessInstanceWorkItemDetails", "TaskAssignStartComplete", "MyTaskConfig", "MyTaskDynamicDirective", "MyTaskDefaultEditDirective", "DynamicTabLeft", "1_order_list", "track-order-list", "ord-buyer-view-template", "ord-buyer-view-general", "ord-buyer-view-order-line", "ord-buyer-view-shipment", "ord-buyer-view-sub-po"]);
+                    }]
+                }
             });
     }
 })();

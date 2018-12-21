@@ -2,42 +2,92 @@
     <div class="my-task-content-shipper">
         <div class="row">
             <div class="col-lg-4">Consignor :
-                <a data-ng-bind="ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.EntityObj.UIShipmentHeader.ShipperName"></a>
+                <a data-ng-bind="ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipperName"></a>
             </div>
             <div class="col-lg-4">Consignee :
-                <a data-ng-bind="ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.EntityObj.UIShipmentHeader.ConsigneeName"></a>
+                <a data-ng-bind="ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ConsigneeName"></a>
             </div>
             <div class="col-lg-4 ng-binding">Load Port :
-                <a data-ng-bind="ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.EntityObj.UIShipmentHeader.PortOfLoading"></a>
+                <a data-ng-bind="ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PortOfLoading"></a>
             </div>
         </div>
     </div>
 
-    <div class="clearfix mt-10">
-        <div class="table" id="results">
-            <div class="theader">
-                <div class="table_header">Consignee Name</div>
-                <div class="table_header">ShipperName</div>
-                <div class="table_header">ShipmentNo</div>
-                <div class="table_header">Port Of Discharge</div>
+    <div class="clearfix mt-10 no-padding">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 no-padding">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                <div class="form-group ex-line-font">
+                    <div class="error-warning-container">
+                        <error-warning-directive data-ng-if="ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CargoReceiptDate.IsWarning && !ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CargoReceiptDate.IsError"
+                            list="ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CargoReceiptDate.WARNING"
+                            type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        <error-warning-directive data-ng-if="ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CargoReceiptDate.IsError"
+                            list="ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CargoReceiptDate.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    </div>
+                    <label class="control-label"> Cargo Receipt Date CFS / Port / ICD </label>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" placeholder="{{ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                            data-ng-model="ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.CargoReceiptDate"
+                            datetime-picker="{{ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                            datepicker-options="ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.DatePicker.Options"
+                            datepicker-append-to-body="true" close-on-selection="false" enable-time="false" enable-date="true"
+                            default-date="" default-time="" save-as="ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                            is-open="ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.DatePicker.isOpen['isCargoReceiptDate']"
+                            when-closed="" data-ng-click="ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoReceiptDate')"
+                            custom-date-time-format data-ng-change="ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.OnFieldValueChange('E11071')" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default shiny" data-ng-click="ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoReceiptDate')">
+                                <i class="fa fa-calendar"></i>
+                            </button>
+                        </span>
+
+                    </div>
+                </div>
             </div>
-            <div class="table_row">
-                <div class="table_small">
-                    <div class='table_cell'>ConsigneeName</div>
-                    <div class="table_cell" data-ng-bind="ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.EntityObj.UIShipmentHeader.ConsigneeName" title="{{ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.EntityObj.UIShipmentHeader.ConsigneeName}}"></div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                <div class="form-group ship-font">
+                    <label class="control-label"> Pick Date From Supplier Factory</label>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" placeholder="{{ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                            data-ng-model="ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.CargoPickedUpDate"
+                            datetime-picker="{{ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                            datepicker-options="ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.DatePicker.Options"
+                            datepicker-append-to-body="true" close-on-selection="false" enable-time="false" enable-date="true"
+                            default-date="" default-time="" save-as="ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                            is-open="ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.DatePicker.isOpen['isCargoPickupDate']"
+                            when-closed="" data-ng-click="" data-ng-disabled="true" custom-date-time-format />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default shiny" data-ng-disabled="true" data-ng-click="ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoPickupDate')">
+                                <i class="fa fa-calendar"></i>
+                            </button>
+                        </span>
+                    </div>
                 </div>
-                <div class="table_small">
-                    <div class='table_cell'>ShipperName</div>
-                    <div class="table_cell" data-ng-bind="ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.EntityObj.UIShipmentHeader.ShipperName" title="{{ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.EntityObj.UIShipmentHeader.ShipperName}}"></div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                <div class="form-group ship-font">
+                    <label class="control-label"> </label>
+                    <div>
+                        <button class="my-task-btn my-task-open-activity-btn ng-scope" data-ng-click="ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.Complete()"
+                            data-ng-disabled="ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.IsDisableCompleteBtn">{{ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.CompleteBtnText}}</button>
+                    </div>
                 </div>
-                <div class="table_small">
-                    <div class='table_cell'>ShipmentNo</div>
-                    <div class="table_cell" data-ng-bind="ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.EntityObj.UIShipmentHeader.ShipmentNo" title="{{ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.EntityObj.UIShipmentHeader.ShipmentNo}}"></div>
-                </div>
-                <div class="table_small">
-                    <div class='table_cell'>PortOfDischarge</div>
-                    <div class="table_cell" data-ng-bind="ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.EntityObj.UIShipmentHeader.PortOfDischarge" title="{{ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.EntityObj.UIShipmentHeader.PortOfDischarge}}"></div>
-                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 no-padding fs-12 warning-message">
+            <div>
+                <span class="col-lg-12">• For factory stuffing containers we capture the date of container Gate In at
+                    Port CY or ICD (for rail linked
+                    ICD movements). Note that for ICD movements we are capturing receipt date at ICD for rail out. We
+                    are not
+                    capturing arrival of train into CY. </span>
+                <span class="col-lg-12 pl-0"> • For dock stuffing cargo we capture the date of carting of cargo into
+                    CFS/ICD. Carting refers to the arrival
+                    of cargo into a CFS/ICD and off-loading into our designated carting shed. Note that dock stuffing
+                    shipments
+                    will also have a separate transport leg from CFS/ICD up to CY. We are not capturing this movement.
+                </span>
             </div>
         </div>
     </div>

@@ -5,9 +5,9 @@
         .module("Application")
         .controller("OrgCompanyModalController", OrgCompanyModalController);
 
-    OrgCompanyModalController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "$uibModalInstance", "APP_CONSTANT", "authService", "apiService", "organizationConfig", "helperService", "toastr", "param"];
+    OrgCompanyModalController.$inject = ["$uibModalInstance", "authService", "apiService", "organizationConfig", "helperService", "toastr", "param", "mdmConfig", "appConfig"];
 
-    function OrgCompanyModalController($rootScope, $scope, $state, $q, $location, $timeout, $uibModalInstance, APP_CONSTANT, authService, apiService, organizationConfig, helperService, toastr, param) {
+    function OrgCompanyModalController($uibModalInstance, authService, apiService, organizationConfig, helperService, toastr, param, mdmConfig, appConfig) {
         var OrgCompanyModalCtrl = this;
 
         function Init() {
@@ -21,42 +21,19 @@
                 "Entities": currentOrganization
             };
 
-            OrgCompanyModalCtrl.ePage.Masters.param = param;
-            OrgCompanyModalCtrl.ePage.Masters.DropDownMasterList = organizationConfig.Entities.Header.Meta;
-            console.log(OrgCompanyModalCtrl.ePage.Masters.DropDownMasterList.Company.ListSource);
-            OrgCompanyModalCtrl.ePage.Masters.SaveButtonText = "Save";
-            OrgCompanyModalCtrl.ePage.Masters.IsDisableSave = false;
+            try {
+                OrgCompanyModalCtrl.ePage.Masters.param = angular.copy(param);
+                OrgCompanyModalCtrl.ePage.Masters.DropDownMasterList = angular.copy(organizationConfig.Entities.Header.Meta);
 
-            OrgCompanyModalCtrl.ePage.Masters.Save = Save;
-            OrgCompanyModalCtrl.ePage.Masters.Cancel = Cancel;
-            
-            OrgCompanyModalCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
-            OrgCompanyModalCtrl.ePage.Masters.Config = organizationConfig;
+                OrgCompanyModalCtrl.ePage.Masters.SaveButtonText = "Save";
+                OrgCompanyModalCtrl.ePage.Masters.IsDisableSave = false;
 
-            OrgCompanyModalCtrl.ePage.Masters.Validation = Validation;
-            InitCompany();
-            InitEmployee();
-        }
-        function InitRemoveError()
-        {
-            OnChangeValues('value','E9030');
-            OnChangeValues('value','E9011');
-        }
+                OrgCompanyModalCtrl.ePage.Masters.Save = Save;
+                OrgCompanyModalCtrl.ePage.Masters.Cancel = Cancel;
 
-
-        function OnChangeValues(fieldvalue,code) { 
-            angular.forEach(OrgCompanyModalCtrl.ePage.Masters.Config.ValidationValues,function(value,key){
-                if(value.Code.trim() === code){
-                    GetErrorMessage(fieldvalue,value);                   
-                }
-            });
-        }
-
-        function GetErrorMessage(fieldvalue,value){
-            if (!fieldvalue) {
-                OrgCompanyModalCtrl.ePage.Masters.Config.PushErrorWarning(value.Code,value.Message,"E",true,value.CtrlKey,OrgCompanyModalCtrl.ePage.Masters.param.Entity.label,false,undefined,undefined,undefined,undefined,value.GParentRef);
-            } else {
-                OrgCompanyModalCtrl.ePage.Masters.Config.RemoveErrorWarning(value.Code,"E",value.CtrlKey,OrgCompanyModalCtrl.ePage.Masters.param.Entity.label);
+                InitCompany();
+            } catch (ex) {
+                console.log(ex);
             }
         }
 
@@ -68,112 +45,173 @@
                 OrgCompanyModalCtrl.ePage.Masters.Company.FormView = angular.copy(OrgCompanyModalCtrl.ePage.Masters.param.Item);
             }
 
-            OrgCompanyModalCtrl.ePage.Masters.Company.FormView.ORG_FK = OrgCompanyModalCtrl.ePage.Entities.Header.Data.OrgHeader.PK;
-            OrgCompanyModalCtrl.ePage.Masters.Company.FormView.OrgARTerms = [];
-        }
-
-        function InitEmployee() {
-            OrgCompanyModalCtrl.ePage.Masters.Employee = {};
-            OrgCompanyModalCtrl.ePage.Masters.Employee.FormView = {};
-
-            if (OrgCompanyModalCtrl.ePage.Masters.param.Item) {
-                OrgCompanyModalCtrl.ePage.Masters.Employee.FormView = angular.copy(OrgCompanyModalCtrl.ePage.Masters.param.Item);
+            if (OrgCompanyModalCtrl.ePage.Masters.param.Type == "company" && OrgCompanyModalCtrl.ePage.Masters.param.Item) {
+                GetBranchList(OrgCompanyModalCtrl.ePage.Masters.param.ActiveCompany.CMP_FK);
+            } else if (OrgCompanyModalCtrl.ePage.Masters.param.Type == "ardetails") {
+                GetDebtorList();
+                GetCurrencyList();
+            } else if (OrgCompanyModalCtrl.ePage.Masters.param.Type == "apdetails") {
+                GetCreditorList();
+                GetCurrencyList();
             }
 
-            if (OrgCompanyModalCtrl.ePage.Masters.param.SelectedCompany) {
-                OrgCompanyModalCtrl.ePage.Masters.Employee.FormView.CompanyPK = OrgCompanyModalCtrl.ePage.Masters.param.SelectedCompany.CMP_FK;
-                OrgCompanyModalCtrl.ePage.Masters.Employee.FormView.CompanyCode = OrgCompanyModalCtrl.ePage.Masters.param.SelectedCompany.CMP_Name;
-                OrgCompanyModalCtrl.ePage.Masters.Employee.FormView.CompanyName = OrgCompanyModalCtrl.ePage.Masters.param.SelectedCompany.CMP_Code;
-            }
-
-            OrgCompanyModalCtrl.ePage.Masters.Employee.FormView.OrgCode = OrgCompanyModalCtrl.ePage.Entities.Header.Data.OrgHeader.Code;
-            OrgCompanyModalCtrl.ePage.Masters.Employee.FormView.OrgName = OrgCompanyModalCtrl.ePage.Entities.Header.Data.OrgHeader.FullName;
-            OrgCompanyModalCtrl.ePage.Masters.Employee.FormView.OrgPK = OrgCompanyModalCtrl.ePage.Entities.Header.Data.OrgHeader.PK;
+            OrgCompanyModalCtrl.ePage.Masters.Company.OnCompanyChange = OnCompanyChange;
+            OrgCompanyModalCtrl.ePage.Masters.Company.OnBranchChange = OnBranchChange;
         }
 
-        // Company End //
-        function Validation($item,type) {
-            var _index = organizationConfig.TabList.map(function (value, key) {
-                return value[value.label].ePage.Entities.Header.Data.OrgHeader.PK
-            }).indexOf(OrgCompanyModalCtrl.ePage.Entities.Header.Data.OrgHeader.PK);
-            $item.label = OrgCompanyModalCtrl.ePage.Masters.param.Entity.label;
-            //console.log(_Data.Header.Meta.ErrorWarning.GlobalErrorWarningList);
-            // var _Data = $item.Entities,
-            //     _input = _Data.Header.Data,
-               var _errorcount = OrgCompanyModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList;
-                
-                var cmp_index = OrgCompanyModalCtrl.ePage.Entities.Header.Data.OrgCompanyData.map(function (value, key) {
-                    return value.PK
-                }).indexOf($item.PK); 
+        function OnCompanyChange($item) {
+            if ($item) {
+                OrgCompanyModalCtrl.ePage.Masters.Company.FormView.CMP_FK = $item.PK;
+                OrgCompanyModalCtrl.ePage.Masters.Company.FormView.CMP_Code = $item.Code;
+                OrgCompanyModalCtrl.ePage.Masters.Company.FormView.CMP_Name = $item.Name;
+                GetBranchList($item.PK);
+            } else {
+                OrgCompanyModalCtrl.ePage.Masters.Company.FormView.CMP_FK = undefined;
+                OrgCompanyModalCtrl.ePage.Masters.Company.FormView.CMP_Code = undefined;
+                OrgCompanyModalCtrl.ePage.Masters.Company.FormView.CMP_Name = undefined;
+                OrgCompanyModalCtrl.ePage.Masters.Company.BranchList = [];
+            }
+        }
 
-                if(cmp_index == -1){cmp_index = 0;}
-                OrgCompanyModalCtrl.ePage.Entities.Header.Data.OrgCompanyData[cmp_index] = $item;
-                OrgCompanyModalCtrl.ePage.Masters.Config.GeneralValidation(OrgCompanyModalCtrl.ePage,type,cmp_index);
-                if(OrgCompanyModalCtrl.ePage.Entities.Header.Validations){
-                    OrgCompanyModalCtrl.ePage.Masters.Config.RemoveApiErrors(OrgCompanyModalCtrl.ePage.Entities.Header.Validations,$item.label); 
+        function GetBranchList($item) {
+            OrgCompanyModalCtrl.ePage.Masters.Company.BranchList = undefined;
+            var _filter = {
+                "CMP_FK": $item
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": mdmConfig.Entities.CmpBranch.API.FindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", mdmConfig.Entities.CmpBranch.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    OrgCompanyModalCtrl.ePage.Masters.Company.BranchList = response.data.Response;
+                } else {
+                    OrgCompanyModalCtrl.ePage.Masters.Company.BranchList = [];
                 }
+            });
+        }
 
-            if(_errorcount.length==0){ 
-                Save($item,type);
-            }else{
-                OrgCompanyModalCtrl.ePage.Masters.Config.ShowErrorWarningModal(OrgCompanyModalCtrl.ePage.Masters.param.Entity);
+        function OnBranchChange($item) {
+            if ($item) {
+                OrgCompanyModalCtrl.ePage.Masters.Company.FormView.BRN_ControllingBranch = $item.PK;
+                OrgCompanyModalCtrl.ePage.Masters.Company.FormView.BRN_Code = $item.Code;
+                OrgCompanyModalCtrl.ePage.Masters.Company.FormView.BRN_BranchName = $item.BranchName;
+            } else {
+                OrgCompanyModalCtrl.ePage.Masters.Company.FormView.BRN_ControllingBranch = undefined;
+                OrgCompanyModalCtrl.ePage.Masters.Company.FormView.BRN_Code = undefined;
+                OrgCompanyModalCtrl.ePage.Masters.Company.FormView.BRN_BranchName = undefined;
             }
         }
 
-        function Save(obj, entity, type) {
-            var _isEmpty = angular.equals(obj, {});
+        function GetDebtorList() {
+            OrgCompanyModalCtrl.ePage.Masters.DebtorGroupList = undefined;
+            var _input = {
+                "searchInput": [],
+                "FilterID": mdmConfig.Entities.MstDebtorGroup.API.FindAll.FilterID,
+            };
+
+            apiService.post("eAxisAPI", mdmConfig.Entities.MstDebtorGroup.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    OrgCompanyModalCtrl.ePage.Masters.DebtorGroupList = response.data.Response;
+                } else {
+                    OrgCompanyModalCtrl.ePage.Masters.DebtorGroupList = [];
+                }
+            });
+        }
+
+        function GetCreditorList() {
+            OrgCompanyModalCtrl.ePage.Masters.CreditorGroupList = undefined;
+            var _input = {
+                "searchInput": [],
+                "FilterID": mdmConfig.Entities.MstCreditorGroup.API.FindAll.FilterID,
+            };
+
+            apiService.post("eAxisAPI", mdmConfig.Entities.MstCreditorGroup.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    OrgCompanyModalCtrl.ePage.Masters.CreditorGroupList = response.data.Response;
+                } else {
+                    OrgCompanyModalCtrl.ePage.Masters.CreditorGroupList = [];
+                }
+            });
+        }
+
+        function GetCurrencyList() {
+            OrgCompanyModalCtrl.ePage.Masters.CurrencyList = undefined;
+            var _input = {
+                "searchInput": [],
+                "FilterID": mdmConfig.Entities.MstCurrency.API.FindAll.FilterID,
+            };
+
+            apiService.post("eAxisAPI", mdmConfig.Entities.MstCurrency.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    OrgCompanyModalCtrl.ePage.Masters.CurrencyList = response.data.Response;
+                } else {
+                    OrgCompanyModalCtrl.ePage.Masters.CurrencyList = [];
+                }
+            });
+        }
+
+        function Save() {
+            var _input = angular.copy(OrgCompanyModalCtrl.ePage.Masters.Company.FormView);
+            _input.IsModified = true;
+            _input.ORG_FK = OrgCompanyModalCtrl.ePage.Entities.Header.Data.OrgHeader.PK;
+            _input.ORG_Code = OrgCompanyModalCtrl.ePage.Entities.Header.Data.OrgHeader.Code;
+            _input.ORG_Name = OrgCompanyModalCtrl.ePage.Entities.Header.Data.OrgHeader.FullName;
+            _input.OrgARTerms = [];
+            _input.TenantCode = authService.getUserInfo().TenantCode;
+
+            var _isEmpty = angular.equals(_input, {});
 
             if (_isEmpty) {
                 toastr.warning("Please fill fields...!");
             } else {
-                obj.IsModified = true;
-                var _isExist = OrgCompanyModalCtrl.ePage.Entities.Header.Data[entity].some(function (value, key) {
-                    return value.PK === obj.PK;
+                var _isExist = OrgCompanyModalCtrl.ePage.Entities.Header.Data.OrgCompanyData.some(function (value, key) {
+                    return value.PK === _input.PK;
                 });
 
                 if (!_isExist) {
-                    OrgCompanyModalCtrl.ePage.Entities.Header.Data[entity].push(obj);
+                    OrgCompanyModalCtrl.ePage.Entities.Header.Data.OrgCompanyData.push(_input);
                 } else {
-                    var _index = OrgCompanyModalCtrl.ePage.Entities.Header.Data[entity].map(function (value, key) {
-                        if (value.PK === obj.PK) {
-                            OrgCompanyModalCtrl.ePage.Entities.Header.Data[entity][key] = obj;
-                        }
-                    });
+                    var _index = OrgCompanyModalCtrl.ePage.Entities.Header.Data.OrgCompanyData.map(function (value, key) {
+                        return value.PK;
+                    }).indexOf(_input.PK);
+
+                    if (_index != -1) {
+                        OrgCompanyModalCtrl.ePage.Entities.Header.Data.OrgCompanyData[_index] = _input;
+                    }
                 }
+
+                OrgCompanyModalCtrl.ePage.Masters.param.Entity[OrgCompanyModalCtrl.ePage.Masters.param.Entity.label].ePage.Entities.Header.Data = OrgCompanyModalCtrl.ePage.Entities.Header.Data;
 
                 OrgCompanyModalCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
                 OrgCompanyModalCtrl.ePage.Masters.IsDisableSave = true;
 
-                helperService.SaveEntity(OrgCompanyModalCtrl.ePage.Masters.param.Entity,'Organization').then(function (response) {
+                helperService.SaveEntity(OrgCompanyModalCtrl.ePage.Masters.param.Entity, 'Organization').then(function (response) {
                     if (response.Status === "success") {
-                        var _exports = {
-                            Data: obj,
-                            entity: entity,
-                            type: type
-                        };
-                        $uibModalInstance.close(_exports);
-                        Cancel();
-                        OrgCompanyModalCtrl.ePage.Masters.Config.refreshgrid();
-                    } else if (response === "failed") {
-                        Cancel();
+                        if (response.Data) {
+                            var _exports = {
+                                data: response.Data
+                            };
+                            $uibModalInstance.close(_exports);
+                        }
+                    } else if (response.Status == "ValidationFailed" || response.Status == "failed") {
+                        if (response.Validations && response.Validations.length > 0) {
+                            response.Validations.map(function (value, key) {
+                                toastr.error(value.Message);
+                            });
+                        } else {
+                            toastr.warning("Failed to Save...!");
+                        }
                     }
+
                     OrgCompanyModalCtrl.ePage.Masters.SaveButtonText = "Save";
                     OrgCompanyModalCtrl.ePage.Masters.IsDisableSave = false;
-
-                    OrgCompanyModalCtrl.ePage.Entities.Header.Validations = response.Validations;
-                    angular.forEach(response.Validations, function (value, key) {
-                    OrgCompanyModalCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey.trim(), OrgCompanyModalCtrl.ePage.Masters.param.Entity.label, false, undefined, undefined, undefined, undefined, undefined);
-                });
-                if(OrgCompanyModalCtrl.ePage.Entities.Header.Validations !== null){
-                    OrgCompanyModalCtrl.ePage.Masters.Config.ShowErrorWarningModal(OrgCompanyModalCtrl.ePage.Entities);    
-                }    
-                
                 });
             }
         }
 
         function Cancel() {
-            OrgCompanyModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList = [];
             $uibModalInstance.dismiss('close');
         }
 

@@ -1,0 +1,20 @@
+.ex-line-box2 {
+    width: 100%;
+    height: 127px;
+    float: left;
+    border: 1px solid #eeeded;
+    border-radius: 4px;
+}
+
+.ex-line-box11 {
+    width: 100%;
+    height: 65px;
+    float: left;
+    border: 1px solid #eeeeee;
+}
+
+.ex-line-font label {
+    color: gray;
+    font-weight: 600;
+    font-size: 12px;
+}

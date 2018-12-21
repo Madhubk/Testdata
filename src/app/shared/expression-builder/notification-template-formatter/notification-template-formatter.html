@@ -73,7 +73,7 @@
 						<input class="form-control input-sm" type="text" placeholder="Section Name" data-ng-model="x.SectionName">
 					</td>
 					<td>
-						<select chosen class="form-control" data-ng-model="x.DataSource" data-ng-options="y for y in NotificationTemplate.SectionDataSourceList"
+						<select class="form-control" data-ng-model="x.DataSource" data-ng-options="y for y in NotificationTemplate.SectionDataSourceList"
 						    disable-search="true" data-ng-change="NotificationTemplate.OnChangeSectionDataSource((NotificationTemplate.SectionDataSourceList | filter: x.DataSource)[0], x)">
 							<option value="">--Select--</option>
 						</select>

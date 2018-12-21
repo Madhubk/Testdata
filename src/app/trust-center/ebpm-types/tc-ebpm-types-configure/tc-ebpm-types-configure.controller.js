@@ -82,7 +82,7 @@
 
             var _input = TCEBPMTypesConfigureCtrl.ePage.Masters.EBPMTypes.FormView;
             _input.IsModified = true;
-            _input.SAP_FK = TCEBPMTypesConfigureCtrl.ePage.Masters.QueryString.AppPk;
+            // _input.SAP_FK = TCEBPMTypesConfigureCtrl.ePage.Masters.QueryString.AppPk;
             _input.MappingCode = TCEBPMTypesConfigureCtrl.ePage.Masters.QueryString.AdditionalData.Input.MappingCode;
 
             apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EBPMCFXTypes.API.Upsert.Url, [_input]).then(function (response) {

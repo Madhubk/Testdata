@@ -17,6 +17,24 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
         <span class="error-warning-container">
+            <error-warning-directive data-ng-if="GeneralConCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransportMode.IsWarning && !GeneralConCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransportMode.IsError"
+                list="GeneralConCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransportMode.WARNING" type="'warning'"
+                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            <error-warning-directive data-ng-if="GeneralConCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransportMode.IsError"
+                list="GeneralConCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransportMode.ERROR" type="'error'" icon="fa fa-warning"
+                parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+        </span>
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line"> Transport Mode</label>
+            <select chosen class="form-control" ng-model="GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.TransportMode"
+                ng-options="x.Key as x.Description for x in  GeneralConCtrl.ePage.Masters.DropDownMasterList.SHP_TRANSTYPE.ListSource"
+                search-contains="true" data-ng-change="GeneralConCtrl.ePage.Masters.OnFieldValueChange('E9045')">
+                <option value="">--Select--</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <span class="error-warning-container">
             <error-warning-directive data-ng-if="GeneralConCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ContainerMode.IsWarning && !GeneralConCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ContainerMode.IsError"
                 list="GeneralConCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ContainerMode.WARNING" type="'warning'"
                 icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
@@ -25,9 +43,10 @@
                 parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
         </span>
         <div class="form-group ship-font">
-            <label class="control-label text-single-line"> Mode</label>
-            <select chosen class="form-control" ng-model="GeneralConCtrl.ePage.Masters.selectedMode" ng-options="term as (term.Key+'-'+term.PARENT_Value + '(' + term.Key+')') for term in GeneralConCtrl.ePage.Masters.CfxTypesList.CntType"
-                search-contains="true" ng-change="GeneralConCtrl.ePage.Masters.modeChange(GeneralConCtrl.ePage.Masters.selectedMode)">
+            <label class="control-label text-single-line"> Container Mode</label>
+            <select chosen class="form-control" ng-model="GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ContainerMode"
+                ng-options="x.Key as x.Description for x in  GeneralConCtrl.ePage.Masters.DropDownMasterList.SHP_CNTMODE.ListSource | shpcntmode : GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.TransportMode"
+                search-contains="true" data-ng-change="GeneralConCtrl.ePage.Masters.OnFieldValueChange('E1110')">
                 <option value="">--Select--</option>
             </select>
         </div>
@@ -44,7 +63,7 @@
         <div class="form-group ship-font">
             <label class="control-label">Is Domestic</label>
             <fieldset disabled='true'>
-                <div class="checkbox mt-0 mb-0">
+                <div class="checkbox mt-0">
                     <label>
                         <input type="checkbox" data-ng-model="GeneralConCtrl.ePage.Entities.Header.Data.UIConConsolHeader.IsDomestic" class="colored-blue"
                             ng-change="GeneralConCtrl.ePage.Masters.ValueChange('Is Domestic')">
@@ -180,6 +199,7 @@
             </div>
         </div>
     </div>
+
 </div>
 
 <div class="clearfix padding-top-5 routing-box">

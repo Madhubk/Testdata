@@ -5,24 +5,72 @@
         .module("Application")
         .factory('three_shipmentConfig', three_shipmentConfig);
 
-    three_shipmentConfig.$inject = ["$rootScope", "$location", "$q", "apiService", "helperService", "toastr", "appConfig", "errorWarningService", "$timeout"];
+    three_shipmentConfig.$inject = ["$rootScope", "$location", "$q", "apiService", "authService", "helperService", "toastr", "appConfig", "errorWarningService", "$timeout", "freightApiConfig"];
 
-    function three_shipmentConfig($rootScope, $location, $q, apiService, helperService, toastr, appConfig, errorWarningService, $timeout) {
+    function three_shipmentConfig($rootScope, $location, $q, apiService, authService, helperService, toastr, appConfig, errorWarningService, $timeout, freightApiConfig) {
         var exports = {
             "Entities": {
                 "Header": {
                     "Data": {},
                     "RowIndex": -1,
-                    "API": {
-                        "GetByID": {
-                            "IsAPI": "true",
-                            "HttpType": "GET",
-                            "Url": "shipmentList/buyer/getByid/"
-                        },
-                        "ShipmentActivityClose": {
-                            "IsAPI": "true",
-                            "HttpType": "GET",
-                            "Url": "shipmentList/buyer/shipmentactivityclose/"
+                    "BuyerShipment": {
+                        "API": {
+                            "findall": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "shipmentlist/buyer/findall",
+                                "FilterID": "ORDHEAD"
+                            },
+                            "1_1_listgetbyid": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "shipmentlist/buyer/getbyid/"
+                            },
+                            "activityclose": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "shipmentlist/buyer/shipmentactivityclose/"
+                            }
+                        }
+                    },
+                    "BuyerSupplierShipment": {
+                        "API": {
+                            "findall": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "shipmentlist/buyersupplier/findall",
+                                "FilterID": "ORDHEAD"
+                            },
+                            "1_2_listgetbyid": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "shipmentlist/buyersupplier/getbyid/"
+                            },
+                            "activityclose": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "shipmentlist/buyersupplier/shipmentactivityclose/"
+                            },
+                        }
+                    },
+                    "BuyerForwarderShipment": {
+                        "API": {
+                            "findall": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "shipmentlist/buyerforwarder/findall",
+                                "FilterID": "ORDHEAD"
+                            },
+                            "1_3_listgetbyid": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "shipmentlist/buyerforwarder/getbyid/"
+                            },
+                            "activityclose": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "shipmentlist/buyerforwarder/shipmentactivityclose/"
+                            }
                         }
                     },
                     "GlobalVar": "Shipment",
@@ -186,15 +234,25 @@
                         "Data": {},
                         "RowIndex": -1,
                         "API": {
-                            "InsertShipment": {
+                            "InsertShipmentBuyer": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
                                 "Url": "shipmentlist/buyer/insert"
                             },
-                            "UpdateShipment": {
+                            "UpdateShipmentBuyer": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
                                 "Url": "shipmentlist/buyer/update"
+                            },
+                            "InsertShipmentBuyerForwarder": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "shipmentlist/buyerforwarder/insert"
+                            },
+                            "UpdateShipmentBuyerForwarder": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "shipmentlist/buyerforwarder/update"
                             }
                         },
                         "Meta": {
@@ -820,7 +878,7 @@
                             "ShipmentAttach": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
-                                "Url": "ShipmentHeader/UpdateRecords"
+                                "Url": "shipmentlist/UpdateRecords"
                             }
                         },
                         "Grid": {
@@ -1179,7 +1237,7 @@
                 deferred.resolve(exports.TabList);
             } else {
                 // Get Shipment details and set to configuration list
-                helperService.getFullObjectUsingGetById(exports.Entities.Header.API.GetByID.Url, currentShipment.PK).then(function (response) {
+                helperService.getFullObjectUsingGetById(freightApiConfig.Entities["1_3"].API.listgetbyid.Url, currentShipment.PK).then(function (response) {
                     if (response.data.Messages) {
                         response.data.Messages.map(function (value, key) {
                             if (value.Type === "Warning" && value.MessageDesc !== "") {

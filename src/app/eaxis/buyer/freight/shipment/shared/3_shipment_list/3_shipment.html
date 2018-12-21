@@ -36,6 +36,9 @@
             </span>
         </uib-tab-heading>
         <div class="padding-bottom-10 clearfix">
+
+            <!-- <shp-buyer-view-template current-shipment="tab" data-ng-if="three_ShipmentCtrl.ePage.Masters.currentShipment && (tab[three_ShipmentCtrl.ePage.Masters.currentShipment].ePage.Entities.Header.Data.UIShipmentHeader.CMN_SharedRoleCode=='1_1' || tab[three_ShipmentCtrl.ePage.Masters.currentShipment].ePage.Entities.Header.Data.UIShipmentHeader.CMN_SharedRoleCode=='1_2')"
+                dataentry-object="three_ShipmentCtrl.ePage.Masters.DataEntryObject"></shp-buyer-view-template> -->
             <!--Shipment Menu Directive-->
             <one-three-shipment-menu current-shipment="tab" data-ng-if="three_ShipmentCtrl.ePage.Masters.currentShipment"
                 active-tab="three_ShipmentCtrl.ePage.Masters.ActiveMenuTab" booking-type="three_ShipmentCtrl.ePage.Masters.ShipmentType"></one-three-shipment-menu>
@@ -46,7 +49,8 @@
                         data-ng-if="!tab.isNew"></standard-menu>
                 </div>
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                    <shipment-action input="tab" data-ng-if="!tab.isNew"> </shipment-action>
+                    <shipment-action input="tab" data-ng-if="!tab.isNew && three_ShipmentCtrl.ePage.Masters.RoleView.roleApi=='BuyerForwarder'">
+                    </shipment-action>
                 </div>
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
                     <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="three_ShipmentCtrl.ePage.Masters.Validation(tab)"

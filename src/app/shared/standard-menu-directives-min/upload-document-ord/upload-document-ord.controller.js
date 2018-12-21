@@ -202,13 +202,13 @@
                     }
 
                     if (_list.length > 0) {
-                        var _obj = {
-                            DocType: "ALL",
-                            Desc: "All"
-                        };
+                        // var _obj = {
+                        //     DocType: "ALL",
+                        //     Desc: "All"
+                        // };
 
-                        _list.push(_obj);
-                        _list.splice(0, 0, _list.splice(_list.length - 1, 1)[0]);
+                        // _list.push(_obj);
+                        // _list.splice(0, 0, _list.splice(_list.length - 1, 1)[0]);
                     } else {
                         _list = [{
                             DocType: "ALL",

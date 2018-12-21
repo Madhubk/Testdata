@@ -5,9 +5,9 @@
         .module("Application")
         .controller("ConsolMenuController", ConsolMenuController);
 
-    ConsolMenuController.$inject = ["$rootScope", "$injector", "$location", "helperService", "appConfig", "authService", "apiService", "consolidationConfig", "errorWarningService", "confirmation"];
+    ConsolMenuController.$inject = ["$rootScope", "$injector", "$location", "helperService", "appConfig", "authService", "apiService", "consolidationConfig", "errorWarningService", "confirmation", "$ocLazyLoad"];
 
-    function ConsolMenuController($rootScope, $injector, $location, helperService, appConfig, authService, apiService, consolidationConfig, errorWarningService, confirmation) {
+    function ConsolMenuController($rootScope, $injector, $location, helperService, appConfig, authService, apiService, consolidationConfig, errorWarningService, confirmation, $ocLazyLoad) {
         var ConsolMenuCtrl = this;
 
         function Init() {
@@ -25,7 +25,7 @@
             ConsolMenuCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
             ConsolMenuCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList = errorWarningService.Modules.Consolidation.Entity[ConsolMenuCtrl.currentConsol.code].GlobalErrorWarningList;
             ConsolMenuCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.Consolidation.Entity[ConsolMenuCtrl.currentConsol.code];
-            
+
             // Standard Menu Configuration and Data
             // ConsolMenuCtrl.ePage.Masters.StandardMenuInput = appConfig.Entities.standardMenuConfigList.ConsolHeader;
             // ConsolMenuCtrl.ePage.Masters.StandardMenuInput.obj = ConsolMenuCtrl.currentConsol;
@@ -56,6 +56,33 @@
         }
 
         function GetMyTaskList(menuList, index) {
+            var _DocumentConfig = {
+                // IsDisableRefreshButton: true,
+                // IsDisableDeleteHistoryButton: true,
+                // IsDisableUpload: true,
+                IsDisableGenerate: true,
+                // IsDisableRelatedDocument: true,
+                // IsDisableCount: true,
+                // IsDisableDownloadCount: true,
+                // IsDisableAmendCount: true,
+                // IsDisableFileName: true,
+                // IsDisableEditFileName: true,
+                // IsDisableDocumentType: true,
+                // IsDisableOwner: true,
+                // IsDisableCreatedOn: true,
+                // IsDisableShare: true,
+                // IsDisableVerticalMenu: true,
+                // IsDisableVerticalMenuDownload: true,
+                // IsDisableVerticalMenuAmend: true,
+                // IsDisableVerticalMenuEmailAttachment: true,
+                // IsDisableVerticalMenuRemove: true
+            };
+
+            var _CommentConfig = {
+                // IsDisableRefreshButton: true,
+                // IsDisableCommentType: true
+            };
+
             var _menuList = menuList,
                 _index = index;
             var _filter = {
@@ -69,23 +96,122 @@
             };
 
             apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkItem.API.FindAllWithAccess.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        ConsolMenuCtrl.ePage.Masters.MyTask.ListSource = response.data.Response;
+                apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkItem.API.FindAllWithAccess.Url, _input).then(function (response) {
+                    if (response.data.Response) {
+                        if (response.data.Response.length > 0) {
+                            var _response = response.data.Response;
+                            var _arr = [];
+                            if (_response.length > 0) {
+                                _response.map(function (value, key) {
+                                    value.AvailableObj = {
+                                        RadioBtnOption: "Me",
+                                        SaveBtnText: "Submit",
+                                        IsDisableSaveBtn: false
+                                    };
+                                    value.AssignedObj = {
+                                        RadioBtnOption: "MoveToQueue",
+                                        SaveBtnText: "Submit",
+                                        IsDisableSaveBtn: false
+                                    };
+                                    value.AdhocObj = {
+                                        AssignTo: ""
+                                    };
+
+                                    if (value.OtherConfig) {
+                                        if (typeof value.OtherConfig == "string") {
+                                            value.OtherConfig = JSON.parse(value.OtherConfig);
+                                        }
+                                        if (value.OtherConfig) {
+                                            if (value.OtherConfig.Directives) {
+                                                var _index = value.OtherConfig.Directives.ListPage.indexOf(",");
+                                                if (_index != -1) {
+                                                    var _split = value.OtherConfig.Directives.ListPage.split(",");
+
+                                                    if (_split.length > 0) {
+                                                        _split.map(function (value, key) {
+                                                            var _index = _arr.map(function (value1, key1) {
+                                                                return value1;
+                                                            }).indexOf(value);
+                                                            if (_index == -1) {
+                                                                _arr.push(value);
+                                                            }
+                                                        });
+                                                    }
+                                                } else {
+                                                    var _index = _arr.indexOf(value.OtherConfig.Directives.ListPage);
+                                                    if (_index == -1) {
+                                                        _arr.push(value.OtherConfig.Directives.ListPage);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    if (value.RelatedProcess) {
+                                        if (typeof value.RelatedProcess == "string") {
+                                            value.RelatedProcess = JSON.parse(value.RelatedProcess);
+                                        }
+                                    }
+
+                                    var _StandardMenuInput = {
+                                        // Entity
+                                        // "Entity": value.ProcessName,
+                                        "Entity": value.WSI_StepCode,
+                                        "Communication": null,
+                                        "Config": undefined,
+                                        "EntityRefKey": value.EntityRefKey,
+                                        "EntityRefCode": value.KeyReference,
+                                        "EntitySource": value.EntitySource,
+                                        // Parent Entity
+                                        "ParentEntityRefKey": value.PK,
+                                        "ParentEntityRefCode": value.WSI_StepCode,
+                                        "ParentEntitySource": value.EntitySource,
+                                        // Additional Entity
+                                        "AdditionalEntityRefKey": value.ParentEntityRefKey,
+                                        "AdditionalEntityRefCode": value.ParentKeyReference,
+                                        "AdditionalEntitySource": value.ParentEntitySource,
+                                        "IsDisableParentEntity": true,
+                                        "IsDisableAdditionalEntity": true
+                                    };
+
+                                    value.StandardMenuInput = _StandardMenuInput;
+                                    value.DocumentConfig = _DocumentConfig;
+                                    value.CommentConfig = _CommentConfig;
+                                });
+                            }
+
+                            if (_arr.length > 0) {
+                                _arr = _arr.filter(function (e) {
+                                    return e;
+                                });
+                                $ocLazyLoad.load(_arr).then(function () {
+                                    ConsolMenuCtrl.ePage.Masters.MyTask.ListSource = response.data.Response;
+                                });
+                            } else {
+                                ConsolMenuCtrl.ePage.Masters.MyTask.ListSource = response.data.Response;
+                            }
+                        } else {
+                            if (_index != -1) {
+                                _menuList[_index].IsDisabled = true;
+                            }
+                        }
                     } else {
+                        ConsolMenuCtrl.ePage.Masters.MyTask.ListSource = [];
                         if (_index != -1) {
                             _menuList[_index].IsDisabled = true;
                         }
                     }
-                } else {
-                    ConsolMenuCtrl.ePage.Masters.MyTask.ListSource = [];
-                    if (_index != -1) {
-                        _menuList[_index].IsDisabled = true;
-                    }
-               }
 
-                ConsolMenuCtrl.ePage.Masters.ConsolMenu.ListSource = _menuList;
-                ConsolMenuCtrl.ePage.Masters.ActiveMenu = ConsolMenuCtrl.ePage.Masters.ConsolMenu.ListSource[0];
+                    ConsolMenuCtrl.ePage.Masters.ConsolMenu.ListSource = _menuList;
+
+                    var _isEnabledFirestTab = false;
+                    ConsolMenuCtrl.ePage.Masters.ConsolMenu.ListSource.map(function (value, key) {
+                        if (!_isEnabledFirestTab && !value.IsDisabled) {
+                            OnMenuClick(value);
+                            _isEnabledFirestTab = true;
+                        }
+                    });
+                });
             });
         }
 

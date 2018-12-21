@@ -25,12 +25,19 @@
             ProcessCtrl.ePage.Masters.emptyText = "-";
 
             try {
-                ProcessCtrl.ePage.Masters.QueryString = JSON.parse(helperService.decryptData(_queryString));
+                if (ProcessCtrl.ePage.Masters.ActiveApplication == "TC") {
+                    ProcessCtrl.ePage.Masters.QueryString = JSON.parse(helperService.decryptData(_queryString));
 
-                if (ProcessCtrl.ePage.Masters.QueryString.AppPk) {
-                    InitBreadcrumb();
+                    if (ProcessCtrl.ePage.Masters.QueryString.AppPk) {
+                        InitBreadcrumb();
+                        InitApplication();
+                        InitProcess();
+                        InitModule();
+                    }
+                } else {
                     InitApplication();
                     InitProcess();
+                    InitModule();
                 }
             } catch (error) {
                 console.log(error)
@@ -92,15 +99,52 @@
             ProcessCtrl.ePage.Masters.Application.ActiveApplication = angular.copy($item);
 
             if (!ProcessCtrl.ePage.Masters.Application.ActiveApplication) {
-                ProcessCtrl.ePage.Masters.Application.ActiveApplication = {
-                    "PK": ProcessCtrl.ePage.Masters.QueryString.AppPk,
-                    "AppCode": ProcessCtrl.ePage.Masters.QueryString.AppCode,
-                    "AppName": ProcessCtrl.ePage.Masters.QueryString.AppName
-                };
+                if (ProcessCtrl.ePage.Masters.ActiveApplication == "EA") {
+                    ProcessCtrl.ePage.Masters.Application.ActiveApplication = {
+                        "PK": authService.getUserInfo().AppPK,
+                        "AppCode": authService.getUserInfo().AppCode,
+                        "AppName": authService.getUserInfo().AppName
+                    };
+                } else {
+                    ProcessCtrl.ePage.Masters.Application.ActiveApplication = {
+                        "PK": ProcessCtrl.ePage.Masters.QueryString.AppPk,
+                        "AppCode": ProcessCtrl.ePage.Masters.QueryString.AppCode,
+                        "AppName": ProcessCtrl.ePage.Masters.QueryString.AppName
+                    };
+                }
             }
 
             GetRedirecrLinkList();
             GetProcessTypeList();
+        }
+
+        // ======================== Module Start========================
+
+        function InitModule() {
+            ProcessCtrl.ePage.Masters.OnModuleChange = OnModuleChange;
+
+            GetModuleList();
+        }
+
+        function GetModuleList() {
+            ProcessCtrl.ePage.Masters.ModuleList = undefined;
+            var _filter = {
+                TypeCode: "MODULE_MASTER"
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": trustCenterConfig.Entities.API.CfxTypes.API.FindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxTypes.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
+                if (response.data.Response) {
+                    ProcessCtrl.ePage.Masters.ModuleList = response.data.Response;
+                }
+            });
+        }
+
+        function OnModuleChange($item) {
+            ProcessCtrl.ePage.Masters.ActiveModule = angular.copy($item);
         }
 
         // ========================Process Start========================
@@ -125,6 +169,10 @@
 
             ProcessCtrl.ePage.Masters.Process.DeleteBtnText = "Delete";
             ProcessCtrl.ePage.Masters.Process.IsDisableDeleteBtn = false;
+
+            if (ProcessCtrl.ePage.Masters.ActiveApplication == "EA") {
+                OnApplicationChange();
+            }
         }
 
         function GetProcessTypeList() {
@@ -215,7 +263,7 @@
             ProcessCtrl.ePage.Masters.Process.SaveBtnText = "OK";
             ProcessCtrl.ePage.Masters.Process.IsDisableSaveBtn = false;
 
-            EditModalInstance().result.then(function (response) { }, function () {
+            EditModalInstance().result.then(function (response) {}, function () {
                 Cancel();
             });
         }
@@ -343,41 +391,24 @@
             });
         }
 
-        function GetModuleList($viewValue) {
-            var _filter = {
-                "TenantCode": authService.getUserInfo().TenantCode,
-                "DisplayName": $viewValue,
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": trustCenterConfig.Entities.API.UserExtended.API.FindAll.FilterID
-            };
-
-            return apiService.post("authAPI", trustCenterConfig.Entities.API.UserExtended.API.FindAll.Url, _input).then(function SuccessCallback(response) {
-                if (response.data.Response) {
-                    return response.data.Response;
-                }
-            });
-        }
-
         function GetRedirecrLinkList() {
             ProcessCtrl.ePage.Masters.Process.RedirectPagetList = [{
                 Code: "Scenarios",
                 Description: "Scenarios",
                 Icon: "fa fa-cog",
-                Link: "TC/process-scenarios",
+                Link: (ProcessCtrl.ePage.Masters.ActiveApplication == "TC") ? "TC/process-scenarios" : "EA/lab/process-scenarios",
                 Color: "#333333"
             }, {
                 Code: "WorkSteps",
                 Description: "Configure Steps",
                 Icon: "fa fa-cog",
-                Link: "TC/process-work-step",
+                Link: (ProcessCtrl.ePage.Masters.ActiveApplication == "TC") ? "TC/process-work-step" : "EA/lab/process-work-step",
                 Color: "#333333"
             }, {
                 Code: "ProcessInstance",
                 Description: "Instance",
                 Icon: "fa fa-cog",
-                Link: "TC/process-instance",
+                Link: (ProcessCtrl.ePage.Masters.ActiveApplication == "TC") ? "TC/process-instance" : "EA/lab/process-instance",
                 Color: "#333333"
             }];
         }

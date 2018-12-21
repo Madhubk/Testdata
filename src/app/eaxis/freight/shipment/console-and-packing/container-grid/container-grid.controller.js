@@ -44,7 +44,7 @@
             });
         }
         function GetContainerList(data) {
-            ContainerGridCtrl.ePage.Entities.Header.Meta.Container.ListSource = [];
+//             ContainerGridCtrl.ePage.Entities.Header.Meta.Container.ListSource = [];
             if (data.length > 0) {
                 data.map(function (value1, key1) {
                     value1.UICntContainerList.map(function (value2, key2) {
@@ -65,7 +65,7 @@
                     });
                 });
             } else {
-                ContainerGridCtrl.ePage.Entities.Header.Meta.Container.ListSource = [];
+                ContainerGridCtrl.ePage.Entities.Header.Data.UICntContainers = [];
             }
         }
 

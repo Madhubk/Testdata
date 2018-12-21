@@ -5,9 +5,9 @@
         .module("Application")
         .controller("OrgAddressModalController", OrgAddressModalController);
 
-    OrgAddressModalController.$inject = ["$uibModalInstance", "apiService", "helperService", "toastr", "organizationConfig", "param", "appConfig"];
+    OrgAddressModalController.$inject = ["$uibModalInstance", "apiService", "authService", "helperService", "toastr", "organizationConfig", "param", "mdmConfig"];
 
-    function OrgAddressModalController($uibModalInstance, apiService, helperService, toastr, organizationConfig, param, appConfig) {
+    function OrgAddressModalController($uibModalInstance, apiService, authService, helperService, toastr, organizationConfig, param, mdmConfig) {
         var OrgAddressModalCtrl = this;
 
         function Init() {
@@ -22,23 +22,26 @@
             };
 
             OrgAddressModalCtrl.ePage.Masters.param = angular.copy(param);
-            OrgAddressModalCtrl.ePage.Masters.Config=organizationConfig;
 
-            OrgAddressModalCtrl.ePage.Masters.DropDownMasterList = angular.copy(organizationConfig.Entities.Header.Meta);
-            OrgAddressModalCtrl.ePage.Masters.DropDownMasterList.State = helperService.metaBase();
+            try {
+                OrgAddressModalCtrl.ePage.Masters.DropDownMasterList = angular.copy(organizationConfig.Entities.Header.Meta);
+                OrgAddressModalCtrl.ePage.Masters.DropDownMasterList.State = helperService.metaBase();
 
-            OrgAddressModalCtrl.ePage.Masters.SaveButtonText = "Save";
-            OrgAddressModalCtrl.ePage.Masters.IsDisableSave = false;
+                OrgAddressModalCtrl.ePage.Masters.SaveButtonText = "Save";
+                OrgAddressModalCtrl.ePage.Masters.IsDisableSave = false;
 
-            OrgAddressModalCtrl.ePage.Masters.OnAutocompleteRelatedPort = OnAutocompleteRelatedPort;
-            OrgAddressModalCtrl.ePage.Masters.OnSelectRelatedPort = OnSelectRelatedPort;
-            OrgAddressModalCtrl.ePage.Masters.OnMappedAddressChange = OnMappedAddressChange;
-            OrgAddressModalCtrl.ePage.Masters.OnMainAddressChange = OnMainAddressChange;
-            OrgAddressModalCtrl.ePage.Masters.SaveAddress = SaveAddress;
-            OrgAddressModalCtrl.ePage.Masters.Cancel = Cancel;
+                OrgAddressModalCtrl.ePage.Masters.OnZoneSelect = OnZoneSelect;
+                OrgAddressModalCtrl.ePage.Masters.OnRelatedPortSelect = OnRelatedPortSelect;
+                OrgAddressModalCtrl.ePage.Masters.OnMappedAddressChange = OnMappedAddressChange;
+                OrgAddressModalCtrl.ePage.Masters.OnMainAddressChange = OnMainAddressChange;
+                OrgAddressModalCtrl.ePage.Masters.SaveAddress = SaveAddress;
+                OrgAddressModalCtrl.ePage.Masters.Cancel = Cancel;
 
-            GetAddressCapabilityList();
-            InitOrgAddress();
+                GetAddressCapabilityList();
+                InitOrgAddress();
+            } catch (ex) {
+                console.log(ex);
+            }
         }
 
         function InitOrgAddress() {
@@ -54,6 +57,12 @@
                     };
                     OnCountryChange(_item);
                 }
+            } else {
+                OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView = {
+                    TenantCode: authService.getUserInfo().TenantCode,
+                    ORG_FK: OrgAddressModalCtrl.ePage.Entities.Header.Data.OrgHeader.PK,
+                    IsModified: true
+                };
             }
 
             OrgAddressModalCtrl.ePage.Masters.OnCountryChange = OnCountryChange;
@@ -83,25 +92,35 @@
             }
         }
 
-        function OnAutocompleteRelatedPort($item) {
-            if ($item.CountryCode) {
-                var _item = {
-                    Code: $item.CountryCode
-                };
-                OnCountryChange(_item);
+        function OnZoneSelect($item) {
+            if ($item.data) {
+                OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView.TMZ_FK = $item.data.entity.PK;
+                OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView.TMZ_Name = $item.data.entity.Name;
             } else {
-                OnCountryChange();
+                OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView.TMZ_FK = $item.PK;
+                OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView.TMZ_Name = $item.Name;
             }
         }
 
-        function OnSelectRelatedPort($item) {
-            if ($item.data.entity.CountryCode) {
-                var _item = {
-                    Code: $item.data.entity.CountryCode
-                };
-                OnCountryChange(_item);
+        function OnRelatedPortSelect($item) {
+            if ($item.data) {
+                if ($item.data.entity.CountryCode) {
+                    var _item = {
+                        Code: $item.data.entity.CountryCode
+                    };
+                    OnCountryChange(_item);
+                } else {
+                    OnCountryChange();
+                }
             } else {
-                OnCountryChange();
+                if ($item.CountryCode) {
+                    var _item = {
+                        Code: $item.CountryCode
+                    };
+                    OnCountryChange(_item);
+                } else {
+                    OnCountryChange();
+                }
             }
         }
 
@@ -122,10 +141,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.OrgAddress.API.CountryState.FilterID,
+                "FilterID": mdmConfig.Entities.CountryState.API.FindAll.FilterID,
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.OrgAddress.API.CountryState.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", mdmConfig.Entities.CountryState.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     OrgAddressModalCtrl.ePage.Masters.DropDownMasterList.State.ListSource = response.data.Response;
                 }
@@ -146,6 +165,7 @@
                     OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView.AddressCapability[_index].IsMapped = true;
                     OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView.AddressCapability[_index].OAD_FK = OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView.PK;
                     OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView.AddressCapability[_index].ORG_FK = OrgAddressModalCtrl.ePage.Entities.Header.Data.OrgHeader.PK;
+                    OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView.AddressCapability[_index].TenantCode = authService.getUserInfo().TenantCode;
                 } else {
                     if ($item.PK) {
                         OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView.AddressCapability[_index].IsModified = true;
@@ -224,16 +244,12 @@
                         $uibModalInstance.close(_exports);
                     }
                 } else if (response.Status == "ValidationFailed" || response.Status == "failed") {
-                    toastr.warning("Failed to Save...!");
                     if (response.Validations && response.Validations.length > 0) {
-                        OrgAddressModalCtrl.ePage.Entities.Header.Validations = response.Validations;
-                        angular.forEach(response.Validations, function (value, key) {
-                            OrgAddressModalCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey.trim(), OrgAddressModalCtrl.ePage.Masters.param.Entity.label, false, undefined, undefined, undefined, undefined, undefined);
+                        response.Validations.map(function (value, key) {
+                            toastr.error(value.Message);
                         });
-                        $uibModalInstance.close(_exports);
-                        if (OrgAddressModalCtrl.ePage.Entities.Header.Validations != null) {
-                            OrgAddressModalCtrl.ePage.Masters.Config.ShowErrorWarningModal(OrgAddressModalCtrl.ePage.Masters.param.Entity);
-                        }
+                    } else {
+                        toastr.warning("Failed to Save...!");
                     }
                 }
 

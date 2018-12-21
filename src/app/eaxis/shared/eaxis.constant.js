@@ -81,7 +81,6 @@
                 name: 'MyTaskDirective',
                 files: [
                     'app/eaxis/my-task/my-task-directive/my-task-directive.css',
-                    'app/eaxis/my-task/my-task-directive/my-task.directive.js',
                     'app/eaxis/my-task/my-task-directive/my-task-directive.controller.js'
                 ]
             }, {

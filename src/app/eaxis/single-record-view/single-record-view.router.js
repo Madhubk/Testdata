@@ -59,8 +59,8 @@
             })
             .state('EA.singleRecordView.booking', {
                 url: '/booking/:taskNo',
-                templateUrl: 'app/eaxis/single-record-view/booking/booking-SRV.html',
-                controller: "SRVBookingController as SRVBookingCtrl",
+                templateUrl: 'app/eaxis/buyer/freight/booking/shared/single-record-view/booking/bookingSRV.html',
+                controller: "BookingSRVController as BookingSRVCtrl",
                 ncyBreadcrumb: {
                     label: 'SRV - Booking'
                 },
@@ -73,7 +73,16 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["SRVBooking", "Booking", "BookingMenu", "addressDirective", "addressModal", "BookingDirective", "BookingOrder", "BookingServiceAndReference", "BookingPickupAndDelivery"]);
+                        return $ocLazyLoad.load(["SRVBooking-vnm", "chromeTab", "dynamicTable", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "CustomFileUpload", "DynamicTabLeft", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "Event", "EventModal", "customToolbar", "addressDirective", "addressWrapper", "addressModal", "PackingGridDirective", "EditableTableDirective", "RoutingGridDirective", "ContainerEditableGridDirective", "3_BookingList",
+                            // Buyer_Forwarder 
+                            "1_3_BookingMenu", "1_3_BookingDirective", "1_3_BookingOrder", "1_3_BookingPlanning",
+                            // Buyer_Supplier
+                            "1_2_BookingMenu", "1_2_BookingDirective", "1_2_BookingOrder", "1_2_BookingPlanning",
+                            //Track Shipment
+                            "shipmentDetailsTrackingDirective",
+                            //ASN Upload
+                            "1_2_BookingASNUpload", "1_2_BookingASNUploadDirective", "doc-upload-modal"
+                        ]);
                     }]
                 }
             })
@@ -93,7 +102,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["confirmation", "errorWarning", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "EAwarehouse", "SRVPickOrder", "inward", "outward", "outwardGeneral", "outwardMenu", "outwardPick", "outwardLine", "WmsReference", "WmsContainer", "WmsServices", "outwardDocument", "pick", "outwardDispatch"]);
+                        return $ocLazyLoad.load(["confirmation", "errorWarning", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "EAwarehouse", "SRVPickOrder", "inward", "outward", "outwardGeneral", "outwardMenu", "outwardPick", "outwardLine", "WmsReference", "WmsContainer", "WmsServices", "outwardDocument", "pick","outwardDispatch" ]);
                     }]
                 }
             })
@@ -134,49 +143,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["SRVTransOrder", "EAwarehouse", "outward", "outwardGeneral", "outwardMenu", "outwardPick", "outwardLine", "reference", "container", "services", , "outwardDocument", "outwardDispatch"]);
-                    }]
-                }
-            })
-            .state('EA.singleRecordView.outwardManifest', {
-                url: '/outwardmanifest/:manifestnumber',
-                templateUrl: 'app/eaxis/single-record-view/outward-manifest/outward-manifest.html',
-                controller: "SRVOutwardManifestController as SRVOutwardManifestCtrl",
-                ncyBreadcrumb: {
-                    label: 'SRV - Outward Manifest'
-                },
-                resolve: {
-                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
-                        var deferred = $q.defer();
-                        if (pageAccessService.CheckAuthToken()) {
-                            deferred.resolve();
-                        }
-                        return deferred.promise;
-                    }],
-                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-
-                        return $ocLazyLoad.load(["confirmation", "errorWarning", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "EAwarehouse", "SRVOutwardManifest", "DNDUITress", "drogAndDrop", "routePlanning", "tracking", "dmsManifestList", "GatepassList", "manifestTab", "dmsManifestMenu", "dmsManifestGeneral", "dmsManifestAddress", "dmsManifestOrders", "dmsManifestItem", "approveManifest", "confirmTransportBooking", "dockinVehicle", "loadItems", "dockoutVehicle", "issueExitGatepass", "completeManifest", "pickupDelivery", "startLoad", "CreateManifestView", "AttachOrdersView", "AddItemsView", "ConfirmBookingView", "createManifest"]);
-                    }]
-                }
-            })
-            .state('EA.singleRecordView.pendingPickup', {
-                url: '/pendingpickup/:workorderid',
-                templateUrl: 'app/eaxis/single-record-view/pending-pickup/pending-pickup.html',
-                controller: "SRVPendingPickupController as SRVPendingPickupCtrl",
-                ncyBreadcrumb: {
-                    label: 'SRV - Pending Pickup'
-                },
-                resolve: {
-                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
-                        var deferred = $q.defer();
-                        if (pageAccessService.CheckAuthToken()) {
-                            deferred.resolve();
-                        }
-                        return deferred.promise;
-                    }],
-                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-
-                        return $ocLazyLoad.load(["confirmation", "errorWarning", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "EAwarehouse", "SRVPendingPickup", "pickupRequest", "pickupRequestMenu", "pickupRequestGeneral", "pickupRequestLine", "pickupOrders", "pickupDetails", "pickupMyTask", "ActivityTab", "MyTaskDirective", "WorkItemListView", "ProcessInstanceWorkItemDetails", "TaskAssignStartComplete", "MyTaskConfig", "MyTaskDynamicDirective", "MyTaskDefaultEditDirective", "ActivityTemplatePickup2", "ActivityFormTemplate1", "CreatePickupChallanDirective", "AcknowledgePickupRequestDirective", "inward", "outward", "inwardAddress", "inwardGeneral", "inwardMenu", "inwardAsnLines", "inwardLines", "inwardProductSummary", "inwardDocument", "WmsReference", "WmsContainer", "WmsServices", "LocationDashboardModal", "location"]);
+                        return $ocLazyLoad.load(["SRVTransOrder", "EAwarehouse", "outward", "outwardGeneral", "outwardMenu", "outwardPick", "outwardLine", "reference", "container", "services", , "outwardDocument","outwardDispatch" ]);
                     }]
                 }
             })
@@ -437,7 +404,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["confirmation", "errorWarning", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "EAwarehouse", "SRVConsignmentOutward", "inward", "outward", "outwardGeneral", "outwardMenu", "outwardPick", "outwardLine", "WmsReference", "WmsContainer", "WmsServices", "outwardDocument", "pick", "outwardDispatch"]);
+                        return $ocLazyLoad.load(["confirmation", "errorWarning", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "EAwarehouse", "SRVConsignmentOutward", "inward", "outward", "outwardGeneral", "outwardMenu", "outwardPick", "outwardLine", "WmsReference", "WmsContainer", "WmsServices", "outwardDocument", "pick","outwardDispatch" ]);
                     }]
                 }
             })
@@ -478,6 +445,50 @@
                     }],
                     loadMyCtrl: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
                         return $ocLazyLoad.load(["SRVOrderView", "chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "customToolbar", "oneLevelMapping", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "Event", "EventModal", "AuditLog", "AuditLogModal", "Parties", "PartiesModal", "Task", "TaskModal", "Summernote", "pagination", "addressDirective", "addressWrapper", "addressModal", "errorWarning", "ActivityTab", "MyTaskDirective", "WorkItemListView", "ProcessInstanceWorkItemDetails", "TaskAssignStartComplete", "MyTaskConfig", "MyTaskDynamicDirective", "MyTaskDefaultEditDirective", "1_order_list", "1_1_order-menu", "1_1_order-general", "1_1_orderLines", "1_1_orderLinesFormDirective", "1_1_prodSummary", "1_1_orderCargoReadiness", "1_1_orderShipmentPreAdvice", "1_1_orderVesselPlanning", "1_1_orderShipment", "1_1_orderSplit", "1_1_orderAction", "1_1_OrderCustomToolBar", "1_1_ActiveCustomToolBar", "1_1_OrderConfirmationDirective", "1_1_ConfrimDirective", "1_1_CargoReadinessToolBarDirective", "EditableTableDirective", "1_1_CargoReadinessInLineEditDirective", "1_1_PreAdviceToolBarDirective", "1_1_PreAdviceInLineEditDirective", "3_1_order-general", "1_2_view-template", "DynamicTabLeft", "1_1_my-task", "1_2_order-view-default-general", "1_2_order-view-default-shipment", "1_2_order-view-default-sub-po", "1_2_order-view-default-order-line", "1_3_order-menu", "1_3_order_general", "1_3_orderLines", "1_3_orderLinesFormDirective", "1_3_prodSummary", "1_3_orderCargoReadiness", "1_3_orderShipmentPreAdvice", "1_3_orderVesselPlanning", "1_3_orderShipment", "1_3_orderSplit", "1_3_orderAction", "1_3_my-task", "ord-buyer-view-template", "ord-buyer-view-general", "ord-buyer-view-order-line", "ord-buyer-view-shipment", "ord-buyer-view-sub-po"]);
+                    }]
+                }
+            })
+
+            .state('EA.singleRecordView.pendingPickup', {
+                url: '/pendingpickup/:workorderid',
+                templateUrl: 'app/eaxis/single-record-view/pending-pickup/pending-pickup.html',
+                controller: "SRVPendingPickupController as SRVPendingPickupCtrl",
+                ncyBreadcrumb: {
+                    label: 'SRV - Pending Pickup'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        if (pageAccessService.CheckAuthToken()) {
+                            deferred.resolve();
+                        }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+            
+                        return $ocLazyLoad.load(["confirmation", "errorWarning", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "EAwarehouse", "SRVPendingPickup", "pickupRequest", "pickupRequestMenu", "pickupRequestGeneral", "pickupRequestLine", "pickupOrders", "pickupDetails", "pickupMyTask", "ActivityTab", "MyTaskDirective", "WorkItemListView", "ProcessInstanceWorkItemDetails", "TaskAssignStartComplete", "MyTaskConfig", "MyTaskDynamicDirective", "MyTaskDefaultEditDirective", "ActivityTemplatePickup2", "ActivityFormTemplate1", "CreatePickupChallanDirective", "AcknowledgePickupRequestDirective", "inward", "outward", "inwardAddress", "inwardGeneral", "inwardMenu", "inwardAsnLines", "inwardLines", "inwardProductSummary", "inwardDocument", "WmsReference", "WmsContainer", "WmsServices", "LocationDashboardModal", "location"]);
+                    }]
+                }
+            })
+            
+            .state('EA.singleRecordView.outwardManifest', {
+                url: '/outwardmanifest/:manifestnumber',
+                templateUrl: 'app/eaxis/single-record-view/outward-manifest/outward-manifest.html',
+                controller: "SRVOutwardManifestController as SRVOutwardManifestCtrl",
+                ncyBreadcrumb: {
+                    label: 'SRV - Outward Manifest'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        if (pageAccessService.CheckAuthToken()) {
+                            deferred.resolve();
+                        }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+            
+                        return $ocLazyLoad.load(["confirmation", "errorWarning", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "EAwarehouse", "SRVOutwardManifest", "DNDUITress", "drogAndDrop", "routePlanning", "tracking", "dmsManifestList", "GatepassList", "manifestTab", "dmsManifestMenu", "dmsManifestGeneral", "dmsManifestAddress", "dmsManifestOrders", "dmsManifestItem", "approveManifest", "confirmTransportBooking", "dockinVehicle", "loadItems", "dockoutVehicle", "issueExitGatepass", "completeManifest", "pickupDelivery", "startLoad", "CreateManifestView", "AttachOrdersView", "AddItemsView", "ConfirmBookingView", "createManifest"]);
                     }]
                 }
             })

@@ -91,7 +91,7 @@
                     });
                 });
             } else {
-                toastr.info('Pick already opened ');
+                toastr.info('Pick already opened');
             }
         }
 

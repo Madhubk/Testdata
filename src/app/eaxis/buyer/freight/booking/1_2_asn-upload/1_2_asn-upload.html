@@ -5,8 +5,9 @@
     </h5>
 </div>
 <div class="modal-body" id="modal-body">
-    <one-two-asn-upload-directive data-ng-if="oneTwoAsnUploadCtrl.ePage.Masters.currentAsn" current-asn="oneTwoAsnUploadCtrl.ePage.Masters.currentAsn">
-    </one-two-asn-upload-directive>
+    <one-two-entity-doc-upload-directive doc-type="'ASN'" data-ng-if="oneTwoAsnUploadCtrl.ePage.Masters.currentAsn" title-name="'ASN Upload'"
+        current-asn="oneTwoAsnUploadCtrl.ePage.Masters.currentAsn">
+    </one-two-entity-doc-upload-directive>
 </div>
 <div class="modal-footer">
     <button class="btn btn-primary btn-sm pull-right margin-right-10 mb-20" data-ng-click="oneTwoAsnUploadCtrl.ePage.Masters.Save(oneTwoAsnUploadCtrl.ePage.Masters.currentAsn)"

@@ -83,11 +83,11 @@
             apiService.get("eAxisAPI", Config.Entities.Header.API.GetByID.Url + ConfirmDeliveryCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WPK_FK).then(function (response) {
                 if (response.data.Response) {
                     ConfirmDeliveryCtrl.ePage.Entities.Header.PickData = response.data.Response;
-                    myTaskActivityConfig.Entities.PickData = ConfirmDeliveryCtrl.ePage.Entities.Header.PickData;
                     Config.GetTabDetails(ConfirmDeliveryCtrl.ePage.Entities.Header.PickData.UIWmsPickHeader, false).then(function (response) {
                         angular.forEach(response, function (value, key) {
                             if (value.label == ConfirmDeliveryCtrl.ePage.Entities.Header.PickData.UIWmsPickHeader.PickNo) {
                                 ConfirmDeliveryCtrl.ePage.Masters.TabList = value;
+                                myTaskActivityConfig.Entities.PickData = ConfirmDeliveryCtrl.ePage.Masters.TabList;
                             }
                         });
                     });
@@ -99,6 +99,7 @@
             apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + ConfirmDeliveryCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef2Fk).then(function (response) {
                 if (response.data.Response) {
                     ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData = response.data.Response;
+                    myTaskActivityConfig.Entities.DeliveryData = ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData;
                     GeneralOperation();
                 }
             });

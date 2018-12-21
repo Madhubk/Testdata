@@ -27,24 +27,29 @@
                     </select>
                 </div>
             </div>
-            <!-- <div class="form-group">
-                <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Group</label>
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
-                    <input type="text" class="form-control input-sm " data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.Group" placeholder="Group">
-                </div>
-            </div> -->
             <div class="form-group">
-                <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Type</label>
+                <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Module</label>
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
-                    <input type="text" placeholder="Type" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.Type" typeahead-on-select='onSelect($item, $model, $label)'
-                        uib-typeahead="x for x  in EditPageCtrl.ePage.Masters.SubModule.ListSource | filter:$viewValue" class="form-control">
+                    <select chosen class="form-control" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.Group"
+                        data-ng-options="x.Key as (x.Key + ' - ' + x.Value) for x  in EditPageCtrl.ePage.Masters.ModuleList"
+                        data-ng-disabled="!EditPageCtrl.ePage.Masters.ModuleList || EditPageCtrl.ePage.Masters.ModuleList.length == 0">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Sub Module</label>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
+                    <input type="text" placeholder="Type" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.Type"
+                        class="form-control">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Source</label>
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
                     <select chosen class="form-control input-sm " data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.EntitySource"
-                        search-contains="true" data-ng-options="x for x in EditPageCtrl.ePage.Masters.EditPage.SourceList" data-ng-change="EditPageCtrl.ePage.Masters.EditPage.OnSourceListChange(EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.Source)">
+                        search-contains="true" data-ng-options="x for x in EditPageCtrl.ePage.Masters.EditPage.SourceList"
+                        data-ng-change="EditPageCtrl.ePage.Masters.EditPage.OnSourceListChange(EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.Source)">
                         <option value="">--Select--</option>
                     </select>
                 </div>

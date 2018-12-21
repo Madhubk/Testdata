@@ -15,7 +15,7 @@
 <script type="text/ng-template" id="sidebarMenu">
     <a data-ng-class="{'menu-dropdown' : menu.MenuList.length > 0}" data-ng-href="{{'#' + menu.Link}}" data-ng-click="(menu.Link != '#') && SideBarCtrl.ePage.Masters.OnMenuClick(menu, $event)">
         <span class="menu-icon {{menu.Icon | getIconColorForMenu: 'icon'}}"></span>
-        <span class="menu-text" data-ng-bind="menu.Description"></span>
+        <span class="menu-text" data-ng-bind="menu.Description" title="{{menu.Description}}"></span>
         <span class="menu-expand" data-ng-if="menu.MenuList.length > 0"></span>
     </a>
     <ul data-ng-if="menu.MenuList.length > 0" class="submenu">

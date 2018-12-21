@@ -3,6 +3,33 @@
 
     angular
         .module("Application")
+        .directive("myTaskDirective", MyTaskDirective)
+
+    MyTaskDirective.$inject = [];
+
+    function MyTaskDirective() {
+        var exports = {
+            restrict: "EA",
+            templateUrl: "app/eaxis/my-task/my-task-directive/my-task-directive.html",
+            controller: "MyTaskDirectiveController",
+            controllerAs: "MyTaskDirectiveCtrl",
+            bindToController: true,
+            scope: {
+                mode: "=",
+                taskObj: "=",
+                onComplete: "&",
+                onRefreshStatusCount: "&",
+                onRefreshTask: "&",
+                editActivity: "&",
+                assignStartCompleteResponse: "&",
+                getErrorWarningList: "&"
+            }
+        };
+        return exports;
+    }
+
+    angular
+        .module("Application")
         .controller("MyTaskDirectiveController", MyTaskDirectiveController);
 
     MyTaskDirectiveController.$inject = ["$timeout", "helperService", "authService", "apiService", "appConfig"];
@@ -32,10 +59,15 @@
             MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.EditActivity = EditActivity;
             MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.OverrideKPI = OverrideKPI;
             MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.OnOverrideKPIClick = OnOverrideKPIClick;
+            MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.GetErrorWarningList = GetErrorWarningList;
 
             MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.AssignStartCompleteResponse = AssignStartCompleteResponse;
 
             InitAdhoc();
+        }
+
+        function GetErrorWarningList($item) {
+            MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.ErrorWarningList = $item;
         }
 
         function OnTaskComplete($item) {
@@ -62,10 +94,10 @@
             });
         }
 
-        function OnOverrideKPIClick(){
-            MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.IsShowOverrideDirective = false; 
-            
-            $timeout(function(){
+        function OnOverrideKPIClick() {
+            MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.IsShowOverrideDirective = false;
+
+            $timeout(function () {
                 MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.IsShowOverrideDirective = true;
             });
         }

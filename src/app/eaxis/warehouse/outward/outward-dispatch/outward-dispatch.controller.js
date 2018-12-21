@@ -24,8 +24,11 @@
             };
             OutwardDispatchCtrl.ePage.Masters.Config = outwardConfig;
             OutwardDispatchCtrl.ePage.Masters.DropDownMasterList = {};
-            OutwardDispatchCtrl.ePage.Masters.TransportMode = ["Road", "Air", "Sea"];
+            
             OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails = OutwardDispatchCtrl.manifestDetails;
+            OutwardDispatchCtrl.ePage.Masters.TransportMode = ["Road", "Air", "Sea"];
+            if (!OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.TransportMode)
+                OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.TransportMode = OutwardDispatchCtrl.ePage.Masters.TransportMode[0];
             OutwardDispatchCtrl.ePage.Masters.DocumentInput = [];
             // DatePicker
             OutwardDispatchCtrl.ePage.Masters.DatePicker = {};
@@ -140,6 +143,8 @@
             apiService.post("eAxisAPI", OutwardDispatchCtrl.ePage.Entities.Header.API.MstContainer.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Status == "Success") {
                     OutwardDispatchCtrl.ePage.Masters.VehicleType = response.data.Response;
+                    if (!OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.VehicleTypeCode)
+                        OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.VehicleTypeCode = response.data.Response[0].Code;
                 }
             });
         }
@@ -165,6 +170,14 @@
                     typeCodeList.map(function (value, key) {
                         OutwardDispatchCtrl.ePage.Masters.DropDownMasterList[value] = helperService.metaBase();
                         OutwardDispatchCtrl.ePage.Masters.DropDownMasterList[value].ListSource = response.data.Response[value];
+                        if (value == "ManifestLoadType") {
+                            if (!OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.LoadType)
+                                OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.LoadType = response.data.Response[value][0].Key;
+                        }
+                        if (value == "ManifestType") {
+                            if (!OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.ManifestType)
+                                OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.ManifestType = response.data.Response[value][1].Key;
+                        }
                     });
                 }
             });

@@ -64,6 +64,7 @@
                         angular.forEach(response, function (value, key) {
                             if (value.label == ArrangeMaterialCtrl.ePage.Entities.Header.PickData.UIWmsPickHeader.PickNo) {
                                 ArrangeMaterialCtrl.ePage.Masters.TabList = value;
+                                myTaskActivityConfig.Entities.PickData = ArrangeMaterialCtrl.ePage.Masters.TabList;
                             }
                         });
                     });
@@ -103,9 +104,20 @@
                                 angular.forEach(response, function (value, key) {
                                     if (value.label == ArrangeMaterialCtrl.ePage.Masters.PickDetails.UIWmsPickHeader.PickNo) {
                                         ArrangeMaterialCtrl.ePage.Masters.TabList = value;
+                                        myTaskActivityConfig.Entities.PickData = ArrangeMaterialCtrl.ePage.Masters.TabList;
                                         ArrangeMaterialCtrl.ePage.Masters.LoadingValue = "";
                                         ArrangeMaterialCtrl.ePage.Masters.CreatePickText = "Create Pick";
-                                        toastr.success("Pick Created Successfully");
+                                        toastr.success("Pick Created Successfully");                                        
+                                        apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK).then(function (response) {
+                                            if (response.data.Response) {
+                                                response.data.Response.UIWmsOutwardHeader.Client = response.data.Response.UIWmsOutwardHeader.ClientCode + "-" + response.data.Response.UIWmsOutwardHeader.ClientName;
+                                                response.data.Response.UIWmsOutwardHeader.Warehouse = response.data.Response.UIWmsOutwardHeader.WarehouseCode + "-" + response.data.Response.UIWmsOutwardHeader.WarehouseName;
+                                                response.data.Response.UIWmsOutwardHeader.Consignee = response.data.Response.UIWmsOutwardHeader.ConsigneeCode + "-" + response.data.Response.UIWmsOutwardHeader.ConsigneeName;
+                                                myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data = response.data.Response;
+                                                myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.GlobalVariables.NonEditable = true;
+                                                ArrangeMaterialCtrl.ePage.Entities.Header.Data = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data;
+                                            }
+                                        });
                                         ArrangeMaterialCtrl.ePage.Masters.IsDisabled = false;
                                     }
                                 });

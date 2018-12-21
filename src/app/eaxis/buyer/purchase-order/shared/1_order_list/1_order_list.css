@@ -108,3 +108,18 @@
 }
 
 /* end */
+
+.datepic-append-right .dropdown-menu.dropdown-menu-left.datetime-picker-dropdown {
+    right: 0;
+    left: auto !important;
+}
+/* order line */
+.total-alignment {
+    background: #fbfbfb;
+    border-top: 1px solid #cdcaca;
+    position: absolute;
+    bottom: 145px;
+    border-bottom: 1px solid #cdcaca;
+    left: 0;
+    width: 100%;
+}

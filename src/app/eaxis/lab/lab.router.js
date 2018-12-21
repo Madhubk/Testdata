@@ -156,6 +156,86 @@
                         return $ocLazyLoad.load(["JsonModal", "chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "eAxisQueueLogSingleRecordView"]);
                     }]
                 }
+            })
+            .state('EA.lab.process', {
+                url: '/process',
+                template: `<div class="clearfix p-0"><div data-ng-include="'app/trust-center/process/process/process.html'"></div></div>`,
+                controller: "ProcessController as ProcessCtrl",
+                ncyBreadcrumb: {
+                    label: 'Process'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        if (pageAccessService.CheckAuthToken()) {
+                            deferred.resolve();
+                        }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["confirmation", "trustCenter", "TCProcess"]);
+                    }]
+                }
+            })
+            .state('EA.lab.processInstance', {
+                url: '/process-instance/:id',
+                template: `<div class="clearfix p-0"><div data-ng-include="'app/trust-center/process/process-instance/process-instance.html'"></div></div>`,
+                controller: "ProcessInstanceController as ProcessInstanceCtrl",
+                ncyBreadcrumb: {
+                    label: 'Process Instance'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        if (pageAccessService.CheckAuthToken()) {
+                            deferred.resolve();
+                        }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["chromeTab", "dynamicControl", "dynamicGrid", "dynamicList", "dynamicLookup", "confirmation", "dynamicTable", "TaskAssignStartComplete", "TCProcessInstanceModal", "trustCenter", "ProcessInstanceWorkItemDetails", "TCProcessInstance"]);
+                    }]
+                }
+            })
+            .state('EA.lab.processScenarios', {
+                url: '/process-scenarios/:id',
+                template: `<div class="clearfix p-0"><div data-ng-include="'app/trust-center/process/process-scenarios/process-scenarios.html'"></div></div>`,
+                controller: "ProcessScenariosController as ProcessScenariosCtrl",
+                ncyBreadcrumb: {
+                    label: 'Process Scenarios'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        if (pageAccessService.CheckAuthToken()) {
+                            deferred.resolve();
+                        }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["dynamicTable", "confirmation", "trustCenter", "TCProcessScenarios"]);
+                    }]
+                }
+            })
+            .state('EA.lab.processWorkStep', {
+                url: '/process-work-step/:id',
+                template: `<div class="clearfix p-0"><div data-ng-include="'app/trust-center/process/process-work-step/process-work-step.html'"></div></div>`,
+                controller: "ProcessWorkStepController as ProcessWorkStepCtrl",
+                ncyBreadcrumb: {
+                    label: 'Process Work Step'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        if (pageAccessService.CheckAuthToken()) {
+                            deferred.resolve();
+                        }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["JsonModal", "IconColorList", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "confirmation", "TCProcessWorkStepAccessModal", "TCProcessWorkStepRules", "TCProcessWorkStepDirective", "PartyMapping", "trustCenter", "TCProcessWorkStep", "ExpressionFormatter", "ExpressionGroupFormatter", "NotificationFormatter", "NotificationTemplateFormatter", "TaskConfigFormatter", "TCActivityFormConfiguration"]);
+                    }]
+                }
             });
     }
 })();

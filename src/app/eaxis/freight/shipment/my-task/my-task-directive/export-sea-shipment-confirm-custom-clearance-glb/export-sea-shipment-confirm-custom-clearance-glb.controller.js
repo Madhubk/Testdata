@@ -40,7 +40,7 @@
             if (ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Masters.TaskObj.EntityRefKey) {
                 apiService.get("eAxisAPI", appConfig.Entities.ShipmentList.API.GetById.Url + ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
                     if (response.data.Response) {
-                        ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Masters.EntityObj = response.data.Response;
+                        ExportSeaShipmentConfirmCustomClearanceGlbCtrl.ePage.Entities.Header.Data = response.data.Response;
                     }
                 });
             }

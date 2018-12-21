@@ -212,7 +212,7 @@
 
         function GetMastersList() {
             // Get CFXType Dropdown list
-            var typeCodeList = ["SHPTYPE", "SHP_TRANSTYPE", "SHP_CNTMODE", "CNT_DELIVERYMODE", "INCOTERM", "WEIGHTUNIT", "VOLUMEUNIT", "ENTRYDETAILS", "RELEASETYPE", "AIRWAY", "HOUSEBILL", "ONBOARD", "CHARGEAPLY", "DROPMODE", "HEIGHTUNIT", "PERIODTYPE", "USAGES", "PROFITANDLOSSRESON", "BILLSTATUS", "COMT_DESC", "COMT_Visibility", "COMT_Module", "COMT_Direction", "COMT_Frieght", "SERVICETYPE", "REFNUMTYPE", "ROUTEMODE", "ROUTESTATUS", "JOBADDR", "SHIPPERCOD", "SHP_PAYMENT"];
+            var typeCodeList = ["SHPTYPE", "SHP_TRANSTYPE", "SHP_CNTMODE", "CNT_DELIVERYMODE", "INCOTERM", "WEIGHTUNIT", "VOLUMEUNIT", "ENTRYDETAILS", "RELEASETYPE", "AIRWAY", "HOUSEBILL", "ONBOARD", "CHARGEAPLY", "DROP_MODE", "HEIGHTUNIT", "PERIODTYPE", "USAGES", "PROFITANDLOSSRESON", "BILLSTATUS", "COMT_DESC", "COMT_Visibility", "COMT_Module", "COMT_Direction", "COMT_Frieght", "SERVICETYPE", "REFNUMTYPE", "ROUTEMODE", "ROUTESTATUS", "JOBADDR", "SHIPPERCOD", "SHP_PAYMENT"];
             var dynamicFindAllInput = [];
 
             typeCodeList.map(function (value, key) {
@@ -319,17 +319,18 @@
             }
 
             if (oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode !== "AIR") {
-                oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PrintOptionForPackagesOnAWB = "NULL";
+                oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PrintOptionForPackagesOnAWB = null;
             }
 
             if (oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode == "AIR") {
-                oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillType = "NULL";
+                oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillType = null;
                 oneThreeShipmentGeneralCtrl.ePage.Masters.isHBLKey = true;
             } else if (oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode == "SEA") {
                 oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillType = "IAU"
             } else {
-                oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillType = "NULL";
+                oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillType = null;
             }
+            OnFieldValueChange('E0002')
         }
 
         function OnWeightChange() {
@@ -400,6 +401,7 @@
                     oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Shipper_FK = $item.PK
                     oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Shipper_Code = $item.Code
                     getOrgBuyerSupplierMapping();
+                    OnFieldValueChange('E0031');
                 }
                 if (addressType == 'CED') {
                     oneThreeShipmentGeneralCtrl.ePage.Masters.IsContactEnable1 = true;
@@ -409,14 +411,15 @@
                     if (oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin && oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination) {
                         IsDomestic(oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin, oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination)
                     }
+                    OnFieldValueChange('E0032');
                 }
                 if (addressType == 'NPP') {
                     oneThreeShipmentGeneralCtrl.ePage.Masters.IsContactEnable2 = true;
                 }
                 getMDMDefaulvalues()
             }
-            OnFieldValueChange('E0031');
-            OnFieldValueChange('E0032');
+
+
         }
 
         function GetOrgAddress(item, type) {
@@ -445,20 +448,21 @@
                     if (response.data.Response) {
                         if (response.data.Response.UIOrgBuySupMappingTrnMode) {
                             if (response.data.Response.UIOrgBuySupMappingTrnMode.length > 0) {
-                                if (oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode) {
-                                    var obj = _.filter(oneThreeShipmentGeneralCtrl.ePage.Masters.CfxTypesList.CntType, {
-                                        'Key': oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode
-                                    })[0];
-                                    oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode = obj.PARENT_Key;
-                                    oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode = obj.Key;
-                                } else {
-                                    var obj = _.filter(oneThreeShipmentGeneralCtrl.ePage.Masters.CfxTypesList.CntType, {
-                                        'Key': response.data.Response.UIOrgBuySupMappingTrnMode[0].ContainerMode
-                                    })[0];
-                                    oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode = obj.PARENT_Key;
-                                    oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode = obj.Key;
-                                }
-                                oneThreeShipmentGeneralCtrl.ePage.Masters.selectedMode = obj;
+                                // if (oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode) {
+                                //     var obj = _.filter(oneThreeShipmentGeneralCtrl.ePage.Masters.CfxTypesList.CntType, {
+                                //         'Key': oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode
+                                //     })[0];
+                                //     oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode = obj.PARENT_Key;
+                                //     oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode = obj.Key;
+                                // } else {
+                                //     var obj = _.filter(oneThreeShipmentGeneralCtrl.ePage.Masters.CfxTypesList.CntType, {
+                                //         'Key': response.data.Response.UIOrgBuySupMappingTrnMode[0].ContainerMode
+                                //     })[0];
+                                //     oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode = obj.PARENT_Key;
+                                //     oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode = obj.Key;
+                                // }
+                                oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode = response.data.Response.UIOrgBuySupMappingTrnMode[0].TransportMode;
+                                oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PackingMode = response.data.Response.UIOrgBuySupMappingTrnMode[0].ContainerMode;
                                 oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.IncoTerm = response.data.Response.UIOrgBuySupMappingTrnMode[0].IncoTerm;
                                 OnIncotermChange();
                                 oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PortOfLoading = response.data.Response.UIOrgBuySupMappingTrnMode[0].LoadPort;
@@ -665,7 +669,7 @@
                 oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentType = "STD";
                 oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PrintOptionForPackagesOnAWB = "DEF";
                 oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShippedOnBoard = "SHP";
-                oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillType = "NULL";
+                oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillType = null;
                 oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillCharges = "SHW";
                 oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ReleaseType = "OBR";
             } else {

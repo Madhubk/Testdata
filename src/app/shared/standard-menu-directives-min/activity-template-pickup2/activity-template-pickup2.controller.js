@@ -179,6 +179,9 @@
                         if (response.data.Response) {
                             ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj = response.data.Response;
                             ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data = ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj;
+                            ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup.Client = ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup.ClientCode + ' - ' + ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup.ClientName;
+                            ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup.Consignee = ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeCode + ' - ' + ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeName;
+                            ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup.Warehouse = ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseCode + ' - ' + ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseName;
                             myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data = ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data;
                             ActivityTemplatePickup2Ctrl.ePage.Masters.Config.IsReload = true;
                             toastr.success("Pickup Saved Successfully...!");

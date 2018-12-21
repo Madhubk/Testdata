@@ -16,6 +16,11 @@
     }
 }
 
+.page-sidebar .sidebar-menu a {
+    padding: 0;
+    padding-left: 5px;
+}
+
 .page-sidebar .sidebar-menu>li>a:focus,
 .page-sidebar .sidebar-menu>li>a:hover {
     background-color: transparent;

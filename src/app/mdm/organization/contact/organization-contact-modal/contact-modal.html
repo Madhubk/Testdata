@@ -13,15 +13,13 @@
             <div class="form-group">
                 <div class="">
                     <label for="ContactName">Contact Name</label>
-                    <input type="text" class="form-control input-sm" placeholder="ContactName" data-ng-model="OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.ContactName"
-                        data-ng-change="OrgContactModalCtrl.ePage.Masters.OnChangeValues(OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.ContactName,'E9008')" />
+                    <input type="text" class="form-control input-sm" placeholder="ContactName" data-ng-model="OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.ContactName"/>
                 </div>
             </div>
             <div class="form-group">
                 <div class="">
                     <label for="Title">Job Title</label>
-                    <input type="text" class="form-control input-sm" placeholder="Job Title" data-ng-model="OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.Title"
-                        data-ng-change="OrgContactModalCtrl.ePage.Masters.OnChangeValues(OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.Title,'E9023')" />
+                    <input type="text" class="form-control input-sm" placeholder="Job Title" data-ng-model="OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.Title"/>
                 </div>
             </div>
             <div class="form-group">
@@ -53,7 +51,7 @@
             <div class="form-group">
                 <label for="Email">Email</label>
                 <input type="email" class="form-control input-sm" placeholder="Email" data-ng-model="OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.Email"
-                    ng-pattern="/^[a-zA-Z0-9.'_-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" ng-blur="OrgContactModalCtrl.ePage.Masters.MailPattern(OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.Email)" />
+                    data-ng-pattern="/^[a-zA-Z0-9.'_-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" data-ng-blur="OrgContactModalCtrl.ePage.Masters.MailPattern(OrgContactModalCtrl.ePage.Masters.OrgContact.FormView.Email)" />
             </div>
             <div class="form-group">
                 <label for="Fax">Fax</label>

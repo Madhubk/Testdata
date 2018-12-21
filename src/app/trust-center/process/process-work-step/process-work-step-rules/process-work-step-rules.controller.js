@@ -5,9 +5,9 @@
         .module("Application")
         .controller("ProcessWorkStepRulesController", ProcessWorkStepRulesController);
 
-    ProcessWorkStepRulesController.$inject = ["$scope", "$location", "$timeout", "authService", "apiService", "helperService", "toastr", "confirmation", "$uibModal", "$uibModalInstance", "param", "trustCenterConfig"];
+    ProcessWorkStepRulesController.$inject = ["$scope", "$location", "$timeout", "authService", "apiService", "helperService", "toastr", "confirmation", "$uibModal", "$uibModalInstance", "param", "trustCenterConfig", "jsonEditModal"];
 
-    function ProcessWorkStepRulesController($scope, $location, $timeout, authService, apiService, helperService, toastr, confirmation, $uibModal, $uibModalInstance, param, trustCenterConfig) {
+    function ProcessWorkStepRulesController($scope, $location, $timeout, authService, apiService, helperService, toastr, confirmation, $uibModal, $uibModalInstance, param, trustCenterConfig, jsonEditModal) {
         /* jshint validthis: true */
         var ProcessWorkStepRulesCtrl = this;
         var _queryString = $location.path().split("/").pop();
@@ -614,7 +614,7 @@
         }
 
         function OpenJsonModal(objName) {
-            var _json = ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.WorkStepActions[objName];
+            var _json = ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView[objName];
             if (_json !== undefined && _json !== null && _json !== '' && _json !== ' ') {
                 try {
                     if (typeof JSON.parse(_json) == "object") {
@@ -622,7 +622,7 @@
                             resolve: {
                                 param: function () {
                                     var exports = {
-                                        "Data": ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.WorkStepActions[objName]
+                                        "Data": ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView[objName]
                                     };
                                     return exports;
                                 }
@@ -631,7 +631,7 @@
 
                         jsonEditModal.showModal(modalDefaults, {})
                             .then(function (result) {
-                                ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.WorkStepActions[objName] = result;
+                                ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView[objName] = result;
                             }, function () {
                                 console.log("Cancelled");
                             });

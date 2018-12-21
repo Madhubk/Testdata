@@ -1,0 +1,187 @@
+<div class="clearfix tc-maintenance">
+    <!-- Breadcrumb -->
+    <div class="clearfix tc-breadcrumb" data-ng-if="TCMaintenanceCtrl.ePage.Masters.ActiveApplication == 'TC'">
+        <i class="fa fa-home home-icon"></i>
+        <div class="breadcrumb-list-wrapper">
+            <ol class="breadcrumb">
+                <li data-ng-repeat="x in TCMaintenanceCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="TCMaintenanceCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                </li>
+                <li data-ng-repeat="x in TCMaintenanceCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive"
+                    data-ng-bind="x.Description" class="active"></li>
+            </ol>
+        </div>
+    </div>
+    <div class="clearfix p-10">
+        <div class="clearfix publish-user-app-tnt-container publish-container">
+            <div class="header mb-10">Publish User Application Tenant</div>
+            <form novalidate class="row">
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                    <div class="form-group">
+                        <label class="control-label">User</label>
+                        <div class="clearfix">
+                            <input type="text" class="form-control input-sm" placeholder="User" data-ng-model="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.UserAppTnt.Model.userName"
+                                uib-typeahead="x.UserName as (x.DisplayName + ' - ' + x.UserName) for x in  TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.GetUserList($viewValue)"
+                                typeahead-loading="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.UserAppTnt.IsLoading"
+                                typeahead-no-results="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.UserAppTnt.NoRecords"
+                                typeahead-editable="false" typeahead-append-to-body="false" data-ng-blur="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.UserAppTnt.NoRecords = false; TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.UserAppTnt.IsLoading = false;">
+
+                            <div class="clearfix dropdown-menu typeahead" data-ng-if="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.UserAppTnt.NoRecords">
+                                <div class="auto-complete-no-result">No Results Found!</div>
+                            </div>
+                            <div class="clearfix dropdown-menu typeahead" data-ng-if="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.UserAppTnt.IsLoading">
+                                <div class="auto-complete-no-result">
+                                    <i class="fa fa-spin fa-spinner"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                    <div class="form-group">
+                        <label class="control-label">Application</label>
+                        <div class="clearfix">
+                            <select chosen class="form-control" data-ng-model="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.UserAppTnt.Model.AppCode"
+                                data-ng-options="x.AppCode as (x.AppCode + ' - ' + x.AppName) for x in TCMaintenanceCtrl.ePage.Masters.Maintenance.ApplicationList">
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                    <div class="form-group">
+                        <label class="control-label">Tenant</label>
+                        <div class="clearfix">
+                            <select chosen class="form-control" data-ng-model="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.UserAppTnt.Model.TNTCode"
+                                data-ng-options="x.TenantCode as (x.TenantCode + ' - ' + x.TenantName) for x in TCMaintenanceCtrl.ePage.Masters.Maintenance.TenantList">
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                    <div class="form-group">
+                        <label class="control-label">&nbsp;</label>
+                        <div class="clearfix">
+                            <button class="btn btn-primary btn-sm" data-ng-click="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.UserAppTnt.Publish()"
+                                data-ng-disabled="!TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.UserAppTnt.Model.userName || !TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.UserAppTnt.Model.AppCode || !TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.UserAppTnt.Model.TNTCode || TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.UserAppTnt.IsDisablePublishBtn"
+                                data-ng-bind="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.UserAppTnt.PublishBtnTxt"></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="tc-section-divider mb-10"></div>
+        <div class="clearfix publish-role-app-tnt-container publish-container">
+            <div class="header mb-10">Publish Role Application Tenant</div>
+            <form novalidate class="row">
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                    <div class="form-group">
+                        <label class="control-label">Role</label>
+                        <div class="clearfix">
+                            <input type="text" class="form-control input-sm" placeholder="Role" data-ng-model="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.RoleAppTnt.Model.Role_Code"
+                                uib-typeahead="x.RoleName as x.RoleDescription for x in  TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.GetRoleList($viewValue)"
+                                typeahead-loading="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.RoleAppTnt.IsLoading"
+                                typeahead-no-results="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.RoleAppTnt.NoRecords"
+                                typeahead-editable="false" typeahead-append-to-body="false" data-ng-blur="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.RoleAppTnt.NoRecords = false; TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.RoleAppTnt.IsLoading = false;">
+
+                            <div class="clearfix dropdown-menu typeahead" data-ng-if="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.RoleAppTnt.NoRecords">
+                                <div class="auto-complete-no-result">No Results Found!</div>
+                            </div>
+                            <div class="clearfix dropdown-menu typeahead" data-ng-if="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.RoleAppTnt.IsLoading">
+                                <div class="auto-complete-no-result">
+                                    <i class="fa fa-spin fa-spinner"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                    <div class="form-group">
+                        <label class="control-label">Application</label>
+                        <div class="clearfix">
+                            <select chosen class="form-control" data-ng-model="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.RoleAppTnt.Model.AppCode"
+                                data-ng-options="x.AppCode as (x.AppCode + ' - ' + x.AppName) for x in TCMaintenanceCtrl.ePage.Masters.Maintenance.ApplicationList">
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                    <div class="form-group">
+                        <label class="control-label">Tenant</label>
+                        <div class="clearfix">
+                            <select chosen class="form-control" data-ng-model="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.RoleAppTnt.Model.TNTCode"
+                                data-ng-options="x.TenantCode as (x.TenantCode + ' - ' + x.TenantName) for x in TCMaintenanceCtrl.ePage.Masters.Maintenance.TenantList">
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                    <div class="form-group">
+                        <label class="control-label">&nbsp;</label>
+                        <div class="clearfix">
+                            <button class="btn btn-primary btn-sm" data-ng-click="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.RoleAppTnt.Publish()"
+                                data-ng-disabled="!TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.RoleAppTnt.Model.Role_Code || !TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.RoleAppTnt.Model.AppCode || !TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.RoleAppTnt.Model.TNTCode || TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.RoleAppTnt.IsDisablePublishBtn"
+                                data-ng-bind="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.RoleAppTnt.PublishBtnTxt"></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="tc-section-divider mb-10"></div>
+        <div class="clearfix publish-user-container publish-container">
+            <div class="header mb-10">Publish Single User (Across Tenant)</div>
+            <form novalidate class="row">
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                    <div class="form-group">
+                        <label class="control-label">User</label>
+                        <div class="clearfix">
+                            <input type="text" class="form-control input-sm" placeholder="User" data-ng-model="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.User.Model.UserName"
+                                uib-typeahead="x.UserName as (x.DisplayName + ' - ' + x.UserName) for x in  TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.GetUserList($viewValue)"
+                                typeahead-loading="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.User.IsLoading"
+                                typeahead-no-results="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.User.NoRecords"
+                                typeahead-editable="false" typeahead-append-to-body="false" data-ng-blur="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.User.NoRecords = false; TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.User.IsLoading = false;">
+
+                            <div class="clearfix dropdown-menu typeahead" data-ng-if="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.User.NoRecords">
+                                <div class="auto-complete-no-result">No Results Found!</div>
+                            </div>
+                            <div class="clearfix dropdown-menu typeahead" data-ng-if="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.User.IsLoading">
+                                <div class="auto-complete-no-result">
+                                    <i class="fa fa-spin fa-spinner"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                    <div class="form-group">
+                        <label class="control-label">&nbsp;</label>
+                        <div class="clearfix">
+                            <button class="btn btn-primary btn-sm" data-ng-click="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.User.Publish()"
+                                data-ng-disabled="!TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.User.Model.UserName || TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.User.IsDisablePublishBtn"
+                                data-ng-bind="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.User.PublishBtnTxt"></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="tc-section-divider mb-10"></div>
+        <div class="clearfix publish-all-user-container publish-container">
+            <div class="header mb-10">Publish All Users (Across Tenant)</div>
+            <form novalidate class="row">
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                    <div class="form-group">
+                        <div class="clearfix">
+                            <button class="btn btn-primary btn-sm" data-ng-click="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.AllUsers.Publish()"
+                                data-ng-disabled="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.AllUsers.IsDisablePublishBtn"
+                                data-ng-bind="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.AllUsers.PublishBtnTxt"></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="tc-section-divider mb-10"></div>
+    </div>
+</div>

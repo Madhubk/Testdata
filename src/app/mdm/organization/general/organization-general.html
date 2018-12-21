@@ -1,51 +1,50 @@
 <div class="clearfix p-10 mb-50">
-    <!--Organization header -->
-    <div class="md-org-header clearfix">
-        <div class="col-xs-8 xol-sm-8 col-md-4 col-lg-4 col-xl-4">
-            <span data-ng-bind="OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.Code || OrganizationGeneralCtrl.ePage.Masters.OrgHeader.EmptyText"></span>
-        </div>
-        <div class="col-xs-4 xol-sm-4 col-md-1 col-lg-1 col-xl-1 text-center col-xs-push-0 col-sm-push-0 col-md-push-7 col-lg-push-7 col-xl-push-7">
-            <a class="eaxis-edit-2" href="javascript:void(0);" data-ng-if="OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.Code == ''"
-                data-ng-click="OrganizationGeneralCtrl.ePage.Masters.OpenEditForm(OrganizationGeneralCtrl.ePage.Entities.Header.Data, 'general', true)"><i
-                    class="fa fa-plus-circle fs-28"></i></a>
-            <a class="eaxis-edit-2" href="javascript:void(0);" data-ng-if="OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.Code"
-                data-ng-click="OrganizationGeneralCtrl.ePage.Masters.OpenEditForm(OrganizationGeneralCtrl.ePage.Entities.Header.Data, 'general', false)"><i
-                    class="fa fa-pencil fs-28"></i></a>
-        </div>
-        <div class="col-xs-12 xol-sm-12 col-md-12 col-lg-7 col-xl-7 col-xs-pull-0 col-sm-pull-0 col-md-pull-0 col-lg-pull-1 col-xl-pull-1">
-            <span class="eaxis-company-title-3" data-ng-bind="OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.FullName || OrganizationGeneralCtrl.ePage.Masters.OrgHeader.EmptyText"></span>
-        </div>
+    <div class="org-header">
+        <span data-ng-bind="((OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.Code) ?  OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.Code : 'Organization Code') + ' - ' + ((OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.FullName) ?  OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.FullName : 'Name')"></span>
+        <button class="btn btn-xs btn-primary pull-right" data-ng-click="OrganizationGeneralCtrl.ePage.Masters.OrgHeader.EditOrganization()">Edit</button>
     </div>
-    <div class="label-container mb-10">
-        <span class="label" data-ng-repeat="x in OrganizationGeneralCtrl.ePage.Masters.OrgHeader.DataList" data-ng-if="OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader[x.Value]"
-            data-ng-class="OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader[x.Value] ? 'label-default' : 'label-danger'"
+    <div class="org-general-label-container">
+        <span class="label" style="margin: 10px 5px; background-color: #aaa; color: #fff;" data-ng-repeat="x in OrganizationGeneralCtrl.ePage.Masters.OrgHeader.DataList" data-ng-if="OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader[x.Value]"
             data-ng-bind="x.DispName"></span>
     </div>
-    <div class="org-address-general-container clearfix">
-        <div data-ng-if="OrganizationGeneralCtrl.ePage.Masters.MainAddress" class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 p-5 org-address-wrapper">
-            <div class="eaxis-org-box">
-                <div class="eaxis-rows">
-                    <div class="eaxis-org-com text-single-line">{{OrganizationGeneralCtrl.ePage.Masters.MainAddress.Address1
-                        || OrganizationGeneralCtrl.ePage.Masters.OrgHeader.EmptyText}}</div>
-                    <div class="eaxis-org-com text-single-line">{{OrganizationGeneralCtrl.ePage.Masters.MainAddress.Address2
-                        || OrganizationGeneralCtrl.ePage.Masters.OrgHeader.EmptyText}}</div>
-                    <div class="eaxis-org-com text-single-line">{{OrganizationGeneralCtrl.ePage.Masters.MainAddress.City
-                        || OrganizationGeneralCtrl.ePage.Masters.OrgHeader.EmptyText}} -
-                        {{OrganizationGeneralCtrl.ePage.Masters.MainAddress.PostCode
-                        || OrganizationGeneralCtrl.ePage.Masters.OrgHeader.EmptyText}}</div>
-                    <div class="eaxis-org-state">{{OrganizationGeneralCtrl.ePage.Masters.MainAddress.State ||
-                        OrganizationGeneralCtrl.ePage.Masters.OrgHeader.EmptyText}}</div>
+    <div class="clearfix" data-ng-if="OrganizationGeneralCtrl.ePage.Masters.OrgHeader.MainAddress">
+        <div class="col-sm-4 p-0">
+            <div class="p-10 m-10 org-address-contact-box position-relative">
+                <div class="clearfix pr-35">
+                    <div class="text-single-line">{{OrganizationGeneralCtrl.ePage.Masters.OrgHeader.MainAddress.Address1
+                        || OrganizationGeneralCtrl.ePage.Masters.EmptyText}}</div>
+                    <div class="text-single-line">{{OrganizationGeneralCtrl.ePage.Masters.OrgHeader.MainAddress.Address2
+                        || OrganizationGeneralCtrl.ePage.Masters.EmptyText}}</div>
+                    <div class="text-single-line">{{OrganizationGeneralCtrl.ePage.Masters.OrgHeader.MainAddress.RelatedPortCode
+                        ||
+                        OrganizationGeneralCtrl.ePage.Masters.EmptyText}}</div>
+                    <div class="text-single-line">{{OrganizationGeneralCtrl.ePage.Masters.OrgHeader.MainAddress.City ||
+                        OrganizationGeneralCtrl.ePage.Masters.EmptyText}} -
+                        {{OrganizationGeneralCtrl.ePage.Masters.OrgHeader.MainAddress.PostCode ||
+                        OrganizationGeneralCtrl.ePage.Masters.EmptyText}}</div>
+                    <div class="text-single-line">{{OrganizationGeneralCtrl.ePage.Masters.OrgHeader.MainAddress.State
+                        || OrganizationGeneralCtrl.ePage.Masters.EmptyText}}</div>
                 </div>
-                <div class="eaxis-rows">
-                    <div class="eaxis-org-p-m-g-f">
-                        <div class="eaxis-org-pmgf-com">{{OrganizationGeneralCtrl.ePage.Masters.MainAddress.Phone ||
-                            OrganizationGeneralCtrl.ePage.Masters.OrgHeader.EmptyText}} <i class="fa fa-phone"></i></div>
-                        <div class="eaxis-org-pmgf-com">{{OrganizationGeneralCtrl.ePage.Masters.MainAddress.Mobile ||
-                            OrganizationGeneralCtrl.ePage.Masters.OrgHeader.EmptyText}} <i class="fa fa-mobile"></i></div>
-                        <div class="eaxis-org-pmgf-com">{{OrganizationGeneralCtrl.ePage.Masters.MainAddress.Email ||
-                            OrganizationGeneralCtrl.ePage.Masters.OrgHeader.EmptyText}} <i class="fa fa-envelope"></i></div>
-                        <div class="eaxis-org-pmgf-com">{{OrganizationGeneralCtrl.ePage.Masters.MainAddress.Fax ||
-                            OrganizationGeneralCtrl.ePage.Masters.OrgHeader.EmptyText}} <i class="fa fa-fax"></i></div>
+                <div class="clearfix text-right rtl">
+                    <div class="text-single-line">
+                        <span>{{OrganizationGeneralCtrl.ePage.Masters.OrgHeader.MainAddress.Phone ||
+                            OrganizationGeneralCtrl.ePage.Masters.EmptyText}}</span>
+                        <i class="fa fa-phone org-address-icon"></i>
+                    </div>
+                    <div class="text-single-line">
+                        <span>{{OrganizationGeneralCtrl.ePage.Masters.OrgHeader.MainAddress.Mobile ||
+                            OrganizationGeneralCtrl.ePage.Masters.EmptyText}}</span>
+                        <i class="fa fa-mobile org-address-icon"></i>
+                    </div>
+                    <div class="text-single-line">
+                        <span>{{OrganizationGeneralCtrl.ePage.Masters.OrgHeader.MainAddress.Email ||
+                            OrganizationGeneralCtrl.ePage.Masters.EmptyText}}</span>
+                        <i class="fa fa-envelope org-address-icon"></i>
+                    </div>
+                    <div class="text-single-line">
+                        <span>{{OrganizationGeneralCtrl.ePage.Masters.OrgHeader.MainAddress.Fax ||
+                            OrganizationGeneralCtrl.ePage.Masters.EmptyText}} </span>
+                        <i class="fa fa-fax org-address-icon"></i>
                     </div>
                 </div>
             </div>

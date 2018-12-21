@@ -11,7 +11,6 @@
         var exports = {
             restrict: "EA",
             templateUrl: "app/mdm/organization/access-rights/organization-access-rights.html",
-            link: Link,
             controller: "OrganizationAccessRightsController",
             controllerAs: "OrganizationAccessRightsCtrl",
             scope: {
@@ -20,7 +19,29 @@
             bindToController: true
         };
         return exports;
+    }
 
-        function Link(scope, elem, attr) {}
+    angular
+        .module("Application")
+        .controller("OrganizationAccessRightsController", OrganizationAccessRightsController);
+
+    OrganizationAccessRightsController.$inject = ["helperService"];
+
+    function OrganizationAccessRightsController(helperService) {
+        var OrganizationAccessRightsCtrl = this;
+
+        function Init() {
+            var currentOrganization = OrganizationAccessRightsCtrl.currentOrganization[OrganizationAccessRightsCtrl.currentOrganization.label].ePage.Entities;
+
+            OrganizationAccessRightsCtrl.ePage = {
+                "Title": "",
+                "Prefix": "Organization_Access_Rights",
+                "Masters": {},
+                "Meta": helperService.metaBase(),
+                "Entities": currentOrganization,
+            };
+        }
+
+        Init();
     }
 })();

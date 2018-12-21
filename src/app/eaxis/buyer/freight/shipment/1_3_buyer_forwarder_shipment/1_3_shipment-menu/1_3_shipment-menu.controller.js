@@ -28,6 +28,83 @@
             $rootScope.OnAddressEditBack = OnAddressEditBack;
             oneThreeShipmentMenuCtrl.ePage.Masters.OnMenuClick = OnMenuClick;
             oneThreeShipmentMenuCtrl.ePage.Masters.Config = three_shipmentConfig;
+            oneThreeShipmentMenuCtrl.ePage.Masters.TableProperty = {
+                "status": {
+                    "isenabled": true,
+                    "position": "5",
+                    "width": "120"
+                },
+                "vessel": {
+                    "isenabled": true,
+                    "position": "7",
+                    "width": "120"
+                },
+                "voyageflight": {
+                    "isenabled": true,
+                    "position": "6",
+                    "width": "120"
+                },
+                "etd": {
+                    "isenabled": true,
+                    "position": "10",
+                    "width": "120"
+                },
+                "eta": {
+                    "isenabled": true,
+                    "position": "11",
+                    "width": "120"
+                },
+                "atd": {
+                    "isenabled": true,
+                    "position": "12",
+                    "width": "120"
+                },
+                "ata": {
+                    "isenabled": true,
+                    "position": "13",
+                    "width": "120"
+                },
+                "legno": {
+                    "isenabled": true,
+                    "position": "1",
+                    "width": "100"
+                },
+                "islinked": {
+                    "isenabled": true,
+                    "position": "2",
+                    "width": "100"
+                },
+                "mode": {
+                    "isenabled": true,
+                    "position": "3",
+                    "width": "120"
+                },
+                "type": {
+                    "isenabled": true,
+                    "position": "4",
+                    "width": "120"
+                },
+                "pol": {
+                    "isenabled": true,
+                    "position": "8",
+                    "width": "120"
+                },
+                "pod": {
+                    "isenabled": true,
+                    "position": "9",
+                    "width": "120"
+                },
+                "definedby": {
+                    "isenabled": true,
+                    "position": "1",
+                    "width": "100"
+                },
+                "entitysource": {
+                    "isenabled": true,
+                    "position": "1",
+                    "width": "100"
+                }
+            };
             oneThreeShipmentMenuCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
             oneThreeShipmentMenuCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList = errorWarningService.Modules.Shipment.Entity[oneThreeShipmentMenuCtrl.currentShipment.code].GlobalErrorWarningList;
             oneThreeShipmentMenuCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.Shipment.Entity[oneThreeShipmentMenuCtrl.currentShipment.code];
@@ -302,7 +379,7 @@
                 _Data.Header.Data.UIJobEntryNumsObj["IsValid"] = true;
                 _Data.Header.Data.UIJobEntryNums.push(_Data.Header.Data.UIJobEntryNumsObj)
             }
-            helperService.SaveEntity($item, 'Shipment').then(function (response) {
+            helperService.SaveEntity($item, 'ShipmentBuyerForwarder').then(function (response) {
                 if (response.Status === "success") {
                     three_shipmentConfig.TabList.map(function (value, key) {
                         if (value.New) {
@@ -323,6 +400,7 @@
                         three_shipmentConfig.TabList[_index][three_shipmentConfig.TabList[_index].label].ePage.Entities.Header.Data.UICustomEntity = response.Data.UICustomEntity;
                         three_shipmentConfig.TabList[_index][three_shipmentConfig.TabList[_index].label].ePage.Entities.Header.Data.UIJobPickupAndDelivery = response.Data.UIJobPickupAndDelivery;
                         three_shipmentConfig.TabList[_index][three_shipmentConfig.TabList[_index].label].ePage.Entities.Header.Data.UIShipmentHeader = response.Data.UIShipmentHeader;
+                        three_shipmentConfig.TabList[_index][three_shipmentConfig.TabList[_index].label].ePage.Entities.Header.Data.UIShipmentHeader.CMN_SharedRoleCode = '1_3';
                         three_shipmentConfig.TabList[_index][three_shipmentConfig.TabList[_index].label].ePage.Entities.Header.Data.UIShpExtendedInfo = response.Data.UIShpExtendedInfo;
                         three_shipmentConfig.TabList[_index][three_shipmentConfig.TabList[_index].label].ePage.Entities.Header.Data.UIPorOrderItem = response.Data.UIPorOrderItem;
                         response.Data.UIJobAddress.map(function (val, key) {

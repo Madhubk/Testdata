@@ -16,6 +16,13 @@
             </uib-tab-heading>
             <container-grid current-object="ShipmentConsolePackingCtrl.currentShipment" btn-visible="{'AddNew':false}"></container-grid>
         </uib-tab>
+        <uib-tab>
+            <uib-tab-heading title="Export Operation">
+                <i class="fa fa-suitcase margin-right-5"></i>
+                <span class="text-single-line" data-ng-bind="'Export Operation'"></span>
+            </uib-tab-heading>
+            <gate-in-grid current-object="ShipmentConsolePackingCtrl.currentShipment" api-header-field-name="'SHP'"  read-only="false" btn-visible="{'AddNew':false}"></gate-in-grid>
+        </uib-tab>
         <!--Packing-->
         <uib-tab>
             <uib-tab-heading title="Packing">

@@ -220,7 +220,6 @@
             event.stopPropagation();
             ShipmentCtrl.ePage.Masters.TabList.map(function (value, key) {
                 var _currentShipment = value[value.label].ePage.Entities;
-                console.log(_currentShipment);
                 apiService.get("eAxisAPI", ShipmentCtrl.ePage.Entities.Header.API.ShipmentActivityClose.Url + _currentShipment.Header.Data.PK).then(function (response) {
                     if (response.data.Status == "Success") {
                         ShipmentCtrl.ePage.Masters.TabList.shift();
@@ -304,13 +303,13 @@
 
                             confirmation.showModal({}, modalOptions)
                                 .then(function (result) {
-                                    HouseBillChange($item);
+                                   HouseBillChange($item);
                                 }, function () {
                                     console.log("Cancel");
                                 });
                         }
                         else if ($item[$item.label].ePage.Entities.Header.Data.UIShipmentHeader.TransportMode != "AIR") {
-                            HouseBillChange($item);
+                           HouseBillChange($item);
                         }
                     });
                 }
@@ -385,7 +384,7 @@
             apiService.post("eAxisAPI", appConfig.Entities.OrgConsigneeConsignorRelationship.API.Insert.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     toastr.success("Organization Mapping Successful...");
-                    //Save($item);
+                    Save($item);
                 } else {
                     toastr.error("Buyer and Supplier mapping failed...");
                 }
@@ -408,14 +407,13 @@
                     var houseBillMatch = [];
                     var houseBillMisMatch = [];
                     if (response.data.Response.length > 0) {
-                        var _index = response.data.Response.map(function (value, key) {
+                        response.data.Response.map(function (value, key) {
                             if (value.ShipmentNo == _input.UIShipmentHeader.ShipmentNo) {
                                 houseBillMatch.push(value);
                             }
                             else {
                                 houseBillMisMatch.push(value);
                             }
-
                             if (houseBillMatch.length > 0) {
                                 Save($item)
                             }
@@ -525,7 +523,11 @@
                 _Data.Header.Data.UIJobEntryNumsObj["IsValid"] = true;
                 _Data.Header.Data.UIJobEntryNums.push(_Data.Header.Data.UIJobEntryNumsObj)
             }
+            else
+            {
             $item = filterObjectUpdate($item, "IsModified");
+            }
+
             helperService.SaveEntity($item, 'Shipment').then(function (response) {
                 if (response.Status === "success") {
                     shipmentConfig.TabList.map(function (value, key) {
@@ -538,13 +540,13 @@
                             }
                         }
                     });
-
                     var _index = shipmentConfig.TabList.map(function (value, key) {
                         return value.label;
-                    }).indexOf(ShipmentCtrl.ePage.Masters.currentShipment);
-
+                    }).indexOf(ShipmentCtrl.ePage.Masters.currentShipment);                  
                     if (_index !== -1) {
-                        shipmentConfig.TabList[_index][shipmentConfig.TabList[_index].label].ePage.Entities.Header.Data.UICustomEntity = response.Data.UICustomEntity;
+                        if (response.Data) {
+                            shipmentConfig.TabList[_index][shipmentConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data;
+                            shipmentConfig.TabList[_index][shipmentConfig.TabList[_index].label].ePage.Entities.Header.Data.UICustomEntity = response.Data.UICustomEntity;
                         shipmentConfig.TabList[_index][shipmentConfig.TabList[_index].label].ePage.Entities.Header.Data.UIJobPickupAndDelivery = response.Data.UIJobPickupAndDelivery;
                         shipmentConfig.TabList[_index][shipmentConfig.TabList[_index].label].ePage.Entities.Header.Data.UIShipmentHeader = response.Data.UIShipmentHeader;
                         shipmentConfig.TabList[_index][shipmentConfig.TabList[_index].label].ePage.Entities.Header.Data.UIShpExtendedInfo = response.Data.UIShpExtendedInfo;
@@ -557,8 +559,11 @@
                                 shipmentConfig.TabList[_index][shipmentConfig.TabList[_index].label].ePage.Entities.Header.Data.UIJobEntryNumsObj = value;
                             }
                         });
-                        shipmentConfig.TabList[_index].isNew = false;
-                        helperService.refreshGrid();
+                        } else {
+                            shipmentConfig.TabList[_index][shipmentConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data.Response;
+                        }
+                        //shipmentConfig.TabList[_index].isNew = false;
+                        //helperService.refreshGrid();
                     }
                     toastr.success("Shipment Saved Successfully...!");
                 } else if (response.Status === "failed") {

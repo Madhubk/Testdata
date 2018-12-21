@@ -31,8 +31,7 @@
                     InitBreadcrumb();
                     InitApplication();
                     InitUserCmpAppTenant();
-
-                }
+                 }
             } catch (error) {
                 console.log(error);
             }
@@ -40,8 +39,6 @@
         }
 
         // ========================Breadcrumb Start========================
-
-
         function InitBreadcrumb() {
             TCUserCmpAppTenantCtrl.ePage.Masters.Breadcrumb = {};
             TCUserCmpAppTenantCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick = OnBreadcrumbClick;
@@ -80,7 +77,7 @@
                 IsActive: false
             }, {
                 Code: "userCmpAppTenant",
-                Description: "User Cmp App Tenant (" + TCUserCmpAppTenantCtrl.ePage.Masters.QueryString.DisplayName + ")" + " - " + TCUserCmpAppTenantCtrl.ePage.Masters.QueryString.MappingCode,
+                Description: "User Cmp App Tenant (" + TCUserCmpAppTenantCtrl.ePage.Masters.QueryString.DisplayName + ")" + " - " + "USER_CMP_BRAN_DEPT_ORG_APP_TNT",
                 Link: "#",
                 IsRequireQueryString: false,
                 IsActive: true
@@ -113,7 +110,7 @@
             GetUserCmpAppTenantList();
         }
 
-        // ========================Breadcrumb End========================
+        // ========================Application End========================
 
         function InitUserCmpAppTenant() {
             TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant = {};
@@ -121,8 +118,8 @@
             TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.GetCmpBranchList = GetCmpBranchList;
             TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.GetCmpDepartmentList = GetCmpDepartmentList;
             TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.GetOrganizationList = GetOrganizationList;
-            TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.OnBlurAutoCompleteList = OnBlurAutoCompleteList;
-            TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.OnSelectAutoCompleteList = OnSelectAutoCompleteList;
+            TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.OnBlurAutoCompleteCompanyList = OnBlurAutoCompleteCompanyList;
+            TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.OnSelectAutoCompleteCompanyList = OnSelectAutoCompleteCompanyList;
             TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.OnBlurAutoCompleteListBranch = OnBlurAutoCompleteListBranch;
             TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.OnSelectAutoCompleteListBranch =
                 OnSelectAutoCompleteListBranch;
@@ -134,16 +131,51 @@
                 OnBlurAutoCompleteListOrganization;
 
             TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.AddNewRow = AddNewRow;
-            TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.Save = SaveUserCmpAppTenant;
+            TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.Save = Save;
             TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.Delete = DeleteConfirmation;
+            TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.CheckUIControl = CheckUIControl;
 
+            GetUIControlList();
             OnApplicationChange();
         }
 
+        function GetUIControlList() {
+            TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UIControlList = undefined;
+            var _filter = {
+                "SAP_FK": authService.getUserInfo().AppPK,
+                "TenantCode": authService.getUserInfo().TenantCode,
+                "USR_FK": authService.getUserInfo().UserPK
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": trustCenterConfig.Entities.API.CompUserRoleAccess.API.FindAll.FilterID
+            };
+
+            apiService.post("authAPI", trustCenterConfig.Entities.API.CompUserRoleAccess.API.FindAll.Url, _input).then(function SuccessCallback(response) {
+                if (response.data.Response) {
+                    var _response = response.data.Response;
+                    var _controlList = [];
+                    if (_response.length > 0) {
+                        _response.map(function (value, key) {
+                            if (value.SOP_Code) {
+                                _controlList.push(value.SOP_Code);
+                            }
+                        });
+                    }
+                    TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UIControlList = _controlList;
+                } else {
+                    TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UIControlList = [];
+                }
+            });
+        }
+
+        function CheckUIControl(controlId) {
+            return helperService.checkUIControl(TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UIControlList, controlId);
+        }
 
         function GetUserCmpAppTenantList() {
             var _filter = {
-                "SAP_FK": TCUserCmpAppTenantCtrl.ePage.Masters.QueryString.AppPk,
+                "SAP_FK": TCUserCmpAppTenantCtrl.ePage.Masters.Application.ActiveApplication.PK,
                 "Item_FK": TCUserCmpAppTenantCtrl.ePage.Masters.QueryString.ItemPk,
                 "TenantCode": authService.getUserInfo().TenantCode
             };
@@ -183,22 +215,23 @@
             });
         }
 
-        function OnBlurAutoCompleteList($event, row) {
-            row.AccessCodeNoResults = false;
-            row.AccessCodeLoading = false;
+        function OnBlurAutoCompleteCompanyList($event, row) {
+            row.IsAccessCodeNoResults = false;
+            row.IsAccessCodeLoading = false;
         }
 
-        function OnSelectAutoCompleteList($item, $model, $label, $event, row) {
+        function OnSelectAutoCompleteCompanyList($item, $model, $label, $event, row) {
             row.Access_FK = $item.PK;
             row.AccessCode = $item.Code;
+            row.AccessTo = "CMP";
         }
 
-        function GetCmpBranchList($viewValue, item) {
+        function GetCmpBranchList($viewValue, row) {
+            var _filter = {
+                "CMP_FK": row.Access_FK
+            };
             if ($viewValue !== "#") {
-                var _filter = {
-                    "Autocompletefield": $viewValue,
-                    "CMP_FK": item.Access_FK
-                };
+                _filter.Autocompletefield = $viewValue;
             }
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
@@ -220,6 +253,7 @@
         function OnSelectAutoCompleteListBranch($item, $model, $label, $event, row) {
             row.BasedOn_FK = $item.PK;
             row.BasedOnCode = $item.Code;
+            row.BasedOn = "BRN";
         }
 
         function GetCmpDepartmentList($viewValue) {
@@ -246,10 +280,10 @@
         }
 
         function OnSelectAutoCompleteListDepartment($item, $model, $label, $event, row) {
-            row.OtherEntity_FK_3 = $item.PK;
-            row.OtherEntityCode_3 = $item.Code;
+            row.OtherEntity_FK = $item.PK;
+            row.OtherEntityCode = $item.Code;
+            row.OtherEntitySource = "DEPT";;
         }
-
 
         function GetOrganizationList($viewValue) {
             if ($viewValue !== "#") {
@@ -275,8 +309,10 @@
         }
 
         function OnSelectAutoCompleteListOrganization($item, $model, $label, $event, row) {
-            row.OtherEntity_FK = $item.PK;
-            row.OtherEntityCode = $item.Code;
+            row.OtherEntity_FK_2 = $item.PK;
+            row.OtherEntityCode_2 = $item.Code;
+            row.OtherEntitySource_2 = "ORG";
+
         }
 
         function AddNewRow() {
@@ -284,20 +320,22 @@
             TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UserCmpAppTenantList.push(_obj);
         }
 
-        function SaveUserCmpAppTenant(row) {
-            TCUserCmpAppTenantCtrl.ePage.Masters.SaveBtnTxt = "Please Wait...";
-            TCUserCmpAppTenantCtrl.ePage.Masters.IsDisabledSaveBtn = true;
+        function Save(row) {
+            if (row.PK) {
+                UpdateUserCmpAppTenant(row);
+            } else {
+                InsertUserCmpAppTenant(row);
+            }
+        }
 
+
+        function InsertUserCmpAppTenant(row) {
+            TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.SaveBtnText = "Please Wait...";
+            TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.IsDisableSaveBtn = true;
             var _input = angular.copy(row);
-            _input.IsModified = true;
-
-            _input.SAP_Code = TCUserCmpAppTenantCtrl.ePage.Masters.Application.ActiveApplication.AppCode;
-            _input.SAP_FK = TCUserCmpAppTenantCtrl.ePage.Masters.Application.ActiveApplication.PK;
-            _input.TenantCode = authService.getUserInfo().TenantCode;
-            _input.TNT_FK = authService.getUserInfo().TenantPK;
             _input.Item_FK = TCUserCmpAppTenantCtrl.ePage.Masters.QueryString.ItemPk;
             _input.ItemCode = TCUserCmpAppTenantCtrl.ePage.Masters.QueryString.ItemCode;
-            _input.ItemName = TCUserCmpAppTenantCtrl.ePage.Masters.QueryString.ItemName;
+            _input.ItemName = "USER";
             _input.AccessCode = row.AccessCode;
             _input.AccessTo = "CMP";
             _input.Access_FK = row.Access_FK;
@@ -305,52 +343,73 @@
             _input.BasedOn = "BRN";
             _input.BasedOn_FK = row.BasedOn_FK;
             _input.OtherEntity_FK = row.OtherEntity_FK;
-            _input.OtherEntitySource = "ORG";
+            _input.OtherEntitySource = "DEPT";
             _input.OtherEntityCode = row.OtherEntityCode;
             _input.OtherEntity_FK_2 = row.OtherEntity_FK_2;
             _input.OtherEntityCode_2 = row.OtherEntityCode_2;
-            _input.OtherEntitySource_2 = "DEPT";
+            _input.OtherEntitySource_2 = "ORG";
             _input.IsModified = true;
+            _input.SAP_FK = TCUserCmpAppTenantCtrl.ePage.Masters.Application.ActiveApplication.PK;
+            _input.SAP_Code = TCUserCmpAppTenantCtrl.ePage.Masters.Application.ActiveApplication.AppCode;
+            _input.TenantCode = authService.getUserInfo().TenantCode;
+            _input.TNT_FK = authService.getUserInfo().TenantPK;
 
-            if (_input.PK) {
-                apiService.post("authAPI", trustCenterConfig.Entities.API.UserCompanyBranchOrganisationWarehouseDepartment.API.Update.Url, _input).then(function (response) {
-                    if (response.data.Response) {
+            apiService.post("authAPI", trustCenterConfig.Entities.API.UserCompanyBranchOrganisationWarehouseDepartment.API.Insert.Url, [_input]).then(function SuccessCallback(response) {
+                if (response.data.Response) {
+                    if (response.data.Response.length > 0) {
                         var _response = response.data.Response[0];
-                        var _index = TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UserCmpAppTenantList.map(function (e) {
-                            return e.PK;
+
+                        var _index = TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UserCmpAppTenantList.map(function (value, key) {
+                            return value.PK;
                         }).indexOf(_response.PK);
 
-                        if (_index !== -1) {
+                        if (_index === -1) {
+                            TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UserCmpAppTenantList.push(_response);
+                        } else {
                             TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UserCmpAppTenantList[_index] = _response;
                         }
-                        toastr.success("Saved Successfully...!");
-                    } else {
-                        toastr.error("Could not Save...!");
+
+                        GetUserCmpAppTenantList();
                     }
-                });
-            } else {
-                apiService.post("authAPI", trustCenterConfig.Entities.API.UserCompanyBranchOrganisationWarehouseDepartment.API.Insert.Url, [_input]).then(function (response) {
-                    if (response.data.Response) {
-                        var _response = response.data.Response[0];
-                        var _index = TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UserCmpAppTenantList.map(function (e) {
-                            return e.PK;
-                        }).indexOf(_response.PK);
+                    toastr.success("Saved Successfully...!");
+                } else {
+                    toastr.error("Could not Save...!");
+                }
 
-                        if (_index !== -1) {
-                            TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UserCmpAppTenantList[_index] = _response;
-                        }
-                        toastr.success("Saved Successfully...!");
-                    } else {
-                        toastr.error("Could not Save...!");
-                    }
-
-
-                });
-            }
-
+            });
         }
 
-        function DeleteConfirmation(row) {
+        function UpdateUserCmpAppTenant(row) {
+            TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.SaveBtnText = "Please Wait...";
+            TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.IsDisableSaveBtn = true;
+
+            var _input = angular.copy(row);
+            _input.IsModified = true;
+
+            apiService.post("authAPI", trustCenterConfig.Entities.API.UserCompanyBranchOrganisationWarehouseDepartment.API.Update.Url, _input).then(function SuccessCallback(response) {
+                if (response.data.Response) {
+                    var _response = response.data.Response;
+
+                    var _index = TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UserCmpAppTenantList.map(function (value, key) {
+                        return value.PK;
+                    }).indexOf(_response.PK);
+
+                    if (_index === -1) {
+                        TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UserCmpAppTenantList.push(_response);
+                    } else {
+                        TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UserCmpAppTenantList[_index] = _response;
+                    }
+                    GetUserCmpAppTenantList();
+                
+                    toastr.success("Updated Successfully...!");
+                } else {
+                    toastr.error("Could not Update...!");
+                }
+
+            });
+        }
+
+       function DeleteConfirmation(row) {
             var modalOptions = {
                 closeButtonText: 'Cancel',
                 actionButtonText: 'Ok',
@@ -379,6 +438,7 @@
                 } else {
                     toastr.error("Could not Delete...!");
                 }
+                GetUserCmpAppTenantList();
             });
         }
 

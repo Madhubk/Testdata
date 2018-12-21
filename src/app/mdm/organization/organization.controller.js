@@ -5,9 +5,9 @@
         .module("Application")
         .controller("OrganizationController", OrganizationController);
 
-    OrganizationController.$inject = ["$timeout", "apiService", "authService", "helperService", "appConfig", "organizationConfig", "toastr"];
+    OrganizationController.$inject = ["$timeout", "apiService", "authService", "helperService", "mdmConfig", "organizationConfig", "toastr"];
 
-    function OrganizationController($timeout, apiService, authService, helperService, appConfig, organizationConfig, toastr) {
+    function OrganizationController($timeout, apiService, authService, helperService, mdmConfig, organizationConfig, toastr) {
         var OrganizationCtrl = this;
 
         function Init() {
@@ -19,65 +19,98 @@
                 "Entities": organizationConfig.Entities
             };
 
-            OrganizationCtrl.ePage.Masters.dataEntryName = "OrganizationList";
-            OrganizationCtrl.ePage.Masters.config = organizationConfig;
+            try {
+                OrganizationCtrl.ePage.Masters.dataEntryName = "OrganizationList";
+                OrganizationCtrl.ePage.Masters.config = organizationConfig;
 
-            OrganizationCtrl.ePage.Masters.TabList = [];
-            organizationConfig.TabList = [];
-            OrganizationCtrl.ePage.Masters.ActiveTabIndex = 0;
-            OrganizationCtrl.ePage.Masters.IsTabClick = false;
-            OrganizationCtrl.ePage.Masters.IsNewOrgClicked = false;
+                OrganizationCtrl.ePage.Masters.TabList = [];
+                organizationConfig.TabList = [];
+                OrganizationCtrl.ePage.Masters.ActiveTabIndex = 0;
+                OrganizationCtrl.ePage.Masters.IsTabClick = false;
+                OrganizationCtrl.ePage.Masters.IsNewOrgClicked = false;
 
-            OrganizationCtrl.ePage.Masters.AddTab = AddTab;
-            OrganizationCtrl.ePage.Masters.RemoveTab = RemoveTab;
-            OrganizationCtrl.ePage.Masters.CurrentActiveTab = CurrentActiveTab;
-            OrganizationCtrl.ePage.Masters.CreateNew = CreateNew;
-            OrganizationCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
+                OrganizationCtrl.ePage.Masters.AddTab = AddTab;
+                OrganizationCtrl.ePage.Masters.RemoveTab = RemoveTab;
+                OrganizationCtrl.ePage.Masters.CurrentActiveTab = CurrentActiveTab;
+                OrganizationCtrl.ePage.Masters.CreateNew = CreateNew;
+                OrganizationCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
 
-            OrganizationCtrl.ePage.Masters.config.ValidationFindall();
-
-            if (OrganizationCtrl.ePage.Entities.Header.Message == true) {
-                CreateNew();
+                GetMastersDropDownList();
+            } catch (ex) {
+                console.log(ex);
             }
-
-            GetMastersDropDownList();
         }
 
         function GetMastersDropDownList() {
-            // Get CFXType Dropdown list
-            var typeCodeList = ["LANGUAGE", "ADDRTYPE", "JOBCATEGORY"];
-            var dynamicFindAllInput = [];
+            CfxTypeList();
+            GetCountryList();
+            GetCompanyList();
+            GetDepartmentList();
+        }
 
-            typeCodeList.map(function (value, key) {
-                dynamicFindAllInput[key] = {
+        function CfxTypeList() {
+            var _cfxTypeCodeList = ["LANGUAGE", "ADDRTYPE", "JOBCATEGORY", "ROLE"];
+            var _dynamicFindAllInput = [];
+
+            _cfxTypeCodeList.map(function (value, key) {
+                _dynamicFindAllInput[key] = {
                     "FieldName": "TypeCode",
                     "value": value
                 };
             });
             var _input = {
-                "searchInput": dynamicFindAllInput,
-                "FilterID": appConfig.Entities.CfxTypes.API.DynamicFindAll.FilterID
+                "searchInput": _dynamicFindAllInput,
+                "FilterID": mdmConfig.Entities.CfxTypes.API.DynamicFindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.CfxTypes.API.DynamicFindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
+            apiService.post("eAxisAPI", mdmConfig.Entities.CfxTypes.API.DynamicFindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
                 if (response.data.Response) {
-                    typeCodeList.map(function (value, key) {
+                    _cfxTypeCodeList.map(function (value, key) {
                         OrganizationCtrl.ePage.Entities.Header.Meta[value] = helperService.metaBase();
                         OrganizationCtrl.ePage.Entities.Header.Meta[value].ListSource = response.data.Response[value];
                     });
                 }
             });
+        }
 
-            // country list
+        function GetCountryList() {
             var _inputCountry = {
                 "searchInput": [],
-                "FilterID": appConfig.Entities.MstCountry.API.FindAll.FilterID
+                "FilterID": mdmConfig.Entities.MstCountry.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.MstCountry.API.FindAll.Url, _inputCountry).then(function (response) {
+            apiService.post("eAxisAPI", mdmConfig.Entities.MstCountry.API.FindAll.Url, _inputCountry).then(function (response) {
                 if (response.data.Response) {
                     OrganizationCtrl.ePage.Entities.Header.Meta.Country = helperService.metaBase();
                     OrganizationCtrl.ePage.Entities.Header.Meta.Country.ListSource = response.data.Response;
+                }
+            });
+        }
+
+        function GetCompanyList() {
+            var _inputCompany = {
+                "searchInput": [],
+                "FilterID": mdmConfig.Entities.CmpCompany.API.FindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", mdmConfig.Entities.CmpCompany.API.FindAll.Url, _inputCompany).then(function (response) {
+                if (response.data.Response) {
+                    OrganizationCtrl.ePage.Entities.Header.Meta.Company = helperService.metaBase();
+                    OrganizationCtrl.ePage.Entities.Header.Meta.Company.ListSource = response.data.Response;
+                }
+            });
+        }
+
+        function GetDepartmentList() {
+            var _inputDepartment = {
+                "searchInput": [],
+                "FilterID": mdmConfig.Entities.CmpDepartment.API.FindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", mdmConfig.Entities.CmpDepartment.API.FindAll.Url, _inputDepartment).then(function (response) {
+                if (response.data.Response) {
+                    OrganizationCtrl.ePage.Entities.Header.Meta.Department = helperService.metaBase();
+                    OrganizationCtrl.ePage.Entities.Header.Meta.Department.ListSource = response.data.Response;
                 }
             });
         }
@@ -112,9 +145,11 @@
             event.stopPropagation();
             var _currentTab = currentTab[currentTab.label].ePage.Entities;
 
-            apiService.get("eAxisAPI", OrganizationCtrl.ePage.Entities.Header.API.OrganizationActivityClose.Url + _currentTab.Header.Data.OrgHeader.PK).then(function (response) {});
+            $timeout(function () {
+                OrganizationCtrl.ePage.Masters.TabList.splice(index, 1);
+            });
 
-            OrganizationCtrl.ePage.Masters.TabList.splice(index, 1);
+            apiService.get("eAxisAPI", OrganizationCtrl.ePage.Entities.Header.API.OrganizationActivityClose.Url + _currentTab.Header.Data.OrgHeader.PK).then(function (response) {});
         }
 
         function AddTab(currentTab, isNew) {

@@ -1,0 +1,32 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="oneTwoBulkUploadCtrl.ePage.Masters.modalClose()">×</button>
+    <h5 class="modal-title" id="modal-title">
+        <strong>Bulk Upload</strong>
+    </h5>
+</div>
+<div class="modal-body" id="modal-body">
+    <one-two-entity-doc-upload-directive  doc-type="'BUP'" data-ng-if="oneTwoBulkUploadCtrl.ePage.Masters.currentAsn" title-name="'Bulk Upload'" current-asn="oneTwoBulkUploadCtrl.ePage.Masters.currentAsn"></one-two-entity-doc-upload-directive>
+    </one-two-entity-doc-upload-directive>
+</div>
+<!-- <div class="clearfix margin-top-10 pull-right">
+    <div class="col-lg-4 col-sm-12 col-xs-12" data-ng-if="!oneTwoBulkUploadCtrl.ePage.Masters.IsNewOrder && oneTwoBulkUploadCtrl.ePage.Masters.IsTaskCompletion && oneTwoBulkUploadCtrl.ePage.Masters.UIControlList && oneTwoBulkUploadCtrl.ePage.Masters.UIControlList.length > 0 && oneTwoBulkUploadCtrl.ePage.Masters.CheckUIControl('PO_UPLOAD')">
+        <a class="" href="javascript:void(0)" data-ng-click="oneTwoBulkUploadCtrl.ePage.Masters.Submit()">
+            <input type="button" class="btn btn-blue btn-primary" value="Submit" data-ng-disabled="oneTwoBulkUploadCtrl.ePage.Masters.PODocuments.GridData.length==0" />
+        </a>
+    </div>
+    <div class="col-lg-2 col-sm-12 col-xs-12" data-ng-if="oneTwoBulkUploadCtrl.ePage.Masters.IsNewOrder && oneTwoBulkUploadCtrl.ePage.Masters.IsTaskCompletion && oneTwoBulkUploadCtrl.ePage.Masters.UIControlList && oneTwoBulkUploadCtrl.ePage.Masters.UIControlList.length > 0 && oneTwoBulkUploadCtrl.ePage.Masters.CheckUIControl('PO_CREATE')">
+        <a class="padding-left-5" href="javascript:void(0)" data-ng-click="oneTwoBulkUploadCtrl.ePage.Masters.Complete()">
+            <input type="button" class="btn btn-blue btn-primary" value="Complete" />
+        </a>
+    </div>
+    <div class="col-lg-2 col-sm-12 col-xs-12" data-ng-if="!oneTwoBulkUploadCtrl.ePage.Masters.IsTaskCompletion">
+        <a class="padding-left-5" href="javascript:void(0)">
+            <input type="button" class="btn btn-blue btn-primary" data-ng-disabled="!oneTwoBulkUploadCtrl.ePage.Masters.IsTaskCompletion"
+                value="Task Completed..." />
+        </a>
+    </div>
+</div> -->
+<div class="modal-footer">
+    <button class="btn btn-primary btn-sm pull-right margin-right-10 mb-20" data-ng-click="oneTwoBulkUploadCtrl.ePage.Masters.Save(oneTwoBulkUploadCtrl.ePage.Masters.currentAsn)"
+        data-ng-bind="oneTwoBulkUploadCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="oneTwoBulkUploadCtrl.ePage.Masters.IsDisableSave"></button>
+</div>

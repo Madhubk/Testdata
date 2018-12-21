@@ -1,0 +1,25 @@
+﻿<!-- Shipment Grid -->
+<uib-tabset id="chromeTab" active="three_TrackShipmentCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+    <uib-tab>
+        <uib-tab-heading title="Track Shipment">
+            <span data-ng-bind="'Track Shipment'"></span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+        <div class="p-0 tab-list-view-wrapper">
+            <!--Shipment Grid Page-->
+            <dynamic-list dataentry-name="three_TrackShipmentCtrl.ePage.Masters.dataentryName" selected-grid-row="three_TrackShipmentCtrl.ePage.Masters.SelectedGridRow($item)"
+                mode="1" default-filter="three_TrackShipmentCtrl.ePage.Masters.DefaultFilter" dataentry-object="three_TrackShipmentCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+            <div class="tab-loading" data-ng-show="three_TrackShipmentCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+    <uib-tab id='top' active="three_TrackShipmentCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in three_TrackShipmentCtrl.ePage.Masters.TabList">
+        <uib-tab-heading title="{{tab.label}}">
+            <span data-ng-bind="tab.label"></span>
+            <i class="glyphicon glyphicon-remove" ng-click="three_TrackShipmentCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+        </uib-tab-heading>
+        <div class="padding-bottom-10 clearfix">
+            <shp-buyer-view-template current-shipment="tab" data-ng-if="three_TrackShipmentCtrl.ePage.Masters.currentShipment"
+                dataentry-object="three_TrackShipmentCtrl.ePage.Masters.DataEntryObject"></shp-buyer-view-template>
+        </div>
+    </uib-tab>
+</uib-tabset>

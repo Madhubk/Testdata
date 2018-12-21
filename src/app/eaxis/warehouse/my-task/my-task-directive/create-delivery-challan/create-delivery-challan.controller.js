@@ -58,6 +58,7 @@
             CreateDelChallanCtrl.ePage.Masters.Close = Close;
             CreateDelChallanCtrl.ePage.Masters.SelectedLookupWarehouse = SelectedLookupWarehouse;
             CreateDelChallanCtrl.ePage.Masters.setSelectedRow = setSelectedRow;
+            CreateDelChallanCtrl.ePage.Masters.CreateMaterial = CreateMaterial;
             // Filter
             CreateDelChallanCtrl.ePage.Masters.GetFilterList = GetFilterList;
             CreateDelChallanCtrl.ePage.Masters.CloseFilterList = CloseFilterList;
@@ -65,12 +66,23 @@
 
         }
 
+        function CreateMaterial() {            
+            if (CreateDelChallanCtrl.ePage.Masters.WarehouseCode) {
+                if (CreateDelChallanCtrl.ePage.Masters.WarehouseCode == CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode) {
+                    toastr.warning("Transfer From and To warehouse's are same. Select another warehouse");
+                } else {
+                    CreateDelChallanCtrl.ePage.Masters.modalInstance.close('close');
+                }
+            } else {
+                toastr.warning("Please enter Transfer From Warehouse");
+            }
+        }
+
         function SelectedLookupWarehouse(item) {
             CreateDelChallanCtrl.ePage.Masters.Warehouse = item.WarehouseCode + " - " + item.WarehouseName;
             CreateDelChallanCtrl.ePage.Masters.WarehouseCode = item.WarehouseCode;
             CreateDelChallanCtrl.ePage.Masters.WarehouseName = item.WarehouseName;
             CreateDelChallanCtrl.ePage.Masters.WAR_PK = item.PK;
-            CreateDelChallanCtrl.ePage.Masters.modalInstance.close('close');
         }
 
         function CallIsReload() {
@@ -153,9 +165,13 @@
                         if (type == "OUT") {
                             GoToOutwardCreation(type);
                         } else if (type == "MTR") {
-                            openModel().result.then(function (response) {
+                            openModel().result.then(function (response) {                                
                                 if (CreateDelChallanCtrl.ePage.Masters.WarehouseCode) {
-                                    GoToOutwardCreation(type);
+                                    if (CreateDelChallanCtrl.ePage.Masters.WarehouseCode == CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode) {
+                                        toastr.warning("Transfer From and To warehouse's are same. Select another warehouse");
+                                    } else {
+                                        GoToOutwardCreation(type);
+                                    }
                                 } else {
                                     toastr.warning("Please enter Transfer From Warehouse");
                                 }
@@ -170,10 +186,18 @@
                             toastr.warning("Can not create Material Transfer for this CSR No " + CreateDelChallanCtrl.ePage.Masters.TempCSR);
                     }
                 } else {
-                    toastr.warning("Outward can be created by selecting atleast one delivery line");
+                    if (type == "OUT") {
+                        toastr.warning("Outward can be created by selecting atleast one delivery line");
+                    } else if (type == "MTR") {
+                        toastr.warning("Material Transfer can be created by selecting atleast one delivery line");
+                    }
                 }
             } else {
-                toastr.warning("Outward can be created when the delivery line is available");
+                if (type == "OUT") {
+                    toastr.warning("Outward can be created when the delivery line is available");
+                } else if (type == "MTR") {
+                    toastr.warning("Material Transfer can be created when the delivery line is available");
+                }
             }
         }
 
@@ -200,7 +224,7 @@
                 else
                     return false;
             });
-            if (!_isExist) {                
+            if (!_isExist) {
                 if (type == "OUT")
                     CreateDelChallanCtrl.ePage.Masters.CreateOutwardText = "Please Wait..";
                 else if (type == "MTR")

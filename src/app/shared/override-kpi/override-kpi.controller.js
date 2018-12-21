@@ -85,11 +85,11 @@
                 _input.EntitySource = OverrideKpiCtrl.ePage.Masters.Task.EntitySource;
                 _input.EntityRefCode = OverrideKpiCtrl.ePage.Masters.Task.KeyReference;
                 _input.ParentEntityRefKey = OverrideKpiCtrl.ePage.Masters.Task.PK;
-                _input.ParentEntitySource = OverrideKpiCtrl.ePage.Masters.Task.EntitySource;
+                _input.ParentEntitySource = "WKI";
                 _input.ParentEntityRefCode = OverrideKpiCtrl.ePage.Masters.Task.WorkItemNo;
-                _input.AdditionalEntityRefKey = OverrideKpiCtrl.ePage.Masters.Task.AdditionalEntityRefKey;
-                _input.AdditionalEntitySource = OverrideKpiCtrl.ePage.Masters.Task.AdditionalEntitySource;
-                _input.AdditionalEntityRefCode = OverrideKpiCtrl.ePage.Masters.Task.AdditionalEntityRefCode;
+                // _input.AdditionalEntityRefKey = OverrideKpiCtrl.ePage.Masters.Task.AdditionalEntityRefKey;
+                // _input.AdditionalEntitySource = OverrideKpiCtrl.ePage.Masters.Task.AdditionalEntitySource;
+                // _input.AdditionalEntityRefCode = OverrideKpiCtrl.ePage.Masters.Task.AdditionalEntityRefCode;
                 _input.SAP_FK = authService.getUserInfo().AppPK;
                 _input.IsModified = true;
 

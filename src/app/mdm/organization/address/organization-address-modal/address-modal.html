@@ -11,8 +11,7 @@
                 <div class="form-group">
                     <div class="">
                         <label for="Address1">Address1</label>
-                        <input type="text" class="form-control input-sm" placeholder="Address1" data-ng-model="OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView.Address1"
-                            data-ng-change="OrgAddressModalCtrl.ePage.Masters.OnChangeValues(OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView.Address1, 'E9024')" />
+                        <input type="text" class="form-control input-sm" placeholder="Address1" data-ng-model="OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView.Address1"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -22,24 +21,43 @@
                 <div class="form-group">
                     <div>
                         <label for="City">City</label>
-                        <input type="text" class="form-control input-sm" placeholder="City" data-ng-model="OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView.City"
-                            data-ng-change="OrgAddressModalCtrl.ePage.Masters.OnChangeValues(OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView.City, 'E9025')" />
+                        <input type="text" class="form-control input-sm" placeholder="City" data-ng-model="OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView.City"/>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="RelatedPort">UNLOCO</label>
+                    <label>Region</label>
                     <div class="input-group input-group-sm">
-                        <div dynamic-lookup placeholder="UNLOCO" my-ng-model="OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView.RelatedPortCode"
+                        <div dynamic-lookup placeholder="Region" my-ng-model="OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView.RGN_Code" obj="OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView" page-name="'Region'" control-id="'Region'" control-key="'Region_3235'" auto-complete-on-select="OrgAddressModalCtrl.ePage.Masters.OnRegionSelect($item)"></div>
+                        <span class="input-group-btn">
+                            <button dynamic-list-modal obj="OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView" control-id="'Region'" control-key="'Region_3235'" page-name="'Region'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrgAddressModalCtrl.ePage.Masters.OnRegionSelect($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Zone</label>
+                    <div class="input-group input-group-sm">
+                        <div dynamic-lookup placeholder="Zone" my-ng-model="OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView.TMZ_Name"
+                            obj="OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView"
+                            page-name="'OrgZone'" control-id="'Zone'" control-key="'Zone_3286'" auto-complete-on-select="OrgAddressModalCtrl.ePage.Masters.OnZoneSelect($item)"></div>
+                        <span class="input-group-btn">
+                            <button dynamic-list-modal obj="OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView"
+                                control-id="'Zone'" control-key="'Zone_3286'" page-name="'OrgZone'" mode="2"
+                                grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrgAddressModalCtrl.ePage.Masters.OnZoneSelect($item)"
+                                class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="RelatedPort">Related Port</label>
+                    <div class="input-group input-group-sm">
+                        <div dynamic-lookup placeholder="Port" my-ng-model="OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView.RelatedPortCode"
                             obj="OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView" page-name="'MstUNLOCO'"
-                            control-id="'UNLOCO'" control-key="'UNLOCO_3083'" auto-complete-on-select="OrgAddressModalCtrl.ePage.Masters.OnAutocompleteRelatedPort($item)"></div>
+                            control-id="'UNLOCO'" control-key="'UNLOCO_3083'" auto-complete-on-select="OrgAddressModalCtrl.ePage.Masters.OnRelatedPortSelect($item)"></div>
                         <span class="input-group-btn">
                             <button dynamic-list-modal obj="OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView"
                                 control-id="'UNLOCO'" control-key="'UNLOCO_3083'" page-name="'MstUNLOCO'" mode="2"
-                                grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrgAddressModalCtrl.ePage.Masters.OnSelectRelatedPort($item)"
+                                grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrgAddressModalCtrl.ePage.Masters.OnRelatedPortSelect($item)"
                                 class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
-                        </span>
-                        <span ng-if='!OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView.RelatedPortCode && OrgAddressModalCtrl.currentOrganization.isNew'>
-                            <div ng-init="OrgAddressModalCtrl.ePage.Masters.OnChangeValues(OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView.RelatedPortCode, 'E9026')"></div>
                         </span>
                     </div>
                 </div>
@@ -60,10 +78,7 @@
                     <div class="">
                         <label for="State">State</label>
                         <div class="">
-                            <select chosen name="State" class="form-control" ng-model="OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView.State"
-                                ng-options="x.Code as x.Code + ' - ' + x.Description for x in OrgAddressModalCtrl.ePage.Masters.DropDownMasterList.State.ListSource"
-                                data-ng-change="OrgAddressModalCtrl.ePage.Masters.OnChangeValues(OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView.State,'E9027')"
-                                search-contains="true">
+                            <select chosen name="State" class="form-control" data-ng-model="OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView.State" data-ng-options="x.Code as x.Code + ' - ' + x.Description for x in OrgAddressModalCtrl.ePage.Masters.DropDownMasterList.State.ListSource" search-contains="true" data-ng-disabled="!OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView.CountryCode">
                                 <option value="">--Select--</option>
                             </select>
                         </div>
@@ -73,8 +88,7 @@
                     <div class="">
                         <label for="PostCode">PostCode</label>
                         <input type="text" class="form-control input-sm" numbers-only placeholder="PostCode"
-                            data-ng-model="OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView.PostCode"
-                            data-ng-change="OrgAddressModalCtrl.ePage.Masters.OnChangeValues(OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView.PostCode,'E9028')" />
+                            data-ng-model="OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView.PostCode"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -82,9 +96,7 @@
                         <label for="Language">Language</label>
                         <div class="">
                             <select chosen name="Language" class="form-control" ng-model="OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView.Language"
-                                ng-options="x.Key as x.Key + ' - ' + x.Value for x in OrganizationAddressCtrl.ePage.Masters.DropDownMasterList.LANGUAGE.ListSource"
-                                ng-change="OrgAddressModalCtrl.ePage.Masters.OnChangeValues(OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView.Language,'E9029')"
-                                search-contains="true">
+                                ng-options="x.Key as x.Key + ' - ' + x.Value for x in OrganizationAddressCtrl.ePage.Masters.DropDownMasterList.LANGUAGE.ListSource" search-contains="true">
                                 <option value="">--Select--</option>
                             </select>
                         </div>

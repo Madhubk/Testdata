@@ -27,6 +27,7 @@
             try {
                 TCAppTrustAppTenantCtrl.ePage.Masters.QueryString = JSON.parse(helperService.decryptData(_queryString));
                 if (TCAppTrustAppTenantCtrl.ePage.Masters.QueryString.AppPk) {
+                    console.log(TCAppTrustAppTenantCtrl.ePage.Masters.QueryString)
                     InitBreadcrumb();
                     InitAppTrustAppTenant();
                 }
@@ -57,7 +58,7 @@
                 IsActive: false
             }, {
                 Code: "appTrustAppTenant",
-                Description: "App Trust App Tenant (" + TCAppTrustAppTenantCtrl.ePage.Masters.QueryString.MappingCode + ")" + " - " +  TCAppTrustAppTenantCtrl.ePage.Masters.QueryString.DisplayName,
+                Description: "App Trust App Tenant (" + "APP_TRUST_APP_TNT" + ")" + " - " + TCAppTrustAppTenantCtrl.ePage.Masters.QueryString.DisplayName,
                 Link: "#",
                 IsRequireQueryString: false,
                 IsActive: true
@@ -84,13 +85,49 @@
             TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.Edit = Edit;
             TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.Cancel = Cancel;
             TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.AddNew = AddNew;
-            TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.Save = SaveAppTrustAppTenant;
+            TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.Save = Save;
             TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.DeleteConfirmation = DeleteConfirmation;
+            TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.CheckUIControl = CheckUIControl;
 
             TCAppTrustAppTenantCtrl.ePage.Masters.DeleteBtnText = "Delete";
             TCAppTrustAppTenantCtrl.ePage.Masters.IsDisableDeleteBtn = false;
 
+            GetUIControlList();
             GetAppTrustAppTenant();
+        }
+
+        function GetUIControlList() {
+            TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.UIControlList = undefined;
+            var _filter = {
+                "SAP_FK": authService.getUserInfo().AppPK,
+                "TenantCode": authService.getUserInfo().TenantCode,
+                "USR_FK": authService.getUserInfo().UserPK
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": trustCenterConfig.Entities.API.CompUserRoleAccess.API.FindAll.FilterID
+            };
+
+            apiService.post("authAPI", trustCenterConfig.Entities.API.CompUserRoleAccess.API.FindAll.Url, _input).then(function SuccessCallback(response) {
+                if (response.data.Response) {
+                    var _response = response.data.Response;
+                    var _controlList = [];
+                    if (_response.length > 0) {
+                        _response.map(function (value, key) {
+                            if (value.SOP_Code) {
+                                _controlList.push(value.SOP_Code);
+                            }
+                        });
+                    }
+                    TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.UIControlList = _controlList;
+                } else {
+                    TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.UIControlList = [];
+                }
+            });
+        }
+
+        function CheckUIControl(controlId) {
+            return helperService.checkUIControl(TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.UIControlList, controlId);
         }
 
         function GetAppTrustAppTenant() {
@@ -189,61 +226,91 @@
             });
         }
 
-        function SaveAppTrustAppTenant() {
-            TCAppTrustAppTenantCtrl.ePage.Masters.SaveBtnTxt = "Please Wait...";
-            TCAppTrustAppTenantCtrl.ePage.Masters.IsDisabledSaveBtn = true;
+        function Save() {
+            if (TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.ActiveAppTrustAppTenant.PK) {
+                UpdateAppTrustAppTenant();
+            } else {
+                InsertAppTrustAppTenant();
+            }
+        }
+
+        function InsertAppTrustAppTenant() {
+            TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.SaveBtnText = "Please Wait...";
+            TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.IsDisableSaveBtn = true;
+
+            var _input = angular.copy(TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.ActiveAppTrustAppTenant);
+            _input.Item_FK = TCAppTrustAppTenantCtrl.ePage.Masters.QueryString.ItemPk;
+            _input.ItemCode = TCAppTrustAppTenantCtrl.ePage.Masters.QueryString.ItemCode;
+            _input.ItemName = "APP";
+            _input.Access_FK = TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.ActiveAppTrustAppTenant.Access_FK;
+            _input.AccessCode = TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.ActiveAppTrustAppTenant.AccessCode;
+            _input.AccessTo = "TRUST";
+            _input.IsModified = true;
+            _input.SAP_FK = TCAppTrustAppTenantCtrl.ePage.Masters.QueryString.AppPk;
+            _input.SAP_Code = TCAppTrustAppTenantCtrl.ePage.Masters.QueryString.AppCode;
+            _input.TenantCode = authService.getUserInfo().TenantCode;
+            _input.TNT_FK = authService.getUserInfo().TenantPK;
+
+            apiService.post("authAPI", trustCenterConfig.Entities.API.ApplicationTrust.API.Insert.Url, [_input]).then(function SuccessCallback(response) {
+                if (response.data.Response) {
+                    if (response.data.Response.length > 0) {
+                        var _response = response.data.Response[0];
+
+                        var _index = TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.AppTrustAppTenantList.map(function (value, key) {
+                            return value.PK;
+                        }).indexOf(_response.PK);
+
+                        if (_index === -1) {
+                            TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.AppTrustAppTenantList.push(_response);
+                        } else {
+                            TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.AppTrustAppTenantList[_index] = _response;
+                        }
+
+                        OnAppTrustAppTenantClick(_response);
+                    }
+                } else {
+                    toastr.error("Could not Save...!");
+                }
+
+                TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.SaveBtnText = "OK";
+                TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.IsDisableSaveBtn = false;
+                TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.EditModal.dismiss('cancel');
+            });
+        }
+
+        function UpdateAppTrustAppTenant() {
+            TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.SaveBtnText = "Please Wait...";
+            TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.IsDisableSaveBtn = true;
 
             var _input = angular.copy(TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.ActiveAppTrustAppTenant);
             _input.IsModified = true;
 
-            _input.SAP_Code = TCAppTrustAppTenantCtrl.ePage.Masters.QueryString.AppCode;
-            _input.SAP_FK = TCAppTrustAppTenantCtrl.ePage.Masters.QueryString.AppPk;
-            _input.TenantCode = authService.getUserInfo().TenantCode;
-            _input.TNT_FK = authService.getUserInfo().TenantPK;
-            _input.Item_FK = TCAppTrustAppTenantCtrl.ePage.Masters.QueryString.ItemPk;
-            _input.ItemCode = TCAppTrustAppTenantCtrl.ePage.Masters.QueryString.ItemCode;
-            _input.ItemName = TCAppTrustAppTenantCtrl.ePage.Masters.QueryString.ItemName;
-            _input.AccessCode = TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.ActiveAppTrustAppTenant.AccessCode;
-            _input.AccessTo = "TRUST";
-            _input.IsModified = true;
+            apiService.post("authAPI", trustCenterConfig.Entities.API.ApplicationTrust.API.Update.Url, _input).then(function SuccessCallback(response) {
+                if (response.data.Response) {
+                    var _response = response.data.Response;
 
-            if (_input.PK) {
-                apiService.post("authAPI", trustCenterConfig.Entities.API.ApplicationTrust.API.Update.Url, _input).then(function (response) {
-                    if (response.data.Response) {
-                        TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.ActiveAppTrustAppTenant = response.data.Response;
+                    var _index = TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.AppTrustAppTenantList.map(function (value, key) {
+                        return value.PK;
+                    }).indexOf(_response.PK);
+
+                    if (_index === -1) {
+                        TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.AppTrustAppTenantList.push(_response);
                     } else {
-                        toastr.error("Could not Update...!");
+                        TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.AppTrustAppTenantList[_index] = _response;
                     }
 
-                    TCAppTrustAppTenantCtrl.ePage.Masters.SaveBtnText = "OK";
-                    TCAppTrustAppTenantCtrl.ePage.Masters.IsDisableSaveBtn = false;
-                });
-            } else {
-                apiService.post("authAPI", trustCenterConfig.Entities.API.ApplicationTrust.API.Insert.Url, [_input]).then(function (response) {
-                    if (response.data.Response) {
-                        if (response.data.Response.length > 0) {
-                            if (!TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.AppTrustAppTenantList) {
-                                TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.AppTrustAppTenantList = [];
-                            }
+                    OnAppTrustAppTenantClick(_response);
+                } else {
+                    toastr.error("Could not Save...!");
+                }
 
-                            TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.AppTrustAppTenantList.push(response.data.Response[0]);
-                            TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.ActiveAppTrustAppTenant = response.data.Response[0];
-                        }
-                    } else {
-                        toastr.error("Could not Insert...!");
-                    }
-
-                    TCAppTrustAppTenantCtrl.ePage.Masters.SaveBtnTxt = "Save";
-                    TCAppTrustAppTenantCtrl.ePage.Masters.IsDisabledSaveBtn = false;
-
-                    OnAppTrustAppTenantClick(TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.ActiveAppTrustAppTenant);
-                });
-            }
-
-            TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.EditModal.dismiss('cancel');
+                TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.SaveBtnText = "OK";
+                TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.IsDisableSaveBtn = false;
+                TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.EditModal.dismiss('cancel');
+            });
         }
 
-        function DeleteConfirmation() {
+       function DeleteConfirmation() {
             var modalOptions = {
                 closeButtonText: 'Cancel',
                 actionButtonText: 'Ok',

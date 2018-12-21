@@ -32,6 +32,8 @@
             helperService.getFullObjectUsingGetById(appConfig.Entities.BuyerOrderBatchUpload.API.getbyid.Url, 'null').then(function (response) {
                 if (response.data.Response) {
                     response.data.Response.UIOrderBatchUpload_Buyer.BatchUploadType = "ASN";
+                    response.data.Response.UIOrderBatchUpload_Buyer.Status = "CREATED";
+                    response.data.Response.UIOrderBatchUpload_Buyer.Source = "SHP";
                     var _exports = {
                         "Entities": {
                             "Header": {

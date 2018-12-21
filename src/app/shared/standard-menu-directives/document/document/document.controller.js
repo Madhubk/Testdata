@@ -306,6 +306,7 @@
         }
 
         function GetSelectedFiles(files, mode, docType, row) {
+            SMDocumentCtrl.ePage.Masters.Document.IsUploading = true;
             if (mode == "mode1") {
                 files.map(function (value, key) {
                     var _obj = {
@@ -370,21 +371,24 @@
         function GetUploadedFiles(files, mode, docType, row) {
             if (files.length > 0) {
                 files.map(function (value1, key1) {
-                    SMDocumentCtrl.ePage.Masters.Document.ListSource.map(function (value2, key2) {
-                        if (value1.FileName == value2.name && value1.DocType == value2.type) {
-                            if (mode === "amend") {
-                                value2.DocumentType = row.DocumentType;
-                                AmendDocument(value1, value2);
-                            } else {
-                                SaveDocument(value1, value2, mode);
-                            }
-                        } else {
+                    if(SMDocumentCtrl.ePage.Masters.Document.ListSource && SMDocumentCtrl.ePage.Masters.Document.ListSource.length > 0){
+                        SMDocumentCtrl.ePage.Masters.Document.ListSource.map(function (value2, key2) {
+                            // if (value1.FileName == value2.name && value1.DocType == value2.type) {
                             if (value1.FileName == value2.name) {
-                                toastr.error("Could not Upload " + value1.FileName + " ...! Type mismatch...!");
-                                SMDocumentCtrl.ePage.Masters.Document.ListSource.splice(key2, 1);
+                                if (mode === "amend") {
+                                    value2.DocumentType = row.DocumentType;
+                                    AmendDocument(value1, value2);
+                                } else {
+                                    SaveDocument(value1, value2, mode);
+                                }
+                            } else {
+                                if (value1.FileName == value2.name) {
+                                    toastr.error("Could not Upload " + value1.FileName + " ...! Type mismatch...!");
+                                    SMDocumentCtrl.ePage.Masters.Document.ListSource.splice(key2, 1);
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
                 });
             } else {
                 var _index = SMDocumentCtrl.ePage.Masters.Document.ListSource.map(function (value2, key2) {
@@ -405,7 +409,6 @@
             _input.FileExtension = $item.FileExtension;
             _input.PartyType_Code = row.PartyType_Code;
             _input.PartyType_FK = row.PartyType_FK;
-
 
             apiService.post("eAxisAPI", appConfig.Entities.JobDocument.API.AmendDocument.Url + authService.getUserInfo().AppPK, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
@@ -432,6 +435,8 @@
                 } else {
                     toastr.error("Failed to Save...!");
                 }
+
+                SMDocumentCtrl.ePage.Masters.Document.IsUploading = false;
             });
         }
 
@@ -470,13 +475,11 @@
                     _input.ParentEntityRefCode = SMDocumentCtrl.ePage.Entities.ParentEntityRefCode;
                 }
 
-
                 if (SMDocumentCtrl.ePage.Entities.AdditionalEntityRefKey) {
                     _input.AdditionalEntityRefKey = SMDocumentCtrl.ePage.Entities.AdditionalEntityRefKey;
                     _input.AdditionalEntitySource = SMDocumentCtrl.ePage.Entities.AdditionalEntitySource;
                     _input.AdditionalEntityRefCode = SMDocumentCtrl.ePage.Entities.AdditionalEntityRefCode;
                 }
-
             } else {
                 var _input = angular.copy(row);
                 _input.DocumentName = row.DocumentNameTemp;
@@ -486,21 +489,20 @@
             if (_input.PK) {
                 apiService.post("eAxisAPI", appConfig.Entities.JobDocument.API.Update.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
                     if (response.data.Response) {
-                        if (response.data.Response.length > 0) {
-                            var _response = response.data.Response[0];
-                            for (var x in _response) {
-                                row[x] = _response[x];
-                            }
-                            row.IsNew = false;
-                            row.DocumentNameTemp = row.DocumentName;
+                        var _response = response.data.Response;
+                        for (var x in _response) {
+                            row[x] = _response[x];
+                        }
+                        row.IsNew = false;
+                        row.DocumentNameTemp = row.DocumentName;
 
-                            if (mode != "update" && SMDocumentCtrl.mode == "1") {
-                                PrepareGroupMapping(row);
-                            }
+                        if (mode != "update" && SMDocumentCtrl.mode == "1") {
+                            PrepareGroupMapping(row);
                         }
                     } else {
                         toastr.error("Failed to Save...!");
                     }
+                    SMDocumentCtrl.ePage.Masters.Document.IsUploading = false;
                 });
             } else {
                 if ($item) {
@@ -542,14 +544,13 @@
                         _input.AdditionalEntitySource = SMDocumentCtrl.ePage.Entities.AdditionalEntitySource;
                         _input.AdditionalEntityRefCode = SMDocumentCtrl.ePage.Entities.AdditionalEntityRefCode;
                     }
-
-
                 } else {
                     var _input = angular.copy(row);
                     _input.DocumentName = row.DocumentNameTemp;
                     _input.Status = "Success";
                     _input.IsModified = true;
                 }
+
                 apiService.post("eAxisAPI", appConfig.Entities.JobDocument.API.Insert.Url + authService.getUserInfo().AppPK, [_input]).then(function (response) {
                     if (response.data.Response) {
                         if (response.data.Response.length > 0) {
@@ -567,8 +568,8 @@
                     } else {
                         toastr.error("Failed to Save...!");
                     }
+                    SMDocumentCtrl.ePage.Masters.Document.IsUploading = false;
                 });
-
             }
         }
 

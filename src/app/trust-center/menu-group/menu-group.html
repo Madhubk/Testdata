@@ -41,11 +41,11 @@
     </div>
     <!-- Body -->
     <div class="clearfix">
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 tc-page-height-fixed">
-            <div class="tc-list-container">
-                <div class="tc-list-search">
-                    <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="MenuGroupsCtrl.ePage.Masters.Search">
-                </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="tc-list-search">
+                <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="MenuGroupsCtrl.ePage.Masters.Search">
+            </div>
+            <div class="tc-list-container tc-page-height-fixed left">
                 <ul class="tc-list-ul">
                     <div class="p-15 text-center tc-loading" data-ng-if="!MenuGroupsCtrl.ePage.Masters.MenuGroups.MenuGroupsList">
                         <i class="fa fa-spin fa-spinner"></i>
@@ -70,20 +70,16 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed">
             <div class="pt-10 pb-10 tc-details-view clearfix">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">GroupName</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups.GroupName || MenuGroupsCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">GroupName</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups.GroupName || MenuGroupsCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Description</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups.Description || MenuGroupsCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Description</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups.Description || MenuGroupsCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
             </div>

@@ -112,19 +112,7 @@
                                 Code: "Parties"
                             }
                         },
-                        IsDisable : (authService.getUserInfo().TenantCode == "TBASE") ? false : true
-                    }, {
-                        Code: "BPMGroup",
-                        Description: "BPM Groups",
-                        Icon: "glyphicons glyphicons-group",
-                        Link: "TC/menu-group",
-                        Color: "#f3a175",
-                        AdditionalData: {
-                            BreadcrumbTitle: "BPM Groups",
-                            Input: {
-                                Code: "BPMGroups"
-                            }
-                        }
+                        IsDisable: (authService.getUserInfo().TenantCode == "TBASE") ? false : true
                     }, {
                         Code: "UserList",
                         Description: "Users",
@@ -217,18 +205,6 @@
                         Link: "TC/language",
                         Color: "#ff8800"
                     }, {
-                        Code: "SystemFilters",
-                        Description: "System Filters (Query)",
-                        Icon: "glyphicons glyphicons-filter",
-                        Link: "TC/application-settings",
-                        Color: "#01532f",
-                        AdditionalData: {
-                            BreadcrumbTitle: "System Filters (Query)",
-                            Input: {
-                                Code: "QUERY"
-                            }
-                        }
-                    }, {
                         Code: "ManageStaticListing",
                         Description: "Manage Static Listing",
                         Icon: "fa fa-list",
@@ -240,6 +216,18 @@
                         Icon: "glyphicons glyphicons-filter",
                         Link: "TC/filter-group",
                         Color: "#405de6"
+                    }, {
+                        Code: "SystemFilters",
+                        Description: "System Filters (Query)",
+                        Icon: "glyphicons glyphicons-filter",
+                        Link: "TC/application-settings",
+                        Color: "#01532f",
+                        AdditionalData: {
+                            BreadcrumbTitle: "System Filters (Query)",
+                            Input: {
+                                Code: "QUERY"
+                            }
+                        }
                     }, {
                         Code: "AppSettingsExcelConfig",
                         Description: "Excel Template Configuration (Report)",
@@ -510,6 +498,18 @@
                             BreadcrumbTitle: "Checklist",
                             Input: {
                                 MappingCode: "CHECKLIST"
+                            }
+                        }
+                    }, {
+                        Code: "BPMGroup",
+                        Description: "BPM Groups",
+                        Icon: "glyphicons glyphicons-group",
+                        Link: "TC/menu-group",
+                        Color: "#f3a175",
+                        AdditionalData: {
+                            BreadcrumbTitle: "BPM Groups",
+                            Input: {
+                                Code: "BPMGroups"
                             }
                         }
                     }]

@@ -29,6 +29,7 @@
                 if (MenuCtrl.ePage.Masters.QueryString.AppPk) {
                     InitBreadcrumb();
                     InitApplication();
+                    InitModule();
                     InitMenu();
                 }
             } catch (error) {
@@ -102,14 +103,84 @@
                 };
             }
 
-            GetRedirectLinkList();
+            if (MenuCtrl.ePage.Masters.ActiveModule || MenuCtrl.ePage.Masters.ActiveSubModule) {
+                GetMenuList();
+            } else {
+                MenuCtrl.ePage.Masters.Menu.MenuList = [];
+            }
+        }
+
+        // ========== Module List ==========================================
+
+        // ========================Module Start========================
+
+        function InitModule() {
+            MenuCtrl.ePage.Masters.OnModuleChange = OnModuleChange;
+            MenuCtrl.ePage.Masters.OnSubModuleChange = OnSubModuleChange;
+
             GetModuleList();
+        }
+
+        function GetModuleList() {
+            MenuCtrl.ePage.Masters.ModuleList = undefined;
+            var _filter = {
+                TypeCode: "MODULE_MASTER"
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": trustCenterConfig.Entities.API.CfxTypes.API.FindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxTypes.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
+                if (response.data.Response) {
+                    MenuCtrl.ePage.Masters.ModuleList = response.data.Response;
+                }
+            });
+        }
+
+        function OnModuleChange($item) {
+            MenuCtrl.ePage.Masters.ActiveModule = angular.copy($item);
+
+            if (MenuCtrl.ePage.Masters.ActiveModule) {
+                // GetSubModuleList();
+            } else {
+                MenuCtrl.ePage.Masters.SubModuleList = [];
+            }
             GetMenuList();
         }
+
+        function GetSubModuleList() {
+            MenuCtrl.ePage.Masters.SubModuleList = undefined;
+
+            var _filter = {
+                "PropertyName": "SubModuleCode",
+                "ModuleCode": MenuCtrl.ePage.Masters.ActiveModule.Key,
+                "SAP_FK": MenuCtrl.ePage.Masters.Application.ActiveApplication.PK
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": trustCenterConfig.Entities.API.CfxTypes.API.GetColumnValuesWithFilters.FilterID
+            };
+
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxTypes.API.GetColumnValuesWithFilters.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
+                if (response.data.Response) {
+                    MenuCtrl.ePage.Masters.SubModuleList = response.data.Response;
+                }
+            });
+        }
+
+        function OnSubModuleChange($item) {
+            MenuCtrl.ePage.Masters.ActiveSubModule = angular.copy($item);
+
+            GetMenuList();
+        }
+
+        // ========================Module End========================
 
         function InitMenu() {
             MenuCtrl.ePage.Masters.Menu = {};
             MenuCtrl.ePage.Masters.Menu.ActiveMenu = {};
+            MenuCtrl.ePage.Masters.Menu.MenuList = [];
 
             MenuCtrl.ePage.Masters.Menu.Cancel = Cancel;
             MenuCtrl.ePage.Masters.Menu.Save = Save;
@@ -128,25 +199,8 @@
 
             MenuCtrl.ePage.Masters.Menu.DeleteBtnText = "Delete";
             MenuCtrl.ePage.Masters.Menu.IsDisableDeleteBtn = false;
-        }
 
-        function GetModuleList() {
-            MenuCtrl.ePage.Masters.Menu.ModuleList = undefined;
-            var _filter = {
-                "TypeCode": "MODULE_MASTER"
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": trustCenterConfig.Entities.API.CfxTypes.API.FindAll.FilterID
-            };
-
-            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxTypes.API.FindAll.Url + MenuCtrl.ePage.Masters.Application.ActiveApplication.PK, _input).then(function SuccessCallback(response) {
-                if (response.data.Response) {
-                    MenuCtrl.ePage.Masters.Menu.ModuleList = response.data.Response;
-                } else {
-                    MenuCtrl.ePage.Masters.Menu.ModuleList = [];
-                }
-            });
+            GetRedirectLinkList();
         }
 
         function GetMenuList() {
@@ -155,6 +209,14 @@
                 "SAP_FK": MenuCtrl.ePage.Masters.Application.ActiveApplication.PK,
                 "PageType": MenuCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code
             };
+
+            if (MenuCtrl.ePage.Masters.ActiveModule) {
+                _filter.Module = MenuCtrl.ePage.Masters.ActiveModule.Key;
+            }
+            if (MenuCtrl.ePage.Masters.ActiveSubModule) {
+                _filter.SubModule = MenuCtrl.ePage.Masters.ActiveSubModule;
+            }
+
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": trustCenterConfig.Entities.API.CfxMenus.API.MasterFindAll.FilterID
@@ -178,7 +240,8 @@
         function AddNew() {
             if (MenuCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code) {
                 MenuCtrl.ePage.Masters.Menu.ActiveMenu = {
-                    PageType: MenuCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code
+                    PageType: MenuCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code,
+                    ModuleCode: MenuCtrl.ePage.Masters.ActiveModule.Key
                 };
 
                 Edit();
@@ -209,15 +272,16 @@
                 backdrop: "static",
                 windowClass: "tc-edit-modal right",
                 scope: $scope,
-                template: `<div ng-include src="'menuEdit'"></div>`
+                template: `<div ng-include src="MenuCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code + 'Edit'"></div>`
             });
+
         }
 
         function Edit() {
             MenuCtrl.ePage.Masters.Menu.SaveBtnText = "OK";
             MenuCtrl.ePage.Masters.Menu.IsDisableSaveBtn = false;
 
-            EditModalInstance().result.then(function (response) { }, function () {
+            EditModalInstance().result.then(function (response) {}, function () {
                 Cancel();
             });
         }
@@ -392,15 +456,15 @@
         }
 
         function GetRedirectLinkList() {
-            MenuCtrl.ePage.Masters.Menu.RedirectPagetList = [{
+            MenuCtrl.ePage.Masters.Menu.RedirectPageList = [{
                 Code: "RoleAccess",
                 Description: "Role Access",
                 Icon: "fa fa-sign-in",
-                Link: "TC/mapping-vertical",
+                Link: "TC/menu-role-app-tenant",
                 Color: "#bd081c",
-                AdditionalData: "MENU_ROLE_APP_TNT",
-                BreadcrumbTitle: "Menu Role - MENU_ROLE_APP_TNT",
-                Type: 1
+                AdditionalData: MenuCtrl.ePage.Masters.QueryString.AdditionalData,
+                Type: 1,
+                IsEnable: (authService.getUserInfo().TenantCode == "TBASE") ? true : false
             }];
         }
 
@@ -419,9 +483,7 @@
                 _queryString.DisplayName = MenuCtrl.ePage.Masters.Menu.ActiveMenu.Description;
                 _queryString.ItemPk = MenuCtrl.ePage.Masters.Menu.ActiveMenu.Id;
                 _queryString.ItemCode = MenuCtrl.ePage.Masters.Menu.ActiveMenu.Code;
-                _queryString.ItemName = "MENU";
-                _queryString.MappingCode = $item.AdditionalData;
-                _queryString.BreadcrumbTitle = $item.BreadcrumbTitle;
+                _queryString.AdditionalData = $item.AdditionalData;
             }
 
             if ($item.Link !== "#") {

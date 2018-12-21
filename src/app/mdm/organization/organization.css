@@ -1,23 +1,183 @@
-.tab-list-view-wrapper .tab-loading {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.5);
-    z-index: 999;
+/* Tab Menu */
+.eaxis-tab-box-2>.nav-tabs {
+    background-color: #fff !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
 }
 
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 99;
-    background-color: #fff;
-    opacity: 0.5;
+.eaxis-tab-box-2>ul {
+    float: left;
+    width: 200px;
+    height: 575px;
+    border-right: 1px solid #ddd;
 }
+
+.eaxis-tab-box-2>.nav-tabs>li {
+    width: 100%;
+    float: left;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 0px;
+}
+
+.eaxis-tab-box-2>.nav-tabs>li>a {
+    padding: 12px 15px !important;
+    border: 0 !important;
+    border-left: 2px solid #fff !important;
+    text-align: left !important;
+    font-size: 13px !important;
+    color: #737373 !important;
+}
+
+.eaxis-tab-box-2>.nav-tabs>li:first-child>a {
+    border-left: 0;
+}
+
+.eaxis-tab-box-2>.nav-tabs>li>a:hover {
+    border-left: 2px solid #d71921 !important;
+    background: #fbfbfb !important;
+}
+
+.eaxis-tab-box-2>.nav-tabs>li>a span {
+    margin-left: 5px;
+}
+
+.eaxis-tab-box-2>.nav-tabs>li>a,
+.eaxis-tab-box-2>.nav-tabs>li>a:focus {
+    line-height: 16px;
+    margin: 0 !important;
+    color: #737373;
+}
+
+.eaxis-tab-box-2>.nav-tabs>li.active>a,
+.eaxis-tab-box-2>.nav-tabs>li.active>a:hover,
+.eaxis-tab-box-2>.nav-tabs>li.active>a:focus {
+    color: #000;
+    border: 0;
+    border-top: 0;
+    border-left: 2px solid #d71921 !important;
+    border-bottom-color: transparent;
+    background-color: #fbfbfb !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    position: relative;
+}
+
+.eaxis-tab-box-2>.nav-tabs>li.active>a:after {
+    font-family: "FontAwesome";
+    content: "\f105";
+    position: absolute;
+    top: 13px;
+    right: 20px;
+    color: #d71921;
+}
+
+.eaxis-tab-box-2>.tab-content {
+    padding: 0px;
+    background-color: #fff;
+    box-shadow: none;
+}
+
+/* Inside Tab Content */
+.org-header {
+    font-size: 20px;
+    position: relative;
+    padding: 5px;
+    font-weight: 600;
+    color: #1f497d;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Vertical Menu Icon */
+.vertical-menu {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    color: gray;
+}
+
+.vertical-menu .doc-menu-icon {
+    line-height: 1.42857143;
+    color: gray;
+}
+
+.vertical-menu ul li.dropdown-list {
+    padding: 5px 10px;
+    border-bottom: 1px solid #eee;
+    color: #000;
+    font-size: 12px;
+}
+
+.vertical-menu ul li.dropdown-list:last-child {
+    border-bottom: 0;
+}
+
+/* Address & Contact Box */
+.org-address-contact-box {
+    border: 1px solid #ddd;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    border-radius: 0 10px 0 10px;
+    position: relative;
+}
+
+.org-address-contact-box.active {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+}
+
+.org-address-contact-box .org-address-icon {
+    width: 20px;
+    color: #ccc;
+}
+
+/* Modal Popup Width */
+.org-edit-modal.general>.modal-dialog {
+    width: 700px !important;
+}
+
+.org-edit-modal.address>.modal-dialog {
+    width: 900px !important;
+}
+
+.org-edit-modal.contact>.modal-dialog {
+    width: 500px !important;
+}
+
+.org-edit-modal-employee>.modal-dialog {
+    width: 500px !important;
+}
+
+.org-edit-modal-company>.modal-dialog {
+    width: 500px !important;
+}
+
+.org-edit-modal-ardetails>.modal-dialog,
+.org-edit-modal-apdetails>.modal-dialog {
+    width: 650px !important;
+}
+
+/* Employee Page */
+.org-cmp-emp-container .company-list.active {
+    background: #f7f7f7;
+}
+
+.org-cmp-emp-container .cmp-title .branch-name,
+.org-cmp-emp-container .employee-list .emp-role {
+    color: #999;
+    font-size: 12px;
+}
+
+/* Company Page */
+.org-cmp-container .company-list.active {
+    background: #f7f7f7;
+}
+
+.org-cmp-container .cmp-title .branch-name {
+    color: #999;
+    font-size: 12px;
+}
+
+/* ======================================= */
 
 .wmstable_scroll {
     width: 100%;
@@ -397,82 +557,4 @@
     width: 100%;
     float: left;
     color: #999;
-}
-
-.eaxis-tab-box-2>.nav-tabs {
-    background-color: #fff !important;
-    box-shadow: none !important;
-    -webkit-box-shadow: none !important;
-}
-
-.eaxis-tab-box-2>ul {
-    float: left;
-    width: 200px;
-    height: 575px;
-    border-right: 1px solid #ddd;
-}
-
-.eaxis-tab-box-2>.nav-tabs>li {
-    width: 100%;
-    float: left;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    margin-bottom: 0px;
-}
-
-.eaxis-tab-box-2>.nav-tabs>li>a {
-    padding: 12px 15px !important;
-    border: 0 !important;
-    border-left: 2px solid #fff !important;
-    text-align: left !important;
-    font-size: 13px !important;
-    color: #737373 !important;
-}
-
-.eaxis-tab-box-2>.nav-tabs>li:first-child>a {
-    border-left: 0;
-}
-
-.eaxis-tab-box-2>.nav-tabs>li>a:hover {
-    border-left: 2px solid #d71921 !important;
-    background: #fbfbfb !important;
-}
-
-.eaxis-tab-box-2>.nav-tabs>li>a span {
-    margin-left: 5px;
-}
-
-.eaxis-tab-box-2>.nav-tabs>li>a,
-.eaxis-tab-box-2>.nav-tabs>li>a:focus {
-    line-height: 16px;
-    margin: 0 !important;
-    color: #737373;
-}
-
-.eaxis-tab-box-2>.nav-tabs>li.active>a,
-.eaxis-tab-box-2>.nav-tabs>li.active>a:hover,
-.eaxis-tab-box-2>.nav-tabs>li.active>a:focus {
-    color: #000;
-    border: 0;
-    border-top: 0;
-    border-left: 2px solid #d71921 !important;
-    border-bottom-color: transparent;
-    background-color: #fbfbfb !important;
-    margin: 0 !important;
-    box-shadow: none !important;
-    position: relative;
-}
-
-.eaxis-tab-box-2>.nav-tabs>li.active>a:after {
-    font-family: "FontAwesome";
-    content: "\f105";
-    position: absolute;
-    top: 13px;
-    right: 20px;
-    color: #d71921;
-}
-
-.eaxis-tab-box-2>.tab-content {
-    padding: 0px;
-    background-color: #fff;
-    box-shadow: none;
 }

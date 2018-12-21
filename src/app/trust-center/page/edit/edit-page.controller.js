@@ -37,7 +37,6 @@
 
                 if (EditPageCtrl.ePage.Masters.QueryString.AppPk) {
                     InitBreadcrumb();
-                    InitSubModule();
                     InitEditPage();
                 }
             } catch (error) {
@@ -107,42 +106,6 @@
 
         // ================Breadcrumb End================
 
-        // ================SubModule Strt================
-        function InitSubModule() {
-            EditPageCtrl.ePage.Masters.SubModule = {};
-            EditPageCtrl.ePage.Masters.SubModule.OnSubModuleChange = OnSubModuleChange;
-
-            GetSubModuleList();
-        }
-
-        function GetSubModuleList() {
-            EditPageCtrl.ePage.Masters.SubModule.ListSource = undefined;
-
-            var _filter = {
-                "PropertyName": "DEM_Type",
-                "Group": EditPageCtrl.ePage.Masters.QueryString.Module,
-                "SAP_FK": EditPageCtrl.ePage.Masters.QueryString.AppPk
-            };
-
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": trustCenterConfig.Entities.API.DataEntryMaster.API.GetColumnValuesWithFilters.FilterID
-            };
-
-            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataEntryMaster.API.GetColumnValuesWithFilters.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    EditPageCtrl.ePage.Masters.SubModule.ListSource = response.data.Response;
-                } else {
-                    EditPageCtrl.ePage.Masters.SubModule.ListSource = [];
-                }
-            });
-        }
-
-        function OnSubModuleChange($item) {
-            EditPageCtrl.ePage.Masters.SubModule.ActiveSubModule = angular.copy($item);
-        }
-        // ================SubModule End================
-
         function InitEditPage() {
             EditPageCtrl.ePage.Masters.EditPage = {};
             EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails = {};
@@ -183,6 +146,7 @@
             InitSearchPage();
             InitLookupPage();
             GetSourceList();
+            GetModuleList();
 
             if (EditPageCtrl.ePage.Masters.QueryString.Mode == "New") {
                 EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails = _NewDataEntryObj;
@@ -191,6 +155,22 @@
             } else {
                 GetDataEntryDetails();
             }
+        }
+
+        function GetModuleList() {
+            var _filter = {
+                TypeCode: "MODULE_MASTER"
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": trustCenterConfig.Entities.API.CfxTypes.API.FindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxTypes.API.FindAll.Url + EditPageCtrl.ePage.Masters.QueryString.AppPk, _input).then(function (response) {
+                if (response.data.Response) {
+                    EditPageCtrl.ePage.Masters.ModuleList = response.data.Response;
+                }
+            });
         }
 
         function GetDataEntryDetails() {
@@ -218,6 +198,9 @@
                         }
                         if (!_response.Type) {
                             _response.Type = EditPageCtrl.ePage.Masters.QueryString.SubModule;
+                        }
+                        if (!_response.EntitySource) {
+                            _response.EntitySource = EditPageCtrl.ePage.Masters.QueryString.EntitySource;
                         }
                         _response.IsModified = true;
                         _response.GridConfig.SortObjects = helperService.createToArrayOfObject(_response.GridConfig.SortObjects);
@@ -284,9 +267,9 @@
             _input.SAP_FK = EditPageCtrl.ePage.Masters.QueryString.AppPk;
             _input.GridConfig.SortObjects = helperService.CreateToArrayToObject(_input.GridConfig.SortObjects);
 
-            if(_input.GridConfig.Header){
-                _input.GridConfig.Header.map(function(value, key){
-                    if(!value.width || value.width == '' || value.width == ' '){
+            if (_input.GridConfig.Header) {
+                _input.GridConfig.Header.map(function (value, key) {
+                    if (!value.width || value.width == '' || value.width == ' ') {
                         value.width = undefined;
                     }
                 });
@@ -352,7 +335,7 @@
 
         function GetTypeMasterUIControl() {
             EditPageCtrl.ePage.Masters.EditPage.FormDesign.ToolsList = [];
-            var _filter ={
+            var _filter = {
                 "TypeCode": "UICTRL"
             };
             var _input = {
@@ -734,13 +717,13 @@
 
             jsonEditModal.showModal(modalDefaults, {})
                 .then(function (result) {
-                    if (name == 'GridConfigHeader'){
+                    if (name == 'GridConfigHeader') {
                         EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.GridConfig.Header = JSON.parse(result);
-                    } else if(name == 'otherConfig'){
+                    } else if (name == 'otherConfig') {
                         EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig = JSON.parse(result);
-                    } else if(name=='gridOptions'){
+                    } else if (name == 'gridOptions') {
                         EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.GridOptions = JSON.parse(result);
-                    } else if(name=='listingPageConfig'){
+                    } else if (name == 'listingPageConfig') {
                         EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig = JSON.parse(result);
                     }
                 }, function () {
@@ -789,11 +772,11 @@
             });
         }
 
-        function OnStandaredToolbarChange($event){
+        function OnStandaredToolbarChange($event) {
             var _target = $event.target;
             var _isChecked = _target.checked;
-            if(!_isChecked){
-                for(var x in EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig.StandardToolbar.ToolList){
+            if (!_isChecked) {
+                for (var x in EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig.StandardToolbar.ToolList) {
                     EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig.StandardToolbar.ToolList[x] = false;
                 }
             }

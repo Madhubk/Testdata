@@ -5,9 +5,9 @@
         .module("Application")
         .controller("TCValidationGroupController", TCValidationGroupController);
 
-    TCValidationGroupController.$inject = ["authService", "apiService", "helperService", "appConfig", "$location", "toastr", "$uibModalInstance", "confirmation", "param"];
+    TCValidationGroupController.$inject = ["authService", "apiService", "helperService", "trustCenterConfig", "$location", "toastr", "$uibModalInstance", "confirmation", "param"];
 
-    function TCValidationGroupController(authService, apiService, helperService, appConfig, $location, toastr, $uibModalInstance, confirmation, param) {
+    function TCValidationGroupController(authService, apiService, helperService, trustCenterConfig, $location, toastr, $uibModalInstance, confirmation, param) {
         /* jshint validthis: true */
         var TCValidationGroupCtrl = this;
         var _queryString = $location.path().split("/").pop();
@@ -55,10 +55,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.ValidationGroup.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.ValidationGroup.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.ValidationGroup.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.ValidationGroup.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     TCValidationGroupCtrl.ePage.Masters.ValidationGroup.ListSource = response.data.Response;
                 } else {
@@ -84,7 +84,7 @@
                     IsModified: true
                 };
 
-                apiService.post("eAxisAPI", appConfig.Entities.ValidationGroup.API.Upsert.Url, [_input]).then(function (response) {
+                apiService.post("eAxisAPI", trustCenterConfig.Entities.API.ValidationGroup.API.Upsert.Url, [_input]).then(function (response) {
                     if (response.data.Response) {
                         if (response.data.Response.length > 0) {
                             TCValidationGroupCtrl.ePage.Masters.ValidationGroup.ListSource.push(response.data.Response[0]);
@@ -124,7 +124,7 @@
                 _input.IsModified = true;
                 _input.IsDeleted = true;
 
-                apiService.post("eAxisAPI", appConfig.Entities.ValidationGroup.API.Upsert.Url, [_input]).then(function (response) {
+                apiService.post("eAxisAPI", trustCenterConfig.Entities.API.ValidationGroup.API.Upsert.Url, [_input]).then(function (response) {
                     if (response.data.Response) {
                         TCValidationGroupCtrl.ePage.Masters.ValidationGroup.ListSource.splice($index, 1);
                     } else {

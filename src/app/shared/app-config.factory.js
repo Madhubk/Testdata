@@ -5,8 +5,6 @@
         .module("Application")
         .factory('appConfig', AppConfig);
 
-    AppConfig.$inject = [];
-
     function AppConfig() {
         var exports = {
             "Entities": {
@@ -30,8 +28,8 @@
                         },
                         "EmailLinkToken": {
                             "IsAPI": "true",
-                            "HttpType": "GET",
-                            "Url": "Token/EmailLinkToken/"
+                            "HttpType": "POST",
+                            "Url": "Token/EmailLinkToken"
                         }
                     }
                 },
@@ -2074,6 +2072,43 @@
                         }
                     }
                 },
+                "WmsClientParameterByWarehouse": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsClientParameterByWarehouse/FindAll",
+                            "FilterID": "WMSWCP",
+                        },
+                    }
+                },
+                "WmsPickLineSummary": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsPickLineSummary/FindAll",
+                            "FilterID": "WMSPLS",
+                        },
+                    }
+                },
+                "WmsPickList": {
+                    "RowIndex": -1,
+                    "API": {
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "WmsPickList/GetById/",
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsPickList/Update"
+                        },
+                    }
+                },
                 "WmsPickupList": {
                     "RowIndex": -1,
                     "API": {
@@ -2111,32 +2146,6 @@
                         },
                     }
                 },
-                "WmsClientParameterByWarehouse": {
-                    "RowIndex": -1,
-                    "API": {
-                        "FindAll": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "WmsClientParameterByWarehouse/FindAll",
-                            "FilterID": "WMSWCP",
-                        },
-                    }
-                },
-                "WmsPickList": {
-                    "RowIndex": -1,
-                    "API": {
-                        "GetById": {
-                            "IsAPI": "true",
-                            "HttpType": "GET",
-                            "Url": "WmsPickList/GetById/",
-                        },
-                        "Update": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "WmsPickList/Update"
-                        },
-                    }
-                },
                 "TmsManifestList": {
                     "RowIndex": -1,
                     "API": {
@@ -2150,17 +2159,17 @@
                             "HttpType": "POST",
                             "Url": "TmsManifestList/Update"
                         },
-                        "Insert": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "TmsManifestList/Insert"
-                        },
                         "FindAll": {
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "TmsManifest/FindAll",
                             "FilterID": "TMSMAN",
-                        }
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "TmsManifestList/Insert"
+                        },
                     }
                 },
                 "TmsManifest": {
@@ -3558,6 +3567,16 @@
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "EntitiesMapping/Upsert"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "EntitiesMapping/Insert"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "EntitiesMapping/Delete/"
                         }
                     }
                 },
@@ -4101,6 +4120,8 @@
                         }
                     }
                 }
+
+
             }
         };
 

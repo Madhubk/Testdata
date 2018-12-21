@@ -147,7 +147,7 @@
 
             apiService.post("eAxisAPI", appConfig.Entities.Currency.API.FindAll.Url, _inputCurrency).then(function (response) {
                 if (response.data.Response) {
-                    if (response.data.Response.length > 0){
+                    if (response.data.Response.length > 0) {
                         OrganizationConsignorCtrl.ePage.Masters.CurrencyList.ListSource = response.data.Response;
                     } else {
                         OrganizationConsignorCtrl.ePage.Masters.CurrencyList.ListSource = [];
@@ -244,6 +244,18 @@
             OrganizationConsignorCtrl.ePage.Masters.SupplierDetails.UIAddressContactList = {};
             OrganizationConsignorCtrl.ePage.Masters.SupplierDetails.UIJobRequiredDocument = [];
             OrganizationConsignorCtrl.ePage.Masters.SupplierDetails.UIOrgBuySupMappingTrnMode = [];
+            var _input = {
+                "IncoTerm": "",
+                "TransportMode": "",
+                "ContainerMode": "",
+                "ORG_SendingAgentPK": "",
+                "ORG_SendingAgentCode": "",
+                "ORG_ReceivingAgentPK": "",
+                "ORG_ReceivingAgentCode": "",
+                "LoadPort": "",
+                "DischargePort": ""
+            }
+            OrganizationConsignorCtrl.ePage.Masters.SupplierDetails.UIOrgBuySupMappingTrnMode.push(_input);
             OrganizationConsignorCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping = {};
         }
 

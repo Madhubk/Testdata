@@ -42,7 +42,7 @@
             ConsolidationCtrl.ePage.Masters.AddTab = AddTab;
             ConsolidationCtrl.ePage.Masters.RemoveTab = RemoveTab;
             ConsolidationCtrl.ePage.Masters.CurrentActiveTab = CurrentActiveTab;
-            ConsolidationCtrl.ePage.Masters.Validation = Validation
+            ConsolidationCtrl.ePage.Masters.Validation = Validation;
             ConsolidationCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
             ConsolidationCtrl.ePage.Masters.CreateNewConsol = CreateNewConsol;
             ConsolidationCtrl.ePage.Masters.Save = Save;
@@ -278,7 +278,7 @@
         function Validation($item) {
             var _LETA = null;
             var _LETD = null;
-            if ($item[$item.label].ePage.Entities.Header.Data.UIJobRoutes.length > 0) {
+            if ($item[$item.label].ePage.Entities.Header.Data.UIJobRoutes) {
                 var _length = $item[$item.label].ePage.Entities.Header.Data.UIJobRoutes.length;
                 $item[$item.label].ePage.Entities.Header.Data.UIJobRoutes.map(function (val, key) {
                     if ($item[$item.label].ePage.Entities.Header.Data.UIJobRoutes[key].LegOrder == _length) {
@@ -295,6 +295,9 @@
                 $item[$item.label].ePage.Entities.Header.Data.UIShipmentHeaders.map(function (val, key) {
                     $item[$item.label].ePage.Entities.Header.Data.UIShipmentHeaders[key].ETD = _LETD;
                 })
+            }
+            else {
+                $item[$item.label].ePage.Entities.Header.Data.UIJobRoutes = [];
             }
 
             var _obj = {

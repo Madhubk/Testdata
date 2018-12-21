@@ -37,6 +37,9 @@
 
             ActivityTemplateConsol1Ctrl.ePage.Masters.IsDisableCompleteBtn = false;
             ActivityTemplateConsol1Ctrl.ePage.Masters.CompleteBtnText = "Complete";
+            ActivityTemplateConsol1Ctrl.ePage.Masters.TaskSave = TaskSave;
+            ActivityTemplateConsol1Ctrl.ePage.Masters.IsDisableSaveBtn = false;
+            ActivityTemplateConsol1Ctrl.ePage.Masters.SaveBtnText = "Save";
             if (ActivityTemplateConsol1Ctrl.ePage.Masters.TaskObj.EntityRefKey) {
                 GetEntityObj();
                 StandardMenuConfig();
@@ -164,7 +167,7 @@
                 "Communication": null,
                 "Config": undefined,
                 // Parent Entity
-                "ParentEntityRefKey": ActivityTemplateConsol1Ctrl.ePage.Masters.TaskObj.PK,
+                "ParentEntityRefKey": ActivityTemplateConsol1Ctrl.ePage.Masters.TaskObj.WSI_FK,
                 "ParentEntityRefCode": ActivityTemplateConsol1Ctrl.ePage.Masters.TaskObj.WSI_StepCode,
                 "ParentEntitySource": ActivityTemplateConsol1Ctrl.ePage.Masters.TaskObj.EntitySource,
                 // Additional Entity
@@ -232,8 +235,8 @@
                     Code: [ActivityTemplateConsol1Ctrl.ePage.Masters.EntityObj.UIConConsolHeader.ConsolNo],
                     API: "Group",
                     FilterInput: {
-                        ModuleCode: "SHP",
-                        SubModuleCode: "SHP"
+                        ModuleCode: "CON",
+                        SubModuleCode: "CON"
                     },
                     GroupCode: "Document",
                     EntityObject: ActivityTemplateConsol1Ctrl.ePage.Masters.EntityObj,
@@ -360,11 +363,18 @@
             });
             return deferred.promise;
         }
+        function TaskSave() {
+            ActivityTemplateConsol1Ctrl.ePage.Masters.SaveBtnText = "Please Wait...";
+            ActivityTemplateConsol1Ctrl.ePage.Masters.IsDisableSaveBtn = true;
+            SaveEntity();
+           
+        }
 
         function CompleteWithSave() {
             ActivityTemplateConsol1Ctrl.ePage.Masters.CompleteBtnText = "Please Wait...";
             ActivityTemplateConsol1Ctrl.ePage.Masters.IsDisableCompleteBtn = true;
             SaveEntity();
+           
             SaveOnly().then(function (response) {
                 if (response.data.Status == "Success") {
                     toastr.success("Task Completed Successfully...!");

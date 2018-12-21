@@ -5,9 +5,9 @@
         .module("Application")
         .controller("MyTaskController", MyTaskController);
 
-    MyTaskController.$inject = ["$scope", "$uibModal", "helperService", "apiService", "authService", "appConfig", "toastr", "$ocLazyLoad"];
+    MyTaskController.$inject = ["$scope", "$location", "$uibModal", "helperService", "apiService", "authService", "appConfig", "toastr", "$ocLazyLoad"];
 
-    function MyTaskController($scope, $uibModal, helperService, apiService, authService, appConfig, toastr, $ocLazyLoad) {
+    function MyTaskController($scope, $location, $uibModal, helperService, apiService, authService, appConfig, toastr, $ocLazyLoad) {
         var MyTaskCtrl = this;
 
         var _DocumentConfig = {
@@ -85,7 +85,6 @@
             InitAdhoc();
             InitAssignTo();
             InitStatusCount();
-            GetWorkItemList();
         }
 
         function OnToggleFilterClick() {
@@ -104,6 +103,7 @@
             if ($item) {
                 MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount = $item.Data;
             }
+
             MyTaskCtrl.ePage.Masters.MyTask.PaginationFilter.PageNumber = 1;
             MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetailsCount = 0;
             MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails = undefined;
@@ -503,7 +503,7 @@
 
                 ParentEntitySource: $item.EntitySource,
                 ParentEntityRefCode: $item.WSI_StepCode,
-                ParentEntityRefKey: $item.EntityRefKey,
+                ParentEntityRefKey: $item.WSI_FK,
 
                 AdditionalEntityRefKey: $item.ParentEntityRefKey,
                 AdditionalEntitySource: $item.ParentEntitySource,
@@ -555,8 +555,34 @@
             apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkItem.API.FindAllStatusCount.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     MyTaskCtrl.ePage.Masters.MyTask.StatusCount.ListSource = response.data.Response;
+
+                    if (response.data.Response.length > 0) {
+                        var _queryString = $location.search();
+                        if (_queryString && _queryString.filter && _queryString.filter) {
+                            var _qInput = helperService.decryptData(_queryString.filter);
+                            if (_qInput && typeof _qInput == "string") {
+                                _qInput = JSON.parse(_qInput);
+                            }
+
+                            MyTaskCtrl.ePage.Masters.MyTask.StatusCount.ListSource.map(function (value, key) {
+                                if (value.PSM_FK == _qInput.PSM_FK && value.WSI_FK == _qInput.WSI_FK) {
+                                    value.UserStatus = _qInput.UserStatus;
+                                    var _item = {
+                                        Data: value,
+                                        WorkItemList: MyTaskCtrl.ePage.Masters.MyTask.StatusCount.ListSource
+                                    };
+                                    SelectedWorkItem(_item);
+                                }
+                            });
+                        } else {
+                            SelectedWorkItem();
+                        }
+                    } else {
+                        MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails = [];
+                    }
                 } else {
                     MyTaskCtrl.ePage.Masters.MyTask.StatusCount.ListSource = [];
+                    MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails = [];
                 }
             });
         }

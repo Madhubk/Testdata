@@ -46,11 +46,11 @@
     </div>
     <!-- Body -->
     <div class="clearfix">
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0 tc-page-height-fixed">
-            <div class="tc-list-container">
-                <div class="tc-list-search">
-                    <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="ComponentCtrl.ePage.Masters.ComponentListType.Search">
-                </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0">
+            <div class="tc-list-search">
+                <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="ComponentCtrl.ePage.Masters.ComponentListType.Search">
+            </div>
+            <div class="tc-list-container tc-page-height-fixed left">
                 <ul class="tc-list-ul">
                     <div class="p-15 text-center tc-loading" data-ng-if="!ComponentCtrl.ePage.Masters.ComponentListType.ListSource">
                         <i class="fa fa-spin fa-spinner"></i>
@@ -73,11 +73,11 @@
                 </ul>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 3col-xl-3 p-0 tc-page-height-fixed">
-            <div class="tc-list-container">
-                <div class="tc-list-search">
-                    <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="ComponentCtrl.ePage.Masters.ComponentListTypeList.Search">
-                </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 3col-xl-3 p-0">
+            <div class="tc-list-search">
+                <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="ComponentCtrl.ePage.Masters.ComponentListTypeList.Search">
+            </div>
+            <div class="tc-list-container tc-page-height-fixed left">
                 <ul class="tc-list-ul">
                     <div class="p-15 text-center tc-loading" data-ng-if="!ComponentCtrl.ePage.Masters.ComponentListTypeList.ListSource">
                         <i class="fa fa-spin fa-spinner"></i>
@@ -93,7 +93,7 @@
                         <div class="clearfix tc-list">
                             <div class="tc-list-name">
                                 <i class="fa fa-circle-o mr-10"></i>
-                                <span class="text-single-line" data-ng-bind="x.OperationName"></span>
+                                <span class="text-single-line" data-ng-bind="x.OperationDescription"></span>
                             </div>
                         </div>
                     </li>
@@ -102,28 +102,22 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 p-0 tc-page-height-fixed">
             <div class="pt-10 pb-10 tc-details-view clearfix">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Name</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList.OperationName || ComponentCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Name</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList.OperationName || ComponentCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Type</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList.OperationType || ComponentCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Type</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList.OperationType || ComponentCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Description</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList.OperationDescription || ComponentCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Description</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList.OperationDescription || ComponentCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
             </div>

@@ -35,6 +35,16 @@
                 if (_index !== -1) {
                     DynamicLookupCtrl.ePage.Masters.LookupConfig = dynamicLookupConfig.Entities[x];
                 }
+
+                // if (DynamicLookupCtrl.controlKey) {
+                //     if (x == DynamicLookupCtrl.controlKey) {
+                //         DynamicLookupCtrl.ePage.Masters.LookupConfig = dynamicLookupConfig.Entities[x];
+                //     }
+                // } else if (DynamicLookupCtrl.controlId) {
+                //     if (x == DynamicLookupCtrl.controlId) {
+                //         DynamicLookupCtrl.ePage.Masters.LookupConfig = dynamicLookupConfig.Entities[x];
+                //     }
+                // }
             }
 
             DynamicLookupCtrl.ePage.Masters.LookupConfig.setValues.map(function (val, key) {
@@ -106,8 +116,8 @@
 
         function AutoCompleteOnSelect($item, $model, $label) {
             if (DynamicLookupCtrl.ePage.Masters.LookupConfig.getValues) {
-                if(DynamicLookupCtrl.ePage.Masters.LookupConfig.getValues.length > 0){
-                    DynamicLookupCtrl.ePage.Masters.LookupConfig.getValues.map(function(value, key){
+                if (DynamicLookupCtrl.ePage.Masters.LookupConfig.getValues.length > 0) {
+                    DynamicLookupCtrl.ePage.Masters.LookupConfig.getValues.map(function (value, key) {
                         DynamicLookupCtrl.obj[value.eField] = $item[value.sField];
                     });
                 }

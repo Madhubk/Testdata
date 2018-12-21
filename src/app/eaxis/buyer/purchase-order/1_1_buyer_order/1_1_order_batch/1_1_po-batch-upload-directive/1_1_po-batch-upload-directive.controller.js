@@ -46,7 +46,6 @@
             one_one_PoBatchUploadDirectiveCtrl.ePage.Masters.PODocuments.GetFileDetails = GetFileDetails;
             one_one_PoBatchUploadDirectiveCtrl.ePage.Masters.PODocuments.SelectedGridRow = SelectedGridRow;
             one_one_PoBatchUploadDirectiveCtrl.ePage.Masters.PODocuments.UploadedFiles = UploadedFiles;
-            (one_one_PoBatchUploadDirectiveCtrl.currentBatch.isNew) ? one_one_PoBatchUploadDirectiveCtrl.ePage.Masters.OrgEnable = true: one_one_PoBatchUploadDirectiveCtrl.ePage.Masters.OrgEnable = false;
 
             GetUIControlList();
             InitDocument();
@@ -126,7 +125,7 @@
 
         function GetDocumentsList() {
             var _filter = {
-                "EntityRefKey": one_one_PoBatchUploadDirectiveCtrl.ePage.Entities.Header.Data.UIOrderBatchUpload_Buyer.PK,
+                "EntityRefKey": one_one_PoBatchUploadDirectiveCtrl.ePage.Entities.Header.Data.PK,
                 "EntitySource": one_one_PoBatchUploadDirectiveCtrl.ePage.Entities.Header.Data.UIOrderBatchUpload_Buyer.Source,
                 "EntityRefCode": one_one_PoBatchUploadDirectiveCtrl.ePage.Entities.Header.Data.UIOrderBatchUpload_Buyer.BatchUploadNo,
                 // "Status": "Success"
@@ -185,6 +184,77 @@
                 }
             });
         }
+
+        // function GetFileDetails(Files, DocType, mode) {
+        //     Files.map(function (value, key) {
+        //         var _obj = {
+        //             type: value.type,
+        //             FileName: value.name,
+        //             IsActive: true,
+        //             IsNew: true,
+        //             IsModified: true,
+        //             IsDeleted: false,
+        //             DocFK: value.Doc_PK,
+        //             EntitySource: "SHP",
+        //             DocumentType: one_one_PoBatchUploadDirectiveCtrl.ePage.Masters.DocTypeList.DocType,
+        //             DocumentName: one_one_PoBatchUploadDirectiveCtrl.ePage.Masters.DocTypeList.Desc,
+        //             PartyType_Code: one_one_PoBatchUploadDirectiveCtrl.ePage.Masters.DocTypeList.PartyType_Code,
+        //             PartyType_FK: one_one_PoBatchUploadDirectiveCtrl.ePage.Masters.DocTypeList.PartyType_FK,
+        //             Status: "Success",
+        //             EntityRefKey: one_one_PoBatchUploadDirectiveCtrl.ePage.Entities.Header.Data.PK,
+        //             EntityRefCode: one_one_PoBatchUploadDirectiveCtrl.ePage.Entities.Header.Data.UIOrderBatchUpload_Buyer.BatchUploadNo,
+        //         };
+        //         one_one_PoBatchUploadDirectiveCtrl.ePage.Masters.PODocuments.GridData.push(_obj);
+        //     });
+        // }
+
+        // function UploadedFiles(Files, DocType, mode) {
+        //     Files.map(function (value1, key1) {
+        //         one_one_PoBatchUploadDirectiveCtrl.ePage.Masters.PODocuments.GridData.map(function (value2, key2) {
+        //             if (value1.FileName == value2.FileName && value1.DocType == value2.type) {
+        //                 SaveDocument(value1, value2);
+        //             }
+        //         });
+        //     });
+        // }
+
+        // function SaveDocument($item, row) {
+        //     var _input = {};
+        //     if ($item) {
+        //         var _index = $item.FileName.indexOf(".");
+        //         if (_index != -1) {
+        //             var _object = $item.FileName.split(".")[0];
+        //         }
+        //         var _input = {
+        //             FileName: $item.FileName,
+        //             FileExtension: $item.FileExtension,
+        //             ContentType: $item.DocType,
+        //             IsActive: true,
+        //             IsModified: true,
+        //             IsDeleted: false,
+        //             DocFK: $item.Doc_PK,
+        //             EntitySource: 'POB',
+        //             EntityRefKey: one_one_PoBatchUploadDirectiveCtrl.ePage.Entities.Header.Data.PK,
+        //             EntityRefCode: one_one_PoBatchUploadDirectiveCtrl.ePage.Entities.Header.Data.BatchUploadNo,
+        //             DocumentName: _object,
+        //             PartyType_Code: one_one_PoBatchUploadDirectiveCtrl.ePage.Masters.DocTypeList.PartyType_Code,
+        //             PartyType_FK: one_one_PoBatchUploadDirectiveCtrl.ePage.Masters.DocTypeList.PartyType_FK,
+        //             DocumentType: row.DocumentType,
+        //             Status: "Success"
+        //         };
+        //     }
+        //     apiService.post("eAxisAPI", appConfig.Entities.JobDocument.API.Upsert.Url + authService.getUserInfo().AppPK, [_input]).then(function (response) {
+        //         if (response.data.Response) {
+        //             GetDocumentsList();
+        //         } else {
+        //             console.log("Empty Documents Response");
+        //         }
+        //     });
+        //     row.IsNew = false;
+        //     if (one_one_PoBatchUploadDirectiveCtrl.currentBatch.isNew) {
+        //         BatchInsert();
+        //     }
+        // }
 
         function GetFileDetails(Files, DocType, mode) {
             if (Files.length > 0) {

@@ -28,7 +28,8 @@
             one_order_listCtrl.ePage.Masters.UserProfile = {
                 "userName": authService.getUserInfo().UserName,
                 "userId": authService.getUserInfo().UserId,
-                "roleCode": authService.getUserInfo().RoleCode
+                "roleCode": authService.getUserInfo().RoleCode,
+                "accessCode": authService.getUserInfo().AccessCode
             };
 
             InitOrder();
@@ -51,21 +52,21 @@
             one_order_listCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
             // role access
             switch (one_order_listCtrl.ePage.Masters.UserProfile.roleCode) {
-                case "BUYER_SHIPMENT_COORDINATOR":
-                    one_order_listCtrl.ePage.Masters.RoleView.roleApi = "Buyer";
-                    one_order_listCtrl.ePage.Masters.RoleView.roleAccess = "1_1";
-                    one_order_listCtrl.ePage.Masters.RoleView.roleResponse = "Buyer";
-                    break;
-                case "BUYER_SUPPLIER_SHIPMENT_COORDINATOR":
-                    one_order_listCtrl.ePage.Masters.RoleView.roleApi = "BuyerSupplier";
-                    one_order_listCtrl.ePage.Masters.RoleView.roleAccess = "1_2";
-                    one_order_listCtrl.ePage.Masters.RoleView.roleResponse = "Buyer_Supplier";
-                    break;
-                case "BUYER_EXPORT_CS":
-                    one_order_listCtrl.ePage.Masters.RoleView.roleApi = "BuyerForwarder";
-                    one_order_listCtrl.ePage.Masters.RoleView.roleAccess = "1_3";
-                    one_order_listCtrl.ePage.Masters.RoleView.roleResponse = "Buyer_Forwarder";
-                    break;
+                // case "BUYER_SHIPMENT_COORDINATOR":
+                //     one_order_listCtrl.ePage.Masters.RoleView.roleApi = "Buyer";
+                //     one_order_listCtrl.ePage.Masters.RoleView.roleAccess = "1_1";
+                //     one_order_listCtrl.ePage.Masters.RoleView.roleResponse = "Buyer";
+                //     break;
+                // case "BUYER_SUPPLIER_SHIPMENT_COORDINATOR":
+                //     one_order_listCtrl.ePage.Masters.RoleView.roleApi = "BuyerSupplier";
+                //     one_order_listCtrl.ePage.Masters.RoleView.roleAccess = "1_2";
+                //     one_order_listCtrl.ePage.Masters.RoleView.roleResponse = "Buyer_Supplier";
+                //     break;
+                // case "BUYER_EXPORT_CS":
+                //     one_order_listCtrl.ePage.Masters.RoleView.roleApi = "BuyerForwarder";
+                //     one_order_listCtrl.ePage.Masters.RoleView.roleAccess = "1_3";
+                //     one_order_listCtrl.ePage.Masters.RoleView.roleResponse = "Buyer_Forwarder";
+                //     break;
                 default:
                     one_order_listCtrl.ePage.Masters.RoleView.roleApi = "BuyerForwarder";
                     one_order_listCtrl.ePage.Masters.RoleView.roleAccess = "1_3";
@@ -248,6 +249,7 @@
 
         function SelectedGridRow($item) {
             if ($item.action === "link" || $item.action === "dblClick") {
+                $item.data.entity.PAR_AccessCode = '1_3';
                 ($item.data.entity.PAR_AccessCode) ? one_order_listCtrl.ePage.Entities.AddTab($item.data, false): toastr.warning("This Order don't have a access code...");
             } else if ($item.action === "new") {
                 var _check = CheckUIControl('CREATE_ORDER');

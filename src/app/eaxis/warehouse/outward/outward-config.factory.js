@@ -1253,17 +1253,19 @@
             // Manifest Validation
             if (_input.UIWmsOutwardHeader.AdditionalRef1Code) {
                 var _ManifestDetails = $item[$item.label].ePage.Entities.Header.ManifestDetails;
-                OnChangeValues(_ManifestDetails.TmsManifestHeader.TransporterCode, 'E3064', false, undefined, $item.label);
-                OnChangeValues(_ManifestDetails.TmsManifestHeader.ManifestType, 'E3065', false, undefined, $item.label);
-                OnChangeValues(_ManifestDetails.TmsManifestHeader.VehicleTypeCode, 'E3066', false, undefined, $item.label);
-                OnChangeValues(_ManifestDetails.TmsManifestHeader.LoadType, 'E3067', false, undefined, $item.label);
-                OnChangeValues(_ManifestDetails.TmsManifestHeader.TransportMode, 'E3068', false, undefined, $item.label);
-                OnChangeValues(_ManifestDetails.TmsManifestHeader.TransportRefNo, 'E3069', false, undefined, $item.label);
-                OnChangeValues(_ManifestDetails.TmsManifestHeader.VehicleNo, 'E3070', false, undefined, $item.label);
-                OnChangeValues(_ManifestDetails.TmsManifestHeader.DriveName, 'E3071', false, undefined, $item.label);
-                OnChangeValues(_ManifestDetails.TmsManifestHeader.DriverContactNo, 'E3072', false, undefined, $item.label);
-                OnChangeValues(_ManifestDetails.TmsManifestHeader.EstimatedDispatchDate, 'E3073', false, undefined, $item.label);
-                OnChangeValues(_ManifestDetails.TmsManifestHeader.EstimatedDeliveryDate, 'E3074', false, undefined, $item.label);
+                if (_ManifestDetails) {
+                    OnChangeValues(_ManifestDetails.TmsManifestHeader.TransporterCode, 'E3064', false, undefined, $item.label);
+                    OnChangeValues(_ManifestDetails.TmsManifestHeader.ManifestType, 'E3065', false, undefined, $item.label);
+                    OnChangeValues(_ManifestDetails.TmsManifestHeader.VehicleTypeCode, 'E3066', false, undefined, $item.label);
+                    OnChangeValues(_ManifestDetails.TmsManifestHeader.LoadType, 'E3067', false, undefined, $item.label);
+                    OnChangeValues(_ManifestDetails.TmsManifestHeader.TransportMode, 'E3068', false, undefined, $item.label);
+                    OnChangeValues(_ManifestDetails.TmsManifestHeader.TransportRefNo, 'E3069', false, undefined, $item.label);
+                    OnChangeValues(_ManifestDetails.TmsManifestHeader.VehicleNo, 'E3070', false, undefined, $item.label);
+                    OnChangeValues(_ManifestDetails.TmsManifestHeader.DriveName, 'E3071', false, undefined, $item.label);
+                    OnChangeValues(_ManifestDetails.TmsManifestHeader.DriverContactNo, 'E3072', false, undefined, $item.label);
+                    OnChangeValues(_ManifestDetails.TmsManifestHeader.EstimatedDispatchDate, 'E3073', false, undefined, $item.label);
+                    OnChangeValues(_ManifestDetails.TmsManifestHeader.EstimatedDeliveryDate, 'E3074', false, undefined, $item.label);
+                }
             }
 
             //Receive Lines Validation

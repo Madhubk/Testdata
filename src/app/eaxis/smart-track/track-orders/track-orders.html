@@ -7,25 +7,22 @@
         <div class="no-padding tab-list-view-wrapper">
             <!--Order Grid Page-->
             <!-- <dynamic-list task-name="TrackOrderCtrl.ePage.Masters.taskName" grid-config-type="0" dataentry-name="TrackOrderCtrl.ePage.Masters.dataentryName" selected-grid-row="TrackOrderCtrl.ePage.Masters.SelectedGridRow($item)" mode="1"></dynamic-list> -->
-            <dynamic-list dataentry-name="TrackOrderCtrl.ePage.Masters.dataentryName" selected-grid-row="TrackOrderCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" dataentry-object="TrackOrderCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+            <dynamic-list dataentry-name="TrackOrderCtrl.ePage.Masters.dataentryName" selected-grid-row="TrackOrderCtrl.ePage.Masters.SelectedGridRow($item)"
+                mode="1" dataentry-object="TrackOrderCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
             <div class="tab-loading" data-ng-show="TrackOrderCtrl.ePage.Masters.IsTabClick"></div>
         </div>
     </uib-tab>
-    <uib-tab active="TrackOrderCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in TrackOrderCtrl.ePage.Masters.TabList" ng-click="TrackOrderCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+    <uib-tab active="TrackOrderCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in TrackOrderCtrl.ePage.Masters.TabList"
+        ng-click="TrackOrderCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
         <uib-tab-heading title="{{tab.label}}">
             <span data-ng-bind="tab.label"></span>
             <i class="glyphicon glyphicon-remove" ng-click="TrackOrderCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
         </uib-tab-heading>
         <div class="padding-bottom-10 clearfix">
             <!--Track Order Directive-->
-            <track-order-directive current-order="tab"></track-order-directive>
-            <!--Standard Menu Directive-->
-            <div class="eaxis-footer-strip">
-                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
-                    <!-- <standard-menu entity-name="'OrderHeader'" input="tab" data-ng-if="!tab.isNew"></standard-menu> -->
-                    <standard-menu input="tab" dataentry-object="TrackOrderCtrl.ePage.Masters.DataEntryObject" data-ng-if="!tab.isNew"></standard-menu>
-                </div>
-            </div>
+            <!--Order Menu Directive-->
+            <ord-buyer-view-template current-order="tab" data-ng-if="TrackOrderCtrl.ePage.Masters.currentOrder"
+                dataentry-object="TrackOrderCtrl.ePage.Masters.DataEntryObject"></ord-buyer-view-template>
         </div>
     </uib-tab>
 </uib-tabset>

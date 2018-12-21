@@ -250,6 +250,11 @@
                         </div>
                     </td>
                     <td id="rproductcondition" data-ng-show='DeliveryLineCtrl.ePage.Entities.Header.TableProperties.UIWmsDeliveryLine.rproductcondition.isenabled'
+                        ng-style="{ 'width': DeliveryLineCtrl.ePage.Entities.Header.TableProperties.UIWmsDeliveryLine.rproductcondition.width + 'px' }"
+                        class="overflow-text" ng-click="DeliveryLineCtrl.ePage.Masters.Enable = true">
+                        {{ x.ProductCondition || DeliveryLineCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- <td id="rproductcondition" data-ng-show='DeliveryLineCtrl.ePage.Entities.Header.TableProperties.UIWmsDeliveryLine.rproductcondition.isenabled'
                         ng-style="{ 'width': DeliveryLineCtrl.ePage.Entities.Header.TableProperties.UIWmsDeliveryLine.rproductcondition.width + 'px' }">
                         <div data-ng-if="$index!=DeliveryLineCtrl.ePage.Masters.selectedRow || DeliveryLineCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
                             class="overflow-text">
@@ -268,8 +273,8 @@
                                     col-index="6">
                                 </error-warning-directive>
                             </div>
-                        </div>
-                    </td>
+                        </div> 
+                    </td> -->
                     <td id="rudf1" data-ng-show='DeliveryLineCtrl.ePage.Entities.Header.TableProperties.UIWmsDeliveryLine.rudf1.isenabled' ng-style="{ 'width': DeliveryLineCtrl.ePage.Entities.Header.TableProperties.UIWmsDeliveryLine.rudf1.width + 'px' }"
                         ng-click="DeliveryLineCtrl.ePage.Masters.Enable = true">
                         <div data-ng-if="$index!=DeliveryLineCtrl.ePage.Masters.selectedRow || DeliveryLineCtrl.ePage.Entities.Header.GlobalVariables.NonEditable ||  x.AllocatedQty"

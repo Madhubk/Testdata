@@ -5,9 +5,9 @@
         .module("Application")
         .controller("one_three_OrdGeneralController", one_three_OrdGeneralController);
 
-    one_three_OrdGeneralController.$inject = ["$rootScope", "APP_CONSTANT", "authService", "apiService", "appConfig", "helperService", "one_order_listConfig", "toastr", "errorWarningService"];
+    one_three_OrdGeneralController.$inject = ["$rootScope", "APP_CONSTANT", "authService", "apiService", "appConfig", "helperService", "one_order_listConfig", "orderApiConfig", "toastr", "errorWarningService"];
 
-    function one_three_OrdGeneralController($rootScope, APP_CONSTANT, authService, apiService, appConfig, helperService, one_order_listConfig, toastr, errorWarningService) {
+    function one_three_OrdGeneralController($rootScope, APP_CONSTANT, authService, apiService, appConfig, helperService, one_order_listConfig, orderApiConfig, toastr, errorWarningService) {
 
         var one_three_OrdGeneralCtrl = this;
 
@@ -165,9 +165,9 @@
                     };
                     var _input = {
                         "searchInput": helperService.createToArrayOfObject(_filter),
-                        "FilterID": appConfig.Entities.BuyerOrder.API.findall.FilterID
+                        "FilterID": orderApiConfig.Entities.BuyerForwarderOrder.API.findall.FilterID
                     };
-                    apiService.post("eAxisAPI", appConfig.Entities.BuyerOrder.API.findall.Url, _input).then(function (response) {
+                    apiService.post("eAxisAPI", orderApiConfig.Entities.BuyerForwarderOrder.API.findall.Url, _input).then(function (response) {
                         if (response.data.Response) {
                             if (response.data.Response.length > 0) {
                                 if (!one_three_OrdGeneralCtrl.currentOrder.isNew) {
@@ -208,6 +208,8 @@
                     one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.Supplier = $item.data.entity.Code;
                     one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ORG_Supplier_FK = $item.data.entity.PK;
                     one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.OriginCountry = $item.data.entity.OAD_CountryCode;
+                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.BuyingHouseAgent_Code = $item.data.entity.Code;
+                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.BuyingHouseAgent_FK = $item.data.entity.PK;
                     CommonErrorObjInput("Order", one_three_OrdGeneralCtrl.currentOrder, "ORD", "ORD", ["ED003"]);
                     break;
                 case "Export":
@@ -250,6 +252,8 @@
                     one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.Supplier = $item.Code;
                     one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ORG_Supplier_FK = $item.PK;
                     one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.OriginCountry = $item.OAD_CountryCode;
+                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.BuyingHouseAgent_Code = $item.Code;
+                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.BuyingHouseAgent_FK = $item.PK;
                     CommonErrorObjInput("Order", one_three_OrdGeneralCtrl.currentOrder, "ORD", "ORD", ["ED003"]);
                     break;
                 case "Export":

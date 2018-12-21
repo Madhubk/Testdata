@@ -27,7 +27,6 @@
 
             try {
                 ComponentCtrl.ePage.Masters.QueryString = JSON.parse(helperService.decryptData(_queryString));
-
                 if (ComponentCtrl.ePage.Masters.QueryString.AppPk) {
                     InitBreadcrumb();
                     InitApplication();
@@ -73,7 +72,7 @@
                 IsActive: false
             }, {
                 Code: "component",
-                Description: "Component" + _breadcrumbTitle,
+                Description: "Component (" + ComponentCtrl.ePage.Masters.QueryString.AdditionalData.BreadcrumbTitle + ")",
                 Link: "#",
                 IsRequireQueryString: false,
                 IsActive: true
@@ -378,19 +377,17 @@
                 Code: "OrganizationAccess",
                 Description: "Organization Access",
                 Icon: "fa fa-sign-in",
-                Link: "TC/mapping-vertical",
+                Link: "TC/comp-org-app-tenant",
                 Color: "#bd081c",
-                AdditionalData: "COMP_ORG_APP_TNT",
-                BreadcrumbTitle: "Company Organization - COMP_ORG_APP_TNT",
+                BreadcrumbTitle: ComponentCtrl.ePage.Masters.QueryString.AdditionalData.BreadcrumbTitle +  " - "+"COMP_ORG_APP_TNT",
                 Type: 1
             }, {
                 Code: "RoleAccess",
                 Description: "Role Access",
                 Icon: "fa fa-sign-in",
-                Link: "TC/mapping-vertical",
+                Link: "TC/comp-role-app-tenant",
                 Color: "#bd081c",
-                AdditionalData: "COMP_ROLE_APP_TNT",
-                BreadcrumbTitle: "Company Role - COMP_ROLE_APP_TNT",
+                BreadcrumbTitle:  ComponentCtrl.ePage.Masters.QueryString.AdditionalData.BreadcrumbTitle   + " - " + "COMP_ROLE_APP_TNT",
                 Type: 1
             }];
         }
@@ -411,11 +408,12 @@
             }
 
             if ($item.Type === 1) {
-                _queryString.DisplayName = ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList.OperationName;
+                
+                _queryString.DisplayName = ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList.OperationDescription;
                 _queryString.ItemPk = ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList.PK;
                 _queryString.ItemCode = ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList.OperationName;
-                _queryString.ItemName = ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList.OperationType;
-                _queryString.MappingCode = $item.AdditionalData;
+                _queryString.ItemName =  ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList.OperationType;
+               _queryString.AdditionalData = ComponentCtrl.ePage.Masters.QueryString.AdditionalData;
                 _queryString.BreadcrumbTitle = $item.BreadcrumbTitle;
             }
 
@@ -423,7 +421,6 @@
                 $location.path($item.Link + "/" + helperService.encryptData(_queryString));
             }
         }
-
-        Init();
+     Init();
     }
 })();

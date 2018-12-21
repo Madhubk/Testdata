@@ -40,7 +40,7 @@
             .state('EA.smartTrack.trackOrders', {
                 url: '/track-orders',
                 templateUrl: 'app/eaxis/smart-track/track-orders/track-orders.html',
-                controller: "trackOrderController as TrackOrderCtrl",
+                controller: "TrackOrderController as TrackOrderCtrl",
                 ncyBreadcrumb: {
                     label: 'Track Orders'
                 },
@@ -53,7 +53,7 @@
                         return deferred.promise;
                     }],
                     loadMyCtrl: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["chromeTab", "dynamicTable", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "Event", "EventModal", "AuditLog", "AuditLogModal", "DataEvent", "DataEventModal", "EmailGroup", "EmailGroupModal", "EmailTemplateCreation", "EmailTemplateCreationModal", "Task", "TaskModal", "Keyword", "KeywordModal", "Parties", "PartiesModal", "ActivityTab", "orderTracking", "order", "orderTrackingDirective"]);
+                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "customToolbar", "oneLevelMapping", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "Event", "EventModal", "AuditLog", "AuditLogModal", "Parties", "PartiesModal", "Task", "TaskModal", "Summernote", "pagination", "addressDirective", "addressWrapper", "addressModal", "errorWarning", "ActivityTab", "MyTaskDirective", "WorkItemListView", "ProcessInstanceWorkItemDetails", "TaskAssignStartComplete", "MyTaskConfig", "MyTaskDynamicDirective", "MyTaskDefaultEditDirective", "DynamicTabLeft", "1_order_list", "orderTracking", "ord-buyer-view-template", "ord-buyer-view-general", "ord-buyer-view-order-line", "ord-buyer-view-shipment", "ord-buyer-view-sub-po"]);
                     }]
                 }
             })
@@ -133,7 +133,7 @@
                         return deferred.promise;
                     }],
                     loadMyCtrl: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["chromeTab", "dynamicTable", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "Event", "EventModal", "AuditLog", "AuditLogModal", "DataEvent", "DataEventModal", "EmailGroup", "EmailGroupModal", "EmailTemplateCreation", "EmailTemplateCreationModal", "Task", "TaskModal", "Keyword", "KeywordModal", "Parties", "PartiesModal", "ActivityTab", "MyTaskDynamicDirective", "QuickBookingApprovalEditDirective", "VerifyBookingEditDirective", "VerifyBookingVesselPlanning", "QuickBookingApprovalNotifyEditDirective", "QuickBookingRejectEditDirective", "shipmentDetailsTracking", "shipment", "shipmentDetailsTrackingDirective", "HBLEditDirective", "ShippingBillEditDirective", "CargoPickUpEditDirective", "TaxInvoiceEditDirective", "JobCostSheetEditDirective", "ShpGeneralFieldsDirective", "ShipmentEntityDetailsDirective", "VgmFilingEditDirective", "PartiesDetailsDirective", "RoutingGridDirective", "EditableTableDirective", "ShipmentDetailsDirective","PackingGridDirective","ContainerEditableGridDirective1"]);
+                        return $ocLazyLoad.load(["chromeTab", "dynamicTable", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "Event", "EventModal", "AuditLog", "AuditLogModal", "DataEvent", "DataEventModal", "EmailGroup", "EmailGroupModal", "EmailTemplateCreation", "EmailTemplateCreationModal", "Task", "TaskModal", "Keyword", "KeywordModal", "Parties", "PartiesModal", "ActivityTab", "MyTaskDynamicDirective", "QuickBookingApprovalEditDirective", "VerifyBookingEditDirective", "VerifyBookingVesselPlanning", "QuickBookingApprovalNotifyEditDirective", "QuickBookingRejectEditDirective", "shipmentDetailsTracking", "shipment", "shipmentDetailsTrackingDirective", "HBLEditDirective", "ShippingBillEditDirective", "CargoPickUpEditDirective", "TaxInvoiceEditDirective", "JobCostSheetEditDirective", "ShpGeneralFieldsDirective", "ShipmentEntityDetailsDirective", "VgmFilingEditDirective", "PartiesDetailsDirective", "RoutingGridDirective", "EditableTableDirective", "ShipmentDetailsDirective", "PackingGridDirective", "ContainerEditableGridDirective1"]);
                     }]
                 }
             })

@@ -75,11 +75,11 @@
             apiService.get("eAxisAPI", Config.Entities.Header.API.GetByID.Url + TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WPK_FK).then(function (response) {
                 if (response.data.Response) {
                     TransferMaterialCtrl.ePage.Entities.Header.PickData = response.data.Response;
-                    myTaskActivityConfig.Entities.PickData = TransferMaterialCtrl.ePage.Entities.Header.PickData;
                     Config.GetTabDetails(TransferMaterialCtrl.ePage.Entities.Header.PickData.UIWmsPickHeader, false).then(function (response) {
                         angular.forEach(response, function (value, key) {
                             if (value.label == TransferMaterialCtrl.ePage.Entities.Header.PickData.UIWmsPickHeader.PickNo) {
                                 TransferMaterialCtrl.ePage.Masters.TabList = value;
+                                myTaskActivityConfig.Entities.PickData = TransferMaterialCtrl.ePage.Masters.TabList;
                             }
                         });
                     });
@@ -87,7 +87,7 @@
             });
         }
 
-        function CreatePick() {            
+        function CreatePick() {
             TransferMaterialCtrl.ePage.Masters.LoadingValue = "Creating Pick..";
             TransferMaterialCtrl.ePage.Masters.IsDisabled = true;
             TransferMaterialCtrl.ePage.Masters.CreatePickText = "Please Wait...";
@@ -101,7 +101,7 @@
                     }
                     response.data.Response.Response.UIWmsPickHeader.WarehouseCode = TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WarehouseCode;
                     response.data.Response.Response.UIWmsPickHeader.WarehouseName = TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WarehouseName;
-                    response.data.Response.Response.UIWmsPickHeader.WAR_FK = TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WAR_FK;                    
+                    response.data.Response.Response.UIWmsPickHeader.WAR_FK = TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WAR_FK;
                     TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WPK_FK = response.data.Response.Response.PK;
                     TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickStartDateTime = new Date();
                     TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus = "OSP";
@@ -112,12 +112,12 @@
                     apiService.post("eAxisAPI", Config.Entities.Header.API.InsertPick.Url, response.data.Response.Response).then(function (response) {
                         if (response.data.Status == 'Success') {
                             TransferMaterialCtrl.ePage.Masters.PickDetails = response.data.Response;
-                            myTaskActivityConfig.Entities.PickData = TransferMaterialCtrl.ePage.Masters.PickDetails;
                             TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo = response.data.Response.UIWmsPickHeader.PickNo;
                             Config.GetTabDetails(TransferMaterialCtrl.ePage.Masters.PickDetails.UIWmsPickHeader, false).then(function (response) {
                                 angular.forEach(response, function (value, key) {
                                     if (value.label == TransferMaterialCtrl.ePage.Masters.PickDetails.UIWmsPickHeader.PickNo) {
                                         TransferMaterialCtrl.ePage.Masters.TabList = value;
+                                        myTaskActivityConfig.Entities.PickData = TransferMaterialCtrl.ePage.Masters.TabList;
                                         TransferMaterialCtrl.ePage.Masters.LoadingValue = "";
                                         toastr.success("Pick Created Successfully");
                                     }
@@ -143,6 +143,7 @@
             apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WOD_Parent_FK).then(function (response) {
                 if (response.data.Response) {
                     TransferMaterialCtrl.ePage.Entities.Header.DeliveryData = response.data.Response;
+                    myTaskActivityConfig.Entities.DeliveryData = TransferMaterialCtrl.ePage.Entities.Header.DeliveryData;
                     GeneralOperation();
                 }
             });

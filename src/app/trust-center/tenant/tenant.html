@@ -34,11 +34,11 @@
     </div>
     <!-- Body -->
     <div class="clearfix">
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 tc-page-height-fixed">
-            <div class="tc-list-container">
-                <div class="tc-list-search">
-                    <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="TCTenantCtrl.ePage.Masters.Search">
-                </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="tc-list-search">
+                <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="TCTenantCtrl.ePage.Masters.Search">
+            </div>
+            <div class="tc-list-container tc-page-height-fixed left">
                 <ul class="tc-list-ul">
                     <div class="p-15 text-center tc-loading" data-ng-if="!TCTenantCtrl.ePage.Masters.Tenant.TenantList">
                         <i class="fa fa-spin fa-spinner"></i>
@@ -54,7 +54,7 @@
                         <div class="clearfix tc-list">
                             <div class="tc-list-name">
                                 <i class="fa fa-circle-o mr-10"></i>
-                                <span class="text-single-line" data-ng-bind="x.TenantName"></span>
+                                <span class="text-single-line" data-ng-bind="x.TenantCode + ' - ' + x.TenantName"></span>
                             </div>
                         </div>
                     </li>

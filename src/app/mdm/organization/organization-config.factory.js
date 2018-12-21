@@ -81,7 +81,7 @@
                                 "HttpType": "POST",
                                 "Url": "Validation/FindAll",
                                 "FilterID": "VALIDAT"
-                            },
+                            }
                         },
                         "Meta": {
                             "Language": helperService.metaBase(),

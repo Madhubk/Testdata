@@ -36,7 +36,10 @@
 
         function AuthorizeUser() {
             ELinkCtrl.ePage.Masters.ErrorMessage = undefined;
-            apiService.get("authAPI", appConfig.Entities.Token.API.EmailLinkToken.Url + ELinkCtrl.ePage.Masters.QueryString.Id).then(function SuccessCallback(response) {
+            var _input = {
+                AuthTokenLink_PK: ELinkCtrl.ePage.Masters.QueryString.Id
+            };
+            apiService.post("authAPI", appConfig.Entities.Token.API.EmailLinkToken.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Status == "Success") {
                     if (response.data.Response) {
                         PrepareLocalStroageInfo(response.data.Response);
@@ -109,7 +112,10 @@
             }
 
             authService.setUserInfo(helperService.encryptData(_userInfo));
-            $location.path(_userInfo.InternalUrl).search({});
+            $location.path(_userInfo.InternalUrl).search({
+                lpk: _userInfo.LoginPK,
+                tkn: _userInfo.AuthToken
+            });
         }
 
         Init();

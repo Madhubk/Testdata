@@ -33,7 +33,7 @@
                             <select chosen class="form-control" data-ng-model="SMDocumentCtrl.ePage.Masters.DocumentUpload.ActiveDocumentUpload.DocType"
                                 data-ng-options="x.DocType as x.Desc for x in SMDocumentCtrl.ePage.Masters.DocumentUpload.ListSource"
                                 data-ng-change="SMDocumentCtrl.ePage.Masters.DocumentUpload.OnDocumentUploadChange((SMDocumentCtrl.ePage.Masters.DocumentUpload.ListSource | filter: {'DocType': SMDocumentCtrl.ePage.Masters.DocumentUpload.ActiveDocumentUpload.DocType})[0])"
-                                search-contains="true">
+                                search-contains="true" data-ng-disabled="SMDocumentCtrl.ePage.Masters.Document.IsUploading">
                                 <!-- <option value="">--Select--</option> -->
                             </select>
                         </div>
@@ -43,11 +43,11 @@
                     <file-upload-custom class="file-upload-directive" data-ng-model="SMDocumentCtrl.ePage.Masters.Document.fileDetails"
                         size="{{SMDocumentCtrl.ePage.Masters.Document.fileSize}}" auth="{{SMDocumentCtrl.ePage.Masters.Document.Autherization}}"
                         additional-value="{{SMDocumentCtrl.ePage.Masters.Document.AdditionalValue}}" url="{{SMDocumentCtrl.ePage.Masters.Document.UploadUrl}}"
-                        doc-type="*" multiple-file="true" is-disabled="(!SMDocumentCtrl.ePage.Masters.DocumentUpload.ActiveDocumentUpload.DocType || SMDocumentCtrl.ePage.Masters.DocumentUpload.ActiveDocumentUpload.DocType == 'ALL')"
+                        doc-type="*" multiple-file="true" is-disabled="(SMDocumentCtrl.ePage.Masters.Document.IsUploading || !SMDocumentCtrl.ePage.Masters.DocumentUpload.ActiveDocumentUpload.DocType || SMDocumentCtrl.ePage.Masters.DocumentUpload.ActiveDocumentUpload.DocType == 'ALL')"
                         fu-class="left" get-uploaded-files="SMDocumentCtrl.ePage.Masters.Document.GetUploadedFiles($item, 'mode3')"
                         get-selected-files="SMDocumentCtrl.ePage.Masters.Document.GetSelectedFiles($item, 'mode3')"
                         modal-template="" template="">
-                        <button class="btn btn-default btn-sm mr-10" data-ng-disabled="!SMDocumentCtrl.ePage.Masters.DocumentUpload.ActiveDocumentUpload.DocType || SMDocumentCtrl.ePage.Masters.DocumentUpload.ActiveDocumentUpload.DocType == 'ALL'">Upload</button>
+                        <button class="btn btn-default btn-sm mr-10" data-ng-disabled="SMDocumentCtrl.ePage.Masters.Document.IsUploading || !SMDocumentCtrl.ePage.Masters.DocumentUpload.ActiveDocumentUpload.DocType || SMDocumentCtrl.ePage.Masters.DocumentUpload.ActiveDocumentUpload.DocType == 'ALL'">Upload</button>
                     </file-upload-custom>
                 </div>
             </div>
@@ -58,7 +58,7 @@
                             <select chosen class="form-control" data-ng-model="SMDocumentCtrl.ePage.Masters.DocumentGenerate.ActiveDocumentGenerate.Code"
                                 data-ng-options="x.Code as x.Description for x in SMDocumentCtrl.ePage.Masters.DocumentGenerate.ListSource"
                                 data-ng-change="SMDocumentCtrl.ePage.Masters.DocumentGenerate.DocumentGenerateChange((SMDocumentCtrl.ePage.Masters.DocumentGenerate.ListSource | filter: {'Code': SMDocumentCtrl.ePage.Masters.DocumentGenerate.ActiveDocumentGenerate.Code})[0])"
-                                search-contains="true">
+                                search-contains="true" data-ng-disabled="SMDocumentCtrl.ePage.Masters.Document.IsUploading">
                                 <option value="">--Select--</option>
                             </select>
                         </div>
@@ -66,18 +66,18 @@
                 </div>
                 <div class="" style="display: inline-block;">
                     <button class="btn btn-default btn-sm" data-ng-click="SMDocumentCtrl.ePage.Masters.DocumentGenerate.ActiveDocumentGenerate.Code && SMDocumentCtrl.ePage.Masters.DocumentGenerate.OnDocumentGenerate()"
-                        data-ng-disabled="!SMDocumentCtrl.ePage.Masters.DocumentGenerate.ActiveDocumentGenerate.Code || SMDocumentCtrl.ePage.Masters.DocumentGenerate.IsDisabledGenerateBtn"
+                        data-ng-disabled="SMDocumentCtrl.ePage.Masters.Document.IsUploading || !SMDocumentCtrl.ePage.Masters.DocumentGenerate.ActiveDocumentGenerate.Code || SMDocumentCtrl.ePage.Masters.DocumentGenerate.IsDisabledGenerateBtn"
                         data-ng-bind="SMDocumentCtrl.ePage.Masters.DocumentGenerate.GenerateBtnTxt"></button>
                 </div>
             </div>
-            <file-upload-custom class="file-upload-directive" data-ng-if="SMDocumentCtrl.mode == '2' && !SMDocumentCtrl.ePage.Entities.IsReadOnly" data-ng-model="SMDocumentCtrl.ePage.Masters.Document.fileDetails"
-                size="{{SMDocumentCtrl.ePage.Masters.Document.fileSize}}" auth="{{SMDocumentCtrl.ePage.Masters.Document.Autherization}}"
-                additional-value="{{SMDocumentCtrl.ePage.Masters.Document.AdditionalValue}}" url="{{SMDocumentCtrl.ePage.Masters.Document.UploadUrl}}"
-                doc-type="*" multiple-file="true" is-disabled="!SMDocumentCtrl.type || !SMDocumentCtrl.type.DocType"
+            <file-upload-custom class="file-upload-directive" data-ng-if="SMDocumentCtrl.mode == '2' && !SMDocumentCtrl.ePage.Entities.IsReadOnly"
+                data-ng-model="SMDocumentCtrl.ePage.Masters.Document.fileDetails" size="{{SMDocumentCtrl.ePage.Masters.Document.fileSize}}"
+                auth="{{SMDocumentCtrl.ePage.Masters.Document.Autherization}}" additional-value="{{SMDocumentCtrl.ePage.Masters.Document.AdditionalValue}}"
+                url="{{SMDocumentCtrl.ePage.Masters.Document.UploadUrl}}" doc-type="*" multiple-file="true" is-disabled="SMDocumentCtrl.ePage.Masters.Document.IsUploading ||!SMDocumentCtrl.type || !SMDocumentCtrl.type.DocType"
                 fu-class="left" get-uploaded-files="SMDocumentCtrl.ePage.Masters.Document.GetUploadedFiles($item, 'mode2')"
                 get-selected-files="SMDocumentCtrl.ePage.Masters.Document.GetSelectedFiles($item, 'mode2')"
                 modal-template="" template="">
-                <button class="btn btn-danger btn-sm mr-20" data-ng-disabled="!SMDocumentCtrl.type || !SMDocumentCtrl.type.DocType">Upload</button>
+                <button class="btn btn-danger btn-sm mr-20" data-ng-disabled="SMDocumentCtrl.ePage.Masters.Document.IsUploading || !SMDocumentCtrl.type || !SMDocumentCtrl.type.DocType">Upload</button>
             </file-upload-custom>
             <button class="btn btn-default btn-sm mr-20" data-ng-click="SMDocumentCtrl.ePage.Masters.Header.RefreshAll()"
                 data-ng-if="!SMDocumentCtrl.Config.IsDisableRefreshButton">Refresh</button>
@@ -98,13 +98,14 @@
             <!-- Doc Upload List -->
             <div class="clearfix text-single-line doc-upload-list position-relative pl-10 pr-90 pt-7 pb-7" data-ng-if="(SMDocumentCtrl.ePage.Masters.DocumentUpload.ListSource && SMDocumentCtrl.ePage.Masters.DocumentUpload.ListSource.length > 0) && SMDocumentCtrl.Config.IsDisableUpload != true"
                 data-ng-repeat="x in SMDocumentCtrl.ePage.Masters.DocumentUpload.ListSource" title="{{x.Desc}}"
-                data-ng-click="(x.DocType != SMDocumentCtrl.ePage.Masters.DocumentUpload.ActiveDocumentUpload.DocType) && SMDocumentCtrl.ePage.Masters.DocumentUpload.OnDocumentUploadChange(x)">
+                data-ng-click="!SMDocumentCtrl.ePage.Masters.Document.IsUploading && (x.DocType != SMDocumentCtrl.ePage.Masters.DocumentUpload.ActiveDocumentUpload.DocType) && SMDocumentCtrl.ePage.Masters.DocumentUpload.OnDocumentUploadChange(x)">
                 <span class="cursor-pointer" data-ng-class="{'active': x.DocType == SMDocumentCtrl.ePage.Masters.DocumentUpload.ActiveDocumentUpload.DocType}"
                     data-ng-bind="x.Desc"></span>
                 <file-upload-custom class="file-upload-directive doc-upload-btn" data-ng-model="SMDocumentCtrl.ePage.Masters.Document.fileDetails"
                     size="{{SMDocumentCtrl.ePage.Masters.Document.fileSize}}" auth="{{SMDocumentCtrl.ePage.Masters.Document.Autherization}}"
                     additional-value="{{SMDocumentCtrl.ePage.Masters.Document.AdditionalValue}}" url="{{SMDocumentCtrl.ePage.Masters.Document.UploadUrl}}"
-                    doc-type="*" multiple-file="true" is-disabled="false" fu-class="left" get-uploaded-files="SMDocumentCtrl.ePage.Masters.Document.GetUploadedFiles($item, 'mode1', x)"
+                    doc-type="*" multiple-file="true" is-disabled="SMDocumentCtrl.ePage.Masters.Document.IsUploading"
+                    fu-class="left" get-uploaded-files="SMDocumentCtrl.ePage.Masters.Document.GetUploadedFiles($item, 'mode1', x)"
                     get-selected-files="SMDocumentCtrl.ePage.Masters.Document.GetSelectedFiles($item, 'mode1', x)"
                     modal-template="" template="" data-ng-if="x.Desc != 'All' && !SMDocumentCtrl.ePage.Entities.IsReadOnly">
                     <button class="btn btn-xs btn-default pull-right">Upload</button>
@@ -113,10 +114,10 @@
             <!-- Doc Generate List -->
             <div class="clearfix text-single-line doc-generate-list position-relative pl-10 pr-90 pt-7 pb-7" data-ng-if="(SMDocumentCtrl.ePage.Masters.DocumentGenerate.ListSource && SMDocumentCtrl.ePage.Masters.DocumentGenerate.ListSource.length > 0) && SMDocumentCtrl.Config.IsDisableGenerate != true"
                 data-ng-repeat="x in SMDocumentCtrl.ePage.Masters.DocumentGenerate.ListSource" title="{{x.Desc}}"
-                data-ng-click="SMDocumentCtrl.ePage.Masters.DocumentGenerate.ActiveDocumentGenerate = x">
+                data-ng-click="!SMDocumentCtrl.ePage.Masters.Document.IsUploading && SMDocumentCtrl.ePage.Masters.DocumentGenerate.ActiveDocumentGenerate = x">
                 <span data-ng-bind="x.Description"></span>
                 <button class="btn btn-xs btn-default pull-right doc-generate-btn" data-ng-click="SMDocumentCtrl.ePage.Masters.DocumentGenerate.OnDocumentGenerate(x)"
-                    data-ng-bind="x.GenerateBtnTxt" data-ng-disabled="x.IsDisabledGenerateBtn"></button>
+                    data-ng-bind="x.GenerateBtnTxt" data-ng-disabled="x.IsDisabledGenerateBtn || SMDocumentCtrl.ePage.Masters.Document.IsUploading"></button>
             </div>
         </div>
         <!-- Content -->
@@ -180,14 +181,14 @@
                                         <a href="javascript: void(0);" data-ng-bind="x.DocumentName" title="{{x.DocumentName}}"
                                             data-ng-click="x.PK && SMDocumentCtrl.ePage.Masters.Document.DownloadRecord(x, $index)"></a>
                                         <span class="edit-document-name" uib-dropdown data-ng-if="(x.CreatedBy == SMDocumentCtrl.ePage.Masters.UserId || (x.CreatedBy != SMDocumentCtrl.ePage.Masters.UserId && x.IsResticted)) && SMDocumentCtrl.Config.IsDisableEditFileName != true && !SMDocumentCtrl.ePage.Entities.IsReadOnly">
-                                            <i class="fa fa-pencil cursor-pointer" uib-dropdown-toggle></i>
+                                            <i class="fa fa-pencil cursor-pointer" uib-dropdown-toggle title="Edit File Name"></i>
                                             <div class="dropdown-menu dropdown-menu-right p-5" uib-dropdown-menu>
-                                                <form class="form-group clearfix m-0 mb-10">
-                                                    <input type="text" class="form-control input-sm" placeholder="Document Name"
+                                                <form class="form-group clearfix m-0">
+                                                    <input type="text" class="form-control input-sm mb-10" placeholder="Document Name"
                                                         data-ng-model="x.DocumentNameTemp">
+                                                    <input type="submit" class="btn btn-primary btn-xs pull-right"
+                                                        value="Save" data-ng-click="SMDocumentCtrl.ePage.Masters.Document.OnDocDescChanges(x)">
                                                 </form>
-                                                <input type="submit" class="btn btn-primary btn-xs pull-right" value="Save"
-                                                    data-ng-click="SMDocumentCtrl.ePage.Masters.Document.OnDocDescChanges(x)">
                                             </div>
                                         </span>
                                     </div>

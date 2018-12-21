@@ -28,6 +28,7 @@
             ShipmentMenuCtrl.ePage.Masters.OnMenuClick = OnMenuClick;
             ShipmentMenuCtrl.ePage.Masters.Config = shipmentConfig;
             ShipmentMenuCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
+            ShipmentMenuCtrl.ePage.Masters.Disable = false;    
             ShipmentMenuCtrl.ePage.Masters.TableProperty = {
                 "status": {
                     "isenabled": true,

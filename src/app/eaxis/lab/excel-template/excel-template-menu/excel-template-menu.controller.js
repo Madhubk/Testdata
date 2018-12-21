@@ -5,9 +5,9 @@
         .module("Application")
         .controller("ExcelTemplateMenuController", ExcelTemplateMenuController);
 
-    ExcelTemplateMenuController.$inject = ["helperService", "authService", "excelTemplateConfig", "appConfig", "apiService", "$uibModal", "$scope"];
+    ExcelTemplateMenuController.$inject = ["helperService", "excelTemplateConfig", "appConfig", "apiService", "$uibModal", "$scope"];
 
-    function ExcelTemplateMenuController(helperService, authService, excelTemplateConfig, appConfig, apiService, $uibModal, $scope) {
+    function ExcelTemplateMenuController(helperService, excelTemplateConfig, appConfig, apiService, $uibModal, $scope) {
         var ExcelTemplateMenuCtrl = this;
 
         function Init() {
@@ -36,7 +36,6 @@
 
             ExcelTemplateMenuCtrl.ePage.Masters.SaveButtonText = "Save";
             ExcelTemplateMenuCtrl.ePage.Masters.IsDisableSave = false;
-
         }
 
         function EditNotificationTemplateModalInstance() {
@@ -110,8 +109,6 @@
                             delete excelTemplateConfig.TabList[_index]["New"];
 
                             excelTemplateConfig.TabList[_index][ExcelTemplateMenuCtrl.ePage.Masters.ExcelTemplate.FormView].ePage.Entities.Header.Data = ExcelTemplateMenuCtrl.ePage.Masters.ExcelTemplate.FormView;
-
-
                         }
                     }
                 }
@@ -130,6 +127,8 @@
             ExcelTemplateMenuCtrl.ePage.Masters.TestTemplate.OnExecuteTestTemplate = OnExecuteTestTemplate;
             ExcelTemplateMenuCtrl.ePage.Masters.TestTemplate.AddNewRow = AddNewRow;
             ExcelTemplateMenuCtrl.ePage.Masters.TestTemplate.RemoveRecord = RemoveRecord;
+
+            ExcelTemplateMenuCtrl.ePage.Masters.TestTemplate.SearchKeywords = [];
 
             GetFileTypeList();
         }
@@ -160,6 +159,16 @@
 
             if (ExcelTemplateMenuCtrl.ePage.Masters.ExcelTemplate.FormView.Value != null) {
                 ExcelTemplateMenuCtrl.ePage.Masters.TestTemplate.JSONValue = JSON.parse(angular.copy(ExcelTemplateMenuCtrl.ePage.Masters.ExcelTemplate.FormView.Value));
+
+                if (ExcelTemplateMenuCtrl.ePage.Masters.TestTemplate.JSONValue.DataObjs && ExcelTemplateMenuCtrl.ePage.Masters.TestTemplate.JSONValue.DataObjs.length > 0) {
+                    ExcelTemplateMenuCtrl.ePage.Masters.TestTemplate.JSONValue.DataObjs.map(function (value, key) {
+                        if (value.DataSource == "Local") {
+                            if (value.DataObject) {
+                                value.DataObject = JSON.parse(value.DataObject);
+                            }
+                        }
+                    });
+                }
             }
 
             ExcelTemplateMenuCtrl.ePage.Masters.TestTemplate.SearchKeywords = [];
@@ -233,29 +242,33 @@
                     if (_json.indexOf(value.FieldName) !== -1) {
                         if (value.Value) {
                             _json = _json.replace(value.FieldName, value.Value);
-
-                            var _input = JSON.parse(angular.copy(_json));
-                            _input.FileType = ExcelTemplateMenuCtrl.ePage.Masters.TestTemplate.FileType;
-                            if (ExcelTemplateMenuCtrl.ePage.Masters.TestTemplate.FileType == "HTML") {
-                                _input.IsLocal = true;
-                            }
-                            if (ExcelTemplateMenuCtrl.ePage.Masters.TestTemplate.FileType === "EXCEL" || ExcelTemplateMenuCtrl.ePage.Masters.TestTemplate.FileType === "PDF") {
-                                _apiUrl = appConfig.Entities.Export.API.Excel.Url;
-                            } else if (ExcelTemplateMenuCtrl.ePage.Masters.TestTemplate.FileType === "HTML") {
-                                _apiUrl = appConfig.Entities.Export.API.AsHtml.Url;
-                            }
-
-                            apiService.post("eAxisAPI", _apiUrl, _input).then(function (response) {
-                                helperService.DownloadDocument(response.data.Response);
-                            });
                         }
                     }
+                });
+
+                var _input = JSON.parse(angular.copy(_json));
+                _input.FileType = ExcelTemplateMenuCtrl.ePage.Masters.TestTemplate.FileType;
+                if (ExcelTemplateMenuCtrl.ePage.Masters.TestTemplate.FileType == "HTML") {
+                    _input.IsLocal = true;
+                }
+                if (ExcelTemplateMenuCtrl.ePage.Masters.TestTemplate.FileType === "EXCEL" || ExcelTemplateMenuCtrl.ePage.Masters.TestTemplate.FileType === "PDF") {
+                    _apiUrl = appConfig.Entities.Export.API.Excel.Url;
+                } else if (ExcelTemplateMenuCtrl.ePage.Masters.TestTemplate.FileType === "HTML") {
+                    _apiUrl = appConfig.Entities.Export.API.AsHtml.Url;
+                }
+
+                apiService.post("eAxisAPI", _apiUrl, _input).then(function (response) {
+                    helperService.DownloadDocument(response.data.Response);
                 });
             }
         }
 
         function AddNewRow() {
             var _obj = {};
+            if (!ExcelTemplateMenuCtrl.ePage.Masters.TestTemplate.SearchKeywords) {
+                ExcelTemplateMenuCtrl.ePage.Masters.TestTemplate.SearchKeywords = [];
+            }
+
             ExcelTemplateMenuCtrl.ePage.Masters.TestTemplate.SearchKeywords.push(_obj);
         }
 

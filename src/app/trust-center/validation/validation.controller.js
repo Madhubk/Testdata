@@ -4,9 +4,9 @@
     angular.module("Application")
         .controller("ValidationController", ValidationController);
 
-    ValidationController.$inject = ["$location", "$uibModal", "$scope", "authService", "helperService", "appConfig", "apiService", "confirmation", "toastr", "jsonEditModal"];
+    ValidationController.$inject = ["$location", "$uibModal", "$scope", "authService", "helperService", "trustCenterConfig", "apiService", "confirmation", "toastr", "jsonEditModal"];
 
-    function ValidationController($location, $uibModal, $scope, authService, helperService, appConfig, apiService, confirmation, toastr, jsonEditModal) {
+    function ValidationController($location, $uibModal, $scope, authService, helperService, trustCenterConfig, apiService, confirmation, toastr, jsonEditModal) {
         var ValidationCtrl = this;
         var _queryString = $location.path().split("/").pop();
 
@@ -28,6 +28,10 @@
                 if (ValidationCtrl.ePage.Masters.QueryString.AppPk) {
                     InitBreadcrumb();
                     InitApplication();
+                    InitModule();
+                    InitValidation();
+                    InitValidationGroup();
+                    InitValidationGroupMapping();
                 }
             } catch (error) {
                 console.log(error);
@@ -94,52 +98,43 @@
                     };
                 }
 
-                InitModule();
-                InitValidation();
-                InitValidationGroup();
-                InitValidationGroupMapping();
                 GetRedirectLinkList();
+                if (ValidationCtrl.ePage.Masters.ActiveModule) {
+                    GetValidationList();
+                }
             }
 
             // ========================Module Start========================
             function InitModule() {
-                ValidationCtrl.ePage.Masters.Module = {};
-                ValidationCtrl.ePage.Masters.Module.OnModuleChange = OnModuleChange;
+                ValidationCtrl.ePage.Masters.OnModuleChange = OnModuleChange;
 
                 GetModuleList();
             }
 
             function GetModuleList() {
-                ValidationCtrl.ePage.Masters.Module.ListSource = undefined;
+                ValidationCtrl.ePage.Masters.ModuleList = undefined;
                 var _filter = {
                     TypeCode: "MODULE_MASTER"
                 };
                 var _input = {
                     "searchInput": helperService.createToArrayOfObject(_filter),
-                    "FilterID": appConfig.Entities.CfxTypes.API.FindAll.FilterID
+                    "FilterID": trustCenterConfig.Entities.API.CfxTypes.API.FindAll.FilterID
                 };
 
-                apiService.post("eAxisAPI", appConfig.Entities.CfxTypes.API.FindAll.Url + ValidationCtrl.ePage.Masters.Application.ActiveApplication.PK, _input).then(function (response) {
+                apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxTypes.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
                     if (response.data.Response) {
-                        ValidationCtrl.ePage.Masters.Module.ListSource = response.data.Response;
-
-                        if (ValidationCtrl.ePage.Masters.Module.ListSource.length > 0) {
-                            OnModuleChange(ValidationCtrl.ePage.Masters.Module.ListSource[0]);
-                        } else {
-                            OnModuleChange();
-                        }
-                    }
-                    else {
-                        ValidationCtrl.ePage.Masters.Module.ListSource = [];
+                        ValidationCtrl.ePage.Masters.ModuleList = response.data.Response;
+                    } else {
+                        ValidationCtrl.ePage.Masters.ModuleList = [];
                     }
                 });
             }
 
             function OnModuleChange($item) {
-                ValidationCtrl.ePage.Masters.Module.ActiveModule = angular.copy($item);
+                ValidationCtrl.ePage.Masters.ActiveModule = angular.copy($item);
 
-                if (!ValidationCtrl.ePage.Masters.Module.ActiveModule) {
-                    ValidationCtrl.ePage.Masters.Module.ActiveModule = {};
+                if (!ValidationCtrl.ePage.Masters.ActiveModule) {
+                    ValidationCtrl.ePage.Masters.ActiveModule = {};
                 }
 
                 GetValidationList();
@@ -155,20 +150,27 @@
                 ValidationCtrl.ePage.Masters.Validation.Cancel = Cancel;
                 ValidationCtrl.ePage.Masters.Validation.Save = Save;
                 ValidationCtrl.ePage.Masters.Validation.OpenJsonModal = OpenJsonModal;
+
+                ValidationCtrl.ePage.Masters.Validation.ListSource = [];
             }
 
             function GetValidationList() {
                 ValidationCtrl.ePage.Masters.Validation.ListSource = undefined;
                 var _filter = {
-                    "ModuleCode": ValidationCtrl.ePage.Masters.Module.ActiveModule.Module,
-                    "SAP_FK": ValidationCtrl.ePage.Masters.Application.ActiveApplication.PK
-                };
-                var _input = {
-                    "searchInput": helperService.createToArrayOfObject(_filter),
-                    "FilterID": appConfig.Entities.Validation.API.FindAll.FilterID
+                    "SAP_FK": ValidationCtrl.ePage.Masters.Application.ActiveApplication.PK,
+                    // "TenantCode": authService.getUserInfo().TenantCode
                 };
 
-                apiService.post("eAxisAPI", appConfig.Entities.Validation.API.FindAll.Url, _input).then(function (response) {
+                if (ValidationCtrl.ePage.Masters.ActiveModule) {
+                    _filter.ModuleCode = ValidationCtrl.ePage.Masters.ActiveModule.Key;
+                }
+
+                var _input = {
+                    "searchInput": helperService.createToArrayOfObject(_filter),
+                    "FilterID": trustCenterConfig.Entities.API.Validation.API.FindAll.FilterID
+                };
+
+                apiService.post("eAxisAPI", trustCenterConfig.Entities.API.Validation.API.FindAll.Url, _input).then(function (response) {
                     if (response.data.Response) {
                         ValidationCtrl.ePage.Masters.Validation.ListSource = angular.copy(response.data.Response);
 
@@ -216,7 +218,7 @@
                 _input.IsModified = true;
                 _input.IsDeleted = true;
 
-                apiService.post("eAxisAPI", appConfig.Entities.Validation.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
+                apiService.post("eAxisAPI", trustCenterConfig.Entities.API.Validation.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
                     if (response.data.Response) {
                         var _index = ValidationCtrl.ePage.Masters.Validation.ListSource.map(function (value, key) {
                             return value.PK;
@@ -244,7 +246,7 @@
                 ValidationCtrl.ePage.Masters.Validation.SaveBtnText = "Ok";
                 ValidationCtrl.ePage.Masters.Validation.IsDisableSaveBtn = false;
 
-                EditModalInstance().result.then(function (response) { }, function () {
+                EditModalInstance().result.then(function (response) {}, function () {
                     Cancel();
                 });
             }
@@ -289,8 +291,9 @@
                 var _input = angular.copy(ValidationCtrl.ePage.Masters.Validation.ActiveValidataion);
                 _input.IsModified = true;
                 _input.SAP_FK = ValidationCtrl.ePage.Masters.Application.ActiveApplication.PK;
+                _input.TenantCode = authService.getUserInfo().TenantCode;
 
-                apiService.post("eAxisAPI", appConfig.Entities.Validation.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
+                apiService.post("eAxisAPI", trustCenterConfig.Entities.API.Validation.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
                     if (response.data.Response) {
                         if (response.data.Response.length > 0) {
                             var _response = response.data.Response[0];
@@ -352,13 +355,12 @@
                     } catch (error) {
                         toastr.warning("Value Should be JSON format...!");
                     }
-                }
-                else {
+                } else {
                     toastr.warning("Value Should not be Empty...!");
                 }
             }
 
-            // *** Validation Group Crud ** //
+            // *** Validation Group Crud *** //
             function InitValidationGroup() {
                 ValidationCtrl.ePage.Masters.ValidationGroup = {};
                 ValidationCtrl.ePage.Masters.ValidationGroup.OpenValidationGrouptModal = OpenValidationGrouptModal;

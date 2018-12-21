@@ -125,12 +125,36 @@
         }
 
         function SaveEntity(callback) {
-            if (ActivityTemplateOutward2Ctrl.taskObj.ProcessName == "WMS_DeliveryMaterial") {
+            if (ActivityTemplateOutward2Ctrl.taskObj.ProcessName == "WMS_DeliveryMaterial" || ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Transfer Material") {
                 apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.Update.Url, myTaskActivityConfig.Entities.DeliveryData).then(function (response) {
-                    $rootScope.SaveOutwardFromTask(function () {
-                        if (callback)
-                            callback();
-                    });
+                    if (myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo) {
+                        if (myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code) {
+                            myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsOutward[0] = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader;
+                        }
+                        myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data = filterObjectUpdate(myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data, "IsModified");
+                        apiService.post("eAxisAPI", appConfig.Entities.WmsPickList.API.Update.Url, myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data).then(function (response) {
+                            if (response.data.Response) {
+                                myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data = response.data.Response;
+                                $rootScope.SaveOutwardFromTask(function () {
+                                    apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + ActivityTemplateOutward2Ctrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
+                                        if (response.data.Response) {
+                                            response.data.Response.UIWmsOutwardHeader.Warehouse = response.data.Response.UIWmsOutwardHeader.WarehouseCode + "-" + response.data.Response.UIWmsOutwardHeader.WarehouseName;
+                                            response.data.Response.UIWmsOutwardHeader.Client = response.data.Response.UIWmsOutwardHeader.ClientCode + "-" + response.data.Response.UIWmsOutwardHeader.ClientName;
+                                            response.data.Response.UIWmsOutwardHeader.TransferWarehouse = response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Code + "-" + response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Name;
+                                            myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data = response.data.Response;
+                                            if (callback)
+                                                callback();
+                                        }
+                                    });
+                                });
+                            }
+                        });
+                    } else {
+                        $rootScope.SaveOutwardFromTask(function () {
+                            if (callback)
+                                callback();
+                        });
+                    }
                 });
             } else {
                 saves(callback);
@@ -345,7 +369,7 @@
                         ActivityTemplateOutward2Ctrl.ePage.Masters.CompleteBtnText = "Please Wait...";
                         ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableCompleteBtn = true;
                         if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Transfer Material") {
-                            apiService.get("eAxisAPI", appConfig.Entities.WmsPickList.API.GetById.Url + myTaskActivityConfig.Entities.PickData.UIWmsPickHeader.PK).then(function (response) {
+                            apiService.get("eAxisAPI", appConfig.Entities.WmsPickList.API.GetById.Url + myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsPickHeader.PK).then(function (response) {
                                 if (response.data.Response) {
                                     response.data.Response.UIWmsPickHeader.PickStatus = 'PIF';
                                     response.data.Response.UIWmsPickHeader.PickStatusDesc = 'Finalized';
@@ -375,7 +399,7 @@
                                 }
                             });
                         } else if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Confirm Delivery") {
-                            apiService.get("eAxisAPI", appConfig.Entities.WmsPickList.API.GetById.Url + myTaskActivityConfig.Entities.PickData.UIWmsPickHeader.PK).then(function (response) {
+                            apiService.get("eAxisAPI", appConfig.Entities.WmsPickList.API.GetById.Url + myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsPickHeader.PK).then(function (response) {
                                 if (response.data.Response) {
                                     response.data.Response.UIWmsPickHeader.PickStatus = 'PIF';
                                     response.data.Response.UIWmsPickHeader.PickStatusDesc = 'Finalized';

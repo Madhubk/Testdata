@@ -46,6 +46,10 @@
     right: 10px;
 }
 
+.edit-document-name .dropdown-menu input[type="text"] {
+    width: 300px;
+}
+
 .doc-list-wrapper .doc-list .access-icon {
     position: absolute;
     top: 10px;

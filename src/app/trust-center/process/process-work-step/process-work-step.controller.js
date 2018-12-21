@@ -148,7 +148,7 @@
 
         function OpenJsonModal(objName, subObject) {
             var _json;
-            (!subObject) ? _json = ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps[objName] : _json = ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps[subObject][objName];
+            (!subObject) ? _json = ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps[objName]: _json = objName[subObject];
 
             if (_json !== undefined && _json !== null && _json !== '' && _json !== ' ') {
                 try {
@@ -166,7 +166,7 @@
 
                         jsonEditModal.showModal(modalDefaults, {})
                             .then(function (result) {
-                                (!subObject) ? ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps[objName] = result : ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps[subObject][objName] = result;
+                                (!subObject) ? ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps[objName] = result: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps[subObject][objName] = result;
                             }, function () {
                                 console.log("Cancelled");
                             });
@@ -250,7 +250,7 @@
                         return exports;
                     }
                 }
-            }).result.then(function (response) { }, function () {
+            }).result.then(function (response) {}, function () {
                 console.log("Cancelled");
             });
         }
@@ -340,7 +340,7 @@
 
             PreparePartyMappingInput();
 
-            EditStepModalPopup().result.then(function (response) { }, function () {
+            EditStepModalPopup().result.then(function (response) {}, function () {
                 console.log("Cancelled");
             });
         }
@@ -620,7 +620,7 @@
                 ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.RelatedInputGroup = [];
             }
 
-            EditRelatedInputModalInstance().result.then(function (response) { }, function () {
+            EditRelatedInputModalInstance().result.then(function (response) {}, function () {
                 CloseEditRelatedInputModal();
             });
         }
@@ -699,7 +699,7 @@
                 ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.KPIExpressionGroup = [];
             }
 
-            EditKPIExpressionModalInstance().result.then(function (response) { }, function () {
+            EditKPIExpressionModalInstance().result.then(function (response) {}, function () {
                 CloseEditKPIExpressionModal();
             });
         }

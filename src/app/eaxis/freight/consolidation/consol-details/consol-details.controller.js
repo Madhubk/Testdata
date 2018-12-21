@@ -42,7 +42,6 @@
                 apiService.get("eAxisAPI", appConfig.Entities.ConsolList.API.GetByID.Url + ConsolDetailsCtrl.ePage.Masters.ConsolObj.EntityRefKey).then(function (response) {
                     if (response.data.Response) {
                         ConsolDetailsCtrl.ePage.Entities.Header.Data = response.data.Response;
-                        console.log(ConsolDetailsCtrl.ePage.Entities.Header.Data);
                         dynamicOrgAddressFetch();
                     } else {
                         console.log("Empty New Shipment response");

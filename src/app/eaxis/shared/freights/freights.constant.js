@@ -81,12 +81,14 @@
                     'app/eaxis/buyer/freight/booking/1_2_asn-upload/1_2_asn-upload-config.factory.js',
                     'app/eaxis/buyer/freight/booking/1_2_asn-upload/1_2_asn-upload-directive.js'
                 ]
-            }, {
-                name: '1_2_BookingASNUploadDirective',
+            }, 
+            // Entity Doc Upload
+            {
+                name: '1_2_EntityDocUploadDirective',
                 files: [
-                    'app/eaxis/buyer/freight/booking/1_2_asn-upload/1_2_asn-upload-directive/1_2_asn-upload-directive.css',
-                    'app/eaxis/buyer/freight/booking/1_2_asn-upload/1_2_asn-upload-directive/1_2_asn-upload-directive.js',
-                    'app/eaxis/buyer/freight/booking/1_2_asn-upload/1_2_asn-upload-directive/1_2_asn-upload-directive.controller.js'
+                    'app/eaxis/buyer/shared/1_2_entitydoc-upload/1_2_entitydoc-upload-directive/1_2_entitydoc-upload-directive.css',
+                    'app/eaxis/buyer/shared/1_2_entitydoc-upload/1_2_entitydoc-upload-directive/1_2_entitydoc-upload-directive.js',
+                    'app/eaxis/buyer/shared/1_2_entitydoc-upload/1_2_entitydoc-upload-directive/1_2_entitydoc-upload-directive.controller.js'
                 ]
             },
             // ShipmentList
@@ -176,6 +178,43 @@
                     'app/eaxis/buyer/freight/shipment/1_3_buyer_forwarder_shipment/1_3_console-and-packing/1_3_packing-grid/1_3_packing-grid.directive.js',
                     'app/eaxis/buyer/freight/shipment/1_3_buyer_forwarder_shipment/1_3_console-and-packing/1_3_packing-grid/1_3_packing-grid.controller.js',
                     'app/eaxis/buyer/freight/shipment/1_3_buyer_forwarder_shipment/1_3_console-and-packing/1_3_packing-grid/1_3_packing-grid-popup.controller.js'
+                ]
+            },
+            // buyer read only screen
+            {
+                name: 'shp-buyer-view-template-list',
+                files: [
+                    'app/eaxis/buyer/freight/shipment/shp-buyer-read-only/3_track-shipment.css',
+                    'app/eaxis/buyer/freight/shipment/shp-buyer-read-only/3_track-shipment-config.factory.js',
+                    'app/eaxis/buyer/freight/shipment/shp-buyer-read-only/3_track-shipment.controller.js'
+                ]
+            },
+            {
+                name: 'shp-buyer-view-template',
+                files: [
+                    'app/eaxis/buyer/freight/shipment/shp-buyer-read-only/shp-buyer-view-template/shp-buyer-view-template.directive.js',
+                    'app/eaxis/buyer/freight/shipment/shp-buyer-read-only/shp-buyer-view-template/shp-buyer-view-template.controller.js',
+                ]
+            },
+            {
+                name: 'shp-buyer-view-general',
+                files: [
+                    'app/eaxis/buyer/freight/shipment/shp-buyer-read-only/shp-buyer-view/general/general.directive.js',
+                    'app/eaxis/buyer/freight/shipment/shp-buyer-read-only/shp-buyer-view/general/general.controller.js',
+                ]
+            },
+            {
+                name: 'shp-buyer-view-order',
+                files: [
+                    'app/eaxis/buyer/freight/shipment/shp-buyer-read-only/shp-buyer-view/order/order.directive.js',
+                    'app/eaxis/buyer/freight/shipment/shp-buyer-read-only/shp-buyer-view/order/order.controller.js',
+                ]
+            },
+            {
+                name: 'shp-buyer-view-consol-packing',
+                files: [
+                    'app/eaxis/buyer/freight/shipment/shp-buyer-read-only/shp-buyer-view/consol-packing/consol-packing.directive.js',
+                    'app/eaxis/buyer/freight/shipment/shp-buyer-read-only/shp-buyer-view/consol-packing/consol-packing.controller.js',
                 ]
             },
             // MyTask
@@ -361,6 +400,20 @@
                     'app/eaxis/buyer/freight/dashboard/tabs/buyer/buyer-dashboard.css',
                     'app/eaxis/buyer/freight/dashboard/tabs/buyer/buyer-dashboard.controller.js'
                 ]
+            },
+            {
+                name: 'buyer-dashboard-custom',
+                files: [
+                    'app/eaxis/buyer/freight/dashboard/dashboard-custom.css',
+                    'app/eaxis/buyer/freight/dashboard/dashboard.controller-custom.js'
+                ]
+            },
+            {
+                name: 'buyer-dashboard-deeconnyc',
+                files: [
+                    'app/eaxis/buyer/freight/dashboard/tabs/buyer/buyer-dashboard-deeconnyc.css',
+                    'app/eaxis/buyer/freight/dashboard/tabs/buyer/buyer-dashboard.controller-deeconnyc.js'
+                ]
             }, {
                 name: 'supplier-dashboard',
                 files: [
@@ -412,7 +465,7 @@
                     'app/eaxis/buyer/freight/booking/shared/my-task/my-task-directive/upload-inbound-report-vnm/upload-inbound-report-vnm.controller.js',
                     'app/eaxis/buyer/freight/booking/shared/my-task/my-task-directive/upload-inbound-report-vnm/upload-inbound-report-vnm.directive.js'
                 ]
-            },{
+            }, {
                 name: 'upload-leasing-contract-vnm',
                 files: [
                     'app/eaxis/buyer/freight/booking/shared/my-task/my-task-directive/upload-leasing-contract-vnm/upload-leasing-contract-vnm.css',
@@ -426,6 +479,38 @@
                     'app/eaxis/buyer/freight/booking/shared/my-task/my-task-directive/upload-trouble-report-vnm/upload-trouble-report-vnm.css',
                     'app/eaxis/buyer/freight/booking/shared/my-task/my-task-directive/upload-trouble-report-vnm/upload-trouble-report-vnm.controller.js',
                     'app/eaxis/buyer/freight/booking/shared/my-task/my-task-directive/upload-trouble-report-vnm/upload-trouble-report-vnm.directive.js'
+                ]
+            },
+            {
+                name: 'asnupload-vnm',
+                files: [
+                    'app/eaxis/buyer/freight/booking/shared/my-task/my-task-directive/asnupload-vnm/asnupload-vnm.css',
+                    'app/eaxis/buyer/freight/booking/shared/my-task/my-task-directive/asnupload-vnm/asnupload-vnm.controller.js',
+                    'app/eaxis/buyer/freight/booking/shared/my-task/my-task-directive/asnupload-vnm/asnupload-vnm.directive.js'
+                ]
+            },{
+                name: '2_ShipmentList',
+                files: [
+                    'app/eaxis/buyer/freight/booking/shared/2_shipment_list/2_shipment.css',
+                    'app/eaxis/buyer/freight/booking/shared/2_shipment_list/2_shipment.controller.js',
+                    'app/eaxis/buyer/freight/booking/shared/2_shipment_list/2_shipment-config.factory.js'
+                ]
+            },
+            //Bulk upload
+            {
+                name: '1_2_BulkUpload',
+                files: [
+                    'app/eaxis/buyer/freight/booking/1_2_bulk-upload/1_2_bulk-upload.css',
+                    'app/eaxis/buyer/freight/booking/1_2_bulk-upload/1_2_bulk-upload.controller.js',
+                    'app/eaxis/buyer/freight/booking/1_2_bulk-upload/1_2_bulk-upload-config.factory.js',
+                    'app/eaxis/buyer/freight/booking/1_2_bulk-upload/1_2_bulk-upload-directive.js'
+                ]
+            }, {
+                name: '1_3_BookingList',
+                files: [
+                    'app/eaxis/buyer/freight/booking/1_2_bulk-upload/1_3_booking_list/1_3_booking.css',
+                    'app/eaxis/buyer/freight/booking/1_2_bulk-upload/1_3_booking_list/1_3_booking.controller.js',
+                    'app/eaxis/buyer/freight/booking/1_2_bulk-upload/1_3_booking_list/1_3_booking-config.factory.js'
                 ]
             }
         ]

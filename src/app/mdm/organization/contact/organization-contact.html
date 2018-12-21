@@ -1,44 +1,56 @@
 <div class="clearfix p-10 pb-50">
     <div class="org-header">
         <span>Contact</span>
-        <button class="btn btn-xs btn-primary pull-right" data-ng-click="OrganizationContactCtrl.ePage.Masters.EditContact()">Add New</button>
+        <button class="btn btn-xs btn-primary pull-right" data-ng-click="OrganizationContactCtrl.ePage.Masters.EditContact()">Add
+            New</button>
     </div>
     <div class="clearfix org-contact-container position-relative pb-20">
         <div data-ng-if="!OrganizationContactCtrl.ePage.Entities.Header.Data.OrgContact" class="text-center p-20"><i
                 class="fa fa-spin fa-spinner font-160"></i></div>
-        <div data-ng-if="OrganizationContactCtrl.ePage.Entities.Header.Data.OrgContact.length === 0" class="text-center p-20"><i>No Records...!</i></div>
+        <div data-ng-if="OrganizationContactCtrl.ePage.Entities.Header.Data.OrgContact.length === 0" class="text-center p-20"><i>No
+                Records...!</i></div>
         <div data-ng-if="OrganizationContactCtrl.ePage.Entities.Header.Data.OrgContact && OrganizationContactCtrl.ePage.Entities.Header.Data.OrgContact.length > 0"
             class="col-lg-4 p-0" data-ng-repeat="x in OrganizationContactCtrl.ePage.Entities.Header.Data.OrgContact">
             <div class="p-10 m-10 org-address-contact-box position-relative">
-                <div class="org-address-contact-edit-delete">
-                    <i class="fa fa-trash ml-5" data-ng-click="OrganizationContactCtrl.ePage.Masters.DeleteContact(x)"></i>
-                    <i class="fa fa-pencil ml-5" data-ng-click="OrganizationContactCtrl.ePage.Masters.EditContact(x)"></i>
-                </div>
-                <div class="clearfix pr-35">
+                <span class="vertical-menu" uib-dropdown>
+                    <i class="fa fa-ellipsis-v" uib-dropdown-toggle></i>
+                    <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
+                        <!-- Edit -->
+                        <li class="clearfix cursor-pointer text-single-line dropdown-list" data-ng-click="OrganizationContactCtrl.ePage.Masters.EditContact(x)">
+                            <span class="	glyphicon glyphicon-pencil mr-5 doc-menu-icon"></span>
+                            <span data-ng-bind="'Edit'"></span>
+                        </li>
+                        <!-- Delete -->
+                        <li class="clearfix cursor-pointer text-single-line dropdown-list" data-ng-click="OrganizationContactCtrl.ePage.Masters.DeleteContact(x)">
+                            <span class="glyphicons glyphicons-bin mr-5 doc-menu-icon"></span>
+                            <span data-ng-bind="'Delete'"></span>
+                        </li>
+                    </ul>
+                </span>
+                <div class="clearfix pr-20">
                     <div class="text-single-line">{{x.ContactName || OrganizationContactCtrl.ePage.Masters.EmptyText}}</div>
                     <div class="text-single-line">{{x.Title || OrganizationContactCtrl.ePage.Masters.EmptyText}}</div>
                     <div class="text-single-line">{{x.JobCategory || OrganizationContactCtrl.ePage.Masters.EmptyText}}</div>
                 </div>
                 <div class="clearfix text-right rtl">
                     <div class="text-single-line">
-                        <i class="fa fa-phone org-address-icon"></i>
                         <span>{{x.Phone || OrganizationContactCtrl.ePage.Masters.EmptyText}}</span>
+                        <i class="fa fa-phone org-address-icon"></i>
                     </div>
                     <div class="text-single-line">
-                        <i class="fa fa-mobile org-address-icon"></i>
                         <span>{{x.Mobile || OrganizationContactCtrl.ePage.Masters.EmptyText}}</span>
+                        <i class="fa fa-mobile org-address-icon"></i>
                     </div>
                     <div class="text-single-line">
-                        <i class="fa fa-envelope org-address-icon"></i>
                         <span>{{x.Email || OrganizationContactCtrl.ePage.Masters.EmptyText}}</span>
+                        <i class="fa fa-envelope org-address-icon"></i>
                     </div>
                     <div class="text-single-line">
-                        <i class="fa fa-fax org-address-icon"></i>
                         <span>{{x.Fax || OrganizationContactCtrl.ePage.Masters.EmptyText}} </span>
+                        <i class="fa fa-fax org-address-icon"></i>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="overlay" data-ng-if="OrganizationContactCtrl.ePage.Masters.OrgContact.IsOverlay"></div>
     </div>
 </div>

@@ -85,6 +85,66 @@
                         }
                     }
                 },
+                "BuyerForwarderOrder": {
+                    "API": {
+                        "findall": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "order/buyerforwarder/findall",
+                            "FilterID": "ORDHEAD"
+                        },
+                        "1_3_listgetbyid": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "order/buyerforwarder/listgetbyid/"
+                        },
+                        "activityclose": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "order/buyerforwarder/activityclose/"
+                        },
+                        "ordercopy": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "order/buyerforwarder/ordercopy/"
+                        },
+                        "split": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "order/buyerforwarder/split/"
+                        },
+                        "insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "order/buyerforwarder/insert"
+                        },
+                        "update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "order/buyerforwarder/update"
+                        },
+                        "updaterecords": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "order/buyerforwarder/updaterecords"
+                        },
+                        "closecrd": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "order/buyerforwarder/closecrd"
+                        },
+                        "activatecrd": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "order/buyerforwarder/activatecrd"
+                        },
+                        "activateconverttobooking": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "order/buyerforwarder/activateconverttobooking"
+                        }
+                    }
+                },
                 "BuyerOrderBatchUpload": {
                     "API": {
                         "findall": {

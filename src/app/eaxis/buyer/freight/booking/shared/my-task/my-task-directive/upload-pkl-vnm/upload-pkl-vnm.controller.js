@@ -161,7 +161,7 @@
                             }
                         });
                     }
-                    toastr.warning(_errorcount[0].Message);
+                    // toastr.warning(_errorcount[0].Message);
                     UploadPklVnmDirectiveCtrl.ePage.Masters.CompleteBtnTxt = "Complete";
                     UploadPklVnmDirectiveCtrl.ePage.Masters.CompleteBtnDisabled = false;
                 } else {
@@ -252,7 +252,7 @@
                 "Communication": null,
                 "Config": undefined,
                 // Parent Entity
-                "ParentEntityRefKey": UploadPklVnmDirectiveCtrl.ePage.Masters.MyTask.PK,
+                "ParentEntityRefKey": UploadPklVnmDirectiveCtrl.ePage.Masters.MyTask.WSI_FK,
                 "ParentEntityRefCode": UploadPklVnmDirectiveCtrl.ePage.Masters.MyTask.WSI_StepCode,
                 "ParentEntitySource": UploadPklVnmDirectiveCtrl.ePage.Masters.MyTask.EntitySource,
                 // Additional Entity

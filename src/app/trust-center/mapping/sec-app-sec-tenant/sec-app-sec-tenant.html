@@ -32,17 +32,18 @@
                 <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10" data-ng-click="TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.Edit()"
                     data-ng-disabled="!TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.ActiveSecAppSecTenant.PK">Edit</button>
                 <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.DeleteConfirmation()"
-                    data-ng-bind="TCSecAppSecTenantCtrl.ePage.Masters.DeleteBtnText" data-ng-disabled="TCSecAppSecTenantCtrl.ePage.Masters.IsDisableDeleteBtn || !TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.ActiveSecAppSecTenant.PK"></button>
+                    data-ng-bind="TCSecAppSecTenantCtrl.ePage.Masters.DeleteBtnText" data-ng-disabled="TCSecAppSecTenantCtrl.ePage.Masters.IsDisableDeleteBtn || !TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.ActiveSecAppSecTenant.PK"
+                    data-ng-if="TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.UIControlList && TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.UIControlList.length > 0 && TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.CheckUIControl('TC_MAP_DEL')"></button>
             </div>
         </div>
     </div>
     <!-- Body -->
     <div class="clearfix">
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 tc-page-height-fixed">
-            <div class="tc-list-container">
-                <div class="tc-list-search">
-                    <input type="text" class="form-control input-sm" placeholder="Search..." data-ng-model="TCSecAppSecTenantCtrl.ePage.Masters.Search">
-                </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="tc-list-search">
+                <input type="text" class="form-control input-sm" placeholder="Search..." data-ng-model="TCSecAppSecTenantCtrl.ePage.Masters.Search">
+            </div>
+            <div class="tc-list-container tc-page-height-fixed left">
                 <ul class="tc-list-ul">
                     <div class="p-15 text-center tc-loading" data-ng-if="!TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.SecAppSecTenantList">
                         <i class="fa fa-spin fa-spinner"></i>
@@ -58,7 +59,7 @@
                         <div class="clearfix tc-list">
                             <div class="tc-list-name">
                                 <i class="fa fa-circle-o mr-10"></i>
-                                <span class="text-single-line" data-ng-bind="x.TenantCode"></span>
+                                <span class="text-single-line" data-ng-bind="x.TenantCode + ' - ' + x.TenantName"></span>
                             </div>
                         </div>
                     </li>
@@ -67,35 +68,29 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed">
             <div class="pt-10 pb-10 tc-details-view clearfix">
-               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Item Name</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.ActiveSecAppSecTenant.ItemName || TCSecAppSecTenantCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Code</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.ActiveSecAppSecTenant.TenantCode || TCSecAppSecTenantCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Tenant</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.ActiveSecAppSecTenant.TenantCode || TCSecAppSecTenantCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Name</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.ActiveSecAppSecTenant.TenantName || TCSecAppSecTenantCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
-              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Application</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.ActiveSecAppSecTenant.SAP_Code || TCSecAppSecTenantCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Application</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.ActiveSecAppSecTenant.SAP_Code || TCSecAppSecTenantCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
             </div>
             <div class="tc-section-divider" data-ng-if="TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.ActiveSecAppSecTenant.PK"></div>
-
         </div>
     </div>
+
     <!-- Edit Template -->
     <script type="text/ng-template" id="secAppSecTenantEdit">
         <div class="modal-header">
@@ -111,8 +106,7 @@
                             <div class="form-group">
                                 <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Tenant</label>
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                                    <input type="text" placeholder="Tenant" class="form-control input-sm" data-ng-model="TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.ActiveSecAppSecTenant.TenantCode
-                                                            "
+                                    <input type="text" placeholder="Tenant" class="form-control input-sm" data-ng-model="TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.ActiveSecAppSecTenant.TenantCode"
                                         uib-typeahead="x.TenantCode as x.TenantCode + ' - ' + x.TenantName  for x in TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.GetTenantList($viewValue)"
                                         typeahead-loading="TCSecAppSecTenantCtrl.ePage.Masters.IsSecRoleNoResults"
                                         typeahead-no-results="TCSecAppSecTenantCtrl.ePage.Masters.IsSecRoleLoading"

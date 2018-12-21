@@ -58,8 +58,6 @@
                 </div>
             </div>
         </div>
-
-
     </div>
     <div class="row">
         <!-- Request Delivery Date -->
@@ -69,7 +67,7 @@
                 <div class="">
                     <span>
                         {{
-                        OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.OrderDate
+                        OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.RequiredDeliveryDate
                         | date:'dd-MMM-yyyy'
                         }}
                     </span>
@@ -80,7 +78,7 @@
             <div class="form-group ex-line-font">
                 <label class="control-label text-single-line">Confirm #</label>
                 <div class="">
-                    <span>{{OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.ShipmentNo}}</span>
+                    <span>{{OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.ConfirmNo}}</span>
                 </div>
             </div>
         </div>

@@ -326,10 +326,10 @@
                 _filterId = trustCenterConfig.Entities.API.Multilingual.API.DynamicFindAll.FilterID;
                 _apiUrl = trustCenterConfig.Entities.API.Multilingual.API.DynamicFindAll.Url;
             } else
-                if ($item.EntitySource === "VALIDATION") {
-                    _filterId = trustCenterConfig.Entities.API.Validation.API.DynamicFindAll.FilterID;
-                    _apiUrl = trustCenterConfig.Entities.API.Validation.API.DynamicFindAll.Url;
-                }
+            if ($item.EntitySource === "VALIDATION") {
+                _filterId = trustCenterConfig.Entities.API.Validation.API.DynamicFindAll.FilterID;
+                _apiUrl = trustCenterConfig.Entities.API.Validation.API.DynamicFindAll.Url;
+            }
 
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
@@ -373,7 +373,7 @@
                 }
             }
 
-            EditModalInstance().result.then(function (response) { }, function () {
+            EditModalInstance().result.then(function (response) {}, function () {
                 Cancel();
             });
         }
@@ -621,7 +621,7 @@
                 AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.NotificationObject = {};
             }
 
-            EditNotificationTemplateModalInstance().result.then(function (response) { }, function () {
+            EditNotificationTemplateModalInstance().result.then(function (response) {}, function () {
                 CloseNotificationTemplateModal();
             });
         }
@@ -630,6 +630,13 @@
             if (AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.NotificationObject) {
                 AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.Value = AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.NotificationObject;
 
+                if (AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.Value.DataObjs && AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.Value.DataObjs.length > 0) {
+                    AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.Value.DataObjs.map(function (value, key) {
+                        if (value.DataObject && typeof value.DataObject == "string" && value.DataObject.indexOf("{") != -1) {
+                            value.DataObject = JSON.parse(value.DataObject);
+                        }
+                    });
+                }
                 AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.Value = JSON.stringify(AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.Value, undefined, 2);
             } else {
                 AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.Value = "{}";

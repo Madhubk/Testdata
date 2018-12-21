@@ -50,7 +50,67 @@
                             "Url": "shipmentheader/buyer/shipmentworkitemfindall"
                         }
                     }
-                }
+                },
+                "1_1": {
+                    "API": {
+                        "findall": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "shipmentheader/buyer/findall",
+                            "FilterID": "ORDHEAD"
+                        },
+                        "listgetbyid": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "shipmentlist/buyer/getbyid/"
+                        },
+                        "activityclose": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "shipmentlist/buyer/shipmentactivityclose/"
+                        }
+                    }
+                },
+                "1_2": {
+                    "API": {
+                        "findall": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "shipmentheader/buyersupplier/findall",
+                            "FilterID": "ORDHEAD"
+                        },
+                        "listgetbyid": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "shipmentlist/buyersupplier/getbyid/"
+                        },
+                        "activityclose": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "shipmentlist/buyersupplier/shipmentactivityclose/"
+                        },
+                    }
+                },
+                "1_3": {
+                    "API": {
+                        "findall": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "shipmentheader/buyerforwarder/findall",
+                            "FilterID": "ORDHEAD"
+                        },
+                        "listgetbyid": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "shipmentlist/buyerforwarder/getbyid/"
+                        },
+                        "activityclose": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "shipmentlist/buyerforwarder/shipmentactivityclose/"
+                        }
+                    }
+                },
             }
         };
 

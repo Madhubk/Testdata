@@ -105,6 +105,9 @@
                                     param.List[one_one_OrderLinesFormModalCtrl.ePage.Masters.Index] = responses.data.Response[0];
                                     one_one_OrderLinesFormModalCtrl.ePage.Entities.Header.Data.UIOrderLine_BuyerCopy = responses.data.Response[0];
                                     toastr.success("Line Saved Successfully..");
+                                } else {
+                                    one_one_OrderLinesFormModalCtrl.ePage.Masters.SaveButtonText = "Save";
+                                    toastr.error("Line Save Failed..");
                                 }
                             });
                         } else {
@@ -123,6 +126,9 @@
                                     one_one_OrderLinesFormModalCtrl.ePage.Entities.Header.Data.UIOrderLine_BuyerCopy = angular.copy(one_one_OrderLinesFormModalCtrl.ePage.Entities.Header.Data.UIOrderLine_Buyer);
                                     one_one_OrderLinesFormModalCtrl.ePage.Masters.Index = param.List.indexOf(response.data.Response[0]);
                                     toastr.success("Line Saved Successfully..");
+                                } else {
+                                    one_one_OrderLinesFormModalCtrl.ePage.Masters.SaveButtonText = "Save";
+                                    toastr.error("Line Save Failed..");
                                 }
                             });
                         }
@@ -152,6 +158,9 @@
                                     param.List[one_one_OrderLinesFormModalCtrl.ePage.Masters.Index] = responses.data.Response[0];
                                     toastr.success("Line Saved Successfully..");
                                     $uibModalInstance.dismiss('close');
+                                } else {
+                                    one_one_OrderLinesFormModalCtrl.ePage.Masters.SaveCloseButtonText = "Save & Close";
+                                    toastr.error("Line Save Failed..");
                                 }
                             });
                         } else {
@@ -168,6 +177,9 @@
                                     param.List.push(response.data.Response[0]);
                                     toastr.success("Line Saved Successfully..");
                                     $uibModalInstance.dismiss('close');
+                                } else {
+                                    one_one_OrderLinesFormModalCtrl.ePage.Masters.SaveCloseButtonText = "Save & Close";
+                                    toastr.error("Line Save Failed..");
                                 }
                             });
                         }

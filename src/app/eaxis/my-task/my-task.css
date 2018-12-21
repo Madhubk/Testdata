@@ -206,3 +206,8 @@
 .pl-28 {
     padding-left: 28px;
 }
+
+.error-warnig-doc{
+    position: relative;
+    left: 15px;
+}

@@ -1,12 +1,13 @@
 <div class="dynamic-table-container">
     <div class="widget no-padding">
         <!--Header with search  -->
-        <div class="widget-header p-5" data-ng-if="DynamicTableCtrl.ePage.Masters.GridConfig.isHeader">
-            <div class="title col-xs-9 col-sm-9 col-md-9 col-lg-9">
+        <div class="widget-header" data-ng-if="DynamicTableCtrl.ePage.Masters.GridConfig.isHeader">
+            <div class="title col-xs-9 col-sm-9 col-md-9 col-lg-9 pt-10">
                 <span data-ng-bind="DynamicTableCtrl.ePage.Masters.GridConfig.title"></span>
             </div>
-            <div class="search col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                <input type="text" placeholder="Search" class="form-control input-xs" ng-model="DynamicTableCtrl.ePage.Masters.Search" data-ng-if="DynamicTableCtrl.ePage.Masters.GridConfig.isSearch">
+            <div class="search col-xs-3 col-sm-3 col-md-3 col-lg-3 pt-2">
+                <input type="text" placeholder="Search" class="form-control input-xs" ng-model="DynamicTableCtrl.ePage.Masters.Search"
+                    data-ng-if="DynamicTableCtrl.ePage.Masters.GridConfig.isSearch">
             </div>
         </div>
         <!--Body  -->
@@ -17,8 +18,9 @@
                     <!--Table header  -->
                     <thead data-ng-if="DynamicTableCtrl.ePage.Masters.GridConfig.isColumnHeader">
                         <tr>
-                            <th class="list-header" data-ng-class="{'cursor-pointer': DynamicTableCtrl.ePage.Masters.GridConfig.isSorting}" data-ng-style="{width: x.width}"
-                                data-ng-repeat="x in DynamicTableCtrl.ePage.Masters.GridConfig.columnDef" data-ng-click="DynamicTableCtrl.ePage.Masters.GridConfig.isSorting && DynamicTableCtrl.ePage.Masters.SortingClick(x);">
+                            <th class="list-header" data-ng-class="{'cursor-pointer': DynamicTableCtrl.ePage.Masters.GridConfig.isSorting}"
+                                data-ng-style="{width: x.width}" data-ng-repeat="x in DynamicTableCtrl.ePage.Masters.GridConfig.columnDef"
+                                data-ng-click="DynamicTableCtrl.ePage.Masters.GridConfig.isSorting && DynamicTableCtrl.ePage.Masters.SortingClick(x);">
                                 <span data-ng-bind-html="x.displayName"></span>
                                 <span ng-if="DynamicTableCtrl.ePage.Masters.GridConfig.isSorting && DynamicTableCtrl.ePage.Masters.orderByField == x.field">
                                     <span class="fa" data-ng-class="{'fa-sort-asc': !DynamicTableCtrl.ePage.Masters.reverseSort, 'fa-sort-desc': DynamicTableCtrl.ePage.Masters.reverseSort}"></span>
@@ -39,12 +41,14 @@
                         </tr>
                         <!--Without row template  -->
                         <tr data-ng-repeat="x in DynamicTableCtrl.gridData |orderBy: DynamicTableCtrl.ePage.Masters.orderByField:DynamicTableCtrl.ePage.Masters.reverseSort | filter: DynamicTableCtrl.ePage.Masters.Search"
-                            ng-dblclick="DynamicTableCtrl.ePage.Masters.SelectedGridRow(x, $index, 'dblclick')" data-ng-if="!DynamicTableCtrl.ePage.Masters.GridConfig.isRowTemplate">
+                            ng-dblclick="DynamicTableCtrl.ePage.Masters.SelectedGridRow(x, $index, 'dblclick')"
+                            data-ng-if="!DynamicTableCtrl.ePage.Masters.GridConfig.isRowTemplate">
                             <td data-ng-repeat="y in DynamicTableCtrl.ePage.Masters.GridConfig.columnDef" data-ng-style="{width: y.width}">
                                 <!--With cell template  -->
                                 <div data-ng-if="y.cellTemplate" compile-html bind-html-compile="y.cellTemplate"></div>
                                 <!--Without cell template  -->
-                                <div class="text-single-line" data-ng-if="!y.cellTemplate" compile-html bind-html-compile="x[y.field] || '-'"></div>
+                                <div class="text-single-line" data-ng-if="!y.cellTemplate" compile-html
+                                    bind-html-compile="x[y.field] || '-'"></div>
                             </td>
                             <td class="options edit" data-ng-if="DynamicTableCtrl.ePage.Masters.GridConfig.isEdit">
                                 <span class="glyphicon glyphicon-pencil text-info cursor-pointer" data-ng-click="DynamicTableCtrl.ePage.Masters.SelectedGridRow(x, $index, 'edit')"></span>
@@ -55,9 +59,11 @@
                         </tr>
                         <!--With row template  -->
                         <div class="clearfix" data-ng-repeat="x in DynamicTableCtrl.gridData |orderBy: DynamicTableCtrl.ePage.Masters.orderByField:DynamicTableCtrl.ePage.Masters.reverseSort | limitTo: DynamicTableCtrl.ePage.Masters.pagination.itemsPerPage | filter: DynamicTableCtrl.ePage.Masters.Search"
-                            ng-dblclick="DynamicTableCtrl.ePage.Masters.SelectedGridRow(x, $index, 'dblclick')" data-ng-show="($index >= DynamicTableCtrl.ePage.Masters.pagination.firstIndex) && ($index < DynamicTableCtrl.ePage.Masters.pagination.lastIndex)"
+                            ng-dblclick="DynamicTableCtrl.ePage.Masters.SelectedGridRow(x, $index, 'dblclick')"
+                            data-ng-show="($index >= DynamicTableCtrl.ePage.Masters.pagination.firstIndex) && ($index < DynamicTableCtrl.ePage.Masters.pagination.lastIndex)"
                             data-ng-if="DynamicTableCtrl.ePage.Masters.GridConfig.isRowTemplate">
-                            <div compile-html bind-html-compile="DynamicTableCtrl.ePage.Masters.GridConfig.rowTemplate"> </div>
+                            <div compile-html bind-html-compile="DynamicTableCtrl.ePage.Masters.GridConfig.rowTemplate">
+                            </div>
                         </div>
                     </tbody>
                 </table>
@@ -88,7 +94,8 @@
                             <i class="fa fa-angle-right"></i>
                         </button>
                     </div>
-                    <div class="pull-right record-info text-right">{{DynamicTableCtrl.ePage.Masters.pagination.firstIndex + 1}} - {{DynamicTableCtrl.ePage.Masters.pagination.lastIndex}}
+                    <div class="pull-right record-info text-right">{{DynamicTableCtrl.ePage.Masters.pagination.firstIndex
+                        + 1}} - {{DynamicTableCtrl.ePage.Masters.pagination.lastIndex}}
                         of {{(DynamicTableCtrl.gridData | filter: DynamicTableCtrl.ePage.Masters.Search).length}}</div>
                 </div>
             </div>

@@ -28,6 +28,11 @@
             </div>
         </div>
     </div>
+    <div class="my-task-error-warning-section clearfix" data-ng-if="MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.ErrorWarningList && MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.ErrorWarningList.length > 0">
+        <div class="clearfix" data-ng-repeat="x in MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.ErrorWarningList">
+            <div data-ng-class="{'E' : 'danger', 'W' : 'warning'}[x.MessageType]">{{x.Code}} - {{x.Message}}</div>
+        </div>
+    </div>
     <div class="my-task-body clearfix">
         <div class="clearfix">
             <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 col-xl-2">
@@ -42,11 +47,11 @@
                         data-ng-if="!MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.OtherConfig.HideForm">Open</button>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 pl-0">
+            <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 pl-0" style="overflow: auto;">
                 <my-task-dynamic-directive task-obj="MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj"
                     on-complete="MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.OnTaskComplete($item)"
                     on-refresh-status-count="MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.StatusCount.OnRefreshStatusCount($item)"
-                    on-refresh-task="MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.OnRefreshTask($item)"></my-task-dynamic-directive>
+                    on-refresh-task="MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.OnRefreshTask($item)" get-error-warning-list="MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.GetErrorWarningList($item)"></my-task-dynamic-directive>
             </div>
         </div>
     </div>

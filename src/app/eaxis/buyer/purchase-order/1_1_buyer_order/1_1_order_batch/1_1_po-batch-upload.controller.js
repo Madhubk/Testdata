@@ -21,6 +21,9 @@
 
             one_one_POBatchUploadCtrl.ePage.Masters.taskName = "POBatchUpload_Buyer";
             one_one_POBatchUploadCtrl.ePage.Masters.dataentryName = "POBatchUpload_Buyer";
+            one_one_POBatchUploadCtrl.ePage.Masters.defaultFilter = {
+                "Source": "POB"
+            };
             one_one_POBatchUploadCtrl.ePage.Masters.Config = one_poBatchUploadConfig;
             one_one_POBatchUploadCtrl.ePage.Entities.Header.Data = {};
             one_one_POBatchUploadCtrl.ePage.Masters.TabList = [];

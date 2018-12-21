@@ -1,16 +1,16 @@
 <div class="clearfix tc-user-warehouse-app-tenant">
-  
     <!-- Breadcrumb -->
     <div class="clearfix tc-breadcrumb" data-ng-if="TCUserWarehouseAppTenantCtrl.ePage.Masters.ActiveApplication == 'TC'">
         <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-xs-12 p-0">
             <i class="fa fa-home home-icon"></i>
             <div class="breadcrumb-list-wrapper">
                 <ol class="breadcrumb">
-                    <li data-ng-repeat="x in TCUserWarehouseAppTenantCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                    <li data-ng-repeat="x in TCUserWarehouseAppTenantCtrl.ePage.Masters.Breadcrumb.ListSource"
+                        data-ng-if="!x.IsActive">
                         <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="TCUserWarehouseAppTenantCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
                     </li>
-                    <li data-ng-repeat="x in TCUserWarehouseAppTenantCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive"
-                        data-ng-bind="x.Description" class="active"></li>
+                    <li data-ng-repeat="x in TCUserWarehouseAppTenantCtrl.ePage.Masters.Breadcrumb.ListSource"
+                        data-ng-if="x.IsActive" data-ng-bind="x.Description" class="active"></li>
                 </ol>
             </div>
         </div>
@@ -45,32 +45,29 @@
                 </tr>
                 <!-- List -->
                 <tr data-ng-if="TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.UserWarehouseAppTenantList && TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.UserWarehouseAppTenantList.length > 0"
-                    data-ng-repeat="item in  TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.UserWarehouseAppTenantList">
+                    data-ng-repeat="item in TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.UserWarehouseAppTenantList">
                     <td>
                         <input type="text" placeholder="Company" class="form-control input-sm" data-ng-model="item.AccessCode
                             "
                             uib-typeahead="x.Code as x.Code + ' - ' + x.Name  for x in TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.GetCompanyList($viewValue)"
-                            typeahead-loading="item.IsAccessCodeNoResults" typeahead-no-results="item.IsAccessCodeNoResults"
+                            typeahead-loading="item.IsAccessCodeLoading" typeahead-no-results="item.IsAccessCodeNoResults"
                             typeahead-editable="false" typeahead-append-to-body='true' typeahead-on-select="  TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.OnSelectAutoCompleteCompanyList($item, $model, $label, $event, item, row)"
                             ng-blur="TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.OnBlurAutoCompleteComapanyList($event, item)"
                             typeahead-min-length="item.AccessCode.MinLength">
                         <div class="clearfix dropdown-menu" ng-if="item.IsAccessCodeNoResults">
                             <div class="auto-complete-no-result">No Results Found!</div>
                         </div>
-                        <div class="clearfix dropdown-menu" ng-if="item.IsAccessCodeNoResults">
+                        <div class="clearfix dropdown-menu" ng-if="item.IsAccessCodeLoading">
                             <div class="auto-complete-no-result">
                                 <i class="fa fa-spin fa-spinner"></i>
                             </div>
                         </div>
                     </td>
-
                     <td>
-                        <input type="text" placeholder="Branch" class="form-control input-sm" data-ng-model="item.BasedOnCode
-                                "
+                        <input type="text" placeholder="Branch" class="form-control input-sm" data-ng-model="item.BasedOnCode"
                             uib-typeahead="x.Code as x.Code + ' - ' + x.BranchName  for x in TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.GetCmpBranchList($viewValue, item)"
-                            typeahead-loading="TCUserWarehouseAppTenantCtrl.ePage.Masters.IsCmpBranchNoResults"
-                            typeahead-no-results="TCUserWarehouseAppTenantCtrl.ePage.Masters.IsCmpBranchLoading"
-                            typeahead-editable="false" typeahead-append-to-body='true' typeahead-on-select="  TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.OnSelectAutoCompleteListBranch($item, $model, $label, $event, item)"
+                            typeahead-loading="item.IsCmpBranchLoading" typeahead-no-results="item.IsCmpBranchNoResults"
+                            typeahead-editable="false" typeahead-append-to-body='true' typeahead-on-select="TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.OnSelectAutoCompleteListBranch($item, $model, $label, $event, item)"
                             ng-blur="TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.OnBlurAutoCompleteListBranch($event, item)"
                             typeahead-min-length="item.BasedOnCode.MinLength">
                         <div class="clearfix dropdown-menu" ng-if="item.IsCmpBranchNoResults">
@@ -82,12 +79,10 @@
                             </div>
                         </div>
                     </td>
-                     <td>
-                        <input type="text" placeholder="Warehouse" class="form-control input-sm" data-ng-model="item.OtherEntityCode 
-                                        "
+                    <td>
+                        <input type="text" placeholder="Warehouse" class="form-control input-sm" data-ng-model="item.OtherEntityCode"
                             uib-typeahead="x.WarehouseCode as x.WarehouseCode + ' - ' + x.WarehouseName  for x in TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.GetWarehouseList($viewValue)"
-                            typeahead-loading="TCUserWarehouseAppTenantCtrl.ePage.Masters.IsWarehouseNoResults"
-                            typeahead-no-results="TCUserWarehouseAppTenantCtrl.ePage.Masters.IsWarehouseLoading"
+                            typeahead-loading="item.IsWarehouseLoading" typeahead-no-results="item.IsWarehouseNoResults"
                             typeahead-editable="false" typeahead-append-to-body='true' typeahead-on-select="  TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.OnSelectAutoCompleteListWarehouse($item, $model, $label, $event, item)"
                             ng-blur="TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.OnBlurAutoCompleteListWarehouse($event, item)"
                             typeahead-min-length="item.OtherEntityCode.MinLength">
@@ -105,11 +100,10 @@
                     </td>
                     <td class="text-center p-5">
                         <i class="glyphicon glyphicon-trash text-danger cursor-pointer" style="font-size: 16px;"
-                            data-ng-click="TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.Delete(item)"></i>
+                            data-ng-click="TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.Delete(item)"
+                            data-ng-if="TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.UIControlList && TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.UIControlList.length > 0 && TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.CheckUIControl('TC_MAP_DEL')"></i>
                     </td>
-
                 </tr>
-
                 <!-- Add New -->
                 <tr>
                     <td colspan="20" class="p-10">
@@ -117,10 +111,7 @@
                             new Record…</a>
                     </td>
                 </tr>
-
-
             </tbody>
         </table>
     </div>
-
 </div>

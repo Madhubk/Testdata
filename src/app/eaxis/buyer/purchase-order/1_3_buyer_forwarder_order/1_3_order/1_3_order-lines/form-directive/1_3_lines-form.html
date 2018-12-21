@@ -23,9 +23,9 @@
                                 <label class="control-label">Part #</label>
                                 <div class="input-group input-group-sm">
                                     <div dynamic-lookup my-ng-model="one_three_OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLine_Buyer_Forwarder.PartNo"
-                                        obj="one_three_OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLine_Buyer_Forwarder" page-name="'OrgSupplierPart'"
-                                        control-key="'OrdOrgSupplierPartNo_3057'" control-id="'OrdOrgSupplierPartNo'"
-                                        is-editable="true"></div>
+                                        obj="one_three_OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLine_Buyer_Forwarder"
+                                        page-name="'OrgSupplierPart'" control-key="'OrdOrgSupplierPartNo_3057'"
+                                        control-id="'OrdOrgSupplierPartNo'" is-editable="true"></div>
                                     <span class="input-group-btn">
                                         <button dynamic-list-modal obj="one_three_OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLine_Buyer_Forwarder"
                                             control-key="'OrdOrgSupplierPartNo_3057'" control-id="'OrdOrgSupplierPartNo'"
@@ -91,7 +91,7 @@
                                             <input type="text" class="form-control input-sm" placeholder="0.00000"
                                                 numbers-only-dot sb-precision="5" data-ng-model="one_three_OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLine_Buyer_Forwarder.InvoicedQuantity"
                                                 data-ng-blur="one_three_OrdLinesFormCtrl.ePage.Masters.AutoPopulate('Qty', one_three_OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLine_Buyer_Forwarder.ItemPrice, one_three_OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLine_Buyer_Forwarder.LinePrice, one_three_OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLine_Buyer_Forwarder.Quantity)"
-                                                maxlength="14" />
+                                                maxlength="13" />
                                         </div>
                                     </div>
                                 </div>
@@ -102,7 +102,7 @@
                                         <div class="">
                                             <input type="text" class="form-control input-sm" placeholder="0.00000"
                                                 numbers-only-dot sb-precision="5" data-ng-model="one_three_OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLine_Buyer_Forwarder.RecievedQuantity"
-                                                maxlength="14" />
+                                                maxlength="13" />
                                         </div>
                                     </div>
                                 </div>
@@ -341,7 +341,7 @@
                                                 save-as="one_three_OrdLinesFormCtrl.ePage.Masters.DatePicker.Options.saveFormat"
                                                 is-open="one_three_OrdLinesFormCtrl.ePage.Masters.DatePicker.isOpen['isReqExWorksDate']"
                                                 when-closed="" data-ng-click="one_three_OrdLinesFormCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isReqExWorksDate')"
-                                                data-ng-change="one_three_OrdLinesFormCtrl.ePage.Masters.DatePicker.OnChangeDatePicker('ReqExWorksDate',['EC037', 'EC036'])"
+                                                data-ng-change="one_three_OrdLinesFormCtrl.ePage.Masters.DatePicker.OnChangeDatePicker('ReqExWorksDate',['ED037', 'ED036'])"
                                                 custom-date-time-format />
                                             <span class="input-group-btn">
                                                 <button class="btn btn-default shiny" data-ng-click="one_three_OrdLinesFormCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isReqExWorksDate')">
@@ -375,7 +375,7 @@
                                                 save-as="one_three_OrdLinesFormCtrl.ePage.Masters.DatePicker.Options.saveFormat"
                                                 is-open="one_three_OrdLinesFormCtrl.ePage.Masters.DatePicker.isOpen['isLineDropDate']"
                                                 when-closed="" data-ng-click="one_three_OrdLinesFormCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isLineDropDate')"
-                                                data-ng-change="one_three_OrdLinesFormCtrl.ePage.Masters.DatePicker.OnChangeDatePicker('LineDropDate',['EC037', 'EC036'])"
+                                                data-ng-change="one_three_OrdLinesFormCtrl.ePage.Masters.DatePicker.OnChangeDatePicker('LineDropDate',['ED037', 'ED036'])"
                                                 custom-date-time-format />
                                             <span class="input-group-btn">
                                                 <button class="btn btn-default shiny" data-ng-click="one_three_OrdLinesFormCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isLineDropDate')">

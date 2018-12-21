@@ -12,3 +12,7 @@
     font-weight: 600;
     text-align: left !important;
 }
+
+.org-party-role-mapping-modal .modal-dialog {
+    width: 600px !important;
+}

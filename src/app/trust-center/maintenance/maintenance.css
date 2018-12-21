@@ -1,0 +1,19 @@
+.tc-maintenance .publish-container .header {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.tc-maintenance .publish-container .form-group .control-label {
+    font-weight: 600;
+}
+
+.tc-maintenance .publish-container .form-group .dropdown-menu.typeahead {
+    display: block !important;
+    font-size: 12px;
+    margin-left: 15px;
+    top: auto;
+}
+
+.tc-maintenance .publish-container .form-group .dropdown-menu.typeahead .auto-complete-no-result {
+    padding: 0 10px;
+}

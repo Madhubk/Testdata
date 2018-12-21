@@ -148,19 +148,28 @@
                                     response.data.Response.Response.UIWmsInwardHeader.ClientCode = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ClientCode;
                                     response.data.Response.Response.UIWmsInwardHeader.ClientName = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ClientName;
                                     response.data.Response.Response.UIWmsInwardHeader.Client = CreatePickupChallanCtrl.ePage.Masters.Client;
-                                    response.data.Response.Response.UIWmsInwardHeader.Consignee = CreatePickupChallanCtrl.ePage.Masters.Consignee;
-                                    response.data.Response.Response.UIWmsInwardHeader.ConsigneeCode = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeCode;
-                                    response.data.Response.Response.UIWmsInwardHeader.ConsigneeName = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeName;
+                                    response.data.Response.Response.UIWmsInwardHeader.Supplier = CreatePickupChallanCtrl.ePage.Masters.Consignee;
+                                    response.data.Response.Response.UIWmsInwardHeader.SupplierCode = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeCode;
+                                    response.data.Response.Response.UIWmsInwardHeader.SupplierName = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeName;
                                     response.data.Response.Response.UIWmsInwardHeader.ORG_Client_FK = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ORG_Client_FK;
-                                    response.data.Response.Response.UIWmsInwardHeader.ORG_Consignee_FK = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ORG_Consignee_FK;
+                                    response.data.Response.Response.UIWmsInwardHeader.ORG_Supplier_FK = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ORG_Consignee_FK;
                                     response.data.Response.Response.UIWmsInwardHeader.WAR_FK = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.WAR_FK;
                                     response.data.Response.Response.UIWmsInwardHeader.Warehouse = CreatePickupChallanCtrl.ePage.Masters.Warehouse;
                                     response.data.Response.Response.UIWmsInwardHeader.WarehouseCode = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseCode;
                                     response.data.Response.Response.UIWmsInwardHeader.WarehouseName = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseName;
                                     response.data.Response.Response.UIWmsInwardHeader.AdditionalRef2Fk = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.PK;
                                     response.data.Response.Response.UIWmsInwardHeader.WorkOrderType = "INW";
-
+                                    response.data.Response.Response.UIWmsInwardHeader.WorkOrderSubType = "REC";
                                     response.data.Response.Response.UIWmsInwardHeader.WOD_Parent_FK = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.PK;
+
+                                    response.data.Response.Response.UIOrgHeader = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIOrgHeader;
+                                    response.data.Response.Response.UIJobAddress = angular.copy(CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIJobAddress);
+                                    angular.forEach(response.data.Response.Response.UIJobAddress, function (value, key) {
+                                        value.PK = "";
+                                        if (value.AddressType == "CED")
+                                            value.AddressType = "SUD";
+                                    });
+
                                     angular.forEach(CreatePickupChallanCtrl.ePage.Masters.SelectedPickupLine, function (value, key) {
                                         var obj = {
                                             "PK": "",

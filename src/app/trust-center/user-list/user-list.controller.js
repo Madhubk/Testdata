@@ -126,19 +126,49 @@
 
             TCUserListCtrl.ePage.Masters.UserList.RePublishUser = RePublishUser;
             TCUserListCtrl.ePage.Masters.UserList.RepublishUserModalCancel = RepublishUserModalCancel;
-
-            TCUserListCtrl.ePage.Masters.UserList.IsAdminUser = false;
+            TCUserListCtrl.ePage.Masters.UserList.CheckUIControl = CheckUIControl;
 
             if (TCUserListCtrl.ePage.Masters.ActiveApplication == "EA") {
                 OnApplicationChange();
             }
 
-            if (authService.getUserInfo().RoleCode == "TC_SYSTEM" || authService.getUserInfo().RoleCode == "EA_SYSTEM") {
-                TCUserListCtrl.ePage.Masters.UserList.IsAdminUser = true;
-            }
-
             GetRedirectPageList();
+            GetUIControlList();
             GetUserList();
+        }
+
+        function GetUIControlList() {
+            TCUserListCtrl.ePage.Masters.UserList.UIControlList = undefined;
+            var _filter = {
+                "SAP_FK": authService.getUserInfo().AppPK,
+                "TenantCode": authService.getUserInfo().TenantCode,
+                "USR_FK": authService.getUserInfo().UserPK
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": trustCenterConfig.Entities.API.CompUserRoleAccess.API.FindAll.FilterID
+            };
+
+            apiService.post("authAPI", trustCenterConfig.Entities.API.CompUserRoleAccess.API.FindAll.Url, _input).then(function SuccessCallback(response) {
+                if (response.data.Response) {
+                    var _response = response.data.Response;
+                    var _controlList = [];
+                    if (_response.length > 0) {
+                        _response.map(function (value, key) {
+                            if (value.SOP_Code) {
+                                _controlList.push(value.SOP_Code);
+                            }
+                        });
+                    }
+                    TCUserListCtrl.ePage.Masters.UserList.UIControlList = _controlList;
+                } else {
+                    TCUserListCtrl.ePage.Masters.UserList.UIControlList = [];
+                }
+            });
+        }
+
+        function CheckUIControl(controlId) {
+            return helperService.checkUIControl(TCUserListCtrl.ePage.Masters.UserList.UIControlList, controlId);
         }
 
         function GetUserList() {
@@ -185,19 +215,19 @@
                     Code: "Warehouse",
                     Description: "Warehouse",
                     Icon: "glyphicons glyphicons-home",
-                    Link: "EA/admin/mapping",
+                    Link: "EA/admin/user-warehouse-app-tenant",
                     Color: "#01532f",
-                    AdditionalData: "USER_CMP_BRAN_WH",
-                    BreadcrumbTitle: "User Company Branch Warehouse - USER_CMP_BRAN_WH",
+                    AdditionalData: "USER_CMP_BRAN_WH_APP_TNT",
+                    BreadcrumbTitle: "User Company Branch Warehouse - USER_CMP_BRAN_WH_APP_TNT",
                     Type: 1
                 }, {
                     Code: "Organization",
                     Description: "Organization",
                     Icon: "fa fa-building-o",
-                    Link: "EA/admin/mapping",
+                    Link: "EA/admin/user-organization-app-tenant",
                     Color: "#eba4a6",
-                    AdditionalData: "USER_ORG_APP_TNT",
-                    BreadcrumbTitle: "User Organization - USER_ORG_APP_TNT",
+                    AdditionalData: "USER_ORG_ROLE_APP_TNT",
+                    BreadcrumbTitle: "User Organization - USER_ORG_ROLE_APP_TNT",
                     Type: 1
                 }];
             } else {
@@ -207,35 +237,27 @@
                     Icon: "glyphicons glyphicons-user-structure",
                     Link: "TC/user-role-app-tenant",
                     Color: "#36ad97",
-                    AdditionalData: "USER_ROLE_APP_TNT",
-                    BreadcrumbTitle: "User Role - USER_ROLE_APP_TNT",
                     Type: 1
                 }, {
                     Code: "Company",
                     Description: "Company",
                     Icon: "fa fa-building-o",
-                    Link: "TC/mapping-horizontal",
+                    Link: "TC/user-cmp-app-tenant",
                     Color: "#eba4a6",
-                    AdditionalData: "USER_CMP_BRAN_ORG_WH_DEPT_APP_TNT",
-                    BreadcrumbTitle: "User Company Branch Organization Warehouse Deparmant - USER_CMP_BRAN_ORG_WH_DEPT_APP_TNT",
                     Type: 1
                 }, {
                     Code: "Warehouse",
                     Description: "Warehouse",
                     Icon: "glyphicons glyphicons-home",
-                    Link: "TC/mapping-horizontal",
+                    Link: "TC/user-warehouse-app-tenant",
                     Color: "#01532f",
-                    AdditionalData: "USER_CMP_BRAN_WH",
-                    BreadcrumbTitle: "User Company Branch Warehouse - USER_CMP_BRAN_WH",
                     Type: 1
                 }, {
                     Code: "Organization",
                     Description: "Organization",
                     Icon: "fa fa-building-o",
-                    Link: "TC/mapping-horizontal",
+                    Link: "TC/user-organization-app-tenant",
                     Color: "#eba4a6",
-                    AdditionalData: "USER_ORG_APP_TNT",
-                    BreadcrumbTitle: "User Organization - USER_ORG_APP_TNT",
                     Type: 1
                 }, {
                     Code: "Starred",
@@ -299,12 +321,10 @@
             };
 
             if ($item.Type == 1) {
-                _queryString.ItemName = "USER";
-                _queryString.MappingCode = $item.AdditionalData;
                 _queryString.DisplayName = TCUserListCtrl.ePage.Masters.UserList.ActiveUserList.DisplayName;
                 _queryString.ItemPk = TCUserListCtrl.ePage.Masters.UserList.ActiveUserList.Id;
                 _queryString.ItemCode = TCUserListCtrl.ePage.Masters.UserList.ActiveUserList.UserName;
-                _queryString.BreadcrumbTitle = $item.BreadcrumbTitle;
+
             } else if ($item.Type == 2) {
                 _queryString.ItemName = $item.AdditionalData;
                 _queryString.UserName = TCUserListCtrl.ePage.Masters.UserList.ActiveUserList.UserName;
@@ -339,23 +359,13 @@
 
         function GetRepublishAccessList($item) {
             TCUserListCtrl.ePage.Masters.UserList.RePublishAccess = undefined;
-            if ($item) {
-                var _input = {
-                    "AppCode": TCUserListCtrl.ePage.Masters.Application.ActiveApplication.AppCode,
-                    "TNTCode": authService.getUserInfo().TenantCode,
-                    "userName": $item.UserName
-                };
-                var _api = trustCenterConfig.Entities.API.UsePrivileges.API.PublishPrivilegesByUser.Url;
-            } else {
-                var _filter = {};
-                var _input = {
-                    "searchInput": helperService.createToArrayOfObject(_filter),
-                    "FilterID": trustCenterConfig.Entities.API.UsePrivileges.API.PublishAllUsers.FilterID
-                };
-                var _api = trustCenterConfig.Entities.API.UsePrivileges.API.PublishAllUsers.Url;
-            }
+            var _input = {
+                "AppCode": TCUserListCtrl.ePage.Masters.Application.ActiveApplication.AppCode,
+                "TNTCode": authService.getUserInfo().TenantCode,
+                "userName": $item.UserName
+            };
 
-            apiService.post("authAPI", _api, _input).then(function SuccessCallback(response) {
+            apiService.post("authAPI", trustCenterConfig.Entities.API.UsePrivileges.API.PublishPrivilegesByUser.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     var _response = response.data.Response;
 

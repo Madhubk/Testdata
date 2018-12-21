@@ -132,7 +132,7 @@
                         Code: [UploadLeasingContractVnmDirectiveCtrl.taskObj.PSI_InstanceNo],
                         API: "Group",
                         FilterInput: {
-                            ModuleCode: "SHP",
+                            ModuleCode: "BKG",
                             SubModuleCode: "SHP",
                         },
                         GroupCode: "Document",
@@ -160,7 +160,7 @@
                             }
                         });
                     }
-                    toastr.warning(_errorcount[0].Message);
+                    // toastr.warning(_errorcount[0].Message);
                     UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.CompleteBtnTxt = "Complete";
                     UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.CompleteBtnDisabled = false;
                 } else {
@@ -251,7 +251,7 @@
                 "Communication": null,
                 "Config": undefined,
                 // Parent Entity
-                "ParentEntityRefKey": UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.MyTask.PK,
+                "ParentEntityRefKey": UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.MyTask.WSI_FK,
                 "ParentEntityRefCode": UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.MyTask.WSI_StepCode,
                 "ParentEntitySource": UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.MyTask.EntitySource,
                 // Additional Entity

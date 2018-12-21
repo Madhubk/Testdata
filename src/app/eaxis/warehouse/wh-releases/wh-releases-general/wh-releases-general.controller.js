@@ -311,51 +311,37 @@
         //Function for creating Inward if Outward type is Material Transfer
         function FetchingInwardDetails(currentOutward) {
             if (currentOutward.WorkOrderSubType == "MTR") {
+                if (ReleasesGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickLine.length > 0) {
+                    ReleasesGeneralCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
+                    ReleasesGeneralCtrl.ePage.Masters.LoadingValue = "Creating Inward";
 
-                ReleasesGeneralCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
-                ReleasesGeneralCtrl.ePage.Masters.LoadingValue = "Creating Inward";
-
-                //Inward Get By Id Call
-                helperService.getFullObjectUsingGetById(ReleasesGeneralCtrl.ePage.Entities.Header.API.InwardGetById.Url, 'null').then(function (response) {
-                    if (response.data.Response.Response) {
-                        var InwardObject = response.data.Response.Response
-                        InwardObject.UIWmsInwardHeader.PK = response.data.Response.Response.PK;
-                        apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + currentOutward.PK).then(function (response) {
-                            if (response.data.Response) {
-                                InwardObject.UIOrgHeader = response.data.Response.UIOrgHeader;
-                                InwardObject.UIJobAddress = angular.copy(response.data.Response.UIJobAddress);
-                                angular.forEach(InwardObject.UIJobAddress, function (value, key) {
-                                    value.PK = "";
-                                    if (value.AddressType == "CED")
-                                        value.AddressType = "SUD";
-                                });
-                                CreatingInward(InwardObject, currentOutward)
-                            }
-                        });
-                        //Assigning Oganization object into orgheader
-                        // var _filter = {
-                        //     "PK": currentOutward.ORG_Client_FK
-                        // };
-
-                        // var _input = {
-                        //     "searchInput": helperService.createToArrayOfObject(_filter),
-                        //     "FilterID": appConfig.Entities.OrgHeader.API.FindAll.FilterID
-                        // };
-
-                        // apiService.post("eAxisAPI", appConfig.Entities.OrgHeader.API.FindAll.Url, _input).then(function (response) {
-                        //     if (response.data.Response) {
-                        //         InwardObject.UIOrgHeader = response.data.Response[0];
-                        // CreatingInward(InwardObject, currentOutward)
-                        //     }
-                        // });
-
-                    }
-                });
+                    //Inward Get By Id Call
+                    helperService.getFullObjectUsingGetById(ReleasesGeneralCtrl.ePage.Entities.Header.API.InwardGetById.Url, 'null').then(function (response) {
+                        if (response.data.Response.Response) {
+                            var InwardObject = response.data.Response.Response
+                            InwardObject.UIWmsInwardHeader.PK = response.data.Response.Response.PK;
+                            apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + currentOutward.PK).then(function (response) {
+                                if (response.data.Response) {
+                                    InwardObject.UIOrgHeader = response.data.Response.UIOrgHeader;
+                                    InwardObject.UIJobAddress = angular.copy(response.data.Response.UIJobAddress);
+                                    angular.forEach(InwardObject.UIJobAddress, function (value, key) {
+                                        value.PK = "";
+                                        if (value.AddressType == "CED")
+                                            value.AddressType = "SUD";
+                                    });
+                                    CreatingInward(InwardObject, currentOutward)
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    toastr.warning("Pickline is not available. So cannot create Inward");
+                }
             }
         }
 
         function CreatingInward(InwardObject, currentOutward) {
-            //Assigning Header Object
+            //Assigning Header Object            
             InwardObject.UIWmsInwardHeader.CreatedDateTime = new Date();
             InwardObject.UIWmsInwardHeader.WorkOrderType = 'INW';
             InwardObject.UIWmsInwardHeader.ExternalReference = "Material Transfer " + InwardObject.UIWmsInwardHeader.WorkOrderID;
@@ -373,11 +359,11 @@
             InwardObject.UIWmsInwardHeader.AdditionalRef2Fk = currentOutward.AdditionalRef2Fk;
 
             //Assigning ASN Line Object
-            ReleasesGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardLines.map(function (value, key) {
+            ReleasesGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickLine.map(function (value, key) {
                 if (value.WOD_FK == currentOutward.PK) {
                     var AsnLineObj = {
                         "PK": "",
-                        "Parent_FK": value.PK,
+                        "Parent_FK": value.WOL_TransactionLine,
                         "Client_FK": currentOutward.ORG_Client_FK,
                         "ORG_ClientCode": currentOutward.ClientCode,
                         "ORG_ClientName": currentOutward.ClientName,
@@ -407,7 +393,11 @@
                 if (response.data.Status == 'Success') {
                     ReleasesGeneralCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
                     ReleasesGeneralCtrl.ePage.Masters.LoadingValue = "";
-                    toastr.success("Material Inward is successfully created.. Inward No : " + InwardObject.UIWmsInwardHeader.WorkOrderID);
+                    toastr.success("Material Inward is successfully created.. Inward No : " + InwardObject.UIWmsInwardHeader.WorkOrderID, {
+                        tapToDismiss: false,
+                        closeButton: true,
+                        timeOut: 0
+                    });
                 } else {
                     ReleasesGeneralCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
                     ReleasesGeneralCtrl.ePage.Masters.LoadingValue = "";

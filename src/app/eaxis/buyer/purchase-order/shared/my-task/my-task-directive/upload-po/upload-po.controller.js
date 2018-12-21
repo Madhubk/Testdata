@@ -5,9 +5,9 @@
         .module("Application")
         .controller("UploadPODirectiveController", UploadPODirectiveController);
 
-    UploadPODirectiveController.$inject = ["$q", "$window", "$timeout", "helperService", "apiService", "appConfig", "authService", "toastr"];
+    UploadPODirectiveController.$inject = ["$q", "$window", "$timeout", "helperService", "apiService", "appConfig", "authService", "orderApiConfig", "toastr"];
 
-    function UploadPODirectiveController($q, $window, $timeout, helperService, apiService, appConfig, authService, toastr) {
+    function UploadPODirectiveController($q, $window, $timeout, helperService, apiService, appConfig, authService, orderApiConfig, toastr) {
         var UploadPODirectiveCtrl = this;
 
         function Init() {
@@ -135,9 +135,9 @@
             }
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filterInput),
-                "FilterID": appConfig.Entities.BuyerOrder.API.findall.FilterID
+                "FilterID": orderApiConfig.Entities.BuyerForwarderOrder.API.findall.FilterID
             }
-            apiService.post('eAxisAPI', appConfig.Entities.BuyerOrder.API.findall.Url, _input).then(function (response) {
+            apiService.post('eAxisAPI', orderApiConfig.Entities.BuyerForwarderOrder.API.findall.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
                         TaskCompletion();

@@ -113,6 +113,7 @@
                 apiService.get("eAxisAPI", appConfig.Entities.ConsolList.API.GetByID.Url + ExportSeaConsolidationSIFilingGlbCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
                     if (response.data.Response) {
                         ExportSeaConsolidationSIFilingGlbCtrl.ePage.Masters.EntityObj = response.data.Response;
+                        console.log(ExportSeaConsolidationSIFilingGlbCtrl.ePage.Masters.EntityObj)
                     }
                 });
             }

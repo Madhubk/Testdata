@@ -1,0 +1,169 @@
+<div class="clearfix tc-comp-org-app-tenant">
+    <!-- Breadcrumb -->
+    <div class="clearfix tc-breadcrumb" data-ng-if="TCCompOrgAppTenantCtrl.ePage.Masters.ActiveApplication == 'TC'">
+        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-xs-12 p-0">
+            <i class="fa fa-home home-icon"></i>
+            <div class="breadcrumb-list-wrapper">
+                <ol class="breadcrumb">
+                    <li data-ng-repeat="x in TCCompOrgAppTenantCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                        <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="TCCompOrgAppTenantCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                    </li>
+                    <li data-ng-repeat="x in TCCompOrgAppTenantCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive"
+                        data-ng-bind="x.Description" class="active"></li>
+                </ol>
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12 p-4">
+            <tc-application-dropdown query-string="TCCompOrgAppTenantCtrl.ePage.Masters.QueryString"
+                on-application-change="TCCompOrgAppTenantCtrl.ePage.Masters.Application.OnApplicationChange($item)"></tc-application-dropdown>
+        </div>
+    </div>
+    <!-- Header -->
+    <div class="clearfix tc-header-container">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="tc-header with-add-new">
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-5">
+                    <div class="text-single-line" data-ng-bind="'Organization'"></div>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-5 pt-4 text-right">
+                    <button class="btn btn-xs btn-info" data-ng-click="TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.AddNew()">New</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">
+            <div class="tc-header edit-view">
+                <span data-ng-bind="'Details'"></span>
+                <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10" data-ng-click="TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.Edit()"
+                    data-ng-disabled="!TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.ActiveCompOrgAppTenant.PK">Edit</button>
+                <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.DeleteConfirmation()"
+                    data-ng-bind="TCCompOrgAppTenantCtrl.ePage.Masters.DeleteBtnText" data-ng-disabled="TCCompOrgAppTenantCtrl.ePage.Masters.IsDisableDeleteBtn || !TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.ActiveCompOrgAppTenant.PK"
+                    data-ng-if="TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.UIControlList && TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.UIControlList.length > 0 && TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.CheckUIControl('TC_MAP_DEL')"></button>
+            </div>
+        </div>
+    </div>
+    <!-- Body -->
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="tc-list-search">
+                <input type="text" class="form-control input-sm" placeholder="Search..." data-ng-model="TCCompOrgAppTenantCtrl.ePage.Masters.Search">
+            </div>
+            <div class="tc-list-container tc-page-height-fixed left">
+                <ul class="tc-list-ul">
+                    <div class="p-15 text-center tc-loading" data-ng-if="!TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.CompOrgAppTenantList">
+                        <i class="fa fa-spin fa-spinner"></i>
+                    </div>
+                    <div data-ng-if="TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.CompOrgAppTenantList && (TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.CompOrgAppTenantList | filter: TCCompOrgAppTenantCtrl.ePage.Masters.Search).length===0"
+                        class="p-15 text-center">
+                        <i>No Records...</i>
+                    </div>
+                    <li data-ng-if="TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.CompOrgAppTenantList && (TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.CompOrgAppTenantList | filter: TCCompOrgAppTenantCtrl.ePage.Masters.Search).length > 0"
+                        data-ng-repeat="x in TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.CompOrgAppTenantList | filter: TCCompOrgAppTenantCtrl.ePage.Masters.Search"
+                        data-ng-click="TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.ActiveCompOrgAppTenant.PK != x.PK &&  TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.OnCompOrgAppTenantClick(x)"
+                        data-ng-class="{'active': TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.ActiveCompOrgAppTenant.PK == x.PK}">
+                        <div class="clearfix tc-list">
+                            <div class="tc-list-name">
+                                <i class="fa fa-circle-o mr-10"></i>
+                                <span class="text-single-line" data-ng-bind="x.AccessCode"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed">
+            <div class="pt-10 pb-10 tc-details-view clearfix">
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Access To</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.ActiveCompOrgAppTenant.AccessTo || TCCompOrgAppTenantCtrl.ePage.Masters.emptyText"></div>
+                    </div>
+                </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Item Name</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.ActiveCompOrgAppTenant.ItemName || TCCompOrgAppTenantCtrl.ePage.Masters.emptyText"></div>
+                    </div>
+                </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Organization</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.ActiveCompOrgAppTenant.AccessCode || TCCompOrgAppTenantCtrl.ePage.Masters.emptyText"></div>
+                    </div>
+                </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Tenant</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.ActiveCompOrgAppTenant.TenantCode || TCCompOrgAppTenantCtrl.ePage.Masters.emptyText"></div>
+                    </div>
+                </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Application</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.ActiveCompOrgAppTenant.SAP_Code || TCCompOrgAppTenantCtrl.ePage.Masters.emptyText"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="tc-section-divider" data-ng-if="TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.ActiveCompOrgAppTenant.PK"></div>
+            <div class="tc-list-container tc-list-container-inner-redirect clearfix" data-ng-if="TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.ActiveCompOrgAppTenant.PK">
+                <ul class="tc-list-ul">
+                    <li data-ng-click="TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.OnCompOrgAppTenantClick(x)"
+                        data-ng-repeat="x in TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.RedirectPagetList">
+                        <div class="clearfix tc-list">
+                            <div class="tc-list-name">
+                                <i class="fa {{x.Icon}} mr-10" data-ng-style="{'color': x.Color}"></i>
+                                <span class="text-single-line" data-ng-bind="x.Description"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Template -->
+    <script type="text/ng-template" id="compOrgAppTenantEdit">
+        <div class="modal-header">
+                <button type="button" class="close" ng-click="TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.Cancel()">&times;</button>
+                <h5 class="modal-title" id="modal-title">
+                    <strong>Edit</strong>
+                </h5>
+            </div>
+            <div class="modal-body pt-10" id="modal-body">
+                <div class="clearfix">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-5 pb-5">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Organization</label>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                    <input type="text" placeholder="Organization" class="form-control input-sm" data-ng-model="TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.ActiveCompOrgAppTenant.AccessCode
+                                                            "
+                                        uib-typeahead="x.Code as x.Code + ' - ' + x.FullName  for x in TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.GetOrganizationList($viewValue)"
+                                        typeahead-loading="TCCompOrgAppTenantCtrl.ePage.Masters.IsOrganizationLoading"
+                                        typeahead-no-results="TCCompOrgAppTenantCtrl.ePage.Masters.IsOrganizationNoResults"
+                                        typeahead-editable="false" typeahead-append-to-body='true' typeahead-on-select="  TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.OnSelectAutoCompleteList($item, $model, $label, $event)"
+                                        ng-blur="TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.OnBlurAutoCompleteList($event)"
+                                        typeahead-min-length="TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.ActiveCompOrgAppTenant.AccessCode.MinLength">
+                                    <div class="clearfix dropdown-menu" ng-if="TCCompOrgAppTenantCtrl.ePage.Masters.IsOrganizationNoResults">
+                                        <div class="auto-complete-no-result">No Results Found!</div>
+                                    </div>
+                                    <div class="clearfix dropdown-menu" ng-if="TCCompOrgAppTenantCtrl.ePage.Masters.IsOrganizationLoading">
+                                        <div class="auto-complete-no-result">
+                                            <i class="fa fa-spin fa-spinner"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            
+                <div class="tc-section-divider-small"></div>
+                <div class="clearfix p-10">
+                    <button class="btn btn-default tc-btn-save btn-xs pull-right ml-10" data-ng-click="TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.Save()"
+                        data-ng-bind="TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.SaveBtnText" data-ng-disabled="TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.IsDisableSaveBtn"></button>
+                    <button class="btn btn-default tc-btn-cancel btn-xs pull-right ml-10" data-ng-click="TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.Cancel()">Cancel</button>
+                </div>
+                <div class="tc-section-divider-small mb-20"></div>
+            </div>
+    </script>
+</div>

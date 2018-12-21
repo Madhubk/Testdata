@@ -14,7 +14,8 @@
                 taskObj: "=",
                 onComplete: "&",
                 onRefreshStatusCount: "&",
-                onRefreshTask: "&"
+                onRefreshTask: "&",
+                getErrorWarningList: "&"
             },
             link: Link,
         };
@@ -25,6 +26,7 @@
             scope.OnComplete = OnComplete;
             scope.OnRefreshStatusCount = OnRefreshStatusCount;
             scope.OnRefreshTask = OnRefreshTask;
+            scope.GetErrorWarningList = GetErrorWarningList;
 
             CreateTemplateDirective();
 
@@ -74,7 +76,7 @@
                     }
                 }
 
-                scope.templateDir = '<' + _templateName + ' task-obj="taskObj" on-complete="OnComplete($item)" on-refresh-status-count="OnRefreshStatusCount($item)" on-refresh-task="OnRefreshTask($item)"/>'
+                scope.templateDir = '<' + _templateName + ' task-obj="taskObj" on-complete="OnComplete($item)" on-refresh-status-count="OnRefreshStatusCount($item)" on-refresh-task="OnRefreshTask($item)" get-error-warning-list="GetErrorWarningList($item)"/>'
                 var newDirective = angular.element(scope.templateDir);
                 var view = $compile(newDirective)(scope);
                 ele.append(view);
@@ -94,6 +96,12 @@
 
             function OnRefreshTask(_$item) {
                 scope.onRefreshTask({
+                    $item: _$item
+                });
+            }
+
+            function GetErrorWarningList(_$item) {
+                scope.getErrorWarningList({
                     $item: _$item
                 });
             }

@@ -1,0 +1,107 @@
+﻿<div data-ng-if="!one_three_BookingCtrl.ePage.Masters.ShowLists">
+    <div class="clearfix">
+        <div class="col-lg-12 bkg-booking-header pt-5 pb-5">
+            <span class="pull-left fs-20">Bulk Upload</span>
+            
+            <button class="btn btn-default fs-12 pull-right" data-ng-click="one_three_BookingCtrl.ePage.Masters.ShipmentSelection('buplist')">Bulk
+                Lists
+            </button>
+        </div>
+    </div>
+    <div class="pt-15 pb-15">
+        <div class="clearfix text-center pt-20 pb-30">
+            <div class="fs-22">Multiple options for Booking</div>
+            <div class="mt-10">Choose an action from below</div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6 pl-5 pr-5 mb-10">
+            <div class="set-bg-white border-f5f5f5 text-center pt-20 pb-20">
+                <img src="assets/img/shipment-booking/override.png">
+                <div class="tile-heading til-bo mt-10">SLI Upload</div>
+                <div class="set-color-999">Upload your SLI Document,</div>
+                <div class="set-color-999">then We'll do Booking for you!</div>
+                <input class="btn btn-default mt-20" type="submit" value="SLI Override" data-ng-click="one_three_BookingCtrl.ePage.Masters.ShipmentSelection('SLI')">
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6 pl-5 mb-10">
+            <div class="set-bg-white border-f5f5f5 text-center pt-20 pb-20">
+                <img src="assets/img/shipment-booking/completed.png">
+                <div class="tile-heading til-bo mt-10">Bulk Upload</div>
+                <div class="set-color-999">Upload your Bulk Document,</div>
+                <div class="set-color-999">then We'll do Booking for you!</div>
+                <input class="btn btn-default mt-20" type="submit" value="Bulk Upload" data-ng-click="one_three_BookingCtrl.ePage.Masters.ShipmentSelection('BUP')">
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6 pl-5 pr-5">
+            <div class="set-bg-white border-f5f5f5 text-center pt-20 pb-20">
+                <img src="assets/img/shipment-booking/create.png">
+                <div class="tile-heading til-bo mt-10">Create New Booking</div>
+                <div class="set-color-999 text-wrap">Create Booking Using Data Entry</div>
+                <input class="btn btn-default mt-20" type="submit" value="Create New Booking" data-ng-click="one_three_BookingCtrl.ePage.Masters.ShipmentSelection('CNFBooking')">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Booking Grid -->
+<uib-tabset id="chromeTab" data-ng-if="(one_three_BookingCtrl.ePage.Masters.ShowLists || one_three_BookingCtrl.ePage.Masters.CNFShipment) && !one_three_BookingCtrl.ePage.Masters.ASN"
+    active="one_three_BookingCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+    <uib-tab>
+        <uib-tab-heading title="">
+            <span data-ng-bind="one_three_BookingCtrl.ePage.Masters.CreateBtn?'Booking':'Bulk Uploaded List'"></span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+        <div class="no-padding tab-list-view-wrapper">
+            <!--Booking Grid Page-->
+            <!-- <dynamic-list dataentry-name="one_three_BookingCtrl.ePage.Masters.dataentryName" task-name="one_three_BookingCtrl.ePage.Masters.taskName" grid-config-type="0"
+                selected-grid-row="one_three_BookingCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" default-filter="one_three_BookingCtrl.ePage.Masters.defaultFilter"></dynamic-list> -->
+            <dynamic-list dataentry-name="one_three_BookingCtrl.ePage.Masters.dataentryName" selected-grid-row="one_three_BookingCtrl.ePage.Masters.SelectedGridRow($item)"
+                mode="1" default-filter="one_three_BookingCtrl.ePage.Masters.defaultFilter" dataentry-object="one_three_BookingCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+            <div class="tab-loading" data-ng-show="one_three_BookingCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+    <uib-tab active="one_three_BookingCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in one_three_BookingCtrl.ePage.Masters.TabList"
+        ng-click="one_three_BookingCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+        <uib-tab-heading title="{{tab.label}}">
+            <span data-ng-bind="tab.label"></span>
+            <span class="error-warning-container-common" data-ng-if="one_three_BookingCtrl.ePage.Masters.ErrorWarningConfig.Modules.Booking.Entity[tab.code].GlobalErrorWarningList.length > 0">
+                <span class="custom-warning-container" data-ng-if="(one_three_BookingCtrl.ePage.Masters.ErrorWarningConfig.Modules.Booking.Entity[tab.code].GlobalErrorWarningList | listCount: 'MessageType': 'W') > 0 && (one_three_BookingCtrl.ePage.Masters.ErrorWarningConfig.Modules.Booking.Entity[tab.code].GlobalErrorWarningList | listCount: 'MessageType': 'E') == 0">
+                    <button class="btn-warning" data-ng-click="one_three_BookingCtrl.ePage.Masters.ErrorWarningConfig.ShowErrorWarningModal(tab)">
+                        <i class="fa fa-warning"></i>
+                    </button>
+                    <span class="custom-warning-count">{{one_three_BookingCtrl.ePage.Masters.ErrorWarningConfig.Modules.Booking.Entity[tab.code].GlobalErrorWarningList
+                        |
+                        listCount: 'MessageType': 'W'}}
+                    </span>
+                </span>
+                <span class="custom-error-container" data-ng-if="(one_three_BookingCtrl.ePage.Masters.ErrorWarningConfig.Modules.Booking.Entity[tab.code].GlobalErrorWarningList | listCount: 'MessageType': 'E') > 0">
+                    <button class="btn-error" data-ng-click="one_three_BookingCtrl.ePage.Masters.ErrorConfig.ShowErrorWarningModal(tab)">
+                        <i class="fa fa-warning"></i>
+                    </button>
+                    <span class="custom-error-count">{{one_three_BookingCtrl.ePage.Masters.ErrorWarningConfig.Modules.Booking.Entity[tab.code].GlobalErrorWarningList
+                        |
+                        listCount: 'MessageType': 'E'}}
+                    </span>
+                </span>
+            </span>
+            <i class="glyphicon glyphicon-remove" ng-click="one_three_BookingCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+        </uib-tab-heading>
+        <div class="padding-bottom-10 clearfix">
+            <!--Booking Menu Directive-->
+            <booking-buyer-forwarder-template current-Booking="tab" data-ng-if="one_three_BookingCtrl.ePage.Masters.currentBooking && (tab['New'].ePage.Entities.Header.Data.UIShipmentHeader.IsBooking || tab[one_three_BookingCtrl.ePage.Masters.currentBooking].ePage.Entities.Header.Data.UIShipmentHeader.IsBooking)  && (one_three_BookingCtrl.ePage.Masters.RoleCode=='BUYER_EXPORT_CS' || one_three_BookingCtrl.ePage.Masters.RoleCode=='BUYER_PO_DESK')"
+                dataentry-object="one_three_BookingCtrl.ePage.Masters.DataEntryObject"></booking-buyer-forwarder-template>
+            <booking-buyer-supplier-template current-Booking="tab" data-ng-if="one_three_BookingCtrl.ePage.Masters.currentBooking && (tab['New'].ePage.Entities.Header.Data.UIShipmentHeader.IsBooking || tab[one_three_BookingCtrl.ePage.Masters.currentBooking].ePage.Entities.Header.Data.UIShipmentHeader.IsBooking) && one_three_BookingCtrl.ePage.Masters.RoleCode=='BUYER_SUPPLIER_SHIPMENT_COORDINATOR'"
+                dataentry-object="one_three_BookingCtrl.ePage.Masters.DataEntryObject"></booking-buyer-supplier-template>
+            <track-shipment-details-directive data-ng-if="!tab.isNew && !tab[one_three_BookingCtrl.ePage.Masters.currentBooking].ePage.Entities.Header.Data.UIShipmentHeader.IsBooking"
+                current-shipment="tab"></track-shipment-details-directive>
+        </div>
+    </uib-tab>
+    <button class="btn btn-default" data-ng-if="one_three_BookingCtrl.ePage.Masters.CreateBtn" ng-click="one_three_BookingCtrl.ePage.Masters.CreateNewBooking()"
+        data-ng-disabled="one_three_BookingCtrl.ePage.Masters.IsNewBookingClicked">+</button>
+    <button class="btn btn-default bkg-shipment-booking" data-ng-disabled="one_three_BookingCtrl.ePage.Masters.IsNewBookingClicked"
+        data-ng-click="one_three_BookingCtrl.ePage.Masters.ShipmentSelection('dashboard');one_three_BookingCtrl.ePage.Masters.RemoveAllTab();">
+        <i class="fa fa-anlgle-double-left"></i> Back to Dashboard</button>
+</uib-tabset>
+<!--End of Booking Grid -->
+<!-- SLI Override -->
+<one-two-asn-upload data-ng-if="one_three_BookingCtrl.ePage.Masters.ShowLists && one_three_BookingCtrl.ePage.Masters.ASN"
+    back-dashboard="one_three_BookingCtrl.ePage.Masters.ShipmentSelection()"></one-two-asn-upload>
+<!-- End of SLI Override -->

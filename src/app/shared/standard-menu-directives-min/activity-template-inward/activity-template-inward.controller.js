@@ -135,23 +135,34 @@
 
                     });
                 }
-            } else if (ActivityTemplateInwardCtrl.taskObj.WSI_StepName = "Collect Material") {
+            } else if (ActivityTemplateInwardCtrl.taskObj.WSI_StepName == "Collect Material") {
                 $rootScope.SaveInwardFromTask(function () {
+                    myTaskActivityConfig.Entities.PickupData = filterObjectUpdate(myTaskActivityConfig.Entities.PickupData, "IsModified");
                     apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, myTaskActivityConfig.Entities.PickupData).then(function (response) {
+                        myTaskActivityConfig.Entities.PickupData = response.data.Response;
                         toastr.success("Pickup Saved Successfully");
                         if (callback)
                             callback();
                     });
                 });
-            } else if (ActivityTemplateInwardCtrl.taskObj.WSI_StepName == "Get Signature in Challan") {                
+            } else if (ActivityTemplateInwardCtrl.taskObj.WSI_StepName == "Confirm Delivery and Get Signature") {
                 if (callback) {
                     $rootScope.FinalizeInwardFromTask(function () {
-                        if (callback)
-                            callback();
+                        myTaskActivityConfig.Entities.PickupData = filterObjectUpdate(myTaskActivityConfig.Entities.PickupData, "IsModified");
+                        apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, myTaskActivityConfig.Entities.PickupData).then(function (response) {
+                            myTaskActivityConfig.Entities.PickupData = response.data.Response;
+                            toastr.success("Pickup Saved Successfully");
+                            if (callback)
+                                callback();
+                        });
                     });
                 } else {
                     $rootScope.SaveInwardFromTask(function () {
-
+                        myTaskActivityConfig.Entities.PickupData = filterObjectUpdate(myTaskActivityConfig.Entities.PickupData, "IsModified");
+                        apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, myTaskActivityConfig.Entities.PickupData).then(function (response) {
+                            myTaskActivityConfig.Entities.PickupData = response.data.Response;
+                            toastr.success("Pickup Saved Successfully");
+                        });
                     });
                 }
             } else {
@@ -163,7 +174,7 @@
             ActivityTemplateInwardCtrl.ePage.Masters.SaveBtnText = "Please Wait...";
             ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = true;
             var _input = angular.copy(myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data);
-            _input.UIWmsInwardHeader.IsModified = true;
+            _input = filterObjectUpdate(_input, "IsModified");
             apiService.post("eAxisAPI", appConfig.Entities.InwardList.API.Update.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     toastr.success("Saved Successfully...!");
@@ -433,6 +444,9 @@
 
         function Complete() {
             if (ActivityTemplateInwardCtrl.ePage.Masters.ValidationSource.length > 0 || ActivityTemplateInwardCtrl.ePage.Masters.DocumentValidation.length > 0) {
+                if (ActivityTemplateInwardCtrl.taskObj.WSI_StepName == "Collect Material" || ActivityTemplateInwardCtrl.taskObj.WSI_StepName == "Confirm Delivery and Get Signature") {
+                    myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsWorkorderReport = myTaskActivityConfig.Entities.PickupData.UIWmsWorkorderReport;
+                }
                 if (ActivityTemplateInwardCtrl.ePage.Masters.ValidationSource.length > 0) {
                     var _obj = {
                         ModuleName: ["MyTask"],
@@ -451,9 +465,9 @@
                 if (ActivityTemplateInwardCtrl.ePage.Masters.DocumentValidation.length > 0) {
                     GetDocumentValidation().then(function (response) {
                         if (ActivityTemplateInwardCtrl.ePage.Masters.docTypeSource.length == 0 || ActivityTemplateInwardCtrl.ePage.Masters.docTypeSource.length == response.length) {
-                            ActivityTemplateInwardCtrl.ePage.Masters.EntityObj.Document = true;
+                            myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.Document = true;
                         } else {
-                            ActivityTemplateInwardCtrl.ePage.Masters.EntityObj.Document = null;
+                            myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.Document = null;
                         }
                         var _obj = {
                             ModuleName: ["MyTask"],
@@ -464,7 +478,7 @@
                                 SubModuleCode: "INW",
                             },
                             GroupCode: "Document",
-                            EntityObject: ActivityTemplateInwardCtrl.ePage.Masters.EntityObj
+                            EntityObject: myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data
                         };
                         errorWarningService.ValidateValue(_obj);
                     });
@@ -575,6 +589,18 @@
 
         function ShowErrorWarningModal(EntityObject) {
             $("#errorWarningContainer" + EntityObject).toggleClass("open");
+        }
+
+        function filterObjectUpdate(obj, key) {
+            for (var i in obj) {
+                if (!obj.hasOwnProperty(i)) continue;
+                if (typeof obj[i] == 'object') {
+                    filterObjectUpdate(obj[i], key);
+                } else if (i == key) {
+                    obj[key] = true;
+                }
+            }
+            return obj;
         }
 
         Init();

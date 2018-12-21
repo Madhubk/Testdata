@@ -1,6 +1,5 @@
 <div class="clearfix tc-user-cmp-app-tenant">
     <!-- Breadcrumb -->
-    <!-- Breadcrumb -->
     <div class="clearfix tc-breadcrumb" data-ng-if="TCUserCmpAppTenantCtrl.ePage.Masters.ActiveApplication == 'TC'">
         <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-xs-12 p-0">
             <i class="fa fa-home home-icon"></i>
@@ -48,17 +47,16 @@
                 <tr data-ng-if="TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UserCmpAppTenantList && TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UserCmpAppTenantList.length > 0"
                     data-ng-repeat="item in  TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UserCmpAppTenantList">
                     <td>
-                        <input type="text" placeholder="Company" class="form-control input-sm" data-ng-model="item.AccessCode
-                            "
+                        <input type="text" placeholder="Company" class="form-control input-sm" data-ng-model="item.AccessCode"
                             uib-typeahead="x.Code as x.Code + ' - ' + x.Name  for x in TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.GetCompanyList($viewValue)"
-                            typeahead-loading="item.AccessCodeNoResults" typeahead-no-results="item.AccessCodeLoading"
-                            typeahead-editable="false" typeahead-append-to-body='true' typeahead-on-select="  TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.OnSelectAutoCompleteList($item, $model, $label, $event, item, row)"
-                            ng-blur="TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.OnBlurAutoCompleteList($event, item)"
+                            typeahead-loading="item.IsAccessCodeLoading" typeahead-no-results="item.IsAccessCodeNoResults"
+                            typeahead-editable="false" typeahead-append-to-body='true' typeahead-on-select="  TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.OnSelectAutoCompleteCompanyList($item, $model, $label, $event, item)"
+                            ng-blur="TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.OnBlurAutoCompleteCompanyList($event, item)"
                             typeahead-min-length="item.AccessCode.MinLength">
-                        <div class="clearfix dropdown-menu" ng-if="item.AccessCodeNoResults">
+                        <div class="clearfix dropdown-menu" ng-if="item.IsAccessCodeNoResults">
                             <div class="auto-complete-no-result">No Results Found!</div>
                         </div>
-                        <div class="clearfix dropdown-menu" ng-if="item.AccessCodeLoading">
+                        <div class="clearfix dropdown-menu" ng-if="item.IsAccessCodeLoading">
                             <div class="auto-complete-no-result">
                                 <i class="fa fa-spin fa-spinner"></i>
                             </div>
@@ -69,9 +67,8 @@
                         <input type="text" placeholder="Branch" class="form-control input-sm" data-ng-model="item.BasedOnCode
                                 "
                             uib-typeahead="x.Code as x.Code + ' - ' + x.BranchName  for x in TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.GetCmpBranchList($viewValue, item)"
-                            typeahead-loading="TCUserCmpAppTenantCtrl.ePage.Masters.IsCmpBranchNoResults"
-                            typeahead-no-results="TCUserCmpAppTenantCtrl.ePage.Masters.IsCmpBranchLoading"
-                            typeahead-editable="false" typeahead-append-to-body='true' typeahead-on-select="  TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.OnSelectAutoCompleteListBranch($item, $model, $label, $event, item)"
+                            typeahead-loading="item.IsCmpBranchLoading" typeahead-no-results="item.IsCmpBranchNoResults"
+                            typeahead-editable="false" typeahead-append-to-body='true' typeahead-on-select="TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.OnSelectAutoCompleteListBranch($item, $model, $label, $event, item)"
                             ng-blur="TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.OnBlurAutoCompleteListBranch($event, item)"
                             typeahead-min-length="item.BasedOnCode.MinLength">
                         <div class="clearfix dropdown-menu" ng-if="item.IsCmpBranchNoResults">
@@ -85,14 +82,13 @@
                     </td>
 
                     <td>
-                        <input type="text" placeholder="Department" class="form-control input-sm" data-ng-model="item.OtherEntityCode_2
+                        <input type="text" placeholder="Department" class="form-control input-sm" data-ng-model="item.OtherEntityCode
                                     "
                             uib-typeahead="x.Code as x.Code + ' - ' + x.Desc  for x in TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.GetCmpDepartmentList($viewValue)"
-                            typeahead-loading="TCUserCmpAppTenantCtrl.ePage.Masters.IsCmpDepartmentNoResults"
-                            typeahead-no-results="TCUserCmpAppTenantCtrl.ePage.Masters.IsCmpDepartmentLoading"
+                            typeahead-loading="item.IsCmpDepartmentLoading" typeahead-no-results="item.IsCmpDepartmentNoResults"
                             typeahead-editable="false" typeahead-append-to-body='true' typeahead-on-select="  TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.OnSelectAutoCompleteListDepartment($item, $model, $label, $event, item)"
                             ng-blur="TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.OnBlurAutoCompleteListDepartment($event, item)"
-                            typeahead-min-length="item.OtherEntityCode_2.MinLength">
+                            typeahead-min-length="item.OtherEntityCode.MinLength">
                         <div class="clearfix dropdown-menu" ng-if="item.IsCmpDepartmentNoResults">
                             <div class="auto-complete-no-result">No Results Found!</div>
                         </div>
@@ -103,14 +99,13 @@
                         </div>
                     </td>
                     <td>
-                        <input type="text" placeholder="Organization" class="form-control input-sm" data-ng-model="item.OtherEntityCode 
+                        <input type="text" placeholder="Organization" class="form-control input-sm" data-ng-model="item.OtherEntityCode_2 
                                         "
                             uib-typeahead="x.Code as x.Code + ' - ' + x.FullName  for x in TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.GetOrganizationList($viewValue)"
-                            typeahead-loading="TCUserCmpAppTenantCtrl.ePage.Masters.IsOrganizationNoResults"
-                            typeahead-no-results="TCUserCmpAppTenantCtrl.ePage.Masters.IsOrganizationLoading"
+                            typeahead-loading="item.IsOrganizationLoading" typeahead-no-results="item.IsOrganizationNoResults"
                             typeahead-editable="false" typeahead-append-to-body='true' typeahead-on-select="  TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.OnSelectAutoCompleteListOrganization($item, $model, $label, $event, item)"
                             ng-blur="TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.OnBlurAutoCompleteListOrganization($event, item)"
-                            typeahead-min-length="item.OtherEntityCode.MinLength">
+                            typeahead-min-length="item.OtherEntityCode_2.MinLength">
                         <div class="clearfix dropdown-menu" data-ng-if="item.IsOrganizationNoResults">
                             <div class="auto-complete-no-result">No Results Found!</div>
                         </div>
@@ -125,7 +120,8 @@
                     </td>
                     <td class="text-center p-5">
                         <i class="glyphicon glyphicon-trash text-danger cursor-pointer" style="font-size: 16px;"
-                            data-ng-click="TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.Delete(item)"></i>
+                            data-ng-click="TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.Delete(item)"
+                            data-ng-if="TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UIControlList && TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UIControlList.length > 0 && TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.CheckUIControl('TC_MAP_DEL')"></i>
                     </td>
 
                 </tr>
@@ -142,5 +138,4 @@
             </tbody>
         </table>
     </div>
-
 </div>

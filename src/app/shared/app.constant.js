@@ -428,12 +428,6 @@
                     'app/shared/standard-menu-directives-min/activity-template-outward2/activity-template-outward2.directive.js',
                     'app/shared/standard-menu-directives-min/activity-template-outward2/activity-template-outward2.controller.js'
                 ]
-            }, {
-                name: 'ActivityTemplatePickup2',
-                files: [
-                    'app/shared/standard-menu-directives-min/activity-template-pickup2/activity-template-pickup2.directive.js',
-                    'app/shared/standard-menu-directives-min/activity-template-pickup2/activity-template-pickup2.controller.js'
-                ]
             },
             // endregion
             // region Standard Menu Min
@@ -476,15 +470,13 @@
                     'lib/angular/angular-ui-grid/ui-grid.min.js',
 
                     'app/shared/dynamic-grid/dynamic-grid.css',
-                    'app/shared/dynamic-grid/dynamic-grid.directive.js',
-                    'app/shared/dynamic-grid/dynamic-grid.controller.js'
+                    'app/shared/dynamic-grid/dynamic-grid.directive.js'
                 ]
             }, {
                 name: 'dynamicList',
                 files: [
                     'app/shared/dynamic-list/dynamic-list.css',
-                    'app/shared/dynamic-list/dynamic-list.directive.js',
-                    'app/shared/dynamic-list/dynamic-list.controller.js'
+                    'app/shared/dynamic-list/dynamic-list.directive.js'
                 ]
             }, {
                 name: 'dynamicListModal',
@@ -677,11 +669,18 @@
                 files: [
                     'lib/angular/ng-custom-file-upload/ng-custom-file-upload.js'
                 ]
+            },
+            {		
+                name: 'ActivityTemplatePickup2',		
+                files: [		
+                    'app/shared/standard-menu-directives-min/activity-template-pickup2/activity-template-pickup2.directive.js',		
+                    'app/shared/standard-menu-directives-min/activity-template-pickup2/activity-template-pickup2.controller.js'		
+                ]		
             }
             //endregion
         ],
         URL: {
-            eAxisAPI: "http://dev.myhubplusapi.20cube.com/wms/",
+            eAxisAPI: "http://dev.myhubplusapi.20cube.com/eaxis/",
             authAPI: "http://dev.myhubplusapi.20cube.com/auth/",
             alertAPI: "http://uat.api.20cube.com/alert/"
         },

@@ -23,7 +23,7 @@
                 }
             };
             ActivityTemplate1Ctrl.ePage.Masters.emptyText = "-";
-            ActivityTemplate1Ctrl.ePage.Masters.TaskObj = ActivityTemplate1Ctrl.taskObj;
+            ActivityTemplate1Ctrl.ePage.Masters.TaskObj = ActivityTemplate1Ctrl.taskObj;            
             myTaskActivityConfig.Entities.TaskObj = ActivityTemplate1Ctrl.taskObj;
             ActivityTemplate1Ctrl.ePage.Masters.Complete = Complete;
             ActivityTemplate1Ctrl.ePage.Masters.ShowErrorWarningModal = ShowErrorWarningModal;
@@ -74,11 +74,17 @@
                     ActivityTemplate1Ctrl.ePage.Masters.TaskConfigData = response.data.Response;
                     myTaskActivityConfig.Entities.TaskConfigData = ActivityTemplate1Ctrl.ePage.Masters.TaskConfigData;
                     ActivityTemplate1Ctrl.ePage.Masters.MenuListSource = $filter('filter')(ActivityTemplate1Ctrl.ePage.Masters.TaskConfigData, { Category: 'Menu' });
-                    ActivityTemplate1Ctrl.ePage.Masters.ValidationSource = $filter('filter')(ActivityTemplate1Ctrl.ePage.Masters.TaskConfigData, { Category: 'Validation' });
+                    // ActivityTemplate1Ctrl.ePage.Masters.ValidationSource = $filter('filter')(ActivityTemplate1Ctrl.ePage.Masters.TaskConfigData, { Category: 'Validation' });
+                    ActivityTemplate1Ctrl.ePage.Masters.ValidationSource = $filter('filter')(ActivityTemplate1Ctrl.ePage.Masters.TaskConfigData, function (val, key) {
+                        return val.Category == 'Validation'
+                        });
                     if (ActivityTemplate1Ctrl.ePage.Masters.ValidationSource.length > 0) {
                         ValidationFindall();
                     }
-                    ActivityTemplate1Ctrl.ePage.Masters.DocumentValidation = $filter('filter')(ActivityTemplate1Ctrl.ePage.Masters.TaskConfigData, { Category: 'DocumentValidation' });
+                    // ActivityTemplate1Ctrl.ePage.Masters.DocumentValidation = $filter('filter')(ActivityTemplate1Ctrl.ePage.Masters.TaskConfigData, { Category: 'DocumentValidation' });
+                    ActivityTemplate1Ctrl.ePage.Masters.DocumentValidation = $filter('filter')(ActivityTemplate1Ctrl.ePage.Masters.TaskConfigData, function (val, key) {
+                        return val.Category == 'DocumentValidation'
+                        })
                     if (ActivityTemplate1Ctrl.ePage.Masters.DocumentValidation.length > 0) {
                         DocumentValidation();
                     }
@@ -200,6 +206,21 @@
             _input.UIShpExtendedInfo.IsModified = true;
             apiService.post("eAxisAPI", appConfig.Entities.ShipmentList.API.Update.Url, _input).then(function (response) {
                 if (response.data.Response) {
+                    ActivityTemplate1Ctrl.currentShipment = {
+                        [response.data.Response.UIShipmentHeader.ShipmentNo]: {
+                            ePage: {
+                                Entities: {
+                                    Header: {
+                                        Data: ActivityTemplate1Ctrl.ePage.Masters.EntityObj
+                                    }
+                                }
+                            }
+                        },
+                        label: response.data.Response.UIShipmentHeader.ShipmentNo,
+                        code: response.data.Response.UIShipmentHeader.ShipmentNo,
+                        isNew: false
+                    };
+                    myTaskActivityConfig.Entities.Shipment = ActivityTemplate1Ctrl.currentShipment;
                     toastr.success("Saved Successfully...!");
                 } else {
                     toastr.error("Save Failed...!");
@@ -242,7 +263,7 @@
                 "Communication": null,
                 "Config": undefined,
                 // Parent Entity
-                "ParentEntityRefKey": ActivityTemplate1Ctrl.ePage.Masters.TaskObj.PK,
+                "ParentEntityRefKey": ActivityTemplate1Ctrl.ePage.Masters.TaskObj.WSI_FK,
                 "ParentEntityRefCode": ActivityTemplate1Ctrl.ePage.Masters.TaskObj.WSI_StepCode,
                 "ParentEntitySource": ActivityTemplate1Ctrl.ePage.Masters.TaskObj.EntitySource,
                 // Additional Entity
@@ -363,22 +384,22 @@
                 $timeout(function () {
                     var _errorcount = errorWarningService.Modules.MyTask.Entity[ActivityTemplate1Ctrl.ePage.Masters.EntityObj.UIShipmentHeader.ShipmentNo].GlobalErrorWarningList;
                     if (_errorcount.length > 0) {
-                        if (ActivityTemplate1Ctrl.ePage.Masters.DocumentValidation.length > 0) {
-                            angular.forEach(_errorcount, function (value, key) {
-                                if (value.MetaObject == "Document") {
-                                    // var docTypeSource = $filter('filter')(ActivityTemplate1Ctrl.ePage.Masters.DocumentValidation[0].Config, function (val, key) {
-                                    //     return val.IsMondatory == true
-                                    // });
-                                    var doctypedesc = '';
-                                    angular.forEach(ActivityTemplate1Ctrl.ePage.Masters.docTypeSource, function (value, key) {
-                                        doctypedesc = doctypedesc + value.DocTypeDesc + ",";
-                                    });
-                                    value.Message = 'Please Upload Document';
-                                    doctypedesc = doctypedesc.slice(0, -1);
-                                    value.Message = value.Message + " for this " + doctypedesc + " Document type";
-                                }
-                            });
-                        }
+                                                if (ActivityTemplate1Ctrl.ePage.Masters.DocumentValidation.length > 0) {
+                                                    angular.forEach(_errorcount, function (value, key) {
+                                                        if (value.MetaObject == "Document") {
+                                                            // var docTypeSource = $filter('filter')(ActivityTemplate1Ctrl.ePage.Masters.DocumentValidation[0].Config, function (val, key) {
+                                                            //     return val.IsMondatory == true
+                                                            // });
+                                                            var doctypedesc = '';
+                                                            angular.forEach(ActivityTemplate1Ctrl.ePage.Masters.docTypeSource, function (value, key) {
+                                                                doctypedesc = doctypedesc + value.DocTypeDesc + ",";
+                                                            });
+                                                            value.Message = 'Please Upload Document';
+                                                            doctypedesc = doctypedesc.slice(0, -1);
+                                                            value.Message = value.Message + " for this " + doctypedesc + " Document type";
+                                                        }
+                                                    });
+                                                }
                         ActivityTemplate1Ctrl.ePage.Masters.ShowErrorWarningModal(ActivityTemplate1Ctrl.taskObj.PSI_InstanceNo);
                     } else {
                         CompleteWithSave();
@@ -450,7 +471,7 @@
         }
         function CompleteWithSave() {
             ActivityTemplate1Ctrl.ePage.Masters.CompleteBtnText = "Please Wait...";
-            ActivityTemplate1Ctrl.ePage.Masters.IsDisableCompleteBtn = true;
+            ActivityTemplate1Ctrl.ePage.Masters.IsDisableCompleteBtn = true;            
             SaveEntity();
             if (ActivityTemplate1Ctrl.ePage.Entities.Header.Data.UIConShpMappings.length > 0) {
                 ConSave();
@@ -461,9 +482,8 @@
                     var _data = {
                         IsCompleted: true,
                         Item: ActivityTemplate1Ctrl.ePage.Masters.TaskObj
-                    };
-
-                    ActivityTemplate1Ctrl.onComplete({
+                    };                
+                 ActivityTemplate1Ctrl.onComplete({
                         $item: _data
                     });
                 } else {
@@ -475,7 +495,7 @@
         }
 
         function ConSave() {
-            var _input = angular.copy(ActivityTemplate1Ctrl.currentConsol);
+            var _input = angular.copy(ActivityTemplate1Ctrl.ePage.Entities.Header.ConData);
             _input.UIConConsolHeader.IsModified = true;
             apiService.post("eAxisAPI", appConfig.Entities.ConsolList.API.Update.Url, _input).then(function (response) {
                 if (response.data.Status == "Success") {

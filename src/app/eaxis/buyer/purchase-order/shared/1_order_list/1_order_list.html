@@ -38,15 +38,15 @@
         </uib-tab-heading>
         <div class="padding-bottom-10 clearfix">
             <!--Order Menu Directive-->
-            <ord-buyer-view-template current-order="tab" data-ng-if="one_order_listCtrl.ePage.Masters.currentOrder && tab[one_order_listCtrl.ePage.Masters.currentOrder].ePage.Entities.Header.Data.UIOrder_Buyer.PAR_AccessCode=='1_1'"
-                dataentry-object="one_order_listCtrl.ePage.Masters.DataEntryObject"></ord-buyer-view-template>
+            <!-- <ord-buyer-view-template current-order="tab" data-ng-if="one_order_listCtrl.ePage.Masters.currentOrder && tab[one_order_listCtrl.ePage.Masters.currentOrder].ePage.Entities.Header.Data.UIOrder_Buyer.PAR_AccessCode=='1_1'"
+                dataentry-object="one_order_listCtrl.ePage.Masters.DataEntryObject"></ord-buyer-view-template> -->
             <!-- <one-one-order-menu current-order="tab" data-ng-if="one_order_listCtrl.ePage.Masters.currentOrder && (tab[one_order_listCtrl.ePage.Masters.currentOrder].ePage.Entities.Header.Data.UIOrder_Buyer.PAR_AccessCode=='1_1' || tab['New'].ePage.Entities.Header.Data.UIOrder_Buyer.PAR_AccessCode=='1_1')"
                 dataentry-object="one_order_listCtrl.ePage.Masters.DataEntryObject"></one-one-order-menu> -->
-            <ord-buyer-supplier-view-template current-order="tab" data-ng-if="one_order_listCtrl.ePage.Masters.currentOrder && tab[one_order_listCtrl.ePage.Masters.currentOrder].ePage.Entities.Header.Data.UIOrder_Buyer_Supplier.PAR_AccessCode=='1_2'"
-                dataentry-object="one_order_listCtrl.ePage.Masters.DataEntryObject"></ord-buyer-supplier-view-template>
-            <one-three-order-menu current-order="tab" data-ng-if="one_order_listCtrl.ePage.Masters.currentOrder && (tab[one_order_listCtrl.ePage.Masters.currentOrder].ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.PAR_AccessCode=='1_3' || tab['New'].ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.PAR_AccessCode=='1_3')"
+            <!-- <ord-buyer-supplier-view-template current-order="tab" data-ng-if="one_order_listCtrl.ePage.Masters.currentOrder && tab[one_order_listCtrl.ePage.Masters.currentOrder].ePage.Entities.Header.Data.UIOrder_Buyer_Supplier.PAR_AccessCode=='1_2'"
+                dataentry-object="one_order_listCtrl.ePage.Masters.DataEntryObject"></ord-buyer-supplier-view-template> -->
+            <one-three-order-menu current-order="tab" data-ng-if="one_order_listCtrl.ePage.Masters.currentOrder"
                 dataentry-object="one_order_listCtrl.ePage.Masters.DataEntryObject"></one-three-order-menu>
-            <three-one-order-general current-order="tab" data-ng-if="one_order_listCtrl.ePage.Masters.currentOrder && tab[one_order_listCtrl.ePage.Masters.currentOrder].ePage.Entities.Header.Data.UIOrder_Forwarder_Buyer.PAR_AccessCode=='3_1'"></three-one-order-general>
+            <!-- <three-one-order-general current-order="tab" data-ng-if="one_order_listCtrl.ePage.Masters.currentOrder && tab[one_order_listCtrl.ePage.Masters.currentOrder].ePage.Entities.Header.Data.UIOrder_Forwarder_Buyer.PAR_AccessCode=='3_1'"></three-one-order-general> -->
         </div>
     </uib-tab>
     <button class="btn btn-default" data-ng-click="one_order_listCtrl.ePage.Masters.CreateNewOrder()" data-ng-disabled="!one_order_listCtrl.ePage.Masters.CheckUIControl('CREATE_ORDER') && one_order_listCtrl.ePage.Masters.IsNewOrderClicked">+</button>

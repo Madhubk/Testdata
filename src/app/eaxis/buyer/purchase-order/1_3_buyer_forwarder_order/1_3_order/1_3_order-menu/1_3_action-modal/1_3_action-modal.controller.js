@@ -5,9 +5,9 @@
         .module("Application")
         .controller("one_three_ActionModalController", one_three_ActionModalController);
 
-    one_three_ActionModalController.$inject = ["apiService", "one_order_listConfig", "appConfig", "helperService", "$uibModalInstance", "param"];
+    one_three_ActionModalController.$inject = ["apiService", "one_order_listConfig", "appConfig", "helperService", "$uibModalInstance", "orderApiConfig", "param"];
 
-    function one_three_ActionModalController(apiService, one_order_listConfig, appConfig, helperService, $uibModalInstance, param) {
+    function one_three_ActionModalController(apiService, one_order_listConfig, appConfig, helperService, $uibModalInstance, orderApiConfig, param) {
         var one_three_ActionModalCtrl = this;
 
         function Init() {
@@ -30,7 +30,7 @@
         }
 
         function SplitOrder() {
-            apiService.get("eAxisAPI", appConfig.Entities.BuyerOrder.API.split.Url + one_three_ActionModalCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.PK).then(function (response) {
+            apiService.get("eAxisAPI", orderApiConfig.Entities.BuyerForwarderOrder.API.split.Url + one_three_ActionModalCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.PK).then(function (response) {
                 if (response.data.Response) {
                     var __obj = {
                         entity: response.data.Response.UIOrder_Buyer_Forwarder,
@@ -45,7 +45,7 @@
         }
 
         function CreateOrder() {
-            helperService.getFullObjectUsingGetById(appConfig.Entities.BuyerOrder.API["1_3_listgetbyid"].Url, 'null').then(function (response) {
+            helperService.getFullObjectUsingGetById(orderApiConfig.Entities.BuyerForwarderOrder.API["1_3_listgetbyid"].Url, 'null').then(function (response) {
                 if (response.data.Response) {
                     response.data.Response.Response.UIOrder_Buyer_Forwarder.PAR_AccessCode = "1_3";
                     var _obj = {

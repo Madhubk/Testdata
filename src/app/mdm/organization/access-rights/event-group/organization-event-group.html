@@ -18,8 +18,8 @@
         <div class="clearfix p-20 text-center" data-ng-if="OrganizationEventGroupCtrl.ePage.Masters.EventGroup.EventGroupList && OrganizationEventGroupCtrl.ePage.Masters.EventGroup.EventGroupList.length == 0">
             <i>No Records...!</i>
         </div>
-        <div class="clearfix" data-ng-repeat="x in OrganizationEventGroupCtrl.ePage.Masters.EventGroup.EventGroupList" style="border-bottom: 1px solid #eee; padding: 7px 0;"
-            data-ng-if="OrganizationEventGroupCtrl.ePage.Masters.EventGroup.EventGroupList && OrganizationEventGroupCtrl.ePage.Masters.EventGroup.EventGroupList.length > 0">
+        <div class="clearfix" data-ng-repeat="x in OrganizationEventGroupCtrl.ePage.Masters.EventGroup.EventGroupList"
+            style="border-bottom: 1px solid #eee; padding: 7px 0;" data-ng-if="OrganizationEventGroupCtrl.ePage.Masters.EventGroup.EventGroupList && OrganizationEventGroupCtrl.ePage.Masters.EventGroup.EventGroupList.length > 0">
             <div class="col-sm-6 pt-4">
                 <div class="checkbox m-0">
                     <label>
@@ -46,18 +46,10 @@
             <span data-ng-bind="OrganizationEventGroupCtrl.ePage.Masters.EventGroup.ActiveEventGroup.EventDescription"></span>
         </div>
         <div class="clearfix" style="padding: 5px 0; background-color: #eee; font-weight: bold;">
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <div class="text-single-line p-5">Parties</div>
             </div>
-            <div class="col-sm-4">
-                <div class="text-single-line p-5">Email</div>
-            </div>
-            <div class="col-sm-2">
-                <div class="text-single-line p-5"></div>
-            </div>
-            <div class="col-sm-2">
-                <div class="text-single-line p-5"></div>
-            </div>
+            <div class="col-sm-9"></div>
         </div>
         <div class="clearfix p-20 text-center" data-ng-if="!OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList">
             <i class="fa fa-spin fa-spinner font-160"></i>
@@ -65,26 +57,52 @@
         <div class="clearfix p-20 text-center" data-ng-if="OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList && OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList.length == 0">
             <i>No Records...!</i>
         </div>
-        <div class="clearfix" data-ng-repeat="x in OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList" style="border-bottom: 1px solid #eee; padding: 7px 0; padding-bottom: 3px;"
-            data-ng-if="OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList && OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList.length > 0">
-            <div class="col-sm-4">
-                <div class="text-single-line" data-ng-bind="x.PartyName"></div>
+        <div class="clearfix" data-ng-repeat="x in OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList"
+            style="border-bottom: 1px solid #eee; padding: 7px 0; padding-bottom: 3px;" data-ng-if="OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList && OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList.length > 0">
+            <div class="col-sm-3">
+                <div class="checkbox m-0">
+                    <label>
+                        <input type="checkbox" class="colored-blue" data-ng-model="x.IsChecked" data-ng-click="OrganizationEventGroupCtrl.ePage.Masters.EventAction.OnPartyClick($event, x)">
+                        <span class="text text-single-line" data-ng-bind="x.PartyName"></span>
+                    </label>
+                </div>
             </div>
-            <div class="col-sm-4 pt-4">
-                <div class="text-single-line" data-ng-bind="x.EmailTemplate.EmailContact"></div>
+            <div class="col-sm-2">
+                <div class="checkbox m-0" data-ng-if="x.IsChecked">
+                    <label>
+                        <input type="checkbox" class="colored-blue" data-ng-model="x.MappingObj.IsDefault"
+                            data-ng-click="OrganizationEventGroupCtrl.ePage.Masters.EventAction.UpdatePartyEventOrganizationMapping($event, x, 'IsDefault')"
+                            data-ng-disabled="isDefault">
+                        <span class="text text-single-line">Is Default</span>
+                    </label>
+                </div>
             </div>
-            <div class="col-sm-2 pt-4">
-                <a href="javascript:void(0);" data-ng-click="OrganizationEventGroupCtrl.ePage.Masters.EventAction.OpenEventActionModal(x, 'OrgEventActionEmailTemplate')">
-                    <span>Edit Template</span>
+            <div class="col-sm-2">
+                <div class="checkbox m-0" data-ng-if="x.IsChecked">
+                    <label>
+                        <input type="checkbox" class="colored-blue" data-ng-model="x.MappingObj.IsResticted"
+                            data-ng-click="OrganizationEventGroupCtrl.ePage.Masters.EventAction.UpdatePartyEventOrganizationMapping($event, x, 'IsResticted')">
+                        <span class="text text-single-line">Is Restricted</span>
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-2 pt-2">
+                <a href="javascript:void(0);" data-ng-click="OrganizationEventGroupCtrl.ePage.Masters.EventAction.OpenEventActionModal(x, 'OrgEventActionEmailTemplate')"
+                    data-ng-if="x.IsChecked">
+                    <span>Template Config</span>
                     <i class="fa fa-check-circle ml-4" data-ng-if="x.EmailTemplate.EmailContact || x.EmailTemplate.EmailContact.Template"></i>
-                    </span>
+                </a>
             </div>
-            <div class="col-sm-2 pt-4">
-                <a href="javascript:void(0);" data-ng-click="OrganizationEventGroupCtrl.ePage.Masters.EventAction.OpenEventActionModal(x, 'OrgEventActionConfigTask')">
+            <div class="col-sm-2 pt-2">
+                <a href="javascript:void(0);" data-ng-click="OrganizationEventGroupCtrl.ePage.Masters.EventAction.OpenEventActionModal(x, 'OrgEventActionConfigTask')"
+                    data-ng-if="x.IsChecked">
                     <span>Config Task</span>
                     <i class="fa fa-check-circle ml-4" data-ng-if="x.TaskConfig.TaskConfig"></i>
-                    </span>
-                    </span>
+                </a>
+            </div>
+            <div class="col-sm-1 pt-2">
+                <a href="javascript:void(0);" data-ng-click="x.IsChecked && OrganizationEventGroupCtrl.ePage.Masters.EventAction.OnRoleBtnClick(x)"
+                    data-ng-if="x.IsChecked">Role</a>
             </div>
         </div>
     </div>
@@ -195,4 +213,34 @@
     <div class="modal-body p-20 pl-0" id="modal-body">
         <event-task-config-formatter task-config-list="OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction.TaskConfig.TaskConfigGroup" data-ng-if="OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction.TaskConfig.TaskConfigGroup"></event-task-config-formatter>
     </div>
+</script>
+
+<!-- Party Role Mapping -->
+<script type="text/ng-template" id="PartyRoleMappingOrgEvent">
+    <div class="modal-header">
+		<button type="button" class="close" data-ng-click="OrganizationEventGroupCtrl.ePage.Masters.EventAction.CloseEditActivityModal()">&times;</button>
+		<h5 class="modal-title" id="modal-title">
+			<strong>Role</strong>
+		</h5>
+	</div>
+	<div class="modal-body pt-10" id="modal-body">
+		<div class="clearfix border-bottom" data-ng-repeat="x in OrganizationEventGroupCtrl.ePage.Masters.EventAction.RoleList">
+			<div class="col-sm-8">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" class="colored-blue" data-ng-model="x.IsChecked" data-ng-click="OrganizationEventGroupCtrl.ePage.Masters.EventAction.OnRoleClick($event, x)">
+						<span class="text text-single-line" data-ng-bind="x.Name"></span>
+					</label>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" class="colored-blue" data-ng-model="x.MappingObj.IsDefault" data-ng-click="OrganizationEventGroupCtrl.ePage.Masters.EventAction.UpdateOrgGroupRoleMapping($event, x)" data-ng-disabled="!x.IsChecked">
+						<span class="text text-single-line" data-ng-bind="'Is Default'"></span>
+					</label>
+				</div>
+			</div>
+		</div>
+	</div>
 </script>

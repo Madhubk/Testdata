@@ -321,16 +321,16 @@
                             if(value.IsPartAttrib1ReleaseCaptured || !value.UsePartAttrib1){
                                 value.PartAttrib1 = '';
                             }
-                            if(value.IsPartAttrib2ReleaseCaptured || !UsePartAttrib2){
+                            if(value.IsPartAttrib2ReleaseCaptured || !value.UsePartAttrib2){
                                 value.PartAttrib2 = '';
                             }
-                            if(value.IsPartAttrib3ReleaseCaptured || !UsePartAttrib2){
+                            if(value.IsPartAttrib3ReleaseCaptured || !value.UsePartAttrib3){
                                 value.PartAttrib3 = '';
                             }
-                            if(!UsePackingDate){
+                            if(!value.UsePackingDate){
                                 value.PackingDate = '';
                             }
-                            if(!UseExpiryDate){
+                            if(!value.UseExpiryDate){
                                 value.ExpiryDate = '';
                             }
                             InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.push(value);

@@ -99,63 +99,62 @@
                 };
             }
 
-            GetModuleList();
             GetRedirectLinkList();
+
+            if (PageCtrl.ePage.Masters.ActiveModule || PageCtrl.ePage.Masters.ActiveSubModule || PageCtrl.ePage.Masters.ActiveEntitySource) {
+                GetPageList();
+            } else {
+                PageCtrl.ePage.Masters.Page.PageList = [];
+            }
         }
 
         // ========================ApplicationDropdown End==========
         // ========================Module Start========================
 
         function InitModule() {
-            PageCtrl.ePage.Masters.Module = {};
-            PageCtrl.ePage.Masters.SubModule = {};
-            PageCtrl.ePage.Masters.Module.OnModuleChange = OnModuleChange;
-            PageCtrl.ePage.Masters.SubModule.OnSubModuleChange = OnSubModuleChange;
+            PageCtrl.ePage.Masters.OnModuleChange = OnModuleChange;
+            PageCtrl.ePage.Masters.OnSubModuleChange = OnSubModuleChange;
+            PageCtrl.ePage.Masters.OnEntitySourceChange = OnEntitySourceChange;
+
+            GetEntitySourceList();
+            GetModuleList();
         }
 
         function GetModuleList() {
+            PageCtrl.ePage.Masters.ModuleList = undefined;
             var _filter = {
-                SortColumn: "TYP_Sequence",
-                SortType: "ASC",
-                PageNumber: "1",
-                PageSize: "1000",
-                TypeCode: "MODULE_MASTER",
-                SAP_FK: PageCtrl.ePage.Masters.Application.ActiveApplication.PK
+                TypeCode: "MODULE_MASTER"
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": trustCenterConfig.Entities.API.CfxTypes.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxTypes.API.FindAll.Url + PageCtrl.ePage.Masters.Application.ActiveApplication.PK, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxTypes.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
                 if (response.data.Response) {
-                    PageCtrl.ePage.Masters.Module.ListSource = response.data.Response;
-                    if (PageCtrl.ePage.Masters.Module.ListSource.length > 0) {
-                        OnModuleChange(PageCtrl.ePage.Masters.Module.ListSource[0])
-                    } else {
-                        PageCtrl.ePage.Masters.SubModule.ListSource = [];
-                        PageCtrl.ePage.Masters.SubModule.ActiveSubModule = undefined;
-                        PageCtrl.ePage.Masters.Page.PageList = [];
-                        PageCtrl.ePage.Masters.Page.ActivePage = undefined;
-                    }
+                    PageCtrl.ePage.Masters.ModuleList = response.data.Response;
                 }
             });
         }
 
         function OnModuleChange($item) {
-            PageCtrl.ePage.Masters.Module.ActiveModule = angular.copy($item);
+            PageCtrl.ePage.Masters.ActiveModule = angular.copy($item);
 
-            if(PageCtrl.ePage.Masters.Module.ActiveModule){
+            if (PageCtrl.ePage.Masters.ActiveModule) {
                 GetSubModuleList();
+            } else {
+                PageCtrl.ePage.Masters.SubModuleList = [];
             }
+
+            GetPageList();
         }
 
         function GetSubModuleList() {
-            PageCtrl.ePage.Masters.SubModule.ListSource = undefined;
+            PageCtrl.ePage.Masters.SubModuleList = undefined;
 
             var _filter = {
                 "PropertyName": "DEM_Type",
-                "Group": PageCtrl.ePage.Masters.Module.ActiveModule.Key,
+                "Group": PageCtrl.ePage.Masters.ActiveModule.Key,
                 "SAP_FK": PageCtrl.ePage.Masters.Application.ActiveApplication.PK
                 // "IsAccessBased":"false"
             };
@@ -166,27 +165,23 @@
 
             apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataEntryMaster.API.GetColumnValuesWithFilters.Url, _input).then(function (response) {
                 if (response.data.Response) {
-                    PageCtrl.ePage.Masters.SubModule.ListSource = response.data.Response;
-                    if (PageCtrl.ePage.Masters.SubModule.ListSource.length > 0) {
-                        OnSubModuleChange(PageCtrl.ePage.Masters.SubModule.ListSource[0])
-                    } else {
-                        PageCtrl.ePage.Masters.SubModule.ListSource = [];
-                        PageCtrl.ePage.Masters.SubModule.ActiveSubModule = undefined;
-                        PageCtrl.ePage.Masters.Page.PageList = [];
-                        PageCtrl.ePage.Masters.Page.ActivePage = undefined;
-                    }
-                } else {
-                    PageCtrl.ePage.Masters.SubModule.ListSource = [];
-                    PageCtrl.ePage.Masters.SubModule.ActiveSubModule = undefined;
-                    PageCtrl.ePage.Masters.Page.PageList = [];
-                    PageCtrl.ePage.Masters.Page.ActivePage = undefined;
+                    PageCtrl.ePage.Masters.SubModuleList = response.data.Response;
                 }
             });
         }
 
         function OnSubModuleChange($item) {
-            PageCtrl.ePage.Masters.SubModule.ActiveSubModule = angular.copy($item);
+            PageCtrl.ePage.Masters.ActiveSubModule = angular.copy($item);
 
+            GetPageList();
+        }
+
+        function GetEntitySourceList() {
+            PageCtrl.ePage.Masters.EntitySourceList = ["GENERAL", "ROLE", "TENANT", "ORGANIZATION", "EXPRESSION"];
+        }
+
+        function OnEntitySourceChange($item) {
+            PageCtrl.ePage.Masters.ActiveEntitySource = $item;
             GetPageList();
         }
 
@@ -195,6 +190,8 @@
 
         function InitPage() {
             PageCtrl.ePage.Masters.Page = {};
+            PageCtrl.ePage.Masters.Page.PageList = [];
+
             PageCtrl.ePage.Masters.Page.Edit = Edit;
             PageCtrl.ePage.Masters.Page.Copy = Copy;
             PageCtrl.ePage.Masters.Page.AddNew = AddNew;
@@ -209,10 +206,19 @@
         function GetPageList() {
             PageCtrl.ePage.Masters.Page.PageList = undefined;
             var _filter = {
-                "Group": PageCtrl.ePage.Masters.Module.ActiveModule.Key,
-                "Type": PageCtrl.ePage.Masters.SubModule.ActiveSubModule,
                 "SAP_FK": PageCtrl.ePage.Masters.Application.ActiveApplication.PK
             };
+
+            if (PageCtrl.ePage.Masters.ActiveModule) {
+                _filter.Group = PageCtrl.ePage.Masters.ActiveModule.Key;
+            }
+            if (PageCtrl.ePage.Masters.ActiveSubModule) {
+                _filter.Type = PageCtrl.ePage.Masters.ActiveSubModule;
+            }
+            if (PageCtrl.ePage.Masters.ActiveEntitySource) {
+                _filter.EntitySource = PageCtrl.ePage.Masters.ActiveEntitySource;
+            }
+
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": trustCenterConfig.Entities.API.DataEntryMaster.API.FindAll.FilterID
@@ -327,8 +333,16 @@
                 _queryString.PageName = PageCtrl.ePage.Masters.Page.ActivePage.DataEntryName;
                 _queryString.BreadcrumbTitle = PageCtrl.ePage.Masters.Page.ActivePage.DataEntryName;
                 _queryString.Mode = PageCtrl.ePage.Masters.Page.Mode;
-                _queryString.Module = PageCtrl.ePage.Masters.Module.ActiveModule.Key;
-                _queryString.SubModule = PageCtrl.ePage.Masters.SubModule.ActiveSubModule;
+            }
+
+            if (PageCtrl.ePage.Masters.ActiveModule) {
+                _queryString.Module = PageCtrl.ePage.Masters.ActiveModule.Key;
+            }
+            if (PageCtrl.ePage.Masters.ActiveSubModule) {
+                _queryString.SubModule = PageCtrl.ePage.Masters.ActiveSubModule;
+            }
+            if (PageCtrl.ePage.Masters.ActiveEntitySource) {
+                _queryString.EntitySource = PageCtrl.ePage.Masters.ActiveEntitySource;
             }
 
             if (PageCtrl.ePage.Masters.ActiveApplication == 'TC') {

@@ -68,6 +68,7 @@
                         angular.forEach(response, function (value, key) {
                             if (value.label == PodReturnCtrl.ePage.Entities.Header.PickData.UIWmsPickHeader.PickNo) {
                                 PodReturnCtrl.ePage.Masters.TabList = value;
+                                myTaskActivityConfig.Entities.PickData = PodReturnCtrl.ePage.Masters.TabList;
                             }
                         });
                     });
@@ -79,6 +80,7 @@
             apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + PodReturnCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef2Fk).then(function (response) {
                 if (response.data.Response) {
                     PodReturnCtrl.ePage.Entities.Header.DeliveryData = response.data.Response;
+                    myTaskActivityConfig.Entities.DeliveryData = PodReturnCtrl.ePage.Entities.Header.DeliveryData;
                     GeneralOperation();
                 }
             });

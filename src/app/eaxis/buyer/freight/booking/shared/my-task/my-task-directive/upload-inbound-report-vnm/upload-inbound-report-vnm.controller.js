@@ -132,7 +132,7 @@
                         Code: [UploadInboundReportVnmDirectiveCtrl.taskObj.PSI_InstanceNo],
                         API: "Group",
                         FilterInput: {
-                            ModuleCode: "SHP",
+                            ModuleCode: "BKG",
                             SubModuleCode: "SHP",
                         },
                         GroupCode: "Document",
@@ -160,7 +160,7 @@
                             }
                         });
                     }
-                    toastr.warning(_errorcount[0].Message);
+                    // toastr.warning(_errorcount[0].Message);
                     UploadInboundReportVnmDirectiveCtrl.ePage.Masters.CompleteBtnTxt = "Complete";
                     UploadInboundReportVnmDirectiveCtrl.ePage.Masters.CompleteBtnDisabled = false;
                 } else {
@@ -251,7 +251,7 @@
                 "Communication": null,
                 "Config": undefined,
                 // Parent Entity
-                "ParentEntityRefKey": UploadInboundReportVnmDirectiveCtrl.ePage.Masters.MyTask.PK,
+                "ParentEntityRefKey": UploadInboundReportVnmDirectiveCtrl.ePage.Masters.MyTask.WSI_FK,
                 "ParentEntityRefCode": UploadInboundReportVnmDirectiveCtrl.ePage.Masters.MyTask.WSI_StepCode,
                 "ParentEntitySource": UploadInboundReportVnmDirectiveCtrl.ePage.Masters.MyTask.EntitySource,
                 // Additional Entity

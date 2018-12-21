@@ -132,7 +132,7 @@
                         Code: [UploadExportPermitVnmDirectiveCtrl.taskObj.PSI_InstanceNo],
                         API: "Group",
                         FilterInput: {
-                            ModuleCode: "SHP",
+                            ModuleCode: "BKG",
                             SubModuleCode: "SHP",
                         },
                         GroupCode: "Document",
@@ -160,7 +160,7 @@
                             }
                         });
                     }
-                    toastr.warning(_errorcount[0].Message);
+                    // toastr.warning(_errorcount[0].Message);
                     UploadExportPermitVnmDirectiveCtrl.ePage.Masters.CompleteBtnTxt = "Complete";
                     UploadExportPermitVnmDirectiveCtrl.ePage.Masters.CompleteBtnDisabled = false;
                 } else {
@@ -251,7 +251,7 @@
                 "Communication": null,
                 "Config": undefined,
                 // Parent Entity
-                "ParentEntityRefKey": UploadExportPermitVnmDirectiveCtrl.ePage.Masters.MyTask.PK,
+                "ParentEntityRefKey": UploadExportPermitVnmDirectiveCtrl.ePage.Masters.MyTask.WSI_FK,
                 "ParentEntityRefCode": UploadExportPermitVnmDirectiveCtrl.ePage.Masters.MyTask.WSI_StepCode,
                 "ParentEntitySource": UploadExportPermitVnmDirectiveCtrl.ePage.Masters.MyTask.EntitySource,
                 // Additional Entity

@@ -21,7 +21,7 @@
 .process-box-inner:hover,
 .process-box-inner:active,
 .process-box-inner.active {
-    box-shadow: 0 0 10px rgba( 0, 0, 0, 0.8);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
 }
 
 .process-box-inner.highlight {
@@ -423,9 +423,8 @@
 /* ============================= */
 
 .rules-list-container {
-    position: fixed;
-    top: 100px;
-    left: 25%;
+    position: relative;
+    top: 45px;
     width: 300px;
     height: 500px;
     overflow-y: auto;
@@ -556,7 +555,7 @@
 }
 
 
- /* Process Typelist  */
+/* Process Typelist  */
 
 .process-typelist-container .modal-dialog {
     width: 650px !important;
@@ -582,4 +581,3 @@
 .process-typelist-container .typecode i.fa-close:hover {
     opacity: 1;
 }
-

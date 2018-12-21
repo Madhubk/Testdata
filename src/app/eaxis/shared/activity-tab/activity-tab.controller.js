@@ -40,8 +40,8 @@
         }
 
         function Close($item) {
-            ActivityTabCtrl.ePage.Masters.IsShowEditActivityPage = false;
-            var y = $item;
+            ActivityTabCtrl.ePage.Masters.IsShowEditActivityPage = false;      
+            var y=$item;
             if (y.IsCompleted) {
                 var _index = ActivityTabCtrl.ePage.Masters.ActivityTab.List.map(function (value, key) {
                     return value.PK;
@@ -51,7 +51,8 @@
                     ActivityTabCtrl.ePage.Masters.ActivityTab.ListCount = ActivityTabCtrl.ePage.Masters.ActivityTab.ListCount - 1;
                 }
             }
-        }
+            
+           }
 
         function AssignStartCompleteResponse($item, y) {
             for (var x in $item) {

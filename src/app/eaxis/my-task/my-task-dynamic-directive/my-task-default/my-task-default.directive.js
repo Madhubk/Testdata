@@ -18,7 +18,8 @@
             templateUrl: "MyTaskDefault.html",
             link: Link,
             scope: {
-                taskObj: "="
+                taskObj: "=",
+                getErrorWarningList: "&"
             },
             link: Link
         };

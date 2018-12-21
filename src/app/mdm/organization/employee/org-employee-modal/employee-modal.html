@@ -1,67 +1,52 @@
-<div class="modal-header">
-    <h5 class="modal-title pull-left"><strong>{{OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.EmployeeName || 'Title'}}</strong></h5>
-    <input type="button" class="btn btn-warning btn-xs pull-right margin-left-5" ng-click="OrgEmployeeModalCtrl.ePage.Masters.Cancel()"
-        value="Close" />
-    <input type="button" class="btn btn-primary btn-xs pull-right margin-left-5" ng-click="OrgEmployeeModalCtrl.ePage.Masters.Save(OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView, 'OrgStaffAssignments')"
-        value="{{OrgEmployeeModalCtrl.ePage.Masters.SaveButtonText}}" data-ng-disabled="OrgEmployeeModalCtrl.ePage.Masters.IsDisableSave"
-    />
-</div>
-<div class="modal-body">
-    <div class="clearfix">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <fieldset class="clearfix padding-top-10">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="form-group">
-                        <label for="EmpName">Emp Name</label>
-                        <div class="input-group input-group-sm">
-                            <input type="hidden" ng-model="OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.EmployeePK">
-                            <div dynamic-lookup my-ng-model="OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.EmployeeName" obj="OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView"
-                            page-name="'CmpEmployee'" control-id="'newEmployeeAdd'" control-key="'newEmployeeAdd_3282'"></div>
-                            <span class="input-group-btn"><button dynamic-list-modal obj="OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView" page-name="'CmpEmployee'" control-id="'newEmployeeAdd'" control-key="'newEmployeeAdd_3282'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="form-group">
-                        <label for="RoleCode">Role Code</label>
-                        <div class="">
-                            <select chosen name="RoleCode" class="form-control" ng-model="OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.RoleCode"
-                                ng-options="x.Key as x.Key + ' - ' + x.Value  for x in OrgEmployeeModalCtrl.ePage.Masters.DropDownMasterList.ROLE.ListSource" search-contains="true">
-                                <option value="">--Select--</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="form-group">
-                        <label for="Branch">Branch</label>
-                        <div class="">
-                            <select chosen name="BranchName" class="form-control" ng-model="OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.BranchPK"
-                                ng-options="x.PK as x.Code + ' - ' + x.BranchName for x in OrgEmployeeModalCtrl.ePage.Masters.DropDownMasterList.Branch.ListSource" search-contains="true">
-                                <option value="">--Select--</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="form-group">
-                        <label for="Department">Department</label>
-                        <div class="">
-                            <select chosen name="Department" class="form-control" ng-model="OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.DepartmentPK"
-                                ng-options="x.PK as x.Code + ' - ' + x.Desc for x in OrgEmployeeModalCtrl.ePage.Masters.DropDownMasterList.Department.ListSource" search-contains="true">
-                                <option value="">--Select--</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
+<ng-form name="OrgEmployeeModalForm" class="clearfix">
+    <div class="modal-header">
+        <h5 class="modal-title pull-left"><strong>Employee</strong></h5>
+        <input type="button" class="btn btn-warning btn-xs pull-right ml-5" data-ng-click="OrgEmployeeModalCtrl.ePage.Masters.Cancel()"
+            value="Close" />
+        <input type="button" class="btn btn-primary btn-xs pull-right ml-5" data-ng-click="OrgEmployeeModalCtrl.ePage.Masters.Save()"
+            value="{{OrgEmployeeModalCtrl.ePage.Masters.SaveButtonText}}" data-ng-disabled="OrgEmployeeModalCtrl.ePage.Masters.IsDisableSave" />
+    </div>
+    <div class="modal-body p-10">
+        <div class="form-group">
+            <label for="EmpName">Employee Name</label>
+            <div class="input-group input-group-sm">
+                <input type="hidden" data-ng-model="OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.EmployeePK">
+                <div dynamic-lookup placeholder="Name" my-ng-model="OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.EmployeeName" obj="OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView" page-name="'CmpEmployee'" control-id="'newEmployeeAdd'" control-key="'newEmployeeAdd_3282'"></div>
+                <span class="input-group-btn"><button dynamic-list-modal obj="OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView" page-name="'CmpEmployee'" control-id="'newEmployeeAdd'" control-key="'newEmployeeAdd_3282'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="RoleCode">Role Code</label>
+            <div class="">
+                <select chosen name="RoleCode" class="form-control" data-ng-model="OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.RoleCode"
+                    data-ng-options="x.Key as x.Key + ' - ' + x.Value  for x in OrgEmployeeModalCtrl.ePage.Masters.DropDownMasterList.ROLE.ListSource" data-ng-change="OrgEmployeeModalCtrl.ePage.Masters.OnRoleChange((OrgEmployeeModalCtrl.ePage.Masters.DropDownMasterList.ROLE.ListSource | filter: {'Key' : OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.RoleCode})[0])">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Branch">Branch</label>
+            <div class="">
+                <select chosen name="BranchName" class="form-control" data-ng-model="OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.BranchPK"
+                    data-ng-options="x.PK as (x.Code + ' - ' + x.BranchName) for x in OrgEmployeeModalCtrl.ePage.Masters.BranchList" data-ng-change="OrgEmployeeModalCtrl.ePage.Masters.OnBranchChange((OrgEmployeeModalCtrl.ePage.Masters.BranchList | filter: {'PK' : OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.BranchPK})[0])">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Department">Department</label>
+            <div class="">
+                <select chosen name="Department" class="form-control" data-ng-model="OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.DepartmentPK"
+                    data-ng-options="x.PK as (x.Code + ' - ' + x.Desc) for x in OrgEmployeeModalCtrl.ePage.Masters.DropDownMasterList.Department.ListSource" data-ng-change="OrgEmployeeModalCtrl.ePage.Masters.OnDepartmentChange((OrgEmployeeModalCtrl.ePage.Masters.DropDownMasterList.Department.ListSource | filter: {'PK' : OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.DepartmentPK})[0])">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
         </div>
     </div>
-</div>
-<div class="modal-footer">
-    <input type="button" class="btn btn-warning btn-xs pull-right margin-left-5" ng-click="OrgEmployeeModalCtrl.ePage.Masters.Cancel()"
-        value="Close" />
-    <input type="button" class="btn btn-primary btn-xs pull-right margin-left-5" ng-click="OrgEmployeeModalCtrl.ePage.Masters.Save(OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView, 'OrgStaffAssignments')"
-        value="{{OrgEmployeeModalCtrl.ePage.Masters.SaveButtonText}}" data-ng-disabled="OrgEmployeeModalCtrl.ePage.Masters.IsDisableSave"
-    />
-</div>
+    <div class="modal-footer" style="bottom: 20px;">
+        <input type="button" class="btn btn-warning btn-xs pull-right ml-5" data-ng-click="OrgEmployeeModalCtrl.ePage.Masters.Cancel()"
+            value="Close" />
+        <input type="button" class="btn btn-primary btn-xs pull-right ml-5" data-ng-click="OrgEmployeeModalCtrl.ePage.Masters.Save()"
+            value="{{OrgEmployeeModalCtrl.ePage.Masters.SaveButtonText}}" data-ng-disabled="OrgEmployeeModalCtrl.ePage.Masters.IsDisableSave" />
+    </div>
+</ng-form>

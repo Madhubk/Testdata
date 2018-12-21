@@ -1,7 +1,8 @@
 <div class="clearfix p-10 pb-50">
     <div class="org-header">
         <span>Address</span>
-        <button class="btn btn-xs btn-primary pull-right" data-ng-click="OrganizationAddressCtrl.ePage.Masters.EditAddress()">Add New</button>
+        <button class="btn btn-xs btn-primary pull-right" data-ng-click="OrganizationAddressCtrl.ePage.Masters.EditAddress()">Add
+            New</button>
     </div>
     <div class="clearfix org-address-container position-relative pb-20">
         <div data-ng-if="!OrganizationAddressCtrl.ePage.Entities.Header.Data.OrgAddress" class="text-center p-20">
@@ -13,37 +14,55 @@
         <div data-ng-if="OrganizationAddressCtrl.ePage.Entities.Header.Data.OrgAddress && OrganizationAddressCtrl.ePage.Entities.Header.Data.OrgAddress.length > 0"
             class="col-sm-4 p-0" data-ng-repeat="x in OrganizationAddressCtrl.ePage.Entities.Header.Data.OrgAddress">
             <div class="p-10 m-10 org-address-contact-box position-relative" data-ng-class="{'active': x.IsMainAddress}">
-                <div class="org-address-contact-edit-delete">
-                    <i class="fa fa-trash ml-5" data-ng-click="OrganizationAddressCtrl.ePage.Masters.DeleteConfirmation(x)" data-ng-if="!x.IsMainAddress"></i>
-                    <i class="fa fa-pencil ml-5" data-ng-click="OrganizationAddressCtrl.ePage.Masters.EditAddress(x)"></i>
-                </div>
-                <div class="clearfix pr-35">
+                <span class="vertical-menu" uib-dropdown>
+                    <i class="fa fa-ellipsis-v" uib-dropdown-toggle></i>
+                    <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
+                        <!-- Edit -->
+                        <li class="clearfix cursor-pointer text-single-line dropdown-list" data-ng-click="OrganizationAddressCtrl.ePage.Masters.EditAddress(x)">
+                            <span class="	glyphicon glyphicon-pencil mr-5 doc-menu-icon"></span>
+                            <span data-ng-bind="'Edit'"></span>
+                        </li>
+                        <!-- Delete -->
+                        <li class="clearfix cursor-pointer text-single-line dropdown-list" data-ng-click="OrganizationAddressCtrl.ePage.Masters.DeleteConfirmation(x)"
+                        data-ng-if="!x.IsMainAddress">
+                            <span class="glyphicons glyphicons-bin mr-5 doc-menu-icon"></span>
+                            <span data-ng-bind="'Delete'"></span>
+                        </li>
+                        <!-- Sat As Default -->
+                        <li class="clearfix cursor-pointer text-single-line dropdown-list" data-ng-click="OrganizationAddressCtrl.ePage.Masters.SetAsDefaultAddress(x)" data-ng-if="!x.IsMainAddress">
+                            <span class="	glyphicon glyphicon-ok mr-5 doc-menu-icon"></span>
+                            <span data-ng-bind="'Set As Default'"></span>
+                        </li>
+                    </ul>
+                </span>
+                <div class="clearfix pr-20">
                     <div class="text-single-line">{{x.Address1 || OrganizationAddressCtrl.ePage.Masters.EmptyText}}</div>
                     <div class="text-single-line">{{x.Address2 || OrganizationAddressCtrl.ePage.Masters.EmptyText}}</div>
-                    <div class="text-single-line">{{x.RelatedPortCode || OrganizationAddressCtrl.ePage.Masters.EmptyText}}</div>
-                    <div class="text-single-line">{{x.City || OrganizationAddressCtrl.ePage.Masters.EmptyText}} - {{x.PostCode || OrganizationAddressCtrl.ePage.Masters.EmptyText}}</div>
+                    <div class="text-single-line">{{x.RelatedPortCode ||
+                        OrganizationAddressCtrl.ePage.Masters.EmptyText}}</div>
+                    <div class="text-single-line">{{x.City || OrganizationAddressCtrl.ePage.Masters.EmptyText}} -
+                        {{x.PostCode || OrganizationAddressCtrl.ePage.Masters.EmptyText}}</div>
                     <div class="text-single-line">{{x.State || OrganizationAddressCtrl.ePage.Masters.EmptyText}}</div>
                 </div>
                 <div class="clearfix text-right rtl">
                     <div class="text-single-line">
-                        <i class="fa fa-phone org-address-icon"></i>
                         <span>{{x.Phone || OrganizationAddressCtrl.ePage.Masters.EmptyText}}</span>
+                        <i class="fa fa-phone org-address-icon"></i>
                     </div>
                     <div class="text-single-line">
-                        <i class="fa fa-mobile org-address-icon"></i>
                         <span>{{x.Mobile || OrganizationAddressCtrl.ePage.Masters.EmptyText}}</span>
+                        <i class="fa fa-mobile org-address-icon"></i>
                     </div>
                     <div class="text-single-line">
-                        <i class="fa fa-envelope org-address-icon"></i>
                         <span>{{x.Email || OrganizationAddressCtrl.ePage.Masters.EmptyText}}</span>
+                        <i class="fa fa-envelope org-address-icon"></i>
                     </div>
                     <div class="text-single-line">
-                        <i class="fa fa-fax org-address-icon"></i>
                         <span>{{x.Fax || OrganizationAddressCtrl.ePage.Masters.EmptyText}} </span>
+                        <i class="fa fa-fax org-address-icon"></i>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="overlay" data-ng-if="OrganizationAddressCtrl.ePage.Masters.OrgAddress.IsOverlay"></div>
     </div>
 </div>

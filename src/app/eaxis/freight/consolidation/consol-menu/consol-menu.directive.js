@@ -15,12 +15,13 @@
             controller: "ConsolMenuController",
             controllerAs: "ConsolMenuCtrl",
             scope: {
-                currentConsol: "="
+                currentConsol: "=",
+                activeTab: "="
             },
             bindToController: true
         };
         return exports;
 
-        function Link(scope, elem, attr) {}
+        function Link(scope, elem, attr) { }
     }
 })();

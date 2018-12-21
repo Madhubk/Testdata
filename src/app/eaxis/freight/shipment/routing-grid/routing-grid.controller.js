@@ -37,6 +37,9 @@
             RoutingGridCtrl.ePage.Masters.Routing.More = More;
             RoutingGridCtrl.ePage.Masters.TableProperties = {};
             RoutingGridCtrl.ePage.Masters.DateChange = DateChange;
+            RoutingGridCtrl.ePage.Masters.ReadOnly = RoutingGridCtrl.readOnly;
+            RoutingGridCtrl.ePage.Masters.type = RoutingGridCtrl.type;
+            RoutingGridCtrl.ePage.Masters.NgRepeatFilter = { IsDeleted: false };
             // get table properties 
             if (RoutingGridCtrl.tableProperties) {
                 $timeout(function () {
@@ -64,7 +67,7 @@
             RoutingGridCtrl.ePage.Masters.Routing.DeleteRouting = DeleteRouting;
             RoutingGridCtrl.ePage.Masters.Routing.RefreshRouting = RefreshRouting;
             RoutingGridCtrl.ePage.Masters.Routing.TransportType = TransportType;
-
+            RoutingGridCtrl.ePage.Masters.Routing._ConLength = 0;
             $rootScope.GetRotingList = GetRelatedConsoleDetails;
 
             RoutingGridCtrl.ePage.Masters.DropDownMasterList = {
@@ -180,14 +183,43 @@
                         }
                     }
                     if (RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes.length > 1) {
+                        var _count = 0; var _count1 = 0; var _count2 = 0;
                         if (RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes[(RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes.length - 2)].ETA != null) {
-                            if (new Date(RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes[(RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes.length - 2)].ETA) > new Date(RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes[(RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes.length - 1)].ETD)) {
+                            if (RoutingGridCtrl.type == 'ConDisable') {
+                                RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes1.map(function (val, key) {
+                                    if (new Date(RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes[(RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes.length - 2)].ETA) > new Date(RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes[(RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes.length - 1)].ETD)) {
+                                        _count = _count + 1;
+                                    }
+                                    if (RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes1[key].EntitySource == 'CON' && new Date(RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes1[key].ETA) > new Date(RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes[(RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes.length - 1)].ETD)) {
+                                        _count1 = _count1 + 1;
+
+                                    }
+                                });
+                            }
+                            else {
+                                RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes.map(function (val, key) {
+                                    if (new Date(RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes[(RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes.length - 2)].ETA) > new Date(RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes[(RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes.length - 1)].ETD)) {
+                                        _count2 = _count2 + 1;
+                                    }
+                                });
+
+                            }
+                            if (_count2 > 0) {
                                 RoutingGridCtrl.ePage.Masters.selectedRowObj.ETD = null;
                                 toastr.error((RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes.length) + ' leg ETD cannot be before ' + (RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes.length - 1) + ' leg ETA');
+                            }
+                            if (_count > 0) {
+                                RoutingGridCtrl.ePage.Masters.selectedRowObj.ETD = null;
+                                toastr.error((RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes.length) + ' leg ETD cannot be before ' + (RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes.length - 1) + ' leg ETA');
+                            }
+                            if (_count1 > 0) {
+                                RoutingGridCtrl.ePage.Masters.selectedRowObj.ETD = null;
+                                toastr.error((RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes.length) + ' leg ETD cannot be before ' + (RoutingGridCtrl.ePage.Masters.Routing._ConLength + 1) + ' Consol leg ETA');
                             }
                         }
                         else {
                             toastr.error((RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes.length - 1) + ' leg ETA should be filled');
+                            RoutingGridCtrl.ePage.Masters.selectedRowObj.ETD = "";
                         }
 
                     }
@@ -338,7 +370,14 @@
             // API Call
             apiService.post("eAxisAPI", appConfig.Entities.JobRoutes.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
-                    RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes = response.data.Response;
+                    if (RoutingGridCtrl.type == 'ConDisable') {
+                        RoutingGridCtrl.ePage.Masters.CONReadOnly = true;
+                        RoutingGridCtrl.ePage.Masters.NgRepeatFilter = { IsDeleted: false, EntitySource: 'SHP' }
+                        RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes1 = response.data.Response;
+                    }
+                    else {
+                        RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes = response.data.Response;
+                    }
                 } else {
                     console.log("Routing list Empty");
                 }
@@ -378,6 +417,17 @@
             RoutingGridCtrl.ePage.Masters.Count = $filter('filter')(RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes, {
                 IsDeleted: false
             }).length;
+            if (RoutingGridCtrl.keyObjectName == 'SHP') {
+                // var _ConLength = 0;
+                console.log(RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes)
+                RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes.map(function (val, key) {
+                    if (RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes[key].EntitySource == 'CON') {
+                        RoutingGridCtrl.ePage.Masters.Routing._ConLength = RoutingGridCtrl.ePage.Masters.Routing._ConLength + 1;
+                        RoutingGridCtrl.ePage.Masters.Count = RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes.length - RoutingGridCtrl.ePage.Masters.Routing._ConLength;
+                    }
+                }
+                );
+            }
             RoutingGridCtrl.ePage.Masters.Routing.FormView.LegOrder = RoutingGridCtrl.ePage.Masters.Count + 1;
             RoutingGridCtrl.ePage.Masters.Routing.FormView.TransportMode = RoutingGridCtrl.ePage.Entities.Header.Data[RoutingGridCtrl.apiHeaderName].TransportMode;
             RoutingGridCtrl.ePage.Masters.Routing.FormView.Status = "CNF"
@@ -394,6 +444,10 @@
             }).length - 1;
             RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes.length - 1;
             RoutingGridCtrl.ePage.Masters.selectedRowObj = RoutingGridCtrl.ePage.Masters.Routing.FormView;
+            console.log(RoutingGridCtrl.ePage.Masters.ReadOnly)
+            console.log(RoutingGridCtrl.ePage.Masters.CONReadOnly)
+            RoutingGridCtrl.ePage.Masters.NgRepeatFilter = { IsDeleted: false, PK: "" };
+            // RoutingGridCtrl.ePage.Masters.CONReadOnly = false;
         }
 
         function DeleteRouting(index) {
@@ -427,11 +481,18 @@
         }
         function TransportType() {
             var _count = 0;
-            RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes.map(function (val, key) {
-                if (RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes[key].TransportType == 'MAI') {
-                    _count = _count + 1;
-                }
-            });
+            if (RoutingGridCtrl.keyObjectName == 'SHP' && RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes[RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes.length - 1].TransportType == 'MAI') {
+                toastr.warning("Cannot Give Main Vessel in Shipment");
+                RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes[RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes.length - 1].TransportType = "";
+            }
+            else {
+                RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes.map(function (val, key) {
+                    if (RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes[key].TransportType == 'MAI') {
+                        _count = _count + 1;
+                    }
+                });
+            }
+
             if (_count > 1) {
                 toastr.warning('Cannot give Main Vessel in transport type again ');
                 RoutingGridCtrl.ePage.Masters.selectedRowObj.TransportType = " ";
@@ -461,4 +522,5 @@
                 }
             };
         });
+   
 })();

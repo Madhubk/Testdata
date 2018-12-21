@@ -36,17 +36,18 @@
                 <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10" data-ng-click="TCUserRoleAppTenantCtrl.ePage.Masters.UserRoleAppTenant.Edit()"
                     data-ng-disabled="!TCUserRoleAppTenantCtrl.ePage.Masters.UserRoleAppTenant.ActiveUserRoleAppTenant.PK">Edit</button>
                 <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="TCUserRoleAppTenantCtrl.ePage.Masters.UserRoleAppTenant.DeleteConfirmation()"
-                    data-ng-bind="TCUserRoleAppTenantCtrl.ePage.Masters.DeleteBtnText" data-ng-disabled="TCUserRoleAppTenantCtrl.ePage.Masters.IsDisableDeleteBtn || !TCUserRoleAppTenantCtrl.ePage.Masters.UserRoleAppTenant.ActiveUserRoleAppTenant.PK"></button>
+                    data-ng-bind="TCUserRoleAppTenantCtrl.ePage.Masters.DeleteBtnText" data-ng-disabled="TCUserRoleAppTenantCtrl.ePage.Masters.IsDisableDeleteBtn || !TCUserRoleAppTenantCtrl.ePage.Masters.UserRoleAppTenant.ActiveUserRoleAppTenant.PK"
+                    data-ng-if="TCUserRoleAppTenantCtrl.ePage.Masters.UserRoleAppTenant.UIControlList && TCUserRoleAppTenantCtrl.ePage.Masters.UserRoleAppTenant.UIControlList.length > 0 && TCUserRoleAppTenantCtrl.ePage.Masters.UserRoleAppTenant.CheckUIControl('TC_MAP_DEL')"></button>
             </div>
         </div>
     </div>
     <!-- Body -->
     <div class="clearfix">
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 tc-page-height-fixed">
-            <div class="tc-list-container">
-                <div class="tc-list-search">
-                    <input type="text" class="form-control input-sm" placeholder="Search..." data-ng-model="TCUserRoleAppTenantCtrl.ePage.Masters.Search">
-                </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="tc-list-search">
+                <input type="text" class="form-control input-sm" placeholder="Search..." data-ng-model="TCUserRoleAppTenantCtrl.ePage.Masters.Search">
+            </div>
+            <div class="tc-list-container tc-page-height-fixed left">
                 <ul class="tc-list-ul">
                     <div class="p-15 text-center tc-loading" data-ng-if="!TCUserRoleAppTenantCtrl.ePage.Masters.UserRoleAppTenant.UserRoleAppTenantList">
                         <i class="fa fa-spin fa-spinner"></i>
@@ -71,44 +72,34 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed">
             <div class="pt-10 pb-10 tc-details-view clearfix">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Access To</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="TCUserRoleAppTenantCtrl.ePage.Masters.UserRoleAppTenant.ActiveUserRoleAppTenant.AccessTo || TCUserRoleAppTenantCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Access To</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="TCUserRoleAppTenantCtrl.ePage.Masters.UserRoleAppTenant.ActiveUserRoleAppTenant.AccessTo || TCUserRoleAppTenantCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Item Name</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="TCUserRoleAppTenantCtrl.ePage.Masters.UserRoleAppTenant.ActiveUserRoleAppTenant.ItemName || TCUserRoleAppTenantCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Item Name</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="TCUserRoleAppTenantCtrl.ePage.Masters.UserRoleAppTenant.ActiveUserRoleAppTenant.ItemName || TCUserRoleAppTenantCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Role</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="TCUserRoleAppTenantCtrl.ePage.Masters.UserRoleAppTenant.ActiveUserRoleAppTenant.AccessCode || TCUserRoleAppTenantCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Role</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="TCUserRoleAppTenantCtrl.ePage.Masters.UserRoleAppTenant.ActiveUserRoleAppTenant.AccessCode || TCUserRoleAppTenantCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Tenant</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="TCUserRoleAppTenantCtrl.ePage.Masters.UserRoleAppTenant.ActiveUserRoleAppTenant.TenantCode || TCUserRoleAppTenantCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Tenant</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="TCUserRoleAppTenantCtrl.ePage.Masters.UserRoleAppTenant.ActiveUserRoleAppTenant.TenantCode || TCUserRoleAppTenantCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Application</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="TCUserRoleAppTenantCtrl.ePage.Masters.UserRoleAppTenant.ActiveUserRoleAppTenant.SAP_Code || TCUserRoleAppTenantCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Application</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="TCUserRoleAppTenantCtrl.ePage.Masters.UserRoleAppTenant.ActiveUserRoleAppTenant.SAP_Code || TCUserRoleAppTenantCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
             </div>

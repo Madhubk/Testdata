@@ -15,7 +15,9 @@
             controllerAs: "ExportSeaShipmentCargoPickupGlbCtrl",
             bindToController: true,
             scope: {
-                taskObj: "="
+                taskObj: "=",
+                onComplete : "&",
+                getErrorWarningList:"&"
             },
             link: Link
         };

@@ -49,7 +49,7 @@
                             <!--<i class="fa fa-caret-down"></i>-->
                         </button>
                     </span>
-                    <div class="dropdownWrapMiddle animated fadeInDown" data-ng-show="oneThreeShipmentGeneralCtrl.ePage.Masters.IsCRDAddressOpen">
+                    <div class="dropdownWrapLeft animated fadeInDown" data-ng-show="oneThreeShipmentGeneralCtrl.ePage.Masters.IsCRDAddressOpen">
                         <address-wrapper obj="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.AddressList"
                             type="'CRD'" list-source="'AddressList'" selected="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OAD_Address_FK"
                             on-address-edit="oneThreeShipmentGeneralCtrl.ePage.Masters.OnAddressEdit($item, 'CRD', 'Address')"
@@ -338,11 +338,11 @@
     <!--Container Mode-->
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
         <div class="error-warning-container">
-            <error-warning-directive data-ng-if="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PackingMode.IsWarning && !oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PackingMode.IsError"
-                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PackingMode.WARNING" type="'warning'"
+            <error-warning-directive data-ng-if="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ContainerMode.IsWarning && !oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ContainerMode.IsError"
+                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ContainerMode.WARNING" type="'warning'"
                 icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-            <error-warning-directive data-ng-if="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PackingMode.IsError"
-                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PackingMode.ERROR" type="'error'"
+            <error-warning-directive data-ng-if="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ContainerMode.IsError"
+                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ContainerMode.ERROR" type="'error'"
                 icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
         </div>
         <div class="form-group ship-font">

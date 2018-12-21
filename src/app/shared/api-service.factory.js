@@ -5,9 +5,9 @@
         .module("Application")
         .factory("apiService", ApiService);
 
-    ApiService.$inject = ["$http", "$q", "$timeout", "$location", "APP_CONSTANT", "authService", "appConfig", "toastr"];
+    ApiService.$inject = ["$http", "$q", "$timeout", "$location", "APP_CONSTANT", "authService", "appConfig"];
 
-    function ApiService($http, $q, $timeout, $location, APP_CONSTANT, authService, appConfig, toastr) {
+    function ApiService($http, $q, $timeout, $location, APP_CONSTANT, authService, appConfig) {
         var exports = {
             get: Get,
             post: Post,
@@ -17,6 +17,13 @@
         return exports;
 
         function Get(apiUrl, apiName, token) {
+            var _queryString = $location.search();
+            if(_queryString && _queryString.lpk){
+                if(_queryString.lpk == authService.getUserInfo().LoginPK){
+
+                }
+            }
+
             var deferred = $q.defer();
             var _headers = {
                 "Authorization": token ? token : authService.getUserInfo().AuthToken

@@ -26,7 +26,7 @@
     <div class="clearfix tc-header-container">
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
             <div class="tc-header with-drop-down">
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 p-0">
+                <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10 p-0">
                     <select chosen class="form-control input-sm" data-ng-model="TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.ActiveDataEntryMaster.DataEntry_PK"
                         data-ng-options="x.DataEntry_PK as (x.DataEntryName + ' | ' + x.EntitySource + ((x.EntityRefCode) ? (' | ' + x.EntityRefCode) : '')) for x in TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.DataEntryMasterList"
                         data-ng-change="TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.OnDataEntryMasterChange((TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.DataEntryMasterList | filter :{DataEntry_PK :TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.ActiveDataEntryMaster.DataEntry_PK})[0])"
@@ -34,8 +34,7 @@
                         <option value="" data-ng-if="!TCRelatedLookupCtrl.ePage.Masters.QueryString.DataEntry_PK">General</option>
                     </select>
                 </div>
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0"></div>
-                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pt-4 text-right">
+                <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 p-0 pt-4 text-right">
                     <button class="btn btn-xs btn-info tc-icon pull-right" data-ng-click="TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.AddNew()">New</button>
                 </div>
             </div>
@@ -51,11 +50,11 @@
     </div>
     <!-- Body -->
     <div class="clearfix">
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 tc-page-height-fixed">
-            <div class="tc-list-container">
-                <div class="tc-list-search">
-                    <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="TCRelatedLookupCtrl.ePage.Masters.Search">
-                </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="tc-list-search">
+                <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="TCRelatedLookupCtrl.ePage.Masters.Search">
+            </div>
+            <div class="tc-list-container tc-page-height-fixed left">
                 <ul class="tc-list-ul">
                     <div class="p-15 text-center tc-loading" data-ng-if="!TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.ListSource">
                         <i class="fa fa-spin fa-spinner"></i>
@@ -80,77 +79,58 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed" data-ng-if="TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.ActiveRelatedLookup">
             <div class="pt-10 pb-10 tc-details-view clearfix">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Control ID</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.ActiveRelatedLookup.ControlID || TCRelatedLookupCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Control ID</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.ActiveRelatedLookup.ControlID || TCRelatedLookupCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Key</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.ActiveRelatedLookup.Key || TCRelatedLookupCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Key</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.ActiveRelatedLookup.Key || TCRelatedLookupCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Lookup Page Name</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.ActiveRelatedLookup.LookupPageName || TCRelatedLookupCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Lookup Page Name</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.ActiveRelatedLookup.LookupPageName || TCRelatedLookupCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Page Name</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.ActiveRelatedLookup.pageName
-                                || TCRelatedLookupCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Page Name</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div style="word-break: break-word;" data-ng-bind="TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.ActiveRelatedLookup.pageName || TCRelatedLookupCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Display Columns</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.ActiveRelatedLookup.DisplayColumns || TCRelatedLookupCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Display Columns</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.ActiveRelatedLookup.DisplayColumns || TCRelatedLookupCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Filter API</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.ActiveRelatedLookup.FilterAPI || TCRelatedLookupCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Filter API</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.ActiveRelatedLookup.FilterAPI || TCRelatedLookupCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Filter ID</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.ActiveRelatedLookup.FilterID || TCRelatedLookupCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Filter ID</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.ActiveRelatedLookup.FilterID || TCRelatedLookupCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">UI Display</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.ActiveRelatedLookup.UIDisplay || TCRelatedLookupCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">UI Display</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.ActiveRelatedLookup.UIDisplay || TCRelatedLookupCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Module</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.ActiveRelatedLookup.module || TCRelatedLookupCtrl.ePage.Masters.emptyText"></label>
-                        </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Module</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.ActiveRelatedLookup.module || TCRelatedLookupCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
             </div>

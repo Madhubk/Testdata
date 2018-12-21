@@ -1,0 +1,13 @@
+<div class="clearfix my-task-activity-page-warpper">
+    <div class="clearfix edit-activity-body pb-50">
+        <dynamic-tab-left data-ng-if="shpBuyerViewTemplateCtrl.currentShipment" list-source="shpBuyerViewTemplateCtrl.ePage.Masters.MenuListSource"
+            obj="shpBuyerViewTemplateCtrl.ePage.Masters.MenuObj"></dynamic-tab-left>
+    </div>
+    <!--Standard Menu Directive-->
+    <div class="eaxis-footer-strip">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <standard-menu input="shpBuyerViewTemplateCtrl.currentShipment" dataentry-object="shpBuyerViewTemplateCtrl.dataentryObject"
+                data-ng-if="!shpBuyerViewTemplateCtrl.currentShipment.isNew && shpBuyerViewTemplateCtrl.dataentryObject"></standard-menu>
+        </div>
+    </div>
+</div>

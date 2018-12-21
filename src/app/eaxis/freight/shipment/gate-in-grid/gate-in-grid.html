@@ -1,0 +1,770 @@
+<div class="clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding" data-ng-if="!GateInGridCtrl.readOnly">
+        <span>
+            <button type="button" data-ng-if="GateInGridCtrl.btnVisible.AddNew" class="btn btn-sm btn-outline-secondary font-10"
+                title="Add New" data-ng-click="GateInGridCtrl.ePage.Masters.Routing.AddNewRouting()">
+                <span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button>
+        </span>
+        <span>
+            <button data-ng-if="GateInGridCtrl.btnVisible.Delete" data-ng-disabled="GateInGridCtrl.ePage.Masters.selectedRow==-1"
+                type="button" class="btn btn-sm btn-outline-primary font-10" title="Delete" data-ng-click="GateInGridCtrl.ePage.Masters.Routing.DeleteRouting(GateInGridCtrl.ePage.Masters.selectedRow) && GateInGridCtrl.ePage.Masters.selectedRow!=-1">
+                <span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button>
+        </span>
+        <span>
+            <button data-ng-if="GateInGridCtrl.btnVisible.More" type="button" data-ng-disabled="GateInGridCtrl.ePage.Masters.selectedRow==-1"
+                class="btn btn-sm btn-outline-primary font-10" title="More" data-ng-click="GateInGridCtrl.ePage.Masters.Routing.More(GateInGridCtrl.ePage.Masters.selectedRow) && GateInGridCtrl.ePage.Masters.selectedRow!=-1">
+                <span class="fa fa-ellipsis-v"></span>&nbsp;&nbsp;More</button>
+        </span>
+        <span>
+            <button data-ng-if="GateInGridCtrl.btnVisible.Refresh" type="button" class="btn btn-sm btn-outline-primary font-10"
+                title="More" data-ng-click="GateInGridCtrl.ePage.Masters.Routing.RefreshRouting()">
+                <span class="fa fa-ellipsis-v"></span>&nbsp;&nbsp;Refresh</button>
+        </span>
+    </div>
+    <div id="ASNTable{{GateInGridCtrl.currentObject.label}}" class="fixedheader mb-0">
+        <table id="GateInGridCtrl.ePage.Masters.AddScroll" style="height:300px;">
+            <thead>
+                <tr id="tableHeader">
+                    <!-- <th id="acheckbox">
+                        <label class="customcheckbox">
+                            <input type="checkbox" data-ng-change="GateInGridCtrl.ePage.Masters.SelectAllCheckBox()" data-ng-checked="GateInGridCtrl.ePage.Masters.SelectAll"
+                                data-ng-model="GateInGridCtrl.ePage.Masters.SelectAll" data-ng-disabled="RoutingGridDirective.ePage.Entities.Header.GlobalVariables.NonEditable">
+                            <span class="text"></span>
+                        </label>
+                    </th> -->
+                    <th id="containerno" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.containerno.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.containerno.width + 'px' }"
+                        title="containerno">ContainerNo #</th>
+                    <th id="type" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.type.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.type.width + 'px' }"
+                        title="type">Container Type</th>
+                    <th id="emptyplacedatfactory" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.emptyplacedatfactory.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.emptyplacedatfactory.width + 'px' }"
+                        title="emptyplacedatfactory">Empty Placed At Factory</th>
+                    <!-- <th id="islinked" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.islinked.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.islinked.width + 'px' }"
+                        title="isLinked">isLinked</th> -->
+                    <th id="transporter" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.transporter.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.transporter.width + 'px' }"
+                        title="transporter">Transporter</th>
+                    <th id="ladenpicked" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.ladenpicked.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.ladenpicked.width + 'px' }"
+                        title="ladenpicked">Laden Picked</th>
+                    <th id="cfsgatein" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.cfsgatein.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.cfsgatein.width + 'px' }"
+                        title="cfsgatein">CFS Gate IN/Carted</th>
+                    <th id="stuffingdetails" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.stuffingdetails.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.stuffingdetails.width + 'px' }"
+                        title="stuffingdetails">Stuffing Details</th>
+                    <th id="customrefno" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.customrefno.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.customrefno.width + 'px' }"
+                        title="customrefno">Custom Ref No # </th>
+                    <th id="shippingbillamendment" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.shippingbillamendment.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.shippingbillamendment.width + 'px' }"
+                        title="shippingbillamendment">Shipping Bill Amendment?</th>
+                    <th id="customclearedon" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.customclearedon.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.customclearedon.width + 'px' }"
+                        title="customclearedon">Custom Cleared On</th>
+                    <th id="cfsgateout" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.cfsgateout.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.cfsgateout.width + 'px' }"
+                        title="cfsgateout">CFS Gate Out</th>
+                    <th id="portgatein" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.portgatein.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.portgatein.width + 'px' }"
+                        title="portgatein">Port Gate IN</th>
+                    <!-- <th id="eta" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.eta.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.eta.width + 'px' }"
+                        title="ETA">ETA</th>
+                    <th id="ata" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.ata.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.ata.width + 'px' }" 
+                        title="ATA">ATA</th> -->
+                </tr>
+            </thead>
+            <tbody id="ASNTable{{GateInGridCtrl.currentObject.label}}">
+                <!-- Row For Editable and readonly -->
+                <tr id="tableBody" data-ng-if="!GateInGridCtrl.ePage.Masters.ReadOnly && GateInGridCtrl.readOnlyKey" data-ng-class="{row_active: GateInGridCtrl.ePage.Masters.selectedRow==$index}"
+                    data-ng-repeat="x in GateInGridCtrl.ePage.Entities.Header.Data.UICntContainerList  | orderBy : 'LegOrder'"
+                    data-ng-click="GateInGridCtrl.ePage.Masters.selectedRow = $index;GateInGridCtrl.ePage.Masters.selectedRowObj=x">
+                    <!-- Container No-->
+                    <td id="containerno" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.containerno.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.containerno.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.ContainerNo || GateInGridCtrl.ePage.Masters.emptyText}}</div>
+                        <div class=" ship-font " data-ng-if="$index==GateInGridCtrl.ePage.Masters.selectedRow"
+                            data-ng-disabled="true" data-ng-click="$event.stopPropagation()">
+                            <input type="text" class="form-control input-sm" max-length="1" data-ng-model="x.ContainerNo">
+                        </div>
+                    </td>
+                    <!-- Container Type-->
+                    <td id="type" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.type.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.type.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.RC_Type || GateInGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div class="ship-font" data-ng-if="$index==GateInGridCtrl.ePage.Masters.selectedRow"
+                            data-ng-disabled="true" data-ng-click="$event.stopPropagation()">
+                            <input type="text" class="form-control input-sm" max-length="1" data-ng-model="x.RC_Type">
+                        </div>
+                    </td>
+                    <!-- empty placed at factory  -->
+                    <td id="emptyplacedatfactory" data-ng-if="GateI nGridCtrl.ePage.Masters.TableProperties.UIExportOperations.emptyplacedatfactory.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.emptyplacedatfactory.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.EmptyRequired || GateInGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==GateInGridCtrl.ePage.Masters.selectedRow &&  GateInGridCtrl.ePage.Masters.readOnlyKey !='emptyplacedatfactory'"
+                            class="input-group input-group-sm" data-ng-click="$event.stopPropagation()">
+                            <input type="text" class="form-control " data-ng-disabled="true" placeholder="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                data-ng-model="x.EmptyRequired" datetime-picker="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datepicker-options="GateInGridCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                enable-date="true" default-date="" default-time="" save-as="GateInGridCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="GateInGridCtrl.ePage.Masters.DatePicker.isOpen['isEmptyRequired'+$index]"
+                                when-closed="" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEmptyRequired'+$index)"
+                                custom-date-time-format data-ng-change="" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default shiny" data-ng-disabled="true" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEmptyRequired'+$index);">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                        <div data-ng-if="$index==GateInGridCtrl.ePage.Masters.selectedRow && GateInGridCtrl.ePage.Masters.readOnlyKey=='emptyplacedatfactory'"
+                            class="input-group input-group-sm" data-ng-click="$event.stopPropagation()">
+                            <input type="text" class="form-control " placeholder="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                data-ng-model="x.EmptyRequired" datetime-picker="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datepicker-options="GateInGridCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                enable-date="true" default-date="" default-time="" save-as="GateInGridCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="GateInGridCtrl.ePage.Masters.DatePicker.isOpen['isEmptyRequired'+$index]"
+                                when-closed="" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEmptyRequired'+$index)"
+                                custom-date-time-format data-ng-change="" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default shiny" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEmptyRequired'+$index);">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </td>
+                    <!-- transporter -->
+                    <td id="transporter" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.transporter.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.transporter.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.PickUpEmptyFromCode || GateInGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==GateInGridCtrl.ePage.Masters.selectedRow && GateInGridCtrl.ePage.Masters.readOnlyKey != 'emptyplacedatfactory'"
+                            data-ng-click="$event.stopPropagation()">
+                            <div class="input-group input-group-sm">
+                                <input type="hidden" ng-data-disabled="true" ng-model="GateInGridCtrl.ePage.Entities.Header.Data.UICntContainerList.PickUpEmptyFromFK">
+                                <div dynamic-lookup placeholder="Organization Code" my-ng-model="x.PickUpEmptyFromCode"
+                                    obj="GateInGridCtrl.ePage.Entities.Header.Data.UICntContainerList" page-name="'OrganizationList'"
+                                    control-key="ShpPickupTransCompOrg_2969" data-ng-disabled="true" control-id="'ShpPickupTransCompOrg'"></div>
+                                <span class="input-group-btn">
+                                    <button dynamic-list-modal obj="GateInGridCtrl.ePage.Entities.Header.Data.UICntContainerList"
+                                        control-id="'ShpPickupTransCompOrg'" control-key="ShpPickupTransCompOrg_2969"
+                                        data-ng-disabled="true" page-name="'OrganizationList'" mode="2"
+                                        grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny" type="button">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <div data-ng-if="$index==GateInGridCtrl.ePage.Masters.selectedRow && GateInGridCtrl.ePage.Masters.readOnlyKey == 'emptyplacedatfactory'"
+                            data-ng-click="$event.stopPropagation()">
+                            <div class="input-group input-group-sm">
+                                <input type="hidden" ng-model="GateInGridCtrl.ePage.Entities.Header.Data.UICntContainerList.PickUpEmptyFromFK">
+                                <div dynamic-lookup placeholder="Organization Code" my-ng-model="x.PickUpEmptyFromCode"
+                                    obj="GateInGridCtrl.ePage.Entities.Header.Data.UICntContainerList" page-name="'OrganizationList'"
+                                    control-key="ShpPickupTransCompOrg_2969" control-id="'ShpPickupTransCompOrg'"></div>
+                                <span class="input-group-btn">
+                                    <button dynamic-list-modal obj="GateInGridCtrl.ePage.Entities.Header.Data.UICntContainerList"
+                                        control-id="'ShpPickupTransCompOrg'" control-key="ShpPickupTransCompOrg_2969"
+                                        page-name="'OrganizationList'" mode="2" grid-refresh-fun-name=""
+                                        grid-refresh-fun="" class="btn btn-default shiny" type="button">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </td>
+                    <!-- laden picked -->
+                    <td id="ladenpicked" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.ladenpicked.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.ladenpicked.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.DepartureActualPickup || GateInGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==GateInGridCtrl.ePage.Masters.selectedRow && GateInGridCtrl.ePage.Masters.readOnlyKey != 'emptyplacedatfactory'"
+                            class="input-group input-group-sm " data-ng-click="$event.stopPropagation()">
+                            <input type="text" class="form-control " placeholder="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                data-ng-model="x.DepartureActualPickup" datetime-picker="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datepicker-options="GateInGridCtrl.ePage.Masters.DatePicker.Options" data-ng-disabled="true"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                enable-date="true" default-date="" default-time="" save-as="GateInGridCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="GateInGridCtrl.ePage.Masters.DatePicker.isOpen['isLadenPicked'+$index]"
+                                when-closed="" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isLadenPicked'+$index)"
+                                custom-date-time-format data-ng-change="" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default shiny" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isLadenPicked'+$index);">
+                                    <i class="fa fa-calendar" data-ng-disabled="true"></i>
+                                </button>
+                            </span>
+                        </div>
+                        <div data-ng-if="$index==GateInGridCtrl.ePage.Masters.selectedRow && GateInGridCtrl.ePage.Masters.readOnlyKey == 'emptyplacedatfactory'"
+                            class="input-group input-group-sm " data-ng-click="$event.stopPropagation()">
+                            <input type="text" class="form-control " placeholder="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                data-ng-model="x.DepartureActualPickup" datetime-picker="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datepicker-options="GateInGridCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                enable-date="true" default-date="" default-time="" save-as="GateInGridCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="GateInGridCtrl.ePage.Masters.DatePicker.isOpen['isLadenPicked'+$index]"
+                                when-closed="" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isLadenPicked'+$index)"
+                                custom-date-time-format data-ng-change="" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default shiny" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isLadenPicked'+$index);">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </td>
+                    <!-- cfs gate in -->
+                    <td id="cfsgatein" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.cfsgatein.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.cfsgatein.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.FCLWharfGateIn || GateInGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==GateInGridCtrl.ePage.Masters.selectedRow && GateInGridCtrl.ePage.Masters.readOnlyKey != 'emptyplacedatfactory'"
+                            class="input-group input-group-sm " data-ng-click="$event.stopPropagation()">
+                            <input type="text" class="form-control " placeholder="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                data-ng-model="x.FCLWharfGateIn" datetime-picker="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datepicker-options="GateInGridCtrl.ePage.Masters.DatePicker.Options" data-ng-disabled="true"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                enable-date="true" default-date="" default-time="" save-as="GateInGridCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="GateInGridCtrl.ePage.Masters.DatePicker.isOpen['isCfsGateIn'+$index]"
+                                when-closed="" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCfsGateIn'+$index)"
+                                custom-date-time-format data-ng-change="" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default shiny" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCfsGateIn'+$index);">
+                                    <i class="fa fa-calendar" data-ng-disabled="true"></i>
+                                </button>
+                            </span>
+                        </div>
+                        <div data-ng-if="$index==GateInGridCtrl.ePage.Masters.selectedRow && GateInGridCtrl.ePage.Masters.readOnlyKey == 'emptyplacedatfactory'"
+                            class="input-group input-group-sm " data-ng-click="$event.stopPropagation()">
+                            <input type="text" class="form-control " placeholder="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                data-ng-model="x.FCLWharfGateIn" datetime-picker="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datepicker-options="GateInGridCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                enable-date="true" default-date="" default-time="" save-as="GateInGridCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="GateInGridCtrl.ePage.Masters.DatePicker.isOpen['isCfsGateIn'+$index]"
+                                when-closed="" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCfsGateIn'+$index)"
+                                custom-date-time-format data-ng-change="" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default shiny" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCfsGateIn'+$index);">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </td>
+                    <!-- stuffing details -->
+                    <td id="stuffingdetails" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.stuffingdetails.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.stuffingdetails.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.Status || GateInGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==GateInGridCtrl.ePage.Masters.selectedRow && GateInGridCtrl.ePage.Masters.readOnlyKey != 'emptyplacedatfactory'"></div>
+                        <div data-ng-if="$index==GateInGridCtrl.ePage.Masters.selectedRow && GateInGridCtrl.ePage.Masters.readOnlyKey == 'emptyplacedatfactory'"></div>
+                    </td>
+                    <!--custom ref no-->
+                    <td id="customrefno" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.customrefno.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.customrefno.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.ExportDepotCustomsReference || GateInGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div class=" ship-font " data-ng-if="$index==GateInGridCtrl.ePage.Masters.selectedRow && GateInGridCtrl.ePage.Masters.readOnlyKey != 'emptyplacedatfactory'"
+                            data-ng-click="
+                            $event.stopPropagation()">
+                            <input type="text" class="form-control input-sm" max-length="1" data-ng-model="x.ExportDepotCustomsReference">
+                        </div>
+                        <div class=" ship-font " data-ng-if="$index==GateInGridCtrl.ePage.Masters.selectedRow && GateInGridCtrl.ePage.Masters.readOnlyKey == 'emptyplacedatfactory'"
+                            data-ng-click="$event.stopPropagation()">
+                            <input type="text" class="form-control input-sm" max-length="1" data-ng-model="x.ExportDepotCustomsReference"></div>
+                    </td>
+                    <!--shipping bill amendment? -->
+                    <td id="shippingbillamendment" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.shippingbillamendment.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.shippingbillamendment.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.Vessel || GateInGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div class=" ship-font " data-ng-if="$index==GateInGridCtrl.ePage.Masters.selectedRow && GateInGridCtrl.ePage.Masters.readOnlyKey == 'emptyplacedatfactory'"
+                            data-ng-click="$event.stopPropagation()">
+                            <input type="text" class="form-control input-sm" max-length="1" data-ng-model="x.Vessel">
+                        </div>
+                        <div class=" ship-font " data-ng-if="$index==GateInGridCtrl.ePage.Masters.selectedRow && GateInGridCtrl.ePage.Masters.readOnlyKey != 'emptyplacedatfactory'"
+                            data-ng-click="$event.stopPropagation()">
+                            <input type="text" class="form-control input-sm" max-length="1" data-ng-disabled="true"
+                                data-ng-model="x.Vessel">
+                        </div>
+                    </td>
+                    <!-- custom cleared on-->
+                    <td id="customclearedon" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.customclearedon.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.customclearedon.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.LoadPort || GateInGridCtrl.ePage.Masters.emptyText}}</div>
+                        <div data-ng-if="$index==GateInGridCtrl.ePage.Masters.selectedRow  && GateInGridCtrl.ePage.Masters.readOnlyKey != 'emptyplacedatfactory'"
+                            class="input-group input-group-sm " data-ng-click="$event.stopPropagation()">
+                            <input type="text" class="form-control " placeholder="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                data-ng-model="x.customclearedon" datetime-picker="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datepicker-options="GateInGridCtrl.ePage.Masters.DatePicker.Options" data-ng-disabled="true"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                enable-date="true" default-date="" default-time="" save-as="GateInGridCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="GateInGridCtrl.ePage.Masters.DatePicker.isOpen['isCustomClearedOn'+$index]"
+                                when-closed="" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCustomClearedOn'+$index)"
+                                custom-date-time-format data-ng-change="" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default shiny" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCustomClearedOn'+$index);">
+                                    <i class="fa fa-calendar" data-ng-disabled="true"></i>
+                                </button>
+                            </span>
+                        </div>
+                        <div data-ng-if="$index==GateInGridCtrl.ePage.Masters.selectedRow  && GateInGridCtrl.ePage.Masters.readOnlyKey == 'emptyplacedatfactory'"
+                            class="input-group input-group-sm " data-ng-click="$event.stopPropagation()">
+                            <input type="text" class="form-control " placeholder="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                data-ng-model="x." datetime-picker="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datepicker-options="GateInGridCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                enable-date="true" default-date="" default-time="" save-as="GateInGridCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="GateInGridCtrl.ePage.Masters.DatePicker.isOpen['isCustomClearedOn'+$index]"
+                                when-closed="" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCustomClearedOn'+$index)"
+                                custom-date-time-format data-ng-change="" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default shiny" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCustomClearedOn'+$index);">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </td>
+                    <!-- cfs gate out-->
+                    <td id="cfsgateout" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.cfsgateout.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.cfsgateout.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.FCLWharfGateOut || GateInGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==GateInGridCtrl.ePage.Masters.selectedRow  && GateInGridCtrl.ePage.Masters.readOnlyKey != 'emptyplacedatfactory'"
+                            class="input-group input-group-sm " data-ng-click="$event.stopPropagation()">
+                            <input type="text" class="form-control " placeholder="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                data-ng-model="x.FCLWharfGateOut" datetime-picker="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datepicker-options="GateInGridCtrl.ePage.Masters.DatePicker.Options" data-ng-disabled="true"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                enable-date="true" default-date="" default-time="" save-as="GateInGridCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="GateInGridCtrl.ePage.Masters.DatePicker.isOpen['isCfsGateOut'+$index]"
+                                when-closed="" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCfsGateOut'+$index)"
+                                custom-date-time-format data-ng-change="" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default shiny" data-ng-disabled="true" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCfsGateOut'+$index);">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                        <div data-ng-if="$index==GateInGridCtrl.ePage.Masters.selectedRow  && GateInGridCtrl.ePage.Masters.readOnlyKey == 'emptyplacedatfactory'"
+                            class="input-group input-group-sm " data-ng-click="$event.stopPropagation()">
+                            <input type="text" class="form-control " placeholder="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                data-ng-model="x.FCLWharfGateOut" datetime-picker="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datepicker-options="GateInGridCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                enable-date="true" default-date="" default-time="" save-as="GateInGridCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="GateInGridCtrl.ePage.Masters.DatePicker.isOpen['isCfsGateOut'+$index]"
+                                when-closed="" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCfsGateOut'+$index)"
+                                custom-date-time-format data-ng-change="" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default shiny" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCfsGateOut'+$index);">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </td>
+                    <!--port gate in-->
+                    <td id="portgatein" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.portgatein.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.portgatein.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.EmptyBondValidityDate | date:'dd-MMM-yyyy' || GateInGridCtrl.ePage.Masters.emptyText}}</div>
+                        <div data-ng-if="$index==GateInGridCtrl.ePage.Masters.selectedRow  && GateInGridCtrl.ePage.Masters.readOnlyKey != 'emptyplacedatfactory'"
+                            class="input-group input-group-sm " data-ng-click="$event.stopPropagation()">
+                            <input type="text" class="form-control " placeholder="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                data-ng-model="x.FCLWharfGateOut" datetime-picker="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datepicker-options="GateInGridCtrl.ePage.Masters.DatePicker.Options" data-ng-disabled="true"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                enable-date="true" default-date="" default-time="" save-as="GateInGridCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="GateInGridCtrl.ePage.Masters.DatePicker.isOpen['isPortGateIn'+$index]"
+                                when-closed="" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPortGateIn'+$index)"
+                                custom-date-time-format data-ng-change="" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default shiny" data-ng-disabled="true" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPortGateIn'+$index);">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                        <div data-ng-if="$index==GateInGridCtrl.ePage.Masters.selectedRow  && GateInGridCtrl.ePage.Masters.readOnlyKey == 'emptyplacedatfactory'"
+                            class="input-group input-group-sm " data-ng-click="$event.stopPropagation()">
+                            <input type="text" class="form-control " placeholder="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                data-ng-model="x.FCLWharfGateOut" datetime-picker="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datepicker-options="GateInGridCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                enable-date="true" default-date="" default-time="" save-as="GateInGridCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="GateInGridCtrl.ePage.Masters.DatePicker.isOpen['isPortGateIn'+$index]"
+                                when-closed="" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPortGateIn'+$index)"
+                                custom-date-time-format data-ng-change="" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default shiny" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPortGateIn'+$index);">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+                <!-- Row For readonly -->
+                <tr id="tableBody" data-ng-if="GateInGridCtrl.ePage.Masters.ReadOnly && GateInGridCtrl.ePage.Masters.readOnlyKey =='empty'"
+                    data-ng-repeat="x in GateInGridCtrl.ePage.Entities.Header.Data.UICntContainerList |
+                     orderBy : 'LegOrder'">
+                    <!-- Container No-->
+                    <td id="containerno" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.containerno.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.containerno.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.ContainerNo || GateInGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                    </td>
+                    <!-- Container Type-->
+                    <td id="type" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.type.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.type.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.RC_Type || GateInGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                    </td>
+                    <!-- empty placed at factory  -->
+                    <td id="emptyplacedatfactory" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.emptyplacedatfactory.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.emptyplacedatfactory.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.EmptyRequired || GateInGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==GateInGridCtrl.ePage.Masters.selectedRow'" class="input-group input-group-sm"
+                            data-ng-click="$event.stopPropagation()">
+                            <input type="text" class="form-control " placeholder="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                data-ng-model="x.EmptyRequired" datetime-picker="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datepicker-options="GateInGridCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                enable-date="true" default-date="" default-time="" save-as="GateInGridCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="GateInGridCtrl.ePage.Masters.DatePicker.isOpen['isEmptyRequired'+$index]"
+                                when-closed="" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEmptyRequired'+$index)"
+                                custom-date-time-format data-ng-change="" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default shiny" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEmptyRequired'+$index);">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+
+                    </td>
+                    <!-- transporter -->
+                    <td id="transporter" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.transporter.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.transporter.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.PickUpEmptyFromCode || GateInGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                    </td>
+                    <!-- laden picked -->
+                    <td id="ladenpicked" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.ladenpicked.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.ladenpicked.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.DepartureActualPickup || GateInGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+
+                    </td>
+                    <!-- cfs gate in -->
+                    <td id="cfsgatein" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.cfsgatein.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.cfsgatein.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.FCLWharfGateIn || GateInGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                    </td>
+                    <!-- stuffing details -->
+                    <td id="stuffingdetails" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.stuffingdetails.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.stuffingdetails.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.Status || GateInGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                    </td>
+                    <!--custom ref no-->
+                    <td id="customrefno" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.customrefno.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.customrefno.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.ExportDepotCustomsReference || GateInGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                    </td>
+                    <!--shipping bill amendment? -->
+                    <td id="shippingbillamendment" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.shippingbillamendment.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.shippingbillamendment.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.Vessel || GateInGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                    </td>
+                    <!-- custom cleared on-->
+                    <td id="customclearedon" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.customclearedon.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.customclearedon.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.LoadPort || GateInGridCtrl.ePage.Masters.emptyText}}</div>
+                    </td>
+                    <!-- cfs gate out-->
+                    <td id="cfsgateout" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.cfsgateout.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.cfsgateout.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.FCLWharfGateOut || GateInGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                    </td>
+                    <!--port gate in-->
+                    <td id="portgatein" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.portgatein.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.portgatein.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.ETD | date:'dd-MMM-yyyy' || GateInGridCtrl.ePage.Masters.emptyText}}</div>
+                    </td>
+                </tr>
+                <!-- Row For Editable -->
+                <tr id="tableBody" data-ng-if="!GateInGridCtrl.ePage.Masters.ReadOnly && GateInGridCtrl.ePage.Masters.readOnlyKey =='empty'" data-ng-class="{row_active: GateInGridCtrl.ePage.Masters.selectedRow==$index}"
+                data-ng-repeat="x in GateInGridCtrl.ePage.Entities.Header.Data.UICntContainerList  | orderBy : 'LegOrder'"
+                data-ng-click="GateInGridCtrl.ePage.Masters.selectedRow = $index;GateInGridCtrl.ePage.Masters.selectedRowObj=x">
+                    <!-- Container No-->
+                    <td id="containerno" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.containerno.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.containerno.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.ContainerNo || GateInGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div class=" ship-font " data-ng-if="$index==GateInGridCtrl.ePage.Masters.selectedRow"
+                            data-ng-click="$event.stopPropagation()">
+                            <input type="text" class="form-control input-sm" max-length="1" data-ng-model="x.ContainerNo">
+                        </div>
+                    </td>
+                    <!-- Container Type-->
+                    <td id="type" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.type.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.type.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.RC_Type || GateInGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div class="ship-font" data-ng-if="$index==GateInGridCtrl.ePage.Masters.selectedRow"
+                            data-ng-click="$event.stopPropagation()">
+                            <input type="text" class="form-control input-sm" max-length="1" data-ng-model="x.RC_Type">
+                        </div>
+                    </td>
+                    <!-- empty placed at factory  -->
+                    <td id="emptyplacedatfactory" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.emptyplacedatfactory.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.emptyplacedatfactory.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.EmptyRequired || GateInGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==GateInGridCtrl.ePage.Masters.selectedRow" class="input-group input-group-sm"
+                            data-ng-click="$event.stopPropagation()">
+                            <input type="text" class="form-control " placeholder="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                data-ng-model="x.EmptyRequired" datetime-picker="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datepicker-options="GateInGridCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                enable-date="true" default-date="" default-time="" save-as="GateInGridCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="GateInGridCtrl.ePage.Masters.DatePicker.isOpen['isEmptyRequired'+$index]"
+                                when-closed="" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEmptyRequired'+$index)"
+                                custom-date-time-format data-ng-change="" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default shiny" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEmptyRequired'+$index);">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </td>
+                    <!-- transporter -->
+                    <td id="transporter" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.transporter.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.transporter.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.PickUpEmptyFromCode || GateInGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==GateInGridCtrl.ePage.Masters.selectedRow" data-ng-click="$event.stopPropagation()">
+                            <div class="input-group input-group-sm">
+                                <input type="hidden" ng-model="GateInGridCtrl.ePage.Entities.Header.Data.UICntContainerList.PickUpEmptyFromFK">
+                                <div dynamic-lookup placeholder="Organization Code" my-ng-model="x.PickUpEmptyFromCode"
+                                    obj="GateInGridCtrl.ePage.Entities.Header.Data.UICntContainerList" page-name="'OrganizationList'"
+                                    control-key="ShpPickupTransCompOrg_2969" control-id="'ShpPickupTransCompOrg'"></div>
+                                <span class="input-group-btn">
+                                    <button dynamic-list-modal obj="GateInGridCtrl.ePage.Entities.Header.Data.UICntContainerList"
+                                        control-id="'ShpPickupTransCompOrg'" control-key="ShpPickupTransCompOrg_2969"
+                                        page-name="'OrganizationList'" mode="2" grid-refresh-fun-name=""
+                                        grid-refresh-fun="" class="btn btn-default shiny" type="button">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </td>
+                    <!-- laden picked -->
+                    <td id="ladenpicked" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.ladenpicked.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.ladenpicked.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.DepartureActualPickup || GateInGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==GateInGridCtrl.ePage.Masters.selectedRow" class="input-group input-group-sm "
+                            data-ng-click="$event.stopPropagation()">
+                            <input type="text" class="form-control " placeholder="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                data-ng-model="x.DepartureActualPickup" datetime-picker="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datepicker-options="GateInGridCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                enable-date="true" default-date="" default-time="" save-as="GateInGridCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="GateInGridCtrl.ePage.Masters.DatePicker.isOpen['isLadenPicked'+$index]"
+                                when-closed="" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isLadenPicked'+$index)"
+                                custom-date-time-format data-ng-change="" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default shiny" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isLadenPicked'+$index);">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </td>
+                    <!-- cfs gate in -->
+                    <td id="cfsgatein" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.cfsgatein.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.cfsgatein.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.FCLWharfGateIn || GateInGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==GateInGridCtrl.ePage.Masters.selectedRow " class="input-group input-group-sm "
+                            data-ng-click="$event.stopPropagation()">
+                            <input type="text" class="form-control " placeholder="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                data-ng-model="x.FCLWharfGateIn" datetime-picker="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datepicker-options="GateInGridCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                enable-date="true" default-date="" default-time="" save-as="GateInGridCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="GateInGridCtrl.ePage.Masters.DatePicker.isOpen['isCfsGateIn'+$index]"
+                                when-closed="" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCfsGateIn'+$index)"
+                                custom-date-time-format data-ng-change="" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default shiny" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCfsGateIn'+$index);">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </td>
+                    <!-- stuffing details -->
+                    <td id="stuffingdetails" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.stuffingdetails.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.stuffingdetails.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.Status || GateInGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                    </td>
+                    <!--custom ref no-->
+                    <td id="customrefno" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.customrefno.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.customrefno.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.ExportDepotCustomsReference || GateInGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div class=" ship-font " data-ng-if="$index==GateInGridCtrl.ePage.Masters.selectedRow"
+                            data-ng-click="$event.stopPropagation()">
+                            <input type="text" class="form-control input-sm" max-length="1" data-ng-model="x.ExportDepotCustomsReference"></div>
+                    </td>
+                    <!--shipping bill amendment? -->
+                    <td id="shippingbillamendment" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.shippingbillamendment.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.shippingbillamendment.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.Vessel || GateInGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                    </td>
+                    <!-- custom cleared on-->
+                    <td id="customclearedon" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.customclearedon.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.customclearedon.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.LoadPort || GateInGridCtrl.ePage.Masters.emptyText}}</div>
+                            <div data-ng-if="$index==GateInGridCtrl.ePage.Masters.selectedRow"
+                            class="input-group input-group-sm " data-ng-click="$event.stopPropagation()">
+                            <input type="text" class="form-control " placeholder="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                data-ng-model="x." datetime-picker="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datepicker-options="GateInGridCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                enable-date="true" default-date="" default-time="" save-as="GateInGridCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="GateInGridCtrl.ePage.Masters.DatePicker.isOpen['isCustomClearedOn'+$index]"
+                                when-closed="" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCustomClearedOn'+$index)"
+                                custom-date-time-format data-ng-change="" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default shiny" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCustomClearedOn'+$index);">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </td>
+                    <!-- cfs gate out-->
+                    <td id="cfsgateout" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.cfsgateout.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.cfsgateout.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.FCLWharfGateOut || GateInGridCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==GateInGridCtrl.ePage.Masters.selectedRow"
+                        class="input-group input-group-sm " data-ng-click="$event.stopPropagation()">
+                        <input type="text" class="form-control " placeholder="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                            data-ng-model="x.FCLWharfGateOut" datetime-picker="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                            datepicker-options="GateInGridCtrl.ePage.Masters.DatePicker.Options"
+                            datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                            enable-date="true" default-date="" default-time="" save-as="GateInGridCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                            is-open="GateInGridCtrl.ePage.Masters.DatePicker.isOpen['isCfsGateOut'+$index]"
+                            when-closed="" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCfsGateOut'+$index)"
+                            custom-date-time-format data-ng-change="" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default shiny" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCfsGateOut'+$index);">
+                                <i class="fa fa-calendar"></i>
+                            </button>
+                        </span>
+                    </div>
+                    </td>
+                    <!--port gate in-->
+                    <td id="portgatein" data-ng-if="GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.portgatein.isenabled"
+                        data-ng-style="{ 'width': GateInGridCtrl.ePage.Masters.TableProperties.UIExportOperations.portgatein.width + 'px' }">
+                        <div data-ng-if="$index!=GateInGridCtrl.ePage.Masters.selectedRow || GateInGridCtrl.ePage.GlobalVariables.NonEditable">
+                            {{x.ETD | date:'dd-MMM-yyyy' || GateInGridCtrl.ePage.Masters.emptyText}}</div>
+                            <div data-ng-if="$index==GateInGridCtrl.ePage.Masters.selectedRow"
+                            class="input-group input-group-sm " data-ng-click="$event.stopPropagation()">
+                            <input type="text" class="form-control " placeholder="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                data-ng-model="x.FCLWharfGateOut" datetime-picker="{{GateInGridCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datepicker-options="GateInGridCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                enable-date="true" default-date="" default-time="" save-as="GateInGridCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="GateInGridCtrl.ePage.Masters.DatePicker.isOpen['isPortGateIn'+$index]"
+                                when-closed="" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPortGateIn'+$index)"
+                                custom-date-time-format data-ng-change="" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default shiny" data-ng-click="GateInGridCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPortGateIn'+$index);">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+        <div class="grid-no-record" data-ng-if="GateInGridCtrl.ePage.Entities.Header.Data.UICntContainerList.length == 0">No
+            records found...</div>
+    </div>
+    <!-- Pagination -->
+    <div class="mr-10 ml-10" data-ng-if="GateInGridCtrl.btnVisible.Pagination">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pagination-border">
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3 col-xl-3 pt-10 p-0">
+                <ul uib-pagination boundary-links="true" total-items="GateInGridCtrl.ePage.Masters.Routing.GridData.length"
+                    data-ng-model="GateInGridCtrl.ePage.Masters.Pagination.CurrentPage" class="pagination-sm" max-size="GateInGridCtrl.ePage.Masters.Pagination.MaxSize"
+                    items-per-page="GateInGridCtrl.ePage.Masters.Pagination.ItemsPerPage" num-pages="GateInGridCtrl.ePage.Masters.Pagination.TotalPage"
+                    previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3 col-xl-3 pt-10">
+                <select data-ng-model="GateInGridCtrl.ePage.Masters.Pagination.ItemsPerPage" data-ng-change="">
+                    <option data-ng-selected="true">25</option>
+                    <option>50</option>
+                    <option>100</option>
+                    <option>500</option>
+                </select> Records Per Page.
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 pt-10 pull-right">
+                <div class="">Page : {{GateInGridCtrl.ePage.Masters.Pagination.CurrentPage}} /
+                    {{GateInGridCtrl.ePage.Masters.Pagination.TotalPage}}
+                </div>
+                <div class="">Total Records : {{(GateInGridCtrl.ePage.Entities.Header.Data.UICntContainerList |
+                    filter:{IsDeleted:false}).length}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

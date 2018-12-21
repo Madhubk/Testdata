@@ -1,0 +1,83 @@
+<div class="clearfix padding-10">
+    <div id='' class="Shipmentstable_scroll order-hgt">
+        <div class="table tab-position" id="results">
+            <div class='theader'>
+                <div class='table_header'>Order #</div>
+                <div class='table_header'>Sub #</div>
+                <div class='table_header'>Order Date</div>
+                <div class='table_header'>T.Mode</div>
+                <div class='table_header'>C.Mode</div>
+                <div class='table_header'>IncoTerm</div>
+                <div class='table_header'>Origin</div>
+                <div class='table_header'>Confirm #</div>
+                <div class='table_header'>Req. Delivery Date</div>
+            </div>
+           
+            <div class='table_row' data-ng-repeat="x in shpBuyerViewOrderCtrl.ePage.Entities.Header.Data.UIOrderHeaders"
+                data-ng-if="shpBuyerViewOrderCtrl.ePage.Entities.Header.Data.UIOrderHeaders && shpBuyerViewOrderCtrl.ePage.Entities.Header.Data.UIOrderHeaders.length > 0"
+                style="font-size: 11px;">
+                <div class='table_small'>
+                    <div class='table_cell'>Order #</div>
+                    <div class='table_cell'>
+                        <b>
+                            <span data-ng-bind="x.OrderNo || shpBuyerViewOrderCtrl.ePage.Masters.EmptyText"></span>
+                        </b>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Sub #</div>
+                    <div class='table_cell'>
+                        <span data-ng-bind="x.OrderSplitNo || shpBuyerViewOrderCtrl.ePage.Masters.EmptyText"></span>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Order Date</div>
+                    <div class='table_cell'>
+                        <span data-ng-bind="x.OrderDate || shpBuyerViewOrderCtrl.ePage.Masters.EmptyText"></span>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>T.Mode</div>
+                    <div class='table_cell'>
+                        <span data-ng-bind="x.TransportMode || shpBuyerViewOrderCtrl.ePage.Masters.EmptyText"></span>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>C.Mode</div>
+                    <div class='table_cell'>
+                        <span data-ng-bind="x.ContainerMode || shpBuyerViewOrderCtrl.ePage.Masters.EmptyText"></span>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>IncoTerm</div>
+                    <div class='table_cell'>
+                        <span data-ng-bind="x.IncoTerm || shpBuyerViewOrderCtrl.ePage.Masters.EmptyText"></span>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Origin</div>
+                    <div class='table_cell'>
+                        <span data-ng-bind="x.Origin || shpBuyerViewOrderCtrl.ePage.Masters.EmptyText"></span>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Confirm #</div>
+                    <div class='table_cell'>
+                        <span data-ng-bind="x.ConfirmNo || shpBuyerViewOrderCtrl.ePage.Masters.EmptyText"></span>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Req. Delivery Date</div>
+                    <div class='table_cell'>
+                        <span data-ng-bind="x.RequiredDeliveryDate | date:'dd-MMM-yyyy' || shpBuyerViewOrderCtrl.ePage.Masters.EmptyText"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- List Empty Response -->
+        <div>
+            <div class="grid-no-record-common_table" data-ng-if="shpBuyerViewOrderCtrl.ePage.Entities.Header.Data.UIOrderHeaders.length==0">No
+                records found...</div>
+        </div>
+    </div>
+</div>

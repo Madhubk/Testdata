@@ -57,7 +57,7 @@
                 IsActive: false
             }, {
                 Code: "appTrustAppTenant",
-                Description: "Sec App Sec Tenant (" + TCSecAppSecTenantCtrl.ePage.Masters.QueryString.MappingCode + ")" + " - " + TCSecAppSecTenantCtrl.ePage.Masters.QueryString.DisplayName,
+                Description: "Sec App Sec Tenant (" + "SECAPP_SECTENANT" + ")" + " - " + TCSecAppSecTenantCtrl.ePage.Masters.QueryString.DisplayName,
                 Link: "#",
                 IsRequireQueryString: false,
                 IsActive: true
@@ -84,21 +84,55 @@
             TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.Edit = Edit;
             TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.Cancel = Cancel;
             TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.AddNew = AddNew;
-            TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.Save = SaveSecAppSecTenant;
+            TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.Save = Save;
             TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.DeleteConfirmation = DeleteConfirmation;
+            TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.CheckUIControl = CheckUIControl;
 
             TCSecAppSecTenantCtrl.ePage.Masters.DeleteBtnText = "Delete";
             TCSecAppSecTenantCtrl.ePage.Masters.IsDisableDeleteBtn = false;
 
+            GetUIControlList();
             GetSecAppSecTenant();
+        }
+
+        function GetUIControlList() {
+            TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.UIControlList = undefined;
+            var _filter = {
+                "SAP_FK": authService.getUserInfo().AppPK,
+                "TenantCode": authService.getUserInfo().TenantCode,
+                "USR_FK": authService.getUserInfo().UserPK
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": trustCenterConfig.Entities.API.CompUserRoleAccess.API.FindAll.FilterID
+            };
+
+            apiService.post("authAPI", trustCenterConfig.Entities.API.CompUserRoleAccess.API.FindAll.Url, _input).then(function SuccessCallback(response) {
+                if (response.data.Response) {
+                    var _response = response.data.Response;
+                    var _controlList = [];
+                    if (_response.length > 0) {
+                        _response.map(function (value, key) {
+                            if (value.SOP_Code) {
+                                _controlList.push(value.SOP_Code);
+                            }
+                        });
+                    }
+                    TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.UIControlList = _controlList;
+                } else {
+                    TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.UIControlList = [];
+                }
+            });
+        }
+
+        function CheckUIControl(controlId) {
+            return helperService.checkUIControl(TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.UIControlList, controlId);
         }
 
         function GetSecAppSecTenant() {
             TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.SecAppSecTenantList = undefined;
             var _filter = {
                 "SAP_FK": TCSecAppSecTenantCtrl.ePage.Masters.QueryString.AppPk,
-                "PropertyName": "false"
-
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
@@ -163,7 +197,6 @@
             TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.ActiveSecAppSecTenant.TenantCode = $item.TenantCode;
         }
 
-
         function EditModalInstance() {
             return TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.EditModal = $uibModal.open({
                 animation: true,
@@ -180,7 +213,6 @@
             Edit();
         }
 
-
         function Edit() {
             TCSecAppSecTenantCtrl.ePage.Masters.SaveBtnText = "OK";
             TCSecAppSecTenantCtrl.ePage.Masters.IsDisableSaveBtn = false;
@@ -190,55 +222,82 @@
             });
         }
 
+        function Save() {
+            if (TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.ActiveSecAppSecTenant.PK) {
+                UpdateSecAppSecTenant();
+            } else {
+                InsertSecAppSecTenant();
+            }
+        }
 
-        function SaveSecAppSecTenant() {
-            TCSecAppSecTenantCtrl.ePage.Masters.SaveBtnTxt = "Please Wait...";
-            TCSecAppSecTenantCtrl.ePage.Masters.IsDisabledSaveBtn = true;
+        function InsertSecAppSecTenant() {
+           
+            TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.SaveBtnText = "Please Wait...";
+            TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.IsDisableSaveBtn = true;
 
             var _input = angular.copy(TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.ActiveSecAppSecTenant);
-            _input.SAP_Code = TCSecAppSecTenantCtrl.ePage.Masters.QueryString.AppCode;
+            _input.IsModified = true;
             _input.SAP_FK = TCSecAppSecTenantCtrl.ePage.Masters.QueryString.AppPk;
-            _input.TenantCode = authService.getUserInfo().TenantCode;
-            _input.TNT_FK = authService.getUserInfo().TenantPK;
-            _input.Item_FK = TCSecAppSecTenantCtrl.ePage.Masters.QueryString.ItemPk;
-            _input.ItemName = TCSecAppSecTenantCtrl.ePage.Masters.QueryString.ItemName;
-            _input.ItemCode = TCSecAppSecTenantCtrl.ePage.Masters.QueryString.ItemCode;
+            _input.SAP_Code = TCSecAppSecTenantCtrl.ePage.Masters.QueryString.AppCode;
+            _input.TenantCode = TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.ActiveSecAppSecTenant.TenantCode;
+            _input.TNT_FK = TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.ActiveSecAppSecTenant.TNT_FK;
+
+            apiService.post("authAPI", trustCenterConfig.Entities.API.SecAppSecTenant.API.Insert.Url, [_input]).then(function SuccessCallback(response) {
+                if (response.data.Response) {
+                    if (response.data.Response.length > 0) {
+                        var _response = response.data.Response[0];
+
+                        var _index = TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.SecAppSecTenantList.map(function (value, key) {
+                            return value.PK;
+                        }).indexOf(_response.PK);
+
+                        if (_index === -1) {
+                            TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.SecAppSecTenantList.push(_response);
+                        } else {
+                            TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.SecAppSecTenantList[_index] = _response;
+                        }
+
+                        OnSecAppSecTenantClick(_response);
+                    }
+                } else {
+                    toastr.error("Could not Save...!");
+                }
+
+                TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.SaveBtnText = "OK";
+                TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.IsDisableSaveBtn = false;
+                TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.EditModal.dismiss('cancel');
+            });
+        }
+
+        function UpdateSecAppSecTenant() {
+             TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.SaveBtnText = "Please Wait...";
+            TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.IsDisableSaveBtn = true;
+
+            var _input = angular.copy(TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.ActiveSecAppSecTenant);
             _input.IsModified = true;
 
-            if (_input.PK) {
-                apiService.post("authAPI", trustCenterConfig.Entities.API.SecAppSecTenant.API.Update.Url, _input).then(function (response) {
-                    if (response.data.Response) {
-                        TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.ActiveSecAppSecTenant = response.data.Response;
+            apiService.post("authAPI", trustCenterConfig.Entities.API.SecAppSecTenant.API.Update.Url, _input).then(function SuccessCallback(response) {
+                if (response.data.Response) {
+                    var _response = response.data.Response;
+
+                    var _index = TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.SecAppSecTenantList.map(function (value, key) {
+                        return value.PK;
+                    }).indexOf(_response.PK);
+                    
+                    if (_index === -1) {
+                        TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.SecAppSecTenantList.push(_response);
                     } else {
-                        toastr.error("Could not Update...!");
+                        TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.SecAppSecTenantList[_index] = _response;
                     }
+                    OnSecAppSecTenantClick(_response);
+                } else {
+                    toastr.error("Could not Save...!");
+                }
 
-                    TCSecAppSecTenantCtrl.ePage.Masters.SaveBtnText = "OK";
-                    TCSecAppSecTenantCtrl.ePage.Masters.IsDisableSaveBtn = false;
-                });
-            } else {
-                apiService.post("authAPI", trustCenterConfig.Entities.API.SecAppSecTenant.API.Insert.Url, [_input]).then(function (response) {
-                    if (response.data.Response) {
-                        if (response.data.Response.length > 0) {
-                            if (!TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.SecAppSecTenantList) {
-                                TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.SecAppSecTenantList = [];
-                            }
-
-                            TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.SecAppSecTenantList.push(response.data.Response[0]);
-                            TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.ActiveSecAppSecTenant = response.data.Response[0];
-                        }
-                    } else {
-                        toastr.error("Could not Insert...!");
-                    }
-
-                    TCSecAppSecTenantCtrl.ePage.Masters.SaveBtnTxt = "Save";
-                    TCSecAppSecTenantCtrl.ePage.Masters.IsDisabledSaveBtn = false;
-
-                    OnSecAppSecTenantClick(TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.ActiveSecAppSecTenant);
-                });
-            }
-
-            TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.EditModal.dismiss('cancel');
+                TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.SaveBtnText = "OK";
+                TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.IsDisableSaveBtn = false;
+                TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.EditModal.dismiss('cancel');
+            });
         }
 
         function DeleteConfirmation() {
@@ -299,7 +358,6 @@
 
             TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.EditModal.dismiss('cancel');
         }
-
 
         Init();
     }

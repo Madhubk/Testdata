@@ -75,15 +75,14 @@
                         data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.eta.width + 'px' }"
                         title="ETA">ETA</th>
                     <th id="ata" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.ata.isenabled"
-                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.ata.width + 'px' }"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.ata.width + 'px' }" 
                         title="ATA">ATA</th>
 
                 </tr>
             </thead>
             <tbody id="ASNTable{{RoutingGridCtrl.currentObject.label}}">
-                <tr id="tableBody" data-ng-if="!RoutingGridCtrl.readOnly" data-ng-class="{row_active: (RoutingGridCtrl.ePage.Masters.selectedRow==$index)}"
-                    data-ng-repeat="x in RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes | orderBy : 'LegOrder' | filter:{IsDeleted:false}"
-                    data-ng-click="RoutingGridCtrl.ePage.Masters.selectedRow = $index;RoutingGridCtrl.ePage.Masters.selectedRowObj=x">
+                <tr id="tableBody" data-ng-if="!RoutingGridCtrl.ePage.Masters.ReadOnly" data-ng-class="{row_active: RoutingGridCtrl.ePage.Masters.selectedRow==$index}"
+                    data-ng-repeat="x in RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes  | filter: RoutingGridCtrl.ePage.Masters.NgRepeatFilter | orderBy : 'LegOrder'" data-ng-click="RoutingGridCtrl.ePage.Masters.selectedRow = $index;RoutingGridCtrl.ePage.Masters.selectedRowObj=x">
                     <!-- <td id="acheckbox" data-ng-click="RoutingGridCtrl.ePage.Masters.Enable = true">
                         <label class="mb-0 customcheckbox" data-ng-click="$event.stopPropagation()">
                             <input type="checkbox" data-ng-checked="x.SingleSelect" data-ng-change="RoutingGridCtrl.ePage.Masters.SingleSelectCheckBox()" data-ng-model="x.SingleSelect"
@@ -366,7 +365,96 @@
                     </td>
 
                 </tr>
-                <tr id="tableBody" data-ng-if="RoutingGridCtrl.readOnly" data-ng-repeat="x in RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes | orderBy : 'LegOrder' | filter:{IsDeleted:false}"
+                <tr id="tableBody" data-ng-if="RoutingGridCtrl.ePage.Masters.ReadOnly" data-ng-repeat="x in RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes | filter: RoutingGridCtrl.ePage.Masters.NgRepeatFilter | orderBy : 'LegOrder'">
+                    <!-- <td id="acheckbox" data-ng-click="RoutingGridCtrl.ePage.Masters.Enable = true">
+                        <label class="mb-0 customcheckbox" data-ng-click="$event.stopPropagation()">
+                            <input type="checkbox" data-ng-checked="x.SingleSelect" data-ng-change="RoutingGridCtrl.ePage.Masters.SingleSelectCheckBox()" data-ng-model="x.SingleSelect"
+                                data-ng-disabled="RoutingGridCtrl.ePage.GlobalVariables.NonEditable"> </input>
+                            <span class="text"></span>
+                        </label>
+                    </td> -->
+                    <!-- Defined By -->
+                    <td id="definedby" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.definedby.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.definedby.width + 'px' }">
+                        {{x.JobNo || RoutingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- Entity Source -->
+                    <td id="entitysource" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.entitysource.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.entitysource.width + 'px' }">
+                        {{x.EntitySource || RoutingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- Leg Order -->
+                    <td id="legno" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.legno.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.legno.width + 'px' }">
+                        {{x.LegOrder || RoutingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- isLinked -->
+                    <td id="islinked" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.islinked.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.islinked.width + 'px' }">
+                        <label class="mb-0 customcheckbox">
+                            <input type="checkbox" disabled="disabled" data-ng-model="x.IsLinked" data-ng-checked="x.IsLinked==true"
+                                class="colored-blue">
+                            <span class="text"></span>
+                        </label>
+                    </td>
+                    <!-- Transport Mode -->
+                    <td id="mode" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.mode.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.mode.width + 'px' }">
+                        {{x.TransportMode || RoutingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- Transport Type -->
+                    <td id="type" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.type.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.type.width + 'px' }">
+                        {{x.TransportType || RoutingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- Status -->
+                    <td id="status" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.status.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.status.width + 'px' }">
+                        {{x.Status || RoutingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!--Voyage-->
+                    <td id="voyageflight" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.voyageflight.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.voyageflight.width + 'px' }">
+                        {{x.VoyageFlight || RoutingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!--  Vessel Details-->
+                    <td id="vessel" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.vessel.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.vessel.width + 'px' }">
+                        {{x.Vessel || RoutingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- Load Port -->
+                    <td id="pol" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.pol.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.pol.width + 'px' }">
+                        {{x.LoadPort || RoutingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- Discharge Port-->
+                    <td id="pod" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.pod.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.pod.width + 'px' }">
+                        {{x.DischargePort || RoutingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!--ETD-->
+                    <td id="etd" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.etd.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.etd.width + 'px' }">
+                        {{x.ETD | date:'dd-MMM-yyyy' || RoutingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- ATD -->
+                    <td id="atd" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.atd.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.atd.width + 'px' }">
+                        {{x.ATD | date:'dd-MMM-yyyy' || RoutingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- ETA -->
+                    <td id="eta" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.eta.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.eta.width + 'px' }">
+                        {{x.ETA | date:'dd-MMM-yyyy' || RoutingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <!-- ATA -->
+                    <td id="ata" data-ng-if="RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.ata.isenabled"
+                        data-ng-style="{ 'width': RoutingGridCtrl.ePage.Masters.TableProperties.UIRouteLines.ata.width + 'px' }">
+                        {{x.ATA | date:'dd-MMM-yyyy' || RoutingGridCtrl.ePage.Masters.emptyText}}
+                    </td>
+
+                </tr>
+                <tr id="tableBody" data-ng-if="RoutingGridCtrl.ePage.Masters.CONReadOnly" data-ng-repeat="x in RoutingGridCtrl.ePage.Entities.Header.Data.UIJobRoutes1  | filter:{IsDeleted: false, EntitySource: 'CON'}  | orderBy : 'LegOrder'"
                     data-ng-click="RoutingGridCtrl.ePage.Masters.selectedRow = $index;RoutingGridCtrl.ePage.Masters.selectedRowObj=x">
                     <!-- <td id="acheckbox" data-ng-click="RoutingGridCtrl.ePage.Masters.Enable = true">
                         <label class="mb-0 customcheckbox" data-ng-click="$event.stopPropagation()">

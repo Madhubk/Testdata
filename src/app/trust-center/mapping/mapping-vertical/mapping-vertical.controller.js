@@ -5,9 +5,9 @@
         .module("Application")
         .controller("MappingVerticalController", MappingVerticalController);
 
-    MappingVerticalController.$inject = ["$scope", "$location", "$uibModal", "authService", "apiService", "helperService", "appConfig", "toastr", "confirmation", "tcMappingConfig", "trustCenterConfig"];
+    MappingVerticalController.$inject = ["$scope", "$location", "$uibModal", "authService", "apiService", "helperService", "trustCenterConfig", "toastr", "confirmation", "tcMappingConfig"];
 
-    function MappingVerticalController($scope, $location, $uibModal, authService, apiService, helperService, appConfig, toastr, confirmation, tcMappingConfig, trustCenterConfig) {
+    function MappingVerticalController($scope, $location, $uibModal, authService, apiService, helperService, trustCenterConfig, toastr, confirmation, tcMappingConfig) {
         /* jshint validthis: true */
         var MappingVerticalCtrl = this;
         var _queryString = $location.path().split("/").pop();
@@ -128,16 +128,16 @@
         function GetUIControlList() {
             MappingVerticalCtrl.ePage.Masters.UIControlList = undefined;
             var _filter = {
-                "SAP_FK": MappingVerticalCtrl.ePage.Masters.QueryString.AppPk,
+                "SAP_FK": authService.getUserInfo().AppPK,
                 "TenantCode": authService.getUserInfo().TenantCode,
                 "USR_FK": authService.getUserInfo().UserPK
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.CompUserRoleAccess.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.CompUserRoleAccess.API.FindAll.FilterID
             };
 
-            apiService.post("authAPI", appConfig.Entities.CompUserRoleAccess.API.FindAll.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("authAPI", trustCenterConfig.Entities.API.CompUserRoleAccess.API.FindAll.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     var _response = response.data.Response;
                     var _controlList = [];
@@ -180,10 +180,10 @@
 
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.SecMappings.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.SecMappings.API.FindAll.FilterID
             };
 
-            apiService.post("authAPI", appConfig.Entities.SecMappings.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("authAPI", trustCenterConfig.Entities.API.SecMappings.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     MappingVerticalCtrl.ePage.Masters.MappingVertical.MappingList = response.data.Response;
 
@@ -269,7 +269,7 @@
             _input.IsModified = true;
             _input.IsDeleted = false;
 
-            apiService.post("authAPI", appConfig.Entities.SecMappings.API.Upsert.Url, [_input]).then(function (response) {
+            apiService.post("authAPI", trustCenterConfig.Entities.API.SecMappings.API.Upsert.Url, [_input]).then(function (response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
                         var _response = response.data.Response[0];
@@ -353,7 +353,7 @@
             _input.IsModified = true;
             _input.IsDeleted = true;
 
-            apiService.post("authAPI", appConfig.Entities.SecMappings.API.Upsert.Url, [_input]).then(function (response) {
+            apiService.post("authAPI", trustCenterConfig.Entities.API.SecMappings.API.Upsert.Url, [_input]).then(function (response) {
                 if (response.data.Response) {
                     var _index = MappingVerticalCtrl.ePage.Masters.MappingVertical.MappingList.map(function (value, key) {
                         return value.PK;
@@ -533,7 +533,7 @@
                 "AppCode": MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.SAP_Code
             };
 
-            apiService.post("authAPI", appConfig.Entities.SecTenant.API.CopyBaseTenantBehavior.Url, _input).then(function (response) {
+            apiService.post("authAPI", trustCenterConfig.Entities.API.SecTenant.API.CopyBaseTenantBehavior.Url, _input).then(function (response) {
                 if (response.data.Response) {}
             });
         }

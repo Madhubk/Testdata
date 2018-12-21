@@ -5,9 +5,9 @@
         .module("Application")
         .controller("TCValidationGroupMappingController", TCValidationGroupMappingController);
 
-    TCValidationGroupMappingController.$inject = ["authService", "apiService", "helperService", "appConfig", "$location", "$uibModalInstance", "param"];
+    TCValidationGroupMappingController.$inject = ["authService", "apiService", "helperService", "trustCenterConfig", "$location", "$uibModalInstance", "param"];
 
-    function TCValidationGroupMappingController(authService, apiService, helperService, appConfig, $location, $uibModalInstance, param) {
+    function TCValidationGroupMappingController(authService, apiService, helperService, trustCenterConfig, $location, $uibModalInstance, param) {
         /* jshint validthis: true */
         var TCValidationGroupMappingCtrl = this;
         var _queryString = $location.path().split("/").pop();
@@ -48,14 +48,15 @@
         function GetValidationGroupList() {
             TCValidationGroupMappingCtrl.ePage.Masters.ValidationGroup.ListSource = undefined;
             var _filter = {
-                SAP_FK: TCValidationGroupMappingCtrl.ePage.Masters.Application.ActiveApplication.PK
+                SAP_FK: TCValidationGroupMappingCtrl.ePage.Masters.Application.ActiveApplication.PK,
+                TenantCode: authService.getUserInfo().TenantCode
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.ValidationGroup.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.ValidationGroup.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.ValidationGroup.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.ValidationGroup.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     TCValidationGroupMappingCtrl.ePage.Masters.ValidationGroup.ListSource = response.data.Response;
                     if (response.data.Response.length > 0) {
@@ -71,14 +72,15 @@
             var _filter = {
                 Code_2: TCValidationGroupMappingCtrl.ePage.Masters.Param._filter.Code,
                 Fk_2: TCValidationGroupMappingCtrl.ePage.Masters.Param._filter.PK,
-                MappingCode: "VLG_VLD"
+                MappingCode: "VLG_VLD",
+                TenantCode: authService.getUserInfo().TenantCode
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.EntitiesMapping.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.EntitiesMapping.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.EntitiesMapping.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EntitiesMapping.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
                         TCValidationGroupMappingCtrl.ePage.Masters.ValidationGroup.ListSource.map(function (value1, key1) {
@@ -109,6 +111,7 @@
 
                     MappingCode: "VLG_VLD",
                     SAP_FK: TCValidationGroupMappingCtrl.ePage.Masters.Application.ActiveApplication.PK,
+                    TenantCode: authService.getUserInfo().TenantCode,
                     "IsModified": true,
                     "IsActive": true
                 };
@@ -119,7 +122,7 @@
                 _input.IsActive = true;
             }
 
-            apiService.post("eAxisAPI", appConfig.Entities.EntitiesMapping.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EntitiesMapping.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
                         $item.IsChecked = true;

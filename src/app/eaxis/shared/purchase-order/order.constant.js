@@ -829,6 +829,14 @@
                     'app/eaxis/buyer/purchase-order/shared/ord-buyer-read-only/ord-buyer-view/sub-po/sub-po.controller.js',
                 ]
             },
+            // track-orders
+            {
+                name: 'track-order-list',
+                files: [
+                    'app/eaxis/buyer/purchase-order/shared/track-order/track-order.css',
+                    'app/eaxis/buyer/purchase-order/shared/track-order/track-order.controller.js'
+                ]
+            }
         ]
     };
 

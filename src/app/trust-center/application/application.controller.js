@@ -139,12 +139,7 @@
             TCApplicationCtrl.ePage.Masters.Application.ExternalUrlList = undefined;
 
             var _filter = {
-                "PageSize": 100,
-                "PageNumber": 1,
-                "SortColumn": "SAP_AppCode",
-                "SortType": "ASC",
                 "AppCode": TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.AppCode,
-                "TenantCode": authService.getUserInfo().TenantCode
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
@@ -186,7 +181,6 @@
                 "IsActive": true,
                 "IsModified": true,
                 "IsDeleted": false,
-                "TenantCode": authService.getUserInfo().TenantCode,
                 "SAP_FK": TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.PK,
                 "AppCode": TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.AppCode,
                 "AppName": TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.AppName
@@ -215,7 +209,6 @@
             }
 
             var _input = angular.copy(TCApplicationCtrl.ePage.Masters.Application.ActiveApplication);
-            _input.TenantCode = authService.getUserInfo().TenantCode;
 
             if (TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.IsModified) {
                 apiService.post("authAPI", trustCenterConfig.Entities.API.SecApp.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
@@ -322,27 +315,18 @@
                 Icon: "fa fa-connectdevelop",
                 Link: "TC/parties",
                 Color: "#36ad97",
-                AppCode: "",
-                Type: 2
             }, {
                 Code: "ProvideTrustCenterAccess",
                 Description: "Provide Trust center Access",
                 Icon: "fa fa fa-sign-in",
                 Link: "TC/app-trust-app-tenant",
                 Color: "#bd081c",
-                AppCode: "TC",
-                AdditionalData: "APP_TRUST_APP_TNT",
-                BreadcrumbTitle: "App Trust Center - APP_TRUST_APP_TNT",
-                Type: 1
             }, {
                 Code: "TenantAccess",
                 Description: "Tenant Access",
                 Icon: "fa fa fa-sign-in",
                 Link: "TC/sec-app-sec-tenant",
                 Color: "#bd081c",
-                AdditionalData: "SECAPP_SECTENANT",
-                BreadcrumbTitle: "App Tenant - SECAPP_SECTENANT",
-                Type: 3
             }];
         }
 
@@ -353,25 +337,9 @@
                 "AppName": TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.AppName
             };
 
-            if ($item.Type === 1) {
-                _queryString.AppPk = authService.getUserInfo().AppPK;
-                _queryString.AppCode = authService.getUserInfo().AppCode;
-                _queryString.DisplayName = TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.AppName;
-                _queryString.ItemPk = TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.PK;
-                _queryString.ItemCode = TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.AppCode;
-                _queryString.ItemName = "APP";
-                _queryString.MappingCode = $item.AdditionalData;
-                _queryString.BreadcrumbTitle = $item.BreadcrumbTitle;
-            } else if ($item.Type === 2) {
-                _queryString.BreadcrumbTitle = TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.AppName;
-            } else if ($item.Type === 3) {
-                _queryString.DisplayName = TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.AppName;
-                _queryString.ItemPk = TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.PK;
-                _queryString.ItemCode = TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.AppCode;
-                _queryString.ItemName = "APP";
-                _queryString.MappingCode = $item.AdditionalData;
-                _queryString.BreadcrumbTitle = $item.BreadcrumbTitle;
-            }
+            _queryString.DisplayName = TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.AppName;
+            _queryString.ItemPk = TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.PK;
+            _queryString.ItemCode = TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.AppCode;
 
             if ($item.Link !== "#") {
                 $location.path($item.Link + "/" + helperService.encryptData(_queryString));

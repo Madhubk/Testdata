@@ -156,7 +156,7 @@
                 "Communication": null,
                 "Config": undefined,
                 // Parent Entity
-                "ParentEntityRefKey": ActivityTemplateContainer1Ctrl.ePage.Masters.TaskObj.PK,
+                "ParentEntityRefKey": ActivityTemplateContainer1Ctrl.ePage.Masters.TaskObj.WSI_FK,
                 "ParentEntityRefCode": ActivityTemplateContainer1Ctrl.ePage.Masters.TaskObj.WSI_StepCode,
                 "ParentEntitySource": ActivityTemplateContainer1Ctrl.ePage.Masters.TaskObj.EntitySource,
                 // Additional Entity

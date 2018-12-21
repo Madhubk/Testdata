@@ -72,6 +72,7 @@
                         angular.forEach(response, function (value, key) {
                             if (value.label == DeliverMaterialCtrl.ePage.Entities.Header.PickData.UIWmsPickHeader.PickNo) {
                                 DeliverMaterialCtrl.ePage.Masters.TabList = value;
+                                myTaskActivityConfig.Entities.PickData = DeliverMaterialCtrl.ePage.Masters.TabList;
                             }
                         });
                     });
@@ -80,109 +81,154 @@
         }
 
         function CreateManifest() {
-            DeliverMaterialCtrl.ePage.Masters.LoadingValue = "Creating Dispatch..";
             DeliverMaterialCtrl.ePage.Masters.IsDisabled = true;
             DeliverMaterialCtrl.ePage.Masters.CreateManifestText = "Please Wait...";
-            helperService.getFullObjectUsingGetById(appConfig.Entities.TmsManifestList.API.GetById.Url, 'null').then(function (response) {
-                if (response.data.Response) {
-                    response.data.Response.TmsManifestHeader.PK = response.data.Response.PK;
-                    response.data.Response.TmsManifestHeader.SenderCode = DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WAR_ORG_Code;
-                    response.data.Response.TmsManifestHeader.SenderName = DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WAR_ORG_FullName;
-                    response.data.Response.TmsManifestHeader.Sender_ORG_FK = DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WAR_ORG_FK;
-                    response.data.Response.TmsManifestHeader.ReceiverCode = DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeCode;
-                    response.data.Response.TmsManifestHeader.ReceiverName = DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeName;
-                    response.data.Response.TmsManifestHeader.Receiver_ORG_FK = DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Consignee_FK;
-                    response.data.Response.TmsManifestHeader.EstimatedDispatchDate = new Date();
-                    response.data.Response.TmsManifestHeader.EstimatedDeliveryDate = new Date();
-                    DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk = response.data.Response.TmsManifestHeader.PK;
-                    DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IsModified = true;
+            var _filter = {
+                "WorkOrderID": DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.WmsPickLineSummary.API.FindAll.FilterID
+            };
+            apiService.post("eAxisAPI", appConfig.Entities.WmsPickLineSummary.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response.length > 0) {
+                    DeliverMaterialCtrl.ePage.Masters.PickLineList = response.data.Response;
+                    DeliverMaterialCtrl.ePage.Masters.LoadingValue = "Creating Dispatch..";
 
-                    response.data.Response.JobAddress = DeliverMaterialCtrl.ePage.Entities.Header.Data.UIJobAddress;
-                    angular.forEach(response.data.Response.JobAddress, function (value, key) {
-                        value.PK = "";
-                        if (value.AddressType == "CED")
-                            value.AddressType = "REC";
-                    })
+                    helperService.getFullObjectUsingGetById(appConfig.Entities.TmsManifestList.API.GetById.Url, 'null').then(function (response) {
+                        if (response.data.Response) {
+                            response.data.Response.TmsManifestHeader.PK = response.data.Response.PK;
+                            response.data.Response.TmsManifestHeader.SenderCode = DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WAR_ORG_Code;
+                            response.data.Response.TmsManifestHeader.SenderName = DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WAR_ORG_FullName;
+                            response.data.Response.TmsManifestHeader.Sender_ORG_FK = DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WAR_ORG_FK;
+                            response.data.Response.TmsManifestHeader.ReceiverCode = DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeCode;
+                            response.data.Response.TmsManifestHeader.ReceiverName = DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeName;
+                            response.data.Response.TmsManifestHeader.Receiver_ORG_FK = DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Consignee_FK;
+                            response.data.Response.TmsManifestHeader.EstimatedDispatchDate = new Date();
+                            response.data.Response.TmsManifestHeader.EstimatedDeliveryDate = new Date();
+                            DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk = response.data.Response.TmsManifestHeader.PK;
+                            DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IsModified = true;
 
-                    apiService.post("eAxisAPI", appConfig.Entities.TmsManifestList.API.Insert.Url, response.data.Response).then(function (response) {
-                        if (response.data.Status == 'Success') {
-                            var _obj = {
-                                "PK": "",
-                                "IsDeleted": false,
-                                "IsModified": false,
-                                "TMC_Sender_ORG_FK": DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WAR_ORG_FK,
-                                "TMC_SenderCode": DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WAR_ORG_Code,
-                                "TMC_SenderName": DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WAR_ORG_FullName,
-                                "TMC_Receiver_ORG_FK": DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Consignee_FK,
-                                "TMC_ReceiverCode": DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeCode,
-                                "TMC_ReceiverName": DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeName,
-                                "TMC_Client_ORG_FK": DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Client_FK,
-                                "TMC_ClientId": DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ClientCode,
-                                "TMC_ConsignmentNumber": DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID,
-                                "TMC_ExpectedDeliveryDateTime": response.data.Response.TmsManifestHeader.EstimatedDeliveryDate,
-                                "TMC_ExpectedPickupDateTime": response.data.Response.TmsManifestHeader.EstimatedDispatchDate,
-                                "TMC_FK": "",
-                                "TMC_ServiceType": DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderType,
-                                "TMM_ManifestNumber": response.data.Response.TmsManifestHeader.ManifestNumber,
-                                "TMM_FK": response.data.Response.TmsManifestHeader.PK,
-                                "TMC_SenderRef": DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ExternalReference,
-                                "TMC_ReceiverRef": DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.CustomerReference,
-                            }
-                            response.data.Response.TmsManifestConsignment.push(_obj);
-
-                            angular.forEach(DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine, function (value, key) {
-                                var obj = {
-                                    "PK": "",
-                                    "Quantity": value.Units,
-                                    "TMC_ConsignmentNumber": value.WorkOrderID,
-                                    "TIT_ItemStatus": value.WorkOrderLineStatus,
-                                    "TMC_FK": "",
-                                    "IsDeleted": value.IsDeleted,
-                                    "IsModified": value.IsModified,
-                                    "TIT_ItemRef_ID": value.PAC_PackType,
-                                    "TIT_ItemRefType": "Outward Line",
-                                    "TIT_ItemRef_PK": value.PK,
-                                    "TIT_ItemCode": value.ProductCode,
-                                    "TIT_ItemDesc": value.ProductDescription,
-                                    "TIT_FK": "",
-                                    "TIT_Weight": value.Weight,
-                                    "TIT_Volumn": value.Volume,
-                                    "TMM_FK": response.data.Response.TmsManifestHeader.PK,
-                                    "WOM_PartAttrib1": value.PartAttrib1,
-                                    "WOM_PartAttrib2": value.PartAttrib2,
-                                    "WOM_PartAttrib3": value.PartAttrib3,
-                                    "WOM_PackingDate": value.PackingDate,
-                                    "WOM_ExpiryDate": value.ExpiryDate,
-                                    "WOM_Product_PK": value.PRO_FK
-                                }
-                                response.data.Response.TmsManifestItem.push(obj);
+                            response.data.Response.JobAddress = angular.copy(DeliverMaterialCtrl.ePage.Entities.Header.Data.UIJobAddress);
+                            angular.forEach(response.data.Response.JobAddress, function (value, key) {
+                                value.PK = "";
+                                if (value.AddressType == "CED")
+                                    value.AddressType = "REC";
                             });
 
-                            response.data.Response.TmsManifestHeader.SubmittedDateTime = new Date();
-                            response.data.Response.TmsManifestHeader.ApproveOrRejectDateTime = new Date();
-                            response.data.Response.TmsManifestHeader.ApprovalStatus="Approved";
-                            response.data.Response.TmsManifestHeader.IsModified = true;
-                            apiService.post("eAxisAPI", appConfig.Entities.TmsManifestList.API.Update.Url, response.data.Response).then(function (response) {
+                            apiService.post("eAxisAPI", appConfig.Entities.TmsManifestList.API.Insert.Url, response.data.Response).then(function (response) {
                                 if (response.data.Status == 'Success') {
-                                    apiService.get("eAxisAPI", appConfig.Entities.TmsManifestList.API.GetById.Url + response.data.Response.Response.PK).then(function (response) {
+                                    var _obj = {
+                                        "PK": "",
+                                        "IsDeleted": false,
+                                        "IsModified": false,
+                                        "TMC_Sender_ORG_FK": DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WAR_ORG_FK,
+                                        "TMC_SenderCode": DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WAR_ORG_Code,
+                                        "TMC_SenderName": DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WAR_ORG_FullName,
+                                        "TMC_Receiver_ORG_FK": DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Consignee_FK,
+                                        "TMC_ReceiverCode": DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeCode,
+                                        "TMC_ReceiverName": DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeName,
+                                        "TMC_Client_ORG_FK": DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Client_FK,
+                                        "TMC_ClientId": DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ClientCode,
+                                        "TMC_ConsignmentNumber": DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID,
+                                        "TMC_ExpectedDeliveryDateTime": response.data.Response.TmsManifestHeader.EstimatedDeliveryDate,
+                                        "TMC_ExpectedPickupDateTime": response.data.Response.TmsManifestHeader.EstimatedDispatchDate,
+                                        "TMC_FK": "",
+                                        "TMC_ServiceType": DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderType,
+                                        "TMM_ManifestNumber": response.data.Response.TmsManifestHeader.ManifestNumber,
+                                        "TMM_FK": response.data.Response.TmsManifestHeader.PK,
+                                        "TMC_SenderRef": DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ExternalReference,
+                                        "TMC_ReceiverRef": DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.CustomerReference,
+                                    }
+                                    response.data.Response.TmsManifestConsignment.push(_obj);
+
+                                    angular.forEach(DeliverMaterialCtrl.ePage.Masters.PickLineList, function (value, key) {
+                                        var obj = {
+                                            "PK": "",
+                                            "Quantity": value.Units,
+                                            "TMC_ConsignmentNumber": value.WOD_WorkOrderID,
+                                            "TIT_ReceiverCode": value.WOD_ConsigneeCode,
+                                            "TIT_ReceiverName": value.WOD_ConsigneeName,
+                                            "TIT_Receiver_ORG_FK": value.WOD_ORG_Consignee_FK,
+                                            "TIT_SenderCode": value.WOD_WAR_ORG_Code,
+                                            "TIT_SenderName": value.WOD_WAR_ORG_FullName,
+                                            "TIT_Sender_ORG_FK": value.WOD_WAR_ORG_FK,
+                                            "TIT_ItemStatus": value.WorkOrderLineStatus,
+                                            "TMC_FK": "",
+                                            "IsDeleted": value.IsDeleted,
+                                            "IsModified": value.IsModified,
+                                            "TIT_ItemRef_ID": value.PAC_PackType,
+                                            "TIT_ItemRefType": "Outward Line",
+                                            "TIT_ItemRef_PK": value.PK,
+                                            "TIT_ItemCode": value.ProductCode,
+                                            "TIT_ItemDesc": value.ProductDescription,
+                                            "TIT_FK": "",
+                                            "TIT_Weight": value.Weight,
+                                            "TIT_Volumn": value.Volume,
+                                            "TMM_FK": response.data.Response.TmsManifestHeader.PK,
+                                            "WOM_PartAttrib1": value.PartAttrib1,
+                                            "WOM_PartAttrib2": value.PartAttrib2,
+                                            "WOM_PartAttrib3": value.PartAttrib3,
+                                            "WOM_PackingDate": value.PackingDate,
+                                            "WOM_ExpiryDate": value.ExpiryDate,
+                                            "WOM_Product_PK": value.PRO_FK
+                                        }
+                                        response.data.Response.TmsManifestItem.push(obj);
+                                    });
+
+                                    response.data.Response.TmsManifestHeader.SubmittedDateTime = new Date();
+                                    response.data.Response.TmsManifestHeader.ApproveOrRejectDateTime = new Date();
+                                    response.data.Response.TmsManifestHeader.ApprovalStatus = "Approved";
+                                    response.data.Response.TmsManifestHeader.IsModified = true;
+                                    apiService.post("eAxisAPI", appConfig.Entities.TmsManifestList.API.Update.Url, response.data.Response).then(function (response) {
                                         if (response.data.Status == 'Success') {
-                                            DeliverMaterialCtrl.ePage.Masters.LoadingValue = "";
-                                            toastr.success("Manifest Created Successfully");
-                                            DeliverMaterialCtrl.ePage.Entities.Header.ManifestDetails = response.data.Response;
-                                            myTaskActivityConfig.Entities.ManifestData = DeliverMaterialCtrl.ePage.Entities.Header.ManifestDetails;
-                                            DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code = response.data.Response.TmsManifestHeader.ManifestNumber;
+                                            apiService.get("eAxisAPI", appConfig.Entities.TmsManifestList.API.GetById.Url + response.data.Response.Response.PK).then(function (response) {
+                                                if (response.data.Status == 'Success') {
+                                                    DeliverMaterialCtrl.ePage.Masters.LoadingValue = "";
+                                                    toastr.success("Manifest Created Successfully");
+                                                    DeliverMaterialCtrl.ePage.Entities.Header.ManifestDetails = response.data.Response;
+                                                    myTaskActivityConfig.Entities.ManifestData = DeliverMaterialCtrl.ePage.Entities.Header.ManifestDetails;
+
+                                                    apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK).then(function (response) {
+                                                        if (response.data.Response) {
+                                                            DeliverMaterialCtrl.ePage.Entities.Header.Data = response.data.Response;
+                                                            DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code = DeliverMaterialCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.ManifestNumber;
+                                                            DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk = DeliverMaterialCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.PK;
+                                                            DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IsModified = true;
+                                                            apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.Update.Url, DeliverMaterialCtrl.ePage.Entities.Header.Data).then(function (response) {
+                                                                if (response.data.Status == 'Success') {
+                                                                    apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK).then(function (response) {
+                                                                        if (response.data.Response) {
+                                                                            response.data.Response.UIWmsOutwardHeader.Client = response.data.Response.UIWmsOutwardHeader.ClientCode + "-" + response.data.Response.UIWmsOutwardHeader.ClientName;
+                                                                            response.data.Response.UIWmsOutwardHeader.Warehouse = response.data.Response.UIWmsOutwardHeader.WarehouseCode + "-" + response.data.Response.UIWmsOutwardHeader.WarehouseName;
+                                                                            response.data.Response.UIWmsOutwardHeader.Consignee = response.data.Response.UIWmsOutwardHeader.ConsigneeCode + "-" + response.data.Response.UIWmsOutwardHeader.ConsigneeName;
+                                                                            myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data = response.data.Response;
+                                                                            myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.GlobalVariables.NonEditable = true;
+                                                                            DeliverMaterialCtrl.ePage.Entities.Header.Data = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data;
+                                                                        }
+                                                                    });
+                                                                }
+                                                            });
+                                                        }
+                                                    });
+                                                }
+                                            });
                                         }
                                     });
+                                } else {
+                                    toastr.error("Manifest Creation Failed. Please try again later.");
+                                    DeliverMaterialCtrl.ePage.Masters.LoadingValue = "";
                                 }
                             });
                         } else {
-                            toastr.error("Manifest Creation Failed. Please try again later.");
                             DeliverMaterialCtrl.ePage.Masters.LoadingValue = "";
+                            toastr.success("Manifest Created Successfully");
                         }
                     });
                 } else {
-                    DeliverMaterialCtrl.ePage.Masters.LoadingValue = "";
-                    toastr.success("Manifest Created Successfully");
+                    DeliverMaterialCtrl.ePage.Masters.IsDisabled = false;
+                    DeliverMaterialCtrl.ePage.Masters.CreateManifestText = "Create Dispatch";
+                    toastr.warning("Pickline is not available.");
                 }
             });
         }
@@ -191,6 +237,7 @@
             apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef2Fk).then(function (response) {
                 if (response.data.Response) {
                     DeliverMaterialCtrl.ePage.Entities.Header.DeliveryData = response.data.Response;
+                    myTaskActivityConfig.Entities.DeliveryData = DeliverMaterialCtrl.ePage.Entities.Header.DeliveryData;
                     GeneralOperation();
                 }
             });

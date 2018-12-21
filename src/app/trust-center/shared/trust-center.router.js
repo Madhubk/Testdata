@@ -145,6 +145,28 @@
                     }]
                 }
             })
+            .state('TC.maintenance', {
+                url: '/maintenance',
+                templateUrl: 'app/trust-center/maintenance/maintenance.html',
+                controller: "TCMaintenanceController as TCMaintenanceCtrl",
+                ncyBreadcrumb: {
+                    label: 'Maintenance'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        pageAccessService.CheckPageAccess("/TC/maintenance").then(function (response) {
+                            if (response == true) {
+                                deferred.resolve();
+                            }
+                        });
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["TCMaintenance"]);
+                    }]
+                }
+            })
             .state('TC.manageStaticListing', {
                 url: '/manage-static-listing/:id',
                 templateUrl: 'app/trust-center/manage-static-listing/manage-static-listing.html',
@@ -227,7 +249,6 @@
                                 deferred.resolve();
                             }
                         });
-                        deferred.resolve();
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
@@ -250,7 +271,6 @@
                                 deferred.resolve();
                             }
                         });
-                        deferred.resolve();
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
@@ -273,7 +293,6 @@
                                 deferred.resolve();
                             }
                         });
-                        deferred.resolve();
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
@@ -296,7 +315,6 @@
                                 deferred.resolve();
                             }
                         });
-                        deferred.resolve();
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
@@ -319,7 +337,6 @@
                                 deferred.resolve();
                             }
                         });
-                        deferred.resolve();
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
@@ -342,7 +359,6 @@
                                 deferred.resolve();
                             }
                         });
-                        deferred.resolve();
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
@@ -365,7 +381,6 @@
                                 deferred.resolve();
                             }
                         });
-                        deferred.resolve();
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
@@ -696,7 +711,6 @@
                                 deferred.resolve();
                             }
                         });
-                        deferred.resolve();
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
@@ -834,50 +848,6 @@
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
                         return $ocLazyLoad.load(["dynamicTable", "TCLoginHistory"]);
-                    }]
-                }
-            })
-            .state('TC.mappingVertical', {
-                url: '/mapping-vertical/:id',
-                templateUrl: 'app/trust-center/mapping/mapping-vertical/mapping-vertical.html',
-                controller: "MappingVerticalController as MappingVerticalCtrl",
-                ncyBreadcrumb: {
-                    label: 'Mapping'
-                },
-                resolve: {
-                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
-                        var deferred = $q.defer();
-                        pageAccessService.CheckPageAccess("/TC/mapping-vertical").then(function (response) {
-                            if (response == true) {
-                                deferred.resolve();
-                            }
-                        });
-                        return deferred.promise;
-                    }],
-                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["TCMappingVertical"]);
-                    }]
-                }
-            })
-            .state('TC.mappingHorizontal', {
-                url: '/mapping-horizontal/:id',
-                templateUrl: 'app/trust-center/mapping/mapping-horizontal/mapping-horizontal.html',
-                controller: "MappingHorizontalController as MappingHorizontalCtrl",
-                ncyBreadcrumb: {
-                    label: 'Mapping'
-                },
-                resolve: {
-                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
-                        var deferred = $q.defer();
-                        pageAccessService.CheckPageAccess("/TC/mapping-horizontal").then(function (response) {
-                            if (response == true) {
-                                deferred.resolve();
-                            }
-                        });
-                        return deferred.promise;
-                    }],
-                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["TCMappingHorizontal"]);
                     }]
                 }
             })
@@ -1145,6 +1115,95 @@
                     }]
                 }
             })
+            // Mapping pages
+            .state('TC.mappingVertical', {
+                url: '/mapping-vertical/:id',
+                templateUrl: 'app/trust-center/mapping/mapping-vertical/mapping-vertical.html',
+                controller: "MappingVerticalController as MappingVerticalCtrl",
+                ncyBreadcrumb: {
+                    label: 'Mapping'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        pageAccessService.CheckPageAccess("/TC/mapping-vertical").then(function (response) {
+                            if (response == true) {
+                                deferred.resolve();
+                            }
+                        });
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["TCMappingVertical"]);
+                    }]
+                }
+            })
+            .state('TC.mappingHorizontal', {
+                url: '/mapping-horizontal/:id',
+                templateUrl: 'app/trust-center/mapping/mapping-horizontal/mapping-horizontal.html',
+                controller: "MappingHorizontalController as MappingHorizontalCtrl",
+                ncyBreadcrumb: {
+                    label: 'Mapping'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        pageAccessService.CheckPageAccess("/TC/mapping-horizontal").then(function (response) {
+                            if (response == true) {
+                                deferred.resolve();
+                            }
+                        });
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["TCMappingHorizontal"]);
+                    }]
+                }
+            })
+            .state('TC.appTrustAppTenant', {
+                url: '/app-trust-app-tenant/:id',
+                templateUrl: 'app/trust-center/mapping/app-trust-app-tenant/app-trust-app-tenant.html',
+                controller: "TCAppTrustAppTenantController as TCAppTrustAppTenantCtrl",
+                ncyBreadcrumb: {
+                    label: 'App Trust App Tenant Access'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        pageAccessService.CheckPageAccess("/TC/app-trust-app-tenant").then(function (response) {
+                            if (response == true) {
+                                deferred.resolve();
+                            }
+                        });
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["TCAppTrustAppTenant"]);
+                    }]
+                }
+            })
+            .state('TC.secAppSecTenant', {
+                url: '/sec-app-sec-tenant/:id',
+                templateUrl: 'app/trust-center/mapping/sec-app-sec-tenant/sec-app-sec-tenant.html',
+                controller: "TCSecAppSecTenantController as TCSecAppSecTenantCtrl",
+                ncyBreadcrumb: {
+                    label: 'Sec App Sec Tenant Access'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        pageAccessService.CheckPageAccess("/TC/sec-app-sec-tenant").then(function (response) {
+                            if (response == true) {
+                                deferred.resolve();
+                            }
+                        });
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["TCSecAppSecTenant"]);
+                    }]
+                }
+            })
             .state('TC.userRoleAppTenant', {
                 url: '/user-role-app-tenant/:id',
                 templateUrl: 'app/trust-center/mapping/user-role-app-tenant/user-role-app-tenant.html',
@@ -1163,53 +1222,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["JsonModal", "chromeTab", "dynamicControl", "dynamicLookup", "dynamicList", "dynamicGrid", "TCUserRoleAppTenant"]);
-                    }]
-                }
-            })
-            .state('TC.appTrustAppTenant', {
-                url: '/app-trust-app-tenant/:id',
-                templateUrl: 'app/trust-center/mapping/app-trust-app-tenant/app-trust-app-tenant.html',
-                controller: "TCAppTrustAppTenantController as TCAppTrustAppTenantCtrl",
-                ncyBreadcrumb: {
-                    label: 'App Trust App Tenant Access'
-                },
-                resolve: {
-                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
-                        var deferred = $q.defer();
-                        // pageAccessService.CheckPageAccess("/TC/app-trust-app-tenant").then(function (response) {
-                        //     if (response == true) {
-                        //         deferred.resolve();
-                        //     }
-                        // });
-                        deferred.resolve();
-                        return deferred.promise;
-                    }],
-                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["TCAppTrustAppTenant"]);
-                    }]
-                }
-            })
-            .state('TC.secAppSecTenant', {
-                url: '/sec-app-sec-tenant/:id',
-                templateUrl: 'app/trust-center/mapping/sec-app-sec-tenant/sec-app-sec-tenant.html',
-                controller: "TCSecAppSecTenantController as TCSecAppSecTenantCtrl",
-                ncyBreadcrumb: {
-                    label: 'Sec App Sec Tenant Access'
-                },
-                resolve: {
-                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
-                        var deferred = $q.defer();
-                        // pageAccessService.CheckPageAccess("/TC/sec-app-sec-tenant").then(function (response) {
-                        //     if (response == true) {
-                        //         deferred.resolve();
-                        //     }
-                        // });
-                        deferred.resolve();
-                        return deferred.promise;
-                    }],
-                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["TCSecAppSecTenant"]);
+                        return $ocLazyLoad.load(["TCUserRoleAppTenant"]);
                     }]
                 }
             })
@@ -1223,12 +1236,11 @@
                 resolve: {
                     CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
                         var deferred = $q.defer();
-                        // pageAccessService.CheckPageAccess("/TC/sec-app-sec-tenant").then(function (response) {
-                        //     if (response == true) {
-                        //         deferred.resolve();
-                        //     }
-                        // });
-                        deferred.resolve();
+                        pageAccessService.CheckPageAccess("/TC/user-cmp-app-tenant").then(function (response) {
+                            if (response == true) {
+                                deferred.resolve();
+                            }
+                        });
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
@@ -1246,16 +1258,125 @@
                 resolve: {
                     CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
                         var deferred = $q.defer();
-                        // pageAccessService.CheckPageAccess("/TC/sec-app-sec-tenant").then(function (response) {
-                        //     if (response == true) {
-                        //         deferred.resolve();
-                        //     }
-                        // });
-                        deferred.resolve();
+                        pageAccessService.CheckPageAccess("/TC/user-warehouse-app-tenant").then(function (response) {
+                            if (response == true) {
+                                deferred.resolve();
+                            }
+                        });
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
                         return $ocLazyLoad.load(["TCUserWarehouseAppTenant"]);
+                    }]
+                }
+            })
+            .state('TC.userOrganizationAppTenant', {
+                url: '/user-organization-app-tenant/:id',
+                templateUrl: 'app/trust-center/mapping/user-organization-app-tenant/user-organization-app-tenant.html',
+                controller: "TCUserOrganizationAppTenantController as TCUserOrganizationAppTenantCtrl",
+                ncyBreadcrumb: {
+                    label: 'User Organization App Tenant Access'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        pageAccessService.CheckPageAccess("/TC/user-organization-app-tenant").then(function (response) {
+                            if (response == true) {
+                                deferred.resolve();
+                            }
+                        });
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["TCUserOrganizationAppTenant"]);
+                    }]
+                }
+            })
+            .state('TC.compRoleAppTenant', {
+                url: '/comp-role-app-tenant/:id',
+                templateUrl: 'app/trust-center/mapping/comp-role-app-tenant/comp-role-app-tenant.html',
+                controller: "TCCompRoleAppTenantController as TCCompRoleAppTenantCtrl",
+                ncyBreadcrumb: {
+                    label: 'Component Role App Tenant Access'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        pageAccessService.CheckPageAccess("/TC/comp-role-app-tenant").then(function (response) {
+                            if (response == true) {
+                                deferred.resolve();
+                            }
+                        });
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["TCCompRoleAppTenant"]);
+                    }]
+                }
+            })
+            .state('TC.compOrgAppTenant', {
+                url: '/comp-org-app-tenant/:id',
+                templateUrl: 'app/trust-center/mapping/comp-org-app-tenant/comp-org-app-tenant.html',
+                controller: "TCCompOrgAppTenantController as TCCompOrgAppTenantCtrl",
+                ncyBreadcrumb: {
+                    label: 'Component Organization App Tenant Access'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        pageAccessService.CheckPageAccess("/TC/comp-org-app-tenant").then(function (response) {
+                            if (response == true) {
+                                deferred.resolve();
+                            }
+                        });
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["TCCompOrgAppTenant"]);
+                    }]
+                }
+            })
+            .state('TC.groupRoleAppTenant', {
+                url: '/group-role-app-tenant/:id',
+                templateUrl: 'app/trust-center/mapping/group-role-app-tenant/group-role-app-tenant.html',
+                controller: "TCGroupRoleAppTenantController as TCGroupRoleAppTenantCtrl",
+                ncyBreadcrumb: {
+                    label: 'Group Role App Tenant Access'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        pageAccessService.CheckPageAccess("/TC/group-role-app-tenant").then(function (response) {
+                            if (response == true) {
+                                deferred.resolve();
+                            }
+                        });
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["TCGroupRoleAppTenant"]);
+                    }]
+                }
+            })
+            .state('TC.menuRoleAppTenant', {
+                url: '/menu-role-app-tenant/:id',
+                templateUrl: 'app/trust-center/mapping/menu-role-app-tenant/menu-role-app-tenant.html',
+                controller: "TCMenuRoleAppTenantController as TCMenuRoleAppTenantCtrl",
+                ncyBreadcrumb: {
+                    label: 'Menu Role App Tenant Access'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        pageAccessService.CheckPageAccess("/TC/menu-role-app-tenant").then(function (response) {
+                            if (response == true) {
+                                deferred.resolve();
+                            }
+                        });
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["TCMenuRoleAppTenant"]);
                     }]
                 }
             });

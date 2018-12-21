@@ -21,18 +21,21 @@
                 "Entities": currentOrganization
             };
 
-            OrgContactModalCtrl.ePage.Masters.param = angular.copy(param);
-            OrgContactModalCtrl.ePage.Masters.Config=organizationConfig;
+            try {
+                OrgContactModalCtrl.ePage.Masters.param = angular.copy(param);
 
-            OrgContactModalCtrl.ePage.Masters.DropDownMasterList = angular.copy(organizationConfig.Entities.Header.Meta);
+                OrgContactModalCtrl.ePage.Masters.DropDownMasterList = angular.copy(organizationConfig.Entities.Header.Meta);
 
-            OrgContactModalCtrl.ePage.Masters.SaveButtonText = "Save";
-            OrgContactModalCtrl.ePage.Masters.IsDisableSave = false;
+                OrgContactModalCtrl.ePage.Masters.SaveButtonText = "Save";
+                OrgContactModalCtrl.ePage.Masters.IsDisableSave = false;
 
-            OrgContactModalCtrl.ePage.Masters.SaveContact = SaveContact;
-            OrgContactModalCtrl.ePage.Masters.Cancel = Cancel;
+                OrgContactModalCtrl.ePage.Masters.SaveContact = SaveContact;
+                OrgContactModalCtrl.ePage.Masters.Cancel = Cancel;
 
-            InitOrgContact();
+                InitOrgContact();
+            } catch (ex) {
+                console.log(ex);
+            }
         }
 
         function InitOrgContact() {
@@ -48,7 +51,7 @@
             $uibModalInstance.dismiss("cancel");
         }
 
-        function SaveContact() {            
+        function SaveContact() {
             OrgContactModalCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
             OrgContactModalCtrl.ePage.Masters.IsDisableSave = true;
 
@@ -82,16 +85,12 @@
                         $uibModalInstance.close(_exports);
                     }
                 } else if (response.Status == "ValidationFailed" || response.Status == "failed") {
-                    toastr.warning("Failed to Save...!");
                     if (response.Validations && response.Validations.length > 0) {
-                        OrgContactModalCtrl.ePage.Entities.Header.Validations = response.Validations;
-                        angular.forEach(response.Validations, function (value, key) {
-                            OrgContactModalCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey.trim(), OrgContactModalCtrl.ePage.Masters.param.Entity.label, false, undefined, undefined, undefined, undefined, undefined);
+                        response.Validations.map(function (value, key) {
+                            toastr.error(value.Message);
                         });
-                        $uibModalInstance.close(_exports);
-                        if (OrgContactModalCtrl.ePage.Entities.Header.Validations != null) {
-                            OrgContactModalCtrl.ePage.Masters.Config.ShowErrorWarningModal(OrgContactModalCtrl.ePage.Masters.param.Entity);
-                        }
+                    } else {
+                        toastr.warning("Failed to Save...!");
                     }
                 }
 

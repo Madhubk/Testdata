@@ -38,9 +38,9 @@
         </uib-tab-heading>
         <div class="padding-bottom-10 clearfix">
             <!--Consolidation Menu Directive-->
-            <consol-menu current-consol="tab" data-ng-if="ConsolidationCtrl.ePage.Masters.currentConsol"></consol-menu>
+            <consol-menu current-consol="tab" data-ng-if="ConsolidationCtrl.ePage.Masters.currentConsol" active-tab="ConsolidationCtrl.ePage.Masters.ActiveMenuTab"></consol-menu>
             <!--Standard Menu Directive-->
-            <div class="eaxis-footer-strip">
+            <div class="eaxis-footer-strip" data-ng-show="ConsolidationCtrl.ePage.Masters.ActiveMenuTab.Value != 'MyTask' || tab.isNew">
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
                     <standard-menu input="tab" dataentry-object="ConsolidationCtrl.ePage.Masters.DataEntryObject" data-ng-if="!tab.isNew"></standard-menu>
                 </div>
@@ -49,24 +49,23 @@
                         data-ng-bind="ConsolidationCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="ConsolidationCtrl.ePage.Masters.IsDisableSave"></button>
                 </div>
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                <ul class="shortcut-action-list">
-                    <li class="dropup">
-                        <div class="btn-group mt-6">
-                            <a class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);"
-                                aria-expanded="false">
-                                More
-                                <span class="fa fa-caret-up" title="Toggle dropdown menu"></span>
-                            </a>
-                            <ul class="dropdown-menu shortcut-action">
-                                <li>
-                                    <a href="javascript:void(0);" data-ng-click="ConsolidationCtrl.ePage.Masters.ActionMenuClick(tab);">
-                                        <i class="fa fa-toggle-on "></i>Active/InActive</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+                    <ul class="shortcut-action-list">
+                        <li class="dropup">
+                            <div class="btn-group mt-6">
+                                <a class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);" aria-expanded="false">
+                                    More
+                                    <span class="fa fa-caret-up" title="Toggle dropdown menu"></span>
+                                </a>
+                                <ul class="dropdown-menu shortcut-action">
+                                    <li>
+                                        <a href="javascript:void(0);" data-ng-click="ConsolidationCtrl.ePage.Masters.ActionMenuClick(tab);">
+                                            <i class="fa fa-toggle-on "></i>Active/InActive</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </uib-tab>

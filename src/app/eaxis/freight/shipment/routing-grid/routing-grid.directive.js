@@ -25,7 +25,8 @@
                 btnVisible: "=",
                 tableProperties: "=",
                 obj: "=",
-                readOnly: "="
+                readOnly: "=",
+                type: "="
             },
             bindToController: true
         };

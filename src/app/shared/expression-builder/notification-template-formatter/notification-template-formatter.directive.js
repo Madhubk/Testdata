@@ -180,6 +180,7 @@
             function OnChangeSectionDataSource($item, dataObj) {
                 ($item == 'API') ? dataObj.IsApi = true: dataObj.IsApi = false;
                 ($item == 'API') ? dataObj.IsSelf = true: dataObj.IsSelf = false;
+                ($item == 'Local') ? dataObj.RenderType = false: dataObj.RenderType = true;
             }
 
             function DeleteSectionGridConfig($item, $index) {

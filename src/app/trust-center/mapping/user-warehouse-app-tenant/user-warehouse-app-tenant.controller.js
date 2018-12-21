@@ -15,7 +15,7 @@
         function Init() {
             TCUserWarehouseAppTenantCtrl.ePage = {
                 "Title": "",
-                "Prefix": "TC_User_Cmp_App_Tenant",
+                "Prefix": "TC_User_Warehouse_App_Tenant",
                 "Masters": {},
                 "Meta": helperService.metaBase(),
                 "Entities": {}
@@ -79,13 +79,12 @@
                 IsActive: false
             }, {
                 Code: "userWarehouseAppTenant",
-                Description: "User Warehouse App Tenant (" + TCUserWarehouseAppTenantCtrl.ePage.Masters.QueryString.DisplayName + ")" + " - " + TCUserWarehouseAppTenantCtrl.ePage.Masters.QueryString.MappingCode,
+                Description: "User Warehouse App Tenant (" + "USER_CMP_BRAN_WH_APP_TNT" + ")" + " - " + TCUserWarehouseAppTenantCtrl.ePage.Masters.QueryString.DisplayName,
                 Link: "#",
                 IsRequireQueryString: false,
                 IsActive: true
             }];
         }
-
 
         function OnBreadcrumbClick($item) {
             if (!$item.IsRequireQueryString && !$item.IsActive) {
@@ -95,7 +94,6 @@
             }
         }
 
-
         // ========================Application Start========================
         function InitApplication() {
             TCUserWarehouseAppTenantCtrl.ePage.Masters.Application = {};
@@ -103,18 +101,16 @@
         }
 
         function OnApplicationChange($item) {
-        TCUserWarehouseAppTenantCtrl.ePage.Masters.Application.ActiveApplication = angular.copy($item);
-
-         if (!TCUserWarehouseAppTenantCtrl.ePage.Masters.Application.ActiveApplication) {
-            TCUserWarehouseAppTenantCtrl.ePage.Masters.Application.ActiveApplication = {
-                 "PK": TCUserWarehouseAppTenantCtrl.ePage.Masters.QueryString.AppPk,
-                 "AppCode": TCUserWarehouseAppTenantCtrl.ePage.Masters.QueryString.AppCode,
-                 "AppName": TCUserWarehouseAppTenantCtrl.ePage.Masters.QueryString.AppName
-             };
-         }
-
-         GetUserWarehouseAppTenantList();
-         }
+            TCUserWarehouseAppTenantCtrl.ePage.Masters.Application.ActiveApplication = angular.copy($item);
+            if (!TCUserWarehouseAppTenantCtrl.ePage.Masters.Application.ActiveApplication) {
+                TCUserWarehouseAppTenantCtrl.ePage.Masters.Application.ActiveApplication = {
+                    "PK": TCUserWarehouseAppTenantCtrl.ePage.Masters.QueryString.AppPk,
+                    "AppCode": TCUserWarehouseAppTenantCtrl.ePage.Masters.QueryString.AppCode,
+                    "AppName": TCUserWarehouseAppTenantCtrl.ePage.Masters.QueryString.AppName
+                };
+            }
+            GetUserWarehouseAppTenantList();
+        }
 
         // ========================Breadcrumb End========================
 
@@ -128,13 +124,53 @@
             TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.OnBlurAutoCompleteListBranch = OnBlurAutoCompleteListBranch;
             TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.OnSelectAutoCompleteListBranch =
                 OnSelectAutoCompleteListBranch;
-            TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.OnSelectAutoCompleteListOrganization = OnSelectAutoCompleteListOrganization;
-            TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.OnBlurAutoCompleteListOrganization =
-                OnBlurAutoCompleteListOrganization;
+            TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.OnSelectAutoCompleteListWarehouse = OnSelectAutoCompleteListWarehouse;
+            TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.OnBlurAutoCompleteListWarehouse =
+                OnBlurAutoCompleteListWarehouse;
             TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.AddNewRow = AddNewRow;
-            TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.Save = SaveUserWarehouseAppTenant;
+            TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.Save = Save;
             TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.Delete = DeleteConfirmation;
-  }
+            TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.CheckUIControl = CheckUIControl;
+
+            if (TCUserWarehouseAppTenantCtrl.ePage.Masters.ActiveApplication == "EA") {
+                OnApplicationChange();
+            }
+            GetUIControlList();
+        }
+
+        function GetUIControlList() {
+            TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.UIControlList = undefined;
+            var _filter = {
+                "SAP_FK": authService.getUserInfo().AppPK,
+                "TenantCode": authService.getUserInfo().TenantCode,
+                "USR_FK": authService.getUserInfo().UserPK
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": trustCenterConfig.Entities.API.CompUserRoleAccess.API.FindAll.FilterID
+            };
+
+            apiService.post("authAPI", trustCenterConfig.Entities.API.CompUserRoleAccess.API.FindAll.Url, _input).then(function SuccessCallback(response) {
+                if (response.data.Response) {
+                    var _response = response.data.Response;
+                    var _controlList = [];
+                    if (_response.length > 0) {
+                        _response.map(function (value, key) {
+                            if (value.SOP_Code) {
+                                _controlList.push(value.SOP_Code);
+                            }
+                        });
+                    }
+                    TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.UIControlList = _controlList;
+                } else {
+                    TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.UIControlList = [];
+                }
+            });
+        }
+
+        function CheckUIControl(controlId) {
+            return helperService.checkUIControl(TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.UIControlList, controlId);
+        }
 
         function GetUserWarehouseAppTenantList() {
             var _filter = {
@@ -178,7 +214,6 @@
             });
         }
 
-
         function OnBlurAutoCompleteComapanyList($event, row) {
             row.IsAccessCodeNoResults = false;
             row.IsAccessCodeLoading = false;
@@ -187,15 +222,15 @@
         function OnSelectAutoCompleteCompanyList($item, $model, $label, $event, row) {
             row.Access_FK = $item.PK;
             row.AccessCode = $item.Code;
+            row.AccessTo = "CMP";
         }
 
-
-        function GetCmpBranchList($viewValue, item) {
+        function GetCmpBranchList($viewValue, row) {
+            var _filter = {
+                "CMP_FK": row.Access_FK
+            };
             if ($viewValue !== "#") {
-                var _filter = {
-                    "Autocompletefield": $viewValue,
-                    "CMP_FK": item.Access_FK
-                };
+                _filter.Autocompletefield = $viewValue;
             }
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
@@ -217,6 +252,7 @@
         function OnSelectAutoCompleteListBranch($item, $model, $label, $event, row) {
             row.BasedOn_FK = $item.PK;
             row.BasedOnCode = $item.Code;
+            row.BasedOn = "BRN"
         }
 
         function GetWarehouseList($viewValue) {
@@ -237,32 +273,38 @@
             });
         }
 
-        function OnBlurAutoCompleteListOrganization($event, row) {
+        function OnBlurAutoCompleteListWarehouse($event, row) {
             row.IsWarehouseNoResults = false;
             row.IsWarehouseLoading = false;
         }
 
-        function OnSelectAutoCompleteListOrganization($item, $model, $label, $event, row) {
+        function OnSelectAutoCompleteListWarehouse($item, $model, $label, $event, row) {
             row.OtherEntity_FK = $item.PK;
-            row.OtherEntityCode = $item.Code;
+            row.OtherEntityCode = $item.WarehouseCode;
+            row.OtherEntitySource = "WMS";
         }
-
 
         function AddNewRow() {
             var _obj = {};
             TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.UserWarehouseAppTenantList.push(_obj);
         }
 
-        function SaveUserWarehouseAppTenant(row) {
+        function Save(row) {
+            if (row.PK) {
+                UpdateUserWarehouseAppTenant(row);
+            } else {
+                InsertUserWarehouseAppTenant(row);
+            }
+        }
+
+        function InsertUserWarehouseAppTenant(row) {
+            TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.SaveBtnText = "Please Wait...";
+            TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.IsDisableSaveBtn = true;
+
             var _input = angular.copy(row);
-            _input.IsModified = true;
-            _input.SAP_Code = TCUserWarehouseAppTenantCtrl.ePage.Masters.Application.ActiveApplication.AppCode;
-            _input.SAP_FK = TCUserWarehouseAppTenantCtrl.ePage.Masters.Application.ActiveApplication.PK;
-            _input.TenantCode = authService.getUserInfo().TenantCode;
-            _input.TNT_FK = authService.getUserInfo().TenantPK;
             _input.Item_FK = TCUserWarehouseAppTenantCtrl.ePage.Masters.QueryString.ItemPk;
             _input.ItemCode = TCUserWarehouseAppTenantCtrl.ePage.Masters.QueryString.ItemCode;
-            _input.ItemName = TCUserWarehouseAppTenantCtrl.ePage.Masters.QueryString.ItemName;
+            _input.ItemName = "USER";
             _input.AccessCode = row.AccessCode;
             _input.AccessTo = "CMP";
             _input.Access_FK = row.Access_FK;
@@ -273,44 +315,64 @@
             _input.OtherEntitySource = "WMS";
             _input.OtherEntityCode = row.OtherEntityCode;
             _input.IsModified = true;
+            _input.SAP_FK = TCUserWarehouseAppTenantCtrl.ePage.Masters.Application.ActiveApplication.PK;
+            _input.SAP_Code = TCUserWarehouseAppTenantCtrl.ePage.Masters.Application.ActiveApplication.AppCode;
+            _input.TenantCode = authService.getUserInfo().TenantCode;
+            _input.TNT_FK = authService.getUserInfo().TenantPK;
 
-            if (_input.PK) {
-                apiService.post("authAPI", trustCenterConfig.Entities.API.UserCompanyBranchWarehouse.API.Update.Url, _input).then(function (response) {
-                    if (response.data.Response) {
+            apiService.post("authAPI", trustCenterConfig.Entities.API.UserCompanyBranchWarehouse.API.Insert.Url, [_input]).then(function SuccessCallback(response) {
+                if (response.data.Response) {
+                    if (response.data.Response.length > 0) {
                         var _response = response.data.Response[0];
-                        var _index = TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.UserWarehouseAppTenantList.map(function (e) {
-                            return e.PK;
+
+                        var _index = TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.UserWarehouseAppTenantList.map(function (value, key) {
+                            return value.PK;
                         }).indexOf(_response.PK);
 
-                        if (_index !== -1) {
+                        if (_index === -1) {
+                            TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.UserWarehouseAppTenantList.push(_response);
+                        } else {
                             TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.UserWarehouseAppTenantList[_index] = _response;
                         }
-                        toastr.success("Saved Successfully...!");
-                    } else {
-                        toastr.error("Could not Save...!");
+
+                        GetUserWarehouseAppTenantList(_response);
                     }
-                });
-            } else {
-                apiService.post("authAPI", trustCenterConfig.Entities.API.UserCompanyBranchWarehouse.API.Insert.Url, [_input]).then(function (response) {
-                    if (response.data.Response) {
-                        var _response = response.data.Response[0];
-                        var _index = TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.UserWarehouseAppTenantList.map(function (e) {
-                            return e.PK;
-                        }).indexOf(_response.PK);
-
-                        if (_index !== -1) {
-                            TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.UserWarehouseAppTenantList[_index] = _response;
-                        }
-                        toastr.success("Saved Successfully...!");
-                    } else {
-                        toastr.error("Could not Save...!");
-                    }
-
-
-                });
-            }
-
+                    toastr.success("Saved Successfully...!");
+                } else {
+                    toastr.error("Could not Save...!");
+                }
+            });
         }
+
+        function UpdateUserWarehouseAppTenant(row) {
+            TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.SaveBtnText = "Please Wait...";
+            TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.IsDisableSaveBtn = true;
+
+            var _input = angular.copy(row);
+            _input.IsModified = true;
+
+            apiService.post("authAPI", trustCenterConfig.Entities.API.UserCompanyBranchWarehouse.API.Update.Url, _input).then(function SuccessCallback(response) {
+                if (response.data.Response) {
+                    var _response = response.data.Response;
+
+                    var _index = TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.UserWarehouseAppTenantList.map(function (value, key) {
+                        return value.PK;
+                    }).indexOf(_response.PK);
+
+                    if (_index === -1) {
+                        TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.UserWarehouseAppTenantList.push(_response);
+                    } else {
+                        TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.UserWarehouseAppTenantList[_index] = _response;
+                    }
+
+                    GetUserWarehouseAppTenantList(_response);
+                    toastr.success("Updated Successfully...!");
+                } else {
+                    toastr.error("Could not Update...!");
+                }
+            });
+        }
+
 
         function DeleteConfirmation(row) {
             var modalOptions = {
@@ -341,10 +403,11 @@
                 } else {
                     toastr.error("Could not Delete...!");
                 }
+                GetUserWarehouseAppTenantList();
             });
         }
 
-     Init();
+        Init();
 
     }
 

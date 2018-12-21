@@ -9,7 +9,7 @@
         <div class="clearfix text-center p-20" data-ng-if="TCHomeCtrl.ePage.Masters.Home.MenuList && TCHomeCtrl.ePage.Masters.Home.MenuList.length === 0">
             <i>You don't have access to these Pages...!</i>
         </div>
-        <div class="menu-container" data-ng-repeat="x in TCHomeCtrl.ePage.Masters.Home.MenuList" data-ng-click="TCHomeCtrl.ePage.Masters.Home.OnMenuClick(x)"
+        <div class="menu-container" data-ng-repeat="x in TCHomeCtrl.ePage.Masters.Home.MenuList | orderBy: 'DisplayOrder'" data-ng-click="TCHomeCtrl.ePage.Masters.Home.OnMenuClick(x)"
             data-ng-if="TCHomeCtrl.ePage.Masters.Home.MenuList && TCHomeCtrl.ePage.Masters.Home.MenuList.length > 0">
             <div class="image">
                 <i class="{{x.Icon | getIconColorForMenu: 'icon'}}" data-ng-style="{'color': (x.Icon | getIconColorForMenu: 'color')}"></i>

@@ -101,7 +101,6 @@
             GetRedirectLinkList();
             OnMenuGroupsClick();
             GetMenuGroupsList();
-            GetModuleList();
         }
 
         function InitMenuGroupsConfig() {
@@ -130,7 +129,7 @@
 
             _filter.ModuleCode = MenuGroupsCtrl.ePage.Masters.Application.ActiveApplication.AppCode;
 
-            if(MenuGroupsCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code == "BPMGroups"){
+            if (MenuGroupsCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code == "BPMGroups") {
                 _filter.TenantCode = authService.getUserInfo().TenantCode;
             } else {
                 _filter.TenantCode = "TBASE";
@@ -182,7 +181,7 @@
             MenuGroupsCtrl.ePage.Masters.MenuGroups.SaveBtnText = "OK";
             MenuGroupsCtrl.ePage.Masters.MenuGroups.IsDisableSaveBtn = false;
 
-            EditModalInstance().result.then(function (response) { }, function () {
+            EditModalInstance().result.then(function (response) {}, function () {
                 Cancel();
             });
         }
@@ -194,9 +193,9 @@
             var _input = angular.copy(MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups);
             _input.IsModified = true;
 
-            if(MenuGroupsCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code == "BPMGroups"){
+            if (MenuGroupsCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code == "BPMGroups") {
                 _input.TenantCode = authService.getUserInfo().TenantCode;
-            }  else {
+            } else {
                 _input.TenantCode = "TBASE";
             }
 
@@ -299,9 +298,9 @@
                 Code: "RoleMapping",
                 Description: "Role Mapping",
                 Icon: "fa fa-sign-in",
-                Link: "TC/mapping-vertical",
+                Link: "TC/group-role-app-tenant",
                 Color: "#bd081c",
-                AdditionalData: "GRUP_ROLE_APP_TNT",
+                AdditionalData: MenuGroupsCtrl.ePage.Masters.QueryString.AdditionalData,
                 ItemName: "MENUGROUP",
                 BreadcrumbTitle: "Menu Group Role - GRUP_ROLE_APP_TNT",
             }];
@@ -322,37 +321,13 @@
             _queryString.ItemPk = MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups.PK;
             _queryString.ItemCode = MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups.Description;
             _queryString.ItemName = MenuGroupsCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code;
-            _queryString.MappingCode = $item.AdditionalData;
+            _queryString.AdditionalData = $item.AdditionalData;
             _queryString.BreadcrumbTitle = $item.BreadcrumbTitle;
 
             if ($item.Link !== "#") {
                 $location.path($item.Link + "/" + helperService.encryptData(_queryString));
             }
         }
-
-        // === Module List ==== //
-
-        function GetModuleList() {
-            MenuGroupsCtrl.ePage.Masters.MenuGroups.ModuleListSource = undefined;
-            var _filter = {
-                "TypeCode": "MODULE_MASTER"
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": trustCenterConfig.Entities.API.CfxTypes.API.FindAll.FilterID
-            };
-
-            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxTypes.API.FindAll.Url + MenuGroupsCtrl.ePage.Masters.Application.ActiveApplication.PK, _input).then(function (response) {
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        MenuGroupsCtrl.ePage.Masters.MenuGroups.ModuleListSource = response.data.Response;
-                    }
-                } else {
-                    MenuGroupsCtrl.ePage.Masters.MenuGroups.ModuleListSource = [];
-                }
-            });
-        }
-
 
         Init();
     }

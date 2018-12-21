@@ -7,17 +7,29 @@
 		<div>Consingee :</div>
 		<a class="my-task-content-shipper-link" href="javascript: void(0)">{{UploadPklVnmDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Consignee_Code}}</a>
 	</div>
-	<div class="col-lg-4 text-right pr-0 pl-28">
-		<button class="my-task-btn my-task-directive-btn" data-ng-click="UploadPklVnmDirectiveCtrl.ePage.Masters.Complete()"
-		 data-ng-disabled="UploadPklVnmDirectiveCtrl.ePage.Masters.CompleteBtnDisabled">{{UploadPklVnmDirectiveCtrl.ePage.Masters.CompleteBtnTxt}}</button>
-	</div>
 </div>
 <div class="row mt-10" id="style-4">
+	<span class="error-warning-container error-warnig-doc">
+		<!-- valid order # -->
+		<error-warning-directive data-ng-if="UploadPklVnmDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Document.IsWarning && !UploadPklVnmDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Document.IsError"
+		 list="UploadPklVnmDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Document.WARNING" type="'warning'"
+		 icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+		<error-warning-directive data-ng-if="UploadPklVnmDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Document.IsError"
+		 list="UploadPklVnmDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Document.ERROR" type="'error'"
+		 icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+	</span>
 	<div class="col-lg-8" data-ng-if="UploadPklVnmDirectiveCtrl.ePage.Masters.StandardMenuInput" upload-document input="UploadPklVnmDirectiveCtrl.ePage.Masters.StandardMenuInput"
 	 is-uploaded="UploadPklVnmDirectiveCtrl.ePage.Masters.IsUploaded({ $item: $item })" config="UploadPklVnmDirectiveCtrl.ePage.Masters.StandardConfigInput"
 	 class="my-task-icon fa fa-file-text-o mr-5">
 	</div>
 	<div class="col-lg-4" data-ng-if="UploadPklVnmDirectiveCtrl.ePage.Masters.StandardMenuInput" view-document input="UploadPklVnmDirectiveCtrl.ePage.Masters.StandardMenuInput"
 	 mode="3" config="UploadPklVnmDirectiveCtrl.ePage.Masters.StandardConfigInput" class="my-task-icon fa fa-file-text-o mr-5">
+	</div>
+	<div class="col-lg-8">
+
+	</div>
+	<div class="col-lg-4">
+		<button class="my-task-btn my-task-directive-btn" data-ng-click="UploadPklVnmDirectiveCtrl.ePage.Masters.Complete()"
+		 data-ng-disabled="UploadPklVnmDirectiveCtrl.ePage.Masters.CompleteBtnDisabled">{{UploadPklVnmDirectiveCtrl.ePage.Masters.CompleteBtnTxt}}</button>
 	</div>
 </div>
