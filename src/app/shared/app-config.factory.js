@@ -2146,6 +2146,22 @@
                         },
                     }
                 },
+                "AppCounter": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "AppCounter/FindAll",
+                            "FilterID": "APPCOUNT",
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "AppCounter/Update"
+                        }
+                    }
+                },
                 "TmsManifestList": {
                     "RowIndex": -1,
                     "API": {

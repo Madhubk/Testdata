@@ -13,7 +13,6 @@
 
         function Init() {
 
-
             DamagedSkuToolbarCtrl.ePage = {
                 "Title": "",
                 "Prefix": "Pending_Pickup_ToolBar",
@@ -37,12 +36,14 @@
             DamagedSkuToolbarCtrl.ePage.Masters.MoveToTestingWarehouseBtnText = "Move To Testing Warehouse";
             DamagedSkuToolbarCtrl.ePage.Masters.MoveToRepairWarehouseBtnText = "Move To Repair Warehouse";
             DamagedSkuToolbarCtrl.ePage.Masters.MoveToScrapWarehouseBtnText = "Move To Scrap Warehouse";
-            DamagedSkuToolbarCtrl.ePage.Masters.RepairAndReturnBtnText = "Return And Repair";
+            DamagedSkuToolbarCtrl.ePage.Masters.MoveToSiteWarehouseBtnText = "Move To Site Warehouse";
+            DamagedSkuToolbarCtrl.ePage.Masters.MoveToCentralWarehouseBtnText = "Move To Central Warehouse";
             DamagedSkuToolbarCtrl.ePage.Masters.IsMoveToTestingWarehouseBtn = false;
             DamagedSkuToolbarCtrl.ePage.Masters.MoveToTestingWarehouse = MoveToTestingWarehouse;
             DamagedSkuToolbarCtrl.ePage.Masters.MoveToRepairWarehouse = MoveToRepairWarehouse;
             DamagedSkuToolbarCtrl.ePage.Masters.MoveToScrapWarehouse = MoveToScrapWarehouse;
-            DamagedSkuToolbarCtrl.ePage.Masters.RepairAndReturn = RepairAndReturn;
+            DamagedSkuToolbarCtrl.ePage.Masters.MoveToSiteWarehouse = MoveToSiteWarehouse;
+            DamagedSkuToolbarCtrl.ePage.Masters.MoveToCentralWarehouse = MoveToCentralWarehouse;
             InitAction();
         }
 
@@ -63,11 +64,49 @@
             }
         }
 
-        function MoveToTestingWarehouse() {
+        function MoveToCentralWarehouse() {
+            if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length > 0) {
+                var count = 0;
+                var count1 = 0;
+                var count2 = 0;
+                angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
+                    if (value.PL_WorkOrderLineStatusDesc == "Stock at Site Warehouse") {
+                        count = count + 1;
+                    }
+                    if (value.PL_WorkOrderLineStatusDesc == "Stock at Testing Warehouse") {
+                        count1 = count1 + 1;
+                    }
+                    if (value.PL_WorkOrderLineStatusDesc == "Stock at Repair Warehouse") {
+                        count2 = count2 + 1;
+                    }
+                });
+                if ((count == DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length) || (count1 == DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length) || (count2 == DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length)) {
+                    DamagedSkuToolbarCtrl.ePage.Masters.IsMoveToTestingWarehouseBtn = true;
+                    DamagedSkuToolbarCtrl.ePage.Masters.MoveToCentralWarehouseBtnText = "Please Wait...";
+                    var _filter = {
+                        "WarehouseType": "CEN"
+                    };
+                    var _input = {
+                        "searchInput": helperService.createToArrayOfObject(_filter),
+                        "FilterID": appConfig.Entities.WmsWarehouse.API.FindAll.FilterID
+                    };
+                    apiService.post("eAxisAPI", appConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
+                        if (response.data.Response) {
+                            DamagedSkuToolbarCtrl.ePage.Masters.WarehouseList = response.data.Response;
+                            CreateMaterialTransferOutward('CEN');
+                        }
+                    });
+                } else {
+                    toastr.warning("This line(s) cannot be moved to Central warehouse");
+                }
+            }
+        }
+
+        function MoveToTestingWarehouse() {            
             if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length > 0) {
                 var count = 0;
                 angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
-                    if (value.PIC_ReturnStatus == "Pickup In Progress") {
+                    if (!value.PL_AdditionalRef2Code && value.PL_WorkOrderLineStatusDesc == "Stock at Central Warehouse") {
                         count = count + 1;
                     }
                 });
@@ -88,16 +127,16 @@
                         }
                     });
                 } else {
-                    toastr.warning("It can be moved to Testing Center when the Return status is in 'Pickup In Progress'");
+                    toastr.warning("This line(s) cannot be moved to Testing warehouse");
                 }
             }
         }
 
-        function MoveToScrapWarehouse() {
+        function MoveToScrapWarehouse() {            
             if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length > 0) {
                 var count = 0;
                 angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
-                    if (value.PIC_ReturnStatus == "Testing Completed") {
+                    if (value.PL_AdditionalRef2Code && value.PL_WorkOrderLineStatusDesc == "Stock at Central Warehouse") {
                         count = count + 1;
                     }
                 });
@@ -118,16 +157,16 @@
                         }
                     });
                 } else {
-                    toastr.warning("It can be moved to Testing Center when the Return status is in 'Testing Completed'");
+                    toastr.warning("This line(s) cannot be moved to Scrap warehouse");
                 }
             }
         }
 
-        function MoveToRepairWarehouse() {
+        function MoveToRepairWarehouse() {            
             if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length > 0) {
                 var count = 0;
                 angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
-                    if (value.PIC_ReturnStatus == "Testing Completed") {
+                    if (value.PL_AdditionalRef2Code && value.PL_WorkOrderLineStatusDesc == "Stock at Central Warehouse") {
                         count = count + 1;
                     }
                 });
@@ -148,25 +187,25 @@
                         }
                     });
                 } else {
-                    toastr.warning("It can be moved to Testing Center when the Return status is in 'Testing Completed'");
+                    toastr.warning("This line(s) cannot be moved to Repair warehouse");
                 }
             }
         }
 
-        function RepairAndReturn() {
+        function MoveToSiteWarehouse() {            
             if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length > 0) {
                 var count = 0;
                 angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
-                    if (value.PIC_ReturnStatus == "In Repair") {
+                    if (value.RETIN_Pk && value.PL_WorkOrderLineStatusDesc == "Stock at Central Warehouse") {
                         count = count + 1;
                     }
                 });
                 if (count == DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length) {
                     DamagedSkuToolbarCtrl.ePage.Masters.IsMoveToTestingWarehouseBtn = true;
-                    DamagedSkuToolbarCtrl.ePage.Masters.RepairAndReturnBtnText = "Please Wait...";
-                    CreateMaterialTransferOutward('RAP');
+                    DamagedSkuToolbarCtrl.ePage.Masters.MoveToSiteWarehouseBtnText = "Please Wait...";
+                    CreateMaterialTransferOutward('SIT');
                 } else {
-                    toastr.warning("It can be moved to Testing Center when the Return status is in 'In Repair'");
+                    toastr.warning("This line(s) cannot be moved to Site warehouse");
                 }
             }
         }
@@ -187,27 +226,37 @@
                             response.data.Response.Response.UIWmsOutwardHeader.RequiredDate = new Date();
                             response.data.Response.Response.UIWmsOutwardHeader.WorkOrderType = "ORD";
                             response.data.Response.Response.UIWmsOutwardHeader.WorkOrderSubType = "MTR";
-                            if (type == "TES") {
-                                response.data.Response.Response.UIWmsOutwardHeader.Warehouse = DamagedSkuToolbarCtrl.ePage.Masters.PickupData.UIWmsPickup.WarehouseCode + "-" + DamagedSkuToolbarCtrl.ePage.Masters.PickupData.UIWmsPickup.WarehouseName;
-                                response.data.Response.Response.UIWmsOutwardHeader.WarehouseCode = DamagedSkuToolbarCtrl.ePage.Masters.PickupData.UIWmsPickup.WarehouseCode;
-                                response.data.Response.Response.UIWmsOutwardHeader.WarehouseName = DamagedSkuToolbarCtrl.ePage.Masters.PickupData.UIWmsPickup.WarehouseName;
-                                response.data.Response.Response.UIWmsOutwardHeader.WAR_FK = DamagedSkuToolbarCtrl.ePage.Masters.PickupData.UIWmsPickup.WAR_FK;
+                            if (type == "CEN") {
+                                if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PL_WorkOrderLineStatusDesc == "Stock at Site Warehouse") {
+                                    response.data.Response.Response.UIWmsOutwardHeader.Warehouse = DamagedSkuToolbarCtrl.ePage.Masters.PickupData.UIWmsPickup.WarehouseCode + "-" + DamagedSkuToolbarCtrl.ePage.Masters.PickupData.UIWmsPickup.WarehouseName;
+                                    response.data.Response.Response.UIWmsOutwardHeader.WarehouseCode = DamagedSkuToolbarCtrl.ePage.Masters.PickupData.UIWmsPickup.WarehouseCode;
+                                    response.data.Response.Response.UIWmsOutwardHeader.WarehouseName = DamagedSkuToolbarCtrl.ePage.Masters.PickupData.UIWmsPickup.WarehouseName;
+                                    response.data.Response.Response.UIWmsOutwardHeader.WAR_FK = DamagedSkuToolbarCtrl.ePage.Masters.PickupData.UIWmsPickup.WAR_FK;
+                                } else if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PL_WorkOrderLineStatusDesc == "Stock at Testing Warehouse") {
+                                    response.data.Response.Response.UIWmsOutwardHeader.WarehouseCode = "STCLAB";
+                                    response.data.Response.Response.UIWmsOutwardHeader.WarehouseName = "TESTING CENTER";
+                                    response.data.Response.Response.UIWmsOutwardHeader.WAR_FK = "2dad2f10-63c4-4dc6-8055-e22c9eb83616";
+                                } else if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PL_WorkOrderLineStatusDesc == "Stock at Repair Warehouse") {
+                                    response.data.Response.Response.UIWmsOutwardHeader.WarehouseCode = "REPAIR";
+                                    response.data.Response.Response.UIWmsOutwardHeader.WarehouseName = "REPAIR WAREHOUSE";
+                                    response.data.Response.Response.UIWmsOutwardHeader.WAR_FK = "ac7867ec-9d8f-4c61-9148-27d96d2d95a4";
+                                }
 
                                 response.data.Response.Response.UIWmsOutwardHeader.TransferTo_WAR_FK = DamagedSkuToolbarCtrl.ePage.Masters.WarehouseList[0].PK;
                                 response.data.Response.Response.UIWmsOutwardHeader.TransferTo_WAR_Code = DamagedSkuToolbarCtrl.ePage.Masters.WarehouseList[0].WarehouseCode;
                                 response.data.Response.Response.UIWmsOutwardHeader.TransferTo_WAR_Name = DamagedSkuToolbarCtrl.ePage.Masters.WarehouseList[0].WarehouseName;
-                            } else if (type == "SCR" || type == "REP") {
-                                response.data.Response.Response.UIWmsOutwardHeader.WarehouseCode = "STCLAB";
-                                response.data.Response.Response.UIWmsOutwardHeader.WarehouseName = "TESTING CENTER";
-                                response.data.Response.Response.UIWmsOutwardHeader.WAR_FK = "11e796e6-3c37-4853-bd8c-6d61d4ea2bf8";
+                            } else if (type == "SCR" || type == "REP" || type == "TES") {
+                                response.data.Response.Response.UIWmsOutwardHeader.WarehouseCode = "BDL001";
+                                response.data.Response.Response.UIWmsOutwardHeader.WarehouseName = "L3 - 001BDL001 DHAKA BD";
+                                response.data.Response.Response.UIWmsOutwardHeader.WAR_FK = "94ad225a-e966-48af-b7b2-1f9e1629addc";
 
                                 response.data.Response.Response.UIWmsOutwardHeader.TransferTo_WAR_FK = DamagedSkuToolbarCtrl.ePage.Masters.WarehouseList[0].PK;
                                 response.data.Response.Response.UIWmsOutwardHeader.TransferTo_WAR_Code = DamagedSkuToolbarCtrl.ePage.Masters.WarehouseList[0].WarehouseCode;
                                 response.data.Response.Response.UIWmsOutwardHeader.TransferTo_WAR_Name = DamagedSkuToolbarCtrl.ePage.Masters.WarehouseList[0].WarehouseName;
-                            } else {
-                                response.data.Response.Response.UIWmsOutwardHeader.WarehouseCode = "REPAIR";
-                                response.data.Response.Response.UIWmsOutwardHeader.WarehouseName = "REPAIR WAREHOUSE";
-                                response.data.Response.Response.UIWmsOutwardHeader.WAR_FK = "ac7867ec-9d8f-4c61-9148-27d96d2d95a4";
+                            } else if (type == "SIT") {
+                                response.data.Response.Response.UIWmsOutwardHeader.WarehouseCode = "BDL001";
+                                response.data.Response.Response.UIWmsOutwardHeader.WarehouseName = "L3 - 001BDL001 DHAKA BD";
+                                response.data.Response.Response.UIWmsOutwardHeader.WAR_FK = "94ad225a-e966-48af-b7b2-1f9e1629addc";
 
                                 response.data.Response.Response.UIWmsOutwardHeader.TransferTo_WAR_FK = DamagedSkuToolbarCtrl.ePage.Masters.PickupData.UIWmsPickup.WAR_FK;
                                 response.data.Response.Response.UIWmsOutwardHeader.TransferTo_WAR_Code = DamagedSkuToolbarCtrl.ePage.Masters.PickupData.UIWmsPickup.WarehouseCode;
@@ -272,11 +321,46 @@
                                     "WAR_FK": value.PIC_WAR_FK,
                                 };
                                 response.data.Response.Response.UIWmsWorkOrderLine.push(obj);
+                                angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.PickupData.UIWmsPickupLine, function (value1, key1) {
+                                    if (value.PL_PK == value1.PK) {
+                                        if (type == "CEN") {
+                                            value1.WorkOrderLineStatus = "MCW";
+                                        } else if (type == "TES") {
+                                            // var _filter = {
+                                            //     "Type": "STC"
+                                            // };
+                                            // var _input = {
+                                            //     "searchInput": helperService.createToArrayOfObject(_filter),
+                                            //     "FilterID": appConfig.Entities.AppCounter.API.FindAll.FilterID
+                                            // };
+                                            // apiService.post("eAxisAPI", appConfig.Entities.AppCounter.API.FindAll.Url, _input).then(function (response) {
+                                            //     if (response.data.Response) {
+                                            //         apiService.post("eAxisAPI", appConfig.Entities.AppCounter.API.Update.Url, _input).then(function (response) {
+                                            //             if (response.data.Response) {
+                                            //             }
+                                            //         });
+                                            //     }
+                                            // });
+                                            value1.AdditionalRef2Code = "STC1000";
+                                            value1.WorkOrderLineStatus = "MTW";
+                                        } else if (type == "SCR") {
+                                            value1.WorkOrderLineStatus = "MSW";
+                                        } else if (type == "REP") {
+                                            value1.WorkOrderLineStatus = "MRW";
+                                        } else if (type == "SIT") {
+                                            value1.WorkOrderLineStatus = "MSTW";
+                                        }
+                                    }
+                                });
                             });
 
                             apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.Insert.Url, response.data.Response.Response).then(function (response) {
                                 if (response.data.Response) {
-                                    toastr.success("Outward Created Successfully");
+                                    DamagedSkuToolbarCtrl.ePage.Masters.PickupData = filterObjectUpdate(DamagedSkuToolbarCtrl.ePage.Masters.PickupData, "IsModified");
+                                    apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, DamagedSkuToolbarCtrl.ePage.Masters.PickupData).then(function (response) {
+                                        DamagedSkuToolbarCtrl.ePage.Masters.PickupData = response.data.Response;
+                                    });
+                                    toastr.success("Material Transfer " + response.data.Response.UIWmsOutwardHeader.WorkOrderID + " Created Successfully");
                                     var _input = {
                                         ProcessName: "WMS_MaterialTransfer",
                                         InitBy: "PICKUP",
@@ -301,7 +385,7 @@
                                     } else if (type == "REP") {
                                         DamagedSkuToolbarCtrl.ePage.Masters.MoveToRepairWarehouseBtnText = "Move To Repair Warehouse";
                                     } else if (type == "RAR") {
-                                        DamagedSkuToolbarCtrl.ePage.Masters.RepairAndReturnBtnText = "Repair And Return";
+                                        DamagedSkuToolbarCtrl.ePage.Masters.MoveToSiteWarehouseBtnText = "Move To Site Warehouse";
                                     }
                                     DamagedSkuToolbarCtrl.ePage.Masters.IsMoveToTestingWarehouseBtn = true;
                                     helperService.refreshGrid();
@@ -315,7 +399,7 @@
                                     } else if (type == "REP") {
                                         DamagedSkuToolbarCtrl.ePage.Masters.MoveToRepairWarehouseBtnText = "Move To Repair Warehouse";
                                     } else if (type == "RAR") {
-                                        DamagedSkuToolbarCtrl.ePage.Masters.RepairAndReturnBtnText = "Repair And Return";
+                                        DamagedSkuToolbarCtrl.ePage.Masters.MoveToSiteWarehouseBtnText = "Move To Site Warehouse";
                                     }
                                 }
                             });

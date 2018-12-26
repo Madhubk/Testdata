@@ -54,7 +54,7 @@
             }
         }
 
-        function CancelDelivery($item) {            
+        function CancelDelivery($item) {
             DeliveryMenuCtrl.ePage.Masters.CancelButtonText = "Please Wait..";
             DeliveryMenuCtrl.ePage.Masters.DisableSave = true;
             DeliveryMenuCtrl.ePage.Masters.IsCancelButton = true;
@@ -70,16 +70,11 @@
                     DeliveryMenuCtrl.ePage.Masters.DeliveryOrders = response.data.Response;
                     var count = 0;
                     angular.forEach(DeliveryMenuCtrl.ePage.Masters.DeliveryOrders, function (value, key) {
-                        if (value.WorkOrderStatus == "FIN") {
+                        if (value.WorkOrderStatus == "CAN") {
                             count = count + 1;
                         }
                     });
-                    if (count > 0) {
-                        toastr.warning("It can be canceled when the Order is not Finalized");
-                        DeliveryMenuCtrl.ePage.Masters.CancelButtonText = "Cancel Delivery";
-                        DeliveryMenuCtrl.ePage.Masters.DisableSave = false;
-                        DeliveryMenuCtrl.ePage.Masters.IsCancelButton = false;
-                    } else {
+                    if (count == DeliveryMenuCtrl.ePage.Masters.DeliveryOrders.length) {
                         $uibModal.open({
                             templateUrl: 'myModalContent.html',
                             controller: function ($scope, $uibModalInstance) {
@@ -98,7 +93,7 @@
                                         "CommentsType": "GEN"
                                     }
                                     InsertCommentObject.push(obj);
-                                    apiService.post("eAxisAPI", appConfig.Entities.JobComments.API.Insert.Url, InsertCommentObject).then(function (response) {                                       
+                                    apiService.post("eAxisAPI", appConfig.Entities.JobComments.API.Insert.Url, InsertCommentObject).then(function (response) {
                                         DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.CancelledDate = new Date();
                                         Validation($item);
                                         $uibModalInstance.dismiss('cancel');
@@ -106,6 +101,11 @@
                                 }
                             }
                         });
+                    } else {
+                        toastr.error("It can be canceled when all the Order(s) is Cancelled");
+                        DeliveryMenuCtrl.ePage.Masters.CancelButtonText = "Cancel Delivery";
+                        DeliveryMenuCtrl.ePage.Masters.DisableSave = false;
+                        DeliveryMenuCtrl.ePage.Masters.IsCancelButton = false;
                     }
                 }
             });

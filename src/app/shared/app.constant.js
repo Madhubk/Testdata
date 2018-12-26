@@ -470,13 +470,15 @@
                     'lib/angular/angular-ui-grid/ui-grid.min.js',
 
                     'app/shared/dynamic-grid/dynamic-grid.css',
-                    'app/shared/dynamic-grid/dynamic-grid.directive.js'
+                    'app/shared/dynamic-grid/dynamic-grid.directive.js',
+					'app/shared/dynamic-grid/dynamic-grid.controller.js'
                 ]
             }, {
                 name: 'dynamicList',
                 files: [
                     'app/shared/dynamic-list/dynamic-list.css',
-                    'app/shared/dynamic-list/dynamic-list.directive.js'
+                    'app/shared/dynamic-list/dynamic-list.directive.js',
+					'app/shared/dynamic-list/dynamic-list.controller.js'
                 ]
             }, {
                 name: 'dynamicListModal',
@@ -681,7 +683,7 @@
         ],
         URL: {
             eAxisAPI: "http://dev.myhubplusapi.20cube.com/wms/",
-            authAPI: "http://dev.myhubplusapi.20cube.com/auth/",
+            authAPI: "http://dev.myhubplusapi.20cube.com/wmsauth/",
             alertAPI: "http://uat.api.20cube.com/alert/"
         },
         Crypto: {

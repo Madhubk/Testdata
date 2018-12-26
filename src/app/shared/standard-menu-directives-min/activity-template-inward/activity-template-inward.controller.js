@@ -148,6 +148,13 @@
             } else if (ActivityTemplateInwardCtrl.taskObj.WSI_StepName == "Confirm Delivery and Get Signature") {
                 if (callback) {
                     $rootScope.FinalizeInwardFromTask(function () {
+                        angular.forEach(myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsWorkOrderLine, function (value, key) {
+                            angular.forEach(myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine, function (value1, key1) {
+                                if (value.AdditionalRef1Code == value1.AdditionalRef1Code) {
+                                    value1.WorkOrderLineStatus = "STO";
+                                }
+                            });
+                        });
                         myTaskActivityConfig.Entities.PickupData = filterObjectUpdate(myTaskActivityConfig.Entities.PickupData, "IsModified");
                         apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, myTaskActivityConfig.Entities.PickupData).then(function (response) {
                             myTaskActivityConfig.Entities.PickupData = response.data.Response;
@@ -199,7 +206,30 @@
                 apiService.post("eAxisAPI", appConfig.Entities.WmsWorkOrder.API.FindAll.Url, _input).then(function (response) {
                     if (response.data.Response) {
                         ActivityTemplateInwardCtrl.ePage.Masters.WorkOrderList = response.data.Response[0];
-                        if (ActivityTemplateInwardCtrl.ePage.Masters.WorkOrderList.WorkOrderType == "PIC") {
+                        if (ActivityTemplateInwardCtrl.ePage.Masters.WorkOrderList.WorkOrderType == "PIC") {                            
+                            apiService.get("eAxisAPI", appConfig.Entities.WmsPickupList.API.GetById.Url + ActivityTemplateInwardCtrl.ePage.Masters.WorkOrderList.PK).then(function (response) {
+                                if (response.data.Response) {
+                                    myTaskActivityConfig.Entities.PickupData = response.data.Response;
+                                    myTaskActivityConfig.Entities.PickupData.UIvwWmsPickupLine = $filter('orderBy')(myTaskActivityConfig.Entities.PickupData.UIvwWmsPickupLine, 'PL_AdditionalRef1Code');
+                                    myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine = $filter('orderBy')(myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine, 'AdditionalRef1Code');
+                                    angular.forEach(myTaskActivityConfig.Entities.PickupData.UIvwWmsPickupLine, function (value1, key1) {
+                                        angular.forEach(myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsWorkOrderLine, function (value, key) {
+                                            // if (value.Parent_FK == value1.PL_PK) {
+                                            if (value1.PL_WorkOrderLineStatus == "ICW") {
+                                                myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "SCW";
+                                            } else if (value1.PL_WorkOrderLineStatus == "ITW") {
+                                                myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "STW";
+                                            }
+                                            // }
+                                        });
+                                    });
+                                    myTaskActivityConfig.Entities.PickupData = filterObjectUpdate(myTaskActivityConfig.Entities.PickupData, "IsModified");
+                                    apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, myTaskActivityConfig.Entities.PickupData).then(function (response) {
+                                        myTaskActivityConfig.Entities.PickupData = response.data.Response;
+                                        toastr.success("Pickup Saved Successfully");
+                                    });
+                                }
+                            });
                             // complete process
                             var _inputObj = {
                                 "CompleteInstanceNo": ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.PSI_InstanceNo,

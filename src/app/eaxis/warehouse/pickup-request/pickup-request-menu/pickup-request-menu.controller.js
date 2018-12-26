@@ -76,16 +76,11 @@
                     PickupMenuCtrl.ePage.Masters.PickupOrders = response.data.Response;
                     var count = 0;
                     angular.forEach(PickupMenuCtrl.ePage.Masters.PickupOrders, function (value, key) {
-                        if (value.WorkOrderStatus == "FIN") {
+                        if (value.WorkOrderStatus == "CAN") {
                             count = count + 1;
                         }
                     });
-                    if (count > 0) {
-                        toastr.warning("It can be canceled when the Order is not Finalized");
-                        PickupMenuCtrl.ePage.Masters.CancelButtonText = "Cancel Pickup";
-                        PickupMenuCtrl.ePage.Masters.DisableSave = false;
-                        PickupMenuCtrl.ePage.Masters.IsCancelButton = false;
-                    } else {
+                    if (count == PickupMenuCtrl.ePage.Masters.PickupOrders.length) {
                         $uibModal.open({
                             templateUrl: 'myModalContent.html',
                             controller: function ($scope, $uibModalInstance) {
@@ -112,6 +107,11 @@
                                 }
                             }
                         });
+                    } else {
+                        toastr.warning("It can be canceled when all the Order(s) is Cancelled");
+                        PickupMenuCtrl.ePage.Masters.CancelButtonText = "Cancel Pickup";
+                        PickupMenuCtrl.ePage.Masters.DisableSave = false;
+                        PickupMenuCtrl.ePage.Masters.IsCancelButton = false;
                     }
                 }
             });

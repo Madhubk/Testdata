@@ -139,41 +139,91 @@
             });
         }
 
-        function getDeliveryList() {
-            apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WOD_Parent_FK).then(function (response) {
+        function getDeliveryList() {            
+            var _filter = {
+                "PK": TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WOD_Parent_FK
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.WmsWorkOrder.API.FindAll.FilterID
+            };
+            apiService.post("eAxisAPI", appConfig.Entities.WmsWorkOrder.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
-                    TransferMaterialCtrl.ePage.Entities.Header.DeliveryData = response.data.Response;
-                    myTaskActivityConfig.Entities.DeliveryData = TransferMaterialCtrl.ePage.Entities.Header.DeliveryData;
-                    GeneralOperation();
+                    TransferMaterialCtrl.ePage.Masters.WorkOrderList = response.data.Response[0];
+                    if (TransferMaterialCtrl.ePage.Masters.WorkOrderList.WorkOrderType == "PIC") {
+                        apiService.get("eAxisAPI", appConfig.Entities.WmsPickupList.API.GetById.Url + TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WOD_Parent_FK).then(function (response) {
+                            if (response.data.Response) {
+                                TransferMaterialCtrl.ePage.Entities.Header.PickupData = response.data.Response;
+                                myTaskActivityConfig.Entities.PickupData = TransferMaterialCtrl.ePage.Entities.Header.PickupData;
+                                GeneralOperation();
+                            }
+                        });
+                    } else {
+                        apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WOD_Parent_FK).then(function (response) {
+                            if (response.data.Response) {
+                                TransferMaterialCtrl.ePage.Entities.Header.DeliveryData = response.data.Response;
+                                myTaskActivityConfig.Entities.DeliveryData = TransferMaterialCtrl.ePage.Entities.Header.DeliveryData;
+                                GeneralOperation();
+                            }
+                        });
+                    }
                 }
             });
         }
 
         function GeneralOperation() {
-            // Client
-            if (TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.ClientCode == null)
-                TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.ClientCode = "";
-            if (TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.ClientName == null)
-                TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.ClientName = "";
-            TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Client = TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.ClientCode + ' - ' + TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.ClientName;
-            if (TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Client == " - ")
-                TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Client = "";
-            // Consignee
-            if (TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.ConsigneeCode == null)
-                TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.ConsigneeCode = "";
-            if (TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.ConsigneeName == null)
-                TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.ConsigneeName = "";
-            TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Consignee = TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.ConsigneeCode + ' - ' + TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.ConsigneeName;
-            if (TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Consignee == " - ")
-                TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Consignee = "";
-            // Warehouse
-            if (TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.WarehouseCode == null)
-                TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.WarehouseCode = "";
-            if (TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.WarehouseName == null)
-                TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.WarehouseName = "";
-            TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Warehouse = TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.WarehouseCode + ' - ' + TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.WarehouseName;
-            if (TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Warehouse == " - ")
-                TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Warehouse = "";
+            if (TransferMaterialCtrl.ePage.Entities.Header.DeliveryData) {
+                // Client
+                if (TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.ClientCode == null)
+                    TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.ClientCode = "";
+                if (TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.ClientName == null)
+                    TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.ClientName = "";
+                TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Client = TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.ClientCode + ' - ' + TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.ClientName;
+                if (TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Client == " - ")
+                    TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Client = "";
+                // Consignee
+                if (TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.ConsigneeCode == null)
+                    TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.ConsigneeCode = "";
+                if (TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.ConsigneeName == null)
+                    TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.ConsigneeName = "";
+                TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Consignee = TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.ConsigneeCode + ' - ' + TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.ConsigneeName;
+                if (TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Consignee == " - ")
+                    TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Consignee = "";
+                // Warehouse
+                if (TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.WarehouseCode == null)
+                    TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.WarehouseCode = "";
+                if (TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.WarehouseName == null)
+                    TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.WarehouseName = "";
+                TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Warehouse = TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.WarehouseCode + ' - ' + TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.WarehouseName;
+                if (TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Warehouse == " - ")
+                    TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Warehouse = "";
+            }
+            if (TransferMaterialCtrl.ePage.Entities.Header.PickupData) {
+                // Client
+                if (TransferMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup.ClientCode == null)
+                    TransferMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup.ClientCode = "";
+                if (TransferMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup.ClientName == null)
+                    TransferMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup.ClientName = "";
+                TransferMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup.Client = TransferMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup.ClientCode + ' - ' + TransferMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup.ClientName;
+                if (TransferMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup.Client == " - ")
+                    TransferMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup.Client = "";
+                // Consignee
+                if (TransferMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup.ConsigneeCode == null)
+                    TransferMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup.ConsigneeCode = "";
+                if (TransferMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup.ConsigneeName == null)
+                    TransferMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup.ConsigneeName = "";
+                TransferMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup.Consignee = TransferMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup.ConsigneeCode + ' - ' + TransferMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup.ConsigneeName;
+                if (TransferMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup.Consignee == " - ")
+                    TransferMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup.Consignee = "";
+                // Warehouse
+                if (TransferMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup.WarehouseCode == null)
+                    TransferMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup.WarehouseCode = "";
+                if (TransferMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup.WarehouseName == null)
+                    TransferMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup.WarehouseName = "";
+                TransferMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup.Warehouse = TransferMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup.WarehouseCode + ' - ' + TransferMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup.WarehouseName;
+                if (TransferMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup.Warehouse == " - ")
+                    TransferMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup.Warehouse = "";
+            }
         }
 
         function GetDynamicLookupConfig() {
@@ -198,6 +248,11 @@
         }
 
         function OnFieldValueChange(code) {
+            var Data;
+            if (TransferMaterialCtrl.ePage.Entities.Header.DeliveryData)
+                Data = TransferMaterialCtrl.ePage.Entities.Header.DeliveryData;
+            else if (TransferMaterialCtrl.ePage.Entities.Header.PickupData)
+                Data = TransferMaterialCtrl.ePage.Entities.Header.DeliveryData;
             var _obj = {
                 ModuleName: ["MyTask"],
                 Code: [myTaskActivityConfig.Entities.Outward.label],
@@ -207,7 +262,7 @@
                     SubModuleCode: "DEL",
                     // Code: "E0013"
                 },
-                EntityObject: TransferMaterialCtrl.ePage.Entities.Header.DeliveryData,
+                EntityObject: Data,
                 ErrorCode: code ? [code] : []
             };
             errorWarningService.ValidateValue(_obj);
