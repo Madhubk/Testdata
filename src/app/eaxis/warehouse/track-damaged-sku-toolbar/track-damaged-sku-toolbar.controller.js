@@ -102,7 +102,7 @@
             }
         }
 
-        function MoveToTestingWarehouse() {            
+        function MoveToTestingWarehouse() {
             if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length > 0) {
                 var count = 0;
                 angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
@@ -132,11 +132,11 @@
             }
         }
 
-        function MoveToScrapWarehouse() {            
+        function MoveToScrapWarehouse() {
             if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length > 0) {
                 var count = 0;
                 angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
-                    if (value.PL_AdditionalRef2Code && value.PL_WorkOrderLineStatusDesc == "Stock at Central Warehouse") {
+                    if (!value.REPOUT_Pk && !value.SCROUT_Pk && value.PL_AdditionalRef2Code && value.PL_WorkOrderLineStatusDesc == "Stock at Central Warehouse") {
                         count = count + 1;
                     }
                 });
@@ -162,11 +162,11 @@
             }
         }
 
-        function MoveToRepairWarehouse() {            
+        function MoveToRepairWarehouse() {
             if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length > 0) {
                 var count = 0;
                 angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
-                    if (value.PL_AdditionalRef2Code && value.PL_WorkOrderLineStatusDesc == "Stock at Central Warehouse") {
+                    if (!value.REPOUT_Pk && value.PL_AdditionalRef2Code && value.PL_WorkOrderLineStatusDesc == "Stock at Central Warehouse") {
                         count = count + 1;
                     }
                 });
@@ -192,11 +192,11 @@
             }
         }
 
-        function MoveToSiteWarehouse() {            
+        function MoveToSiteWarehouse() {
             if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length > 0) {
                 var count = 0;
                 angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
-                    if (value.RETIN_Pk && value.PL_WorkOrderLineStatusDesc == "Stock at Central Warehouse") {
+                    if (value.REPIN_Pk && value.PL_WorkOrderLineStatusDesc == "Stock at Central Warehouse") {
                         count = count + 1;
                     }
                 });
@@ -356,39 +356,45 @@
 
                             apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.Insert.Url, response.data.Response.Response).then(function (response) {
                                 if (response.data.Response) {
+                                    DamagedSkuToolbarCtrl.ePage.Masters.OutwardData = response.data.Response;
                                     DamagedSkuToolbarCtrl.ePage.Masters.PickupData = filterObjectUpdate(DamagedSkuToolbarCtrl.ePage.Masters.PickupData, "IsModified");
                                     apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, DamagedSkuToolbarCtrl.ePage.Masters.PickupData).then(function (response) {
                                         DamagedSkuToolbarCtrl.ePage.Masters.PickupData = response.data.Response;
-                                    });
-                                    toastr.success("Material Transfer " + response.data.Response.UIWmsOutwardHeader.WorkOrderID + " Created Successfully");
-                                    var _input = {
-                                        ProcessName: "WMS_MaterialTransfer",
-                                        InitBy: "PICKUP",
+                                        toastr.success("Material Transfer is successfully created.. Material Transfer No : " + DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.WorkOrderID, {
+                                            tapToDismiss: false,
+                                            closeButton: true,
+                                            timeOut: 0
+                                        });
+                                        // toastr.success("Material Transfer " + DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.WorkOrderID + " Created Successfully");
+                                        var _input = {
+                                            ProcessName: "WMS_MaterialTransfer",
+                                            InitBy: "PICKUP",
 
-                                        EntitySource: "PIC",
-                                        EntityRefCode: response.data.Response.UIWmsOutwardHeader.WorkOrderID,
-                                        EntityRefKey: response.data.Response.UIWmsOutwardHeader.PK,
+                                            EntitySource: "PIC",
+                                            EntityRefCode: DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.WorkOrderID,
+                                            EntityRefKey: DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.PK,
 
-                                        SAP_FK: authService.getUserInfo().AppPK,
-                                        TenantCode: authService.getUserInfo().TenantCode,
-                                        IsModified: true
-                                    };
+                                            SAP_FK: authService.getUserInfo().AppPK,
+                                            TenantCode: authService.getUserInfo().TenantCode,
+                                            IsModified: true
+                                        };
 
-                                    apiService.post("eAxisAPI", appConfig.Entities.EBPMEngine.API.InitiateProcess.Url, _input).then(function (response) {
-                                        if (response.data.Response) {
+                                        apiService.post("eAxisAPI", appConfig.Entities.EBPMEngine.API.InitiateProcess.Url, _input).then(function (response) {
+                                            if (response.data.Response) {
+                                            }
+                                        });
+                                        if (type == "TES") {
+                                            DamagedSkuToolbarCtrl.ePage.Masters.MoveToTestingWarehouseBtnText = "Move To Testing Warehouse";
+                                        } else if (type == "SCR") {
+                                            DamagedSkuToolbarCtrl.ePage.Masters.MoveToScrapWarehouseBtnText = "Move To Scrap Warehouse";
+                                        } else if (type == "REP") {
+                                            DamagedSkuToolbarCtrl.ePage.Masters.MoveToRepairWarehouseBtnText = "Move To Repair Warehouse";
+                                        } else if (type == "RAR") {
+                                            DamagedSkuToolbarCtrl.ePage.Masters.MoveToSiteWarehouseBtnText = "Move To Site Warehouse";
                                         }
+                                        DamagedSkuToolbarCtrl.ePage.Masters.IsMoveToTestingWarehouseBtn = true;
+                                        helperService.refreshGrid();
                                     });
-                                    if (type == "TES") {
-                                        DamagedSkuToolbarCtrl.ePage.Masters.MoveToTestingWarehouseBtnText = "Move To Testing Warehouse";
-                                    } else if (type == "SCR") {
-                                        DamagedSkuToolbarCtrl.ePage.Masters.MoveToScrapWarehouseBtnText = "Move To Scrap Warehouse";
-                                    } else if (type == "REP") {
-                                        DamagedSkuToolbarCtrl.ePage.Masters.MoveToRepairWarehouseBtnText = "Move To Repair Warehouse";
-                                    } else if (type == "RAR") {
-                                        DamagedSkuToolbarCtrl.ePage.Masters.MoveToSiteWarehouseBtnText = "Move To Site Warehouse";
-                                    }
-                                    DamagedSkuToolbarCtrl.ePage.Masters.IsMoveToTestingWarehouseBtn = true;
-                                    helperService.refreshGrid();
                                 } else {
                                     toastr.error("Outward Creation Failed. Please try again later");
                                     DamagedSkuToolbarCtrl.ePage.Masters.IsMoveToTestingWarehouseBtn = false;

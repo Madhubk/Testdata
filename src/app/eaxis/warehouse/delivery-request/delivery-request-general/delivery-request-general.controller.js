@@ -114,7 +114,7 @@
                 "FilterID": appConfig.Entities.SecMappings.API.FindAll.FilterID
             };
             apiService.post("authAPI", appConfig.Entities.SecMappings.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
+                if (response.data.Response) {                    
                     DeliveryGeneralCtrl.ePage.Masters.UserMappedWarehouseList = response.data.Response;
                     DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouse = "";
                     DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouseFK = "";
@@ -124,6 +124,10 @@
                     });
                     DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouse = DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouse.slice(0, -1);
                     DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouseFK = DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouseFK.slice(0, -1);
+                    if (DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouse == "null")
+                        DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouse = "";
+                    if (DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouseFK == "null")
+                        DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouseFK = "";
                     getReceiveParamWarehouse();
                 }
             });

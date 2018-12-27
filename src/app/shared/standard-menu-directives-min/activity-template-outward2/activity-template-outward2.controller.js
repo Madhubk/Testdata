@@ -166,14 +166,14 @@
                         angular.forEach(myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsWorkOrderLine, function (value, key) {
                             angular.forEach(myTaskActivityConfig.Entities.PickupData.UIvwWmsPickupLine, function (value1, key1) {
                                 if (value.Parent_FK == value1.PL_PK) {
-                                    if (!value1.TESOUT_Pk && value1.PL_WorkOrderLineStatus == "MCW") {
-                                        myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "ICW";
-                                    } else if (value1.TESOUT_Pk && value1.PL_WorkOrderLineStatus == "MCW") {
-                                        myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "ICW";
-                                    } else if (value1.REPIN_Pk && value1.PL_WorkOrderLineStatus == "MCW") {
+                                    if (value1.PL_WorkOrderLineStatus == "MCW") {
                                         myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "ICW";
                                     } else if (value1.TESOUT_Pk && value1.PL_WorkOrderLineStatus == "MTW") {
                                         myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "ITW";
+                                    } else if (value1.TESOUT_Pk && value1.PL_WorkOrderLineStatus == "MRW") {
+                                        myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "IRW";
+                                    } else if (value1.TESOUT_Pk && value1.PL_WorkOrderLineStatus == "MSTW") {
+                                        myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "ISTW";
                                     }
                                 }
                             });
@@ -284,23 +284,7 @@
             ActivityTemplateOutward2Ctrl.ePage.Masters.StandardConfigInput = {
                 IsDisableRefreshButton: true,
                 IsDisableDeleteHistoryButton: true,
-                // IsDisableUpload: true,
-                // IsDisableGenerate: true,
-                IsDisableRelatedDocument: true,
-                // IsDisableCount: true,
-                // IsDisableDownloadCount: true,
-                // IsDisableAmendCount: true,
-                // IsDisableFileName: true,
-                // IsDisableEditFileName: true,
-                // IsDisableDocumentType: true,
-                // IsDisableOwner: true,
-                // IsDisableCreatedOn: true,
-                // IsDisableShare: true,
-                // IsDisableVerticalMenu: true,
-                // IsDisableVerticalMenuDownload: true,
-                // IsDisableVerticalMenuAmend: true,
-                // IsDisableVerticalMenuEmailAttachment: true,
-                // IsDisableVerticalMenuRemove: true
+                IsDisableRelatedDocument: true
             };
 
             ActivityTemplateOutward2Ctrl.ePage.Masters.CommentConfig = {
@@ -323,11 +307,6 @@
                         SubModuleCode: "DEL",
                     },
                     GroupCode: ActivityTemplateOutward2Ctrl.ePage.Masters.ValidationSource[0].Code,
-                    // RelatedBasicDetails: [{
-                    //     "UIField": "TEST",
-                    //     "DbField": "TEST",
-                    //     "Value": "TEST"
-                    // }],
                     EntityObject: ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj,
                     ErrorCode: []
                 };
@@ -354,7 +333,7 @@
             }
         }
 
-        function Complete() {
+        function Complete() {            
             if (ActivityTemplateOutward2Ctrl.ePage.Masters.ValidationSource.length > 0 || ActivityTemplateOutward2Ctrl.ePage.Masters.DocumentValidation.length > 0) {
                 if (ActivityTemplateOutward2Ctrl.ePage.Masters.ValidationSource.length > 0) {
                     if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Get POD and Return to Order Desk") {
