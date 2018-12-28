@@ -6,7 +6,6 @@
 <div class="clearfix wms-menu-wraper">
     <div id="wmsMenuWrapper{{DeliveryMenuCtrl.currentDelivery.label}}" class="col-sm-12 no-padding-left no-padding-right">
         <!-- <delivery-general current-delivery="DeliveryMenuCtrl.currentDelivery"></delivery-general> -->
-
         <uib-tabset class="wms-menu tabs-left tabbable" active="DeliveryMenuCtrl.ePage.Masters.active">
             <div class="tab-profile">
                 <div class="tab-profile-title text-single-line text-center" style="color: rgb(66, 50, 50);font-weight: 600;" data-ng-bind="DeliveryMenuCtrl.currentDelivery.label"></div>
@@ -25,10 +24,15 @@
                         list="DeliveryMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList" type="'error'"
                         icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
                 </uib-tab-heading>
+                <div class="finalisedstate" ng-show="DeliveryMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                    <span class="finaliseddatedescription">Delivery {{DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatusDesc}} and it cannot
+                        be edited</span>
+                </div>
                 <div>
                     <div ng-switch="x.Value">
                         <!--Menu directives-->
-                        <div ng-switch-when="MyTask" delivery-my-task data-ng-if="DeliveryMenuCtrl.ePage.Masters.MyTask.ListSource" list-source="DeliveryMenuCtrl.ePage.Masters.MyTask.ListSource" current-delivery="DeliveryMenuCtrl.currentDelivery"></div>
+                        <div ng-switch-when="MyTask" delivery-my-task data-ng-if="DeliveryMenuCtrl.ePage.Masters.MyTask.ListSource" list-source="DeliveryMenuCtrl.ePage.Masters.MyTask.ListSource"
+                            current-delivery="DeliveryMenuCtrl.currentDelivery"></div>
                         <div ng-switch-when="General" delivery-general current-delivery="DeliveryMenuCtrl.currentDelivery"></div>
                         <div ng-switch-when="DeliveryLine" delivery-line current-delivery="DeliveryMenuCtrl.currentDelivery"></div>
                         <div ng-switch-when="DeliveryOrders" delivery-orders current-delivery="DeliveryMenuCtrl.currentDelivery"></div>
@@ -74,9 +78,31 @@
         </div>
         <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 col-xl-3">
             <span class="">
+                <button class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6" data-ng-click="DeliveryMenuCtrl.ePage.Masters.CancelDelivery(DeliveryMenuCtrl.currentDelivery)"
+                    ng-disabled="DeliveryMenuCtrl.ePage.Masters.DisableSave" ng-if="!DeliveryMenuCtrl.currentDelivery.isNew"
+                    data-ng-bind="DeliveryMenuCtrl.ePage.Masters.CancelButtonText"></button>
+            </span>
+            <span class="">
                 <button class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6" data-ng-click="DeliveryMenuCtrl.ePage.Masters.Validation(DeliveryMenuCtrl.currentDelivery)"
                     ng-disabled="DeliveryMenuCtrl.ePage.Masters.DisableSave" data-ng-bind="DeliveryMenuCtrl.ePage.Masters.SaveButtonText">Save</button>
             </span>
         </div>
     </div>
 </div>
+
+<!-- Cancelling Delivery Popup -->
+<script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Delivery Cancellation..</h3>
+    </div>
+    <div class="modal-body"  style="height:200px">
+        <div class="form-group">
+            <label for="comment">Leave Your Comment</label>
+            <textarea class="form-control" rows="2"  ng-model="comment"></textarea>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="!comment">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="close()">Close</button>
+    </div>
+</script>

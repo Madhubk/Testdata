@@ -2072,6 +2072,16 @@
                         }
                     }
                 },
+                "Notification": {
+                    "RowIndex": -1,
+                    "API": {
+                        "SendSms": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "Notification/SendSms"
+                        },
+                    }
+                },
                 "WmsClientParameterByWarehouse": {
                     "RowIndex": -1,
                     "API": {
@@ -2144,6 +2154,22 @@
                             "Url": "WmsInventory/FindAll",
                             "FilterID": "WMSINV",
                         },
+                    }
+                },
+                "AppCounter": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "AppCounter/FindAll",
+                            "FilterID": "APPCOUNT",
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "AppCounter/Update"
+                        }
                     }
                 },
                 "TmsManifestList": {

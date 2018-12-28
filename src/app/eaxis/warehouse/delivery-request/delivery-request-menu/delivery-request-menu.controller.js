@@ -28,7 +28,9 @@
             // Menu list from configuration
 
             DeliveryMenuCtrl.ePage.Masters.SaveButtonText = "Save";
+            DeliveryMenuCtrl.ePage.Masters.CancelButtonText = "Cancel Delivery";
             DeliveryMenuCtrl.ePage.Masters.Validation = Validation;
+            DeliveryMenuCtrl.ePage.Masters.CancelDelivery = CancelDelivery;
             DeliveryMenuCtrl.ePage.Masters.Config = deliveryConfig;
 
             DeliveryMenuCtrl.ePage.Masters.OnMenuClick = OnMenuClick;
@@ -46,6 +48,67 @@
             } else {
                 GetMyTaskList(_menuList, _index);
             }
+            if (DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatus == 'FIN' || DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatus == 'CAN') {
+                DeliveryMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
+                DeliveryMenuCtrl.ePage.Masters.DisableSave = true;
+            }
+        }
+
+        function CancelDelivery($item) {
+            DeliveryMenuCtrl.ePage.Masters.CancelButtonText = "Please Wait..";
+            DeliveryMenuCtrl.ePage.Masters.DisableSave = true;
+            DeliveryMenuCtrl.ePage.Masters.IsCancelButton = true;
+            var _filter = {
+                "WOD_Parent_FK": DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.PK
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.WmsOutwardList.API.FindAll.FilterID
+            };
+            apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    DeliveryMenuCtrl.ePage.Masters.DeliveryOrders = response.data.Response;
+                    var count = 0;
+                    angular.forEach(DeliveryMenuCtrl.ePage.Masters.DeliveryOrders, function (value, key) {
+                        if (value.WorkOrderStatus == "CAN") {
+                            count = count + 1;
+                        }
+                    });
+                    if (count == DeliveryMenuCtrl.ePage.Masters.DeliveryOrders.length) {
+                        $uibModal.open({
+                            templateUrl: 'myModalContent.html',
+                            controller: function ($scope, $uibModalInstance) {
+
+                                $scope.close = function () {
+                                    $uibModalInstance.dismiss('cancel');
+                                };
+
+                                $scope.ok = function () {
+                                    var InsertCommentObject = [];
+                                    var obj = {
+                                        "Description": "General",
+                                        "Comments": $scope.comment,
+                                        "EntityRefKey": DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.PK,
+                                        "EntityRefCode": DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID,
+                                        "CommentsType": "GEN"
+                                    }
+                                    InsertCommentObject.push(obj);
+                                    apiService.post("eAxisAPI", appConfig.Entities.JobComments.API.Insert.Url, InsertCommentObject).then(function (response) {
+                                        DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.CancelledDate = new Date();
+                                        Validation($item);
+                                        $uibModalInstance.dismiss('cancel');
+                                    });
+                                }
+                            }
+                        });
+                    } else {
+                        toastr.error("It can be canceled when all the Order(s) is Cancelled");
+                        DeliveryMenuCtrl.ePage.Masters.CancelButtonText = "Cancel Delivery";
+                        DeliveryMenuCtrl.ePage.Masters.DisableSave = false;
+                        DeliveryMenuCtrl.ePage.Masters.IsCancelButton = false;
+                    }
+                }
+            });
         }
 
         function OnMenuClick($item) {
@@ -122,10 +185,28 @@
                             deliveryConfig.TabList[_index][deliveryConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data;
 
                         DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Consignee = DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeCode + ' - ' + DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeName;
+                        if ($item.isNew) {
+                            var _smsInput = {
+                                "MobileNo": "8870242130",
+                                "Message": "Delivery Request " + RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + " Acknowledged Successfully."
+                            }
+                            apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
 
+                            });
+                        }
                         deliveryConfig.TabList[_index].isNew = false;
                         if ($state.current.url == "/delivery-request") {
                             helperService.refreshGrid();
+                        }
+                        if (DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatus == "CAN") {
+                            DeliveryMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
+                            DeliveryMenuCtrl.ePage.Masters.DisableSave = true;
+                            DeliveryMenuCtrl.ePage.Masters.active = 1;
+                        }
+                        if (DeliveryMenuCtrl.ePage.Masters.IsCancelButton) {
+                            DeliveryMenuCtrl.ePage.Masters.CancelButtonText = "Cancel Delivery";
+                            DeliveryMenuCtrl.ePage.Masters.DisableSave = false;
+                            DeliveryMenuCtrl.ePage.Masters.IsCancelButton = false;
                         }
                     }
                     console.log("Success");

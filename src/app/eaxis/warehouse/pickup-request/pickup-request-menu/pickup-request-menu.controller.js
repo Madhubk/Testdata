@@ -29,7 +29,9 @@
             // Menu list from configuration
 
             PickupMenuCtrl.ePage.Masters.SaveButtonText = "Save";
+            PickupMenuCtrl.ePage.Masters.CancelButtonText = "Cancel Pickup";
             PickupMenuCtrl.ePage.Masters.Validation = Validation;
+            PickupMenuCtrl.ePage.Masters.CancelPickup = CancelPickup;
             PickupMenuCtrl.ePage.Masters.Config = pickupConfig;
             PickupMenuCtrl.ePage.Masters.OnMenuClick = OnMenuClick;
 
@@ -52,6 +54,67 @@
                     GetMyTaskList(_menuList, _index);
                 }
             }
+            if (PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderStatus == 'FIN' || PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderStatus == 'CAN') {
+                PickupMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
+                PickupMenuCtrl.ePage.Masters.DisableSave = true;
+            }
+        }
+
+        function CancelPickup($item) {
+            PickupMenuCtrl.ePage.Masters.CancelButtonText = "Please Wait..";
+            PickupMenuCtrl.ePage.Masters.DisableSave = true;
+            PickupMenuCtrl.ePage.Masters.IsCancelButton = true;
+            var _filter = {
+                "WOD_Parent_FK": PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.PK
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.InwardList.API.FindAll.FilterID
+            };
+            apiService.post("eAxisAPI", appConfig.Entities.InwardList.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    PickupMenuCtrl.ePage.Masters.PickupOrders = response.data.Response;
+                    var count = 0;
+                    angular.forEach(PickupMenuCtrl.ePage.Masters.PickupOrders, function (value, key) {
+                        if (value.WorkOrderStatus == "CAN") {
+                            count = count + 1;
+                        }
+                    });
+                    if (count == PickupMenuCtrl.ePage.Masters.PickupOrders.length) {
+                        $uibModal.open({
+                            templateUrl: 'myModalContent.html',
+                            controller: function ($scope, $uibModalInstance) {
+
+                                $scope.close = function () {
+                                    $uibModalInstance.dismiss('cancel');
+                                };
+
+                                $scope.ok = function () {
+                                    var InsertCommentObject = [];
+                                    var obj = {
+                                        "Description": "General",
+                                        "Comments": $scope.comment,
+                                        "EntityRefKey": PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.PK,
+                                        "EntityRefCode": PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID,
+                                        "CommentsType": "GEN"
+                                    }
+                                    InsertCommentObject.push(obj);
+                                    apiService.post("eAxisAPI", appConfig.Entities.JobComments.API.Insert.Url, InsertCommentObject).then(function (response) {
+                                        PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.CancelledDate = new Date();
+                                        Validation($item);
+                                        $uibModalInstance.dismiss('cancel');
+                                    });
+                                }
+                            }
+                        });
+                    } else {
+                        toastr.warning("It can be canceled when all the Order(s) is Cancelled");
+                        PickupMenuCtrl.ePage.Masters.CancelButtonText = "Cancel Pickup";
+                        PickupMenuCtrl.ePage.Masters.DisableSave = false;
+                        PickupMenuCtrl.ePage.Masters.IsCancelButton = false;
+                    }
+                }
+            });
         }
 
         function Validation($item) {
@@ -124,6 +187,17 @@
 
                         PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.Consignee = PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeCode + ' - ' + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeName;
                         PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.Warehouse = PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseCode + ' - ' + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseName;
+
+                        if (PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderStatus == "CAN") {
+                            PickupMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
+                            PickupMenuCtrl.ePage.Masters.DisableSave = true;
+                            PickupMenuCtrl.ePage.Masters.active = 1;
+                        }
+                        if (PickupMenuCtrl.ePage.Masters.IsCancelButton) {
+                            PickupMenuCtrl.ePage.Masters.CancelButtonText = "Cancel Pickup";
+                            PickupMenuCtrl.ePage.Masters.DisableSave = false;
+                            PickupMenuCtrl.ePage.Masters.IsCancelButton = false;
+                        }
 
                         pickupConfig.TabList[_index].isNew = false;
                         if ($state.current.url == "/pickup-request") {

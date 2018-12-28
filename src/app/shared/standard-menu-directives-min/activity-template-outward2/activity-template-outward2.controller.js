@@ -126,36 +126,96 @@
 
         function SaveEntity(callback) {
             if (ActivityTemplateOutward2Ctrl.taskObj.ProcessName == "WMS_DeliveryMaterial" || ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Transfer Material") {
-                apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.Update.Url, myTaskActivityConfig.Entities.DeliveryData).then(function (response) {
-                    if (myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo) {
-                        if (myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code) {
-                            myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsOutward[0] = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader;
-                        }
-                        myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data = filterObjectUpdate(myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data, "IsModified");
-                        apiService.post("eAxisAPI", appConfig.Entities.WmsPickList.API.Update.Url, myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data).then(function (response) {
-                            if (response.data.Response) {
-                                myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data = response.data.Response;
+                if (myTaskActivityConfig.Entities.DeliveryData) {                    
+                    myTaskActivityConfig.Entities.DeliveryData = filterObjectUpdate(myTaskActivityConfig.Entities.DeliveryData, "IsModified");
+                    apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.Update.Url, myTaskActivityConfig.Entities.DeliveryData).then(function (response) {
+                        if (response.data.Response) {
+                            if (myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo) {
+                                if (myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code) {
+                                    myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsOutward[0] = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader;
+                                }
+                                myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data = filterObjectUpdate(myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data, "IsModified");
+                                apiService.post("eAxisAPI", appConfig.Entities.WmsPickList.API.Update.Url, myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data).then(function (response) {
+                                    if (response.data.Response) {
+                                        myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data = response.data.Response;
+                                        $rootScope.SaveOutwardFromTask(function () {
+                                            apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + ActivityTemplateOutward2Ctrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
+                                                if (response.data.Response) {
+                                                    response.data.Response.UIWmsOutwardHeader.Warehouse = response.data.Response.UIWmsOutwardHeader.WarehouseCode + "-" + response.data.Response.UIWmsOutwardHeader.WarehouseName;
+                                                    response.data.Response.UIWmsOutwardHeader.Client = response.data.Response.UIWmsOutwardHeader.ClientCode + "-" + response.data.Response.UIWmsOutwardHeader.ClientName;
+                                                    response.data.Response.UIWmsOutwardHeader.TransferWarehouse = response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Code + "-" + response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Name;
+                                                    myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data = response.data.Response;
+                                                    if (callback)
+                                                        callback();
+                                                }
+                                            });
+                                        });
+                                    }
+                                });
+                            } else {
                                 $rootScope.SaveOutwardFromTask(function () {
-                                    apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + ActivityTemplateOutward2Ctrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
-                                        if (response.data.Response) {
-                                            response.data.Response.UIWmsOutwardHeader.Warehouse = response.data.Response.UIWmsOutwardHeader.WarehouseCode + "-" + response.data.Response.UIWmsOutwardHeader.WarehouseName;
-                                            response.data.Response.UIWmsOutwardHeader.Client = response.data.Response.UIWmsOutwardHeader.ClientCode + "-" + response.data.Response.UIWmsOutwardHeader.ClientName;
-                                            response.data.Response.UIWmsOutwardHeader.TransferWarehouse = response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Code + "-" + response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Name;
-                                            myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data = response.data.Response;
-                                            if (callback)
-                                                callback();
-                                        }
-                                    });
+                                    if (callback)
+                                        callback();
                                 });
                             }
-                        });
-                    } else {
-                        $rootScope.SaveOutwardFromTask(function () {
-                            if (callback)
-                                callback();
+                        }
+                    });
+                } else if (myTaskActivityConfig.Entities.PickupData) {
+                    if (callback) {
+                        myTaskActivityConfig.Entities.PickupData.UIvwWmsPickupLine = $filter('orderBy')(myTaskActivityConfig.Entities.PickupData.UIvwWmsPickupLine, 'PL_AdditionalRef1Code');
+                        myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine = $filter('orderBy')(myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine, 'AdditionalRef1Code');
+                        angular.forEach(myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsWorkOrderLine, function (value, key) {
+                            angular.forEach(myTaskActivityConfig.Entities.PickupData.UIvwWmsPickupLine, function (value1, key1) {
+                                if (value.Parent_FK == value1.PL_PK) {
+                                    if (value1.PL_WorkOrderLineStatus == "MCW") {
+                                        myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "ICW";
+                                    } else if (value1.TESOUT_Pk && value1.PL_WorkOrderLineStatus == "MTW") {
+                                        myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "ITW";
+                                    } else if (value1.TESOUT_Pk && value1.PL_WorkOrderLineStatus == "MRW") {
+                                        myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "IRW";
+                                    } else if (value1.TESOUT_Pk && value1.PL_WorkOrderLineStatus == "MSTW") {
+                                        myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "ISTW";
+                                    } else if (value1.TESOUT_Pk && value1.PL_WorkOrderLineStatus == "MSW") {
+                                        myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "ISW";
+                                    }
+                                }
+                            });
                         });
                     }
-                });
+                    myTaskActivityConfig.Entities.PickupData = filterObjectUpdate(myTaskActivityConfig.Entities.PickupData, "IsModified");
+                    apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, myTaskActivityConfig.Entities.PickupData).then(function (response) {
+                        if (response.data.Response) {
+                            if (myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo) {
+                                if (myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code) {
+                                    myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsOutward[0] = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader;
+                                }
+                                myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data = filterObjectUpdate(myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data, "IsModified");
+                                apiService.post("eAxisAPI", appConfig.Entities.WmsPickList.API.Update.Url, myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data).then(function (response) {
+                                    if (response.data.Response) {
+                                        myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data = response.data.Response;
+                                        $rootScope.SaveOutwardFromTask(function () {
+                                            apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + ActivityTemplateOutward2Ctrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
+                                                if (response.data.Response) {
+                                                    response.data.Response.UIWmsOutwardHeader.Warehouse = response.data.Response.UIWmsOutwardHeader.WarehouseCode + "-" + response.data.Response.UIWmsOutwardHeader.WarehouseName;
+                                                    response.data.Response.UIWmsOutwardHeader.Client = response.data.Response.UIWmsOutwardHeader.ClientCode + "-" + response.data.Response.UIWmsOutwardHeader.ClientName;
+                                                    response.data.Response.UIWmsOutwardHeader.TransferWarehouse = response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Code + "-" + response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Name;
+                                                    myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data = response.data.Response;
+                                                    if (callback)
+                                                        callback();
+                                                }
+                                            });
+                                        });
+                                    }
+                                });
+                            } else {
+                                $rootScope.SaveOutwardFromTask(function () {
+                                    if (callback)
+                                        callback();
+                                });
+                            }
+                        }
+                    });
+                }
             } else {
                 saves(callback);
             }
@@ -227,23 +287,7 @@
             ActivityTemplateOutward2Ctrl.ePage.Masters.StandardConfigInput = {
                 IsDisableRefreshButton: true,
                 IsDisableDeleteHistoryButton: true,
-                // IsDisableUpload: true,
-                // IsDisableGenerate: true,
-                IsDisableRelatedDocument: true,
-                // IsDisableCount: true,
-                // IsDisableDownloadCount: true,
-                // IsDisableAmendCount: true,
-                // IsDisableFileName: true,
-                // IsDisableEditFileName: true,
-                // IsDisableDocumentType: true,
-                // IsDisableOwner: true,
-                // IsDisableCreatedOn: true,
-                // IsDisableShare: true,
-                // IsDisableVerticalMenu: true,
-                // IsDisableVerticalMenuDownload: true,
-                // IsDisableVerticalMenuAmend: true,
-                // IsDisableVerticalMenuEmailAttachment: true,
-                // IsDisableVerticalMenuRemove: true
+                IsDisableRelatedDocument: true
             };
 
             ActivityTemplateOutward2Ctrl.ePage.Masters.CommentConfig = {
@@ -266,11 +310,6 @@
                         SubModuleCode: "DEL",
                     },
                     GroupCode: ActivityTemplateOutward2Ctrl.ePage.Masters.ValidationSource[0].Code,
-                    // RelatedBasicDetails: [{
-                    //     "UIField": "TEST",
-                    //     "DbField": "TEST",
-                    //     "Value": "TEST"
-                    // }],
                     EntityObject: ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj,
                     ErrorCode: []
                 };
@@ -301,6 +340,7 @@
             if (ActivityTemplateOutward2Ctrl.ePage.Masters.ValidationSource.length > 0 || ActivityTemplateOutward2Ctrl.ePage.Masters.DocumentValidation.length > 0) {
                 if (ActivityTemplateOutward2Ctrl.ePage.Masters.ValidationSource.length > 0) {
                     if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Get POD and Return to Order Desk") {
+                        myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsWorkorderReport = angular.copy(myTaskActivityConfig.Entities.DeliveryData.UIWmsWorkorderReport);
                         if (myTaskActivityConfig.Entities.ManifestData.TmsManifestConsignment[0].TMC_ActualDeliveryDateTime) {
                             myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.ActualDeliveryDate = new Date();
                         }
@@ -327,6 +367,7 @@
                             ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj.Document = null;
                         }
                         if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Get POD and Return to Order Desk") {
+                            ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj.UIWmsWorkorderReport = angular.copy(myTaskActivityConfig.Entities.DeliveryData.UIWmsWorkorderReport);
                             if (myTaskActivityConfig.Entities.ManifestData.TmsManifestConsignment[0].TMC_ActualDeliveryDateTime) {
                                 ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj.ActualDeliveryDate = new Date();
                             }
@@ -386,18 +427,28 @@
                                     });
                                 }
                             });
-                        } else if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Deliver Material") {
-                            myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.TransportBookedDateTime = new Date();
-                            myTaskActivityConfig.Entities.ManifestData.TmsManifestConsignment[0].TMC_ActualPickupDateTime = new Date();
-                            myTaskActivityConfig.Entities.ManifestData.TmsManifestConsignment[0].IsModified = true;
-                            myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.IsModified = true;
-                            apiService.post("eAxisAPI", appConfig.Entities.TmsManifestList.API.Update.Url, myTaskActivityConfig.Entities.ManifestData).then(function (response) {
-                                if (response.data.Response.Response) {
-                                    myTaskActivityConfig.Entities.ManifestData = response.data.Response.Response;
-                                    outwardConfig.IsSaveManifest = true;
-                                    CompleteWithSave();
-                                }
-                            });
+                        } else if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Deliver Material") {                            
+                            var _Data = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities,
+                                _input = _Data.Header.Data,
+                                _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
+
+                            //Validation Call
+                            outwardConfig.GeneralValidation(myTaskActivityConfig.Entities.Outward);
+                            if (_errorcount.length == 0) {
+                                myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.TransportBookedDateTime = new Date();
+                                myTaskActivityConfig.Entities.ManifestData.TmsManifestConsignment[0].TMC_ActualPickupDateTime = new Date();
+                                myTaskActivityConfig.Entities.ManifestData.TmsManifestConsignment[0].IsModified = true;
+                                myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.IsModified = true;
+                                apiService.post("eAxisAPI", appConfig.Entities.TmsManifestList.API.Update.Url, myTaskActivityConfig.Entities.ManifestData).then(function (response) {
+                                    if (response.data.Response.Response) {
+                                        myTaskActivityConfig.Entities.ManifestData = response.data.Response.Response;
+                                        outwardConfig.IsSaveManifest = true;
+                                        CompleteWithSave();
+                                    }
+                                });
+                            } else {
+                                ActivityTemplateOutward2Ctrl.ePage.Masters.ShowErrorWarningModal(ActivityTemplateOutward2Ctrl.taskObj.PSI_InstanceNo);
+                            }
                         } else if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Confirm Delivery") {
                             apiService.get("eAxisAPI", appConfig.Entities.WmsPickList.API.GetById.Url + myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsPickHeader.PK).then(function (response) {
                                 if (response.data.Response) {
