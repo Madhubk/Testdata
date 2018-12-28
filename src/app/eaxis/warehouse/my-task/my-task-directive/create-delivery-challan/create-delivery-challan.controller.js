@@ -66,12 +66,12 @@
 
         }
 
-        function CreateMaterial() {            
+        function CreateMaterial() {
             if (CreateDelChallanCtrl.ePage.Masters.WarehouseCode) {
                 if (CreateDelChallanCtrl.ePage.Masters.WarehouseCode == CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode) {
                     toastr.warning("Transfer From and To warehouse's are same. Select another warehouse");
                 } else {
-                    CreateDelChallanCtrl.ePage.Masters.modalInstance.close('close');
+                    CreateDelChallanCtrl.ePage.Masters.modalInstance.close('MTR');
                 }
             } else {
                 toastr.warning("Please enter Transfer From Warehouse");
@@ -165,15 +165,9 @@
                         if (type == "OUT") {
                             GoToOutwardCreation(type);
                         } else if (type == "MTR") {
-                            openModel().result.then(function (response) {                                
-                                if (CreateDelChallanCtrl.ePage.Masters.WarehouseCode) {
-                                    if (CreateDelChallanCtrl.ePage.Masters.WarehouseCode == CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode) {
-                                        toastr.warning("Transfer From and To warehouse's are same. Select another warehouse");
-                                    } else {
-                                        GoToOutwardCreation(type);
-                                    }
-                                } else {
-                                    toastr.warning("Please enter Transfer From Warehouse");
+                            openModel().result.then(function (response) {
+                                if (response == "MTR") {
+                                    GoToOutwardCreation(type);
                                 }
                             }, function () {
                                 console.log("Cancelled");

@@ -2072,6 +2072,16 @@
                         }
                     }
                 },
+                "Notification": {
+                    "RowIndex": -1,
+                    "API": {
+                        "SendSms": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "Notification/SendSms"
+                        },
+                    }
+                },
                 "WmsClientParameterByWarehouse": {
                     "RowIndex": -1,
                     "API": {

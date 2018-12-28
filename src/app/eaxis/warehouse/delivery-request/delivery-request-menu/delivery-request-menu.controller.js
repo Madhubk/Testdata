@@ -185,7 +185,15 @@
                             deliveryConfig.TabList[_index][deliveryConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data;
 
                         DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Consignee = DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeCode + ' - ' + DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeName;
+                        if ($item.isNew) {
+                            var _smsInput = {
+                                "MobileNo": "8870242130",
+                                "Message": "Delivery Request " + RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + " Acknowledged Successfully."
+                            }
+                            apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
 
+                            });
+                        }
                         deliveryConfig.TabList[_index].isNew = false;
                         if ($state.current.url == "/delivery-request") {
                             helperService.refreshGrid();

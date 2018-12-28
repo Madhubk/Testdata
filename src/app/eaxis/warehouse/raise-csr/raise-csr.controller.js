@@ -156,7 +156,14 @@
                         $item.isNew = false;
                         RaiseCSRCtrl.ePage.Entities.Header.Data = response.data.Response;
                         $item[$item.label].ePage.Entities.Header.Data = response.data.Response;
-                        RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Consignee = RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeCode + ' - ' + RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeName;
+                        RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Consignee = RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeCode + ' - ' + RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeName;                        
+                        var _smsInput = {
+                            "MobileNo": "8870242130",
+                            "Message": "Delivery Request " + RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + " Acknowledged Successfully."
+                        }
+                        apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
+                            
+                        });
                         toastr.success("Saved Successfully...!");
                         openModel().result.then(function (response) { }, function () {
                             console.log("Cancelled");
