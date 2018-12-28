@@ -166,7 +166,7 @@
             if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length > 0) {
                 var count = 0;
                 angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
-                    if (!value.REPOUT_Pk && value.PL_AdditionalRef2Code && value.PL_WorkOrderLineStatusDesc == "Stock at Central Warehouse") {
+                    if (!value.SCROUT_Pk && !value.REPOUT_Pk && value.PL_AdditionalRef2Code && value.PL_WorkOrderLineStatusDesc == "Stock at Central Warehouse") {
                         count = count + 1;
                     }
                 });

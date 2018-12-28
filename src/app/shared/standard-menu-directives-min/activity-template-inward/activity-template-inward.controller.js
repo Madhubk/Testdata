@@ -223,6 +223,8 @@
                                                 myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "SRW";
                                             } else if (value1.PL_WorkOrderLineStatus == "ISTW") {
                                                 myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "SSTW";
+                                            } else if (value1.PL_WorkOrderLineStatus == "ISW") {
+                                                myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "SSW";
                                             }
                                             // }
                                         });

@@ -41,9 +41,14 @@
             OutwardDispatchCtrl.ePage.Masters.SingleRecordView = SingleRecordView;
             OutwardDispatchCtrl.ePage.Masters.StandardMenuConfig = StandardMenuConfig;
             OutwardDispatchCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
+            OutwardDispatchCtrl.ePage.Masters.OnChangeDate = OnChangeDate;
             GetDropDownList();
             getVehicleType();
             generalOperation();
+        }
+
+        function OnChangeDate(item) {
+            OutwardDispatchCtrl.manifestDetails = OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails;
         }
 
         function OnChangeValues(fieldvalue, code) {
