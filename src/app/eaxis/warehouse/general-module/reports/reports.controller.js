@@ -98,20 +98,22 @@
 
         // CfxMenus
         function checkCfxMenus() {
-            var ModuleCode;
-            if ($state.current.url == "/spare-parts-report") {
-                ModuleCode = "SPMS";
-            } else {
-                ModuleCode = "WHS";
-            }
+            
             ReportCtrl.ePage.Masters.ChildMenuList = [];
             var _filter = {
                 "USR_TenantCode": authService.getUserInfo().TenantCode,
                 "USR_SAP_FK": authService.getUserInfo().AppPK,
                 "PageType": "Report",
-                "ModuleCode": ModuleCode,
+                "ModuleCode": "WMS",
                 "USR_UserName": authService.getUserInfo().UserId,
             };
+
+            if ($state.current.url == "/spare-parts-report") {
+                _filter.SubModuleCode = "SPMS"
+            } else {
+                _filter.SubModuleCode = "GEN"
+            }
+
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": appConfig.Entities.CfxMenus.API.MasterCascadeFindAll.FilterID
