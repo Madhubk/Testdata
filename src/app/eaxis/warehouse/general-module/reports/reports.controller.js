@@ -176,7 +176,7 @@
                 }
 
                 ReportCtrl.ePage.Masters.DynamicControl.Filter.map(function (val, key) {
-                    if (val.FieldName == "WAR_WarehouseCode" || val.FieldName == "WarehouseCode") {
+                    if (val.FieldName == "WAR_WarehouseCode" || val.FieldName == "WarehouseCode"|| val.FieldName=="WLO_WAR_WarehouseCode") {
                         obj.DataObjs[0].DataObject.Warehouse_Code = val.value;
                     }
                     if (val.FieldName == "ClientCode" || val.FieldName == "ORG_ClientCode") {
