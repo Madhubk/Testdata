@@ -325,23 +325,26 @@
                                     if (value.PL_PK == value1.PK) {
                                         if (type == "CEN") {
                                             value1.WorkOrderLineStatus = "MCW";
-                                        } else if (type == "TES") {
-                                            // var _filter = {
-                                            //     "Type": "STC"
-                                            // };
-                                            // var _input = {
-                                            //     "searchInput": helperService.createToArrayOfObject(_filter),
-                                            //     "FilterID": appConfig.Entities.AppCounter.API.FindAll.FilterID
-                                            // };
-                                            // apiService.post("eAxisAPI", appConfig.Entities.AppCounter.API.FindAll.Url, _input).then(function (response) {
-                                            //     if (response.data.Response) {
-                                            //         apiService.post("eAxisAPI", appConfig.Entities.AppCounter.API.Update.Url, _input).then(function (response) {
-                                            //             if (response.data.Response) {
-                                            //             }
-                                            //         });
-                                            //     }
-                                            // });
-                                            value1.AdditionalRef2Code = "STC1000";
+                                        } else if (type == "TES") {                                            
+                                            var _filter = {
+                                                "Type": "STC"
+                                            };
+                                            var _input = {
+                                                "searchInput": helperService.createToArrayOfObject(_filter),
+                                                "FilterID": appConfig.Entities.WmsTestID.API.FindAll.FilterID
+                                            };
+                                            apiService.post("eAxisAPI", appConfig.Entities.WmsTestID.API.FindAll.Url, _input).then(function (response) {
+                                                if (response.data.Response) {
+                                                    value1.AdditionalRef2Code = response.data.Response[0].Prefix + response.data.Response[0].Value;
+                                                    value1.AdditionalRef2Type = "STCNo";
+                                                    response.data.Response[0].Value = response.data.Response[0].Value + 1;
+                                                    response.data.Response[0].IsModified = true;
+                                                    apiService.post("eAxisAPI", appConfig.Entities.AppCounter.API.Update.Url, response.data.Response[0]).then(function (response) {
+                                                        if (response.data.Response) {
+                                                        }
+                                                    });
+                                                }
+                                            });
                                             value1.WorkOrderLineStatus = "MTW";
                                         } else if (type == "SCR") {
                                             value1.WorkOrderLineStatus = "MSW";

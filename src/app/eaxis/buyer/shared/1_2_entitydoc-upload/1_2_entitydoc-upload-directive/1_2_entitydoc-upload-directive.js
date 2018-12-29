@@ -7,8 +7,7 @@
 
     oneTwoEntityDocUploadDirective.$inject = [];
 
-    function oneTwoEntityDocUploadDirective() {
-        debugger
+    function oneTwoEntityDocUploadDirective() {        
         var exports = {
             restrict: "EA",
             templateUrl: "app/eaxis/buyer/shared/1_2_entitydoc-upload/1_2_entitydoc-upload-directive/1_2_entitydoc-upload-directive.html",

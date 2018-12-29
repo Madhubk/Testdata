@@ -184,15 +184,33 @@
                         else if (response.Data)
                             deliveryConfig.TabList[_index][deliveryConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data;
 
-                        DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Consignee = DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeCode + ' - ' + DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeName;
+                        DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Consignee = DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeCode + ' - ' + DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeName;                        
                         if ($item.isNew) {
                             var _smsInput = {
-                                "MobileNo": "8870242130",
-                                "Message": "Delivery Request " + RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + " Acknowledged Successfully."
+                                "MobileNo": DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.RequesterContactNo,
+                                "Message": "Delivery Request " + DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + " Acknowledged Successfully."
                             }
                             apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
 
                             });
+                            if (deliveryConfig.Entities.ClientContact) {
+                                var _smsInput = {
+                                    "MobileNo": deliveryConfig.Entities.ClientContact[0].Mobile,
+                                    "Message": "Delivery Request " + DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + " Acknowledged Successfully."
+                                }
+                                apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
+
+                                });
+                            }
+                            if (deliveryConfig.Entities.WarehouseContact) {
+                                var _smsInput = {
+                                    "MobileNo": deliveryConfig.Entities.WarehouseContact[0].Mobile,
+                                    "Message": "Delivery Request " + DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + " Acknowledged Successfully."
+                                }
+                                apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
+
+                                });
+                            }
                         }
                         deliveryConfig.TabList[_index].isNew = false;
                         if ($state.current.url == "/delivery-request") {
