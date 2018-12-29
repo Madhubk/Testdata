@@ -47,6 +47,7 @@
             GetDropDownList();
             GeneralOperations();
             GetBindValues();
+            AllocateUDF();
             GetUserMappedOrganization();
             if (!PickupGeneralCtrl.currentPickup.isNew)
                 GetContact();
@@ -249,6 +250,19 @@
             PickupGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader = item;
             PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.ORG_Client_FK = item.PK;
             OnChangeValues(PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.ClientCode, 'E3075');
+            AllocateUDF();
+            var _filter = {
+                "ORG_FK": PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.ORG_Client_FK
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.OrgContact.API.FindAll.FilterID
+            };
+            apiService.post("eAxisAPI", appConfig.Entities.OrgContact.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    pickupConfig.Entities.ClientContact = response.data.Response;
+                }
+            });
         }
 
         function SelectedLookupSite(item) {
@@ -285,6 +299,18 @@
             OnChangeValues(PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseCode, 'E3077');
             PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.TempWarehouse = PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseCode;
             getReceiveParamWarehouse();
+            var _filter = {
+                "ORG_FK": item.PK
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.OrgContact.API.FindAll.FilterID
+            };
+            apiService.post("eAxisAPI", appConfig.Entities.OrgContact.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    pickupConfig.Entities.WarehouseContact = response.data.Response;
+                }
+            });
             var _filter = {
                 "ORG_FK": item.PK
             };
@@ -362,6 +388,31 @@
             if (PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.Consignee == ' - ')
                 PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.Consignee = ""
         }
+
+        function AllocateUDF() {
+            if (PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.ORG_Client_FK) {
+                var _filter = {
+                    "ORG_FK": PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.ORG_Client_FK
+                };
+
+                var _input = {
+                    "searchInput": helperService.createToArrayOfObject(_filter),
+                    "FilterID": appConfig.Entities.OrgMiscServ.API.FindAll.FilterID
+                };
+
+                apiService.post("eAxisAPI", appConfig.Entities.OrgMiscServ.API.FindAll.Url, _input).then(function (response) {
+                    if (response.data.Response) {
+                        PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.IMPartAttrib1Name = response.data.Response[0].IMPartAttrib1Name;
+                        PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.IMPartAttrib2Name = response.data.Response[0].IMPartAttrib2Name;
+                        PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.IMPartAttrib3Name = response.data.Response[0].IMPartAttrib3Name;
+                        PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.IMPartAttrib1Type = response.data.Response[0].IMPartAttrib1Type;
+                        PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.IMPartAttrib2Type = response.data.Response[0].IMPartAttrib2Type;
+                        PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.IMPartAttrib3Type = response.data.Response[0].IMPartAttrib3Type;
+                    }
+                });
+            }
+        }
+
 
         Init();
     }

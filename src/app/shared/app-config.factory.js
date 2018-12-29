@@ -2159,16 +2159,21 @@
                 "AppCounter": {
                     "RowIndex": -1,
                     "API": {
-                        "FindAll": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "AppCounter/FindAll",
-                            "FilterID": "APPCOUNT",
-                        },
                         "Update": {
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "AppCounter/Update"
+                        }
+                    }
+                },
+                "WmsTestID": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "TestID/FindAll",
+                            "FilterID": "APPCOUNT"
                         }
                     }
                 },

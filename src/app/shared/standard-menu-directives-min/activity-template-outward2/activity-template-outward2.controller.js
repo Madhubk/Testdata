@@ -126,7 +126,7 @@
 
         function SaveEntity(callback) {
             if (ActivityTemplateOutward2Ctrl.taskObj.ProcessName == "WMS_DeliveryMaterial" || ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Transfer Material") {
-                if (myTaskActivityConfig.Entities.DeliveryData) {                    
+                if (myTaskActivityConfig.Entities.DeliveryData) {
                     myTaskActivityConfig.Entities.DeliveryData = filterObjectUpdate(myTaskActivityConfig.Entities.DeliveryData, "IsModified");
                     apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.Update.Url, myTaskActivityConfig.Entities.DeliveryData).then(function (response) {
                         if (response.data.Response) {
@@ -427,7 +427,8 @@
                                     });
                                 }
                             });
-                        } else if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Deliver Material") {                            
+                        } else if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Deliver Material") {
+                            outwardConfig.ValidationFindall();
                             var _Data = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities,
                                 _input = _Data.Header.Data,
                                 _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
