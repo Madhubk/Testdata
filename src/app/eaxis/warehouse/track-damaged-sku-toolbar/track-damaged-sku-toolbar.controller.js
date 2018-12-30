@@ -325,7 +325,7 @@
                                     if (value.PL_PK == value1.PK) {
                                         if (type == "CEN") {
                                             value1.WorkOrderLineStatus = "MCW";
-                                        } else if (type == "TES") {                                            
+                                        } else if (type == "TES") {
                                             var _filter = {
                                                 "Type": "STC"
                                             };
@@ -392,8 +392,10 @@
                                             DamagedSkuToolbarCtrl.ePage.Masters.MoveToScrapWarehouseBtnText = "Move To Scrap Warehouse";
                                         } else if (type == "REP") {
                                             DamagedSkuToolbarCtrl.ePage.Masters.MoveToRepairWarehouseBtnText = "Move To Repair Warehouse";
-                                        } else if (type == "RAR") {
+                                        } else if (type == "SIT") {
                                             DamagedSkuToolbarCtrl.ePage.Masters.MoveToSiteWarehouseBtnText = "Move To Site Warehouse";
+                                        } else if (type == "CEN") {
+                                            DamagedSkuToolbarCtrl.ePage.Masters.MoveToCentralWarehouseBtnText = "Move To Central Warehouse";
                                         }
                                         DamagedSkuToolbarCtrl.ePage.Masters.IsMoveToTestingWarehouseBtn = true;
                                         helperService.refreshGrid();
@@ -407,7 +409,7 @@
                                         DamagedSkuToolbarCtrl.ePage.Masters.MoveToScrapWarehouseBtnText = "Move To Scrap Warehouse";
                                     } else if (type == "REP") {
                                         DamagedSkuToolbarCtrl.ePage.Masters.MoveToRepairWarehouseBtnText = "Move To Repair Warehouse";
-                                    } else if (type == "RAR") {
+                                    } else if (type == "SIT") {
                                         DamagedSkuToolbarCtrl.ePage.Masters.MoveToSiteWarehouseBtnText = "Move To Site Warehouse";
                                     }
                                 }
