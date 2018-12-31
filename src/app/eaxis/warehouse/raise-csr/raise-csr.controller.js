@@ -52,6 +52,7 @@
 
         function CreateNewDelReq() {
             RaiseCSRCtrl.ePage.Masters.TabList = [];
+            deliveryConfig.TabList = [];
             RaiseCSRCtrl.ePage.Masters.isNewClicked = true;
             RaiseCSRCtrl.ePage.Masters.Tab = undefined;
             helperService.getFullObjectUsingGetById(appConfig.Entities.WmsDeliveryList.API.GetById.Url, 'null').then(function (response) {

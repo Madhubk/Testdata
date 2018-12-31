@@ -261,28 +261,43 @@
             };
             confirmation.showModal({}, modalOptions)
                 .then(function (result) {
+                    var count = 0;
                     PickupLineCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
                     angular.forEach(PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine, function (value, key) {
                         if (value.SingleSelect == true && value.PK) {
                             value.IsDeleted = true;
+                            count = count + 1;
+                        } else if (!value.PK && value.SingleSelect == true) {
+                            var ReturnValue = RemoveAllLineErrors();
+                            if (ReturnValue) {
+                                if (PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine[key].SingleSelect == true)
+                                    PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine.splice(key, 1);
+                                toastr.success('Record Removed Successfully');
+                                PickupLineCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
+                                PickupLineCtrl.ePage.Masters.Config.GeneralValidation(PickupLineCtrl.currentPickup);
+                            }
                         }
                     });
-                    var obj = PickupLineCtrl.ePage.Entities.Header.Data;
-                    apiService.post("eAxisAPI", PickupLineCtrl.ePage.Entities.Header.API.UpdatePickup.Url, obj).then(function (response) {
-                    });
-                    var ReturnValue = RemoveAllLineErrors();
-                    if (ReturnValue) {
-                        for (var i = PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine.length - 1; i >= 0; i--) {
-                            if (PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine[i].SingleSelect == true)
-                                PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine.splice(i, 1);
-                        }
-                        PickupLineCtrl.ePage.Masters.Config.GeneralValidation(PickupLineCtrl.currentPickup);
+                    if (count > 0) {
+                        var obj = PickupLineCtrl.ePage.Entities.Header.Data;
+                        apiService.post("eAxisAPI", PickupLineCtrl.ePage.Entities.Header.API.UpdatePickup.Url, obj).then(function (response) {
+                            if (response.data.Response) {
+                                apiService.get("eAxisAPI", PickupLineCtrl.ePage.Entities.Header.API.GetByID.Url + response.data.Response.UIWmsPickup.PK).then(function (response) {
+                                    if (response.data.Response) {
+                                        PickupLineCtrl.ePage.Entities.Header.Data = response.data.Response;
+                                        PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickup.Consignee = PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeCode + ' - ' + PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeName;
+                                        PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickup.Warehouse = PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseCode + ' - ' + PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseName;
+                                        PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickup.Client = PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickup.ClientCode + ' - ' + PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickup.ClientName;
+                                        toastr.success('Record Removed Successfully');
+                                        PickupLineCtrl.ePage.Masters.selectedRow = -1;
+                                        PickupLineCtrl.ePage.Masters.SelectAll = false;
+                                        PickupLineCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
+                                        PickupLineCtrl.ePage.Masters.EnableDeleteButton = false;
+                                    }
+                                });
+                            }
+                        });
                     }
-                    toastr.success('Record Removed Successfully');
-                    PickupLineCtrl.ePage.Masters.selectedRow = -1;
-                    PickupLineCtrl.ePage.Masters.SelectAll = false;
-                    PickupLineCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
-                    PickupLineCtrl.ePage.Masters.EnableDeleteButton = false;
                 }, function () {
                     console.log("Cancelled");
                 });

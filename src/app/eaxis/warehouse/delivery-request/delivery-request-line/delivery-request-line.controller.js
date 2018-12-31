@@ -263,28 +263,42 @@
             };
             confirmation.showModal({}, modalOptions)
                 .then(function (result) {
+                    var count = 0;
                     DeliveryLineCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
                     angular.forEach(DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine, function (value, key) {
                         if (value.SingleSelect == true && value.PK) {
                             value.IsDeleted = true;
+                            count = count + 1;
+                        } else if (!value.PK && value.SingleSelect == true) {
+                            var ReturnValue = RemoveAllLineErrors();
+                            if (ReturnValue) {
+                                if (DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine[key].SingleSelect == true)
+                                    DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine.splice(key, 1);
+                                toastr.success('Record Removed Successfully');
+                                DeliveryLineCtrl.ePage.Masters.Config.GeneralValidation(DeliveryLineCtrl.currentDelivery);
+                            }
                         }
                     });
-                    var obj = DeliveryLineCtrl.ePage.Entities.Header.Data;
-                    apiService.post("eAxisAPI", DeliveryLineCtrl.ePage.Entities.Header.API.UpdateDelivery.Url, obj).then(function (response) {
-                    });
-                    var ReturnValue = RemoveAllLineErrors();
-                    if (ReturnValue) {
-                        for (var i = DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine.length - 1; i >= 0; i--) {
-                            if (DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine[i].SingleSelect == true)
-                                DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine.splice(i, 1);
-                        }
-                        DeliveryLineCtrl.ePage.Masters.Config.GeneralValidation(DeliveryLineCtrl.currentDelivery);
+                    if (count > 0) {
+                        var obj = DeliveryLineCtrl.ePage.Entities.Header.Data;
+                        apiService.post("eAxisAPI", DeliveryLineCtrl.ePage.Entities.Header.API.UpdateDelivery.Url, obj).then(function (response) {
+                            if (response.data.Response) {
+                                apiService.get("eAxisAPI", DeliveryLineCtrl.ePage.Entities.Header.API.GetByID.Url + response.data.Response.UIWmsDelivery.PK).then(function (response) {
+                                    if (response.data.Response) {
+                                        DeliveryLineCtrl.ePage.Entities.Header.Data = response.data.Response;
+                                        DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Consignee = DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeCode + ' - ' + DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeName;
+                                        DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Warehouse = DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode + ' - ' + DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseName;
+                                        DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Client = DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode + ' - ' + DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientName;
+                                        toastr.success('Record Removed Successfully');
+                                        DeliveryLineCtrl.ePage.Masters.selectedRow = -1;
+                                        DeliveryLineCtrl.ePage.Masters.SelectAll = false;
+                                        DeliveryLineCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
+                                        DeliveryLineCtrl.ePage.Masters.EnableDeleteButton = false;
+                                    }
+                                });
+                            }
+                        });
                     }
-                    toastr.success('Record Removed Successfully');
-                    DeliveryLineCtrl.ePage.Masters.selectedRow = -1;
-                    DeliveryLineCtrl.ePage.Masters.SelectAll = false;
-                    DeliveryLineCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
-                    DeliveryLineCtrl.ePage.Masters.EnableDeleteButton = false;
                 }, function () {
                     console.log("Cancelled");
                 });
