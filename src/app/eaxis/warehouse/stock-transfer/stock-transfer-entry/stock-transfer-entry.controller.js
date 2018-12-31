@@ -342,7 +342,7 @@
                 toastr.warning('Upload Excel With Product Details');
             } else {
                 var obj = {
-                    "LineType": "UIWmsStockTransferLine",
+                    "LineType": "UIWmsWorkOrderLine",
                     "WmsWorkOrder": {
                         "WorkOrderID": StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WorkOrderID,
                         "WarehouseCode": StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WarehouseCode,
