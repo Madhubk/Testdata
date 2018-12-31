@@ -1,4 +1,4 @@
-<div class="grid-loading-norecord-container ng-scope" style='z-index: 15;'data-ng-if="InwardLinesCtrl.ePage.Masters.Loading"></div>
+<div class="grid-loading-norecord-container ng-scope" style='z-index: 15;' data-ng-if="InwardLinesCtrl.ePage.Masters.Loading"></div>
 
 <!-- call Percentage values -->
 <span ng-if="InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.PercentageValues" ng-init="InwardLinesCtrl.ePage.Masters.GetPercentageValues()"></span>
@@ -6,10 +6,25 @@
 <div class="clearfix">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding">
         <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0">
-            <span><button type="button" class="btn btn-sm btn-outline-secondary font-10"  title="Add New"  data-ng-click="InwardLinesCtrl.ePage.Masters.AddNewRow()" ng-disabled="InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button></span>
-            <span><button type="button" class="btn btn-sm btn-outline-primary font-10"  title="Copy"  data-ng-click="InwardLinesCtrl.ePage.Masters.CopyRow()" ng-disabled="!InwardLinesCtrl.ePage.Masters.EnableDeleteButton || InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"><span class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button></span>
-            <span><button type="button" class="btn btn-sm btn-outline-primary font-10"  title="Delete"  data-ng-click="InwardLinesCtrl.ePage.Masters.RemoveRow()" ng-disabled="!InwardLinesCtrl.ePage.Masters.EnableDeleteButton || InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"><span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button></span>
-            <span><button type="button" class="btn btn-sm btn-outline-primary font-10"  title="Customize"  data-ng-click="InwardLinesCtrl.ePage.Masters.EditTableColumns = true"><span class="fa fa-filter"></span>&nbsp;&nbsp;Customize</button></span>
+            <span>
+                <button type="button" class="btn btn-sm btn-outline-secondary font-10" title="Add New" data-ng-click="InwardLinesCtrl.ePage.Masters.AddNewRow()"
+                    ng-disabled="InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                    <span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button>
+            </span>
+            <span>
+                <button type="button" class="btn btn-sm btn-outline-primary font-10" title="Copy" data-ng-click="InwardLinesCtrl.ePage.Masters.CopyRow()"
+                    ng-disabled="!InwardLinesCtrl.ePage.Masters.EnableDeleteButton || InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                    <span class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button>
+            </span>
+            <span>
+                <button type="button" class="btn btn-sm btn-outline-primary font-10" title="Delete" data-ng-click="InwardLinesCtrl.ePage.Masters.RemoveRow()"
+                    ng-disabled="!InwardLinesCtrl.ePage.Masters.EnableDeleteButton || InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                    <span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button>
+            </span>
+            <span>
+                <button type="button" class="btn btn-sm btn-outline-primary font-10" title="Customize" data-ng-click="InwardLinesCtrl.ePage.Masters.EditTableColumns = true">
+                    <span class="fa fa-filter"></span>&nbsp;&nbsp;Customize</button>
+            </span>
         </div>
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 p-0">
             <span>
@@ -19,100 +34,158 @@
                     fu-class="left" get-uploaded-files="InwardLinesCtrl.ePage.Masters.Documents.GetUploadedFiles($item, x, 'new')"
                     get-selected-files="InwardLinesCtrl.ePage.Masters.Documents.GetSelectedFiles($item, x, 'new')" modal-template=""
                     template="">
-                    <button type="button" class="btn btn-sm btn-outline-primary font-10"  title="Bulk Upload" data-ng-click=""  data-ng-disabled="InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable || !InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate">Bulk Upload</button>
+                    <button type="button" class="btn btn-sm btn-outline-primary font-10" title="Bulk Upload" data-ng-click="" data-ng-disabled="InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable || !InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate">Bulk Upload</button>
                 </file-upload-custom>
             </span>
-            <span><button type="button" class="btn btn-sm btn-outline-primary font-10"  title="Download Template" data-ng-click="InwardLinesCtrl.ePage.Masters.Documents.DownloadReport()"  data-ng-disabled="InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">Download Template</button></span>
+            <span>
+                <button type="button" class="btn btn-sm btn-outline-primary font-10" title="Download Template" data-ng-click="InwardLinesCtrl.ePage.Masters.Documents.DownloadReport()"
+                    data-ng-disabled="InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">Download Template</button>
+            </span>
         </div>
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0">
             <div class="input-group">
-                <div class="input-group-addon font-10"><i class="fa fa-search font-10"></i></div>
-                <input type="text" class="form-control height-25 font-10" placeholder="Search" ng-model="InwardLinesCtrl.ePage.Masters.SearchTable" data-ng-change="InwardLinesCtrl.ePage.Masters.LocalSearchLengthCalculation()">
-            </div>      
+                <div class="input-group-addon font-10">
+                    <i class="fa fa-search font-10"></i>
+                </div>
+                <input type="text" class="form-control height-25 font-10" placeholder="Search" ng-model="InwardLinesCtrl.ePage.Masters.SearchTable"
+                    data-ng-change="InwardLinesCtrl.ePage.Masters.LocalSearchLengthCalculation()">
+            </div>
         </div>
     </div>
-    <div id="InwardLineTable{{InwardLinesCtrl.currentInward.label}}" class="fixedheader mb-0" key-events table-object='InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine' enable='InwardLinesCtrl.ePage.Masters.Enable' selected-row='InwardLinesCtrl.ePage.Masters.selectedRow' unique-id='InwardLineTable{{InwardLinesCtrl.currentInward.label}}'>
+    <div id="InwardLineTable{{InwardLinesCtrl.currentInward.label}}" class="fixedheader mb-0" key-events table-object='InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine'
+        enable='InwardLinesCtrl.ePage.Masters.Enable' selected-row='InwardLinesCtrl.ePage.Masters.selectedRow' unique-id='InwardLineTable{{InwardLinesCtrl.currentInward.label}}'>
         <table id="InwardLinesCtrl.ePage.Masters.AddScroll" style="height: 250px">
             <thead>
                 <tr id="tableHeader">
-                    <th id="rcheckbox" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rcheckbox.isenabled" ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rcheckbox.width + 'px' }">
+                    <th id="rcheckbox" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rcheckbox.isenabled"
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rcheckbox.width + 'px' }">
                         <label class="customcheckbox">
                             <input type="checkbox" ng-change="InwardLinesCtrl.ePage.Masters.SelectAllCheckBox()" ng-checked="InwardLinesCtrl.ePage.Masters.SelectAll"
                                 ng-model="InwardLinesCtrl.ePage.Masters.SelectAll" ng-disabled="InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <span class="text"></span>
                         </label>
                     </th>
-                    <th id="rsno" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rsno.isenabled" ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rsno.width + 'px' }" title="S.No">S.No</th>
-                    <th id="rproductcode" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rproductcode.isenabled" ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rproductcode.width + 'px' }" title="Product Code">Product Code</th>
-                    <th id="rproductdescription" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rproductdescription.isenabled" ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rproductdescription.width + 'px' }" title="Product Description">Product Description</th>
-                    <th id="rcommodity"data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rcommodity.isenabled" ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rcommodity.width + 'px' }" title="Commodity">Commodity</th>
-                    <th id="rpack" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rpack.isenabled" ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rpack.width + 'px' }" title="Pack">Pack</th>
-                    <th id="rpackuq" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rpackuq.isenabled" ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rpackuq.width + 'px' }" title="Pack Type">Pack Type</th>
-                    <th id="rquantity"data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rquantity.isenabled" ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rquantity.width + 'px' }" title="Quantity">Quantity</th>
-                    <th id="rquantityuq" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rquantityuq.isenabled" ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rquantityuq.width + 'px' }" title="Quantity UQ">Quantity UQ</th>
-                    <th id="rproductcondition" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rproductcondition.isenabled" ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rproductcondition.width + 'px' }" title="Product Condition">Product Condition</th>
-                    <th id="rpalletid" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rpalletid.isenabled" ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rpalletid.width + 'px' }" title="Pallet ID">Pallet ID</th>
-                    <th id="rudf1"data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rudf1.isenabled" ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rudf1.width + 'px' }" title="User Defined Field 1">
+                    <th id="rsno" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rsno.isenabled" ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rsno.width + 'px' }"
+                        title="S.No">S.No</th>
+                    <th id="rproductcode" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rproductcode.isenabled"
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rproductcode.width + 'px' }"
+                        title="Product Code">Product Code</th>
+                    <th id="rproductdescription" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rproductdescription.isenabled"
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rproductdescription.width + 'px' }"
+                        title="Product Description">Product Description</th>
+                    <th id="rcommodity" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rcommodity.isenabled"
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rcommodity.width + 'px' }"
+                        title="Commodity">Commodity</th>
+                    <th id="rpack" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rpack.isenabled" ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rpack.width + 'px' }"
+                        title="Pack">Pack</th>
+                    <th id="rpackuq" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rpackuq.isenabled"
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rpackuq.width + 'px' }"
+                        title="Pack Type">Pack Type</th>
+                    <th id="rquantity" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rquantity.isenabled"
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rquantity.width + 'px' }"
+                        title="Quantity">Quantity</th>
+                    <th id="rquantityuq" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rquantityuq.isenabled"
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rquantityuq.width + 'px' }"
+                        title="Quantity UQ">Quantity UQ</th>
+                    <th id="rproductcondition" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rproductcondition.isenabled"
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rproductcondition.width + 'px' }"
+                        title="Product Condition">Product Condition</th>
+                    <th id="rpalletid" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rpalletid.isenabled"
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rpalletid.width + 'px' }"
+                        title="Pallet ID">Pallet ID</th>
+                    <th id="rudf1" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rudf1.isenabled" ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rudf1.width + 'px' }"
+                        title="User Defined Field 1">
                         <span ng-if="InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.IMPartAttrib1Name">{{InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.IMPartAttrib1Name}}</span>
                         <span ng-if="!InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.IMPartAttrib1Name">UDF 1</span>
                     </th>
-                    <th id="rudf2" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rudf2.isenabled" ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rudf2.width + 'px' }" title="User Defined Field 2">
+                    <th id="rudf2" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rudf2.isenabled" ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rudf2.width + 'px' }"
+                        title="User Defined Field 2">
                         <span ng-if="InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.IMPartAttrib2Name">{{InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.IMPartAttrib2Name}}</span>
                         <span ng-if="!InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.IMPartAttrib2Name">UDF 2</span>
                     </th>
-                    <th id="rudf3" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rudf3.isenabled" ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rudf3.width + 'px' }" title="User Defined Field 3">
+                    <th id="rudf3" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rudf3.isenabled" ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rudf3.width + 'px' }"
+                        title="User Defined Field 3">
                         <span ng-if="InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.IMPartAttrib3Name">{{InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.IMPartAttrib3Name}}</span>
                         <span ng-if="!InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.IMPartAttrib3Name">UDF 3</span>
                     </th>
-                    <th id="rpackingdate"data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rpackingdate.isenabled" ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rpackingdate.width + 'px' }" title="Packing Date">Packing Date</th>
-                    <th id="rexpirydate" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rexpirydate.isenabled" ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rexpirydate.width + 'px' }" title="Expiry Date">Expiry Date</th>
-                    <th id="rstatus" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rstatus.isenabled" ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rstatus.width + 'px' }" title="Status">Status</th>
-                    <th id="rlocation" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rlocation.isenabled" ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rlocation.width + 'px' }" title="Location">Location</th>
-                    <th id="rlocationstatus" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rlocationstatus.isenabled" ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rlocationstatus.width + 'px' }" title="Location Status">Location Status</th>
-                    <th id="rareatype"data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rareatype.isenabled" ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rareatype.width + 'px' }" title="Area Type">Area Type</th>
-                    <th id="rareaname" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rareaname.isenabled" ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rareaname.width + 'px' }" title="Expiry Date">Area Name</th>
-                    <th id="rcomments" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rcomments.isenabled" ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rcomments.width + 'px' }" title="Comments">Comments / Invoice No</th>
-                    <th id="radditionalreference1" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.radditionalreference1.isenabled" ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.radditionalreference1.width + 'px' }" title="Additional Reference1">Additional Reference1</th>
-                    <th id="rdocuments" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rdocuments.isenabled" ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rdocuments.width + 'px' }" title="Documents">Documents</th>
+                    <th id="rpackingdate" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rpackingdate.isenabled"
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rpackingdate.width + 'px' }"
+                        title="Packing Date">Packing Date</th>
+                    <th id="rexpirydate" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rexpirydate.isenabled"
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rexpirydate.width + 'px' }"
+                        title="Expiry Date">Expiry Date</th>
+                    <th id="rstatus" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rstatus.isenabled"
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rstatus.width + 'px' }"
+                        title="Status">Status</th>
+                    <th id="rlocation" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rlocation.isenabled"
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rlocation.width + 'px' }"
+                        title="Location">Location</th>
+                    <th id="rlocationstatus" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rlocationstatus.isenabled"
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rlocationstatus.width + 'px' }"
+                        title="Location Status">Location Status</th>
+                    <th id="rareatype" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rareatype.isenabled"
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rareatype.width + 'px' }"
+                        title="Area Type">Area Type</th>
+                    <th id="rareaname" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rareaname.isenabled"
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rareaname.width + 'px' }"
+                        title="Expiry Date">Area Name</th>
+                    <th id="rcomments" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rcomments.isenabled"
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rcomments.width + 'px' }"
+                        title="Comments">Comments / Invoice No</th>
+                    <th id="radditionalreference1" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.radditionalreference1.isenabled"
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.radditionalreference1.width + 'px' }"
+                        title="Additional Reference1">Additional Reference1</th>
+                    <th id="rdocuments" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rdocuments.isenabled"
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rdocuments.width + 'px' }"
+                        title="Documents">Documents</th>
                 </tr>
             </thead>
             <tbody id="InwardLineCustTable{{InwardLinesCtrl.currentInward.label}}">
-                <tr id="tableBody" ng-repeat="x in InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine  | filter:InwardLinesCtrl.ePage.Masters.SearchTable  | tableslice : (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex) : (InwardLinesCtrl.ePage.Masters.Pagination.CurrentPage * InwardLinesCtrl.ePage.Masters.Pagination.ItemsPerPage)"  ng-click="InwardLinesCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: (InwardLinesCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}" 
-                    watch-table table-properties="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine"  unique-id="InwardLineCustTable{{InwardLinesCtrl.currentInward.label}}"row-position="$index">
-                    <td id="rcheckbox" data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rcheckbox.isenabled' ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rcheckbox.width + 'px' ,'padding-top':'0px' }" ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
+                <tr id="tableBody" ng-repeat="x in InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine  | filter:InwardLinesCtrl.ePage.Masters.SearchTable  | tableslice : (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex) : (InwardLinesCtrl.ePage.Masters.Pagination.CurrentPage * InwardLinesCtrl.ePage.Masters.Pagination.ItemsPerPage)"
+                    ng-click="InwardLinesCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: (InwardLinesCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}"
+                    watch-table table-properties="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine" unique-id="InwardLineCustTable{{InwardLinesCtrl.currentInward.label}}"
+                    row-position="$index">
+                    <td id="rcheckbox" data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rcheckbox.isenabled'
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rcheckbox.width + 'px' ,'padding-top':'0px' }"
+                        ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
                         <label class="mb-0 customcheckbox">
-                            <input type="checkbox" ng-checked="x.SingleSelect" ng-change="InwardLinesCtrl.ePage.Masters.SingleSelectCheckBox()"
-                                ng-model="x.SingleSelect" ng-disabled="InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"> </input>
+                            <input type="checkbox" ng-checked="x.SingleSelect" ng-change="InwardLinesCtrl.ePage.Masters.SingleSelectCheckBox()" ng-model="x.SingleSelect"
+                                ng-disabled="InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"> </input>
                             <span class="text"></span>
                         </label>
                         <span class="list-error-warning" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | listCount: 'RowIndex': (($index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))">
-                            <error-warning-directive 
-                                list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
-                                type="'error'" icon="fa fa-warning" parent-type="'arrayObjectRow'" parent-ref=""
-                                g-parent-ref="" row-index="(($index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))"
+                            <error-warning-directive list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR" type="'error'"
+                                icon="fa fa-warning" parent-type="'arrayObjectRow'" parent-ref="" g-parent-ref="" row-index="(($index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))"
                                 col-index="">
                             </error-warning-directive>
                         </span>
                     </td>
-                    <td id="rsno"   data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rsno.isenabled' ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rsno.width + 'px' }" ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
+                    <td id="rsno" data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rsno.isenabled' ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rsno.width + 'px' }"
+                        ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
                         {{(($index +1) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))}}
                     </td>
-                    <td id="rproductcode"   data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rproductcode.isenabled' ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rproductcode.width + 'px' }" ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
-                        <div data-ng-if="$index!=InwardLinesCtrl.ePage.Masters.selectedRow || InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable" class="overflow-text">
+                    <td id="rproductcode" data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rproductcode.isenabled'
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rproductcode.width + 'px' }"
+                        ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
+                        <div data-ng-if="$index!=InwardLinesCtrl.ePage.Masters.selectedRow || InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                            class="overflow-text">
                             {{ x.ProductCode || InwardLinesCtrl.ePage.Masters.emptyText}}
                         </div>
                         <div data-ng-if="$index==InwardLinesCtrl.ePage.Masters.selectedRow && !InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
-                                <div  class="input-group input-group-sm height-22">
+                                <div class="input-group input-group-sm height-22">
                                     <!-- Dynamic look up Search in textbox -->
-                                    <div dynamic-lookup placeholder="Product Code" my-ng-model="x.ProductCode"
-                                        obj="x" control-key="'Product_2845'"
-                                        page-name="'ProductRelatedParty'" control-id="'Product'" auto-complete-on-select="InwardLinesCtrl.ePage.Masters.SelectedLookupProduct($item,(($index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex)))">
+                                    <div dynamic-lookup placeholder="Product Code" my-ng-model="x.ProductCode" obj="x" control-key="'Product_2845'" page-name="'ProductRelatedParty'"
+                                        control-id="'Product'" auto-complete-on-select="InwardLinesCtrl.ePage.Masters.SelectedLookupProduct($item,(($index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex)))">
                                     </div>
 
                                     <!-- Look Up page opens when button clicks -->
                                     <span class="input-group-btn">
-                                            <button dynamic-list-modal obj="x" control-id="'Product'"  control-key="'Product_2845'" selected-data="InwardLinesCtrl.ePage.Masters.SelectedLookupProduct($item.data.entity,(($index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex)))"  page-name="'ProductRelatedParty'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                        <button dynamic-list-modal obj="x" control-id="'Product'" control-key="'Product_2845'" selected-data="InwardLinesCtrl.ePage.Masters.SelectedLookupProduct($item.data.entity,(($index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex)))"
+                                            page-name="'ProductRelatedParty'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                            class="btn btn-default shiny" type="button">
+                                            <i class="fa fa-ellipsis-h"></i>
+                                        </button>
                                     </span>
                                     <span ng-if='!x.ProductCode && x.PK  && (InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter: {RowIndex: (($index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))} | filter: {ColIndex: 1}).length==0'>
                                         <span ng-init="InwardLinesCtrl.ePage.Masters.OnChangeValues(x.ProductCode,'E3008',true,(($index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex)))"></span>
@@ -120,179 +193,216 @@
                                 </div>
                             </div>
                             <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))} | listCount: 'ColIndex':1">
-                                <error-warning-directive  list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="((InwardLinesCtrl.ePage.Masters.selectedRow) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))" col-index="1">
+                                <error-warning-directive list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR" type="'error'"
+                                    icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref="" row-index="((InwardLinesCtrl.ePage.Masters.selectedRow) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))"
+                                    col-index="1">
                                 </error-warning-directive>
                             </div>
                         </div>
                     </td>
-                    <td id="rproductdescription"  data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rproductdescription.isenabled'  ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rproductdescription.width + 'px' }" class="overflow-text" ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
+                    <td id="rproductdescription" data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rproductdescription.isenabled'
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rproductdescription.width + 'px' }"
+                        class="overflow-text" ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
                         {{ x.ProductDescription || InwardLinesCtrl.ePage.Masters.emptyText}}
                     </td>
-                    <td id="rcommodity"  data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rcommodity.isenabled'  ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rcommodity.width + 'px' }" class="overflow-text" ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
+                    <td id="rcommodity" data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rcommodity.isenabled'
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rcommodity.width + 'px' }"
+                        class="overflow-text" ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
                         {{ x.Commodity || InwardLinesCtrl.ePage.Masters.emptyText}}
                     </td>
-                    <td id="rpack"  data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rpack.isenabled'  ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rpack.width + 'px' }" ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
-                        <div data-ng-if="$index!=InwardLinesCtrl.ePage.Masters.selectedRow || InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable" class="overflow-text">
+                    <td id="rpack" data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rpack.isenabled' ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rpack.width + 'px' }"
+                        ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
+                        <div data-ng-if="$index!=InwardLinesCtrl.ePage.Masters.selectedRow || InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                            class="overflow-text">
                             {{ x.Packs || InwardLinesCtrl.ePage.Masters.emptyText}}
                         </div>
                         <div data-ng-if="$index==InwardLinesCtrl.ePage.Masters.selectedRow &&!InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
-                                <input type="text" maxlength="9" numbers-only-dot   class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Pack"data-ng-model="x.Packs"
-                                ng-change="InwardLinesCtrl.ePage.Masters.FetchQuantity(x,$index);InwardLinesCtrl.ePage.Masters.OnChangeValues(x.Packs,'E3009',true,(($index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex)))">                                        
+                                <input type="text" maxlength="9" numbers-only-dot class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                                    placeholder="Pack" data-ng-model="x.Packs" ng-change="InwardLinesCtrl.ePage.Masters.FetchQuantity(x,$index);InwardLinesCtrl.ePage.Masters.OnChangeValues(x.Packs,'E3009',true,(($index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex)))">
                             </div>
                             <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))} | listCount: 'ColIndex':2">
-                                <error-warning-directive  list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="((InwardLinesCtrl.ePage.Masters.selectedRow) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))" col-index="2">
+                                <error-warning-directive list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR" type="'error'"
+                                    icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref="" row-index="((InwardLinesCtrl.ePage.Masters.selectedRow) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))"
+                                    col-index="2">
                                 </error-warning-directive>
                             </div>
                         </div>
                     </td>
-                    <td id="rpackuq"  data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rpackuq.isenabled'  ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rpackuq.width + 'px' }" >
-                        <div data-ng-if="$index!=InwardLinesCtrl.ePage.Masters.selectedRow || InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable" class="overflow-text">
+                    <td id="rpackuq" data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rpackuq.isenabled'
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rpackuq.width + 'px' }">
+                        <div data-ng-if="$index!=InwardLinesCtrl.ePage.Masters.selectedRow || InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                            class="overflow-text">
                             {{ x.PAC_PackType || InwardLinesCtrl.ePage.Masters.emptyText}}
                         </div>
                         <div data-ng-if="$index==InwardLinesCtrl.ePage.Masters.selectedRow && !InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
-                            <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0"  ng-click="InwardLinesCtrl.ePage.Masters.Enable = false">
+                            <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0" ng-click="InwardLinesCtrl.ePage.Masters.Enable = false">
                                 <select chosen class="form-control" ng-model="x.PAC_PackType" ng-options="x.Key as x.Key + ' - '  + x.Value for x in InwardLinesCtrl.ePage.Masters.DropDownMasterList.INW_LINE_UQ.ListSource"
-                                    ng-change="InwardLinesCtrl.ePage.Masters.FetchQuantity(x,(($index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex)));InwardLinesCtrl.ePage.Masters.OnChangeValues(x.PAC_PackType,'E3010',true,(($index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex)))" search-contains="true">
-                                <option value="">--Select--</option>
-                                </select>                                        
+                                    ng-change="InwardLinesCtrl.ePage.Masters.FetchQuantity(x,(($index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex)));InwardLinesCtrl.ePage.Masters.OnChangeValues(x.PAC_PackType,'E3010',true,(($index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex)))"
+                                    search-contains="true">
+                                    <option value="">--Select--</option>
+                                </select>
                             </div>
                             <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))} | listCount: 'ColIndex':3">
-                                <error-warning-directive  list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="((InwardLinesCtrl.ePage.Masters.selectedRow) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))" col-index="3">
+                                <error-warning-directive list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR" type="'error'"
+                                    icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref="" row-index="((InwardLinesCtrl.ePage.Masters.selectedRow) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))"
+                                    col-index="3">
                                 </error-warning-directive>
                             </div>
                         </div>
                     </td>
-                    <td id="rquantity"  data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rquantity.isenabled'  ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rquantity.width + 'px' }" ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
-                        <div data-ng-if="$index!=InwardLinesCtrl.ePage.Masters.selectedRow || InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable" class="overflow-text">
+                    <td id="rquantity" data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rquantity.isenabled'
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rquantity.width + 'px' }"
+                        ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
+                        <div data-ng-if="$index!=InwardLinesCtrl.ePage.Masters.selectedRow || InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                            class="overflow-text">
                             {{ x.Units || InwardLinesCtrl.ePage.Masters.emptyText}}
                         </div>
                         <div data-ng-if="$index==InwardLinesCtrl.ePage.Masters.selectedRow && !InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
-                                <input type="text" maxlength="9" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Quantity" data-ng-model="x.Units"readonly=''>
+                                <input type="text" maxlength="9" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Quantity"
+                                    data-ng-model="x.Units" readonly=''>
                             </div>
                             <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))} | listCount: 'ColIndex':4">
-                                <error-warning-directive  list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="((InwardLinesCtrl.ePage.Masters.selectedRow) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))" col-index="4">
+                                <error-warning-directive list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR" type="'error'"
+                                    icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref="" row-index="((InwardLinesCtrl.ePage.Masters.selectedRow) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))"
+                                    col-index="4">
                                 </error-warning-directive>
                             </div>
                         </div>
                     </td>
-                    <td id="rquantityuq"  data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rquantityuq.isenabled'  ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rquantityuq.width + 'px' }" ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
-                        <div data-ng-if="$index!=InwardLinesCtrl.ePage.Masters.selectedRow || InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable" class="overflow-text">
+                    <td id="rquantityuq" data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rquantityuq.isenabled'
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rquantityuq.width + 'px' }"
+                        ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
+                        <div data-ng-if="$index!=InwardLinesCtrl.ePage.Masters.selectedRow || InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                            class="overflow-text">
                             {{ x.StockKeepingUnit || InwardLinesCtrl.ePage.Masters.emptyText}}
                         </div>
                         <div data-ng-if="$index==InwardLinesCtrl.ePage.Masters.selectedRow && !InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
-                                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Quantity UQ" data-ng-model="x.StockKeepingUnit"readonly=''>
+                                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Quantity UQ" data-ng-model="x.StockKeepingUnit"
+                                    readonly=''>
                             </div>
                             <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))} | listCount: 'ColIndex':5">
-                                <error-warning-directive  list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="((InwardLinesCtrl.ePage.Masters.selectedRow) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))" col-index="5">
+                                <error-warning-directive list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR" type="'error'"
+                                    icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref="" row-index="((InwardLinesCtrl.ePage.Masters.selectedRow) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))"
+                                    col-index="5">
                                 </error-warning-directive>
                             </div>
                         </div>
                     </td>
-                    <td id="rproductcondition"  data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rproductcondition.isenabled'  ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rproductcondition.width + 'px' }" >
-                        <div data-ng-if="$index!=InwardLinesCtrl.ePage.Masters.selectedRow || InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable" class="overflow-text">
+                    <td id="rproductcondition" data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rproductcondition.isenabled'
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rproductcondition.width + 'px' }">
+                        <div data-ng-if="$index!=InwardLinesCtrl.ePage.Masters.selectedRow || InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                            class="overflow-text">
                             {{ x.ProductCondition || InwardLinesCtrl.ePage.Masters.emptyText}}
                         </div>
                         <div data-ng-if="$index==InwardLinesCtrl.ePage.Masters.selectedRow && !InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
-                            <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0"  ng-click="InwardLinesCtrl.ePage.Masters.Enable = false">
-                                <select chosen class="form-control" ng-model="x.ProductCondition"ng-options="x.Key as x.Key + ' - '  + x.Value for x in InwardLinesCtrl.ePage.Masters.DropDownMasterList.ProductCondition.ListSource" search-contains="true" data-ng-change="InwardLinesCtrl.ePage.Masters.OnChangeValues(x.ProductCondition,'E3049',true,(($index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex)))">
+                            <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0" ng-click="InwardLinesCtrl.ePage.Masters.Enable = false">
+                                <select chosen class="form-control" ng-model="x.ProductCondition" ng-options="x.Key as x.Key + ' - '  + x.Value for x in InwardLinesCtrl.ePage.Masters.DropDownMasterList.ProductCondition.ListSource"
+                                    search-contains="true" data-ng-change="InwardLinesCtrl.ePage.Masters.OnChangeValues(x.ProductCondition,'E3049',true,(($index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex)))">
                                     <option value="">--Select--</option>
-                                </select>                                        
+                                </select>
                             </div>
                             <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))} | listCount: 'ColIndex':12">
-                                <error-warning-directive  list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="((InwardLinesCtrl.ePage.Masters.selectedRow) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))" col-index="12">
+                                <error-warning-directive list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR" type="'error'"
+                                    icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref="" row-index="((InwardLinesCtrl.ePage.Masters.selectedRow) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))"
+                                    col-index="12">
                                 </error-warning-directive>
                             </div>
                         </div>
                     </td>
-                    <td id="rpalletid"  data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rpalletid.isenabled'  ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rpalletid.width + 'px' }" ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
-                        <div data-ng-if="$index!=InwardLinesCtrl.ePage.Masters.selectedRow || InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable" class="overflow-text">
+                    <td id="rpalletid" data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rpalletid.isenabled'
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rpalletid.width + 'px' }"
+                        ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
+                        <div data-ng-if="$index!=InwardLinesCtrl.ePage.Masters.selectedRow || InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                            class="overflow-text">
                             {{ x.PalletID || InwardLinesCtrl.ePage.Masters.emptyText}}
                         </div>
                         <div data-ng-if="$index==InwardLinesCtrl.ePage.Masters.selectedRow && !InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
-                                    <input type="text" maxlength="25" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Pallet ID" data-ng-model="x.PalletID">
+                                <input type="text" maxlength="25" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Pallet ID"
+                                    data-ng-model="x.PalletID">
                             </div>
                         </div>
                     </td>
-                    <td id="rudf1"  data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rudf1.isenabled'  ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rudf1.width + 'px' }" ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
-                        <div data-ng-if="$index!=InwardLinesCtrl.ePage.Masters.selectedRow || InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable" class="overflow-text">
+                    <td id="rudf1" data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rudf1.isenabled' ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rudf1.width + 'px' }"
+                        ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
+                        <div data-ng-if="$index!=InwardLinesCtrl.ePage.Masters.selectedRow || InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                            class="overflow-text">
                             {{ x.PartAttrib1 || InwardLinesCtrl.ePage.Masters.emptyText}}
                         </div>
                         <div data-ng-if="$index==InwardLinesCtrl.ePage.Masters.selectedRow && !InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
                                 <input type="text" maxlength="25" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="UDF 1"
-                                    data-ng-model="x.PartAttrib1" ng-disabled="!x.UsePartAttrib1 || x.IsPartAttrib1ReleaseCaptured" ng-blur="InwardLinesCtrl.ePage.Masters.UDF(x,(($index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex)))">
+                                    data-ng-model="x.PartAttrib1" ng-disabled="!x.UsePartAttrib1 || x.IsPartAttrib1ReleaseCaptured"
+                                    ng-blur="InwardLinesCtrl.ePage.Masters.UDF(x,(($index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex)))">
                             </div>
                             <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))} | listCount: 'ColIndex':6">
-                                <error-warning-directive  list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="((InwardLinesCtrl.ePage.Masters.selectedRow) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))" col-index="6">
+                                <error-warning-directive list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR" type="'error'"
+                                    icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref="" row-index="((InwardLinesCtrl.ePage.Masters.selectedRow) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))"
+                                    col-index="6">
                                 </error-warning-directive>
                             </div>
                         </div>
                     </td>
-                    <td id="rudf2"  data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rudf2.isenabled'  ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rudf2.width + 'px' }" ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
-                        <div data-ng-if="$index!=InwardLinesCtrl.ePage.Masters.selectedRow || InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable" class="overflow-text">
+                    <td id="rudf2" data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rudf2.isenabled' ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rudf2.width + 'px' }"
+                        ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
+                        <div data-ng-if="$index!=InwardLinesCtrl.ePage.Masters.selectedRow || InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                            class="overflow-text">
                             {{ x.PartAttrib2 || InwardLinesCtrl.ePage.Masters.emptyText}}
                         </div>
                         <div data-ng-if="$index==InwardLinesCtrl.ePage.Masters.selectedRow && !InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
-                                <input type="text" maxlength="25" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="UDF 2" data-ng-model="x.PartAttrib2" ng-disabled="!x.UsePartAttrib2 || x.IsPartAttrib2ReleaseCaptured"
+                                <input type="text" maxlength="25" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="UDF 2"
+                                    data-ng-model="x.PartAttrib2" ng-disabled="!x.UsePartAttrib2 || x.IsPartAttrib2ReleaseCaptured"
                                     ng-blur="InwardLinesCtrl.ePage.Masters.UDF(x,(($index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex)))">
                             </div>
                             <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))} | listCount: 'ColIndex':7">
-                                <error-warning-directive  list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="((InwardLinesCtrl.ePage.Masters.selectedRow) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))" col-index="7">
+                                <error-warning-directive list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR" type="'error'"
+                                    icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref="" row-index="((InwardLinesCtrl.ePage.Masters.selectedRow) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))"
+                                    col-index="7">
                                 </error-warning-directive>
                             </div>
                         </div>
                     </td>
-                    <td id="rudf3"  data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rudf3.isenabled'  ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rudf3.width + 'px' }" ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
-                        <div data-ng-if="$index!=InwardLinesCtrl.ePage.Masters.selectedRow || InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable" class="overflow-text">
+                    <td id="rudf3" data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rudf3.isenabled' ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rudf3.width + 'px' }"
+                        ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
+                        <div data-ng-if="$index!=InwardLinesCtrl.ePage.Masters.selectedRow || InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                            class="overflow-text">
                             {{ x.PartAttrib3 || InwardLinesCtrl.ePage.Masters.emptyText}}
                         </div>
                         <div data-ng-if="$index==InwardLinesCtrl.ePage.Masters.selectedRow && !InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
-                                <input type="text" maxlength="25" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="UDF 3" data-ng-model="x.PartAttrib3" ng-disabled="!x.UsePartAttrib3 || x.IsPartAttrib3ReleaseCaptured"
+                                <input type="text" maxlength="25" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="UDF 3"
+                                    data-ng-model="x.PartAttrib3" ng-disabled="!x.UsePartAttrib3 || x.IsPartAttrib3ReleaseCaptured"
                                     ng-blur="InwardLinesCtrl.ePage.Masters.UDF(x,(($index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex)))">
                             </div>
                             <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))} | listCount: 'ColIndex':8">
-                                <error-warning-directive  list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="((InwardLinesCtrl.ePage.Masters.selectedRow) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))" col-index="8">
+                                <error-warning-directive list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR" type="'error'"
+                                    icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref="" row-index="((InwardLinesCtrl.ePage.Masters.selectedRow) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))"
+                                    col-index="8">
                                 </error-warning-directive>
                             </div>
                         </div>
                     </td>
-                    <td id="rpackingdate"  data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rpackingdate.isenabled'  ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rpackingdate.width + 'px' }" ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
-                        <div data-ng-if="$index!=InwardLinesCtrl.ePage.Masters.selectedRow || InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable" class="overflow-text">
+                    <td id="rpackingdate" data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rpackingdate.isenabled'
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rpackingdate.width + 'px' }"
+                        ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
+                        <div data-ng-if="$index!=InwardLinesCtrl.ePage.Masters.selectedRow || InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                            class="overflow-text">
                             {{ x.PackingDate || InwardLinesCtrl.ePage.Masters.emptyText | dateFormat}}
                         </div>
                         <div data-ng-if="$index==InwardLinesCtrl.ePage.Masters.selectedRow && x.UsePackingDate && !InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
                                 <div class="input-group input-group-sm">
-                                    <input type="text" class="form-control height-22" placeholder="{{InwardLinesCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datetime-picker="{{InwardLinesCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
-                                        ng-model="x.PackingDate" is-open="InwardLinesCtrl.ePage.Masters.DatePicker.isOpen['isPackingDate']"
-                                        datepicker-options="InwardLinesCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
-                                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" when-closed=""
-                                        save-as="InwardLinesCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click=""
-                                        data-ng-change="InwardLinesCtrl.ePage.Masters.UDF(x,(($index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex)))" custom-date-time-format/>
+                                    <input type="text" class="form-control height-22" placeholder="{{InwardLinesCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                        datetime-picker="{{InwardLinesCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" ng-model="x.PackingDate"
+                                        is-open="InwardLinesCtrl.ePage.Masters.DatePicker.isOpen['isPackingDate']" datepicker-options="InwardLinesCtrl.ePage.Masters.DatePicker.Options"
+                                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                                        default-date="" default-time="" when-closed="" save-as="InwardLinesCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                        data-ng-click="" data-ng-change="InwardLinesCtrl.ePage.Masters.UDF(x,(($index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex)))"
+                                        custom-date-time-format/>
                                     <span class="input-group-btn height-22">
                                         <button type="button" class="btn btn-default" data-ng-click="InwardLinesCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPackingDate')">
                                             <i class="fa fa-calendar"></i>
@@ -301,26 +411,30 @@
                                 </div>
                             </div>
                             <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))} | listCount: 'ColIndex':9">
-                                <error-warning-directive  list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="((InwardLinesCtrl.ePage.Masters.selectedRow) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))" col-index="9">
+                                <error-warning-directive list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR" type="'error'"
+                                    icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref="" row-index="((InwardLinesCtrl.ePage.Masters.selectedRow) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))"
+                                    col-index="9">
                                 </error-warning-directive>
                             </div>
                         </div>
                     </td>
-                    <td id="rexpirydate"  data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rexpirydate.isenabled'  ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rexpirydate.width + 'px' }" ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
-                        <div data-ng-if="$index!=InwardLinesCtrl.ePage.Masters.selectedRow || InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable" class="overflow-text">
+                    <td id="rexpirydate" data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rexpirydate.isenabled'
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rexpirydate.width + 'px' }"
+                        ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
+                        <div data-ng-if="$index!=InwardLinesCtrl.ePage.Masters.selectedRow || InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                            class="overflow-text">
                             {{ x.ExpiryDate || InwardLinesCtrl.ePage.Masters.emptyText | dateFormat}}
                         </div>
                         <div data-ng-if="$index==InwardLinesCtrl.ePage.Masters.selectedRow && x.UseExpiryDate && !InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
                                 <div class="input-group input-group-sm">
-                                    <input type="text" class="form-control height-22" placeholder="{{InwardLinesCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datetime-picker="{{InwardLinesCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
-                                        ng-model="x.ExpiryDate" is-open="InwardLinesCtrl.ePage.Masters.DatePicker.isOpen['isExpiryDate']"
-                                        datepicker-options="InwardLinesCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
-                                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" when-closed=""
-                                        save-as="InwardLinesCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click=""
-                                        data-ng-change="InwardLinesCtrl.ePage.Masters.UDF(x,(($index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex)))" custom-date-time-format/>
+                                    <input type="text" class="form-control height-22" placeholder="{{InwardLinesCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                        datetime-picker="{{InwardLinesCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" ng-model="x.ExpiryDate"
+                                        is-open="InwardLinesCtrl.ePage.Masters.DatePicker.isOpen['isExpiryDate']" datepicker-options="InwardLinesCtrl.ePage.Masters.DatePicker.Options"
+                                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                                        default-date="" default-time="" when-closed="" save-as="InwardLinesCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                        data-ng-click="" data-ng-change="InwardLinesCtrl.ePage.Masters.UDF(x,(($index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex)))"
+                                        custom-date-time-format/>
                                     <span class="input-group-btn height-22">
                                         <button type="button" class="btn btn-default" data-ng-click="InwardLinesCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isExpiryDate')">
                                             <i class="fa fa-calendar"></i>
@@ -329,103 +443,137 @@
                                 </div>
                             </div>
                             <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))} | listCount: 'ColIndex':10">
-                                <error-warning-directive  list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="((InwardLinesCtrl.ePage.Masters.selectedRow) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))" col-index="10">
+                                <error-warning-directive list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR" type="'error'"
+                                    icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref="" row-index="((InwardLinesCtrl.ePage.Masters.selectedRow) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))"
+                                    col-index="10">
                                 </error-warning-directive>
                             </div>
                         </div>
                     </td>
-                    <td id="rstatus"  data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rstatus.isenabled'  ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rstatus.width + 'px' }" class="overflow-text" ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
+                    <td id="rstatus" data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rstatus.isenabled'
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rstatus.width + 'px' }"
+                        class="overflow-text" ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
                         {{x.OriginalInventoryStatus}} - {{x.OriginalInventoryStatusDesc}}
                     </td>
-                    <td id="rlocation"   data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rlocation.isenabled' ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rlocation.width + 'px' }" ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
-                        <div data-ng-if="$index!=InwardLinesCtrl.ePage.Masters.selectedRow || InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable" class="overflow-text">
+                    <td id="rlocation" data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rlocation.isenabled'
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rlocation.width + 'px' }"
+                        ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
+                        <div data-ng-if="$index!=InwardLinesCtrl.ePage.Masters.selectedRow || InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                            class="overflow-text">
                             {{ x.WLO_Location || InwardLinesCtrl.ePage.Masters.emptyText}}
                         </div>
                         <div data-ng-if="$index==InwardLinesCtrl.ePage.Masters.selectedRow && !InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
-                                <div  class="input-group input-group-sm height-22">
-                                    <div dynamic-lookup placeholder="Location" my-ng-model="x.WLO_Location"
-                                        obj="x" control-key="'Location_2948'"
-                                        page-name="'WarehouseLocation'" control-id="'Location'" auto-complete-on-select="InwardLinesCtrl.ePage.Masters.SelectedLookupLocation($item,$index)">
+                                <div class="input-group input-group-sm height-22">
+                                    <div dynamic-lookup placeholder="Location" my-ng-model="x.WLO_Location" obj="x" control-key="'Location_2948'" page-name="'WarehouseLocation'"
+                                        control-id="'Location'" auto-complete-on-select="InwardLinesCtrl.ePage.Masters.SelectedLookupLocation($item,$index)">
                                     </div>
 
                                     <!-- Look Up page opens when button clicks -->
                                     <span class="input-group-btn">
-                                        <button location-dashboard-modal filter="InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WarehouseCode" obj="x" control-id="'Location'" selected-data="InwardLinesCtrl.ePage.Masters.SelectedLookupLocation($item,$index)"  page-name="'WarehouseLocation'" control-key="'Location_2948'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                        <button location-dashboard-modal filter="InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WarehouseCode" obj="x"
+                                            control-id="'Location'" selected-data="InwardLinesCtrl.ePage.Masters.SelectedLookupLocation($item,$index)"
+                                            page-name="'WarehouseLocation'" control-key="'Location_2948'" mode="2" grid-refresh-fun-name=""
+                                            grid-refresh-fun="" class="btn btn-default shiny" type="button">
+                                            <i class="fa fa-ellipsis-h"></i>
+                                        </button>
                                     </span>
-                                    <span ng-if='!x.WLO_Location' 
-                                        ng-init="x.WLO_FK = ''"
-                                        ng-init="x.WAA_Name = ''"
-                                        ng-init="x.WAA_AreaType = ''">
+                                    <span ng-if='!x.WLO_Location' ng-init="x.WLO_FK = ''" ng-init="x.WAA_Name = ''" ng-init="x.WAA_AreaType = ''">
                                     </span>
                                 </div>
                             </div>
                             <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))} | listCount: 'ColIndex':11">
-                                <error-warning-directive  list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="InwardLinesCtrl.ePage.Masters.selectedRow" col-index="11">
+                                <error-warning-directive list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR" type="'error'"
+                                    icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref="" row-index="InwardLinesCtrl.ePage.Masters.selectedRow"
+                                    col-index="11">
                                 </error-warning-directive>
                             </div>
                         </div>
                     </td>
-                    <td id="rlocationstatus"  data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rlocationstatus.isenabled'  ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rlocationstatus.width + 'px' }" class="overflow-text" ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
+                    <td id="rlocationstatus" data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rlocationstatus.isenabled'
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rlocationstatus.width + 'px' }"
+                        class="overflow-text" ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
                         {{ x.WLO_LocationStatus}} - {{ x.WLO_LocationStatusDescription}}
                     </td>
-                    <td id="rareatype"  data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rareatype.isenabled'  ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rareatype.width + 'px' }" class="overflow-text" ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
+                    <td id="rareatype" data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rareatype.isenabled'
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rareatype.width + 'px' }"
+                        class="overflow-text" ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
                         {{x.WAA_AreaType || InwardLinesCtrl.ePage.Masters.emptyText}}
                     </td>
-                    <td id="rareaname"  data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rareaname.isenabled'  ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rareaname.width + 'px' }" class="overflow-text" ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
+                    <td id="rareaname" data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rareaname.isenabled'
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rareaname.width + 'px' }"
+                        class="overflow-text" ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
                         {{x.WAA_Name || InwardLinesCtrl.ePage.Masters.emptyText }}
                     </td>
-                    <td id="rcomments"  data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rcomments.isenabled'  ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rcomments.width + 'px' }"  ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
-                        <div data-ng-if="$index!=InwardLinesCtrl.ePage.Masters.selectedRow || InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable" class="overflow-text">
+                    <td id="rcomments" data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rcomments.isenabled'
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rcomments.width + 'px' }"
+                        ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
+                        <div data-ng-if="$index!=InwardLinesCtrl.ePage.Masters.selectedRow || InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                            class="overflow-text">
                             {{ x.LineComment || InwardLinesCtrl.ePage.Masters.emptyText}}
                         </div>
                         <div data-ng-if="$index==InwardLinesCtrl.ePage.Masters.selectedRow && !InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
-                                <input type="text" maxlength="250" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Comments" data-ng-model="x.LineComment" >
+                                <input type="text" maxlength="250" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Comments"
+                                    data-ng-model="x.LineComment">
                             </div>
                         </div>
                     </td>
-                    <td id="radditionalreference1"  data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.radditionalreference1.isenabled'  ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.radditionalreference1.width + 'px' }"  ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
-                        <div data-ng-if="$index!=InwardLinesCtrl.ePage.Masters.selectedRow || InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable" class="overflow-text">
-                            {{ x.AdditionalRef1Code || InwardLinesCtrl.ePage.Masters.emptyText}}
-                        </div>
+                    <td id="radditionalreference1" data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.radditionalreference1.isenabled'
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.radditionalreference1.width + 'px' }"
+                        ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
+                        <!-- <div data-ng-if="$index!=InwardLinesCtrl.ePage.Masters.selectedRow || InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable" class="overflow-text"> -->
+                        {{ x.AdditionalRef1Code || InwardLinesCtrl.ePage.Masters.emptyText}}
+                        <!-- </div>
                         <div data-ng-if="$index==InwardLinesCtrl.ePage.Masters.selectedRow && !InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
                                 <input type="text" maxlength="20" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Additional Reference1" data-ng-model="x.AdditionalRef1Code" >
                             </div>
+                        </div> -->
+                    </td>
+                    <td id="rdocuments" data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rdocuments.isenabled'
+                        ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rdocuments.width + 'px' }"
+                        ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
+                        <div data-ng-if="x.PK">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-file" style="font-size: 14px; padding-left: 33px;" document-modal input="InwardLinesCtrl.ePage.Masters.DocumentInput"
+                                    mode="1" data-ng-click="InwardLinesCtrl.ePage.Masters.GetDocumentInputValues(x)"></i>
+                            </a>
                         </div>
-                    </td>  
-                    <td id="rdocuments"  data-ng-show='InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rdocuments.isenabled'  ng-style="{ 'width': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rdocuments.width + 'px' }" ng-click="InwardLinesCtrl.ePage.Masters.Enable = true">
-                        <div data-ng-if="x.PK"><a href="javascript:void(0)"><i class="fa fa-file" style="font-size: 14px; padding-left: 33px;" document-modal input="InwardLinesCtrl.ePage.Masters.DocumentInput" mode="1" data-ng-click="InwardLinesCtrl.ePage.Masters.GetDocumentInputValues(x)"></i></a> 
-                        </div>
-                    </td>       
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound"  ng-if="InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length==0">No Record Found...</div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" ng-if="InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length==0">No Record Found...</div>
 
     <!-- To show Customize Modal -->
     <div ng-if='InwardLinesCtrl.ePage.Masters.EditTableColumns'>
-        <customize-table table-properties="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine" enable="InwardLinesCtrl.ePage.Masters.EditTableColumns" unique-id="InwardLineCustTable{{InwardLinesCtrl.currentInward.label}}" user-value='InwardLinesCtrl.ePage.Masters.UserValue' entity-source='WMS_INWARDRECEIVELINE'></customize-table>
+        <customize-table table-properties="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine" enable="InwardLinesCtrl.ePage.Masters.EditTableColumns"
+            unique-id="InwardLineCustTable{{InwardLinesCtrl.currentInward.label}}" user-value='InwardLinesCtrl.ePage.Masters.UserValue'
+            entity-source='WMS_INWARDRECEIVELINE'></customize-table>
     </div>
     <!-- Call Directive If user has value -->
     <div ng-if='InwardLinesCtrl.ePage.Masters.UserHasValue' ng-init="InwardLinesCtrl.ePage.Masters.UserHasValue=false">
-        <watch-table table-properties="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine"  unique-id="InwardLineCustTable{{InwardLinesCtrl.currentInward.label}}"></watch-table>
+        <watch-table table-properties="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine" unique-id="InwardLineCustTable{{InwardLinesCtrl.currentInward.label}}"></watch-table>
     </div>
 
     <!-- Pagination -->
     <div class="mr-10 ml-10">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pagination-border mb-0">
             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 pt-10 p-0">
-                <ul uib-pagination boundary-links="true" total-items="InwardLinesCtrl.ePage.Masters.Pagination.LocalSearchLength" ng-model="InwardLinesCtrl.ePage.Masters.Pagination.CurrentPage" class="pagination-sm" max-size="InwardLinesCtrl.ePage.Masters.Pagination.MaxSize" items-per-page="InwardLinesCtrl.ePage.Masters.Pagination.ItemsPerPage" num-pages="InwardLinesCtrl.ePage.Masters.Pagination.TotalPage" data-ng-change="InwardLinesCtrl.ePage.Masters.PaginationChange()" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
+                <ul uib-pagination boundary-links="true" total-items="InwardLinesCtrl.ePage.Masters.Pagination.LocalSearchLength" ng-model="InwardLinesCtrl.ePage.Masters.Pagination.CurrentPage"
+                    class="pagination-sm" max-size="InwardLinesCtrl.ePage.Masters.Pagination.MaxSize" items-per-page="InwardLinesCtrl.ePage.Masters.Pagination.ItemsPerPage"
+                    num-pages="InwardLinesCtrl.ePage.Masters.Pagination.TotalPage" data-ng-change="InwardLinesCtrl.ePage.Masters.PaginationChange()"
+                    previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
             </div>
             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 pt-10">
-                <select ng-model="InwardLinesCtrl.ePage.Masters.Pagination.ItemsPerPage" ng-change="InwardLinesCtrl.ePage.Masters.PaginationChange()"><option ng-selected="true">25</option><option>50</option><option>100</option><option>500</option></select> Records Per Page.
+                <select ng-model="InwardLinesCtrl.ePage.Masters.Pagination.ItemsPerPage" ng-change="InwardLinesCtrl.ePage.Masters.PaginationChange()">
+                    <option ng-selected="true">25</option>
+                    <option>50</option>
+                    <option>100</option>
+                    <option>500</option>
+                </select> Records Per Page.
             </div>
             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 pt-15" data-ng-if="InwardLinesCtrl.ePage.Masters.SearchTable">
                 <div class="">Search Records : {{InwardLinesCtrl.ePage.Masters.Pagination.LocalSearchLength}}</div>
@@ -441,7 +589,8 @@
 
 
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-20">
-    <button class="btn btn-blue btn-sm pull-right" data-ng-click="InwardLinesCtrl.ePage.Masters.AllocateLocation()" data-ng-bind="InwardLinesCtrl.ePage.Masters.AllocateLocationText" data-ng-disabled="InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"></button>
+    <button class="btn btn-blue btn-sm pull-right" data-ng-click="InwardLinesCtrl.ePage.Masters.AllocateLocation()" data-ng-bind="InwardLinesCtrl.ePage.Masters.AllocateLocationText"
+        data-ng-disabled="InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"></button>
 </div>
 
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-20 mb-40">
@@ -475,7 +624,7 @@
 
         <div class="">
             <label class="control-label text-single-line" title="Total Pallets">Total Pallets</label>
-            <uib-progressbar class="progress-striped" value="InwardLinesCtrl.ePage.Masters.TotalPalletsPercentage" >{{InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalPallets ||'0'}} Pallets</uib-progressbar>
+            <uib-progressbar class="progress-striped" value="InwardLinesCtrl.ePage.Masters.TotalPalletsPercentage">{{InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalPallets ||'0'}} Pallets</uib-progressbar>
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
@@ -493,4 +642,3 @@
         </div>
     </div>
 </div>
-
