@@ -63,7 +63,7 @@
             }
         }
 
-        function CreatePickup() {            
+        function CreatePickup() {
             if (PendingPickupToolbarCtrl.ePage.Masters.PendingPickupCount > 0) {
                 var TempWarehouse = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].DEL_WAR_Code;
                 var TempConsignee = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].DEL_ConsigneeCode;
@@ -75,7 +75,7 @@
                 });
                 if (count == PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList.length) {
                     PendingPickupToolbarCtrl.ePage.Masters.IsCreatePickupBtn = true;
-                    PendingPickupToolbarCtrl.ePage.Masters.CreatePickupBtnText = "Please Wait...";                    
+                    PendingPickupToolbarCtrl.ePage.Masters.CreatePickupBtnText = "Please Wait...";
                     apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WOD_FK).then(function (response) {
                         if (response.data.Response) {
                             PendingPickupToolbarCtrl.ePage.Masters.DeliveryData = response.data.Response;
@@ -92,7 +92,7 @@
                                         value.PK = "";
                                     });
                                     // response.data.Response.Response.UIWmsWorkorderReport.AcknowledgementDateTime = new Date();
-                                    // response.data.Response.Response.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;
+                                    // response.data.Response.Response.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;                                   
                                     angular.forEach(PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList, function (value, key) {
                                         var obj = {
                                             "PK": "",
@@ -106,19 +106,19 @@
                                             "PAC_PackType": value.PAC_PackType,
                                             "Units": value.Units,
                                             "StockKeepingUnit": value.DELPRD_StockKeepingUnit,
-                                            "PartAttrib1": value.PartAttrib1,
-                                            "PartAttrib2": value.PartAttrib2,
-                                            "PartAttrib3": value.PartAttrib3,
-                                            "PackingDate": value.PackingDate,
-                                            "ExpiryDate": value.ExpiryDate,
-                                            "UseExpiryDate": false,
-                                            "UsePackingDate": false,
-                                            "UsePartAttrib1": false,
-                                            "UsePartAttrib2": false,
-                                            "UsePartAttrib3": false,
-                                            "IsPartAttrib1ReleaseCaptured": false,
-                                            "IsPartAttrib2ReleaseCaptured": false,
-                                            "IsPartAttrib3ReleaseCaptured": false,
+                                            "PartAttrib1": value.DeliveredPartAttrib1,
+                                            "PartAttrib2": value.DeliveredPartAttrib2,
+                                            "PartAttrib3": value.DeliveredPartAttrib3,
+                                            "PackingDate": value.DeliveredPackingDate,
+                                            "ExpiryDate": value.DeliveredExpiryDate,
+                                            "UseExpiryDate": value.DEL_UseExpiryDate,
+                                            "UsePackingDate": value.DEL_UsePackingDate,
+                                            "UsePartAttrib1": value.DEL_UsePartAttrib1,
+                                            "UsePartAttrib2": value.DEL_UsePartAttrib2,
+                                            "UsePartAttrib3": value.DEL_UsePartAttrib3,
+                                            "IsPartAttrib1ReleaseCaptured": value.DEL_IsPartAttrib1ReleaseCaptured,
+                                            "IsPartAttrib2ReleaseCaptured": value.DEL_IsPartAttrib2ReleaseCaptured,
+                                            "IsPartAttrib3ReleaseCaptured": value.DEL_IsPartAttrib3ReleaseCaptured,
                                             "WorkOrderLineType": "PIC",
                                             "IsDeleted": false,
                                             "ORG_ClientCode": value.DEL_ClientCode,

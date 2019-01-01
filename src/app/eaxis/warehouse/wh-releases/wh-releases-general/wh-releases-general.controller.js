@@ -357,7 +357,6 @@
             InwardObject.UIWmsInwardHeader.WarehouseName = currentOutward.TransferTo_WAR_Name
             InwardObject.UIWmsInwardHeader.WorkOrderSubType = currentOutward.WorkOrderSubType;
             InwardObject.UIWmsInwardHeader.AdditionalRef2Fk = currentOutward.AdditionalRef2Fk;
-
             //Assigning ASN Line Object
             ReleasesGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickLine.map(function (value, key) {
                 if (value.WOD_FK == currentOutward.PK) {
@@ -369,7 +368,7 @@
                         "ORG_ClientName": currentOutward.ClientName,
                         "ProductCode": value.ProductCode,
                         "ProductDescription": value.ProductDescription,
-                        "ProductCondition": value.ProductCondition,
+                        "AdditionalRef2Code": value.ProductCondition,
                         "POR_FK": value.PRO_FK,
                         "Packs": value.Packs,
                         "PAC_PackType": value.PAC_PackType,
@@ -382,7 +381,12 @@
                         "PackingDate": value.PackingDate,
                         "ExpiryDate": value.ExpiryDate,
                         "AdditionalRef1Code": value.AdditionalRef1Code,
-                        "AdditionalRef1Type": value.AdditionalRef1Type
+                        "AdditionalRef1Type": value.AdditionalRef1Type,
+                        "UseExpiryDate": value.PackingDate ? true : false,
+                        "UsePackingDate": value.ExpiryDate ? true : false,
+                        "UsePartAttrib1": value.PartAttrib1 ? true : false,
+                        "UsePartAttrib2": value.PartAttrib2 ? true : false,
+                        "UsePartAttrib3": value.PartAttrib3 ? true : false
                     }
                     InwardObject.UIWmsAsnLine.push(AsnLineObj);
                 }
